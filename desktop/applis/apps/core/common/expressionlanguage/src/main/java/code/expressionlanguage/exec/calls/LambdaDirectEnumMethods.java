@@ -8,8 +8,8 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class LambdaDirectEnumMethods extends AbstractRefectLambdaMethodPageEl {
-    public LambdaDirectEnumMethods(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _metaInfo, new DefInitPreparerDir(_metaInfo));
+    public LambdaDirectEnumMethods(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r) {
+        super(_instance,_array, _metaInfo, new DefInitPreparerDir(_metaInfo), _r);
     }
 
     @Override

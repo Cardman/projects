@@ -28,7 +28,7 @@ public abstract class AbstractFormatParamChecker extends AbstractParamChecker {
         Struct prev_ = _previous.getStruct();
         if (prev_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance) prev_).getNamed() == _method) {
             Argument fctInst_ = new Argument(((AbstractFunctionalInstance) prev_).getFunctional());
-            return AbstractParamChecker.prepareCallDyn(fctInst_, _args, _conf, _stackCall);
+            return AbstractParamChecker.prepareCallDyn(fctInst_, _args,0, _conf, _stackCall);
         }
         _stackCall.setCallingState(new CustomFoundMethod(_previous, _classFormat.getFormattedClass(), _pair, _classFormat.getParameters()));
         return Argument.createVoid();

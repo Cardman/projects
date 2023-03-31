@@ -29,7 +29,7 @@ public final class RunnableFunctionalInstance extends LaunchableFunctionalStruct
     public static Argument callMethod(RunnableContextEl _localThread, Struct _functional, CustList<Argument> _arguments) {
         RunnableStruct.setupThread(_localThread);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_localThread);
-        ExecInvokingOperation.prepareCallDynReflect(new Argument(_functional), ArrayStruct.instance(StringExpUtil.getPrettyArrayType(_localThread.getStandards().getCoreNames().getAliasObject()),_arguments),false, _localThread, stackCall_);
+        ExecInvokingOperation.prepareCallDynReflect(new Argument(_functional), ArrayStruct.instance(StringExpUtil.getPrettyArrayType(_localThread.getStandards().getCoreNames().getAliasObject()),_arguments),0, _localThread, stackCall_);
         if (stackCall_.getCallingState() instanceof AbstractReflectElement) {
             AbstractReflectElement ref_ = (AbstractReflectElement) stackCall_.getCallingState();
             return RunnableStruct.reflect(_localThread, ref_, stackCall_);

@@ -92,4 +92,8 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
     protected ExecFormattedRootBlock getFormatted() {
         return metaInfo.getFormatted();
     }
+
+    public ArrayRefState getArrRef() {
+        return arrRef;
+    }
 }

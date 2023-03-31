@@ -13,8 +13,8 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
 public final class FctLambdaCall extends FctReflection {
-    private final boolean ref;
-    public FctLambdaCall(boolean _refer) {
+    private final int ref;
+    public FctLambdaCall(int _refer) {
         ref = _refer;
     }
     @Override

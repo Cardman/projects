@@ -12,16 +12,22 @@ public final class CustomReflectLambdaConstructor extends AbstractReflectElement
 
     private final Argument argument;
     private final ArgumentListCall array;
+    private final int ref;
     public CustomReflectLambdaConstructor(ConstructorMetaInfo _gl,
-                                          Struct _struct, ArgumentListCall _array) {
+                                          Struct _struct, ArgumentListCall _array, int _r) {
         super(true);
         gl = _gl;
         argument = new Argument(_struct);
         array = _array;
+        ref = _r;
     }
 
     public ConstructorMetaInfo getGl() {
         return gl;
+    }
+
+    public int getRef() {
+        return ref;
     }
 
     @Override

@@ -2150,6 +2150,7 @@ public class LgNamesTest extends ProcessMethodCommon {
 
         lgName_.getReflect().getParams().setAliasFct0Call0("");
         lgName_.getReflect().getParams().setAliasFct0CallRef0("");
+        lgName_.getReflect().getParams().setAliasFct0CallRefAfter0("");
         lgName_.getReflect().getParams().setAliasClassType0GetClass0("");
         lgName_.getReflect().getParams().setAliasClassType0ForName0("");
         lgName_.getReflect().getParams().setAliasClassType0ForName1("");
@@ -2189,6 +2190,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getReflect().getParams().setAliasClassType0ArraySet2("");
         lgName_.getReflect().getParams().setAliasConstructor0NewInstance0("");
         lgName_.getReflect().getParams().setAliasConstructor0NewInstanceRef0("");
+        lgName_.getReflect().getParams().setAliasConstructor0NewInstanceRefAfter0("");
         lgName_.getReflect().getParams().setAliasField0GetField0("");
         lgName_.getReflect().getParams().setAliasField0SetField0("");
         lgName_.getReflect().getParams().setAliasField0SetField1("");

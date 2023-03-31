@@ -21,9 +21,9 @@ import code.util.CustList;
 
 public final class FctMethodInvoke extends FctReflection {
     private final boolean direct;
-    private final boolean ref;
+    private final int ref;
 
-    public FctMethodInvoke(boolean _direct, boolean _refer) {
+    public FctMethodInvoke(boolean _direct, int _refer) {
         this.direct = _direct;
         ref = _refer;
     }

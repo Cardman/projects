@@ -506,6 +506,7 @@ public abstract class EquallableElUtUtil {
         _lgNames.getContent().getReflect().setAliasFct("java.lang.$Fct");
         _lgNames.getContent().getReflect().setAliasCall("call");
         _lgNames.getContent().getReflect().setAliasCallRef("callRef");
+        _lgNames.getContent().getReflect().setAliasCallRefAfter("callRefAfter");
         _lgNames.getContent().getReflect().setAliasMetaInfo("metaInfo");
         _lgNames.getContent().getReflect().setAliasInstance("instance");
         _lgNames.getContent().getReflect().setAliasAnnotationType("java.lang.$Annotation");
@@ -538,10 +539,13 @@ public abstract class EquallableElUtUtil {
         _lgNames.getContent().getReflect().setAliasMethod("java.lang.$Method");
         _lgNames.getContent().getReflect().setAliasInvoke("invoke");
         _lgNames.getContent().getReflect().setAliasInvokeRef("invokeRef");
+        _lgNames.getContent().getReflect().setAliasInvokeRefAfter("invokeRefAfter");
         _lgNames.getContent().getReflect().setAliasInvokeDirect("invokeDirect");
         _lgNames.getContent().getReflect().setAliasInvokeDirectRef("invokeDirectRef");
+        _lgNames.getContent().getReflect().setAliasInvokeDirectRefAfter("invokeDirectRefAfter");
         _lgNames.getContent().getReflect().setAliasNewInstance("newInstance");
         _lgNames.getContent().getReflect().setAliasNewInstanceRef("newInstanceRef");
+        _lgNames.getContent().getReflect().setAliasNewInstanceRefAfter("newInstanceRefAfter");
         _lgNames.getContent().getReflect().setAliasIsAbstract("isAbstract");
         _lgNames.getContent().getReflect().setAliasGetFileName("getFileName");
         _lgNames.getContent().getReflect().setAliasGetName("getName");

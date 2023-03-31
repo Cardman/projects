@@ -9,10 +9,12 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCommonMethodPageEl {
 
     private final ArgumentListCall array;
+    private final int ref;
 
-    protected AbstractRefectLambdaMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo, AbstractPreparer _preparer) {
+    protected AbstractRefectLambdaMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, int _r) {
         super(_instance, _metaInfo, _preparer,true);
         array = _array;
+        ref = _r;
     }
     @Override
     public void processTagsBase(ContextEl _context, StackCall _stack) {
@@ -33,4 +35,8 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
     }
 
     abstract Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack);
+
+    public int getRef() {
+        return ref;
+    }
 }

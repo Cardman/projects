@@ -14,8 +14,8 @@ import code.expressionlanguage.structs.Struct;
 
 public final class FctConstructorNewInstance extends FctReflection {
 
-    private final boolean refer;
-    public FctConstructorNewInstance(boolean _ref) {
+    private final int refer;
+    public FctConstructorNewInstance(int _ref) {
         refer = _ref;
     }
 

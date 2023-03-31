@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.calls.util.ArrayRefState;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -13,12 +14,10 @@ import code.expressionlanguage.exec.stacks.ConditionBlockStack;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.LoopVariable;
-import code.expressionlanguage.exec.variables.VariableWrapper;
+import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -95,7 +94,37 @@ public abstract class AbstractPageEl {
 
     public final void forwardTo(AbstractPageEl _page, ContextEl _context, StackCall _stack) {
         _page.receive(wrapper, returnedArgument, _context, _stack);
+        if (_page instanceof AbstractRefectMethodPageEl) {
+            ArrayRefState a_ = ((AbstractRefectMethodPageEl) _page).getArrRef();
+            callRefLater(_context, _stack, a_.getRef());
+        }
+        if (_page instanceof AbstractRefectLambdaMethodPageEl) {
+            int a_ = ((AbstractRefectLambdaMethodPageEl) _page).getRef();
+            callRefLater(_context, _stack, a_);
+        }
+        if (_page instanceof ReflectConstructorPageEl) {
+            ArrayRefState a_ = ((ReflectConstructorPageEl) _page).getArrRef();
+            callRefLater(_context, _stack, a_.getRef());
+        }
+        if (_page instanceof ReflectLambdaConstructorPageEl) {
+            int a_ = ((ReflectLambdaConstructorPageEl) _page).getRef();
+            callRefLater(_context, _stack, a_);
+        }
     }
+
+    private void callRefLater(ContextEl _context, StackCall _stack, int _ref) {
+        if (_ref == 2) {
+            for (EntryCust<String,AbstractWrapper> a: contentEx.getRefParams().entryList()) {
+                if (a.getValue() instanceof ReflectVariableLaterWrapper) {
+                    ((ReflectVariableLaterWrapper)a.getValue()).apply(_stack, _context);
+                    if (_context.callsOrException(_stack)) {
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
     public abstract void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack);
     public final String formatVarType(String _varType) {
 //        if (getGlobalArgument().isNull()) {

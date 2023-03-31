@@ -48,7 +48,7 @@ public final class FctMathRandom1 extends FctMath {
             ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
             if (seedSpec_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seedSpec_).getNamed() == meth_) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seedSpec_).getFunctional());
-                return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,ArrayStruct.instance(StringExpUtil.getPrettyArrayType(numberStruct_.getClassName(_cont)),argsToPass_),false,_cont, _stackCall).getStruct());
+                return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,ArrayStruct.instance(StringExpUtil.getPrettyArrayType(numberStruct_.getClassName(_cont)),argsToPass_),0,_cont, _stackCall).getStruct());
             }
             ArgumentListCall argList_ = ArgumentListCall.wrapCall(argsToPass_);
             ExecTemplates.wrapAndCall(p_, cl_,argSeedSpec_, _cont, _stackCall, argList_);
@@ -69,7 +69,7 @@ public final class FctMathRandom1 extends FctMath {
             ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
             if (seed_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seed_).getNamed() == meth_) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
-                return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,ArrayStruct.instance(StringExpUtil.getPrettyArrayType(numberStruct_.getClassName(_cont)),argsToPass_),false,_cont, _stackCall).getStruct());
+                return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,ArrayStruct.instance(StringExpUtil.getPrettyArrayType(numberStruct_.getClassName(_cont)),argsToPass_),0,_cont, _stackCall).getStruct());
             }
             ArgumentListCall argList_ = ArgumentListCall.wrapCall(argsToPass_);
             ExecTemplates.wrapAndCall(p_, cl_,argSeed_, _cont, _stackCall, argList_);

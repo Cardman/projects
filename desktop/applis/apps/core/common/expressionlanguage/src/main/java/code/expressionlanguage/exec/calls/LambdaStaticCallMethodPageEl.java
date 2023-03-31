@@ -10,8 +10,8 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class LambdaStaticCallMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
-    public LambdaStaticCallMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _metaInfo, new DefInitPreparerDir(_metaInfo));
+    public LambdaStaticCallMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r) {
+        super(_instance,_array, _metaInfo, new DefInitPreparerDir(_metaInfo), _r);
     }
 
     @Override

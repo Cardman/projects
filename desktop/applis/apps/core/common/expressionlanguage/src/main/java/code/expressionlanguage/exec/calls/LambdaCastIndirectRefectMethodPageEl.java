@@ -9,8 +9,8 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class LambdaCastIndirectRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
-    public LambdaCastIndirectRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _metaInfo, new DefInitPreparerCast(_metaInfo));
+    public LambdaCastIndirectRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r) {
+        super(_instance,_array, _metaInfo, new DefInitPreparerCast(_metaInfo), _r);
     }
 
     @Override

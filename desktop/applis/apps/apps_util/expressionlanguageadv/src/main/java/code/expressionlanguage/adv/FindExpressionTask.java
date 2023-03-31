@@ -35,7 +35,7 @@ public final class FindExpressionTask implements Runnable {
         ExecConstructorOverrideInfo info_ = editor.getTargetMethodView();
         ArrayStruct empty_ = new ArrayStruct(0, StringExpUtil.getPrettyArrayType(rCont_.getStandards().getCoreNames().getAliasObject()));
         StackCall first_ = StackCall.newInstance(InitPhase.NOTHING, rCont_);
-        ArrayRefState a_ = ArrayRefState.tryWrap(empty_,false);
+        ArrayRefState a_ = ArrayRefState.tryWrap(empty_,0);
         Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomReflectConstructor(info_.getMetaInfo(),a_),rCont_, first_).getValue());
         if (rCont_.callsOrException(first_)) {
             return;

@@ -9,8 +9,8 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class LambdaPolymorphRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
-    public LambdaPolymorphRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _metaInfo, new PolyInitPreparer(_metaInfo));
+    public LambdaPolymorphRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r) {
+        super(_instance,_array, _metaInfo, new PolyInitPreparer(_metaInfo), _r);
     }
 
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {

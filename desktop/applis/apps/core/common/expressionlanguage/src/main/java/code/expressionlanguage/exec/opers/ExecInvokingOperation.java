@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.ReflectVariableLaterWrapper;
 import code.expressionlanguage.exec.variables.ReflectVariableWrapper;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunctionInst;
@@ -140,7 +141,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return Argument.createVoid();
     }
 
-    public static Argument prepareCallDynReflect(Argument _previous, ArrayStruct _values, boolean _ref, ContextEl _conf, StackCall _stackCall) {
+    public static Argument prepareCallDynReflect(Argument _previous, ArrayStruct _values, int _ref, ContextEl _conf, StackCall _stackCall) {
         Struct ls_ = Argument.getNullableValue(_previous).getStruct();
         String typeFct_ = ls_.getClassName(_conf);
         StringList parts_ = StringExpUtil.getAllTypes(typeFct_);
@@ -166,16 +167,28 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         int i_ = 0;
         for (String c: paramsFct_) {
             if (c.startsWith("~")) {
-                Struct struct_ = _values.get(i_);
-                LocalVariable local_ = LocalVariable.newLocalVariable(struct_, c.substring(1));
-                ReflectVariableWrapper v_ = new ReflectVariableWrapper(local_,_values,index(_ref,i_));
-                argumentListCall_.getArgumentWrappers().add(new ArgumentWrapper(new Argument(_values.get(i_)),v_));
+                ArgumentWrapper wr_ = wrapper(_values,_ref, i_, c.substring(1));
+                argumentListCall_.getArgumentWrappers().add(wr_);
             } else {
                 argumentListCall_.getArgumentWrappers().add(new ArgumentWrapper(_values.get(i_)));
             }
             i_++;
         }
-        return AbstractParamChecker.prepareCallDyn(_previous,argumentListCall_,_conf, _stackCall);
+        return AbstractParamChecker.prepareCallDyn(_previous,argumentListCall_,_ref,_conf, _stackCall);
+    }
+
+    public static ArgumentWrapper wrapper(ArrayStruct _values, int _ref, int _i, String _type) {
+        boolean r_ = _ref == 1;
+        boolean later_ = _ref == 2;
+        Struct struct_ = _values.get(_i);
+        LocalVariable local_ = LocalVariable.newLocalVariable(struct_, _type);
+        AbstractWrapper v_;
+        if (later_) {
+            v_ = new ReflectVariableLaterWrapper(local_, _values, _i);
+        } else {
+            v_ = new ReflectVariableWrapper(local_, _values,index(r_, _i));
+        }
+        return new ArgumentWrapper(new Argument(_values.get(_i)), v_);
     }
 
     public static int index(boolean _r, int _i) {
@@ -189,7 +202,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         Struct ls_ = Argument.getNullableValue(_previous).getStruct();
         ArgumentListCall call_ = new ArgumentListCall();
         if (!(ls_ instanceof LambdaStruct)) {
-            return AbstractParamChecker.prepareCallDyn(_previous,call_,_conf, _stackCall);
+            return AbstractParamChecker.prepareCallDyn(_previous,call_,0,_conf, _stackCall);
         }
         return prepareCallDynNormalDefault(_previous, _values.getArgumentWrappers(), _conf, _stackCall);
     }
@@ -251,7 +264,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return new Argument();
         }
         call_.getArgumentWrappers().addAllElts(_values);
-        return AbstractParamChecker.prepareCallDyn(_previous, call_, _conf, _stackCall);
+        return AbstractParamChecker.prepareCallDyn(_previous, call_,0, _conf, _stackCall);
     }
 
     private static boolean koArgs(StringList _typesAll,CustList<ArgumentWrapper> _values, ContextEl _conf, StackCall _stackCall) {

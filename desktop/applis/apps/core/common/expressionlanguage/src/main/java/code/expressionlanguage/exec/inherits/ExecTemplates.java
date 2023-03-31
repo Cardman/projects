@@ -18,10 +18,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.HiddenCache;
-import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.ReflectVariableWrapper;
-import code.expressionlanguage.exec.variables.VariableWrapper;
+import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -270,14 +267,11 @@ public final class ExecTemplates {
         }
         int i_ = 0;
         ArrayStruct arr_ = _firstArgs.getArray();
-        boolean r_ = _firstArgs.isRef();
         for (String c: fct_.getImportedParametersTypes()) {
             Struct str_ = arr_.get(i_ + _delta);
             if (fct_.getParametersRef(i_) == BoolVal.TRUE) {
-                LocalVariable local_ = LocalVariable.newLocalVariable(str_, varType(c,_classFormat,fct_,i_));
-                ReflectVariableWrapper v_ = new ReflectVariableWrapper(local_,arr_, ExecInvokingOperation.index(r_,i_ + _delta));
 //                out_.getWrappers().add(v_);
-                _in.getArgumentWrappers().add(new ArgumentWrapper(new Argument(str_),v_));
+                _in.getArgumentWrappers().add(ExecInvokingOperation.wrapper(arr_,_firstArgs.getRef(),i_+_delta,varType(c,_classFormat,fct_,i_)));
             } else {
 //                out_.getArguments().add(_firstArgs.get(i_));
                 _in.getArgumentWrappers().add(new ArgumentWrapper(new Argument(str_),null));

@@ -19,13 +19,15 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
 
     private final Argument argument;
     private final ArgumentListCall array;
+    private final int ref;
 
-    public ReflectLambdaConstructorPageEl(Argument _argument,ArgumentListCall _array, ConstructorMetaInfo _metaInfo) {
+    public ReflectLambdaConstructorPageEl(Argument _argument, ArgumentListCall _array, ConstructorMetaInfo _metaInfo, int _r) {
         super(true);
         argument = _argument;
         array = _array;
         metaInfo = _metaInfo;
         setGlobalArgumentStruct(_metaInfo);
+        ref = _r;
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
@@ -53,5 +55,9 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
     @Override
     protected ExecFormattedRootBlock getFormatted() {
         return metaInfo.getFormatted();
+    }
+
+    public int getRef() {
+        return ref;
     }
 }

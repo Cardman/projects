@@ -10,8 +10,8 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 public final class LambdaAnnotationRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
     private final String name;
-    public LambdaAnnotationRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _metaInfo, new DefPreparer());
+    public LambdaAnnotationRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r) {
+        super(_instance,_array, _metaInfo, new DefPreparer(), _r);
         name = _metaInfo.getRealId().getName();
     }
 

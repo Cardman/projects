@@ -5,16 +5,16 @@ import code.expressionlanguage.structs.Struct;
 
 public final class ArrayRefState {
     private final ArrayStruct array;
-    private final boolean ref;
+    private final int ref;
     private final boolean trueArr;
 
-    public ArrayRefState(ArrayStruct _a, boolean _r, boolean _t) {
+    public ArrayRefState(ArrayStruct _a, int _r, boolean _t) {
         this.array = _a;
         this.ref = _r;
         this.trueArr = _t;
     }
 
-    public static ArrayRefState tryWrap(Struct _s,boolean _r) {
+    public static ArrayRefState tryWrap(Struct _s,int _r) {
         ArrayRefState a_;
         if (_s instanceof ArrayStruct) {
             a_=new ArrayRefState((ArrayStruct) _s,_r,true);
@@ -27,7 +27,7 @@ public final class ArrayRefState {
         return array;
     }
 
-    public boolean isRef() {
+    public int getRef() {
         return ref;
     }
 

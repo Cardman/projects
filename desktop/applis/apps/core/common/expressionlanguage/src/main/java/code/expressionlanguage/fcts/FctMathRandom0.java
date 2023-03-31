@@ -41,7 +41,7 @@ public final class FctMathRandom0 extends FctMath {
             ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
             if (seedSpec_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seedSpec_).getNamed() == meth_) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seedSpec_).getFunctional());
-                return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,new ArrayStruct(0,""),false,_cont, _stackCall).getStruct());
+                return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,new ArrayStruct(0,""),0,_cont, _stackCall).getStruct());
             }
             _stackCall.setCallingState(new CustomFoundMethod(argSeedSpec_,cl_, p_, new Parameters()));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
@@ -59,7 +59,7 @@ public final class FctMathRandom0 extends FctMath {
             ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
             if (seed_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seed_).getNamed() == meth_) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
-                return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,new ArrayStruct(0,""),false,_cont, _stackCall).getStruct());
+                return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,new ArrayStruct(0,""),0,_cont, _stackCall).getStruct());
             }
             _stackCall.setCallingState(new CustomFoundMethod(argSeed_,cl_, p_, new Parameters()));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
