@@ -9,15 +9,14 @@ public final class CustomReflectMethod extends CustomAbstractReflectMethod {
     private final ReflectingType reflect;
 
     private final Argument instance;
-    private final Argument array;
-    private final boolean ref;
+
+    private final ArrayRefState arrRef;
     public CustomReflectMethod(ReflectingType _reflect, MethodMetaInfo _gl,
-                               Argument _instance, Argument _array, boolean _refer) {
+                               Argument _instance, ArrayRefState _a) {
         super(_gl, false);
         reflect = _reflect;
         instance = _instance;
-        array = _array;
-        ref = _refer;
+        arrRef = _a;
     }
 
     public ReflectingType getReflect() {
@@ -28,11 +27,7 @@ public final class CustomReflectMethod extends CustomAbstractReflectMethod {
         return instance;
     }
 
-    public Argument getArray() {
-        return array;
-    }
-
-    public boolean isRef() {
-        return ref;
+    public ArrayRefState getArrRef() {
+        return arrRef;
     }
 }

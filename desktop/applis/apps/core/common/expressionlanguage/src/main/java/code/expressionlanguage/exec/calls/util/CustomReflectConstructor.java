@@ -1,22 +1,18 @@
 package code.expressionlanguage.exec.calls.util;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
-import code.expressionlanguage.structs.Struct;
 
 public final class CustomReflectConstructor extends AbstractReflectElement {
 
     private final ConstructorMetaInfo gl;
 
-    private final Argument argument;
-    private final boolean ref;
-    public CustomReflectConstructor(ConstructorMetaInfo _gl,
-                                    Struct _struct, boolean _refer) {
+    private final ArrayRefState arrRef;
+
+    public CustomReflectConstructor(ConstructorMetaInfo _gl, ArrayRefState _a) {
         super(false);
+        arrRef = _a;
         gl = _gl;
-        argument = new Argument(_struct);
-        ref = _refer;
     }
 
     public ConstructorMetaInfo getGl() {
@@ -28,11 +24,8 @@ public final class CustomReflectConstructor extends AbstractReflectElement {
         return ReflectingType.CONSTRUCTOR;
     }
 
-    public Argument getArgument() {
-        return argument;
+    public ArrayRefState getArrRef() {
+        return arrRef;
     }
 
-    public boolean isRef() {
-        return ref;
-    }
 }

@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.ArrayRefState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomReflectMethod;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -7222,7 +7223,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         StandardMethod stdMeth_ = new StandardMethod("mod",new StringList("$int","$int"),"$int",false, MethodModifier.STATIC,new FctMathMod0());
         MethodMetaInfo m_ = new MethodMetaInfo(stdMeth_, new ExecFormattedRootBlock((ExecRootBlock)null, "java.lang.$math"));
         ArrayStruct s_ = args();
-        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_), false);
+        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(), ArrayRefState.tryWrap(s_,false));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         ArgumentWrapper argumentWrapper_ = ProcessMethod.calculate(ref_, cont_, stackCall_);
         Argument out_ = argumentWrapper_.getValue();
@@ -7238,7 +7239,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
 //        StandardMethod stdMeth_ = std(cont_.getStandards().getStandards().getVal("java.lang.$math"), id_);
         MethodMetaInfo m_ = new MethodMetaInfo(stdMeth_, new ExecFormattedRootBlock((ExecRootBlock)null, "java.lang.$math"));
         ArrayStruct s_ = args();
-        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_), false);
+        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(), ArrayRefState.tryWrap(s_,false));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         ArgumentWrapper argumentWrapper_ = ProcessMethod.calculate(ref_, cont_, stackCall_);
         Argument out_ = argumentWrapper_.getValue();

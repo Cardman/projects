@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.ArrayRefState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
@@ -17,7 +18,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
 import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ReflectConstructorPageEl extends AbstractReflectConstructorPageEl {
@@ -25,14 +25,12 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
     private boolean calledMethod;
     private final ConstructorMetaInfo metaInfo;
 
-    private final Argument argument;
-    private final boolean ref;
-    public ReflectConstructorPageEl(Argument _argument, ConstructorMetaInfo _metaInfo, boolean _refer) {
+    private final ArrayRefState arrRef;
+    public ReflectConstructorPageEl(ConstructorMetaInfo _metaInfo, ArrayRefState _a) {
         super(false);
-        argument = _argument;
         metaInfo = _metaInfo;
         setGlobalArgumentStruct(_metaInfo);
-        ref = _refer;
+        arrRef = _a;
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
@@ -46,14 +44,14 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         if (!calledMethod) {
             calledMethod = true;
             ConstructorId mid_ = metaInfo.getRealId();
-            Struct struct_ = argument.getStruct();
-            if (!(struct_ instanceof ArrayStruct)) {
+            ArrayStruct struct_ = arrRef.getArray();
+            if (arrRef.isFalseArr()) {
                 String null_;
                 null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_, _stack)));
                 return false;
             }
-            CustList<Argument> args_ = ((ArrayStruct)struct_).listArgs();
+            CustList<Argument> args_ = struct_.listArgs();
             Argument previous_;
             if (static_) {
                 if (args_.size() != mid_.getParametersTypesLength()) {
@@ -62,7 +60,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
                     return false;
                 }
                 previous_ = Argument.createVoid();
-                return callPhase(_context, _stack, (ArrayStruct)struct_, previous_,0);
+                return callPhase(_context, _stack, struct_, previous_,0);
             }
             if (args_.size() != 1 + mid_.getParametersTypesLength()) {
                 String null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
@@ -70,7 +68,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
                 return false;
             }
             previous_ = args_.first();
-            return callPhase(_context, _stack, (ArrayStruct)struct_, previous_,1);
+            return callPhase(_context, _stack, struct_, previous_,1);
         }
         return true;
     }
@@ -82,7 +80,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         ExecTypeFunction pair_ = metaInfo.getPair();
         ExecRootBlock execSuperClass_ = pair_.getType();
         if (execSuperClass_ != null) {
-            arg_ = new ReflectInstanceParamChecker(pair_, _args, "", -1,_delta,ref).checkParams(res_, _previous, null, _context, _stack);
+            arg_ = new ReflectInstanceParamChecker(pair_, arrRef, "", -1,_delta).checkParams(res_, _previous, null, _context, _stack);
         }
         if (metaInfo.getStandardType() != null) {
             ArgumentListCall l_ = ArgumentListCall.wrapCall(_args.listArgs());

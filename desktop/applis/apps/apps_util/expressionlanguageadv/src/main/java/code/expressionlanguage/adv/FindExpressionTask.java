@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.calls.util.ArrayRefState;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.CustomReflectConstructor;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -34,7 +35,8 @@ public final class FindExpressionTask implements Runnable {
         ExecConstructorOverrideInfo info_ = editor.getTargetMethodView();
         ArrayStruct empty_ = new ArrayStruct(0, StringExpUtil.getPrettyArrayType(rCont_.getStandards().getCoreNames().getAliasObject()));
         StackCall first_ = StackCall.newInstance(InitPhase.NOTHING, rCont_);
-        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomReflectConstructor(info_.getMetaInfo(),empty_, false),rCont_, first_).getValue());
+        ArrayRefState a_ = ArrayRefState.tryWrap(empty_,false);
+        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomReflectConstructor(info_.getMetaInfo(),a_),rCont_, first_).getValue());
         if (rCont_.callsOrException(first_)) {
             return;
         }

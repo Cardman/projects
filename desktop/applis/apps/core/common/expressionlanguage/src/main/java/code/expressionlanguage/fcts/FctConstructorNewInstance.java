@@ -4,6 +4,7 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.calls.util.ArrayRefState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomReflectConstructor;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -25,7 +26,8 @@ public final class FctConstructorNewInstance extends FctReflection {
         if (!ctor_.isInvokable()) {
             _stackCall.setCallingState(new CustomFoundExc(getNonInvokableError(_cont,ctor_, _stackCall)));
         } else {
-            _stackCall.setCallingState(new CustomReflectConstructor(ctor_, inst_, refer));
+            ArrayRefState a_ = ArrayRefState.tryWrap(inst_,refer);
+            _stackCall.setCallingState(new CustomReflectConstructor(ctor_, a_));
         }
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

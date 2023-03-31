@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecSwitchInstanceMethod;
 import code.expressionlanguage.exec.calls.PageElContent;
+import code.expressionlanguage.exec.calls.util.ArrayRefState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.CustomFoundSwitch;
@@ -262,17 +263,19 @@ public final class ExecTemplates {
         return parametersTypes_;
     }
 
-    public static void wrapAndCallDirect(ArgumentListCall _in,ExecTypeFunction _pair, ArrayStruct _firstArgs, Argument _right,ExecFormattedRootBlock _classFormat, boolean _refer, int _delta) {
+    public static void wrapAndCallDirect(ArgumentListCall _in, ExecTypeFunction _pair, ArrayRefState _firstArgs, Argument _right, ExecFormattedRootBlock _classFormat, int _delta) {
         ExecNamedFunctionBlock fct_ = _pair.getFct();
         if (fct_ == null) {
             return;
         }
         int i_ = 0;
+        ArrayStruct arr_ = _firstArgs.getArray();
+        boolean r_ = _firstArgs.isRef();
         for (String c: fct_.getImportedParametersTypes()) {
-            Struct str_ = _firstArgs.get(i_ + _delta);
+            Struct str_ = arr_.get(i_ + _delta);
             if (fct_.getParametersRef(i_) == BoolVal.TRUE) {
                 LocalVariable local_ = LocalVariable.newLocalVariable(str_, varType(c,_classFormat,fct_,i_));
-                ReflectVariableWrapper v_ = new ReflectVariableWrapper(local_,_firstArgs, ExecInvokingOperation.index(_refer,i_ + _delta));
+                ReflectVariableWrapper v_ = new ReflectVariableWrapper(local_,arr_, ExecInvokingOperation.index(r_,i_ + _delta));
 //                out_.getWrappers().add(v_);
                 _in.getArgumentWrappers().add(new ArgumentWrapper(new Argument(str_),v_));
             } else {
