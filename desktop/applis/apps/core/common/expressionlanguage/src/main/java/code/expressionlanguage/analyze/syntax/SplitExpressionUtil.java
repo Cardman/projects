@@ -19,7 +19,7 @@ public final class SplitExpressionUtil {
         IntermediaryResults int_ = new IntermediaryResults();
         CustList<RootBlock> allInit_ = new CustList<RootBlock>();
         for (RootBlock c: _page.getOuterTypes()) {
-            allInit_.addAllElts(walkType(c));
+            allInit_.addAllElts(walkType(null,c));
         }
         for (RootBlock c: allInit_) {
             processType(_page, int_, c);
@@ -28,17 +28,17 @@ public final class SplitExpressionUtil {
             _page.setGlobalType(AnaFormattedRootBlock.defValue());
             _page.setCurrentPkg(_page.getDefaultPkg());
             _page.setCurrentFile(o.getFile());
-            processFunction(_page,int_,o, null);
+            processFunction(_page,int_,o, o,null);
         }
         for (OperatorBlock o: _page.getAllOperators()) {
             _page.setGlobalType(AnaFormattedRootBlock.defValue());
             _page.setCurrentPkg(_page.getDefaultPkg());
             _page.setCurrentFile(o.getFile());
-            processAnnotFct(_page, int_, o, null);
+            processAnnotFct(_page, int_, o, o, null);
         }
         allInit_ = new CustList<RootBlock>();
         for (OperatorBlock c: _page.getAllOperators()) {
-            allInit_.addAllElts(walkType(c));
+            allInit_.addAllElts(walkType(c,c));
         }
         for (RootBlock c: allInit_) {
             processType(_page, int_, c);
@@ -68,19 +68,19 @@ public final class SplitExpressionUtil {
             processAnont(_page, int_, anonymousTypes_, anonymousFunctions_, switchMethods_);
             for (NamedCalledFunctionBlock c: anonymousFunctions_) {
                 _page.setupFctChars(c);
-                processFunction(_page,int_,c, c.getParentType());
+                processFunction(_page,int_,c, c.getAccessedBlock(), c.getParentType());
             }
             for (SwitchMethodBlock c: switchMethods_) {
                 _page.setupFctChars(c);
-                processFunction(_page,int_,c, c.getParentType());
+                processFunction(_page,int_,c, c.getAccessedBlock(), c.getParentType());
             }
             for (NamedCalledFunctionBlock c: anonymousFunctions_) {
                 _page.setupFctChars(c);
-                processAnnotFct(_page,int_,c, c.getParentType());
+                processAnnotFct(_page,int_,c, c.getAccessedBlock(), c.getParentType());
             }
             for (SwitchMethodBlock c: switchMethods_) {
                 _page.setupFctChars(c);
-                processAnnotSw(_page,int_,c, c.getParentType());
+                processAnnotSw(_page,int_,c, c.getAccessedBlock(), c.getParentType());
             }
         }
         return list_;
@@ -106,20 +106,20 @@ public final class SplitExpressionUtil {
     private static void processAnont(AnalyzedPageEl _page, IntermediaryResults _inter, CustList<AnonymousTypeBlock> _anonymousTypes, CustList<NamedCalledFunctionBlock> _anonymousFunctions, CustList<SwitchMethodBlock> _switchMethods) {
         CustList<RootBlock> all_ = new CustList<RootBlock>();
         for (RootBlock c: _anonymousTypes) {
-            all_.addAllElts(walkType(c));
+            all_.addAllElts(walkType(c.getAccessedBlock(),c));
         }
         for (NamedCalledFunctionBlock c: _anonymousFunctions) {
-            all_.addAllElts(walkType(c));
+            all_.addAllElts(walkType(c.getAccessedBlock(),c));
         }
         for (SwitchMethodBlock c: _switchMethods) {
-            all_.addAllElts(walkType(c));
+            all_.addAllElts(walkType(c.getAccessedBlock(),c));
         }
         for (RootBlock c: all_) {
             processType(_page, _inter, c);
         }
     }
 
-    private static CustList<RootBlock> walkType(BracedBlock _type) {
+    private static CustList<RootBlock> walkType(AccessedBlock _a,BracedBlock _type) {
         CustList<RootBlock> types_ = new CustList<RootBlock>();
         AbsBk current_ = _type.getFirstChild();
         if (current_ == null) {
@@ -129,7 +129,7 @@ public final class SplitExpressionUtil {
         current_ = _type;
         while (current_ != null) {
             if (current_ instanceof RootBlock) {
-                localType(_type, current_);
+                localType(_a, (RootBlock) current_);
                 types_.add((RootBlock) current_);
             }
             AbsBk ch_ = current_.getFirstChild();
@@ -148,28 +148,27 @@ public final class SplitExpressionUtil {
         }
     }
 
-    private static void localType(BracedBlock _type, AbsBk _current) {
+    private static void localType(AccessedBlock _a, RootBlock _current) {
         if (_current instanceof AnonymousTypeBlock) {
             return;
         }
         MemberCallingsBlock outerFuntion_ = _current.getOuterFuntionInType();
         if (outerFuntion_ != null) {
-            RootBlock possibleParent_ = ((RootBlock) _current).getParentType();
+            RootBlock possibleParent_ = _current.getParentType();
             if (possibleParent_ != null) {
-                String s_ = ((RootBlock) _current).getName();
+                String s_ = _current.getName();
                 Integer val_ = possibleParent_.getCounts().getVal(s_);
                 if (val_ == null) {
                     possibleParent_.getCounts().put(s_,1);
-                    ((RootBlock) _current).setSuffix("+1");
+                    _current.setSuffix("+1");
                 } else {
                     possibleParent_.getCounts().put(s_,val_+1);
-                    ((RootBlock) _current).setSuffix("+"+(val_+1));
+                    _current.setSuffix("+"+(val_+1));
                 }
             } else {
-                AccessedBlock op_ = SplitExpressionUtil.tryGetOperator(_type);
-                if (op_ instanceof AccessedBlockMembers) {
-                    ((RootBlock) _current).setAccessedBlock(op_);
-                    ((AccessedBlockMembers)op_).getLocalTypes().add((RootBlock) _current);
+                if (_a instanceof AccessedBlockMembers) {
+                    _current.setAccessedBlock(_a);
+                    ((AccessedBlockMembers)_a).getLocalTypes().add(_current);
                 }
             }
         }
@@ -226,7 +225,7 @@ public final class SplitExpressionUtil {
                 extractAnon(_page, _int, null, _type, resultExpression_);
             }
             if (b instanceof MemberCallingsBlock) {
-                processFunction(_page, _int, (MemberCallingsBlock) b, _type);
+                processFunction(_page, _int, (MemberCallingsBlock) b,null, _type);
             }
         }
         for (AbsBk b: bl_) {
@@ -268,51 +267,51 @@ public final class SplitExpressionUtil {
             }
         }
         if (_b instanceof NamedFunctionBlock) {
-            processAnnotFct(_page, _int, _b, _type);
+            processAnnotFct(_page, _int, _b, null, _type);
         }
     }
 
-    private static void processAnnotFct(AnalyzedPageEl _page, IntermediaryResults _int, AbsBk _fct, RootBlock _type) {
+    private static void processAnnotFct(AnalyzedPageEl _page, IntermediaryResults _int, AbsBk _fct, AccessedBlock _a, RootBlock _type) {
         _page.setCurrentBlock(_fct);
         CustList<ResultParsedAnnot> annotations_ = ((NamedFunctionBlock) _fct).getAnnotations().getAnnotations();
         int len_ = annotations_.size();
         for (int i = 0; i < len_; i++) {
-            procAnnot(_page, _int, (NamedFunctionBlock) _fct, _type, annotations_, i);
+            procAnnot(_page, _int, _a, _type, annotations_, i);
         }
         for (ResultParsedAnnots l: ((NamedFunctionBlock) _fct).getAnnotationsParams()) {
             CustList<ResultParsedAnnot> annotationsLoc_ = l.getAnnotations();
             len_ = annotationsLoc_.size();
             for (int i = 0; i < len_; i++) {
-                procAnnot(_page, _int, (NamedFunctionBlock) _fct, _type, annotationsLoc_, i);
+                procAnnot(_page, _int, _a, _type, annotationsLoc_, i);
             }
         }
         if (_fct instanceof NamedCalledFunctionBlock) {
             CustList<ResultParsedAnnot> annotationsSupp_ = ((NamedCalledFunctionBlock) _fct).getAnnotationsSupp().getAnnotations();
             int lenSet_ = annotationsSupp_.size();
             for (int i = 0; i < lenSet_; i++) {
-                procAnnot(_page, _int, (NamedFunctionBlock) _fct, _type, annotationsSupp_, i);
+                procAnnot(_page, _int, _a, _type, annotationsSupp_, i);
             }
         }
 
     }
 
-    private static void processAnnotSw(AnalyzedPageEl _page, IntermediaryResults _int, SwitchMethodBlock _fct, RootBlock _type) {
+    private static void processAnnotSw(AnalyzedPageEl _page, IntermediaryResults _int, SwitchMethodBlock _fct, AccessedBlock _a, RootBlock _type) {
         _page.setCurrentBlock(_fct);
         CustList<ResultParsedAnnot> annotations_ = _fct.getAnnotations().getAnnotations();
         int len_ = annotations_.size();
         for (int i = 0; i < len_; i++) {
-            procAnnot(_page, _int, _fct, _type, annotations_, i);
+            procAnnot(_page, _int, _a, _type, annotations_, i);
         }
         for (ResultParsedAnnots l: _fct.getAnnotationsParams()) {
             CustList<ResultParsedAnnot> annotationsLoc_ = l.getAnnotations();
             len_ = annotationsLoc_.size();
             for (int i = 0; i < len_; i++) {
-                procAnnot(_page, _int, _fct, _type, annotationsLoc_, i);
+                procAnnot(_page, _int, _a, _type, annotationsLoc_, i);
             }
         }
     }
 
-    private static void procAnnot(AnalyzedPageEl _page, IntermediaryResults _int, MemberCallingsBlock _fct, RootBlock _type, CustList<ResultParsedAnnot> _annotations, int _i) {
+    private static void procAnnot(AnalyzedPageEl _page, IntermediaryResults _int, AccessedBlock _a, RootBlock _type, CustList<ResultParsedAnnot> _annotations, int _i) {
         ResultParsedAnnot begin_ = _annotations.get(_i);
         _page.zeroOffset();
         ResultExpression res_ = new ResultExpression();
@@ -321,10 +320,10 @@ public final class SplitExpressionUtil {
         res_.setSumOffset(begin_.getIndex());
         begin_.setRes(res_);
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
-        extractAnon(_page, _int, _fct, _type, res_);
+        extractAnon(_page, _int, _a, _type, res_);
     }
 
-    private static void processFunction(AnalyzedPageEl _page, IntermediaryResults _int, MemberCallingsBlock _method, RootBlock _type) {
+    private static void processFunction(AnalyzedPageEl _page, IntermediaryResults _int, MemberCallingsBlock _method, AccessedBlock _a, RootBlock _type) {
         AbsBk current_ = _method.getFirstChild();
         if (current_ == null) {
             return;
@@ -333,7 +332,7 @@ public final class SplitExpressionUtil {
         _page.setAccessStaticContext(st_);
         while (current_ != null) {
             _page.setCurrentBlock(current_);
-            block(_page, _int, _method, _type, current_);
+            block(_page, _int, _a, _type, current_);
             if (AbsBk.isVisitableBlock(current_)) {
                 AbsBk ch_ = current_.getFirstChild();
                 if (ch_ != null) {
@@ -362,7 +361,7 @@ public final class SplitExpressionUtil {
         return current_;
     }
 
-    private static void block(AnalyzedPageEl _page, IntermediaryResults _int, MemberCallingsBlock _method, RootBlock _type, AbsBk _current) {
+    private static void block(AnalyzedPageEl _page, IntermediaryResults _int, AccessedBlock _method, RootBlock _type, AbsBk _current) {
         if (_current instanceof Line) {
             _page.zeroOffset();
             String value_ = ((Line) _current).getExpression();
@@ -459,7 +458,7 @@ public final class SplitExpressionUtil {
         }
     }
 
-    private static void filterContent(AnalyzedPageEl _page, IntermediaryResults _int, MemberCallingsBlock _method, RootBlock _type, FilterContent _f) {
+    private static void filterContent(AnalyzedPageEl _page, IntermediaryResults _int, AccessedBlock _method, RootBlock _type, FilterContent _f) {
         if (!_f.getValue().isEmpty()) {
             String value_ = _f.getValue();
             _page.zeroOffset();
@@ -478,15 +477,14 @@ public final class SplitExpressionUtil {
         }
     }
 
-    private static void extractAnon(AnalyzedPageEl _page, IntermediaryResults _int, MemberCallingsBlock _method, RootBlock _type, ResultExpression _resultExpression) {
+    private static void extractAnon(AnalyzedPageEl _page, IntermediaryResults _int, AccessedBlock _method, RootBlock _type, ResultExpression _resultExpression) {
         _page.setSumOffset(_resultExpression.getSumOffset());
         ElRetrieverAnonymous.commonCheckQuick(0, _page, _resultExpression);
         feedResult(_method, _resultExpression, _int, _type);
     }
 
-    private static void feedResult(MemberCallingsBlock _mem, ResultExpression _resultExpression, IntermediaryResults _int, RootBlock _type) {
-        AccessedBlock op_ = tryGetOperator(_mem);
-        feed(_resultExpression, _int, _type, op_);
+    private static void feedResult(AccessedBlock _a, ResultExpression _resultExpression, IntermediaryResults _int, RootBlock _type) {
+        feed(_resultExpression, _int, _type, _a);
     }
 
     public static void feed(ResultExpression _resultExpression, IntermediaryResults _int, RootBlock _type, AccessedBlock _op) {
@@ -526,17 +524,4 @@ public final class SplitExpressionUtil {
         }
     }
 
-    private static AccessedBlock tryGetOperator(BracedBlock _mem) {
-        AccessedBlock op_ = null;
-        if (AbsBk.isAnonBlock(_mem)) {
-            op_ = ((NamedCalledFunctionBlock) _mem).getAccessedBlock();
-        }
-        if (_mem instanceof OperatorBlock) {
-            op_ = (OperatorBlock) _mem;
-        }
-        if (_mem instanceof SwitchMethodBlock) {
-            op_ = ((SwitchMethodBlock) _mem).getAccessedBlock();
-        }
-        return op_;
-    }
 }
