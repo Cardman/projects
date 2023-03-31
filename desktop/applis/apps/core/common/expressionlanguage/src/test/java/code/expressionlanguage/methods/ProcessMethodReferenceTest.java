@@ -1445,6 +1445,30 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         assertEq(14, getNumber(ret_));
     }
     @Test
+    public void calculateArgument44_ref_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Method f = $class($Fct).makeGeneric($class($int),$class($int)).getDeclaredMethods()[2i];\n");
+        xml_.append("  $Fct<~$int,$void> g = $new Ex().$lambda(Ex,exmethtwo,~$int);\n");
+        xml_.append("  $var a = $new java.lang.Object[]{5i};\n");
+        xml_.append("  f.invokeRef(g,$new java.lang.Object[]{a});\n");
+        xml_.append("  $return $($int) a[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void exmethtwo($that $int p){\n");
+        xml_.append("  p=14;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(14, getNumber(ret_));
+    }
+    @Test
     public void calculateArgument45Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
