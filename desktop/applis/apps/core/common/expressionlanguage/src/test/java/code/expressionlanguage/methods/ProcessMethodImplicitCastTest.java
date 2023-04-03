@@ -3870,6 +3870,62 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         assertEq(1, getNumber(ret_));
     }
     @Test
+    public void calculate_45_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  Fct<ExClass<int>,boolean> fct = $lambda(ExClass<int>,true);\n");
+        xml_.append("  ExClass<int> e = new ExClass<int>();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  return fct.call(e)?1:0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field;\n");
+        xml_.append(" public static boolean true(ExClass<T> i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass<T> i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+    @Test
+    public void calculate_46_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  Fct<ExClass<int>,boolean> fct = $lambda(ExClass<int>,false);\n");
+        xml_.append("  ExClass<int> e = new ExClass<int>();\n");
+        xml_.append("  e.field=5;\n");
+        xml_.append("  return fct.call(e)?1:0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field;\n");
+        xml_.append(" public static boolean true(ExClass<T> i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass<T> i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+    @Test
     public void calculate47_Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

@@ -98,25 +98,20 @@ public final class ParserType {
 
     public static AnalyzingType analyzeLocal(int _offset, String _string, Ints _indexes) {
         AnalyzingType a_ = new AnalyzingType();
-        if (StringExpUtil.isTypeLeafPart(_string.trim())) {
-            a_.setKind(KindPartType.TYPE_NAME);
-            a_.setupValue(_string);
-            return a_;
-        }
-        return analyzeOther(_offset, _string, _indexes, a_);
+        return analyzeOther(new WordIdChecker(), _offset, _string, _indexes, a_);
     }
 
     public static AnalyzingType analyzeLocalId(int _offset, String _string, Ints _indexes) {
         AnalyzingType a_ = new AnalyzingType();
-        if (StringExpUtil.isTypeLeafPartExec(_string.trim())) {
-            a_.setKind(KindPartType.TYPE_NAME);
-            a_.setupValue(_string);
-            return a_;
-        }
-        return analyzeOther(_offset, _string, _indexes, a_);
+        return analyzeOther(new TypeIdChecker(), _offset, _string, _indexes, a_);
     }
 
-    private static AnalyzingType analyzeOther(int _offset, String _string, Ints _indexes, AnalyzingType _a) {
+    private static AnalyzingType analyzeOther(AbsIdChecker _id,int _offset, String _string, Ints _indexes, AnalyzingType _a) {
+        if (_id.match(_string.trim())) {
+            _a.setKind(KindPartType.TYPE_NAME);
+            _a.setupValue(_string);
+            return _a;
+        }
         StrTypes values_ = _a.getValues();
         if (_string.trim().isEmpty()) {
             values_.addEntry(IndexConstants.FIRST_INDEX, _string);
@@ -163,7 +158,7 @@ public final class ParserType {
             prio_ = dotOperator(_string, operators_, count_, i_, prio_);
             i_++;
         }
-        if (operators_.isEmpty() && isTypeLeaf(_string)) {
+        if (operators_.isEmpty() && isTypeLeaf(_id,_string)) {
             _a.setKind(KindPartType.TYPE_NAME);
             _a.setupValue(_string);
             return _a;
@@ -226,9 +221,9 @@ public final class ParserType {
         return _a;
     }
 
-    private static boolean isTypeLeaf(String _string) {
+    private static boolean isTypeLeaf(AbsIdChecker _id, String _string) {
         for (String p : StringUtil.splitChars(_string, StringExpUtil.SEP_CLASS_CHAR)) {
-            if (!StringExpUtil.isTypeLeafPart(p.trim())) {
+            if (!_id.match(p.trim())) {
                 return false;
             }
         }
