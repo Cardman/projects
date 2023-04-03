@@ -42,6 +42,7 @@ public final class FileResolver {
     }
 
     public static void parseFile(FileBlock _block, String _file, AnalyzedPageEl _page) {
+        _block.setEndAll(_file.length());
         CustList<SegmentStringPart> stringParts_ = _block.getStringParts();
         StringList importedTypes_ = new StringList();
         int i_ = IndexConstants.FIRST_INDEX;
@@ -331,7 +332,7 @@ public final class FileResolver {
             endInstr_ = EndInstruction.NO_DECLARE_TYPE;
             String str_ = _parsedInstruction.getBuilder().toString().trim();
             if (isCaseDefault(str_, keyWordCase_, keyWordDefault_)) {
-                _parsedInstruction.setCurrentParent(possibleGoUp(_parsedInstruction.getCurrentParent()));
+                _parsedInstruction.setCurrentParent(possibleGoUp(_parsedInstruction.getCurrentParent(),_parsedInstruction.getIndex()+_input.getOffset()));
             }
         }
         if (_currentChar == END_BLOCK) {
@@ -622,6 +623,11 @@ public final class FileResolver {
         //currentChar_ != END_BLOCK
         AbsBk bl_ = processInstructionBlock(_input.getOffset(), _parsedInstruction, currentParent_, trimmedInstruction_, _fa, _input.getCont().getKeys());
         if (bl_ != null) {
+            AbsBk prev_ = bl_.getPreviousSibling();
+            if (bl_ instanceof SwitchPartBlock && prev_ != null) {
+                prev_.setEndAll(bl_.getOffset());
+            }
+            bl_.setEndAll(_parsedInstruction.getIndex() + _input.getOffset());
             currentParent_ = possibleVisit(_parsedInstruction.getCurChar(), currentParent_, bl_);
             after_.setParent(currentParent_);
             after_.setPackageName(_pkgName);
@@ -633,6 +639,7 @@ public final class FileResolver {
         if (currentParent_ instanceof RootBlock) {
             //fields, constructors or methods
             AbsBk br_ = processTypeMember(_parsedInstruction.getCurChar(), _parsedInstruction, _input, (RootBlock) currentParent_, _input.getCont().getDef(), _fa.getAliasVoid());
+            br_.setEndAll(_parsedInstruction.getIndex() + _input.getOffset());
             currentParent_ = possibleVisit(_parsedInstruction.getCurChar(), currentParent_, br_);
             after_.setParent(currentParent_);
             after_.setPackageName(_pkgName);
@@ -656,7 +663,7 @@ public final class FileResolver {
             anonHeader(_input, instructionTrimLocation_, typeBlock_);
             typeBlock_.setAnnotations(_input.getAnnotations());
             typeBlock_.getAnnotationsParams().addAllElts(_input.getAnnotationsParams());
-            return afterAnonElt(_out, _packageName, file_, typeBlock_);
+            return afterAnonElt(_out, _packageName, file_, typeBlock_, _parsedInstruction.getIndex()+ _input.getOffset());
         }
         if (_input.getType() == OuterBlockEnum.ANON_FCT) {
             NamedCalledFunctionBlock typeBlock_ = new NamedCalledFunctionBlock(_input.getNextIndexBef() + _input.getOffset(),
@@ -664,7 +671,7 @@ public final class FileResolver {
             anonHeader(_input, instructionTrimLocation_, typeBlock_);
             typeBlock_.setAnnotations(_input.getAnnotations());
             typeBlock_.getAnnotationsParams().addAllElts(_input.getAnnotationsParams());
-            return afterAnonElt(_out, _packageName, file_, typeBlock_);
+            return afterAnonElt(_out, _packageName, file_, typeBlock_, _parsedInstruction.getIndex()+ _input.getOffset());
         }
         if (_input.getType() == OuterBlockEnum.ANON_TYPE) {
             RootBlock typeBlock_ = new AnonymousTypeBlock(instructionTrimLocation_ + _input.getOffset(), _packageName,
@@ -673,7 +680,7 @@ public final class FileResolver {
             typeHeader(typeBlock_, instructionTrimLocation_, _input, 1);
             typeBlock_.setNameLength(1);
             typeBlock_.setAnnotations(_input.getAnnotations());
-            return afterAnonElt(_out, _packageName, file_, typeBlock_);
+            return afterAnonElt(_out, _packageName, file_, typeBlock_, _parsedInstruction.getIndex()+ _input.getOffset());
         }
         String keyWordOperator_ = keyWords_.getKeyWordOperator();
         if (StringExpUtil.startsWithKeyWord(_parsedInstruction.getAfter(), keyWordOperator_)) {
@@ -739,6 +746,7 @@ public final class FileResolver {
             if (!ok_) {
                 currentParent_.getBadIndexesGlobal().add(_parsedInstruction.getIndex()+ _input.getOffset());
             }
+            currentParent_.setEndAll(_parsedInstruction.getIndex()+ _input.getOffset());
             after_.setParent(currentParent_);
             after_.setPackageName(_packageName);
             return after_;
@@ -746,14 +754,15 @@ public final class FileResolver {
         return outerType(_out, _input, _parsedInstruction, _packageName, _defaultAccess);
     }
 
-    private static AfterBuiltInstruction afterAnonElt(ResultCreation _out, String _packageName, FileBlock _file, BracedBlock _typeBlock) {
+    private static AfterBuiltInstruction afterAnonElt(ResultCreation _out, String _packageName, FileBlock _file, BracedBlock _typeBlock, int _e) {
         _typeBlock.setFile(_file);
         _out.setBlock(_typeBlock);
-        return afterIns(_packageName, _typeBlock);
+        return afterIns(_packageName, _typeBlock, _e);
     }
 
-    private static AfterBuiltInstruction afterIns(String _packageName, BracedBlock _typeBlock) {
+    private static AfterBuiltInstruction afterIns(String _packageName, BracedBlock _typeBlock, int _e) {
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
+        _typeBlock.setEndAll(_e);
         after_.setParent(_typeBlock);
         after_.setPackageName(_packageName);
         return after_;
@@ -848,7 +857,7 @@ public final class FileResolver {
             typeHeader(typeBlock_, _parsedInstruction.getIndex(), _input, 1);
             badIndexTypes(intsOff_, interfacesPart_.isOk(), typeBlock_);
             initTypeSupp(file_, annotationsTypes_,  p_.getImportedTypes(), p_.getOffsetsImports(), interfacesPart_, typeBlock_,packageName_);
-            return afterType(_out, packageName_, typeBlock_);
+            return afterType(_out, packageName_, typeBlock_,_parsedInstruction.getIndex()+ _input.getOffset());
         }
         StringList importedTypes_ = p_.getImportedTypes();
         Ints offsetsImports_ = p_.getOffsetsImports();
@@ -884,7 +893,7 @@ public final class FileResolver {
         normalHeader(_input, categoryOffset_, type_, typeBlock_);
         badIndexTypes(intsOff_, okType_, typeBlock_);
         initTypeSupp(file_, annotationsTypes_, importedTypes_, offsetsImports_, interfacesPart_, typeBlock_,packageName_);
-        return afterType(_out, packageName_, typeBlock_);
+        return afterType(_out, packageName_, typeBlock_,_parsedInstruction.getIndex()+ _input.getOffset());
     }
 
     private static String typeKind(KeyWords _keyWords, String _beforeQu) {
@@ -921,8 +930,9 @@ public final class FileResolver {
         return interfacesPart_;
     }
 
-    private static AfterBuiltInstruction afterType(ResultCreation _out, String _packageName, RootBlock _typeBlock) {
+    private static AfterBuiltInstruction afterType(ResultCreation _out, String _packageName, RootBlock _typeBlock, int _e) {
         _out.setBlock(_typeBlock);
+        _typeBlock.setEndAll(_e);
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
         after_.setParent(_typeBlock);
         after_.setPackageName(_packageName);
@@ -997,6 +1007,7 @@ public final class FileResolver {
         int_.setBegin(_instructionTrimLocation + _input.getOffset());
         int_.setLengthHeader(_keyWords.getKeyWordIntern().length());
         _currentParent.appendChild(int_);
+        int_.setEndAll(_instructionTrimLocation + _input.getOffset()+_keyWords.getKeyWordIntern().length());
         after_.setParent(_currentParent);
         after_.setPackageName(_packageName);
         return after_;
@@ -1068,6 +1079,7 @@ public final class FileResolver {
             field_.setAnnotations(annotations_);
             field_.getElements().setFieldNumber(((RootBlock) _currentParent).getFieldsBlocks().size());
             field_.getRes().partsAbsol(_parsedInstruction.getStringParts());
+            field_.setEndAll(_parsedInstruction.getIndex() + _input.getOffset());
             ((RootBlock) _currentParent).getFieldsBlocks().add(field_);
             br_ = field_;
             br_.setBegin(_parsedInstruction.getIndex()+ _input.getOffset());
@@ -1101,6 +1113,7 @@ public final class FileResolver {
                 instructionTrimLocation_ + _input.getOffset(), rightPar_ - offAfterType_);
         annMeth_.setNameNumber(((RootBlock) _currentParent).getAnnotationsMethodsBlocks().size());
         annMeth_.getRes().partsAbsol(_parsedInstruction.getStringParts());
+        annMeth_.setEndAll(_parsedInstruction.getIndex() + _input.getOffset());
         ((RootBlock) _currentParent).getAnnotationsMethodsBlocks().add(annMeth_);
         if (rightPar_ < indexBeginCalling_ || !found_.substring(indexBeginCalling_ + 1, rightPar_).trim().isEmpty()) {
             annMeth_.setKo();
@@ -1136,6 +1149,7 @@ public final class FileResolver {
     private static AfterBuiltInstruction endAnnot(InputTypeCreation _input, ParsedInstruction _parsedInstruction, String _trimmedInstruction, String _packageName, BracedBlock _currentParent, AbsBk _br) {
         int instructionTrimLocation_ = _parsedInstruction.instLoc();
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
+        _currentParent.setEndAll(_parsedInstruction.getIndex() + _input.getOffset());
         BracedBlock currentParent_ = _currentParent;
         if (_parsedInstruction.getCurChar() == END_BLOCK) {
             if (!_trimmedInstruction.isEmpty()) {
@@ -1162,7 +1176,7 @@ public final class FileResolver {
         char curChar_ = _parsedInstruction.getCurChar();
         if (_parsedInstruction.getFirstPrIndex() <= -1) {
             tryAllow((EnumBlock) currentParent_, curChar_);
-            return endElement(_packageName, currentParent_, curChar_);
+            return endElement(_input,_packageName, currentParent_, curChar_,_parsedInstruction);
         }
         int fieldOffest_ = _parsedInstruction.getAfterOffset();
         String found_ = _parsedInstruction.getAfter();
@@ -1214,6 +1228,7 @@ public final class FileResolver {
                     new OffsetStringInfo(expressionOffest_+ _input.getOffset(), expression_.trim()),  instructionTrimLocation_ + _input.getOffset());
             elt_.setAnnotations(annotations_);
             elt_.getRes().partsAbsol(afterStr_);
+            elt_.setEndAll(_parsedInstruction.getIndex() + _input.getOffset());
             br_ = elt_;
         }
         ((InfoBlock)br_).getElements().setFieldNumber(((RootBlock) currentParent_).getFieldsBlocks().size());
@@ -1230,7 +1245,7 @@ public final class FileResolver {
         if (curChar_ == BEGIN_BLOCK) {
             currentParent_ = (BracedBlock) br_;
         }
-        return endElement(_packageName, currentParent_, curChar_);
+        return endElement(_input, _packageName, currentParent_, curChar_, _parsedInstruction);
     }
 
     private static void tryAllow(EnumBlock _currentParent, char _curChar) {
@@ -1239,8 +1254,9 @@ public final class FileResolver {
         }
     }
 
-    private static AfterBuiltInstruction endElement(String _packageName, BracedBlock _currentParent, char _curChar) {
+    private static AfterBuiltInstruction endElement(InputTypeCreation _input, String _packageName, BracedBlock _currentParent, char _curChar, ParsedInstruction _parsedInstruction) {
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
+        _currentParent.setEndAll(_parsedInstruction.getIndex() + _input.getOffset());
         BracedBlock currentParent_ = _currentParent;
         if (_curChar == END_BLOCK) {
             ((EnumBlock) currentParent_).setCanHaveElements(false);
@@ -1254,6 +1270,7 @@ public final class FileResolver {
     }
 
     private static AfterBuiltInstruction endBlock(InputTypeCreation _input, ParsedInstruction _parsedInstruction, BracedBlock _currentParent, String _trimmedInstruction, String _packageName) {
+        _currentParent.setEndAll(_parsedInstruction.getIndex() + _input.getOffset());
         BracedBlock currentParent_ = _currentParent;
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
         int instructionTrimLocation_ = _parsedInstruction.instLoc();
@@ -1266,7 +1283,7 @@ public final class FileResolver {
             br_.getRes().partsAbsol(_parsedInstruction.getStringParts());
             currentParent_.appendChild(br_);
         }
-        currentParent_ = possibleGoUpTwice(currentParent_);
+        currentParent_ = possibleGoUpTwice(currentParent_,_parsedInstruction.getIndex()+_input.getOffset());
         if (canHaveElements(currentParent_)) {
             ((EnumBlock) currentParent_).setAllow(false);
         }
@@ -1330,9 +1347,11 @@ public final class FileResolver {
                 br_ = new DeclareVariable(new OffsetBooleanInfo(0, false),
                         new OffsetStringInfo(realTypeOffset_ + _input.getOffset(), declaringType_.trim()),
                         instructionTrimLocation_ + _input.getOffset(), true);
+                br_.setEndAll(realTypeOffset_ + _input.getOffset()+ declaringType_.trim().length());
                 currentParent_.appendChild(br_);
                 br_ = new Line(new OffsetStringInfo(varNameOffset_ + _input.getOffset(), info_.trim()), instructionTrimLocation_ + _input.getOffset());
                 br_.setBegin(_parsedInstruction.getIndex() + _input.getOffset());
+                br_.setEndAll(varNameOffset_ + _input.getOffset()+ info_.trim().length());
                 br_.setLengthHeader(1);
                 ((Line) br_).getRes().partsAbsol(_parsedInstruction.getStringParts());
                 currentParent_.appendChild(br_);
@@ -1376,10 +1395,12 @@ public final class FileResolver {
             br_ = new DeclareVariable(new OffsetBooleanInfo(instructionTrimLocation_ + _input.getOffset(), finalLocalVar_),
                     new OffsetStringInfo(realTypeOffset_ + _input.getOffset(), declaringType_.trim()),
                     instructionTrimLocation_ + _input.getOffset(), false);
+            br_.setEndAll(realTypeOffset_ + _input.getOffset()+ declaringType_.trim().length());
             currentParent_.appendChild(br_);
         }
         br_ = new Line(new OffsetStringInfo(afterDeclareOffset_ + _input.getOffset(), info_.trim()), instructionTrimLocation_ + _input.getOffset());
         br_.setBegin(_parsedInstruction.getIndex() + _input.getOffset());
+        br_.setEndAll(afterDeclareOffset_ + _input.getOffset()+ info_.trim().length());
         br_.setLengthHeader(1);
         ((Line) br_).getRes().partsAbsol(_parsedInstruction.getStringParts());
         currentParent_.appendChild(br_);
@@ -1389,8 +1410,11 @@ public final class FileResolver {
         return after_;
     }
 
-    private static BracedBlock possibleGoUpTwice(BracedBlock _currentParent) {
-        BracedBlock currentParent_ = possibleGoUp(_currentParent);
+    private static BracedBlock possibleGoUpTwice(BracedBlock _currentParent, int _e) {
+        BracedBlock currentParent_ = possibleGoUp(_currentParent,_e);
+        if (currentParent_ instanceof AnalyzedSwitch) {
+            currentParent_.setEndAll(_e);
+        }
         currentParent_ = possibleEmptyGoUp(currentParent_);
         return currentParent_;
     }
@@ -1404,8 +1428,9 @@ public final class FileResolver {
         }
         return _currentParent;
     }
-    private static BracedBlock possibleGoUp(BracedBlock _currentParent) {
+    private static BracedBlock possibleGoUp(BracedBlock _currentParent, int _e) {
         if (_currentParent instanceof SwitchPartBlock) {
+            _currentParent.setEndAll(_e);
             return possibleEmptyGoUp(_currentParent);
         }
         return _currentParent;
@@ -1431,6 +1456,7 @@ public final class FileResolver {
         }
         int off_ = _en.getOffset();
         EmptyInstruction empty_ = new EmptyInstruction(off_);
+        empty_.setEndAll(off_);
         _en.appendChild(empty_);
     }
     private static RootBlock processTypeHeader(InputTypeCreation _offset, String _pkgName,
@@ -1541,6 +1567,7 @@ public final class FileResolver {
         if (!ok_) {
             typeBlock_.getBadIndexes().add(locIndex_ + _offset.getOffset());
         }
+        typeBlock_.setEndAll(_instructionTrimLocation.getIndex() + _offset.getOffset());
         return typeBlock_;
     }
 

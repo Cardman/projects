@@ -807,6 +807,8 @@ public final class ElRetrieverAnonymous {
         anonymous_.setLength(k_- withoutWhiteBoundsCount_ - _indBeforeArrow);
         anonymous_.setType(block_);
         anonymous_.setNext(k_);
+        block_.setEndAll(begImplRet_+tr_.length());
+        ret_.setEndAll(begImplRet_+tr_.length());
         _curElts.getRes().getAnonymousResults().add(anonymous_);
         return k_;
     }

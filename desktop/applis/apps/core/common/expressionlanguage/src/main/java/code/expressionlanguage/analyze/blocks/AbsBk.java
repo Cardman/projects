@@ -35,6 +35,7 @@ public abstract class AbsBk {
     private int begin;
 
     private int lengthHeader;
+    private int endAll;
 
     private final Ints badIndexes = new Ints();
     private final Ints badIndexesGlobal = new Ints();
@@ -248,5 +249,13 @@ public abstract class AbsBk {
 
     public void setBlockNb(int _blockNb) {
         this.blockNb = _blockNb;
+    }
+
+    public int getEndAll() {
+        return endAll;
+    }
+
+    public void setEndAll(int _e) {
+        this.endAll = _e;
     }
 }
