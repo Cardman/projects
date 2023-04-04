@@ -4080,6 +4080,179 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(hasErr(files_));
     }
 
+    @Test
+    public void container1() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AbsBk r_ = quickFindBlock(files_,"pkg/Ex",26);
+        assertEq(0,r_.getOffset());
+        assertEq(27,r_.getEndAll());
+    }
+
+    @Test
+    public void container2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AbsBk r_ = quickFindBlock(files_,"pkg/Ex",28);
+        assertEq(0,r_.getOffset());
+        assertEq(29,r_.getEndAll());
+    }
+
+    @Test
+    public void container3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("  $public $static $int field;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AbsBk r_ = quickFindBlock(files_,"pkg/Ex",26);
+        assertEq(0,r_.getOffset());
+        assertEq(57,r_.getEndAll());
+    }
+
+    @Test
+    public void container4() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("  $public $static $int field;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AbsBk r_ = quickFindBlock(files_,"pkg/Ex",56);
+        assertEq(0,r_.getOffset());
+        assertEq(57,r_.getEndAll());
+    }
+
+    @Test
+    public void container5() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("  $public $static $int field;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AbsBk r_ = quickFindBlock(files_,"pkg/Ex",58);
+        assertEq(0,r_.getOffset());
+        assertEq(59,r_.getEndAll());
+    }
+
+    @Test
+    public void container6() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("  $public $static $int field;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AbsBk r_ = quickFindBlock(files_,"pkg/Ex",29);
+        assertEq(29,r_.getOffset());
+        assertEq(55,r_.getEndAll());
+    }
+
+    @Test
+    public void container7() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("  $public $static $int field1;\n");
+        xml_.append("  $public $static $int field2;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AbsBk r_ = quickFindBlock(files_,"pkg/Ex",29);
+        assertEq(29,r_.getOffset());
+        assertEq(56,r_.getEndAll());
+    }
+
+    @Test
+    public void container8() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("  $public $static $int field1;\n");
+        xml_.append("  $public $static $int field2;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AbsBk r_ = quickFindBlock(files_,"pkg/Ex",59);
+        assertEq(0,r_.getOffset());
+        assertEq(89,r_.getEndAll());
+    }
+
+    @Test
+    public void container9() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("  $public $static $int field1;\n");
+        xml_.append("  $public $static $int field2;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AbsBk r_ = quickFindBlock(files_,"pkg/Ex",28);
+        assertEq(0,r_.getOffset());
+        assertEq(89,r_.getEndAll());
+    }
+
+    @Test
+    public void container10() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("  $public $static $int field1;\n");
+        xml_.append("  $public $static $int field2;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AbsBk r_ = quickFindBlock(files_,"pkg/Ex",88);
+        assertEq(0,r_.getOffset());
+        assertEq(89,r_.getEndAll());
+    }
+
+    @Test
+    public void container11() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("  $public $static $int field1;\n");
+        xml_.append("  $public $static $int field2;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AbsBk r_ = quickFindBlock(files_,"pkg/Ex",60);
+        assertEq(60,r_.getOffset());
+        assertEq(87,r_.getEndAll());
+    }
+
+    @Test
+    public void container12() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("  $public $static $void method(){\n");
+        xml_.append("    field++;\n");
+        xml_.append("  }\n");
+        xml_.append("  $public $static $int field;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AbsBk r_ = quickFindBlock(files_,"pkg/Ex",80);
+        assertEq(80,r_.getOffset());
+        assertEq(106,r_.getEndAll());
+    }
     private static boolean analyzeIndirectLocalVarsParamFailValue(String _s) {
         String g_ = StringUtil.concat(MY_GENE_CLASS, "<?W>");
         StringMap<String> files_ = new StringMap<String>();
@@ -4634,6 +4807,22 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         AnalyzedPageEl a_ = validateWithoutInit(_files, page_);
         assertTrue( isEmptyErrors(a_));
         return a_;
+    }
+
+    private static AbsBk quickFindBlock(StringMap<String> _files, String _fileName, int _caret) {
+        AnalyzedPageEl a_ = quickAnalyze(_files);
+        return ClassesUtil.container(a_,_fileName,_caret);
+    }
+
+    private static AnalyzedPageEl quickAnalyze(StringMap<String> _files) {
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        CustLgNames lgName_ = getLgNames();
+        KeyWords kw_ = new KeyWords();
+        setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        getForwards(opt_,lgName_,kw_,page_);
+        return validateWithoutInit(_files, page_);
     }
 
     private static ClassMethodIdVarArg getClassMethodId(AbsFctOperation _fct) {
