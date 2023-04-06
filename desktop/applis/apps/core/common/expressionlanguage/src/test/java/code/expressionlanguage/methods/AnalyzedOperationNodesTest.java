@@ -4090,7 +4090,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AbsBk r_ = quickFindBlock(files_,"pkg/Ex",26);
         assertEq(0,r_.getOffset());
-        assertEq(27,r_.getEndAll());
+        assertEq(28,r_.getEndAll());
     }
 
     @Test
@@ -4117,7 +4117,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AbsBk r_ = quickFindBlock(files_,"pkg/Ex",26);
         assertEq(0,r_.getOffset());
-        assertEq(57,r_.getEndAll());
+        assertEq(58,r_.getEndAll());
     }
 
     @Test
@@ -4131,7 +4131,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AbsBk r_ = quickFindBlock(files_,"pkg/Ex",56);
         assertEq(0,r_.getOffset());
-        assertEq(57,r_.getEndAll());
+        assertEq(58,r_.getEndAll());
     }
 
     @Test
@@ -4159,7 +4159,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AbsBk r_ = quickFindBlock(files_,"pkg/Ex",29);
         assertEq(29,r_.getOffset());
-        assertEq(55,r_.getEndAll());
+        assertEq(56,r_.getEndAll());
     }
 
     @Test
@@ -4174,7 +4174,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AbsBk r_ = quickFindBlock(files_,"pkg/Ex",29);
         assertEq(29,r_.getOffset());
-        assertEq(56,r_.getEndAll());
+        assertEq(57,r_.getEndAll());
     }
 
     @Test
@@ -4189,7 +4189,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AbsBk r_ = quickFindBlock(files_,"pkg/Ex",59);
         assertEq(0,r_.getOffset());
-        assertEq(89,r_.getEndAll());
+        assertEq(90,r_.getEndAll());
     }
 
     @Test
@@ -4204,7 +4204,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AbsBk r_ = quickFindBlock(files_,"pkg/Ex",28);
         assertEq(0,r_.getOffset());
-        assertEq(89,r_.getEndAll());
+        assertEq(90,r_.getEndAll());
     }
 
     @Test
@@ -4219,7 +4219,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AbsBk r_ = quickFindBlock(files_,"pkg/Ex",88);
         assertEq(0,r_.getOffset());
-        assertEq(89,r_.getEndAll());
+        assertEq(90,r_.getEndAll());
     }
 
     @Test
@@ -4234,7 +4234,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AbsBk r_ = quickFindBlock(files_,"pkg/Ex",60);
         assertEq(60,r_.getOffset());
-        assertEq(87,r_.getEndAll());
+        assertEq(88,r_.getEndAll());
     }
 
     @Test
@@ -4251,7 +4251,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AbsBk r_ = quickFindBlock(files_,"pkg/Ex",80);
         assertEq(80,r_.getOffset());
-        assertEq(106,r_.getEndAll());
+        assertEq(107,r_.getEndAll());
     }
     private static boolean analyzeIndirectLocalVarsParamFailValue(String _s) {
         String g_ = StringUtil.concat(MY_GENE_CLASS, "<?W>");
