@@ -54,6 +54,7 @@ public final class FileResolver {
         int parentheses_ = 0;
         ParsedInstruction parsedInstruction_ = new ParsedInstruction();
         parsedInstruction_.setInstructionLocation(indexImport_);
+        parsedInstruction_.setEmptyInstr(true);
         ParseDelimitersState parsPars_ = new ParseDelimitersState(braces_,parentheses_);
         while (i_ < len_) {
             int next_ = tryIncrBegin(_block, _file, _page, i_, parsedInstruction_, parsPars_, badIndexes_);
@@ -106,17 +107,19 @@ public final class FileResolver {
         if (_parsPars.getParentheses() > 0) {
             return _i + 1;
         }
-        StringBuilder str_ = _parsedInstruction.getBuilder();
-        if (str_.toString().trim().isEmpty() && (StringExpUtil.startsWithKeyWord(_file, _i, keyWordPublic_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordOperator_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordProtected_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordPackage_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordPrivate_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordAbstract_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordAnnotation_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordClass_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordEnum_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordFinal_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordInterface_) || currentChar_ == ANNOT)) {
+        StringBuilder str_ = _parsedInstruction.getBuilderAfter();
+        if (_parsedInstruction.isEmptyInstr() && (StringExpUtil.startsWithKeyWord(_file, _i, keyWordPublic_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordOperator_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordProtected_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordPackage_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordPrivate_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordAbstract_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordAnnotation_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordClass_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordEnum_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordFinal_) || StringExpUtil.startsWithKeyWord(_file, _i, keyWordInterface_) || currentChar_ == ANNOT)) {
             return _i;
         }
         if (currentChar_ == END_IMPORTS) {
             _block.getImports().add(str_.toString());
             _block.getImportsOffset().add(_parsedInstruction.getInstructionLocation());
             str_.delete(0, str_.length());
+            _parsedInstruction.setEmptyInstr(true);
         } else {
             if (!StringUtil.isWhitespace(currentChar_)) {
                 _parsedInstruction.setInstructionLocation(setInstLocation(str_.length(), _parsedInstruction.getInstructionLocation(), _i));
+                _parsedInstruction.setEmptyInstr(false);
             }
             str_.append(currentChar_);
         }
@@ -379,7 +382,7 @@ public final class FileResolver {
     }
 
     private static void setInstLocationIncr(ParsedInstruction _parsedInstruction, int _c, char _ch) {
-        int instructionLocation_ = setInstLocation(_parsedInstruction.getBuilder().length(), _parsedInstruction.getInstructionLocation(), _c);
+        int instructionLocation_ = setInstLocation(_parsedInstruction.getLenInstr(), _parsedInstruction.getInstructionLocation(), _c);
         _parsedInstruction.setInstructionLocation(instructionLocation_);
         _parsedInstruction.appendCh(_ch);
     }
@@ -558,7 +561,7 @@ public final class FileResolver {
 
     private static EndInstruction fieldOrMethod(StringList _wordsSep, int _i) {
         String trAfterType_ = afterDeclaringType(_wordsSep, _i);
-        if (isNotMethod(trAfterType_)) {
+        if (!isMethod(trAfterType_)) {
             return EndInstruction.NONE;
         }
         return EndInstruction.NO_DECLARE_TYPE;
@@ -586,7 +589,7 @@ public final class FileResolver {
 
     private static String afterDeclaringType(StringList _wordsSep, int _index) {
         String join_ = StringUtil.join(_wordsSep.mid(_index), "");
-        String typeStr_ = getFoundType(join_);
+        StringBuilder typeStr_ = getFoundTypeInstr(join_);
         return join_.substring(typeStr_.length()).trim();
     }
 
@@ -1051,7 +1054,7 @@ public final class FileResolver {
         found_ = found_.substring(declaringType_.length());
         int offAfterType_ = StringExpUtil.getOffset(found_);
         found_ = found_.trim();
-        boolean notMethod_ = isNotMethod(found_);
+        boolean notMethod_ = !isMethod(found_);
         if (notMethod_) {
             meth_ = false;
         }
@@ -1115,9 +1118,9 @@ public final class FileResolver {
         return endAnnot(_input, _parsedInstruction, _trimmedInstruction, _packageName, _currentParent, br_);
     }
 
-    private static boolean isNotMethod(String _found) {
+    private static boolean isMethod(String _found) {
         int indexMod_ = wordSpaces(_found);
-        return !StringExpUtil.nextCharIs(_found, indexMod_, _found.length(), BEGIN_CALLING);
+        return StringExpUtil.nextCharIs(_found, indexMod_, _found.length(), BEGIN_CALLING);
     }
 
     private static AfterBuiltInstruction endAnnot(InputTypeCreation _input, ParsedInstruction _parsedInstruction, String _trimmedInstruction, String _packageName, BracedBlock _currentParent, AbsBk _br) {
@@ -1954,25 +1957,9 @@ public final class FileResolver {
         if (StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordThat_)) {
             infoModifiers_ = infoModifiers_.substring(keyWordThat_.length()).trim();
         }
-        String typeStr_ = getFoundType(infoModifiers_);
+        StringBuilder typeStr_ = getFoundTypeInstr(infoModifiers_);
         infoModifiers_ = infoModifiers_.substring(typeStr_.length()).trim();
-        int lenAfterModifiers_ = infoModifiers_.length();
-        int indexMod_ = 0;
-        while (indexMod_ < lenAfterModifiers_) {
-            char cur_ = infoModifiers_.charAt(indexMod_);
-            if (!StringExpUtil.isTypeLeafChar(cur_)) {
-                break;
-            }
-            indexMod_++;
-        }
-        while (indexMod_ < lenAfterModifiers_) {
-            char cur_ = infoModifiers_.charAt(indexMod_);
-            if (!StringUtil.isWhitespace(cur_)) {
-                break;
-            }
-            indexMod_++;
-        }
-        return StringExpUtil.nextCharIs(infoModifiers_, indexMod_, lenAfterModifiers_, BEGIN_CALLING);
+        return isMethod(infoModifiers_);
     }
 
     private static String tryGetCtorName(String _trimmedAfterAccess, boolean _field) {
@@ -3135,11 +3122,14 @@ public final class FileResolver {
     }
 
     static String getFoundType(String _found) {
-        ParsedType p_ = new ParsedType();
-        p_.parse(_found);
-        return p_.getInstruction().toString();
+        return getFoundTypeInstr(_found).toString();
     }
 
+    static StringBuilder getFoundTypeInstr(String _found) {
+        ParsedType p_ = new ParsedType();
+        p_.parse(_found);
+        return p_.getInstruction();
+    }
     private static boolean isOperatorCharacter(char _char) {
         return _char == '+' || _char == '-' || _char == '*' || _char == '%' || _char == '/' || _char == '!' || _char == '=' || _char == '<' || _char == '>' || _char == '&' || _char == '|' || _char == '^' || _char == '~';
     }

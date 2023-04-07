@@ -6,7 +6,6 @@ import code.util.CustList;
 import code.util.core.StringUtil;
 
 public final class ParsedInstruction {
-    private final StringBuilder builder = new StringBuilder();
     private final StringBuilder builderAfter = new StringBuilder();
     private final StringBuilder builderTrLeft = new StringBuilder();
     private final CustList<SegmentStringPart> stringParts = new CustList<SegmentStringPart>();
@@ -15,11 +14,13 @@ public final class ParsedInstruction {
     private char curChar;
     private int firstPrIndex = -1;
     private int afterOffset;
+    private int lenInstr;
     private ResultParsedAnnots annotationsTypes;
     private EndInstruction endInstruction = EndInstruction.NONE;
     private BracedBlock currentParent;
     private String packageName = "";
     private boolean parsed;
+    private boolean emptyInstr;
 
     public char getCurChar() {
         return curChar;
@@ -43,9 +44,6 @@ public final class ParsedInstruction {
         }
         return _loc;
     }
-    public StringBuilder getBuilder() {
-        return builder;
-    }
 
     public CustList<SegmentStringPart> getStringParts() {
         return stringParts;
@@ -53,7 +51,7 @@ public final class ParsedInstruction {
 
     public void clear() {
         stringParts.clear();
-        builder.delete(0, builder.length());
+        lenInstr = 0;
         builderAfter.delete(0, builderAfter.length());
         builderTrLeft.delete(0, builderTrLeft.length());
         firstPrIndex = -1;
@@ -65,10 +63,10 @@ public final class ParsedInstruction {
     }
 
     public void appendCh(char _ch) {
-        builder.append(_ch);
+        lenInstr++;
         if (firstPrIndex == -1 && !StringUtil.isWhitespace(_ch)) {
             appendPart(_ch);
-            firstPrIndex = builder.length()-1;
+            firstPrIndex = lenInstr-1;
             afterOffset = instructionLocation+firstPrIndex;
         } else if (firstPrIndex > -1){
             appendPart(_ch);
@@ -80,6 +78,10 @@ public final class ParsedInstruction {
             return;
         }
         builderTrLeft.append(_ch);
+    }
+
+    public int getLenInstr() {
+        return lenInstr;
     }
 
     public int getInstructionLocation() {
@@ -160,5 +162,13 @@ public final class ParsedInstruction {
 
     public void setPackageName(String _p) {
         this.packageName = _p;
+    }
+
+    public boolean isEmptyInstr() {
+        return emptyInstr;
+    }
+
+    public void setEmptyInstr(boolean _e) {
+        this.emptyInstr = _e;
     }
 }
