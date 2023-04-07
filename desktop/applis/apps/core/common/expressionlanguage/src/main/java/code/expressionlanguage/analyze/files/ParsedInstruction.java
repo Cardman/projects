@@ -30,10 +30,18 @@ public final class ParsedInstruction {
     }
 
     public int instLoc() {
+        return instLoc(getInstructionLocation());
+    }
+
+    public int instLocAfter() {
+        return afterOffset;
+    }
+
+    public int instLoc(int _loc) {
         if (getFirstPrIndex() >= 0) {
-            return getInstructionLocation()+ getFirstPrIndex();
+            return _loc+ getFirstPrIndex();
         }
-        return getInstructionLocation();
+        return _loc;
     }
     public StringBuilder getBuilder() {
         return builder;
@@ -61,6 +69,7 @@ public final class ParsedInstruction {
         if (firstPrIndex == -1 && !StringUtil.isWhitespace(_ch)) {
             appendPart(_ch);
             firstPrIndex = builder.length()-1;
+            afterOffset = instructionLocation+firstPrIndex;
         } else if (firstPrIndex > -1){
             appendPart(_ch);
         }
