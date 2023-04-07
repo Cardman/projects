@@ -7,6 +7,7 @@ import code.util.core.StringUtil;
 
 public final class ParsedInstruction {
     private final StringBuilder builder = new StringBuilder();
+    private final StringBuilder builderAfter = new StringBuilder();
     private final StringBuilder builderTrLeft = new StringBuilder();
     private final CustList<SegmentStringPart> stringParts = new CustList<SegmentStringPart>();
     private int instructionLocation;
@@ -14,11 +15,11 @@ public final class ParsedInstruction {
     private char curChar;
     private int firstPrIndex = -1;
     private int afterOffset;
-    private String after = "";
     private ResultParsedAnnots annotationsTypes;
     private EndInstruction endInstruction = EndInstruction.NONE;
     private BracedBlock currentParent;
     private String packageName = "";
+    private boolean parsed;
 
     public char getCurChar() {
         return curChar;
@@ -45,8 +46,10 @@ public final class ParsedInstruction {
     public void clear() {
         stringParts.clear();
         builder.delete(0, builder.length());
+        builderAfter.delete(0, builderAfter.length());
         builderTrLeft.delete(0, builderTrLeft.length());
         firstPrIndex = -1;
+        parsed = false;
     }
 
     public int getFirstPrIndex() {
@@ -56,11 +59,18 @@ public final class ParsedInstruction {
     public void appendCh(char _ch) {
         builder.append(_ch);
         if (firstPrIndex == -1 && !StringUtil.isWhitespace(_ch)) {
-            builderTrLeft.append(_ch);
+            appendPart(_ch);
             firstPrIndex = builder.length()-1;
         } else if (firstPrIndex > -1){
-            builderTrLeft.append(_ch);
+            appendPart(_ch);
         }
+    }
+    private void appendPart(char _ch) {
+        if (parsed) {
+            builderAfter.append(_ch);
+            return;
+        }
+        builderTrLeft.append(_ch);
     }
 
     public int getInstructionLocation() {
@@ -80,20 +90,26 @@ public final class ParsedInstruction {
     }
 
     public void parseAnnotation(InputTypeCreation _input, KeyWords _keyWords) {
+        if (parsed) {
+            return;
+        }
+        parsed = true;
         ResultParsedAnnots annotationsTypes_ = new ResultParsedAnnots();
         String trLeft_ = builderTrLeft.toString();
         int instructionTrimLocation_ = instLoc();
+        String after_;
         if (ParsedAnnotations.startsWithAnnot(trLeft_, _keyWords.getKeyWordClass(), _keyWords.getKeyWordInterface())) {
             // accessOffesType_ == nextIndex_ == i_ + 1;
             ParsedAnnotations par_ = new ParsedAnnotations(trLeft_, instructionTrimLocation_ + _input.getOffset());
             par_.parse(getStringParts(), _keyWords.getKeyWordClass(), _keyWords.getKeyWordInterface());
             annotationsTypes_.set(par_);
             afterOffset = par_.getIndex() - _input.getOffset();
-            after = par_.getAfter();
+            after_ = par_.getAfter();
         } else {
             afterOffset = instructionTrimLocation_;
-            after = trLeft_;
+            after_ = trLeft_;
         }
+        builderAfter.append(after_);
         annotationsTypes = annotationsTypes_;
     }
 
@@ -101,8 +117,12 @@ public final class ParsedInstruction {
         return annotationsTypes;
     }
 
+    public StringBuilder getBuilderAfter() {
+        return builderAfter;
+    }
+
     public String getAfter() {
-        return after;
+        return getBuilderAfter().toString();
     }
 
     public int getAfterOffset() {
