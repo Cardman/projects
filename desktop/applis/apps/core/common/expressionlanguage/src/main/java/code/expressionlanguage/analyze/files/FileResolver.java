@@ -569,26 +569,30 @@ public final class FileResolver {
 
     private static EndInstruction fieldOrMethod(StringList _wordsSep, int _i) {
         String trAfterType_ = afterDeclaringType(_wordsSep, _i);
-        int lenTrAfterType_ = trAfterType_.length();
-        int indexTrAfterType_ = 0;
-        while (indexTrAfterType_ < lenTrAfterType_) {
-            char cur_ = trAfterType_.charAt(indexTrAfterType_);
-            if (!StringExpUtil.isTypeLeafChar(cur_)) {
-                break;
-            }
-            indexTrAfterType_++;
-        }
-        while (indexTrAfterType_ < lenTrAfterType_) {
-            char cur_ = trAfterType_.charAt(indexTrAfterType_);
-            if (!StringUtil.isWhitespace(cur_)) {
-                break;
-            }
-            indexTrAfterType_++;
-        }
-        if (!StringExpUtil.nextCharIs(trAfterType_, indexTrAfterType_, lenTrAfterType_, BEGIN_CALLING)) {
+        if (isNotMethod(trAfterType_)) {
             return EndInstruction.NONE;
         }
         return EndInstruction.NO_DECLARE_TYPE;
+    }
+
+    private static int wordSpaces(String _found) {
+        int len_ = _found.length();
+        int indexMod_ = 0;
+        while (indexMod_ < len_) {
+            char cur_ = _found.charAt(indexMod_);
+            if (!StringExpUtil.isTypeLeafChar(cur_)) {
+                break;
+            }
+            indexMod_++;
+        }
+        while (indexMod_ < len_) {
+            char cur_ = _found.charAt(indexMod_);
+            if (!StringUtil.isWhitespace(cur_)) {
+                break;
+            }
+            indexMod_++;
+        }
+        return indexMod_;
     }
 
     private static String afterDeclaringType(StringList _wordsSep, int _index) {
@@ -1123,23 +1127,8 @@ public final class FileResolver {
     }
 
     private static boolean isNotMethod(String _found) {
-        int lenAfterModifiers_ = _found.length();
-        int indexMod_ = 0;
-        while (indexMod_ < lenAfterModifiers_) {
-            char cur_ = _found.charAt(indexMod_);
-            if (!StringExpUtil.isTypeLeafChar(cur_)) {
-                break;
-            }
-            indexMod_++;
-        }
-        while (indexMod_ < lenAfterModifiers_) {
-            char cur_ = _found.charAt(indexMod_);
-            if (!StringUtil.isWhitespace(cur_)) {
-                break;
-            }
-            indexMod_++;
-        }
-        return _found.indexOf(BEGIN_CALLING, indexMod_) != indexMod_;
+        int indexMod_ = wordSpaces(_found);
+        return !StringExpUtil.nextCharIs(_found, indexMod_, _found.length(), BEGIN_CALLING);
     }
 
     private static AfterBuiltInstruction endAnnot(InputTypeCreation _input, ParsedInstruction _parsedInstruction, String _trimmedInstruction, String _packageName, BracedBlock _currentParent, AbsBk _br) {
