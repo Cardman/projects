@@ -1342,7 +1342,7 @@ public final class FileResolver {
                 br_ = new DeclareVariable(new OffsetBooleanInfo(0, false),
                         new OffsetStringInfo(realTypeOffset_ + _input.getOffset(), declaringType_.trim()),
                         instructionTrimLocation_ + _input.getOffset(), true);
-                br_.setEndAll(realTypeOffset_ + _input.getOffset()+ declaringType_.trim().length());
+                br_.setEndAll(varNameOffset_ + _input.getOffset());
                 currentParent_.appendChild(br_);
                 br_ = new Line(new OffsetStringInfo(varNameOffset_ + _input.getOffset(), info_.trim()), instructionTrimLocation_ + _input.getOffset());
                 br_.setBegin(_parsedInstruction.getIndex() + _input.getOffset());
@@ -1390,7 +1390,7 @@ public final class FileResolver {
             br_ = new DeclareVariable(new OffsetBooleanInfo(instructionTrimLocation_ + _input.getOffset(), finalLocalVar_),
                     new OffsetStringInfo(realTypeOffset_ + _input.getOffset(), declaringType_.trim()),
                     instructionTrimLocation_ + _input.getOffset(), false);
-            br_.setEndAll(realTypeOffset_ + _input.getOffset()+ declaringType_.trim().length());
+            br_.setEndAll(afterDeclareOffset_ + _input.getOffset());
             currentParent_.appendChild(br_);
         }
         br_ = new Line(new OffsetStringInfo(afterDeclareOffset_ + _input.getOffset(), info_.trim()), instructionTrimLocation_ + _input.getOffset());

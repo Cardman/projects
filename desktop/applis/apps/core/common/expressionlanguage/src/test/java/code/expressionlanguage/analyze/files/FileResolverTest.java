@@ -9725,7 +9725,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(436,r_.getNextSibling().getFirstChild().getNextSibling().getFirstChild().getNextSibling().getEndAll());
         AnonymousResult a2_ = ((Line) r_.getNextSibling().getFirstChild().getNextSibling().getFirstChild().getNextSibling()).getRes().getAnonymousResults().get(0);
         assertEq(426,a2_.getType().getEndAll());
-        assertEq(404,a2_.getType().getFirstChild().getEndAll());
+        assertEq(405,a2_.getType().getFirstChild().getEndAll());
         assertEq(415,a2_.getType().getFirstChild().getNextSibling().getEndAll());
         assertEq(425,a2_.getType().getFirstChild().getNextSibling().getNextSibling().getEndAll());
         assertEq(439,r_.getNextSibling().getFirstChild().getNextSibling().getEndAll());
