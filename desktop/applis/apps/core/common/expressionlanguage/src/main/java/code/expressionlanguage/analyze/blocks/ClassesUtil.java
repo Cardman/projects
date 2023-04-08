@@ -298,36 +298,6 @@ public final class ClassesUtil {
         buildCoreBracesBodies(_page);
         return buildUserCode(_files, _page);
     }
-    public static AbsBk container(AnalyzedPageEl _page, String _fileName, int _caret) {
-        FileBlock fileBlock_ = _page.getPreviousFilesBodies().getVal(_fileName);
-        return subContainer(_caret, fileBlock_);
-    }
-
-    public static AbsBk subContainer(int _caret, AbsBk _bl) {
-        AbsBk current_ = _bl;
-        AbsBk out_ = _bl;
-        while (current_ != null) {
-            AbsBk ch_ = current_.getFirstChild();
-            if (match(current_, _caret)) {
-                out_ = current_;
-                current_ = ch_;
-                continue;
-            }
-            while (current_ != null) {
-                AbsBk n_ = current_.getNextSibling();
-                current_ = n_;
-                if (match(n_, _caret)) {
-                    out_ = n_;
-                    break;
-                }
-            }
-        }
-        return out_;
-    }
-
-    private static boolean match(AbsBk _b, int _caret) {
-        return _b!=null&&_b.getOffset() <= _caret && _caret < _b.getEndAll();
-    }
 
     public static AnalyzedPageEl buildUserCode(StringMap<String> _files, AnalyzedPageEl _page) {
         AnalyzedPageEl copy_ = AnalyzedPageEl.copy(_page);

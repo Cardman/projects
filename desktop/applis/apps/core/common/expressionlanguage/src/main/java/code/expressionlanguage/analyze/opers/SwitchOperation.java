@@ -288,4 +288,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
         return arrContent;
     }
 
+    public String getMethodName() {
+        return methodName;
+    }
 }
