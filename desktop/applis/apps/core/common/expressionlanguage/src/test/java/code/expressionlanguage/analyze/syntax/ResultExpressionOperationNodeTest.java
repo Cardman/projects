@@ -266,7 +266,7 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",29);
-        assertEq(30,r_.begin());
+        assertEq(34,r_.begin());
         assertEq(41,r_.end());
     }
     @Test
@@ -282,7 +282,7 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",41);
-        assertEq(30,r_.begin());
+        assertEq(34,r_.begin());
         assertEq(41,r_.end());
     }
     @Test
@@ -1184,7 +1184,32 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq(46,r_.begin());
         assertEq(52,r_.end());
     }
-
+    @Test
+    public void container73() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE(1)\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",28);
+        assertEq(25,r_.begin());
+        assertEq(32,r_.end());
+    }
+    @Test
+    public void container74() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE((1+2]){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AbsBk r_ = quickFindBlock(files_,"pkg/Ex",28);
+        assertEq(36,r_.getBegin());
+        assertEq(38,r_.getEndAll());
+    }
     @Test
     public void locations0() {
         StringMap<String> files_ = new StringMap<String>();

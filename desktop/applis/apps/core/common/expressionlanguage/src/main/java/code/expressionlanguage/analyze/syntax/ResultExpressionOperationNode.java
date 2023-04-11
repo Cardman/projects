@@ -90,7 +90,7 @@ public final class ResultExpressionOperationNode {
                 out_.setBlock(sub_);
                 out_.setFound(null);
             } else {
-                OperationNode found_ = out_.subContainer(_caret);
+                OperationNode found_ = out_.subContainer(sub_,_caret);
                 next_ = nextBlock(found_, res_.getSumOffset(),_caret);
                 if (next_ == null) {
                     out_.setBlock(sub_);
@@ -359,9 +359,9 @@ public final class ResultExpressionOperationNode {
         return -1;
     }
 
-    public OperationNode subContainer(int _caret) {
-        OperationNode current_ = root(resultExpression);
-        OperationNode out_ = root(resultExpression);
+    public OperationNode subContainer(AbsBk _bl,int _caret) {
+        OperationNode current_ = root(_bl,resultExpression);
+        OperationNode out_ = root(_bl, resultExpression);
         while (current_ != null) {
             OperationNode ch_ = current_.getFirstChild();
             if (match(current_, _caret)) {
@@ -417,10 +417,31 @@ public final class ResultExpressionOperationNode {
         return null;
     }
 
-    private static OperationNode root(ResultExpression _r) {
-        return _r.getRoot();
+    private static OperationNode root(AbsBk _bl, ResultExpression _r) {
+        OperationNode r_ = _r.getRoot();
+        if (_bl instanceof InnerTypeOrElement&&(r_ instanceof AffectationOperation||r_ instanceof ErrorPartOperation)) {
+            OperationNode firstChild_ = r_.getFirstChild();
+            OperationNode next_ = fetchNext(firstChild_);
+            return asInstancing(next_);
+        }
+        return r_;
     }
 
+    private static OperationNode fetchNext(OperationNode _firstChild) {
+        OperationNode next_ = null;
+        if (_firstChild != null) {
+            next_ = _firstChild.getNextSibling();
+        }
+        return next_;
+    }
+
+    private static AbstractInstancingOperation asInstancing(OperationNode _next) {
+        AbstractInstancingOperation inst_ = null;
+        if (_next instanceof AbstractInstancingOperation) {
+            inst_ = (AbstractInstancingOperation) _next;
+        }
+        return inst_;
+    }
     private boolean match(OperationNode _b, int _caret) {
         if (_b == null) {
             return false;
