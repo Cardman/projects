@@ -15564,6 +15564,31 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void coverage755Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.Ex {\n");
+        xml_.append(" ONE;\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  return static($core.Enums).name(ONE);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {\n" +
+                " <span class=\"g\"><a name=\"m22\">ONE</a></span>;\n" +
+                " public static String <a name=\"m49\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">static($core.Enums)</span>.<span class=\"f\">name(<span class=\"f\"><a title=\"pkg.Ex.ONE\" href=\"#m22\">ONE</a></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
     @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
