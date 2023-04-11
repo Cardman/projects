@@ -27,7 +27,7 @@ public final class ResultExpressionOperationNode {
                 AnaCallFctContent c_ = ((AbsFctOperation) foundOp_).getCallFctContent();
                 return methodsLocations(c_);
             }
-            return new CustList<SrcFileLocation>();
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AbsFctOperation) foundOp_).getPartOffsets(),_fileName,_caret);
         }
         if (foundOp_ instanceof StaticAccessOperation) {
             return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticAccessOperation)foundOp_).getPartOffsets(),_fileName,_caret);
