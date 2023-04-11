@@ -422,7 +422,11 @@ public final class ResultExpressionOperationNode {
         if (_bl instanceof InnerTypeOrElement&&(r_ instanceof AffectationOperation||r_ instanceof ErrorPartOperation)) {
             OperationNode firstChild_ = r_.getFirstChild();
             OperationNode next_ = fetchNext(firstChild_);
-            return asInstancing(next_);
+            AbstractInstancingOperation i_ = asInstancing(next_);
+            if (i_ == null) {
+                return r_;
+            }
+            return i_;
         }
         return r_;
     }
