@@ -5,52 +5,53 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.ResultParsedAnnot;
 import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
+import code.expressionlanguage.fwd.opers.AnaCallFctContent;
+import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
 
 public final class ResultExpressionOperationNode {
     private ResultExpression resultExpression;
     private AbsBk block;
     private OperationNode found;
-
-    public static BracedBlock nextBlock(OperationNode _result, int _sum, int _caret) {
-        if (_result instanceof AnonymousLambdaOperation) {
-            NamedCalledFunctionBlock anon_ = ((AnonymousLambdaOperation) _result).getBlock();
-            int arrow_ = anon_.getNameOffset();
-            if (inRange(arrow_, _caret, arrow_ + 2)) {
-                return null;
+    public static CustList<SrcFileLocation> locations(AnalyzedPageEl _page, String _fileName, int _caret) {
+        ResultExpressionOperationNode res_ = container(_page, _fileName, _caret);
+        OperationNode foundOp_ = res_.getFound();
+        if (foundOp_ instanceof AbsFctOperation) {
+            int mb_ = res_.begin(foundOp_)+((AbsFctOperation)foundOp_).getDelta();
+            int me_ = mb_+((AbsFctOperation)foundOp_).getLengthMethod();
+            if (inRange(mb_,_caret,me_)) {
+                AnaCallFctContent c_ = ((AbsFctOperation) foundOp_).getCallFctContent();
+                return methodsLocations(c_);
             }
-            return anon_;
+            return new CustList<SrcFileLocation>();
         }
-        if (_result instanceof SwitchOperation) {
-            ResultExpression res_ = resSw(((SwitchOperation) _result).getSwitchMethod(), _caret);
-            if (res_ != null) {
-                return ((SwitchOperation) _result).getSwitchMethod();
-            }
-            int begin_ = _sum+_result.getIndexInEl()+((SwitchOperation) _result).getOffsetFct();
-            int end_ = begin_+((SwitchOperation) _result).getMethodName().length();
-            if (inRange(begin_, _caret, end_)) {
-                return null;
-            }
-            return ((SwitchOperation) _result).getSwitchMethod();
-        }
-        if (_result instanceof AnonymousInstancingOperation) {
-            ResultExpression res_ = resRoot(((AnonymousInstancingOperation) _result).getBlock(), _caret);
-            if (res_ != null) {
-                return ((AnonymousInstancingOperation) _result).getBlock();
-            }
-            int begin_ = _sum+_result.getIndexInEl()+((AnonymousInstancingOperation) _result).getOffsetFct();
-            int end_ = begin_+((AnonymousInstancingOperation) _result).getMethodName().length();
-            if (inRange(begin_, _caret, end_)) {
-                return null;
-            }
-            return ((AnonymousInstancingOperation) _result).getBlock();
-        }
-        return null;
+        return new CustList<SrcFileLocation>();
     }
 
-    public static boolean inRange(int _begin, int _caret, int _end) {
-        return _begin <= _caret && _caret < _end;
+    private static CustList<SrcFileLocation> methodsLocations(AnaCallFctContent _c) {
+        NamedFunctionBlock cust_ = fct(_c);
+        if (cust_ != null) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            ls_.add(new SrcFileLocationMethod(cust_));
+            return ls_;
+        }
+        StandardMethod std_ = _c.getStandardMethod();
+        if (std_ != null) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            ls_.add(new SrcFileLocationStdMethod(std_));
+            return ls_;
+        }
+        return new CustList<SrcFileLocation>();
+    }
+
+    private static NamedFunctionBlock fct(AnaCallFctContent _c) {
+        AnaTypeFct f_ = _c.getFunction();
+        if (f_ == null) {
+            return null;
+        }
+        return f_.getFunction();
     }
 
     public static ResultExpressionOperationNode container(AnalyzedPageEl _page, String _fileName, int _caret) {
@@ -356,6 +357,43 @@ public final class ResultExpressionOperationNode {
         }
         return out_;
     }
+
+    public static BracedBlock nextBlock(OperationNode _result, int _sum, int _caret) {
+        if (_result instanceof AnonymousLambdaOperation) {
+            NamedCalledFunctionBlock anon_ = ((AnonymousLambdaOperation) _result).getBlock();
+            int arrow_ = anon_.getNameOffset();
+            if (inRange(arrow_, _caret, arrow_ + 2)) {
+                return null;
+            }
+            return anon_;
+        }
+        if (_result instanceof SwitchOperation) {
+            ResultExpression res_ = resSw(((SwitchOperation) _result).getSwitchMethod(), _caret);
+            if (res_ != null) {
+                return ((SwitchOperation) _result).getSwitchMethod();
+            }
+            int begin_ = _sum+_result.getIndexInEl()+((SwitchOperation) _result).getOffsetFct();
+            int end_ = begin_+((SwitchOperation) _result).getMethodName().length();
+            if (inRange(begin_, _caret, end_)) {
+                return null;
+            }
+            return ((SwitchOperation) _result).getSwitchMethod();
+        }
+        if (_result instanceof AnonymousInstancingOperation) {
+            ResultExpression res_ = resRoot(((AnonymousInstancingOperation) _result).getBlock(), _caret);
+            if (res_ != null) {
+                return ((AnonymousInstancingOperation) _result).getBlock();
+            }
+            int begin_ = _sum+_result.getIndexInEl()+((AnonymousInstancingOperation) _result).getOffsetFct();
+            int end_ = begin_+((AnonymousInstancingOperation) _result).getMethodName().length();
+            if (inRange(begin_, _caret, end_)) {
+                return null;
+            }
+            return ((AnonymousInstancingOperation) _result).getBlock();
+        }
+        return null;
+    }
+
     private static OperationNode root(ResultExpression _r) {
         return _r.getRoot();
     }
@@ -388,6 +426,10 @@ public final class ResultExpressionOperationNode {
             return begin(_b) + par_.getChildren().getValue(indexChild_).length();
         }
         return begin(_b) + resultExpression.getAnalyzedString().length();
+    }
+
+    public static boolean inRange(int _begin, int _caret, int _end) {
+        return _begin <= _caret && _caret < _end;
     }
 
     public AbsBk getBlock() {
