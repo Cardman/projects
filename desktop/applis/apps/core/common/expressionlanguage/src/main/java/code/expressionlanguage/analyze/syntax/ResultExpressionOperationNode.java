@@ -27,28 +27,28 @@ public final class ResultExpressionOperationNode {
                 AnaCallFctContent c_ = ((AbsFctOperation) foundOp_).getCallFctContent();
                 return methodsLocations(c_);
             }
-            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AbsFctOperation) foundOp_).getPartOffsets(),_fileName,_caret);
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AbsFctOperation) foundOp_).getPartOffsets(), _caret);
         }
         if (foundOp_ instanceof StaticAccessOperation) {
-            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticAccessOperation)foundOp_).getPartOffsets(),_fileName,_caret);
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticAccessOperation)foundOp_).getPartOffsets(), _caret);
         }
         if (foundOp_ instanceof StaticCallAccessOperation) {
-            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticCallAccessOperation)foundOp_).getPartOffsets().getResult(),_fileName,_caret);
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticCallAccessOperation)foundOp_).getPartOffsets().getResult(), _caret);
         }
         if (foundOp_ instanceof FunctFilterOperation) {
-            return fetch(_fileName, _caret, ((FunctFilterOperation) foundOp_).getPartOffsets());
+            return fetch(_caret, ((FunctFilterOperation) foundOp_).getPartOffsets());
         }
         if (foundOp_ instanceof StandardInstancingOperation) {
             StandardInstancingOperation instStd_ = (StandardInstancingOperation) foundOp_;
-            return fetch(_fileName, _caret,instStd_.getPartsInstInitInterfaces());
+            return fetch(_caret,instStd_.getPartsInstInitInterfaces());
         }
         return new CustList<SrcFileLocation>();
     }
 
-    private static CustList<SrcFileLocation> fetch(String _fileName, int _caret, CustList<AnaResultPartTypeDtoInt> _list) {
+    private static CustList<SrcFileLocation> fetch(int _caret, CustList<AnaResultPartTypeDtoInt> _list) {
         CustList<SrcFileLocation> s_ = new CustList<SrcFileLocation>();
         for (AnaResultPartTypeDtoInt a: _list) {
-            s_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(a, _fileName, _caret));
+            s_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(a, _caret));
         }
         return s_;
     }

@@ -1,11 +1,13 @@
 package code.expressionlanguage.analyze.syntax;
 
+import code.expressionlanguage.analyze.blocks.FileBlock;
+
 public final class SrcFileLocationTypeVar implements SrcFileLocation {
     private final String name;
     private final int index;
-    private final String block;
+    private final FileBlock block;
 
-    public SrcFileLocationTypeVar(String _n, int _i, String _fileName) {
+    public SrcFileLocationTypeVar(String _n, int _i, FileBlock _fileName) {
         this.name = _n;
         this.index = _i;
         this.block = _fileName;
@@ -13,7 +15,7 @@ public final class SrcFileLocationTypeVar implements SrcFileLocation {
 
     @Override
     public String getFileName() {
-        return block;
+        return block.getFileName();
     }
 
     @Override

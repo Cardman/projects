@@ -9,18 +9,19 @@ import code.util.CustList;
 public final class LocationsPartTypeUtil {
     private LocationsPartTypeUtil() {
     }
-    public static CustList<SrcFileLocation> processAnalyzeConstraintsRepParts(AnaResultPartTypeDtoInt _className, String _fileName,int _caret){
-        return processAnalyzeConstraintsRepParts(_className.build(), _fileName, _caret);
+    public static CustList<SrcFileLocation> processAnalyzeConstraintsRepParts(AnaResultPartTypeDtoInt _className, int _caret){
+        return processAnalyzeConstraintsRepParts(_className.build(), _caret);
     }
 
-    public static CustList<SrcFileLocation> processAnalyzeConstraintsRepParts(AnaResultPartType _b, String _fileName, int _caret) {
+    public static CustList<SrcFileLocation> processAnalyzeConstraintsRepParts(AnaResultPartType _b, int _caret) {
         CustList<SrcFileLocation> out_ = new CustList<SrcFileLocation>();
-        lookForTypes(_b, _fileName, _caret, out_);
+        lookForTypes(_b, _caret, out_);
         return out_;
     }
 
-    private static void lookForTypes(AnaResultPartType _className, String _fileName, int _caret, CustList<SrcFileLocation> _dest){
+    private static void lookForTypes(AnaResultPartType _className, int _caret, CustList<SrcFileLocation> _dest){
         AnaPartType root_ = _className.getPartType();
+        FileBlock file_ = _className.getRooted();
         AnaPartType current_ = root_;
         while (current_ != null) {
             AnaPartType child_ = current_.getFirstChild();
@@ -29,7 +30,7 @@ public final class LocationsPartTypeUtil {
                 continue;
             }
             while (current_ != null) {
-                processLeafOffsets(current_, _fileName,_caret, _dest);
+                processLeafOffsets(current_, file_,_caret, _dest);
                 AnaPartType next_ = current_.getNextSibling();
                 AnaParentPartType par_ = current_.getParent();
                 if (next_ != null) {
@@ -37,7 +38,7 @@ public final class LocationsPartTypeUtil {
                     break;
                 }
                 if (par_ == root_) {
-                    processLeafOffsets(root_, _fileName,_caret, _dest);
+                    processLeafOffsets(root_, file_,_caret, _dest);
                     current_ = null;
                 } else {
                     current_ = par_;
@@ -46,7 +47,7 @@ public final class LocationsPartTypeUtil {
         }
     }
 
-    private static void processLeafOffsets(AnaPartType _current, String _fileName, int _caret, CustList<SrcFileLocation> _dest) {
+    private static void processLeafOffsets(AnaPartType _current, FileBlock _fileName, int _caret, CustList<SrcFileLocation> _dest) {
         if (!ResultExpressionOperationNode.inRange(_current.getFull(),_caret,_current.getFull()+_current.getLength())) {
             return;
         }
@@ -63,7 +64,7 @@ public final class LocationsPartTypeUtil {
             int o_ = ((AnaVariablePartType) _current).getValue();
             FileBlock r_ = ((AnaVariablePartType) _current).getRefFileName();
             if (r_ != null) {
-                _dest.add(new SrcFileLocationTypeVar(v_,o_,r_.getFileName()));
+                _dest.add(new SrcFileLocationTypeVar(v_,o_,r_));
             } else {
                 _dest.add(new SrcFileLocationTypeVar(v_,o_,_fileName));
             }
