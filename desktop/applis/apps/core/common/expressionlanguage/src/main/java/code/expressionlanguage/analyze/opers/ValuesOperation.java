@@ -4,10 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.EnumBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.ResolvedIdType;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -22,7 +19,7 @@ public final class ValuesOperation extends LeafOperation {
     private final String className;
     private final AnaValuesContent valuesContent;
 
-    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
+    private final CustList<AnaResultPartTypeDtoInt> partOffsets = new CustList<AnaResultPartTypeDtoInt>();
 
     public ValuesOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -46,7 +43,7 @@ public final class ValuesOperation extends LeafOperation {
         String ret_ = StringExpUtil.getPrettyArrayType(r_.getWildCardElement());
         setResultClass(new AnaClassArgumentMatching(ret_));
     }
-    static RootBlock checkType(AnalyzedPageEl _page,OperationNode _current,ResolvedIdType _resolved,CustList<AnaResultPartType> _parts,AnaValuesContent _content){
+    static RootBlock checkType(AnalyzedPageEl _page, OperationNode _current, ResolvedIdType _resolved, CustList<AnaResultPartTypeDtoInt> _parts, AnaValuesContent _content){
         String glClass_ = _page.getGlobalClass();
         String clName_ = _resolved.getFullName();
         _parts.add(_resolved.getDels());
@@ -81,7 +78,7 @@ public final class ValuesOperation extends LeafOperation {
         return r_;
     }
 
-    public CustList<AnaResultPartType> getPartOffsets() {
+    public CustList<AnaResultPartTypeDtoInt> getPartOffsets() {
         return partOffsets;
     }
 

@@ -2,7 +2,7 @@ package code.expressionlanguage.fwd.blocks;
 
 import code.expressionlanguage.analyze.blocks.EnumBlock;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.util.CustList;
 import code.util.Ints;
 
@@ -24,7 +24,7 @@ public final class AnaElementContent {
     private final Ints lastBadIndexes = new Ints();
 
     private boolean koTy;
-    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
+    private final CustList<AnaResultPartTypeDtoInt> partOffsets = new CustList<AnaResultPartTypeDtoInt>();
 
     public AnaElementContent(EnumBlock _m, OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
@@ -89,7 +89,7 @@ public final class AnaElementContent {
         this.koTy = _ko;
     }
 
-    public CustList<AnaResultPartType> getPartOffsets() {
+    public CustList<AnaResultPartTypeDtoInt> getPartOffsets() {
         return partOffsets;
     }
 }

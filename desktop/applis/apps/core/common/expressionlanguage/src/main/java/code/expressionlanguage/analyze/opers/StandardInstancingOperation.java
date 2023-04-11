@@ -38,7 +38,7 @@ public final class StandardInstancingOperation extends
     private final CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
     private InnerTypeOrElement innerElt;
     private StringList errorsFields = new StringList();
-    private final CustList<AnaResultPartType> partsInstInitInterfaces = new CustList<AnaResultPartType>();
+    private final CustList<AnaResultPartTypeDtoInt> partsInstInitInterfaces = new CustList<AnaResultPartTypeDtoInt>();
 
     public StandardInstancingOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -165,7 +165,7 @@ public final class StandardInstancingOperation extends
         RootBlock root_ = sup_.getOwned();
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         FileBlock r_ = _page.getCurrentFile();
-        setResolvedInstance(new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,root_,inner_,r_,_page.getIndex(),_page), results_));
+        setResolvedInstance(new ResolvedInstance(new AnaResultPartTypeDto(idClass_,root_,inner_,r_,_page.getIndex(),0,_page.getAnalysisMessages()), results_));
         realClassName_ = check(root_,sup_.getOwnedName(), partsArgs_, vars_, _page);
         analyzeCtor(realClassName_, varargParam_, _page);
     }
@@ -315,7 +315,7 @@ public final class StandardInstancingOperation extends
         return feed_;
     }
 
-    static CustList<AnaFormattedRootBlock> getAnaFormattedRootBlocks(AnalyzedPageEl _page, RootBlock _root, StringList _staticInitInterfaces, Ints _staticInitInterfacesOffset, CustList<AnaResultPartType> _partsInstInitInterfaces) {
+    static CustList<AnaFormattedRootBlock> getAnaFormattedRootBlocks(AnalyzedPageEl _page, RootBlock _root, StringList _staticInitInterfaces, Ints _staticInitInterfacesOffset, CustList<AnaResultPartTypeDtoInt> _partsInstInitInterfaces) {
         CustList<AnaFormattedRootBlock> used_ = new CustList<AnaFormattedRootBlock>();
         CustList<ResolvedIdTypeContent> resolvedIdTypes_ = new CustList<ResolvedIdTypeContent>();
         int l_ = _staticInitInterfaces.size();
@@ -332,11 +332,11 @@ public final class StandardInstancingOperation extends
             if (supGene_ instanceof InterfaceBlock && foundSup_ != null) {
                 used_.add(foundSup_);
             }
-            CustList<AnaResultPartType> all_ = new CustList<AnaResultPartType>();
+            CustList<AnaResultPartTypeDtoInt> all_ = new CustList<AnaResultPartTypeDtoInt>();
             for (FoundTypeIdDto f: found_) {
-                all_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(f.getInput(),f.getType(),f.getSolved(),r_,rc_,f.getIndexInType(),_page));
+                all_.add(new AnaResultPartTypeDto(f.getInput(),f.getType(),f.getSolved(),r_,rc_,f.getIndexInType(),_page.getAnalysisMessages()));
             }
-            AnaResultPartType result_ = PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(in_, all_, operators_, r_, rc_, _page);
+            AnaResultPartTypeDtoInt result_ = new AnaResultPartTypeInnerDto(in_, all_, operators_, r_, rc_, _page.getAnalysisMessages());
             _partsInstInitInterfaces.add(result_);
         }
         CustList<FoundTypeErrorDto> errorsInh_ = new CustList<FoundTypeErrorDto>();
@@ -443,7 +443,7 @@ public final class StandardInstancingOperation extends
         return ctors;
     }
 
-    public CustList<AnaResultPartType> getPartsInstInitInterfaces() {
+    public CustList<AnaResultPartTypeDtoInt> getPartsInstInitInterfaces() {
         return partsInstInitInterfaces;
     }
 

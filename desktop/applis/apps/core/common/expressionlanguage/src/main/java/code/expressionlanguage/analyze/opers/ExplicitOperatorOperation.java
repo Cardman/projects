@@ -6,10 +6,7 @@ import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.*;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.ResolvedIdType;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.AnaGeneType;
@@ -35,8 +32,8 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
 
     private final ClassMethodIdMemberIdTypeFct conv = new ClassMethodIdMemberIdTypeFct();
     private AnaResultPartType partOffsets = new AnaResultPartType();
-    private final CustList<AnaResultPartType> typesImpl = new CustList<AnaResultPartType>();
-    private final CustList<AnaResultPartType> typesTest = new CustList<AnaResultPartType>();
+    private final CustList<AnaResultPartTypeDtoInt> typesImpl = new CustList<AnaResultPartTypeDtoInt>();
+    private final CustList<AnaResultPartTypeDtoInt> typesTest = new CustList<AnaResultPartTypeDtoInt>();
     private String methodFound = EMPTY_STRING;
     private String syntheticOperator = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
@@ -173,7 +170,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                 String arg_ = full_.trim();
                 String type_ = arg_;
                 AnaResultPartType result_ = ResolvingTypes.resolveCorrectAccessibleType(offImpl_ + loc_, type_, resName_, _page);
-                typesTest.add(result_);
+                typesTest.add(new AnaResultPartTypeDirectDto(result_));
                 arg_ = result_.getResult(_page);
                 StringList out_ = new StringList(_page.getAliasPrimBoolean(),arg_);
                 CustList<BoolVal> ref_ = new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE);
@@ -217,7 +214,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                     String arg_ = full_.trim();
                     String type_ = arg_;
                     AnaResultPartType result_ = ResolvingTypes.resolveCorrectAccessibleType(offImpl_ + loc_, type_, resName_, _page);
-                    typesImpl.add(result_);
+                    typesImpl.add(new AnaResultPartTypeDirectDto(result_));
                     arg_ = result_.getResult(_page);
                     offImpl_ += argsImpl_.get(i).length() + 1;
                     out_.add(arg_);
@@ -503,7 +500,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         return partOffsets;
     }
 
-    public CustList<AnaResultPartType> getTypesImpl() {
+    public CustList<AnaResultPartTypeDtoInt> getTypesImpl() {
         return typesImpl;
     }
 
@@ -574,7 +571,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         return indexVar;
     }
 
-    public CustList<AnaResultPartType> getTypesTest() {
+    public CustList<AnaResultPartTypeDtoInt> getTypesTest() {
         return typesTest;
     }
 }

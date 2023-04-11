@@ -116,7 +116,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         StringList partsSeps_ = new StringList();
         int k_ = partsFields(_from, indexes_, partsFields_, partsSeps_);
         StringList partsFieldsBisFields_ = partsFieldsSec(partsFields_, partsSeps_);
-        CustList<AnaResultPartType> partOffsets_ = new CustList<AnaResultPartType>();
+        CustList<AnaResultPartTypeDtoInt> partOffsets_ = new CustList<AnaResultPartTypeDtoInt>();
         String join_ = StringUtil.join(partsFieldsBisFields_, "");
         StringList inns_ = AnaInherits.getAllInnerTypes(join_, _page);
         String trim_ = inns_.first().trim();
@@ -128,7 +128,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         if (startType_ != null) {
             nb_ = count(trim_);
             start_ = trim_;
-            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(inns_.first(),startType_,start_,r_, loc_,0,_page));
+            partOffsets_.add(new AnaResultPartTypeDto(inns_.first(),startType_,start_,r_, loc_,0,_page.getAnalysisMessages()));
         } else {
             nb_ = 0;
             AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(_from + StringExpUtil.getOffset(inns_.first()), trim_, _page);
@@ -136,7 +136,7 @@ public final class FullFieldRetriever implements FieldRetriever {
             if (!resType_.isOk()) {
                 start_ = "";
             } else {
-                partOffsets_.add(resType_);
+                partOffsets_.add(new AnaResultPartTypeDirectDto(resType_));
             }
             startType_ = _page.getAnaGeneType(start_);
         }
@@ -157,7 +157,7 @@ public final class FullFieldRetriever implements FieldRetriever {
             }
             start_ = res_.firstOwnedName();
             startType_ = res_.firstOwned();
-            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(p_,startType_,start_,r_, loc_, indexInType_,_page));
+            partOffsets_.add(new AnaResultPartTypeDto(p_,startType_,start_,r_, loc_, indexInType_,_page.getAnalysisMessages()));
             rootOff_ += fullPart_.length() + 1;
             nb_++;
             iPart_+=2;
@@ -174,7 +174,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         delimiters.getDelKeyWordStatic().add(n_);
         delimiters.getDelKeyWordStaticExtract().add(start_);
         delimiters.getStaticAccessTypes().add(startType_);
-        delimiters.getStaticParts().add(PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(join_,partOffsets_,operators_,r_, loc_,_page));
+        delimiters.getStaticParts().add(new AnaResultPartTypeInnerDto(join_,partOffsets_,operators_,r_, loc_,_page.getAnalysisMessages()));
         return n_;
     }
     private OwnerListResultInfo type(AnalyzedPageEl _page, String _curSep, String _start, String _p) {

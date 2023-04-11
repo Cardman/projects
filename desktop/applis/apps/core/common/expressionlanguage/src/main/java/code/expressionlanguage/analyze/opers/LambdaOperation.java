@@ -51,10 +51,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private ClassField fieldId;
     private final AnaLambdaFieldContent lambdaFieldContent;
     private int valueOffset;
-    private final CustList<AnaResultPartType> partOffsetsPre = new CustList<AnaResultPartType>();
-    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
-    private final CustList<AnaResultPartType> partOffsetsRec = new CustList<AnaResultPartType>();
-    private final CustList<AnaResultPartType> partOffsetsBegin = new CustList<AnaResultPartType>();
+    private final CustList<AnaResultPartTypeDtoInt> partOffsetsPre = new CustList<AnaResultPartTypeDtoInt>();
+    private final CustList<AnaResultPartTypeDtoInt> partOffsets = new CustList<AnaResultPartTypeDtoInt>();
+    private final CustList<AnaResultPartTypeDtoInt> partOffsetsRec = new CustList<AnaResultPartTypeDtoInt>();
+    private final CustList<AnaResultPartTypeDtoInt> partOffsetsBegin = new CustList<AnaResultPartTypeDtoInt>();
     private InfoErrorDto partOffsetsErrMiddle = new InfoErrorDto("");
     private InfoErrorDto partOffsetsErrEnd = new InfoErrorDto("");
     private StandardMethod standardMethod;
@@ -63,7 +63,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private AnaGeneType staticAccess;
     private final CustList<AnaNamedFieldContent> namedFields = new CustList<AnaNamedFieldContent>();
     private final CustList<AnaFormattedRootBlock> sups = new CustList<AnaFormattedRootBlock>();
-    private final CustList<AnaResultPartType> partsInstInitInterfaces = new CustList<AnaResultPartType>();
+    private final CustList<AnaResultPartTypeDtoInt> partsInstInitInterfaces = new CustList<AnaResultPartTypeDtoInt>();
 
     public LambdaOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -817,7 +817,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             String rightPart_ = _args.last();
             int secOffset_ = offset(_args,2);
             AnaResultPartType resolved_ = ResolvingTypes.resolveCorrectTypeAccessible(secOffset_, rightPart_, _page);
-            partOffsets.add(resolved_);
+            partOffsets.add(new AnaResultPartTypeDirectDto(resolved_));
             String arg_ = resolved_.getResult(_page);
             Mapping map_ = new Mapping();
             map_.setArg(arg_);
@@ -998,7 +998,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int offset_ = offset(_args, 0);
         AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, _args.first().trim(), _page);
         String type_ = result_.getResult(_page);
-        partOffsetsBegin.add(result_);
+        partOffsetsBegin.add(new AnaResultPartTypeDirectDto(result_));
         if (StringUtil.quickEq(_name, _page.getKeyWords().getKeyWordTrue())
             || StringUtil.quickEq(_name, _page.getKeyWords().getKeyWordFalse())) {
             trueFalse(_page, _name, offset_, type_);
@@ -1428,7 +1428,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (!isIntermediateDottedOperation()) {
             int offset_ = offset(_args,0);
             AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, _args.first().trim(), _page);
-            partOffsetsBegin.add(result_);
+            partOffsetsBegin.add(new AnaResultPartTypeDirectDto(result_));
             clFrom_ = result_.getResult(_page);
             if (clFrom_.startsWith(ARR)) {
                 processArray(_args, _len, _page, clFrom_.substring(ARR.length()));
@@ -1441,7 +1441,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (match(_args, _len, keyWordId_, 2)) {
                 int offset_ = offset(_args,0);
                 AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, _args.first().trim(), _page);
-                partOffsetsBegin.add(result_);
+                partOffsetsBegin.add(new AnaResultPartTypeDirectDto(result_));
                 clFrom_ = result_.getResult(_page);
                 form_ = new AnaFormattedRootBlock(_page, clFrom_);
             } else {
@@ -1626,7 +1626,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 fieldName_ = substring_.trim();
                 search_ = AnaInherits.getFormattedOverridingFullTypeByBases(new AnaFormattedRootBlock(h_), resolvedIdType_.getGeneType());
             } else {
-                partOffsetsRec.add(new AnaResultPartType());
+                partOffsetsRec.add(new AnaResultPartTypeDirectDto());
                 fieldName_ = name_;
                 e_ = locFirst_;
                 search_ = new AnaFormattedRootBlock(h_);
@@ -1723,14 +1723,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String inner_ = StringExpUtil.getIdFromAllTypes(_sup.getOwnedName());
         RootBlock root_ = _sup.getOwned();
         FileBlock r_ = _page.getCurrentFile();
-        partOffsetsPre.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,root_,inner_,r_, _page.getIndex()+offset_, _page));
+        partOffsetsPre.add(new AnaResultPartTypeDto(idClass_,root_,inner_,r_, _page.getIndex()+offset_,0, _page.getAnalysisMessages()));
         offset_ += idClass_.length() + 1;
         StringList partsArgs_ = new StringList();
         for (String a: StringExpUtil.getAllTypes(_cl).mid(1)) {
             int loc_ = StringExpUtil.getOffset(a);
             AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_ + loc_, a.trim(), _page);
             String res_ = result_.getResult(_page);
-            partOffsetsPre.add(result_);
+            partOffsetsPre.add(new AnaResultPartTypeDirectDto(result_));
             partsArgs_.add(res_);
             offset_ += a.length() + 1;
         }
@@ -2075,7 +2075,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             String type_ = _args.get(_i).trim();
             AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, type_, _page);
             String arg_ = result_.getResult(_page);
-            partOffsetsBegin.add(result_);
+            partOffsetsBegin.add(new AnaResultPartTypeDirectDto(result_));
             StringMap<StringList> map_ = new StringMap<StringList>();
             getRefConstraints(map_, _page);
             checkTypes(_page, out_, arg_, map_);
@@ -2163,7 +2163,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int offset_ = offset(_args, 0);
         AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, _args.first().trim(), _page);
         String type_ = result_.getResult(_page);
-        partOffsetsBegin.add(result_);
+        partOffsetsBegin.add(new AnaResultPartTypeDirectDto(result_));
         return type_;
     }
 
@@ -2416,10 +2416,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return InvokingOperation.getBounds(type_, _page);
     }
 
-    private String resolveCorrectTypeAccessible(boolean _exact, String _type, AnalyzedPageEl _page, int _offset, CustList<AnaResultPartType> _dest) {
+    private String resolveCorrectTypeAccessible(boolean _exact, String _type, AnalyzedPageEl _page, int _offset, CustList<AnaResultPartTypeDtoInt> _dest) {
         if (_exact) {
             AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(_offset, _type, _page);
-            _dest.add(result_);
+            _dest.add(new AnaResultPartTypeDirectDto(result_));
             String res_ = result_.getResult(_page);
             staticAccess = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(res_));
             return res_;
@@ -2572,19 +2572,19 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return lambdaFieldContent;
     }
 
-    public CustList<AnaResultPartType> getPartOffsets() {
+    public CustList<AnaResultPartTypeDtoInt> getPartOffsets() {
         return partOffsets;
     }
 
-    public CustList<AnaResultPartType> getPartOffsetsRec() {
+    public CustList<AnaResultPartTypeDtoInt> getPartOffsetsRec() {
         return partOffsetsRec;
     }
 
-    public CustList<AnaResultPartType> getPartOffsetsPre() {
+    public CustList<AnaResultPartTypeDtoInt> getPartOffsetsPre() {
         return partOffsetsPre;
     }
 
-    public CustList<AnaResultPartType> getPartOffsetsBegin() {
+    public CustList<AnaResultPartTypeDtoInt> getPartOffsetsBegin() {
         return partOffsetsBegin;
     }
 
@@ -2640,7 +2640,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return sups;
     }
 
-    public CustList<AnaResultPartType> getPartsInstInitInterfaces() {
+    public CustList<AnaResultPartTypeDtoInt> getPartsInstInitInterfaces() {
         return partsInstInitInterfaces;
     }
 }

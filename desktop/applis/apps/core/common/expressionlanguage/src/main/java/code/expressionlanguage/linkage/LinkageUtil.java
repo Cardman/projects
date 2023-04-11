@@ -16,6 +16,7 @@ import code.expressionlanguage.analyze.opers.util.AnaTypeFctPair;
 import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.expressionlanguage.analyze.types.LinkagePartTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
@@ -2375,8 +2376,8 @@ public final class LinkageUtil {
             AnonymousTypeBlock block_ = val_.getBlock();
             LinkageStackElement state_ = new LinkageStackElement(true, block_.getIndexEnd());
             state_.setBlock(block_);
-            for (AnaResultPartType a: val_.getBlock().getPartsStaticInitInterfacesOffset()) {
-                state_.getPartsAfter().addAllElts(export(a));
+            for (AnaResultPartTypeDtoInt a: val_.getBlock().getPartsStaticInitInterfacesOffset()) {
+                state_.getPartsAfter().addAllElts(export(a.build()));
             }
             state_.getPartsAfter().addAllElts(buildByInst(val_));
             return state_;
@@ -3138,7 +3139,7 @@ public final class LinkageUtil {
 
     private static CustList<PartOffset> buildByInst(ResolvedInstance _resolvedInstance, String _typeInfer) {
         CustList<PartOffset> out_ = new CustList<PartOffset>();
-        AnaResultPartType result_ = _resolvedInstance.getResult();
+        AnaResultPartType result_ = _resolvedInstance.getResult().build();
         LinkagePartTypeUtil.processAnalyzeConstraintsRepParts(result_,out_);
         if (!_typeInfer.isEmpty() && _resolvedInstance.isInferred()) {
             appendTitleParts(_resolvedInstance.getLt(), _resolvedInstance.getGt(), _resolvedInstance.getInfer(),out_);
@@ -3180,7 +3181,7 @@ public final class LinkageUtil {
                 _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),begin_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordStatic().length()));
             }
-            _vars.addParts(export(((StaticAccessOperation)_val).getPartOffsets()));
+            _vars.addParts(export(((StaticAccessOperation)_val).getPartOffsets().build()));
         }
         if (_val instanceof StaticCallAccessOperation) {
             if (!_val.getErrs().isEmpty()) {
@@ -3197,9 +3198,9 @@ public final class LinkageUtil {
         }
     }
 
-    private static void addTypes(VariablesOffsets _vars, CustList<AnaResultPartType> _partOffsets) {
-        for (AnaResultPartType a: _partOffsets) {
-            _vars.addParts(export(a));
+    private static void addTypes(VariablesOffsets _vars, CustList<AnaResultPartTypeDtoInt> _partOffsets) {
+        for (AnaResultPartTypeDtoInt a: _partOffsets) {
+            _vars.addParts(export(a.build()));
         }
     }
 
@@ -3234,7 +3235,7 @@ public final class LinkageUtil {
             CustList<AnaNamedFieldContent> namedFields_ = ((LambdaOperation) _val).getNamedFields();
             int len_ = namedFields_.size();
             for (int i = 0; i < len_; i++) {
-                _vars.addParts(export(((LambdaOperation) _val).getPartOffsetsRec().get(i)));
+                _vars.addParts(export(((LambdaOperation) _val).getPartOffsetsRec().get(i).build()));
                 int ref_ = ((LambdaOperation) _val).getRefs().get(i);
                 if (ref_ < 0) {
                     continue;
@@ -3571,7 +3572,7 @@ public final class LinkageUtil {
                 _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),i_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,i_+l_));
             }
-            _vars.addParts(export(((CastOperation) _val).getPartOffsets()));
+            _vars.addParts(export(((CastOperation) _val).getPartOffsets().build()));
         }
         if (_val instanceof ExplicitOperation) {
             int offsetOp_ = ((ExplicitOperation) _val).getOperators().firstKey();

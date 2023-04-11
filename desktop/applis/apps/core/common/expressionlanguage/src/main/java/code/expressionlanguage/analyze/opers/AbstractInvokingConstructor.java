@@ -6,10 +6,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.*;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.ResolvedIdType;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -20,7 +17,7 @@ import code.util.CustList;
 import code.util.core.StringUtil;
 
 public abstract class AbstractInvokingConstructor extends InvokingOperation implements PreAnalyzableOperation,RetrieveConstructor {
-    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
+    private final CustList<AnaResultPartTypeDtoInt> partOffsets = new CustList<AnaResultPartTypeDtoInt>();
 
     private final String methodName;
     private ConstructorId constId;
@@ -195,7 +192,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         }
     }
 
-    public CustList<AnaResultPartType> getPartOffsets() {
+    public CustList<AnaResultPartTypeDtoInt> getPartOffsets() {
         return partOffsets;
     }
     public AnaTypeFct getConstructor() {

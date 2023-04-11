@@ -4,10 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.ResolvedIdType;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.fwd.opers.AnaValuesContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.util.CustList;
@@ -19,7 +16,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
     private final int argOffset;
     private final AnaValuesContent valuesContent;
 
-    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
+    private final CustList<AnaResultPartTypeDtoInt> partOffsets = new CustList<AnaResultPartTypeDtoInt>();
 
     public EnumValueOfOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op, String _str, int _argOfff) {
@@ -56,7 +53,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         setResultClass(new AnaClassArgumentMatching(className));
     }
 
-    public CustList<AnaResultPartType> getPartOffsets() {
+    public CustList<AnaResultPartTypeDtoInt> getPartOffsets() {
         return partOffsets;
     }
 

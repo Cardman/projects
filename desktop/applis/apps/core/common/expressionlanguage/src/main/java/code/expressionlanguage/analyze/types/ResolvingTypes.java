@@ -186,9 +186,9 @@ public final class ResolvingTypes {
         CustList<FoundTypeIdDto> found_ = new CustList<FoundTypeIdDto>();
         CustList<FoundTypeErrorDto> err_ = new CustList<FoundTypeErrorDto>();
         ResolvedIdTypeContent resolvedIdType_ = resolveAccessibleIdTypeBlockWithoutErr(_in, _page, operators_, found_, err_);
-        CustList<AnaResultPartType> all_ = new CustList<AnaResultPartType>();
+        CustList<AnaResultPartTypeDtoInt> all_ = new CustList<AnaResultPartTypeDtoInt>();
         for (FoundTypeIdDto f: found_) {
-            all_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(f.getInput(),f.getType(),f.getSolved(),r_,rootLoc_,f.getIndexInType(),_page));
+            all_.add(new AnaResultPartTypeDto(f.getInput(),f.getType(),f.getSolved(),r_,rootLoc_,f.getIndexInType(),_page.getAnalysisMessages()));
         }
         for (FoundTypeErrorDto f: err_) {
             FoundErrorInterpret undef_;
@@ -196,10 +196,10 @@ public final class ResolvingTypes {
             undef_.setFile(_page.getCurrentFile());
             undef_.setIndexFile(_page,_loc);
             undef_.setBuiltError(f.getSolved());
-            all_.add(PreLinkagePartTypeUtil.processAccessKoRootAnalyze(f.isVoidType(),undef_,f.getInput(), rootLoc_,f.getIndexInType(),_page));
+            all_.add(new AnaResultPartTypeKoDto(f.getInput(),undef_,f.isVoidType(),_page.getCurrentFile(), rootLoc_,f.getIndexInType(),_page.getAnalysisMessages()));
             _page.getLocalizer().addError(undef_);
         }
-        AnaResultPartType result_ = PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(_in, all_, operators_, r_, rootLoc_, _page);
+        AnaResultPartTypeDtoInt result_ = new AnaResultPartTypeInnerDto(_in, all_, operators_, r_, rootLoc_, _page.getAnalysisMessages());
         return new ResolvedIdType(resolvedIdType_.getFullName(),resolvedIdType_.getGeneType(), result_);
     }
 
@@ -214,6 +214,7 @@ public final class ResolvingTypes {
         String res_ = StringExpUtil.removeDottedSpaces(base_);
         StandardType std_ = _page.getStandardsTypes().getVal(res_);
         if (std_ != null) {
+            _found.add(new FoundTypeIdDto(firstOff_,base_,res_,std_));
             return new ResolvedIdTypeContent(res_,std_);
         }
         if (StringUtil.quickEq(tr_, void_)) {

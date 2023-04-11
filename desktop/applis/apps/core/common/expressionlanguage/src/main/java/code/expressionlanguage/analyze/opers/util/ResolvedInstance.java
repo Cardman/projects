@@ -3,25 +3,31 @@ package code.expressionlanguage.analyze.opers.util;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.StaticCallAccessOperation;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.AnaResultPartTypeDirectDto;
+import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.util.CustList;
 
 public final class ResolvedInstance {
     private final boolean inferred;
-    private final AnaResultPartType result;
+    private final AnaResultPartTypeDtoInt result;
     private final CustList<AnaResultPartType> parts;
     private final int lt;
     private final int gt;
     private final String infer;
 
     public ResolvedInstance() {
-        this(false,new AnaResultPartType(), new CustList<AnaResultPartType>(),0,0,"");
+        this(false,new AnaResultPartTypeDirectDto(), new CustList<AnaResultPartType>(),0,0,"");
     }
 
     public ResolvedInstance(AnaResultPartType _result) {
+        this(new AnaResultPartTypeDirectDto(_result));
+    }
+
+    public ResolvedInstance(AnaResultPartTypeDtoInt _result) {
         this(_result, new CustList<AnaResultPartType>());
     }
 
-    public ResolvedInstance(AnaResultPartType _result, CustList<AnaResultPartType> _parts) {
+    public ResolvedInstance(AnaResultPartTypeDtoInt _result, CustList<AnaResultPartType> _parts) {
         this(false,_result, _parts,0,0,"");
     }
 
@@ -37,7 +43,7 @@ public final class ResolvedInstance {
         this(true,_prep.result, _prep.parts,_lt,_gt,_infer);
     }
 
-    private ResolvedInstance(boolean _inferred, AnaResultPartType _result, CustList<AnaResultPartType> _parts, int _lt, int _gt, String _infer) {
+    private ResolvedInstance(boolean _inferred, AnaResultPartTypeDtoInt _result, CustList<AnaResultPartType> _parts, int _lt, int _gt, String _infer) {
         this.inferred = _inferred;
         this.result = _result;
         this.parts = _parts;
@@ -50,7 +56,7 @@ public final class ResolvedInstance {
         return inferred;
     }
 
-    public AnaResultPartType getResult() {
+    public AnaResultPartTypeDtoInt getResult() {
         return result;
     }
 

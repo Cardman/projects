@@ -1255,10 +1255,6 @@ public final class AnalyzedPageEl {
         this.keyWords = _keyWords;
     }
 
-    public boolean isGettingParts() {
-        return isCovering() || isGettingErrors();
-    }
-
     public boolean isImplicit() {
         return getOptions().isDisplayImplicit();
     }
@@ -1275,10 +1271,6 @@ public final class AnalyzedPageEl {
 
     public boolean isEncodeHeader() {
         return getOptions().isEncodeHeader();
-    }
-
-    public boolean isCovering() {
-        return getOptions().isCovering();
     }
 
     public boolean isGettingErrors() {

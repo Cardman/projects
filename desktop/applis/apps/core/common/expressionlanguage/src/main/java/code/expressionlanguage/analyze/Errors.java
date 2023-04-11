@@ -6,10 +6,7 @@ import code.util.CustList;
 public final class Errors {
     private final CustList<FileBlock> files = new CustList<FileBlock>();
 
-    public void putFile(FileBlock _file, AnalyzedPageEl _page) {
-        if (!_page.isGettingErrors()) {
-            return;
-        }
+    public void putFile(FileBlock _file) {
         files.add(_file);
     }
 

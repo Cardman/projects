@@ -6,6 +6,8 @@ import code.expressionlanguage.analyze.files.ResultParsedAnnot;
 import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
+import code.expressionlanguage.analyze.types.LocationsPartTypeUtil;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.stds.StandardMethod;
@@ -27,7 +29,28 @@ public final class ResultExpressionOperationNode {
             }
             return new CustList<SrcFileLocation>();
         }
+        if (foundOp_ instanceof StaticAccessOperation) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticAccessOperation)foundOp_).getPartOffsets(),_fileName,_caret);
+        }
+        if (foundOp_ instanceof StaticCallAccessOperation) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticCallAccessOperation)foundOp_).getPartOffsets().getResult(),_fileName,_caret);
+        }
+        if (foundOp_ instanceof FunctFilterOperation) {
+            return fetch(_fileName, _caret, ((FunctFilterOperation) foundOp_).getPartOffsets());
+        }
+        if (foundOp_ instanceof StandardInstancingOperation) {
+            StandardInstancingOperation instStd_ = (StandardInstancingOperation) foundOp_;
+            return fetch(_fileName, _caret,instStd_.getPartsInstInitInterfaces());
+        }
         return new CustList<SrcFileLocation>();
+    }
+
+    private static CustList<SrcFileLocation> fetch(String _fileName, int _caret, CustList<AnaResultPartTypeDtoInt> _list) {
+        CustList<SrcFileLocation> s_ = new CustList<SrcFileLocation>();
+        for (AnaResultPartTypeDtoInt a: _list) {
+            s_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(a, _fileName, _caret));
+        }
+        return s_;
     }
 
     private static CustList<SrcFileLocation> methodsLocations(AnaCallFctContent _c) {

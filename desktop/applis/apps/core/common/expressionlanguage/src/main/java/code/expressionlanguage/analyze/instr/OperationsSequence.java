@@ -7,7 +7,8 @@ import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.files.ParsedFctHeaderResult;
 import code.expressionlanguage.analyze.opers.AnnotationInstanceArobaseOperation;
 import code.expressionlanguage.analyze.opers.MethodOperation;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.AnaResultPartTypeDirectDto;
+import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.NumberInfos;
@@ -43,7 +44,7 @@ public final class OperationsSequence {
     private String extractType = "";
     private AnaGeneType extractStaticType;
 
-    private AnaResultPartType partOffsets = new AnaResultPartType();
+    private AnaResultPartTypeDtoInt partOffsets = new AnaResultPartTypeDirectDto();
     private int countArrays;
     private final Ints errorParts = new Ints();
     private boolean instance;
@@ -484,11 +485,11 @@ public final class OperationsSequence {
         this.extractStaticType = _ext;
     }
 
-    public AnaResultPartType getPartOffsets() {
+    public AnaResultPartTypeDtoInt getPartOffsets() {
         return partOffsets;
     }
 
-    public void setPartOffsets(AnaResultPartType _partOffsets) {
+    public void setPartOffsets(AnaResultPartTypeDtoInt _partOffsets) {
         partOffsets = _partOffsets;
     }
 

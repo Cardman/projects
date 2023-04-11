@@ -119,7 +119,7 @@ public final class Classes {
             }
             for (EntryCust<String, FileBlock> f: _page.getPreviousFilesBodies().entryList()) {
                 FileBlock content_ = f.getValue();
-                _page.getErrors().putFile(content_, _page);
+                _page.getErrors().putFile(content_);
             }
             ReportedMessages messages_ = _page.getMessages();
             messages_.setErrors(FileBlock.errors(_page));

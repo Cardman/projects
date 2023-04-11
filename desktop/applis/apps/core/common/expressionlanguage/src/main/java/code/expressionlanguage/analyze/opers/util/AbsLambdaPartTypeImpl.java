@@ -3,7 +3,7 @@ package code.expressionlanguage.analyze.opers.util;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -17,11 +17,11 @@ public abstract class AbsLambdaPartTypeImpl {
     protected static final String EMPTY_STRING = "";
 
     protected static final String VARARG_SUFFIX = "...";
-    private final CustList<AnaResultPartType> partOffsets;
+    private final CustList<AnaResultPartTypeDtoInt> partOffsets;
     private final String className;
     private InfoErrorDto partOffsetsErrEnd = new InfoErrorDto("");
 
-    protected AbsLambdaPartTypeImpl(String _cl, CustList<AnaResultPartType> _parts) {
+    protected AbsLambdaPartTypeImpl(String _cl, CustList<AnaResultPartTypeDtoInt> _parts) {
         this.partOffsets = _parts;
         className = _cl;
     }
@@ -91,7 +91,7 @@ public abstract class AbsLambdaPartTypeImpl {
         return partOffsetsErrEnd;
     }
 
-    public CustList<AnaResultPartType> getPartOffsets() {
+    public CustList<AnaResultPartTypeDtoInt> getPartOffsets() {
         return partOffsets;
     }
 }

@@ -3,14 +3,11 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.ResolvedIdType;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.common.AnaGeneType;
 
 public final class StaticAccessOperation extends LeafOperation {
-    private AnaResultPartType partOffsets;
+    private AnaResultPartTypeDtoInt partOffsets;
     private AnaGeneType extractStaticType;
     private final String extractType;
 
@@ -46,7 +43,7 @@ public final class StaticAccessOperation extends LeafOperation {
             extractStaticType = resolvedIdType_.getGeneType();
         } else {
             classStr_ = glClass_;
-            partOffsets = new AnaResultPartType();
+            partOffsets = new AnaResultPartTypeDirectDto();
             extractStaticType = _page.getGlobalType().getRootBlock();
         }
         classStr_ = emptyToObject(classStr_, _page);
@@ -60,7 +57,7 @@ public final class StaticAccessOperation extends LeafOperation {
         return extractStaticType;
     }
 
-    public AnaResultPartType getPartOffsets() {
+    public AnaResultPartTypeDtoInt getPartOffsets() {
         return partOffsets;
     }
 }

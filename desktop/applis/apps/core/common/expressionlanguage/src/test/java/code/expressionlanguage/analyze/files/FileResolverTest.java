@@ -12,7 +12,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.sample.CustLgNames;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.tsts.TstsCharacters;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -10041,7 +10040,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
     protected static void parseFile(AnalyzedPageEl _context, String _fileName, boolean _predefined, String _file, AnalyzedPageEl _page) {
         FileBlock fileBlock_ = new FileBlock(0,_predefined, _fileName, new DefaultFileEscapedCalc());
         _page.putFileBlock(_fileName, fileBlock_);
-        _page.getErrors().putFile(fileBlock_, _context);
         _page.setCurrentFile(fileBlock_);
         fileBlock_.processLinesTabsWithError(_file, _context);
         StringComment stringComment_ = fileBlock_.stringComment(_page.getComments());

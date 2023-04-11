@@ -175,7 +175,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             String res_ = AnaInherits.tryGetAllInners(_innTypeInf, _innType, partsArgs_, currVars_, _page);
             if (!res_.isEmpty()) {
                 FileBlock r_ = _page.getCurrentFile();
-                resolvedInstance = new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_, _innTypeInf,StringExpUtil.getIdFromAllTypes(_innType),r_, rc_ +begin_, _page), results_);
+                resolvedInstance = new ResolvedInstance(new AnaResultPartTypeDto(idClass_, _innTypeInf,StringExpUtil.getIdFromAllTypes(_innType),r_, rc_ +begin_,0, _page.getAnalysisMessages()), results_);
                 typeInfer = res_;
             }
         }

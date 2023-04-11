@@ -31,7 +31,7 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation impleme
     private int ref=-1;
     private final CustList<NamedFunctionBlock> customMethod = new CustList<NamedFunctionBlock>();
     private ClassField idField = new ClassField("","");
-    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
+    private final CustList<AnaResultPartTypeDtoInt> partOffsets = new CustList<AnaResultPartTypeDtoInt>();
     private String importedClassName = "";
     private boolean recordBlock;
 
@@ -169,7 +169,7 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation impleme
         return fieldName;
     }
 
-    public CustList<AnaResultPartType> getPartOffsets() {
+    public CustList<AnaResultPartTypeDtoInt> getPartOffsets() {
         return partOffsets;
     }
 

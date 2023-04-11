@@ -66,8 +66,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     private final Ints staticInitInterfacesOffset = new Ints();
     private final Ints instInitInterfacesOffset = new Ints();
-    private final CustList<AnaResultPartType> partsStaticInitInterfacesOffset = new CustList<AnaResultPartType>();
-    private final CustList<AnaResultPartType> partsInstInitInterfacesOffset = new CustList<AnaResultPartType>();
+    private final CustList<AnaResultPartTypeDtoInt> partsStaticInitInterfacesOffset = new CustList<AnaResultPartTypeDtoInt>();
+    private final CustList<AnaResultPartTypeDtoInt> partsInstInitInterfacesOffset = new CustList<AnaResultPartTypeDtoInt>();
 
 
     private String importedDirectSuperClass = "";
@@ -1820,11 +1820,11 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return nameLength;
     }
 
-    public CustList<AnaResultPartType> getPartsStaticInitInterfacesOffset() {
+    public CustList<AnaResultPartTypeDtoInt> getPartsStaticInitInterfacesOffset() {
         return partsStaticInitInterfacesOffset;
     }
 
-    public CustList<AnaResultPartType> getPartsInstInitInterfacesOffset() {
+    public CustList<AnaResultPartTypeDtoInt> getPartsInstInitInterfacesOffset() {
         return partsInstInitInterfacesOffset;
     }
 

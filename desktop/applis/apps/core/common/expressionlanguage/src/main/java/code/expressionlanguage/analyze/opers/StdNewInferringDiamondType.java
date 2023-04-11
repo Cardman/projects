@@ -6,9 +6,7 @@ import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.opers.util.Parametrable;
 import code.expressionlanguage.analyze.opers.util.ParentInferring;
 import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.PreLinkagePartTypeUtil;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.util.StringMap;
@@ -79,7 +77,7 @@ public final class StdNewInferringDiamondType extends AbstractInferringDiamondTy
             type_ = StringUtil.concat(id_,"..",idClass_);
             int begin_ = newKeyWord_.length()+ getLocal();
             FileBlock r_ = _page.getCurrentFile();
-            setResolvedInstance(new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(getInferForm(), innTypeInf, StringExpUtil.getIdFromAllTypes(type_), r_, rc_ + begin_, _page)));
+            setResolvedInstance(new ResolvedInstance(new AnaResultPartTypeDto(getInferForm(), innTypeInf, StringExpUtil.getIdFromAllTypes(type_), r_, rc_ + begin_,0, _page.getAnalysisMessages())));
         }
         return type_;
     }

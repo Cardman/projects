@@ -6,10 +6,8 @@ import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.Parametrable;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.util.CustList;
@@ -19,7 +17,7 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
 
     private String className;
 
-    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
+    private final CustList<AnaResultPartTypeDtoInt> partOffsets = new CustList<AnaResultPartTypeDtoInt>();
     private InfoErrorDto partOffsetsErr = new InfoErrorDto("");
     public VarargOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -49,7 +47,7 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
         int off_ = StringUtil.getFirstPrintableCharIndex(str_);
         AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(afterLeftPar_ + off_, str_.trim(), _page);
         str_ = result_.getResult(_page);
-        partOffsets.add(result_);
+        partOffsets.add(new AnaResultPartTypeDirectDto(result_));
         setResultClass(new AnaClassArgumentMatching(str_));
         className = str_;
         if (m_ instanceof RetrieveMethod) {
@@ -109,7 +107,7 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
     }
 
     @Override
-    public CustList<AnaResultPartType> getPartOffsets() {
+    public CustList<AnaResultPartTypeDtoInt> getPartOffsets() {
         return partOffsets;
     }
 

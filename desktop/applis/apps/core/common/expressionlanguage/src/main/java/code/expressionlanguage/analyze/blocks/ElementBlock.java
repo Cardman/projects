@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.AnaResultPartTypeDirectDto;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
@@ -118,7 +119,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
             int loc_ = StringUtil.getFirstPrintableCharIndex(p);
             AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(i_ + loc_, p, _page);
             j_.add(result_.getResult(_page));
-            _elt.getElementContent().getPartOffsets().add(result_);
+            _elt.getElementContent().getPartOffsets().add(new AnaResultPartTypeDirectDto(result_));
             i_ += p.length() + 1;
         }
         StringMap<StringList> varsCt_ = _page.getCurrentConstraints().getCurrentConstraints();

@@ -245,8 +245,8 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_, key_.trim(), _page);
         AnaGeneType bl_ = resolvedIdType_.getGeneType();
         String clKey_ = resolvedIdType_.getFullName();
-        CustList<AnaResultPartType> allPartTypes_ = new CustList<AnaResultPartType>();
-        CustList<AnaResultPartType> allPartSuperTypes_ = new CustList<AnaResultPartType>();
+        CustList<AnaResultPartTypeDtoInt> allPartTypes_ = new CustList<AnaResultPartTypeDtoInt>();
+        CustList<AnaResultPartTypeDtoInt> allPartSuperTypes_ = new CustList<AnaResultPartTypeDtoInt>();
         allPartTypes_.add(resolvedIdType_.getDels());
         if (!(bl_ instanceof RootBlock)) {
             sum_ += _ov.length()+1;
@@ -276,7 +276,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         int firstPar_ = extr_.getFirst().length();
         ResolvedIdType resolvedIdTypeDest_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_ + firstPar_ + 1, fromType_, _page);
         String clDest_ = resolvedIdTypeDest_.getFullName();
-        CustList<AnaResultPartType> superPartOffsets_ = new CustList<AnaResultPartType>();
+        CustList<AnaResultPartTypeDtoInt> superPartOffsets_ = new CustList<AnaResultPartTypeDtoInt>();
         superPartOffsets_.add(resolvedIdTypeDest_.getDels());
         AnaFormattedRootBlock formInfoDest_ = AnaInherits.getOverridingFullTypeByBases(root_, resolvedIdTypeDest_.getGeneType());
         if (formInfoDest_ == null) {

@@ -13,7 +13,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
     private final AnaTypeCheckContent typeCheckContent;
     private final String extractType;
     private int beginType;
-    private AnaResultPartType partOffsets;
+    private AnaResultPartTypeDtoInt partOffsets;
     private boolean found;
     public CastOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -42,7 +42,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
                 res_ = "";
             }
             typeCheckContent.setClassName(res_);
-            partOffsets = resType_;
+            partOffsets = new AnaResultPartTypeDirectDto(resType_);
         }
     }
 
@@ -83,7 +83,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
         return typeCheckContent;
     }
 
-    public AnaResultPartType getPartOffsets() {
+    public AnaResultPartTypeDtoInt getPartOffsets() {
         return partOffsets;
     }
 

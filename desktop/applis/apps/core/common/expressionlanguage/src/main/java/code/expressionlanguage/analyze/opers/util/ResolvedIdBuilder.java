@@ -3,14 +3,14 @@ package code.expressionlanguage.analyze.opers.util;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.StringList;
 
 public final class ResolvedIdBuilder {
-    private final CustList<AnaResultPartType> typesAna;
+    private final CustList<AnaResultPartTypeDtoInt> typesAna;
 
     public ResolvedIdBuilder(int _from, String _fromType, StringList _params, String _className, AnalyzedPageEl _page) {
         typesAna = IdFctOperation.types(_from, _params, _fromType, _className, _page);

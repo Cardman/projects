@@ -9,9 +9,7 @@ import code.expressionlanguage.analyze.files.SegmentStringPart;
 import code.expressionlanguage.analyze.files.SegmentStringType;
 import code.expressionlanguage.analyze.opers.MethodOperation;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
-import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.NumParsers;
@@ -479,7 +477,7 @@ public final class ElResolver {
             _d.getDelCast().add(i_);
             _d.getDelCast().add(indexParRight_);
             _d.getDelCastExtract().add(EMPTY_STRING);
-            _d.getCastParts().add(new AnaResultPartType());
+            _d.getCastParts().add(new AnaResultPartTypeDirectDto());
             _out.setNextIndex(indexParRight_ + 1);
             return;
         }
@@ -1086,7 +1084,7 @@ public final class ElResolver {
         if (_isKeySt) {
             _d.getDelKeyWordStaticExtract().add(EMPTY_STRING);
             _d.getStaticAccessTypes().add(null);
-            _d.getStaticParts().add(new AnaResultPartType());
+            _d.getStaticParts().add(new AnaResultPartTypeDirectDto());
         }
     }
 
@@ -1374,7 +1372,7 @@ public final class ElResolver {
                 _dout.getDelCast().add(indexParRight_);
                 String typeOut_ = resType_.getResult();
                 _dout.getDelCastExtract().add(typeOut_);
-                _dout.getCastParts().add(resType_);
+                _dout.getCastParts().add(new AnaResultPartTypeDirectDto(resType_));
                 doubleDotted_.setNextIndex(indexParRight_+1);
                 return;
             }
@@ -1792,7 +1790,7 @@ public final class ElResolver {
         op_.setupValues(_string, is_, instance_, laterIndexesDouble_);
         String extracted_ = af_.getExtracted();
         op_.setExtractType(extracted_);
-        AnaResultPartType partsOffs_ = af_.getPartsOffs();
+        AnaResultPartTypeDtoInt partsOffs_ = af_.getPartsOffs();
         op_.setPartOffsets(partsOffs_);
         op_.adjust(_string,_meth,_page);
         return op_;
@@ -1865,7 +1863,7 @@ public final class ElResolver {
         if (delimits(_d.getDelKeyWordStaticCall(), _offset, _firstPrintChar, strLen_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.STATIC_CALL_ACCESS);
-            op_.setPartOffsets(new AnaResultPartType());
+            op_.setPartOffsets(new AnaResultPartTypeDirectDto());
             op_.setOperators(new StrTypes());
             op_.setValue(_string, _firstPrintChar);
             return op_;

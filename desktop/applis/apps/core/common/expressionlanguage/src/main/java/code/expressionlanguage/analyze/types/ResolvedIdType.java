@@ -5,9 +5,9 @@ import code.util.CustList;
 
 public final class ResolvedIdType {
     private final ResolvedIdTypeContent content;
-    private final AnaResultPartType dels;
+    private final AnaResultPartTypeDtoInt dels;
 
-    public ResolvedIdType(String _fullName, AnaGeneType _geneType, AnaResultPartType _dels) {
+    public ResolvedIdType(String _fullName, AnaGeneType _geneType, AnaResultPartTypeDtoInt _dels) {
         content = new ResolvedIdTypeContent(_fullName, _geneType);
         dels = _dels;
     }
@@ -26,7 +26,7 @@ public final class ResolvedIdType {
         return true;
     }
 
-    public AnaResultPartType getDels() {
+    public AnaResultPartTypeDtoInt getDels() {
         return dels;
     }
 

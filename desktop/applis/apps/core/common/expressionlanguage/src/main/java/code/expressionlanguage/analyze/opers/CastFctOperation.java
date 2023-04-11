@@ -6,10 +6,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.AnaGeneType;
@@ -26,7 +23,7 @@ import code.util.core.StringUtil;
 
 public abstract class CastFctOperation extends AbstractUnaryOperation{
     private final AnaExplicitContent explicitContent;
-    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
+    private final CustList<AnaResultPartTypeDtoInt> partOffsets = new CustList<AnaResultPartTypeDtoInt>();
 
     private AnaTypeFct function;
     protected CastFctOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -57,7 +54,7 @@ public abstract class CastFctOperation extends AbstractUnaryOperation{
         int leftPar_ = explicitContent.getClassName().indexOf(PAR_LEFT);
         AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(leftPar_ + 1 + StringExpUtil.getOffset(types_.first()), types_.first(), _page);
         String res_ = result_.getResult(_page);
-        partOffsets.add(result_);
+        partOffsets.add(new AnaResultPartTypeDirectDto(result_));
         explicitContent.setClassName(res_);
         setResultClass(new AnaClassArgumentMatching(explicitContent.getClassName(), _page.getPrimitiveTypes()));
         if (!StringExpUtil.customCast(res_)) {
@@ -104,11 +101,11 @@ public abstract class CastFctOperation extends AbstractUnaryOperation{
             String arg_ = types_.get(1);
             int lc_ = leftPar_ + types_.first().length() + 2;
             AnaResultPartType resolvedMid_ = ResolvingTypes.resolveCorrectAccessibleType(lc_ + StringExpUtil.getOffset(arg_),arg_.trim(), explicitContent.getClassName(), _page);
-            partOffsets.add(resolvedMid_);
+            partOffsets.add(new AnaResultPartTypeDirectDto(resolvedMid_));
             String midType_ = resolvedMid_.getResult(_page);
             arg_ = types_.last();
             AnaResultPartType resolvedLast_ = ResolvingTypes.resolveCorrectAccessibleType(lc_ +types_.get(1).length()+1 + StringExpUtil.getOffset(arg_),arg_.trim(), explicitContent.getClassName(), _page);
-            partOffsets.add(resolvedLast_);
+            partOffsets.add(new AnaResultPartTypeDirectDto(resolvedLast_));
             String lastType_ = resolvedLast_.getResult(_page);
             ClassMethodIdAncestor uniq_ = new ClassMethodIdAncestor(geneType_, new ClassMethodId(explicitContent.getClassName(), new MethodId(MethodAccessKind.STATIC, exp_, new StringList(midType_, lastType_))), 0);
             AnaClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
@@ -144,7 +141,7 @@ public abstract class CastFctOperation extends AbstractUnaryOperation{
         //add a type for full id
         String arg_ = _types.last();
         AnaResultPartType resolved_ = ResolvingTypes.resolveCorrectAccessibleType(_leftPar + _types.first().length() + 2 + StringExpUtil.getOffset(arg_), arg_.trim(), explicitContent.getClassName(), _page);
-        partOffsets.add(resolved_);
+        partOffsets.add(new AnaResultPartTypeDirectDto(resolved_));
         String lastType_ = resolved_.getResult(_page);
         AnaGeneType geneType_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(explicitContent.getClassName()));
         if (geneType_ == null) {
@@ -199,7 +196,7 @@ public abstract class CastFctOperation extends AbstractUnaryOperation{
         return explicitContent;
     }
 
-    public CustList<AnaResultPartType> getPartOffsets() {
+    public CustList<AnaResultPartTypeDtoInt> getPartOffsets() {
         return partOffsets;
     }
 
