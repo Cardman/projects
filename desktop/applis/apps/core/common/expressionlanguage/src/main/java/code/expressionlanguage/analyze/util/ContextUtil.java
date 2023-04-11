@@ -199,7 +199,14 @@ public final class ContextUtil {
         if (!(_g instanceof RootBlock)) {
             return false;
         }
-        return !((RootBlock)_g).getFile().isPredefined();
+        return isFromCustFile(((RootBlock) _g).getFile());
+    }
+
+    public static boolean isFromCustFile(FileBlock _g) {
+        if (_g == null) {
+            return false;
+        }
+        return !_g.isPredefined();
     }
     public static boolean isFinalField(ClassField _classField, AnalyzedPageEl _page) {
         String fullName_ = _classField.getClassName();

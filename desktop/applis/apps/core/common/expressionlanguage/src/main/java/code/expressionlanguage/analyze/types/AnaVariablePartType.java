@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.util.core.StringUtil;
 
 final class AnaVariablePartType extends AnaLeafPartType {
@@ -41,7 +42,7 @@ final class AnaVariablePartType extends AnaLeafPartType {
     }
 
     void processOffsets(FileBlock _rooted) {
-        if (refFileName != null) {
+        if (ContextUtil.isFromCustFile(refFileName)) {
             currentFile = _rooted;
         }
     }

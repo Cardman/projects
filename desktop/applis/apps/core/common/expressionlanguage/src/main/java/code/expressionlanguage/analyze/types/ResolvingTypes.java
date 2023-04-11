@@ -1,13 +1,12 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.blocks.AbsBk;
+import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.AnaGeneType;
@@ -36,7 +35,7 @@ public final class ResolvingTypes {
         String idFromType_ = StringExpUtil.getIdFromAllTypes(_fromType);
         AnaGeneType from_ = _page.getAnaGeneType(idFromType_);
         FileBlock ref_ = null;
-        if (ContextUtil.isFromCustFile(from_)) {
+        if (from_ instanceof RootBlock) {
             ref_ = ((AbsBk)from_).getFile();
         }
         _page.getAvailableVariables().clear();
