@@ -6,10 +6,15 @@ import code.expressionlanguage.analyze.files.ResultParsedAnnot;
 import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.expressionlanguage.analyze.types.LocationsPartTypeUtil;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
 
@@ -36,18 +41,76 @@ public final class ResultExpressionOperationNode {
             return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticCallAccessOperation)foundOp_).getPartOffsets().getResult(), _caret);
         }
         if (foundOp_ instanceof FunctFilterOperation) {
-            return fetch(_caret, ((FunctFilterOperation) foundOp_).getPartOffsets());
+            return id(_caret, foundOp_);
         }
         if (foundOp_ instanceof StandardInstancingOperation) {
             StandardInstancingOperation instStd_ = (StandardInstancingOperation) foundOp_;
+            int offsetNew_ = instStd_.getOffsetFct();
+            int beginInst_ = offsetNew_ + res_.begin(instStd_);
+            int lengthInst_ = StringExpUtil.getDollarWordSeparators(instStd_.getMethodName()).get(1).length();
+            if (instStd_.getInnerElt() != null||inRange(beginInst_,_caret,beginInst_+lengthInst_)) {
+                return now(instStd_);
+            }
+            ResolvedInstance r_ = instStd_.getResolvedInstance();
+            CustList<SrcFileLocation> s_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(r_.getResult(), _caret);
+            if (!s_.isEmpty()) {
+                return s_;
+            }
+            CustList<SrcFileLocation> t_ = fetchAna(_caret,r_.getParts());
+            if (!t_.isEmpty()) {
+                return t_;
+            }
             return fetch(_caret,instStd_.getPartsInstInitInterfaces());
         }
+        AbsBk bl_ = res_.getBlock();
+        if (bl_ instanceof InnerTypeOrElement) {
+            return fetch(_caret,((InnerTypeOrElement)bl_).getElementContent().getPartOffsets());
+        }
         return new CustList<SrcFileLocation>();
+    }
+
+    private static CustList<SrcFileLocation> now(AbstractInstancingOperation _maintenant) {
+        StandardConstructor std_ = _maintenant.getInstancingCommonContent().getConstructor();
+        AnaTypeFct constructor_ = _maintenant.getConstructor();
+        CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+        if (_maintenant.getInstancingCommonContent().getConstId() != null &&std_ != null) {
+            ls_.add(new SrcFileLocationStdMethod(std_));
+        }
+        if (constructor_ != null) {
+            NamedFunctionBlock f_ = constructor_.getFunction();
+            if (f_ != null) {
+                ls_.add(new SrcFileLocationMethod(f_));
+            }
+        }
+        AnaFormattedRootBlock format_ = _maintenant.getFormattedType();
+        if (format_ != null) {
+            RootBlock r_ = format_.getRootBlock();
+            ls_.add(new SrcFileLocationType(r_));
+        }
+        return ls_;
+    }
+
+    private static CustList<SrcFileLocation> id(int _caret, OperationNode _foundOp) {
+        if (_foundOp instanceof IdFctOperation) {
+            CustList<SrcFileLocation> s_ = fetch(_caret, ((IdFctOperation) _foundOp).getPartOffsetsSet());
+            if (!s_.isEmpty()) {
+                return s_;
+            }
+        }
+        return fetch(_caret, ((FunctFilterOperation) _foundOp).getPartOffsets());
     }
 
     private static CustList<SrcFileLocation> fetch(int _caret, CustList<AnaResultPartTypeDtoInt> _list) {
         CustList<SrcFileLocation> s_ = new CustList<SrcFileLocation>();
         for (AnaResultPartTypeDtoInt a: _list) {
+            s_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(a, _caret));
+        }
+        return s_;
+    }
+
+    private static CustList<SrcFileLocation> fetchAna(int _caret, CustList<AnaResultPartType> _list) {
+        CustList<SrcFileLocation> s_ = new CustList<SrcFileLocation>();
+        for (AnaResultPartType a: _list) {
             s_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(a, _caret));
         }
         return s_;
@@ -90,7 +153,7 @@ public final class ResultExpressionOperationNode {
                 out_.setBlock(sub_);
                 out_.setFound(null);
             } else {
-                OperationNode found_ = out_.subContainer(sub_,_caret);
+                OperationNode found_ = out_.subContainer(_caret);
                 next_ = nextBlock(found_, res_.getSumOffset(),_caret);
                 if (next_ == null) {
                     out_.setBlock(sub_);
@@ -359,9 +422,9 @@ public final class ResultExpressionOperationNode {
         return -1;
     }
 
-    public OperationNode subContainer(AbsBk _bl,int _caret) {
-        OperationNode current_ = root(_bl,resultExpression);
-        OperationNode out_ = root(_bl, resultExpression);
+    public OperationNode subContainer(int _caret) {
+        OperationNode current_ = root(resultExpression);
+        OperationNode out_ = root(resultExpression);
         while (current_ != null) {
             OperationNode ch_ = current_.getFirstChild();
             if (match(current_, _caret)) {
@@ -417,35 +480,14 @@ public final class ResultExpressionOperationNode {
         return null;
     }
 
-    private static OperationNode root(AbsBk _bl, ResultExpression _r) {
+    private static OperationNode root(ResultExpression _r) {
         OperationNode r_ = _r.getRoot();
-        if (_bl instanceof InnerTypeOrElement&&(r_ instanceof AffectationOperation||r_ instanceof ErrorPartOperation)) {
-            OperationNode firstChild_ = r_.getFirstChild();
-            OperationNode next_ = fetchNext(firstChild_);
-            AbstractInstancingOperation i_ = asInstancing(next_);
-            if (i_ == null) {
-                return r_;
-            }
-            return i_;
+        if (r_ instanceof AffectationOperation && ((AffectationOperation)r_).isSynthetic()) {
+            return r_.getFirstChild().getNextSibling();
         }
         return r_;
     }
 
-    private static OperationNode fetchNext(OperationNode _firstChild) {
-        OperationNode next_ = null;
-        if (_firstChild != null) {
-            next_ = _firstChild.getNextSibling();
-        }
-        return next_;
-    }
-
-    private static AbstractInstancingOperation asInstancing(OperationNode _next) {
-        AbstractInstancingOperation inst_ = null;
-        if (_next instanceof AbstractInstancingOperation) {
-            inst_ = (AbstractInstancingOperation) _next;
-        }
-        return inst_;
-    }
     private boolean match(OperationNode _b, int _caret) {
         if (_b == null) {
             return false;

@@ -7823,7 +7823,7 @@ public final class Errors0Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
-                "  $new <a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a>();\n" +
+                "  <a title=\"The constructor Inexist() is undefined.\" class=\"e\">$new</a> <a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a>();\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -12220,7 +12220,7 @@ public final class Errors0Test extends ProcessMethodCommon {
                 " $public $class <a name=\"m47\">Inner</a>{\n" +
                 " }\n" +
                 " $static{\n" +
-                "  $new <a title=\"The type pkg.MyClass..Inner is not parameterized correctly.\n" +
+                "  <a title=\"The constructor Inner() is undefined.\" class=\"e\">$new</a> <a title=\"The type pkg.MyClass..Inner is not parameterized correctly.\n" +
                 "\n" +
                 "pkg.MyClass..Inner\" href=\"#m47\" class=\"e\">Inner</a>();\n" +
                 " }\n" +

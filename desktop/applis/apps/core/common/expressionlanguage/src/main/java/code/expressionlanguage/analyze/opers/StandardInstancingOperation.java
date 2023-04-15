@@ -23,6 +23,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.AnaInstancingStdContent;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.stds.BadClass;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.Ints;
@@ -39,6 +40,7 @@ public final class StandardInstancingOperation extends
     private InnerTypeOrElement innerElt;
     private StringList errorsFields = new StringList();
     private final CustList<AnaResultPartTypeDtoInt> partsInstInitInterfaces = new CustList<AnaResultPartTypeDtoInt>();
+    private String defType = "";
 
     public StandardInstancingOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -93,13 +95,17 @@ public final class StandardInstancingOperation extends
             setStaticAccess(_page.getStaticContext());
             if (!getTypeInfer().isEmpty()) {
                 realClassName_ = getTypeInfer();
+                defType = realClassName_;
             } else if (innerElt == null) {
                 AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(0, realClassName_, _page);
+                setGeneType(new BadClass());
+                defType = realClassName_;
                 realClassName_ = result_.getResult(_page);
 //                getPartOffsets().addAllElts(_page.getCurrentParts());
                 setResolvedInstance(new ResolvedInstance(result_));
             } else {
                 realClassName_ = realClassName_.trim();
+                defType = realClassName_;
             }
             checkInstancingType(realClassName_, isStaticAccess(), _page);
             analyzeCtor(realClassName_, varargParam_, _page);
@@ -166,6 +172,7 @@ public final class StandardInstancingOperation extends
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         FileBlock r_ = _page.getCurrentFile();
         setResolvedInstance(new ResolvedInstance(new AnaResultPartTypeDto(idClass_,root_,inner_,r_,_page.getIndex(),0,_page.getAnalysisMessages()), results_));
+        defType = realClassName_;
         realClassName_ = check(root_,sup_.getOwnedName(), partsArgs_, vars_, _page);
         analyzeCtor(realClassName_, varargParam_, _page);
     }
@@ -246,6 +253,11 @@ public final class StandardInstancingOperation extends
             return;
         }
         if (innerElt != null && innerElt.getElementContent().isKoTy()) {
+            setResultClass(new AnaClassArgumentMatching(_realClassName));
+            return;
+        }
+        if (getGeneType() instanceof BadClass) {
+            buildCtorError(name_,_page,defType);
             setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
         }

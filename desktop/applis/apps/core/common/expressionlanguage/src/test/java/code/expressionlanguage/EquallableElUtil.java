@@ -18,6 +18,7 @@ import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.structs.Struct;
 import code.util.Replacement;
 import code.util.StringList;
@@ -31,7 +32,7 @@ public abstract class EquallableElUtil {
         Assert.assertNotNull(_value);
     }
 
-    public static void assertNotNull(StandardMethod _value) {
+    public static void assertNotNull(StandardNamedFunction _value) {
         Assert.assertNotNull(_value);
     }
     public static void assertNotNull(ContextEl _value) {

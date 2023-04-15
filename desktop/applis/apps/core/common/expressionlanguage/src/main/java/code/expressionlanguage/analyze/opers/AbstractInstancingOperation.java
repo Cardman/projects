@@ -37,6 +37,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     private StringList staticInitInterfaces = new StringList();
     private Ints staticInitInterfacesOffset = new Ints();
+    private AnaGeneType geneType;
 
     protected AbstractInstancingOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -418,5 +419,13 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     public int getDeltaAnnot() {
         return deltaAnnot;
+    }
+
+    public AnaGeneType getGeneType() {
+        return geneType;
+    }
+
+    public void setGeneType(AnaGeneType _g) {
+        this.geneType = _g;
     }
 }

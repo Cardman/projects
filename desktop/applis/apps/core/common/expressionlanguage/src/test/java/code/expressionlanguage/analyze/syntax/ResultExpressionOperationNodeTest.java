@@ -1419,6 +1419,263 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",74);
         assertEq(0,r_.size());
     }
+    @Test
+    public void locations12() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer<T> {\n");
+        xml_.append("$public $static $void method(){\n");
+        xml_.append("Outer<$int> v=$new();\n");
+        xml_.append("v[$id(Outer,T,[]=,Outer,T),0]++;\n");
+        xml_.append("}\n");
+        xml_.append("$public $void $this(T i){\n");
+        xml_.append("}\n");
+        xml_.append("$public $int $this(T i){\n");
+        xml_.append("$return 0;\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",91);
+        assertEq(1,r_.size());
+        assertEq(15,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations13() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer<T> {\n");
+        xml_.append("$public $static $void method(){\n");
+        xml_.append("Outer<$int> v=$new();\n");
+        xml_.append("v[$id(Outer,T,[]=,Outer,T),0]++;\n");
+        xml_.append("}\n");
+        xml_.append("$public $void $this(T i){\n");
+        xml_.append("}\n");
+        xml_.append("$public $int $this(T i){\n");
+        xml_.append("$return 0;\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",103);
+        assertEq(1,r_.size());
+        assertEq(15,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations14() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer<T> {\n");
+        xml_.append("$public $static $void method(){\n");
+        xml_.append("Outer<$int> v=$new();\n");
+        xml_.append("v[$id(Outer,T,[]=,Outer,T),0]++;\n");
+        xml_.append("}\n");
+        xml_.append("$public $void $this(T i){\n");
+        xml_.append("}\n");
+        xml_.append("$public $int $this(T i){\n");
+        xml_.append("$return 0;\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",96);
+        assertEq(1,r_.size());
+        assertEq(25,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq("T",((SrcFileLocationTypeVar)r_.get(0)).getName());
+    }
+    @Test
+    public void locations15() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer<T> {\n");
+        xml_.append("$public $static $void method(){\n");
+        xml_.append("Outer<$int> v=$new();\n");
+        xml_.append("v[$id(Outer,T,[]=,Outer,T),0]++;\n");
+        xml_.append("}\n");
+        xml_.append("$public $void $this(T i){\n");
+        xml_.append("}\n");
+        xml_.append("$public $int $this(T i){\n");
+        xml_.append("$return 0;\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",108);
+        assertEq(1,r_.size());
+        assertEq(25,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq("T",((SrcFileLocationTypeVar)r_.get(0)).getName());
+    }
+    @Test
+    public void locations16() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer<T> {\n");
+        xml_.append("$public $static $void method(){\n");
+        xml_.append("callee($vararg(Outer<$int>),$firstopt($new()));\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $void callee(Outer<$int>... i){\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",78);
+        assertEq(1,r_.size());
+        assertEq(15,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations17() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer<T> {\n");
+        xml_.append("ONE<Sample>($null),\n");
+        xml_.append("TWO<$int>(2);\n");
+        xml_.append("(T i){\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Sample{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",33);
+        assertEq(1,r_.size());
+        assertEq(89,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations18() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer<T> {\n");
+        xml_.append("ONE<Sample>($new Sample()),\n");
+        xml_.append("TWO<$int>(2);\n");
+        xml_.append("(T i){\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Sample{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",46);
+        assertEq(1,r_.size());
+        assertEq(97,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations19() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer<T> {\n");
+        xml_.append("ONE<Sample.Inner<Sample>>($new Sample().$new Inner<Sample>()),\n");
+        xml_.append("TWO<$int>(2);\n");
+        xml_.append("(T i){\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Sample{\n");
+        xml_.append("$public $class Inner<S>{\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",80);
+        assertEq(1,r_.size());
+        assertEq(132,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations20() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer<T> {\n");
+        xml_.append("$public $static $void method(){\n");
+        xml_.append("$new Sample();\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Sample{\n");
+        xml_.append("$public Sample(){\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",62);
+        assertEq(2,r_.size());
+        assertEq(108, r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(96, r_.get(97-96).getIndex());
+        assertEq("pkg/Ex",r_.get(97-96).getFileName());
+    }
+    @Test
+    public void locations21() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer<T> {\n");
+        xml_.append("$public $static $void method(){\n");
+        xml_.append("$new Sample();\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        xml_.append("$public @$class pkg.Sample{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",62);
+        assertEq(1,r_.size());
+        assertEq(109-12,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations22() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer<T> {\n");
+        xml_.append("$public $static $void method(){\n");
+        xml_.append("$new Sample();\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",62);
+        assertEq(0,r_.size());
+    }
+    @Test
+    public void locations23() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer<T> {\n");
+        xml_.append("$public $static $void method(){\n");
+        xml_.append("$new StringBuilder();\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",62);
+        assertEq(1,r_.size());
+        assertEq(0,r_.get(0).getIndex());
+        assertEq("",r_.get(0).getFileName());
+        assertNotNull(((SrcFileLocationStdMethod)r_.get(0)).getStd());
+    }
+    @Test
+    public void locations24() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE(1),\n");
+        xml_.append("TWO(2);\n");
+        xml_.append("($int i){\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",26);
+        assertEq(2,r_.size());
+        assertEq(42,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14,r_.get(1).getIndex());
+        assertEq("pkg/Ex",r_.get(1).getFileName());
+    }
     private static CustList<SrcFileLocation> locations(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return ResultExpressionOperationNode.locations(a_,_fileName,_caret);

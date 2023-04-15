@@ -1,11 +1,11 @@
 package code.expressionlanguage.analyze.syntax;
 
-import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardNamedFunction;
 
 public final class SrcFileLocationStdMethod implements SrcFileLocation {
-    private final StandardMethod std;
+    private final StandardNamedFunction std;
 
-    public SrcFileLocationStdMethod(StandardMethod _s) {
+    public SrcFileLocationStdMethod(StandardNamedFunction _s) {
         this.std = _s;
     }
 
@@ -19,7 +19,7 @@ public final class SrcFileLocationStdMethod implements SrcFileLocation {
         return 0;
     }
 
-    public StandardMethod getStd() {
+    public StandardNamedFunction getStd() {
         return std;
     }
 }
