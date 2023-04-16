@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.expressionlanguage.analyze.types.LocationsPartTypeUtil;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
@@ -24,9 +25,8 @@ public final class ResultExpressionOperationNode {
     private OperationNode found;
     public static String vexerChamps(AnalyzedPageEl _page, String _fileName, int _caret) {
         ResultExpressionOperationNode res_ = container(_page, _fileName, _caret);
-        CustList<SrcFileLocation> machines_ = coeur(_caret, res_);
-        if (res_.getFound() instanceof SettableAbstractFieldOperation&&!machines_.isEmpty()) {
-            return ((SettableAbstractFieldOperation)res_.getFound()).getSettableFieldContent().getClassField().getFieldName();
+        if (res_.getFound() instanceof SettableAbstractFieldOperation) {
+            return ((SettableAbstractFieldOperation)res_.getFound()).getFieldIdReadOnly().getFieldName();
         }
         return "";
     }
@@ -79,8 +79,15 @@ public final class ResultExpressionOperationNode {
             CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
             int i_ = ((SettableAbstractFieldOperation) foundOp_).getValueOffset();
             RootBlock r_ = ((SettableAbstractFieldOperation) foundOp_).getFieldType();
+            ClassField cf_ = ((SettableAbstractFieldOperation) foundOp_).getFieldIdReadOnly();
+            String fileName_;
             if (r_ != null) {
-                ls_.add(new SrcFileLocationOffset(r_.getFile().getFileName(),i_));
+                fileName_ = r_.getFile().getFileName();
+            } else {
+                fileName_ = "";
+            }
+            if (!cf_.getClassName().isEmpty()) {
+                ls_.add(new SrcFileLocationField(cf_,fileName_,i_));
             }
             return ls_;
         }

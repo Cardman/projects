@@ -1,10 +1,14 @@
 package code.expressionlanguage.analyze.syntax;
 
-public final class SrcFileLocationOffset implements SrcFileLocation {
+import code.expressionlanguage.common.ClassField;
+
+public final class SrcFileLocationField implements SrcFileLocation {
+    private final ClassField cf;
     private final String fileName;
     private final int index;
 
-    public SrcFileLocationOffset(String _f, int _i) {
+    public SrcFileLocationField(ClassField _c,String _f, int _i) {
+        cf = _c;
         this.fileName = _f;
         index = _i;
     }
@@ -17,5 +21,9 @@ public final class SrcFileLocationOffset implements SrcFileLocation {
     @Override
     public int getIndex() {
         return index;
+    }
+
+    public ClassField getCf() {
+        return cf;
     }
 }

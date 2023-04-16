@@ -2038,6 +2038,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq(1,r_.size());
         assertEq(58,r_.get(0).getIndex());
         assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq("pkg.Outer",((SrcFileLocationField)r_.get(0)).getCf().getClassName());
+        assertEq("THREE",((SrcFileLocationField)r_.get(0)).getCf().getFieldName());
     }
     @Test
     public void vexer1() {
