@@ -1881,9 +1881,189 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq(79,r_.get(1).getIndex());
         assertEq("pkg/Ex",r_.get(1).getFileName());
     }
+    @Test
+    public void locations35() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=ONE.ordinal()+TWO.ordinal();\n");
+        xml_.append("$final $int FOUR=THREE;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",58);
+        assertEq(1,r_.size());
+        assertEq(58,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations36() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=ONE.ordinal()+TWO.ordinal();\n");
+        xml_.append("$final $int FOUR=THREE;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",64);
+        assertEq(1,r_.size());
+        assertEq(26,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations37() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=ONE.ordinal()+TWO.ordinal();\n");
+        xml_.append("$final $int FOUR=THREE;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",78);
+        assertEq(1,r_.size());
+        assertEq(31,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations38() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=ONE.ordinal()+TWO.ordinal(),");
+        xml_.append("FOUR=THREE;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",92);
+        assertEq(1,r_.size());
+        assertEq(92,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations39() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=ONE.ordinal()+TWO.ordinal(),");
+        xml_.append("FOUR=THREE;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",98);
+        assertEq(1,r_.size());
+        assertEq(58,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations40() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=ONE.ordinal()+TWO.ordinal();\n");
+        xml_.append("$final $int FOUR=THREE;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",26);
+        assertEq(1,r_.size());
+        assertEq(14,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations41() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=ONE.ordinal()+TWO.ordinal();\n");
+        xml_.append("$final $int FOUR=THREE;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",31);
+        assertEq(1,r_.size());
+        assertEq(31,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations42() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=ONE.ordinal()+TWO.ordinal(),");
+        xml_.append("FOUR=FIVE;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",98);
+        assertEq(0,r_.size());
+    }
+    @Test
+    public void vexer1() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=ONE.ordinal()+TWO.ordinal(),");
+        xml_.append("FOUR=FIVE;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        assertEq("",vexerChamps(files_,"pkg/Ex",98));
+    }
+    @Test
+    public void vexer2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=ONE.ordinal()+TWO.ordinal(),");
+        xml_.append("FOUR=FIVE;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        assertEq("",vexerChamps(files_,"pkg/Ex",0));
+    }
+    @Test
+    public void vexer3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=ONE.ordinal()+TWO.ordinal(),");
+        xml_.append("FOUR=FIVE;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        assertEq("FOUR",vexerChamps(files_,"pkg/Ex",93));
+    }
     private static CustList<SrcFileLocation> locations(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return ResultExpressionOperationNode.locations(a_,_fileName,_caret);
+    }
+    private static String vexerChamps(StringMap<String> _files, String _fileName, int _caret) {
+        AnalyzedPageEl a_ = quickAnalyze(_files);
+        return ResultExpressionOperationNode.vexerChamps(a_,_fileName,_caret);
     }
     private static AbsBk quickFindBlock(StringMap<String> _files, String _fileName, int _caret) {
         return quickFindOperation(_files,_fileName,_caret).getBlock();

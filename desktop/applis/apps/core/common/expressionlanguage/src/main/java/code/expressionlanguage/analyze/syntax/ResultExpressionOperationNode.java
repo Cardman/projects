@@ -22,6 +22,14 @@ public final class ResultExpressionOperationNode {
     private ResultExpression resultExpression;
     private AbsBk block;
     private OperationNode found;
+    public static String vexerChamps(AnalyzedPageEl _page, String _fileName, int _caret) {
+        ResultExpressionOperationNode res_ = container(_page, _fileName, _caret);
+        CustList<SrcFileLocation> machines_ = coeur(_caret, res_);
+        if (res_.getFound() instanceof SettableAbstractFieldOperation&&!machines_.isEmpty()) {
+            return ((SettableAbstractFieldOperation)res_.getFound()).getSettableFieldContent().getClassField().getFieldName();
+        }
+        return "";
+    }
     public static CustList<SrcFileLocation> locations(AnalyzedPageEl _page, String _fileName, int _caret) {
         ResultExpressionOperationNode res_ = container(_page, _fileName, _caret);
         CustList<SrcFileLocation> machines_ = coeur(_caret, res_);
@@ -65,6 +73,15 @@ public final class ResultExpressionOperationNode {
             CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
             AnaTypeFct f_ = ((AssocationOperation) foundOp_).getFunction();
             fctPub(f_, ls_);
+            return ls_;
+        }
+        if (foundOp_ instanceof SettableAbstractFieldOperation) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            int i_ = ((SettableAbstractFieldOperation) foundOp_).getValueOffset();
+            RootBlock r_ = ((SettableAbstractFieldOperation) foundOp_).getFieldType();
+            if (r_ != null) {
+                ls_.add(new SrcFileLocationOffset(r_.getFile().getFileName(),i_));
+            }
             return ls_;
         }
         return new CustList<SrcFileLocation>();
