@@ -76,22 +76,32 @@ public final class ResultExpressionOperationNode {
             return ls_;
         }
         if (foundOp_ instanceof SettableAbstractFieldOperation) {
-            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-            int i_ = ((SettableAbstractFieldOperation) foundOp_).getValueOffset();
-            RootBlock r_ = ((SettableAbstractFieldOperation) foundOp_).getFieldType();
-            ClassField cf_ = ((SettableAbstractFieldOperation) foundOp_).getFieldIdReadOnly();
-            String fileName_;
-            if (r_ != null) {
-                fileName_ = r_.getFile().getFileName();
-            } else {
-                fileName_ = "";
-            }
-            if (!cf_.getClassName().isEmpty()) {
-                ls_.add(new SrcFileLocationField(cf_,fileName_,i_));
-            }
-            return ls_;
+            return feelIt(_caret, foundOp_);
         }
         return new CustList<SrcFileLocation>();
+    }
+
+    private static CustList<SrcFileLocation> feelIt(int _caret, OperationNode _foundOp) {
+        CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+        if (_foundOp instanceof SettableFieldOperation) {
+            ls_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((SettableFieldOperation) _foundOp).getPartOffsets(), _caret));
+        }
+        if (!ls_.isEmpty()) {
+            return ls_;
+        }
+        int i_ = ((SettableAbstractFieldOperation) _foundOp).getValueOffset();
+        RootBlock r_ = ((SettableAbstractFieldOperation) _foundOp).getFieldType();
+        ClassField cf_ = ((SettableAbstractFieldOperation) _foundOp).getFieldIdReadOnly();
+        String fileName_;
+        if (r_ != null) {
+            fileName_ = r_.getFile().getFileName();
+        } else {
+            fileName_ = "";
+        }
+        if (!cf_.getClassName().isEmpty()) {
+            ls_.add(new SrcFileLocationField(cf_,fileName_,i_));
+        }
+        return ls_;
     }
 
     private static CustList<SrcFileLocation> young(int _caret, ResultExpressionOperationNode _res, AbstractInstancingOperation _op) {
