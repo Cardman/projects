@@ -24,9 +24,21 @@ public final class ResultExpressionOperationNode {
     private OperationNode found;
     public static CustList<SrcFileLocation> locations(AnalyzedPageEl _page, String _fileName, int _caret) {
         ResultExpressionOperationNode res_ = container(_page, _fileName, _caret);
-        OperationNode foundOp_ = res_.getFound();
+        CustList<SrcFileLocation> machines_ = coeur(_caret, res_);
+        if (!machines_.isEmpty()) {
+            return machines_;
+        }
+        AbsBk bl_ = res_.getBlock();
+        if (bl_ instanceof InnerTypeOrElement) {
+            return fetch(_caret,((InnerTypeOrElement)bl_).getElementContent().getPartOffsets());
+        }
+        return new CustList<SrcFileLocation>();
+    }
+
+    private static CustList<SrcFileLocation> coeur(int _caret, ResultExpressionOperationNode _res) {
+        OperationNode foundOp_ = _res.getFound();
         if (foundOp_ instanceof AbsFctOperation) {
-            int mb_ = res_.begin(foundOp_)+((AbsFctOperation)foundOp_).getDelta();
+            int mb_ = _res.begin(foundOp_)+((AbsFctOperation)foundOp_).getDelta();
             int me_ = mb_+((AbsFctOperation)foundOp_).getLengthMethod();
             if (inRange(mb_,_caret,me_)) {
                 AnaCallFctContent c_ = ((AbsFctOperation) foundOp_).getCallFctContent();
@@ -44,7 +56,7 @@ public final class ResultExpressionOperationNode {
             return id(_caret, foundOp_);
         }
         if (foundOp_ instanceof AbstractInstancingOperation) {
-            return young(_caret, res_, (AbstractInstancingOperation) foundOp_);
+            return young(_caret, _res, (AbstractInstancingOperation) foundOp_);
         }
         if (foundOp_ instanceof AnnotationInstanceArobaseOperation) {
             return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AnnotationInstanceArobaseOperation)foundOp_).getPartOffsets(),_caret);
@@ -54,10 +66,6 @@ public final class ResultExpressionOperationNode {
             AnaTypeFct f_ = ((AssocationOperation) foundOp_).getFunction();
             fctPub(f_, ls_);
             return ls_;
-        }
-        AbsBk bl_ = res_.getBlock();
-        if (bl_ instanceof InnerTypeOrElement) {
-            return fetch(_caret,((InnerTypeOrElement)bl_).getElementContent().getPartOffsets());
         }
         return new CustList<SrcFileLocation>();
     }
