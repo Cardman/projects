@@ -9,10 +9,7 @@ import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
-import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
@@ -56,7 +53,7 @@ public final class AnonymousInstancingOperation extends
             setNewBefore(false);
             j_ =  afterNew_.indexOf('}',afterNew_.indexOf('{'));
         }
-        tryAnalyze(_page);
+        tryAnalyzeSet(_page);
         index = _page.getTraceIndex();
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         String realClassName_ = getMethodName().trim().substring(newKeyWord_.length());
@@ -87,9 +84,7 @@ public final class AnonymousInstancingOperation extends
             if (!getTypeInfer().isEmpty()) {
                 realClassName_ = getTypeInfer();
             } else  {
-                AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(0, realClassName_, _page);
-                realClassName_ = result_.getResult(_page);
-                setResolvedInstance(new ResolvedInstance(result_));
+                realClassName_ = _page.getAliasObject();
             }
             type = realClassName_;
             checkInstancingType(realClassName_, isStaticAccess(), _page);
@@ -121,7 +116,7 @@ public final class AnonymousInstancingOperation extends
 
     private void preAnalyzeCtor(String _realClassName, AnalyzedPageEl _page) {
         String base_ = StringExpUtil.getIdFromAllTypes(_realClassName);
-        AnaGeneType g_ = _page.getAnaGeneType(base_);
+        AnaGeneType g_ = getGeneType();
         if (!(g_ instanceof RootBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());

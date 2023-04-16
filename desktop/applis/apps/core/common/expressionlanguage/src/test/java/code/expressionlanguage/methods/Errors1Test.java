@@ -2562,7 +2562,7 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
                 " }\n" +
                 " static Object <a name=\"m69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m($core.Object) is undefined.\" class=\"e\">m</a>(b:<a title=\"The constructor Ext&lt;&gt;(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;(11));\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m($core.Object) is undefined.\" class=\"e\">m</a>(b:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11));\n" +
                 " }\n" +
                 " staticCall <a href=\"#m14\">T</a> <a name=\"m141\">m</a>(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt; <a name=\"m150\">a</a>){\n" +
                 "  return <a href=\"#m150\">a</a>.<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
@@ -2599,7 +2599,7 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m66\">a</a>.<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
                 " }\n" +
                 " static Object <a name=\"m105\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;($core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(b:<a title=\"The constructor Ext&lt;&gt;(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;(11));\n" +
+                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;($core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(b:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11));\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2630,7 +2630,7 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
                 " }\n" +
                 " static Object <a name=\"m69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m([$core.Object) is undefined.\" class=\"e\">m</a>(b:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt;[] is unknown.\" class=\"e\">&lt;</a>&gt;[]<a title=\"The type $core.Object is unexpected.\" class=\"e\">{</a><a title=\"The constructor Ext&lt;&gt;(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;(11)});\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m([$core.Object) is undefined.\" class=\"e\">m</a>(b:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt;[] is unknown.\" class=\"e\">&lt;</a>&gt;[]<a title=\"The type $core.Object is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11)});\n" +
                 " }\n" +
                 " staticCall <a href=\"#m14\">T</a> <a name=\"m154\">m</a>(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;[] <a name=\"m165\">a</a>){\n" +
                 "  return <a href=\"#m165\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
@@ -2666,7 +2666,7 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m68\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
                 " }\n" +
                 " static Object <a name=\"m110\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;([$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(b:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt;[] is unknown.\" class=\"e\">&lt;</a>&gt;[]<a title=\"The type $core.Object is unexpected.\" class=\"e\">{</a><a title=\"The constructor Ext&lt;&gt;(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;(11)});\n" +
+                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;([$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(b:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt;[] is unknown.\" class=\"e\">&lt;</a>&gt;[]<a title=\"The type $core.Object is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11)});\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2828,7 +2828,7 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
                 " }\n" +
                 " static Object <a name=\"m69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m([[$core.Object,int,int,$core.Object) is undefined.\" class=\"e\">m</a>(e:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],b:0,c:0,d:<a title=\"The constructor Ext&lt;&gt;(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;(11));\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m([[$core.Object,int,int,$core.Object) is undefined.\" class=\"e\">m</a>(e:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],b:0,c:0,d:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11));\n" +
                 " }\n" +
                 " staticCall <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt; <a name=\"m172\">m</a>(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;[][] <a name=\"m185\">a</a>,int <a name=\"m191\">b</a>, int <a name=\"m198\">c</a>, <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt; <a name=\"m208\">d</a>){\n" +
                 "  return <a href=\"#m185\">a</a>[<a href=\"#m191\">b</a>][<a href=\"#m198\">c</a>]=<a href=\"#m208\">d</a>;\n" +
@@ -2864,7 +2864,7 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=(<a href=\"#m70\">a</a>[<a href=\"#m76\">b</a>][<a href=\"#m83\">c</a>]=<a href=\"#m93\">d</a>).<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
                 " }\n" +
                 " static Object <a name=\"m142\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;([[$core.Object,int,int,$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(e:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],b:0,c:0,d:<a title=\"The constructor Ext&lt;&gt;(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;(11));\n" +
+                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;([[$core.Object,int,int,$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(e:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],b:0,c:0,d:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11));\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2900,7 +2900,7 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
                 " }\n" +
                 " static Object <a name=\"m69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m(int,[$core.Object) is undefined.\" class=\"e\">m</a>(15,c:<a title=\"The type  is unexpected.\" class=\"e\">{</a><a title=\"The constructor Ext&lt;&gt;(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;(11)});\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m(int,[$core.Object) is undefined.\" class=\"e\">m</a>(15,c:<a title=\"The type  is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11)});\n" +
                 " }\n" +
                 " staticCall <a href=\"#m14\">T</a> <a name=\"m146\">m</a>(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;... <a name=\"m158\">a</a>){\n" +
                 "  return <a href=\"#m158\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
@@ -2954,7 +2954,7 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=(<a href=\"#m14\">T</a>)((int)<a href=\"#m170\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>+<a href=\"#m180\">b</a>[0]);\n" +
                 " }\n" +
                 " static Object <a name=\"m237\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;(int,[$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(15,c:<a title=\"The type  is unexpected.\" class=\"e\">{</a><a title=\"The constructor Ext&lt;&gt;(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;(11)});\n" +
+                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;(int,[$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(15,c:<a title=\"The type  is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11)});\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

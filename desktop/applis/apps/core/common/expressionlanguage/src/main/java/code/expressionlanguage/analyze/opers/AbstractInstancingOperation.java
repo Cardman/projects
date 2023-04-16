@@ -51,6 +51,10 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         }
         return _input.substring(deltaAnnot);
     }
+    void tryAnalyzeSet(AnalyzedPageEl _page) {
+        tryAnalyze(_page);
+        setGeneType(_page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(getTypeInfer())));
+    }
     void tryAnalyze(AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
@@ -149,11 +153,9 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String className_ = _className;
         if (!isIntermediateDottedOperation()) {
-            AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrorsExact(newKeyWord_.length() + _local, className_, _page);
-            if (resType_.isOk()) {
-                resolvedInstance = new ResolvedInstance(resType_);
-                typeInfer = resType_.getResult();
-            }
+            AnaResultPartType resType_ = ResolvingTypes.resolveCorrectType(newKeyWord_.length() + _local, className_, _page);
+            resolvedInstance = new ResolvedInstance(resType_);
+            typeInfer = resType_.getResult();
         } else {
             int offset_ = newKeyWord_.length()+ _local + StringUtil.getFirstPrintableCharIndex(className_);
             int begin_ = offset_;
@@ -164,21 +166,16 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             StringList partsArgs_ = new StringList();
             for (String a: StringExpUtil.getAllTypes(className_).mid(1)) {
                 int loc_ = StringUtil.getFirstPrintableCharIndex(a);
-                AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrorsExact(offset_ + loc_, a.trim(), _page);
-                if (!resType_.isOk()) {
-                    return;
-                }
+                AnaResultPartType resType_ = ResolvingTypes.resolveCorrectType(offset_ + loc_, a.trim(), _page);
                 results_.add(resType_);
                 partsArgs_.add(resType_.getResult());
                 offset_ += a.length() + 1;
             }
             StringMap<StringList> currVars_ = _page.getCurrentConstraints().getCurrentConstraints();
             String res_ = AnaInherits.tryGetAllInners(_innTypeInf, _innType, partsArgs_, currVars_, _page);
-            if (!res_.isEmpty()) {
-                FileBlock r_ = _page.getCurrentFile();
-                resolvedInstance = new ResolvedInstance(new AnaResultPartTypeDto(idClass_, _innTypeInf,StringExpUtil.getIdFromAllTypes(_innType),r_, rc_ +begin_,0, _page.getAnalysisMessages()), results_);
-                typeInfer = res_;
-            }
+            FileBlock r_ = _page.getCurrentFile();
+            resolvedInstance = new ResolvedInstance(new AnaResultPartTypeDto(idClass_, _innTypeInf,StringExpUtil.getIdFromAllTypes(_innType),r_, rc_ +begin_,0, _page.getAnalysisMessages()), results_);
+            typeInfer = res_;
         }
     }
 
@@ -264,8 +261,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
     protected abstract boolean koType(AnaGeneType _type,String _realClassName,  AnalyzedPageEl _page);
 
     void checkInstancingType(String _realClassName, MethodAccessKind _staticAccess, AnalyzedPageEl _page) {
-        String base_ = StringExpUtil.getIdFromAllTypes(_realClassName);
-        AnaGeneType g_ = _page.getAnaGeneType(base_);
+        AnaGeneType g_ = getGeneType();
         if (g_ != null && !g_.withoutInstance()) {
             String glClass_ = _page.getGlobalClass();
             StringList parts_ = StringExpUtil.getAllPartInnerTypes(_realClassName);

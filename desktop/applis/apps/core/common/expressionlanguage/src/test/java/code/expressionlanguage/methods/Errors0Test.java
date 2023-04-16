@@ -7823,7 +7823,7 @@ public final class Errors0Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
-                "  <a title=\"The constructor Inexist() is undefined.\" class=\"e\">$new</a> <a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a>();\n" +
+                "  <a title=\"The type Inexist is not resolved for instancing.\" class=\"e\">$new</a> <a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a>();\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -7885,7 +7885,9 @@ public final class Errors0Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
-                "  $new <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>().<a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\" class=\"e\">$new</a> <a title=\"pkg.MyCl..Inner\" href=\"#m76\">Inner</a>();\n" +
+                "  $new <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>().<a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\n" +
+                "\n" +
+                "The type Inner is not resolved for instancing.\" class=\"e\">$new</a> <a title=\"pkg.MyCl..Inner\" href=\"#m76\">Inner</a>();\n" +
                 " }\n" +
                 " $public $class <a name=\"m76\">Inner</a>&lt;<a name=\"m82\">T</a>&gt;{\n" +
                 " }\n" +
@@ -12220,7 +12222,7 @@ public final class Errors0Test extends ProcessMethodCommon {
                 " $public $class <a name=\"m47\">Inner</a>{\n" +
                 " }\n" +
                 " $static{\n" +
-                "  <a title=\"The constructor Inner() is undefined.\" class=\"e\">$new</a> <a title=\"The type pkg.MyClass..Inner is not parameterized correctly.\n" +
+                "  <a title=\"The type pkg.MyClass..Inner is not resolved for instancing.\" class=\"e\">$new</a> <a title=\"The type pkg.MyClass..Inner is not parameterized correctly.\n" +
                 "\n" +
                 "pkg.MyClass..Inner\" href=\"#m47\" class=\"e\">Inner</a>();\n" +
                 " }\n" +

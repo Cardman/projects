@@ -23,7 +23,6 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.AnaInstancingStdContent;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.BadClass;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.Ints;
@@ -56,8 +55,8 @@ public final class StandardInstancingOperation extends
 
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
-        tryAnalyze(_page);
-        AnaGeneType anaGeneType_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(getTypeInfer()));
+        tryAnalyzeSet(_page);
+        AnaGeneType anaGeneType_ = getGeneType();
         if (anaGeneType_ == null) {
             return;
         }
@@ -96,16 +95,9 @@ public final class StandardInstancingOperation extends
             if (!getTypeInfer().isEmpty()) {
                 realClassName_ = getTypeInfer();
                 defType = realClassName_;
-            } else if (innerElt == null) {
-                AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(0, realClassName_, _page);
-                setGeneType(new BadClass());
-                defType = realClassName_;
-                realClassName_ = result_.getResult(_page);
-//                getPartOffsets().addAllElts(_page.getCurrentParts());
-                setResolvedInstance(new ResolvedInstance(result_));
             } else {
-                realClassName_ = realClassName_.trim();
                 defType = realClassName_;
+                realClassName_ = _page.getAliasObject();
             }
             checkInstancingType(realClassName_, isStaticAccess(), _page);
             analyzeCtor(realClassName_, varargParam_, _page);
@@ -208,14 +200,14 @@ public final class StandardInstancingOperation extends
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         String base_ = StringExpUtil.getIdFromAllTypes(_realClassName);
-        AnaGeneType g_ = _page.getAnaGeneType(base_);
+        AnaGeneType g_ = getGeneType();
         if (g_ == null) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
             call_.setIndexFile(_page);
             //type len
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
-                    _realClassName);
+                    defType);
             _page.getLocalizer().addError(call_);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             addErr(call_.getBuiltError());
@@ -253,11 +245,6 @@ public final class StandardInstancingOperation extends
             return;
         }
         if (innerElt != null && innerElt.getElementContent().isKoTy()) {
-            setResultClass(new AnaClassArgumentMatching(_realClassName));
-            return;
-        }
-        if (getGeneType() instanceof BadClass) {
-            buildCtorError(name_,_page,defType);
             setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
         }
