@@ -43,30 +43,45 @@ public final class ResultExpressionOperationNode {
         if (foundOp_ instanceof FunctFilterOperation) {
             return id(_caret, foundOp_);
         }
-        if (foundOp_ instanceof StandardInstancingOperation) {
-            StandardInstancingOperation instStd_ = (StandardInstancingOperation) foundOp_;
-            int offsetNew_ = instStd_.getOffsetFct();
-            int beginInst_ = offsetNew_ + res_.begin(instStd_);
-            int lengthInst_ = StringExpUtil.getDollarWordSeparators(instStd_.getMethodName()).get(1).length();
-            if (instStd_.getInnerElt() != null||inRange(beginInst_,_caret,beginInst_+lengthInst_)) {
-                return now(instStd_);
-            }
-            ResolvedInstance r_ = instStd_.getResolvedInstance();
-            CustList<SrcFileLocation> s_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(r_.getResult(), _caret);
-            if (!s_.isEmpty()) {
-                return s_;
-            }
-            CustList<SrcFileLocation> t_ = fetchAna(_caret,r_.getParts());
-            if (!t_.isEmpty()) {
-                return t_;
-            }
-            return fetch(_caret,instStd_.getPartsInstInitInterfaces());
+        if (foundOp_ instanceof AbstractInstancingOperation) {
+            return young(_caret, res_, (AbstractInstancingOperation) foundOp_);
+        }
+        if (foundOp_ instanceof AnnotationInstanceArobaseOperation) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AnnotationInstanceArobaseOperation)foundOp_).getPartOffsets(),_caret);
+        }
+        if (foundOp_ instanceof AssocationOperation) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            AnaTypeFct f_ = ((AssocationOperation) foundOp_).getFunction();
+            fctPub(f_, ls_);
+            return ls_;
         }
         AbsBk bl_ = res_.getBlock();
         if (bl_ instanceof InnerTypeOrElement) {
             return fetch(_caret,((InnerTypeOrElement)bl_).getElementContent().getPartOffsets());
         }
         return new CustList<SrcFileLocation>();
+    }
+
+    private static CustList<SrcFileLocation> young(int _caret, ResultExpressionOperationNode _res, AbstractInstancingOperation _op) {
+        int offsetNew_ = _op.getOffsetFct();
+        int beginInst_ = offsetNew_ + _res.begin(_op);
+        int lengthInst_ = StringExpUtil.getDollarWordSeparators(_op.getMethodName()).get(1).length();
+        if (_op instanceof StandardInstancingOperation&&((StandardInstancingOperation) _op).getInnerElt() != null||inRange(beginInst_, _caret,beginInst_+lengthInst_)) {
+            return now(_op);
+        }
+        ResolvedInstance r_ = _op.getResolvedInstance();
+        CustList<SrcFileLocation> s_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(r_.getResult(), _caret);
+        if (!s_.isEmpty()) {
+            return s_;
+        }
+        CustList<SrcFileLocation> t_ = fetchAna(_caret,r_.getParts());
+        if (!t_.isEmpty()) {
+            return t_;
+        }
+        if (_op instanceof StandardInstancingOperation){
+            return fetch(_caret, ((StandardInstancingOperation) _op).getPartsInstInitInterfaces());
+        }
+        return now(_op);
     }
 
     private static CustList<SrcFileLocation> now(AbstractInstancingOperation _maintenant) {
@@ -76,18 +91,20 @@ public final class ResultExpressionOperationNode {
         if (_maintenant.getInstancingCommonContent().getConstId() != null &&std_ != null) {
             ls_.add(new SrcFileLocationStdMethod(std_));
         }
-        if (constructor_ != null) {
-            NamedFunctionBlock f_ = constructor_.getFunction();
-            if (f_ != null) {
-                ls_.add(new SrcFileLocationMethod(f_));
-            }
-        }
+        fctPub(constructor_, ls_);
         AnaFormattedRootBlock format_ = _maintenant.getFormattedType();
         if (format_ != null) {
             RootBlock r_ = format_.getRootBlock();
             ls_.add(new SrcFileLocationType(r_));
         }
         return ls_;
+    }
+
+    private static void fctPub(AnaTypeFct _ct, CustList<SrcFileLocation> _ls) {
+        NamedFunctionBlock f_ = fct(_ct);
+        if (f_ != null) {
+            _ls.add(new SrcFileLocationMethod(f_));
+        }
     }
 
     private static CustList<SrcFileLocation> id(int _caret, OperationNode _foundOp) {
@@ -134,10 +151,14 @@ public final class ResultExpressionOperationNode {
 
     private static NamedFunctionBlock fct(AnaCallFctContent _c) {
         AnaTypeFct f_ = _c.getFunction();
-        if (f_ == null) {
+        return fct(f_);
+    }
+
+    private static NamedFunctionBlock fct(AnaTypeFct _f) {
+        if (_f == null) {
             return null;
         }
-        return f_.getFunction();
+        return _f.getFunction();
     }
 
     public static ResultExpressionOperationNode container(AnalyzedPageEl _page, String _fileName, int _caret) {
