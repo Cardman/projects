@@ -15,6 +15,7 @@ public final class FinalVariableOperation extends LeafOperation {
     private final int delta;
     private int afterOper;
     private int ref;
+    private boolean ok;
 
     public FinalVariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -45,6 +46,7 @@ public final class FinalVariableOperation extends LeafOperation {
             val_ = _page.getCache().getLoopVar(shortStr_,deep_);
         }
         if (val_ != null) {
+            ok = true;
             variableContent.setDeep(deep_);
             ref = val_.getRef();
             variableContent.setVariableName(shortStr_);
@@ -83,5 +85,9 @@ public final class FinalVariableOperation extends LeafOperation {
 
     public AnaVariableContent getVariableContent() {
         return variableContent;
+    }
+
+    public boolean isOk() {
+        return ok;
     }
 }

@@ -2066,6 +2066,119 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq("pkg/Ex",r_.get(0).getFileName());
     }
     @Test
+    public void locations45() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=Outer.$classchoice(Outer)THREE();\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",84);
+        assertEq(1,r_.size());
+        assertEq(14,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations46() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final Outer THREE=$defaultValue(Outer);\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",80);
+        assertEq(1,r_.size());
+        assertEq(14,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations47() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=([a]);\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",68);
+        assertEq(0,r_.size());
+    }
+    @Test
+    public void locations48() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){\n");
+        xml_.append("$iter($int i=0;1;1){\n");
+        xml_.append("$return ([i]);\n");
+        xml_.append("}\n");
+        xml_.append("$return 1;\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",91);
+        assertEq(1,r_.size());
+        assertEq(71,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
+        assertEq("i",((SrcFileLocationVariable)r_.get(0)).getName());
+    }
+    @Test
+    public void locations49() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){\n");
+        xml_.append("$iter($int i=0;1;1){\n");
+        xml_.append("$return (:$int)->{$iter($int i=0;1;1){$return ([#i])+([i]);}$return 1;}.call();\n");
+        xml_.append("}\n");
+        xml_.append("$return 1;\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",129);
+        assertEq(1,r_.size());
+        assertEq(71,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(0,((SrcFileLocationVariable)r_.get(0)).getDeep());
+        assertEq("i",((SrcFileLocationVariable)r_.get(0)).getName());
+    }
+    @Test
     public void vexer1() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -2126,6 +2239,7 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
 
     private static AnalyzedPageEl quickAnalyze(StringMap<String> _files) {
         Options opt_ = newOptions();
+        opt_.setReadOnly(true);
         addTypesInit(opt_);
         CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();

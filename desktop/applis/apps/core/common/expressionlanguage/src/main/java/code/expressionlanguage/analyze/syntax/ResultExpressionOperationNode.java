@@ -15,6 +15,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
+import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
@@ -32,7 +33,7 @@ public final class ResultExpressionOperationNode {
     }
     public static CustList<SrcFileLocation> locations(AnalyzedPageEl _page, String _fileName, int _caret) {
         ResultExpressionOperationNode res_ = container(_page, _fileName, _caret);
-        CustList<SrcFileLocation> machines_ = coeur(_caret, res_);
+        CustList<SrcFileLocation> machines_ = coeur(_fileName, _caret, res_);
         if (!machines_.isEmpty()) {
             return machines_;
         }
@@ -43,7 +44,7 @@ public final class ResultExpressionOperationNode {
         return new CustList<SrcFileLocation>();
     }
 
-    private static CustList<SrcFileLocation> coeur(int _caret, ResultExpressionOperationNode _res) {
+    private static CustList<SrcFileLocation> coeur(String _fileName, int _caret, ResultExpressionOperationNode _res) {
         OperationNode foundOp_ = _res.getFound();
         if (foundOp_ instanceof AbsFctOperation) {
             int mb_ = _res.begin(foundOp_)+((AbsFctOperation)foundOp_).getDelta();
@@ -77,6 +78,15 @@ public final class ResultExpressionOperationNode {
         }
         if (foundOp_ instanceof SettableAbstractFieldOperation) {
             return feelIt(_caret, foundOp_);
+        }
+        if (foundOp_ instanceof DefaultValueOperation) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((DefaultValueOperation)foundOp_).getPartOffsets(),_caret);
+        }
+        if (foundOp_ instanceof FinalVariableOperation&&((FinalVariableOperation)foundOp_).isOk()) {
+            AnaVariableContent v_ = ((FinalVariableOperation) foundOp_).getVariableContent();
+            CustList<SrcFileLocation> l_ = new CustList<SrcFileLocation>();
+            l_.add(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),_fileName,((FinalVariableOperation)foundOp_).getRef()));
+            return l_;
         }
         return new CustList<SrcFileLocation>();
     }
