@@ -15,6 +15,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
+import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
@@ -73,6 +74,11 @@ public final class ResultExpressionOperationNode {
         if (foundOp_ instanceof SettableAbstractFieldOperation) {
             return feelIt(_caret, foundOp_);
         }
+        return pique(_fileName, _caret, _res);
+    }
+
+    private static CustList<SrcFileLocation> pique(String _fileName, int _caret, ResultExpressionOperationNode _res) {
+        OperationNode foundOp_ = _res.getFound();
         if (foundOp_ instanceof DefaultValueOperation) {
             return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((DefaultValueOperation)foundOp_).getPartOffsets(),_caret);
         }
@@ -102,6 +108,55 @@ public final class ResultExpressionOperationNode {
             CustList<SrcFileLocation> l_ = new CustList<SrcFileLocation>();
             l_.add(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),_fileName,((VariableOperationUse)foundOp_).getRef()));
             return l_;
+        }
+        if (foundOp_ instanceof LambdaOperation) {
+            return lambda(_res, (LambdaOperation) foundOp_, _caret);
+        }
+        return new CustList<SrcFileLocation>();
+    }
+
+    private static CustList<SrcFileLocation> lambda(ResultExpressionOperationNode _res,LambdaOperation _lda, int _caret) {
+        CustList<AnaNamedFieldContent> namedFields_ = _lda.getNamedFields();
+        int len_ = namedFields_.size();
+        int beginLambda_ = _res.begin(_lda)+_lda.getOffset();
+        for (int i = 0; i < len_; i++) {
+            int ref_ = _lda.getRefs().get(i);
+            if (ref_ < 0) {
+                continue;
+            }
+            AnaNamedFieldContent naFi_ = namedFields_.get(i);
+            String name_ = naFi_.getName();
+            int off_ = _lda.getOffsets().get(i);
+            if (inRange(off_+beginLambda_,_caret,off_+beginLambda_+name_.length())) {
+                RootBlock r_ = naFi_.getDeclaring();
+                CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+                ls_.add(new SrcFileLocationField(new ClassField(naFi_.getIdClass(),name_),fileName(r_),ref_));
+                return ls_;
+            }
+        }
+        CustList<SrcFileLocation> types_ = new CustList<SrcFileLocation>();
+        types_.addAllElts(fetch(_caret, _lda.getPartOffsetsBegin()));
+        types_.addAllElts(fetch(_caret, _lda.getPartOffsetsPre()));
+        types_.addAllElts(fetch(_caret, _lda.getPartOffsets()));
+        types_.addAllElts(fetch(_caret, _lda.getPartsInstInitInterfaces()));
+        for (int i = 0; i < len_; i++) {
+            types_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(_lda.getPartOffsetsRec().get(i).build(),_caret));
+        }
+        if (!types_.isEmpty()) {
+            return types_;
+        }
+        AnaTypeFct function_ = _lda.getFunction();
+        RootBlock fieldType_ = _lda.getFieldType();
+        CustList<SrcFileLocation> def_ = new CustList<SrcFileLocation>();
+        fctPub(function_, def_);
+        if (!def_.isEmpty()) {
+            return def_;
+        }
+        ClassField fieldId_ = _lda.getFieldId();
+        if (fieldId_ != null) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            ls_.add(new SrcFileLocationField(fieldId_,fileName(fieldType_), _lda.getValueOffset()));
+            return ls_;
         }
         return new CustList<SrcFileLocation>();
     }
@@ -136,16 +191,21 @@ public final class ResultExpressionOperationNode {
         int i_ = ((SettableAbstractFieldOperation) _foundOp).getValueOffset();
         RootBlock r_ = ((SettableAbstractFieldOperation) _foundOp).getFieldType();
         ClassField cf_ = ((SettableAbstractFieldOperation) _foundOp).getFieldIdReadOnly();
-        String fileName_;
-        if (r_ != null) {
-            fileName_ = r_.getFile().getFileName();
-        } else {
-            fileName_ = "";
-        }
+        String fileName_ = fileName(r_);
         if (!cf_.getClassName().isEmpty()) {
             ls_.add(new SrcFileLocationField(cf_,fileName_,i_));
         }
         return ls_;
+    }
+
+    private static String fileName(RootBlock _r) {
+        String fileName_;
+        if (_r != null) {
+            fileName_ = _r.getFile().getFileName();
+        } else {
+            fileName_ = "";
+        }
+        return fileName_;
     }
 
     private static CustList<SrcFileLocation> young(int _caret, ResultExpressionOperationNode _res, AbstractInstancingOperation _op) {
