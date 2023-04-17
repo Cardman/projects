@@ -74,7 +74,24 @@ public final class ResultExpressionOperationNode {
         if (foundOp_ instanceof SettableAbstractFieldOperation) {
             return feelIt(_caret, foundOp_);
         }
+        if (foundOp_ instanceof CastFctOperation) {
+            return cast(_caret, (CastFctOperation) foundOp_);
+        }
+        if (foundOp_ instanceof CastOperation) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((CastOperation)foundOp_).getPartOffsets(),_caret);
+        }
         return pique(_fileName, _caret, _res);
+    }
+
+    private static CustList<SrcFileLocation> cast(int _caret, CastFctOperation _foundOp) {
+        CustList<SrcFileLocation> locs_ = fetch(_caret, _foundOp.getPartOffsets());
+        if (!locs_.isEmpty()) {
+            return locs_;
+        }
+        CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+        AnaTypeFct f_ = _foundOp.getFunction();
+        fctPub(f_, ls_);
+        return ls_;
     }
 
     private static CustList<SrcFileLocation> pique(String _fileName, int _caret, ResultExpressionOperationNode _res) {
@@ -148,6 +165,8 @@ public final class ResultExpressionOperationNode {
         AnaTypeFct function_ = _lda.getFunction();
         RootBlock fieldType_ = _lda.getFieldType();
         CustList<SrcFileLocation> def_ = new CustList<SrcFileLocation>();
+        ctStd(_lda.getStandardConstructor(), def_);
+        callStd(_lda.getStandardMethod(), def_);
         fctPub(function_, def_);
         if (!def_.isEmpty()) {
             return def_;
@@ -163,13 +182,12 @@ public final class ResultExpressionOperationNode {
 
     private static CustList<SrcFileLocation> fct(int _caret, ResultExpressionOperationNode _res) {
         OperationNode foundOp_ = _res.getFound();
-        int mb_ = _res.begin(foundOp_)+((AbsFctOperation) foundOp_).getDelta();
-        int me_ = mb_+((AbsFctOperation) foundOp_).getLengthMethod();
-        if (inRange(mb_, _caret,me_)) {
-            AnaCallFctContent c_ = ((AbsFctOperation) foundOp_).getCallFctContent();
-            return methodsLocations(c_);
+        CustList<SrcFileLocation> locs_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AbsFctOperation) foundOp_).getPartOffsets(), _caret);
+        if (!locs_.isEmpty()) {
+            return locs_;
         }
-        return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AbsFctOperation) foundOp_).getPartOffsets(), _caret);
+        AnaCallFctContent c_ = ((AbsFctOperation) foundOp_).getCallFctContent();
+        return methodsLocations(c_);
     }
 
     private static boolean okFinalVar(OperationNode _op) {
@@ -234,9 +252,7 @@ public final class ResultExpressionOperationNode {
         StandardConstructor std_ = _maintenant.getInstancingCommonContent().getConstructor();
         AnaTypeFct constructor_ = _maintenant.getConstructor();
         CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-        if (_maintenant.getInstancingCommonContent().getConstId() != null &&std_ != null) {
-            ls_.add(new SrcFileLocationStdMethod(std_));
-        }
+        ctStd(std_, ls_);
         fctPub(constructor_, ls_);
         AnaFormattedRootBlock format_ = _maintenant.getFormattedType();
         if (format_ != null) {
@@ -244,6 +260,12 @@ public final class ResultExpressionOperationNode {
             ls_.add(new SrcFileLocationType(r_));
         }
         return ls_;
+    }
+
+    private static void ctStd(StandardConstructor _std, CustList<SrcFileLocation> _ls) {
+        if (_std != null) {
+            _ls.add(new SrcFileLocationStdMethod(_std));
+        }
     }
 
     private static void fctPub(AnaTypeFct _ct, CustList<SrcFileLocation> _ls) {
@@ -287,12 +309,15 @@ public final class ResultExpressionOperationNode {
             return ls_;
         }
         StandardMethod std_ = _c.getStandardMethod();
-        if (std_ != null) {
-            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-            ls_.add(new SrcFileLocationStdMethod(std_));
-            return ls_;
+        CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+        callStd(std_, ls_);
+        return ls_;
+    }
+
+    private static void callStd(StandardMethod _std, CustList<SrcFileLocation> _ls) {
+        if (_std != null) {
+            _ls.add(new SrcFileLocationStdMethod(_std));
         }
-        return new CustList<SrcFileLocation>();
     }
 
     private static NamedFunctionBlock fct(AnaCallFctContent _c) {
