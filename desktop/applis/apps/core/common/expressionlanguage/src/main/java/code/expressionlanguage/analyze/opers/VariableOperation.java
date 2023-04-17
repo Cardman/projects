@@ -30,6 +30,7 @@ public final class VariableOperation extends LeafOperation implements
     private boolean finalVariable;
     private final AbsLineDeclarator lineDeclarator;
     private final ConstType type;
+    private boolean ok;
 
     public VariableOperation(int _indexInEl, int _indexChild,
                              MethodOperation _m, OperationsSequence _op, AbsLineDeclarator _decl, ConstType _t) {
@@ -69,6 +70,7 @@ public final class VariableOperation extends LeafOperation implements
             nameErrors.add(b_.getBuiltError());
             return;
         }
+        ok = true;
         ref = _page.getIndex();
         String c_ = _page.getCurrentVarSetting();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -136,5 +138,9 @@ public final class VariableOperation extends LeafOperation implements
 
     public AnaVariableContent getVariableContent() {
         return variableContent;
+    }
+
+    public boolean isOk() {
+        return ok;
     }
 }

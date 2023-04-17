@@ -47,13 +47,7 @@ public final class ResultExpressionOperationNode {
     private static CustList<SrcFileLocation> coeur(String _fileName, int _caret, ResultExpressionOperationNode _res) {
         OperationNode foundOp_ = _res.getFound();
         if (foundOp_ instanceof AbsFctOperation) {
-            int mb_ = _res.begin(foundOp_)+((AbsFctOperation)foundOp_).getDelta();
-            int me_ = mb_+((AbsFctOperation)foundOp_).getLengthMethod();
-            if (inRange(mb_,_caret,me_)) {
-                AnaCallFctContent c_ = ((AbsFctOperation) foundOp_).getCallFctContent();
-                return methodsLocations(c_);
-            }
-            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AbsFctOperation) foundOp_).getPartOffsets(), _caret);
+            return fct(_caret, _res);
         }
         if (foundOp_ instanceof StaticAccessOperation) {
             return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticAccessOperation)foundOp_).getPartOffsets(), _caret);
@@ -82,13 +76,53 @@ public final class ResultExpressionOperationNode {
         if (foundOp_ instanceof DefaultValueOperation) {
             return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((DefaultValueOperation)foundOp_).getPartOffsets(),_caret);
         }
-        if (foundOp_ instanceof FinalVariableOperation&&((FinalVariableOperation)foundOp_).isOk()) {
+        if (okFinalVar(foundOp_)) {
             AnaVariableContent v_ = ((FinalVariableOperation) foundOp_).getVariableContent();
             CustList<SrcFileLocation> l_ = new CustList<SrcFileLocation>();
             l_.add(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),_fileName,((FinalVariableOperation)foundOp_).getRef()));
             return l_;
         }
+        if (foundOp_ instanceof ForwardOperation) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForwardOperation)foundOp_).getPartOffsets(),_caret);
+        }
+        if (foundOp_ instanceof StaticInfoOperation) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticInfoOperation)foundOp_).getPartOffsets(),_caret);
+        }
+        if (foundOp_ instanceof ValuesOperation) {
+            return fetch(_caret, ((ValuesOperation)foundOp_).getPartOffsets());
+        }
+        if (okVar(foundOp_)) {
+            AnaVariableContent v_ = ((VariableOperation) foundOp_).getVariableContent();
+            CustList<SrcFileLocation> l_ = new CustList<SrcFileLocation>();
+            l_.add(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),_fileName,((VariableOperation)foundOp_).getRef()));
+            return l_;
+        }
+        if (foundOp_ instanceof VariableOperationUse) {
+            AnaVariableContent v_ = ((VariableOperationUse) foundOp_).getVariableContent();
+            CustList<SrcFileLocation> l_ = new CustList<SrcFileLocation>();
+            l_.add(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),_fileName,((VariableOperationUse)foundOp_).getRef()));
+            return l_;
+        }
         return new CustList<SrcFileLocation>();
+    }
+
+    private static CustList<SrcFileLocation> fct(int _caret, ResultExpressionOperationNode _res) {
+        OperationNode foundOp_ = _res.getFound();
+        int mb_ = _res.begin(foundOp_)+((AbsFctOperation) foundOp_).getDelta();
+        int me_ = mb_+((AbsFctOperation) foundOp_).getLengthMethod();
+        if (inRange(mb_, _caret,me_)) {
+            AnaCallFctContent c_ = ((AbsFctOperation) foundOp_).getCallFctContent();
+            return methodsLocations(c_);
+        }
+        return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AbsFctOperation) foundOp_).getPartOffsets(), _caret);
+    }
+
+    private static boolean okFinalVar(OperationNode _op) {
+        return _op instanceof FinalVariableOperation && ((FinalVariableOperation) _op).isOk();
+    }
+
+    private static boolean okVar(OperationNode _op) {
+        return _op instanceof VariableOperation && ((VariableOperation) _op).isOk();
     }
 
     private static CustList<SrcFileLocation> feelIt(int _caret, OperationNode _foundOp) {
