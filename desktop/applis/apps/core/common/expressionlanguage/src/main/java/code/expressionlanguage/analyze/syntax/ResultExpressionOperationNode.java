@@ -88,6 +88,33 @@ public final class ResultExpressionOperationNode {
             fctPub(((AbstractComTernaryOperation) foundOp_).getTestFct(), ls_);
             return ls_;
         }
+        if (foundOp_ instanceof CompoundAffectationOperation) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            fctPub(((CompoundAffectationOperation) foundOp_).getFct().getFunction(), ls_);
+            fctPub(((CompoundAffectationOperation) foundOp_).getConv().getFunction(), ls_);
+            fctPub(((CompoundAffectationOperation) foundOp_).getFunctionTest(), ls_);
+            return ls_;
+        }
+        if (foundOp_ instanceof QuickOperation) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            fctPub(((QuickOperation) foundOp_).getFct().getFunction(), ls_);
+            fctPub(((QuickOperation) foundOp_).getConv().getFunction(), ls_);
+            fctPub(((QuickOperation) foundOp_).getFunctionTest(), ls_);
+            return ls_;
+        }
+        if (foundOp_ instanceof ExplicitOperatorOperation) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            ls_.addAllElts(fetch(_caret,((ExplicitOperatorOperation) foundOp_).getTypesImpl()));
+            ls_.addAllElts(fetch(_caret,((ExplicitOperatorOperation) foundOp_).getTypesTest()));
+            ls_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ExplicitOperatorOperation) foundOp_).getPartOffsets(),_caret));
+            if (!ls_.isEmpty()) {
+                return ls_;
+            }
+            fctPub(((ExplicitOperatorOperation) foundOp_).getCallFctContent().getFunction(), ls_);
+            fctPub(((ExplicitOperatorOperation) foundOp_).getConv().getFunction(), ls_);
+            fctPub(((ExplicitOperatorOperation) foundOp_).getFunctionTest(), ls_);
+            return ls_;
+        }
         return pique(_fileName, _caret, _res);
     }
 
