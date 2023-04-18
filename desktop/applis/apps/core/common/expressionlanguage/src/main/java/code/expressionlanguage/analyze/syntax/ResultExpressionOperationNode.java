@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.syntax;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.ResultParsedAnnot;
 import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.opers.*;
@@ -48,13 +49,39 @@ public final class ResultExpressionOperationNode {
             ls_.add(new SrcFileLocationLabel(((BreakableBlock)bl_).getRealLabelInfo().getInfo(),_fileName,((BreakableBlock)bl_).getRealLabelInfo().getOffset()));
             return ls_;
         }
+        OffsetStringInfo o_ = tryDecl(bl_, _caret);
+        if (o_ != null) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            ls_.add(new SrcFileLocationVariable(-1,o_.getInfo(),_fileName,o_.getOffset()));
+            return ls_;
+        }
         if (bl_ instanceof DeclareVariable) {
             return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((DeclareVariable)bl_).getPartOffsets(),_caret);
         }
         if (bl_ instanceof ForMutableIterativeLoop) {
             return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForMutableIterativeLoop)bl_).getPartOffsets(),_caret);
         }
+        if (bl_ instanceof ForEachLoop) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachLoop)bl_).getPartOffsets(),_caret);
+        }
+        if (bl_ instanceof ForEachTable) {
+            CustList<SrcFileLocation> ls_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable) bl_).getPartOffsetsFirst(), _caret);
+            ls_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable) bl_).getPartOffsetsSecond(), _caret));
+            return ls_;
+        }
         return new CustList<SrcFileLocation>();
+    }
+    private static OffsetStringInfo tryDecl(AbsBk _bl, int _caret) {
+        if (_bl instanceof ForEachLoop&&inRange(((ForEachLoop)_bl).getVariableNameOffset(),_caret,((ForEachLoop)_bl).getVariableNameOffset()+((ForEachLoop)_bl).getVariableName().length())) {
+            return new OffsetStringInfo(((ForEachLoop)_bl).getVariableNameOffset(), ((ForEachLoop)_bl).getVariableName());
+        }
+        if (_bl instanceof ForEachTable&&inRange(((ForEachTable)_bl).getVariableNameOffsetFirst(),_caret,((ForEachTable)_bl).getVariableNameOffsetFirst()+((ForEachTable)_bl).getVariableNameFirst().length())) {
+            return new OffsetStringInfo(((ForEachTable)_bl).getVariableNameOffsetFirst(), ((ForEachTable)_bl).getVariableNameFirst());
+        }
+        if (_bl instanceof ForEachTable&&inRange(((ForEachTable)_bl).getVariableNameOffsetSecond(),_caret,((ForEachTable)_bl).getVariableNameOffsetSecond()+((ForEachTable)_bl).getVariableNameSecond().length())) {
+            return new OffsetStringInfo(((ForEachTable)_bl).getVariableNameOffsetSecond(), ((ForEachTable)_bl).getVariableNameSecond());
+        }
+        return null;
     }
 
     private static CustList<SrcFileLocation> coeur(String _fileName, int _caret, ResultExpressionOperationNode _res) {
