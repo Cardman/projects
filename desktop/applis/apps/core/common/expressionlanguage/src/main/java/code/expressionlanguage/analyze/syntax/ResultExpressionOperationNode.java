@@ -131,6 +131,9 @@ public final class ResultExpressionOperationNode {
                 }
             }
         }
+        if (inRange(_bl.getNameOffset(),_caret,_bl.getNameOffset()+_bl.getRealLength())) {
+            p_.add(new SrcFileLocationMethod(_bl));
+        }
         return p_;
     }
 

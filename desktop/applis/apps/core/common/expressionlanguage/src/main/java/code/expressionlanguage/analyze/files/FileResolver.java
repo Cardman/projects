@@ -729,6 +729,7 @@ public final class FileResolver {
             OperatorBlock currentParent_ = new OperatorBlock(parseHeader_, new OffsetStringInfo(typeOffset_ + _input.getOffset(), declaringType_.trim()),
                     new OffsetStringInfo(symbolIndex_ + _input.getOffset(), symbol_.toString().trim()),
                     nextIndex_ + _input.getOffset());
+            currentParent_.setRealLength(currentParent_.getName().length());
             currentParent_.getAnnotationsParams().addAllElts(annotationsParams_);
             currentParent_.getImports().addAllElts(importedTypes_);
             currentParent_.getImportsOffset().addAllElts(offsetsImports_);
@@ -1103,6 +1104,7 @@ public final class FileResolver {
                 new OffsetStringInfo(expressionOffest_ + _input.getOffset(), expression_.trim()),
                 new OffsetStringInfo(fieldNameOffest_ + _input.getOffset(), fieldName_.trim()),
                 instructionTrimLocation_ + _input.getOffset(), rightPar_ - offAfterType_);
+        annMeth_.setRealLength(annMeth_.getName().length()+1);
         annMeth_.setNameNumber(((RootBlock) _currentParent).getAnnotationsMethodsBlocks().size());
         annMeth_.getRes().partsAbsol(_parsedInstruction.getStringParts());
         annMeth_.setEndAll(_parsedInstruction.getIndex() + _input.getOffset()+1);
@@ -1631,6 +1633,7 @@ public final class FileResolver {
                     new OffsetStringInfo(accessOffest_ + offsetFile_, EMPTY_STRING),
                     new OffsetStringInfo(accessOffest_ + offsetFile_, EMPTY_STRING),
                     leftPar_ + offsetFile_, _i.instLoc() + offsetFile_);
+            br_.setRealLength(leftPar_ - accessOffest_+1);
             br_.setCtorName(ctorName_);
             br_.setCtorNumber(_currentParent.getConstructorBlocks().size());
             _currentParent.getConstructorBlocks().add(br_);
@@ -1686,6 +1689,7 @@ public final class FileResolver {
                     new OffsetStringInfo(methodNameOffest_ + offsetFile_, trimMeth_),
                     new OffsetStringInfo(modifierOffest_ + offsetFile_, modifier_),
                     _i.instLoc() + offsetFile_, keyWords_);
+            ov_.setRealLength(ov_.getName().length());
             ov_.setKind(kind_);
             countOverrides(ov_, _currentParent);
             return fct(_i, _currentParent, offsetFile_, parseHeader_, ov_);
@@ -1735,6 +1739,7 @@ public final class FileResolver {
                     new OffsetStringInfo(methodNameOffest_+ offsetFile_, trimMeth_),
                     new OffsetStringInfo(modifierOffest_+ offsetFile_, modifier_),
                     _i.instLoc() + offsetFile_, keyWords_);
+            ov_.setRealLength(ov_.getName().length()+1);
             ov_.setKind(kind_);
             countOverrides(ov_, _currentParent);
             return fct(_i, _currentParent, offsetFile_, parseHeader_, ov_);
@@ -1746,6 +1751,7 @@ public final class FileResolver {
                     new OffsetStringInfo(methodNameOffest_+ offsetFile_, trimMeth_),
                     new OffsetStringInfo(modifierOffest_+ offsetFile_, modifier_),
                     _i.instLoc() + offsetFile_, keyWords_);
+            ov_.setRealLength(ov_.getName().length()+1);
             ov_.setKind(kind_);
             countOverrides(ov_, _currentParent);
             return fct(_i, _currentParent, offsetFile_, parseHeader_, ov_);
@@ -1757,6 +1763,7 @@ public final class FileResolver {
                     new OffsetStringInfo(methodNameOffest_+ offsetFile_, trimMeth_),
                     new OffsetStringInfo(modifierOffest_+ offsetFile_, modifier_),
                     _i.instLoc() + offsetFile_, keyWords_);
+            ov_.setRealLength(ov_.getName().length()+1);
             defBehavior(ov_, info_, offsetLast_, kind_);
             countOverrides(ov_, _currentParent);
             return fct(_i, _currentParent, offsetFile_, parseHeader_, ov_);
@@ -1768,6 +1775,7 @@ public final class FileResolver {
                     new OffsetStringInfo(methodNameOffest_+ offsetFile_, trimMeth_),
                     new OffsetStringInfo(modifierOffest_+ offsetFile_, modifier_),
                     _i.instLoc() + offsetFile_, keyWords_);
+            ov_.setRealLength(ov_.getName().length()+1);
             ov_.setKind(kind_);
             countOverrides(ov_, _currentParent);
             return fct(_i, _currentParent, offsetFile_, parseHeader_, ov_);
@@ -1779,6 +1787,7 @@ public final class FileResolver {
                     new OffsetStringInfo(methodNameOffest_+ offsetFile_, trimMeth_),
                     new OffsetStringInfo(modifierOffest_+ offsetFile_, modifier_),
                     _i.instLoc() + offsetFile_, keyWords_);
+            ov_.setRealLength(ov_.getName().length()+1);
             ov_.setKind(kind_);
             countOverrides(ov_, _currentParent);
             return fct(_i, _currentParent, offsetFile_, parseHeader_, ov_);
@@ -1792,6 +1801,7 @@ public final class FileResolver {
                     new OffsetStringInfo(methodNameOffest_+ offsetFile_, trimMeth_),
                     new OffsetStringInfo(modifierOffest_+ offsetFile_, modifier_),
                     _i.instLoc() + offsetFile_, keyWords_);
+            ov_.setRealLength(keyWords_.getKeyWordThis().length()+1);
             defBehavior(ov_, info_, offsetLast_, kind_);
             countOverrides(ov_, _currentParent);
             return fct(_i, _currentParent, offsetFile_, parseHeader_, ov_);
@@ -1802,6 +1812,7 @@ public final class FileResolver {
                 new OffsetStringInfo(methodNameOffest_+ offsetFile_, trimMeth_),
                 new OffsetStringInfo(modifierOffest_+ offsetFile_, modifier_),
                 _i.instLoc() + offsetFile_, keyWords_);
+        ov_.setRealLength(ov_.getName().length()+1);
         defBehavior(ov_, info_, offsetLast_, kind_);
         countOverrides(ov_, _currentParent);
         return fct(_i, _currentParent, offsetFile_, parseHeader_, ov_);

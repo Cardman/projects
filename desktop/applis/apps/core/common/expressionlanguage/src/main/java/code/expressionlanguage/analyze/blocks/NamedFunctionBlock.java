@@ -57,6 +57,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private final CustList<StringList> paramWarns = new CustList<StringList>();
     private boolean retRef;
     private boolean usedRefMethod;
+    private int realLength;
 
     protected NamedFunctionBlock(ParsedFctHeader _header, OffsetAccessInfo _access,
                                  OffsetStringInfo _retType, OffsetStringInfo _fctName,
@@ -338,5 +339,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public void setUsedRefMethod(boolean _usedRefMethod) {
         this.usedRefMethod = _usedRefMethod;
+    }
+
+    public int getRealLength() {
+        return realLength;
+    }
+
+    public void setRealLength(int _r) {
+        this.realLength = _r;
     }
 }
