@@ -69,6 +69,9 @@ public final class ResultExpressionOperationNode {
             ls_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable) bl_).getPartOffsetsSecond(), _caret));
             return ls_;
         }
+        if (bl_ instanceof WithFilterContent) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((WithFilterContent)bl_).getFilterContent().getPartOffsets(),_caret);
+        }
         return new CustList<SrcFileLocation>();
     }
     private static OffsetStringInfo tryDecl(AbsBk _bl, int _caret) {
@@ -80,6 +83,12 @@ public final class ResultExpressionOperationNode {
         }
         if (_bl instanceof ForEachTable&&inRange(((ForEachTable)_bl).getVariableNameOffsetSecond(),_caret,((ForEachTable)_bl).getVariableNameOffsetSecond()+((ForEachTable)_bl).getVariableNameSecond().length())) {
             return new OffsetStringInfo(((ForEachTable)_bl).getVariableNameOffsetSecond(), ((ForEachTable)_bl).getVariableNameSecond());
+        }
+        if (_bl instanceof WithFilterContent&&inRange(((WithFilterContent)_bl).getFilterContent().getVariableOffset(),_caret,((WithFilterContent)_bl).getFilterContent().getVariableOffset()+((WithFilterContent)_bl).getFilterContent().getVariableName().length())){
+            return new OffsetStringInfo(((WithFilterContent)_bl).getFilterContent().getVariableOffset(), ((WithFilterContent)_bl).getFilterContent().getVariableName());
+        }
+        if (_bl instanceof DefaultCondition&&inRange(((DefaultCondition)_bl).getVariableOffset(),_caret,((DefaultCondition)_bl).getVariableOffset()+((DefaultCondition)_bl).getVariableName().length())) {
+            return new OffsetStringInfo(((DefaultCondition)_bl).getVariableOffset(),((DefaultCondition)_bl).getVariableName());
         }
         return null;
     }
