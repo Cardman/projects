@@ -115,6 +115,12 @@ public final class ResultExpressionOperationNode {
             fctPub(((ExplicitOperatorOperation) foundOp_).getFunctionTest(), ls_);
             return ls_;
         }
+        if (foundOp_ instanceof ArrOperation) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            fctPub(((ArrOperation) foundOp_).getFunctionGet(), ls_);
+            fctPub(((ArrOperation) foundOp_).getFunctionSet(), ls_);
+            return ls_;
+        }
         return pique(_fileName, _caret, _res);
     }
 
