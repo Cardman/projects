@@ -5,6 +5,8 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.ResultParsedAnnot;
 import code.expressionlanguage.analyze.files.ResultParsedAnnots;
+import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodId;
+import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodIdList;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
@@ -96,47 +98,87 @@ public final class ResultExpressionOperationNode {
             return t_;
         }
         if (_bl instanceof NamedFunctionBlock) {
-            CustList<SrcFileLocation> p_ = new CustList<SrcFileLocation>();
-            Ints offs_ = ((NamedFunctionBlock) _bl).getParametersNamesOffset();
-            StringList names_ = ((NamedFunctionBlock) _bl).getParametersNames();
-            int s_ = names_.size();
-            for (int i = 0; i < s_; i++) {
-                if (inRange(offs_.get(i),_caret,offs_.get(i)+names_.get(i).length())) {
-                    p_.add(new SrcFileLocationVariable(-1,names_.get(i),_bl.getFile().getFileName(),offs_.get(i)));
+            return defName(_caret, (NamedFunctionBlock) _bl);
+        }
+        if (_bl instanceof InternOverrideBlock) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            for (PartOffsetsClassMethodIdList l:((InternOverrideBlock)_bl).getAllPartsTypes()) {
+                for (PartOffsetsClassMethodId p:l.getOverrides()) {
+                    if (inRange(p.getBegin(), _caret,p.getBegin()+p.getLength())) {
+                        fctPub(p.getFct(),ls_);
+                    }
                 }
             }
-            return p_;
+            return ls_;
         }
         return new CustList<SrcFileLocation>();
     }
 
-    private static CustList<SrcFileLocation> otherTypes(AbsBk _bl, int _caret) {
-        CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-        if (_bl instanceof RootBlock) {
-            if (inRange(((RootBlock)_bl).getIdRowCol(),_caret,((RootBlock)_bl).getIdRowCol()+((RootBlock)_bl).getNameLength())) {
-                ls_.add(new SrcFileLocationType((RootBlock) _bl));
+    private static CustList<SrcFileLocation> defName(int _caret, NamedFunctionBlock _bl) {
+        CustList<SrcFileLocation> p_ = new CustList<SrcFileLocation>();
+        Ints offs_ = _bl.getParametersNamesOffset();
+        StringList names_ = _bl.getParametersNames();
+        int s_ = names_.size();
+        for (int i = 0; i < s_; i++) {
+            if (inRange(offs_.get(i), _caret,offs_.get(i)+names_.get(i).length())) {
+                p_.add(new SrcFileLocationVariable(-1,names_.get(i), _bl.getFile().getFileName(),offs_.get(i)));
             }
-            if (!(_bl instanceof AnonymousTypeBlock)) {
-                ls_.addAllElts(fetch(_caret,((RootBlock)_bl).getPartsStaticInitInterfacesOffset()));
-                ls_.addAllElts(fetch(_caret,((RootBlock)_bl).getPartsInstInitInterfacesOffset()));
-                for (TypeVar t: ((RootBlock)_bl).getParamTypes()) {
-                    if (inRange(t.getOffset(),_caret,t.getOffset()+t.getLength())) {
-                        ls_.add(new SrcFileLocationTypeVar(t.getName(),t.getOffset(),_bl.getFile()));
-                    }
-                    ls_.addAllElts(fetchAna(_caret,t.getResults()));
+        }
+        if (_bl instanceof NamedCalledFunctionBlock) {
+            for (PartOffsetsClassMethodId p:((NamedCalledFunctionBlock) _bl).getAllInternTypesParts()) {
+                if (inRange(p.getBegin(), _caret,p.getBegin()+p.getLength())) {
+                    fctPub(p.getFct(),p_);
                 }
             }
-            ls_.addAllElts(fetchAna(_caret,((RootBlock)_bl).getResults()));
         }
+        return p_;
+    }
+
+    private static CustList<SrcFileLocation> otherTypes(AbsBk _bl, int _caret) {
+        CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+        typesDecl(_bl, _caret, ls_);
         if (_bl instanceof NamedFunctionBlock) {
             ls_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((NamedFunctionBlock)_bl).getPartOffsetsReturn(), _caret));
             ls_.addAllElts(fetchAna(_caret,((NamedFunctionBlock)_bl).getPartOffsetsParams()));
             if (_bl instanceof NamedCalledFunctionBlock) {
                 ls_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((NamedCalledFunctionBlock)_bl).getPartOffsetsReturnSetter(), _caret));
+                for (PartOffsetsClassMethodId p:((NamedCalledFunctionBlock)_bl).getAllInternTypesParts()) {
+                    ls_.addAllElts(fetch(_caret,p.getTypes()));
+                    ls_.addAllElts(fetch(_caret,p.getSuperTypes()));
+                }
+            }
+        }
+        if (_bl instanceof InternOverrideBlock) {
+            for (PartOffsetsClassMethodIdList l:((InternOverrideBlock)_bl).getAllPartsTypes()) {
+                ls_.addAllElts(fetch(_caret,l.getTypes()));
+                for (PartOffsetsClassMethodId p:l.getOverrides()) {
+                    ls_.addAllElts(fetch(_caret,p.getTypes()));
+                    ls_.addAllElts(fetch(_caret,p.getSuperTypes()));
+                }
             }
         }
         return ls_;
     }
+
+    private static void typesDecl(AbsBk _bl, int _caret, CustList<SrcFileLocation> _ls) {
+        if (_bl instanceof RootBlock) {
+            if (inRange(((RootBlock) _bl).getIdRowCol(), _caret,((RootBlock) _bl).getIdRowCol()+((RootBlock) _bl).getNameLength())) {
+                _ls.add(new SrcFileLocationType((RootBlock) _bl));
+            }
+            if (!(_bl instanceof AnonymousTypeBlock)) {
+                _ls.addAllElts(fetch(_caret,((RootBlock) _bl).getPartsStaticInitInterfacesOffset()));
+                _ls.addAllElts(fetch(_caret,((RootBlock) _bl).getPartsInstInitInterfacesOffset()));
+                for (TypeVar t: ((RootBlock) _bl).getParamTypes()) {
+                    if (inRange(t.getOffset(), _caret,t.getOffset()+t.getLength())) {
+                        _ls.add(new SrcFileLocationTypeVar(t.getName(),t.getOffset(), _bl.getFile()));
+                    }
+                    _ls.addAllElts(fetchAna(_caret,t.getResults()));
+                }
+            }
+            _ls.addAllElts(fetchAna(_caret,((RootBlock) _bl).getResults()));
+        }
+    }
+
     private static OffsetStringInfo tryDecl(AbsBk _bl, int _caret) {
         if (_bl instanceof ForEachLoop&&inRange(((ForEachLoop)_bl).getVariableNameOffset(),_caret,((ForEachLoop)_bl).getVariableNameOffset()+((ForEachLoop)_bl).getVariableName().length())) {
             return new OffsetStringInfo(((ForEachLoop)_bl).getVariableNameOffset(), ((ForEachLoop)_bl).getVariableName());

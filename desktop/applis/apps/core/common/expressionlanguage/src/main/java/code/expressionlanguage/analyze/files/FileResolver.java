@@ -999,7 +999,7 @@ public final class FileResolver {
         int_.setBegin(_instructionTrimLocation + _input.getOffset());
         int_.setLengthHeader(_keyWords.getKeyWordIntern().length());
         _currentParent.appendChild(int_);
-        int_.setEndAll(_instructionTrimLocation + _input.getOffset()+_keyWords.getKeyWordIntern().length()+1);
+        int_.setEndAll(_instructionTrimLocation + _input.getOffset()+_keyWords.getKeyWordIntern().length()+lastPar_+1);
         after_.setParent(_currentParent);
         after_.setPackageName(_packageName);
         return after_;

@@ -4096,6 +4096,65 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq("p",((SrcFileLocationVariable)r_.get(0)).getName());
     }
     @Test
+    public void locations124() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$static $boolean $(Outer o){$return $true;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2<T:Outer3> {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$new Outer(){};}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer3 {\n");
+        xml_.append("$void m()$intern(Outer3:m(Outer3);Outer3:m(Outer3)){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex3", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex3",52);
+        assertEq(1,r_.size());
+        assertEq(34,r_.get(0).getIndex());
+        assertEq("pkg/Ex3",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations125() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$static $boolean $(Outer o){$return $true;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2<T:Outer3> {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$new Outer(){};}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer3 {\n");
+        xml_.append("$intern{m():m(Outer3)|m(Outer3)};\n");
+        xml_.append("$void m()$intern(Outer3:m(Outer3);Outer3:m(Outer3)){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex3", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex3",40);
+        assertEq(1,r_.size());
+        assertEq(68,r_.get(0).getIndex());
+        assertEq("pkg/Ex3",r_.get(0).getFileName());
+    }
+    @Test
     public void vexer1() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
