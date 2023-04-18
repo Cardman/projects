@@ -10,7 +10,7 @@ public final class ContinueBlock extends AbruptBlock {
 
     private final String label;
     private final int labelOffset;
-    private int labelOffsetRef;
+    private int labelOffsetRef=-1;
     private final StringList errorsRefLabels = new StringList();
 
     public ContinueBlock(OffsetStringInfo _label, int _offset) {

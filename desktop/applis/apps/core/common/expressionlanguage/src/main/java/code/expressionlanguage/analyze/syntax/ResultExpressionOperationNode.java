@@ -69,8 +69,21 @@ public final class ResultExpressionOperationNode {
             ls_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable) bl_).getPartOffsetsSecond(), _caret));
             return ls_;
         }
+        if (bl_ instanceof FieldBlock) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((FieldBlock)bl_).getTypePartOffsets(),_caret);
+        }
         if (bl_ instanceof WithFilterContent) {
             return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((WithFilterContent)bl_).getFilterContent().getPartOffsets(),_caret);
+        }
+        if (bl_ instanceof BreakBlock&&((BreakBlock)bl_).getLabelOffsetRef()>-1) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            ls_.add(new SrcFileLocationLabel(((BreakBlock)bl_).getLabel(),_fileName,((BreakBlock)bl_).getLabelOffsetRef()));
+            return ls_;
+        }
+        if (bl_ instanceof ContinueBlock&&((ContinueBlock)bl_).getLabelOffsetRef()>-1) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            ls_.add(new SrcFileLocationLabel(((ContinueBlock)bl_).getLabel(),_fileName,((ContinueBlock)bl_).getLabelOffsetRef()));
+            return ls_;
         }
         return new CustList<SrcFileLocation>();
     }
