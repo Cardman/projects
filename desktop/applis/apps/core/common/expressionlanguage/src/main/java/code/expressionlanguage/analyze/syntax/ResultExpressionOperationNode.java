@@ -20,6 +20,8 @@ import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
+import code.util.Ints;
+import code.util.core.StringUtil;
 
 public final class ResultExpressionOperationNode {
     private ResultExpression resultExpression;
@@ -109,9 +111,45 @@ public final class ResultExpressionOperationNode {
             fctPub(((SemiAffectationOperation) _foundOp).getConvTo().getFunction(), ls_);
             return ls_;
         }
+        if (_foundOp instanceof NamedArgumentOperation) {
+            return name(_caret,(NamedArgumentOperation)_foundOp);
+        }
         return new CustList<SrcFileLocation>();
     }
 
+    private static CustList<SrcFileLocation> name(int _caret, NamedArgumentOperation _foundOp) {
+        if (_foundOp.isRecordBlock()) {
+            CustList<SrcFileLocation> ls_ = fetch(_caret, _foundOp.getPartOffsets());
+            if (!ls_.isEmpty()) {
+                return ls_;
+            }
+            int i_ = _foundOp.getRef();
+            RootBlock r_ = _foundOp.getField();
+            ClassField cf_ = _foundOp.getIdField();
+            String fileName_ = fileName(r_);
+            if (!cf_.getClassName().isEmpty()) {
+                ls_.add(new SrcFileLocationField(cf_,fileName_,i_));
+            }
+            return ls_;
+        }
+        CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+        feedFiltersNamedList(_foundOp,ls_);
+        return ls_;
+    }
+
+    private static void feedFiltersNamedList(NamedArgumentOperation _namedArg, CustList<SrcFileLocation> _list) {
+        CustList<NamedFunctionBlock> customMethods_ = _namedArg.getCustomMethod();
+        for (NamedFunctionBlock n: customMethods_) {
+            Ints offs_ = n.getParametersNamesOffset();
+            int in_ = StringUtil.indexOf(n.getParametersNames(), _namedArg.getName());
+//            if (offs_.isValidIndex(in_)) {
+//                int off_ = offs_.get(in_);
+//                _list.add(new SrcFileLocationVariable(-1,_namedArg.getName(),fileName(n),off_));
+//            }
+            int off_ = offs_.get(in_);
+            _list.add(new SrcFileLocationVariable(-1,_namedArg.getName(),fileName(n),off_));
+        }
+    }
     private static CustList<SrcFileLocation> cast(int _caret, CastFctOperation _foundOp) {
         CustList<SrcFileLocation> locs_ = fetch(_caret, _foundOp.getPartOffsets());
         if (!locs_.isEmpty()) {
@@ -245,7 +283,7 @@ public final class ResultExpressionOperationNode {
         return ls_;
     }
 
-    private static String fileName(RootBlock _r) {
+    private static String fileName(AbsBk _r) {
         String fileName_;
         if (_r != null) {
             fileName_ = _r.getFile().getFileName();
