@@ -103,17 +103,7 @@ public final class ResultExpressionOperationNode {
             return ls_;
         }
         if (foundOp_ instanceof ExplicitOperatorOperation) {
-            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-            ls_.addAllElts(fetch(_caret,((ExplicitOperatorOperation) foundOp_).getTypesImpl()));
-            ls_.addAllElts(fetch(_caret,((ExplicitOperatorOperation) foundOp_).getTypesTest()));
-            ls_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ExplicitOperatorOperation) foundOp_).getPartOffsets(),_caret));
-            if (!ls_.isEmpty()) {
-                return ls_;
-            }
-            fctPub(((ExplicitOperatorOperation) foundOp_).getCallFctContent().getFunction(), ls_);
-            fctPub(((ExplicitOperatorOperation) foundOp_).getConv().getFunction(), ls_);
-            fctPub(((ExplicitOperatorOperation) foundOp_).getFunctionTest(), ls_);
-            return ls_;
+            return exp(_caret, (ExplicitOperatorOperation) foundOp_);
         }
         if (foundOp_ instanceof ArrOperation) {
             CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
@@ -121,7 +111,40 @@ public final class ResultExpressionOperationNode {
             fctPub(((ArrOperation) foundOp_).getFunctionSet(), ls_);
             return ls_;
         }
+        if (foundOp_ instanceof AbstractInvokingConstructor) {
+            return curr(_caret, (AbstractInvokingConstructor) foundOp_);
+        }
+        if (foundOp_ instanceof DimensionArrayInstancing) {
+            return types(((DimensionArrayInstancing)foundOp_).getPartOffsets(),_caret);
+        }
+        if (foundOp_ instanceof ElementArrayInstancing) {
+            return types(((ElementArrayInstancing)foundOp_).getPartOffsets(),_caret);
+        }
         return pique(_fileName, _caret, _res);
+    }
+
+    private static CustList<SrcFileLocation> curr(int _caret, AbstractInvokingConstructor _foundOp) {
+        CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+        ls_.addAllElts(fetch(_caret, _foundOp.getPartOffsets()));
+        if (!ls_.isEmpty()) {
+            return ls_;
+        }
+        fctPub(_foundOp.getConstructor(), ls_);
+        return ls_;
+    }
+
+    private static CustList<SrcFileLocation> exp(int _caret, ExplicitOperatorOperation _foundOp) {
+        CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+        ls_.addAllElts(fetch(_caret, _foundOp.getTypesImpl()));
+        ls_.addAllElts(fetch(_caret, _foundOp.getTypesTest()));
+        ls_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(_foundOp.getPartOffsets(), _caret));
+        if (!ls_.isEmpty()) {
+            return ls_;
+        }
+        fctPub(_foundOp.getCallFctContent().getFunction(), ls_);
+        fctPub(_foundOp.getConv().getFunction(), ls_);
+        fctPub(_foundOp.getFunctionTest(), ls_);
+        return ls_;
     }
 
     private static CustList<SrcFileLocation> unary(int _caret, OperationNode _foundOp) {
@@ -346,11 +369,7 @@ public final class ResultExpressionOperationNode {
             return now(_op);
         }
         ResolvedInstance r_ = _op.getResolvedInstance();
-        CustList<SrcFileLocation> s_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(r_.getResult(), _caret);
-        if (!s_.isEmpty()) {
-            return s_;
-        }
-        CustList<SrcFileLocation> t_ = fetchAna(_caret,r_.getParts());
+        CustList<SrcFileLocation> t_ = types(r_,_caret);
         if (!t_.isEmpty()) {
             return t_;
         }
@@ -358,6 +377,17 @@ public final class ResultExpressionOperationNode {
             return fetch(_caret, ((StandardInstancingOperation) _op).getPartsInstInitInterfaces());
         }
         return now(_op);
+    }
+    private static CustList<SrcFileLocation> types(ResolvedInstance _r, int _caret) {
+        CustList<SrcFileLocation> s_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(_r.getResult(), _caret);
+        if (!s_.isEmpty()) {
+            return s_;
+        }
+        CustList<SrcFileLocation> t_ = fetchAna(_caret, _r.getParts());
+        if (!t_.isEmpty()) {
+            return t_;
+        }
+        return new CustList<SrcFileLocation>();
     }
 
     private static CustList<SrcFileLocation> now(AbstractInstancingOperation _maintenant) {
