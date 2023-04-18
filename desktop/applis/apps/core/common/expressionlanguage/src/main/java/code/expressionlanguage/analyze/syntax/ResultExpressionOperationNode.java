@@ -43,6 +43,17 @@ public final class ResultExpressionOperationNode {
         if (bl_ instanceof InnerTypeOrElement) {
             return fetch(_caret,((InnerTypeOrElement)bl_).getElementContent().getPartOffsets());
         }
+        if (bl_ instanceof BreakableBlock&&inRange(((BreakableBlock)bl_).getRealLabelInfo().getOffset(),_caret,((BreakableBlock)bl_).getRealLabelInfo().getOffset()+((BreakableBlock)bl_).getRealLabelInfo().getInfo().length())) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            ls_.add(new SrcFileLocationLabel(((BreakableBlock)bl_).getRealLabelInfo().getInfo(),_fileName,((BreakableBlock)bl_).getRealLabelInfo().getOffset()));
+            return ls_;
+        }
+        if (bl_ instanceof DeclareVariable) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((DeclareVariable)bl_).getPartOffsets(),_caret);
+        }
+        if (bl_ instanceof ForMutableIterativeLoop) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForMutableIterativeLoop)bl_).getPartOffsets(),_caret);
+        }
         return new CustList<SrcFileLocation>();
     }
 
@@ -65,8 +76,9 @@ public final class ResultExpressionOperationNode {
         OperationNode f_ = _res.getFound();
         if (f_ != null) {
             fctPub(f_.getResultClass().getFunction(),ls_);
-            if (f_.getParent() instanceof AbstractDotOperation) {
-                fctPub(f_.getParent().getResultClass().getFunction(),ls_);
+            MethodOperation p_ = f_.getParent();
+            if (p_ instanceof AbstractDotOperation) {
+                fctPub(p_.getResultClass().getFunction(),ls_);
             }
         }
         return ls_;
