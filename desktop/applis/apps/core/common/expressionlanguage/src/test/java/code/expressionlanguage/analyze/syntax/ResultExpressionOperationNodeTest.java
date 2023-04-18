@@ -2719,6 +2719,100 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq("pkg/Ex",r_.get(0).getFileName());
     }
     @Test
+    public void locations71() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$operator- $int(Outer o){$return 1;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$int a=-Outer.ONE;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",47);
+        assertEq(1,r_.size());
+        assertEq(80,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations72() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$operator- $int(Outer o){$return 1;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$int a=(0);}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",47);
+        assertEq(0,r_.size());
+    }
+    @Test
+    public void locations73() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$operator-- Outer(Outer o){$return o;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{Outer a=--Outer.ONE;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",48);
+        assertEq(1,r_.size());
+        assertEq(80,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations74() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$operator-- Outer(Outer o){$return o;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{Outer a=Outer.ONE--;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",57);
+        assertEq(1,r_.size());
+        assertEq(80,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
     public void vexer1() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

@@ -70,25 +70,46 @@ public final class ResultExpressionOperationNode {
         if (foundOp_ instanceof AnnotationInstanceArobaseOperation) {
             return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AnnotationInstanceArobaseOperation)foundOp_).getPartOffsets(),_caret);
         }
-        if (foundOp_ instanceof AssocationOperation) {
-            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-            AnaTypeFct f_ = ((AssocationOperation) foundOp_).getFunction();
-            fctPub(f_, ls_);
-            return ls_;
-        }
         if (foundOp_ instanceof SettableAbstractFieldOperation) {
             return feelIt(_caret, foundOp_);
         }
-        if (foundOp_ instanceof InstanceOfOperation) {
-            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((InstanceOfOperation)foundOp_).getPartOffsets(),_caret);
-        }
-        if (foundOp_ instanceof CastFctOperation) {
-            return cast(_caret, (CastFctOperation) foundOp_);
-        }
-        if (foundOp_ instanceof CastOperation) {
-            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((CastOperation)foundOp_).getPartOffsets(),_caret);
+        if (foundOp_ instanceof AbstractUnaryOperation) {
+            return unary(_caret, foundOp_);
         }
         return pique(_fileName, _caret, _res);
+    }
+
+    private static CustList<SrcFileLocation> unary(int _caret, OperationNode _foundOp) {
+        if (_foundOp instanceof AssocationOperation) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            AnaTypeFct f_ = ((AssocationOperation) _foundOp).getFunction();
+            fctPub(f_, ls_);
+            return ls_;
+        }
+        if (_foundOp instanceof EnumValueOfOperation) {
+            return fetch(_caret, ((EnumValueOfOperation)_foundOp).getPartOffsets());
+        }
+        if (_foundOp instanceof InstanceOfOperation) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((InstanceOfOperation) _foundOp).getPartOffsets(), _caret);
+        }
+        if (_foundOp instanceof CastFctOperation) {
+            return cast(_caret, (CastFctOperation) _foundOp);
+        }
+        if (_foundOp instanceof CastOperation) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((CastOperation) _foundOp).getPartOffsets(), _caret);
+        }
+        if (_foundOp instanceof SymbolOperation) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            fctPub(((SymbolOperation) _foundOp).getFct().getFunction(), ls_);
+            return ls_;
+        }
+        if (_foundOp instanceof SemiAffectationOperation) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            fctPub(((SemiAffectationOperation) _foundOp).getFct().getFunction(), ls_);
+            fctPub(((SemiAffectationOperation) _foundOp).getConvTo().getFunction(), ls_);
+            return ls_;
+        }
+        return new CustList<SrcFileLocation>();
     }
 
     private static CustList<SrcFileLocation> cast(int _caret, CastFctOperation _foundOp) {
@@ -121,9 +142,6 @@ public final class ResultExpressionOperationNode {
         }
         if (foundOp_ instanceof ValuesOperation) {
             return fetch(_caret, ((ValuesOperation)foundOp_).getPartOffsets());
-        }
-        if (foundOp_ instanceof EnumValueOfOperation) {
-            return fetch(_caret, ((EnumValueOfOperation)foundOp_).getPartOffsets());
         }
         if (okVar(foundOp_)) {
             AnaVariableContent v_ = ((VariableOperation) foundOp_).getVariableContent();
