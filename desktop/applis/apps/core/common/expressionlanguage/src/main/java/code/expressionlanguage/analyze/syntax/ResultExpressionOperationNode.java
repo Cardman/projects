@@ -113,6 +113,9 @@ public final class ResultExpressionOperationNode {
         if (_foundOp instanceof NamedArgumentOperation) {
             return name(_caret,(NamedArgumentOperation)_foundOp);
         }
+        if (_foundOp instanceof SwitchOperation) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((SwitchOperation) _foundOp).getPartOffsets(), _caret);
+        }
         return new CustList<SrcFileLocation>();
     }
 

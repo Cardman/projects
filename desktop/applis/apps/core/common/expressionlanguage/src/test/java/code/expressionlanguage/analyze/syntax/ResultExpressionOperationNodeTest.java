@@ -2965,6 +2965,114 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq(0,r_.size());
     }
     @Test
+    public void locations80() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("{\n");
+        xml_.append("b=$switch[Outer:@Annot:@Annot2](1){\n");
+        xml_.append("$case 1;\n");
+        xml_.append("$return $null;\n");
+        xml_.append("};\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Annot {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Annot2 {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex3", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",39);
+        assertEq(1,r_.size());
+        assertEq(15,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations81() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("{\n");
+        xml_.append("b=$switch[Outer:@Annot:@Annot2](1){\n");
+        xml_.append("$case 1;\n");
+        xml_.append("$return $null;\n");
+        xml_.append("};\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Annot {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Annot2 {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex3", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",46);
+        assertEq(1,r_.size());
+        assertEq(20,r_.get(0).getIndex());
+        assertEq("pkg/Ex2",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations82() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("{\n");
+        xml_.append("b=$switch[Outer:@Annot:@Annot2](1){\n");
+        xml_.append("$case 1;\n");
+        xml_.append("$return $null;\n");
+        xml_.append("};\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Annot {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Annot2 {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex3", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",53);
+        assertEq(1,r_.size());
+        assertEq(20,r_.get(0).getIndex());
+        assertEq("pkg/Ex3",r_.get(0).getFileName());
+    }
+    @Test
+    public void locations83() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("{\n");
+        xml_.append("b=$switch[Outer:@Annot:@Annot2](1){\n");
+        xml_.append("$case 1;\n");
+        xml_.append("$return $new Outer();\n");
+        xml_.append("};\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Annot {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Annot2 {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex3", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",87);
+        assertEq(1,r_.size());
+        assertEq(15,r_.get(0).getIndex());
+        assertEq("pkg/Ex",r_.get(0).getFileName());
+    }
+    @Test
     public void vexer1() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
