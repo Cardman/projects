@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.expressionlanguage.analyze.types.LocationsPartTypeUtil;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
@@ -85,7 +86,36 @@ public final class ResultExpressionOperationNode {
             ls_.add(new SrcFileLocationLabel(((ContinueBlock)bl_).getLabel(),_fileName,((ContinueBlock)bl_).getLabelOffsetRef()));
             return ls_;
         }
+        return def(_caret, bl_);
+    }
+
+    private static CustList<SrcFileLocation> def(int _caret, AbsBk _bl) {
+        CustList<SrcFileLocation> t_ = otherTypes(_bl, _caret);
+        if (!t_.isEmpty()) {
+            return t_;
+        }
         return new CustList<SrcFileLocation>();
+    }
+
+    private static CustList<SrcFileLocation> otherTypes(AbsBk _bl, int _caret) {
+        CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+        if (_bl instanceof RootBlock) {
+            if (inRange(((RootBlock)_bl).getIdRowCol(),_caret,((RootBlock)_bl).getIdRowCol()+((RootBlock)_bl).getNameLength())) {
+                ls_.add(new SrcFileLocationType((RootBlock) _bl));
+            }
+            if (!(_bl instanceof AnonymousTypeBlock)) {
+                ls_.addAllElts(fetch(_caret,((RootBlock)_bl).getPartsStaticInitInterfacesOffset()));
+                ls_.addAllElts(fetch(_caret,((RootBlock)_bl).getPartsInstInitInterfacesOffset()));
+                for (TypeVar t: ((RootBlock)_bl).getParamTypes()) {
+                    if (inRange(t.getOffset(),_caret,t.getOffset()+t.getLength())) {
+                        ls_.add(new SrcFileLocationTypeVar(t.getName(),t.getOffset(),_bl.getFile()));
+                    }
+                    ls_.addAllElts(fetchAna(_caret,t.getResults()));
+                }
+            }
+            ls_.addAllElts(fetchAna(_caret,((RootBlock)_bl).getResults()));
+        }
+        return ls_;
     }
     private static OffsetStringInfo tryDecl(AbsBk _bl, int _caret) {
         if (_bl instanceof ForEachLoop&&inRange(((ForEachLoop)_bl).getVariableNameOffset(),_caret,((ForEachLoop)_bl).getVariableNameOffset()+((ForEachLoop)_bl).getVariableName().length())) {
