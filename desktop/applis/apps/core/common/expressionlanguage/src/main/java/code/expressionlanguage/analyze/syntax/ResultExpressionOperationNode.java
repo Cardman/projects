@@ -82,6 +82,12 @@ public final class ResultExpressionOperationNode {
             fctPub(((SymbolOperation) foundOp_).getFct().getFunction(), ls_);
             return ls_;
         }
+        if (foundOp_ instanceof AbstractComTernaryOperation) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            fctPub(((AbstractComTernaryOperation) foundOp_).getImplFct(), ls_);
+            fctPub(((AbstractComTernaryOperation) foundOp_).getTestFct(), ls_);
+            return ls_;
+        }
         return pique(_fileName, _caret, _res);
     }
 
