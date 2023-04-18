@@ -47,9 +47,6 @@ public final class ResultExpressionOperationNode {
 
     private static CustList<SrcFileLocation> coeur(String _fileName, int _caret, ResultExpressionOperationNode _res) {
         OperationNode foundOp_ = _res.getFound();
-        if (foundOp_ instanceof AbsFctOperation) {
-            return fct(_caret, _res);
-        }
         if (foundOp_ instanceof StaticAccessOperation) {
             return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticAccessOperation)foundOp_).getPartOffsets(), _caret);
         }
@@ -58,6 +55,14 @@ public final class ResultExpressionOperationNode {
         }
         if (foundOp_ instanceof FunctFilterOperation) {
             return id(_caret, foundOp_);
+        }
+        return carreau(_fileName, _caret, _res);
+    }
+
+    private static CustList<SrcFileLocation> carreau(String _fileName, int _caret, ResultExpressionOperationNode _res) {
+        OperationNode foundOp_ = _res.getFound();
+        if (foundOp_ instanceof AbsFctOperation) {
+            return fct(_caret, _res);
         }
         if (foundOp_ instanceof AbstractInstancingOperation) {
             return young(_caret, _res, (AbstractInstancingOperation) foundOp_);
@@ -73,6 +78,9 @@ public final class ResultExpressionOperationNode {
         }
         if (foundOp_ instanceof SettableAbstractFieldOperation) {
             return feelIt(_caret, foundOp_);
+        }
+        if (foundOp_ instanceof InstanceOfOperation) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((InstanceOfOperation)foundOp_).getPartOffsets(),_caret);
         }
         if (foundOp_ instanceof CastFctOperation) {
             return cast(_caret, (CastFctOperation) foundOp_);
@@ -113,6 +121,9 @@ public final class ResultExpressionOperationNode {
         }
         if (foundOp_ instanceof ValuesOperation) {
             return fetch(_caret, ((ValuesOperation)foundOp_).getPartOffsets());
+        }
+        if (foundOp_ instanceof EnumValueOfOperation) {
+            return fetch(_caret, ((EnumValueOfOperation)foundOp_).getPartOffsets());
         }
         if (okVar(foundOp_)) {
             AnaVariableContent v_ = ((VariableOperation) foundOp_).getVariableContent();
