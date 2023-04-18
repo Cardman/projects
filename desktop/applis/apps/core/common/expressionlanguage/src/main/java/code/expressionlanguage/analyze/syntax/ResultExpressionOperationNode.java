@@ -21,7 +21,6 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
 import code.util.Ints;
-import code.util.core.StringUtil;
 
 public final class ResultExpressionOperationNode {
     private ResultExpression resultExpression;
@@ -139,15 +138,14 @@ public final class ResultExpressionOperationNode {
 
     private static void feedFiltersNamedList(NamedArgumentOperation _namedArg, CustList<SrcFileLocation> _list) {
         CustList<NamedFunctionBlock> customMethods_ = _namedArg.getCustomMethod();
+        Ints offs_ = new Ints();
+        CustList<String> fs_ = new CustList<String>();
         for (NamedFunctionBlock n: customMethods_) {
-            Ints offs_ = n.getParametersNamesOffset();
-            int in_ = StringUtil.indexOf(n.getParametersNames(), _namedArg.getName());
-//            if (offs_.isValidIndex(in_)) {
-//                int off_ = offs_.get(in_);
-//                _list.add(new SrcFileLocationVariable(-1,_namedArg.getName(),fileName(n),off_));
-//            }
-            int off_ = offs_.get(in_);
-            _list.add(new SrcFileLocationVariable(-1,_namedArg.getName(),fileName(n),off_));
+            n.offsetByNameOut(_namedArg.getName(),offs_,fs_);
+        }
+        int s_ = offs_.size();
+        for (int i = 0; i < s_; i++) {
+            _list.add(new SrcFileLocationVariable(-1,_namedArg.getName(),fs_.get(i),offs_.get(i)));
         }
     }
     private static CustList<SrcFileLocation> cast(int _caret, CastFctOperation _foundOp) {

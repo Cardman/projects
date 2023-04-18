@@ -3419,28 +3419,19 @@ public final class LinkageUtil {
     }
 
     private static void feedFiltersNamedList(NamedArgumentOperation _namedArg, CustList<NamedFunctionBlock> _customMethods, CustList<LinkedNamedArgParts> _list, CustList<LinkedNamedArgParts> _filterSet, CustList<LinkedNamedArgParts> _filterGet) {
-        int i_ = 0;
         for (NamedFunctionBlock n: _customMethods) {
             FileBlock file_ = n.getFile();
             Ints offs_ = new Ints();
             if (!file_.isPredefined()) {
                 offs_ = n.getParametersNamesOffset();
             }
-            int index_ = index(i_, n, _namedArg);
-            if (offs_.isValidIndex(index_)) {
-                int off_ = offs_.get(index_);
+            int off_ = NamedFunctionBlock.offsetByName(offs_,n.getParametersNames(),_namedArg.getName());
+            if (off_ > -1) {
                 LinkedNamedArgParts elt_ = new LinkedNamedArgParts(n.getFile(), off_);
                 feedFiltersNamed(_filterSet, _filterGet, n, elt_);
                 _list.add(elt_);
             }
-            i_++;
         }
-    }
-    private static int index(int _i, NamedFunctionBlock _m, NamedArgumentOperation _namedArg) {
-        if (is(_m,MethodKind.SET_INDEX)&&_i > 0) {
-            return _namedArg.getIndexChild()-InvokingOperation.getDeltaCount(_namedArg.getParent().getFirstChild());
-        }
-        return _namedArg.getIndex();
     }
 
     private static void feedFiltersNamed(CustList<LinkedNamedArgParts> _filterSet, CustList<LinkedNamedArgParts> _filterGet, NamedFunctionBlock _named, LinkedNamedArgParts _elt) {
