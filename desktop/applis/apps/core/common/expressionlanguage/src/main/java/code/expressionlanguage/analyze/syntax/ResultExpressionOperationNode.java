@@ -65,6 +65,9 @@ public final class ResultExpressionOperationNode {
         OperationNode f_ = _res.getFound();
         if (f_ != null) {
             fctPub(f_.getResultClass().getFunction(),ls_);
+            if (f_.getParent() instanceof DotOperation) {
+                fctPub(f_.getParent().getResultClass().getFunction(),ls_);
+            }
         }
         return ls_;
     }
