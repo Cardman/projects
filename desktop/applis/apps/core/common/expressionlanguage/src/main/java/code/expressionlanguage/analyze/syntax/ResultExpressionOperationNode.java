@@ -23,6 +23,7 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
 import code.util.Ints;
+import code.util.StringList;
 
 public final class ResultExpressionOperationNode {
     private ResultExpression resultExpression;
@@ -94,6 +95,18 @@ public final class ResultExpressionOperationNode {
         if (!t_.isEmpty()) {
             return t_;
         }
+        if (_bl instanceof NamedFunctionBlock) {
+            CustList<SrcFileLocation> p_ = new CustList<SrcFileLocation>();
+            Ints offs_ = ((NamedFunctionBlock) _bl).getParametersNamesOffset();
+            StringList names_ = ((NamedFunctionBlock) _bl).getParametersNames();
+            int s_ = names_.size();
+            for (int i = 0; i < s_; i++) {
+                if (inRange(offs_.get(i),_caret,offs_.get(i)+names_.get(i).length())) {
+                    p_.add(new SrcFileLocationVariable(-1,names_.get(i),_bl.getFile().getFileName(),offs_.get(i)));
+                }
+            }
+            return p_;
+        }
         return new CustList<SrcFileLocation>();
     }
 
@@ -114,6 +127,13 @@ public final class ResultExpressionOperationNode {
                 }
             }
             ls_.addAllElts(fetchAna(_caret,((RootBlock)_bl).getResults()));
+        }
+        if (_bl instanceof NamedFunctionBlock) {
+            ls_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((NamedFunctionBlock)_bl).getPartOffsetsReturn(), _caret));
+            ls_.addAllElts(fetchAna(_caret,((NamedFunctionBlock)_bl).getPartOffsetsParams()));
+            if (_bl instanceof NamedCalledFunctionBlock) {
+                ls_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((NamedCalledFunctionBlock)_bl).getPartOffsetsReturnSetter(), _caret));
+            }
         }
         return ls_;
     }
