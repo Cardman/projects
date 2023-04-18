@@ -77,6 +77,11 @@ public final class ResultExpressionOperationNode {
         if (foundOp_ instanceof AbstractUnaryOperation) {
             return unary(_caret, foundOp_);
         }
+        if (foundOp_ instanceof MiddleSymbolOperation) {
+            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+            fctPub(((SymbolOperation) foundOp_).getFct().getFunction(), ls_);
+            return ls_;
+        }
         return pique(_fileName, _caret, _res);
     }
 
