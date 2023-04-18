@@ -57,7 +57,16 @@ public final class ResultExpressionOperationNode {
         if (foundOp_ instanceof FunctFilterOperation) {
             return id(_caret, foundOp_);
         }
-        return carreau(_fileName, _caret, _res);
+        return trefle(_fileName, _caret, _res);
+    }
+
+    private static CustList<SrcFileLocation> trefle(String _fileName, int _caret, ResultExpressionOperationNode _res) {
+        CustList<SrcFileLocation> ls_ = carreau(_fileName, _caret, _res);
+        OperationNode f_ = _res.getFound();
+        if (f_ != null) {
+            fctPub(f_.getResultClass().getFunction(),ls_);
+        }
+        return ls_;
     }
 
     private static CustList<SrcFileLocation> carreau(String _fileName, int _caret, ResultExpressionOperationNode _res) {
