@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardType;
 
 public final class ImportedMethod {
     private final String returnType;
@@ -14,6 +15,7 @@ public final class ImportedMethod {
     private final MemberId memberId = new MemberId();
     private StandardMethod standardMethod;
     private RootBlock type;
+    private StandardType std;
     private AnaGeneType owner;
     private NamedFunctionBlock custMethod;
 
@@ -60,6 +62,14 @@ public final class ImportedMethod {
 
     public void setType(RootBlock _type) {
         type = _type;
+    }
+
+    public StandardType getStd() {
+        return std;
+    }
+
+    public void setStd(StandardType _s) {
+        this.std = _s;
     }
 
     public NamedFunctionBlock getCustMethod() {

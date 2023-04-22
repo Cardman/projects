@@ -57,6 +57,7 @@ public final class MethodInfo extends Parametrable {
         setOriginalReturnType(_m.getReturnType());
         trySetParamNames(this, _m);
         setStandardMethod(_m.getStandardMethod());
+        setStandardType(_m.getStd());
         setCust(_m.getCustMethod());
     }
     public void pairMemberId(String _formattedClass, AnalyzedPageEl _page,MethodHeaderInfo _m) {

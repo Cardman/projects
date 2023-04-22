@@ -4,6 +4,7 @@ package code.expressionlanguage.fwd.opers;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.stds.StandardConstructor;
+import code.expressionlanguage.stds.StandardType;
 
 public final class AnaInstancingCommonContent {
     private final String methodName;
@@ -15,6 +16,7 @@ public final class AnaInstancingCommonContent {
     private String lastType = "";
 
     private ConstructorId constId;
+    private StandardType std;
     private StandardConstructor constructor;
 
     public AnaInstancingCommonContent(String _methodName) {
@@ -54,6 +56,14 @@ public final class AnaInstancingCommonContent {
 
     public void setConstId(ConstructorId _constId) {
         this.constId = _constId;
+    }
+
+    public StandardType getStd() {
+        return std;
+    }
+
+    public void setStd(StandardType _s) {
+        this.std = _s;
     }
 
     public StandardConstructor getConstructor() {

@@ -248,6 +248,7 @@ public final class ResolvingImportTypes {
             ClassMethodId clMet_ = new ClassMethodId(_s, e.getId());
             ImportedMethod value_ = new ImportedMethod(e.getImportedReturnType(), clMet_);
             value_.setStandardMethod(e);
+            value_.setStd(_std);
             value_.setOwner(_std);
             addImportMethod(_methods, value_);
         }

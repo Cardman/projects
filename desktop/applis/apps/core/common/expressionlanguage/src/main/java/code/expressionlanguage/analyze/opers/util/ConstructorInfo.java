@@ -9,7 +9,6 @@ import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardType;
 import code.util.StringList;
 
 public final class ConstructorInfo extends Parametrable {
@@ -17,7 +16,6 @@ public final class ConstructorInfo extends Parametrable {
     private ConstructorId constraints;
     private ConstructorId formatted;
 
-    private StandardType standardType;
     private StandardConstructor constructor;
     private boolean synthetic;
 
@@ -85,14 +83,6 @@ public final class ConstructorInfo extends Parametrable {
 
     public ConstructorId getFormatted() {
         return formatted;
-    }
-
-    public StandardType getStandardType() {
-        return standardType;
-    }
-
-    public void setStandardType(StandardType _standardType) {
-        standardType = _standardType;
     }
 
     public StandardConstructor getConstructor() {

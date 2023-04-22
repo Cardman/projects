@@ -1,11 +1,15 @@
 package code.expressionlanguage.analyze.syntax;
 
+import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.stds.StandardNamedFunction;
+import code.expressionlanguage.stds.StandardType;
 
 public final class SrcFileLocationStdMethod implements SrcFileLocation {
+    private final StandardType type;
     private final StandardNamedFunction std;
 
-    public SrcFileLocationStdMethod(StandardNamedFunction _s) {
+    public SrcFileLocationStdMethod(StandardType _t, StandardNamedFunction _s) {
+        type = _t;
         this.std = _s;
     }
 
@@ -19,6 +23,10 @@ public final class SrcFileLocationStdMethod implements SrcFileLocation {
         return 0;
     }
 
+    @Override
+    public RowSrcLocation build(DisplayedStrings _dis) {
+        return new RowSrcLocation(EnSrcLocation.STD_METHOD,type.getFullName()+"."+getStd().getSignature(_dis), getFileName(),getIndex());
+    }
     public StandardNamedFunction getStd() {
         return std;
     }

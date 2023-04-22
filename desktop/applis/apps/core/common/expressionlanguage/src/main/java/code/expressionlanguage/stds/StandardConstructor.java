@@ -1,5 +1,6 @@
 package code.expressionlanguage.stds;
 
+import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.util.StringList;
 
@@ -19,6 +20,11 @@ public final class StandardConstructor extends StandardNamedFunction {
 
     public StdCaller getCaller() {
         return caller;
+    }
+
+    @Override
+    public String getSignature(DisplayedStrings _dis) {
+        return getId().getSignature(_dis);
     }
 
     public ConstructorId getId() {

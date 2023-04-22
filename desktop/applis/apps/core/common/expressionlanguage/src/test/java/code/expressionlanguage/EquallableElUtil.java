@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.files.SegmentStringType;
 import code.expressionlanguage.analyze.files.SegmentType;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.EnSrcLocation;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.MatchingEnum;
@@ -121,6 +122,9 @@ public abstract class EquallableElUtil {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(SegmentStringType _expected, SegmentStringType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(EnSrcLocation _expected, EnSrcLocation _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(SegmentType _expected, SegmentType _result) {

@@ -1,5 +1,6 @@
 package code.expressionlanguage.stds;
 
+import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.StringList;
@@ -19,6 +20,11 @@ public final class StandardMethod extends StandardNamedFunction {
         super(_name, _parametersTypes, _returnType, _varargs,_paramNames);
         modifier = _modifier;
         caller = _caller;
+    }
+
+    @Override
+    public String getSignature(DisplayedStrings _dis) {
+        return getId().getSignature(_dis);
     }
 
     public MethodId getId() {

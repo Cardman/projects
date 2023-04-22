@@ -23,6 +23,7 @@ import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -37,6 +38,14 @@ public final class ResultExpressionOperationNode {
             return ((SettableAbstractFieldOperation)res_.getFound()).getFieldIdReadOnly().getFieldName();
         }
         return "";
+    }
+    public static CustList<RowSrcLocation> locationsDisplay(AnalyzedPageEl _page, String _fileName, int _caret) {
+        CustList<SrcFileLocation> l_ = locations(_page, _fileName, _caret);
+        CustList<RowSrcLocation> d_ = new CustList<RowSrcLocation>();
+        for (SrcFileLocation s: l_) {
+            d_.add(s.build(_page.getDisplayedStrings()));
+        }
+        return d_;
     }
     public static CustList<SrcFileLocation> locations(AnalyzedPageEl _page, String _fileName, int _caret) {
         ResultExpressionOperationNode res_ = container(_page, _fileName, _caret);
@@ -132,7 +141,7 @@ public final class ResultExpressionOperationNode {
             }
         }
         if (inRange(_bl.getNameOffset(),_caret,_bl.getNameOffset()+_bl.getRealLength())) {
-            p_.add(new SrcFileLocationMethod(_bl));
+            p_.add(new SrcFileLocationMethod(_bl.getParent(),_bl));
         }
         return p_;
     }
@@ -432,6 +441,9 @@ public final class ResultExpressionOperationNode {
         if (foundOp_ instanceof LambdaOperation) {
             return lambda(_res, (LambdaOperation) foundOp_, _caret);
         }
+        if (foundOp_ instanceof AnonymousLambdaOperation) {
+            return def(_caret,((AnonymousLambdaOperation)foundOp_).getBlock());
+        }
         return new CustList<SrcFileLocation>();
     }
 
@@ -468,8 +480,8 @@ public final class ResultExpressionOperationNode {
         AnaTypeFct function_ = _lda.getFunction();
         RootBlock fieldType_ = _lda.getFieldType();
         CustList<SrcFileLocation> def_ = new CustList<SrcFileLocation>();
-        ctStd(_lda.getStandardConstructor(), def_);
-        callStd(_lda.getStandardMethod(), def_);
+        ctStd(_lda.getStandardConstructor(), _lda.getStandardType(), def_);
+        callStd(_lda.getStandardMethod(), _lda.getStandardType(), def_);
         fctPub(function_, def_);
         if (!def_.isEmpty()) {
             return def_;
@@ -562,7 +574,7 @@ public final class ResultExpressionOperationNode {
         StandardConstructor std_ = _maintenant.getInstancingCommonContent().getConstructor();
         AnaTypeFct constructor_ = _maintenant.getConstructor();
         CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-        ctStd(std_, ls_);
+        ctStd(std_, _maintenant.getInstancingCommonContent().getStd(), ls_);
         fctPub(constructor_, ls_);
         AnaFormattedRootBlock format_ = _maintenant.getFormattedType();
         if (format_ != null) {
@@ -572,16 +584,16 @@ public final class ResultExpressionOperationNode {
         return ls_;
     }
 
-    private static void ctStd(StandardConstructor _std, CustList<SrcFileLocation> _ls) {
+    private static void ctStd(StandardConstructor _std, StandardType _type, CustList<SrcFileLocation> _ls) {
         if (_std != null) {
-            _ls.add(new SrcFileLocationStdMethod(_std));
+            _ls.add(new SrcFileLocationStdMethod(_type, _std));
         }
     }
 
     private static void fctPub(AnaTypeFct _ct, CustList<SrcFileLocation> _ls) {
         NamedFunctionBlock f_ = fct(_ct);
         if (f_ != null) {
-            _ls.add(new SrcFileLocationMethod(f_));
+            _ls.add(new SrcFileLocationMethod(_ct.getType(),f_));
         }
     }
 
@@ -615,18 +627,18 @@ public final class ResultExpressionOperationNode {
         NamedFunctionBlock cust_ = fct(_c);
         if (cust_ != null) {
             CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-            ls_.add(new SrcFileLocationMethod(cust_));
+            ls_.add(new SrcFileLocationMethod(_c.getFunction().getType(),cust_));
             return ls_;
         }
         StandardMethod std_ = _c.getStandardMethod();
         CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-        callStd(std_, ls_);
+        callStd(std_,_c.getStandardType(), ls_);
         return ls_;
     }
 
-    private static void callStd(StandardMethod _std, CustList<SrcFileLocation> _ls) {
+    private static void callStd(StandardMethod _std, StandardType _type, CustList<SrcFileLocation> _ls) {
         if (_std != null) {
-            _ls.add(new SrcFileLocationStdMethod(_std));
+            _ls.add(new SrcFileLocationStdMethod(_type, _std));
         }
     }
 

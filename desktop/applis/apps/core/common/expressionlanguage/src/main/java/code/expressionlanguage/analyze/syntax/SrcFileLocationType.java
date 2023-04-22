@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.syntax;
 
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.common.DisplayedStrings;
 
 public final class SrcFileLocationType implements SrcFileLocation {
     private final RootBlock type;
@@ -17,6 +18,11 @@ public final class SrcFileLocationType implements SrcFileLocation {
     @Override
     public int getIndex() {
         return getType().getIdRowCol();
+    }
+
+    @Override
+    public RowSrcLocation build(DisplayedStrings _dis) {
+        return new RowSrcLocation(EnSrcLocation.TYPE,getType().getFullName(),getFileName(),getIndex());
     }
 
     public RootBlock getType() {

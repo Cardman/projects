@@ -8,6 +8,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.Ints;
 
@@ -23,6 +24,7 @@ public final class ClassMethodIdReturn extends AbsPossibleVarArg {
     private boolean abstractMethod;
 
     private int ancestor;
+    private StandardType standardType;
     private StandardMethod standardMethod;
     private CustList<NamedArgumentOperation> filter;
     private Ints indexesParams;
@@ -95,6 +97,14 @@ public final class ClassMethodIdReturn extends AbsPossibleVarArg {
 
     public void setAncestor(int _ancestor) {
         ancestor = _ancestor;
+    }
+
+    public StandardType getStandardType() {
+        return standardType;
+    }
+
+    public void setStandardType(StandardType _s) {
+        this.standardType = _s;
     }
 
     public StandardMethod getStandardMethod() {

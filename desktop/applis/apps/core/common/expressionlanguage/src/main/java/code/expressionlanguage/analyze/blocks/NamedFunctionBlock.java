@@ -93,6 +93,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         parametersNames = new StringList();
         usedParameters = new StringMap<AnaLocalVariable>();
         parametersRef = new CustList<BoolVal>();
+        realLength = 2;
     }
 
     public final boolean setupParam(StringList _paramTypes, StringList _paramNames, CustList<BoolVal> _refParams) {

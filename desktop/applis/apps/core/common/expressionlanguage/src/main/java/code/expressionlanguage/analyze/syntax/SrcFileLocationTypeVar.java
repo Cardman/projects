@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.syntax;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.common.DisplayedStrings;
 
 public final class SrcFileLocationTypeVar implements SrcFileLocation {
     private final String name;
@@ -21,6 +22,11 @@ public final class SrcFileLocationTypeVar implements SrcFileLocation {
     @Override
     public int getIndex() {
         return index;
+    }
+
+    @Override
+    public RowSrcLocation build(DisplayedStrings _dis) {
+        return new RowSrcLocation(EnSrcLocation.TYPE_VAR,getName(),getFileName(),getIndex());
     }
 
     public String getName() {

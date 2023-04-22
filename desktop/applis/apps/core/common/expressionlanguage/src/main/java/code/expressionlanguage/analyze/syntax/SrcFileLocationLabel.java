@@ -1,5 +1,7 @@
 package code.expressionlanguage.analyze.syntax;
 
+import code.expressionlanguage.common.DisplayedStrings;
+
 public final class SrcFileLocationLabel implements SrcFileLocation {
     private final String label;
     private final String fileName;
@@ -19,6 +21,11 @@ public final class SrcFileLocationLabel implements SrcFileLocation {
     @Override
     public int getIndex() {
         return index;
+    }
+
+    @Override
+    public RowSrcLocation build(DisplayedStrings _dis) {
+        return new RowSrcLocation(EnSrcLocation.LABEL,getLabel(),getFileName(),getIndex());
     }
 
     public String getLabel() {

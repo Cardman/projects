@@ -1,5 +1,7 @@
 package code.expressionlanguage.analyze.syntax;
 
+import code.expressionlanguage.common.DisplayedStrings;
+
 public final class SrcFileLocationVariable implements SrcFileLocation {
     private final int deep;
     private final String name;
@@ -21,6 +23,14 @@ public final class SrcFileLocationVariable implements SrcFileLocation {
     @Override
     public int getIndex() {
         return index;
+    }
+
+    @Override
+    public RowSrcLocation build(DisplayedStrings _dis) {
+        if (getDeep() < 0) {
+            return new RowSrcLocation(EnSrcLocation.VARIABLE,getName(),getFileName(),getIndex());
+        }
+        return new RowSrcLocation(EnSrcLocation.VARIABLE,getDeep()+"/"+getName(),getFileName(),getIndex());
     }
 
     public int getDeep() {

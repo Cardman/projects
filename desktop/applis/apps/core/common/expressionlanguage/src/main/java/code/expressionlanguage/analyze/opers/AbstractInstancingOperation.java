@@ -18,6 +18,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.opers.AnaInstancingCommonContent;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.StandardConstructor;
+import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -314,6 +315,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     protected void result(String _realClassName, AnaGeneType _g, ConstrustorIdVarArg _ctorRes) {
         setConstId(_ctorRes.getRealId());
+        setStd(_ctorRes.getStandardType());
         setConstructor(_ctorRes.getConstructor());
         setConstructor(_ctorRes.getPair());
         if (_g instanceof RootBlock) {
@@ -343,6 +345,10 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     public void setConstructor(StandardConstructor _constId) {
         instancingCommonContent.setConstructor(_constId);
+    }
+
+    public void setStd(StandardType _constId) {
+        instancingCommonContent.setStd(_constId);
     }
 
     public AnaTypeFct getConstructor() {

@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardType;
 
 public final class AnaCallFctContent {
 
@@ -20,6 +21,7 @@ public final class AnaCallFctContent {
     private MemberId memberId = new MemberId();
     private AnaFormattedRootBlock formattedType;
     private AnaTypeFct function;
+    private StandardType standardType;
     private StandardMethod standardMethod;
 
     public AnaCallFctContent(String _methodName) {
@@ -27,6 +29,7 @@ public final class AnaCallFctContent {
     }
 
     public void update(ClassMethodIdReturn _res) {
+        standardType = _res.getStandardType();
         standardMethod = _res.getStandardMethod();
         String foundClass_ = _res.getRealClass();
         MethodId realId_ = _res.getRealId();
@@ -38,6 +41,10 @@ public final class AnaCallFctContent {
             naturalVararg = realId_.getParametersTypesLength() - 1;
             lastType = realId_.getParametersType(naturalVararg);
         }
+    }
+
+    public StandardType getStandardType() {
+        return standardType;
     }
 
     public StandardMethod getStandardMethod() {

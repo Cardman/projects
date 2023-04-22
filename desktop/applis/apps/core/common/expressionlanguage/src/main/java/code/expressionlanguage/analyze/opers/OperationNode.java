@@ -1890,6 +1890,7 @@ public abstract class OperationNode {
                 }
                 MethodInfo stMeth_ = fetchedParamMethod(e, _refRet, genericString_, _page, e.getId());
                 if (stMeth_ != null) {
+                    stMeth_.setStandardType((StandardType)g_);
                     _methods.add(stMeth_);
                 }
             }
@@ -2871,6 +2872,7 @@ public abstract class OperationNode {
         res_.setOriginalReturnType(_m.getOriginalReturnType());
         res_.getParametrableContent().setFileName(_m.getParametrableContent().getFileName());
         res_.setStandardMethod(_m.getStandardMethod());
+        res_.setStandardType(_m.getStandardType());
         res_.getParametrableContent().setPair(_m.getParametrableContent().getPair());
         res_.setFormattedType(_m.buildFormatted());
         res_.getParametrableContent().setMemberId(_m.getParametrableContent().getMemberId());

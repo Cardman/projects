@@ -50,13 +50,13 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
         CustList<MethodInfo> methodInfos_ = new CustList<MethodInfo>();
         StandardType fctType_ = _page.getStandardsTypes().getVal(_page.getAliasFct());
         for (StandardMethod e: fctType_.getMethods()) {
-            buildLambdaMethods(_page, methodInfos_, e);
+            buildLambdaMethods(_page, methodInfos_, fctType_, e);
         }
         methodInfos.add(methodInfos_);
         filterByNameReturnType(_page, methodFound, methodInfos);
     }
 
-    private void buildLambdaMethods(AnalyzedPageEl _page, CustList<MethodInfo> _methodInfos, StandardMethod _e) {
+    private void buildLambdaMethods(AnalyzedPageEl _page, CustList<MethodInfo> _methodInfos, StandardType _t, StandardMethod _e) {
         AnaClassArgumentMatching clCur_ = getPreviousResultClass();
         String fct_ = clCur_.getName();
         StandardType fctType_ = _page.getStandardsTypes().getVal(_page.getAliasFct());
@@ -65,6 +65,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
         String name_ = id_.getName();
         if (!_page.matchCall(name_)) {
             m_ = OperationNode.getMethodInfo(_e, 0, fct_, _page,id_, new FormattedFilter());
+            m_.setStandardType(_t);
             _methodInfos.add(m_);
             return;
         }
@@ -83,6 +84,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
         m_ = new MethodInfo();
         m_.setOwner(fctType_);
         m_.setOriginalReturnType(_page.getAliasObject());
+        m_.setStandardType(_t);
         m_.setStandardMethod(_e);
         m_.setParametersNames(_e.getParametersNames());
         m_.classMethodId(fct_,id_);

@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -25,6 +26,7 @@ public abstract class Parametrable {
     private InvocationMethod invocation;
     private StringList formattedParams;
     private final FormattedFilter formattedFilter = new FormattedFilter();
+    private StandardType standardType;
     protected Parametrable() {
         parametrableContent.setPair(new AnaTypeFct());
     }
@@ -106,6 +108,14 @@ public abstract class Parametrable {
 
     public void setCust(NamedFunctionBlock _c) {
         this.cust = _c;
+    }
+
+    public StandardType getStandardType() {
+        return standardType;
+    }
+
+    public void setStandardType(StandardType _standardType) {
+        standardType = _standardType;
     }
 
     public abstract MethodId toId();
