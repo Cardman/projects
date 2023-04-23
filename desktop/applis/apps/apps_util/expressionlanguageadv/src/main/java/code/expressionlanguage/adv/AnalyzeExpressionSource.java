@@ -31,6 +31,7 @@ public final class AnalyzeExpressionSource implements Runnable {
             return;
         }
         CustContextFactory.reportErrors(base_.getForwards().getOptions(), lg_.getExecContent().getExecutingOptions(), resUser_.getReportedMessages(), fileInfos_);
+        mainFrame.setUserResultGene(resUser_);
         if (resUser_.getPageEl().notAllEmptyErrors()) {
             mainFrame.getStatusAnalyzeArea().append(CustAliases.getDateTimeText(frames_.getThreadFactory()));
             mainFrame.getAnalyzeMenu().setEnabled(true);

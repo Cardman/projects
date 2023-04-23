@@ -67,6 +67,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final AbsCommonFrame statusAnalyze;
     private final AbsTextArea statusAnalyzeArea;
     private ResultContext baseResult;
+    private ResultContext userResultGene;
     private ResultContext userResult;
     private AbstractFuture future;
 
@@ -588,6 +589,14 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
 
     public void setBaseResult(ResultContext _b) {
         this.baseResult = _b;
+    }
+
+    public ResultContext getUserResultGene() {
+        return userResultGene;
+    }
+
+    public void setUserResultGene(ResultContext _u) {
+        this.userResultGene = _u;
     }
 
     public ResultContext getUserResult() {

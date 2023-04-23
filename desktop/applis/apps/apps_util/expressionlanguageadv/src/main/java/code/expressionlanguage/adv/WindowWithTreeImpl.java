@@ -1,6 +1,8 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.syntax.RowSrcLocation;
 import code.expressionlanguage.options.CommentsUtil;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilimpl.ManageOptions;
@@ -10,6 +12,7 @@ import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.*;
 import code.stream.comparators.FileNameComparator;
+import code.threads.AbstractBaseExecutorService;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -33,6 +36,8 @@ public abstract class WindowWithTreeImpl {
     private final AbsMenuItem aliasesMenu;
     private final AbsCommonFrame commonFrame;
     private final AbsPanel panel;
+    private AbsPanel panelSymbols;
+    private AbsScrollPane panelSymbolsScroll;
     private final AbsMenuItem srcMenu;
     private final AbsMenuItem create;
     private final AbsMenuItem delete;
@@ -47,8 +52,12 @@ public abstract class WindowWithTreeImpl {
     private AbsTextField targetName;
     private AbsPlainButton validateDialog;
     private AbsPlainButton cancelDialog;
+    private int limitSymbol;
+    private final AbstractBaseExecutorService finderSymbol;
+    private final CustList<ResultRowSrcLocationList> symbols = new CustList<ResultRowSrcLocationList>();
     protected WindowWithTreeImpl(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         factory = _fact;
+        finderSymbol = _list.getThreadFactory().newExecutorService();
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
         AbsMenu file_ = _list.getCompoFactory().newMenu("file");
@@ -79,11 +88,14 @@ public abstract class WindowWithTreeImpl {
         aliasesMenu.addActionListener(new ChangeAliasesEvent(this,aliasesMenu));
         menu_.addMenuItem(aliasesMenu);
         panel = _list.getCompoFactory().newPageBox();
+        panelSymbols = _list.getCompoFactory().newPageBox();
+        panelSymbolsScroll = _list.getCompoFactory().newAbsScrollPane(panelSymbols);
         editors = commonFrame.getFrames().getCompoFactory().newAbsTabbedPane();
         commonFrame.setContentPane(panel);
         commonFrame.setJMenuBar(bar_);
         commonFrame.pack();
         commonFrame.setVisible(true);
+        setLimitSymbol(16);
     }
 
     public boolean applyTreeChangeSelected(boolean _treeEvent) {
@@ -95,16 +107,7 @@ public abstract class WindowWithTreeImpl {
         }
         String str_ = buildPath(sel_);
         if (_treeEvent) {
-            BytesInfo content_ = StreamBinaryFile.loadFile(str_, frs_.getStreams());
-            if (!content_.isNul()) {
-                int opened_ = indexOpened(str_);
-                if (opened_ > -1) {
-                    getEditors().selectIndex(opened_);
-                    return false;
-                }
-                notifyDoc(str_);
-                addTab(this,str_,content_);
-                getEditors().selectIndex(getTabs().getLastIndex());
+            if (openFile(str_)) {
                 return false;
             }
             if (!frs_.getFileCoreStream().newFile(str_).exists()) {
@@ -113,6 +116,23 @@ public abstract class WindowWithTreeImpl {
         }
         refresh(sel_,str_);
         return true;
+    }
+
+    boolean openFile(String _str) {
+        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        BytesInfo content_ = StreamBinaryFile.loadFile(_str, frs_.getStreams());
+        if (!content_.isNul()) {
+            int opened_ = indexOpened(_str);
+            if (opened_ > -1) {
+                getEditors().selectIndex(opened_);
+                return true;
+            }
+            notifyDoc(_str);
+            addTab(this, _str,content_);
+            getEditors().selectIndex(getTabs().getLastIndex());
+            return true;
+        }
+        return false;
     }
 
     public void notifyDoc(String _path) {
@@ -124,7 +144,7 @@ public abstract class WindowWithTreeImpl {
     static void addTab(WindowWithTreeImpl _tr, String _path, BytesInfo _content) {
         String dec_ = StringUtil.nullToEmpty(StringUtil.decode(_content.getBytes()));
         String name_ = _path.substring(_path.lastIndexOf('/')+1);
-        TabEditor te_ = new TabEditor(_tr,_path,lineSeparator(dec_));
+        TabEditor te_ = new TabEditor(_tr,_path,_path.substring(_tr.pathToSrc().length()),lineSeparator(dec_));
         te_.getCenter().setText(new DefaultUniformingString().apply(dec_));
         _tr.getTabs().add(te_);
         _tr.getEditors().addIntTab(name_, te_.getPanel(), _path);
@@ -247,7 +267,11 @@ public abstract class WindowWithTreeImpl {
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         setScrollDialog(frs_.getCompoFactory().newAbsScrollPane());
         getScrollDialog().setVisible(false);
-        panel.add(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), getScrollDialog()), editors));
+        panelSymbols = frs_.getCompoFactory().newPageBox();
+        panelSymbolsScroll = frs_.getCompoFactory().newAbsScrollPane(panelSymbols);
+        AbsSplitPane elt_ = frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), getScrollDialog()), editors),
+                panelSymbolsScroll);
+        panel.add(elt_);
     }
 
     public void changeEnable(boolean _en) {
@@ -351,6 +375,7 @@ public abstract class WindowWithTreeImpl {
             getEditors().setTitle(opened_,name_);
             getEditors().setToolTipAt(opened_,dest_);
             getTabs().get(opened_).setFullPath(dest_);
+            getTabs().get(opened_).setRelPath(dest_.substring(pathToSrc().length()));
         }
         par_.remove(selectedNode);
         refParent(par_,parentPath_);
@@ -465,6 +490,32 @@ public abstract class WindowWithTreeImpl {
         aliasesMenu.setEnabled(_en);
     }
 
+    public void afterSearchSymbol(AnalyzedPageEl _page, CustList<RowSrcLocation> _ls) {
+        if (_ls.isEmpty()) {
+            return;
+        }
+        ResultRowSrcLocationList r_ = new ResultRowSrcLocationList(_page,_ls);
+        if (symbols.size() < getLimitSymbol()) {
+            symbols.add(r_);
+        } else {
+            symbols.remove(0);
+            symbols.add(r_);
+        }
+        panelSymbols.removeAll();
+        AbsCompoFactory fr_ = getCommonFrame().getFrames().getCompoFactory();
+        for (ResultRowSrcLocationList f: symbols) {
+            AbsPanel c_ = fr_.newLineBox();
+            c_.left();
+            for (RowSrcLocation l: f.getSymbols()) {
+                AbsPlainButton b_ = fr_.newPlainButton(l.getKind() + ":" + l.getDisplay());
+                b_.addActionListener(new GoToDefinitionEvent(f.getPage(),l,this));
+                b_.left();
+                c_.add(b_);
+            }
+            panelSymbols.add(c_);
+        }
+        GuiBaseUtil.recalculate(panelSymbolsScroll);
+    }
     protected ManageOptions manage(StringList _linesFiles) {
         return new ManageOptions(commonFrame.getFrames().getLanguages(), _linesFiles, factory, commonFrame.getFrames().getThreadFactory());
     }
@@ -637,6 +688,27 @@ public abstract class WindowWithTreeImpl {
     public AbsPanel getPanel() {
         return panel;
     }
+
+    public AbsPanel getPanelSymbols() {
+        return panelSymbols;
+    }
+
+    public int getLimitSymbol() {
+        return limitSymbol;
+    }
+
+    public void setLimitSymbol(int _l) {
+        this.limitSymbol = _l;
+    }
+
+    public CustList<ResultRowSrcLocationList> getSymbols() {
+        return symbols;
+    }
+
+    public AbstractBaseExecutorService getFinderSymbol() {
+        return finderSymbol;
+    }
+
     public abstract AbsTreeGui getTree();
     public abstract void changeEnable(AbstractMutableTreeNode _en);
     public abstract String pathToSrc();

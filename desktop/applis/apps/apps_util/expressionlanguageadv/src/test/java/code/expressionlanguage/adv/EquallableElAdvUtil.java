@@ -278,6 +278,22 @@ public abstract class EquallableElAdvUtil {
         w_.getSoftParams().setLines(WindowCdmEditor.linesConf(copy_));
         return w_;
     }
+    public static WindowCdmEditor newWindowLoadDefExpWorkspaceAlready(String _expSrc,String _expSrc2) {
+        return newWindowLoadDefExpWorkspaceAlready("src",_expSrc,_expSrc2);
+    }
+    public static WindowCdmEditor newWindowLoadDefExpWorkspaceAlready(String _srcFolder,String _expSrc,String _expSrc2) {
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        pr_.getFileCoreStream().newFile("/project/sources/exp/src/").mkdirs();
+        StreamTextFile.saveTextFile("/project/sources/exp/src/file_exp.txt",_expSrc,pr_.getStreams());
+        StreamTextFile.saveTextFile("/project/sources/exp/src/file_exp2.txt",_expSrc2,pr_.getStreams());
+        WindowCdmEditor w_ = windowLoadDef(pr_);
+        ManageOptions copy_ = w_.manage(w_.getSoftParams().getLines());
+        copy_.getEx().setAccess("/project/sources/exp/");
+        copy_.getEx().setSrcFolder(_srcFolder);
+        w_.getSoftParams().setFolderExpression("/project/sources/exp");
+        w_.getSoftParams().setLines(WindowCdmEditor.linesConf(copy_));
+        return w_;
+    }
 
     protected static void selectClass(WindowCdmEditor _w) {
         SelectClassEvent ev_ = (SelectClassEvent) ((MockPlainButton) tabEditor(_w).getSelectExpressionClass()).getActionListeners().get(0);
@@ -545,6 +561,9 @@ public abstract class EquallableElAdvUtil {
     }
     protected void closeTab(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabSelect(_w).getCenter(), GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
+    protected void currentElement(TabEditor _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(_w.getCenter(), GuiConstants.VK_T,GuiConstants.CTRL_DOWN_MASK)).action();
     }
     protected void closeTab(TabEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(_w.getCenter(), GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK)).action();

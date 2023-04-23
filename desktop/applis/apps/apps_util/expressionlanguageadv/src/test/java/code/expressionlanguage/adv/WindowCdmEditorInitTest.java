@@ -25,7 +25,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void init3() {
         WindowCdmEditor w_=newWindowLoadDef();
-        assertEq(9, GuiBaseUtil.getActions(tabEditor(w_).getCenter()).size());
+        assertEq(10, GuiBaseUtil.getActions(tabEditor(w_).getCenter()).size());
         AbsTextPane t_ = w_.getCommonFrame().getFrames().getCompoFactory().newTextPane();
         t_.setFocusable(true);
         t_.setVisible(true);

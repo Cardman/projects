@@ -34,6 +34,7 @@ import code.util.StringMap;
 public final class TabEditor {
     private final WindowWithTreeImpl windowSecEditor;
     private final AbstractProgramInfos factories;
+    private final AbsScrollPane scCenter;
     private final AbsTextPane center;
     private final AbsTextField finder;
     private final AbsCustCheckBox caseSens;
@@ -83,6 +84,7 @@ public final class TabEditor {
     private int currentPartExp = -1;
     private int currentText = -1;
     private String fullPath;
+    private String relPath;
     private final String useFeed;
     private int index=-1;
     private int dest;
@@ -97,9 +99,10 @@ public final class TabEditor {
     private final StringMap<ExecConstructorOverrideInfo> dico = new StringMap<ExecConstructorOverrideInfo>();
     private final StringMap<ExecConstructorOverrideInfo> dicoRepl = new StringMap<ExecConstructorOverrideInfo>();
 
-    public TabEditor(WindowWithTreeImpl _editor, String _fullPath, String _lr) {
+    public TabEditor(WindowWithTreeImpl _editor, String _fullPath, String _rel, String _lr) {
         useFeed = _lr;
         fullPath = _fullPath;
+        relPath = _rel;
         windowSecEditor = _editor;
         AbstractProgramInfos frames_ = _editor.getCommonFrame().getFrames();
         taskManager = frames_.getThreadFactory().newExecutorService();
@@ -255,11 +258,12 @@ public final class TabEditor {
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new ClearUndoRedoAction(this)),GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new SaveTextFileNode(this)),GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new CloseTabEditorEvent(this)),GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK);
+        center.registerKeyboardAction(frames_.getCompoFactory().wrap(new LookForDefinitionEvent(this)),GuiConstants.VK_T,GuiConstants.CTRL_DOWN_MASK);
         panel = frames_.getCompoFactory().newPageBox();
         AbsPanel upp_ = frames_.getCompoFactory().newPageBox();
-        AbsScrollPane scCenter_ = frames_.getCompoFactory().newAbsScrollPane(center);
-        scCenter_.setPreferredSize(new MetaDimension(512,512));
-        upp_.add(scCenter_);
+        scCenter = frames_.getCompoFactory().newAbsScrollPane(center);
+        scCenter.setPreferredSize(new MetaDimension(512,512));
+        upp_.add(scCenter);
         upp_.add(label);
         upp_.add(navModifPanel);
         mainSplitter = frames_.getCompoFactory().newVerticalSplitPane(upp_, expSpli);
@@ -599,6 +603,10 @@ public final class TabEditor {
         return replacer;
     }
 
+    public AbsScrollPane getScCenter() {
+        return scCenter;
+    }
+
     public AbsTextPane getCenter() {
         return center;
     }
@@ -697,6 +705,14 @@ public final class TabEditor {
 
     public AbsEnabledAction getUndo() {
         return undo;
+    }
+
+    public String getRelPath() {
+        return relPath;
+    }
+
+    public void setRelPath(String _r) {
+        this.relPath = _r;
     }
 
     public String getFullPath() {
