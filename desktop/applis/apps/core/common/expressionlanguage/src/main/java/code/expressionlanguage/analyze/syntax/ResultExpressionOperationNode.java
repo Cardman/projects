@@ -298,7 +298,19 @@ public final class ResultExpressionOperationNode {
         if (foundOp_ instanceof ElementArrayInstancing) {
             return types(((ElementArrayInstancing)foundOp_).getPartOffsets(),_caret);
         }
+        if (foundOp_ instanceof CallDynMethodOperation) {
+            return refs((CallDynMethodOperation)foundOp_);
+        }
         return pique(_f, _caret, _res);
+    }
+
+    private static CustList<SrcFileLocation> refs(CallDynMethodOperation _foundOp) {
+        CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+        callStd(_foundOp.getStdMethod(), _foundOp.getStdType(), ls_);
+        if (!_foundOp.getRefer().isEmpty()) {
+            ls_.add(new SrcFileLocationCall(_foundOp.getRefer()));
+        }
+        return ls_;
     }
 
     private static CustList<SrcFileLocation> curr(int _caret, AbstractInvokingConstructor _foundOp) {

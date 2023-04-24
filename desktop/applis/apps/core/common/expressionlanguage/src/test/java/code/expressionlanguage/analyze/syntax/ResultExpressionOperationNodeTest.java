@@ -4487,6 +4487,75 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq("MAX_VALUE",((SrcFileLocationField)r_.get(0)).getCf().getFieldName());
     }
     @Test
+    public void locations139() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$Fct<String,$int> v;v.call(\"\");}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",62);
+        assertEq(2,r_.size());
+        assertNotNull(((SrcFileLocationStdMethod)r_.get(0)).getStd());
+        assertEq(-1, FileBlock.number(r_.get(1).getFile()));
+        assertEq("java.lang.$Fct<java.lang.String,$int>",((SrcFileLocationCall)r_.get(1)).getTypeRef());
+    }
+    @Test
+    public void locations140() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$Fct<String,$int> v;v.__(\"\");}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",62);
+        assertEq(1,r_.size());
+        assertEq(-1, FileBlock.number(r_.get(0).getFile()));
+        assertEq("java.lang.$Fct<java.lang.String,$int>",((SrcFileLocationCall)r_.get(0)).getTypeRef());
+    }
+    @Test
+    public void locations141() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$Fct<String,$int> v;v.instance();}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",62);
+        assertEq(1,r_.size());
+        assertNotNull(((SrcFileLocationStdMethod)r_.get(0)).getStd());
+    }
+    @Test
     public void locationsDisplay1() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -4762,6 +4831,35 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq("",r_.get(0).getFileName());
         assertEq("java.lang.StringBuilder.()",r_.get(0).getDisplay());
         assertSame(EnSrcLocation.STD_METHOD,r_.get(0).getKind());
+    }
+    @Test
+    public void locationsDisplay14() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$Fct<String,$int> v;v.call(\"\");}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<RowSrcLocation> r_ = locationsDisplay(files_,"pkg/Ex2",62);
+        assertEq(2,r_.size());
+        assertEq(0,r_.get(0).getIndex());
+        assertEq("",r_.get(0).getFileName());
+        assertEq("java.lang.$Fct.call(java.lang.Object...)",r_.get(0).getDisplay());
+        assertSame(EnSrcLocation.STD_METHOD,r_.get(0).getKind());
+        assertEq(0,r_.get(1).getIndex());
+        assertEq("",r_.get(1).getFileName());
+        assertEq("java.lang.$Fct<java.lang.String,$int>",r_.get(1).getDisplay());
+        assertSame(EnSrcLocation.REF,r_.get(1).getKind());
     }
     @Test
     public void vexer1() {

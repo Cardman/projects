@@ -36,6 +36,9 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
     private final AnaArrContent arrContent;
     private boolean errLeftValue;
     private final String methodFound;
+    private StandardType stdType;
+    private StandardMethod stdMethod;
+    private String refer="";
     private final CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
     public CallDynMethodOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -48,9 +51,9 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
     public void preAnalyze(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         CustList<MethodInfo> methodInfos_ = new CustList<MethodInfo>();
-        StandardType fctType_ = _page.getStandardsTypes().getVal(_page.getAliasFct());
-        for (StandardMethod e: fctType_.getMethods()) {
-            buildLambdaMethods(_page, methodInfos_, fctType_, e);
+        stdType = _page.getStandardsTypes().getVal(_page.getAliasFct());
+        for (StandardMethod e: stdType.getMethods()) {
+            buildLambdaMethods(_page, methodInfos_, stdType, e);
         }
         methodInfos.add(methodInfos_);
         filterByNameReturnType(_page, methodFound, methodInfos);
@@ -59,7 +62,6 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
     private void buildLambdaMethods(AnalyzedPageEl _page, CustList<MethodInfo> _methodInfos, StandardType _t, StandardMethod _e) {
         AnaClassArgumentMatching clCur_ = getPreviousResultClass();
         String fct_ = clCur_.getName();
-        StandardType fctType_ = _page.getStandardsTypes().getVal(_page.getAliasFct());
         MethodId id_ = _e.getId();
         MethodInfo m_;
         String name_ = id_.getName();
@@ -82,7 +84,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             param_ = all_.leftMinusOne(all_.size() - 2);
         }
         m_ = new MethodInfo();
-        m_.setOwner(fctType_);
+        m_.setOwner(stdType);
         m_.setOriginalReturnType(_page.getAliasObject());
         m_.setStandardType(_t);
         m_.setStandardMethod(_e);
@@ -131,6 +133,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
         if (idMethod_ != null) {
             chidren_ = adjustChildren(_page, chidren_, idMethod_);
         }
+        slow(fctName_);
         if (StringUtil.quickEq(fctName_, _page.getAliasMetaInfo())) {
             withoutParamsCheck(_page, chidren_);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasAnnotated()));
@@ -153,6 +156,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
         }
         AnaClassArgumentMatching clCur_ = getPreviousResultClass();
         String fct_ = clCur_.getName();
+        refer = fct_;
         StringList all_ = StringExpUtil.getAllTypes(fct_);
         String ret_ = all_.last();
         CustList<String> param_ = all_.leftMinusOne(all_.size() - 2);
@@ -182,6 +186,15 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             setResultClass(new AnaClassArgumentMatching(ret_));
         } else {
             setResultClass(new AnaClassArgumentMatching(ret_.substring(1)));
+        }
+    }
+
+    private void slow(String _fctName) {
+        for (StandardMethod e: stdType.getMethods()) {
+            if (StringUtil.quickEq(e.getName(), _fctName)) {
+                stdMethod = e;
+                break;
+            }
         }
     }
 
@@ -313,9 +326,8 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
     }
 
     private StringList paramNames(AnalyzedPageEl _page) {
-        StandardType fctType_ = _page.getStandardsTypes().getVal(_page.getAliasFct());
         StringList paramNames_ = new StringList();
-        for (StandardMethod e: fctType_.getMethods()) {
+        for (StandardMethod e: stdType.getMethods()) {
             MethodId id_ = e.getId();
             String name_ = id_.getName();
             if (_page.matchCall(name_)) {
@@ -401,6 +413,18 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
 
     public String getFctName() {
         return fctName;
+    }
+
+    public StandardMethod getStdMethod() {
+        return stdMethod;
+    }
+
+    public StandardType getStdType() {
+        return stdType;
+    }
+
+    public String getRefer() {
+        return refer;
     }
 
     @Override
