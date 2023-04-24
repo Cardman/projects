@@ -19,7 +19,7 @@ public final class GoToDefinitionEventTest extends EquallableElAdvUtil {
         s_.getTree().select(s_.getTree().getRoot().getFirstChild().getNextSibling().getNextSibling().getFirstChild());
         s_.getTabs().get(0).getCenter().select(43,43);
         currentElement(s_.getTabs().get(0));
-        ((MockPlainButton)(((AbsPanel)s_.getPanelSymbols().getComponent(0)).getComponent(0))).getActionListeners().get(0).action();
+        ((MockPlainButton)(((AbsPanel)s_.getPanelSymbols().getComponent(1)).getComponent(0))).getActionListeners().get(0).action();
         assertEq(2,s_.getTabs().size());
     }
     @Test
@@ -35,7 +35,7 @@ public final class GoToDefinitionEventTest extends EquallableElAdvUtil {
         s_.getTabs().get(0).getCenter().select(43,43);
         currentElement(s_.getTabs().get(0));
         w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/exp/src/file_exp2.txt").delete();
-        ((MockPlainButton)(((AbsPanel)s_.getPanelSymbols().getComponent(0)).getComponent(0))).getActionListeners().get(0).action();
+        ((MockPlainButton)(((AbsPanel)s_.getPanelSymbols().getComponent(1)).getComponent(0))).getActionListeners().get(0).action();
         assertEq(1,s_.getTabs().size());
     }
     @Test
@@ -50,7 +50,7 @@ public final class GoToDefinitionEventTest extends EquallableElAdvUtil {
         s_.getTree().select(s_.getTree().getRoot().getFirstChild().getNextSibling().getNextSibling().getFirstChild());
         s_.getTabs().get(0).getCenter().select(79,79);
         currentElement(s_.getTabs().get(0));
-        ((MockPlainButton)(((AbsPanel)s_.getPanelSymbols().getComponent(0)).getComponent(0))).getActionListeners().get(0).action();
+        ((MockPlainButton)(((AbsPanel)s_.getPanelSymbols().getComponent(1)).getComponent(0))).getActionListeners().get(0).action();
         assertEq(1,s_.getTabs().size());
     }
     @Test

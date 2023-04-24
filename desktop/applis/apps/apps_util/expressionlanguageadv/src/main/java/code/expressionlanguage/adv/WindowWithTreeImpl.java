@@ -37,6 +37,7 @@ public abstract class WindowWithTreeImpl {
     private final AbsCommonFrame commonFrame;
     private final AbsPanel panel;
     private AbsPanel panelSymbols;
+    private AbsPlainLabel lastCount;
     private AbsScrollPane panelSymbolsScroll;
     private final AbsMenuItem srcMenu;
     private final AbsMenuItem create;
@@ -89,6 +90,8 @@ public abstract class WindowWithTreeImpl {
         menu_.addMenuItem(aliasesMenu);
         panel = _list.getCompoFactory().newPageBox();
         panelSymbols = _list.getCompoFactory().newPageBox();
+        lastCount = _list.getCompoFactory().newPlainLabel("0");
+        panelSymbols.add(lastCount);
         panelSymbolsScroll = _list.getCompoFactory().newAbsScrollPane(panelSymbols);
         editors = commonFrame.getFrames().getCompoFactory().newAbsTabbedPane();
         commonFrame.setContentPane(panel);
@@ -268,6 +271,8 @@ public abstract class WindowWithTreeImpl {
         setScrollDialog(frs_.getCompoFactory().newAbsScrollPane());
         getScrollDialog().setVisible(false);
         panelSymbols = frs_.getCompoFactory().newPageBox();
+        lastCount = frs_.getCompoFactory().newPlainLabel("0");
+        panelSymbols.add(lastCount);
         panelSymbolsScroll = frs_.getCompoFactory().newAbsScrollPane(panelSymbols);
         AbsSplitPane elt_ = frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), getScrollDialog()), editors),
                 panelSymbolsScroll);
@@ -492,6 +497,7 @@ public abstract class WindowWithTreeImpl {
 
     public void afterSearchSymbol(AnalyzedPageEl _page, CustList<RowSrcLocation> _ls) {
         if (_ls.isEmpty()) {
+            lastCount.setText(Long.toString(_ls.size()));
             return;
         }
         ResultRowSrcLocationList r_ = new ResultRowSrcLocationList(_page,_ls);
@@ -502,6 +508,8 @@ public abstract class WindowWithTreeImpl {
             symbols.add(r_);
         }
         panelSymbols.removeAll();
+        lastCount.setText(Long.toString(_ls.size()));
+        panelSymbols.add(lastCount);
         AbsCompoFactory fr_ = getCommonFrame().getFrames().getCompoFactory();
         for (ResultRowSrcLocationList f: symbols) {
             AbsPanel c_ = fr_.newLineBox();
