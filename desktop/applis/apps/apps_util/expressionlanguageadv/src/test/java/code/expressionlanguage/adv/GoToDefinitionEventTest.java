@@ -21,6 +21,7 @@ public final class GoToDefinitionEventTest extends EquallableElAdvUtil {
         currentElement(s_.getTabs().get(0));
         goTo(s_, 0);
         assertEq(2,s_.getTabs().size());
+        assertEq(1,s_.getEditors().getSelectedIndex());
     }
     @Test
     public void def2() {
@@ -37,6 +38,7 @@ public final class GoToDefinitionEventTest extends EquallableElAdvUtil {
         w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/exp/src/file_exp2.txt").delete();
         goTo(s_, 0);
         assertEq(1,s_.getTabs().size());
+        assertEq(0,s_.getEditors().getSelectedIndex());
     }
     @Test
     public void def3() {
@@ -52,6 +54,7 @@ public final class GoToDefinitionEventTest extends EquallableElAdvUtil {
         currentElement(s_.getTabs().get(0));
         goTo(s_, 0);
         assertEq(1,s_.getTabs().size());
+        assertEq(0,s_.getEditors().getSelectedIndex());
     }
     @Test
     public void def4() {
@@ -67,6 +70,7 @@ public final class GoToDefinitionEventTest extends EquallableElAdvUtil {
         currentElement(s_.getTabs().get(0));
         goTo(s_, 0);
         assertEq(1,s_.getTabs().size());
+        assertEq(0,s_.getEditors().getSelectedIndex());
     }
     @Test
     public void def5() {
@@ -82,6 +86,7 @@ public final class GoToDefinitionEventTest extends EquallableElAdvUtil {
         currentElement(s_.getTabs().get(0));
         goTo(s_, 2);
         assertEq(2,s_.getTabs().size());
+        assertEq(1,s_.getEditors().getSelectedIndex());
     }
     @Test
     public void def6() {
@@ -97,6 +102,7 @@ public final class GoToDefinitionEventTest extends EquallableElAdvUtil {
         currentElement(s_.getTabs().get(0));
         goTo(s_, 0);
         assertEq(2,s_.getTabs().size());
+        assertEq(1,s_.getEditors().getSelectedIndex());
     }
     @Test
     public void limit() {
