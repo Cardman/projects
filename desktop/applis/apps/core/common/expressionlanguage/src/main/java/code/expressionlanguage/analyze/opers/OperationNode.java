@@ -1888,7 +1888,7 @@ public abstract class OperationNode {
                 if (filter(_refRet, id_.isRetRef(), k_)) {
                     continue;
                 }
-                MethodInfo stMeth_ = fetchedParamMethod(e, _refRet, genericString_, _page, e.getId());
+                MethodInfo stMeth_ = fetchedParamMethod(e, _refRet, genericString_, (StandardType) g_, _page, e.getId());
                 if (stMeth_ != null) {
                     stMeth_.setStandardType((StandardType)g_);
                     _methods.add(stMeth_);
@@ -1945,13 +1945,12 @@ public abstract class OperationNode {
         return false;
     }
 
-    private static MethodInfo fetchedParamMethod(StandardMethod _m, ScopeFilterType _scType, String _s,
+    private static MethodInfo fetchedParamMethod(StandardMethod _m, ScopeFilterType _scType, String _s, StandardType _type,
                                                  AnalyzedPageEl _page, MethodId _id) {
-        String base_ = StringExpUtil.getIdFromAllTypes(_s);
         if (isCandidateMethod(_scType.getId(),_scType.getAnc(), _scType.getTypeInfo().getRoot(),_id)) {
             return null;
         }
-        String formattedClass_ = getFormattedClass(_s, _scType.getFormatted().getFormatted(), _page, base_);
+        String formattedClass_ = getFormattedClass(_s, _scType.getFormatted().getFormatted(), _page, _type);
         return getMethodInfo(_m, _scType.getAnc(), formattedClass_, _page, _id, _scType.getFormattedFilter());
     }
 
@@ -1976,9 +1975,9 @@ public abstract class OperationNode {
         return buildMethodInfoCust(_m,_scType, _page, _id);
     }
 
-    private static String getFormattedClass(String _s, String _f, AnalyzedPageEl _page, String _base) {
+    private static String getFormattedClass(String _s, String _f, AnalyzedPageEl _page, StandardType _base) {
         String formattedClass_;
-        if (StringUtil.quickEq(_base, _page.getAliasFct())) {
+        if (_base == _page.getFctType()) {
             formattedClass_ = _s;
         } else {
             formattedClass_ = _f;

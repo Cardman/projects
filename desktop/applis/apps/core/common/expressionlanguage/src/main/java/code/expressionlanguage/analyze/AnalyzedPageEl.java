@@ -269,6 +269,15 @@ public final class AnalyzedPageEl {
     public String getAliasEnumPredValueOf() {
         return content.getPredefTypes().getAliasEnumPredValueOf();
     }
+    public StandardMethod getFctTypeMeta() {
+        return content.getReflect().getFctTypeMeta();
+    }
+    public StandardMethod getFctTypeInstance() {
+        return content.getReflect().getFctTypeInstance();
+    }
+    public StandardType getFctType() {
+        return content.getReflect().getFctType();
+    }
     public String getAliasMetaInfo() {
         return content.getReflect().getAliasMetaInfo();
     }
@@ -278,8 +287,17 @@ public final class AnalyzedPageEl {
     public String getAliasInstance() {
         return content.getReflect().getAliasInstance();
     }
-    public boolean matchCall(String _method) {
-        return StringUtil.quickEq(getAliasCall(),_method)||StringUtil.quickEq(content.getReflect().getAliasCallRef(),_method)||StringUtil.quickEq(content.getReflect().getAliasCallRefAfter(),_method);
+    public StandardMethod matchCall(String _method) {
+        if (StringUtil.quickEq(getAliasCall(),_method)) {
+            return content.getReflect().getFctTypeCall();
+        }
+        if (StringUtil.quickEq(content.getReflect().getAliasCallRef(),_method)) {
+            return content.getReflect().getFctTypeCallRef();
+        }
+        if (StringUtil.quickEq(content.getReflect().getAliasCallRefAfter(),_method)) {
+            return content.getReflect().getFctTypeCallRefAfter();
+        }
+        return null;
     }
     public String getAliasCall() {
         return content.getReflect().getAliasCall();

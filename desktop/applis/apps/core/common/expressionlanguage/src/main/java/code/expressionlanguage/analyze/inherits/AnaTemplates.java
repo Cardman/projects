@@ -489,7 +489,7 @@ public final class AnaTemplates {
         if (!StringUtil.quickEq(idParam_,_erased)) {
             type_ = AnaInherits.generic(g_,idParam_);
         } else {
-            if (StringUtil.quickEq(_erased, _page.getAliasFct())) {
+            if (g_ == _page.getFctType()) {
                 return _declaring;
             }
             type_ = gene_;

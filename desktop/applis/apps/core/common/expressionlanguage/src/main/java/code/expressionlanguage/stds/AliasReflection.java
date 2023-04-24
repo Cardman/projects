@@ -241,6 +241,12 @@ public final class AliasReflection {
     private String aliasGetVariableOwner;
     private String aliasGetGenericVariableOwner;
     private String aliasGetString;
+    private StandardType fctType;
+    private StandardMethod fctTypeInstance;
+    private StandardMethod fctTypeMeta;
+    private StandardMethod fctTypeCall;
+    private StandardMethod fctTypeCallRef;
+    private StandardMethod fctTypeCallRefAfter;
     private final AliasParamReflection params = new AliasParamReflection();
 
     public void build(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
@@ -908,18 +914,24 @@ public final class AliasReflection {
         StringList params_ = new StringList(aliasObject_);
         StandardMethod method_ = new StandardMethod(aliasCall, params_, aliasObject_, true, MethodModifier.FINAL, new StringList(params.getAliasFct0Call0()), new FctLambdaCall(0));
         methods_.add( method_);
+        fctTypeCall = method_;
         params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasCallRef, params_, aliasObject_, true, MethodModifier.FINAL, new StringList(params.getAliasFct0CallRef0()), new FctLambdaCall(1));
         methods_.add( method_);
+        fctTypeCallRef = method_;
         params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasCallRefAfter, params_, aliasObject_, true, MethodModifier.FINAL, new StringList(params.getAliasFct0CallRefAfter0()), new FctLambdaCall(2));
         methods_.add( method_);
+        fctTypeCallRefAfter = method_;
         params_ = new StringList();
         method_ = new StandardMethod(aliasMetaInfo, params_, aliasAnnotated, false, MethodModifier.FINAL, new FctLambdaMetaInfo());
         methods_.add( method_);
+        fctTypeMeta = method_;
         params_ = new StringList();
         method_ = new StandardMethod(aliasInstance, params_, aliasObject_, false, MethodModifier.FINAL, new FctLambdaInstance());
         methods_.add( method_);
+        fctTypeInstance = method_;
+        fctType = stdcl_;
         _stds.getStandards().addEntry(aliasFct, stdcl_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -2152,5 +2164,29 @@ public final class AliasReflection {
 
     public AliasParamReflection getParams() {
         return params;
+    }
+
+    public StandardType getFctType() {
+        return fctType;
+    }
+
+    public StandardMethod getFctTypeInstance() {
+        return fctTypeInstance;
+    }
+
+    public StandardMethod getFctTypeMeta() {
+        return fctTypeMeta;
+    }
+
+    public StandardMethod getFctTypeCall() {
+        return fctTypeCall;
+    }
+
+    public StandardMethod getFctTypeCallRef() {
+        return fctTypeCallRef;
+    }
+
+    public StandardMethod getFctTypeCallRefAfter() {
+        return fctTypeCallRefAfter;
     }
 }
