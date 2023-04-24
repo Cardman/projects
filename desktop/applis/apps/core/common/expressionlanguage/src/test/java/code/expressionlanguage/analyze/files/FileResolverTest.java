@@ -20,6 +20,23 @@ import org.junit.Test;
 
 public final class FileResolverTest extends ProcessMethodCommon {
     @Test
+    public void parseFile0Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$static pkg.Ex.method;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("\\* multi line\n");
+        file_.append("comment*\\\n");
+        file_.append("$public $class pkgtwo.ExClass {\n");
+        file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
+        file_.append("}");
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
+        int nbFiles_ = context_.getPreviousFilesBodies().size()+context_.getFilesBodies().size();
+        StringMap<String> fs_ = new StringMap<String>();
+        fs_.addEntry("fs",file_.toString());
+        buildFilesBodies(context_, fs_);
+        assertEq(nbFiles_,FileBlock.number(context_.getFilesBodies().getVal("fs")));
+    }
+    @Test
     public void parseFile1Test() {
         StringBuilder file_ = new StringBuilder();
         file_.append("pkg.Ex;\n");
@@ -480,7 +497,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(181, method_.getReturnTypeOffset());
         assertEq(189, method_.getNameOffset());
         assertEq(0, method_.getParametersTypesOffset().size());
-        assertEq(-1,method_.offsetByNameOut("",new Ints(),new CustList<String>()));
+        assertEq(-1,method_.offsetByNameOut("",new Ints(),new CustList<FileBlock>()));
         assertEq(0, method_.getParametersNamesOffset().size());
         AbsBk instr_ = method_.getFirstChild();
         assertTrue(instr_ instanceof Throwing);
@@ -4609,6 +4626,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
         file_.append("}");
         AnalyzedPageEl context_ = simpleCtxCommentPage();
+        int nbFiles_;
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());

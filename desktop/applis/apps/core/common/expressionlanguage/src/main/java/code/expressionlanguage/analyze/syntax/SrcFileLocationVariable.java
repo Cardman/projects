@@ -1,23 +1,29 @@
 package code.expressionlanguage.analyze.syntax;
 
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.common.DisplayedStrings;
 
 public final class SrcFileLocationVariable implements SrcFileLocation {
     private final int deep;
     private final String name;
-    private final String fileName;
+    private final FileBlock file;
     private final int index;
 
-    public SrcFileLocationVariable(int _d,String _n,String _f, int _i) {
+    public SrcFileLocationVariable(int _d,String _n,FileBlock _f, int _i) {
         deep = _d;
         name = _n;
-        this.fileName = _f;
+        this.file = _f;
         index = _i;
     }
 
     @Override
+    public FileBlock getFile() {
+        return file;
+    }
+
+    @Override
     public String getFileName() {
-        return fileName;
+        return FileBlock.name(getFile());
     }
 
     @Override

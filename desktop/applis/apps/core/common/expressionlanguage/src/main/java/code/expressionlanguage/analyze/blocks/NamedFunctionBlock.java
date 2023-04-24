@@ -132,11 +132,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             l.buildAnnotations(_page);
         }
     }
-    public int offsetByNameOut(String _name, Ints _offs, CustList<String> _fileName) {
+    public int offsetByNameOut(String _name, Ints _offs, CustList<FileBlock> _fileName) {
         int o_ = offsetByName(parametersNamesOffset, parametersNames, _name);
         if (o_ >= 0) {
             _offs.add(o_);
-            _fileName.add(getFile().getFileName());
+            _fileName.add(getFile());
         }
         return o_;
     }

@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.syntax;
 
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.common.DisplayedStrings;
 
 public final class SrcFileLocationStdType implements SrcFileLocation {
@@ -7,6 +8,11 @@ public final class SrcFileLocationStdType implements SrcFileLocation {
 
     public SrcFileLocationStdType(String _t) {
         this.type = _t;
+    }
+
+    @Override
+    public FileBlock getFile() {
+        return null;
     }
 
     @Override

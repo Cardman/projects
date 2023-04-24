@@ -4641,7 +4641,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     private static ResultExpressionOperationNode quickFindOperation(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
-        return ResultExpressionOperationNode.container(a_,_fileName,_caret);
+        return ResultExpressionOperationNode.container(_caret, a_.getPreviousFilesBodies().getVal(_fileName));
     }
 
     private static AnalyzedPageEl quickAnalyze(StringMap<String> _files) {

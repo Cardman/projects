@@ -15,8 +15,13 @@ public final class SrcFileLocationTypeVar implements SrcFileLocation {
     }
 
     @Override
+    public FileBlock getFile() {
+        return block;
+    }
+
+    @Override
     public String getFileName() {
-        return block.getFileName();
+        return FileBlock.name(getFile());
     }
 
     @Override

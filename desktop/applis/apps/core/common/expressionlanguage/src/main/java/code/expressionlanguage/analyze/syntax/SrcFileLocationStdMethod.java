@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.syntax;
 
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
@@ -11,6 +12,11 @@ public final class SrcFileLocationStdMethod implements SrcFileLocation {
     public SrcFileLocationStdMethod(StandardType _t, StandardNamedFunction _s) {
         type = _t;
         this.std = _s;
+    }
+
+    @Override
+    public FileBlock getFile() {
+        return null;
     }
 
     @Override

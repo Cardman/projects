@@ -13,8 +13,13 @@ public final class SrcFileLocationMethod implements SrcFileLocation {
     }
 
     @Override
+    public FileBlock getFile() {
+        return getMethod().getFile();
+    }
+
+    @Override
     public String getFileName() {
-        return getMethod().getFile().getFileName();
+        return FileBlock.name(getFile());
     }
 
     @Override

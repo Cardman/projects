@@ -1,27 +1,40 @@
 package code.expressionlanguage.analyze.syntax;
 
+import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.DisplayedStrings;
 
 public final class SrcFileLocationField implements SrcFileLocation {
     private final ClassField cf;
-    private final String fileName;
+    private final RootBlock declaring;
     private final int index;
 
-    public SrcFileLocationField(ClassField _c,String _f, int _i) {
+    public SrcFileLocationField(ClassField _c, RootBlock _d, int _i) {
         cf = _c;
-        this.fileName = _f;
+        declaring = _d;
         index = _i;
     }
 
     @Override
+    public FileBlock getFile() {
+        if (declaring != null) {
+            return declaring.getFile();
+        }
+        return null;
+    }
+
+    @Override
     public String getFileName() {
-        return fileName;
+        return FileBlock.name(getFile());
     }
 
     @Override
     public int getIndex() {
-        return index;
+        if (declaring != null) {
+            return index;
+        }
+        return 0;
     }
 
     @Override

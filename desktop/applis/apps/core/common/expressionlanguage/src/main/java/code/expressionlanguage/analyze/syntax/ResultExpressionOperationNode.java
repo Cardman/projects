@@ -33,7 +33,7 @@ public final class ResultExpressionOperationNode {
     private AbsBk block;
     private OperationNode found;
     public static String vexerChamps(AnalyzedPageEl _page, String _fileName, int _caret) {
-        ResultExpressionOperationNode res_ = container(_page, _fileName, _caret);
+        ResultExpressionOperationNode res_ = container(_caret, _page.getPreviousFilesBodies().getVal(_fileName));
         if (res_.getFound() instanceof SettableAbstractFieldOperation) {
             return ((SettableAbstractFieldOperation)res_.getFound()).getFieldIdReadOnly().getFieldName();
         }
@@ -48,8 +48,9 @@ public final class ResultExpressionOperationNode {
         return d_;
     }
     public static CustList<SrcFileLocation> locations(AnalyzedPageEl _page, String _fileName, int _caret) {
-        ResultExpressionOperationNode res_ = container(_page, _fileName, _caret);
-        CustList<SrcFileLocation> machines_ = coeur(_fileName, _caret, res_);
+        FileBlock file_ = _page.getPreviousFilesBodies().getVal(_fileName);
+        ResultExpressionOperationNode res_ = container(_caret, file_);
+        CustList<SrcFileLocation> machines_ = coeur(file_, _caret, res_);
         if (!machines_.isEmpty()) {
             return machines_;
         }
@@ -59,13 +60,13 @@ public final class ResultExpressionOperationNode {
         }
         if (bl_ instanceof BreakableBlock&&inRange(((BreakableBlock)bl_).getRealLabelInfo().getOffset(),_caret,((BreakableBlock)bl_).getRealLabelInfo().getOffset()+((BreakableBlock)bl_).getRealLabelInfo().getInfo().length())) {
             CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-            ls_.add(new SrcFileLocationLabel(((BreakableBlock)bl_).getRealLabelInfo().getInfo(),_fileName,((BreakableBlock)bl_).getRealLabelInfo().getOffset()));
+            ls_.add(new SrcFileLocationLabel(((BreakableBlock)bl_).getRealLabelInfo().getInfo(),file_, ((BreakableBlock)bl_).getRealLabelInfo().getOffset()));
             return ls_;
         }
         OffsetStringInfo o_ = tryDecl(bl_, _caret);
         if (o_ != null) {
             CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-            ls_.add(new SrcFileLocationVariable(-1,o_.getInfo(),_fileName,o_.getOffset()));
+            ls_.add(new SrcFileLocationVariable(-1,o_.getInfo(),file_,o_.getOffset()));
             return ls_;
         }
         if (bl_ instanceof DeclareVariable) {
@@ -90,12 +91,12 @@ public final class ResultExpressionOperationNode {
         }
         if (bl_ instanceof BreakBlock&&((BreakBlock)bl_).getLabelOffsetRef()>-1) {
             CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-            ls_.add(new SrcFileLocationLabel(((BreakBlock)bl_).getLabel(),_fileName,((BreakBlock)bl_).getLabelOffsetRef()));
+            ls_.add(new SrcFileLocationLabel(((BreakBlock)bl_).getLabel(),file_, ((BreakBlock)bl_).getLabelOffsetRef()));
             return ls_;
         }
         if (bl_ instanceof ContinueBlock&&((ContinueBlock)bl_).getLabelOffsetRef()>-1) {
             CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-            ls_.add(new SrcFileLocationLabel(((ContinueBlock)bl_).getLabel(),_fileName,((ContinueBlock)bl_).getLabelOffsetRef()));
+            ls_.add(new SrcFileLocationLabel(((ContinueBlock)bl_).getLabel(),file_, ((ContinueBlock)bl_).getLabelOffsetRef()));
             return ls_;
         }
         return def(_caret, bl_);
@@ -130,7 +131,7 @@ public final class ResultExpressionOperationNode {
         int s_ = names_.size();
         for (int i = 0; i < s_; i++) {
             if (inRange(offs_.get(i), _caret,offs_.get(i)+names_.get(i).length())) {
-                p_.add(new SrcFileLocationVariable(-1,names_.get(i), _bl.getFile().getFileName(),offs_.get(i)));
+                p_.add(new SrcFileLocationVariable(-1,names_.get(i), _bl.getFile(),offs_.get(i)));
             }
         }
         if (_bl instanceof NamedCalledFunctionBlock) {
@@ -210,7 +211,7 @@ public final class ResultExpressionOperationNode {
         return null;
     }
 
-    private static CustList<SrcFileLocation> coeur(String _fileName, int _caret, ResultExpressionOperationNode _res) {
+    private static CustList<SrcFileLocation> coeur(FileBlock _f, int _caret, ResultExpressionOperationNode _res) {
         OperationNode foundOp_ = _res.getFound();
         if (foundOp_ instanceof StaticAccessOperation) {
             return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticAccessOperation)foundOp_).getPartOffsets(), _caret);
@@ -221,11 +222,11 @@ public final class ResultExpressionOperationNode {
         if (foundOp_ instanceof FunctFilterOperation) {
             return id(_caret, foundOp_);
         }
-        return trefle(_fileName, _caret, _res);
+        return trefle(_f, _caret, _res);
     }
 
-    private static CustList<SrcFileLocation> trefle(String _fileName, int _caret, ResultExpressionOperationNode _res) {
-        CustList<SrcFileLocation> ls_ = carreau(_fileName, _caret, _res);
+    private static CustList<SrcFileLocation> trefle(FileBlock _f, int _caret, ResultExpressionOperationNode _res) {
+        CustList<SrcFileLocation> ls_ = carreau(_f, _caret, _res);
         OperationNode f_ = _res.getFound();
         if (f_ != null) {
             fctPub(f_.getResultClass().getFunction(),ls_);
@@ -237,7 +238,7 @@ public final class ResultExpressionOperationNode {
         return ls_;
     }
 
-    private static CustList<SrcFileLocation> carreau(String _fileName, int _caret, ResultExpressionOperationNode _res) {
+    private static CustList<SrcFileLocation> carreau(FileBlock _f, int _caret, ResultExpressionOperationNode _res) {
         OperationNode foundOp_ = _res.getFound();
         if (foundOp_ instanceof AbsFctOperation) {
             return fct(_caret, _res);
@@ -297,7 +298,7 @@ public final class ResultExpressionOperationNode {
         if (foundOp_ instanceof ElementArrayInstancing) {
             return types(((ElementArrayInstancing)foundOp_).getPartOffsets(),_caret);
         }
-        return pique(_fileName, _caret, _res);
+        return pique(_f, _caret, _res);
     }
 
     private static CustList<SrcFileLocation> curr(int _caret, AbstractInvokingConstructor _foundOp) {
@@ -372,9 +373,8 @@ public final class ResultExpressionOperationNode {
             int i_ = _foundOp.getRef();
             RootBlock r_ = _foundOp.getField();
             ClassField cf_ = _foundOp.getIdField();
-            String fileName_ = fileName(r_);
             if (!cf_.getClassName().isEmpty()) {
-                ls_.add(new SrcFileLocationField(cf_,fileName_,i_));
+                ls_.add(new SrcFileLocationField(cf_,r_, i_));
             }
             return ls_;
         }
@@ -386,7 +386,7 @@ public final class ResultExpressionOperationNode {
     private static void feedFiltersNamedList(NamedArgumentOperation _namedArg, CustList<SrcFileLocation> _list) {
         CustList<NamedFunctionBlock> customMethods_ = _namedArg.getCustomMethod();
         Ints offs_ = new Ints();
-        CustList<String> fs_ = new CustList<String>();
+        CustList<FileBlock> fs_ = new CustList<FileBlock>();
         for (NamedFunctionBlock n: customMethods_) {
             n.offsetByNameOut(_namedArg.getName(),offs_,fs_);
         }
@@ -406,7 +406,7 @@ public final class ResultExpressionOperationNode {
         return ls_;
     }
 
-    private static CustList<SrcFileLocation> pique(String _fileName, int _caret, ResultExpressionOperationNode _res) {
+    private static CustList<SrcFileLocation> pique(FileBlock _f, int _caret, ResultExpressionOperationNode _res) {
         OperationNode foundOp_ = _res.getFound();
         if (foundOp_ instanceof DefaultValueOperation) {
             return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((DefaultValueOperation)foundOp_).getPartOffsets(),_caret);
@@ -414,7 +414,7 @@ public final class ResultExpressionOperationNode {
         if (okFinalVar(foundOp_)) {
             AnaVariableContent v_ = ((FinalVariableOperation) foundOp_).getVariableContent();
             CustList<SrcFileLocation> l_ = new CustList<SrcFileLocation>();
-            l_.add(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),_fileName,((FinalVariableOperation)foundOp_).getRef()));
+            l_.add(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),_f,((FinalVariableOperation)foundOp_).getRef()));
             return l_;
         }
         if (foundOp_ instanceof ForwardOperation) {
@@ -429,13 +429,13 @@ public final class ResultExpressionOperationNode {
         if (okVar(foundOp_)) {
             AnaVariableContent v_ = ((VariableOperation) foundOp_).getVariableContent();
             CustList<SrcFileLocation> l_ = new CustList<SrcFileLocation>();
-            l_.add(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),_fileName,((VariableOperation)foundOp_).getRef()));
+            l_.add(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),_f,((VariableOperation)foundOp_).getRef()));
             return l_;
         }
         if (foundOp_ instanceof VariableOperationUse) {
             AnaVariableContent v_ = ((VariableOperationUse) foundOp_).getVariableContent();
             CustList<SrcFileLocation> l_ = new CustList<SrcFileLocation>();
-            l_.add(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),_fileName,((VariableOperationUse)foundOp_).getRef()));
+            l_.add(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),_f,((VariableOperationUse)foundOp_).getRef()));
             return l_;
         }
         if (foundOp_ instanceof LambdaOperation) {
@@ -462,7 +462,7 @@ public final class ResultExpressionOperationNode {
             if (inRange(off_+beginLambda_,_caret,off_+beginLambda_+name_.length())) {
                 RootBlock r_ = naFi_.getDeclaring();
                 CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-                ls_.add(new SrcFileLocationField(new ClassField(naFi_.getIdClass(),name_),fileName(r_),ref_));
+                ls_.add(new SrcFileLocationField(new ClassField(naFi_.getIdClass(),name_),r_, ref_));
                 return ls_;
             }
         }
@@ -489,7 +489,7 @@ public final class ResultExpressionOperationNode {
         ClassField fieldId_ = _lda.getFieldId();
         if (fieldId_ != null) {
             CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-            ls_.add(new SrcFileLocationField(fieldId_,fileName(fieldType_), _lda.getValueOffset()));
+            ls_.add(new SrcFileLocationField(fieldId_,fieldType_, _lda.getValueOffset()));
             return ls_;
         }
         return new CustList<SrcFileLocation>();
@@ -524,21 +524,10 @@ public final class ResultExpressionOperationNode {
         int i_ = ((SettableAbstractFieldOperation) _foundOp).getValueOffset();
         RootBlock r_ = ((SettableAbstractFieldOperation) _foundOp).getFieldType();
         ClassField cf_ = ((SettableAbstractFieldOperation) _foundOp).getFieldIdReadOnly();
-        String fileName_ = fileName(r_);
         if (!cf_.getClassName().isEmpty()) {
-            ls_.add(new SrcFileLocationField(cf_,fileName_,i_));
+            ls_.add(new SrcFileLocationField(cf_,r_, i_));
         }
         return ls_;
-    }
-
-    private static String fileName(AbsBk _r) {
-        String fileName_;
-        if (_r != null) {
-            fileName_ = _r.getFile().getFileName();
-        } else {
-            fileName_ = "";
-        }
-        return fileName_;
     }
 
     private static CustList<SrcFileLocation> young(int _caret, ResultExpressionOperationNode _res, AbstractInstancingOperation _op) {
@@ -654,8 +643,8 @@ public final class ResultExpressionOperationNode {
         return _f.getFunction();
     }
 
-    public static ResultExpressionOperationNode container(AnalyzedPageEl _page, String _fileName, int _caret) {
-        AbsBk sub_ = _page.getPreviousFilesBodies().getVal(_fileName);
+    public static ResultExpressionOperationNode container(int _caret, FileBlock _file) {
+        AbsBk sub_ = _file;
         ResultExpressionOperationNode out_ = new ResultExpressionOperationNode();
         while (sub_ != null) {
             sub_ = subContainer(_caret, sub_);

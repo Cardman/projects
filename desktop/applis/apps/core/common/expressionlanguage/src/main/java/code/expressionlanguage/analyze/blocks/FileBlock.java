@@ -51,6 +51,19 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         fileEscapedCalc = _fileEscapedCalc;
     }
 
+    public static String name(FileBlock _f) {
+        if (_f == null) {
+            return "";
+        }
+        return _f.getFileName();
+    }
+
+    public static int number(FileBlock _f) {
+        if (_f == null) {
+            return -1;
+        }
+        return _f.getNumberFile();
+    }
     public AbstractFileEscapedCalc getFileEscapedCalc() {
         return fileEscapedCalc;
     }

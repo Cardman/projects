@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.syntax;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -1348,6 +1349,7 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq(1,r_.size());
         assertEq(0,r_.get(0).getIndex());
         assertEq("",r_.get(0).getFileName());
+        assertEq(-1, FileBlock.number(r_.get(0).getFile()));
         assertEq("java.lang.String",((SrcFileLocationStdType)r_.get(0)).getType());
     }
     @Test
@@ -1658,6 +1660,7 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq(1,r_.size());
         assertEq(0,r_.get(0).getIndex());
         assertEq("",r_.get(0).getFileName());
+        assertEq(-1, FileBlock.number(r_.get(0).getFile()));
         assertNotNull(((SrcFileLocationStdMethod)r_.get(0)).getStd());
     }
     @Test
@@ -4457,6 +4460,33 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq("pkg/Ex3",r_.get(0).getFileName());
     }
     @Test
+    public void locations138() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=ONE.ordinal()+TWO.ordinal();\n");
+        xml_.append("$final $int FOUR=THREE;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=Short.MAX_VALUE;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",71);
+        assertEq(1,r_.size());
+        assertEq(0,r_.get(0).getIndex());
+        assertEq("",r_.get(0).getFileName());
+        assertEq(-1, FileBlock.number(r_.get(0).getFile()));
+        assertEq("java.lang.Short",((SrcFileLocationField)r_.get(0)).getCf().getClassName());
+        assertEq("MAX_VALUE",((SrcFileLocationField)r_.get(0)).getCf().getFieldName());
+    }
+    @Test
     public void locationsDisplay1() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -4793,7 +4823,7 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
 
     private static ResultExpressionOperationNode quickFindOperation(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
-        return ResultExpressionOperationNode.container(a_,_fileName,_caret);
+        return ResultExpressionOperationNode.container(_caret, a_.getPreviousFilesBodies().getVal(_fileName));
     }
 
     private static AnalyzedPageEl quickAnalyze(StringMap<String> _files) {

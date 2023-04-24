@@ -1,21 +1,27 @@
 package code.expressionlanguage.analyze.syntax;
 
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.common.DisplayedStrings;
 
 public final class SrcFileLocationLabel implements SrcFileLocation {
     private final String label;
-    private final String fileName;
+    private final FileBlock block;
     private final int index;
 
-    public SrcFileLocationLabel(String _n, String _f, int _i) {
+    public SrcFileLocationLabel(String _n, FileBlock _b, int _i) {
         label = _n;
-        this.fileName = _f;
+        block = _b;
         index = _i;
     }
 
     @Override
+    public FileBlock getFile() {
+        return block;
+    }
+
+    @Override
     public String getFileName() {
-        return fileName;
+        return FileBlock.name(getFile());
     }
 
     @Override
