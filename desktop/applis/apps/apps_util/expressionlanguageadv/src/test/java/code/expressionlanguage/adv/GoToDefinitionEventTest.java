@@ -84,6 +84,21 @@ public final class GoToDefinitionEventTest extends EquallableElAdvUtil {
         assertEq(2,s_.getTabs().size());
     }
     @Test
+    public void def6() {
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "public class pkg.ExClass:AbsStringReplacer{public ExClass(){}public StringSegment index(String t,int i){Second s=new ExClass[]{new ExClass()}[0];return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{public static Second $(ExClass s){return null;}}");
+        analyze(w_);
+        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
+        WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
+        s_.setLimitSymbol(1);
+        s_.getTree().select(s_.getTree().getRoot());
+        s_.getTree().select(s_.getTree().getRoot().getFirstChild().getNextSibling().getNextSibling());
+        s_.getTree().select(s_.getTree().getRoot().getFirstChild().getNextSibling().getNextSibling().getFirstChild());
+        s_.getTabs().get(0).getCenter().select(141,141);
+        currentElement(s_.getTabs().get(0));
+        goTo(s_, 0);
+        assertEq(2,s_.getTabs().size());
+    }
+    @Test
     public void limit() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "public class pkg.ExClass:AbsStringReplacer{Second s;public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{}");
         analyze(w_);
