@@ -752,6 +752,9 @@ public final class ResultExpressionOperationNode {
     }
 
     private static ResultExpression lookFct(AbsBk _block, int _caret) {
+        if (_block instanceof NamedCalledFunctionBlock && inExp(((NamedCalledFunctionBlock)_block).getRes(),_caret)) {
+            return ((NamedCalledFunctionBlock)_block).getRes();
+        }
         ResultParsedAnnots a_ = ((NamedFunctionBlock) _block).getAnnotations();
         int index_ = indexOfAnnot(a_, _caret);
         if (index_ > -1) {

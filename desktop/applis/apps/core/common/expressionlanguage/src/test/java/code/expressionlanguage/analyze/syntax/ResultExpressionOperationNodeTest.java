@@ -4556,6 +4556,32 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertNotNull(((SrcFileLocationStdMethod)r_.get(0)).getStd());
     }
     @Test
+    public void locations142() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Outer2 {\n");
+        xml_.append("$int val()Outer3.CST;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer3 {\n");
+        xml_.append("$static $final $int CST=1;");
+        xml_.append("}");
+        files_.put("pkg/Ex3", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",43);
+        assertEq(1,r_.size());
+        assertEq(15,r_.get(0).getIndex());
+        assertEq("pkg/Ex3",r_.get(0).getFileName());
+    }
+    @Test
     public void locationsDisplay1() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
