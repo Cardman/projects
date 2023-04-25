@@ -193,6 +193,9 @@ public final class ResultExpressionOperationNode {
     }
 
     private static OffsetStringInfo tryDecl(AbsBk _bl, int _caret) {
+        if (_bl instanceof ForIterativeLoop&&inRange(((ForIterativeLoop)_bl).getVariableNameOffset(),_caret,((ForIterativeLoop)_bl).getVariableNameOffset()+((ForIterativeLoop)_bl).getVariableName().length())) {
+            return new OffsetStringInfo(((ForIterativeLoop)_bl).getVariableNameOffset(), ((ForIterativeLoop)_bl).getVariableName());
+        }
         if (_bl instanceof ForEachLoop&&inRange(((ForEachLoop)_bl).getVariableNameOffset(),_caret,((ForEachLoop)_bl).getVariableNameOffset()+((ForEachLoop)_bl).getVariableName().length())) {
             return new OffsetStringInfo(((ForEachLoop)_bl).getVariableNameOffset(), ((ForEachLoop)_bl).getVariableName());
         }
