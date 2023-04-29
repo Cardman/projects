@@ -29,6 +29,7 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation impleme
     private AnaFormattedRootBlock inferred;
     private RootBlock field;
     private int ref=-1;
+    private int refSet=-1;
     private final CustList<NamedFunctionBlock> customMethod = new CustList<NamedFunctionBlock>();
     private ClassField idField = new ClassField("","");
     private final CustList<AnaResultPartTypeDtoInt> partOffsets = new CustList<AnaResultPartTypeDtoInt>();
@@ -183,6 +184,18 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation impleme
 
     public int getRef() {
         return ref;
+    }
+
+    public void setRef(int _r) {
+        this.ref = _r;
+    }
+
+    public int getRefSet() {
+        return refSet;
+    }
+
+    public void setRefSet(int _r) {
+        this.refSet = _r;
     }
 
     public RootBlock getField() {

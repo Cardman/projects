@@ -283,7 +283,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         functionSet = resMemoSet.getParametrableContent().getPair();
         memberIdSet = resMemoSet.getParametrableContent().getMemberId();
         callFctContentSet.update(resMemoSet);
-        feedNamedParamsMethod(resMemoGet.getIndexesParams(),functionSet.getFunction(),resMemoGet.getFilter());
+        int delta_ = getDeltaCount(getFirstChild());
+        feedNamedParamsMethod(resMemoGet.getIndexesParams(),functionSet.getFunction(),new AdvIndexRefRetriever(delta_));
     }
 
     private void errIndexer(AnalyzedPageEl _page, ClassMethodIdReturn _resEr) {

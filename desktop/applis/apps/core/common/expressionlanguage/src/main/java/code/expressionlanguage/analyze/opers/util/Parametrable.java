@@ -8,7 +8,6 @@ import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
-import code.util.Ints;
 import code.util.StringList;
 
 public abstract class Parametrable {
@@ -20,7 +19,7 @@ public abstract class Parametrable {
     private String originalReturnType = "";
     private final CustList<CustList<ClassMethodIdReturn>> implicits = new CustList<CustList<ClassMethodIdReturn>>();
     private StringList parametersNames = new StringList();
-    private final Ints nameParametersFilterIndexes = new Ints();
+    private final CustList<NamedArgIndex> nameParametersFilterIndexes = new CustList<NamedArgIndex>();
     private final CustList<OperationNode> allOps = new CustList<OperationNode>();
     private NamedFunctionBlock cust;
     private InvocationMethod invocation;
@@ -78,7 +77,7 @@ public abstract class Parametrable {
         this.parametersNames = _parametersNames;
     }
 
-    public Ints getNameParametersFilterIndexes() {
+    public CustList<NamedArgIndex> getNameParametersFilterIndexes() {
         return nameParametersFilterIndexes;
     }
 

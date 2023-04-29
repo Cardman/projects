@@ -3419,19 +3419,28 @@ public final class LinkageUtil {
     }
 
     private static void feedFiltersNamedList(NamedArgumentOperation _namedArg, CustList<NamedFunctionBlock> _customMethods, CustList<LinkedNamedArgParts> _list, CustList<LinkedNamedArgParts> _filterSet, CustList<LinkedNamedArgParts> _filterGet) {
-        for (NamedFunctionBlock n: _customMethods) {
-            FileBlock file_ = n.getFile();
-            Ints offs_ = new Ints();
+        int s_ = _customMethods.size();
+        for (int i = 0; i < s_; i++) {
+            NamedFunctionBlock n_ = _customMethods.get(i);
+            FileBlock file_ = n_.getFile();
+            int off_;
             if (!file_.isPredefined()) {
-                offs_ = n.getParametersNamesOffset();
+                off_ = index(i,_namedArg);
+            } else {
+                off_ = -1;
             }
-            int off_ = NamedFunctionBlock.offsetByName(offs_,n.getParametersNames(),_namedArg.getName());
             if (off_ > -1) {
-                LinkedNamedArgParts elt_ = new LinkedNamedArgParts(n.getFile(), off_);
-                feedFiltersNamed(_filterSet, _filterGet, n, elt_);
+                LinkedNamedArgParts elt_ = new LinkedNamedArgParts(n_.getFile(), off_);
+                feedFiltersNamed(_filterSet, _filterGet, n_, elt_);
                 _list.add(elt_);
             }
         }
+    }
+    private static int index(int _i, NamedArgumentOperation _namedArg) {
+        if (_i > 0) {
+            return _namedArg.getRefSet();
+        }
+        return _namedArg.getRef();
     }
 
     private static void feedFiltersNamed(CustList<LinkedNamedArgParts> _filterSet, CustList<LinkedNamedArgParts> _filterGet, NamedFunctionBlock _named, LinkedNamedArgParts _elt) {

@@ -497,7 +497,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(181, method_.getReturnTypeOffset());
         assertEq(189, method_.getNameOffset());
         assertEq(0, method_.getParametersTypesOffset().size());
-        assertEq(-1,method_.offsetByNameOut("",new Ints(),new CustList<FileBlock>()));
         assertEq(0, method_.getParametersNamesOffset().size());
         AbsBk instr_ = method_.getFirstChild();
         assertTrue(instr_ instanceof Throwing);

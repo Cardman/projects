@@ -398,12 +398,14 @@ public final class ResultExpressionOperationNode {
         return ls_;
     }
 
-    private static void feedFiltersNamedList(NamedArgumentOperation _namedArg, CustList<SrcFileLocation> _list) {
+    static void feedFiltersNamedList(NamedArgumentOperation _namedArg, CustList<SrcFileLocation> _list) {
         CustList<NamedFunctionBlock> customMethods_ = _namedArg.getCustomMethod();
         Ints offs_ = new Ints();
         CustList<FileBlock> fs_ = new CustList<FileBlock>();
-        for (NamedFunctionBlock n: customMethods_) {
-            n.offsetByNameOut(_namedArg.getName(),offs_,fs_);
+        if (!customMethods_.isEmpty()) {
+            NamedFunctionBlock c_ = customMethods_.first();
+            offs_.add(_namedArg.getRef());
+            fs_.add(c_.getFile());
         }
         int s_ = offs_.size();
         for (int i = 0; i < s_; i++) {

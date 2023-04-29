@@ -326,21 +326,8 @@ public final class CallersRef {
 //            return ls_;
 //        }
         CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-        feedFiltersNamedList(_foundOp,ls_);
+        ResultExpressionOperationNode.feedFiltersNamedList(_foundOp,ls_);
         return ls_;
-    }
-
-    private static void feedFiltersNamedList(NamedArgumentOperation _namedArg, CustList<SrcFileLocation> _list) {
-        CustList<NamedFunctionBlock> customMethods_ = _namedArg.getCustomMethod();
-        Ints offs_ = new Ints();
-        CustList<FileBlock> fs_ = new CustList<FileBlock>();
-        for (NamedFunctionBlock n: customMethods_) {
-            n.offsetByNameOut(_namedArg.getName(),offs_,fs_);
-        }
-        int s_ = offs_.size();
-        for (int i = 0; i < s_; i++) {
-            _list.add(new SrcFileLocationVariable(-1,_namedArg.getName(),fs_.get(i),offs_.get(i)));
-        }
     }
 
     private void def(AbsBk _bl, CustList<SrcFileLocation> _piano) {

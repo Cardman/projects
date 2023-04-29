@@ -779,7 +779,7 @@ public abstract class OperationNode {
             }
             signatures_.add(c);
         }
-        return getConstrustorId(_type,_filter, _page, signatures_);
+        return getConstrustorId(_type, _page, signatures_);
     }
 
     private static void feedCustCtor(AnaGeneType _type, ConstructorId _uniqueId, AnalyzedPageEl _page, String _clCurName, int _varargOnly, CustList<ConstructorInfo> _ctors) {
@@ -860,7 +860,7 @@ public abstract class OperationNode {
         return varargOnly_;
     }
 
-    private static ConstrustorIdVarArg getConstrustorId(AnaGeneType _type, NameParametersFilter _filter, AnalyzedPageEl _page, CustList<ConstructorInfo> _signatures) {
+    private static ConstrustorIdVarArg getConstrustorId(AnaGeneType _type, AnalyzedPageEl _page, CustList<ConstructorInfo> _signatures) {
         StringMap<StringList> map_ = _page.getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
         Parametrable cInfo_ = sortCtors(_signatures, gr_);
@@ -870,9 +870,9 @@ public abstract class OperationNode {
         CustList<CustList<ClassMethodIdReturn>> implicits_ = cInfo_.getImplicits();
         CustList<OperationNode> allOps_ = cInfo_.getAllOps();
         feedImplicitsInfos(implicits_, allOps_);
-        Ints nameParametersFilterIndexes_ = cInfo_.getNameParametersFilterIndexes();
+        CustList<NamedArgIndex> nameParametersFilterIndexes_ = cInfo_.getNameParametersFilterIndexes();
         NamedFunctionBlock custMethod_ = cInfo_.getCust();
-        feedNamedParams(nameParametersFilterIndexes_, custMethod_, _filter.getParameterFilter());
+        feedNamedParams(nameParametersFilterIndexes_, custMethod_);
         ConstrustorIdVarArg res_ = buildCtorInfo(_type, (ConstructorInfo) cInfo_);
         InvokingOperation.unwrapArgsFct(res_,allOps_,_page);
         return res_;
@@ -899,26 +899,17 @@ public abstract class OperationNode {
         return out_;
     }
 
-    protected static void feedNamedParams(Ints _nameParametersFilterIndexes, NamedFunctionBlock _custMethod, CustList<NamedArgumentOperation> _parameterFilter) {
-        feedNamedParamsMethod(_nameParametersFilterIndexes, _custMethod, _parameterFilter);
-        feedNamedParamsIndexes(_nameParametersFilterIndexes,_parameterFilter);
+    protected static void feedNamedParams(CustList<NamedArgIndex> _nameParametersFilterIndexes, NamedFunctionBlock _custMethod) {
+        feedNamedParamsMethod(_nameParametersFilterIndexes, _custMethod,new DefIndexRefRetriever());
     }
 
-    protected static void feedNamedParamsMethod(Ints _nameParametersFilterIndexes, NamedFunctionBlock _custMethod, CustList<NamedArgumentOperation> _parameterFilter) {
+    protected static void feedNamedParamsMethod(CustList<NamedArgIndex> _nameParametersFilterIndexes, NamedFunctionBlock _custMethod, AbsIndexRefRetriever _retr) {
         int parNameLen_ = _nameParametersFilterIndexes.size();
         for (int i = 0; i < parNameLen_; i++) {
-            NamedArgumentOperation namedArgument_ = _parameterFilter.get(i);
+            NamedArgIndex pair_ = _retr.retrieve(_nameParametersFilterIndexes,i);
             if (_custMethod != null) {
-                namedArgument_.getCustomMethod().add(_custMethod);
+                _retr.update(pair_,_custMethod);
             }
-        }
-    }
-
-    protected static void feedNamedParamsIndexes(Ints _nameParametersFilterIndexes, CustList<NamedArgumentOperation> _parameterFilter) {
-        int parNameLen_ = _nameParametersFilterIndexes.size();
-        for (int i = 0; i < parNameLen_; i++) {
-            NamedArgumentOperation namedArgument_ = _parameterFilter.get(i);
-            namedArgument_.setIndex(_nameParametersFilterIndexes.get(i));
         }
     }
 
@@ -2293,12 +2284,11 @@ public abstract class OperationNode {
         CustList<CustList<ClassMethodIdReturn>> implicits_ = _found.getImplicits();
         CustList<OperationNode> allOps_ = _found.getAllOps();
         feedImplicitsInfos(implicits_, allOps_);
-        Ints nameParametersFilterIndexes_ = _found.getNameParametersFilterIndexes();
+        CustList<NamedArgIndex> nameParametersFilterIndexes_ = _found.getNameParametersFilterIndexes();
         NamedFunctionBlock custMethod_ = _found.getCust();
-        feedNamedParams(nameParametersFilterIndexes_, custMethod_, _filter.getParameterFilter());
+        feedNamedParams(nameParametersFilterIndexes_, custMethod_);
         MethodId id_ = _found.getFormatted();
         ClassMethodIdReturn res_ = buildResult(_found, id_);
-        res_.setFilter(_filter.getParameterFilter());
         InvokingOperation.unwrapArgsFct(res_,allOps_,_page);
         return res_;
     }
@@ -2559,7 +2549,7 @@ public abstract class OperationNode {
 //            if (ind_ < Math.min(lengthArgs_, _filter.getIndex()))
                 return false;
             }
-            _id.getNameParametersFilterIndexes().add(ind_);
+            _id.getNameParametersFilterIndexes().add(new NamedArgIndex(f,ind_));
             allOps_.set(ind_,f);
         }
         return true;

@@ -1,8 +1,8 @@
 package code.expressionlanguage.analyze.util;
 
 
-import code.expressionlanguage.analyze.opers.NamedArgumentOperation;
 import code.expressionlanguage.analyze.opers.util.AbsPossibleVarArg;
+import code.expressionlanguage.analyze.opers.util.NamedArgIndex;
 import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.Identifiable;
@@ -10,7 +10,6 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
-import code.util.Ints;
 
 public final class ClassMethodIdReturn extends AbsPossibleVarArg {
 
@@ -26,8 +25,7 @@ public final class ClassMethodIdReturn extends AbsPossibleVarArg {
     private int ancestor;
     private StandardType standardType;
     private StandardMethod standardMethod;
-    private CustList<NamedArgumentOperation> filter;
-    private Ints indexesParams;
+    private CustList<NamedArgIndex> indexesParams;
     private CommonOperSymbol virtualCall;
 
     public CommonOperSymbol getVirtualCall() {
@@ -115,19 +113,11 @@ public final class ClassMethodIdReturn extends AbsPossibleVarArg {
         this.standardMethod = _standardMethod;
     }
 
-    public CustList<NamedArgumentOperation> getFilter() {
-        return filter;
-    }
-
-    public void setFilter(CustList<NamedArgumentOperation> _parameterFilter) {
-        filter = _parameterFilter;
-    }
-
-    public Ints getIndexesParams() {
+    public CustList<NamedArgIndex> getIndexesParams() {
         return indexesParams;
     }
 
-    public void setIndexesParams(Ints _name) {
+    public void setIndexesParams(CustList<NamedArgIndex> _name) {
         indexesParams = _name;
     }
 }
