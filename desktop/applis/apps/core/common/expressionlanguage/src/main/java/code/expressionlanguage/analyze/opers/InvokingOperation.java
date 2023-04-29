@@ -702,7 +702,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return bounds_;
     }
 
-    static void unwrapArgsFct(AbsPossibleVarArg _res, CustList<OperationNode> _args, AnalyzedPageEl _page) {
+    static void unwrapArgsFct(AbsPossibleVarArg _res, Parametrable _args, AnalyzedPageEl _page) {
         Identifiable id_ = _res.ident();
         int natvarag_ = -1;
         String lastType_ = "";
@@ -710,7 +710,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             natvarag_ = id_.getParametersTypesLength() - 1;
             lastType_ = id_.getParametersType(natvarag_);
         }
-        unwrapArgsFct(id_,natvarag_,lastType_, _args, _page);
+        unwrapArgsFct(id_,natvarag_,lastType_, _args.getAllOps(), _page);
     }
 
     static void unwrapArgsFct(Identifiable _id, int _natvararg, String _lasttype, CustList<OperationNode> _args, AnalyzedPageEl _page) {
