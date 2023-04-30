@@ -108,7 +108,8 @@ public final class CallersRef {
     }
     private static CustList<ResultExpressionBlockOperation> loopOperation(ResultExpressionBlock _mem) {
         CustList<ResultExpressionBlockOperation> ls_ = new CustList<ResultExpressionBlockOperation>();
-        OperationNode en_ = _mem.getRes().getRoot();
+        OperationNode r_ = _mem.getRes().getRoot();
+        OperationNode en_ = r_;
         while (en_ != null) {
             OperationNode n_ = en_.getFirstChild();
             ls_.add(new ResultExpressionBlockOperation(en_,_mem));
@@ -122,7 +123,12 @@ public final class CallersRef {
                     en_ = n_;
                     break;
                 }
-                en_ = en_.getParent();
+                MethodOperation p_ = en_.getParent();
+                if (p_ instanceof DeclaringOperation||p_ == r_||p_ == null) {
+                    en_ = null;
+                } else {
+                    en_ = p_;
+                }
             }
         }
         return ls_;
