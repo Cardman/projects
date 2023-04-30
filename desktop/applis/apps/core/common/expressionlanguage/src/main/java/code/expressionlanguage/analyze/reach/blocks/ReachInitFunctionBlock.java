@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
+import code.expressionlanguage.common.DisplayedStrings;
 
 public final class ReachInitFunctionBlock extends ReachMemberCallingsBlock {
     private final MemberCallingsBlock meta;
@@ -11,7 +11,7 @@ public final class ReachInitFunctionBlock extends ReachMemberCallingsBlock {
     }
 
     @Override
-    public String getSignature(AnalyzedPageEl _page) {
+    public String getSignature(DisplayedStrings _page) {
         return meta.getSignature(_page);
     }
 }

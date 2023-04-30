@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.Ints;
@@ -225,7 +224,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             badMeth_.setIndexFile(r_);
             //method name len
             badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
-                    getSignature(_page),
+                    getSignature(_page.getDisplayedStrings()),
                     _page.getAliasVoid());
             _page.addLocError(badMeth_);
             addNameErrors(badMeth_);
@@ -235,7 +234,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return parametersRef;
     }
 
-    public abstract String getSignature(DisplayedStrings _page);
     public String getReturnType() {
         return returnType;
     }

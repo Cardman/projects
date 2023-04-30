@@ -36,11 +36,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
     }
 
     @Override
-    public String getSignature(AnalyzedPageEl _page) {
-        return getId().getSignature(_page.getDisplayedStrings());
-    }
-
-    @Override
     public String getSignature(DisplayedStrings _page) {
         return getId().getSignature(_page);
     }

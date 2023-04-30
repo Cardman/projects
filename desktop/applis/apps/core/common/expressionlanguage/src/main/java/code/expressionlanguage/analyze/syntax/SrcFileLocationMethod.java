@@ -5,9 +5,9 @@ import code.expressionlanguage.common.DisplayedStrings;
 
 public final class SrcFileLocationMethod implements SrcFileLocation {
     private final BracedBlock owner;
-    private final NamedFunctionBlock method;
+    private final MemberCallingsBlock method;
 
-    public SrcFileLocationMethod(BracedBlock _o,NamedFunctionBlock _m) {
+    public SrcFileLocationMethod(BracedBlock _o,MemberCallingsBlock _m) {
         owner = _o;
         this.method = _m;
     }
@@ -24,12 +24,16 @@ public final class SrcFileLocationMethod implements SrcFileLocation {
 
     @Override
     public int getIndex() {
-        return getMethod().getNameOffset();
+        MemberCallingsBlock m_ = getMethod();
+        if (m_ instanceof NamedFunctionBlock) {
+            return ((NamedFunctionBlock)m_).getNameOffset();
+        }
+        return m_.getOffset();
     }
 
     @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
-        NamedFunctionBlock m_ = getMethod();
+        MemberCallingsBlock m_ = getMethod();
         if (m_ instanceof NamedCalledFunctionBlock) {
             AccessedBlock acc_ = ((NamedCalledFunctionBlock) m_).getAccessedBlock();
             if (acc_ instanceof RootBlock) {
@@ -45,7 +49,7 @@ public final class SrcFileLocationMethod implements SrcFileLocation {
         return new RowSrcLocation(EnSrcLocation.METHOD, m_.getSignature(_dis), getFileName(),getIndex());
     }
 
-    public NamedFunctionBlock getMethod() {
+    public MemberCallingsBlock getMethod() {
         return method;
     }
 }

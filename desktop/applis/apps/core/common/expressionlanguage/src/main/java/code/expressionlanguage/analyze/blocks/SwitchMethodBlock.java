@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.AnaCache;
+import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.AnaAnonFctContent;
@@ -54,8 +55,8 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
     }
 
     @Override
-    public String getSignature(AnalyzedPageEl _page) {
-        return getId().getSignature(_page.getDisplayedStrings());
+    public String getSignature(DisplayedStrings _page) {
+        return getId().getSignature(_page);
     }
     public MethodId getId() {
         String name_ = getName();

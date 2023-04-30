@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.SwitchMethodBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.common.DisplayedStrings;
 
 public final class ReachSwitchMethodBlock extends ReachMemberCallingsBlock implements ReachAnalyzedSwitch,ReachMemberCallingsBlockSide {
     private final AnaClassArgumentMatching result;
@@ -37,7 +38,7 @@ public final class ReachSwitchMethodBlock extends ReachMemberCallingsBlock imple
     }
 
     @Override
-    public String getSignature(AnalyzedPageEl _page) {
+    public String getSignature(DisplayedStrings _page) {
         return meta.getSignature(_page);
     }
 

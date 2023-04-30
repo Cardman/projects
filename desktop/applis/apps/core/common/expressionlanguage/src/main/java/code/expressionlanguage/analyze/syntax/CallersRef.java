@@ -3,6 +3,8 @@ package code.expressionlanguage.analyze.syntax;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.util.CustList;
 import code.util.Ints;
@@ -10,7 +12,7 @@ import code.util.StringList;
 
 public final class CallersRef {
     private final CustList<FileBlockIndex> variablesParamsUse = new CustList<FileBlockIndex>();
-    private final CustList<AbsBk> allBlocks = new CustList<AbsBk>();
+    private final CustList<BlockCallerFct> allBlocks = new CustList<BlockCallerFct>();
 
 //    private final CustList<SrcFileLocation> directRefNamed = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directRefNamedStd = new CustList<SrcFileLocation>();
@@ -40,11 +42,12 @@ public final class CallersRef {
         for (SwitchOperation e: _page.getAllSwitchMethods()) {
             ls_.addAllElts(c_.loopFct(e.getSwitchMethod()));
         }
-        for (AbsBk b: c_.allBlocks) {
-            for (SrcFileLocation s: tryDecl(b)){
-                addIfMatch(s,s.getFile(),s.getIndex(),c_.variablesParamsUse,_piano);
+        for (BlockCallerFct b: c_.allBlocks) {
+            MemberCallingsBlock caller_ = b.getCaller();
+            for (SrcFileLocation s: tryDecl(b.getBlock())){
+                addIfMatch(s,new SrcFileLocationMethod(caller_.getParent(),caller_),s.getFile(),s.getIndex(),c_.variablesParamsUse,_piano);
             }
-            c_.def(b,_piano);
+            c_.def(b.getBlock(),_piano);
         }
         CustList<ResultExpressionBlockOperation> ops_ = new CustList<ResultExpressionBlockOperation>();
         for (ResultExpressionBlock r: ls_) {
@@ -58,13 +61,13 @@ public final class CallersRef {
 
     private void type(CustList<ResultExpressionBlock> _ls, RootBlock _r) {
         for (InfoBlock i: _r.getFieldsBlocks()) {
-            _ls.addAllElts(rootBlock((AbsBk) i));
+            _ls.addAllElts(rootBlock(null,(AbsBk) i));
         }
         for (NamedCalledFunctionBlock b: _r.getOverridableBlocks()) {
             _ls.addAllElts(loopFct(b));
         }
         for (NamedCalledFunctionBlock b: _r.getAnnotationsMethodsBlocks()) {
-            _ls.addAllElts(rootBlock(b));
+            _ls.addAllElts(rootBlock(null,b));
         }
         for (ConstructorBlock b: _r.getConstructorBlocks()) {
             _ls.addAllElts(loopFct(b));
@@ -82,7 +85,7 @@ public final class CallersRef {
         AbsBk en_ = _mem;
         while (en_ != null) {
             AbsBk n_ = en_.getFirstChild();
-            ls_.addAllElts(rootBlock(en_));
+            ls_.addAllElts(rootBlock(_mem,en_));
             if (n_ != null) {
                 en_ = n_;
                 continue;
@@ -124,15 +127,19 @@ public final class CallersRef {
         }
         return ls_;
     }
-    private CustList<ResultExpressionBlock> rootBlock(AbsBk _en) {
-        allBlocks.add(_en);
+    private CustList<ResultExpressionBlock> rootBlock(MemberCallingsBlock _caller, AbsBk _en) {
+        allBlocks.add(new BlockCallerFct(_en,_caller));
         CustList<ResultExpressionBlock> annotFields_ = new CustList<ResultExpressionBlock>();
 //        if (_en instanceof InfoBlock) {
 //            ResultParsedAnnots a_ = ((InfoBlock) _en).getAnnotations();
 //            addAnnots(_en,annotFields_, a_);
 //        }
         if (_en instanceof InfoBlock) {
-            annotFields_.add(new ResultExpressionBlock(_en,((InfoBlock)_en).getRes()));
+            for (String c: ((InfoBlock)_en).getElements().getFieldName()) {
+                int o_ = AnaTypeUtil.getIndex(((InfoBlock) _en), c);
+                RootBlock d_ = ((InfoBlock) _en).getDeclaringType();
+                annotFields_.add(new ResultExpressionBlock(new SrcFileLocationField(new ClassField(d_.getFullName(),c), d_,o_),_en,((InfoBlock)_en).getRes()));
+            }
             return annotFields_;
         }
 //        if (_en instanceof RootBlock) {
@@ -147,7 +154,7 @@ public final class CallersRef {
 //            resSw(annotFields_,(SwitchMethodBlock)_en);
 //            return annotFields_;
 //        }
-        return instrLook(_en);
+        return instrLook(_caller,_en);
     }
 
 //    public static void resSw(CustList<ResultExpressionBlock> _list, SwitchMethodBlock _block) {
@@ -179,76 +186,76 @@ public final class CallersRef {
 //        }
 //    }
 
-    private static CustList<ResultExpressionBlock> instrLook(AbsBk _block) {
+    private static CustList<ResultExpressionBlock> instrLook(MemberCallingsBlock _caller,AbsBk _block) {
         if (_block instanceof ConditionBlock) {
             ResultExpression res_ = ((ConditionBlock) _block).getRes();
-            return single(_block,res_);
+            return single(_caller,_block,res_);
         }
         if (_block instanceof WithFilterContent) {
-            return caseLook((WithFilterContent) _block);
+            return caseLook(_caller,(WithFilterContent) _block);
         }
         if (_block instanceof SwitchBlock) {
             ResultExpression res_ = ((SwitchBlock) _block).getRes();
-            return single(_block,res_);
+            return single(_caller,_block,res_);
         }
         if (_block instanceof ForEachLoop) {
             ResultExpression res_ = ((ForEachLoop) _block).getRes();
-            return single(_block,res_);
+            return single(_caller,_block,res_);
         }
         if (_block instanceof ForEachTable) {
             ResultExpression res_ = ((ForEachTable) _block).getRes();
-            return single(_block,res_);
+            return single(_caller,_block,res_);
         }
-        return defLook(_block);
+        return defLook(_caller,_block);
     }
 
-    private static CustList<ResultExpressionBlock> caseLook(WithFilterContent _block) {
+    private static CustList<ResultExpressionBlock> caseLook(MemberCallingsBlock _caller,WithFilterContent _block) {
         CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
-        ls_.add(new ResultExpressionBlock((AbsBk) _block,_block.getFilterContent().getResValue()));
-        ls_.add(new ResultExpressionBlock((AbsBk) _block,_block.getFilterContent().getResCondition()));
+        ls_.add(new ResultExpressionBlock(new SrcFileLocationMethod(_caller.getParent(),_caller),(AbsBk) _block,_block.getFilterContent().getResValue()));
+        ls_.add(new ResultExpressionBlock(new SrcFileLocationMethod(_caller.getParent(),_caller),(AbsBk) _block,_block.getFilterContent().getResCondition()));
         return ls_;
     }
 
-    private static CustList<ResultExpressionBlock> defLook(AbsBk _block) {
+    private static CustList<ResultExpressionBlock> defLook(MemberCallingsBlock _caller,AbsBk _block) {
         if (_block instanceof Line) {
             ResultExpression res_ = ((Line) _block).getRes();
-            return single(_block,res_);
+            return single(_caller,_block,res_);
         }
         if (_block instanceof ReturnMethod) {
             ResultExpression res_ = ((ReturnMethod) _block).getRes();
-            return single(_block,res_);
+            return single(_caller,_block,res_);
         }
         if (_block instanceof Throwing) {
             ResultExpression res_ = ((Throwing) _block).getRes();
-            return single(_block,res_);
+            return single(_caller,_block,res_);
         }
         if (_block instanceof ForIterativeLoop) {
-            return lookForIter((ForIterativeLoop) _block);
+            return lookForIter(_caller,(ForIterativeLoop) _block);
         }
         if (_block instanceof ForMutableIterativeLoop) {
-            return lookForMut((ForMutableIterativeLoop) _block);
+            return lookForMut(_caller,(ForMutableIterativeLoop) _block);
         }
         return new CustList<ResultExpressionBlock>();
     }
 
-    private static CustList<ResultExpressionBlock> single(AbsBk _en,ResultExpression _res) {
+    private static CustList<ResultExpressionBlock> single(MemberCallingsBlock _caller,AbsBk _en,ResultExpression _res) {
         CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
-        ls_.add(new ResultExpressionBlock(_en,_res));
+        ls_.add(new ResultExpressionBlock(new SrcFileLocationMethod(_caller.getParent(),_caller),_en,_res));
         return ls_;
     }
-    private static CustList<ResultExpressionBlock> lookForIter(ForIterativeLoop _block) {
+    private static CustList<ResultExpressionBlock> lookForIter(MemberCallingsBlock _caller,ForIterativeLoop _block) {
         CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
-        ls_.add(new ResultExpressionBlock(_block,_block.getResInit()));
-        ls_.add(new ResultExpressionBlock(_block,_block.getResExp()));
-        ls_.add(new ResultExpressionBlock(_block,_block.getResStep()));
+        ls_.add(new ResultExpressionBlock(new SrcFileLocationMethod(_caller.getParent(),_caller),_block,_block.getResInit()));
+        ls_.add(new ResultExpressionBlock(new SrcFileLocationMethod(_caller.getParent(),_caller),_block,_block.getResExp()));
+        ls_.add(new ResultExpressionBlock(new SrcFileLocationMethod(_caller.getParent(),_caller),_block,_block.getResStep()));
         return ls_;
     }
 
-    private static CustList<ResultExpressionBlock> lookForMut(ForMutableIterativeLoop _block) {
+    private static CustList<ResultExpressionBlock> lookForMut(MemberCallingsBlock _caller,ForMutableIterativeLoop _block) {
         CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
-        ls_.add(new ResultExpressionBlock(_block,_block.getResInit()));
-        ls_.add(new ResultExpressionBlock(_block,_block.getResExp()));
-        ls_.add(new ResultExpressionBlock(_block,_block.getResStep()));
+        ls_.add(new ResultExpressionBlock(new SrcFileLocationMethod(_caller.getParent(),_caller),_block,_block.getResInit()));
+        ls_.add(new ResultExpressionBlock(new SrcFileLocationMethod(_caller.getParent(),_caller),_block,_block.getResExp()));
+        ls_.add(new ResultExpressionBlock(new SrcFileLocationMethod(_caller.getParent(),_caller),_block,_block.getResStep()));
         return ls_;
     }
     public void callingsCustDirect(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
@@ -256,19 +263,19 @@ public final class CallersRef {
         FileBlock f_ = _c.getRes().getBlock().getFile();
         if (o_ instanceof FinalVariableOperation && ((FinalVariableOperation) o_).isOk()) {
             AnaVariableContent v_ = ((FinalVariableOperation) o_).getVariableContent();
-            addIfMatch(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),f_,((FinalVariableOperation)o_).getRef()),f_,begin(_c),variablesParamsUse,_piano);
+            addIfMatch(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),f_,((FinalVariableOperation)o_).getRef()),_c.getRes().getCaller(), f_,begin(_c),variablesParamsUse,_piano);
         }
         if (o_ instanceof VariableOperation && ((VariableOperation) o_).isOk()) {
             AnaVariableContent v_ = ((VariableOperation) o_).getVariableContent();
-            addIfMatch(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),f_,((VariableOperation)o_).getRef()),f_,begin(_c),variablesParamsUse,_piano);
+            addIfMatch(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),f_,((VariableOperation)o_).getRef()),_c.getRes().getCaller(), f_,begin(_c),variablesParamsUse,_piano);
         }
         if (o_ instanceof VariableOperationUse) {
             AnaVariableContent v_ = ((VariableOperationUse) o_).getVariableContent();
-            addIfMatch(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),f_,((VariableOperationUse)o_).getRef()),f_,begin(_c),variablesParamsUse,_piano);
+            addIfMatch(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),f_,((VariableOperationUse)o_).getRef()),_c.getRes().getCaller(), f_,begin(_c),variablesParamsUse,_piano);
         }
         if (o_ instanceof NamedArgumentOperation) {
             for (SrcFileLocation s: name((NamedArgumentOperation)o_)){
-                addIfMatch(s,f_,begin(_c),variablesParamsUse,_piano);
+                addIfMatch(s,_c.getRes().getCaller(), f_,begin(_c),variablesParamsUse,_piano);
             }
         }
 //        if (_c instanceof AbstractInvokingConstructor) {
@@ -356,7 +363,7 @@ public final class CallersRef {
         StringList names_ = _bl.getParametersNames();
         int s_ = names_.size();
         for (int i = 0; i < s_; i++) {
-            addIfMatch(new SrcFileLocationVariable(-1,names_.get(i), _bl.getFile(),offs_.get(i)),_bl.getFile(),offs_.get(i),variablesParamsUse,_piano);
+            addIfMatch(new SrcFileLocationVariable(-1,names_.get(i), _bl.getFile(),offs_.get(i)),new SrcFileLocationMethod(_bl.getParent(),_bl),_bl.getFile(),offs_.get(i),variablesParamsUse,_piano);
         }
 //        if (_bl instanceof NamedCalledFunctionBlock) {
 //            for (PartOffsetsClassMethodId p:((NamedCalledFunctionBlock) _bl).getAllInternTypesParts()) {
@@ -460,13 +467,13 @@ public final class CallersRef {
 //            addIfMatch(new SrcFileLocationMethod(_ct.getType(),f_),_ls,_piano);
 //        }
 //    }
-    private static void addIfMatch(SrcFileLocation _c, FileBlock _currFile, int _index, CustList<FileBlockIndex> _ls, CustList<SrcFileLocation> _piano) {
+    private static void addIfMatch(SrcFileLocation _c, SrcFileLocation _a,FileBlock _currFile, int _index, CustList<FileBlockIndex> _ls, CustList<SrcFileLocation> _piano) {
         for (SrcFileLocation r: _piano) {
 //            if (((r instanceof SrcFileLocationStdMethod && _c instanceof SrcFileLocationStdMethod && ((SrcFileLocationStdMethod) r).getStd() == ((SrcFileLocationStdMethod) _c).getStd() || r instanceof SrcFileLocationStdType && _c instanceof SrcFileLocationStdType && StringUtil.quickEq(((SrcFileLocationStdType) r).getType(), ((SrcFileLocationStdType) _c).getType())) || r instanceof SrcFileLocationCall && _c instanceof SrcFileLocationCall && StringUtil.quickEq(((SrcFileLocationCall) r).getTypeRef(), ((SrcFileLocationCall) _c).getTypeRef())) || r instanceof SrcFileLocationField && _c instanceof SrcFileLocationField && ((SrcFileLocationField) r).getCf().eq(((SrcFileLocationField) _c).getCf()) || r.getFile() == _c.getFile() && r.getIndex() == _c.getIndex()) {
 //                _ls.add(_c);
 //            }
             if (r.getFile() == _c.getFile() && r.getIndex() == _c.getIndex()) {
-                _ls.add(new FileBlockIndex(_currFile,_index,_c));
+                _ls.add(new FileBlockIndex(_currFile,_index,_c,_a));
             }
         }
     }

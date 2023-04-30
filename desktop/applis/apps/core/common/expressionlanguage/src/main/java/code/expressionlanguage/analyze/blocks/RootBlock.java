@@ -589,7 +589,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 badMeth_.setIndexFile(r_);
                 //method name len
                 badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
-                        _m.getSignature(_page),
+                        _m.getSignature(_page.getDisplayedStrings()),
                         getGenericString());
                 _page.addLocError(badMeth_);
                 _m.addNameErrors(badMeth_);
@@ -650,7 +650,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             badMeth_.setIndexFile(r_);
             //method name len
             badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
-                    _m.getSignature(_page),
+                    _m.getSignature(_page.getDisplayedStrings()),
                     getGenericString());
             _page.addLocError(badMeth_);
             _m.addNameErrors(badMeth_);
@@ -669,7 +669,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             unexp_.setIndexFile(where_);
             //key word this len
             unexp_.buildError(_page.getAnalysisMessages().getBadIndexerModifier(),
-                    _m.getSignature(_page));
+                    _m.getSignature(_page.getDisplayedStrings()));
             _page.addLocError(unexp_);
             _m.addNameErrors(unexp_);
             valid_ = false;
@@ -681,7 +681,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             unexp_.setIndexFile(where_);
             //key word this len
             unexp_.buildError(_page.getAnalysisMessages().getBadIndexerParams(),
-                    _m.getSignature(_page));
+                    _m.getSignature(_page.getDisplayedStrings()));
             _page.addLocError(unexp_);
             _m.addNameErrors(unexp_);
             valid_ = false;
@@ -800,7 +800,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             badMeth_.setIndexFile(r_);
             //method name len
             badMeth_.buildError(_page.getAnalysisMessages().getBadParams(),
-                    _m.getSignature(_page));
+                    _m.getSignature(_page.getDisplayedStrings()));
             _page.addLocError(badMeth_);
             _m.addNameErrors(badMeth_);
             valid_ = false;
@@ -823,7 +823,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             badMeth_.setIndexFile(r_);
             //method name len
             badMeth_.buildError(_page.getAnalysisMessages().getBadMethodModifier(),
-                    _m.getSignature(_page));
+                    _m.getSignature(_page.getDisplayedStrings()));
             _page.addLocError(badMeth_);
             _m.addNameErrors(badMeth_);
             valid_ = false;
@@ -1000,7 +1000,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             badMeth_.setIndexFile(r_);
             //method name len
             badMeth_.buildError(_page.getAnalysisMessages().getBadParams(),
-                    _m.getSignature(_page));
+                    _m.getSignature(_page.getDisplayedStrings()));
             _page.addLocError(badMeth_);
             _m.addNameErrors(badMeth_);
             return true;
@@ -1012,7 +1012,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             badMeth_.setIndexFile(r_);
             //method name len
             badMeth_.buildError(_page.getAnalysisMessages().getBadMethodModifier(),
-                    _m.getSignature(_page));
+                    _m.getSignature(_page.getDisplayedStrings()));
             _page.addLocError(badMeth_);
             _m.addNameErrors(badMeth_);
             return true;
@@ -1024,7 +1024,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             badMeth_.setIndexFile(r_);
             //method name len
             badMeth_.buildError(_page.getAnalysisMessages().getBadMethodVararg(),
-                    _m.getSignature(_page));
+                    _m.getSignature(_page.getDisplayedStrings()));
             _page.addLocError(badMeth_);
             _m.addNameErrors(badMeth_);
             return true;
@@ -1162,7 +1162,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 unexp_.setIndexFile(where_);
                 //method name len
                 unexp_.buildError(_page.getAnalysisMessages().getBadIndexerPairGet(),
-                        i.getSignature(_page));
+                        i.getSignature(_page.getDisplayedStrings()));
                 _page.addLocError(unexp_);
                 i.addNameErrors(unexp_);
             }
@@ -1436,7 +1436,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 err_.buildError(
                         _page.getAnalysisMessages().getAbstractMethodBody(),
                         getFullName(),
-                        b.getSignature(_page));
+                        b.getSignature(_page.getDisplayedStrings()));
                 _page.addLocError(err_);
                 b.addNameErrors(err_);
             }
@@ -1452,7 +1452,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     err_.buildError(
                             _page.getAnalysisMessages().getAbstractMethodConc(),
                             getFullName(),
-                            b.getSignature(_page));
+                            b.getSignature(_page.getDisplayedStrings()));
                     _page.addLocError(err_);
                     b.addNameErrors(err_);
                 }
@@ -1723,7 +1723,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 un_.setIndexFile(c.getOffset());
                 //original id len
                 un_.buildError(_page.getAnalysisMessages().getUndefinedSuperCtorCall(),
-                        c.getSignature(_page));
+                        c.getSignature(_page.getDisplayedStrings()));
                 _page.addLocError(un_);
                 c.addNameErrors(un_);
             }

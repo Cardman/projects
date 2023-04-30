@@ -166,7 +166,7 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
     }
 
     public String getPseudoSignature(AnalyzedPageEl _page) {
-        return getSignature(_page);
+        return getSignature(_page.getDisplayedStrings());
     }
 
 }

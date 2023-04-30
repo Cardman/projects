@@ -32,11 +32,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
     }
 
     @Override
-    public String getSignature(AnalyzedPageEl _page) {
-        return getId().getSignature(_page.getDisplayedStrings());
-    }
-
-    @Override
     public String getSignature(DisplayedStrings _page) {
         return getId().getSignature(_page);
     }

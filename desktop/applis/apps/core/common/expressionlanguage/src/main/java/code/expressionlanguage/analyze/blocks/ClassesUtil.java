@@ -159,7 +159,7 @@ public final class ClassesUtil {
                     err_.buildError(
                             _page.getAnalysisMessages().getAbstractMethodImpl(),
                             base_,
-                            m.getSignature(_page),
+                            m.getSignature(_page.getDisplayedStrings()),
                             _r.getFullName());
                     _page.addLocError(err_);
                     _r.addNameErrors(err_);
@@ -1934,7 +1934,7 @@ public final class ClassesUtil {
             badMeth_.setIndexFile(r_);
             //method name len
             badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
-                    _o.getSignature(_page),
+                    _o.getSignature(_page.getDisplayedStrings()),
                     _page.getAliasVoid());
             _page.addLocError(badMeth_);
             _o.addNameErrors(badMeth_);

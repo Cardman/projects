@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.StringList;
 
@@ -12,8 +12,8 @@ public abstract class InitBlock extends MemberCallingsBlock {
         super(_offset);
     }
 
-    public String getSignature(AnalyzedPageEl _page) {
-        return getId().getSignature(_page.getDisplayedStrings());
+    public String getSignature(DisplayedStrings _page) {
+        return getId().getSignature(_page);
     }
     public MethodId getId() {
         String name_ = Long.toString(getNumber());

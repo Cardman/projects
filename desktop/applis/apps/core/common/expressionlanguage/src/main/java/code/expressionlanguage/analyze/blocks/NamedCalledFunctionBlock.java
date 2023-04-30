@@ -177,10 +177,6 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         }
         return new MethodId(isRetRef(), MethodId.getKind(getModifier()), name_, pTypes_,rTypes_, isVarargs());
     }
-    @Override
-    public String getSignature(AnalyzedPageEl _page) {
-        return getId().getSignature(_page.getDisplayedStrings());
-    }
 
     @Override
     public String getSignature(DisplayedStrings _page) {
@@ -387,7 +383,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         cast_.setIndexFile(_page);
         //return type len
         cast_.buildError(_page.getAnalysisMessages().getUnexpectedRetType(),
-                itype_,getSignature(_page));
+                itype_,getSignature(_page.getDisplayedStrings()));
         _page.addLocError(cast_);
         addNameErrors(cast_);
     }

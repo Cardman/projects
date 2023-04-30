@@ -32,10 +32,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getFile().getFileName());
         assertEq(71,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
+        assertEq(51,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
         assertEq(89,r_.getVariablesParamsUse().get(1).getIndex());
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(1).getFile().getFileName());
         assertEq(71,r_.getVariablesParamsUse().get(1).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(1).getCallee().getFile().getFileName());
+        assertEq(51,r_.getVariablesParamsUse().get(1).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(1).getCaller().getFile().getFileName());
     }
     @Test
     public void refs2() {
@@ -59,10 +63,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getFile().getFileName());
         assertEq(71,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
+        assertEq(51,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
         assertEq(127,r_.getVariablesParamsUse().get(1).getIndex());
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(1).getFile().getFileName());
         assertEq(71,r_.getVariablesParamsUse().get(1).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(1).getCallee().getFile().getFileName());
+        assertEq(96,r_.getVariablesParamsUse().get(1).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(1).getCaller().getFile().getFileName());
     }
     @Test
     public void refs3() {
@@ -88,6 +96,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
         assertEq(45,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs4() {
@@ -113,10 +123,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
         assertEq(45,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
         assertEq(51,r_.getVariablesParamsUse().get(1).getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getFile().getFileName());
         assertEq(45,r_.getVariablesParamsUse().get(1).getCallee().getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(1).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getCaller().getFile().getFileName());
     }
     @Test
     public void refs5() {
@@ -142,10 +156,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
         assertEq(45,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
         assertEq(78,r_.getVariablesParamsUse().get(1).getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getFile().getFileName());
         assertEq(45,r_.getVariablesParamsUse().get(1).getCallee().getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getCallee().getFile().getFileName());
+        assertEq(58,r_.getVariablesParamsUse().get(1).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getCaller().getFile().getFileName());
     }
     @Test
     public void refs6() {
@@ -177,10 +195,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getFile().getFileName());
         assertEq(132,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
+        assertEq(114,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
         assertEq(57,r_.getVariablesParamsUse().get(1).getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getFile().getFileName());
         assertEq(132,r_.getVariablesParamsUse().get(1).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(1).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(1).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getCaller().getFile().getFileName());
     }
     @Test
     public void refs7() {
@@ -212,10 +234,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getFile().getFileName());
         assertEq(125,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
+        assertEq(114,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
         assertEq(53,r_.getVariablesParamsUse().get(1).getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getFile().getFileName());
         assertEq(125,r_.getVariablesParamsUse().get(1).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(1).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(1).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getCaller().getFile().getFileName());
     }
     @Test
     public void refs8() {
@@ -242,10 +268,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
         assertEq(45,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
         assertEq(54,r_.getVariablesParamsUse().get(1).getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getFile().getFileName());
         assertEq(45,r_.getVariablesParamsUse().get(1).getCallee().getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(1).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getCaller().getFile().getFileName());
     }
     @Test
     public void refs9() {
@@ -272,14 +302,20 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
         assertEq(45,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
         assertEq(58,r_.getVariablesParamsUse().get(1).getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getFile().getFileName());
         assertEq(45,r_.getVariablesParamsUse().get(1).getCallee().getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(1).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getCaller().getFile().getFileName());
         assertEq(74,r_.getVariablesParamsUse().get(2).getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(2).getFile().getFileName());
         assertEq(45,r_.getVariablesParamsUse().get(2).getCallee().getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(2).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(2).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(2).getCaller().getFile().getFileName());
     }
     @Test
     public void refs10() {
@@ -347,6 +383,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
         assertEq(50,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs13() {
@@ -372,6 +410,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
         assertEq(50,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs14() {
@@ -397,6 +437,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
         assertEq(50,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs15() {
@@ -426,6 +468,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
         assertEq(45,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs16() {
@@ -457,10 +501,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getFile().getFileName());
         assertEq(164,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
+        assertEq(153,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
         assertEq(57,r_.getVariablesParamsUse().get(1).getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getFile().getFileName());
         assertEq(164,r_.getVariablesParamsUse().get(1).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(1).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(1).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getCaller().getFile().getFileName());
     }
     @Test
     public void refs17() {
@@ -492,10 +540,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getFile().getFileName());
         assertEq(171,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
+        assertEq(153,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
         assertEq(53,r_.getVariablesParamsUse().get(1).getIndex());
         assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getFile().getFileName());
         assertEq(171,r_.getVariablesParamsUse().get(1).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getVariablesParamsUse().get(1).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariablesParamsUse().get(1).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getCaller().getFile().getFileName());
     }
     private static CallersRef refs(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
