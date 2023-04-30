@@ -109,7 +109,12 @@ public final class CallersRef {
     private static CustList<ResultExpressionBlockOperation> loopOperation(ResultExpressionBlock _mem) {
         CustList<ResultExpressionBlockOperation> ls_ = new CustList<ResultExpressionBlockOperation>();
         OperationNode r_ = _mem.getRes().getRoot();
-        OperationNode en_ = r_;
+        OperationNode en_;
+        if (r_ instanceof DeclaringOperation) {
+            en_ = ((DeclaringOperation)r_).getChildrenNodes().get(_mem.getIndex());
+        } else {
+            en_ = r_;
+        }
         while (en_ != null) {
             OperationNode n_ = en_.getFirstChild();
             ls_.add(new ResultExpressionBlockOperation(en_,_mem));
@@ -141,10 +146,13 @@ public final class CallersRef {
 //            addAnnots(_en,annotFields_, a_);
 //        }
         if (_en instanceof InfoBlock) {
-            for (String c: ((InfoBlock)_en).getElements().getFieldName()) {
-                int o_ = AnaTypeUtil.getIndex(((InfoBlock) _en), c);
+            StringList fields_ = ((InfoBlock) _en).getElements().getFieldName();
+            int s_ = fields_.size();
+            for (int i = 0; i < s_; i++) {
+                String field_ = fields_.get(i);
+                int o_ = AnaTypeUtil.getIndex(((InfoBlock) _en), field_);
                 RootBlock d_ = ((InfoBlock) _en).getDeclaringType();
-                annotFields_.add(new ResultExpressionBlock(new SrcFileLocationField(new ClassField(d_.getFullName(),c), d_,o_),_en,((InfoBlock)_en).getRes()));
+                annotFields_.add(new ResultExpressionBlock(new SrcFileLocationField(new ClassField(d_.getFullName(),field_), d_,o_),_en,((InfoBlock)_en).getRes(),i));
             }
             return annotFields_;
         }
