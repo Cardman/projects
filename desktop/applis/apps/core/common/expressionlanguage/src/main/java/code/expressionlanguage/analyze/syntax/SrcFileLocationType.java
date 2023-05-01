@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.DisplayedStrings;
 
-public final class SrcFileLocationType implements SrcFileLocation {
+public final class SrcFileLocationType extends AbsSrcFileLocation  {
     private final RootBlock type;
 
     public SrcFileLocationType(RootBlock _t) {

@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.DisplayedStrings;
 
-public final class SrcFileLocationField implements SrcFileLocation {
+public final class SrcFileLocationField extends AbsSrcFileLocation {
     private final ClassField cf;
     private final RootBlock declaring;
     private final int index;
@@ -35,6 +35,11 @@ public final class SrcFileLocationField implements SrcFileLocation {
             return index;
         }
         return 0;
+    }
+
+    @Override
+    public boolean match(SrcFileLocation _o) {
+        return _o instanceof SrcFileLocationField && getCf().eq(((SrcFileLocationField) _o).getCf());
     }
 
     @Override

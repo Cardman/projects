@@ -1025,7 +1025,11 @@ public final class ResultExpressionOperationNode {
     }
 
     public int begin(OperationNode _b) {
-        return _b.getIndexInEl() + resultExpression.getSumOffset();
+        return begin(resultExpression,_b);
+    }
+
+    public static int begin(ResultExpression _r,OperationNode _b) {
+        return _b.getIndexInEl() + _r.getSumOffset();
     }
 
     public int end() {
@@ -1033,12 +1037,15 @@ public final class ResultExpressionOperationNode {
     }
 
     public int end(OperationNode _b) {
+        return end(resultExpression, _b);
+    }
+    public static int end(ResultExpression _r,OperationNode _b) {
         MethodOperation par_ = _b.getParent();
         if (par_ != null) {
             int indexChild_ = _b.getIndexChild();
-            return begin(_b) + par_.getChildren().getValue(indexChild_).length();
+            return begin(_r,_b) + par_.getChildren().getValue(indexChild_).length();
         }
-        return begin(_b) + resultExpression.getAnalyzedString().length();
+        return begin(_r,_b) + _r.getAnalyzedString().length();
     }
 
     public static boolean inRange(int _begin, int _caret, int _end) {

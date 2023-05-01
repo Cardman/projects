@@ -5,7 +5,7 @@ import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
 
-public final class SrcFileLocationStdMethod implements SrcFileLocation {
+public final class SrcFileLocationStdMethod extends AbsSrcFileLocation  {
     private final StandardType type;
     private final StandardNamedFunction std;
 

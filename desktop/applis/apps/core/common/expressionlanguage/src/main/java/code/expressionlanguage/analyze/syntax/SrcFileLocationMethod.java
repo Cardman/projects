@@ -3,7 +3,7 @@ package code.expressionlanguage.analyze.syntax;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.common.DisplayedStrings;
 
-public final class SrcFileLocationMethod implements SrcFileLocation {
+public final class SrcFileLocationMethod extends AbsSrcFileLocation {
     private final BracedBlock owner;
     private final MemberCallingsBlock method;
 

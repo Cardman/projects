@@ -3,7 +3,7 @@ package code.expressionlanguage.analyze.syntax;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.common.DisplayedStrings;
 
-public final class SrcFileLocationCall implements SrcFileLocation {
+public final class SrcFileLocationCall extends AbsSrcFileLocation {
     private final String typeRef;
 
     public SrcFileLocationCall(String _t) {

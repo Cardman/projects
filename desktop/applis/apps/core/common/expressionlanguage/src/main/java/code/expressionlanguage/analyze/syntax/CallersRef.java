@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.util.CustList;
 import code.util.Ints;
@@ -12,6 +13,9 @@ import code.util.StringList;
 
 public final class CallersRef {
     private final CustList<FileBlockIndex> variablesParamsUse = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> fieldsUse = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> fieldsUseInit = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> fieldsRefUse = new CustList<FileBlockIndex>();
     private final CustList<BlockCallerFct> allBlocks = new CustList<BlockCallerFct>();
 
 //    private final CustList<SrcFileLocation> directRefNamed = new CustList<SrcFileLocation>();
@@ -82,6 +86,10 @@ public final class CallersRef {
 
     private CustList<ResultExpressionBlock> loopFct(MemberCallingsBlock _mem) {
         CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
+        if (_mem.getFirstChild() == null) {
+            ls_.addAllElts(rootBlock(_mem,_mem));
+            return ls_;
+        }
         AbsBk en_ = _mem;
         while (en_ != null) {
             AbsBk n_ = en_.getFirstChild();
@@ -108,16 +116,10 @@ public final class CallersRef {
     }
     private static CustList<ResultExpressionBlockOperation> loopOperation(ResultExpressionBlock _mem) {
         CustList<ResultExpressionBlockOperation> ls_ = new CustList<ResultExpressionBlockOperation>();
-        OperationNode r_ = _mem.getRes().getRoot();
-        OperationNode en_;
-        if (r_ instanceof DeclaringOperation) {
-            en_ = ((DeclaringOperation)r_).getChildrenNodes().get(_mem.getIndex());
-        } else {
-            en_ = r_;
-        }
+        OperationNode en_ = _mem.getRes().getRoot();
         while (en_ != null) {
             OperationNode n_ = en_.getFirstChild();
-            ls_.add(new ResultExpressionBlockOperation(en_,_mem));
+            choux(_mem, ls_, en_);
             if (n_ != null) {
                 en_ = n_;
                 continue;
@@ -128,16 +130,18 @@ public final class CallersRef {
                     en_ = n_;
                     break;
                 }
-                MethodOperation p_ = en_.getParent();
-                if (p_ instanceof DeclaringOperation||p_ == r_||p_ == null) {
-                    en_ = null;
-                } else {
-                    en_ = p_;
-                }
+                en_ = en_.getParent();
             }
         }
         return ls_;
     }
+
+    private static void choux(ResultExpressionBlock _mem, CustList<ResultExpressionBlockOperation> _ls, OperationNode _en) {
+        if (_mem.getBegin() == -1 || ResultExpressionOperationNode.begin(_mem.getRes(), _en) >= _mem.getBegin() && ResultExpressionOperationNode.end(_mem.getRes(), _en) <= _mem.getEnd()) {
+            _ls.add(new ResultExpressionBlockOperation(_en, _mem));
+        }
+    }
+
     private CustList<ResultExpressionBlock> rootBlock(MemberCallingsBlock _caller, AbsBk _en) {
         allBlocks.add(new BlockCallerFct(_en,_caller));
         CustList<ResultExpressionBlock> annotFields_ = new CustList<ResultExpressionBlock>();
@@ -146,14 +150,8 @@ public final class CallersRef {
 //            addAnnots(_en,annotFields_, a_);
 //        }
         if (_en instanceof InfoBlock) {
-            StringList fields_ = ((InfoBlock) _en).getElements().getFieldName();
-            int s_ = fields_.size();
-            for (int i = 0; i < s_; i++) {
-                String field_ = fields_.get(i);
-                int o_ = AnaTypeUtil.getIndex(((InfoBlock) _en), field_);
-                RootBlock d_ = ((InfoBlock) _en).getDeclaringType();
-                annotFields_.add(new ResultExpressionBlock(new SrcFileLocationField(new ClassField(d_.getFullName(),field_), d_,o_),_en,((InfoBlock)_en).getRes(),i));
-            }
+            RootBlock d_ = ((InfoBlock) _en).getDeclaringType();
+            annotFields_.addAllElts(declared(((InfoBlock)_en).getRes().getRoot(),_en,d_,((InfoBlock)_en).getRes()));
             return annotFields_;
         }
 //        if (_en instanceof RootBlock) {
@@ -169,6 +167,39 @@ public final class CallersRef {
 //            return annotFields_;
 //        }
         return instrLook(_caller,_en);
+    }
+    private static CustList<ResultExpressionBlock> declared(OperationNode _root, AbsBk _en, RootBlock _type, ResultExpression _res) {
+        CustList<ResultExpressionBlock> fields_ = new CustList<ResultExpressionBlock>();
+        if (_en instanceof InnerTypeOrElement) {
+            String f_ = ((InnerTypeOrElement) _en).getUniqueFieldName();
+            int o_ = AnaTypeUtil.getIndex(((InfoBlock) _en), f_);
+            fields_.add(new ResultExpressionBlock(new SrcFileLocationField(new ClassField(_type.getFullName(),f_), _type,o_), _en, _res));
+        } else if (_root instanceof DeclaringOperation) {
+            for (OperationNode o: ((DeclaringOperation)_root).getChildrenNodes()) {
+                tryAddFields(_en, _type, _res, fields_, o);
+            }
+        } else {
+            tryAddFields(_en, _type, _res, fields_, _root);
+        }
+        return fields_;
+    }
+
+    private static void tryAddFields(AbsBk _en, RootBlock _type, ResultExpression _res, CustList<ResultExpressionBlock> _fields, OperationNode _o) {
+        OperationNode d_ = declaring(_o);
+        if (d_ instanceof DeclaredFieldOperation) {
+            ClassField cf_ = ((DeclaredFieldOperation) d_).getFieldIdReadOnly();
+            int o_ = ((DeclaredFieldOperation) d_).getValueOffset();
+            int begin_ = ResultExpressionOperationNode.begin(_res, _o);
+            int end_ = ResultExpressionOperationNode.end(_res, _o);
+            _fields.add(new ResultExpressionBlock(new SrcFileLocationField(cf_, _type,o_), _en, _res,begin_,end_));
+        }
+    }
+
+    private static OperationNode declaring(OperationNode _e) {
+        if (_e instanceof AffectationOperation) {
+            return _e.getFirstChild();
+        }
+        return _e;
     }
 
 //    public static void resSw(CustList<ResultExpressionBlock> _list, SwitchMethodBlock _block) {
@@ -288,9 +319,10 @@ public final class CallersRef {
             addIfMatch(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),f_,((VariableOperationUse)o_).getRef()),_c.getRes().getCaller(), f_,begin(_c),variablesParamsUse,_piano);
         }
         if (o_ instanceof NamedArgumentOperation) {
-            for (SrcFileLocation s: name((NamedArgumentOperation)o_)){
-                addIfMatch(s,_c.getRes().getCaller(), f_,begin(_c),variablesParamsUse,_piano);
-            }
+            name(_c,(NamedArgumentOperation)o_,_piano);
+        }
+        if (o_ instanceof SettableAbstractFieldOperation) {
+            feelIt(_c, (SettableAbstractFieldOperation) o_,_piano);
         }
 //        if (_c instanceof AbstractInvokingConstructor) {
 //            fctPub(((AbstractInvokingConstructor)_c).getConstructor(), directNewInherits, _piano);
@@ -324,31 +356,32 @@ public final class CallersRef {
 //        if (_c instanceof CastFctOperation) {
 //            fctPub(((CastFctOperation)_c).getFunction(), directCallImplicits, _piano);
 //        }
-//        if (_c instanceof LambdaOperation) {
-//            lambda((LambdaOperation) _c, _piano);
-//        }
+        if (o_ instanceof LambdaOperation) {
+            lambda(_c, (LambdaOperation) o_, _piano);
+        }
     }
 
     private static int begin(ResultExpressionBlockOperation _b) {
-        return _b.getBlock().getIndexInEl() + _b.getRes().getRes().getSumOffset();
+        return ResultExpressionOperationNode.begin(_b.getRes().getRes(), _b.getBlock());
     }
-    private static CustList<SrcFileLocation> name(NamedArgumentOperation _foundOp) {
-//        if (_foundOp.isRecordBlock()) {
+    private void name(ResultExpressionBlockOperation _c, NamedArgumentOperation _foundOp, CustList<SrcFileLocation> _piano) {
+        FileBlock f_ = _c.getRes().getBlock().getFile();
+        if (_foundOp.isRecordBlock()) {
 //            CustList<SrcFileLocation> ls_ = fetch(_caret, _foundOp.getPartOffsets());
 //            if (!ls_.isEmpty()) {
 //                return ls_;
 //            }
-//            int i_ = _foundOp.getRef();
-//            RootBlock r_ = _foundOp.getField();
-//            ClassField cf_ = _foundOp.getIdField();
-//            if (!cf_.getClassName().isEmpty()) {
-//                ls_.add(new SrcFileLocationField(cf_,r_, i_));
-//            }
-//            return ls_;
-//        }
+            int i_ = _foundOp.getRef();
+            RootBlock r_ = _foundOp.getField();
+            ClassField cf_ = _foundOp.getIdField();
+            notEmptyField(_c, _piano, i_,_foundOp.getOffsetTr(), r_, cf_, fieldsUseInit);
+            return;
+        }
         CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
         ResultExpressionOperationNode.feedFiltersNamedList(_foundOp,ls_);
-        return ls_;
+        for (SrcFileLocation s: ls_) {
+            addIfMatch(s,_c.getRes().getCaller(), f_,begin(_c),variablesParamsUse,_piano);
+        }
     }
 
     private void def(AbsBk _bl, CustList<SrcFileLocation> _piano) {
@@ -420,34 +453,32 @@ public final class CallersRef {
 //    private static boolean okVar(OperationNode _op) {
 //        return _op instanceof VariableOperation && ((VariableOperation) _op).isOk();
 //    }
-//    private void lambda(LambdaOperation _lda,  CustList<SrcFileLocation> _piano) {
-////        CustList<AnaNamedFieldContent> namedFields_ = _lda.getNamedFields();
-////        int len_ = namedFields_.size();
-////        int beginLambda_ = _res.begin(_lda)+_lda.getOffset();
-////        for (int i = 0; i < len_; i++) {
-////            int ref_ = _lda.getRefs().get(i);
-////            if (ref_ < 0) {
-////                continue;
-////            }
-////            AnaNamedFieldContent naFi_ = namedFields_.get(i);
-////            String name_ = naFi_.getName();
-////            int off_ = _lda.getOffsets().get(i);
-////            if (inRange(off_+beginLambda_,_caret,off_+beginLambda_+name_.length())) {
-////                RootBlock r_ = naFi_.getDeclaring();
-////                CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-////                ls_.add(new SrcFileLocationField(new ClassField(naFi_.getIdClass(),name_),r_, ref_));
-////                return ls_;
-////            }
-////        }
-////        CustList<SrcFileLocation> types_ = new CustList<SrcFileLocation>();
-////        types_.addAllElts(fetch(_caret, _lda.getPartOffsetsBegin()));
-////        types_.addAllElts(fetch(_caret, _lda.getPartOffsetsPre()));
-////        types_.addAllElts(fetch(_caret, _lda.getPartOffsets()));
-////        types_.addAllElts(fetch(_caret, _lda.getPartsInstInitInterfaces()));
-////        for (int i = 0; i < len_; i++) {
-////            types_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(_lda.getPartOffsetsRec().get(i).build(),_caret));
-////        }
+    private void lambda(ResultExpressionBlockOperation _c, LambdaOperation _lda, CustList<SrcFileLocation> _piano) {
+        FileBlock f_ = _c.getRes().getBlock().getFile();
+        CustList<AnaNamedFieldContent> namedFields_ = _lda.getNamedFields();
+        int len_ = namedFields_.size();
+        int off_ = _lda.getOffset();
+        for (int i = 0; i < len_; i++) {
+            int ref_ = _lda.getRefs().get(i);
+            if (ref_ < 0) {
+                continue;
+            }
+            AnaNamedFieldContent naFi_ = namedFields_.get(i);
+            String name_ = naFi_.getName();
+            RootBlock r_ = naFi_.getDeclaring();
+            int offset_ = _lda.getOffsets().get(i);
+            addIfMatch(new SrcFileLocationField(new ClassField(naFi_.getIdClass(),name_),r_, ref_),_c.getRes().getCaller(), f_,begin(_c)+offset_+off_,fieldsRefUse,_piano);
+        }
+//        CustList<SrcFileLocation> types_ = new CustList<SrcFileLocation>();
+//        types_.addAllElts(fetch(_caret, _lda.getPartOffsetsBegin()));
+//        types_.addAllElts(fetch(_caret, _lda.getPartOffsetsPre()));
+//        types_.addAllElts(fetch(_caret, _lda.getPartOffsets()));
+//        types_.addAllElts(fetch(_caret, _lda.getPartsInstInitInterfaces()));
+//        for (int i = 0; i < len_; i++) {
+//            types_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(_lda.getPartOffsetsRec().get(i).build(),_caret));
+//        }
 //        AnaTypeFct function_ = _lda.getFunction();
+        RootBlock fieldType_ = _lda.getFieldType();
 //        ctStd(_lda.getStandardConstructor(), _lda.getStandardType(), directRefNamedStdCtor, _piano);
 //        callStd(_lda.getStandardMethod(), _lda.getStandardType(), directRefNamedStd, _piano);
 //        NamedFunctionBlock n_ = fct(function_);
@@ -457,13 +488,33 @@ public final class CallersRef {
 //            RootBlock r_ = function_.getType();
 //            addIfMatch(new SrcFileLocationType(r_),directRefImplCtor,_piano);
 //        }
-////        ClassField fieldId_ = _lda.getFieldId();
-////        if (fieldId_ != null) {
-////            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-////            ls_.add(new SrcFileLocationField(fieldId_,fieldType_, _lda.getValueOffset()));
-////            return ls_;
-////        }
-//    }
+        ClassField fieldId_ = _lda.getFieldId();
+        if (fieldId_ != null) {
+            addIfMatch(new SrcFileLocationField(fieldId_,fieldType_, _lda.getValueOffset()),_c.getRes().getCaller(), f_,off_+begin(_c),fieldsRefUse,_piano);
+        }
+    }
+
+    private void feelIt(ResultExpressionBlockOperation _c, SettableAbstractFieldOperation _foundOp, CustList<SrcFileLocation> _piano) {
+//        if (_foundOp instanceof SettableFieldOperation) {
+//            ls_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((SettableFieldOperation) _foundOp).getPartOffsets(), _caret));
+//        }
+//        if (!ls_.isEmpty()) {
+//            return ls_;
+//        }
+        int i_ = _foundOp.getValueOffset();
+        RootBlock r_ = _foundOp.getFieldType();
+        ClassField cf_ = _foundOp.getFieldIdReadOnly();
+        int delta_ = _foundOp.getOffset();
+        delta_ += _foundOp.getDelta();
+        notEmptyField(_c, _piano, i_,delta_, r_, cf_, fieldsUse);
+    }
+
+    private void notEmptyField(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano, int _i, int _offset, RootBlock _r, ClassField _cf, CustList<FileBlockIndex> _usages) {
+        FileBlock f_ = _c.getRes().getBlock().getFile();
+        if (!_cf.getClassName().isEmpty()) {
+            addIfMatch(new SrcFileLocationField(_cf, _r, _i), _c.getRes().getCaller(), f_,begin(_c)+_offset, _usages, _piano);
+        }
+    }
 
     //    private static void ctStd(StandardConstructor _std, StandardType _type, CustList<SrcFileLocation> _ls, CustList<SrcFileLocation> _piano) {
 //        if (_std != null) {
@@ -486,7 +537,7 @@ public final class CallersRef {
 //            if (((r instanceof SrcFileLocationStdMethod && _c instanceof SrcFileLocationStdMethod && ((SrcFileLocationStdMethod) r).getStd() == ((SrcFileLocationStdMethod) _c).getStd() || r instanceof SrcFileLocationStdType && _c instanceof SrcFileLocationStdType && StringUtil.quickEq(((SrcFileLocationStdType) r).getType(), ((SrcFileLocationStdType) _c).getType())) || r instanceof SrcFileLocationCall && _c instanceof SrcFileLocationCall && StringUtil.quickEq(((SrcFileLocationCall) r).getTypeRef(), ((SrcFileLocationCall) _c).getTypeRef())) || r instanceof SrcFileLocationField && _c instanceof SrcFileLocationField && ((SrcFileLocationField) r).getCf().eq(((SrcFileLocationField) _c).getCf()) || r.getFile() == _c.getFile() && r.getIndex() == _c.getIndex()) {
 //                _ls.add(_c);
 //            }
-            if (r.getFile() == _c.getFile() && r.getIndex() == _c.getIndex()) {
+            if (_c.match(r)) {
                 _ls.add(new FileBlockIndex(_currFile,_index,_c,_a));
             }
         }
@@ -494,6 +545,18 @@ public final class CallersRef {
 
     public CustList<FileBlockIndex> getVariablesParamsUse() {
         return variablesParamsUse;
+    }
+
+    public CustList<FileBlockIndex> getFieldsRefUse() {
+        return fieldsRefUse;
+    }
+
+    public CustList<FileBlockIndex> getFieldsUse() {
+        return fieldsUse;
+    }
+
+    public CustList<FileBlockIndex> getFieldsUseInit() {
+        return fieldsUseInit;
     }
 //    private static NamedFunctionBlock fct(AnaTypeFct _f) {
 //        if (_f == null) {

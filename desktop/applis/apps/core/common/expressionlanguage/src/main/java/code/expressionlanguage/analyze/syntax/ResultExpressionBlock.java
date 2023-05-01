@@ -6,17 +6,19 @@ public final class ResultExpressionBlock {
     private final SrcFileLocation caller;
     private final AbsBk block;
     private final ResultExpression res;
-    private final int index;
+    private final int begin;
+    private final int end;
 
     public ResultExpressionBlock(SrcFileLocation _c,AbsBk _b, ResultExpression _r) {
-        this(_c,_b,_r,0);
+        this(_c,_b,_r,-1,-1);
     }
 
-    public ResultExpressionBlock(SrcFileLocation _c,AbsBk _b, ResultExpression _r, int _i) {
+    public ResultExpressionBlock(SrcFileLocation _c,AbsBk _b, ResultExpression _r, int _beg, int _end) {
         this.caller = _c;
         this.block = _b;
         this.res = _r;
-        this.index = _i;
+        this.begin = _beg;
+        this.end = _end;
     }
 
     public SrcFileLocation getCaller() {
@@ -27,8 +29,12 @@ public final class ResultExpressionBlock {
         return res;
     }
 
-    public int getIndex() {
-        return index;
+    public int getBegin() {
+        return begin;
+    }
+
+    public int getEnd() {
+        return end;
     }
 
     public AbsBk getBlock() {
