@@ -389,7 +389,7 @@ public final class ResultExpressionOperationNode {
             RootBlock r_ = _foundOp.getField();
             ClassField cf_ = _foundOp.getIdField();
             if (!cf_.getClassName().isEmpty()) {
-                ls_.add(new SrcFileLocationField(cf_,r_, i_));
+                ls_.add(field(cf_,r_, i_));
             }
             return ls_;
         }
@@ -479,7 +479,7 @@ public final class ResultExpressionOperationNode {
             if (inRange(off_+beginLambda_,_caret,off_+beginLambda_+name_.length())) {
                 RootBlock r_ = naFi_.getDeclaring();
                 CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-                ls_.add(new SrcFileLocationField(new ClassField(naFi_.getIdClass(),name_),r_, ref_));
+                ls_.add(field(new ClassField(naFi_.getIdClass(),name_),r_, ref_));
                 return ls_;
             }
         }
@@ -506,7 +506,7 @@ public final class ResultExpressionOperationNode {
         ClassField fieldId_ = _lda.getFieldId();
         if (fieldId_ != null) {
             CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-            ls_.add(new SrcFileLocationField(fieldId_,fieldType_, _lda.getValueOffset()));
+            ls_.add(field(fieldId_,fieldType_, _lda.getValueOffset()));
             return ls_;
         }
         return new CustList<SrcFileLocation>();
@@ -542,9 +542,15 @@ public final class ResultExpressionOperationNode {
         RootBlock r_ = ((SettableAbstractFieldOperation) _foundOp).getFieldType();
         ClassField cf_ = ((SettableAbstractFieldOperation) _foundOp).getFieldIdReadOnly();
         if (!cf_.getClassName().isEmpty()) {
-            ls_.add(new SrcFileLocationField(cf_,r_, i_));
+            ls_.add(field(cf_,r_, i_));
         }
         return ls_;
+    }
+    static SrcFileLocationField field(ClassField _c, RootBlock _d, int _i) {
+        if (_d != null) {
+            return new SrcFileLocationFieldCust(_c, _d, _i);
+        }
+        return new SrcFileLocationFieldStd(_c);
     }
 
     private static CustList<SrcFileLocation> young(int _caret, ResultExpressionOperationNode _res, AbstractInstancingOperation _op) {
