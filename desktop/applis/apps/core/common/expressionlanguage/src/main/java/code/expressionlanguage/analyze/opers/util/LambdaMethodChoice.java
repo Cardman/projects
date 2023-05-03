@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaLambdaMethodContent;
 import code.expressionlanguage.options.KeyWords;
 import code.util.StringList;
@@ -13,7 +14,9 @@ public final class LambdaMethodChoice {
     private boolean baseAccess = true;
     private boolean accessSuper = true;
     private final AnaLambdaMethodContent lambdaMethodContent;
-    public LambdaMethodChoice(String _na, AnaLambdaMethodContent _cont) {
+    private int sum;
+    public LambdaMethodChoice(int _s, String _na, AnaLambdaMethodContent _cont) {
+        sum = _s;
         name = _na;
         lambdaMethodContent = _cont;
     }
@@ -27,25 +30,36 @@ public final class LambdaMethodChoice {
         String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
         if (index < _len && StringUtil.quickEq(name, keyWordSuper_)) {
             name = _args.get(index).trim();
+            sum += _args.get(index-1).length() + 1;
+            sum += StringExpUtil.getOffset(_args.get(index));
             index++;
             staticChoiceMethod = true;
             baseAccess = false;
         } else if (index < _len && StringUtil.quickEq(name, keyWordThat_) || index < _len && StringUtil.quickEq(name, keyWordSuperaccess_)) {
             name = _args.get(index).trim();
+            sum += _args.get(index-1).length() + 1;
+            sum += StringExpUtil.getOffset(_args.get(index));
             index++;
             staticChoiceMethod = true;
         } else if (index < _len && StringUtil.quickEq(name, keyWordClasschoice_)) {
             name = _args.get(index).trim();
+            sum += _args.get(index-1).length() + 1;
+            sum += StringExpUtil.getOffset(_args.get(index));
             index++;
             staticChoiceMethod = true;
             accessSuper = false;
         } else {
             lambdaMethodContent.setPolymorph(true);
+            sum += StringExpUtil.getOffset(_args.get(1));
         }
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getSum() {
+        return sum;
     }
 
     public int getIndex() {

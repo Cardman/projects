@@ -47,6 +47,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private final Ints offsets = new Ints();
     private final Ints refs = new Ints();
     private int recordType = -1;
+    private int memberOffset;
     private RootBlock fieldType;
     private AnaTypeFct function;
     private ClassField fieldId;
@@ -587,6 +588,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return;
         }
         if (StringUtil.quickEq(name_, new_)) {
+            memberOffset = offset(_args,1);
             processInstance(_args, len_, _page);
             return;
         }
@@ -601,6 +603,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 || StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordCast())
                 || StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordTrue())
                 || StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordFalse())) {
+            memberOffset = offset(_args,1);
             castTrueFalse(_args, _len, _page, name_);
             return;
         }
@@ -617,9 +620,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private void intermediateMethod(StringList _args, int _len, AnalyzedPageEl _page) {
         String name_ = _args.get(1).trim();
+        int sum_ = offsetComma(_args, 1);
         int vararg_ = -1;
-        LambdaMethodChoice incr_ = new LambdaMethodChoice(name_,lambdaMethodContent);
+        LambdaMethodChoice incr_ = new LambdaMethodChoice(sum_,name_,lambdaMethodContent);
         incr_.incr(_args, _len, _page);
+        memberOffset = incr_.getSum();
         int i_ = incr_.getIndex();
         name_ = incr_.getName();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -747,6 +752,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private void staticIntermediateMethod(MethodOperation _m, StringList _args, int _len, AnalyzedPageEl _page) {
         String name_ = _args.get(1).trim();
+        memberOffset = offset(_args,1);
         OperationNode o_ = _m.getFirstChild();
         boolean stAcc_ = o_ instanceof StaticAccessOperation;
         boolean stAccCall_ = o_ instanceof StaticCallAccessOperation;
@@ -812,6 +818,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private void notIntermediateMethod(StringList _args, int _len, AnalyzedPageEl _page) {
         String name_ = _args.get(1).trim();
+        int sum_ = offsetComma(_args, 1);
         if (_len == 3 && StringUtil.quickEq(name_, "=")) {
             int offset_ = offset(_args, 0);
             String type_ = resolveCorrectTypeAccessible(true, _args.first().trim(), _page, offset_,partOffsetsBegin);
@@ -867,8 +874,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new AnaClassArgumentMatching(fct_.toString()));
             return;
         }
-        LambdaMethodChoice incr_ = new LambdaMethodChoice(name_,lambdaMethodContent);
+        LambdaMethodChoice incr_ = new LambdaMethodChoice(sum_, name_,lambdaMethodContent);
         incr_.incr(_args, _len, _page);
+        memberOffset = incr_.getSum();
         int i_ = incr_.getIndex();
         name_ = incr_.getName();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -1871,6 +1879,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         boolean aff_ = i_ < _len;
         AnaClassArgumentMatching fromCl_ = new AnaClassArgumentMatching(str_);
         sum_ += StringExpUtil.getOffset(_args.get(2));
+        memberOffset = sum_;
         ScopeFilter scope_ = new ScopeFilter(null, true, true, false, _page.getGlobalClass());
         FieldResult r_ = resolveDeclaredCustField(true, fromCl_, fieldName_, false, aff_, _page, scope_);
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
@@ -2025,6 +2034,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         boolean accessBase_ = _ch.isAccessBase();
         boolean accessSuper_ = _ch.isAccessSuper();
         int sum_ = _ch.getSum();
+        memberOffset = sum_;
         String fieldName_ = _ch.getFieldName();
         boolean aff_ = i_ < _len;
         AnaClassArgumentMatching fromCl_ = new AnaClassArgumentMatching(_str);
@@ -2203,6 +2213,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int sum_ = className.indexOf('(')+1;
         sum_ += _args.first().length();
         String operator_ = _args.get(1).trim();
+        memberOffset = offset(_args,1);
         int i_ = 2;
         String from_ = "";
         boolean displayErr_ = false;
@@ -2213,6 +2224,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (_len > i_) {
                 operator_ = _args.get(i_).trim();
                 sum_ += StringExpUtil.getOffset(_args.get(i_));
+                memberOffset = sum_;
                 displayErr_ = true;
             }
             i_++;
@@ -2649,5 +2661,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public CstFieldInfo getCstFieldInfo() {
         return cstFieldInfo;
+    }
+
+    public int getMemberOffset() {
+        return memberOffset;
     }
 }

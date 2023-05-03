@@ -492,7 +492,7 @@ public final class CallersRef {
 //        }
         ClassField fieldId_ = _lda.getFieldId();
         if (fieldId_ != null) {
-            addIfMatch(SrcFileLocationField.field(fieldId_,fieldType_, _lda.getValueOffset(),_lda.getCstFieldInfo()),_c.getRes().getCaller(), f_,off_+begin(_c),fieldsRefUse,_piano);
+            addIfMatch(SrcFileLocationField.field(fieldId_,fieldType_, _lda.getValueOffset(),_lda.getCstFieldInfo()),_c.getRes().getCaller(), f_,_lda.getMemberOffset()+begin(_c),fieldsRefUse,_piano);
         }
     }
 

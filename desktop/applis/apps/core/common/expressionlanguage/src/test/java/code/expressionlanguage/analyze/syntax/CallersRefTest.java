@@ -632,7 +632,7 @@ public final class CallersRefTest extends ProcessMethodCommon {
         files_.put("pkg/Ex2", xml_.toString());
         CallersRef r_ = refs(files_,"pkg/Ex2",40);
         assertEq(1,r_.getFieldsRefUse().size());
-        assertEq(40,r_.getFieldsRefUse().get(0).getIndex());
+        assertEq(56,r_.getFieldsRefUse().get(0).getIndex());
         assertEq("pkg/Ex2",r_.getFieldsRefUse().get(0).getFile().getFileName());
         assertEq(27,r_.getFieldsRefUse().get(0).getCallee().getIndex());
         assertEq("pkg/Ex2",r_.getFieldsRefUse().get(0).getCallee().getFile().getFileName());
