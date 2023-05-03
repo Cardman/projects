@@ -8,15 +8,13 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.util.CustList;
-import code.util.Ints;
-import code.util.StringList;
 
 public final class CallersRef {
     private final CustList<FileBlockIndex> variablesParamsUse = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> fieldsUse = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> fieldsUseInit = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> fieldsRefUse = new CustList<FileBlockIndex>();
-    private final CustList<BlockCallerFct> allBlocks = new CustList<BlockCallerFct>();
+//    private final CustList<BlockCallerFct> allBlocks = new CustList<BlockCallerFct>();
 
 //    private final CustList<SrcFileLocation> directRefNamed = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directRefNamedStd = new CustList<SrcFileLocation>();
@@ -46,13 +44,13 @@ public final class CallersRef {
         for (SwitchOperation e: _page.getAllSwitchMethods()) {
             ls_.addAllElts(c_.loopFct(e.getSwitchMethod()));
         }
-        for (BlockCallerFct b: c_.allBlocks) {
-            MemberCallingsBlock caller_ = b.getCaller();
-            for (SrcFileLocation s: tryDecl(b.getBlock())){
-                addIfMatch(s,new SrcFileLocationMethod(caller_.getParent(),caller_),s.getFile(),s.getIndex(),c_.variablesParamsUse,_piano);
-            }
-            c_.def(b.getBlock(),_piano);
-        }
+//        for (BlockCallerFct b: c_.allBlocks) {
+////            MemberCallingsBlock caller_ = b.getCaller();
+////            for (SrcFileLocation s: tryDecl(b.getBlock())){
+////                addIfMatch(s,new SrcFileLocationMethod(caller_.getParent(),caller_),s.getFile(),s.getIndex(),c_.variablesParamsUse,_piano);
+////            }
+//            c_.def(b.getBlock(),_piano);
+//        }
         CustList<ResultExpressionBlockOperation> ops_ = new CustList<ResultExpressionBlockOperation>();
         for (ResultExpressionBlock r: ls_) {
             ops_.addAllElts(loopOperation(r));
@@ -143,7 +141,7 @@ public final class CallersRef {
     }
 
     private CustList<ResultExpressionBlock> rootBlock(MemberCallingsBlock _caller, AbsBk _en) {
-        allBlocks.add(new BlockCallerFct(_en,_caller));
+//        allBlocks.add(new BlockCallerFct(_en,_caller));
         CustList<ResultExpressionBlock> annotFields_ = new CustList<ResultExpressionBlock>();
 //        if (_en instanceof InfoBlock) {
 //            ResultParsedAnnots a_ = ((InfoBlock) _en).getAnnotations();
@@ -192,6 +190,10 @@ public final class CallersRef {
             int begin_ = ResultExpressionOperationNode.begin(_res, _o);
             int end_ = ResultExpressionOperationNode.end(_res, _o);
             _fields.add(new ResultExpressionBlock(SrcFileLocationField.fieldInit(cf_, _type,o_,null), _en, _res,begin_,end_));
+        } else {
+            int begin_ = ResultExpressionOperationNode.begin(_res, _o);
+            int end_ = ResultExpressionOperationNode.end(_res, _o);
+            _fields.add(new ResultExpressionBlock(SrcFileLocationField.fieldInit(new ClassField("",""), _type,0,null), _en, _res,begin_,end_));
         }
     }
 
@@ -310,10 +312,10 @@ public final class CallersRef {
             AnaVariableContent v_ = ((FinalVariableOperation) o_).getVariableContent();
             addIfMatch(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),f_,((FinalVariableOperation)o_).getRef()),_c.getRes().getCaller(), f_,begin(_c),variablesParamsUse,_piano);
         }
-        if (o_ instanceof VariableOperation && ((VariableOperation) o_).isOk()) {
-            AnaVariableContent v_ = ((VariableOperation) o_).getVariableContent();
-            addIfMatch(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),f_,((VariableOperation)o_).getRef()),_c.getRes().getCaller(), f_,begin(_c),variablesParamsUse,_piano);
-        }
+//        if (o_ instanceof VariableOperation && ((VariableOperation) o_).isOk()) {
+//            AnaVariableContent v_ = ((VariableOperation) o_).getVariableContent();
+//            addIfMatch(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),f_,((VariableOperation)o_).getRef()),_c.getRes().getCaller(), f_,begin(_c),variablesParamsUse,_piano);
+//        }
         if (o_ instanceof VariableOperationUse) {
             AnaVariableContent v_ = ((VariableOperationUse) o_).getVariableContent();
             addIfMatch(new SrcFileLocationVariable(v_.getDeep(),v_.getVariableName(),f_,((VariableOperationUse)o_).getRef()),_c.getRes().getCaller(), f_,begin(_c),variablesParamsUse,_piano);
@@ -321,8 +323,8 @@ public final class CallersRef {
         if (o_ instanceof NamedArgumentOperation) {
             name(_c,(NamedArgumentOperation)o_,_piano);
         }
-        if (o_ instanceof SettableAbstractFieldOperation) {
-            feelIt(_c, (SettableAbstractFieldOperation) o_,_piano);
+        if (o_ instanceof SettableFieldOperation) {
+            feelIt(_c, (SettableFieldOperation) o_,_piano);
         }
 //        if (_c instanceof AbstractInvokingConstructor) {
 //            fctPub(((AbstractInvokingConstructor)_c).getConstructor(), directNewInherits, _piano);
@@ -384,71 +386,71 @@ public final class CallersRef {
         }
     }
 
-    private void def(AbsBk _bl, CustList<SrcFileLocation> _piano) {
-//        CustList<SrcFileLocation> t_ = otherTypes(_bl, _caret);
-//        if (!t_.isEmpty()) {
-//            return t_;
+//    private void def(AbsBk _bl, CustList<SrcFileLocation> _piano) {
+////        CustList<SrcFileLocation> t_ = otherTypes(_bl, _caret);
+////        if (!t_.isEmpty()) {
+////            return t_;
+////        }
+//        if (_bl instanceof NamedFunctionBlock) {
+//            defName((NamedFunctionBlock) _bl, _piano);
 //        }
-        if (_bl instanceof NamedFunctionBlock) {
-            defName((NamedFunctionBlock) _bl, _piano);
-        }
-//        if (_bl instanceof InternOverrideBlock) {
-//            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-//            for (PartOffsetsClassMethodIdList l:((InternOverrideBlock)_bl).getAllPartsTypes()) {
-//                for (PartOffsetsClassMethodId p:l.getOverrides()) {
-//                    if (inRange(p.getBegin(), _caret,p.getBegin()+p.getLength())) {
-//                        fctPub(p.getFct(),ls_);
-//                    }
-//                }
-//            }
-//            return ls_;
-//        }
-    }
+////        if (_bl instanceof InternOverrideBlock) {
+////            CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+////            for (PartOffsetsClassMethodIdList l:((InternOverrideBlock)_bl).getAllPartsTypes()) {
+////                for (PartOffsetsClassMethodId p:l.getOverrides()) {
+////                    if (inRange(p.getBegin(), _caret,p.getBegin()+p.getLength())) {
+////                        fctPub(p.getFct(),ls_);
+////                    }
+////                }
+////            }
+////            return ls_;
+////        }
+//    }
 
-    private void defName(NamedFunctionBlock _bl, CustList<SrcFileLocation> _piano) {
-        Ints offs_ = _bl.getParametersNamesOffset();
-        StringList names_ = _bl.getParametersNames();
-        int s_ = names_.size();
-        for (int i = 0; i < s_; i++) {
-            addIfMatch(new SrcFileLocationVariable(-1,names_.get(i), _bl.getFile(),offs_.get(i)),new SrcFileLocationMethod(_bl.getParent(),_bl),_bl.getFile(),offs_.get(i),variablesParamsUse,_piano);
-        }
-//        if (_bl instanceof NamedCalledFunctionBlock) {
-//            for (PartOffsetsClassMethodId p:((NamedCalledFunctionBlock) _bl).getAllInternTypesParts()) {
-//                if (inRange(p.getBegin(), _caret,p.getBegin()+p.getLength())) {
-//                    fctPub(p.getFct(),p_);
-//                }
-//            }
+//    private void defName(NamedFunctionBlock _bl, CustList<SrcFileLocation> _piano) {
+//        Ints offs_ = _bl.getParametersNamesOffset();
+//        StringList names_ = _bl.getParametersNames();
+//        int s_ = names_.size();
+//        for (int i = 0; i < s_; i++) {
+//            addIfMatch(new SrcFileLocationVariable(-1,names_.get(i), _bl.getFile(),offs_.get(i)),new SrcFileLocationMethod(_bl.getParent(),_bl),_bl.getFile(),offs_.get(i),variablesParamsUse,_piano);
 //        }
-//        if (inRange(_bl.getNameOffset(),_caret,_bl.getNameOffset()+_bl.getRealLength())) {
-//            p_.add(new SrcFileLocationMethod(_bl.getParent(),_bl));
-//        }
-    }
+////        if (_bl instanceof NamedCalledFunctionBlock) {
+////            for (PartOffsetsClassMethodId p:((NamedCalledFunctionBlock) _bl).getAllInternTypesParts()) {
+////                if (inRange(p.getBegin(), _caret,p.getBegin()+p.getLength())) {
+////                    fctPub(p.getFct(),p_);
+////                }
+////            }
+////        }
+////        if (inRange(_bl.getNameOffset(),_caret,_bl.getNameOffset()+_bl.getRealLength())) {
+////            p_.add(new SrcFileLocationMethod(_bl.getParent(),_bl));
+////        }
+//    }
 
-    private static CustList<SrcFileLocation> tryDecl(AbsBk _bl) {
-        CustList<SrcFileLocation> vars_ = new CustList<SrcFileLocation>();
-        if (_bl instanceof ForEachLoop) {
-            vars_.add(new SrcFileLocationVariable(-1,((ForEachLoop)_bl).getVariableName(),_bl.getFile(),((ForEachLoop)_bl).getVariableNameOffset()));
-            return vars_;
-        }
-        if (_bl instanceof ForIterativeLoop) {
-            vars_.add(new SrcFileLocationVariable(-1,((ForIterativeLoop)_bl).getVariableName(),_bl.getFile(),((ForIterativeLoop)_bl).getVariableNameOffset()));
-            return vars_;
-        }
-        if (_bl instanceof ForEachTable) {
-            vars_.add(new SrcFileLocationVariable(-1,((ForEachTable)_bl).getVariableNameFirst(),_bl.getFile(),((ForEachTable)_bl).getVariableNameOffsetFirst()));
-            vars_.add(new SrcFileLocationVariable(-1,((ForEachTable)_bl).getVariableNameSecond(),_bl.getFile(),((ForEachTable)_bl).getVariableNameOffsetSecond()));
-            return vars_;
-        }
-        if (_bl instanceof WithFilterContent){
-            vars_.add(new SrcFileLocationVariable(-1,((WithFilterContent)_bl).getFilterContent().getVariableName(),_bl.getFile(),((WithFilterContent)_bl).getFilterContent().getVariableOffset()));
-            return vars_;
-        }
-        if (_bl instanceof DefaultCondition) {
-            vars_.add(new SrcFileLocationVariable(-1,((DefaultCondition)_bl).getVariableName(),_bl.getFile(),((DefaultCondition)_bl).getVariableOffset()));
-            return vars_;
-        }
-        return new CustList<SrcFileLocation>();
-    }
+//    private static CustList<SrcFileLocation> tryDecl(AbsBk _bl) {
+//        CustList<SrcFileLocation> vars_ = new CustList<SrcFileLocation>();
+//        if (_bl instanceof ForEachLoop) {
+//            vars_.add(new SrcFileLocationVariable(-1,((ForEachLoop)_bl).getVariableName(),_bl.getFile(),((ForEachLoop)_bl).getVariableNameOffset()));
+//            return vars_;
+//        }
+//        if (_bl instanceof ForIterativeLoop) {
+//            vars_.add(new SrcFileLocationVariable(-1,((ForIterativeLoop)_bl).getVariableName(),_bl.getFile(),((ForIterativeLoop)_bl).getVariableNameOffset()));
+//            return vars_;
+//        }
+//        if (_bl instanceof ForEachTable) {
+//            vars_.add(new SrcFileLocationVariable(-1,((ForEachTable)_bl).getVariableNameFirst(),_bl.getFile(),((ForEachTable)_bl).getVariableNameOffsetFirst()));
+//            vars_.add(new SrcFileLocationVariable(-1,((ForEachTable)_bl).getVariableNameSecond(),_bl.getFile(),((ForEachTable)_bl).getVariableNameOffsetSecond()));
+//            return vars_;
+//        }
+//        if (_bl instanceof WithFilterContent){
+//            vars_.add(new SrcFileLocationVariable(-1,((WithFilterContent)_bl).getFilterContent().getVariableName(),_bl.getFile(),((WithFilterContent)_bl).getFilterContent().getVariableOffset()));
+//            return vars_;
+//        }
+//        if (_bl instanceof DefaultCondition) {
+//            vars_.add(new SrcFileLocationVariable(-1,((DefaultCondition)_bl).getVariableName(),_bl.getFile(),((DefaultCondition)_bl).getVariableOffset()));
+//            return vars_;
+//        }
+//        return new CustList<SrcFileLocation>();
+//    }
 
 //    private static boolean okVar(OperationNode _op) {
 //        return _op instanceof VariableOperation && ((VariableOperation) _op).isOk();
@@ -494,7 +496,7 @@ public final class CallersRef {
         }
     }
 
-    private void feelIt(ResultExpressionBlockOperation _c, SettableAbstractFieldOperation _foundOp, CustList<SrcFileLocation> _piano) {
+    private void feelIt(ResultExpressionBlockOperation _c, SettableFieldOperation _foundOp, CustList<SrcFileLocation> _piano) {
 //        if (_foundOp instanceof SettableFieldOperation) {
 //            ls_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((SettableFieldOperation) _foundOp).getPartOffsets(), _caret));
 //        }
