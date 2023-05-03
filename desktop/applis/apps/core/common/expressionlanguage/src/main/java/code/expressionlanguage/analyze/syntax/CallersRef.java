@@ -3,10 +3,13 @@ package code.expressionlanguage.analyze.syntax;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
+import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 
 public final class CallersRef {
@@ -20,9 +23,8 @@ public final class CallersRef {
 //    private final CustList<SrcFileLocation> directRefNamedStd = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directRefNamedStdCtor = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directRefImplCtor = new CustList<SrcFileLocation>();
-//    private final CustList<SrcFileLocation> directCallNamed = new CustList<SrcFileLocation>();
-//    private final CustList<SrcFileLocation> directCallNamedStd = new CustList<SrcFileLocation>();
-//    private final CustList<SrcFileLocation> directCallNamedRef = new CustList<SrcFileLocation>();
+    private final CustList<FileBlockIndex> callNamedUse = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> callNamedRefUse = new CustList<FileBlockIndex>();
 //    private final CustList<SrcFileLocation> directCallNamedRefAll = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directCallImplicits = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directNew = new CustList<SrcFileLocation>();
@@ -342,10 +344,11 @@ public final class CallersRef {
 //            }
 //            ctStd(((AbstractInstancingOperation) _c).getInstancingCommonContent().getConstructor(), ((AbstractInstancingOperation) _c).getInstancingCommonContent().getStd(), directNewStd, _piano);
 //        }
-//        if (_c instanceof AbsFctOperation) {
-//            fctPub(((AbsFctOperation)_c).getCallFctContent().getFunction(), directCallNamed, _piano);
-//            callStd(((AbsFctOperation)_c).getCallFctContent().getStandardMethod(),((AbsFctOperation)_c).getCallFctContent().getStandardType(), directCallNamedStd, _piano);
-//        }
+        if (o_ instanceof AbsFctOperation) {
+            int delta_ = ((AbsFctOperation) o_).getDelta();
+            fctPub(_c,((AbsFctOperation)o_).getCallFctContent().getFunction(), delta_, _piano, callNamedUse);
+            callStd(_c,((AbsFctOperation)o_).getCallFctContent().getStandardMethod(),((AbsFctOperation)o_).getCallFctContent().getStandardType(), delta_, _piano, callNamedUse);
+        }
 //        if (_c instanceof CallDynMethodOperation) {
 //            callStd(((CallDynMethodOperation)_c).getStdMethod(),((CallDynMethodOperation)_c).getStdType(), directCallNamedStd, _piano);
 //            String r_ = ((CallDynMethodOperation) _c).getRefer();
@@ -361,6 +364,27 @@ public final class CallersRef {
         if (o_ instanceof LambdaOperation) {
             lambda(_c, (LambdaOperation) o_, _piano);
         }
+    }
+
+    private void fctPub(ResultExpressionBlockOperation _c, AnaTypeFct _ct, int _offset, CustList<SrcFileLocation> _piano, CustList<FileBlockIndex> _out) {
+        FileBlock file_ = _c.getRes().getBlock().getFile();
+        NamedFunctionBlock f_ = fct(_ct);
+        if (f_ != null) {
+            addIfMatch(new SrcFileLocationMethod(_ct.getType(),f_),_c.getRes().getCaller(),file_,begin(_c)+_offset, _out,_piano);
+        }
+    }
+
+    private void callStd(ResultExpressionBlockOperation _c, StandardMethod _std, StandardType _type, int _offset, CustList<SrcFileLocation> _piano, CustList<FileBlockIndex> _out) {
+        FileBlock file_ = _c.getRes().getBlock().getFile();
+        if (_std != null) {
+            addIfMatch(new SrcFileLocationStdMethod(_type, _std),_c.getRes().getCaller(),file_,begin(_c)+_offset, _out,_piano);
+        }
+    }
+    private static NamedFunctionBlock fct(AnaTypeFct _f) {
+        if (_f == null) {
+            return null;
+        }
+        return _f.getFunction();
     }
 
     private static int begin(ResultExpressionBlockOperation _b) {
@@ -490,6 +514,8 @@ public final class CallersRef {
 //            RootBlock r_ = function_.getType();
 //            addIfMatch(new SrcFileLocationType(r_),directRefImplCtor,_piano);
 //        }
+        fctPub(_c,_lda.getFunction(), _lda.getMemberOffset(), _piano, callNamedRefUse);
+        callStd(_c,_lda.getStandardMethod(),_lda.getStandardType(), _lda.getMemberOffset(), _piano, callNamedRefUse);
         ClassField fieldId_ = _lda.getFieldId();
         if (fieldId_ != null) {
             addIfMatch(SrcFileLocationField.field(fieldId_,fieldType_, _lda.getValueOffset(),_lda.getCstFieldInfo()),_c.getRes().getCaller(), f_,_lda.getMemberOffset()+begin(_c),fieldsRefUse,_piano);
@@ -560,6 +586,14 @@ public final class CallersRef {
 
     public CustList<FileBlockIndex> getFieldsUseInit() {
         return fieldsUseInit;
+    }
+
+    public CustList<FileBlockIndex> getCallNamedUse() {
+        return callNamedUse;
+    }
+
+    public CustList<FileBlockIndex> getCallNamedRefUse() {
+        return callNamedRefUse;
     }
 //    private static NamedFunctionBlock fct(AnaTypeFct _f) {
 //        if (_f == null) {

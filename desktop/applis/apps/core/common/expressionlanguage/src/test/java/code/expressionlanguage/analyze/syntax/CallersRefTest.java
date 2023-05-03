@@ -795,6 +795,117 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq(43,r_.getFieldsUse().get(0).getCaller().getIndex());
         assertEq("pkg/Ex3",r_.getFieldsUse().get(0).getCaller().getFile().getFileName());
     }
+    @Test
+    public void refs29() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$public $static $void method(){\n");
+        xml_.append("callee();\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $void callee(){\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex",60);
+        assertEq(1,r_.getCallNamedUse().size());
+        assertEq(59,r_.getCallNamedUse().get(0).getIndex());
+        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
+        assertEq(93,r_.getCallNamedUse().get(0).getCallee().getIndex());
+        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
+        assertEq(49,r_.getCallNamedUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+    }
+    @Test
+    public void refs30() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$public $static $void method(){\n");
+        xml_.append("$int i=0;\n");
+        xml_.append("$int j=\"\".indexOf(' ',i);\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex",81);
+        assertEq(1,r_.getCallNamedUse().size());
+        assertEq(79,r_.getCallNamedUse().get(0).getIndex());
+        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
+        assertEq(0,r_.getCallNamedUse().get(0).getCallee().getIndex());
+        assertEq("",r_.getCallNamedUse().get(0).getCallee().getFileName());
+        assertEq(49,r_.getCallNamedUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+    }
+    @Test
+    public void refs31() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$public $static $void method(){\n");
+        xml_.append("$int i=0;\n");
+        xml_.append("$int j=\"\".indexOf(' ',i);\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex",49);
+        assertEq(0,r_.getCallNamedUse().size());
+    }
+    @Test
+    public void refs32() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$public $static $void method(){\n");
+        xml_.append("$int i=0;\n");
+        xml_.append("$int j=\"\".indexOf(' ',i),k=\"\".indexOf(' ');\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex",81);
+        assertEq(1,r_.getCallNamedUse().size());
+        assertEq(79,r_.getCallNamedUse().get(0).getIndex());
+        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
+        assertEq(0,r_.getCallNamedUse().get(0).getCallee().getIndex());
+        assertEq("",r_.getCallNamedUse().get(0).getCallee().getFileName());
+        assertEq(49,r_.getCallNamedUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+    }
+    @Test
+    public void refs33() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public @$class pkg.Outer:Outer3 {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$lambda(Outer,THREE);}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Outer3 {\n");
+        xml_.append("$int field;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex3", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex2",54);
+        assertEq(1,r_.getCallNamedRefUse().size());
+        assertEq(54,r_.getCallNamedRefUse().get(0).getIndex());
+        assertEq("pkg/Ex2",r_.getCallNamedRefUse().get(0).getFile().getFileName());
+        assertEq(48,r_.getCallNamedRefUse().get(0).getCallee().getIndex());
+        assertEq("pkg/Ex",r_.getCallNamedRefUse().get(0).getCallee().getFile().getFileName());
+        assertEq(38,r_.getCallNamedRefUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getCallNamedRefUse().get(0).getCaller().getFile().getFileName());
+    }
     private static CallersRef refs(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return CallersRef.loop(a_,ResultExpressionOperationNode.locations(a_,_fileName,_caret));

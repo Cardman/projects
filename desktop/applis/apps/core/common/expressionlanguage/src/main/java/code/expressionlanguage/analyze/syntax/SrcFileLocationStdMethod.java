@@ -30,6 +30,11 @@ public final class SrcFileLocationStdMethod extends AbsSrcFileLocation  {
     }
 
     @Override
+    public boolean match(SrcFileLocation _o) {
+        return _o instanceof SrcFileLocationStdMethod && std == ((SrcFileLocationStdMethod)_o).std;
+    }
+
+    @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
         return new RowSrcLocation(EnSrcLocation.STD_METHOD,type.getFullName()+"."+getStd().getSignature(_dis), getFileName(),getIndex());
     }
