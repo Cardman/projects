@@ -4,26 +4,20 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.CstFieldInfo;
 
-public final class FieldInfo {
-    private final String type;
+public abstract class FieldInfo {
     private final boolean staticField;
     private final boolean finalField;
+    private final String type;
     private final ClassField classField;
-    private final Accessed accessed;
-    private final int valOffset;
-    private final String fileName;
-    private final MemberId memberId = new MemberId();
 
-    private FieldInfo(ClassField _id, String _type,
-                      boolean _staticField, boolean _finalField, Accessed _accessed, int _valOffset, String _fileName) {
+    protected FieldInfo(ClassField _id, String _type,
+                        boolean _staticField, boolean _finalField) {
         classField = _id;
         type = _type;
         staticField = _staticField;
         finalField = _finalField;
-        accessed = _accessed;
-        valOffset = _valOffset;
-        fileName = _fileName;
     }
     public static String newFieldInfo(String _declaringClass, String _type,
                                       boolean _staticField, boolean _aff, AnalyzedPageEl _page) {
@@ -37,11 +31,6 @@ public final class FieldInfo {
             formattedType_ = AnaInherits.wildCardFormatReturn(_declaringClass, formattedType_, _page);
         }
         return formattedType_;
-    }
-
-    public static FieldInfo newFieldMetaInfo(ClassField _id, String _type,
-                                             boolean _staticField, boolean _finalField, Accessed _accessed, int _valOffset, String _fileName) {
-        return new FieldInfo(_id, _type, _staticField, _finalField, _accessed, _valOffset,_fileName);
     }
 
     public ClassField getClassField() {
@@ -59,25 +48,14 @@ public final class FieldInfo {
         return finalField;
     }
 
-    public Accessed getAccessed() {
-        return accessed;
-    }
 
-    public int getValOffset() {
-        return valOffset;
-    }
+    public abstract Accessed getAccessed();
 
-    public String getFileName() {
-        return fileName;
-    }
+    public abstract String getFileName();
 
-    public MemberId getMemberId() {
-        return memberId;
-    }
+    public abstract MemberId getMemberId();
 
-    public void memberId(int _rootNumber, int _memberNumber) {
-        memberId.setRootNumber(_rootNumber);
-        memberId.setMemberNumber(_memberNumber);
-    }
+    public abstract int getValOffset();
 
+    public abstract CstFieldInfo cst();
 }

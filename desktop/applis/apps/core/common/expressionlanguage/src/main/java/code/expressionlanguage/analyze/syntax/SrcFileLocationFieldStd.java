@@ -2,11 +2,14 @@ package code.expressionlanguage.analyze.syntax;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.CstFieldInfo;
 
 public final class SrcFileLocationFieldStd extends SrcFileLocationField {
 
-    public SrcFileLocationFieldStd(ClassField _c) {
+    private final CstFieldInfo cstFieldInfo;
+    public SrcFileLocationFieldStd(ClassField _c, CstFieldInfo _cst) {
         super(_c);
+        cstFieldInfo = _cst;
     }
 
     @Override
@@ -21,7 +24,7 @@ public final class SrcFileLocationFieldStd extends SrcFileLocationField {
 
     @Override
     public boolean match(SrcFileLocation _o) {
-        return _o instanceof SrcFileLocationFieldStd && getCf().eq(((SrcFileLocationFieldStd) _o).getCf());
+        return _o instanceof SrcFileLocationFieldStd && cstFieldInfo == ((SrcFileLocationFieldStd)_o).cstFieldInfo;
     }
 
 

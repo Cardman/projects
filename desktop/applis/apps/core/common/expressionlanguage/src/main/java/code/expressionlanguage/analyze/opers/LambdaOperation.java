@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.opers.AnaLambdaCommonContent;
@@ -64,6 +65,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private final CustList<AnaNamedFieldContent> namedFields = new CustList<AnaNamedFieldContent>();
     private final CustList<AnaFormattedRootBlock> sups = new CustList<AnaFormattedRootBlock>();
     private final CustList<AnaResultPartTypeDtoInt> partsInstInitInterfaces = new CustList<AnaResultPartTypeDtoInt>();
+    private CstFieldInfo cstFieldInfo;
 
     public LambdaOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -2058,6 +2060,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         lambdaFieldContent.setAffField(_aff);
         fieldId = _r.getContent().getClassField();
         fieldType = _r.getFieldType();
+        cstFieldInfo = _r.getCstFieldInfo();
         lambdaFieldContent.setStaticField(_r.getContent().isStaticField());
         lambdaFieldContent.setFinalField(_r.getContent().isFinalField());
         String out_ = _r.getType();
@@ -2642,5 +2645,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public CustList<AnaResultPartTypeDtoInt> getPartsInstInitInterfaces() {
         return partsInstInitInterfaces;
+    }
+
+    public CstFieldInfo getCstFieldInfo() {
+        return cstFieldInfo;
     }
 }

@@ -30,6 +30,7 @@ public final class GoToDefinitionEvent implements AbsActionListener {
             MetaPoint p_ = tab_.getCenter().modelToView(result.getIndex()).getPoint();
             tab_.getScCenter().setHorizontalValue(p_.getXcoord());
             tab_.getScCenter().setVerticalValue(p_.getYcoord());
+            tab_.getCenter().visibleCaret();
         }
     }
 

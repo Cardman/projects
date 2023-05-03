@@ -1,6 +1,7 @@
 package code.expressionlanguage.fwd.opers;
 
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.CstFieldInfo;
 
 public final class AnaSettableOperationContent {
     private boolean variable;
@@ -11,6 +12,7 @@ public final class AnaSettableOperationContent {
 
     private int anc;
 
+    private CstFieldInfo cstFieldInfo;
     public boolean isVariable() {
         return variable;
     }
@@ -57,5 +59,13 @@ public final class AnaSettableOperationContent {
 
     public void setAnc(int _anc) {
         this.anc = _anc;
+    }
+
+    public CstFieldInfo getCstFieldInfo() {
+        return cstFieldInfo;
+    }
+
+    public void setCstFieldInfo(CstFieldInfo _c) {
+        this.cstFieldInfo = _c;
     }
 }

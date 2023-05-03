@@ -63,6 +63,7 @@ public final class SettableFieldOperation extends
         getSettableFieldContent().setStaticField(r_.getContent().isStaticField());
         getSettableFieldContent().setClassField(r_.getContent().getClassField());
         getSettableFieldContent().setRealType(r_.getContent().getRealType());
+        getSettableFieldContent().setCstFieldInfo(r_.getCstFieldInfo());
         String c_ = r_.getType();
         setResultClass(new AnaClassArgumentMatching(c_, _page.getPrimitiveTypes()));
     }

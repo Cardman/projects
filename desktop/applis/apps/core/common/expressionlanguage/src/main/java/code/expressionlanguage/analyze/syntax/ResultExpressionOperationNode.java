@@ -16,6 +16,7 @@ import code.expressionlanguage.analyze.types.LocationsPartTypeUtil;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
@@ -388,9 +389,7 @@ public final class ResultExpressionOperationNode {
             int i_ = _foundOp.getRef();
             RootBlock r_ = _foundOp.getField();
             ClassField cf_ = _foundOp.getIdField();
-            if (!cf_.getClassName().isEmpty()) {
-                ls_.add(field(cf_,r_, i_));
-            }
+            SrcFileLocationField.addField(cf_,r_, i_, null,ls_);
             return ls_;
         }
         CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
@@ -479,7 +478,7 @@ public final class ResultExpressionOperationNode {
             if (inRange(off_+beginLambda_,_caret,off_+beginLambda_+name_.length())) {
                 RootBlock r_ = naFi_.getDeclaring();
                 CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-                ls_.add(field(new ClassField(naFi_.getIdClass(),name_),r_, ref_));
+                SrcFileLocationField.addField(new ClassField(naFi_.getIdClass(),name_),r_, ref_,null,ls_);
                 return ls_;
             }
         }
@@ -506,7 +505,7 @@ public final class ResultExpressionOperationNode {
         ClassField fieldId_ = _lda.getFieldId();
         if (fieldId_ != null) {
             CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-            ls_.add(field(fieldId_,fieldType_, _lda.getValueOffset()));
+            SrcFileLocationField.addField(fieldId_,fieldType_, _lda.getValueOffset(), _lda.getCstFieldInfo(),ls_);
             return ls_;
         }
         return new CustList<SrcFileLocation>();
@@ -541,16 +540,9 @@ public final class ResultExpressionOperationNode {
         int i_ = ((SettableAbstractFieldOperation) _foundOp).getValueOffset();
         RootBlock r_ = ((SettableAbstractFieldOperation) _foundOp).getFieldType();
         ClassField cf_ = ((SettableAbstractFieldOperation) _foundOp).getFieldIdReadOnly();
-        if (!cf_.getClassName().isEmpty()) {
-            ls_.add(field(cf_,r_, i_));
-        }
+        CstFieldInfo c_ = ((SettableAbstractFieldOperation) _foundOp).getSettableFieldContent().getCstFieldInfo();
+        SrcFileLocationField.addField(cf_,r_, i_,c_,ls_);
         return ls_;
-    }
-    static SrcFileLocationField field(ClassField _c, RootBlock _d, int _i) {
-        if (_d != null) {
-            return new SrcFileLocationFieldCust(_c, _d, _i);
-        }
-        return new SrcFileLocationFieldStd(_c);
     }
 
     private static CustList<SrcFileLocation> young(int _caret, ResultExpressionOperationNode _res, AbstractInstancingOperation _op) {

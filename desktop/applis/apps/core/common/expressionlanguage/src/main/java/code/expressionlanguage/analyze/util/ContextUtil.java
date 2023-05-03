@@ -6,6 +6,8 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.analyze.opers.util.FieldInfoCust;
+import code.expressionlanguage.analyze.opers.util.FieldInfoStd;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -57,7 +59,7 @@ public final class ContextUtil {
         return processPackagePrivate(_block, root_, belongPkg_, rootPkg_, outer_);
     }
     private static CodeAccess processBegin(String _className, Accessed _block, AnalyzedPageEl _analyzing) {
-        if (_block.getAccess() == AccessEnum.PUBLIC) {
+        if (_block == null || _block.getAccess() == AccessEnum.PUBLIC) {
             return new CodeAccess(2,null,null);
         }
         String baseClass_ = StringExpUtil.getIdFromAllTypes(_className);
@@ -236,13 +238,8 @@ public final class ContextUtil {
                 InfoBlock i_ = (InfoBlock) b;
                 int valOffset_ = AnaTypeUtil.getIndex(i_, _fieldName);
                 if (valOffset_ >= 0) {
-                    String type_ = i_.getImportedClassName();
-                    boolean final_ = i_.isFinalField();
-                    boolean static_ = i_.isStaticField();
                     Accessed a_ = new Accessed(i_.getAccess(), _anaGeneType.getPackageName(), r_);
-                    FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(id_, type_, static_, final_, a_, valOffset_, b.getFile().getFileName());
-                    fieldInfo_.memberId(r_.getNumberAll(), i_.getElements().getFieldNumber());
-                    return fieldInfo_;
+                    return new FieldInfoCust(id_, i_, a_, valOffset_, b.getFile().getFileName(),r_.getNumberAll());
                 }
             }
             return null;
@@ -252,8 +249,7 @@ public final class ContextUtil {
                 continue;
             }
             String type_ = f.getImportedClassName();
-            Accessed a_ = new Accessed(AccessEnum.PUBLIC,"", null);
-            return FieldInfo.newFieldMetaInfo(id_, type_, true, true, a_,-1,"");
+            return new FieldInfoStd(f, id_, type_);
         }
         return null;
     }

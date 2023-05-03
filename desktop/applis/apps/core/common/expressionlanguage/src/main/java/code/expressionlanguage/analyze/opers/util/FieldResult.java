@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 
 public final class FieldResult {
@@ -16,6 +17,7 @@ public final class FieldResult {
     private int valOffset;
     private String fileName;
     private MemberId memberId = new MemberId();
+    private CstFieldInfo cstFieldInfo;
 
     public int getValOffset() {
         return valOffset;
@@ -85,4 +87,11 @@ public final class FieldResult {
         this.memberId = _memberId;
     }
 
+    public CstFieldInfo getCstFieldInfo() {
+        return cstFieldInfo;
+    }
+
+    public void setCstFieldInfo(CstFieldInfo _c) {
+        this.cstFieldInfo = _c;
+    }
 }

@@ -735,6 +735,7 @@ public abstract class OperationNode {
         res_.setFormattedType(_formatted);
         res_.setFileName(_fi.getFileName());
         res_.setMemberId(_fi.getMemberId());
+        res_.setCstFieldInfo(_fi.cst());
         res_.setFieldType(_formatted.getRootBlock());
         res_.setValOffset(_fi.getValOffset());
         res_.getContent().setClassField(_fi.getClassField());
