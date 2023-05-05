@@ -9,7 +9,7 @@ import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
-import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -29,6 +29,8 @@ public final class CallersRef {
 //    private final CustList<SrcFileLocation> directRefNamedStdCtor = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directRefImplCtor = new CustList<SrcFileLocation>();
     private final CustList<FileBlockIndex> callNamedUse = new CustList<FileBlockIndex>();
+//    private final CustList<FileBlockIndex> callNamedFieldUse = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> callNamedUseImpl = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> callNamedUsePoly = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> callNamedOverridden = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> callNamedOverriding = new CustList<FileBlockIndex>();
@@ -79,6 +81,8 @@ public final class CallersRef {
         }
         for (ResultExpressionBlockOperation o: ops_) {
             c_.callingsCustDirect(o,_piano);
+            c_.symbols(o,_piano);
+            c_.fctPub(o,o.getBlock().getResultClass().getFunction(),0, _piano, c_.callNamedUseImpl);
         }
         return c_;
     }
@@ -401,6 +405,13 @@ public final class CallersRef {
             poly(_c,callee_,!((AbsFctOperation) o_).isStaticChoiceMethod(),delta_,callNamedUsePoly);
             callStd(_c,((AbsFctOperation)o_).getCallFctContent().getStandardMethod(),((AbsFctOperation)o_).getCallFctContent().getStandardType(), delta_, _piano, callNamedUse);
         }
+        if (o_ instanceof AbstractInvokingConstructor) {
+            fctPub(_c, ((AbstractInvokingConstructor) o_).getConstructor(), 0, _piano, callNamedUse);
+        }
+        if (o_ instanceof AbstractInstancingOperation) {
+            fctPub(_c, ((AbstractInstancingOperation) o_).getConstructor(), 0, _piano, callNamedUse);
+            callStd(_c, ((AbstractInstancingOperation) o_).getInstancingCommonContent().getConstructor(),((AbstractInstancingOperation) o_).getInstancingCommonContent().getStd(), 0, _piano, callNamedUse);
+        }
         if (o_ instanceof ArrOperation) {
             SrcFileLocationMethod callee_ = fctPub(_c, ((ArrOperation) o_).getFunctionGet(), 0, _piano, callNamedUse);
             poly(_c,callee_,!((ArrOperation) o_).isStaticChoiceMethod(),0,callNamedUsePoly);
@@ -416,11 +427,48 @@ public final class CallersRef {
 //                directCallNamedRefAll.add(ref_);
 //            }
 //        }
-//        if (_c instanceof CastFctOperation) {
-//            fctPub(((CastFctOperation)_c).getFunction(), directCallImplicits, _piano);
-//        }
         if (o_ instanceof LambdaOperation) {
             lambda(_c, (LambdaOperation) o_, _piano);
+        }
+        if (o_ instanceof CastFctOperation) {
+            int off_ = ((CastFctOperation) o_).getOperators().firstKey();
+            fctPub(_c, ((CastFctOperation) o_).getFunction(), off_, _piano, callNamedUse);
+        }
+        if (o_ instanceof ExplicitOperatorOperation) {
+            fctPub(_c, ((ExplicitOperatorOperation) o_).getCallFctContent().getFunction(), 0, _piano, callNamedUse);
+            fctPub(_c, ((ExplicitOperatorOperation) o_).getConv().getFunction(), ((ExplicitOperatorOperation)o_).getAffOffset(), _piano, callNamedUse);
+            fctPub(_c, ((ExplicitOperatorOperation) o_).getFunctionTest(), ((ExplicitOperatorOperation)o_).getAffOffset(), _piano, callNamedUse);
+        }
+//        if (o_ instanceof AssocationOperation) {
+//            int off_ = ((AssocationOperation) o_).getOffsetFct();
+//            fctPub(_c, ((AssocationOperation) o_).getFunction(), off_, _piano, callNamedFieldUse);
+//        }
+    }
+    public void symbols(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
+        OperationNode o_ = _c.getBlock();
+        if (o_ instanceof SymbolOperation) {
+            fctPub(_c, ((SymbolOperation) o_).getFct().getFunction(), ((SymbolOperation)o_).getOperatorContent().getOpOffset(), _piano, callNamedUse);
+        }
+        if (o_ instanceof AbstractComTernaryOperation) {
+            fctPub(_c, ((AbstractComTernaryOperation) o_).getImplFct(), 0, _piano, callNamedUseImpl);
+            fctPub(_c, ((AbstractComTernaryOperation) o_).getTestFct(), 0, _piano, callNamedUseImpl);
+        }
+        if (o_ instanceof SemiAffectationOperation) {
+            int off_ = ((SemiAffectationOperation) o_).getOpOffset();
+            fctPub(_c, ((SemiAffectationOperation) o_).getFct().getFunction(), off_, _piano, callNamedUse);
+            fctPub(_c, ((SemiAffectationOperation) o_).getConvTo().getFunction(), off_, _piano, callNamedUseImpl);
+        }
+        if (o_ instanceof CompoundAffectationOperation) {
+            int off_ = ((CompoundAffectationOperation) o_).getOpOffset();
+            fctPub(_c, ((CompoundAffectationOperation) o_).getFct().getFunction(), off_, _piano, callNamedUse);
+            fctPub(_c, ((CompoundAffectationOperation) o_).getConv().getFunction(), off_, _piano, callNamedUseImpl);
+            fctPub(_c, ((CompoundAffectationOperation) o_).getFunctionTest(), off_, _piano, callNamedUseImpl);
+        }
+        if (o_ instanceof QuickOperation) {
+            int off_ = ((QuickOperation) o_).getOpOff();
+            fctPub(_c, ((QuickOperation) o_).getFct().getFunction(), off_, _piano, callNamedUse);
+            fctPub(_c, ((QuickOperation) o_).getConv().getFunction(), off_, _piano, callNamedUseImpl);
+            fctPub(_c, ((QuickOperation) o_).getFunctionTest(), off_, _piano, callNamedUseImpl);
         }
     }
 
@@ -451,7 +499,7 @@ public final class CallersRef {
             }
         }
     }
-    private void callStd(ResultExpressionBlockOperation _c, StandardMethod _std, StandardType _type, int _offset, CustList<SrcFileLocation> _piano, CustList<FileBlockIndex> _out) {
+    private static void callStd(ResultExpressionBlockOperation _c, StandardNamedFunction _std, StandardType _type, int _offset, CustList<SrcFileLocation> _piano, CustList<FileBlockIndex> _out) {
         FileBlock file_ = _c.getRes().getBlock().getFile();
         if (_std != null) {
             addIfMatch(new SrcFileLocationStdMethod(_type, _std),_c.getRes().getCaller(),file_,begin(_c)+_offset, _out,_piano);
@@ -594,6 +642,7 @@ public final class CallersRef {
         SrcFileLocationMethod callee_ = fctPub(_c, _lda.getFunction(), _lda.getMemberOffset(), _piano, callNamedRefUse);
         poly(_c,callee_,_lda.getLambdaMethodContent().isPolymorph(),_lda.getMemberOffset(),callNamedRefUsePoly);
         callStd(_c,_lda.getStandardMethod(),_lda.getStandardType(), _lda.getMemberOffset(), _piano, callNamedRefUse);
+        callStd(_c,_lda.getStandardConstructor(),_lda.getStandardType(), _lda.getMemberOffset(), _piano, callNamedRefUse);
         ClassField fieldId_ = _lda.getFieldId();
         if (fieldId_ != null) {
             addIfMatch(SrcFileLocationField.field(fieldId_,fieldType_, _lda.getValueOffset(),_lda.getCstFieldInfo()),_c.getRes().getCaller(), f_,_lda.getMemberOffset()+begin(_c),fieldsRefUse,_piano);
@@ -692,6 +741,14 @@ public final class CallersRef {
 
     public CustList<FileBlockIndex> getCallNamedRefUsePoly() {
         return callNamedRefUsePoly;
+    }
+
+//    public CustList<FileBlockIndex> getCallNamedFieldUse() {
+//        return callNamedFieldUse;
+//    }
+
+    public CustList<FileBlockIndex> getCallNamedUseImpl() {
+        return callNamedUseImpl;
     }
 //    private static NamedFunctionBlock fct(AnaTypeFct _f) {
 //        if (_f == null) {
