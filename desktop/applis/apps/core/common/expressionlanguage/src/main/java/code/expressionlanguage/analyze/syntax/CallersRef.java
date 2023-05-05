@@ -383,7 +383,8 @@ public final class CallersRef {
 //        }
         if (o_ instanceof AbsFctOperation) {
             int delta_ = ((AbsFctOperation) o_).getDelta();
-            fctPub(_c,!((AbsFctOperation)o_).isStaticChoiceMethod(),((AbsFctOperation)o_).getCallFctContent().getFunction(), delta_, _piano, callNamedUse,callNamedUsePoly);
+            SrcFileLocationMethod callee_ = fctPub(_c, ((AbsFctOperation) o_).getCallFctContent().getFunction(), delta_, _piano, callNamedUse);
+            poly(_c,callee_,!((AbsFctOperation) o_).isStaticChoiceMethod(),delta_,callNamedUsePoly);
             callStd(_c,((AbsFctOperation)o_).getCallFctContent().getStandardMethod(),((AbsFctOperation)o_).getCallFctContent().getStandardType(), delta_, _piano, callNamedUse);
         }
 //        if (_c instanceof CallDynMethodOperation) {
@@ -403,7 +404,7 @@ public final class CallersRef {
         }
     }
 
-    private void fctPub(ResultExpressionBlockOperation _c, boolean _poly, AnaTypeFct _ct, int _offset, CustList<SrcFileLocation> _piano, CustList<FileBlockIndex> _out, CustList<FileBlockIndex> _outPoly) {
+    private SrcFileLocationMethod fctPub(ResultExpressionBlockOperation _c, AnaTypeFct _ct, int _offset, CustList<SrcFileLocation> _piano, CustList<FileBlockIndex> _out) {
         FileBlock file_ = _c.getRes().getBlock().getFile();
         NamedFunctionBlock f_ = fct(_ct);
         if (f_ != null) {
@@ -411,16 +412,25 @@ public final class CallersRef {
             int index_ = begin(_c) + _offset;
             SrcFileLocation caller_ = _c.getRes().getCaller();
             addIfMatch(callee_, caller_,file_, index_, _out,_piano);
+            return callee_;
+        }
+        return null;
+    }
+
+    private void poly(ResultExpressionBlockOperation _c, SrcFileLocationMethod _callee, boolean _poly, int _offset, CustList<FileBlockIndex> _outPoly) {
+        FileBlock file_ = _c.getRes().getBlock().getFile();
+        if (_callee != null) {
+            int index_ = begin(_c) + _offset;
+            SrcFileLocation caller_ = _c.getRes().getCaller();
             if (_poly) {
                 for (FileBlockIndex f: callNamedOverridden) {
-                    if (f.getCaller().match(callee_)) {
+                    if (f.getCaller().match(_callee)) {
                         _outPoly.add(new FileBlockIndex(file_, index_,f.getCallee(), caller_));
                     }
                 }
             }
         }
     }
-
     private void callStd(ResultExpressionBlockOperation _c, StandardMethod _std, StandardType _type, int _offset, CustList<SrcFileLocation> _piano, CustList<FileBlockIndex> _out) {
         FileBlock file_ = _c.getRes().getBlock().getFile();
         if (_std != null) {
@@ -561,7 +571,8 @@ public final class CallersRef {
 //            RootBlock r_ = function_.getType();
 //            addIfMatch(new SrcFileLocationType(r_),directRefImplCtor,_piano);
 //        }
-        fctPub(_c,_lda.getLambdaMethodContent().isPolymorph(),_lda.getFunction(), _lda.getMemberOffset(), _piano, callNamedRefUse,callNamedRefUsePoly);
+        SrcFileLocationMethod callee_ = fctPub(_c, _lda.getFunction(), _lda.getMemberOffset(), _piano, callNamedRefUse);
+        poly(_c,callee_,_lda.getLambdaMethodContent().isPolymorph(),_lda.getMemberOffset(),callNamedRefUsePoly);
         callStd(_c,_lda.getStandardMethod(),_lda.getStandardType(), _lda.getMemberOffset(), _piano, callNamedRefUse);
         ClassField fieldId_ = _lda.getFieldId();
         if (fieldId_ != null) {
