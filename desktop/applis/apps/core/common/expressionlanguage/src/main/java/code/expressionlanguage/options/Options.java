@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.files.DefaultAccess;
 import code.expressionlanguage.common.AbstractTypePairHash;
 import code.expressionlanguage.common.DefTypePairHash;
+import code.expressionlanguage.common.OptionsReport;
 import code.maths.montecarlo.CustomSeedGene;
 import code.util.CustList;
 import code.util.StringList;
@@ -14,9 +15,8 @@ public final class Options {
     private boolean readOnly;
     private boolean covering;
     private boolean gettingErrors;
-    private boolean displayImplicit;
+    private final OptionsReport optionsReport = new OptionsReport();
     private WarningShow warningShow;
-    private boolean encodeHeader = true;
     private final CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     private final DefaultAccess defaultAccess = new DefaultAccess();
     private int tabWidth = 4;
@@ -64,12 +64,8 @@ public final class Options {
         gettingErrors = _gettingErrors;
     }
 
-    public boolean isDisplayImplicit() {
-        return displayImplicit;
-    }
-
-    public void setDisplayImplicit(boolean _displayImplicit) {
-        this.displayImplicit = _displayImplicit;
+    public OptionsReport getOptionsReport() {
+        return optionsReport;
     }
 
     public WarningShow getWarningShow() {
@@ -78,14 +74,6 @@ public final class Options {
 
     public void setWarningShow(WarningShow _warningShow) {
         warningShow = _warningShow;
-    }
-
-    public boolean isEncodeHeader() {
-        return encodeHeader;
-    }
-
-    public void setEncodeHeader(boolean _encodeHeader) {
-        encodeHeader = _encodeHeader;
     }
 
     public CustList<CommentDelimiters> getComments() {

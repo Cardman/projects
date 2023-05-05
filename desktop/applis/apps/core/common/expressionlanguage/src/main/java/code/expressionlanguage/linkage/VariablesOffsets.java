@@ -3,6 +3,7 @@ package code.expressionlanguage.linkage;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.common.OptionsReport;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.common.DisplayedStrings;
 import code.util.CustList;
@@ -19,7 +20,7 @@ public final class VariablesOffsets {
     private DisplayedStrings displayedStrings;
     private StringList toStringOwners;
     private StringList randCodeOwners;
-    private boolean implicit;
+    private final OptionsReport optionsReport = new OptionsReport();
     private final CustList<PartOffset> parts = new CustList<PartOffset>();
 
     public boolean hasEltStack() {
@@ -98,12 +99,16 @@ public final class VariablesOffsets {
         this.randCodeOwners = _randCodeOwners;
     }
 
-    public boolean isImplicit() {
-        return implicit;
+    public OptionsReport getOptionsReport() {
+        return optionsReport;
     }
 
-    public void setImplicit(boolean _implicit) {
-        this.implicit = _implicit;
+    public boolean isDisplayImplicitLabel() {
+        return getOptionsReport().isDisplayImplicitLabel();
+    }
+
+    public boolean isImplicit() {
+        return getOptionsReport().isDisplayImplicit();
     }
 
     public void addPart(PartOffset _part) {

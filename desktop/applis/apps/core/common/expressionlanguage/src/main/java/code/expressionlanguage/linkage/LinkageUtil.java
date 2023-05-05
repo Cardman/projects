@@ -22,6 +22,7 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.DisplayedStrings;
+import code.expressionlanguage.common.OptionsReport;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
@@ -92,7 +93,7 @@ public final class LinkageUtil {
     public static StringMap<String> errors(AnalyzedPageEl _analyzing) {
         StringMap<String> files_ = new StringMap<String>();
         KeyWords keyWords_ = _analyzing.getKeyWords();
-        boolean implicit_ = _analyzing.isImplicit();
+        OptionsReport optionsReport_ = _analyzing.getOptionsReport();
         DisplayedStrings displayedStrings_ = _analyzing.getDisplayedStrings();
         StringList toStringOwners_ = _analyzing.getToStringOwners();
         StringList randCodeOwners_ = _analyzing.getRandCodeOwners();
@@ -102,9 +103,9 @@ public final class LinkageUtil {
             }
             String value_ = f.getContent();
             String fileExp_ = f.getRenderFileName();
-            VariablesOffsets listStr_ = processError(toStringOwners_,randCodeOwners_,f, keyWords_, displayedStrings_, implicit_);
+            VariablesOffsets listStr_ = processError(toStringOwners_,randCodeOwners_,f, keyWords_, displayedStrings_, optionsReport_);
             StringBuilder xml_ = build(f, value_, listStr_);
-            String cssPart_ = BEGIN_HEAD + encode(_analyzing.isEncodeHeader()) +
+            String cssPart_ = BEGIN_HEAD + encode(optionsReport_.isEncodeHeader()) +
                     link(f) +
                     END_HEAD;
             files_.addEntry(fileExp_, BEGIN +cssPart_+ BEGIN_BODY_PRE +xml_+ END_BODY_PRE+END);
@@ -136,7 +137,7 @@ public final class LinkageUtil {
             String fileExp_ = f.getRenderFileName();
             VariablesOffsets listStr_ = processReport(toStringOwners_,randCodeOwners_,f, cov_, keyWords_, standards_);
             StringBuilder xml_ = build(f, value_, listStr_);
-            String cssPart_ = BEGIN_HEAD +encode(cov_.isDisplayEncode())+
+            String cssPart_ = BEGIN_HEAD +encode(cov_.getOptionsReport().isEncodeHeader())+
                     link(f) +
                     END_HEAD;
             files_.addEntry(fileExp_, BEGIN +cssPart_+ BEGIN_BODY_PRE +xml_+END_BODY_PRE+END);
@@ -153,7 +154,7 @@ public final class LinkageUtil {
         String callTable_ = "calls"+ExportCst.EXT;
         StringBuilder table_ = new StringBuilder(BEGIN);
         table_.append(BEGIN_HEAD);
-        table_.append(encode(cov_.isDisplayEncode()));
+        table_.append(encode(cov_.getOptionsReport().isEncodeHeader()));
         table_.append(END_HEAD);
         table_.append(BEGIN_BODY);
         table_.append("<table>");
@@ -309,12 +310,12 @@ public final class LinkageUtil {
         return DEF_SPACE;
     }
 
-    private static VariablesOffsets processError(StringList _toStringOwers, StringList _randCodeOwners, FileBlock _ex, KeyWords _keyWords, DisplayedStrings _displayedStrings, boolean _implicit){
+    private static VariablesOffsets processError(StringList _toStringOwers, StringList _randCodeOwners, FileBlock _ex, KeyWords _keyWords, DisplayedStrings _displayedStrings, OptionsReport _implicit){
         VariablesOffsets vars_ = new VariablesOffsets();
         vars_.addPart(new PartOffset(ExportCst.span(TYPE),0));
         vars_.addStackElt(new LinkageStackElement(_ex.getLength()));
         vars_.setKeyWords(_keyWords);
-        vars_.setImplicit(_implicit);
+        update(_implicit, vars_);
         vars_.setDisplayedStrings(_displayedStrings);
         vars_.setToStringOwners(_toStringOwers);
         vars_.setRandCodeOwners(_randCodeOwners);
@@ -329,6 +330,11 @@ public final class LinkageUtil {
             child_ = loopErr(_ex, vars_, child_);
         }
         return vars_;
+    }
+
+    private static void update(OptionsReport _implicit, VariablesOffsets _vars) {
+        _vars.getOptionsReport().setDisplayImplicit(_implicit.isDisplayImplicit());
+        _vars.getOptionsReport().setDisplayImplicitLabel(_implicit.isDisplayImplicitLabel());
     }
 
     private static AbsBk loopErr(FileBlock _ex, VariablesOffsets _vars, AbsBk _child) {
@@ -475,11 +481,8 @@ public final class LinkageUtil {
         if (_child instanceof Throwing) {
             processThrowingError(_vars,(Throwing) _child);
         }
-        if (_child instanceof BreakBlock) {
-            processBreakBlockError(_vars,(BreakBlock) _child);
-        }
-        if (_child instanceof ContinueBlock) {
-            processContinueBlockError(_vars,(ContinueBlock) _child);
+        if (_child instanceof LabelAbruptBlock) {
+            processBreakContinueBlock(_vars,(LabelAbruptBlock) _child);
         }
     }
 
@@ -530,7 +533,7 @@ public final class LinkageUtil {
         vars_.addPart(new PartOffset(ExportCst.span(TYPE),0));
         vars_.addStackElt(new LinkageStackElement(_ex.getLength()));
         vars_.setKeyWords(_keyWords);
-        vars_.setImplicit(_coverage.isImplicit());
+        update(_coverage.getOptionsReport(), vars_);
         vars_.setDisplayedStrings(_standards.getDisplayedStrings());
         vars_.setToStringOwners(_toStringOwers);
         vars_.setRandCodeOwners(_randCodeOwners);
@@ -667,11 +670,8 @@ public final class LinkageUtil {
         if (_child instanceof Throwing) {
             processThrowingReport(_vars,(Throwing) _child, _coverage);
         }
-        if (_child instanceof BreakBlock) {
-            processBreakBlockReport(_vars,(BreakBlock) _child);
-        }
-        if (_child instanceof ContinueBlock) {
-            processContinueBlockReport(_vars,(ContinueBlock) _child);
+        if (_child instanceof LabelAbruptBlock) {
+            processBreakContinueBlock(_vars,(LabelAbruptBlock) _child);
         }
     }
 
@@ -1165,15 +1165,11 @@ public final class LinkageUtil {
         OperationNode root_ = _cond.getRoot();
         buildNormalError(_vars, _cond, -1, root_, blOffset_, 0,blOffset_+_cond.getExpression().length());
     }
-    private static void processBreakBlockReport(VariablesOffsets _vars, BreakBlock _cond) {
+
+    private static void processBreakContinueBlock(VariablesOffsets _vars, LabelAbruptBlock _cond) {
+        int ref_ = _cond.getLabelOffsetRef();
         if (_cond.getLabel().isEmpty()) {
-            return;
-        }
-        _vars.addPart(new PartOffset(ExportCst.anchorRef(_cond.getLabelOffsetRef()), _cond.getLabelOffset()));
-        _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getLabelOffset() +_cond.getLabel().length()));
-    }
-    private static void processBreakBlockError(VariablesOffsets _vars, BreakBlock _cond) {
-        if (_cond.getLabel().isEmpty()) {
+            emptyLabel(_vars, ExportCst.anchorRef(ref_), ref_, _cond.getBegin() + _cond.getLengthHeader());
             return;
         }
         StringList errs_ = _cond.getErrorsRefLabels();
@@ -1182,29 +1178,16 @@ public final class LinkageUtil {
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getLabelOffset() +_cond.getLabel().length()));
             return;
         }
-        _vars.addPart(new PartOffset(ExportCst.anchorRef(_cond.getLabelOffsetRef()), _cond.getLabelOffset()));
+        _vars.addPart(new PartOffset(ExportCst.anchorRef(ref_), _cond.getLabelOffset()));
         _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getLabelOffset() +_cond.getLabel().length()));
     }
-    private static void processContinueBlockReport(VariablesOffsets _vars, ContinueBlock _cond) {
-        if (_cond.getLabel().isEmpty()) {
-            return;
+
+    private static void emptyLabel(VariablesOffsets _vars, String _beginHeader, int _ref, int _begin) {
+        if (_ref > -1 && _vars.isDisplayImplicitLabel()) {
+            _vars.addPart(new PartOffset(_beginHeader+ExportCst.IMPLICIT+ExportCst.END_ANCHOR, _begin));
         }
-        _vars.addPart(new PartOffset(ExportCst.anchorRef(_cond.getLabelOffsetRef()), _cond.getLabelOffset()));
-        _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getLabelOffset() +_cond.getLabel().length()));
     }
-    private static void processContinueBlockError(VariablesOffsets _vars, ContinueBlock _cond) {
-        if (_cond.getLabel().isEmpty()) {
-            return;
-        }
-        StringList errs_ = _cond.getErrorsRefLabels();
-        if (!errs_.isEmpty()) {
-            _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,ExportCst.JOIN_ERR)), _cond.getLabelOffset()));
-            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getLabelOffset() +_cond.getLabel().length()));
-            return;
-        }
-        _vars.addPart(new PartOffset(ExportCst.anchorRef(_cond.getLabelOffsetRef()), _cond.getLabelOffset()));
-        _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getLabelOffset() +_cond.getLabel().length()));
-    }
+
     private static void processReturnMethodReport(VariablesOffsets _vars, ReturnMethod _cond, Coverage _cov) {
         if (_cond.isEmpty()) {
             return;
@@ -4135,10 +4118,11 @@ public final class LinkageUtil {
     }
 
     private static void refLabel(VariablesOffsets _vars, String _label, int _offset) {
-        if (_label.isEmpty()) {
+        if (_vars.goesToProcess()) {
             return;
         }
-        if (_vars.goesToProcess()) {
+        if (_label.isEmpty()) {
+            emptyLabel(_vars, ExportCst.anchorName(_offset), _offset, _offset);
             return;
         }
         _vars.addPart(new PartOffset(ExportCst.anchorName(_offset),_offset));
@@ -4146,19 +4130,24 @@ public final class LinkageUtil {
     }
 
     private static void refLabelError(VariablesOffsets _vars, AbsBk _bl, String _label, int _offset) {
-        if (_label.isEmpty()) {
-            return;
-        }
         if (_vars.goesToProcess()) {
             return;
         }
+        String begin_ = partLabelDef(_bl, _offset);
+        if (_label.isEmpty()) {
+            emptyLabel(_vars, begin_, _offset, _offset);
+            return;
+        }
+        _vars.addPart(new PartOffset(begin_,_offset));
+        _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,_offset+_label.length()));
+    }
+    private static String partLabelDef(AbsBk _bl, int _offset) {
         StringList errs_ = _bl.getErrorsLabels();
         if (!errs_.isEmpty()) {
-            _vars.addPart(new PartOffset(ExportCst.anchorNameErr(_offset,StringUtil.join(errs_,ExportCst.JOIN_ERR)),_offset));
+            return ExportCst.anchorNameErr(_offset,StringUtil.join(errs_,ExportCst.JOIN_ERR));
         } else {
-            _vars.addPart(new PartOffset(ExportCst.anchorName(_offset),_offset));
+            return ExportCst.anchorName(_offset);
         }
-        _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,_offset+_label.length()));
     }
     private static boolean leftOperNotUnary(OperationNode _op) {
         if (_op instanceof TernaryOperation) {

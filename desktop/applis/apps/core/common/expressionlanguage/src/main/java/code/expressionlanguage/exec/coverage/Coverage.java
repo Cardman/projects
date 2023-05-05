@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
 import code.expressionlanguage.analyze.opers.NullSafeOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.SafeDotOperation;
+import code.expressionlanguage.common.OptionsReport;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.exec.StackCall;
@@ -41,8 +42,7 @@ public final class Coverage {
     private final IdMap<ExecBlock,RootBlock> mappingTypes = new IdMap<ExecBlock,RootBlock>();
     private KeyWords keyWords;
     private final boolean covering;
-    private boolean implicit;
-    private boolean displayEncode;
+    private final OptionsReport optionsReport = new OptionsReport();
 
     public Coverage(boolean _covering) {
         this.covering = _covering;
@@ -736,19 +736,7 @@ public final class Coverage {
         return covering;
     }
 
-    public boolean isImplicit() {
-        return implicit;
-    }
-
-    public void setImplicit(boolean _implicit) {
-        this.implicit = _implicit;
-    }
-
-    public boolean isDisplayEncode() {
-        return displayEncode;
-    }
-
-    public void setDisplayEncode(boolean _displayEncode) {
-        this.displayEncode = _displayEncode;
+    public OptionsReport getOptionsReport() {
+        return optionsReport;
     }
 }

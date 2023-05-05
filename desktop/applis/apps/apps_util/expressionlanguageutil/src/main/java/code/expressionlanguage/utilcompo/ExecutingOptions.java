@@ -73,6 +73,7 @@ public final class ExecutingOptions {
             extractSrc(_options, _exec, l);
             extractSeed(_options, l);
             extractImpl(_options, l);
+            extractImplLabel(_options, l);
             extractParts(warnsPart_, l, "warn=");
             extractResources(_exec, l);
             extractFiles(_exec, l);
@@ -208,7 +209,13 @@ public final class ExecutingOptions {
 
     private static void extractImpl(Options _options, String _l) {
         if (_l.startsWith("impl=")) {
-            _options.setDisplayImplicit(true);
+            _options.getOptionsReport().setDisplayImplicit(true);
+        }
+    }
+
+    private static void extractImplLabel(Options _options, String _l) {
+        if (_l.startsWith("impl_label=")) {
+            _options.getOptionsReport().setDisplayImplicitLabel(true);
         }
     }
 

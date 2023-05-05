@@ -1275,8 +1275,8 @@ public final class AnalyzedPageEl {
         this.keyWords = _keyWords;
     }
 
-    public boolean isImplicit() {
-        return getOptions().isDisplayImplicit();
+    public OptionsReport getOptionsReport() {
+        return getOptions().getOptionsReport();
     }
 
     public boolean isDisplayWarningTernary() {
@@ -1287,10 +1287,6 @@ public final class AnalyzedPageEl {
     public boolean isDisplayUnusedParameterStaticMethod() {
         WarningShow warningShow_ = getOptions().getWarningShow();
         return WarningShow.isUnusedParameterStaticMethod(warningShow_);
-    }
-
-    public boolean isEncodeHeader() {
-        return getOptions().isEncodeHeader();
     }
 
     public boolean isGettingErrors() {

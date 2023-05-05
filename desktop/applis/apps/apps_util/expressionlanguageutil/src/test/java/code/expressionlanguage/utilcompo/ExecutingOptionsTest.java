@@ -289,7 +289,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("impl="));
-        assertTrue(opt_.isDisplayImplicit());
+        assertTrue(opt_.getOptionsReport().isDisplayImplicit());
     }
     @Test
     public void setupOptionals23() {
@@ -409,7 +409,8 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         assertFalse(opt_.isCovering());
         assertFalse(exec_.isCovering());
         assertFalse(opt_.isGettingErrors());
-        assertFalse(opt_.isDisplayImplicit());
+        assertFalse(opt_.getOptionsReport().isDisplayImplicit());
+        assertFalse(opt_.getOptionsReport().isDisplayImplicitLabel());
         assertFalse(exec_.isHasArg());
         assertFalse(exec_.isInvokeDirect());
         assertEq(0,exec_.getMessages().size());
@@ -418,6 +419,15 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         assertEq(0,exec_.getAliases().size());
         assertEq(0,exec_.getArgs().size());
         assertEq(0,opt_.getTypesInit().size());
+    }
+    @Test
+    public void setupOptionals34() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ExecutingOptions.setupOptionals(0,opt_,exec_, lines("impl_label="));
+        assertTrue(opt_.getOptionsReport().isDisplayImplicitLabel());
     }
     @Test
     public void argsSet() {

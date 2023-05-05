@@ -6,7 +6,7 @@ import code.expressionlanguage.linkage.ExportCst;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class BreakBlock extends AbruptBlock {
+public final class BreakBlock extends AbruptBlock implements LabelAbruptBlock{
 
     private final String label;
     private final int labelOffset;

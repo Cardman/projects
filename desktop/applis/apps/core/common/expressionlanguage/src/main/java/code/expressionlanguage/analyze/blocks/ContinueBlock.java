@@ -6,7 +6,7 @@ import code.expressionlanguage.linkage.ExportCst;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class ContinueBlock extends AbruptBlock {
+public final class ContinueBlock extends AbruptBlock implements LabelAbruptBlock {
 
     private final String label;
     private final int labelOffset;

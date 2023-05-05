@@ -254,7 +254,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
-        opt_.setDisplayImplicit(true);
+        opt_.getOptionsReport().setDisplayImplicit(true);
         CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
@@ -296,7 +296,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
-        opt_.setDisplayImplicit(true);
+        opt_.getOptionsReport().setDisplayImplicit(true);
         CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
@@ -307,8 +307,8 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
-        opt_.setDisplayImplicit(true);
-        opt_.setEncodeHeader(true);
+        opt_.getOptionsReport().setDisplayImplicit(true);
+        opt_.getOptionsReport().setEncodeHeader(true);
         CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
@@ -331,10 +331,15 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     protected static ContextEl covEnReadOnlyImpl(StringMap<String> _files) {
+        return covEnReadOnlyImpl(_files, false);
+    }
+
+    protected static ContextEl covEnReadOnlyImpl(StringMap<String> _files, boolean _disLabel) {
         Options opt_ = newOptions();
+        opt_.getOptionsReport().setDisplayImplicitLabel(_disLabel);
         opt_.setReadOnly(true);
         opt_.setCovering(true);
-        opt_.setDisplayImplicit(true);
+        opt_.getOptionsReport().setDisplayImplicit(true);
         CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
@@ -344,10 +349,10 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
 
     protected static ContextEl covEnReadOnlyImpl2(StringMap<String> _files) {
         Options opt_ = newOptions();
-        opt_.setEncodeHeader(true);
+        opt_.getOptionsReport().setEncodeHeader(true);
         opt_.setReadOnly(true);
         opt_.setCovering(true);
-        opt_.setDisplayImplicit(true);
+        opt_.getOptionsReport().setDisplayImplicit(true);
         CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
@@ -702,7 +707,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
 
     protected static Options newOptions() {
         Options options_ = new Options();
-        options_.setEncodeHeader(false);
+        options_.getOptionsReport().setEncodeHeader(false);
         DefaultAccess defaultAccess_ = options_.getDefaultAccess();
         setup(defaultAccess_.getAccAnonymous(),AccessEnum.PACKAGE);
         setup(defaultAccess_.getAccClass(),AccessEnum.PACKAGE);
@@ -752,7 +757,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setCovering(true);
-        opt_.setDisplayImplicit(true);
+        opt_.getOptionsReport().setDisplayImplicit(true);
         CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();

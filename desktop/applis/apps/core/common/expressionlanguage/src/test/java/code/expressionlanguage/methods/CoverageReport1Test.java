@@ -15590,6 +15590,42 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage756Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  for (int j:{0,1}){\n");
+        xml_.append("   int[] t = s == j ?{4i}:{6i};\n");
+        xml_.append("   sum += t[0];\n");
+        xml_.append("   break;\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_, true);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
+                "  <span class=\"p\">for (int <a name=\"m90\">j</a></span>:<span class=\"f\">{<span class=\"f\">0</span>,<span class=\"f\">1</span>}</span>)<a name=\"m98\"> </a>{\n" +
+                "   int[] <span class=\"f\"><span class=\"f\"><a name=\"m109\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"false\">==</a><span class=\"f\"> <a href=\"#m90\">j</a> </span></span>?<span class=\"n\">{<span class=\"n\">4i</span>}</span>:<span class=\"f\">{<span class=\"f\">6i</span>}</span></span></span>;\n" +
+                "   <span class=\"f\"><span class=\"f\"><a href=\"#m70\">sum</a> </span>+=<span class=\"f\"><span class=\"f\"> <a href=\"#m109\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span>;\n" +
+                "   break<a href=\"#m98\"> </a>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

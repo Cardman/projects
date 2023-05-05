@@ -37,8 +37,9 @@ public final class Forwards {
         options = _options;
         constantsCalculator = _generator.newConstantsCalculator();
         coverage = new Coverage(_options.isCovering());
-        coverage.setImplicit(_options.isDisplayImplicit());
-        coverage.setDisplayEncode(_options.isEncodeHeader());
+        coverage.getOptionsReport().setDisplayImplicit(_options.getOptionsReport().isDisplayImplicit());
+        coverage.getOptionsReport().setDisplayImplicitLabel(_options.getOptionsReport().isDisplayImplicitLabel());
+        coverage.getOptionsReport().setEncodeHeader(_options.getOptionsReport().isEncodeHeader());
         classes = new Classes(_options.getChecker());
         fileBuilder = _fileBuilder;
     }
