@@ -436,8 +436,8 @@ public final class CallersRef {
         }
         if (o_ instanceof ExplicitOperatorOperation) {
             fctPub(_c, ((ExplicitOperatorOperation) o_).getCallFctContent().getFunction(), 0, _piano, callNamedUse);
-            fctPub(_c, ((ExplicitOperatorOperation) o_).getConv().getFunction(), ((ExplicitOperatorOperation)o_).getAffOffset(), _piano, callNamedUse);
-            fctPub(_c, ((ExplicitOperatorOperation) o_).getFunctionTest(), ((ExplicitOperatorOperation)o_).getAffOffset(), _piano, callNamedUse);
+            fctPub(_c, ((ExplicitOperatorOperation) o_).getConv().getFunction(), ((ExplicitOperatorOperation)o_).getAffOffset(), _piano, callNamedUseImpl);
+            fctPub(_c, ((ExplicitOperatorOperation) o_).getFunctionTest(), ((ExplicitOperatorOperation)o_).getAffOffset(), _piano, callNamedUseImpl);
         }
 //        if (o_ instanceof AssocationOperation) {
 //            int off_ = ((AssocationOperation) o_).getOffsetFct();
