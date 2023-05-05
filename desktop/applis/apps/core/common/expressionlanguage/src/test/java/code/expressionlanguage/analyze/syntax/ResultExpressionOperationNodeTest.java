@@ -3846,7 +3846,10 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",58);
-        assertEq(0,r_.size());
+        assertEq(1,r_.size());
+        assertEq(48,r_.get(0).getIndex());
+        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq("",((SrcFileLocationLabel)r_.get(0)).getLabel());
     }
     @Test
     public void locations115() {
@@ -3868,7 +3871,10 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",58);
-        assertEq(0,r_.size());
+        assertEq(1,r_.size());
+        assertEq(48,r_.get(0).getIndex());
+        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq("",((SrcFileLocationLabel)r_.get(0)).getLabel());
     }
     @Test
     public void locations116() {
@@ -4700,6 +4706,75 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",57);
+        assertEq(0,r_.size());
+    }
+    @Test
+    public void locations148() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$static $boolean $(Outer o){$return $true;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$if(Outer.ONE==Outer.ONE)label;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",40);
+        assertEq(1,r_.size());
+        assertEq(65,r_.get(0).getIndex());
+        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq("label",((SrcFileLocationLabel)r_.get(0)).getLabel());
+    }
+    @Test
+    public void locations149() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$static $boolean $(Outer o){$return $true;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$continue;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",40);
+        assertEq(0,r_.size());
+    }
+    @Test
+    public void locations150() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$static $boolean $(Outer o){$return $true;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$break;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",40);
         assertEq(0,r_.size());
     }
     @Test

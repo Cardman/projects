@@ -59,7 +59,7 @@ public final class ResultExpressionOperationNode {
         if (bl_ instanceof InnerTypeOrElement) {
             return fetch(_caret,((InnerTypeOrElement)bl_).getElementContent().getPartOffsets());
         }
-        if (bl_ instanceof BreakableBlock&&inRange(((BreakableBlock)bl_).getRealLabelInfo().getOffset(),_caret,((BreakableBlock)bl_).getRealLabelInfo().getOffset()+((BreakableBlock)bl_).getRealLabelInfo().getInfo().length())) {
+        if (bl_ instanceof BreakableBlock&& inLabelRange(_caret, bl_)) {
             CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
             ls_.add(new SrcFileLocationLabel(((BreakableBlock)bl_).getRealLabelInfo().getInfo(),file_, ((BreakableBlock)bl_).getRealLabelInfo().getOffset()));
             return ls_;
@@ -101,6 +101,10 @@ public final class ResultExpressionOperationNode {
             return ls_;
         }
         return def(_caret, bl_);
+    }
+
+    private static boolean inLabelRange(int _caret, AbsBk _bl) {
+        return inRange(_bl.getBegin(), _caret, _bl.getBegin() + _bl.getLengthHeader()) || inRange(((BreakableBlock) _bl).getRealLabelInfo().getOffset(), _caret, ((BreakableBlock) _bl).getRealLabelInfo().getOffset() + ((BreakableBlock) _bl).getRealLabelInfo().getInfo().length());
     }
 
     private static CustList<SrcFileLocation> def(int _caret, AbsBk _bl) {

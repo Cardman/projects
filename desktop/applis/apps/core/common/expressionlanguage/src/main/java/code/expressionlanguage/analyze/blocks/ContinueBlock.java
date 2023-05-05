@@ -90,6 +90,7 @@ public final class ContinueBlock extends AbruptBlock {
     }
     private boolean exitLoop(BreakableBlock _b) {
         if (label.isEmpty()) {
+            labelOffsetRef = _b.getRealLabelInfo().getOffset();
             return true;
         }
         if (StringUtil.quickEq(label, _b.getRealLabelInfo().getInfo())){
