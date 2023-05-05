@@ -181,6 +181,7 @@ public final class ClassesUtil {
                 anaRed_.addEntry(o,map_);
             }
         }
+        _page.setOverriding(anaRed_);
         return anaRed_;
     }
 

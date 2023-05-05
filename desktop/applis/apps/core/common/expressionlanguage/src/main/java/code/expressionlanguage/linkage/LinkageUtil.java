@@ -27,7 +27,6 @@ import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.coverage.SwitchCoverageResult;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.options.KeyWords;
@@ -730,15 +729,10 @@ public final class LinkageUtil {
 
     private static void tryAppendParts(VariablesOffsets _vars, PartOffsetsClassMethodId _p) {
         addTypes(_vars, _p.getTypes());
-        ClassMethodId id_ = _p.getId();
-        if (id_ != null) {
-            int rc_ = _p.getBegin();
-            int len_ = _p.getLength();
-            CustList<PartOffset> partMethod_ = new CustList<PartOffset>();
-            StringList l_ = new StringList();
-            addParts(_vars, _p.getFct(), rc_, len_, l_, l_);
-            _vars.addParts(partMethod_);
-        }
+        int rc_ = _p.getBegin();
+        int len_ = _p.getLength();
+        StringList l_ = new StringList();
+        addParts(_vars, _p.getFct(), rc_, len_, l_, l_);
         addTypes(_vars, _p.getSuperTypes());
         _vars.addParts(convert(_p.getInfo()));
     }

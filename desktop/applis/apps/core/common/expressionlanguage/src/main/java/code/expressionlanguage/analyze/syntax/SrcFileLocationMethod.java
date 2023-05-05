@@ -43,10 +43,15 @@ public final class SrcFileLocationMethod extends AbsSrcFileLocation {
                 return new RowSrcLocation(EnSrcLocation.METHOD,((OperatorBlock)acc_).getSignature(_dis)+"."+ m_.getSignature(_dis), getFileName(),getIndex());
             }
         }
-        if (owner instanceof RootBlock) {
-            return new RowSrcLocation(EnSrcLocation.METHOD,((RootBlock)owner).getFullName()+"."+ m_.getSignature(_dis), getFileName(),getIndex());
+        BracedBlock o_ = getOwner();
+        if (o_ instanceof RootBlock) {
+            return new RowSrcLocation(EnSrcLocation.METHOD,((RootBlock) o_).getFullName()+"."+ m_.getSignature(_dis), getFileName(),getIndex());
         }
         return new RowSrcLocation(EnSrcLocation.METHOD, m_.getSignature(_dis), getFileName(),getIndex());
+    }
+
+    public BracedBlock getOwner() {
+        return owner;
     }
 
     public MemberCallingsBlock getMethod() {

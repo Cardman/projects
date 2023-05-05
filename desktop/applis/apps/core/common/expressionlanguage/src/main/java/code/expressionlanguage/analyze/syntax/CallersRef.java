@@ -5,12 +5,15 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.StringMap;
 
 public final class CallersRef {
     private final CustList<FileBlockIndex> variablesParamsUse = new CustList<FileBlockIndex>();
@@ -24,7 +27,11 @@ public final class CallersRef {
 //    private final CustList<SrcFileLocation> directRefNamedStdCtor = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directRefImplCtor = new CustList<SrcFileLocation>();
     private final CustList<FileBlockIndex> callNamedUse = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> callNamedUsePoly = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> callNamedOverridden = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> callNamedOverriding = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> callNamedRefUse = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> callNamedRefUsePoly = new CustList<FileBlockIndex>();
 //    private final CustList<SrcFileLocation> directCallNamedRefAll = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directCallImplicits = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directNew = new CustList<SrcFileLocation>();
@@ -34,6 +41,8 @@ public final class CallersRef {
     public static CallersRef loop(AnalyzedPageEl _page, CustList<SrcFileLocation> _piano) {
         CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
         CallersRef c_ = new CallersRef();
+        c_.callNamedOverridden.addAllElts(feedOverridden(_page, _piano));
+        c_.callNamedOverriding.addAllElts(feedOverriding(_page, _piano));
         for (RootBlock r : _page.getAllFoundTypes()){
             c_.type(ls_, r);
         }
@@ -61,6 +70,34 @@ public final class CallersRef {
             c_.callingsCustDirect(o,_piano);
         }
         return c_;
+    }
+
+    private static CustList<FileBlockIndex> feedOverridden(AnalyzedPageEl _page, CustList<SrcFileLocation> _piano) {
+        CustList<FileBlockIndex> out_ = new CustList<FileBlockIndex>();
+        for (EntryCust<NamedCalledFunctionBlock, StringMap<GeneStringOverridable>> e: _page.getOverriding().entryList()) {
+            NamedCalledFunctionBlock redef_ = e.getKey();
+            SrcFileLocationMethod caller_ = new SrcFileLocationMethod(redef_.getParent(), redef_);
+            for (GeneStringOverridable g: e.getValue().values()) {
+                addIfMatch(new SrcFileLocationMethod(g.getType(),g.getBlock()),caller_,caller_.getFile(),caller_.getIndex(), out_, _piano);
+            }
+        }
+        return out_;
+    }
+
+    private static CustList<FileBlockIndex> feedOverriding(AnalyzedPageEl _page, CustList<SrcFileLocation> _piano) {
+        CustList<FileBlockIndex> out_ = new CustList<FileBlockIndex>();
+        for (EntryCust<NamedCalledFunctionBlock, StringMap<GeneStringOverridable>> e: _page.getOverriding().entryList()) {
+            NamedCalledFunctionBlock redef_ = e.getKey();
+            SrcFileLocationMethod caller_ = new SrcFileLocationMethod(redef_.getParent(), redef_);
+            for (SrcFileLocation s: _piano) {
+                if (s.match(caller_)) {
+                    for (GeneStringOverridable g: e.getValue().values()) {
+                        out_.add(new FileBlockIndex(caller_.getFile(),caller_.getIndex(),caller_,new SrcFileLocationMethod(g.getType(),g.getBlock())));
+                    }
+                }
+            }
+        }
+        return out_;
     }
 
     private void type(CustList<ResultExpressionBlock> _ls, RootBlock _r) {
@@ -346,7 +383,7 @@ public final class CallersRef {
 //        }
         if (o_ instanceof AbsFctOperation) {
             int delta_ = ((AbsFctOperation) o_).getDelta();
-            fctPub(_c,((AbsFctOperation)o_).getCallFctContent().getFunction(), delta_, _piano, callNamedUse);
+            fctPub(_c,!((AbsFctOperation)o_).isStaticChoiceMethod(),((AbsFctOperation)o_).getCallFctContent().getFunction(), delta_, _piano, callNamedUse,callNamedUsePoly);
             callStd(_c,((AbsFctOperation)o_).getCallFctContent().getStandardMethod(),((AbsFctOperation)o_).getCallFctContent().getStandardType(), delta_, _piano, callNamedUse);
         }
 //        if (_c instanceof CallDynMethodOperation) {
@@ -366,11 +403,21 @@ public final class CallersRef {
         }
     }
 
-    private void fctPub(ResultExpressionBlockOperation _c, AnaTypeFct _ct, int _offset, CustList<SrcFileLocation> _piano, CustList<FileBlockIndex> _out) {
+    private void fctPub(ResultExpressionBlockOperation _c, boolean _poly, AnaTypeFct _ct, int _offset, CustList<SrcFileLocation> _piano, CustList<FileBlockIndex> _out, CustList<FileBlockIndex> _outPoly) {
         FileBlock file_ = _c.getRes().getBlock().getFile();
         NamedFunctionBlock f_ = fct(_ct);
         if (f_ != null) {
-            addIfMatch(new SrcFileLocationMethod(_ct.getType(),f_),_c.getRes().getCaller(),file_,begin(_c)+_offset, _out,_piano);
+            SrcFileLocationMethod callee_ = new SrcFileLocationMethod(_ct.getType(), f_);
+            int index_ = begin(_c) + _offset;
+            SrcFileLocation caller_ = _c.getRes().getCaller();
+            addIfMatch(callee_, caller_,file_, index_, _out,_piano);
+            if (_poly) {
+                for (FileBlockIndex f: callNamedOverridden) {
+                    if (f.getCaller().match(callee_)) {
+                        _outPoly.add(new FileBlockIndex(file_, index_,f.getCallee(), caller_));
+                    }
+                }
+            }
         }
     }
 
@@ -514,7 +561,7 @@ public final class CallersRef {
 //            RootBlock r_ = function_.getType();
 //            addIfMatch(new SrcFileLocationType(r_),directRefImplCtor,_piano);
 //        }
-        fctPub(_c,_lda.getFunction(), _lda.getMemberOffset(), _piano, callNamedRefUse);
+        fctPub(_c,_lda.getLambdaMethodContent().isPolymorph(),_lda.getFunction(), _lda.getMemberOffset(), _piano, callNamedRefUse,callNamedRefUsePoly);
         callStd(_c,_lda.getStandardMethod(),_lda.getStandardType(), _lda.getMemberOffset(), _piano, callNamedRefUse);
         ClassField fieldId_ = _lda.getFieldId();
         if (fieldId_ != null) {
@@ -594,6 +641,22 @@ public final class CallersRef {
 
     public CustList<FileBlockIndex> getCallNamedRefUse() {
         return callNamedRefUse;
+    }
+
+    public CustList<FileBlockIndex> getCallNamedOverridden() {
+        return callNamedOverridden;
+    }
+
+    public CustList<FileBlockIndex> getCallNamedOverriding() {
+        return callNamedOverriding;
+    }
+
+    public CustList<FileBlockIndex> getCallNamedUsePoly() {
+        return callNamedUsePoly;
+    }
+
+    public CustList<FileBlockIndex> getCallNamedRefUsePoly() {
+        return callNamedRefUsePoly;
     }
 //    private static NamedFunctionBlock fct(AnaTypeFct _f) {
 //        if (_f == null) {

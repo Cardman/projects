@@ -18,6 +18,7 @@ import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.analyze.opers.SwitchOperation;
 import code.expressionlanguage.analyze.syntax.IntermediaryResults;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.InaccessibleType;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -159,6 +160,7 @@ public final class AnalyzedPageEl {
     private AbstractSymbolFactory abstractSymbolFactory;
     private StringMap<String> mappingKeyWords = new StringMap<String>();
     private StringMap<String> mappingAliases = new StringMap<String>();
+    private IdMap<NamedCalledFunctionBlock, StringMap<GeneStringOverridable>> overriding = new IdMap<NamedCalledFunctionBlock, StringMap<GeneStringOverridable>>();
     private boolean customAna;
 
     public static AnalyzedPageEl setInnerAnalyzing() {
@@ -1401,5 +1403,13 @@ public final class AnalyzedPageEl {
 
     public void setCustomAna(boolean _c) {
         this.customAna = _c;
+    }
+
+    public IdMap<NamedCalledFunctionBlock, StringMap<GeneStringOverridable>> getOverriding() {
+        return overriding;
+    }
+
+    public void setOverriding(IdMap<NamedCalledFunctionBlock, StringMap<GeneStringOverridable>> _o) {
+        this.overriding = _o;
     }
 }

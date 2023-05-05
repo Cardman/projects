@@ -24,7 +24,6 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.common.ExtractedParts;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -246,14 +245,14 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         allPartTypes_.add(resolvedIdType_.getDels());
         if (!(bl_ instanceof RootBlock)) {
             sum_ += _ov.length()+1;
-            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, null, 0, 0));
+            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_, null, 0, 0));
             return sum_;
         }
         RootBlock root_ = (RootBlock)bl_;
         AnaFormattedRootBlock formInfo_ = AnaInherits.getOverridingFullTypeByBases(root_, _root);
         if (formInfo_ == null) {
             sum_ += _ov.length()+1;
-            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, null, 0, 0));
+            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_, null, 0, 0));
             return sum_;
         }
         String sgn_ = parts_.last().substring(1);
@@ -261,7 +260,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         String nameLoc_ = extr_.getFirst();
         if (StringExpUtil.isIndexerOrInexist(nameLoc_)) {
             sum_ += _ov.length() + 1;
-            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, null, 0, 0));
+            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_, null, 0, 0));
             return sum_;
         }
         _page.setOffset(sum_ +indexDef_+1);
@@ -278,7 +277,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         if (formInfoDest_ == null) {
             allPartSuperTypes_.addAllElts(superPartOffsets_);
             sum_ += _ov.length()+1;
-            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, null, 0, 0));
+            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_, null, 0, 0));
             return sum_;
         }
         boolean retRef_ = false;
@@ -302,13 +301,13 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         if (methodIdDest_ == null) {
             allPartSuperTypes_.addAllElts(superPartOffsets_);
             sum_ += _ov.length()+1;
-            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null,null,  0, 0,resolved_.getInfo()));
+            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_, null,  0, 0,resolved_.getInfo()));
             return sum_;
         }
         if (!FormattedMethodId.eqPartial(new FormattedMethodId(getId().quickFormat(AnaInherits.getVarTypes(formInfo_))),new FormattedMethodId(methodIdDest_.quickFormat(AnaInherits.getVarTypes(formInfoDest_))))) {
             allPartSuperTypes_.addAllElts(superPartOffsets_);
             sum_ += _ov.length()+1;
-            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null,null,  0, 0));
+            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_, null,  0, 0));
             return sum_;
         }
         String retValue_ = AnaInherits.quickFormat(formInfo_,getImportedReturnType());
@@ -316,7 +315,6 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         for (TypeVar t: root_.getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        ClassMethodId id_ = null;
         AnaTypeFct fct_ = null;
         RootBlock formattedDestType_ = formInfoDest_.getRootBlock();
         CustList<NamedCalledFunctionBlock> methods_ = formattedDestType_.getOverridableBlocks();
@@ -325,13 +323,12 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
                 fct_ = new AnaTypeFct();
                 fct_.setType(formattedDestType_);
                 fct_.setFunction(m);
-                id_ = new ClassMethodId(clDest_, m.getId());
                 overrides.put(clKey_, new GeneStringOverridable(formInfoDest_, m));
                 break;
             }
         }
         allPartSuperTypes_.addAllElts(superPartOffsets_);
-        allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,id_,fct_, _page,off_+delta_, nameLocId_.length()));
+        allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_, fct_, _page,off_+delta_, nameLocId_.length()));
         sum_ += _ov.length()+1;
         return sum_;
     }
