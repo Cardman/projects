@@ -16,6 +16,8 @@ import code.util.EntryCust;
 import code.util.StringMap;
 
 public final class CallersRef {
+    private final CustList<ResultExpressionBlockLabel> breakContinue = new CustList<ResultExpressionBlockLabel>();
+    private final CustList<FileBlockIndex> labels = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> variablesParamsUse = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> fieldsUse = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> fieldsUseInit = new CustList<FileBlockIndex>();
@@ -65,6 +67,15 @@ public final class CallersRef {
         CustList<ResultExpressionBlockOperation> ops_ = new CustList<ResultExpressionBlockOperation>();
         for (ResultExpressionBlock r: ls_) {
             ops_.addAllElts(loopOperation(r));
+        }
+        for (ResultExpressionBlockLabel r: c_.breakContinue) {
+            AbsBk bl_ = r.getBlock();
+            if (bl_ instanceof BreakBlock) {
+                addIfMatch(new SrcFileLocationLabel(((BreakBlock)bl_).getLabel(),bl_.getFile(), ((BreakBlock)bl_).getLabelOffsetRef()),r.getCaller(),bl_.getFile(),bl_.getOffset()+bl_.getLengthHeader(),c_.labels,_piano);
+            }
+            if (bl_ instanceof ContinueBlock) {
+                addIfMatch(new SrcFileLocationLabel(((ContinueBlock)bl_).getLabel(),bl_.getFile(), ((ContinueBlock)bl_).getLabelOffsetRef()),r.getCaller(),bl_.getFile(),bl_.getOffset()+bl_.getLengthHeader(),c_.labels,_piano);
+            }
         }
         for (ResultExpressionBlockOperation o: ops_) {
             c_.callingsCustDirect(o,_piano);
@@ -203,6 +214,9 @@ public final class CallersRef {
 //            resSw(annotFields_,(SwitchMethodBlock)_en);
 //            return annotFields_;
 //        }
+        if (_en instanceof BreakBlock || _en instanceof ContinueBlock) {
+            breakContinue.add(new ResultExpressionBlockLabel(new SrcFileLocationMethod(_caller.getParent(),_caller),_en));
+        }
         return instrLook(_caller,_en);
     }
     private static CustList<ResultExpressionBlock> declared(OperationNode _root, AbsBk _en, RootBlock _type, ResultExpression _res) {
@@ -634,6 +648,10 @@ public final class CallersRef {
                 _ls.add(new FileBlockIndex(_currFile,_index,_c,_a));
             }
         }
+    }
+
+    public CustList<FileBlockIndex> getLabels() {
+        return labels;
     }
 
     public CustList<FileBlockIndex> getVariablesParamsUse() {
