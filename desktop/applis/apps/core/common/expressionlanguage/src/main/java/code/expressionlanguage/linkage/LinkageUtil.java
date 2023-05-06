@@ -1480,20 +1480,8 @@ public final class LinkageUtil {
     }
 
     private static void nameId(VariablesOffsets _vars, AbstractInstancingOperation _inst, String _uniqueFieldName, StringList _errs, int _fieldNameOffest) {
-        String err_ = getLineErr(_errs);
         AnaTypeFct ctor_ = _inst.getConstructor();
-        if (ctor_ != null) {
-            addParts(_vars, ctor_, _fieldNameOffest, _uniqueFieldName.length(), _errs, _errs, _fieldNameOffest);
-        } else {
-            String tag_;
-            if (!_errs.isEmpty()) {
-                tag_ = ExportCst.anchorNameErr(_fieldNameOffest, err_);
-            } else {
-                tag_ = ExportCst.anchorName(_fieldNameOffest);
-            }
-            _vars.addPart(new PartOffset(tag_, _fieldNameOffest));
-            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _fieldNameOffest + _uniqueFieldName.length()));
-        }
+        addParts(_vars, ctor_, _fieldNameOffest, _uniqueFieldName.length(), _errs, _errs, _fieldNameOffest);
     }
     private static void processFieldBlockReport(VariablesOffsets _vars, FieldBlock _cond, Coverage _cov) {
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
@@ -3994,7 +3982,14 @@ public final class LinkageUtil {
         String rel_ = getRelativize(_vars.getCurrentFile(), _id);
         if (rel_.isEmpty()) {
             if (!_errors.isEmpty()) {
-                return ExportCst.anchorErr(StringUtil.join(_errors,ExportCst.JOIN_ERR));
+                String err_ = getLineErr(_errors);
+                if (_name > -1) {
+                    return ExportCst.anchorNameErr(_name, err_);
+                }
+                return ExportCst.anchorErr(err_);
+            }
+            if (_name > -1) {
+                return ExportCst.anchorName(_name);
             }
             return "";
         }

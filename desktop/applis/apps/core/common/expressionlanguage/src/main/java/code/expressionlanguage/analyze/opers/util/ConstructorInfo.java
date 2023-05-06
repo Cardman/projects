@@ -17,7 +17,6 @@ public final class ConstructorInfo extends Parametrable {
     private ConstructorId formatted;
 
     private StandardConstructor constructor;
-    private boolean synthetic;
 
     @Override
     public MethodId toId() {
@@ -95,13 +94,5 @@ public final class ConstructorInfo extends Parametrable {
 
     public void setStCall(String _stCall) {
         getFormattedFilter().setStCall(_stCall);
-    }
-
-    public boolean isSynthetic() {
-        return synthetic;
-    }
-
-    public void setSynthetic(boolean _s) {
-        this.synthetic = _s;
     }
 }

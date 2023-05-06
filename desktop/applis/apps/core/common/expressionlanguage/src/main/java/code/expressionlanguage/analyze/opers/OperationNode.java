@@ -830,7 +830,6 @@ public abstract class OperationNode {
         mloc_.memberId(_type.getNumberAll(), -1);
         mloc_.constructorId(_clCurName, ctor_);
         mloc_.pair(_type, null);
-        mloc_.setSynthetic(true);
         return mloc_;
     }
 
@@ -882,11 +881,7 @@ public abstract class OperationNode {
         }
         setupContainer(_cInfo,_type, out_);
         out_.setRealId(_cInfo.getConstraints());
-        if (!_cInfo.isSynthetic()) {
-            out_.getParametrableContent().setPair(_cInfo.getParametrableContent().getPair());
-        } else {
-            out_.getParametrableContent().setPair(null);
-        }
+        out_.getParametrableContent().setPair(_cInfo.getParametrableContent().getPair());
         out_.setConstId(_cInfo.getFormatted());
         out_.getParametrableContent().setFileName(_cInfo.getParametrableContent().getFileName());
         out_.setStandardType(_cInfo.getStandardType());

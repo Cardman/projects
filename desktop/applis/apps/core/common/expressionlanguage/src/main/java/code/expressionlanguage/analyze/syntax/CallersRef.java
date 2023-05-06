@@ -36,6 +36,8 @@ public final class CallersRef {
     private final CustList<FileBlockIndex> callNamedOverriding = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> callNamedRefUse = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> callNamedRefUsePoly = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> instanceNewTypes = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> instanceNewTypesRef = new CustList<FileBlockIndex>();
 //    private final CustList<SrcFileLocation> directCallNamedRefAll = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directCallImplicits = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directNew = new CustList<SrcFileLocation>();
@@ -411,6 +413,7 @@ public final class CallersRef {
         if (o_ instanceof AbstractInstancingOperation) {
             fctPub(_c, ((AbstractInstancingOperation) o_).getConstructor(), 0, _piano, callNamedUse);
             callStd(_c, ((AbstractInstancingOperation) o_).getInstancingCommonContent().getConstructor(),((AbstractInstancingOperation) o_).getInstancingCommonContent().getStd(), 0, _piano, callNamedUse);
+            instanceNewTypes(_c, 0, _piano, ResultExpressionOperationNode.root(((AbstractInstancingOperation) o_).getConstructor()), instanceNewTypes);
         }
         if (o_ instanceof ArrOperation) {
             SrcFileLocationMethod callee_ = fctPub(_c, ((ArrOperation) o_).getFunctionGet(), 0, _piano, callNamedUse);
@@ -444,6 +447,14 @@ public final class CallersRef {
 //            fctPub(_c, ((AssocationOperation) o_).getFunction(), off_, _piano, callNamedFieldUse);
 //        }
     }
+
+    private static void instanceNewTypes(ResultExpressionBlockOperation _c, int _offset, CustList<SrcFileLocation> _piano, RootBlock _format, CustList<FileBlockIndex> _inst) {
+        FileBlock f_ = _c.getRes().getBlock().getFile();
+        if (_format != null) {
+            addIfMatch(new SrcFileLocationType(_format), _c.getRes().getCaller(), f_, begin(_c) + _offset, _inst, _piano);
+        }
+    }
+
     public void symbols(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
         OperationNode o_ = _c.getBlock();
         if (o_ instanceof SymbolOperation) {
@@ -474,7 +485,7 @@ public final class CallersRef {
 
     private SrcFileLocationMethod fctPub(ResultExpressionBlockOperation _c, AnaTypeFct _ct, int _offset, CustList<SrcFileLocation> _piano, CustList<FileBlockIndex> _out) {
         FileBlock file_ = _c.getRes().getBlock().getFile();
-        NamedFunctionBlock f_ = fct(_ct);
+        NamedFunctionBlock f_ = LambdaOperation.fct(_ct);
         if (f_ != null) {
             SrcFileLocationMethod callee_ = new SrcFileLocationMethod(_ct.getType(), f_);
             int index_ = begin(_c) + _offset;
@@ -504,12 +515,6 @@ public final class CallersRef {
         if (_std != null) {
             addIfMatch(new SrcFileLocationStdMethod(_type, _std),_c.getRes().getCaller(),file_,begin(_c)+_offset, _out,_piano);
         }
-    }
-    private static NamedFunctionBlock fct(AnaTypeFct _f) {
-        if (_f == null) {
-            return null;
-        }
-        return _f.getFunction();
     }
 
     private static int begin(ResultExpressionBlockOperation _b) {
@@ -639,6 +644,7 @@ public final class CallersRef {
 //            RootBlock r_ = function_.getType();
 //            addIfMatch(new SrcFileLocationType(r_),directRefImplCtor,_piano);
 //        }
+        instanceNewTypes(_c, _lda.getMemberOffset(), _piano, ResultExpressionOperationNode.root(_lda), instanceNewTypesRef);
         SrcFileLocationMethod callee_ = fctPub(_c, _lda.getFunction(), _lda.getMemberOffset(), _piano, callNamedRefUse);
         poly(_c,callee_,_lda.getLambdaMethodContent().isPolymorph(),_lda.getMemberOffset(),callNamedRefUsePoly);
         callStd(_c,_lda.getStandardMethod(),_lda.getStandardType(), _lda.getMemberOffset(), _piano, callNamedRefUse);
@@ -741,6 +747,14 @@ public final class CallersRef {
 
     public CustList<FileBlockIndex> getCallNamedRefUsePoly() {
         return callNamedRefUsePoly;
+    }
+
+    public CustList<FileBlockIndex> getInstanceNewTypes() {
+        return instanceNewTypes;
+    }
+
+    public CustList<FileBlockIndex> getInstanceNewTypesRef() {
+        return instanceNewTypesRef;
     }
 
 //    public CustList<FileBlockIndex> getCallNamedFieldUse() {

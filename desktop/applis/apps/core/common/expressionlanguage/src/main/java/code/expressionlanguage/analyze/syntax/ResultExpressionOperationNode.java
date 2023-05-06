@@ -13,7 +13,6 @@ import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.expressionlanguage.analyze.types.LocationsPartTypeUtil;
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.CstFieldInfo;
@@ -503,6 +502,7 @@ public final class ResultExpressionOperationNode {
         ctStd(_lda.getStandardConstructor(), _lda.getStandardType(), def_);
         callStd(_lda.getStandardMethod(), _lda.getStandardType(), def_);
         fctPub(function_, def_);
+        timbre(root(_lda),def_);
         if (!def_.isEmpty()) {
             return def_;
         }
@@ -584,14 +584,15 @@ public final class ResultExpressionOperationNode {
         CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
         ctStd(std_, _maintenant.getInstancingCommonContent().getStd(), ls_);
         fctPub(constructor_, ls_);
-        AnaFormattedRootBlock format_ = _maintenant.getFormattedType();
-        if (format_ != null) {
-            RootBlock r_ = format_.getRootBlock();
-            ls_.add(new SrcFileLocationType(r_));
-        }
+        timbre(root(constructor_),ls_);
         return ls_;
     }
 
+    private static void timbre(RootBlock _root, CustList<SrcFileLocation> _dest) {
+        if (_root != null) {
+            _dest.add(new SrcFileLocationType(_root));
+        }
+    }
     private static void ctStd(StandardConstructor _std, StandardType _type, CustList<SrcFileLocation> _ls) {
         if (_std != null) {
             _ls.add(new SrcFileLocationStdMethod(_type, _std));
@@ -599,7 +600,7 @@ public final class ResultExpressionOperationNode {
     }
 
     private static void fctPub(AnaTypeFct _ct, CustList<SrcFileLocation> _ls) {
-        NamedFunctionBlock f_ = fct(_ct);
+        NamedFunctionBlock f_ = LambdaOperation.fct(_ct);
         if (f_ != null) {
             _ls.add(new SrcFileLocationMethod(_ct.getType(),f_));
         }
@@ -652,16 +653,22 @@ public final class ResultExpressionOperationNode {
 
     private static NamedFunctionBlock fct(AnaCallFctContent _c) {
         AnaTypeFct f_ = _c.getFunction();
-        return fct(f_);
+        return LambdaOperation.fct(f_);
     }
 
-    private static NamedFunctionBlock fct(AnaTypeFct _f) {
+    static RootBlock root(LambdaOperation _f) {
+        if (_f.getMethod() != null) {
+            return null;
+        }
+        return root(_f.getFunction());
+    }
+
+    static RootBlock root(AnaTypeFct _f) {
         if (_f == null) {
             return null;
         }
-        return _f.getFunction();
+        return _f.getType();
     }
-
     public static ResultExpressionOperationNode container(int _caret, FileBlock _file) {
         AbsBk sub_ = _file;
         ResultExpressionOperationNode out_ = new ResultExpressionOperationNode();
