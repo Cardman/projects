@@ -3297,9 +3297,11 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",43);
-        assertEq(1,r_.size());
+        assertEq(2,r_.size());
         assertEq(54,r_.get(0).getIndex());
         assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(15,r_.get(1).getIndex());
+        assertEq("pkg/Ex",r_.get(1).getFileName());
     }
     @Test
     public void locations93() {

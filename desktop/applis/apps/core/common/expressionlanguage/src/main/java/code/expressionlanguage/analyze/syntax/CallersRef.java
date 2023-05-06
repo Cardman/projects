@@ -37,6 +37,7 @@ public final class CallersRef {
     private final CustList<FileBlockIndex> callNamedRefUse = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> callNamedRefUsePoly = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> instanceNewTypes = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> instanceNewTypesFwd = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> instanceNewTypesRef = new CustList<FileBlockIndex>();
 //    private final CustList<SrcFileLocation> directCallNamedRefAll = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directCallImplicits = new CustList<SrcFileLocation>();
@@ -385,22 +386,6 @@ public final class CallersRef {
         if (o_ instanceof SettableFieldOperation) {
             feelIt(_c, (SettableFieldOperation) o_,_piano);
         }
-//        if (_c instanceof AbstractInvokingConstructor) {
-//            fctPub(((AbstractInvokingConstructor)_c).getConstructor(), directNewInherits, _piano);
-//        }
-//        if (_c instanceof AbstractInstancingOperation) {
-//            AnaTypeFct cto_ = ((AbstractInstancingOperation) _c).getConstructor();
-//            if (cto_ != null) {
-//                fctPub(cto_, directNew, _piano);
-//            } else {
-//                AnaFormattedRootBlock format_ = ((AbstractInstancingOperation) _c).getFormattedType();
-//                if (format_ != null) {
-//                    RootBlock r_ = format_.getRootBlock();
-//                    addIfMatch(new SrcFileLocationType(r_),directNewTypes,_piano);
-//                }
-//            }
-//            ctStd(((AbstractInstancingOperation) _c).getInstancingCommonContent().getConstructor(), ((AbstractInstancingOperation) _c).getInstancingCommonContent().getStd(), directNewStd, _piano);
-//        }
         if (o_ instanceof AbsFctOperation) {
             int delta_ = ((AbsFctOperation) o_).getDelta();
             SrcFileLocationMethod callee_ = fctPub(_c, ((AbsFctOperation) o_).getCallFctContent().getFunction(), delta_, _piano, callNamedUse);
@@ -409,6 +394,7 @@ public final class CallersRef {
         }
         if (o_ instanceof AbstractInvokingConstructor) {
             fctPub(_c, ((AbstractInvokingConstructor) o_).getConstructor(), 0, _piano, callNamedUse);
+            instanceNewTypes(_c, 0, _piano, ResultExpressionOperationNode.root(((AbstractInvokingConstructor) o_).getConstructor()), instanceNewTypesFwd);
         }
         if (o_ instanceof AbstractInstancingOperation) {
             fctPub(_c, ((AbstractInstancingOperation) o_).getConstructor(), 0, _piano, callNamedUse);
@@ -755,6 +741,10 @@ public final class CallersRef {
 
     public CustList<FileBlockIndex> getInstanceNewTypesRef() {
         return instanceNewTypesRef;
+    }
+
+    public CustList<FileBlockIndex> getInstanceNewTypesFwd() {
+        return instanceNewTypesFwd;
     }
 
 //    public CustList<FileBlockIndex> getCallNamedFieldUse() {

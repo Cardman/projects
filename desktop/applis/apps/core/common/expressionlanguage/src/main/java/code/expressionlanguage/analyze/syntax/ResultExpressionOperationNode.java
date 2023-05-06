@@ -326,7 +326,9 @@ public final class ResultExpressionOperationNode {
         if (!ls_.isEmpty()) {
             return ls_;
         }
-        fctPub(_foundOp.getConstructor(), ls_);
+        AnaTypeFct constructor_ = _foundOp.getConstructor();
+        fctPub(constructor_, ls_);
+        timbre(root(constructor_),ls_);
         return ls_;
     }
 

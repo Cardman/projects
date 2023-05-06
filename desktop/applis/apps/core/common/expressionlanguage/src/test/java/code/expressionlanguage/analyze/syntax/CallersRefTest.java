@@ -1554,6 +1554,29 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq(38,r_.getInstanceNewTypesRef().get(0).getCaller().getIndex());
         assertEq("pkg/Ex2",r_.getInstanceNewTypesRef().get(0).getCaller().getFile().getFileName());
     }
+    @Test
+    public void refs54() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer:Outer2 {\n");
+        xml_.append("$public Outer(){$super();}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer2 {\n");
+        xml_.append("$int field;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex",50);
+        assertEq(1,r_.getInstanceNewTypesFwd().size());
+        assertEq(50,r_.getInstanceNewTypesFwd().get(0).getIndex());
+        assertEq("pkg/Ex",r_.getInstanceNewTypesFwd().get(0).getFile().getFileName());
+        assertEq(15,r_.getInstanceNewTypesFwd().get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2",r_.getInstanceNewTypesFwd().get(0).getCallee().getFile().getFileName());
+        assertEq(34,r_.getInstanceNewTypesFwd().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getInstanceNewTypesFwd().get(0).getCaller().getFile().getFileName());
+    }
 //    @Test
 //    public void refs__() {
 //        StringMap<String> files_ = new StringMap<String>();
