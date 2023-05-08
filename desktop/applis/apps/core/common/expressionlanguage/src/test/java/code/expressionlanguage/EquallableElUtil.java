@@ -100,6 +100,9 @@ public abstract class EquallableElUtil {
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
     }
+    public static void assertSame(StandardNamedFunction _expected, StandardNamedFunction _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertSame(MatchingEnum _expected, MatchingEnum _result) {
         Assert.assertSame(_expected, _result);
     }
