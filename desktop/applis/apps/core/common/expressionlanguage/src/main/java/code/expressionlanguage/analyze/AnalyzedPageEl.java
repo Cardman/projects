@@ -345,6 +345,18 @@ public final class AnalyzedPageEl {
         return content.getReflect().getAliasClassType();
     }
 
+    public String getAliasField() {
+        return content.getReflect().getAliasField();
+    }
+
+    public String getAliasMethod() {
+        return content.getReflect().getAliasMethod();
+    }
+
+    public String getAliasConstructor() {
+        return content.getReflect().getAliasConstructor();
+    }
+
     public String getAliasClone() {
         return content.getCoreNames().getAliasClone();
     }

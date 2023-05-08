@@ -2101,6 +2101,42 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
         assertSame(EnSrcLocation.ANNOTATION,r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().build(null).getKind());
     }
+    @Test
+    public void refs68() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("@Annot(f=2)\n");
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE(1),\n");
+        xml_.append("TWO(2);\n");
+        xml_.append("($int i){\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.Annot{\n");
+        xml_.append("$int f();\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Caller{\n");
+        xml_.append("$int f=((Annot)$class(Outer).getDeclaredFields(\"ONE\")[0].getAnnotations()[0]).f();\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex",7);
+        assertEq(1,r_.getCallNamedFieldUse().size());
+        assertEq(7,r_.getCallNamedFieldUse().get(0).getIndex());
+        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getFile().getFileName());
+        assertEq(104,r_.getCallNamedFieldUse().get(0).getCallee().getIndex());
+        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCallee().getFile().getFileName());
+        assertEq(0,r_.getCallNamedFieldUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCaller().getFile().getFileName());
+        assertEq(0,r_.getAnnotCandidatesCallsInitMembers().size());
+        assertEq(1,r_.getCallNamedUse().size());
+        assertEq(216,r_.getCallNamedUse().get(0).getIndex());
+        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
+        assertEq(104,r_.getCallNamedUse().get(0).getCallee().getIndex());
+        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
+        assertEq(143,r_.getCallNamedUse().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+    }
     private static CallersRef refs(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return CallersRef.loop(a_,ResultExpressionOperationNode.locations(a_,_fileName,_caret));
