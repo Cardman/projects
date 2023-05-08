@@ -160,7 +160,9 @@ public final class CallersRef {
     }
 
     private void type(CustList<ResultExpressionBlock> _ls, RootBlock _r) {
-        _ls.addAllElts(rootBlock(null,_r));
+        if (!(_r instanceof InfoBlock)) {
+            _ls.addAllElts(rootBlock(null,_r));
+        }
         for (InfoBlock i: _r.getFieldsBlocks()) {
             _ls.addAllElts(rootBlock(null,(AbsBk) i));
         }
