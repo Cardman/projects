@@ -1609,13 +1609,13 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getFile().getFileName());
         assertEq(26,r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getFile().getFileName());
+        assertEq(143,r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getFile().getFileName());
         assertEq(1,r_.getAnnotCandidatesCallsStdMembers().size());
         assertEq(195,r_.getAnnotCandidatesCallsStdMembers().get(0).getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdMembers().get(0).getFile().getFileName());
         assertEq(143,r_.getAnnotCandidatesCallsStdMembers().get(0).getCaller().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdMembers().get(0).getCaller().getFile().getFileName());
-        assertTrue(r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().match(r_.getAnnotCandidatesCallsStdMembers().get(0).getCallee()));
-        assertSame(((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller()).getStd(),((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsStdMembers().get(0).getCallee()).getStd());
         assertEq(1,r_.getCallNamedUse().size());
         assertEq(216,r_.getCallNamedUse().get(0).getIndex());
         assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
@@ -1657,13 +1657,13 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getFile().getFileName());
         assertEq(26,r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getFile().getFileName());
+        assertEq(143,r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getFile().getFileName());
         assertEq(1,r_.getAnnotCandidatesCallsStdMembers().size());
         assertEq(195,r_.getAnnotCandidatesCallsStdMembers().get(0).getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdMembers().get(0).getFile().getFileName());
         assertEq(143,r_.getAnnotCandidatesCallsStdMembers().get(0).getCaller().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdMembers().get(0).getCaller().getFile().getFileName());
-        assertTrue(r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().match(r_.getAnnotCandidatesCallsStdMembers().get(0).getCallee()));
-        assertSame(((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller()).getStd(),((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsStdMembers().get(0).getCallee()).getStd());
     }
     @Test
     public void refs57() {
@@ -1689,6 +1689,7 @@ public final class CallersRefTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         CallersRef r_ = refs(files_,"pkg/Ex",33);
         assertEq(0,r_.getAnnotCandidatesCallsInitMembers().size());
+        assertEq(0,r_.getAnnotCandidatesCallsInitByStd().size());
     }
     @Test
     public void refs58() {
@@ -1723,13 +1724,13 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getFile().getFileName());
         assertEq(26,r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getFile().getFileName());
+        assertEq(143,r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getFile().getFileName());
         assertEq(1,r_.getAnnotCandidatesCallsStdMembers().size());
         assertEq(195,r_.getAnnotCandidatesCallsStdMembers().get(0).getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdMembers().get(0).getFile().getFileName());
         assertEq(143,r_.getAnnotCandidatesCallsStdMembers().get(0).getCaller().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdMembers().get(0).getCaller().getFile().getFileName());
-        assertTrue(r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().match(r_.getAnnotCandidatesCallsStdMembers().get(0).getCallee()));
-        assertSame(((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller()).getStd(),((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsStdMembers().get(0).getCallee()).getStd());
     }
     @Test
     public void refs59() {
@@ -1763,13 +1764,13 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitParameters().get(0).getFile().getFileName());
         assertEq(44,r_.getAnnotCandidatesCallsInitParameters().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitParameters().get(0).getCallee().getFile().getFileName());
+        assertEq(143,r_.getAnnotCandidatesCallsInitParameters().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitParameters().get(0).getCaller().getFile().getFileName());
         assertEq(1,r_.getAnnotCandidatesCallsStdParameters().size());
         assertEq(196,r_.getAnnotCandidatesCallsStdParameters().get(0).getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdParameters().get(0).getFile().getFileName());
         assertEq(143,r_.getAnnotCandidatesCallsStdParameters().get(0).getCaller().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdParameters().get(0).getCaller().getFile().getFileName());
-        assertTrue(r_.getAnnotCandidatesCallsInitParameters().get(0).getCaller().match(r_.getAnnotCandidatesCallsStdParameters().get(0).getCallee()));
-        assertSame(((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsInitParameters().get(0).getCaller()).getStd(),((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsStdParameters().get(0).getCallee()).getStd());
         assertEq(1,r_.getCallNamedUse().size());
         assertEq(227,r_.getCallNamedUse().get(0).getIndex());
         assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
@@ -1811,13 +1812,13 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitParameters().get(0).getFile().getFileName());
         assertEq(44,r_.getAnnotCandidatesCallsInitParameters().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitParameters().get(0).getCallee().getFile().getFileName());
+        assertEq(143,r_.getAnnotCandidatesCallsInitParameters().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitParameters().get(0).getCaller().getFile().getFileName());
         assertEq(1,r_.getAnnotCandidatesCallsStdParameters().size());
         assertEq(196,r_.getAnnotCandidatesCallsStdParameters().get(0).getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdParameters().get(0).getFile().getFileName());
         assertEq(143,r_.getAnnotCandidatesCallsStdParameters().get(0).getCaller().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdParameters().get(0).getCaller().getFile().getFileName());
-        assertTrue(r_.getAnnotCandidatesCallsInitParameters().get(0).getCaller().match(r_.getAnnotCandidatesCallsStdParameters().get(0).getCallee()));
-        assertSame(((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsInitParameters().get(0).getCaller()).getStd(),((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsStdParameters().get(0).getCallee()).getStd());
         assertEq(1,r_.getCallNamedUse().size());
         assertEq(240,r_.getCallNamedUse().get(0).getIndex());
         assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
@@ -1859,13 +1860,13 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitSuppl().get(0).getFile().getFileName());
         assertEq(62,r_.getAnnotCandidatesCallsInitSuppl().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitSuppl().get(0).getCallee().getFile().getFileName());
+        assertEq(166,r_.getAnnotCandidatesCallsInitSuppl().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitSuppl().get(0).getCaller().getFile().getFileName());
         assertEq(1,r_.getAnnotCandidatesCallsStdSuppl().size());
         assertEq(214,r_.getAnnotCandidatesCallsStdSuppl().get(0).getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdSuppl().get(0).getFile().getFileName());
         assertEq(166,r_.getAnnotCandidatesCallsStdSuppl().get(0).getCaller().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdSuppl().get(0).getCaller().getFile().getFileName());
-        assertTrue(r_.getAnnotCandidatesCallsInitSuppl().get(0).getCaller().match(r_.getAnnotCandidatesCallsStdSuppl().get(0).getCallee()));
-        assertSame(((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsInitSuppl().get(0).getCaller()).getStd(),((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsStdSuppl().get(0).getCallee()).getStd());
         assertEq(1,r_.getCallNamedUse().size());
         assertEq(239,r_.getCallNamedUse().get(0).getIndex());
         assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
@@ -1907,13 +1908,13 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitSuppl().get(0).getFile().getFileName());
         assertEq(62,r_.getAnnotCandidatesCallsInitSuppl().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitSuppl().get(0).getCallee().getFile().getFileName());
+        assertEq(166,r_.getAnnotCandidatesCallsInitSuppl().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitSuppl().get(0).getCaller().getFile().getFileName());
         assertEq(1,r_.getAnnotCandidatesCallsStdSuppl().size());
         assertEq(214,r_.getAnnotCandidatesCallsStdSuppl().get(0).getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdSuppl().get(0).getFile().getFileName());
         assertEq(166,r_.getAnnotCandidatesCallsStdSuppl().get(0).getCaller().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdSuppl().get(0).getCaller().getFile().getFileName());
-        assertTrue(r_.getAnnotCandidatesCallsInitSuppl().get(0).getCaller().match(r_.getAnnotCandidatesCallsStdSuppl().get(0).getCallee()));
-        assertSame(((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsInitSuppl().get(0).getCaller()).getStd(),((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsStdSuppl().get(0).getCallee()).getStd());
         assertEq(1,r_.getCallNamedUse().size());
         assertEq(252,r_.getCallNamedUse().get(0).getIndex());
         assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
@@ -1956,13 +1957,13 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitDefValue().get(0).getFile().getFileName());
         assertEq(127,r_.getAnnotCandidatesCallsInitDefValue().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitDefValue().get(0).getCallee().getFile().getFileName());
+        assertEq(177,r_.getAnnotCandidatesCallsInitDefValue().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitDefValue().get(0).getCaller().getFile().getFileName());
         assertEq(1,r_.getAnnotCandidatesCallsStdDefValue().size());
         assertEq(225,r_.getAnnotCandidatesCallsStdDefValue().get(0).getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdDefValue().get(0).getFile().getFileName());
         assertEq(177,r_.getAnnotCandidatesCallsStdDefValue().get(0).getCaller().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdDefValue().get(0).getCaller().getFile().getFileName());
-        assertTrue(r_.getAnnotCandidatesCallsInitDefValue().get(0).getCaller().match(r_.getAnnotCandidatesCallsStdDefValue().get(0).getCallee()));
-        assertSame(((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsInitDefValue().get(0).getCaller()).getStd(),((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsStdDefValue().get(0).getCallee()).getStd());
         assertEq(1,r_.getCallNamedUse().size());
         assertEq(244,r_.getCallNamedUse().get(0).getIndex());
         assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
@@ -2045,13 +2046,13 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getFile().getFileName());
         assertEq(26,r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getFile().getFileName());
+        assertEq(143,r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getFile().getFileName());
         assertEq(1,r_.getAnnotCandidatesCallsStdMembers().size());
         assertEq(195,r_.getAnnotCandidatesCallsStdMembers().get(0).getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdMembers().get(0).getFile().getFileName());
         assertEq(143,r_.getAnnotCandidatesCallsStdMembers().get(0).getCaller().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdMembers().get(0).getCaller().getFile().getFileName());
-        assertTrue(r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().match(r_.getAnnotCandidatesCallsStdMembers().get(0).getCallee()));
-        assertSame(((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller()).getStd(),((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsStdMembers().get(0).getCallee()).getStd());
     }
     @Test
     public void refs67() {
@@ -2085,13 +2086,13 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getFile().getFileName());
         assertEq(0,r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getFile().getFileName());
+        assertEq(143,r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getFile().getFileName());
         assertEq(1,r_.getAnnotCandidatesCallsStdMembers().size());
         assertEq(167,r_.getAnnotCandidatesCallsStdMembers().get(0).getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdMembers().get(0).getFile().getFileName());
         assertEq(143,r_.getAnnotCandidatesCallsStdMembers().get(0).getCaller().getIndex());
         assertEq("pkg/Ex",r_.getAnnotCandidatesCallsStdMembers().get(0).getCaller().getFile().getFileName());
-        assertTrue(r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().match(r_.getAnnotCandidatesCallsStdMembers().get(0).getCallee()));
-        assertSame(((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller()).getStd(),((SrcFileLocationStdMethod)r_.getAnnotCandidatesCallsStdMembers().get(0).getCallee()).getStd());
         assertEq(1,r_.getCallNamedUse().size());
         assertEq(188,r_.getCallNamedUse().get(0).getIndex());
         assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());

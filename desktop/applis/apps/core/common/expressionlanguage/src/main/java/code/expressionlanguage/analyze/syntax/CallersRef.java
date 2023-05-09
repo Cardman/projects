@@ -65,6 +65,7 @@ public final class CallersRef {
     private final CustList<FileBlockIndex> annotCandidatesCallsInitParameters = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> annotCandidatesCallsInitSuppl = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> annotCandidatesCallsInitDefValue = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> annotCandidatesCallsInitByStd = new CustList<FileBlockIndex>();
     private final CustList<ResultExpressionBlockOperation> annotCandidatesCallsMembers = new CustList<ResultExpressionBlockOperation>();
     private final CustList<ResultExpressionBlockOperation> annotCandidatesCallsParameters = new CustList<ResultExpressionBlockOperation>();
     private final CustList<ResultExpressionBlockOperation> annotCandidatesCallsSuppl = new CustList<ResultExpressionBlockOperation>();
@@ -122,10 +123,10 @@ public final class CallersRef {
         for (ResultExpressionBlockOperation o: ops_) {
             c_.lookForDynCall(_page,o);
         }
-        feed(_page, c_.annotCandidatesCallsStdMembers,c_.annotCandidatesMembers,c_.annotCandidatesCallsMembers,c_.annotCandidatesCallsInitMembers);
-        feed(_page, c_.annotCandidatesCallsStdParameters,c_.annotCandidatesParameters,c_.annotCandidatesCallsParameters,c_.annotCandidatesCallsInitParameters);
-        feed(_page, c_.annotCandidatesCallsStdSuppl,c_.annotCandidatesSuppl,c_.annotCandidatesCallsSuppl,c_.annotCandidatesCallsInitSuppl);
-        feed(_page, c_.annotCandidatesCallsStdDefValue,c_.annotCandidatesDefValue,c_.annotCandidatesCallsDefValue,c_.annotCandidatesCallsInitDefValue);
+        feed(_page, c_.annotCandidatesCallsStdMembers,c_.annotCandidatesMembers,c_.annotCandidatesCallsMembers,c_.annotCandidatesCallsInitMembers,c_.annotCandidatesCallsInitByStd);
+        feed(_page, c_.annotCandidatesCallsStdParameters,c_.annotCandidatesParameters,c_.annotCandidatesCallsParameters,c_.annotCandidatesCallsInitParameters,c_.annotCandidatesCallsInitByStd);
+        feed(_page, c_.annotCandidatesCallsStdSuppl,c_.annotCandidatesSuppl,c_.annotCandidatesCallsSuppl,c_.annotCandidatesCallsInitSuppl,c_.annotCandidatesCallsInitByStd);
+        feed(_page, c_.annotCandidatesCallsStdDefValue,c_.annotCandidatesDefValue,c_.annotCandidatesCallsDefValue,c_.annotCandidatesCallsInitDefValue,c_.annotCandidatesCallsInitByStd);
         for (ResultExpressionBlockOperation o: ops_) {
             c_.callingsCustDirect(o,_piano);
             c_.symbols(o,_piano);
@@ -156,12 +157,13 @@ public final class CallersRef {
         return false;
     }
 
-    private static void feed(AnalyzedPageEl _page, CustList<FileBlockIndex> _f, CustList<MemberAnnotFilterCall> _candidates, CustList<ResultExpressionBlockOperation> _a, CustList<FileBlockIndex> _c) {
+    private static void feed(AnalyzedPageEl _page, CustList<FileBlockIndex> _f, CustList<MemberAnnotFilterCall> _candidates, CustList<ResultExpressionBlockOperation> _a, CustList<FileBlockIndex> _c, CustList<FileBlockIndex> _byStd) {
         for (FileBlockIndex f: _f) {
             for (ResultExpressionBlockOperation e: _a) {
                 CustList<String> m_ = matches(_page, e, _candidates);
                 if (StringUtil.contains(m_, TRIM_FILTER) || StringUtil.contains(m_, e.getRes().getRes().getRoot().getResultClass().getSingleNameOrEmpty())) {
-                    _c.add(new FileBlockIndex(f.getFile(), f.getIndex(), e.getRes().getCaller(), f.getCallee()));
+                    _byStd.add(new FileBlockIndex(f.getFile(), f.getIndex(), e.getRes().getCaller(), f.getCallee()));
+                    _c.add(new FileBlockIndex(f.getFile(), f.getIndex(), e.getRes().getCaller(), f.getCaller()));
                 }
             }
         }
@@ -1014,6 +1016,10 @@ public final class CallersRef {
 
     public CustList<FileBlockIndex> getAnnotCandidatesCallsInitSuppl() {
         return annotCandidatesCallsInitSuppl;
+    }
+
+    public CustList<FileBlockIndex> getAnnotCandidatesCallsInitByStd() {
+        return annotCandidatesCallsInitByStd;
     }
 
     public CustList<FileBlockIndex> getAnnotCandidatesCallsInitDefValue() {
