@@ -2378,6 +2378,40 @@ public final class CallersRefTest extends ProcessMethodCommon {
         CallersRef r_ = refs(files_,"pkg/Ex2",78);
         assertEq(0,r_.getDynCallPotential().size());
     }
+    @Test
+    public void refs79() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public @$class pkg.Outer:Outer3 {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$Fct<$byte,Outer> fct;\n");
+        xml_.append("{fct=$lambda(Outer,$new,Outer3.field);}\n");
+        xml_.append("{fct.call(1y);}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Outer3 {\n");
+        xml_.append("$int field;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex3", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex2",93);
+        assertEq(1,r_.getDynCallPotential().size());
+        assertEq(107,r_.getDynCallPotential().get(0).getIndex());
+        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getFile().getFileName());
+        assertEq(37,r_.getDynCallPotential().get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3",r_.getDynCallPotential().get(0).getCallee().getFile().getFileName());
+        assertEq(101,r_.getDynCallPotential().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getCaller().getFile().getFileName());
+    }
     private static CallersRef refs(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return CallersRef.loop(a_,ResultExpressionOperationNode.locations(a_,_fileName,_caret));
