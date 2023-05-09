@@ -5,11 +5,16 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.ResultParsedAnnot;
 import code.expressionlanguage.analyze.files.ResultParsedAnnots;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.DimComp;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fcts.*;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
@@ -19,6 +24,7 @@ import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.util.CustList;
 import code.util.EntryCust;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -63,6 +69,10 @@ public final class CallersRef {
     private final CustList<ResultExpressionBlockOperation> annotCandidatesCallsParameters = new CustList<ResultExpressionBlockOperation>();
     private final CustList<ResultExpressionBlockOperation> annotCandidatesCallsSuppl = new CustList<ResultExpressionBlockOperation>();
     private final CustList<ResultExpressionBlockOperation> annotCandidatesCallsDefValue = new CustList<ResultExpressionBlockOperation>();
+    private final CustList<FileBlockIndex> dynCallStd = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> dynCallPotential = new CustList<FileBlockIndex>();
+    private final CustList<String> dynCallRefer = new CustList<String>();
+    private final CustList<LambdaDynFilterCall> lambda = new CustList<LambdaDynFilterCall>();
     //    private final CustList<SrcFileLocation> directCallNamedRefAll = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directCallImplicits = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directNew = new CustList<SrcFileLocation>();
@@ -109,6 +119,9 @@ public final class CallersRef {
         for (ResultExpressionBlockOperation o: ops_) {
             c_.lookForAnnotationsCandidates(o);
         }
+        for (ResultExpressionBlockOperation o: ops_) {
+            c_.lookForDynCall(_page,o);
+        }
         feed(_page, c_.annotCandidatesCallsStdMembers,c_.annotCandidatesMembers,c_.annotCandidatesCallsMembers,c_.annotCandidatesCallsInitMembers);
         feed(_page, c_.annotCandidatesCallsStdParameters,c_.annotCandidatesParameters,c_.annotCandidatesCallsParameters,c_.annotCandidatesCallsInitParameters);
         feed(_page, c_.annotCandidatesCallsStdSuppl,c_.annotCandidatesSuppl,c_.annotCandidatesCallsSuppl,c_.annotCandidatesCallsInitSuppl);
@@ -118,7 +131,29 @@ public final class CallersRef {
             c_.symbols(o,_piano);
             c_.fctPub(o,o.getBlock().getResultClass().getFunction(),0, _piano, c_.callNamedUseImpl);
         }
+        callDyn(_page, c_.dynCallStd, c_.dynCallRefer, c_.lambda, c_.dynCallPotential);
         return c_;
+    }
+
+    private static void callDyn(AnalyzedPageEl _page, CustList<FileBlockIndex> _d, CustList<String> _c, CustList<LambdaDynFilterCall> _r, CustList<FileBlockIndex> _pot) {
+        for (FileBlockIndex f: _d) {
+            for (LambdaDynFilterCall e: _r) {
+                if (matchesCall(_page,e,_c)) {
+                    _pot.add(new FileBlockIndex(f.getFile(), f.getIndex(), e.getCalleeRef(), f.getCaller()));
+                }
+            }
+        }
+    }
+    private static boolean matchesCall(AnalyzedPageEl _page, LambdaDynFilterCall _e, CustList<String> _candidates) {
+        for (String c: _candidates) {
+            Mapping m_ = new Mapping();
+            m_.setArg(_e.getLambda());
+            m_.setParam(c);
+            if (AnaInherits.isCorrectOrNumbers(m_,_page)){
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void feed(AnalyzedPageEl _page, CustList<FileBlockIndex> _f, CustList<MemberAnnotFilterCall> _candidates, CustList<ResultExpressionBlockOperation> _a, CustList<FileBlockIndex> _c) {
@@ -488,6 +523,60 @@ public final class CallersRef {
             }
         }
     }
+    public void lookForDynCall(AnalyzedPageEl _page,ResultExpressionBlockOperation _c) {
+        OperationNode o_ = _c.getBlock();
+        FileBlock f_ = _c.getRes().getBlock().getFile();
+        SrcFileLocation caller_ = _c.getRes().getCaller();
+        if (o_ instanceof CallDynMethodOperation) {
+            int delta_ = ((CallDynMethodOperation) o_).getOffsetFct();
+            int index_ = begin(_c) + delta_;
+            StandardMethod s_ = ((CallDynMethodOperation) o_).getStdMethod();
+            if (s_ != null && !((CallDynMethodOperation) o_).getRefer().isEmpty()) {
+                dynCallStd.add(new FileBlockIndex(f_,index_,new SrcFileLocationStdMethod(((CallDynMethodOperation) o_).getStdType(),s_),caller_));
+                dynCallRefer.add(transform(_page,((CallDynMethodOperation) o_).getRefer()));
+            }
+        }
+    }
+    private static String transform(AnalyzedPageEl _page,String _in) {
+        StringList parts_ = StringExpUtil.getAllTypes(_in);
+        int s_ = parts_.size();
+        String id_ = parts_.get(0);
+        CustList<String> all_ = new CustList<String>();
+        for (int i = 1; i < s_; i++) {
+            transform(_page, parts_, all_, i);
+        }
+        return AnaInherits.getRealClassName(id_,all_);
+    }
+
+    private static void transform(AnalyzedPageEl _page, StringList _input, CustList<String> _output, int _i) {
+        String p_ = _input.get(_i);
+        if (!p_.contains("#")) {
+            _output.add(p_);
+            return;
+        }
+        if (_input.isValidIndex(_i +1)||p_.startsWith("~")) {
+            _output.add("?");
+            return;
+        }
+        DimComp q_ = StringExpUtil.getQuickComponentBaseType(p_);
+        int d_ = q_.getDim();
+        if (q_.getComponent().startsWith("#")) {
+            _output.add(StringExpUtil.getPrettyArrayType(_page.getAliasObject(),d_));
+            return;
+        }
+        AnaGeneType r_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(p_));
+        if (r_ instanceof RootBlock) {
+            _output.add(StringExpUtil.getPrettyArrayType(((RootBlock)r_).getWildCardString(),d_));
+            return;
+        }
+        int parts_ = StringExpUtil.getAllTypes(p_).size()-1;
+        CustList<String> wc_ = new CustList<String>();
+        for (int i = 0; i < parts_; i++) {
+            wc_.add("?");
+        }
+        _output.add(StringExpUtil.getPrettyArrayType(AnaInherits.getRealClassName(r_.getFullName(),wc_),d_));
+    }
+
     private static void tissuVocal(AbsFctOperation _o, CustList<MemberAnnotFilterCall> _types) {
         Argument ar_ = _o.getFirstChild().getArgument();
         MemberAnnotFilterCall m_ = new MemberAnnotFilterCall();
@@ -779,13 +868,25 @@ public final class CallersRef {
 //            addIfMatch(new SrcFileLocationType(r_),directRefImplCtor,_piano);
 //        }
         instanceNewTypes(_c, _lda.getMemberOffset(), _piano, ResultExpressionOperationNode.root(_lda), instanceNewTypesRef);
+        feedLambda(_lda,instanceNewTypesRef);
         SrcFileLocationMethod callee_ = fctPub(_c, _lda.getFunction(), _lda.getMemberOffset(), _piano, callNamedRefUse);
         poly(_c,callee_,_lda.getLambdaMethodContent().isPolymorph(),_lda.getMemberOffset(),callNamedRefUsePoly);
+        feedLambda(_lda,callNamedRefUsePoly);
         callStd(_c,_lda.getStandardMethod(),_lda.getStandardType(), _lda.getMemberOffset(), _piano, callNamedRefUse);
         callStd(_c,_lda.getStandardConstructor(),_lda.getStandardType(), _lda.getMemberOffset(), _piano, callNamedRefUse);
+        feedLambda(_lda,callNamedRefUse);
         ClassField fieldId_ = _lda.getFieldId();
         if (fieldId_ != null) {
             addIfMatch(SrcFileLocationField.field(fieldId_,fieldType_, _lda.getValueOffset(),_lda.getCstFieldInfo()),_c.getRes().getCaller(), f_,_lda.getMemberOffset()+begin(_c),fieldsRefUse,_piano);
+        }
+        feedLambda(_lda,fieldsRefUse);
+    }
+    private void feedLambda(LambdaOperation _lda, CustList<FileBlockIndex> _refs) {
+        for (FileBlockIndex r: _refs) {
+            LambdaDynFilterCall l_ = new LambdaDynFilterCall();
+            l_.setCalleeRef(r.getCallee());
+            l_.setLambda(_lda.getResultClass().getSingleNameOrEmpty());
+            lambda.add(l_);
         }
     }
 
@@ -935,6 +1036,9 @@ public final class CallersRef {
         return annotCandidatesCallsStdDefValue;
     }
 
+    public CustList<FileBlockIndex> getDynCallPotential() {
+        return dynCallPotential;
+    }
 //    private static NamedFunctionBlock fct(AnaTypeFct _f) {
 //        if (_f == null) {
 //            return null;

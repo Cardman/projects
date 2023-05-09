@@ -2137,6 +2137,246 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq(143,r_.getCallNamedUse().get(0).getCaller().getIndex());
         assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
     }
+    @Test
+    public void refs69() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$Fct<Outer2> fct;\n");
+        xml_.append("{fct=$lambda(Outer2,,ONE);}\n");
+        xml_.append("{fct.call();}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex2",78);
+        assertEq(1,r_.getDynCallPotential().size());
+        assertEq(90,r_.getDynCallPotential().get(0).getIndex());
+        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getFile().getFileName());
+        assertEq(27,r_.getDynCallPotential().get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getCallee().getFile().getFileName());
+        assertEq(84,r_.getDynCallPotential().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getCaller().getFile().getFileName());
+    }
+    @Test
+    public void refs70() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$Fct<Outer2> fct;\n");
+        xml_.append("{fct=$lambda(Outer2,,ONE);}\n");
+        xml_.append("$Fct<Outer> fct2;\n");
+        xml_.append("{fct2.call();}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex2",78);
+        assertEq(0,r_.getDynCallPotential().size());
+    }
+    @Test
+    public void refs71() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$Fct fct;\n");
+        xml_.append("{fct=$lambda(Outer2,,ONE);}\n");
+        xml_.append("{fct.call();}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex2",70);
+        assertEq(1,r_.getDynCallPotential().size());
+        assertEq(82,r_.getDynCallPotential().get(0).getIndex());
+        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getFile().getFileName());
+        assertEq(27,r_.getDynCallPotential().get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getCallee().getFile().getFileName());
+        assertEq(76,r_.getDynCallPotential().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getCaller().getFile().getFileName());
+    }
+    @Test
+    public void refs72() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$Fct<Outer2> fct;\n");
+        xml_.append("{fct=$lambda(Outer2,,ONE);}\n");
+        xml_.append("$Fct<Outer> fct2;\n");
+        xml_.append("{fct2.inex();}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex2",78);
+        assertEq(0,r_.getDynCallPotential().size());
+    }
+    @Test
+    public void refs73() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$Fct<Outer2> fct;\n");
+        xml_.append("{fct=$lambda(Outer2,,ONE);}\n");
+        xml_.append("$Fct<Outer> fct2;\n");
+        xml_.append("{fct2.metaInfo();}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex2",78);
+        assertEq(0,r_.getDynCallPotential().size());
+    }
+    @Test
+    public void refs74() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2<T> {\n");
+        xml_.append("ONE<$int>,\n");
+        xml_.append("TWO<$int>{};\n");
+        xml_.append("$Fct<T,Outer> fct;\n");
+        xml_.append("{fct.call($null);}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex2",78);
+        assertEq(0,r_.getDynCallPotential().size());
+    }
+    @Test
+    public void refs75() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2<T> {\n");
+        xml_.append("ONE<$int>,\n");
+        xml_.append("TWO<$int>{};\n");
+        xml_.append("$Fct<Outer,T> fct;\n");
+        xml_.append("{fct.call($null);}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex2",78);
+        assertEq(0,r_.getDynCallPotential().size());
+    }
+    @Test
+    public void refs76() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2<T> {\n");
+        xml_.append("ONE<$int>,\n");
+        xml_.append("TWO<$int>{};\n");
+        xml_.append("$Fct<Outer,Outer2<T>> fct;\n");
+        xml_.append("{fct.call($null);}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex2",78);
+        assertEq(0,r_.getDynCallPotential().size());
+    }
+    @Test
+    public void refs77() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2<T> {\n");
+        xml_.append("ONE<$int>,\n");
+        xml_.append("TWO<$int>{};\n");
+        xml_.append("$Fct<Outer,$Fct<T>> fct;\n");
+        xml_.append("{fct.call($null);}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex2",78);
+        assertEq(0,r_.getDynCallPotential().size());
+    }
+    @Test
+    public void refs78() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2<T> {\n");
+        xml_.append("ONE<$int>,\n");
+        xml_.append("TWO<$int>{};\n");
+        xml_.append("$Fct<Outer,~$Fct<T>> fct;\n");
+        xml_.append("{fct.call($null);}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex2",78);
+        assertEq(0,r_.getDynCallPotential().size());
+    }
     private static CallersRef refs(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return CallersRef.loop(a_,ResultExpressionOperationNode.locations(a_,_fileName,_caret));
