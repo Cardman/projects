@@ -3821,13 +3821,13 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
         CallersRef r_ = refs(files_,"pkg/Ex2",53);
-        assertEq(1,r_.getVariableDeclaring().size());
-        assertEq(53,r_.getVariableDeclaring().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getVariableDeclaring().get(0).getFile().getFileName());
-        assertEq(53,r_.getVariableDeclaring().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getVariableDeclaring().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getVariableDeclaring().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getVariableDeclaring().get(0).getCaller().getFile().getFileName());
+        assertEq(1,r_.getVariableDeclaringInferred().size());
+        assertEq(53,r_.getVariableDeclaringInferred().get(0).getIndex());
+        assertEq("pkg/Ex2",r_.getVariableDeclaringInferred().get(0).getFile().getFileName());
+        assertEq(53,r_.getVariableDeclaringInferred().get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2",r_.getVariableDeclaringInferred().get(0).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariableDeclaringInferred().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariableDeclaringInferred().get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs132() {
@@ -3850,13 +3850,13 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
         CallersRef r_ = refs(files_,"pkg/Ex2",45);
-        assertEq(1,r_.getVariableDeclaring().size());
-        assertEq(45,r_.getVariableDeclaring().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getVariableDeclaring().get(0).getFile().getFileName());
-        assertEq(45,r_.getVariableDeclaring().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getVariableDeclaring().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getVariableDeclaring().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getVariableDeclaring().get(0).getCaller().getFile().getFileName());
+        assertEq(1,r_.getVariableDeclaringInferred().size());
+        assertEq(45,r_.getVariableDeclaringInferred().get(0).getIndex());
+        assertEq("pkg/Ex2",r_.getVariableDeclaringInferred().get(0).getFile().getFileName());
+        assertEq(45,r_.getVariableDeclaringInferred().get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2",r_.getVariableDeclaringInferred().get(0).getCallee().getFile().getFileName());
+        assertEq(38,r_.getVariableDeclaringInferred().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getVariableDeclaringInferred().get(0).getCaller().getFile().getFileName());
     }
     private static CallersRef refs(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);

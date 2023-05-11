@@ -102,6 +102,7 @@ public final class CallersRef {
     private final CustList<FileBlockIndex> internEltsFct = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> fieldDeclaring = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> variableDeclaring = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> variableDeclaringInferred = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> interfacesStatic = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> interfacesInstance = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> constraints = new CustList<FileBlockIndex>();
@@ -707,7 +708,7 @@ public final class CallersRef {
         if (!_added.isEmpty()) {
             return;
         }
-        addIfMatch(_inf,_c.getCaller(),_inf.getFile(),_inf.getOffset(),variableDeclaring,_piano);
+        addIfMatch(_inf,_c.getCaller(),_inf.getFile(),_inf.getOffset(),variableDeclaringInferred,_piano);
     }
     public void typesFound(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
         OperationNode o_ = _c.getBlock();
@@ -1428,6 +1429,10 @@ public final class CallersRef {
 
     public CustList<FileBlockIndex> getVariableDeclaring() {
         return variableDeclaring;
+    }
+
+    public CustList<FileBlockIndex> getVariableDeclaringInferred() {
+        return variableDeclaringInferred;
     }
 
     public CustList<FileBlockIndex> getInterfacesInstance() {
