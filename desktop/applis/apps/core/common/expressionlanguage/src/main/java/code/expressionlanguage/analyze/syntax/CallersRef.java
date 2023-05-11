@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
 import code.expressionlanguage.analyze.types.*;
+import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.DimComp;
@@ -101,6 +102,10 @@ public final class CallersRef {
     private final CustList<FileBlockIndex> internEltsFct = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> fieldDeclaring = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> variableDeclaring = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> interfacesStatic = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> interfacesInstance = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> constraints = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> inherits = new CustList<FileBlockIndex>();
     //    private final CustList<SrcFileLocation> directCallNamedRefAll = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directCallImplicits = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directNew = new CustList<SrcFileLocation>();
@@ -668,6 +673,16 @@ public final class CallersRef {
         if (bl_ instanceof ForEachTable) {
             addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable)bl_).getPartOffsetsFirst(),new AllTypeSegmentFilter()),_c.getCaller(),bl_.getFile(),variableDeclaring,_piano);
             addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable)bl_).getPartOffsetsSecond(),new AllTypeSegmentFilter()),_c.getCaller(),bl_.getFile(),variableDeclaring,_piano);
+        }
+        if (bl_ instanceof RootBlock) {
+            addAllIfMatch(fetch(((RootBlock) bl_).getPartsStaticInitInterfacesOffset()), _c.getCaller(), bl_.getFile(), interfacesStatic,_piano);
+            addAllIfMatch(fetch(((RootBlock) bl_).getPartsInstInitInterfacesOffset()), _c.getCaller(), bl_.getFile(), interfacesInstance,_piano);
+            if (!(bl_ instanceof AnonymousTypeBlock)) {
+                for (TypeVar t : ((RootBlock) bl_).getParamTypes()) {
+                    addAllIfMatch(fetchAna(t.getResults()), _c.getCaller(), bl_.getFile(), constraints, _piano);
+                }
+            }
+            addAllIfMatch(fetchAna(((RootBlock) bl_).getResults()), _c.getCaller(), bl_.getFile(), inherits,_piano);
         }
     }
     public void typesFound(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
@@ -1385,6 +1400,22 @@ public final class CallersRef {
 
     public CustList<FileBlockIndex> getVariableDeclaring() {
         return variableDeclaring;
+    }
+
+    public CustList<FileBlockIndex> getInterfacesInstance() {
+        return interfacesInstance;
+    }
+
+    public CustList<FileBlockIndex> getInterfacesStatic() {
+        return interfacesStatic;
+    }
+
+    public CustList<FileBlockIndex> getInherits() {
+        return inherits;
+    }
+
+    public CustList<FileBlockIndex> getConstraints() {
+        return constraints;
     }
 //    private static NamedFunctionBlock fct(AnaTypeFct _f) {
 //        if (_f == null) {

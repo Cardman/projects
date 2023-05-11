@@ -182,9 +182,9 @@ public final class ResultExpressionOperationNode {
             if (inRange(((RootBlock) _bl).getIdRowCol(), _caret,((RootBlock) _bl).getIdRowCol()+((RootBlock) _bl).getNameLength())) {
                 _ls.add(new SrcFileLocationType(((RootBlock) _bl).getIdRowCol(),(RootBlock) _bl));
             }
+            _ls.addAllElts(fetch(_caret,((RootBlock) _bl).getPartsStaticInitInterfacesOffset()));
+            _ls.addAllElts(fetch(_caret,((RootBlock) _bl).getPartsInstInitInterfacesOffset()));
             if (!(_bl instanceof AnonymousTypeBlock)) {
-                _ls.addAllElts(fetch(_caret,((RootBlock) _bl).getPartsStaticInitInterfacesOffset()));
-                _ls.addAllElts(fetch(_caret,((RootBlock) _bl).getPartsInstInitInterfacesOffset()));
                 for (TypeVar t: ((RootBlock) _bl).getParamTypes()) {
                     if (inRange(t.getOffset(), _caret,t.getOffset()+t.getLength())) {
                         _ls.add(new SrcFileLocationTypeVar(t.getOffset(),t.getName(),t.getOffset(), _bl.getFile()));
