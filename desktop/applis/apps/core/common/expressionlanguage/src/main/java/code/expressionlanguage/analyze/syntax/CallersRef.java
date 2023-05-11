@@ -48,6 +48,7 @@ public final class CallersRef {
     private final CustList<FileBlockIndex> callNamedUsePoly = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> callNamedOverridden = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> callNamedOverriding = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> callAnonRefUse = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> callNamedRefUse = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> callNamedRefUsePoly = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> instanceNewTypes = new CustList<FileBlockIndex>();
@@ -779,6 +780,12 @@ public final class CallersRef {
         if (o_ instanceof LambdaOperation) {
             lambda(_c, (LambdaOperation) o_, _piano);
         }
+        if (o_ instanceof AnonymousLambdaOperation) {
+            CustList<FileBlockIndex> added_ = new CustList<FileBlockIndex>();
+            addIfMatch(new SrcFileLocationMethod(null,((AnonymousLambdaOperation)o_).getBlock()),_c.getRes().getCaller(), f_,begin(_c),added_,_piano);
+            callAnonRefUse.addAllElts(added_);
+            feedLambda(o_,added_);
+        }
         if (o_ instanceof CastFctOperation) {
             int off_ = ((CastFctOperation) o_).getOperators().firstKey();
             fctPub(_c, ((CastFctOperation) o_).getFunction(), off_, _piano, callNamedUse);
@@ -1016,7 +1023,7 @@ public final class CallersRef {
         }
         feedLambda(_lda,added_);
     }
-    private void feedLambda(LambdaOperation _lda, CustList<FileBlockIndex> _refs) {
+    private void feedLambda(OperationNode _lda, CustList<FileBlockIndex> _refs) {
         for (FileBlockIndex r: _refs) {
             LambdaDynFilterCall l_ = new LambdaDynFilterCall();
             l_.setCalleeRef(r.getCallee());
@@ -1209,6 +1216,10 @@ public final class CallersRef {
 
     public CustList<FileBlockIndex> getInstanceNewTypesElt() {
         return instanceNewTypesElt;
+    }
+
+    public CustList<FileBlockIndex> getCallAnonRefUse() {
+        return callAnonRefUse;
     }
 
     public CustList<FileBlockIndex> getInstanceNewTypesEltFwd() {
