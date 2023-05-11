@@ -380,7 +380,12 @@ public final class ResultExpressionOperationNode {
             return name(_caret,(NamedArgumentOperation)_foundOp);
         }
         if (_foundOp instanceof SwitchOperation) {
-            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((SwitchOperation) _foundOp).getPartOffsets(), _caret);
+            CustList<SrcFileLocation> all_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((SwitchOperation) _foundOp).getPartOffsets(), _caret);
+            if (!all_.isEmpty()) {
+                return all_;
+            }
+            all_.add(new SrcFileLocationMethod(null,((SwitchOperation)_foundOp).getSwitchMethod()));
+            return all_;
         }
         return new CustList<SrcFileLocation>();
     }

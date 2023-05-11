@@ -52,15 +52,19 @@ public final class CallersRef {
     private final CustList<FileBlockIndex> callNamedRefUsePoly = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> instanceNewTypes = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> instanceNewTypesElt = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> instanceNewTypesEltFwd = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> instanceNewTypesEltArray = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> instanceArobase = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> instanceNewTypesFwd = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> instanceNewTypesRef = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> staticAccess = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> castOperation = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> instanceOperation = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> interfacesInit = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> interfacesInitRef = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> typesFinders = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> typesFindersRef = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> returnType = new CustList<FileBlockIndex>();
     private final CustList<MemberAnnotFilterCall> annotCandidatesMembers = new CustList<MemberAnnotFilterCall>();
     private final CustList<MemberAnnotFilterCall> annotCandidatesParameters = new CustList<MemberAnnotFilterCall>();
     private final CustList<MemberAnnotFilterCall> annotCandidatesSuppl = new CustList<MemberAnnotFilterCall>();
@@ -591,6 +595,18 @@ public final class CallersRef {
     public void typesFound(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
         OperationNode o_ = _c.getBlock();
         FileBlock f_ = _c.getRes().getBlock().getFile();
+        if (o_ instanceof EnumValueOfOperation) {
+            addAllIfMatch(fetch(((EnumValueOfOperation)o_).getPartOffsets()),_c.getRes().getCaller(), f_, staticAccess, _piano);
+        }
+        if (o_ instanceof ValuesOperation) {
+            addAllIfMatch(fetch(((ValuesOperation)o_).getPartOffsets()),_c.getRes().getCaller(), f_, staticAccess, _piano);
+        }
+        if (o_ instanceof CastOperation) {
+            addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((CastOperation)o_).getPartOffsets(),new AllTypeSegmentFilter()),_c.getRes().getCaller(), f_, castOperation, _piano);
+        }
+        if (o_ instanceof InstanceOfOperation) {
+            addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((InstanceOfOperation)o_).getPartOffsets(),new AllTypeSegmentFilter()),_c.getRes().getCaller(), f_, instanceOperation, _piano);
+        }
         if (o_ instanceof StaticAccessOperation) {
             addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticAccessOperation)o_).getPartOffsets(), new AllTypeSegmentFilter()),_c.getRes().getCaller(), f_, staticAccess,_piano);
         }
@@ -600,6 +616,9 @@ public final class CallersRef {
         if (o_ instanceof AbstractInstancingOperation) {
             types(((AbstractInstancingOperation) o_).getResolvedInstance(),_c.getRes().getCaller(), f_,instanceNewTypesElt,_piano);
             addAllIfMatch(fetch(((StandardInstancingOperation) o_).getPartsInstInitInterfaces()),_c.getRes().getCaller(), f_,interfacesInit,_piano);
+        }
+        if (o_ instanceof AbstractInvokingConstructor) {
+            addAllIfMatch(fetch(((AbstractInvokingConstructor) o_).getPartOffsets()),_c.getRes().getCaller(), f_,instanceNewTypesEltFwd,_piano);
         }
         if (o_ instanceof DimensionArrayInstancing) {
             types(((DimensionArrayInstancing) o_).getPartOffsets(),_c.getRes().getCaller(), f_,instanceNewTypesEltArray,_piano);
@@ -616,6 +635,17 @@ public final class CallersRef {
             }
         }
         finderFilters(_c,_piano);
+        typesFoundAnon(_c,_piano);
+        if (o_ instanceof NamedArgumentOperation) {
+            nameType(_c,(NamedArgumentOperation) o_,_piano);
+        }
+    }
+    public void typesFoundAnon(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
+        OperationNode o_ = _c.getBlock();
+        FileBlock f_ = _c.getRes().getBlock().getFile();
+        if (o_ instanceof SwitchOperation) {
+            addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((SwitchOperation)o_).getPartOffsets(),new AllTypeSegmentFilter()),_c.getRes().getCaller(), f_,returnType,_piano);
+        }
     }
     private void feedArobase(ResultExpressionBlock _mem,AnnotationInstanceArobaseOperation _lda, AbsBk _block, CustList<FileBlockIndex> _refs) {
         for (FileBlockIndex r: _refs) {
@@ -641,6 +671,9 @@ public final class CallersRef {
         FileBlock f_ = _c.getRes().getBlock().getFile();
         if (o_ instanceof ExplicitOperatorOperation) {
             exp(_c,(ExplicitOperatorOperation) o_,_piano);
+        }
+        if (o_ instanceof CastFctOperation) {
+            addAllIfMatch(fetch(((CastFctOperation)o_).getPartOffsets()),_c.getRes().getCaller(), f_, typesFinders, _piano);
         }
         if (o_ instanceof AbsFctOperation) {
             addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AbsFctOperation) o_).getPartOffsets(), new AllTypeSegmentFilter()),_c.getRes().getCaller(),f_,typesFinders,_piano);
@@ -740,6 +773,9 @@ public final class CallersRef {
         if (o_ instanceof AssocationOperation) {
             annots(_c,_piano,(AssocationOperation) o_);
         }
+        if (o_ instanceof SwitchOperation) {
+            addIfMatch(new SrcFileLocationMethod(null,((SwitchOperation)o_).getSwitchMethod()),_c.getRes().getCaller(), f_,begin(_c)+((SwitchOperation)o_).getOffsetFct(),callNamedUse,_piano);
+        }
     }
     private void annots(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano, AssocationOperation _a) {
         AnaTypeFct ct_ = _a.getFunction();
@@ -834,10 +870,6 @@ public final class CallersRef {
     private void name(ResultExpressionBlockOperation _c, NamedArgumentOperation _foundOp, CustList<SrcFileLocation> _piano) {
         FileBlock f_ = _c.getRes().getBlock().getFile();
         if (_foundOp.isRecordBlock()) {
-//            CustList<SrcFileLocation> ls_ = fetch(_caret, _foundOp.getPartOffsets());
-//            if (!ls_.isEmpty()) {
-//                return ls_;
-//            }
             int i_ = _foundOp.getRef();
             RootBlock r_ = _foundOp.getField();
             ClassField cf_ = _foundOp.getIdField();
@@ -848,6 +880,12 @@ public final class CallersRef {
         ResultExpressionOperationNode.feedFiltersNamedList(_foundOp,ls_);
         for (SrcFileLocation s: ls_) {
             addIfMatch(s,_c.getRes().getCaller(), f_,begin(_c),variablesParamsUse,_piano);
+        }
+    }
+    private void nameType(ResultExpressionBlockOperation _c, NamedArgumentOperation _foundOp, CustList<SrcFileLocation> _piano) {
+        FileBlock f_ = _c.getRes().getBlock().getFile();
+        if (_foundOp.isRecordBlock()) {
+            addAllIfMatch(fetch(_foundOp.getPartOffsets()),_c.getRes().getCaller(), f_,typesFinders,_piano);
         }
     }
 
@@ -1155,6 +1193,10 @@ public final class CallersRef {
         return instanceNewTypesElt;
     }
 
+    public CustList<FileBlockIndex> getInstanceNewTypesEltFwd() {
+        return instanceNewTypesEltFwd;
+    }
+
     public CustList<FileBlockIndex> getInstanceNewTypesEltArray() {
         return instanceNewTypesEltArray;
     }
@@ -1173,6 +1215,18 @@ public final class CallersRef {
 
     public CustList<FileBlockIndex> getTypesFindersRef() {
         return typesFindersRef;
+    }
+
+    public CustList<FileBlockIndex> getReturnType() {
+        return returnType;
+    }
+
+    public CustList<FileBlockIndex> getCastOperation() {
+        return castOperation;
+    }
+
+    public CustList<FileBlockIndex> getInstanceOperation() {
+        return instanceOperation;
     }
 //    private static NamedFunctionBlock fct(AnaTypeFct _f) {
 //        if (_f == null) {
