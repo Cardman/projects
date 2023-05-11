@@ -3029,6 +3029,33 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq(38,r_.getTypesFindersRef().get(0).getCaller().getIndex());
         assertEq("pkg/Ex2",r_.getTypesFindersRef().get(0).getCaller().getFile().getFileName());
     }
+    @Test
+    public void refs104() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("@Annot(f=2)\n");
+        xml_.append("ONE(1),\n");
+        xml_.append("TWO(2);\n");
+        xml_.append("($int i){\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.Annot{\n");
+        xml_.append("$int f();\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Caller{\n");
+        xml_.append("$int f=((Annot)$class(Outer).getDeclaredFields(\"ONE\")[0].getAnnotations($class(SecAnnot))[0]).f();\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.SecAnnot{\n");
+        xml_.append("$int f();\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex",27);
+        assertEq(0,r_.getAnnotCandidatesCallsInitMembers().size());
+        assertEq(0,r_.getInterfacesInit().size());
+        assertEq(0,r_.getInterfacesInitRef().size());
+    }
     private static CallersRef refs(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return CallersRef.loop(a_,ResultExpressionOperationNode.locations(a_,_fileName,_caret));
