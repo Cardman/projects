@@ -168,12 +168,23 @@ public final class CallersRef {
         for(RootBlock r: _page.getAllFoundTypes()) {
             for (AbsBk b: ClassesUtil.getDirectChildren(r)) {
                 if (b instanceof InternOverrideBlock) {
-                    for (PartOffsetsClassMethodIdList l:((InternOverrideBlock)b).getAllPartsTypes()) {
-                        for (PartOffsetsClassMethodId p:l.getOverrides()) {
-                            _c.fctPub(b,new SrcFileLocationType(r.getIdRowCol(),r),p.getFct(),p.getBegin(), _piano, _c.internElts);
-                        }
-                    }
+                    internElt(_piano, _c, r, (InternOverrideBlock) b);
                 }
+            }
+        }
+    }
+
+    private static void internElt(CustList<SrcFileLocation> _piano, CallersRef _c, RootBlock _r, InternOverrideBlock _b) {
+        for (PartOffsetsClassMethodIdList l: _b.getAllPartsTypes()) {
+            for (PartOffsetsClassMethodId p:l.getOverrides()) {
+                _c.fctPub(_b,new SrcFileLocationType(_r.getIdRowCol(), _r),p.getFct(),p.getBegin(), _piano, _c.internElts);
+            }
+        }
+        for (PartOffsetsClassMethodIdList l: _b.getAllPartsTypes()) {
+            addAllIfMatch(fetch(l.getTypes()),new SrcFileLocationType(_r.getIdRowCol(), _r), _b.getFile(), _c.internElts, _piano);
+            for (PartOffsetsClassMethodId p:l.getOverrides()) {
+                addAllIfMatch(fetch(p.getTypes()),new SrcFileLocationType(_r.getIdRowCol(), _r), _b.getFile(), _c.internElts, _piano);
+                addAllIfMatch(fetch(p.getSuperTypes()),new SrcFileLocationType(_r.getIdRowCol(), _r), _b.getFile(), _c.internElts, _piano);
             }
         }
     }
@@ -762,6 +773,11 @@ public final class CallersRef {
         if (_c instanceof NamedCalledFunctionBlock) {
             for (PartOffsetsClassMethodId p:((NamedCalledFunctionBlock) _c).getAllInternTypesParts()) {
                 fctPub(_c,new SrcFileLocationMethod(_c.getParent(),_c),p.getFct(),p.getBegin(),_piano,internEltsFct);
+            }
+            addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((NamedCalledFunctionBlock)_c).getPartOffsetsReturnSetter(), new AllTypeSegmentFilter()),new SrcFileLocationMethod(_c.getParent(),_c),_c.getFile(),internEltsFct,_piano);
+            for (PartOffsetsClassMethodId p:((NamedCalledFunctionBlock)_c).getAllInternTypesParts()) {
+                addAllIfMatch(fetch(p.getTypes()),new SrcFileLocationMethod(_c.getParent(),_c),_c.getFile(),internEltsFct,_piano);
+                addAllIfMatch(fetch(p.getSuperTypes()),new SrcFileLocationMethod(_c.getParent(),_c),_c.getFile(),internEltsFct,_piano);
             }
         }
     }

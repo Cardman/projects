@@ -3432,6 +3432,79 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq(15,r_.getInternElts().get(0).getCaller().getIndex());
         assertEq("pkg/Ex3",r_.getInternElts().get(0).getCaller().getFile().getFileName());
     }
+    @Test
+    public void refs118() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$static $boolean $(Outer o){$return $true;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2<T:Outer3> {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$new Outer(){};}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer3 {\n");
+        xml_.append("$void m()$intern(Outer3:m(Outer3)){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex3", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex3",45);
+        assertEq(2,r_.getInternEltsFct().size());
+        assertEq(45,r_.getInternEltsFct().get(0).getIndex());
+        assertEq("pkg/Ex3",r_.getInternEltsFct().get(0).getFile().getFileName());
+        assertEq(15,r_.getInternEltsFct().get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3",r_.getInternEltsFct().get(0).getCallee().getFile().getFileName());
+        assertEq(34,r_.getInternEltsFct().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex3",r_.getInternEltsFct().get(0).getCaller().getFile().getFileName());
+        assertEq(54,r_.getInternEltsFct().get(1).getIndex());
+        assertEq("pkg/Ex3",r_.getInternEltsFct().get(1).getFile().getFileName());
+        assertEq(15,r_.getInternEltsFct().get(1).getCallee().getIndex());
+        assertEq("pkg/Ex3",r_.getInternEltsFct().get(1).getCallee().getFile().getFileName());
+        assertEq(34,r_.getInternEltsFct().get(1).getCaller().getIndex());
+        assertEq("pkg/Ex3",r_.getInternEltsFct().get(1).getCaller().getFile().getFileName());
+    }
+    @Test
+    public void refs119() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$static $boolean $(Outer o){$return $true;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2<T:Outer3> {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$new Outer(){};}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer3 {\n");
+        xml_.append("$intern{m():m(Outer3)};\n");
+        xml_.append("$void m()$intern(Outer3:m(Outer3);Outer3:m(Outer3)){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex3", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex3",42);
+        assertEq(1,r_.getInternElts().size());
+        assertEq(42,r_.getInternElts().get(0).getIndex());
+        assertEq("pkg/Ex3",r_.getInternElts().get(0).getFile().getFileName());
+        assertEq(15,r_.getInternElts().get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3",r_.getInternElts().get(0).getCallee().getFile().getFileName());
+        assertEq(15,r_.getInternElts().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex3",r_.getInternElts().get(0).getCaller().getFile().getFileName());
+    }
     private static CallersRef refs(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return CallersRef.loop(a_,ResultExpressionOperationNode.locations(a_,_fileName,_caret));
