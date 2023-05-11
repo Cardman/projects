@@ -106,6 +106,7 @@ public final class CallersRef {
     private final CustList<FileBlockIndex> interfacesInstance = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> constraints = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> inherits = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> callDyn = new CustList<FileBlockIndex>();
     //    private final CustList<SrcFileLocation> directCallNamedRefAll = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directCallImplicits = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directNew = new CustList<SrcFileLocation>();
@@ -843,9 +844,15 @@ public final class CallersRef {
     }
     public void callingsCustDynDirect(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
         OperationNode o_ = _c.getBlock();
+        FileBlock f_ = _c.getRes().getBlock().getFile();
         if (o_ instanceof CallDynMethodOperation) {
             int off_ = ((CallDynMethodOperation)o_).getOffsetFct();
             callStd(_c,((CallDynMethodOperation)o_).getStdMethod(),((CallDynMethodOperation)o_).getStdType(), off_, _piano, callNamedUse);
+            String r_ = ((CallDynMethodOperation) o_).getRefer();
+            if (!r_.isEmpty()) {
+                SrcFileLocationCall ref_ = new SrcFileLocationCall(r_);
+                addIfMatch(ref_,_c.getRes().getCaller(),f_,begin(_c)+off_,callDyn,_piano);
+            }
         }
     }
     public void callingsCustDirect(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
@@ -886,15 +893,6 @@ public final class CallersRef {
             SrcFileLocationMethod calleeSet_ = fctPub(_c, ((ArrOperation) o_).getFunctionSet(), 0, _piano, callNamedUse);
             poly(_c,calleeSet_,!((ArrOperation) o_).isStaticChoiceMethod(),0,callNamedUsePoly);
         }
-//        if (_c instanceof CallDynMethodOperation) {
-//            callStd(((CallDynMethodOperation)_c).getStdMethod(),((CallDynMethodOperation)_c).getStdType(), directCallNamedStd, _piano);
-//            String r_ = ((CallDynMethodOperation) _c).getRefer();
-//            if (!r_.isEmpty()) {
-//                SrcFileLocationCall ref_ = new SrcFileLocationCall(r_);
-//                addIfMatch(ref_,directCallNamedRef,_piano);
-//                directCallNamedRefAll.add(ref_);
-//            }
-//        }
         if (o_ instanceof LambdaOperation) {
             lambda(_c, (LambdaOperation) o_, _piano);
         }
@@ -1425,10 +1423,8 @@ public final class CallersRef {
     public CustList<FileBlockIndex> getConstraints() {
         return constraints;
     }
-//    private static NamedFunctionBlock fct(AnaTypeFct _f) {
-//        if (_f == null) {
-//            return null;
-//        }
-//        return _f.getFunction();
-//    }
+
+    public CustList<FileBlockIndex> getCallDyn() {
+        return callDyn;
+    }
 }

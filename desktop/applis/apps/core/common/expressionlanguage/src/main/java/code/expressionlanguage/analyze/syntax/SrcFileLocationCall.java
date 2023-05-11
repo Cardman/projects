@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.syntax;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.common.DisplayedStrings;
+import code.util.core.StringUtil;
 
 public final class SrcFileLocationCall extends AbsSrcFileLocation {
     private final String typeRef;
@@ -23,6 +24,11 @@ public final class SrcFileLocationCall extends AbsSrcFileLocation {
     @Override
     public FileBlock getFile() {
         return null;
+    }
+
+    @Override
+    public boolean match(SrcFileLocation _o) {
+        return _o instanceof SrcFileLocationCall&& StringUtil.quickEq(typeRef,((SrcFileLocationCall)_o).typeRef);
     }
 
     @Override

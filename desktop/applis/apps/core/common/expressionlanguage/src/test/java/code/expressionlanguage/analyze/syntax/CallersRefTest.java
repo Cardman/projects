@@ -3757,6 +3757,32 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq(43,r_.getInterfacesStatic().get(0).getCaller().getIndex());
         assertEq("pkg/Ex",r_.getInterfacesStatic().get(0).getCaller().getFile().getFileName());
     }
+    @Test
+    public void refs129() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$int $this($int v){$return 1;}\n");
+        xml_.append("$void $this($int v){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$Fct<String,$int> v;v.call(\"\");}\n");
+        xml_.append("{$Fct<$int,String> v;v.call(0);}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex2",62);
+        assertEq(1,r_.getCallDyn().size());
+        assertEq(62,r_.getCallDyn().get(0).getIndex());
+        assertEq("pkg/Ex2",r_.getCallDyn().get(0).getFile().getFileName());
+        assertEq(38,r_.getCallDyn().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2",r_.getCallDyn().get(0).getCaller().getFile().getFileName());
+    }
     private static CallersRef refs(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return CallersRef.loop(a_,ResultExpressionOperationNode.locations(a_,_fileName,_caret));
