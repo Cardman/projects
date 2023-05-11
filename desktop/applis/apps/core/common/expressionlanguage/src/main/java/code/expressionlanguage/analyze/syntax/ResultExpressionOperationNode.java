@@ -69,25 +69,9 @@ public final class ResultExpressionOperationNode {
             ls_.add(new SrcFileLocationVariable(-1,o_.getInfo(),file_,o_.getOffset()));
             return ls_;
         }
-        if (bl_ instanceof DeclareVariable) {
-            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((DeclareVariable)bl_).getPartOffsets(),_caret);
-        }
-        if (bl_ instanceof ForMutableIterativeLoop) {
-            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForMutableIterativeLoop)bl_).getPartOffsets(),_caret);
-        }
-        if (bl_ instanceof ForEachLoop) {
-            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachLoop)bl_).getPartOffsets(),_caret);
-        }
-        if (bl_ instanceof ForEachTable) {
-            CustList<SrcFileLocation> ls_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable) bl_).getPartOffsetsFirst(), _caret);
-            ls_.addAllElts(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable) bl_).getPartOffsetsSecond(), _caret));
-            return ls_;
-        }
-        if (bl_ instanceof FieldBlock) {
-            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((FieldBlock)bl_).getTypePartOffsets(),_caret);
-        }
-        if (bl_ instanceof WithFilterContent) {
-            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((WithFilterContent)bl_).getFilterContent().getPartOffsets(),_caret);
+        CustList<SrcFileLocation> declTypes_ = declared(bl_, _caret);
+        if (!declTypes_.isEmpty()) {
+            return declTypes_;
         }
         if (bl_ instanceof BreakBlock&&((BreakBlock)bl_).getLabelOffsetRef()>-1) {
             CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
@@ -100,6 +84,45 @@ public final class ResultExpressionOperationNode {
             return ls_;
         }
         return def(_caret, bl_);
+    }
+    private static CustList<SrcFileLocation> declared(AbsBk _bl,int _caret) {
+        if (_bl instanceof DeclareVariable) {
+            CustList<SrcFileLocation> ls_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((DeclareVariable) _bl).getPartOffsets(), _caret);
+            possibleInfer(_caret,((DeclareVariable) _bl).getClassName().length(),((DeclareVariable) _bl).getClassNameOffset(),_bl,((DeclareVariable) _bl).getImportedClassName(),ls_);
+            return ls_;
+        }
+        if (_bl instanceof ForMutableIterativeLoop) {
+            CustList<SrcFileLocation> ls_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForMutableIterativeLoop) _bl).getPartOffsets(), _caret);
+            possibleInfer(_caret,((ForMutableIterativeLoop) _bl).getClassName().length(),((ForMutableIterativeLoop) _bl).getClassNameOffset(),_bl,((ForMutableIterativeLoop) _bl).getImportedClassName(),ls_);
+            return ls_;
+        }
+        if (_bl instanceof ForEachLoop) {
+            CustList<SrcFileLocation> ls_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachLoop) _bl).getPartOffsets(), _caret);
+            possibleInfer(_caret,((ForEachLoop) _bl).getClassName().length(),((ForEachLoop) _bl).getClassNameOffset(),_bl,((ForEachLoop) _bl).getImportedClassName(),ls_);
+            return ls_;
+        }
+        if (_bl instanceof ForEachTable) {
+            CustList<SrcFileLocation> ls_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable) _bl).getPartOffsetsFirst(), _caret);
+            possibleInfer(_caret,((ForEachTable) _bl).getClassNameFirst().length(),((ForEachTable) _bl).getClassNameOffsetFirst(),_bl,((ForEachTable) _bl).getImportedClassNameFirst(),ls_);
+            CustList<SrcFileLocation> sec_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable) _bl).getPartOffsetsSecond(), _caret);
+            possibleInfer(_caret,((ForEachTable) _bl).getClassNameSecond().length(),((ForEachTable) _bl).getClassNameOffsetSecond(),_bl,((ForEachTable) _bl).getImportedClassNameSecond(),sec_);
+            ls_.addAllElts(sec_);
+            return ls_;
+        }
+        if (_bl instanceof FieldBlock) {
+            return LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((FieldBlock) _bl).getTypePartOffsets(),_caret);
+        }
+        if (_bl instanceof WithFilterContent) {
+            CustList<SrcFileLocation> ls_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((WithFilterContent) _bl).getFilterContent().getPartOffsets(), _caret);
+            possibleInfer(_caret,((WithFilterContent) _bl).getFilterContent().getDeclaringType().length(),((WithFilterContent) _bl).getFilterContent().getValueOffset(),_bl,((WithFilterContent) _bl).getFilterContent().getImportedType(),ls_);
+            return ls_;
+        }
+        return new CustList<SrcFileLocation>();
+    }
+    private static void possibleInfer(int _caret, int _length,int _offset, AbsBk _bl, String _inferred,CustList<SrcFileLocation> _ls) {
+        if (_ls.isEmpty()&&inRange(_offset,_caret,_offset+_length)) {
+            _ls.add(new SrcFileLocationInferredType(_offset, _inferred, _bl.getFile()));
+        }
     }
 
     private static boolean inLabelRange(int _caret, AbsBk _bl) {

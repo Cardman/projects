@@ -4780,6 +4780,56 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq(0,r_.size());
     }
     @Test
+    public void locations151() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$static $boolean $(Outer o){$return $true;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$for(Outer o,$var p:$($iterableTable<Outer,Outer2>)$null){}}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",53);
+        assertEq(1,r_.size());
+        assertEq(53,r_.get(0).getIndex());
+        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq("pkg.Outer2",((SrcFileLocationInferredType)r_.get(0)).getType());
+    }
+    @Test
+    public void locations152() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$static $boolean $(Outer o){$return $true;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$for($var o,Outer2 p:$($iterableTable<Outer,Outer2>)$null){}}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",45);
+        assertEq(1,r_.size());
+        assertEq(45,r_.get(0).getIndex());
+        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq("pkg.Outer",((SrcFileLocationInferredType)r_.get(0)).getType());
+    }
+    @Test
     public void locationsDisplay1() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -5084,6 +5134,56 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq("",r_.get(1).getFileName());
         assertEq("java.lang.$Fct<java.lang.String,$int>",r_.get(1).getDisplay());
         assertSame(EnSrcLocation.REF,r_.get(1).getKind());
+    }
+    @Test
+    public void locationsDisplay15() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$static $boolean $(Outer o){$return $true;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$for(Outer o,$var p:$($iterableTable<Outer,Outer2>)$null){}}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<RowSrcLocation> r_ = locationsDisplay(files_,"pkg/Ex2",53);
+        assertEq(1,r_.size());
+        assertEq(53,r_.get(0).getIndex());
+        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq("pkg.Outer2",r_.get(0).getDisplay());
+    }
+    @Test
+    public void locationsDisplay16() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $int THREE(){$return 1;}\n");
+        xml_.append("$static $boolean $(Outer o){$return $true;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer2 {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("{$for($var o,Outer2 p:$($iterableTable<Outer,Outer2>)$null){}}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CustList<RowSrcLocation> r_ = locationsDisplay(files_,"pkg/Ex2",45);
+        assertEq(1,r_.size());
+        assertEq(45,r_.get(0).getIndex());
+        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq("pkg.Outer",r_.get(0).getDisplay());
     }
     @Test
     public void vexer1() {

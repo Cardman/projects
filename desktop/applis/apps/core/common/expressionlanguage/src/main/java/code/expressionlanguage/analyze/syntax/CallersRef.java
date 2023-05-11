@@ -665,20 +665,32 @@ public final class CallersRef {
             addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((FieldBlock)bl_).getTypePartOffsets(),new AllTypeSegmentFilter()),_c.getCaller(),bl_.getFile(),fieldDeclaring,_piano);
         }
         if (bl_ instanceof DeclareVariable) {
-            addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((DeclareVariable)bl_).getPartOffsets(),new AllTypeSegmentFilter()),_c.getCaller(),bl_.getFile(),variableDeclaring,_piano);
+            CustList<AbsSrcFileLocationType> ls_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((DeclareVariable) bl_).getPartOffsets(), new AllTypeSegmentFilter());
+            addAllIfMatch(ls_,_c.getCaller(),bl_.getFile(),variableDeclaring,_piano);
+            add(ls_,new SrcFileLocationInferredType(((DeclareVariable) bl_).getClassNameOffset(),((DeclareVariable)bl_).getImportedClassName(),bl_.getFile()),_c,_piano);
         }
         if (bl_ instanceof ForMutableIterativeLoop) {
-            addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForMutableIterativeLoop)bl_).getPartOffsets(),new AllTypeSegmentFilter()),_c.getCaller(),bl_.getFile(),variableDeclaring,_piano);
+            CustList<AbsSrcFileLocationType> ls_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForMutableIterativeLoop) bl_).getPartOffsets(), new AllTypeSegmentFilter());
+            addAllIfMatch(ls_,_c.getCaller(),bl_.getFile(),variableDeclaring,_piano);
+            add(ls_,new SrcFileLocationInferredType(((ForMutableIterativeLoop) bl_).getClassNameOffset(),((ForMutableIterativeLoop)bl_).getImportedClassName(),bl_.getFile()),_c,_piano);
         }
         if (bl_ instanceof ForEachLoop) {
-            addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachLoop)bl_).getPartOffsets(),new AllTypeSegmentFilter()),_c.getCaller(),bl_.getFile(),variableDeclaring,_piano);
+            CustList<AbsSrcFileLocationType> ls_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachLoop) bl_).getPartOffsets(), new AllTypeSegmentFilter());
+            addAllIfMatch(ls_,_c.getCaller(),bl_.getFile(),variableDeclaring,_piano);
+            add(ls_,new SrcFileLocationInferredType(((ForEachLoop) bl_).getClassNameOffset(),((ForEachLoop)bl_).getImportedClassName(),bl_.getFile()),_c,_piano);
         }
         if (bl_ instanceof WithFilterContent) {
-            addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((WithFilterContent)bl_).getFilterContent().getPartOffsets(), new AllTypeSegmentFilter()),_c.getCaller(),bl_.getFile(),variableDeclaring,_piano);
+            CustList<AbsSrcFileLocationType> ls_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((WithFilterContent) bl_).getFilterContent().getPartOffsets(), new AllTypeSegmentFilter());
+            addAllIfMatch(ls_,_c.getCaller(),bl_.getFile(),variableDeclaring,_piano);
+            add(ls_,new SrcFileLocationInferredType(((WithFilterContent) bl_).getFilterContent().getValueOffset(),((WithFilterContent) bl_).getFilterContent().getImportedType(),bl_.getFile()),_c,_piano);
         }
         if (bl_ instanceof ForEachTable) {
-            addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable)bl_).getPartOffsetsFirst(),new AllTypeSegmentFilter()),_c.getCaller(),bl_.getFile(),variableDeclaring,_piano);
-            addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable)bl_).getPartOffsetsSecond(),new AllTypeSegmentFilter()),_c.getCaller(),bl_.getFile(),variableDeclaring,_piano);
+            CustList<AbsSrcFileLocationType> f_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable) bl_).getPartOffsetsFirst(), new AllTypeSegmentFilter());
+            addAllIfMatch(f_,_c.getCaller(),bl_.getFile(),variableDeclaring,_piano);
+            CustList<AbsSrcFileLocationType> s_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable) bl_).getPartOffsetsSecond(), new AllTypeSegmentFilter());
+            addAllIfMatch(s_,_c.getCaller(),bl_.getFile(),variableDeclaring,_piano);
+            add(f_,new SrcFileLocationInferredType(((ForEachTable) bl_).getClassNameOffsetFirst(),((ForEachTable)bl_).getImportedClassNameFirst(),bl_.getFile()),_c,_piano);
+            add(s_,new SrcFileLocationInferredType(((ForEachTable) bl_).getClassNameOffsetSecond(),((ForEachTable)bl_).getImportedClassNameSecond(),bl_.getFile()),_c,_piano);
         }
         if (bl_ instanceof RootBlock) {
             addAllIfMatch(fetch(((RootBlock) bl_).getPartsStaticInitInterfacesOffset()), _c.getCaller(), bl_.getFile(), interfacesStatic,_piano);
@@ -690,6 +702,12 @@ public final class CallersRef {
             }
             addAllIfMatch(fetchAna(((RootBlock) bl_).getResults()), _c.getCaller(), bl_.getFile(), inherits,_piano);
         }
+    }
+    private void add(CustList<AbsSrcFileLocationType> _added,SrcFileLocationInferredType _inf, AbsBkSrcFileLocation _c, CustList<SrcFileLocation> _piano) {
+        if (!_added.isEmpty()) {
+            return;
+        }
+        addIfMatch(_inf,_c.getCaller(),_inf.getFile(),_inf.getOffset(),variableDeclaring,_piano);
     }
     public void typesFound(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
         OperationNode o_ = _c.getBlock();
