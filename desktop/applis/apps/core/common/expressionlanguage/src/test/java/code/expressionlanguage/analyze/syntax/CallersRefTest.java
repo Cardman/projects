@@ -3208,7 +3208,7 @@ public final class CallersRefTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Caller{\n");
-        xml_.append("$int g=$switch[$int:@Annot(e=2):@Annot(e=2)](0){$default;$return 0;};\n");
+        xml_.append("$int g=$switch[$short:@Annot(e=2):@Annot(e=2)](0){$default;$return 0;};\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         CallersRef r_ = refs(files_,"pkg/Ex",42);
@@ -3504,6 +3504,50 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq("pkg/Ex3",r_.getInternElts().get(0).getCallee().getFile().getFileName());
         assertEq(15,r_.getInternElts().get(0).getCaller().getIndex());
         assertEq("pkg/Ex3",r_.getInternElts().get(0).getCaller().getFile().getFileName());
+    }
+    @Test
+    public void refs120() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static Outer3 $(Outer o){$return $null;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer3 {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex",44);
+        assertEq(1,r_.getParamType().size());
+        assertEq(44,r_.getParamType().get(0).getIndex());
+        assertEq("pkg/Ex",r_.getParamType().get(0).getFile().getFileName());
+        assertEq(15,r_.getParamType().get(0).getCallee().getIndex());
+        assertEq("pkg/Ex",r_.getParamType().get(0).getCallee().getFile().getFileName());
+        assertEq(42,r_.getParamType().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getParamType().get(0).getCaller().getFile().getFileName());
+    }
+    @Test
+    public void refs121() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$static Outer2 $(Outer o){$return $null;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer2 {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex",35);
+        assertEq(1,r_.getReturnType().size());
+        assertEq(35,r_.getReturnType().get(0).getIndex());
+        assertEq("pkg/Ex",r_.getReturnType().get(0).getFile().getFileName());
+        assertEq(15,r_.getReturnType().get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2",r_.getReturnType().get(0).getCallee().getFile().getFileName());
+        assertEq(42,r_.getReturnType().get(0).getCaller().getIndex());
+        assertEq("pkg/Ex",r_.getReturnType().get(0).getCaller().getFile().getFileName());
     }
     private static CallersRef refs(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);

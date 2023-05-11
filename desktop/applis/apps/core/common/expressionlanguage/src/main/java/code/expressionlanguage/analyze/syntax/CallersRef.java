@@ -69,6 +69,7 @@ public final class CallersRef {
     private final CustList<FileBlockIndex> typesFindersRef = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> typesInfos = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> typesInfosDef = new CustList<FileBlockIndex>();
+    private final CustList<FileBlockIndex> paramType = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> returnType = new CustList<FileBlockIndex>();
     private final CustList<MemberAnnotFilterCall> annotCandidatesMembers = new CustList<MemberAnnotFilterCall>();
     private final CustList<MemberAnnotFilterCall> annotCandidatesParameters = new CustList<MemberAnnotFilterCall>();
@@ -770,6 +771,10 @@ public final class CallersRef {
     }
 
     public void callingsCustDirect(MemberCallingsBlock _c, CustList<SrcFileLocation> _piano) {
+        if (_c instanceof NamedFunctionBlock) {
+            addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((NamedFunctionBlock)_c).getPartOffsetsReturn(), new AllTypeSegmentFilter()),new SrcFileLocationMethod(_c.getParent(),_c),_c.getFile(),returnType,_piano);
+            addAllIfMatch(fetchAna(((NamedFunctionBlock)_c).getPartOffsetsParams()),new SrcFileLocationMethod(_c.getParent(),_c),_c.getFile(),paramType,_piano);
+        }
         if (_c instanceof NamedCalledFunctionBlock) {
             for (PartOffsetsClassMethodId p:((NamedCalledFunctionBlock) _c).getAllInternTypesParts()) {
                 fctPub(_c,new SrcFileLocationMethod(_c.getParent(),_c),p.getFct(),p.getBegin(),_piano,internEltsFct);
@@ -1329,6 +1334,10 @@ public final class CallersRef {
 
     public CustList<FileBlockIndex> getInternEltsFct() {
         return internEltsFct;
+    }
+
+    public CustList<FileBlockIndex> getParamType() {
+        return paramType;
     }
 //    private static NamedFunctionBlock fct(AnaTypeFct _f) {
 //        if (_f == null) {
