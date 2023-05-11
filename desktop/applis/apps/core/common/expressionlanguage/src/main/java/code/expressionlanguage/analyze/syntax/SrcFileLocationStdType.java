@@ -2,11 +2,13 @@ package code.expressionlanguage.analyze.syntax;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.common.DisplayedStrings;
+import code.util.core.StringUtil;
 
-public final class SrcFileLocationStdType extends AbsSrcFileLocation  {
+public final class SrcFileLocationStdType extends AbsSrcFileLocationType  {
     private final String type;
 
-    public SrcFileLocationStdType(String _t) {
+    public SrcFileLocationStdType(int _o,String _t) {
+        super(_o);
         this.type = _t;
     }
 
@@ -23,6 +25,11 @@ public final class SrcFileLocationStdType extends AbsSrcFileLocation  {
     @Override
     public int getIndex() {
         return 0;
+    }
+
+    @Override
+    public boolean match(SrcFileLocation _o) {
+        return _o instanceof SrcFileLocationStdType && StringUtil.quickEq(type, ((SrcFileLocationStdType)_o).type);
     }
 
     @Override

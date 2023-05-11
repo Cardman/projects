@@ -180,14 +180,14 @@ public final class ResultExpressionOperationNode {
     private static void typesDecl(AbsBk _bl, int _caret, CustList<SrcFileLocation> _ls) {
         if (_bl instanceof RootBlock) {
             if (inRange(((RootBlock) _bl).getIdRowCol(), _caret,((RootBlock) _bl).getIdRowCol()+((RootBlock) _bl).getNameLength())) {
-                _ls.add(new SrcFileLocationType((RootBlock) _bl));
+                _ls.add(new SrcFileLocationType(((RootBlock) _bl).getIdRowCol(),(RootBlock) _bl));
             }
             if (!(_bl instanceof AnonymousTypeBlock)) {
                 _ls.addAllElts(fetch(_caret,((RootBlock) _bl).getPartsStaticInitInterfacesOffset()));
                 _ls.addAllElts(fetch(_caret,((RootBlock) _bl).getPartsInstInitInterfacesOffset()));
                 for (TypeVar t: ((RootBlock) _bl).getParamTypes()) {
                     if (inRange(t.getOffset(), _caret,t.getOffset()+t.getLength())) {
-                        _ls.add(new SrcFileLocationTypeVar(t.getName(),t.getOffset(), _bl.getFile()));
+                        _ls.add(new SrcFileLocationTypeVar(t.getOffset(),t.getName(),t.getOffset(), _bl.getFile()));
                     }
                     _ls.addAllElts(fetchAna(_caret,t.getResults()));
                 }
@@ -297,7 +297,7 @@ public final class ResultExpressionOperationNode {
             return ls_;
         }
         if (foundOp_ instanceof AbstractInvokingConstructor) {
-            return curr(_caret, (AbstractInvokingConstructor) foundOp_);
+            return curr(begin(_res.resultExpression, foundOp_),_caret, (AbstractInvokingConstructor) foundOp_);
         }
         if (foundOp_ instanceof DimensionArrayInstancing) {
             return types(((DimensionArrayInstancing)foundOp_).getPartOffsets(),_caret);
@@ -320,7 +320,7 @@ public final class ResultExpressionOperationNode {
         return ls_;
     }
 
-    private static CustList<SrcFileLocation> curr(int _caret, AbstractInvokingConstructor _foundOp) {
+    private static CustList<SrcFileLocation> curr(int _found,int _caret, AbstractInvokingConstructor _foundOp) {
         CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
         ls_.addAllElts(fetch(_caret, _foundOp.getPartOffsets()));
         if (!ls_.isEmpty()) {
@@ -328,7 +328,7 @@ public final class ResultExpressionOperationNode {
         }
         AnaTypeFct constructor_ = _foundOp.getConstructor();
         fctPub(constructor_, ls_);
-        timbre(root(constructor_),ls_);
+        timbre(_found,root(constructor_),ls_);
         return ls_;
     }
 
@@ -504,7 +504,7 @@ public final class ResultExpressionOperationNode {
         ctStd(_lda.getStandardConstructor(), _lda.getStandardType(), def_);
         callStd(_lda.getStandardMethod(), _lda.getStandardType(), def_);
         fctPub(function_, def_);
-        timbre(root(_lda),def_);
+        timbre(_lda.getMemberOffset(),root(_lda),def_);
         if (!def_.isEmpty()) {
             return def_;
         }
@@ -556,7 +556,7 @@ public final class ResultExpressionOperationNode {
         int beginInst_ = offsetNew_ + _res.begin(_op);
         int lengthInst_ = StringExpUtil.getDollarWordSeparators(_op.getMethodName()).get(1).length();
         if (_op instanceof StandardInstancingOperation&&((StandardInstancingOperation) _op).getInnerElt() != null||inRange(beginInst_, _caret,beginInst_+lengthInst_)) {
-            return now(_op);
+            return now(beginInst_,_op);
         }
         ResolvedInstance r_ = _op.getResolvedInstance();
         CustList<SrcFileLocation> t_ = types(r_,_caret);
@@ -566,7 +566,7 @@ public final class ResultExpressionOperationNode {
         if (_op instanceof StandardInstancingOperation){
             return fetch(_caret, ((StandardInstancingOperation) _op).getPartsInstInitInterfaces());
         }
-        return now(_op);
+        return now(beginInst_,_op);
     }
     private static CustList<SrcFileLocation> types(ResolvedInstance _r, int _caret) {
         CustList<SrcFileLocation> s_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(_r.getResult(), _caret);
@@ -580,19 +580,19 @@ public final class ResultExpressionOperationNode {
         return new CustList<SrcFileLocation>();
     }
 
-    private static CustList<SrcFileLocation> now(AbstractInstancingOperation _maintenant) {
+    private static CustList<SrcFileLocation> now(int _found,AbstractInstancingOperation _maintenant) {
         StandardConstructor std_ = _maintenant.getInstancingCommonContent().getConstructor();
         AnaTypeFct constructor_ = _maintenant.getConstructor();
         CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
         ctStd(std_, _maintenant.getInstancingCommonContent().getStd(), ls_);
         fctPub(constructor_, ls_);
-        timbre(root(constructor_),ls_);
+        timbre(_found,root(constructor_),ls_);
         return ls_;
     }
 
-    private static void timbre(RootBlock _root, CustList<SrcFileLocation> _dest) {
+    private static void timbre(int _found,RootBlock _root, CustList<SrcFileLocation> _dest) {
         if (_root != null) {
-            _dest.add(new SrcFileLocationType(_root));
+            _dest.add(new SrcFileLocationType(_found,_root));
         }
     }
     private static void ctStd(StandardConstructor _std, StandardType _type, CustList<SrcFileLocation> _ls) {

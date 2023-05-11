@@ -12,14 +12,25 @@ public final class LocationsPartTypeUtil {
     public static CustList<SrcFileLocation> processAnalyzeConstraintsRepParts(AnaResultPartTypeDtoInt _className, int _caret){
         return processAnalyzeConstraintsRepParts(_className.build(), _caret);
     }
+    public static CustList<AbsSrcFileLocationType> processAnalyzeConstraintsRepParts(AnaResultPartTypeDtoInt _className, AbsTypeSegmentFilter _caret){
+        return processAnalyzeConstraintsRepParts(_className.build(), _caret);
+    }
 
     public static CustList<SrcFileLocation> processAnalyzeConstraintsRepParts(AnaResultPartType _b, int _caret) {
-        CustList<SrcFileLocation> out_ = new CustList<SrcFileLocation>();
+        CustList<SrcFileLocation> l_ = new CustList<SrcFileLocation>();
+        for (AbsSrcFileLocationType s: processAnalyzeConstraintsRepParts(_b,new DefTypeSegmentFilter(_caret))) {
+            l_.add(s);
+        }
+        return l_;
+    }
+
+    public static CustList<AbsSrcFileLocationType> processAnalyzeConstraintsRepParts(AnaResultPartType _b, AbsTypeSegmentFilter _caret) {
+        CustList<AbsSrcFileLocationType> out_ = new CustList<AbsSrcFileLocationType>();
         lookForTypes(_b, _caret, out_);
         return out_;
     }
 
-    private static void lookForTypes(AnaResultPartType _className, int _caret, CustList<SrcFileLocation> _dest){
+    private static void lookForTypes(AnaResultPartType _className, AbsTypeSegmentFilter _caret, CustList<AbsSrcFileLocationType> _dest){
         AnaPartType root_ = _className.getPartType();
         FileBlock file_ = _className.getRooted();
         AnaPartType current_ = root_;
@@ -47,16 +58,16 @@ public final class LocationsPartTypeUtil {
         }
     }
 
-    private static void processLeafOffsets(AnaPartType _current, FileBlock _fileName, int _caret, CustList<SrcFileLocation> _dest) {
-        if (!ResultExpressionOperationNode.inRange(_current.getFull(),_caret,_current.getFull()+_current.getLength())) {
+    private static void processLeafOffsets(AnaPartType _current, FileBlock _fileName, AbsTypeSegmentFilter _caret, CustList<AbsSrcFileLocationType> _dest) {
+        if (!_caret.inRange(_current.getFull(),_current.getFull()+_current.getLength())) {
             return;
         }
         if (_current instanceof AnaNamePartType) {
             AnaGeneType f_ = _current.getFoundType();
             if (f_ instanceof RootBlock) {
-                _dest.add(new SrcFileLocationType((RootBlock) f_));
+                _dest.add(new SrcFileLocationType(_current.getFull(),(RootBlock) f_));
             } else if (!_current.getAnalyzedType().isEmpty()){
-                _dest.add(new SrcFileLocationStdType(_current.getAnalyzedType()));
+                _dest.add(new SrcFileLocationStdType(_current.getFull(),_current.getAnalyzedType()));
             }
         }
         if (_current instanceof AnaVariablePartType) {
@@ -64,9 +75,9 @@ public final class LocationsPartTypeUtil {
             int o_ = ((AnaVariablePartType) _current).getValue();
             FileBlock r_ = ((AnaVariablePartType) _current).getRefFileName();
             if (r_ != null) {
-                _dest.add(new SrcFileLocationTypeVar(v_,o_,r_));
+                _dest.add(new SrcFileLocationTypeVar(_current.getFull(),v_,o_,r_));
             } else {
-                _dest.add(new SrcFileLocationTypeVar(v_,o_,_fileName));
+                _dest.add(new SrcFileLocationTypeVar(_current.getFull(),v_,o_,_fileName));
             }
         }
     }

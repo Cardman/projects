@@ -4,10 +4,11 @@ import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.DisplayedStrings;
 
-public final class SrcFileLocationType extends AbsSrcFileLocation  {
+public final class SrcFileLocationType extends AbsSrcFileLocationType  {
     private final RootBlock type;
 
-    public SrcFileLocationType(RootBlock _t) {
+    public SrcFileLocationType(int _o,RootBlock _t) {
+        super(_o);
         this.type = _t;
     }
 
