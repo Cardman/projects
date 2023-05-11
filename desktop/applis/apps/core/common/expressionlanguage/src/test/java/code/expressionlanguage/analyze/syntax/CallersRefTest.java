@@ -3783,6 +3783,23 @@ public final class CallersRefTest extends ProcessMethodCommon {
         assertEq(38,r_.getCallDyn().get(0).getCaller().getIndex());
         assertEq("pkg/Ex2",r_.getCallDyn().get(0).getCaller().getFile().getFileName());
     }
+    @Test
+    public void refs130() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer<T> {\n");
+        xml_.append("$void method(T t){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer2<T> {\n");
+        xml_.append("$void m(T t){$new Outer<T>().$lambda(Outer<T>,method,T).call(t);}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        CallersRef r_ = refs(files_,"pkg/Ex2",77);
+        assertFalse(r_.getDynCallPotential().isEmpty());
+    }
     private static CallersRef refs(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return CallersRef.loop(a_,ResultExpressionOperationNode.locations(a_,_fileName,_caret));

@@ -213,9 +213,13 @@ public final class CallersRef {
         }
     }
     private static boolean matchesCall(AnalyzedPageEl _page, LambdaDynFilterCall _e, CustList<String> _candidates) {
+        String l_ = _e.getLambda();
+        if (l_.contains("#")) {
+            return true;
+        }
         for (String c: _candidates) {
             Mapping m_ = new Mapping();
-            m_.setArg(_e.getLambda());
+            m_.setArg(l_);
             m_.setParam(c);
             if (AnaInherits.isCorrectOrNumbers(m_,_page)){
                 return true;
