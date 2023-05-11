@@ -3,8 +3,7 @@ package code.expressionlanguage.analyze.syntax;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 
 public final class ResultExpressionBlock {
-    private final SrcFileLocation caller;
-    private final AbsBk block;
+    private final AbsBkSrcFileLocation blLocation;
     private final AnnotationKind annotationKind;
     private final ResultExpression res;
     private final int begin;
@@ -23,8 +22,7 @@ public final class ResultExpressionBlock {
     }
 
     public ResultExpressionBlock(SrcFileLocation _c,AbsBk _b, ResultExpression _r, AnnotationKind _k, int _beg, int _end) {
-        this.caller = _c;
-        this.block = _b;
+        this.blLocation = new AbsBkSrcFileLocation(_c,_b);
         this.annotationKind = _k;
         this.res = _r;
         this.begin = _beg;
@@ -36,7 +34,7 @@ public final class ResultExpressionBlock {
     }
 
     public SrcFileLocation getCaller() {
-        return caller;
+        return getBlLocation().getCaller();
     }
 
     public ResultExpression getRes() {
@@ -52,6 +50,10 @@ public final class ResultExpressionBlock {
     }
 
     public AbsBk getBlock() {
-        return block;
+        return getBlLocation().getBlock();
+    }
+
+    public AbsBkSrcFileLocation getBlLocation() {
+        return blLocation;
     }
 }
