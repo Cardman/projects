@@ -165,6 +165,7 @@ public final class CallersRef {
         for (ResultExpressionBlockOperation o: ops_) {
             c_.typesFound(o,_piano);
             c_.callingsCustDirect(o,_piano);
+            c_.callingsCustDynDirect(o,_piano);
             c_.symbols(o,_piano);
             c_.fctPub(o,o.getBlock().getResultClass().getFunction(),0, _piano, c_.callNamedUseImpl);
         }
@@ -838,6 +839,13 @@ public final class CallersRef {
                 addAllIfMatch(fetch(p.getTypes()),new SrcFileLocationMethod(_c.getParent(),_c),_c.getFile(),internEltsFct,_piano);
                 addAllIfMatch(fetch(p.getSuperTypes()),new SrcFileLocationMethod(_c.getParent(),_c),_c.getFile(),internEltsFct,_piano);
             }
+        }
+    }
+    public void callingsCustDynDirect(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
+        OperationNode o_ = _c.getBlock();
+        if (o_ instanceof CallDynMethodOperation) {
+            int off_ = ((CallDynMethodOperation)o_).getOffsetFct();
+            callStd(_c,((CallDynMethodOperation)o_).getStdMethod(),((CallDynMethodOperation)o_).getStdType(), off_, _piano, callNamedUse);
         }
     }
     public void callingsCustDirect(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
