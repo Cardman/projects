@@ -5159,6 +5159,7 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq(53,r_.get(0).getIndex());
         assertEq("pkg/Ex2",r_.get(0).getFileName());
         assertEq("pkg.Outer2",r_.get(0).getDisplay());
+        assertSame(EnSrcLocation.INFERRED,r_.get(0).getKind());
     }
     @Test
     public void locationsDisplay16() {
@@ -5184,6 +5185,7 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq(45,r_.get(0).getIndex());
         assertEq("pkg/Ex2",r_.get(0).getFileName());
         assertEq("pkg.Outer",r_.get(0).getDisplay());
+        assertSame(EnSrcLocation.INFERRED,r_.get(0).getKind());
     }
     @Test
     public void vexer1() {
