@@ -2,6 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.gui.AbsPanel;
 import code.gui.AbsTreeGui;
+import code.gui.AbstractMutableTreeNode;
 import code.gui.AbstractMutableTreeNodeNav;
 import code.mock.MockMenuItem;
 import code.mock.MockPlainButton;
@@ -56,6 +57,7 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         callers(s_);
         AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
         assertEq(1, a_.getRoot().getChildCount());
+        assertEq(2, ((AbstractMutableTreeNode)a_.getRoot().getFirstChild()).getChildCount());
     }
     private void callers(WindowExpressionEditor _s) {
         AbsPanel p_ = (AbsPanel) _s.getPanelSymbols().getComponent(1);
