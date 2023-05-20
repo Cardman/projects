@@ -3,6 +3,7 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.syntax.RowSrcLocation;
+import code.expressionlanguage.analyze.syntax.SrcFileLocation;
 import code.expressionlanguage.options.CommentsUtil;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilimpl.ManageOptions;
@@ -24,6 +25,7 @@ public abstract class WindowWithTreeImpl {
     private final AbsMenuItem languageMenu;
     private final AbsMenuItem tabulationsMenu;
     private final AbsMenu parameters;
+    private final AbsSplitPane detail;
     private AbsTreeGui folderSystem;
     private AbsScrollPane scrollDialog;
     private AbstractMutableTreeNode selectedNode;
@@ -38,6 +40,8 @@ public abstract class WindowWithTreeImpl {
     private final AbsPanel panel;
     private AbsPanel panelSymbols;
     private AbsPlainLabel lastCount;
+    private final AbsScrollPane panelSymbolsDetailScroll;
+    private final AbsScrollPane panelSymbolsLocationScroll;
     private AbsScrollPane panelSymbolsScroll;
     private final AbsMenuItem srcMenu;
     private final AbsMenuItem create;
@@ -93,6 +97,9 @@ public abstract class WindowWithTreeImpl {
         lastCount = _list.getCompoFactory().newPlainLabel("0");
         panelSymbols.add(lastCount);
         panelSymbolsScroll = _list.getCompoFactory().newAbsScrollPane(panelSymbols);
+        panelSymbolsDetailScroll = _list.getCompoFactory().newAbsScrollPane();
+        panelSymbolsLocationScroll = _list.getCompoFactory().newAbsScrollPane();
+        detail = _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsDetailScroll, panelSymbolsLocationScroll);
         editors = commonFrame.getFrames().getCompoFactory().newAbsTabbedPane();
         commonFrame.setContentPane(panel);
         commonFrame.setJMenuBar(bar_);
@@ -275,7 +282,7 @@ public abstract class WindowWithTreeImpl {
         panelSymbols.add(lastCount);
         panelSymbolsScroll = frs_.getCompoFactory().newAbsScrollPane(panelSymbols);
         AbsSplitPane elt_ = frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), getScrollDialog()), editors),
-                panelSymbolsScroll);
+                frs_.getCompoFactory().newHorizontalSplitPane(panelSymbolsScroll,frs_.getCompoFactory().newHorizontalSplitPane(panelSymbolsDetailScroll,panelSymbolsLocationScroll)));
         panel.add(elt_);
     }
 
@@ -495,12 +502,12 @@ public abstract class WindowWithTreeImpl {
         aliasesMenu.setEnabled(_en);
     }
 
-    public void afterSearchSymbol(AnalyzedPageEl _page, CustList<RowSrcLocation> _ls) {
+    public void afterSearchSymbol(AnalyzedPageEl _page, CustList<SrcFileLocation> _us, CustList<RowSrcLocation> _ls) {
         if (_ls.isEmpty()) {
             lastCount.setText(Long.toString(_ls.size()));
             return;
         }
-        ResultRowSrcLocationList r_ = new ResultRowSrcLocationList(_page,_ls);
+        ResultRowSrcLocationList r_ = new ResultRowSrcLocationList(_page,_us,_ls);
         if (symbols.size() < getLimitSymbol()) {
             symbols.add(r_);
         } else {
@@ -520,6 +527,10 @@ public abstract class WindowWithTreeImpl {
                 b_.left();
                 c_.add(b_);
             }
+            AbsPlainButton b_ = fr_.newPlainButton("callers");
+            b_.addActionListener(new CallersHierarchyEvent(f,this));
+            b_.left();
+            c_.add(b_);
             panelSymbols.add(c_);
         }
         GuiBaseUtil.recalculate(panelSymbolsScroll);
@@ -699,6 +710,18 @@ public abstract class WindowWithTreeImpl {
 
     public AbsPanel getPanelSymbols() {
         return panelSymbols;
+    }
+
+    public AbsScrollPane getPanelSymbolsDetailScroll() {
+        return panelSymbolsDetailScroll;
+    }
+
+    public AbsScrollPane getPanelSymbolsLocationScroll() {
+        return panelSymbolsLocationScroll;
+    }
+
+    public AbsSplitPane getDetail() {
+        return detail;
     }
 
     public int getLimitSymbol() {

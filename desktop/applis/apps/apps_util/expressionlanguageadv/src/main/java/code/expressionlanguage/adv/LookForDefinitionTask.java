@@ -2,7 +2,9 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
+import code.expressionlanguage.analyze.syntax.SrcFileLocation;
 import code.expressionlanguage.options.ResultContext;
+import code.util.CustList;
 
 public final class LookForDefinitionTask implements Runnable {
     private final TabEditor tabEditor;
@@ -19,6 +21,7 @@ public final class LookForDefinitionTask implements Runnable {
             return;
         }
         AnalyzedPageEl page_ = r_.getPageEl();
-        edi_.afterSearchSymbol(page_,ResultExpressionOperationNode.locationsDisplay(page_,tabEditor.getRelPath(),tabEditor.getCenter().getCaretPosition()));
+        CustList<SrcFileLocation> l_ = ResultExpressionOperationNode.locations(page_, tabEditor.getRelPath(), tabEditor.getCenter().getCaretPosition());
+        edi_.afterSearchSymbol(page_, l_, ResultExpressionOperationNode.export(page_, l_));
     }
 }
