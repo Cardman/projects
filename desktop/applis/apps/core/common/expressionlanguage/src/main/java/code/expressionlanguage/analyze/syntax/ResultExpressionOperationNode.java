@@ -40,9 +40,11 @@ public final class ResultExpressionOperationNode {
         return "";
     }
     public static CustList<RowSrcLocation> locationsDisplay(AnalyzedPageEl _page, String _fileName, int _caret) {
-        CustList<SrcFileLocation> l_ = locations(_page, _fileName, _caret);
+        return export(_page,locations(_page, _fileName, _caret));
+    }
+    public static CustList<RowSrcLocation> export(AnalyzedPageEl _page, CustList<SrcFileLocation> _l) {
         CustList<RowSrcLocation> d_ = new CustList<RowSrcLocation>();
-        for (SrcFileLocation s: l_) {
+        for (SrcFileLocation s: _l) {
             d_.add(s.build(_page.getDisplayedStrings()));
         }
         return d_;

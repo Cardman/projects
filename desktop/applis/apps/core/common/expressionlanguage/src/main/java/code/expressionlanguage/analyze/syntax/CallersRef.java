@@ -356,7 +356,7 @@ public final class CallersRef {
         for (EntryCust<SrcFileLocation,CustList<FileBlockIndex>> e: _map.entryList()) {
             if (e.getKey().match(_caller)) {
                 e.getValue().add(_location);
-                break;
+                return;
             }
         }
         CustList<FileBlockIndex> loc_ = new CustList<FileBlockIndex>();
