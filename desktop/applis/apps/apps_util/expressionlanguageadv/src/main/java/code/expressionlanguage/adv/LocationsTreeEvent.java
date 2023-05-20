@@ -16,7 +16,7 @@ public final class LocationsTreeEvent implements AbsShortListTree {
 
     @Override
     public void valueChanged(AbstractMutableTreeNodeCore _node) {
-        AbstractMutableTreeNodeCore e_ = MutableTreeNodeCoreUtil.getElt(root, MutableTreeNodeUtil.getIndexes((AbstractMutableTreeNode) _node));
+        AbstractMutableTreeNodeCore e_ = MutableTreeNodeUtil.simular(root, (AbstractMutableTreeNode) _node);
         if (!(e_ instanceof MetaCaller)) {
             return;
         }

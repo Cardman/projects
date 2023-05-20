@@ -24,7 +24,7 @@ public abstract class EquallableGuiFctUtil {
         Assert.assertNotNull(_result);
         Assert.assertEquals(_expected, _result);
     }
-    public static void assertSame(AbstractMutableTreeNode _expected, AbstractMutableTreeNode _result) {
+    public static void assertSame(AbstractMutableTreeNodeCore _expected, AbstractMutableTreeNodeCore _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(AbsCustComponent _expected, AbsCustComponent _result) {

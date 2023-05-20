@@ -66,7 +66,7 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
 
     private AbsPanel locations(WindowExpressionEditor _s) {
         AbsTreeGui a_ = (AbsTreeGui) _s.getPanelSymbolsDetailScroll().getChildren().get(0);
-        new LocationsTreeEvent(null,null).valueChanged(null);
+        a_.select(null);
         a_.select(a_.getRoot());
         a_.select(a_.getRoot().getFirstChild());
         a_.select(a_.getRoot().getFirstChild().getFirstChild());

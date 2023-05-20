@@ -20,6 +20,8 @@ public final class MutableTreeNodeUtilTest extends EquallableGuiFctUtil {
         Ints ls_ = MutableTreeNodeUtil.getIndexes(ch_);
         assertEq(1,ls_.size());
         assertEq(0,ls_.get(0));
+        assertSame(null,MutableTreeNodeUtil.simular(null,null));
+        assertSame(ch_,MutableTreeNodeUtil.simular(r_,ch_));
     }
     @Test
     public void reload1() {

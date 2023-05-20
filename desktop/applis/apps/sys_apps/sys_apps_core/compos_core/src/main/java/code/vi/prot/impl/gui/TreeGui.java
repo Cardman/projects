@@ -57,7 +57,7 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
     public static DefMutableTreeNode selected(AbstractMutableTreeNode _root,TreePath _path) {
         try {
             DefMutableTreeNode res_ = DefMutableTreeNode.build((DefaultMutableTreeNode) _path.getLastPathComponent());
-            return (DefMutableTreeNode) MutableTreeNodeCoreUtil.getElt(_root,MutableTreeNodeUtil.getIndexes(res_));
+            return (DefMutableTreeNode) MutableTreeNodeUtil.simular(_root,res_);
         } catch (Exception e) {
             return null;
         }

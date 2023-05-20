@@ -282,7 +282,7 @@ public abstract class WindowWithTreeImpl {
         panelSymbols.add(lastCount);
         panelSymbolsScroll = frs_.getCompoFactory().newAbsScrollPane(panelSymbols);
         AbsSplitPane elt_ = frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), getScrollDialog()), editors),
-                frs_.getCompoFactory().newHorizontalSplitPane(panelSymbolsScroll,frs_.getCompoFactory().newHorizontalSplitPane(panelSymbolsDetailScroll,panelSymbolsLocationScroll)));
+                frs_.getCompoFactory().newHorizontalSplitPane(panelSymbolsScroll,detail));
         panel.add(elt_);
     }
 

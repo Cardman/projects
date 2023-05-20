@@ -31,6 +31,12 @@ public final class MutableTreeNodeUtil {
         }
         return ls_;
     }
+    public static AbstractMutableTreeNodeCore simular(AbstractMutableTreeNodeCore _root, AbstractMutableTreeNode _e) {
+        if (_e == null) {
+            return null;
+        }
+        return MutableTreeNodeCoreUtil.getElt(_root,getIndexes(_e));
+    }
     public static Ints getIndexes(AbstractMutableTreeNode _current) {
         AbstractMutableTreeNode parent_ = _current;
         Ints pars_ = new Ints();
