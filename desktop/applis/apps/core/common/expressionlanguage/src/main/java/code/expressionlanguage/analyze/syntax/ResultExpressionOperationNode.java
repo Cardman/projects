@@ -2,9 +2,7 @@ package code.expressionlanguage.analyze.syntax;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.ResultParsedAnnot;
-import code.expressionlanguage.analyze.files.ResultParsedAnnots;
+import code.expressionlanguage.analyze.files.*;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodId;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodIdList;
 import code.expressionlanguage.analyze.opers.*;
@@ -701,7 +699,15 @@ public final class ResultExpressionOperationNode {
         }
         return _f.getType();
     }
-    public static ResultExpressionOperationNode container(int _caret, FileBlock _file) {
+    static Ints containerSeg(int _caret, FileBlock _file) {
+        ResultExpressionOperationNode c_ = container(_caret, _file);
+        return Ints.newList(c_.begin(),c_.end());
+    }
+    static AbsBk containerBlock(int _caret, FileBlock _file) {
+        ResultExpressionOperationNode c_ = container(_caret, _file);
+        return c_.getBlock();
+    }
+    private static ResultExpressionOperationNode container(int _caret, FileBlock _file) {
         AbsBk sub_ = _file;
         ResultExpressionOperationNode out_ = new ResultExpressionOperationNode();
         while (sub_ != null) {
@@ -726,7 +732,7 @@ public final class ResultExpressionOperationNode {
         return out_;
     }
 
-    public static AbsBk subContainer(int _caret, AbsBk _bl) {
+    private static AbsBk subContainer(int _caret, AbsBk _bl) {
         AbsBk current_ = _bl;
         AbsBk out_ = _bl;
         while (current_ != null) {
@@ -752,7 +758,7 @@ public final class ResultExpressionOperationNode {
         return _b!=null&&_b.getOffset() <= _caret && _caret < _b.getEndAll();
     }
 
-    public static ResultExpression result(AbsBk _block, int _caret) {
+    private static ResultExpression result(AbsBk _block, int _caret) {
         if (_block instanceof InfoBlock) {
             ResultParsedAnnots a_ = ((InfoBlock) _block).getAnnotations();
             int index_ = indexOfAnnot(a_, _caret);
@@ -932,7 +938,7 @@ public final class ResultExpressionOperationNode {
         return null;
     }
 
-    public static ResultExpression resRoot(RootBlock _block, int _caret) {
+    private static ResultExpression resRoot(RootBlock _block, int _caret) {
         ResultParsedAnnots a_ = _block.getAnnotations();
         int index_ = indexOfAnnot(a_, _caret);
         if (index_ > -1) {
@@ -941,7 +947,7 @@ public final class ResultExpressionOperationNode {
         return null;
     }
 
-    public static ResultExpression resSw(SwitchMethodBlock _block, int _caret) {
+    private static ResultExpression resSw(SwitchMethodBlock _block, int _caret) {
         ResultParsedAnnots a_ = _block.getAnnotations();
         int index_ = indexOfAnnot(a_, _caret);
         if (index_ > -1) {
@@ -986,7 +992,7 @@ public final class ResultExpressionOperationNode {
         return -1;
     }
 
-    public OperationNode subContainer(int _caret) {
+    private OperationNode subContainer(int _caret) {
         OperationNode current_ = root(resultExpression);
         OperationNode out_ = root(resultExpression);
         while (current_ != null) {
@@ -1008,7 +1014,7 @@ public final class ResultExpressionOperationNode {
         return out_;
     }
 
-    public static BracedBlock nextBlock(OperationNode _result, int _sum, int _caret) {
+    private static BracedBlock nextBlock(OperationNode _result, int _sum, int _caret) {
         if (_result instanceof AnonymousLambdaOperation) {
             NamedCalledFunctionBlock anon_ = ((AnonymousLambdaOperation) _result).getBlock();
             int arrow_ = anon_.getNameOffset();
@@ -1061,11 +1067,11 @@ public final class ResultExpressionOperationNode {
         return inRange(begin_, _caret, end_);
     }
 
-    public int begin() {
+    private int begin() {
         return begin(getFound());
     }
 
-    public int begin(OperationNode _b) {
+    private int begin(OperationNode _b) {
         return begin(resultExpression,_b);
     }
 
@@ -1073,11 +1079,11 @@ public final class ResultExpressionOperationNode {
         return _b.getIndexInEl() + _r.getSumOffset();
     }
 
-    public int end() {
+    private int end() {
         return end(getFound());
     }
 
-    public int end(OperationNode _b) {
+    private int end(OperationNode _b) {
         return end(resultExpression, _b);
     }
     public static int end(ResultExpression _r,OperationNode _b) {
@@ -1093,23 +1099,23 @@ public final class ResultExpressionOperationNode {
         return _begin <= _caret && _caret < _end;
     }
 
-    public AbsBk getBlock() {
+    private AbsBk getBlock() {
         return block;
     }
 
-    public void setBlock(AbsBk _b) {
+    private void setBlock(AbsBk _b) {
         this.block = _b;
     }
 
-    public OperationNode getFound() {
+    private OperationNode getFound() {
         return found;
     }
 
-    public void setFound(OperationNode _f) {
+    private void setFound(OperationNode _f) {
         this.found = _f;
     }
 
-    public void setResultExpression(ResultExpression _r) {
+    private void setResultExpression(ResultExpression _r) {
         this.resultExpression = _r;
     }
 }

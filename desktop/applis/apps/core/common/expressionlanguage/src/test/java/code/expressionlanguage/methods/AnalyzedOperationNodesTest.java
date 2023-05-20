@@ -4635,15 +4635,6 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         return a_;
     }
 
-    private static AbsBk quickFindBlock(StringMap<String> _files, String _fileName, int _caret) {
-        return quickFindOperation(_files,_fileName,_caret).getBlock();
-    }
-
-    private static ResultExpressionOperationNode quickFindOperation(StringMap<String> _files, String _fileName, int _caret) {
-        AnalyzedPageEl a_ = quickAnalyze(_files);
-        return ResultExpressionOperationNode.container(_caret, a_.getPreviousFilesBodies().getVal(_fileName));
-    }
-
     private static AnalyzedPageEl quickAnalyze(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);

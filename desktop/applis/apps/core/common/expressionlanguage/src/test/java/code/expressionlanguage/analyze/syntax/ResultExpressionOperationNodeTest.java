@@ -8,6 +8,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.sample.CustLgNames;
 import code.util.CustList;
+import code.util.Ints;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import org.junit.Test;
@@ -200,9 +201,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",30);
-        assertEq(30,r_.begin());
-        assertEq(31,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",30);
+        assertEq(30,r_.get(0));
+        assertEq(31,r_.get(1));
     }
 
     @Test
@@ -217,9 +218,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",26);
-        assertEq(25,r_.begin());
-        assertEq(32,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",26);
+        assertEq(25,r_.get(0));
+        assertEq(32,r_.get(1));
     }
 
     @Test
@@ -250,9 +251,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",39);
-        assertEq(39,r_.begin());
-        assertEq(40,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",39);
+        assertEq(39,r_.get(0));
+        assertEq(40,r_.get(1));
     }
     @Test
     public void container17() {
@@ -266,9 +267,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",29);
-        assertEq(34,r_.begin());
-        assertEq(41,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",29);
+        assertEq(34,r_.get(0));
+        assertEq(41,r_.get(1));
     }
     @Test
     public void container18() {
@@ -282,9 +283,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",41);
-        assertEq(34,r_.begin());
-        assertEq(41,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",41);
+        assertEq(34,r_.get(0));
+        assertEq(41,r_.get(1));
     }
     @Test
     public void container19() {
@@ -317,9 +318,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("$public $annotation pkg.Annot{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",29);
-        assertEq(29,r_.begin());
-        assertEq(35,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",29);
+        assertEq(29,r_.get(0));
+        assertEq(35,r_.get(1));
     }
     @Test
     public void container21() {
@@ -336,9 +337,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("$public $annotation pkg.Annot{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",48);
-        assertEq(48,r_.begin());
-        assertEq(53,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",48);
+        assertEq(48,r_.get(0));
+        assertEq(53,r_.get(1));
     }
     @Test
     public void container22() {
@@ -352,9 +353,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",40);
-        assertEq(34,r_.begin());
-        assertEq(41,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",40);
+        assertEq(34,r_.get(0));
+        assertEq(41,r_.get(1));
     }
     @Test
     public void container23() {
@@ -366,9 +367,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("TWO<$int>;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",38);
-        assertEq(33,r_.begin());
-        assertEq(39,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",38);
+        assertEq(33,r_.get(0));
+        assertEq(39,r_.get(1));
     }
     @Test
     public void container24() {
@@ -414,9 +415,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("$public $annotation pkg.Annot{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",49);
-        assertEq(48,r_.begin());
-        assertEq(54,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",49);
+        assertEq(48,r_.get(0));
+        assertEq(54,r_.get(1));
     }
     @Test
     public void container27() {
@@ -430,9 +431,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("$public $annotation pkg.Annot{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",55);
-        assertEq(54,r_.begin());
-        assertEq(60,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",55);
+        assertEq(54,r_.get(0));
+        assertEq(60,r_.get(1));
     }
     @Test
     public void container28() {
@@ -447,9 +448,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("$public $annotation pkg.Annot{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",28);
-        assertEq(27,r_.begin());
-        assertEq(33,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",28);
+        assertEq(27,r_.get(0));
+        assertEq(33,r_.get(1));
     }
     @Test
     public void container29() {
@@ -509,9 +510,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",42);
-        assertEq(42,r_.begin());
-        assertEq(43,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",42);
+        assertEq(42,r_.get(0));
+        assertEq(43,r_.get(1));
     }
     @Test
     public void container33() {
@@ -525,9 +526,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",44);
-        assertEq(44,r_.begin());
-        assertEq(45,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",44);
+        assertEq(44,r_.get(0));
+        assertEq(45,r_.get(1));
     }
     @Test
     public void container34() {
@@ -541,9 +542,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",46);
-        assertEq(46,r_.begin());
-        assertEq(47,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",46);
+        assertEq(46,r_.get(0));
+        assertEq(47,r_.get(1));
     }
     @Test
     public void container35() {
@@ -573,9 +574,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",40);
-        assertEq(39,r_.begin());
-        assertEq(42,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",40);
+        assertEq(39,r_.get(0));
+        assertEq(42,r_.get(1));
     }
     @Test
     public void container37() {
@@ -589,9 +590,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",44);
-        assertEq(43,r_.begin());
-        assertEq(46,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",44);
+        assertEq(43,r_.get(0));
+        assertEq(46,r_.get(1));
     }
     @Test
     public void container38() {
@@ -605,9 +606,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",48);
-        assertEq(47,r_.begin());
-        assertEq(50,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",48);
+        assertEq(47,r_.get(0));
+        assertEq(50,r_.get(1));
     }
     @Test
     public void container39() {
@@ -645,9 +646,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("$static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",40);
-        assertEq(40,r_.begin());
-        assertEq(41,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",40);
+        assertEq(40,r_.get(0));
+        assertEq(41,r_.get(1));
     }
     @Test
     public void container42() {
@@ -677,9 +678,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",33);
-        assertEq(33,r_.begin());
-        assertEq(38,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",33);
+        assertEq(33,r_.get(0));
+        assertEq(38,r_.get(1));
     }
     @Test
     public void container44() {
@@ -711,9 +712,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",37);
-        assertEq(37,r_.begin());
-        assertEq(38,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",37);
+        assertEq(37,r_.get(0));
+        assertEq(38,r_.get(1));
     }
     @Test
     public void container46() {
@@ -745,9 +746,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",52);
-        assertEq(52,r_.begin());
-        assertEq(53,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",52);
+        assertEq(52,r_.get(0));
+        assertEq(53,r_.get(1));
     }
     @Test
     public void container48() {
@@ -762,9 +763,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",55);
-        assertEq(55,r_.begin());
-        assertEq(60,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",55);
+        assertEq(55,r_.get(0));
+        assertEq(60,r_.get(1));
     }
     @Test
     public void container49() {
@@ -794,9 +795,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",48);
-        assertEq(48,r_.begin());
-        assertEq(49,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",48);
+        assertEq(48,r_.get(0));
+        assertEq(49,r_.get(1));
     }
     @Test
     public void container51() {
@@ -826,9 +827,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",41);
-        assertEq(41,r_.begin());
-        assertEq(42,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",41);
+        assertEq(41,r_.get(0));
+        assertEq(42,r_.get(1));
     }
     @Test
     public void container53() {
@@ -856,9 +857,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",31);
-        assertEq(29,r_.begin());
-        assertEq(32,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",31);
+        assertEq(29,r_.get(0));
+        assertEq(32,r_.get(1));
     }
     @Test
     public void container55() {
@@ -886,9 +887,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",39);
-        assertEq(37,r_.begin());
-        assertEq(40,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",39);
+        assertEq(37,r_.get(0));
+        assertEq(40,r_.get(1));
     }
     @Test
     public void container57() {
@@ -916,9 +917,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",38);
-        assertEq(36,r_.begin());
-        assertEq(39,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",38);
+        assertEq(36,r_.get(0));
+        assertEq(39,r_.get(1));
     }
     @Test
     public void container59() {
@@ -933,9 +934,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",30);
-        assertEq(29,r_.begin());
-        assertEq(49,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",30);
+        assertEq(29,r_.get(0));
+        assertEq(49,r_.get(1));
     }
     @Test
     public void container60() {
@@ -986,9 +987,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("$public $annotation pkg.Annot{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",34);
-        assertEq(33,r_.begin());
-        assertEq(39,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",34);
+        assertEq(33,r_.get(0));
+        assertEq(39,r_.get(1));
     }
     @Test
     public void container63() {
@@ -1006,9 +1007,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("$public $annotation pkg.Annot{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",32);
-        assertEq(31,r_.begin());
-        assertEq(84,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",32);
+        assertEq(31,r_.get(0));
+        assertEq(84,r_.get(1));
     }
     @Test
     public void container64() {
@@ -1026,9 +1027,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("$public $annotation pkg.Annot{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",39);
-        assertEq(31,r_.begin());
-        assertEq(84,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",39);
+        assertEq(31,r_.get(0));
+        assertEq(84,r_.get(1));
     }
     @Test
     public void container65() {
@@ -1046,9 +1047,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("$public $annotation pkg.Annot{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",45);
-        assertEq(44,r_.begin());
-        assertEq(50,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",45);
+        assertEq(44,r_.get(0));
+        assertEq(50,r_.get(1));
     }
     @Test
     public void container66() {
@@ -1066,9 +1067,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("$public $annotation pkg.Annot{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",52);
-        assertEq(51,r_.begin());
-        assertEq(57,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",52);
+        assertEq(51,r_.get(0));
+        assertEq(57,r_.get(1));
     }
     @Test
     public void container67() {
@@ -1143,9 +1144,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("$public $annotation pkg.Annot{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",59);
-        assertEq(31,r_.begin());
-        assertEq(74,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",59);
+        assertEq(31,r_.get(0));
+        assertEq(74,r_.get(1));
     }
     @Test
     public void container71() {
@@ -1162,9 +1163,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("$public $annotation pkg.Annot{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",33);
-        assertEq(32,r_.begin());
-        assertEq(38,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",33);
+        assertEq(32,r_.get(0));
+        assertEq(38,r_.get(1));
     }
     @Test
     public void container72() {
@@ -1181,9 +1182,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("$public $annotation pkg.Annot{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",47);
-        assertEq(46,r_.begin());
-        assertEq(52,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",47);
+        assertEq(46,r_.get(0));
+        assertEq(52,r_.get(1));
     }
     @Test
     public void container73() {
@@ -1194,9 +1195,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("ONE(1)\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultExpressionOperationNode r_ = quickFindOperation(files_,"pkg/Ex",28);
-        assertEq(25,r_.begin());
-        assertEq(32,r_.end());
+        Ints r_ = quickFindOperation(files_,"pkg/Ex",28);
+        assertEq(25,r_.get(0));
+        assertEq(32,r_.get(1));
     }
     @Test
     public void container74() {
@@ -5242,12 +5243,13 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         return ResultExpressionOperationNode.vexerChamps(a_,_fileName,_caret);
     }
     private static AbsBk quickFindBlock(StringMap<String> _files, String _fileName, int _caret) {
-        return quickFindOperation(_files,_fileName,_caret).getBlock();
+        AnalyzedPageEl a_ = quickAnalyze(_files);
+        return ResultExpressionOperationNode.containerBlock(_caret, a_.getPreviousFilesBodies().getVal(_fileName));
     }
 
-    private static ResultExpressionOperationNode quickFindOperation(StringMap<String> _files, String _fileName, int _caret) {
+    private static Ints quickFindOperation(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
-        return ResultExpressionOperationNode.container(_caret, a_.getPreviousFilesBodies().getVal(_fileName));
+        return ResultExpressionOperationNode.containerSeg(_caret, a_.getPreviousFilesBodies().getVal(_fileName));
     }
 
     private static AnalyzedPageEl quickAnalyze(StringMap<String> _files) {

@@ -519,7 +519,7 @@ public final class CallersRef {
         return _e;
     }
 
-    public static void resSw(CustList<ResultExpressionBlock> _list, SwitchMethodBlock _block) {
+    private static void resSw(CustList<ResultExpressionBlock> _list, SwitchMethodBlock _block) {
         ResultParsedAnnots a_ = _block.getAnnotations();
         addAnnots(_block,_list,a_, AnnotationKind.MEMBER);
         CustList<ResultParsedAnnots> params_ = _block.getAnnotationsParams();
@@ -623,7 +623,7 @@ public final class CallersRef {
         ls_.add(new ResultExpressionBlock(new SrcFileLocationMethod(_caller.getParent(),_caller),_block,_block.getResStep()));
         return ls_;
     }
-    public void lookForAnnotationsCandidates(ResultExpressionBlockOperation _c) {
+    private void lookForAnnotationsCandidates(ResultExpressionBlockOperation _c) {
         OperationNode o_ = _c.getBlock();
         FileBlock f_ = _c.getRes().getBlock().getFile();
         SrcFileLocation caller_ = _c.getRes().getCaller();
@@ -665,7 +665,7 @@ public final class CallersRef {
             }
         }
     }
-    public void lookForDynCall(AnalyzedPageEl _page,ResultExpressionBlockOperation _c) {
+    private void lookForDynCall(AnalyzedPageEl _page,ResultExpressionBlockOperation _c) {
         OperationNode o_ = _c.getBlock();
         FileBlock f_ = _c.getRes().getBlock().getFile();
         SrcFileLocation caller_ = _c.getRes().getCaller();
@@ -728,7 +728,7 @@ public final class CallersRef {
         }
         _types.add(m_);
     }
-    public void typesFound(AbsBkSrcFileLocation _c, CustList<SrcFileLocation> _piano) {
+    private void typesFound(AbsBkSrcFileLocation _c, CustList<SrcFileLocation> _piano) {
         AbsBk bl_ = _c.getBlock();
         if (bl_ instanceof InnerTypeOrElement) {
             addAllIfMatch(fetch(((InnerTypeOrElement)bl_).getElementContent().getPartOffsets()),_c.getCaller(),bl_.getFile(),fieldDeclaring,_piano);
@@ -781,7 +781,7 @@ public final class CallersRef {
         }
         addIfMatch(_inf,_c.getCaller(),_inf.getFile(),_inf.getOffset(),variableDeclaringInferred,_piano);
     }
-    public void typesFound(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
+    private void typesFound(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
         OperationNode o_ = _c.getBlock();
         FileBlock f_ = _c.getRes().getBlock().getFile();
         if (o_ instanceof EnumValueOfOperation) {
@@ -850,7 +850,7 @@ public final class CallersRef {
         }
     }
 
-    public void typesFoundAnon(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
+    private void typesFoundAnon(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
         OperationNode o_ = _c.getBlock();
         FileBlock f_ = _c.getRes().getBlock().getFile();
         if (o_ instanceof SwitchOperation) {
@@ -922,7 +922,7 @@ public final class CallersRef {
         addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(_foundOp.getPartOffsets(), new AllTypeSegmentFilter()),_c.getRes().getCaller(),f_,typesFinders,_piano);
     }
 
-    public void callingsCustDirect(MemberCallingsBlock _c, CustList<SrcFileLocation> _piano) {
+    private void callingsCustDirect(MemberCallingsBlock _c, CustList<SrcFileLocation> _piano) {
         if (_c instanceof NamedFunctionBlock) {
             addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((NamedFunctionBlock)_c).getPartOffsetsReturn(), new AllTypeSegmentFilter()),new SrcFileLocationMethod(_c.getParent(),_c),_c.getFile(),returnType,_piano);
             addAllIfMatch(fetchAna(((NamedFunctionBlock)_c).getPartOffsetsParams()),new SrcFileLocationMethod(_c.getParent(),_c),_c.getFile(),paramType,_piano);
@@ -938,7 +938,7 @@ public final class CallersRef {
             }
         }
     }
-    public void callingsCustDynDirect(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
+    private void callingsCustDynDirect(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
         OperationNode o_ = _c.getBlock();
         FileBlock f_ = _c.getRes().getBlock().getFile();
         if (o_ instanceof CallDynMethodOperation) {
@@ -951,7 +951,7 @@ public final class CallersRef {
             }
         }
     }
-    public void callingsCustDirect(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
+    private void callingsCustDirect(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
         OperationNode o_ = _c.getBlock();
         FileBlock f_ = _c.getRes().getBlock().getFile();
         if (o_ instanceof FinalVariableOperation && ((FinalVariableOperation) o_).isOk()) {
@@ -1032,7 +1032,7 @@ public final class CallersRef {
         }
     }
 
-    public void symbols(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
+    private void symbols(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
         OperationNode o_ = _c.getBlock();
         if (o_ instanceof SymbolOperation) {
             fctPub(_c, ((SymbolOperation) o_).getFct().getFunction(), ((SymbolOperation)o_).getOperatorContent().getOpOffset(), _piano, callNamedUse);
