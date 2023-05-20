@@ -25,54 +25,51 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.ClassMetaInfo;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public final class CallersRef {
     public static final String TRIM_FILTER = "";
     private final CustList<AbsBkSrcFileLocation> blocksLocations = new CustList<AbsBkSrcFileLocation>();
     private final CustList<ResultExpressionBlockLabel> breakContinue = new CustList<ResultExpressionBlockLabel>();
-    private final CustList<FileBlockIndex> labels = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> variablesParamsUse = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> fieldsUse = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> fieldsUseInit = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> fieldsRefUse = new CustList<FileBlockIndex>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> labels = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> variablesParamsUse = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> fieldsUse = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> fieldsUseInit = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> fieldsRefUse = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
 //    private final CustList<BlockCallerFct> allBlocks = new CustList<BlockCallerFct>();
 
     //    private final CustList<SrcFileLocation> directRefNamed = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directRefNamedStd = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directRefNamedStdCtor = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directRefImplCtor = new CustList<SrcFileLocation>();
-    private final CustList<FileBlockIndex> callNamedUse = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> callNamedFieldUse = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> callNamedUseImpl = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> callNamedUsePoly = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> callNamedOverridden = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> callNamedOverriding = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> callAnonRefUse = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> callNamedRefUse = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> callNamedRefUsePoly = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> instanceNewTypes = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> instanceNewTypesElt = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> instanceNewTypesEltFwd = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> instanceNewTypesEltArray = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> instanceArobase = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> instanceNewTypesFwd = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> instanceNewTypesRef = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> staticAccess = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> castOperation = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> instanceOperation = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> interfacesInit = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> interfacesInitRef = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> typesFinders = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> typesFindersRef = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> typesInfos = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> typesInfosDef = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> paramType = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> returnType = new CustList<FileBlockIndex>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> callNamedUse = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> callNamedFieldUse = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> callNamedUseImpl = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> callNamedUsePoly = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> callNamedOverridden = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> callNamedOverriding = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> callAnonRefUse = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> callNamedRefUse = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> callNamedRefUsePoly = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> instanceNewTypes = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> instanceNewTypesElt = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> instanceNewTypesEltFwd = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> instanceNewTypesEltArray = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> instanceArobase = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> instanceNewTypesFwd = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> instanceNewTypesRef = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> staticAccess = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> castOperation = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> instanceOperation = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> interfacesInit = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> interfacesInitRef = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> typesFinders = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> typesFindersRef = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> typesInfos = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> typesInfosDef = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> paramType = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> returnType = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
     private final CustList<MemberAnnotFilterCall> annotCandidatesMembers = new CustList<MemberAnnotFilterCall>();
     private final CustList<MemberAnnotFilterCall> annotCandidatesParameters = new CustList<MemberAnnotFilterCall>();
     private final CustList<MemberAnnotFilterCall> annotCandidatesSuppl = new CustList<MemberAnnotFilterCall>();
@@ -81,16 +78,16 @@ public final class CallersRef {
     private final CustList<FileBlockIndex> annotCandidatesCallsStdParameters = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> annotCandidatesCallsStdSuppl = new CustList<FileBlockIndex>();
     private final CustList<FileBlockIndex> annotCandidatesCallsStdDefValue = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> annotCandidatesCallsInitMembers = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> annotCandidatesCallsInitParameters = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> annotCandidatesCallsInitSuppl = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> annotCandidatesCallsInitDefValue = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> annotCandidatesCallsInitArobaseMembers = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> annotCandidatesCallsInitArobaseParameters = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> annotCandidatesCallsInitArobaseSuppl = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> annotCandidatesCallsInitArobaseDefValue = new CustList<FileBlockIndex>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> annotCandidatesCallsInitMembers = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> annotCandidatesCallsInitParameters = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> annotCandidatesCallsInitSuppl = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> annotCandidatesCallsInitDefValue = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> annotCandidatesCallsInitArobaseMembers = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> annotCandidatesCallsInitArobaseParameters = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> annotCandidatesCallsInitArobaseSuppl = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> annotCandidatesCallsInitArobaseDefValue = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
     private final CustList<FileBlockIndex> dynCallStd = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> dynCallPotential = new CustList<FileBlockIndex>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> dynCallPotential = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
     private final CustList<String> dynCallRefer = new CustList<String>();
     private final CustList<LambdaDynFilterCall> lambda = new CustList<LambdaDynFilterCall>();
     private final CustList<AnnotationInitFilterCall> annotationsMembers = new CustList<AnnotationInitFilterCall>();
@@ -98,27 +95,30 @@ public final class CallersRef {
     private final CustList<AnnotationInitFilterCall> annotationsSuppl = new CustList<AnnotationInitFilterCall>();
     private final CustList<AnnotationInitFilterCall> annotationsDefValue = new CustList<AnnotationInitFilterCall>();
     private final CustList<MemberCallingsBlock> fcts = new CustList<MemberCallingsBlock>();
-    private final CustList<FileBlockIndex> internElts = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> internEltsFct = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> fieldDeclaring = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> variableDeclaring = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> variableDeclaringInferred = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> interfacesStatic = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> interfacesInstance = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> constraints = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> inherits = new CustList<FileBlockIndex>();
-    private final CustList<FileBlockIndex> callDyn = new CustList<FileBlockIndex>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> internElts = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> internEltsFct = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> fieldDeclaring = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> variableDeclaring = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> variableDeclaringInferred = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> interfacesStatic = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> interfacesInstance = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> constraints = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> inherits = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
+    private final IdMap<SrcFileLocation,CustList<FileBlockIndex>> callDyn = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
     //    private final CustList<SrcFileLocation> directCallNamedRefAll = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directCallImplicits = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directNew = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directNewStd = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directNewTypes = new CustList<SrcFileLocation>();
 //    private final CustList<SrcFileLocation> directNewInherits = new CustList<SrcFileLocation>();
-    public static CallersRef loop(AnalyzedPageEl _page, CustList<SrcFileLocation> _piano) {
+    private CallersRef() {
+    }
+    public static IdMap<CallerKind,IdMap<SrcFileLocation,CustList<FileBlockIndex>>> loop(AnalyzedPageEl _page, CustList<SrcFileLocation> _piano) {
         CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
+        IdMap<CallerKind,IdMap<SrcFileLocation,CustList<FileBlockIndex>>> out_ = new IdMap<CallerKind, IdMap<SrcFileLocation, CustList<FileBlockIndex>>>();
         CallersRef c_ = new CallersRef();
-        c_.callNamedOverridden.addAllElts(feedOverridden(_page, _piano));
-        c_.callNamedOverriding.addAllElts(feedOverriding(_page, _piano));
+        c_.callNamedOverridden.addAllEntries(feedOverridden(_page, _piano));
+        c_.callNamedOverriding.addAllEntries(feedOverriding(_page, _piano));
         for (RootBlock r : _page.getAllFoundTypes()){
             c_.type(ls_, r);
         }
@@ -176,7 +176,64 @@ public final class CallersRef {
         feed(_page, c_.annotCandidatesCallsStdSuppl,c_.annotCandidatesSuppl,c_.annotationsSuppl,c_.annotCandidatesCallsInitSuppl,c_.annotCandidatesCallsInitArobaseSuppl);
         feed(_page, c_.annotCandidatesCallsStdDefValue,c_.annotCandidatesDefValue,c_.annotationsDefValue,c_.annotCandidatesCallsInitDefValue,c_.annotCandidatesCallsInitArobaseDefValue);
         callDyn(_page, c_.dynCallStd, c_.dynCallRefer, c_.lambda, c_.dynCallPotential);
-        return c_;
+        addIfNotEmpty(out_, CallerKind.LABEL,c_.labels);
+        addIfNotEmpty(out_, CallerKind.VARIABLES,c_.variablesParamsUse);
+        addIfNotEmpty(out_, CallerKind.FIELD,c_.fieldsUse);
+        addIfNotEmpty(out_, CallerKind.FIELD_INIT,c_.fieldsUseInit);
+        addIfNotEmpty(out_, CallerKind.FIELD_REF,c_.fieldsRefUse);
+        addIfNotEmpty(out_, CallerKind.NAME,c_.callNamedUse);
+        addIfNotEmpty(out_, CallerKind.NAME_FIELD,c_.callNamedFieldUse);
+        addIfNotEmpty(out_, CallerKind.NAME_IMPL,c_.callNamedUseImpl);
+        addIfNotEmpty(out_, CallerKind.NAME_POLY,c_.callNamedUsePoly);
+        addIfNotEmpty(out_, CallerKind.OVERRIDDEN,c_.callNamedOverridden);
+        addIfNotEmpty(out_, CallerKind.OVERRIDING,c_.callNamedOverriding);
+        addIfNotEmpty(out_, CallerKind.ANON_REF,c_.callAnonRefUse);
+        addIfNotEmpty(out_, CallerKind.NAME_REF,c_.callNamedRefUse);
+        addIfNotEmpty(out_, CallerKind.NAME_REF_POLY,c_.callNamedRefUsePoly);
+        addIfNotEmpty(out_, CallerKind.INSTANCE,c_.instanceNewTypes);
+        addIfNotEmpty(out_, CallerKind.INSTANCE_ELT,c_.instanceNewTypesElt);
+        addIfNotEmpty(out_, CallerKind.INSTANCE_ELT_ARRAY,c_.instanceNewTypesEltArray);
+        addIfNotEmpty(out_, CallerKind.INSTANCE_FWD,c_.instanceNewTypesFwd);
+        addIfNotEmpty(out_, CallerKind.INSTANCE_ELT_FWD,c_.instanceNewTypesEltFwd);
+        addIfNotEmpty(out_, CallerKind.INSTANCE_REF,c_.instanceNewTypesRef);
+        addIfNotEmpty(out_, CallerKind.AROBASE,c_.instanceArobase);
+        addIfNotEmpty(out_, CallerKind.STATIC,c_.staticAccess);
+        addIfNotEmpty(out_, CallerKind.INSTANCEOF,c_.instanceOperation);
+        addIfNotEmpty(out_, CallerKind.CAST,c_.castOperation);
+        addIfNotEmpty(out_, CallerKind.INTERFACES_INIT,c_.interfacesInit);
+        addIfNotEmpty(out_, CallerKind.INTERFACES_INIT_REF,c_.interfacesInitRef);
+        addIfNotEmpty(out_, CallerKind.INTERFACES_INSTANCE,c_.interfacesInstance);
+        addIfNotEmpty(out_, CallerKind.INTERFACES_STATIC,c_.interfacesStatic);
+        addIfNotEmpty(out_, CallerKind.TYPES_FINDERS,c_.typesFinders);
+        addIfNotEmpty(out_, CallerKind.TYPES_FINDERS_REF,c_.typesFindersRef);
+        addIfNotEmpty(out_, CallerKind.TYPES_INFOS,c_.typesInfos);
+        addIfNotEmpty(out_, CallerKind.TYPES_INFOS_DEF,c_.typesInfosDef);
+        addIfNotEmpty(out_, CallerKind.PARAM,c_.paramType);
+        addIfNotEmpty(out_, CallerKind.RETURN,c_.returnType);
+        addIfNotEmpty(out_, CallerKind.ANNOT_INIT_MEMBER,c_.annotCandidatesCallsInitMembers);
+        addIfNotEmpty(out_, CallerKind.ANNOT_INIT_PARAMETER,c_.annotCandidatesCallsInitParameters);
+        addIfNotEmpty(out_, CallerKind.ANNOT_INIT_SUPPL,c_.annotCandidatesCallsInitSuppl);
+        addIfNotEmpty(out_, CallerKind.ANNOT_INIT_DEF_VALUE,c_.annotCandidatesCallsInitDefValue);
+        addIfNotEmpty(out_, CallerKind.ANNOT_AROBASE_MEMBER,c_.annotCandidatesCallsInitArobaseMembers);
+        addIfNotEmpty(out_, CallerKind.ANNOT_AROBASE_PARAMETER,c_.annotCandidatesCallsInitArobaseParameters);
+        addIfNotEmpty(out_, CallerKind.ANNOT_AROBASE_SUPPL,c_.annotCandidatesCallsInitArobaseSuppl);
+        addIfNotEmpty(out_, CallerKind.ANNOT_AROBASE_DEF_VALUE,c_.annotCandidatesCallsInitArobaseDefValue);
+        addIfNotEmpty(out_, CallerKind.DYN_CALL_POT,c_.dynCallPotential);
+        addIfNotEmpty(out_, CallerKind.INTERN_ELTS,c_.internElts);
+        addIfNotEmpty(out_, CallerKind.INTERN_ELTS_FCT,c_.internEltsFct);
+        addIfNotEmpty(out_, CallerKind.FIELD_DECL,c_.fieldDeclaring);
+        addIfNotEmpty(out_, CallerKind.VAR_DECL,c_.variableDeclaring);
+        addIfNotEmpty(out_, CallerKind.VAR_DECL_INFER,c_.variableDeclaringInferred);
+        addIfNotEmpty(out_, CallerKind.CONSTRAINTS,c_.constraints);
+        addIfNotEmpty(out_, CallerKind.INHERITS,c_.inherits);
+        addIfNotEmpty(out_, CallerKind.CALL_DYN,c_.callDyn);
+        return out_;
+    }
+    private static void addIfNotEmpty(IdMap<CallerKind,IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _map, CallerKind _key, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _value) {
+        if (_value.isEmpty()) {
+            return;
+        }
+        _map.addEntry(_key,_value);
     }
 
     private static void intern(AnalyzedPageEl _page, CustList<SrcFileLocation> _piano, CallersRef _c) {
@@ -204,11 +261,11 @@ public final class CallersRef {
         }
     }
 
-    private static void callDyn(AnalyzedPageEl _page, CustList<FileBlockIndex> _d, CustList<String> _c, CustList<LambdaDynFilterCall> _r, CustList<FileBlockIndex> _pot) {
+    private static void callDyn(AnalyzedPageEl _page, CustList<FileBlockIndex> _d, CustList<String> _c, CustList<LambdaDynFilterCall> _r, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _pot) {
         for (FileBlockIndex f: _d) {
             for (LambdaDynFilterCall e: _r) {
                 if (matchesCall(_page,e,_c)) {
-                    _pot.add(new FileBlockIndex(f.getFile(), f.getIndex(), e.getCalleeRef(), f.getCaller()));
+                    merge(_pot,f.getCaller(),new FileBlockIndex(f.getFile(), f.getIndex(), e.getCalleeRef(), f.getCaller()));
                 }
             }
         }
@@ -229,13 +286,14 @@ public final class CallersRef {
         return false;
     }
 
-    private static void feed(AnalyzedPageEl _page, CustList<FileBlockIndex> _f, CustList<MemberAnnotFilterCall> _candidates, CustList<AnnotationInitFilterCall> _a, CustList<FileBlockIndex> _c, CustList<FileBlockIndex> _potArobase) {
+    private static void feed(AnalyzedPageEl _page, CustList<FileBlockIndex> _f, CustList<MemberAnnotFilterCall> _candidates, CustList<AnnotationInitFilterCall> _a, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _c, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _potArobase) {
         for (FileBlockIndex f: _f) {
             for (AnnotationInitFilterCall e: _a) {
                 CustList<String> m_ = matches(_page, e, _candidates);
                 if (StringUtil.contains(m_, TRIM_FILTER) || StringUtil.contains(m_, e.getInit())) {
-                    _c.add(new FileBlockIndex(f.getFile(), f.getIndex(), e.getCalleeRef(), f.getCaller()));
-                    _potArobase.add(new FileBlockIndex(f.getFile(), f.getIndex(), e.getCallerRef(), f.getCaller()));
+                    SrcFileLocation caller_ = f.getCaller();
+                    merge(_c,caller_,new FileBlockIndex(f.getFile(), f.getIndex(), e.getCalleeRef(), caller_));
+                    merge(_potArobase,caller_,new FileBlockIndex(f.getFile(), f.getIndex(), e.getCallerRef(), caller_));
                 }
             }
         }
@@ -265,8 +323,8 @@ public final class CallersRef {
         }
     }
 
-    private static CustList<FileBlockIndex> feedOverridden(AnalyzedPageEl _page, CustList<SrcFileLocation> _piano) {
-        CustList<FileBlockIndex> out_ = new CustList<FileBlockIndex>();
+    private static IdMap<SrcFileLocation,CustList<FileBlockIndex>> feedOverridden(AnalyzedPageEl _page, CustList<SrcFileLocation> _piano) {
+        IdMap<SrcFileLocation,CustList<FileBlockIndex>> out_ = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
         for (EntryCust<NamedCalledFunctionBlock, StringMap<GeneStringOverridable>> e: _page.getOverriding().entryList()) {
             NamedCalledFunctionBlock redef_ = e.getKey();
             SrcFileLocationMethod caller_ = new SrcFileLocationMethod(redef_.getParent(), redef_);
@@ -277,20 +335,33 @@ public final class CallersRef {
         return out_;
     }
 
-    private static CustList<FileBlockIndex> feedOverriding(AnalyzedPageEl _page, CustList<SrcFileLocation> _piano) {
-        CustList<FileBlockIndex> out_ = new CustList<FileBlockIndex>();
+    private static IdMap<SrcFileLocation,CustList<FileBlockIndex>> feedOverriding(AnalyzedPageEl _page, CustList<SrcFileLocation> _piano) {
+        IdMap<SrcFileLocation,CustList<FileBlockIndex>> out_ = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
         for (EntryCust<NamedCalledFunctionBlock, StringMap<GeneStringOverridable>> e: _page.getOverriding().entryList()) {
             NamedCalledFunctionBlock redef_ = e.getKey();
             SrcFileLocationMethod caller_ = new SrcFileLocationMethod(redef_.getParent(), redef_);
             for (SrcFileLocation s: _piano) {
                 if (s.match(caller_)) {
                     for (GeneStringOverridable g: e.getValue().values()) {
-                        out_.add(new FileBlockIndex(caller_.getFile(),caller_.getIndex(),caller_,new SrcFileLocationMethod(g.getType(),g.getBlock())));
+                        SrcFileLocationMethod c_ = new SrcFileLocationMethod(g.getType(), g.getBlock());
+                        FileBlockIndex location_ = new FileBlockIndex(caller_.getFile(),caller_.getIndex(),caller_, c_);
+                        merge(out_,c_,location_);
                     }
                 }
             }
         }
         return out_;
+    }
+    private static void merge(IdMap<SrcFileLocation,CustList<FileBlockIndex>> _map, SrcFileLocation _caller, FileBlockIndex _location) {
+        for (EntryCust<SrcFileLocation,CustList<FileBlockIndex>> e: _map.entryList()) {
+            if (e.getKey().match(_caller)) {
+                e.getValue().add(_location);
+                break;
+            }
+        }
+        CustList<FileBlockIndex> loc_ = new CustList<FileBlockIndex>();
+        loc_.add(_location);
+        _map.addEntry(_caller, loc_);
     }
 
     private void type(CustList<ResultExpressionBlock> _ls, RootBlock _r) {
@@ -746,7 +817,7 @@ public final class CallersRef {
         if (o_ instanceof AnnotationInstanceArobaseOperation) {
             addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AnnotationInstanceArobaseOperation)o_).getPartOffsets(),new AllTypeSegmentFilter()),_c.getRes().getCaller(), f_,instanceArobase,_piano);
             if (o_.getParent() == null) {
-                CustList<FileBlockIndex> added_ = new CustList<FileBlockIndex>();
+                IdMap<SrcFileLocation,CustList<FileBlockIndex>> added_ = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
                 addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AnnotationInstanceArobaseOperation)o_).getPartOffsets(),new AllTypeSegmentFilter()),_c.getRes().getCaller(), f_,added_,_piano);
                 feedArobase(_c.getRes(),(AnnotationInstanceArobaseOperation)o_,_c.getRes().getBlock(),added_);
             }
@@ -786,21 +857,23 @@ public final class CallersRef {
             addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((SwitchOperation)o_).getPartOffsets(),new AllTypeSegmentFilter()),_c.getRes().getCaller(), f_,returnType,_piano);
         }
     }
-    private void feedArobase(ResultExpressionBlock _mem,AnnotationInstanceArobaseOperation _lda, AbsBk _block, CustList<FileBlockIndex> _refs) {
-        for (FileBlockIndex r: _refs) {
-            AnnotationInitFilterCall l_ = new AnnotationInitFilterCall();
-            l_.setCalleeRef(r.getCallee());
-            l_.setCallerRef(r.getCaller());
-            l_.setInit(_lda.getResultClass().getSingleNameOrEmpty());
-            l_.setBlock(_block);
-            if (_mem.getAnnotationKind() == AnnotationKind.MEMBER) {
-                annotationsMembers.add(l_);
-            } else if (_mem.getAnnotationKind() == AnnotationKind.PARAMETER) {
-                annotationsParameters.add(l_);
-            } else if (_mem.getAnnotationKind() == AnnotationKind.SUPPL) {
-                annotationsSuppl.add(l_);
-            } else {
-                annotationsDefValue.add(l_);
+    private void feedArobase(ResultExpressionBlock _mem,AnnotationInstanceArobaseOperation _lda, AbsBk _block, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _refs) {
+        for (EntryCust<SrcFileLocation, CustList<FileBlockIndex>> e: _refs.entryList()) {
+            for (FileBlockIndex r: e.getValue()) {
+                AnnotationInitFilterCall l_ = new AnnotationInitFilterCall();
+                l_.setCalleeRef(r.getCallee());
+                l_.setCallerRef(r.getCaller());
+                l_.setInit(_lda.getResultClass().getSingleNameOrEmpty());
+                l_.setBlock(_block);
+                if (_mem.getAnnotationKind() == AnnotationKind.MEMBER) {
+                    annotationsMembers.add(l_);
+                } else if (_mem.getAnnotationKind() == AnnotationKind.PARAMETER) {
+                    annotationsParameters.add(l_);
+                } else if (_mem.getAnnotationKind() == AnnotationKind.SUPPL) {
+                    annotationsSuppl.add(l_);
+                } else {
+                    annotationsDefValue.add(l_);
+                }
             }
         }
     }
@@ -920,9 +993,9 @@ public final class CallersRef {
             lambda(_c, (LambdaOperation) o_, _piano);
         }
         if (o_ instanceof AnonymousLambdaOperation) {
-            CustList<FileBlockIndex> added_ = new CustList<FileBlockIndex>();
+            IdMap<SrcFileLocation,CustList<FileBlockIndex>> added_ = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
             addIfMatch(new SrcFileLocationMethod(null,((AnonymousLambdaOperation)o_).getBlock()),_c.getRes().getCaller(), f_,begin(_c),added_,_piano);
-            callAnonRefUse.addAllElts(added_);
+            callAnonRefUse.addAllEntries(added_);
             feedLambda(o_,added_);
         }
         if (o_ instanceof CastFctOperation) {
@@ -952,7 +1025,7 @@ public final class CallersRef {
         annot(_c, callee_, off_,callNamedFieldUse,_piano);
     }
 
-    private static void instanceNewTypes(ResultExpressionBlockOperation _c, int _offset, CustList<SrcFileLocation> _piano, RootBlock _format, CustList<FileBlockIndex> _inst) {
+    private static void instanceNewTypes(ResultExpressionBlockOperation _c, int _offset, CustList<SrcFileLocation> _piano, RootBlock _format, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _inst) {
         FileBlock f_ = _c.getRes().getBlock().getFile();
         if (_format != null) {
             addIfMatch(new SrcFileLocationType(begin(_c) + _offset,_format), _c.getRes().getCaller(), f_, begin(_c) + _offset, _inst, _piano);
@@ -987,15 +1060,15 @@ public final class CallersRef {
         }
     }
 
-    private SrcFileLocationMethod fctPub(ResultExpressionBlockOperation _c, AnaTypeFct _ct, int _offset, CustList<SrcFileLocation> _piano, CustList<FileBlockIndex> _out) {
+    private SrcFileLocationMethod fctPub(ResultExpressionBlockOperation _c, AnaTypeFct _ct, int _offset, CustList<SrcFileLocation> _piano, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _out) {
         return fctPub(_c.getRes(),_ct,begin(_c) + _offset,_piano,_out);
     }
 
-    private SrcFileLocationMethod fctPub(ResultExpressionBlock _c, AnaTypeFct _ct, int _offset, CustList<SrcFileLocation> _piano, CustList<FileBlockIndex> _out) {
+    private SrcFileLocationMethod fctPub(ResultExpressionBlock _c, AnaTypeFct _ct, int _offset, CustList<SrcFileLocation> _piano, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _out) {
         return fctPub(_c.getBlock(),_c.getCaller(),_ct,_offset,_piano,_out);
     }
 
-    private SrcFileLocationMethod fctPub(AbsBk _bl, SrcFileLocation _caller, AnaTypeFct _ct, int _offset, CustList<SrcFileLocation> _piano, CustList<FileBlockIndex> _out) {
+    private SrcFileLocationMethod fctPub(AbsBk _bl, SrcFileLocation _caller, AnaTypeFct _ct, int _offset, CustList<SrcFileLocation> _piano, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _out) {
         FileBlock file_ = _bl.getFile();
         NamedFunctionBlock f_ = LambdaOperation.fct(_ct);
         if (f_ != null) {
@@ -1006,28 +1079,30 @@ public final class CallersRef {
         return null;
     }
 
-    private void poly(ResultExpressionBlockOperation _c, SrcFileLocationMethod _callee, boolean _poly, int _offset, CustList<FileBlockIndex> _outPoly) {
+    private void poly(ResultExpressionBlockOperation _c, SrcFileLocationMethod _callee, boolean _poly, int _offset, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _outPoly) {
         FileBlock file_ = _c.getRes().getBlock().getFile();
         if (_callee != null) {
             int index_ = begin(_c) + _offset;
             SrcFileLocation caller_ = _c.getRes().getCaller();
             if (_poly) {
-                for (FileBlockIndex f: callNamedOverridden) {
-                    if (f.getCaller().match(_callee)) {
-                        _outPoly.add(new FileBlockIndex(file_, index_,f.getCallee(), caller_));
+                for (EntryCust<SrcFileLocation, CustList<FileBlockIndex>> e: callNamedOverridden.entryList()) {
+                    for (FileBlockIndex f: e.getValue()) {
+                        if (f.getCaller().match(_callee)) {
+                            merge(_outPoly,caller_,new FileBlockIndex(file_, index_,f.getCallee(), caller_));
+                        }
                     }
                 }
             }
         }
     }
 
-    private void annot(ResultExpressionBlockOperation _c, SrcFileLocationMethod _callee, int _offset, CustList<FileBlockIndex> _outPoly, CustList<SrcFileLocation> _piano) {
+    private void annot(ResultExpressionBlockOperation _c, SrcFileLocationMethod _callee, int _offset, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _outPoly, CustList<SrcFileLocation> _piano) {
         FileBlock file_ = _c.getRes().getBlock().getFile();
         int index_ = begin(_c) + _offset;
         SrcFileLocation caller_ = _c.getRes().getCaller();
         addIfMatch(_callee,caller_,file_, index_,_outPoly,_piano);
     }
-    private static void callStd(ResultExpressionBlockOperation _c, StandardNamedFunction _std, StandardType _type, int _offset, CustList<SrcFileLocation> _piano, CustList<FileBlockIndex> _out) {
+    private static void callStd(ResultExpressionBlockOperation _c, StandardNamedFunction _std, StandardType _type, int _offset, CustList<SrcFileLocation> _piano, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _out) {
         FileBlock file_ = _c.getRes().getBlock().getFile();
         if (_std != null) {
             addIfMatch(new SrcFileLocationStdMethod(_type, _std),_c.getRes().getCaller(),file_,begin(_c)+_offset, _out,_piano);
@@ -1131,19 +1206,19 @@ public final class CallersRef {
     private void lambda(ResultExpressionBlockOperation _c, LambdaOperation _lda, CustList<SrcFileLocation> _piano) {
         FileBlock f_ = _c.getRes().getBlock().getFile();
         RootBlock fieldType_ = _lda.getFieldType();
-        CustList<FileBlockIndex> added_ = new CustList<FileBlockIndex>();
+        IdMap<SrcFileLocation,CustList<FileBlockIndex>> added_ = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
         instanceNewTypes(_c, _lda.getMemberOffset(), _piano, ResultExpressionOperationNode.root(_lda),added_);
-        instanceNewTypesRef.addAllElts(added_);
+        instanceNewTypesRef.addAllEntries(added_);
         feedLambda(_lda,added_);
         added_.clear();
         SrcFileLocationMethod callee_ = fctPub(_c, _lda.getFunction(), _lda.getMemberOffset(), _piano, added_);
         callStd(_c,_lda.getStandardMethod(),_lda.getStandardType(), _lda.getMemberOffset(), _piano, added_);
         callStd(_c,_lda.getStandardConstructor(),_lda.getStandardType(), _lda.getMemberOffset(), _piano, added_);
-        callNamedRefUse.addAllElts(added_);
+        callNamedRefUse.addAllEntries(added_);
         feedLambda(_lda,added_);
         added_.clear();
         poly(_c,callee_,_lda.getLambdaMethodContent().isPolymorph(),_lda.getMemberOffset(),added_);
-        callNamedRefUsePoly.addAllElts(added_);
+        callNamedRefUsePoly.addAllEntries(added_);
         feedLambda(_lda,added_);
         added_.clear();
         CustList<AnaNamedFieldContent> namedFields_ = _lda.getNamedFields();
@@ -1159,21 +1234,23 @@ public final class CallersRef {
             RootBlock r_ = naFi_.getDeclaring();
             int offset_ = _lda.getOffsets().get(i);
             addIfMatch(SrcFileLocationField.field(new ClassField(naFi_.getIdClass(),name_),r_, ref_,null),_c.getRes().getCaller(), f_,begin(_c)+offset_+off_,added_,_piano);
-            fieldsRefUse.addAllElts(added_);
+            fieldsRefUse.addAllEntries(added_);
         }
         ClassField fieldId_ = _lda.getFieldId();
         if (fieldId_ != null) {
             addIfMatch(SrcFileLocationField.field(fieldId_,fieldType_, _lda.getValueOffset(),_lda.getCstFieldInfo()),_c.getRes().getCaller(), f_,_lda.getMemberOffset()+begin(_c),added_,_piano);
-            fieldsRefUse.addAllElts(added_);
+            fieldsRefUse.addAllEntries(added_);
         }
         feedLambda(_lda,added_);
     }
-    private void feedLambda(OperationNode _lda, CustList<FileBlockIndex> _refs) {
-        for (FileBlockIndex r: _refs) {
-            LambdaDynFilterCall l_ = new LambdaDynFilterCall();
-            l_.setCalleeRef(r.getCallee());
-            l_.setLambda(_lda.getResultClass().getSingleNameOrEmpty());
-            lambda.add(l_);
+    private void feedLambda(OperationNode _lda, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _refs) {
+        for (EntryCust<SrcFileLocation, CustList<FileBlockIndex>> e: _refs.entryList()) {
+            for (FileBlockIndex r: e.getValue()) {
+                LambdaDynFilterCall l_ = new LambdaDynFilterCall();
+                l_.setCalleeRef(r.getCallee());
+                l_.setLambda(_lda.getResultClass().getSingleNameOrEmpty());
+                lambda.add(l_);
+            }
         }
     }
 
@@ -1192,7 +1269,7 @@ public final class CallersRef {
         notEmptyField(_c, _piano, delta_, fieldsUse, SrcFileLocationField.field(cf_, r_, i_, _foundOp.getSettableFieldContent().getCstFieldInfo()));
     }
 
-    private void notEmptyField(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano, int _offset, CustList<FileBlockIndex> _usages, SrcFileLocationField _fi) {
+    private void notEmptyField(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano, int _offset, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _usages, SrcFileLocationField _fi) {
         FileBlock f_ = _c.getRes().getBlock().getFile();
         addIfMatch(_fi, _c.getRes().getCaller(), f_,begin(_c)+_offset, _usages, _piano);
     }
@@ -1213,7 +1290,7 @@ public final class CallersRef {
 //            addIfMatch(new SrcFileLocationMethod(_ct.getType(),f_),_ls,_piano);
 //        }
 //    }
-    private static void types(ResolvedInstance _r, SrcFileLocation _a, FileBlock _currFile, CustList<FileBlockIndex> _ls, CustList<SrcFileLocation> _piano) {
+    private static void types(ResolvedInstance _r, SrcFileLocation _a, FileBlock _currFile, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _ls, CustList<SrcFileLocation> _piano) {
         addAllIfMatch(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(_r.getResult(), new AllTypeSegmentFilter()),_a,_currFile,_ls,_piano);
         addAllIfMatch(fetchAna(_r.getParts()),_a,_currFile,_ls,_piano);
     }
@@ -1232,13 +1309,13 @@ public final class CallersRef {
         }
         return s_;
     }
-    private static void addAllIfMatch(CustList<AbsSrcFileLocationType> _c, SrcFileLocation _a, FileBlock _currFile, CustList<FileBlockIndex> _ls, CustList<SrcFileLocation> _piano) {
+    private static void addAllIfMatch(CustList<AbsSrcFileLocationType> _c, SrcFileLocation _a, FileBlock _currFile, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _ls, CustList<SrcFileLocation> _piano) {
         for (AbsSrcFileLocationType f: _c) {
             addIfMatch(f,_a,_currFile,f.getOffset(),_ls,_piano);
         }
     }
 
-    private static void addIfMatch(SrcFileLocation _c, SrcFileLocation _a,FileBlock _currFile, int _index, CustList<FileBlockIndex> _ls, CustList<SrcFileLocation> _piano) {
+    private static void addIfMatch(SrcFileLocation _c, SrcFileLocation _a,FileBlock _currFile, int _index, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _ls, CustList<SrcFileLocation> _piano) {
         if (_c == null) {
             return;
         }
@@ -1247,211 +1324,8 @@ public final class CallersRef {
 //                _ls.add(_c);
 //            }
             if (_c.match(r)) {
-                _ls.add(new FileBlockIndex(_currFile,_index,_c,_a));
+                merge(_ls,_a,new FileBlockIndex(_currFile,_index,_c,_a));
             }
         }
-    }
-    public CustList<FileBlockIndex> getLabels() {
-        return labels;
-    }
-
-    public CustList<FileBlockIndex> getVariablesParamsUse() {
-        return variablesParamsUse;
-    }
-
-    public CustList<FileBlockIndex> getFieldsRefUse() {
-        return fieldsRefUse;
-    }
-
-    public CustList<FileBlockIndex> getFieldsUse() {
-        return fieldsUse;
-    }
-
-    public CustList<FileBlockIndex> getFieldsUseInit() {
-        return fieldsUseInit;
-    }
-
-    public CustList<FileBlockIndex> getCallNamedUse() {
-        return callNamedUse;
-    }
-
-    public CustList<FileBlockIndex> getCallNamedRefUse() {
-        return callNamedRefUse;
-    }
-
-    public CustList<FileBlockIndex> getCallNamedOverridden() {
-        return callNamedOverridden;
-    }
-
-    public CustList<FileBlockIndex> getCallNamedOverriding() {
-        return callNamedOverriding;
-    }
-
-    public CustList<FileBlockIndex> getCallNamedUsePoly() {
-        return callNamedUsePoly;
-    }
-
-    public CustList<FileBlockIndex> getCallNamedRefUsePoly() {
-        return callNamedRefUsePoly;
-    }
-
-    public CustList<FileBlockIndex> getInstanceNewTypes() {
-        return instanceNewTypes;
-    }
-
-    public CustList<FileBlockIndex> getInstanceNewTypesRef() {
-        return instanceNewTypesRef;
-    }
-
-    public CustList<FileBlockIndex> getInstanceNewTypesFwd() {
-        return instanceNewTypesFwd;
-    }
-
-    public CustList<FileBlockIndex> getCallNamedFieldUse() {
-        return callNamedFieldUse;
-    }
-
-    public CustList<FileBlockIndex> getCallNamedUseImpl() {
-        return callNamedUseImpl;
-    }
-
-    public CustList<FileBlockIndex> getAnnotCandidatesCallsInitMembers() {
-        return annotCandidatesCallsInitMembers;
-    }
-
-    public CustList<FileBlockIndex> getAnnotCandidatesCallsInitParameters() {
-        return annotCandidatesCallsInitParameters;
-    }
-
-    public CustList<FileBlockIndex> getAnnotCandidatesCallsInitSuppl() {
-        return annotCandidatesCallsInitSuppl;
-    }
-
-    public CustList<FileBlockIndex> getAnnotCandidatesCallsInitDefValue() {
-        return annotCandidatesCallsInitDefValue;
-    }
-
-    public CustList<FileBlockIndex> getInstanceArobase() {
-        return instanceArobase;
-    }
-
-    public CustList<FileBlockIndex> getAnnotCandidatesCallsInitArobaseMembers() {
-        return annotCandidatesCallsInitArobaseMembers;
-    }
-
-    public CustList<FileBlockIndex> getAnnotCandidatesCallsInitArobaseParameters() {
-        return annotCandidatesCallsInitArobaseParameters;
-    }
-
-    public CustList<FileBlockIndex> getAnnotCandidatesCallsInitArobaseSuppl() {
-        return annotCandidatesCallsInitArobaseSuppl;
-    }
-
-    public CustList<FileBlockIndex> getAnnotCandidatesCallsInitArobaseDefValue() {
-        return annotCandidatesCallsInitArobaseDefValue;
-    }
-
-    public CustList<FileBlockIndex> getDynCallPotential() {
-        return dynCallPotential;
-    }
-
-    public CustList<FileBlockIndex> getStaticAccess() {
-        return staticAccess;
-    }
-
-    public CustList<FileBlockIndex> getInstanceNewTypesElt() {
-        return instanceNewTypesElt;
-    }
-
-    public CustList<FileBlockIndex> getCallAnonRefUse() {
-        return callAnonRefUse;
-    }
-
-    public CustList<FileBlockIndex> getInstanceNewTypesEltFwd() {
-        return instanceNewTypesEltFwd;
-    }
-
-    public CustList<FileBlockIndex> getInstanceNewTypesEltArray() {
-        return instanceNewTypesEltArray;
-    }
-
-    public CustList<FileBlockIndex> getInterfacesInit() {
-        return interfacesInit;
-    }
-
-    public CustList<FileBlockIndex> getInterfacesInitRef() {
-        return interfacesInitRef;
-    }
-
-    public CustList<FileBlockIndex> getTypesFinders() {
-        return typesFinders;
-    }
-
-    public CustList<FileBlockIndex> getTypesFindersRef() {
-        return typesFindersRef;
-    }
-
-    public CustList<FileBlockIndex> getReturnType() {
-        return returnType;
-    }
-
-    public CustList<FileBlockIndex> getCastOperation() {
-        return castOperation;
-    }
-
-    public CustList<FileBlockIndex> getInstanceOperation() {
-        return instanceOperation;
-    }
-
-    public CustList<FileBlockIndex> getTypesInfos() {
-        return typesInfos;
-    }
-
-    public CustList<FileBlockIndex> getTypesInfosDef() {
-        return typesInfosDef;
-    }
-
-    public CustList<FileBlockIndex> getInternElts() {
-        return internElts;
-    }
-
-    public CustList<FileBlockIndex> getInternEltsFct() {
-        return internEltsFct;
-    }
-
-    public CustList<FileBlockIndex> getParamType() {
-        return paramType;
-    }
-
-    public CustList<FileBlockIndex> getFieldDeclaring() {
-        return fieldDeclaring;
-    }
-
-    public CustList<FileBlockIndex> getVariableDeclaring() {
-        return variableDeclaring;
-    }
-
-    public CustList<FileBlockIndex> getVariableDeclaringInferred() {
-        return variableDeclaringInferred;
-    }
-
-    public CustList<FileBlockIndex> getInterfacesInstance() {
-        return interfacesInstance;
-    }
-
-    public CustList<FileBlockIndex> getInterfacesStatic() {
-        return interfacesStatic;
-    }
-
-    public CustList<FileBlockIndex> getInherits() {
-        return inherits;
-    }
-
-    public CustList<FileBlockIndex> getConstraints() {
-        return constraints;
-    }
-
-    public CustList<FileBlockIndex> getCallDyn() {
-        return callDyn;
     }
 }

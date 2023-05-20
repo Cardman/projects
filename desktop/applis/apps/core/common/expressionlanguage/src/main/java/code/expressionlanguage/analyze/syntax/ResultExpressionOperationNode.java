@@ -32,6 +32,8 @@ public final class ResultExpressionOperationNode {
     private ResultExpression resultExpression;
     private AbsBk block;
     private OperationNode found;
+    private ResultExpressionOperationNode(){
+    }
     public static String vexerChamps(AnalyzedPageEl _page, String _fileName, int _caret) {
         ResultExpressionOperationNode res_ = container(_caret, _page.getPreviousFilesBodies().getVal(_fileName));
         if (res_.getFound() instanceof SettableAbstractFieldOperation) {

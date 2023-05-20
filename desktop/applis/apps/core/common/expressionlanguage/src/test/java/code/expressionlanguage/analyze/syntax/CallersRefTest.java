@@ -5,6 +5,8 @@ import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.sample.CustLgNames;
+import code.util.CustList;
+import code.util.IdMap;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import org.junit.Test;
@@ -26,14 +28,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",91);
-        assertEq(1,r_.getVariablesParamsUse().size());
-        assertEq(89,r_.getVariablesParamsUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getFile().getFileName());
-        assertEq(71,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
-        assertEq(51,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",91);
+        assertEq(1, variablesParamsUseSize(r_));
+        assertEq(89, variablesParamsUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", variablesParamsUseElt(r_, 0).getFile().getFileName());
+        assertEq(71, variablesParamsUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", variablesParamsUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(51, variablesParamsUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", variablesParamsUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs2() {
@@ -51,14 +53,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",129);
-        assertEq(1,r_.getVariablesParamsUse().size());
-        assertEq(127,r_.getVariablesParamsUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getFile().getFileName());
-        assertEq(71,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
-        assertEq(96,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",129);
+        assertEq(1, variablesParamsUseSize(r_));
+        assertEq(127, variablesParamsUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", variablesParamsUseElt(r_, 0).getFile().getFileName());
+        assertEq(71, variablesParamsUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", variablesParamsUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(96, variablesParamsUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", variablesParamsUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs3() {
@@ -78,8 +80,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$int a=0;};\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",45);
-        assertEq(0,r_.getVariablesParamsUse().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",45);
+        assertFalse(r_.contains(CallerKind.VARIABLES));
     }
     @Test
     public void refs4() {
@@ -99,14 +101,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$int a=0,b=a;};\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",51);
-        assertEq(1,r_.getVariablesParamsUse().size());
-        assertEq(51,r_.getVariablesParamsUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
-        assertEq(45,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",51);
+        assertEq(1, variablesParamsUseSize(r_));
+        assertEq(51, variablesParamsUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getFile().getFileName());
+        assertEq(45, variablesParamsUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(38, variablesParamsUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs5() {
@@ -126,14 +128,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$int a=0,b=(:$int)->{$int a=0;$return #a+a;}.call();}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",78);
-        assertEq(1,r_.getVariablesParamsUse().size());
-        assertEq(78,r_.getVariablesParamsUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
-        assertEq(45,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
-        assertEq(58,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",78);
+        assertEq(1, variablesParamsUseSize(r_));
+        assertEq(78, variablesParamsUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getFile().getFileName());
+        assertEq(45, variablesParamsUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(58, variablesParamsUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs6() {
@@ -159,14 +161,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",57);
-        assertEq(1,r_.getVariablesParamsUse().size());
-        assertEq(57,r_.getVariablesParamsUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
-        assertEq(132,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",57);
+        assertEq(1, variablesParamsUseSize(r_));
+        assertEq(57, variablesParamsUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getFile().getFileName());
+        assertEq(132, variablesParamsUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", variablesParamsUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(38, variablesParamsUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs7() {
@@ -192,14 +194,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",53);
-        assertEq(1,r_.getVariablesParamsUse().size());
-        assertEq(53,r_.getVariablesParamsUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
-        assertEq(125,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",53);
+        assertEq(1, variablesParamsUseSize(r_));
+        assertEq(53, variablesParamsUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getFile().getFileName());
+        assertEq(125, variablesParamsUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", variablesParamsUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(38, variablesParamsUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs8() {
@@ -220,14 +222,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$if(a==0){}};\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",45);
-        assertEq(1,r_.getVariablesParamsUse().size());
-        assertEq(54,r_.getVariablesParamsUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
-        assertEq(45,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",45);
+        assertEq(1, variablesParamsUseSize(r_));
+        assertEq(54, variablesParamsUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getFile().getFileName());
+        assertEq(45, variablesParamsUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(38, variablesParamsUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs9() {
@@ -248,20 +250,20 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$switch(a){$case $int b:a+b==0;$default b;}};\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",45);
-        assertEq(2,r_.getVariablesParamsUse().size());
-        assertEq(58,r_.getVariablesParamsUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
-        assertEq(45,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
-        assertEq(74,r_.getVariablesParamsUse().get(1).getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getFile().getFileName());
-        assertEq(45,r_.getVariablesParamsUse().get(1).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getCallee().getFile().getFileName());
-        assertEq(38,r_.getVariablesParamsUse().get(1).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(1).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",45);
+        assertEq(2, variablesParamsUseSize(r_));
+        assertEq(58, variablesParamsUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getFile().getFileName());
+        assertEq(45, variablesParamsUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(38, variablesParamsUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getCaller().getFile().getFileName());
+        assertEq(74, variablesParamsUseElt(r_, 1).getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 1).getFile().getFileName());
+        assertEq(45, variablesParamsUseElt(r_, 1).getCallee().getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 1).getCallee().getFile().getFileName());
+        assertEq(38, variablesParamsUseElt(r_, 1).getCaller().getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 1).getCaller().getFile().getFileName());
     }
     @Test
     public void refs10() {
@@ -281,8 +283,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$int a=([b]);};\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",47);
-        assertEq(0,r_.getVariablesParamsUse().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",47);
+        assertFalse(r_.contains(CallerKind.VARIABLES));
     }
     @Test
     public void refs11() {
@@ -302,8 +304,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$int #a;}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",45);
-        assertEq(0,r_.getVariablesParamsUse().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",45);
+        assertFalse(r_.contains(CallerKind.VARIABLES));
     }
     @Test
     public void refs12() {
@@ -323,8 +325,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$for($int a=0;;){}};\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",50);
-        assertEq(0,r_.getVariablesParamsUse().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",50);
+        assertFalse(r_.contains(CallerKind.VARIABLES));
     }
     @Test
     public void refs13() {
@@ -344,8 +346,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$for($int a:{}){}};\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",50);
-        assertEq(0,r_.getVariablesParamsUse().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",50);
+        assertFalse(r_.contains(CallerKind.VARIABLES));
     }
     @Test
     public void refs14() {
@@ -365,8 +367,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$for($int a,$int b:{}){$throw $null;}};\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",50);
-        assertEq(0,r_.getVariablesParamsUse().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",50);
+        assertFalse(r_.contains(CallerKind.VARIABLES));
     }
     @Test
     public void refs15() {
@@ -390,8 +392,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$operator/ pkg.Outer(pkg.Outer a, pkg.Outer b){$return $null;}\n");
         xml_.append("$public $annotation pkg.Annot{$int meth();}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",45);
-        assertEq(0,r_.getVariablesParamsUse().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",45);
+        assertFalse(r_.contains(CallerKind.VARIABLES));
     }
     @Test
     public void refs16() {
@@ -417,14 +419,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",57);
-        assertEq(1,r_.getVariablesParamsUse().size());
-        assertEq(57,r_.getVariablesParamsUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
-        assertEq(164,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",57);
+        assertEq(1, variablesParamsUseSize(r_));
+        assertEq(57, variablesParamsUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getFile().getFileName());
+        assertEq(164, variablesParamsUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", variablesParamsUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(38, variablesParamsUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs17() {
@@ -450,14 +452,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",53);
-        assertEq(1,r_.getVariablesParamsUse().size());
-        assertEq(53,r_.getVariablesParamsUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
-        assertEq(171,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",53);
+        assertEq(1, variablesParamsUseSize(r_));
+        assertEq(53, variablesParamsUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getFile().getFileName());
+        assertEq(171, variablesParamsUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", variablesParamsUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(38, variablesParamsUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs18() {
@@ -483,14 +485,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field,field2;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",53);
-        assertEq(1,r_.getVariablesParamsUse().size());
-        assertEq(53,r_.getVariablesParamsUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getFile().getFileName());
-        assertEq(171,r_.getVariablesParamsUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getVariablesParamsUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getVariablesParamsUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getVariablesParamsUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",53);
+        assertEq(1, variablesParamsUseSize(r_));
+        assertEq(53, variablesParamsUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getFile().getFileName());
+        assertEq(171, variablesParamsUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", variablesParamsUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(38, variablesParamsUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex2", variablesParamsUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs19() {
@@ -516,14 +518,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field,field2=field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex3",50);
-        assertEq(1,r_.getFieldsUse().size());
-        assertEq(50,r_.getFieldsUse().get(0).getIndex());
-        assertEq("pkg/Ex3",r_.getFieldsUse().get(0).getFile().getFileName());
-        assertEq(37,r_.getFieldsUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getFieldsUse().get(0).getCallee().getFile().getFileName());
-        assertEq(43,r_.getFieldsUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex3",r_.getFieldsUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex3",50);
+        assertEq(1, fieldsUse(r_).size());
+        assertEq(50, fieldsUse(r_).get(0).getIndex());
+        assertEq("pkg/Ex3", fieldsUse(r_).get(0).getFile().getFileName());
+        assertEq(37, fieldsUse(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", fieldsUse(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(43, fieldsUse(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex3", fieldsUse(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs20() {
@@ -549,14 +551,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field=field2,field2;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex3",43);
-        assertEq(1,r_.getFieldsUse().size());
-        assertEq(43,r_.getFieldsUse().get(0).getIndex());
-        assertEq("pkg/Ex3",r_.getFieldsUse().get(0).getFile().getFileName());
-        assertEq(50,r_.getFieldsUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getFieldsUse().get(0).getCallee().getFile().getFileName());
-        assertEq(37,r_.getFieldsUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex3",r_.getFieldsUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex3",43);
+        assertEq(1, fieldsUse(r_).size());
+        assertEq(43, fieldsUse(r_).get(0).getIndex());
+        assertEq("pkg/Ex3", fieldsUse(r_).get(0).getFile().getFileName());
+        assertEq(50, fieldsUse(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", fieldsUse(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(37, fieldsUse(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex3", fieldsUse(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs21() {
@@ -582,8 +584,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field,=field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex3",43);
-        assertEq(0,r_.getFieldsUse().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex3",43);
+        assertFalse(r_.contains(CallerKind.FIELD));
     }
     @Test
     public void refs22() {
@@ -609,8 +611,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field,field2=inex;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex3",50);
-        assertEq(0,r_.getFieldsUse().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex3",50);
+        assertFalse(r_.contains(CallerKind.FIELD));
     }
     @Test
     public void refs23() {
@@ -630,14 +632,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$lambda(Outer2,,ONE);}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",40);
-        assertEq(1,r_.getFieldsRefUse().size());
-        assertEq(56,r_.getFieldsRefUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getFieldsRefUse().get(0).getFile().getFileName());
-        assertEq(27,r_.getFieldsRefUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getFieldsRefUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getFieldsRefUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getFieldsRefUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",40);
+        assertEq(1, fieldsRefUseSize(r_));
+        assertEq(56, fieldsRefUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex2", fieldsRefUseElt(r_, 0).getFile().getFileName());
+        assertEq(27, fieldsRefUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex2", fieldsRefUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(38, fieldsRefUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex2", fieldsRefUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs24() {
@@ -662,14 +664,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",66);
-        assertEq(1,r_.getFieldsRefUse().size());
-        assertEq(66,r_.getFieldsRefUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getFieldsRefUse().get(0).getFile().getFileName());
-        assertEq(37,r_.getFieldsRefUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getFieldsRefUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getFieldsRefUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getFieldsRefUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",66);
+        assertEq(1, fieldsRefUseSize(r_));
+        assertEq(66, fieldsRefUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex2", fieldsRefUseElt(r_, 0).getFile().getFileName());
+        assertEq(37, fieldsRefUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex3", fieldsRefUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(38, fieldsRefUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex2", fieldsRefUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs25() {
@@ -694,8 +696,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",66);
-        assertEq(0,r_.getFieldsRefUse().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",66);
+        assertFalse(r_.contains(CallerKind.FIELD_REF));
     }
     @Test
     public void refs26() {
@@ -720,14 +722,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",58);
-        assertEq(1,r_.getFieldsUseInit().size());
-        assertEq(58,r_.getFieldsUseInit().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getFieldsUseInit().get(0).getFile().getFileName());
-        assertEq(37,r_.getFieldsUseInit().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getFieldsUseInit().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getFieldsUseInit().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getFieldsUseInit().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",58);
+        assertEq(1, fieldsUseInit(r_).size());
+        assertEq(58, fieldsUseInit(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", fieldsUseInit(r_).get(0).getFile().getFileName());
+        assertEq(37, fieldsUseInit(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", fieldsUseInit(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, fieldsUseInit(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", fieldsUseInit(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs27() {
@@ -753,14 +755,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field,field2=Short.MIN_VALUE+Short.MAX_VALUE+field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex3",56);
-        assertEq(1,r_.getFieldsUse().size());
-        assertEq(56,r_.getFieldsUse().get(0).getIndex());
-        assertEq("pkg/Ex3",r_.getFieldsUse().get(0).getFile().getFileName());
-        assertEq(0,r_.getFieldsUse().get(0).getCallee().getIndex());
-        assertEq("",r_.getFieldsUse().get(0).getCallee().getFileName());
-        assertEq(43,r_.getFieldsUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex3",r_.getFieldsUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex3",56);
+        assertEq(1, fieldsUse(r_).size());
+        assertEq(56, fieldsUse(r_).get(0).getIndex());
+        assertEq("pkg/Ex3", fieldsUse(r_).get(0).getFile().getFileName());
+        assertEq(0, fieldsUse(r_).get(0).getCallee().getIndex());
+        assertEq("", fieldsUse(r_).get(0).getCallee().getFileName());
+        assertEq(43, fieldsUse(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex3", fieldsUse(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs28() {
@@ -786,14 +788,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field,field2=Short.MIN_VALUE+Short.MAX_VALUE+field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex3",82);
-        assertEq(1,r_.getFieldsUse().size());
-        assertEq(82,r_.getFieldsUse().get(0).getIndex());
-        assertEq("pkg/Ex3",r_.getFieldsUse().get(0).getFile().getFileName());
-        assertEq(37,r_.getFieldsUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getFieldsUse().get(0).getCallee().getFile().getFileName());
-        assertEq(43,r_.getFieldsUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex3",r_.getFieldsUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex3",82);
+        assertEq(1, fieldsUse(r_).size());
+        assertEq(82, fieldsUse(r_).get(0).getIndex());
+        assertEq("pkg/Ex3", fieldsUse(r_).get(0).getFile().getFileName());
+        assertEq(37, fieldsUse(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", fieldsUse(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(43, fieldsUse(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex3", fieldsUse(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs29() {
@@ -808,14 +810,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",60);
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(59,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(93,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(49,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",60);
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(59, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(93, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(49, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs30() {
@@ -829,14 +831,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",81);
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(79,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(0,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("",r_.getCallNamedUse().get(0).getCallee().getFileName());
-        assertEq(49,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",81);
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(79, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(0, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("", callNamedUseElt(r_, 0).getCallee().getFileName());
+        assertEq(49, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs31() {
@@ -850,8 +852,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",49);
-        assertEq(0,r_.getCallNamedUse().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",49);
+        assertFalse(r_.contains(CallerKind.NAME));
     }
     @Test
     public void refs32() {
@@ -865,14 +867,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",81);
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(79,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(0,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("",r_.getCallNamedUse().get(0).getCallee().getFileName());
-        assertEq(49,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",81);
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(79, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(0, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("", callNamedUseElt(r_, 0).getCallee().getFileName());
+        assertEq(49, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs33() {
@@ -897,14 +899,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",54);
-        assertEq(1,r_.getCallNamedRefUse().size());
-        assertEq(54,r_.getCallNamedRefUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedRefUse().get(0).getFile().getFileName());
-        assertEq(48,r_.getCallNamedRefUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedRefUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getCallNamedRefUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedRefUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",54);
+        assertEq(1, callNamedRefUse(r_).size());
+        assertEq(54, callNamedRefUse(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", callNamedRefUse(r_).get(0).getFile().getFileName());
+        assertEq(48, callNamedRefUse(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedRefUse(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, callNamedRefUse(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", callNamedRefUse(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs34() {
@@ -919,21 +921,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",52);
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(51,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(77,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(41,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getCallNamedUsePoly().size());
-        assertEq(51,r_.getCallNamedUsePoly().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUsePoly().get(0).getFile().getFileName());
-        assertEq(77,r_.getCallNamedUsePoly().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUsePoly().get(0).getCallee().getFile().getFileName());
-        assertEq(41,r_.getCallNamedUsePoly().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUsePoly().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",52);
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(51, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(77, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(41, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
+        assertEq(1, callNamedUsePoly(r_).size());
+        assertEq(51, callNamedUsePoly(r_).get(0).getIndex());
+        assertEq("pkg/Ex", callNamedUsePoly(r_).get(0).getFile().getFileName());
+        assertEq(77, callNamedUsePoly(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUsePoly(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(41, callNamedUsePoly(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUsePoly(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs35() {
@@ -954,17 +956,17 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",48);
-        assertEq(1,r_.getCallNamedUsePoly().size());
-        assertEq(51,r_.getCallNamedUsePoly().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUsePoly().get(0).getFile().getFileName());
-        assertEq(48,r_.getCallNamedUsePoly().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUsePoly().get(0).getCallee().getFile().getFileName());
-        assertEq(41,r_.getCallNamedUsePoly().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUsePoly().get(0).getCaller().getFile().getFileName());
-        assertEq(0,r_.getCallNamedUse().size());
-        assertFalse(r_.getCallNamedOverridden().isEmpty());
-        assertFalse(r_.getCallNamedOverriding().isEmpty());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",48);
+        assertEq(1, callNamedUsePoly(r_).size());
+        assertEq(51, callNamedUsePoly(r_).get(0).getIndex());
+        assertEq("pkg/Ex", callNamedUsePoly(r_).get(0).getFile().getFileName());
+        assertEq(48, callNamedUsePoly(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2", callNamedUsePoly(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(41, callNamedUsePoly(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUsePoly(r_).get(0).getCaller().getFile().getFileName());
+        assertFalse(r_.contains(CallerKind.NAME));
+        assertFalse(allNamedOverridden(r_).isEmpty());
+        assertFalse(callNamedOverriding(r_).isEmpty());
     }
     @Test
     public void refs36() {
@@ -979,15 +981,15 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",58);
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(57,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(83,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(41,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
-        assertEq(0,r_.getCallNamedUsePoly().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",58);
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(57, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(83, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(41, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
+        assertFalse(r_.contains(CallerKind.NAME_POLY));
     }
     @Test
     public void refs37() {
@@ -1012,15 +1014,15 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$static Outer f;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",69);
-        assertEq(1,r_.getCallNamedRefUse().size());
-        assertEq(69,r_.getCallNamedRefUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedRefUse().get(0).getFile().getFileName());
-        assertEq(41,r_.getCallNamedRefUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedRefUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getCallNamedRefUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedRefUse().get(0).getCaller().getFile().getFileName());
-        assertEq(0,r_.getCallNamedRefUsePoly().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",69);
+        assertEq(1, callNamedRefUse(r_).size());
+        assertEq(69, callNamedRefUse(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", callNamedRefUse(r_).get(0).getFile().getFileName());
+        assertEq(41, callNamedRefUse(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedRefUse(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, callNamedRefUse(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", callNamedRefUse(r_).get(0).getCaller().getFile().getFileName());
+        assertFalse(r_.contains(CallerKind.NAME_REF_POLY));
     }
     @Test
     public void refs38() {
@@ -1045,15 +1047,15 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$static Outer f;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex3",48);
-        assertEq(1,r_.getCallNamedRefUsePoly().size());
-        assertEq(63,r_.getCallNamedRefUsePoly().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedRefUsePoly().get(0).getFile().getFileName());
-        assertEq(48,r_.getCallNamedRefUsePoly().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getCallNamedRefUsePoly().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getCallNamedRefUsePoly().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedRefUsePoly().get(0).getCaller().getFile().getFileName());
-        assertEq(0,r_.getCallNamedRefUse().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex3",48);
+        assertEq(1, callNamedRefUsePoly(r_).size());
+        assertEq(63, callNamedRefUsePoly(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", callNamedRefUsePoly(r_).get(0).getFile().getFileName());
+        assertEq(48, callNamedRefUsePoly(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", callNamedRefUsePoly(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, callNamedRefUsePoly(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", callNamedRefUsePoly(r_).get(0).getCaller().getFile().getFileName());
+        assertFalse(r_.contains(CallerKind.NAME_REF));
     }
     @Test
     public void refs39() {
@@ -1078,21 +1080,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$static Outer f;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",63);
-        assertEq(1,r_.getCallNamedRefUsePoly().size());
-        assertEq(63,r_.getCallNamedRefUsePoly().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedRefUsePoly().get(0).getFile().getFileName());
-        assertEq(41,r_.getCallNamedRefUsePoly().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedRefUsePoly().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getCallNamedRefUsePoly().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedRefUsePoly().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getCallNamedRefUse().size());
-        assertEq(63,r_.getCallNamedRefUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedRefUse().get(0).getFile().getFileName());
-        assertEq(41,r_.getCallNamedRefUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedRefUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getCallNamedRefUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedRefUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",63);
+        assertEq(1, callNamedRefUsePoly(r_).size());
+        assertEq(63, callNamedRefUsePoly(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", callNamedRefUsePoly(r_).get(0).getFile().getFileName());
+        assertEq(41, callNamedRefUsePoly(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedRefUsePoly(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, callNamedRefUsePoly(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", callNamedRefUsePoly(r_).get(0).getCaller().getFile().getFileName());
+        assertEq(1, callNamedRefUse(r_).size());
+        assertEq(63, callNamedRefUse(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", callNamedRefUse(r_).get(0).getFile().getFileName());
+        assertEq(41, callNamedRefUse(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedRefUse(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, callNamedRefUse(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", callNamedRefUse(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs40() {
@@ -1113,21 +1115,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",51);
-        assertEq(1,r_.getCallNamedUsePoly().size());
-        assertEq(51,r_.getCallNamedUsePoly().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUsePoly().get(0).getFile().getFileName());
-        assertEq(77,r_.getCallNamedUsePoly().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUsePoly().get(0).getCallee().getFile().getFileName());
-        assertEq(41,r_.getCallNamedUsePoly().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUsePoly().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(51,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(77,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(41,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",51);
+        assertEq(1, callNamedUsePoly(r_).size());
+        assertEq(51, callNamedUsePoly(r_).get(0).getIndex());
+        assertEq("pkg/Ex", callNamedUsePoly(r_).get(0).getFile().getFileName());
+        assertEq(77, callNamedUsePoly(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUsePoly(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(41, callNamedUsePoly(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUsePoly(r_).get(0).getCaller().getFile().getFileName());
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(51, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(77, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(41, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs41() {
@@ -1155,15 +1157,15 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",54);
-        assertEq(0,r_.getCallNamedUse().size());
-        assertEq(1,r_.getCallNamedUsePoly().size());
-        assertEq(85,r_.getCallNamedUsePoly().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUsePoly().get(0).getFile().getFileName());
-        assertEq(54,r_.getCallNamedUsePoly().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUsePoly().get(0).getCallee().getFile().getFileName());
-        assertEq(52,r_.getCallNamedUsePoly().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUsePoly().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",54);
+        assertFalse(r_.contains(CallerKind.NAME));
+        assertEq(1, callNamedUsePoly(r_).size());
+        assertEq(85, callNamedUsePoly(r_).get(0).getIndex());
+        assertEq("pkg/Ex", callNamedUsePoly(r_).get(0).getFile().getFileName());
+        assertEq(54, callNamedUsePoly(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2", callNamedUsePoly(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(52, callNamedUsePoly(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUsePoly(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs42() {
@@ -1191,15 +1193,15 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",81);
-        assertEq(0,r_.getCallNamedUse().size());
-        assertEq(1,r_.getCallNamedUsePoly().size());
-        assertEq(85,r_.getCallNamedUsePoly().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUsePoly().get(0).getFile().getFileName());
-        assertEq(81,r_.getCallNamedUsePoly().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUsePoly().get(0).getCallee().getFile().getFileName());
-        assertEq(52,r_.getCallNamedUsePoly().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUsePoly().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",81);
+        assertFalse(r_.contains(CallerKind.NAME));
+        assertEq(1, callNamedUsePoly(r_).size());
+        assertEq(85, callNamedUsePoly(r_).get(0).getIndex());
+        assertEq("pkg/Ex", callNamedUsePoly(r_).get(0).getFile().getFileName());
+        assertEq(81, callNamedUsePoly(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2", callNamedUsePoly(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(52, callNamedUsePoly(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUsePoly(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs43() {
@@ -1227,21 +1229,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",91);
-        assertEq(0,r_.getCallNamedUsePoly().size());
-        assertEq(2,r_.getCallNamedUse().size());
-        assertEq(91,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(166,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(52,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
-        assertEq(91,r_.getCallNamedUse().get(1).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(1).getFile().getFileName());
-        assertEq(139,r_.getCallNamedUse().get(1).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(1).getCallee().getFile().getFileName());
-        assertEq(52,r_.getCallNamedUse().get(1).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(1).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",91);
+        assertFalse(r_.contains(CallerKind.NAME_POLY));
+        assertEq(2, callNamedUseSize(r_));
+        assertEq(91, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(166, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(52, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
+        assertEq(91, callNamedUseElt(r_, 1).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 1).getFile().getFileName());
+        assertEq(139, callNamedUseElt(r_, 1).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 1).getCallee().getFile().getFileName());
+        assertEq(52, callNamedUseElt(r_, 1).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 1).getCaller().getFile().getFileName());
     }
     @Test
     public void refs44() {
@@ -1262,14 +1264,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$for(;;)label{$break label;}}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",48);
-        assertEq(1,r_.getLabels().size());
-        assertEq(60,r_.getLabels().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getLabels().get(0).getFile().getFileName());
-        assertEq(48,r_.getLabels().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getLabels().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getLabels().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getLabels().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",48);
+        assertEq(1, labels(r_).size());
+        assertEq(60, labels(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", labels(r_).get(0).getFile().getFileName());
+        assertEq(48, labels(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2", labels(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, labels(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", labels(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs45() {
@@ -1290,14 +1292,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$for(;;)label{$continue label;}}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",48);
-        assertEq(1,r_.getLabels().size());
-        assertEq(63,r_.getLabels().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getLabels().get(0).getFile().getFileName());
-        assertEq(48,r_.getLabels().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getLabels().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getLabels().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getLabels().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",48);
+        assertEq(1, labels(r_).size());
+        assertEq(63, labels(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", labels(r_).get(0).getFile().getFileName());
+        assertEq(48, labels(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2", labels(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, labels(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", labels(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs46() {
@@ -1323,14 +1325,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",43);
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(43,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(54,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(34,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",43);
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(43, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(54, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(34, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs47() {
@@ -1356,14 +1358,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",49);
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(49,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(48,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",49);
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(49, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex2", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(48, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(38, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex2", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs48() {
@@ -1384,14 +1386,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{Outer a=$operator(-,Outer)(a,Outer.ONE);}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",48);
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(48,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(80,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",48);
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(48, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex2", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(80, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(38, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex2", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs49() {
@@ -1412,20 +1414,20 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{Outer a=a-Outer.ONE;$int b=a==a?0:1;a-=Outer.ONE;a&&a;}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",49);
-        assertEq(2,r_.getCallNamedUse().size());
-        assertEq(49,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(80,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
-        assertEq(77,r_.getCallNamedUse().get(1).getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUse().get(1).getFile().getFileName());
-        assertEq(80,r_.getCallNamedUse().get(1).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(1).getCallee().getFile().getFileName());
-        assertEq(38,r_.getCallNamedUse().get(1).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUse().get(1).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",49);
+        assertEq(2, callNamedUseSize(r_));
+        assertEq(49, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex2", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(80, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(38, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex2", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
+        assertEq(77, callNamedUseElt(r_, 1).getIndex());
+        assertEq("pkg/Ex2", callNamedUseElt(r_, 1).getFile().getFileName());
+        assertEq(80, callNamedUseElt(r_, 1).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 1).getCallee().getFile().getFileName());
+        assertEq(38, callNamedUseElt(r_, 1).getCaller().getIndex());
+        assertEq("pkg/Ex2", callNamedUseElt(r_, 1).getCaller().getFile().getFileName());
     }
     @Test
     public void refs50() {
@@ -1451,14 +1453,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",63);
-        assertEq(1,r_.getCallNamedUseImpl().size());
-        assertEq(63,r_.getCallNamedUseImpl().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUseImpl().get(0).getFile().getFileName());
-        assertEq(48,r_.getCallNamedUseImpl().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUseImpl().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getCallNamedUseImpl().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUseImpl().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",63);
+        assertEq(1, callNamedUseImpl(r_).size());
+        assertEq(63, callNamedUseImpl(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", callNamedUseImpl(r_).get(0).getFile().getFileName());
+        assertEq(48, callNamedUseImpl(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseImpl(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, callNamedUseImpl(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", callNamedUseImpl(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs51() {
@@ -1485,8 +1487,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{Outer2 n=$null;Outer o=n;}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",63);
-        assertEq(2,r_.getCallNamedUseImpl().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",63);
+        assertEq(2, r_.getVal(CallerKind.NAME_IMPL).size());
     }
     @Test
     public void refs52() {
@@ -1512,14 +1514,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",48);
-        assertEq(1,r_.getInstanceNewTypes().size());
-        assertEq(48,r_.getInstanceNewTypes().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceNewTypes().get(0).getFile().getFileName());
-        assertEq(15,r_.getInstanceNewTypes().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getInstanceNewTypes().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getInstanceNewTypes().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceNewTypes().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",48);
+        assertEq(1, instanceNewTypes(r_).size());
+        assertEq(48, instanceNewTypes(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", instanceNewTypes(r_).get(0).getFile().getFileName());
+        assertEq(15, instanceNewTypes(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", instanceNewTypes(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, instanceNewTypes(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", instanceNewTypes(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs53() {
@@ -1545,14 +1547,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",62);
-        assertEq(1,r_.getInstanceNewTypesRef().size());
-        assertEq(62,r_.getInstanceNewTypesRef().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceNewTypesRef().get(0).getFile().getFileName());
-        assertEq(15,r_.getInstanceNewTypesRef().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getInstanceNewTypesRef().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getInstanceNewTypesRef().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceNewTypesRef().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",62);
+        assertEq(1, instanceNewTypesRef(r_).size());
+        assertEq(62, instanceNewTypesRef(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", instanceNewTypesRef(r_).get(0).getFile().getFileName());
+        assertEq(15, instanceNewTypesRef(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", instanceNewTypesRef(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, instanceNewTypesRef(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", instanceNewTypesRef(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs54() {
@@ -1568,14 +1570,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",50);
-        assertEq(1,r_.getInstanceNewTypesFwd().size());
-        assertEq(50,r_.getInstanceNewTypesFwd().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getInstanceNewTypesFwd().get(0).getFile().getFileName());
-        assertEq(15,r_.getInstanceNewTypesFwd().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceNewTypesFwd().get(0).getCallee().getFile().getFileName());
-        assertEq(34,r_.getInstanceNewTypesFwd().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getInstanceNewTypesFwd().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",50);
+        assertEq(1, instanceNewTypesFwd(r_).size());
+        assertEq(50, instanceNewTypesFwd(r_).get(0).getIndex());
+        assertEq("pkg/Ex", instanceNewTypesFwd(r_).get(0).getFile().getFileName());
+        assertEq(15, instanceNewTypesFwd(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2", instanceNewTypesFwd(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(34, instanceNewTypesFwd(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", instanceNewTypesFwd(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs55() {
@@ -1596,21 +1598,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getDeclaredFields(\"ONE\")[0].getAnnotations()[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",33);
-        assertEq(1,r_.getCallNamedFieldUse().size());
-        assertEq(33,r_.getCallNamedFieldUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getFile().getFileName());
-        assertEq(104,r_.getCallNamedFieldUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCallee().getFile().getFileName());
-        assertEq(26,r_.getCallNamedFieldUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(216,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(104,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",33);
+        assertEq(1, callNamedFieldUseSize(r_));
+        assertEq(33, callNamedFieldUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getFile().getFileName());
+        assertEq(104, callNamedFieldUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(26, callNamedFieldUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCaller().getFile().getFileName());
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(216, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(104, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(143, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs56() {
@@ -1631,14 +1633,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getDeclaredFields(\"ONE\")[0].getAnnotations($class(Annot))[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",33);
-        assertEq(1,r_.getCallNamedFieldUse().size());
-        assertEq(33,r_.getCallNamedFieldUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getFile().getFileName());
-        assertEq(104,r_.getCallNamedFieldUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCallee().getFile().getFileName());
-        assertEq(26,r_.getCallNamedFieldUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",33);
+        assertEq(1, callNamedFieldUseSize(r_));
+        assertEq(33, callNamedFieldUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getFile().getFileName());
+        assertEq(104, callNamedFieldUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(26, callNamedFieldUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs57() {
@@ -1662,10 +1664,10 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",33);
-        assertEq(0,r_.getAnnotCandidatesCallsInitMembers().size());
-        assertEq(0,r_.getInterfacesInit().size());
-        assertEq(0,r_.getInterfacesInitRef().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",33);
+        assertFalse(r_.contains(CallerKind.ANNOT_INIT_MEMBER));
+        assertFalse(r_.contains(CallerKind.INTERFACES_INIT));
+        assertFalse(r_.contains(CallerKind.INTERFACES_INIT_REF));
     }
     @Test
     public void refs58() {
@@ -1687,14 +1689,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$Class c=$class(Annot);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",33);
-        assertEq(1,r_.getCallNamedFieldUse().size());
-        assertEq(33,r_.getCallNamedFieldUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getFile().getFileName());
-        assertEq(104,r_.getCallNamedFieldUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCallee().getFile().getFileName());
-        assertEq(26,r_.getCallNamedFieldUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",33);
+        assertEq(1, callNamedFieldUseSize(r_));
+        assertEq(33, callNamedFieldUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getFile().getFileName());
+        assertEq(104, callNamedFieldUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(26, callNamedFieldUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs59() {
@@ -1715,21 +1717,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getDeclaredConstructors()[0].getAnnotationsParameters()[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",51);
-        assertEq(1,r_.getCallNamedFieldUse().size());
-        assertEq(51,r_.getCallNamedFieldUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getFile().getFileName());
-        assertEq(104,r_.getCallNamedFieldUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCallee().getFile().getFileName());
-        assertEq(44,r_.getCallNamedFieldUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(227,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(104,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",51);
+        assertEq(1, callNamedFieldUseSize(r_));
+        assertEq(51, callNamedFieldUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getFile().getFileName());
+        assertEq(104, callNamedFieldUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(44, callNamedFieldUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCaller().getFile().getFileName());
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(227, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(104, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(143, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs60() {
@@ -1750,21 +1752,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getDeclaredConstructors()[0].getAnnotationsParameters($class(Annot))[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",51);
-        assertEq(1,r_.getCallNamedFieldUse().size());
-        assertEq(51,r_.getCallNamedFieldUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getFile().getFileName());
-        assertEq(104,r_.getCallNamedFieldUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCallee().getFile().getFileName());
-        assertEq(44,r_.getCallNamedFieldUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(240,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(104,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",51);
+        assertEq(1, callNamedFieldUseSize(r_));
+        assertEq(51, callNamedFieldUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getFile().getFileName());
+        assertEq(104, callNamedFieldUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(44, callNamedFieldUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCaller().getFile().getFileName());
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(240, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(104, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(143, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs61() {
@@ -1785,21 +1787,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getDeclaredMethods()[0].getAnnotationsSupp()[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",69);
-        assertEq(1,r_.getCallNamedFieldUse().size());
-        assertEq(69,r_.getCallNamedFieldUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getFile().getFileName());
-        assertEq(127,r_.getCallNamedFieldUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCallee().getFile().getFileName());
-        assertEq(62,r_.getCallNamedFieldUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(239,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(127,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(166,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",69);
+        assertEq(1, callNamedFieldUseSize(r_));
+        assertEq(69, callNamedFieldUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getFile().getFileName());
+        assertEq(127, callNamedFieldUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(62, callNamedFieldUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCaller().getFile().getFileName());
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(239, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(127, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(166, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs62() {
@@ -1820,21 +1822,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getDeclaredMethods()[0].getAnnotationsSupp($class(Annot))[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",69);
-        assertEq(1,r_.getCallNamedFieldUse().size());
-        assertEq(69,r_.getCallNamedFieldUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getFile().getFileName());
-        assertEq(127,r_.getCallNamedFieldUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCallee().getFile().getFileName());
-        assertEq(62,r_.getCallNamedFieldUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(252,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(127,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(166,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",69);
+        assertEq(1, callNamedFieldUseSize(r_));
+        assertEq(69, callNamedFieldUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getFile().getFileName());
+        assertEq(127, callNamedFieldUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(62, callNamedFieldUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCaller().getFile().getFileName());
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(252, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(127, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(166, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs63() {
@@ -1856,21 +1858,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Annot).getDeclaredMethods()[0].getDefaultValue()).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",137);
-        assertEq(1,r_.getCallNamedFieldUse().size());
-        assertEq(137,r_.getCallNamedFieldUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getFile().getFileName());
-        assertEq(116,r_.getCallNamedFieldUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCallee().getFile().getFileName());
-        assertEq(127,r_.getCallNamedFieldUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(244,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(116,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(177,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",137);
+        assertEq(1, callNamedFieldUseSize(r_));
+        assertEq(137, callNamedFieldUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getFile().getFileName());
+        assertEq(116, callNamedFieldUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(127, callNamedFieldUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCaller().getFile().getFileName());
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(244, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(116, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(177, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs64() {
@@ -1884,20 +1886,22 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int g=$switch[$int:@Annot(f=2):@Annot(f=2)](0){$default;$return 0;};\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",97);
-        assertEq(2,r_.getCallNamedFieldUse().size());
-        assertEq(97,r_.getCallNamedFieldUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getFile().getFileName());
-        assertEq(36,r_.getCallNamedFieldUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCallee().getFile().getFileName());
-        assertEq(90,r_.getCallNamedFieldUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCaller().getFile().getFileName());
-        assertEq(109,r_.getCallNamedFieldUse().get(1).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(1).getFile().getFileName());
-        assertEq(36,r_.getCallNamedFieldUse().get(1).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(1).getCallee().getFile().getFileName());
-        assertEq(102,r_.getCallNamedFieldUse().get(1).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(1).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",97);
+        assertEq(2, callNamedFieldUseSizeAll(r_));
+        assertEq(1, callNamedFieldUseSize(r_, 0));
+        assertEq(97, callNamedFieldUseElt(r_, 0,0).getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0,0).getFile().getFileName());
+        assertEq(36, callNamedFieldUseElt(r_, 0,0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0,0).getCallee().getFile().getFileName());
+        assertEq(90, callNamedFieldUseElt(r_, 0,0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0,0).getCaller().getFile().getFileName());
+        assertEq(1, callNamedFieldUseSize(r_, 1));
+        assertEq(109, callNamedFieldUseElt(r_, 1,0).getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 1,0).getFile().getFileName());
+        assertEq(36, callNamedFieldUseElt(r_, 1,0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 1,0).getCallee().getFile().getFileName());
+        assertEq(102, callNamedFieldUseElt(r_, 1,0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 1,0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs65() {
@@ -1911,8 +1915,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int g=$switch[$int:@Annot(e=2):@Annot(e=2)](0){$default;$return 0;};\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",97);
-        assertEq(0,r_.getCallNamedFieldUse().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",97);
+        assertFalse(r_.contains(CallerKind.NAME_FIELD));
     }
     @Test
     public void refs66() {
@@ -1933,14 +1937,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getDeclaredFields(\"ONE\")[0].getAnnotations($null)[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",33);
-        assertEq(1,r_.getCallNamedFieldUse().size());
-        assertEq(33,r_.getCallNamedFieldUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getFile().getFileName());
-        assertEq(104,r_.getCallNamedFieldUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCallee().getFile().getFileName());
-        assertEq(26,r_.getCallNamedFieldUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",33);
+        assertEq(1, callNamedFieldUseSize(r_));
+        assertEq(33, callNamedFieldUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getFile().getFileName());
+        assertEq(104, callNamedFieldUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(26, callNamedFieldUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs67() {
@@ -1961,21 +1965,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getAnnotations()[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",7);
-        assertEq(1,r_.getCallNamedFieldUse().size());
-        assertEq(7,r_.getCallNamedFieldUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getFile().getFileName());
-        assertEq(104,r_.getCallNamedFieldUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCallee().getFile().getFileName());
-        assertEq(0,r_.getCallNamedFieldUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(188,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(104,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",7);
+        assertEq(1, callNamedFieldUseSize(r_));
+        assertEq(7, callNamedFieldUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getFile().getFileName());
+        assertEq(104, callNamedFieldUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(0, callNamedFieldUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCaller().getFile().getFileName());
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(188, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(104, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(143, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs68() {
@@ -1996,22 +2000,22 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getDeclaredFields(\"ONE\")[0].getAnnotations()[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",7);
-        assertEq(1,r_.getCallNamedFieldUse().size());
-        assertEq(7,r_.getCallNamedFieldUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getFile().getFileName());
-        assertEq(104,r_.getCallNamedFieldUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCallee().getFile().getFileName());
-        assertEq(0,r_.getCallNamedFieldUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedFieldUse().get(0).getCaller().getFile().getFileName());
-        assertEq(0,r_.getAnnotCandidatesCallsInitMembers().size());
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(216,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(104,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",7);
+        assertEq(1, callNamedFieldUseSize(r_));
+        assertEq(7, callNamedFieldUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getFile().getFileName());
+        assertEq(104, callNamedFieldUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(0, callNamedFieldUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedFieldUseElt(r_, 0).getCaller().getFile().getFileName());
+        assertFalse(r_.contains(CallerKind.ANNOT_INIT_MEMBER));
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(216, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(104, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(143, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs69() {
@@ -2033,14 +2037,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{fct.call();}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",78);
-        assertEq(1,r_.getDynCallPotential().size());
-        assertEq(90,r_.getDynCallPotential().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getFile().getFileName());
-        assertEq(27,r_.getDynCallPotential().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getCallee().getFile().getFileName());
-        assertEq(84,r_.getDynCallPotential().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",78);
+        assertEq(1, dynCallPotential(r_).size());
+        assertEq(90, dynCallPotential(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", dynCallPotential(r_).get(0).getFile().getFileName());
+        assertEq(27, dynCallPotential(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2", dynCallPotential(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(84, dynCallPotential(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", dynCallPotential(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs70() {
@@ -2063,8 +2067,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{fct2.call();}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",78);
-        assertEq(0,r_.getDynCallPotential().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",78);
+        assertFalse(r_.contains(CallerKind.DYN_CALL_POT));
     }
     @Test
     public void refs71() {
@@ -2086,14 +2090,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{fct.call();}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",70);
-        assertEq(1,r_.getDynCallPotential().size());
-        assertEq(82,r_.getDynCallPotential().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getFile().getFileName());
-        assertEq(27,r_.getDynCallPotential().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getCallee().getFile().getFileName());
-        assertEq(76,r_.getDynCallPotential().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",70);
+        assertEq(1, dynCallPotential(r_).size());
+        assertEq(82, dynCallPotential(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", dynCallPotential(r_).get(0).getFile().getFileName());
+        assertEq(27, dynCallPotential(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2", dynCallPotential(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(76, dynCallPotential(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", dynCallPotential(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs72() {
@@ -2116,8 +2120,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{fct2.inex();}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",78);
-        assertEq(0,r_.getDynCallPotential().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",78);
+        assertFalse(r_.contains(CallerKind.DYN_CALL_POT));
     }
     @Test
     public void refs73() {
@@ -2140,8 +2144,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{fct2.metaInfo();}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",78);
-        assertEq(0,r_.getDynCallPotential().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",78);
+        assertFalse(r_.contains(CallerKind.DYN_CALL_POT));
     }
     @Test
     public void refs74() {
@@ -2162,8 +2166,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{fct.call($null);}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",78);
-        assertEq(0,r_.getDynCallPotential().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",78);
+        assertFalse(r_.contains(CallerKind.DYN_CALL_POT));
     }
     @Test
     public void refs75() {
@@ -2184,8 +2188,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{fct.call($null);}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",78);
-        assertEq(0,r_.getDynCallPotential().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",78);
+        assertFalse(r_.contains(CallerKind.DYN_CALL_POT));
     }
     @Test
     public void refs76() {
@@ -2206,8 +2210,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{fct.call($null);}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",78);
-        assertEq(0,r_.getDynCallPotential().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",78);
+        assertFalse(r_.contains(CallerKind.DYN_CALL_POT));
     }
     @Test
     public void refs77() {
@@ -2228,8 +2232,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{fct.call($null);}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",78);
-        assertEq(0,r_.getDynCallPotential().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",78);
+        assertFalse(r_.contains(CallerKind.DYN_CALL_POT));
     }
     @Test
     public void refs78() {
@@ -2250,8 +2254,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{fct.call($null);}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",78);
-        assertEq(0,r_.getDynCallPotential().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",78);
+        assertFalse(r_.contains(CallerKind.DYN_CALL_POT));
     }
     @Test
     public void refs79() {
@@ -2278,14 +2282,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",93);
-        assertEq(1,r_.getDynCallPotential().size());
-        assertEq(107,r_.getDynCallPotential().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getFile().getFileName());
-        assertEq(37,r_.getDynCallPotential().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getDynCallPotential().get(0).getCallee().getFile().getFileName());
-        assertEq(101,r_.getDynCallPotential().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getDynCallPotential().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",93);
+        assertEq(1, dynCallPotential(r_).size());
+        assertEq(107, dynCallPotential(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", dynCallPotential(r_).get(0).getFile().getFileName());
+        assertEq(37, dynCallPotential(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", dynCallPotential(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(101, dynCallPotential(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", dynCallPotential(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs80() {
@@ -2306,21 +2310,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getDeclaredFields(\"ONE\")[0].getAnnotations()[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",27);
-        assertEq(1,r_.getAnnotCandidatesCallsInitMembers().size());
-        assertEq(195,r_.getAnnotCandidatesCallsInitMembers().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getFile().getFileName());
-        assertEq(88,r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getAnnotCandidatesCallsInitArobaseMembers().size());
-        assertEq(195,r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getFile().getFileName());
-        assertEq(26,r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",27);
+        assertEq(1, annotCandidatesCallsInitMembers(r_).size());
+        assertEq(195, annotCandidatesCallsInitMembers(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitMembers(r_).get(0).getFile().getFileName());
+        assertEq(88, annotCandidatesCallsInitMembers(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitMembers(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(143, annotCandidatesCallsInitMembers(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitMembers(r_).get(0).getCaller().getFile().getFileName());
+        assertEq(1, annotCandidatesCallsInitArobaseMembers(r_).size());
+        assertEq(195, annotCandidatesCallsInitArobaseMembers(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseMembers(r_).get(0).getFile().getFileName());
+        assertEq(26, annotCandidatesCallsInitArobaseMembers(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseMembers(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(143, annotCandidatesCallsInitArobaseMembers(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseMembers(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs81() {
@@ -2341,21 +2345,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getDeclaredFields(\"ONE\")[0].getAnnotations($class(Annot))[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",27);
-        assertEq(1,r_.getAnnotCandidatesCallsInitMembers().size());
-        assertEq(195,r_.getAnnotCandidatesCallsInitMembers().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getFile().getFileName());
-        assertEq(88,r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getAnnotCandidatesCallsInitArobaseMembers().size());
-        assertEq(195,r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getFile().getFileName());
-        assertEq(26,r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",27);
+        assertEq(1, annotCandidatesCallsInitMembers(r_).size());
+        assertEq(195, annotCandidatesCallsInitMembers(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitMembers(r_).get(0).getFile().getFileName());
+        assertEq(88, annotCandidatesCallsInitMembers(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitMembers(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(143, annotCandidatesCallsInitMembers(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitMembers(r_).get(0).getCaller().getFile().getFileName());
+        assertEq(1, annotCandidatesCallsInitArobaseMembers(r_).size());
+        assertEq(195, annotCandidatesCallsInitArobaseMembers(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseMembers(r_).get(0).getFile().getFileName());
+        assertEq(26, annotCandidatesCallsInitArobaseMembers(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseMembers(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(143, annotCandidatesCallsInitArobaseMembers(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseMembers(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs82() {
@@ -2377,21 +2381,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$Class c=$class(Annot);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",27);
-        assertEq(1,r_.getAnnotCandidatesCallsInitMembers().size());
-        assertEq(195,r_.getAnnotCandidatesCallsInitMembers().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getFile().getFileName());
-        assertEq(88,r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getAnnotCandidatesCallsInitArobaseMembers().size());
-        assertEq(195,r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getFile().getFileName());
-        assertEq(26,r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",27);
+        assertEq(1, annotCandidatesCallsInitMembers(r_).size());
+        assertEq(195, annotCandidatesCallsInitMembers(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitMembers(r_).get(0).getFile().getFileName());
+        assertEq(88, annotCandidatesCallsInitMembers(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitMembers(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(143, annotCandidatesCallsInitMembers(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitMembers(r_).get(0).getCaller().getFile().getFileName());
+        assertEq(1, annotCandidatesCallsInitArobaseMembers(r_).size());
+        assertEq(195, annotCandidatesCallsInitArobaseMembers(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseMembers(r_).get(0).getFile().getFileName());
+        assertEq(26, annotCandidatesCallsInitArobaseMembers(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseMembers(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(143, annotCandidatesCallsInitArobaseMembers(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseMembers(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs83() {
@@ -2412,21 +2416,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getDeclaredConstructors()[0].getAnnotationsParameters()[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",45);
-        assertEq(1,r_.getAnnotCandidatesCallsInitParameters().size());
-        assertEq(196,r_.getAnnotCandidatesCallsInitParameters().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitParameters().get(0).getFile().getFileName());
-        assertEq(88,r_.getAnnotCandidatesCallsInitParameters().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitParameters().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getAnnotCandidatesCallsInitParameters().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitParameters().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getAnnotCandidatesCallsInitArobaseParameters().size());
-        assertEq(196,r_.getAnnotCandidatesCallsInitArobaseParameters().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseParameters().get(0).getFile().getFileName());
-        assertEq(44,r_.getAnnotCandidatesCallsInitArobaseParameters().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseParameters().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getAnnotCandidatesCallsInitArobaseParameters().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseParameters().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",45);
+        assertEq(1, annotCandidatesCallsInitParameters(r_).size());
+        assertEq(196, annotCandidatesCallsInitParameters(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitParameters(r_).get(0).getFile().getFileName());
+        assertEq(88, annotCandidatesCallsInitParameters(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitParameters(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(143, annotCandidatesCallsInitParameters(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitParameters(r_).get(0).getCaller().getFile().getFileName());
+        assertEq(1, annotCandidatesCallsInitArobaseParameters(r_).size());
+        assertEq(196, annotCandidatesCallsInitArobaseParameters(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseParameters(r_).get(0).getFile().getFileName());
+        assertEq(44, annotCandidatesCallsInitArobaseParameters(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseParameters(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(143, annotCandidatesCallsInitArobaseParameters(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseParameters(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs84() {
@@ -2447,21 +2451,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getDeclaredConstructors()[0].getAnnotationsParameters($class(Annot))[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",45);
-        assertEq(1,r_.getAnnotCandidatesCallsInitParameters().size());
-        assertEq(196,r_.getAnnotCandidatesCallsInitParameters().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitParameters().get(0).getFile().getFileName());
-        assertEq(88,r_.getAnnotCandidatesCallsInitParameters().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitParameters().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getAnnotCandidatesCallsInitParameters().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitParameters().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getAnnotCandidatesCallsInitArobaseParameters().size());
-        assertEq(196,r_.getAnnotCandidatesCallsInitArobaseParameters().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseParameters().get(0).getFile().getFileName());
-        assertEq(44,r_.getAnnotCandidatesCallsInitArobaseParameters().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseParameters().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getAnnotCandidatesCallsInitArobaseParameters().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseParameters().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",45);
+        assertEq(1, annotCandidatesCallsInitParameters(r_).size());
+        assertEq(196, annotCandidatesCallsInitParameters(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitParameters(r_).get(0).getFile().getFileName());
+        assertEq(88, annotCandidatesCallsInitParameters(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitParameters(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(143, annotCandidatesCallsInitParameters(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitParameters(r_).get(0).getCaller().getFile().getFileName());
+        assertEq(1, annotCandidatesCallsInitArobaseParameters(r_).size());
+        assertEq(196, annotCandidatesCallsInitArobaseParameters(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseParameters(r_).get(0).getFile().getFileName());
+        assertEq(44, annotCandidatesCallsInitArobaseParameters(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseParameters(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(143, annotCandidatesCallsInitArobaseParameters(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseParameters(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs85() {
@@ -2482,21 +2486,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getDeclaredMethods()[0].getAnnotationsSupp()[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",63);
-        assertEq(1,r_.getAnnotCandidatesCallsInitSuppl().size());
-        assertEq(214,r_.getAnnotCandidatesCallsInitSuppl().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitSuppl().get(0).getFile().getFileName());
-        assertEq(111,r_.getAnnotCandidatesCallsInitSuppl().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitSuppl().get(0).getCallee().getFile().getFileName());
-        assertEq(166,r_.getAnnotCandidatesCallsInitSuppl().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitSuppl().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getAnnotCandidatesCallsInitArobaseSuppl().size());
-        assertEq(214,r_.getAnnotCandidatesCallsInitArobaseSuppl().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseSuppl().get(0).getFile().getFileName());
-        assertEq(62,r_.getAnnotCandidatesCallsInitArobaseSuppl().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseSuppl().get(0).getCallee().getFile().getFileName());
-        assertEq(166,r_.getAnnotCandidatesCallsInitArobaseSuppl().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseSuppl().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",63);
+        assertEq(1, annotCandidatesCallsInitSuppl(r_).size());
+        assertEq(214, annotCandidatesCallsInitSuppl(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitSuppl(r_).get(0).getFile().getFileName());
+        assertEq(111, annotCandidatesCallsInitSuppl(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitSuppl(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(166, annotCandidatesCallsInitSuppl(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitSuppl(r_).get(0).getCaller().getFile().getFileName());
+        assertEq(1, annotCandidatesCallsInitArobaseSuppl(r_).size());
+        assertEq(214, annotCandidatesCallsInitArobaseSuppl(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseSuppl(r_).get(0).getFile().getFileName());
+        assertEq(62, annotCandidatesCallsInitArobaseSuppl(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseSuppl(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(166, annotCandidatesCallsInitArobaseSuppl(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseSuppl(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs86() {
@@ -2517,21 +2521,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getDeclaredMethods()[0].getAnnotationsSupp($class(Annot))[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",63);
-        assertEq(1,r_.getAnnotCandidatesCallsInitSuppl().size());
-        assertEq(214,r_.getAnnotCandidatesCallsInitSuppl().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitSuppl().get(0).getFile().getFileName());
-        assertEq(111,r_.getAnnotCandidatesCallsInitSuppl().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitSuppl().get(0).getCallee().getFile().getFileName());
-        assertEq(166,r_.getAnnotCandidatesCallsInitSuppl().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitSuppl().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getAnnotCandidatesCallsInitArobaseSuppl().size());
-        assertEq(214,r_.getAnnotCandidatesCallsInitArobaseSuppl().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseSuppl().get(0).getFile().getFileName());
-        assertEq(62,r_.getAnnotCandidatesCallsInitArobaseSuppl().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseSuppl().get(0).getCallee().getFile().getFileName());
-        assertEq(166,r_.getAnnotCandidatesCallsInitArobaseSuppl().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseSuppl().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",63);
+        assertEq(1, annotCandidatesCallsInitSuppl(r_).size());
+        assertEq(214, annotCandidatesCallsInitSuppl(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitSuppl(r_).get(0).getFile().getFileName());
+        assertEq(111, annotCandidatesCallsInitSuppl(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitSuppl(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(166, annotCandidatesCallsInitSuppl(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitSuppl(r_).get(0).getCaller().getFile().getFileName());
+        assertEq(1, annotCandidatesCallsInitArobaseSuppl(r_).size());
+        assertEq(214, annotCandidatesCallsInitArobaseSuppl(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseSuppl(r_).get(0).getFile().getFileName());
+        assertEq(62, annotCandidatesCallsInitArobaseSuppl(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseSuppl(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(166, annotCandidatesCallsInitArobaseSuppl(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseSuppl(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs87() {
@@ -2553,21 +2557,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Annot).getDeclaredMethods()[0].getDefaultValue()).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",131);
-        assertEq(1,r_.getAnnotCandidatesCallsInitDefValue().size());
-        assertEq(225,r_.getAnnotCandidatesCallsInitDefValue().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitDefValue().get(0).getFile().getFileName());
-        assertEq(100,r_.getAnnotCandidatesCallsInitDefValue().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitDefValue().get(0).getCallee().getFile().getFileName());
-        assertEq(177,r_.getAnnotCandidatesCallsInitDefValue().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitDefValue().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getAnnotCandidatesCallsInitArobaseDefValue().size());
-        assertEq(225,r_.getAnnotCandidatesCallsInitArobaseDefValue().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseDefValue().get(0).getFile().getFileName());
-        assertEq(127,r_.getAnnotCandidatesCallsInitArobaseDefValue().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseDefValue().get(0).getCallee().getFile().getFileName());
-        assertEq(177,r_.getAnnotCandidatesCallsInitArobaseDefValue().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseDefValue().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",131);
+        assertEq(1, annotCandidatesCallsInitDefValue(r_).size());
+        assertEq(225, annotCandidatesCallsInitDefValue(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitDefValue(r_).get(0).getFile().getFileName());
+        assertEq(100, annotCandidatesCallsInitDefValue(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitDefValue(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(177, annotCandidatesCallsInitDefValue(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitDefValue(r_).get(0).getCaller().getFile().getFileName());
+        assertEq(1, annotCandidatesCallsInitArobaseDefValue(r_).size());
+        assertEq(225, annotCandidatesCallsInitArobaseDefValue(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseDefValue(r_).get(0).getFile().getFileName());
+        assertEq(127, annotCandidatesCallsInitArobaseDefValue(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseDefValue(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(177, annotCandidatesCallsInitArobaseDefValue(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseDefValue(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs88() {
@@ -2588,21 +2592,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getDeclaredFields(\"ONE\")[0].getAnnotations($null)[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",27);
-        assertEq(1,r_.getAnnotCandidatesCallsInitMembers().size());
-        assertEq(195,r_.getAnnotCandidatesCallsInitMembers().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getFile().getFileName());
-        assertEq(88,r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getAnnotCandidatesCallsInitArobaseMembers().size());
-        assertEq(195,r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getFile().getFileName());
-        assertEq(26,r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",27);
+        assertEq(1, annotCandidatesCallsInitMembers(r_).size());
+        assertEq(195, annotCandidatesCallsInitMembers(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitMembers(r_).get(0).getFile().getFileName());
+        assertEq(88, annotCandidatesCallsInitMembers(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitMembers(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(143, annotCandidatesCallsInitMembers(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitMembers(r_).get(0).getCaller().getFile().getFileName());
+        assertEq(1, annotCandidatesCallsInitArobaseMembers(r_).size());
+        assertEq(195, annotCandidatesCallsInitArobaseMembers(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseMembers(r_).get(0).getFile().getFileName());
+        assertEq(26, annotCandidatesCallsInitArobaseMembers(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseMembers(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(143, annotCandidatesCallsInitArobaseMembers(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseMembers(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs89() {
@@ -2623,21 +2627,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getAnnotations()[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",1);
-        assertEq(1,r_.getAnnotCandidatesCallsInitMembers().size());
-        assertEq(167,r_.getAnnotCandidatesCallsInitMembers().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getFile().getFileName());
-        assertEq(88,r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitMembers().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getAnnotCandidatesCallsInitArobaseMembers().size());
-        assertEq(167,r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getFile().getFileName());
-        assertEq(0,r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCallee().getFile().getFileName());
-        assertEq(143,r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getAnnotCandidatesCallsInitArobaseMembers().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",1);
+        assertEq(1, annotCandidatesCallsInitMembers(r_).size());
+        assertEq(167, annotCandidatesCallsInitMembers(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitMembers(r_).get(0).getFile().getFileName());
+        assertEq(88, annotCandidatesCallsInitMembers(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitMembers(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(143, annotCandidatesCallsInitMembers(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitMembers(r_).get(0).getCaller().getFile().getFileName());
+        assertEq(1, annotCandidatesCallsInitArobaseMembers(r_).size());
+        assertEq(167, annotCandidatesCallsInitArobaseMembers(r_).get(0).getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseMembers(r_).get(0).getFile().getFileName());
+        assertEq(0, annotCandidatesCallsInitArobaseMembers(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseMembers(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(143, annotCandidatesCallsInitArobaseMembers(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", annotCandidatesCallsInitArobaseMembers(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs90() {
@@ -2658,15 +2662,15 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getAnnotations()[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",1);
-        assertEq(1,r_.getInstanceArobase().size());
-        assertEq(1,r_.getInstanceArobase().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getInstanceArobase().get(0).getFile().getFileName());
-        assertEq(88,r_.getInstanceArobase().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getInstanceArobase().get(0).getCallee().getFile().getFileName());
-        assertEq(0,r_.getInstanceArobase().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getInstanceArobase().get(0).getCaller().getFile().getFileName());
-        assertSame(EnSrcLocation.ANNOTATION,r_.getInstanceArobase().get(0).getCaller().build(null).getKind());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",1);
+        assertEq(1, instanceArobase(r_).size());
+        assertEq(1, instanceArobase(r_).get(0).getIndex());
+        assertEq("pkg/Ex", instanceArobase(r_).get(0).getFile().getFileName());
+        assertEq(88, instanceArobase(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", instanceArobase(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(0, instanceArobase(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", instanceArobase(r_).get(0).getCaller().getFile().getFileName());
+        assertSame(EnSrcLocation.ANNOTATION, instanceArobase(r_).get(0).getCaller().build(null).getKind());
     }
     @Test
     public void refs91() {
@@ -2687,14 +2691,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",105);
-        assertEq(1,r_.getTypesFinders().size());
-        assertEq(105,r_.getTypesFinders().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getTypesFinders().get(0).getFile().getFileName());
-        assertEq(26,r_.getTypesFinders().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getTypesFinders().get(0).getCallee().getFile().getFileName());
-        assertEq(49,r_.getTypesFinders().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getTypesFinders().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",105);
+        assertEq(1, typesFinders(r_).size());
+        assertEq(105, typesFinders(r_).get(0).getIndex());
+        assertEq("pkg/Ex", typesFinders(r_).get(0).getFile().getFileName());
+        assertEq(26, typesFinders(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2", typesFinders(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(49, typesFinders(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", typesFinders(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs92() {
@@ -2709,14 +2713,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",78);
-        assertEq(1,r_.getTypesFinders().size());
-        assertEq(77,r_.getTypesFinders().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getTypesFinders().get(0).getFile().getFileName());
-        assertEq(15,r_.getTypesFinders().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getTypesFinders().get(0).getCallee().getFile().getFileName());
-        assertEq(52,r_.getTypesFinders().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getTypesFinders().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",78);
+        assertEq(1, typesFinders(r_).size());
+        assertEq(77, typesFinders(r_).get(0).getIndex());
+        assertEq("pkg/Ex", typesFinders(r_).get(0).getFile().getFileName());
+        assertEq(15, typesFinders(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", typesFinders(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(52, typesFinders(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", typesFinders(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs93() {
@@ -2731,14 +2735,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",60);
-        assertEq(1,r_.getStaticAccess().size());
-        assertEq(59,r_.getStaticAccess().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getStaticAccess().get(0).getFile().getFileName());
-        assertEq(15,r_.getStaticAccess().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getStaticAccess().get(0).getCallee().getFile().getFileName());
-        assertEq(49,r_.getStaticAccess().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getStaticAccess().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",60);
+        assertEq(1, staticAccess(r_).size());
+        assertEq(59, staticAccess(r_).get(0).getIndex());
+        assertEq("pkg/Ex", staticAccess(r_).get(0).getFile().getFileName());
+        assertEq(15, staticAccess(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", staticAccess(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(49, staticAccess(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", staticAccess(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs94() {
@@ -2753,14 +2757,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",84);
-        assertEq(1,r_.getStaticAccess().size());
-        assertEq(84,r_.getStaticAccess().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getStaticAccess().get(0).getFile().getFileName());
-        assertEq(25,r_.getStaticAccess().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getStaticAccess().get(0).getCallee().getFile().getFileName());
-        assertEq(56,r_.getStaticAccess().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getStaticAccess().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",84);
+        assertEq(1, staticAccess(r_).size());
+        assertEq(84, staticAccess(r_).get(0).getIndex());
+        assertEq("pkg/Ex", staticAccess(r_).get(0).getFile().getFileName());
+        assertEq(25, staticAccess(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", staticAccess(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(56, staticAccess(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", staticAccess(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs95() {
@@ -2776,14 +2780,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",84);
-        assertEq(1,r_.getStaticAccess().size());
-        assertEq(84,r_.getStaticAccess().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getStaticAccess().get(0).getFile().getFileName());
-        assertEq(0,r_.getStaticAccess().get(0).getCallee().getIndex());
-        assertEq("",r_.getStaticAccess().get(0).getCallee().getFileName());
-        assertEq(56,r_.getStaticAccess().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getStaticAccess().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",84);
+        assertEq(1, staticAccess(r_).size());
+        assertEq(84, staticAccess(r_).get(0).getIndex());
+        assertEq("pkg/Ex", staticAccess(r_).get(0).getFile().getFileName());
+        assertEq(0, staticAccess(r_).get(0).getCallee().getIndex());
+        assertEq("", staticAccess(r_).get(0).getCallee().getFileName());
+        assertEq(56, staticAccess(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", staticAccess(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs96() {
@@ -2809,14 +2813,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",45);
-        assertEq(1,r_.getInstanceNewTypesEltArray().size());
-        assertEq(45,r_.getInstanceNewTypesEltArray().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceNewTypesEltArray().get(0).getFile().getFileName());
-        assertEq(15,r_.getInstanceNewTypesEltArray().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getInstanceNewTypesEltArray().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getInstanceNewTypesEltArray().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceNewTypesEltArray().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",45);
+        assertEq(1, instanceNewTypesEltArray(r_).size());
+        assertEq(45, instanceNewTypesEltArray(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", instanceNewTypesEltArray(r_).get(0).getFile().getFileName());
+        assertEq(15, instanceNewTypesEltArray(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", instanceNewTypesEltArray(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, instanceNewTypesEltArray(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", instanceNewTypesEltArray(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs97() {
@@ -2842,14 +2846,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",45);
-        assertEq(1,r_.getInstanceNewTypesEltArray().size());
-        assertEq(45,r_.getInstanceNewTypesEltArray().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceNewTypesEltArray().get(0).getFile().getFileName());
-        assertEq(15,r_.getInstanceNewTypesEltArray().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getInstanceNewTypesEltArray().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getInstanceNewTypesEltArray().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceNewTypesEltArray().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",45);
+        assertEq(1, instanceNewTypesEltArray(r_).size());
+        assertEq(45, instanceNewTypesEltArray(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", instanceNewTypesEltArray(r_).get(0).getFile().getFileName());
+        assertEq(15, instanceNewTypesEltArray(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", instanceNewTypesEltArray(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, instanceNewTypesEltArray(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", instanceNewTypesEltArray(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs98() {
@@ -2870,14 +2874,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("Annot g();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",37);
-        assertEq(1,r_.getInstanceArobase().size());
-        assertEq(37,r_.getInstanceArobase().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getInstanceArobase().get(0).getFile().getFileName());
-        assertEq(20,r_.getInstanceArobase().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceArobase().get(0).getCallee().getFile().getFileName());
-        assertEq(26,r_.getInstanceArobase().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getInstanceArobase().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",37);
+        assertEq(1, instanceArobase(r_).size());
+        assertEq(37, instanceArobase(r_).get(0).getIndex());
+        assertEq("pkg/Ex", instanceArobase(r_).get(0).getFile().getFileName());
+        assertEq(20, instanceArobase(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2", instanceArobase(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(26, instanceArobase(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", instanceArobase(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs99() {
@@ -2898,14 +2902,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{Outer a=$operator(-,Outer)(a,Outer.ONE);}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",60);
-        assertEq(1,r_.getTypesFinders().size());
-        assertEq(60,r_.getTypesFinders().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getTypesFinders().get(0).getFile().getFileName());
-        assertEq(14,r_.getTypesFinders().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getTypesFinders().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getTypesFinders().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getTypesFinders().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",60);
+        assertEq(1, typesFinders(r_).size());
+        assertEq(60, typesFinders(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", typesFinders(r_).get(0).getFile().getFileName());
+        assertEq(14, typesFinders(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", typesFinders(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, typesFinders(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", typesFinders(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs100() {
@@ -2926,9 +2930,9 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f=((Annot)$class(Outer).getAnnotations()[0]).f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",27);
-        assertEq(0,r_.getAnnotCandidatesCallsInitMembers().size());
-        assertEq(0,r_.getAnnotCandidatesCallsInitArobaseMembers().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",27);
+        assertFalse(r_.contains(CallerKind.ANNOT_INIT_MEMBER));
+        assertFalse(r_.contains(CallerKind.ANNOT_AROBASE_MEMBER));
     }
     @Test
     public void refs101() {
@@ -2954,14 +2958,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",51);
-        assertEq(1,r_.getInstanceNewTypesEltArray().size());
-        assertEq(51,r_.getInstanceNewTypesEltArray().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceNewTypesEltArray().get(0).getFile().getFileName());
-        assertEq(19,r_.getInstanceNewTypesEltArray().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getInstanceNewTypesEltArray().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getInstanceNewTypesEltArray().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceNewTypesEltArray().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",51);
+        assertEq(1, instanceNewTypesEltArray(r_).size());
+        assertEq(51, instanceNewTypesEltArray(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", instanceNewTypesEltArray(r_).get(0).getFile().getFileName());
+        assertEq(19, instanceNewTypesEltArray(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", instanceNewTypesEltArray(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, instanceNewTypesEltArray(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", instanceNewTypesEltArray(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs102() {
@@ -2988,14 +2992,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",64);
-        assertEq(1,r_.getInstanceNewTypesElt().size());
-        assertEq(64,r_.getInstanceNewTypesElt().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceNewTypesElt().get(0).getFile().getFileName());
-        assertEq(19,r_.getInstanceNewTypesElt().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getInstanceNewTypesElt().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getInstanceNewTypesElt().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceNewTypesElt().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",64);
+        assertEq(1, instanceNewTypesElt(r_).size());
+        assertEq(64, instanceNewTypesElt(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", instanceNewTypesElt(r_).get(0).getFile().getFileName());
+        assertEq(19, instanceNewTypesElt(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", instanceNewTypesElt(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, instanceNewTypesElt(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", instanceNewTypesElt(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs103() {
@@ -3020,14 +3024,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",59);
-        assertEq(1,r_.getTypesFindersRef().size());
-        assertEq(59,r_.getTypesFindersRef().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getTypesFindersRef().get(0).getFile().getFileName());
-        assertEq(19,r_.getTypesFindersRef().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getTypesFindersRef().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getTypesFindersRef().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getTypesFindersRef().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",59);
+        assertEq(1, typesFindersRef(r_).size());
+        assertEq(59, typesFindersRef(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", typesFindersRef(r_).get(0).getFile().getFileName());
+        assertEq(19, typesFindersRef(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", typesFindersRef(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, typesFindersRef(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", typesFindersRef(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs104() {
@@ -3051,10 +3055,10 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int f();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",27);
-        assertEq(0,r_.getAnnotCandidatesCallsInitMembers().size());
-        assertEq(0,r_.getInterfacesInit().size());
-        assertEq(0,r_.getInterfacesInitRef().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",27);
+        assertFalse(r_.contains(CallerKind.ANNOT_INIT_MEMBER));
+        assertFalse(r_.contains(CallerKind.INTERFACES_INIT));
+        assertFalse(r_.contains(CallerKind.INTERFACES_INIT_REF));
     }
     @Test
     public void refs105() {
@@ -3078,15 +3082,15 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$operator/ pkg.Outer(pkg.Outer a, pkg.Outer b){$return $null;}\n");
         xml_.append("$public $annotation pkg.Annot{$int meth();}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",47);
-        assertEq(1,r_.getCallNamedUse().size());
-        assertEq(47,r_.getCallNamedUse().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUse().get(0).getFile().getFileName());
-        assertEq(57,r_.getCallNamedUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUse().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getCallNamedUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getCallNamedUse().get(0).getCaller().getFile().getFileName());
-        assertEq(0,r_.getReturnType().size());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",47);
+        assertEq(1, callNamedUseSize(r_));
+        assertEq(47, callNamedUseElt(r_, 0).getIndex());
+        assertEq("pkg/Ex2", callNamedUseElt(r_, 0).getFile().getFileName());
+        assertEq(57, callNamedUseElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex2", callNamedUseElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(38, callNamedUseElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex2", callNamedUseElt(r_, 0).getCaller().getFile().getFileName());
+        assertFalse(r_.contains(CallerKind.RETURN));
     }
     @Test
     public void refs106() {
@@ -3106,14 +3110,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$int a=$valueOf(Outer,\"\").ordinal();}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",56);
-        assertEq(1,r_.getStaticAccess().size());
-        assertEq(56,r_.getStaticAccess().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getStaticAccess().get(0).getFile().getFileName());
-        assertEq(14,r_.getStaticAccess().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getStaticAccess().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getStaticAccess().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getStaticAccess().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",56);
+        assertEq(1, staticAccess(r_).size());
+        assertEq(56, staticAccess(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", staticAccess(r_).get(0).getFile().getFileName());
+        assertEq(14, staticAccess(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", staticAccess(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, staticAccess(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", staticAccess(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs107() {
@@ -3133,14 +3137,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$int a=$values(Outer).length;}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",55);
-        assertEq(1,r_.getStaticAccess().size());
-        assertEq(55,r_.getStaticAccess().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getStaticAccess().get(0).getFile().getFileName());
-        assertEq(14,r_.getStaticAccess().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getStaticAccess().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getStaticAccess().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getStaticAccess().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",55);
+        assertEq(1, staticAccess(r_).size());
+        assertEq(55, staticAccess(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", staticAccess(r_).get(0).getFile().getFileName());
+        assertEq(14, staticAccess(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", staticAccess(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, staticAccess(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", staticAccess(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs108() {
@@ -3166,14 +3170,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",51);
-        assertEq(1,r_.getCastOperation().size());
-        assertEq(51,r_.getCastOperation().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getCastOperation().get(0).getFile().getFileName());
-        assertEq(15,r_.getCastOperation().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCastOperation().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getCastOperation().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getCastOperation().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",51);
+        assertEq(1, castOperation(r_).size());
+        assertEq(51, castOperation(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", castOperation(r_).get(0).getFile().getFileName());
+        assertEq(15, castOperation(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", castOperation(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, castOperation(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", castOperation(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs109() {
@@ -3193,14 +3197,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$boolean a=ONE $instanceof Outer;}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",67);
-        assertEq(1,r_.getInstanceOperation().size());
-        assertEq(67,r_.getInstanceOperation().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceOperation().get(0).getFile().getFileName());
-        assertEq(14,r_.getInstanceOperation().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getInstanceOperation().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getInstanceOperation().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getInstanceOperation().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",67);
+        assertEq(1, instanceOperation(r_).size());
+        assertEq(67, instanceOperation(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", instanceOperation(r_).get(0).getFile().getFileName());
+        assertEq(14, instanceOperation(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", instanceOperation(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, instanceOperation(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", instanceOperation(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs110() {
@@ -3211,14 +3215,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int g=$switch[$short:@Annot(e=2):@Annot(e=2)](0){$default;$return 0;};\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",42);
-        assertEq(1,r_.getReturnType().size());
-        assertEq(42,r_.getReturnType().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getReturnType().get(0).getFile().getFileName());
-        assertEq(0,r_.getReturnType().get(0).getCallee().getIndex());
-        assertEq("",r_.getReturnType().get(0).getCallee().getFileName());
-        assertEq(32,r_.getReturnType().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getReturnType().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",42);
+        assertEq(1, returnType(r_).size());
+        assertEq(42, returnType(r_).get(0).getIndex());
+        assertEq("pkg/Ex", returnType(r_).get(0).getFile().getFileName());
+        assertEq(0, returnType(r_).get(0).getCallee().getIndex());
+        assertEq("", returnType(r_).get(0).getCallee().getFileName());
+        assertEq(32, returnType(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", returnType(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs111() {
@@ -3245,14 +3249,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",64);
-        assertEq(1,r_.getInstanceNewTypesEltFwd().size());
-        assertEq(107,r_.getInstanceNewTypesEltFwd().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getInstanceNewTypesEltFwd().get(0).getFile().getFileName());
-        assertEq(19,r_.getInstanceNewTypesEltFwd().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getInstanceNewTypesEltFwd().get(0).getCallee().getFile().getFileName());
-        assertEq(80,r_.getInstanceNewTypesEltFwd().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getInstanceNewTypesEltFwd().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",64);
+        assertEq(1, instanceNewTypesEltFwd(r_).size());
+        assertEq(107, instanceNewTypesEltFwd(r_).get(0).getIndex());
+        assertEq("pkg/Ex", instanceNewTypesEltFwd(r_).get(0).getFile().getFileName());
+        assertEq(19, instanceNewTypesEltFwd(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", instanceNewTypesEltFwd(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(80, instanceNewTypesEltFwd(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", instanceNewTypesEltFwd(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs112() {
@@ -3272,14 +3276,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$int a=$new Outer().$classchoice(Outer)[0];}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",73);
-        assertEq(1,r_.getTypesFinders().size());
-        assertEq(73,r_.getTypesFinders().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getTypesFinders().get(0).getFile().getFileName());
-        assertEq(15,r_.getTypesFinders().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getTypesFinders().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getTypesFinders().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getTypesFinders().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",73);
+        assertEq(1, typesFinders(r_).size());
+        assertEq(73, typesFinders(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", typesFinders(r_).get(0).getFile().getFileName());
+        assertEq(15, typesFinders(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", typesFinders(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, typesFinders(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", typesFinders(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs113() {
@@ -3299,14 +3303,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$static $final Outer THREE=$defaultValue(Outer);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",80);
-        assertEq(1,r_.getTypesInfosDef().size());
-        assertEq(80,r_.getTypesInfosDef().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getTypesInfosDef().get(0).getFile().getFileName());
-        assertEq(14,r_.getTypesInfosDef().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getTypesInfosDef().get(0).getCallee().getFile().getFileName());
-        assertEq(60,r_.getTypesInfosDef().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getTypesInfosDef().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",80);
+        assertEq(1, typesInfosDef(r_).size());
+        assertEq(80, typesInfosDef(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", typesInfosDef(r_).get(0).getFile().getFileName());
+        assertEq(14, typesInfosDef(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", typesInfosDef(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(60, typesInfosDef(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", typesInfosDef(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs114() {
@@ -3326,14 +3330,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$int a=$class(Outer).getName().length;}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",54);
-        assertEq(1,r_.getTypesInfos().size());
-        assertEq(54,r_.getTypesInfos().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getTypesInfos().get(0).getFile().getFileName());
-        assertEq(14,r_.getTypesInfos().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getTypesInfos().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getTypesInfos().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getTypesInfos().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",54);
+        assertEq(1, typesInfos(r_).size());
+        assertEq(54, typesInfos(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", typesInfos(r_).get(0).getFile().getFileName());
+        assertEq(14, typesInfos(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", typesInfos(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, typesInfos(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", typesInfos(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs115() {
@@ -3349,21 +3353,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",81);
-        assertEq(1,r_.getCallAnonRefUse().size());
-        assertEq(79,r_.getCallAnonRefUse().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getCallAnonRefUse().get(0).getFile().getFileName());
-        assertEq(80,r_.getCallAnonRefUse().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getCallAnonRefUse().get(0).getCallee().getFile().getFileName());
-        assertEq(49,r_.getCallAnonRefUse().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getCallAnonRefUse().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getDynCallPotential().size());
-        assertEq(95,r_.getDynCallPotential().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getDynCallPotential().get(0).getFile().getFileName());
-        assertEq(80,r_.getDynCallPotential().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getDynCallPotential().get(0).getCallee().getFile().getFileName());
-        assertEq(49,r_.getDynCallPotential().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getDynCallPotential().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",81);
+        assertEq(1, callAnonRefUse(r_).size());
+        assertEq(79, callAnonRefUse(r_).get(0).getIndex());
+        assertEq("pkg/Ex", callAnonRefUse(r_).get(0).getFile().getFileName());
+        assertEq(80, callAnonRefUse(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", callAnonRefUse(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(49, callAnonRefUse(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", callAnonRefUse(r_).get(0).getCaller().getFile().getFileName());
+        assertEq(1, dynCallPotential(r_).size());
+        assertEq(95, dynCallPotential(r_).get(0).getIndex());
+        assertEq("pkg/Ex", dynCallPotential(r_).get(0).getFile().getFileName());
+        assertEq(80, dynCallPotential(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", dynCallPotential(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(49, dynCallPotential(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", dynCallPotential(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs116() {
@@ -3389,14 +3393,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$void m()$intern(Outer3:m(Outer3)){}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex3",52);
-        assertEq(1,r_.getInternEltsFct().size());
-        assertEq(52,r_.getInternEltsFct().get(0).getIndex());
-        assertEq("pkg/Ex3",r_.getInternEltsFct().get(0).getFile().getFileName());
-        assertEq(34,r_.getInternEltsFct().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getInternEltsFct().get(0).getCallee().getFile().getFileName());
-        assertEq(34,r_.getInternEltsFct().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex3",r_.getInternEltsFct().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex3",52);
+        assertEq(1, internEltsFctSize(r_));
+        assertEq(52, internEltsFctElt(r_, 0).getIndex());
+        assertEq("pkg/Ex3", internEltsFctElt(r_, 0).getFile().getFileName());
+        assertEq(34, internEltsFctElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex3", internEltsFctElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(34, internEltsFctElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex3", internEltsFctElt(r_, 0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs117() {
@@ -3423,14 +3427,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$void m()$intern(Outer3:m(Outer3);Outer3:m(Outer3)){}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex3",40);
-        assertEq(1,r_.getInternElts().size());
-        assertEq(40,r_.getInternElts().get(0).getIndex());
-        assertEq("pkg/Ex3",r_.getInternElts().get(0).getFile().getFileName());
-        assertEq(58,r_.getInternElts().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getInternElts().get(0).getCallee().getFile().getFileName());
-        assertEq(15,r_.getInternElts().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex3",r_.getInternElts().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex3",40);
+        assertEq(1, internElts(r_).size());
+        assertEq(40, internElts(r_).get(0).getIndex());
+        assertEq("pkg/Ex3", internElts(r_).get(0).getFile().getFileName());
+        assertEq(58, internElts(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", internElts(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(15, internElts(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex3", internElts(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs118() {
@@ -3456,20 +3460,20 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$void m()$intern(Outer3:m(Outer3)){}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex3",45);
-        assertEq(2,r_.getInternEltsFct().size());
-        assertEq(45,r_.getInternEltsFct().get(0).getIndex());
-        assertEq("pkg/Ex3",r_.getInternEltsFct().get(0).getFile().getFileName());
-        assertEq(15,r_.getInternEltsFct().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getInternEltsFct().get(0).getCallee().getFile().getFileName());
-        assertEq(34,r_.getInternEltsFct().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex3",r_.getInternEltsFct().get(0).getCaller().getFile().getFileName());
-        assertEq(54,r_.getInternEltsFct().get(1).getIndex());
-        assertEq("pkg/Ex3",r_.getInternEltsFct().get(1).getFile().getFileName());
-        assertEq(15,r_.getInternEltsFct().get(1).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getInternEltsFct().get(1).getCallee().getFile().getFileName());
-        assertEq(34,r_.getInternEltsFct().get(1).getCaller().getIndex());
-        assertEq("pkg/Ex3",r_.getInternEltsFct().get(1).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex3",45);
+        assertEq(2, internEltsFctSize(r_));
+        assertEq(45, internEltsFctElt(r_, 0).getIndex());
+        assertEq("pkg/Ex3", internEltsFctElt(r_, 0).getFile().getFileName());
+        assertEq(15, internEltsFctElt(r_, 0).getCallee().getIndex());
+        assertEq("pkg/Ex3", internEltsFctElt(r_, 0).getCallee().getFile().getFileName());
+        assertEq(34, internEltsFctElt(r_, 0).getCaller().getIndex());
+        assertEq("pkg/Ex3", internEltsFctElt(r_, 0).getCaller().getFile().getFileName());
+        assertEq(54, internEltsFctElt(r_, 1).getIndex());
+        assertEq("pkg/Ex3", internEltsFctElt(r_, 1).getFile().getFileName());
+        assertEq(15, internEltsFctElt(r_, 1).getCallee().getIndex());
+        assertEq("pkg/Ex3", internEltsFctElt(r_, 1).getCallee().getFile().getFileName());
+        assertEq(34, internEltsFctElt(r_, 1).getCaller().getIndex());
+        assertEq("pkg/Ex3", internEltsFctElt(r_, 1).getCaller().getFile().getFileName());
     }
     @Test
     public void refs119() {
@@ -3496,14 +3500,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$void m()$intern(Outer3:m(Outer3);Outer3:m(Outer3)){}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex3",42);
-        assertEq(1,r_.getInternElts().size());
-        assertEq(42,r_.getInternElts().get(0).getIndex());
-        assertEq("pkg/Ex3",r_.getInternElts().get(0).getFile().getFileName());
-        assertEq(15,r_.getInternElts().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getInternElts().get(0).getCallee().getFile().getFileName());
-        assertEq(15,r_.getInternElts().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex3",r_.getInternElts().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex3",42);
+        assertEq(1, internElts(r_).size());
+        assertEq(42, internElts(r_).get(0).getIndex());
+        assertEq("pkg/Ex3", internElts(r_).get(0).getFile().getFileName());
+        assertEq(15, internElts(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", internElts(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(15, internElts(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex3", internElts(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs120() {
@@ -3518,14 +3522,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Outer3 {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",44);
-        assertEq(1,r_.getParamType().size());
-        assertEq(44,r_.getParamType().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getParamType().get(0).getFile().getFileName());
-        assertEq(15,r_.getParamType().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getParamType().get(0).getCallee().getFile().getFileName());
-        assertEq(42,r_.getParamType().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getParamType().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",44);
+        assertEq(1, paramType(r_).size());
+        assertEq(44, paramType(r_).get(0).getIndex());
+        assertEq("pkg/Ex", paramType(r_).get(0).getFile().getFileName());
+        assertEq(15, paramType(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", paramType(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(42, paramType(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", paramType(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs121() {
@@ -3540,14 +3544,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Outer2 {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",35);
-        assertEq(1,r_.getReturnType().size());
-        assertEq(35,r_.getReturnType().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getReturnType().get(0).getFile().getFileName());
-        assertEq(15,r_.getReturnType().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getReturnType().get(0).getCallee().getFile().getFileName());
-        assertEq(42,r_.getReturnType().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getReturnType().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",35);
+        assertEq(1, returnType(r_).size());
+        assertEq(35, returnType(r_).get(0).getIndex());
+        assertEq("pkg/Ex", returnType(r_).get(0).getFile().getFileName());
+        assertEq(15, returnType(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2", returnType(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(42, returnType(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", returnType(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs122() {
@@ -3563,21 +3567,21 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",80);
-        assertEq(1,r_.getParamType().size());
-        assertEq(80,r_.getParamType().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getParamType().get(0).getFile().getFileName());
-        assertEq(15,r_.getParamType().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getParamType().get(0).getCallee().getFile().getFileName());
-        assertEq(94,r_.getParamType().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getParamType().get(0).getCaller().getFile().getFileName());
-        assertEq(1,r_.getReturnType().size());
-        assertEq(88,r_.getReturnType().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getReturnType().get(0).getFile().getFileName());
-        assertEq(15,r_.getReturnType().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getReturnType().get(0).getCallee().getFile().getFileName());
-        assertEq(94,r_.getReturnType().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getReturnType().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",80);
+        assertEq(1, paramType(r_).size());
+        assertEq(80, paramType(r_).get(0).getIndex());
+        assertEq("pkg/Ex", paramType(r_).get(0).getFile().getFileName());
+        assertEq(15, paramType(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", paramType(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(94, paramType(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", paramType(r_).get(0).getCaller().getFile().getFileName());
+        assertEq(1, returnType(r_).size());
+        assertEq(88, returnType(r_).get(0).getIndex());
+        assertEq("pkg/Ex", returnType(r_).get(0).getFile().getFileName());
+        assertEq(15, returnType(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", returnType(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(94, returnType(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", returnType(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs123() {
@@ -3591,14 +3595,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",68);
-        assertEq(1,r_.getVariableDeclaring().size());
-        assertEq(68,r_.getVariableDeclaring().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getVariableDeclaring().get(0).getFile().getFileName());
-        assertEq(15,r_.getVariableDeclaring().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getVariableDeclaring().get(0).getCallee().getFile().getFileName());
-        assertEq(58,r_.getVariableDeclaring().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getVariableDeclaring().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",68);
+        assertEq(1, variableDeclaring(r_).size());
+        assertEq(68, variableDeclaring(r_).get(0).getIndex());
+        assertEq("pkg/Ex", variableDeclaring(r_).get(0).getFile().getFileName());
+        assertEq(15, variableDeclaring(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", variableDeclaring(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(58, variableDeclaring(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", variableDeclaring(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs124() {
@@ -3612,14 +3616,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",27);
-        assertEq(1,r_.getFieldDeclaring().size());
-        assertEq(27,r_.getFieldDeclaring().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getFieldDeclaring().get(0).getFile().getFileName());
-        assertEq(15,r_.getFieldDeclaring().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex",r_.getFieldDeclaring().get(0).getCallee().getFile().getFileName());
-        assertEq(33,r_.getFieldDeclaring().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getFieldDeclaring().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",27);
+        assertEq(1, fieldDeclaring(r_).size());
+        assertEq(27, fieldDeclaring(r_).get(0).getIndex());
+        assertEq("pkg/Ex", fieldDeclaring(r_).get(0).getFile().getFileName());
+        assertEq(15, fieldDeclaring(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex", fieldDeclaring(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(33, fieldDeclaring(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", fieldDeclaring(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs125() {
@@ -3646,14 +3650,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$void m()$intern(Outer3:m(Outer3);Outer3:m(Outer3)){}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",27);
-        assertEq(1,r_.getConstraints().size());
-        assertEq(27,r_.getConstraints().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getConstraints().get(0).getFile().getFileName());
-        assertEq(15,r_.getConstraints().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getConstraints().get(0).getCallee().getFile().getFileName());
-        assertEq(14,r_.getConstraints().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getConstraints().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",27);
+        assertEq(1, constraints(r_).size());
+        assertEq(27, constraints(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", constraints(r_).get(0).getFile().getFileName());
+        assertEq(15, constraints(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", constraints(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(14, constraints(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", constraints(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs126() {
@@ -3680,14 +3684,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",25);
-        assertEq(1,r_.getInherits().size());
-        assertEq(25,r_.getInherits().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getInherits().get(0).getFile().getFileName());
-        assertEq(19,r_.getInherits().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getInherits().get(0).getCallee().getFile().getFileName());
-        assertEq(15,r_.getInherits().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getInherits().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",25);
+        assertEq(1, inherits(r_).size());
+        assertEq(25, inherits(r_).get(0).getIndex());
+        assertEq("pkg/Ex", inherits(r_).get(0).getFile().getFileName());
+        assertEq(19, inherits(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", inherits(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(15, inherits(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", inherits(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs127() {
@@ -3714,14 +3718,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",35);
-        assertEq(1,r_.getInterfacesInstance().size());
-        assertEq(35,r_.getInterfacesInstance().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getInterfacesInstance().get(0).getFile().getFileName());
-        assertEq(19,r_.getInterfacesInstance().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getInterfacesInstance().get(0).getCallee().getFile().getFileName());
-        assertEq(43,r_.getInterfacesInstance().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getInterfacesInstance().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",35);
+        assertEq(1, interfacesInstance(r_).size());
+        assertEq(35, interfacesInstance(r_).get(0).getIndex());
+        assertEq("pkg/Ex", interfacesInstance(r_).get(0).getFile().getFileName());
+        assertEq(19, interfacesInstance(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", interfacesInstance(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(43, interfacesInstance(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", interfacesInstance(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs128() {
@@ -3748,14 +3752,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$int field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex",28);
-        assertEq(1,r_.getInterfacesStatic().size());
-        assertEq(28,r_.getInterfacesStatic().get(0).getIndex());
-        assertEq("pkg/Ex",r_.getInterfacesStatic().get(0).getFile().getFileName());
-        assertEq(19,r_.getInterfacesStatic().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex3",r_.getInterfacesStatic().get(0).getCallee().getFile().getFileName());
-        assertEq(43,r_.getInterfacesStatic().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex",r_.getInterfacesStatic().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex",28);
+        assertEq(1, interfacesStatic(r_).size());
+        assertEq(28, interfacesStatic(r_).get(0).getIndex());
+        assertEq("pkg/Ex", interfacesStatic(r_).get(0).getFile().getFileName());
+        assertEq(19, interfacesStatic(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex3", interfacesStatic(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(43, interfacesStatic(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex", interfacesStatic(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs129() {
@@ -3776,12 +3780,12 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$Fct<$int,String> v;v.call(0);}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",62);
-        assertEq(1,r_.getCallDyn().size());
-        assertEq(62,r_.getCallDyn().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getCallDyn().get(0).getFile().getFileName());
-        assertEq(38,r_.getCallDyn().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getCallDyn().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",62);
+        assertEq(1, callDyn(r_).size());
+        assertEq(62, callDyn(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", callDyn(r_).get(0).getFile().getFileName());
+        assertEq(38, callDyn(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", callDyn(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs130() {
@@ -3797,8 +3801,8 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("$void m(T t){$new Outer<T>().$lambda(Outer<T>,method,T).call(t);}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",77);
-        assertFalse(r_.getDynCallPotential().isEmpty());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",77);
+        assertFalse(dynCallPotential(r_).isEmpty());
     }
     @Test
     public void refs131() {
@@ -3820,14 +3824,14 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$for(Outer2 o,$var p:$($iterableTable<Outer2,Outer>)$null){}}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",53);
-        assertEq(1,r_.getVariableDeclaringInferred().size());
-        assertEq(53,r_.getVariableDeclaringInferred().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getVariableDeclaringInferred().get(0).getFile().getFileName());
-        assertEq(53,r_.getVariableDeclaringInferred().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getVariableDeclaringInferred().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getVariableDeclaringInferred().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getVariableDeclaringInferred().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",53);
+        assertEq(1, variableDeclaringInferred(r_).size());
+        assertEq(53, variableDeclaringInferred(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", variableDeclaringInferred(r_).get(0).getFile().getFileName());
+        assertEq(53, variableDeclaringInferred(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2", variableDeclaringInferred(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, variableDeclaringInferred(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", variableDeclaringInferred(r_).get(0).getCaller().getFile().getFileName());
     }
     @Test
     public void refs132() {
@@ -3849,16 +3853,257 @@ public final class CallersRefTest extends ProcessMethodCommon {
         xml_.append("{$for(Outer o,$var p:$($iterableTable<Outer,Outer2>)$null){}}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        CallersRef r_ = refs(files_,"pkg/Ex2",45);
-        assertEq(1,r_.getVariableDeclaringInferred().size());
-        assertEq(45,r_.getVariableDeclaringInferred().get(0).getIndex());
-        assertEq("pkg/Ex2",r_.getVariableDeclaringInferred().get(0).getFile().getFileName());
-        assertEq(45,r_.getVariableDeclaringInferred().get(0).getCallee().getIndex());
-        assertEq("pkg/Ex2",r_.getVariableDeclaringInferred().get(0).getCallee().getFile().getFileName());
-        assertEq(38,r_.getVariableDeclaringInferred().get(0).getCaller().getIndex());
-        assertEq("pkg/Ex2",r_.getVariableDeclaringInferred().get(0).getCaller().getFile().getFileName());
+        IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> r_ = refs(files_,"pkg/Ex2",45);
+        assertEq(1, variableDeclaringInferred(r_).size());
+        assertEq(45, variableDeclaringInferred(r_).get(0).getIndex());
+        assertEq("pkg/Ex2", variableDeclaringInferred(r_).get(0).getFile().getFileName());
+        assertEq(45, variableDeclaringInferred(r_).get(0).getCallee().getIndex());
+        assertEq("pkg/Ex2", variableDeclaringInferred(r_).get(0).getCallee().getFile().getFileName());
+        assertEq(38, variableDeclaringInferred(r_).get(0).getCaller().getIndex());
+        assertEq("pkg/Ex2", variableDeclaringInferred(r_).get(0).getCaller().getFile().getFileName());
     }
-    private static CallersRef refs(StringMap<String> _files, String _fileName, int _caret) {
+
+    private FileBlockIndex variablesParamsUseElt(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r, int _index) {
+        return _r.getVal(CallerKind.VARIABLES).getValue(0).get(_index);
+    }
+
+    private int variablesParamsUseSize(IdMap<CallerKind, IdMap<SrcFileLocation, CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.VARIABLES).getValue(0).size();
+    }
+
+    private int fieldsRefUseSize(IdMap<CallerKind, IdMap<SrcFileLocation, CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.FIELD_REF).getValue(0).size();
+    }
+
+    private FileBlockIndex fieldsRefUseElt(IdMap<CallerKind, IdMap<SrcFileLocation, CustList<FileBlockIndex>>> _r, int _index) {
+        return _r.getVal(CallerKind.FIELD_REF).getValue(0).get(_index);
+    }
+
+    private CustList<FileBlockIndex> fieldsUseInit(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.FIELD_INIT).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> fieldsUse(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.FIELD).getValue(0);
+    }
+
+    private IdMap<SrcFileLocation, CustList<FileBlockIndex>> callNamedOverriding(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.OVERRIDING);
+    }
+
+    private IdMap<SrcFileLocation, CustList<FileBlockIndex>> allNamedOverridden(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.OVERRIDDEN);
+    }
+
+    private CustList<FileBlockIndex> callNamedRefUsePoly(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.NAME_REF_POLY).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> callNamedRefUse(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.NAME_REF).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> callNamedUsePoly(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.NAME_POLY).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> labels(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.LABEL).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> callNamedUseImpl(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.NAME_IMPL).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> instanceNewTypes(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.INSTANCE).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> instanceNewTypesRef(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.INSTANCE_REF).getValue(0);
+    }
+
+
+    private CustList<FileBlockIndex> instanceNewTypesFwd(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.INSTANCE_FWD).getValue(0);
+    }
+
+
+    private int callNamedFieldUseSizeAll(IdMap<CallerKind, IdMap<SrcFileLocation, CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.NAME_FIELD).size();
+    }
+
+
+    private int callNamedFieldUseSize(IdMap<CallerKind, IdMap<SrcFileLocation, CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.NAME_FIELD).getValue(0).size();
+    }
+
+    private int callNamedFieldUseSize(IdMap<CallerKind, IdMap<SrcFileLocation, CustList<FileBlockIndex>>> _r, int _index) {
+        return _r.getVal(CallerKind.NAME_FIELD).getValue(_index).size();
+    }
+
+    private FileBlockIndex callNamedFieldUseElt(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r, int _index) {
+        return _r.getVal(CallerKind.NAME_FIELD).getValue(0).get(_index);
+    }
+
+    private FileBlockIndex callNamedFieldUseElt(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r, int _first, int _index) {
+        return _r.getVal(CallerKind.NAME_FIELD).getValue(_first).get(_index);
+    }
+
+
+    private CustList<FileBlockIndex> annotCandidatesCallsInitParameters(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.ANNOT_INIT_PARAMETER).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> annotCandidatesCallsInitArobaseParameters(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.ANNOT_AROBASE_PARAMETER).getValue(0);
+    }
+
+
+    private CustList<FileBlockIndex> annotCandidatesCallsInitSuppl(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.ANNOT_INIT_SUPPL).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> annotCandidatesCallsInitArobaseSuppl(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.ANNOT_AROBASE_SUPPL).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> annotCandidatesCallsInitDefValue(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.ANNOT_INIT_DEF_VALUE).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> annotCandidatesCallsInitArobaseDefValue(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.ANNOT_AROBASE_DEF_VALUE).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> instanceArobase(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.AROBASE).getValue(0);
+    }
+
+
+    private CustList<FileBlockIndex> annotCandidatesCallsInitArobaseMembers(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.ANNOT_AROBASE_MEMBER).getValue(0);
+    }
+
+
+    private CustList<FileBlockIndex> instanceNewTypesEltArray(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.INSTANCE_ELT_ARRAY).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> instanceNewTypesElt(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.INSTANCE_ELT).getValue(0);
+    }
+
+
+    private CustList<FileBlockIndex> typesFindersRef(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.TYPES_FINDERS_REF).getValue(0);
+    }
+
+
+    private CustList<FileBlockIndex> annotCandidatesCallsInitMembers(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.ANNOT_INIT_MEMBER).getValue(0);
+    }
+
+    private int callNamedUseSize(IdMap<CallerKind, IdMap<SrcFileLocation, CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.NAME).getValue(0).size();
+    }
+
+    private FileBlockIndex callNamedUseElt(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r, int _index) {
+        return _r.getVal(CallerKind.NAME).getValue(0).get(_index);
+    }
+
+    private CustList<FileBlockIndex> staticAccess(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.STATIC).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> castOperation(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.CAST).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> instanceOperation(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.INSTANCEOF).getValue(0);
+    }
+
+
+    private CustList<FileBlockIndex> typesFinders(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.TYPES_FINDERS).getValue(0);
+    }
+
+
+    private CustList<FileBlockIndex> instanceNewTypesEltFwd(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.INSTANCE_ELT_FWD).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> typesInfosDef(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.TYPES_INFOS_DEF).getValue(0);
+    }
+
+
+    private CustList<FileBlockIndex> typesInfos(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.TYPES_INFOS).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> callAnonRefUse(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.ANON_REF).getValue(0);
+    }
+
+    private int internEltsFctSize(IdMap<CallerKind, IdMap<SrcFileLocation, CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.INTERN_ELTS_FCT).getValue(0).size();
+    }
+
+    private FileBlockIndex internEltsFctElt(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r, int _index) {
+        return _r.getVal(CallerKind.INTERN_ELTS_FCT).getValue(0).get(_index);
+    }
+
+    private CustList<FileBlockIndex> internElts(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.INTERN_ELTS).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> paramType(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.PARAM).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> returnType(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.RETURN).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> variableDeclaring(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.VAR_DECL).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> fieldDeclaring(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.FIELD_DECL).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> constraints(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.CONSTRAINTS).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> inherits(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.INHERITS).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> interfacesInstance(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.INTERFACES_INSTANCE).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> interfacesStatic(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.INTERFACES_STATIC).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> callDyn(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.CALL_DYN).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> dynCallPotential(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.DYN_CALL_POT).getValue(0);
+    }
+
+    private CustList<FileBlockIndex> variableDeclaringInferred(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r) {
+        return _r.getVal(CallerKind.VAR_DECL_INFER).getValue(0);
+    }
+
+    private static IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> refs(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return CallersRef.loop(a_,ResultExpressionOperationNode.locations(a_,_fileName,_caret));
     }
