@@ -1,9 +1,6 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.analyze.syntax.CallerKind;
-import code.expressionlanguage.analyze.syntax.CallersRef;
-import code.expressionlanguage.analyze.syntax.FileBlockIndex;
-import code.expressionlanguage.analyze.syntax.SrcFileLocation;
+import code.expressionlanguage.analyze.syntax.*;
 import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
@@ -26,7 +23,9 @@ public final class LookForCallersTask implements Runnable {
         MetaCaller r_ = new MetaCaller(null,null,new CustList<FileBlockIndex>());
         CalleeToCaller parent_ = new CalleeToCaller(r_);
         for (SrcFileLocation s: result.getUsages()) {
-            MetaCaller m_ = new MetaCaller(null,s,new CustList<FileBlockIndex>());
+            CustList<FileBlockIndex> ave_ = new CustList<FileBlockIndex>();
+            ave_.add(new FileBlockIndex(s.getFile(),s.getIndex(),null,s));
+            MetaCaller m_ = new MetaCaller(null,s, ave_);
             current_.add(new CalleeToCaller(m_,parent_));
             roots_.add(m_);
             MutableTreeNodeCoreUtil.add(r_,m_);
@@ -44,7 +43,7 @@ public final class LookForCallersTask implements Runnable {
             buildRoot(compo_, n_, r);
         }
         AbsTreeGui tree_ = compo_.newTreeGui(n_);
-        tree_.addTreeSelectionListener(new LocationsTreeEvent(window,r_));
+        tree_.addTreeSelectionListener(new LocationsTreeEvent(result.getPage(),window,r_));
         window.getPanelSymbolsDetailScroll().setViewportView(tree_);
         GuiBaseUtil.recalculate(window.getDetail());
     }
@@ -76,7 +75,6 @@ public final class LookForCallersTask implements Runnable {
     }
 
     private AbstractMutableTreeNode complete(AbsCompoFactory _compo,AbstractMutableTreeNode _blockToWrite, MetaCaller _read) {
-        AbstractMutableTreeNode next_;
         CallerKind b_ = _read.getKind();
         String r_ ="";
         if (_read.isRecursive()) {
@@ -87,11 +85,10 @@ public final class LookForCallersTask implements Runnable {
             s_+=b_;
         }
         String d_ = _read.getCall().build(result.getPage().getDisplayedStrings()).getDisplay();
-        AbstractMutableTreeNode gr_ = _compo.newMutableTreeNode(r_+s_ +";"+ d_ +"::"+ _read.getNumber().size());
+        AbstractMutableTreeNode gr_ = _compo.newMutableTreeNode(_read.getNumber().size()+"::"+r_+s_ +";"+ d_);
         _blockToWrite.add(gr_);
-        next_ = gr_;
         if (_read.getFirstChild() != null) {
-            return next_;
+            return gr_;
         }
         return _blockToWrite;
     }
