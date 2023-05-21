@@ -87,4 +87,5 @@ public interface AbsCustComponent {
     void left();
     void right();
     void centerHoriz();
+    void disabledRichText(boolean _d);
 }

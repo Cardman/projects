@@ -9,7 +9,7 @@ public final class PlainLabel extends CustComponent implements AbsPlainLabel {
     private final JLabel label = new JLabel();
 
     public PlainLabel(String _text) {
-        label.putClientProperty("html.disable", true);
+        disabledRichText(true);
         label.setText(_text);
     }
 

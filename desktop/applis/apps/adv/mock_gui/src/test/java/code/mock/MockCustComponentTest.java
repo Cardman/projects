@@ -183,7 +183,8 @@ public final class MockCustComponentTest extends EquallableMockGuiUtil {
     @Test
     public void c17() {
         MockTextField f_ = new MockTextField();
-        f_.setHandCursor();
+        f_.disabledRichText(true);
+        f_.disabledRichText(false);
         f_.setFont("",0,0);
         f_.setBackground(10);
         f_.setForeground(10);

@@ -382,6 +382,11 @@ public abstract class MockCustComponent implements AbsCustComponent {
     }
 
     @Override
+    public void disabledRichText(boolean _e) {
+        setHandCursor();
+    }
+
+    @Override
     public void setHandCursor() {
         setFont(getMetaFont());
     }

@@ -17,6 +17,7 @@ import java.awt.*;
 
 public abstract class CustComponent implements AbsCustComponent {
 
+    public static final String NO_RICH_TEXT = "html.disable";
     private AbsCustComponent parent;
     private final IdMap<AbsKeyListener, WrKeyListener> mapKey = new IdMap<AbsKeyListener, WrKeyListener>();
     private final IdMap<AbsMouseListener, WrMouseListener> mapMouse = new IdMap<AbsMouseListener, WrMouseListener>();
@@ -450,5 +451,10 @@ public abstract class CustComponent implements AbsCustComponent {
     @Override
     public void centerHoriz() {
         getNatComponent().setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
+
+    @Override
+    public void disabledRichText(boolean _e) {
+        getNatComponent().putClientProperty(NO_RICH_TEXT, _e);
     }
 }
