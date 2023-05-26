@@ -34,6 +34,7 @@ public final class PreAnalyzeExpressionSource implements Runnable {
         } else {
             mainFrame.getAnalyzeState().append(CustAliases.getDateTimeText(mainFrame.getCommonFrame().getFrames().getThreadFactory())+":KO");
         }
+        mainFrame.getEvents().selectIndex(1);
         mainFrame.getStatusAnalyzeArea().append(CustAliases.getDateTimeText(mainFrame.getCommonFrame().getFrames().getThreadFactory()));
     }
 

@@ -25,7 +25,7 @@ public abstract class WindowWithTreeImpl {
     private final AbsMenuItem languageMenu;
     private final AbsMenuItem tabulationsMenu;
     private final AbsMenu parameters;
-    private final AbsSplitPane events;
+    private final AbsTabbedPane events;
     private AbsTreeGui folderSystem;
     private AbsScrollPane scrollDialog;
     private AbstractMutableTreeNode selectedNode;
@@ -100,8 +100,9 @@ public abstract class WindowWithTreeImpl {
         panelSymbolsScroll = _list.getCompoFactory().newAbsScrollPane(panelSymbols);
         panelSymbolsDetailScroll = _list.getCompoFactory().newAbsScrollPane();
         panelSymbolsLocationScroll = _list.getCompoFactory().newAbsScrollPane();
-        AbsSplitPane d_ = _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsDetailScroll, panelSymbolsLocationScroll);
-        events = _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsScroll,_list.getCompoFactory().newHorizontalSplitPane(d_,_list.getCompoFactory().newAbsScrollPane(analyzeState)));
+        events = _list.getCompoFactory().newAbsTabbedPane();
+        events.add("find", _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsScroll, _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsDetailScroll, panelSymbolsLocationScroll)));
+        events.add("event", _list.getCompoFactory().newAbsScrollPane(analyzeState));
         editors = commonFrame.getFrames().getCompoFactory().newAbsTabbedPane();
         commonFrame.setContentPane(panel);
         commonFrame.setJMenuBar(bar_);
@@ -550,6 +551,7 @@ public abstract class WindowWithTreeImpl {
     }
     public void update(ResultRowSrcLocationList _r) {
         GuiBaseUtil.recalculate(panelSymbolsScroll);
+        getEvents().selectIndex(0);
         _r.buildTree(this);
         LookForCallersTask.updateCallersView(this,_r);
     }
@@ -725,6 +727,10 @@ public abstract class WindowWithTreeImpl {
     }
     public AbsPanel getPanel() {
         return panel;
+    }
+
+    public AbsTabbedPane getEvents() {
+        return events;
     }
 
     public AbsTextArea getAnalyzeState() {
