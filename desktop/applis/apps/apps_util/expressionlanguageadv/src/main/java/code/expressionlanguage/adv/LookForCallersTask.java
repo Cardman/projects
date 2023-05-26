@@ -45,7 +45,7 @@ public final class LookForCallersTask implements Runnable {
         AbsTreeGui tree_ = compo_.newTreeGui(n_);
         tree_.addTreeSelectionListener(new LocationsTreeEvent(result.getPage(),window,r_));
         window.getPanelSymbolsDetailScroll().setViewportView(tree_);
-        GuiBaseUtil.recalculate(window.getDetail());
+        GuiBaseUtil.recalculate(window.getPanelSymbolsDetailScroll());
     }
 
     private void buildRoot(AbsCompoFactory _compo, AbstractMutableTreeNode _n, MetaCaller _r) {

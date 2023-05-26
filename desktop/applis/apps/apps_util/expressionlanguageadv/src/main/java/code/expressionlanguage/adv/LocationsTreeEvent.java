@@ -75,7 +75,7 @@ public final class LocationsTreeEvent implements AbsShortListTree {
             pa_.add(button_);
         }
         window.getPanelSymbolsLocationScroll().setViewportView(pa_);
-        GuiBaseUtil.recalculate(window.getDetail());
+        GuiBaseUtil.recalculate(window.getPanelSymbolsLocationScroll());
     }
 
     static String transform(String _string) {

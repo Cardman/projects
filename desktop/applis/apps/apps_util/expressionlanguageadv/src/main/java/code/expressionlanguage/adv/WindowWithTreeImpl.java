@@ -25,7 +25,7 @@ public abstract class WindowWithTreeImpl {
     private final AbsMenuItem languageMenu;
     private final AbsMenuItem tabulationsMenu;
     private final AbsMenu parameters;
-    private final AbsSplitPane detail;
+    private final AbsSplitPane events;
     private AbsTreeGui folderSystem;
     private AbsScrollPane scrollDialog;
     private AbstractMutableTreeNode selectedNode;
@@ -38,11 +38,12 @@ public abstract class WindowWithTreeImpl {
     private final AbsMenuItem aliasesMenu;
     private final AbsCommonFrame commonFrame;
     private final AbsPanel panel;
-    private AbsPanel panelSymbols;
+    private final AbsPanel panelSymbols;
+    private AbsTextArea analyzeState;
     private AbsPlainLabel lastCount;
+    private final AbsScrollPane panelSymbolsScroll;
     private final AbsScrollPane panelSymbolsDetailScroll;
     private final AbsScrollPane panelSymbolsLocationScroll;
-    private AbsScrollPane panelSymbolsScroll;
     private final AbsMenuItem srcMenu;
     private final AbsMenuItem create;
     private final AbsMenuItem delete;
@@ -93,13 +94,14 @@ public abstract class WindowWithTreeImpl {
         aliasesMenu.addActionListener(new ChangeAliasesEvent(this,aliasesMenu));
         menu_.addMenuItem(aliasesMenu);
         panel = _list.getCompoFactory().newPageBox();
-        panelSymbols = _list.getCompoFactory().newPageBox();
+        analyzeState = _list.getCompoFactory().newTextArea();
         lastCount = _list.getCompoFactory().newPlainLabel("0");
-        panelSymbols.add(lastCount);
+        panelSymbols = _list.getCompoFactory().newPageBox();
         panelSymbolsScroll = _list.getCompoFactory().newAbsScrollPane(panelSymbols);
         panelSymbolsDetailScroll = _list.getCompoFactory().newAbsScrollPane();
         panelSymbolsLocationScroll = _list.getCompoFactory().newAbsScrollPane();
-        detail = _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsDetailScroll, panelSymbolsLocationScroll);
+        AbsSplitPane d_ = _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsDetailScroll, panelSymbolsLocationScroll);
+        events = _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsScroll,_list.getCompoFactory().newHorizontalSplitPane(d_,_list.getCompoFactory().newAbsScrollPane(analyzeState)));
         editors = commonFrame.getFrames().getCompoFactory().newAbsTabbedPane();
         commonFrame.setContentPane(panel);
         commonFrame.setJMenuBar(bar_);
@@ -277,12 +279,11 @@ public abstract class WindowWithTreeImpl {
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         setScrollDialog(frs_.getCompoFactory().newAbsScrollPane());
         getScrollDialog().setVisible(false);
-        panelSymbols = frs_.getCompoFactory().newPageBox();
+        panelSymbols.removeAll();
         lastCount = frs_.getCompoFactory().newPlainLabel("0");
         panelSymbols.add(lastCount);
-        panelSymbolsScroll = frs_.getCompoFactory().newAbsScrollPane(panelSymbols);
         AbsSplitPane elt_ = frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), getScrollDialog()), editors),
-                frs_.getCompoFactory().newHorizontalSplitPane(panelSymbolsScroll,detail));
+                events);
         panel.add(elt_);
     }
 
@@ -708,6 +709,10 @@ public abstract class WindowWithTreeImpl {
         return panel;
     }
 
+    public AbsTextArea getAnalyzeState() {
+        return analyzeState;
+    }
+
     public AbsPanel getPanelSymbols() {
         return panelSymbols;
     }
@@ -718,10 +723,6 @@ public abstract class WindowWithTreeImpl {
 
     public AbsScrollPane getPanelSymbolsLocationScroll() {
         return panelSymbolsLocationScroll;
-    }
-
-    public AbsSplitPane getDetail() {
-        return detail;
     }
 
     public int getLimitSymbol() {
