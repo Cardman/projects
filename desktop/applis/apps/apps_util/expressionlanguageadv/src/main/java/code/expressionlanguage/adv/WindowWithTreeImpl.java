@@ -39,7 +39,7 @@ public abstract class WindowWithTreeImpl {
     private final AbsCommonFrame commonFrame;
     private final AbsPanel panel;
     private final AbsPanel panelSymbols;
-    private AbsTextArea analyzeState;
+    private final AbsTextArea analyzeState;
     private AbsPlainLabel lastCount;
     private final AbsScrollPane panelSymbolsScroll;
     private final AbsScrollPane panelSymbolsDetailScroll;

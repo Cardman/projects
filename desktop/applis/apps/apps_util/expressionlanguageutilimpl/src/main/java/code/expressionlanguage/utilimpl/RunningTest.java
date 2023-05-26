@@ -20,6 +20,7 @@ import code.stream.BytesInfo;
 import code.stream.core.OutputType;
 import code.stream.core.ReadBinFiles;
 import code.stream.core.ReadFiles;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -147,6 +148,9 @@ public final class RunningTest implements Runnable {
     }
 
     public static ResultContext nextValidateMemoQuick(ResultContext _base, MemInputFiles _input, AbstractIssuer _issuer) {
+        return nextValidateMemoQuick(_base,_input,_issuer,new StringMap<String>());
+    }
+    public static ResultContext nextValidateMemoQuick(ResultContext _base, MemInputFiles _input, AbstractIssuer _issuer, StringMap<String> _addedFiles) {
         if (_base.getPageEl().notAllEmptyErrors()) {
             return _base;
         }
@@ -155,7 +159,7 @@ public final class RunningTest implements Runnable {
         MemoryReporter m_ = (MemoryReporter) lg_.getExecContent().getInfos().getReporter();
         MemInputFiles src_ = new MemInputFiles(m_.getConf(),_input.getSrc(),_input.getFiles());
         FileInfos file_ = fileInfos(exec_.getLightProgramInfos(), _issuer, src_);
-        return nextValidateQuick(_base, lg_, exec_, file_);
+        return nextValidateQuick(_base, lg_, exec_, file_, _addedFiles);
     }
 
     private static FileInfos fileInfos(AbstractLightProgramInfos _frames, AbstractIssuer _issuer, MemInputFiles _input) {
@@ -186,9 +190,12 @@ public final class RunningTest implements Runnable {
         return res_;
     }
 
-    public static ResultContext nextValidateQuick(ResultContext _base, LgNamesGui _lg, ExecutingOptions _exec, FileInfos _file) {
+    public static ResultContext nextValidateQuick(ResultContext _base, LgNamesGui _lg, ExecutingOptions _exec, FileInfos _file, StringMap<String> _addedFiles) {
         String archive_ = _exec.getAccess();
         ReadFiles result_ = _file.getReporter().getFiles(archive_);
+        for (EntryCust<String,String> e: _addedFiles.entryList()) {
+            result_.getZipFiles().put(e.getKey(),e.getValue());
+        }
         StringMap<String> list_ = RunningTest.tryGetSrc(archive_, _exec, _file, result_);
         if (list_ == null) {
             return _base;

@@ -7,6 +7,7 @@ import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilimpl.CustContextFactory;
 import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.initialize.AbstractProgramInfos;
+import code.util.StringMap;
 
 public final class AnalyzeExpressionSource implements Runnable {
     private final WindowCdmEditor mainFrame;
@@ -23,7 +24,13 @@ public final class AnalyzeExpressionSource implements Runnable {
         LgNamesGui lg_ = (LgNamesGui) base_.getForwards().getGenerator();
         FileInfos fileInfos_ = lg_.getExecContent().getInfos();
         AbstractProgramInfos frames_ = mainFrame.getCommonFrame().getFrames();
-        ResultContext resUser_ = RunningTest.nextValidateQuick(mainFrame.getBaseResult(), lg_, lg_.getExecContent().getExecutingOptions(), fileInfos_);
+        StringMap<String> added_ = new StringMap<String>();
+        for (WindowExpressionEditor s: mainFrame.getExpressionEditors()) {
+            for (TabEditor t: s.getTabs()) {
+                added_.addEntry(t.getRelPath(),t.getCenter().getText());
+            }
+        }
+        ResultContext resUser_ = RunningTest.nextValidateQuick(mainFrame.getBaseResult(), lg_, lg_.getExecContent().getExecutingOptions(), fileInfos_, added_);
         if (!resUser_.getPageEl().isCustomAna()) {
             mainFrame.getStatusAnalyzeArea().append("KO\n");
             mainFrame.getStatusAnalyzeArea().append(CustAliases.getDateTimeText(frames_.getThreadFactory()));

@@ -278,6 +278,21 @@ public abstract class EquallableElAdvUtil {
         w_.getSoftParams().setLines(WindowCdmEditor.linesConf(copy_));
         return w_;
     }
+    public static WindowCdmEditor newWindowLoadDefExpWorkspaceFoldExp(String _expSrc) {
+        return newWindowLoadDefExpWorkspaceFoldExp("src",_expSrc);
+    }
+    public static WindowCdmEditor newWindowLoadDefExpWorkspaceFoldExp(String _srcFolder,String _expSrc) {
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        pr_.getFileCoreStream().newFile("/project/sources/exp/src/").mkdirs();
+        StreamTextFile.saveTextFile("/project/sources/exp/src/file_exp.txt",_expSrc,pr_.getStreams());
+        WindowCdmEditor w_ = windowLoadDef(pr_);
+        ManageOptions copy_ = w_.manage(w_.getSoftParams().getLines());
+        copy_.getEx().setAccess("/project/sources/exp/");
+        copy_.getEx().setSrcFolder(_srcFolder);
+        w_.getSoftParams().setFolderExpression("/project/sources/exp");
+        w_.getSoftParams().setLines(WindowCdmEditor.linesConf(copy_));
+        return w_;
+    }
     public static WindowCdmEditor newWindowLoadDefExpWorkspaceAlready(String _expSrc,String _expSrc2) {
         return newWindowLoadDefExpWorkspaceAlready("src",_expSrc,_expSrc2);
     }
@@ -519,7 +534,7 @@ public abstract class EquallableElAdvUtil {
         return tabEditor(_w,0);
     }
 
-    protected static TabEditor tabSelect(WindowCdmEditor _w) {
+    protected static TabEditor tabSelect(WindowWithTreeImpl _w) {
         return _w.getTabs().get(_w.getEditors().getSelectedIndex());
     }
 
