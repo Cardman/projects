@@ -93,9 +93,53 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         assertEq(1, ((AbstractMutableTreeNodeNav)a_.getRoot().getFirstChild()).getChildCount());
         assertEq(3,locations(s_).getComponentCount());
     }
+    @Test
+    public void def6() {
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "public class pkg.ExClass:AbsStringReplacer{Second s;public StringSegment index(String t,int i){return t.indexOf(\n'C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{}");
+        analyze(w_);
+        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
+        WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
+        s_.setLimitSymbol(1);
+        s_.getTree().select(s_.getTree().getRoot());
+        s_.getTree().select(s_.getTree().getRoot().getFirstChild().getNextSibling().getNextSibling());
+        s_.getTree().select(s_.getTree().getRoot().getFirstChild().getNextSibling().getNextSibling().getFirstChild());
+        s_.getTabs().get(0).getCenter().select(104,104);
+        currentElement(s_.getTabs().get(0));
+        callers(s_);
+        refreshUsages(s_);
+        AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
+        assertEq(1, ((AbstractMutableTreeNodeNav)a_.getRoot().getFirstChild()).getChildCount());
+        assertEq(3,locations(s_).getComponentCount());
+    }
+    @Test
+    public void def7() {
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "public class pkg.ExClass:AbsStringReplacer{Second s;public StringSegment index(String t,int i){return t.indexOf(\n'C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{}");
+        analyze(w_);
+        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
+        WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
+        s_.setLimitSymbol(1);
+        s_.getTree().select(s_.getTree().getRoot());
+        s_.getTree().select(s_.getTree().getRoot().getFirstChild().getNextSibling().getNextSibling());
+        s_.getTree().select(s_.getTree().getRoot().getFirstChild().getNextSibling().getNextSibling().getFirstChild());
+        s_.getTabs().get(0).getCenter().select(104,104);
+        currentElement(s_.getTabs().get(0));
+        callers(s_);
+        refreshUsagesDef(s_);
+        AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
+        assertEq(1, ((AbstractMutableTreeNodeNav)a_.getRoot().getFirstChild()).getChildCount());
+        assertEq(3,locations(s_).getComponentCount());
+    }
     private void callers(WindowExpressionEditor _s) {
         AbsPanel p_ = (AbsPanel) _s.getPanelSymbols().getComponent(1);
-        ((MockPlainButton)(p_.getComponent(p_.getComponentCount()-1))).getActionListeners().get(0).action();
+        ((MockPlainButton)(p_.getComponent(1))).getActionListeners().get(0).action();
+    }
+    private void refreshUsages(WindowExpressionEditor _s) {
+        AbsPanel p_ = (AbsPanel) _s.getPanelSymbols().getComponent(1);
+        ((MockPlainButton)(p_.getComponent(2))).getActionListeners().get(0).action();
+    }
+    private void refreshUsagesDef(WindowExpressionEditor _s) {
+        AbsPanel p_ = (AbsPanel) _s.getPanelSymbols().getComponent(1);
+        ((MockPlainButton)(p_.getComponent(3))).getActionListeners().get(0).action();
     }
 
     private AbsPanel locations(WindowExpressionEditor _s) {

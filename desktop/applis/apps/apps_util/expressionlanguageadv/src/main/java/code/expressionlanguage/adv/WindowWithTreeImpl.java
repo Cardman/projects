@@ -503,12 +503,12 @@ public abstract class WindowWithTreeImpl {
         aliasesMenu.setEnabled(_en);
     }
 
-    public void afterSearchSymbol(AnalyzedPageEl _page, CustList<SrcFileLocation> _us, CustList<RowSrcLocation> _ls) {
+    public void afterSearchSymbol(AnalyzedPageEl _page, String _relPath, int _caret, CustList<SrcFileLocation> _us, CustList<RowSrcLocation> _ls) {
         if (_ls.isEmpty()) {
             lastCount.setText(Long.toString(_ls.size()));
             return;
         }
-        ResultRowSrcLocationList r_ = new ResultRowSrcLocationList(_page,_us,_ls);
+        ResultRowSrcLocationList r_ = new ResultRowSrcLocationList(_page, _relPath, _caret, _us, _ls);
         if (symbols.size() < getLimitSymbol()) {
             symbols.add(r_);
         } else {
@@ -521,23 +521,39 @@ public abstract class WindowWithTreeImpl {
         AbsCompoFactory fr_ = getCommonFrame().getFrames().getCompoFactory();
         for (ResultRowSrcLocationList f: symbols) {
             AbsPanel c_ = fr_.newLineBox();
-            c_.left();
-            for (RowSrcLocation l: f.getSymbols()) {
-                AbsPlainButton b_ = fr_.newPlainButton(l.getKind() + ":" + l.getDisplay());
-                b_.addActionListener(new GoToDefinitionEvent(f.getPage(),l,this));
-                b_.left();
-                c_.add(b_);
-            }
-            AbsPlainButton b_ = fr_.newPlainButton("callers");
-            b_.addActionListener(new CallersHierarchyEvent(f,this));
-            b_.left();
-            c_.add(b_);
+            updatePanel(c_,f);
             panelSymbols.add(c_);
         }
-        GuiBaseUtil.recalculate(panelSymbolsScroll);
-        r_.buildTree(this);
-        LookForCallersTask.updateCallersView(this,r_);
+        update(r_);
     }
+    public void updatePanel(AbsPanel _p,ResultRowSrcLocationList _r) {
+        AbsCompoFactory fr_ = getCommonFrame().getFrames().getCompoFactory();
+        _p.left();
+        for (RowSrcLocation l: _r.getSymbols()) {
+            AbsPlainButton b_ = fr_.newPlainButton(l.getKind() + ":" + l.getDisplay());
+            b_.addActionListener(new GoToDefinitionEvent(_r.getPage(),l,this));
+            b_.left();
+            _p.add(b_);
+        }
+        AbsPlainButton b_ = fr_.newPlainButton("callers");
+        b_.addActionListener(new CallersHierarchyEvent(_r,this));
+        b_.left();
+        _p.add(b_);
+        AbsPlainButton usagesRef_ = fr_.newPlainButton("usages only");
+        usagesRef_.addActionListener(new RefreshLocationEvent(_p, this, _r));
+        usagesRef_.left();
+        _p.add(usagesRef_);
+        AbsPlainButton usagesDefRef_ = fr_.newPlainButton("usages and def");
+        usagesDefRef_.addActionListener(new RefreshLocationTabEvent(_p, this, _r));
+        usagesDefRef_.left();
+        _p.add(usagesDefRef_);
+    }
+    public void update(ResultRowSrcLocationList _r) {
+        GuiBaseUtil.recalculate(panelSymbolsScroll);
+        _r.buildTree(this);
+        LookForCallersTask.updateCallersView(this,_r);
+    }
+
     protected ManageOptions manage(StringList _linesFiles) {
         return new ManageOptions(commonFrame.getFrames().getLanguages(), _linesFiles, factory, commonFrame.getFrames().getThreadFactory());
     }

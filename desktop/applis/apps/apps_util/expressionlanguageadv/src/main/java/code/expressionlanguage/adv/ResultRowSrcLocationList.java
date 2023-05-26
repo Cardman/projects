@@ -9,12 +9,16 @@ import code.util.CustList;
 
 public final class ResultRowSrcLocationList {
     private final AnalyzedPageEl page;
+    private final String relPath;
+    private final int caret;
     private final CustList<SrcFileLocation> usages;
     private final CustList<RowSrcLocation> symbols;
     private MetaCaller root;
     private AbstractMutableTreeNode node;
-    public ResultRowSrcLocationList(AnalyzedPageEl _p, CustList<SrcFileLocation> _us, CustList<RowSrcLocation> _symb) {
+    public ResultRowSrcLocationList(AnalyzedPageEl _p, String _relPath, int _caret,  CustList<SrcFileLocation> _us, CustList<RowSrcLocation> _symb) {
         page = _p;
+        relPath = _relPath;
+        caret = _caret;
         usages = _us;
         symbols = _symb;
         root = new MetaCaller(null,null,new CustList<FileBlockIndex>());
@@ -23,6 +27,14 @@ public final class ResultRowSrcLocationList {
     public void buildTree(WindowWithTreeImpl _window) {
         root = new MetaCaller(null,null,new CustList<FileBlockIndex>());
         node = LookForCallersTask.node(_window,this, root);
+    }
+
+    public String getRelPath() {
+        return relPath;
+    }
+
+    public int getCaret() {
+        return caret;
     }
 
     public MetaCaller getRoot() {

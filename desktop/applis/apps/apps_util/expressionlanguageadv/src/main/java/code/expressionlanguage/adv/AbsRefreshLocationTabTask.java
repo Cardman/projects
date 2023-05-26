@@ -2,37 +2,50 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
+import code.expressionlanguage.analyze.syntax.RowSrcLocation;
 import code.expressionlanguage.analyze.syntax.SrcFileLocation;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilimpl.RunningTest;
+import code.gui.AbsPanel;
 import code.util.CustList;
 import code.util.StringMap;
 
-public final class LookForDefinitionFullCustAnalysisTask implements Runnable {
-    private final TabEditor tabEditor;
+public abstract class AbsRefreshLocationTabTask implements Runnable {
+    private final AbsPanel event;
+    private final WindowWithTreeImpl window;
+    private final ResultRowSrcLocationList result;
 
-    public LookForDefinitionFullCustAnalysisTask(TabEditor _t) {
-        this.tabEditor = _t;
+    protected AbsRefreshLocationTabTask(AbsPanel _e, WindowWithTreeImpl _w, ResultRowSrcLocationList _result) {
+        this.event = _e;
+        this.window = _w;
+        this.result = _result;
     }
 
     @Override
     public void run() {
-        WindowWithTreeImpl edi_ = tabEditor.getWindowSecEditor();
-        WindowCdmEditor mainFrame_ = edi_.getMainFrame();
+        WindowCdmEditor mainFrame_ = window.getMainFrame();
         ResultContext base_ = mainFrame_.getBaseResult();
-        if (base_ == null) {
-            return;
-        }
         LgNamesGui lg_ = (LgNamesGui) base_.getForwards().getGenerator();
         FileInfos fileInfos_ = lg_.getExecContent().getInfos();
         StringMap<String> added_ = AnalyzeExpressionSource.addedExp(mainFrame_);
         ResultContext resUser_ = RunningTest.nextValidateQuick(base_, lg_, lg_.getExecContent().getExecutingOptions(), fileInfos_, added_);
         AnalyzedPageEl page_ = resUser_.getPageEl();
-        String relPath_ = tabEditor.getRelPath();
-        int caret_ = tabEditor.getCenter().getCaretPosition();
+        String relPath_ = path();
+        int caret_ = caret();
         CustList<SrcFileLocation> l_ = ResultExpressionOperationNode.locations(page_, relPath_, caret_);
-        edi_.afterSearchSymbol(page_, relPath_, caret_, l_, ResultExpressionOperationNode.export(page_, l_));
+        CustList<RowSrcLocation> s_ = ResultExpressionOperationNode.export(page_, l_);
+        ResultRowSrcLocationList r_ = new ResultRowSrcLocationList(page_, relPath_, caret_, l_, s_);
+        event.removeAll();
+        window.updatePanel(event,r_);
+        window.update(r_);
     }
+
+    public ResultRowSrcLocationList getResult() {
+        return result;
+    }
+
+    protected abstract String path();
+    protected abstract int caret();
 }

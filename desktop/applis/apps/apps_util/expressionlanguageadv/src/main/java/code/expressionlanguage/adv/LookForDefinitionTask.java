@@ -21,7 +21,9 @@ public final class LookForDefinitionTask implements Runnable {
             return;
         }
         AnalyzedPageEl page_ = r_.getPageEl();
+        String relPath_ = tabEditor.getRelPath();
+        int caret_ = tabEditor.getCenter().getCaretPosition();
         CustList<SrcFileLocation> l_ = ResultExpressionOperationNode.locations(page_, tabEditor.getRelPath(), tabEditor.getCenter().getCaretPosition());
-        edi_.afterSearchSymbol(page_, l_, ResultExpressionOperationNode.export(page_, l_));
+        edi_.afterSearchSymbol(page_, relPath_, caret_, l_, ResultExpressionOperationNode.export(page_, l_));
     }
 }
