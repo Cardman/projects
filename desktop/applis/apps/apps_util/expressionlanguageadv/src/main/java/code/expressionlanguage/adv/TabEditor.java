@@ -258,7 +258,7 @@ public final class TabEditor {
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new ClearUndoRedoAction(this)),GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new SaveTextFileNode(this)),GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new CloseTabEditorEvent(this)),GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK);
-        center.registerKeyboardAction(frames_.getCompoFactory().wrap(new LookForDefinitionEvent(this)),GuiConstants.VK_T,GuiConstants.CTRL_DOWN_MASK);
+        center.registerKeyboardAction(frames_.getCompoFactory().wrap(new LookForDefinitionFullCustAnalysisEvent(this)),GuiConstants.VK_T,GuiConstants.CTRL_DOWN_MASK);
         panel = frames_.getCompoFactory().newPageBox();
         AbsPanel upp_ = frames_.getCompoFactory().newPageBox();
         scCenter = frames_.getCompoFactory().newAbsScrollPane(center);

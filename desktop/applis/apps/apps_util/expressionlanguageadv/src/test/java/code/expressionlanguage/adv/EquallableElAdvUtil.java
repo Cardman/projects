@@ -580,6 +580,9 @@ public abstract class EquallableElAdvUtil {
     protected void currentElement(TabEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(_w.getCenter(), GuiConstants.VK_T,GuiConstants.CTRL_DOWN_MASK)).action();
     }
+    protected void currentElementWithAnalyse(TabEditor _w) {
+        new LookForDefinitionEvent(_w).action();
+    }
     protected void closeTab(TabEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(_w.getCenter(), GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK)).action();
     }
