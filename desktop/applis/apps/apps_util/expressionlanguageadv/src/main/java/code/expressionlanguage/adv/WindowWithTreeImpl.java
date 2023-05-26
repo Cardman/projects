@@ -535,6 +535,8 @@ public abstract class WindowWithTreeImpl {
             panelSymbols.add(c_);
         }
         GuiBaseUtil.recalculate(panelSymbolsScroll);
+        r_.buildTree(this);
+        LookForCallersTask.updateCallersView(this,r_);
     }
     protected ManageOptions manage(StringList _linesFiles) {
         return new ManageOptions(commonFrame.getFrames().getLanguages(), _linesFiles, factory, commonFrame.getFrames().getThreadFactory());
