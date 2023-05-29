@@ -39,12 +39,15 @@ public final class ResultExpressionOperationNode {
         }
         return "";
     }
-    public static int beginPart(int _caret, FileBlock _file) {
+    public static Ints beginPart(int _caret, FileBlock _file) {
         ResultExpressionOperationNode c_ = container(_caret, _file);
         if (c_.resultExpression != null) {
-            return c_.resultExpression.getSumOffset();
+            return Ints.newList(0, c_.resultExpression.getSumOffset());
         }
-        return -1;
+        if (c_.getBlock() instanceof ForEachLoopAbs) {
+            return Ints.newList(1, ((ForEachLoopAbs)c_.getBlock()).getExpressionOffset());
+        }
+        return Ints.newList();
     }
 
     public static CustList<RowSrcLocation> locationsDisplay(AnalyzedPageEl _page, String _fileName, int _caret) {

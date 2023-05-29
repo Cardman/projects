@@ -14,8 +14,8 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ExecForEachRefArray extends ExecAbstractForEachLoop {
-    public ExecForEachRefArray(String _label, String _importedClassName, String _importedClassIndexName, String _variableName, int _variableNameOffset, int _expressionOffset, CustList<ExecOperationNode> _opList) {
-        super(_label, _importedClassName, _importedClassIndexName, _variableName, _variableNameOffset, _expressionOffset, _opList);
+    public ExecForEachRefArray(String _label, String _importedClassName, String _importedClassIndexName, String _variableName, int _expressionOffset, CustList<ExecOperationNode> _opList) {
+        super(_label, _importedClassName, _importedClassIndexName, _variableName, _expressionOffset, _opList);
     }
 
     @Override

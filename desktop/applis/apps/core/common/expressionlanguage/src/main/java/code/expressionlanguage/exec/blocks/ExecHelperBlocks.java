@@ -670,6 +670,7 @@ public final class ExecHelperBlocks {
 
     private static void processLastElementLoopLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stack, ExecAbstractForEachLoop _loop) {
         _l.getContent().setEvaluatingKeepLoop(true);
+        _stack.getLastPage().globalOffset(_loop.getExpression().getOffset());
         ConditionReturn hasNext_ = _loop.hasNext(_conf,_l, _stack);
         if (hasNext_ == ConditionReturn.CALL_EX) {
             return;
@@ -698,7 +699,6 @@ public final class ExecHelperBlocks {
         _l.getContent().setIndex(_l.getContent().getIndex() + 1);
         AbstractPageEl abs_ = _stackCall.getLastPage();
 
-        abs_.globalOffset(_bk.getVariableNameOffset());
         Argument arg_ = _bk.retrieveValue(_conf,_l, _stackCall);
         if (_conf.callsOrException(_stackCall)) {
             return;
@@ -761,6 +761,7 @@ public final class ExecHelperBlocks {
 
     private static void processLastElementLoopTable(ContextEl _conf, LoopBlockStack _l, StackCall _stack, String _variableNameFirst, String _variableNameSecond, ExecForEachTable _block) {
         _l.getContent().setEvaluatingKeepLoop(true);
+        _stack.getLastPage().globalOffset(_block.getExpression().getOffset());
         ConditionReturn has_ = iteratorHasNextTable(_conf, _l, _stack, _block);
         if (has_ == ConditionReturn.CALL_EX) {
             return;
@@ -1225,6 +1226,7 @@ public final class ExecHelperBlocks {
     }
 
     private static void processLastElementLoop(ContextEl _conf, StackCall _stackCall, ExecBlock _par, LoopBlockStack _lastStack) {
+        _stackCall.getLastPage().setGoParent(false);
         if (_par instanceof ExecDoBlock) {
             processLastElementLoopDo(_stackCall, (ExecDoBlock) _par);
         }
@@ -1235,14 +1237,12 @@ public final class ExecHelperBlocks {
             processLastElementLoopIter(_conf, _lastStack, _stackCall, ((ExecForIterativeLoop) _par));
         }
         if (_par instanceof ExecForMutableIterativeLoop) {
-            _stackCall.getLastPage().setGoParent(false);
             processLastElementLoopMutable(_conf, _lastStack, _stackCall, ((ExecForMutableIterativeLoop) _par).getStep(), ((ExecForMutableIterativeLoop) _par).getVariableNames(), ((ExecForMutableIterativeLoop) _par).getExp(), ((ExecForMutableIterativeLoop) _par));
         }
         if (_par instanceof ExecForEachTable) {
             processLastElementLoopTable(_conf, _lastStack, _stackCall, ((ExecForEachTable) _par).getVariableNameFirst(), ((ExecForEachTable) _par).getVariableNameSecond(), ((ExecForEachTable) _par));
         }
         if (_par instanceof ExecWhileCondition) {
-            _stackCall.getLastPage().setGoParent(false);
             processLastElementLoopWhile(_conf, _lastStack, _stackCall, (ExecWhileCondition) _par, ((ExecWhileCondition) _par).getCondition());
         }
     }

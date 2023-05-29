@@ -13,6 +13,8 @@ import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.stacks.AbstractStask;
+import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
@@ -80,8 +82,10 @@ public class DefaultInitializer implements Initializer {
     public boolean stop(ContextEl _owner, StackCall _stackCall) {
         AbstractPageEl p_ = _stackCall.getLastPage();
         if (!p_.isGoParent()&&!p_.isVisited()) {
+            AbstractStask a_ = p_.tryGetLastStack();
+            int main_ = mainCase(a_);
             p_.setVisited(true);
-            BreakPoint bp_ = _owner.getClasses().getDebugMapping().getBreakPointsBlock().get(p_.getFile(), p_.getGlobalOffset());
+            BreakPoint bp_ = _owner.getClasses().getDebugMapping().getBreakPointsBlock().get(p_.getFile(), main_, p_.getGlobalOffset());
             if (bp_ != null && bp_.isEnabled()) {
                 return true;
             }
@@ -106,6 +110,16 @@ public class DefaultInitializer implements Initializer {
             _stackCall.getLastPage().processTagsBase(_owner, _stackCall);
         }
         return false;
+    }
+
+    private static int mainCase(AbstractStask _a) {
+        int main_;
+        if (_a instanceof LoopBlockStack) {
+            main_ = 1;
+        } else {
+            main_ = 0;
+        }
+        return main_;
     }
 
     private static void tryForward(ContextEl _owner, AbstractPageEl _p, AbstractPageEl _b, StackCall _stackCall) {

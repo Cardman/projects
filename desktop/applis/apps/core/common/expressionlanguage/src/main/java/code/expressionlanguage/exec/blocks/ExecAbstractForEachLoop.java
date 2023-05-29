@@ -22,16 +22,13 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
 
     private final String variableName;
 
-    private final int variableNameOffset;
-
     private final ExecOperationNodeListOff expression;
 
-    protected ExecAbstractForEachLoop(String _label, String _importedClassName, String _importedClassIndexName, String _variableName, int _variableNameOffset, int _expressionOffset, CustList<ExecOperationNode> _opList) {
+    protected ExecAbstractForEachLoop(String _label, String _importedClassName, String _importedClassIndexName, String _variableName, int _expressionOffset, CustList<ExecOperationNode> _opList) {
         label = _label;
         this.importedClassName = _importedClassName;
         this.importedClassIndexName = _importedClassIndexName;
         this.variableName = _variableName;
-        this.variableNameOffset = _variableNameOffset;
         expression = new ExecOperationNodeListOff(_opList,_expressionOffset);
     }
 
@@ -60,8 +57,8 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
 
     protected abstract ConditionReturn hasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stack);
 
-    public int getVariableNameOffset() {
-        return variableNameOffset;
+    public ExecOperationNodeListOff getExpression() {
+        return expression;
     }
 
     public String getVariableName() {

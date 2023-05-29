@@ -58,6 +58,9 @@ public final class ExecForEachTable extends ExecBracedBlock implements WithEl {
         return importedClassIndexName;
     }
 
+    public ExecOperationNodeListOff getExpression() {
+        return expression;
+    }
 
     @Override
     public void removeAllVars(AbstractPageEl _ip) {
