@@ -39,6 +39,14 @@ public final class ResultExpressionOperationNode {
         }
         return "";
     }
+    public static int beginPart(int _caret, FileBlock _file) {
+        ResultExpressionOperationNode c_ = container(_caret, _file);
+        if (c_.resultExpression != null) {
+            return c_.resultExpression.getSumOffset();
+        }
+        return -1;
+    }
+
     public static CustList<RowSrcLocation> locationsDisplay(AnalyzedPageEl _page, String _fileName, int _caret) {
         return export(_page,locations(_page, _fileName, _caret));
     }

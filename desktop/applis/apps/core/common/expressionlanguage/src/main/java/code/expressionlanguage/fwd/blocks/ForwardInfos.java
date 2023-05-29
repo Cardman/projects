@@ -18,6 +18,7 @@ import code.expressionlanguage.common.symbol.*;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.coverage.Coverage;
+import code.expressionlanguage.exec.dbg.DebugMapping;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.symbols.*;
 import code.expressionlanguage.exec.util.*;
@@ -39,12 +40,14 @@ public final class ForwardInfos {
         coverage_.putRandCodeOwner(_page.getAliasObject());
         _forwards.setAliasBoolean(_page.getAliasBoolean());
         _forwards.setAliasPrimBoolean(_page.getAliasPrimBoolean());
+        DebugMapping dbg_ = _forwards.dbg();
         CustList<ExecFileBlock> files_ = new CustList<ExecFileBlock>();
         for (EntryCust<String, FileBlock> f: _page.getPreviousFilesBodies().entryList()) {
             FileBlock content_ = f.getValue();
             ExecFileBlock exFile_ = new ExecFileBlock(content_.getMetricsCore(), content_.getFileName(),content_.getFileEscapedCalc());
             coverage_.putFile(content_);
             files_.add(exFile_);
+            dbg_.addFile(content_,exFile_);
         }
         feedExecTypes(_page, _forwards, coverage_, files_);
         innerFetchExecEnd(_forwards);
@@ -946,7 +949,7 @@ public final class ForwardInfos {
             return exec_;
         }
         if (_en instanceof DeclareVariable) {
-            ExecDeclareVariable exec_ = new ExecDeclareVariable(((DeclareVariable) _en).getImportedClassName(),((DeclareVariable) _en).getVariableNames());
+            ExecDeclareVariable exec_ = new ExecDeclareVariable(((DeclareVariable)_en).getClassNameOffset(),((DeclareVariable) _en).getImportedClassName(),((DeclareVariable) _en).getVariableNames());
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;

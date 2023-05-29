@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.ForwardPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
+import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -78,6 +79,13 @@ public class DefaultInitializer implements Initializer {
 
     public boolean stop(ContextEl _owner, StackCall _stackCall) {
         AbstractPageEl p_ = _stackCall.getLastPage();
+        if (!p_.isGoParent()&&!p_.isVisited()) {
+            p_.setVisited(true);
+            BreakPoint bp_ = _owner.getClasses().getDebugMapping().getBreakPointsBlock().get(p_.getFile(), p_.getGlobalOffset());
+            if (bp_ != null && bp_.isEnabled()) {
+                return true;
+            }
+        }
         ReadWrite rw_ = p_.getReadWrite();
         if (rw_ == null) {
             if (p_ instanceof StaticInitPageEl) {

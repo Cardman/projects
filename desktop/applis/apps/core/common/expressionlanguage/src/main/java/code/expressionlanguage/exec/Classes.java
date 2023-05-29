@@ -12,6 +12,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.dbg.DebugMapping;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.Forwards;
@@ -53,10 +54,16 @@ public final class Classes {
     private final CustList<ClassMetaInfo> classMetaInfos = new CustList<ClassMetaInfo>();
     private String keyWordValue = "";
     private final AbstractTypePairHash checker;
-    public Classes(AbstractTypePairHash _checker){
+    private final DebugMapping debugMapping;
+    public Classes(AbstractTypePairHash _checker, DebugMapping _d){
         common = new ClassesCommon();
         classesBodies = new StringMap<ExecRootBlock>();
         checker = _checker;
+        debugMapping = _d;
+    }
+
+    public DebugMapping getDebugMapping() {
+        return debugMapping;
     }
 
     public AbstractTypePairHash getChecker() {

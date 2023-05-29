@@ -7,10 +7,12 @@ import code.util.StringList;
 
 public final class ExecDeclareVariable extends ExecAbstractDeclareVariable {
 
+    private final int declareOffset;
     private final String importedClassName;
 
-    public ExecDeclareVariable(String _importedClassName, StringList _variableNames) {
+    public ExecDeclareVariable(int _d,String _importedClassName, StringList _variableNames) {
         super(_variableNames);
+        declareOffset = _d;
         importedClassName = _importedClassName;
     }
 
@@ -26,4 +28,7 @@ public final class ExecDeclareVariable extends ExecAbstractDeclareVariable {
         }
     }
 
+    public int getDeclareOffset() {
+        return declareOffset;
+    }
 }

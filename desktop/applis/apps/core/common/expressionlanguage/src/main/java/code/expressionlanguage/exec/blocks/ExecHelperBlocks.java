@@ -277,6 +277,7 @@ public final class ExecHelperBlocks {
             ip_.setNullReadWrite();
             return;
         }
+        ip_.setGoParent(false);
         ip_.removeLastBlock();
         processBlock(_context, _stackCall, _bl);
     }
@@ -1075,6 +1076,7 @@ public final class ExecHelperBlocks {
 
     public static void processDeclare(ContextEl _cont, StackCall _stack, String _importedClassName, ExecDeclareVariable _block) {
         AbstractPageEl ip_ = _stack.getLastPage();
+        ip_.globalOffset(_block.getDeclareOffset());
         String formatted_ = _stack.formatVarType(_importedClassName);
         Struct struct_ = ExecClassArgumentMatching.defaultValue(formatted_, _cont);
         for (String v: _block.getVariableNames()) {
@@ -1112,6 +1114,7 @@ public final class ExecHelperBlocks {
         AbstractStask lastStack_ = ip_.tryGetLastStack();
         if (lastStack_ != null) {
             ip_.setBlock(par_);
+            ip_.setGoParent(true);
             if (lastStack_ instanceof LoopBlockStack) {
                 nextLoopIterStack(_conf, ip_, _stackCall, par_, (LoopBlockStack) lastStack_);
             }
@@ -1232,12 +1235,14 @@ public final class ExecHelperBlocks {
             processLastElementLoopIter(_conf, _lastStack, _stackCall, ((ExecForIterativeLoop) _par));
         }
         if (_par instanceof ExecForMutableIterativeLoop) {
+            _stackCall.getLastPage().setGoParent(false);
             processLastElementLoopMutable(_conf, _lastStack, _stackCall, ((ExecForMutableIterativeLoop) _par).getStep(), ((ExecForMutableIterativeLoop) _par).getVariableNames(), ((ExecForMutableIterativeLoop) _par).getExp(), ((ExecForMutableIterativeLoop) _par));
         }
         if (_par instanceof ExecForEachTable) {
             processLastElementLoopTable(_conf, _lastStack, _stackCall, ((ExecForEachTable) _par).getVariableNameFirst(), ((ExecForEachTable) _par).getVariableNameSecond(), ((ExecForEachTable) _par));
         }
         if (_par instanceof ExecWhileCondition) {
+            _stackCall.getLastPage().setGoParent(false);
             processLastElementLoopWhile(_conf, _lastStack, _stackCall, (ExecWhileCondition) _par, ((ExecWhileCondition) _par).getCondition());
         }
     }
