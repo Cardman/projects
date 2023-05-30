@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.AbstractStask;
 import code.expressionlanguage.exec.stacks.ConditionBlockStack;
-import code.expressionlanguage.exec.stacks.EnteredStack;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -262,6 +261,7 @@ public abstract class AbstractPageEl {
 
     public void setBlock(ExecBlock _block) {
         execBlock = _block;
+        setVisited(false);
     }
 
     public boolean isVisited() {
@@ -335,15 +335,4 @@ public abstract class AbstractPageEl {
         return globalClass.getRootBlock();
     }
 
-    public boolean checkBreakPoint() {
-        ExecBlock bl_ = getBlock();
-        if (bl_ instanceof ExecDeclareVariable || bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod) {
-            return true;
-        }
-        AbstractStask st_ = tryGetLastStack();
-        if (st_ instanceof EnteredStack) {
-            return !((EnteredStack) st_).isEntered();
-        }
-        return bl_ instanceof ExecIfCondition;
-    }
 }

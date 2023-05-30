@@ -973,7 +973,7 @@ public final class ForwardInfos {
 
     private static ExecBlock block3(AbsBk _en, ExecFileBlock _fileDest, Coverage _coverage, Forwards _forwards) {
         if (_en instanceof ElseCondition) {
-            ExecElseCondition exec_ = new ExecElseCondition();
+            ExecElseCondition exec_ = new ExecElseCondition(_en.getOffset());
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;
