@@ -30,7 +30,6 @@ import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.sample.CustLgNames;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -1064,7 +1063,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         StackCall stackCall_ = getStackCall(cont_);
         addPage(cont_, instancingClass_, stackCall_);
-        assertNull(ExecHelperBlocks.hasBlockContinue(cont_,instancingClass_,"", stackCall_));
+        assertNull(ExecHelperBlocks.hasBlockContinue(instancingClass_,""));
         assertNull(instancingClass_.getReadWrite());
     }
     @Test

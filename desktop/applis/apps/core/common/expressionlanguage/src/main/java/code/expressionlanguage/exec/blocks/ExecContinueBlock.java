@@ -16,7 +16,7 @@ public final class ExecContinueBlock extends ExecLeaf implements MethodCallingFi
     public void removeBlockFinally(ContextEl _conf, StackCall _stack) {
         AbstractPageEl ip_ = _stack.getLastPage();
         while (true) {
-            AbstractStask bl_ = ExecHelperBlocks.hasBlockContinue(_conf,ip_,label, _stack);
+            AbstractStask bl_ = ExecHelperBlocks.hasBlockContinue(ip_,label);
             if (ExecHelperBlocks.setRemovedCallingFinallyToProcessLoop(ip_, bl_, this, null)) {
                 return;
             }

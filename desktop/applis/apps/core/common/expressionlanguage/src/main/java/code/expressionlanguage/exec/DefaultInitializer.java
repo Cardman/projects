@@ -100,10 +100,6 @@ public class DefaultInitializer implements Initializer {
         if (rw_ != null) {
             _stackCall.getLastPage().processTagsBase(_owner, _stackCall);
         }
-        if (_stackCall.getLastPage().isIterate()) {
-            _stackCall.getLastPage().setIterate(false);
-            return true;
-        }
         return false;
     }
 

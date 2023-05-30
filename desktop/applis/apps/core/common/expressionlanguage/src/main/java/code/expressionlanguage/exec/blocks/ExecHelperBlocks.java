@@ -73,7 +73,7 @@ public final class ExecHelperBlocks {
         return bl_;
     }
 
-    public static AbstractStask hasBlockContinue(ContextEl _conf, AbstractPageEl _ip, String _label, StackCall _stackCall) {
+    public static AbstractStask hasBlockContinue(AbstractPageEl _ip, String _label) {
         AbstractStask bl_ = _ip.tryGetLastStack();
         if (bl_ == null) {
             _ip.setNullReadWrite();
@@ -83,21 +83,12 @@ public final class ExecHelperBlocks {
             ExecBracedBlock br_ = ((LoopBlockStack)bl_).getExecBlock();
             if (_label.isEmpty()||StringUtil.quickEq(_label, bl_.getLabel())){
                 _ip.setBlock(br_);
-                if (_ip.stopBreakPoint(_conf)) {
-                    removeLocalVarsLoop(_ip, br_);
-                    _ip.setIterate(true);
-                    return null;
-                }
-                nextLoopIterStack(_conf, _ip, _stackCall, br_, (LoopBlockStack) bl_);
+                removeLocalVarsLoop(_ip, br_);
+                ((LoopBlockStack) bl_).getContent().setEvaluatingKeepLoop(true);
                 return null;
             }
         }
         return bl_;
-    }
-
-    private static void nextLoopIterStack(ContextEl _conf, AbstractPageEl _ip, StackCall _stackCall, ExecBracedBlock _br, LoopBlockStack _lSt) {
-        removeLocalVarsLoop(_ip, _br);
-        processLastElementLoop(_conf, _stackCall, _br, _lSt);
     }
 
     public static void setVisitedDefault(ContextEl _cont, StackCall _stack, ExecDefaultCondition _block) {
@@ -1124,12 +1115,8 @@ public final class ExecHelperBlocks {
         if (lastStack_ != null) {
             ip_.setBlock(par_);
             if (lastStack_ instanceof LoopBlockStack) {
-                if (ip_.stopBreakPoint(_conf)) {
-                    removeLocalVarsLoop(ip_, par_);
-                    ip_.setIterate(true);
-                    return;
-                }
-                nextLoopIterStack(_conf, ip_, _stackCall, par_, (LoopBlockStack) lastStack_);
+                removeLocalVarsLoop(ip_, par_);
+                ((LoopBlockStack) lastStack_).getContent().setEvaluatingKeepLoop(true);
             }
             if (lastStack_ instanceof IfBlockStack) {
                 nextIfStack(ip_, par_, (IfBlockStack) lastStack_);

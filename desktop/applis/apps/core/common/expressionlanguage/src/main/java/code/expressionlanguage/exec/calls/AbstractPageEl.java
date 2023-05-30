@@ -32,7 +32,6 @@ public abstract class AbstractPageEl {
     private ExecBlock blockRoot;
     private int next = -1;
     private boolean visited;
-    private boolean iterate;
 
     private final CustList<AbstractStask> blockStacks = new CustList<AbstractStask>();
 
@@ -371,21 +370,17 @@ public abstract class AbstractPageEl {
             return false;
         }
         ExecBlock bl_ = getBlock();
-        if (bl_ instanceof ExecDeclareVariable || bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod || bl_ instanceof ExecWhileCondition || bl_ instanceof ExecDoWhileCondition) {
+        if (bl_ instanceof ExecDeclareVariable || bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod || bl_ instanceof ExecDoWhileCondition) {
             return true;
         }
         AbstractStask st_ = tryGetLastStack();
         if (st_ instanceof EnteredStack) {
             return !((EnteredStack) st_).isEntered();
         }
-        return bl_ instanceof ExecIfCondition;
+        if (st_ instanceof LoopBlockStack) {
+            return !((LoopBlockStack)st_).getContent().isFinished();
+        }
+        return bl_ instanceof ExecIfCondition || bl_ instanceof ExecWhileCondition;
     }
 
-    public boolean isIterate() {
-        return iterate;
-    }
-
-    public void setIterate(boolean _i) {
-        this.iterate = _i;
-    }
 }
