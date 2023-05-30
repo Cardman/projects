@@ -78,11 +78,8 @@ public class DefaultInitializer implements Initializer {
 
     public boolean stop(ContextEl _owner, StackCall _stackCall) {
         AbstractPageEl p_ = _stackCall.getLastPage();
-        if (p_.checkBreakPoint()&&!p_.isVisited()) {
-            p_.setVisited(true);
-            if (_owner.getClasses().getDebugMapping().getBreakPointsBlock().is(p_.getFile(), p_.getNext())) {
-                return true;
-            }
+        if (p_.stopBreakPoint(_owner)) {
+            return true;
         }
         ReadWrite rw_ = p_.getReadWrite();
         if (rw_ == null) {
@@ -102,6 +99,10 @@ public class DefaultInitializer implements Initializer {
         }
         if (rw_ != null) {
             _stackCall.getLastPage().processTagsBase(_owner, _stackCall);
+        }
+        if (_stackCall.getLastPage().isIterate()) {
+            _stackCall.getLastPage().setIterate(false);
+            return true;
         }
         return false;
     }

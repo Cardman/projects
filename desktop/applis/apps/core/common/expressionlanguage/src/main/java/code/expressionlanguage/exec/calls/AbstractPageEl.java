@@ -30,8 +30,9 @@ public abstract class AbstractPageEl {
     private ReadWrite readWrite;
     private ExecBlock execBlock;
     private ExecBlock blockRoot;
-    private int next;
+    private int next = -1;
     private boolean visited;
+    private boolean iterate;
 
     private final CustList<AbstractStask> blockStacks = new CustList<AbstractStask>();
 
@@ -277,7 +278,7 @@ public abstract class AbstractPageEl {
             next = ((ExecLine) _block).getExp().getOffset();
         } else if (_block instanceof ExecElseCondition) {
             next = ((ExecElseCondition) _block).getOff();
-        } else if (_block instanceof ExecIfCondition || _block instanceof ExecElseIfCondition) {
+        } else if (_block instanceof ExecIfCondition || _block instanceof ExecElseIfCondition || _block instanceof ExecWhileCondition) {
             next = ((ExecCondition) _block).getCondition().getOffset();
         } else if (_block instanceof ExecAbstractExpressionReturnMethod) {
             next = ((ExecAbstractExpressionReturnMethod) _block).getExpressionOffset();
@@ -358,12 +359,19 @@ public abstract class AbstractPageEl {
         return globalClass.getRootBlock();
     }
 
+    public boolean stopBreakPoint(ContextEl _context) {
+        if (checkBreakPoint()&&!isVisited()) {
+            setVisited(true);
+            return _context.getClasses().getDebugMapping().getBreakPointsBlock().is(getFile(), getNext());
+        }
+        return false;
+    }
     public boolean checkBreakPoint() {
         if (readWrite == null) {
             return false;
         }
         ExecBlock bl_ = getBlock();
-        if (bl_ instanceof ExecDeclareVariable || bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod) {
+        if (bl_ instanceof ExecDeclareVariable || bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod || bl_ instanceof ExecWhileCondition) {
             return true;
         }
         AbstractStask st_ = tryGetLastStack();
@@ -371,5 +379,13 @@ public abstract class AbstractPageEl {
             return !((EnteredStack) st_).isEntered();
         }
         return bl_ instanceof ExecIfCondition;
+    }
+
+    public boolean isIterate() {
+        return iterate;
+    }
+
+    public void setIterate(boolean _i) {
+        this.iterate = _i;
     }
 }

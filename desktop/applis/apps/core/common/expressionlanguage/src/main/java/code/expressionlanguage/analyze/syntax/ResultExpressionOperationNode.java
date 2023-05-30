@@ -44,7 +44,7 @@ public final class ResultExpressionOperationNode {
         if (c_.block instanceof ElseCondition) {
             return c_.block.getOffset();
         }
-        if (!(c_.block instanceof Line)&&!(c_.block instanceof ReturnMethod)&&!(c_.block instanceof IfCondition)&&!(c_.block instanceof ElseIfCondition)) {
+        if (!(c_.block instanceof Line)&&!(c_.block instanceof ReturnMethod)&&!(c_.block instanceof IfCondition)&&!(c_.block instanceof ElseIfCondition)&&!(c_.block instanceof WhileCondition)) {
             return -1;
         }
         if (c_.resultExpression != null) {

@@ -83,6 +83,11 @@ public final class ExecHelperBlocks {
             ExecBracedBlock br_ = ((LoopBlockStack)bl_).getExecBlock();
             if (_label.isEmpty()||StringUtil.quickEq(_label, bl_.getLabel())){
                 _ip.setBlock(br_);
+                if (_ip.stopBreakPoint(_conf)) {
+                    removeLocalVarsLoop(_ip, br_);
+                    _ip.setIterate(true);
+                    return null;
+                }
                 nextLoopIterStack(_conf, _ip, _stackCall, br_, (LoopBlockStack) bl_);
                 return null;
             }
@@ -1119,6 +1124,11 @@ public final class ExecHelperBlocks {
         if (lastStack_ != null) {
             ip_.setBlock(par_);
             if (lastStack_ instanceof LoopBlockStack) {
+                if (ip_.stopBreakPoint(_conf)) {
+                    removeLocalVarsLoop(ip_, par_);
+                    ip_.setIterate(true);
+                    return;
+                }
                 nextLoopIterStack(_conf, ip_, _stackCall, par_, (LoopBlockStack) lastStack_);
             }
             if (lastStack_ instanceof IfBlockStack) {

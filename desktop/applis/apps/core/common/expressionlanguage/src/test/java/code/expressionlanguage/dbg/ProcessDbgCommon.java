@@ -21,6 +21,8 @@ import code.expressionlanguage.sample.CustLgNames;
 import code.util.StringMap;
 
 public abstract class ProcessDbgCommon extends ProcessMethodCommon {
+    protected static final String CUST_ITER_PATH = "pkg/CustIter";
+    protected static final String CUST_LIST_PATH = "pkg/CustList";
     protected static StackCall dbgNormal(String _class, MethodId _method, ResultContext _cont) {
         ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
         ExecRootBlock classBody_ = _cont.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
@@ -54,5 +56,71 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ResultContext res_ = new ResultContext(a_, forwards_, a_.getMessages());
         res_.setContext(ctx_);
         return res_;
+    }
+    protected static String getCustomList() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.CustList<U> :Iterable<U>{\n");
+        xml_.append(" private U[] list;\n");
+        xml_.append(" private int length;\n");
+        xml_.append(" public (){\n");
+        xml_.append("  list=new U[0i];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void add(U elt){\n");
+        xml_.append("  add(length,elt);\n");
+        xml_.append(" }\n");
+        xml_.append(" public void add(int index,U elt){\n");
+        xml_.append("  U[] newlist=new U[length+1i];\n");
+        xml_.append("  iter(int i=0i;index;1i){\n");
+        xml_.append("   newlist[i]=list[i];\n");
+        xml_.append("  }\n");
+        xml_.append("  newlist[index]=elt;\n");
+        xml_.append("  iter(int i=index+1i;length+1i;1i){\n");
+        xml_.append("   newlist[i]=list[i-1i];\n");
+        xml_.append("  }\n");
+        xml_.append("  length++;\n");
+        xml_.append("  list=newlist;\n");
+        xml_.append(" }\n");
+        xml_.append(" public int size(){\n");
+        xml_.append("  return length;\n");
+        xml_.append(" }\n");
+        xml_.append(" public U get(int index){\n");
+        xml_.append("  return list[index];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void set(int index,U elt){\n");
+        xml_.append("  list[index]=elt;\n");
+        xml_.append(" }\n");
+        xml_.append(" public void remove(int index){\n");
+        xml_.append("  iter(int i=index;length-1i;1i){\n");
+        xml_.append("   list[i]=list[i+1i];\n");
+        xml_.append("  }\n");
+        xml_.append("  list[length-1i]=null;\n");
+        xml_.append("  length--;\n");
+        xml_.append(" }\n");
+        xml_.append(" public Iterator<U> iterator(){\n");
+        xml_.append("  return new pkg.CustIter<U>(this);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        return xml_.toString();
+    }
+    protected static String getCustomIterator() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.CustIter<T> :Iterator<T>{\n");
+        xml_.append(" private pkg.CustList<T> list;\n");
+        xml_.append(" private int length;\n");
+        xml_.append(" private int index;\n");
+        xml_.append(" public (pkg.CustList<T> i){\n");
+        xml_.append("  list=i;\n");
+        xml_.append("  length=list.size();\n");
+        xml_.append(" }\n");
+        xml_.append(" public T next(){\n");
+        xml_.append("  T out=list.get(index);\n");
+        xml_.append("  index++;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" public boolean hasNext(){\n");
+        xml_.append("  return index<length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        return xml_.toString();
     }
 }
