@@ -80,7 +80,7 @@ public class DefaultInitializer implements Initializer {
         AbstractPageEl p_ = _stackCall.getLastPage();
         if (!p_.isVisited()) {
             p_.setVisited(true);
-            if (_owner.getClasses().getDebugMapping().getBreakPointsBlock().is(p_.getFile(), p_.getGlobalOffset())) {
+            if (_owner.getClasses().getDebugMapping().getBreakPointsBlock().is(p_.getFile(), p_.getNext())) {
                 return true;
             }
         }

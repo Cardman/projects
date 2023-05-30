@@ -20,7 +20,7 @@ public abstract class ExecAbstractExpressionReturnMethod extends ExecAbstractRet
         return exp.getList();
     }
 
-    protected int getExpressionOffset() {
+    public int getExpressionOffset() {
         return exp.getOffset();
     }
 }

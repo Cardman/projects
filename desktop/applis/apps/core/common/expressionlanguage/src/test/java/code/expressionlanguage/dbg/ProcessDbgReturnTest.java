@@ -24,6 +24,6 @@ public final class ProcessDbgReturnTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(86, stack_.getLastPage().getGlobalOffset());
+        assertEq(86, stack_.getLastPage().getNext());
     }
 }

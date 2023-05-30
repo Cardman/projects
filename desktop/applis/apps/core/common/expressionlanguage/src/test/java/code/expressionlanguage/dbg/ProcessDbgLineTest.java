@@ -25,7 +25,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(70, stack_.getLastPage().getGlobalOffset());
+        assertEq(70, stack_.getLastPage().getNext());
     }
     @Test
     public void test2() {
@@ -73,7 +73,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
         AbstractPageEl last_ = stack_.getLastPage();
-        assertEq(71, last_.getGlobalOffset());
+        assertEq(71, last_.getNext());
         assertEq("pkg/Ex2", last_.getFile().getFileName());
     }
     @Test
@@ -161,7 +161,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(70, stack_.getLastPage().getGlobalOffset());
+        assertEq(70, stack_.getLastPage().getNext());
     }
     @Test
     public void test8() {
@@ -181,7 +181,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(57, stack_.getLastPage().getGlobalOffset());
+        assertEq(57, stack_.getLastPage().getNext());
     }
     @Test
     public void test9() {
@@ -202,7 +202,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(70, next_.getLastPage().getGlobalOffset());
+        assertEq(70, next_.getLastPage().getNext());
     }
     @Test
     public void test10() {

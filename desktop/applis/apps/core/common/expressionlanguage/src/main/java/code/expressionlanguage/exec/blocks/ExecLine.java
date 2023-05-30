@@ -22,6 +22,10 @@ public final class ExecLine extends ExecLeaf implements WithEl {
         return callInts;
     }
 
+    public ExecOperationNodeListOff getExp() {
+        return exp;
+    }
+
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
         ExecHelperBlocks.processLine(_cont, _stack, exp, this);

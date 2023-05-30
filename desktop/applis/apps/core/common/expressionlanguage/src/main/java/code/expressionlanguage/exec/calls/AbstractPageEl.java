@@ -29,6 +29,7 @@ public abstract class AbstractPageEl {
     private ReadWrite readWrite;
     private ExecBlock execBlock;
     private ExecBlock blockRoot;
+    private int next;
     private boolean visited;
 
     private final CustList<AbstractStask> blockStacks = new CustList<AbstractStask>();
@@ -149,7 +150,7 @@ public abstract class AbstractPageEl {
     }
 
     public int getTraceIndex() {
-        return globalOffset + offset;
+        return getGlobalOffset() + offset;
     }
 
     public int getTranslatedOffset() {
@@ -158,6 +159,9 @@ public abstract class AbstractPageEl {
 
     public abstract void processTagsBase(ContextEl _context, StackCall _stack);
 
+    public int getNext() {
+        return next;
+    }
 
     public ExpressionLanguage getCurrentEl(int _index, CustList<ExecOperationNode> _e, ExecBlock _coveredBlock) {
         ExpressionLanguage el_ = getNullableExp(_index);
@@ -261,7 +265,20 @@ public abstract class AbstractPageEl {
 
     public void setBlock(ExecBlock _block) {
         execBlock = _block;
+        seNext(_block);
         setVisited(false);
+    }
+
+    private void seNext(ExecBlock _block) {
+        if (_block instanceof ExecDeclareVariable) {
+            next = ((ExecDeclareVariable) _block).getDeclareOffset();
+        } else if (_block instanceof ExecLine) {
+            next = ((ExecLine) _block).getExp().getOffset();
+        } else if (_block instanceof ExecAbstractExpressionReturnMethod) {
+            next = ((ExecAbstractExpressionReturnMethod) _block).getExpressionOffset();
+        } else {
+            next = -1;
+        }
     }
 
     public boolean isVisited() {
@@ -282,6 +299,7 @@ public abstract class AbstractPageEl {
     public void setReadWrite(ReadWrite _readWrite) {
         readWrite = _readWrite;
         execBlock = _readWrite.getBlock();
+        seNext(execBlock);
     }
 
     public ExecBlock getBlockRoot() {

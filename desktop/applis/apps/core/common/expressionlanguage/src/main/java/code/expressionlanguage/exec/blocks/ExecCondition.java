@@ -12,7 +12,7 @@ public abstract class ExecCondition extends ExecBracedBlock implements WithEl {
         condition = new ExecOperationNodeListOff(_opCondition,_conditionOffset);
     }
 
-    protected ExecOperationNodeListOff getCondition() {
+    public ExecOperationNodeListOff getCondition() {
         return condition;
     }
 
