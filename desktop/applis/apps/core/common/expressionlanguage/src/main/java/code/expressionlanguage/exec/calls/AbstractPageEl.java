@@ -334,4 +334,11 @@ public abstract class AbstractPageEl {
         return globalClass.getRootBlock();
     }
 
+    public boolean checkBreakPoint() {
+        ExecBlock bl_ = getBlock();
+        if (bl_ instanceof ExecDeclareVariable || bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod) {
+            return true;
+        }
+        return bl_ instanceof ExecIfCondition && !matchStatement(bl_);
+    }
 }

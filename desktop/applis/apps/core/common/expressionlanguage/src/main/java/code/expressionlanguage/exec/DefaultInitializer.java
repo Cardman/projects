@@ -78,7 +78,7 @@ public class DefaultInitializer implements Initializer {
 
     public boolean stop(ContextEl _owner, StackCall _stackCall) {
         AbstractPageEl p_ = _stackCall.getLastPage();
-        if (!p_.isVisited()) {
+        if (p_.checkBreakPoint()&&!p_.isVisited()) {
             p_.setVisited(true);
             if (_owner.getClasses().getDebugMapping().getBreakPointsBlock().is(p_.getFile(), p_.getGlobalOffset())) {
                 return true;
