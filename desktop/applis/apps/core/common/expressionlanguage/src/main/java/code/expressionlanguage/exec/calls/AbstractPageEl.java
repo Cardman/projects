@@ -278,7 +278,7 @@ public abstract class AbstractPageEl {
             next = ((ExecLine) _block).getExp().getOffset();
         } else if (_block instanceof ExecElseCondition) {
             next = ((ExecElseCondition) _block).getOff();
-        } else if (_block instanceof ExecIfCondition || _block instanceof ExecElseIfCondition || _block instanceof ExecWhileCondition) {
+        } else if (_block instanceof ExecCondition) {
             next = ((ExecCondition) _block).getCondition().getOffset();
         } else if (_block instanceof ExecAbstractExpressionReturnMethod) {
             next = ((ExecAbstractExpressionReturnMethod) _block).getExpressionOffset();
@@ -371,7 +371,7 @@ public abstract class AbstractPageEl {
             return false;
         }
         ExecBlock bl_ = getBlock();
-        if (bl_ instanceof ExecDeclareVariable || bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod || bl_ instanceof ExecWhileCondition) {
+        if (bl_ instanceof ExecDeclareVariable || bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod || bl_ instanceof ExecWhileCondition || bl_ instanceof ExecDoWhileCondition) {
             return true;
         }
         AbstractStask st_ = tryGetLastStack();
