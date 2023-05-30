@@ -41,7 +41,7 @@ public final class ResultExpressionOperationNode {
     }
     public static int beginPart(int _caret, FileBlock _file) {
         ResultExpressionOperationNode c_ = container(_caret, _file);
-        if (!(c_.block instanceof Line)) {
+        if (!(c_.block instanceof Line)&&!(c_.block instanceof ReturnMethod)) {
             return -1;
         }
         if (c_.resultExpression != null) {
