@@ -274,6 +274,8 @@ public abstract class AbstractPageEl {
             next = ((ExecDeclareVariable) _block).getDeclareOffset();
         } else if (_block instanceof ExecLine) {
             next = ((ExecLine) _block).getExp().getOffset();
+        } else if (_block instanceof ExecIfCondition) {
+            next = ((ExecIfCondition) _block).getCondition().getOffset();
         } else if (_block instanceof ExecAbstractExpressionReturnMethod) {
             next = ((ExecAbstractExpressionReturnMethod) _block).getExpressionOffset();
         } else {
@@ -355,6 +357,9 @@ public abstract class AbstractPageEl {
 
     public boolean checkBreakPoint() {
         ExecBlock bl_ = getBlock();
-        return bl_ instanceof ExecDeclareVariable || bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod;
+        if (bl_ instanceof ExecDeclareVariable || bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod && readWrite != null) {
+            return true;
+        }
+        return bl_ instanceof ExecIfCondition && !matchStatement(bl_);
     }
 }
