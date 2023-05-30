@@ -359,8 +359,11 @@ public abstract class AbstractPageEl {
     }
 
     public boolean checkBreakPoint() {
+        if (readWrite == null) {
+            return false;
+        }
         ExecBlock bl_ = getBlock();
-        if (bl_ instanceof ExecDeclareVariable || bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod && readWrite != null) {
+        if (bl_ instanceof ExecDeclareVariable || bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod) {
             return true;
         }
         AbstractStask st_ = tryGetLastStack();
