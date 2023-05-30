@@ -192,6 +192,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static void existErrors(AnalyzedPageEl _page) {
         assertTrue(notAllEmptyErrors(_page));
         assertFalse(isEmptyErrors(_page));
+        new Classes(null);
     }
 
     protected static void inexistErrors(AnalyzedPageEl _page) {

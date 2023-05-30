@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.coverage.*;
+import code.expressionlanguage.exec.dbg.DebugMapping;
 import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.stds.*;
@@ -40,10 +41,12 @@ public final class Forwards {
         coverage.getOptionsReport().setDisplayImplicit(_options.getOptionsReport().isDisplayImplicit());
         coverage.getOptionsReport().setDisplayImplicitLabel(_options.getOptionsReport().isDisplayImplicitLabel());
         coverage.getOptionsReport().setEncodeHeader(_options.getOptionsReport().isEncodeHeader());
-        classes = new Classes(_options.getChecker());
+        classes = new Classes(_options.getChecker(),new DebugMapping(_options.isDebugging()));
         fileBuilder = _fileBuilder;
     }
-
+    public DebugMapping dbg() {
+        return getClasses().getDebugMapping();
+    }
     public ContextEl generate() {
         return generator.newContext(options, this);
     }
