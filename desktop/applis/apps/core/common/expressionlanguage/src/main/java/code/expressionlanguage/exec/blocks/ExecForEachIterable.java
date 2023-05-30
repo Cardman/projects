@@ -13,8 +13,8 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ExecForEachIterable extends ExecAbstractForEachLoop {
-    public ExecForEachIterable(String _label, String _importedClassName, String _importedClassIndexName, String _variableName, int _expressionOffset, CustList<ExecOperationNode> _opList) {
-        super(_label, _importedClassName, _importedClassIndexName, _variableName, _expressionOffset, _opList);
+    public ExecForEachIterable(String _label, String _importedClassIndexName, ExecVariableName _variableName, int _sep, int _expressionOffset, CustList<ExecOperationNode> _opList) {
+        super(_label, _importedClassIndexName, _variableName, _sep, _expressionOffset, _opList);
     }
 
     @Override
@@ -22,7 +22,7 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
         AbstractPageEl ip_ = _stack.getLastPage();
         String className_ = _stack.formatVarType(getImportedClassName());
         Struct struct_ = ExecClassArgumentMatching.defaultValue(className_, _cont);
-        ip_.putValueVar(getVariableName(), LocalVariable.newLocalVariable(struct_,className_));
+        ip_.putValueVar(getVariable().getName(), LocalVariable.newLocalVariable(struct_,className_));
         iteratorHasNext(_cont, _l, _stack, this);
     }
 
@@ -41,8 +41,9 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
         return iteratorHasNext(_conf, _l, _stack, this);
     }
 
-    private static ConditionReturn iteratorHasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall, ExecBlock _coveredBlock) {
+    private static ConditionReturn iteratorHasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall, ExecAbstractForEachLoop _coveredBlock) {
         String locName_ = _conf.getClasses().getHasNextVarCust();
+        _stackCall.getLastPage().globalOffset(_coveredBlock.getSeparator());
         return ExecHelperBlocks.hasNext(_conf, _l, _stackCall, locName_, _conf.getClasses().getExpsHasNextCust(), _coveredBlock);
     }
 

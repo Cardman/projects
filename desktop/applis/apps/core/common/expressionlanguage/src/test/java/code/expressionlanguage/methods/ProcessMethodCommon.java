@@ -96,21 +96,6 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return arg_;
     }
 
-    protected static StackCall dbgNormal(String _class, MethodId _method, ResultContext _cont) {
-        ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
-        ExecRootBlock classBody_ = _cont.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
-        Argument argGlLoc_ = new Argument();
-        Parameters p_ = new Parameters();
-        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont.getContext());
-        ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_), _cont.getContext(), stackCall_);
-        return stackCall_;
-    }
-
-    protected static StackCall dbgContinueNormal(StackCall _stack,ContextEl _cont) {
-        _cont.getInit().loopCalling(_cont, _stack);
-        return _stack;
-    }
     protected static Argument calculateNormalParam(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
@@ -617,26 +602,6 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         KeyWords kwl_ = en(lgName_);
 
         return getContextEl(_files, opt_, lgName_, kwl_);
-    }
-
-    protected static ResultContext ctxLgReadOnlyOkQuick(String _lg,StringMap<String> _files, String... _types) {
-        Options opt_ = newOptions();
-        opt_.setReadOnly(true);
-        opt_.setDebugging(false);
-        opt_.setDebugging(true);
-        addTypesInit(opt_, _types);
-        CustLgNames lgName_ = getLgNames();
-        assertEq("en",_lg);
-        KeyWords kwl_ = en(lgName_);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = getForwards(opt_,lgName_,kwl_,page_);
-        AnalyzedPageEl a_ = validateWithoutInit(_files, page_);
-        assertTrue( isEmptyErrors(a_));
-        generalForward(a_, forwards_);
-        ContextEl ctx_ = forwardAndClear(forwards_);
-        ResultContext res_ = new ResultContext(a_, forwards_, a_.getMessages());
-        res_.setContext(ctx_);
-        return res_;
     }
 
     protected static boolean hasErrLgReadOnly(String _lg,StringMap<String> _files) {

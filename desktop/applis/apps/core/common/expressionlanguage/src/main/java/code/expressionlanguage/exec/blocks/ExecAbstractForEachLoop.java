@@ -16,19 +16,17 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
 
     private final String label;
 
-    private final String importedClassName;
-
+    private final int separator;
     private final String importedClassIndexName;
 
-    private final String variableName;
-
+    private final ExecVariableName variable;
     private final ExecOperationNodeListOff expression;
 
-    protected ExecAbstractForEachLoop(String _label, String _importedClassName, String _importedClassIndexName, String _variableName, int _expressionOffset, CustList<ExecOperationNode> _opList) {
+    protected ExecAbstractForEachLoop(String _label, String _importedClassIndexName, ExecVariableName _variableName, int _sep, int _expressionOffset, CustList<ExecOperationNode> _opList) {
         label = _label;
-        this.importedClassName = _importedClassName;
         this.importedClassIndexName = _importedClassIndexName;
-        this.variableName = _variableName;
+        this.variable = _variableName;
+        this.separator = _sep;
         expression = new ExecOperationNodeListOff(_opList,_expressionOffset);
     }
 
@@ -36,8 +34,8 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
     public void removeAllVars(AbstractPageEl _ip) {
         super.removeAllVars(_ip);
         StringMap<LoopVariable> v_ = _ip.getVars();
-        v_.removeKey(variableName);
-        _ip.removeRefVar(variableName);
+        v_.removeKey(variable.getName());
+        _ip.removeRefVar(variable.getName());
     }
 
     @Override
@@ -57,15 +55,15 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
 
     protected abstract ConditionReturn hasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stack);
 
-    public ExecOperationNodeListOff getExpression() {
-        return expression;
+    public int getSeparator() {
+        return separator;
     }
 
-    public String getVariableName() {
-        return variableName;
+    public ExecVariableName getVariable() {
+        return variable;
     }
 
     protected String getImportedClassName() {
-        return importedClassName;
+        return variable.getType();
     }
 }

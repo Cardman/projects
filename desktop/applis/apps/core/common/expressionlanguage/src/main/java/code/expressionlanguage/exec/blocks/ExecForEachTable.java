@@ -10,66 +10,63 @@ public final class ExecForEachTable extends ExecBracedBlock implements WithEl {
 
     private final String label;
 
-    private final String importedClassNameFirst;
+    private final ExecVariableName variableFirst;
 
-    private final String importedClassNameSecond;
+    private final ExecVariableName variableSecond;
+
+    private final int separator;
 
     private final String importedClassIndexName;
 
-    private final String variableNameFirst;
-
-    private final String variableNameSecond;
-
     private final ExecOperationNodeListOff expression;
 
-    public ExecForEachTable(String _label, String _importedClassNameFirst, String _importedClassNameSecond, String _importedClassIndexName,
-                            String _variableNameFirst, String _variableNameSecond, ExecOperationNodeListOff _expression) {
+    public ExecForEachTable(String _label, ExecVariableName _f, ExecVariableName _s, int _sep,String _importedClassIndexName,
+                            ExecOperationNodeListOff _expression) {
         this.label = _label;
-        this.importedClassNameFirst = _importedClassNameFirst;
-        this.importedClassNameSecond = _importedClassNameSecond;
+        this.variableFirst = _f;
+        this.variableSecond = _s;
+        this.separator = _sep;
         this.importedClassIndexName = _importedClassIndexName;
-        this.variableNameFirst = _variableNameFirst;
-        this.variableNameSecond = _variableNameSecond;
         expression = _expression;
     }
 
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
-        ExecHelperBlocks.processTable(_cont, _stack, label, variableNameFirst, variableNameSecond,expression, this);
+        ExecHelperBlocks.processTable(_cont, _stack, label, variableFirst, variableSecond,expression, this);
     }
 
     public String getVariableNameFirst() {
-        return variableNameFirst;
+        return variableFirst.getName();
     }
 
     public String getVariableNameSecond() {
-        return variableNameSecond;
-    }
-
-    public String getImportedClassNameFirst() {
-        return importedClassNameFirst;
-    }
-
-    public String getImportedClassNameSecond() {
-        return importedClassNameSecond;
+        return variableSecond.getName();
     }
 
     public String getImportedClassIndexName() {
         return importedClassIndexName;
     }
 
-    public ExecOperationNodeListOff getExpression() {
-        return expression;
+    public ExecVariableName getVariableFirst() {
+        return variableFirst;
+    }
+
+    public ExecVariableName getVariableSecond() {
+        return variableSecond;
+    }
+
+    public int getSeparator() {
+        return separator;
     }
 
     @Override
     public void removeAllVars(AbstractPageEl _ip) {
         super.removeAllVars(_ip);
         StringMap<LoopVariable> v_ = _ip.getVars();
-        v_.removeKey(variableNameFirst);
-        v_.removeKey(variableNameSecond);
-        _ip.removeRefVar(variableNameFirst);
-        _ip.removeRefVar(variableNameSecond);
+        v_.removeKey(getVariableNameFirst());
+        v_.removeKey(getVariableNameSecond());
+        _ip.removeRefVar(getVariableNameFirst());
+        _ip.removeRefVar(getVariableNameSecond());
     }
 
 }

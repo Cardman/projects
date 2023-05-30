@@ -14,14 +14,14 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ExecForEachRefArray extends ExecAbstractForEachLoop {
-    public ExecForEachRefArray(String _label, String _importedClassName, String _importedClassIndexName, String _variableName, int _expressionOffset, CustList<ExecOperationNode> _opList) {
-        super(_label, _importedClassName, _importedClassIndexName, _variableName, _expressionOffset, _opList);
+    public ExecForEachRefArray(String _label, String _importedClassIndexName, ExecVariableName _variableName, int _sep, int _expressionOffset, CustList<ExecOperationNode> _opList) {
+        super(_label, _importedClassIndexName, _variableName, _sep, _expressionOffset, _opList);
     }
 
     @Override
     protected void checkIfNext(ContextEl _cont, LoopBlockStack _l, StackCall _stack) {
         AbstractPageEl ip_ = _stack.getLastPage();
-        ip_.getRefParams().put(getVariableName(), new ArrayWrapper(_l.getContent().getContainer(),new LongStruct(0)));
+        ip_.getRefParams().put(getVariable().getName(), new ArrayWrapper(_l.getContent().getContainer(),new LongStruct(0)));
         ExecHelperBlocks.incrOrFinishLoop(this,_cont, hasNext(_cont,_l, _stack),_l, _stack);
     }
 
@@ -35,7 +35,7 @@ public final class ExecForEachRefArray extends ExecAbstractForEachLoop {
         Struct container_ = _l.getContent().getContainer();
         LongStruct lg_ = new LongStruct(_l.getContent().getIndex());
         AbstractPageEl ip_ = _stack.getLastPage();
-        ip_.getRefParams().set(getVariableName(),new ArrayWrapper(container_,lg_));
+        ip_.getRefParams().set(getVariable().getName(),new ArrayWrapper(container_,lg_));
         return new Argument(ExecArrayTemplates.getElement(container_, lg_, _conf, _stack));
     }
 

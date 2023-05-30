@@ -7,7 +7,6 @@ import code.expressionlanguage.common.DefTypePairHash;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.coverage.Coverage;
-import code.expressionlanguage.exec.dbg.DebugMapping;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.guicompos.GuiContextEl;
@@ -126,7 +125,7 @@ public abstract class EquallableElUtFilesUtil {
         return stds_;
     }
     public static GuiContextEl newContext(LgNamesGui _stds,CustomSeedGene _opt) {
-        return new GuiContextEl(NullStruct.NULL_VALUE, new CommonExecutionInfos(new MockInterceptorStdCaller(),new CommonExecutionMetricsInfos(4,-1,_opt),_stds,new Classes(new DefTypePairHash(), new DebugMapping(false)), new Coverage(false), new DefaultLockingClass(),
+        return new GuiContextEl(NullStruct.NULL_VALUE, new CommonExecutionInfos(new MockInterceptorStdCaller(),new CommonExecutionMetricsInfos(4,-1,_opt),_stds,new Classes(new DefTypePairHash()), new Coverage(false), new DefaultLockingClass(),
                 new GuiInitializer(_stds.getExecContent().getInfos().getThreadFactory().newAtomicLong(), _stds.getExecContent().getCustAliases().getInterceptor())),
                 new StringList(_stds.getExecContent().getExecutingOptions().getArgs()));
     }

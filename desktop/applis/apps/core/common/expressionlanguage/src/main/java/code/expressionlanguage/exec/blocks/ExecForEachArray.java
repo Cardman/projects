@@ -15,8 +15,8 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ExecForEachArray extends ExecAbstractForEachLoop {
-    public ExecForEachArray(String _label, String _importedClassName, String _importedClassIndexName, String _variableName, int _expressionOffset, CustList<ExecOperationNode> _opList) {
-        super(_label, _importedClassName, _importedClassIndexName, _variableName, _expressionOffset, _opList);
+    public ExecForEachArray(String _label, String _importedClassIndexName, ExecVariableName _variableName, int _sep, int _expressionOffset, CustList<ExecOperationNode> _opList) {
+        super(_label, _importedClassIndexName, _variableName, _sep, _expressionOffset, _opList);
     }
 
     @Override
@@ -24,7 +24,7 @@ public final class ExecForEachArray extends ExecAbstractForEachLoop {
         AbstractPageEl ip_ = _stack.getLastPage();
         String className_ = _stack.formatVarType(getImportedClassName());
         Struct struct_ = ExecClassArgumentMatching.defaultValue(className_, _cont);
-        ip_.putValueVar(getVariableName(), LocalVariable.newLocalVariable(struct_,className_));
+        ip_.putValueVar(getVariable().getName(), LocalVariable.newLocalVariable(struct_,className_));
         ExecHelperBlocks.incrOrFinishLoop(this,_cont, hasNext(_cont,_l, _stack),_l, _stack);
     }
 

@@ -18,7 +18,6 @@ import code.expressionlanguage.common.symbol.*;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.coverage.Coverage;
-import code.expressionlanguage.exec.dbg.DebugMapping;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.symbols.*;
 import code.expressionlanguage.exec.util.*;
@@ -40,14 +39,12 @@ public final class ForwardInfos {
         coverage_.putRandCodeOwner(_page.getAliasObject());
         _forwards.setAliasBoolean(_page.getAliasBoolean());
         _forwards.setAliasPrimBoolean(_page.getAliasPrimBoolean());
-        DebugMapping dbg_ = _forwards.dbg();
         CustList<ExecFileBlock> files_ = new CustList<ExecFileBlock>();
         for (EntryCust<String, FileBlock> f: _page.getPreviousFilesBodies().entryList()) {
             FileBlock content_ = f.getValue();
             ExecFileBlock exFile_ = new ExecFileBlock(content_.getMetricsCore(), content_.getFileName(),content_.getFileEscapedCalc());
             coverage_.putFile(content_);
             files_.add(exFile_);
-            dbg_.addFile(content_,exFile_);
         }
         feedExecTypes(_page, _forwards, coverage_, files_);
         innerFetchExecEnd(_forwards);
@@ -1002,15 +999,15 @@ public final class ForwardInfos {
             ExecAbstractForEachLoop exec_;
             if (((ForEachLoop) _en).getRoot().getResultClass().isArray()) {
                 if (((ForEachLoop) _en).isRefVariable()) {
-                    exec_ = new ExecForEachRefArray(((ForEachLoop) _en).getLabel(), ((ForEachLoop) _en).getImportedClassName(),
-                            ((ForEachLoop) _en).getImportedClassIndexName(), ((ForEachLoop) _en).getVariableName(), ((ForEachLoop) _en).getExpressionOffset(),op_);
+                    exec_ = new ExecForEachRefArray(((ForEachLoop) _en).getLabel(),
+                            ((ForEachLoop) _en).getImportedClassIndexName(), new ExecVariableName(((ForEachLoop) _en).getImportedClassName(), ((ForEachLoop) _en).getVariableName(), ((ForEachLoop) _en).getVariableNameOffset()), ((ForEachLoop) _en).getSepOffset(), ((ForEachLoop) _en).getExpressionOffset(),op_);
                 } else {
-                    exec_ = new ExecForEachArray(((ForEachLoop) _en).getLabel(), ((ForEachLoop) _en).getImportedClassName(),
-                            ((ForEachLoop) _en).getImportedClassIndexName(), ((ForEachLoop) _en).getVariableName(), ((ForEachLoop) _en).getExpressionOffset(),op_);
+                    exec_ = new ExecForEachArray(((ForEachLoop) _en).getLabel(),
+                            ((ForEachLoop) _en).getImportedClassIndexName(), new ExecVariableName(((ForEachLoop) _en).getImportedClassName(), ((ForEachLoop) _en).getVariableName(), ((ForEachLoop) _en).getVariableNameOffset()), ((ForEachLoop) _en).getSepOffset(), ((ForEachLoop) _en).getExpressionOffset(),op_);
                 }
             } else {
-                exec_ = new ExecForEachIterable(((ForEachLoop) _en).getLabel(), ((ForEachLoop) _en).getImportedClassName(),
-                        ((ForEachLoop) _en).getImportedClassIndexName(), ((ForEachLoop) _en).getVariableName(), ((ForEachLoop) _en).getExpressionOffset(),op_);
+                exec_ = new ExecForEachIterable(((ForEachLoop) _en).getLabel(),
+                        ((ForEachLoop) _en).getImportedClassIndexName(), new ExecVariableName(((ForEachLoop) _en).getImportedClassName(), ((ForEachLoop) _en).getVariableName(), ((ForEachLoop) _en).getVariableNameOffset()), ((ForEachLoop) _en).getSepOffset(), ((ForEachLoop) _en).getExpressionOffset(),op_);
             }
             _coverage.putBlockOperationsLoops((AbstractForLoop) _en, exec_);
             exec_.setFile(_fileDest);
@@ -1023,10 +1020,10 @@ public final class ForwardInfos {
     private static ExecBlock block2(AbsBk _en, ExecFileBlock _fileDest, Coverage _coverage, Forwards _forwards) {
         if (_en instanceof ForEachTable) {
             CustList<ExecOperationNode> op_ = getExecutableNodes(((ForEachTable) _en).getRoot(), _coverage, _forwards, _en);
-            ExecForEachTable exec_ = new ExecForEachTable(((ForEachTable) _en).getLabel(), ((ForEachTable) _en).getImportedClassNameFirst(),
-                    ((ForEachTable) _en).getImportedClassNameSecond(),
-                    ((ForEachTable) _en).getImportedClassIndexName(), ((ForEachTable) _en).getVariableNameFirst(),
-                    ((ForEachTable) _en).getVariableNameSecond(), new ExecOperationNodeListOff(op_, ((ForEachTable) _en).getExpressionOffset()));
+            ExecForEachTable exec_ = new ExecForEachTable(((ForEachTable) _en).getLabel(), new ExecVariableName(((ForEachTable) _en).getImportedClassNameFirst(),((ForEachTable) _en).getVariableNameFirst(),((ForEachTable) _en).getVariableNameOffsetFirst()),
+                    new ExecVariableName(((ForEachTable) _en).getImportedClassNameSecond(), ((ForEachTable) _en).getVariableNameSecond(), ((ForEachTable) _en).getVariableNameOffsetSecond()), ((ForEachTable) _en).getSepOffset(),
+                    ((ForEachTable) _en).getImportedClassIndexName(),
+                    new ExecOperationNodeListOff(op_, ((ForEachTable) _en).getExpressionOffset()));
             _coverage.putBlockOperationsLoops((AbstractForLoop) _en, exec_);
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);

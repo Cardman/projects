@@ -29,8 +29,6 @@ public abstract class AbstractPageEl {
     private ReadWrite readWrite;
     private ExecBlock execBlock;
     private ExecBlock blockRoot;
-    private boolean visited;
-    private boolean goParent;
 
     private final CustList<AbstractStask> blockStacks = new CustList<AbstractStask>();
 
@@ -137,10 +135,6 @@ public abstract class AbstractPageEl {
         translatedOffset = _translatedOffset;
     }
 
-    public int getGlobalOffset() {
-        return globalOffset;
-    }
-
     public void setGlobalOffset(int _globalOffset) {
         globalOffset = _globalOffset;
     }
@@ -165,7 +159,6 @@ public abstract class AbstractPageEl {
         if (el_ == null) {
             el_ = new ExpressionLanguage(_e, _coveredBlock);
             currentEls.add(el_);
-            setVisited(false);
         }
         return el_;
     }
@@ -262,23 +255,6 @@ public abstract class AbstractPageEl {
 
     public void setBlock(ExecBlock _block) {
         execBlock = _block;
-        setVisited(false);
-    }
-
-    public boolean isVisited() {
-        return visited;
-    }
-
-    public void setVisited(boolean _v) {
-        this.visited = _v;
-    }
-
-    public boolean isGoParent() {
-        return goParent;
-    }
-
-    public void setGoParent(boolean _g) {
-        this.goParent = _g;
     }
 
     public ReadWrite getReadWrite() {
