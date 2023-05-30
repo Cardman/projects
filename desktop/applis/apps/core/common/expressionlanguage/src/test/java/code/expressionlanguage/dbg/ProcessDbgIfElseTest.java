@@ -349,4 +349,51 @@ public final class ProcessDbgIfElseTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
+    @Test
+    public void test15() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  if (t < u) {\n");
+        xml_.append("   u += Math.mod(t,u);\n");
+        xml_.append("  } else {\n");
+        xml_.append("   t += Math.mod(t,u);\n");
+        xml_.append("  }\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",120,cont_);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(119, stack_.getLastPage().getNext());
+    }
+    @Test
+    public void test16() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  if (t < u) {\n");
+        xml_.append("   u += Math.mod(t,u);\n");
+        xml_.append("  } else {\n");
+        xml_.append("   t += Math.mod(t,u);\n");
+        xml_.append("  }\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",120,cont_);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
 }

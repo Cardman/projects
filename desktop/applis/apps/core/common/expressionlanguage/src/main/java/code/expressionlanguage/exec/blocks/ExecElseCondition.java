@@ -14,4 +14,8 @@ public final class ExecElseCondition extends ExecBracedBlock implements WithEl {
         _stack.getLastPage().globalOffset(off);
         ExecHelperBlocks.processElse(_cont,this, _stack);
     }
+
+    public int getOff() {
+        return off;
+    }
 }

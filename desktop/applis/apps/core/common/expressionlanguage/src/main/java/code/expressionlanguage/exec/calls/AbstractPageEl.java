@@ -275,6 +275,8 @@ public abstract class AbstractPageEl {
             next = ((ExecDeclareVariable) _block).getDeclareOffset();
         } else if (_block instanceof ExecLine) {
             next = ((ExecLine) _block).getExp().getOffset();
+        } else if (_block instanceof ExecElseCondition) {
+            next = ((ExecElseCondition) _block).getOff();
         } else if (_block instanceof ExecIfCondition || _block instanceof ExecElseIfCondition) {
             next = ((ExecCondition) _block).getCondition().getOffset();
         } else if (_block instanceof ExecAbstractExpressionReturnMethod) {
