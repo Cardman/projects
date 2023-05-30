@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.AbstractStask;
 import code.expressionlanguage.exec.stacks.ConditionBlockStack;
+import code.expressionlanguage.exec.stacks.EnteredStack;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -274,8 +275,8 @@ public abstract class AbstractPageEl {
             next = ((ExecDeclareVariable) _block).getDeclareOffset();
         } else if (_block instanceof ExecLine) {
             next = ((ExecLine) _block).getExp().getOffset();
-        } else if (_block instanceof ExecIfCondition) {
-            next = ((ExecIfCondition) _block).getCondition().getOffset();
+        } else if (_block instanceof ExecIfCondition || _block instanceof ExecElseIfCondition) {
+            next = ((ExecCondition) _block).getCondition().getOffset();
         } else if (_block instanceof ExecAbstractExpressionReturnMethod) {
             next = ((ExecAbstractExpressionReturnMethod) _block).getExpressionOffset();
         } else {
@@ -360,6 +361,10 @@ public abstract class AbstractPageEl {
         if (bl_ instanceof ExecDeclareVariable || bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod && readWrite != null) {
             return true;
         }
-        return bl_ instanceof ExecIfCondition && !matchStatement(bl_);
+        AbstractStask st_ = tryGetLastStack();
+        if (st_ instanceof EnteredStack) {
+            return !((EnteredStack) st_).isEntered();
+        }
+        return bl_ instanceof ExecIfCondition;
     }
 }
