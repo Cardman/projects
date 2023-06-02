@@ -358,9 +358,9 @@ public abstract class AbstractPageEl {
             return !((EnteredStack) st_).isEntered();
         }
         if (st_ instanceof LoopBlockStack) {
-            return true;
+            return !((LoopBlockStack) st_).getContent().isFinished();
         }
-        return bl_ instanceof ExecIfCondition || bl_ instanceof ExecWhileCondition;
+        return bl_ instanceof ExecIfCondition || bl_ instanceof ExecWhileCondition || bl_ instanceof ExecDoBlock;
     }
 
 }

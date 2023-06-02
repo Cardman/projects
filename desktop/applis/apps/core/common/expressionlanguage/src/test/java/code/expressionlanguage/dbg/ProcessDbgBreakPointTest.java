@@ -259,6 +259,81 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",62,cont_);
         assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),71));
     }
+
+    @Test
+    public void test15() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",71,cont_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointEnabled("pkg/Ex",71,cont_, false);
+        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),70));
+    }
+
+    @Test
+    public void test16() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",71,cont_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointEnabled("pkg/Ex",71,cont_, false);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointEnabled("pkg/Ex",71,cont_, true);
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),70));
+    }
+
+    @Test
+    public void test17() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",71,cont_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointEnabled("pkg/Ex",71,cont_, false);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointEnabled("pkg/Ex",58,cont_, true);
+        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),70));
+    }
+
+    @Test
+    public void test18() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",71,cont_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointEnabled("pkg/Ex",71,cont_, false);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointEnabled("pkg/Ex",-1,cont_, true);
+        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),70));
+    }
     private ExecFileBlock file(ResultContext _cont) {
         return _cont.getContext().getClasses().getDebugMapping().getFiles().getVal(_cont.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex"));
     }

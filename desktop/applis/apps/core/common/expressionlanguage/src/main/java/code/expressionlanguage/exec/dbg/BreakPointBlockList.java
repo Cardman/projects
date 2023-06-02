@@ -56,6 +56,26 @@ public final class BreakPointBlockList {
         v_.setEnabled(true);
         list.add(new BreakPointBlockPair(b_, v_));
     }
+    public void breakPointEnabled(String _file, int _offset, ResultContext _f, boolean _newValue) {
+        breakPointEnabled(_f.getPageEl().getPreviousFilesBodies().getVal(_file),_offset,_f.getForwards().dbg(),_newValue);
+    }
+    public void breakPointEnabled(FileBlock _file, int _offset, DebugMapping _d, boolean _newValue) {
+        int o_ = ResultExpressionOperationNode.beginPart(_offset, _file);
+        if (o_ < 0) {
+            return;
+        }
+        ExecFileBlock f_ = _d.getFiles().getVal(_file);
+        enabled(f_,o_,_newValue);
+    }
+    public void enabled(ExecFileBlock _file, int _offset, boolean _newValue) {
+        int len_ = list.size();
+        for (int i = 0; i < len_; i++) {
+            if (list.get(i).getKey().match(_file, _offset)) {
+                list.get(i).getValue().setEnabled(_newValue);
+                return;
+            }
+        }
+    }
     public boolean is(ExecFileBlock _file, int _offset) {
         BreakPoint b_ = get(_file, _offset);
         return b_ != null && b_.isEnabled();

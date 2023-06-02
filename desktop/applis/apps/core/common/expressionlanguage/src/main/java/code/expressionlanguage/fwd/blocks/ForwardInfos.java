@@ -937,7 +937,7 @@ public final class ForwardInfos {
             return exec_;
         }
         if (_en instanceof DoBlock) {
-            ExecDoBlock exec_ = new ExecDoBlock(((DoBlock) _en).getLabel());
+            ExecDoBlock exec_ = new ExecDoBlock(_en.getOffset(),((DoBlock) _en).getLabel());
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;

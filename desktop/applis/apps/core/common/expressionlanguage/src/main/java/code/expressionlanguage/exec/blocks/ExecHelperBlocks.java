@@ -98,12 +98,9 @@ public final class ExecHelperBlocks {
             ip_.setNullReadWrite();
             return;
         }
-        int size_ = ip_.sizeEl();
-        ip_.getCurrentEl(0, new CustList<ExecOperationNode>(), _block);
-        if (size_ < ip_.sizeEl()) {
+        if (checkBp(ip_,_block)) {
             return;
         }
-        ip_.clearCurrentEls();
         if (((SwitchBlockStack) abstractStask_).isEntered()) {
             ip_.setBlock(_block.getFirstChild());
             ((SwitchBlockStack) abstractStask_).setCurrentVisitedBlock(_block);
@@ -176,12 +173,9 @@ public final class ExecHelperBlocks {
             ip_.setNullReadWrite();
             return;
         }
-        int size_ = ip_.sizeEl();
-        ip_.getCurrentEl(0, new CustList<ExecOperationNode>(), _block);
-        if (size_ < ip_.sizeEl()) {
+        if (checkBp(ip_,_block)) {
             return;
         }
-        ip_.clearCurrentEls();
         ((EnteredStack)ts_).setCurrentVisitedBlock(_block);
         if (((EnteredStack)ts_).isEntered()) {
             processBlockAndRemove(_block, _stackCall);
@@ -338,15 +332,15 @@ public final class ExecHelperBlocks {
         AbstractPageEl ip_ = _stack.getLastPage();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible(_loop);
         if (c_ != null) {
+            if (!c_.getContent().isEvaluatingKeepLoop() && checkBp(ip_, _loop)) {
+                return;
+            }
             processVisitedLoop(c_, _loop, _loop.getNextSibling(), _cont, _stack, ip_);
             return;
         }
-        int size_ = ip_.sizeEl();
-        ip_.getCurrentEl(0, new CustList<ExecOperationNode>(), _loop);
-        if (size_ < ip_.sizeEl()) {
+        if (checkBp(ip_, _loop)) {
             return;
         }
-        ip_.clearCurrentEls();
         LoopBlockStack l_ = new LoopBlockStack(_loop);
         l_.setLabel(_label);
         ip_.addBlock(l_);
@@ -365,12 +359,9 @@ public final class ExecHelperBlocks {
             processBlockAndRemove(l_, _stack);
             return;
         }
-        int size_ = ip_.sizeEl();
-        ip_.getCurrentEl(0, new CustList<ExecOperationNode>(), _block);
-        if (size_ < ip_.sizeEl()) {
+        if (checkBp(ip_, _block)) {
             return;
         }
-        ip_.clearCurrentEls();
         ExecBlock n_ = _block.getNextSibling();
         ExecBracedBlock last_ = null;
         while (isNextTryParts(n_)) {
@@ -514,9 +505,9 @@ public final class ExecHelperBlocks {
 
     public static ArgumentsPair tryToCalculatePair(boolean _skip,ContextEl _context, int _index, StackCall _stackCall, CustList<ExecOperationNode> _list, int _offset, ExecBlock _coveredBlock) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
-        int size_ = ip_.sizeEl();
-        ExpressionLanguage exp_ = ip_.getCurrentEl(_index, _list, _coveredBlock);
-        if (_skip && size_ < ip_.sizeEl()){
+        ExpressionLanguageBp o_ = checkBpWithoutClear(_index, ip_, _list, _coveredBlock);
+        ExpressionLanguage exp_ = o_.getExpressionLanguage();
+        if (_skip && o_.getDiff() == 1){
             return null;
         }
         return ExpressionLanguage.tryToCalculatePair(_context, exp_, _offset, _stackCall);
@@ -1030,12 +1021,9 @@ public final class ExecHelperBlocks {
             processBlockAndRemove(_bl, _stack);
             return;
         }
-        int size_ = ip_.sizeEl();
-        ip_.getCurrentEl(0, new CustList<ExecOperationNode>(), _bl);
-        if (size_ < ip_.sizeEl()) {
+        if (checkBp(ip_,_bl)) {
             return;
         }
-        ip_.clearCurrentEls();
         IfBlockStack if_ = new IfBlockStack(_bl,_bl);
         if_.setLabel("");
         if_.setCurrentVisitedBlock(_bl);
@@ -1043,6 +1031,25 @@ public final class ExecHelperBlocks {
         enterIfBlock(_bl,ip_,if_);
     }
 
+    public static boolean checkBp(AbstractPageEl _ip, ExecBlock _bl) {
+        return checkBp(0, _ip, _bl);
+    }
+    public static boolean checkBp(int _index,AbstractPageEl _ip, ExecBlock _bl) {
+        ExpressionLanguageBp el_ = checkBpWithoutClear(_index, _ip, new CustList<ExecOperationNode>(), _bl);
+        if (el_.getDiff() != 0) {
+            return true;
+        }
+        _ip.clearCurrentEls();
+        return false;
+    }
+    public static ExpressionLanguageBp checkBpWithoutClear(int _index,AbstractPageEl _ip, CustList<ExecOperationNode> _list, ExecBlock _bl) {
+        int size_ = _ip.sizeEl();
+        ExpressionLanguage el_ = _ip.getCurrentEl(_index, _list, _bl);
+        if (size_ < _ip.sizeEl()) {
+            return new ExpressionLanguageBp(el_,1);
+        }
+        return new ExpressionLanguageBp(el_,0);
+    }
     public static void processEmpty(StackCall _stack, ExecEmptyInstruction _bl) {
         processBlock(_stack, _bl);
     }
@@ -1169,12 +1176,10 @@ public final class ExecHelperBlocks {
             if (call_ != null) {
                 ExecBlock callingFinally_ = call_.getCallingFinally();
                 if (callingFinally_ instanceof ExecAbstractExpressionReturnMethod) {
-                    _ip.setBlock(_par);
                     ((ExecAbstractExpressionReturnMethod)callingFinally_).tryReturn(_ip);
                 } else if (callingFinally_ != null){
                     _ip.setBlock(callingFinally_);
                 } else {
-                    _ip.setBlock(_par);
                     Struct exception_ = _lastStack.getException();
                     _stackCall.setCallingState(new CustomFoundExc(exception_));
                 }
