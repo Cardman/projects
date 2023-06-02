@@ -7,6 +7,6 @@ public final class ExecFinallyEval extends ExecBracedBlock implements WithEl {
 
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
-        ExecHelperBlocks.processFinally(_cont,this, _stack);
+        ExecHelperBlocks.processFinally(this, _stack);
     }
 }

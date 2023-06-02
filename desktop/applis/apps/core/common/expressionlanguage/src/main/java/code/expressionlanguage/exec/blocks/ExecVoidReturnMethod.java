@@ -1,12 +1,11 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 
 public final class ExecVoidReturnMethod extends ExecAbstractReturnMethod {
 
     @Override
-    public void removeBlockFinally(ContextEl _conf, StackCall _stack) {
+    public void removeBlockFinally(AbstractPageEl _stack) {
         tryReturn(_stack);
     }
 }

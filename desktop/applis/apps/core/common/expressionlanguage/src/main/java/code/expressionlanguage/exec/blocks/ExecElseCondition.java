@@ -12,7 +12,7 @@ public final class ExecElseCondition extends ExecBracedBlock implements WithEl {
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
         _stack.getLastPage().globalOffset(off);
-        ExecHelperBlocks.processElse(_cont,this, _stack);
+        ExecHelperBlocks.processElse(this, _stack);
     }
 
     public int getOff() {

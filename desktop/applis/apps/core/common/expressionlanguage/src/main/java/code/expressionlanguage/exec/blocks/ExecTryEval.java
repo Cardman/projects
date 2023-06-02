@@ -12,7 +12,7 @@ public final class ExecTryEval extends ExecBracedBlock implements WithEl {
 
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
-        ExecHelperBlocks.processTry(_cont, _stack, label, this);
+        ExecHelperBlocks.processTry(_stack, label, this);
     }
 
 }

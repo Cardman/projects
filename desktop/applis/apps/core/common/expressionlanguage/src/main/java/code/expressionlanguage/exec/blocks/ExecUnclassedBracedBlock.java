@@ -7,7 +7,7 @@ public final class ExecUnclassedBracedBlock extends ExecBracedBlock implements W
 
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
-        ExecHelperBlocks.processUnclassed(_cont, _stack, this);
+        ExecHelperBlocks.processUnclassed(_stack, this);
     }
 
 }

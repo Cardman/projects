@@ -1,8 +1,8 @@
 package code.expressionlanguage.exec.blocks;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
+
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 
 public interface MethodCallingFinally {
 
-    void removeBlockFinally(ContextEl _conf, StackCall _stack);
+    void removeBlockFinally(AbstractPageEl _page);
 }

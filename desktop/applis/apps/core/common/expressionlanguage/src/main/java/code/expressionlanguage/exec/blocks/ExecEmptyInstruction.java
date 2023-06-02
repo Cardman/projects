@@ -7,7 +7,7 @@ public final class ExecEmptyInstruction extends ExecLeaf implements WithEl {
 
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
-        ExecHelperBlocks.processEmpty(_cont, _stack, this);
+        ExecHelperBlocks.processEmpty(_stack, this);
     }
 
 }

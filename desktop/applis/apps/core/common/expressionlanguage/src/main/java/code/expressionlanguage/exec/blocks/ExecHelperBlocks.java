@@ -164,11 +164,11 @@ public final class ExecHelperBlocks {
         }
     }
 
-    public static void processFinally(ContextEl _cont, ExecBracedBlock _block, StackCall _stackCall) {
-        processEnt(_cont, _block, _stackCall);
+    public static void processFinally(ExecBracedBlock _block, StackCall _stackCall) {
+        processEnt(_block, _stackCall);
     }
 
-    public static void processEnt(ContextEl _cont, ExecBracedBlock _block, StackCall _stackCall) {
+    public static void processEnt(ExecBracedBlock _block, StackCall _stackCall) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         AbstractStask ts_ = ip_.tryGetLastStack();
         if (!(ts_ instanceof EnteredStack)) {
@@ -177,7 +177,7 @@ public final class ExecHelperBlocks {
         }
         ((EnteredStack)ts_).setCurrentVisitedBlock(_block);
         if (((EnteredStack)ts_).isEntered()) {
-            processBlockAndRemove(_cont, _block, _stackCall);
+            processBlockAndRemove(_block, _stackCall);
             return;
         }
         enterIfBlock(_block, ip_, (EnteredStack) ts_);
@@ -191,7 +191,7 @@ public final class ExecHelperBlocks {
     public static void processIf(ContextEl _cont, String _label, ExecCondition _cond, StackCall _stackCall, ExecOperationNodeListOff _condition) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         if (ip_.matchStatement(_cond)) {
-            processBlockAndRemove(_cont, _cond, _stackCall);
+            processBlockAndRemove(_cond, _stackCall);
             return;
         }
         ConditionReturn assert_ = evaluateConditionBas(_cont, _stackCall, _cond, _condition);
@@ -240,11 +240,11 @@ public final class ExecHelperBlocks {
             ip_.setBlock(next_);
             return;
         }
-        processBlockAndRemove(_cont, _cond, _stackCall);
+        processBlockAndRemove(_cond, _stackCall);
     }
 
-    public static void processElse(ContextEl _cont, ExecBracedBlock _cond, StackCall _stackCall) {
-        processEnt(_cont, _cond, _stackCall);
+    public static void processElse(ExecBracedBlock _cond, StackCall _stackCall) {
+        processEnt(_cond, _stackCall);
     }
 
     public static void processDoWhile(ContextEl _cont, ExecCondition _cond, StackCall _stackCall, ExecOperationNodeListOff _condition) {
@@ -267,14 +267,14 @@ public final class ExecHelperBlocks {
         ip_.setBlock(_cond.getPreviousSibling());
     }
 
-    public static void processBlockAndRemove(ContextEl _context, ExecBlock _bl, StackCall _stackCall) {
+    public static void processBlockAndRemove(ExecBlock _bl, StackCall _stackCall) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         if (ip_.noBlock()) {
             ip_.setNullReadWrite();
             return;
         }
         ip_.removeLastBlock();
-        processBlock(_context, _stackCall, _bl);
+        processBlock(_stackCall, _bl);
     }
 
     public static boolean isNextIfParts(ExecBlock _n) {
@@ -289,10 +289,10 @@ public final class ExecHelperBlocks {
             return;
         }
         ConditionReturn res_ = evaluateConditionBas(_cont, _stack, _execLoop, _condition);
-        afterCond(_cont, _stack, _label, _execLoop, res_);
+        afterCond(_stack, _label, _execLoop, res_);
     }
 
-    private static void afterCond(ContextEl _cont, StackCall _stack, String _label, ExecBracedBlock _execLoop, ConditionReturn _res) {
+    private static void afterCond(StackCall _stack, String _label, ExecBracedBlock _execLoop, ConditionReturn _res) {
         if (_res == ConditionReturn.CALL_EX) {
             return;
         }
@@ -302,7 +302,7 @@ public final class ExecHelperBlocks {
         boolean finished_ = _res == ConditionReturn.NO;
         l_.getContent().setFinished(finished_);
         ip_.addBlock(l_);
-        visitOrFinish(l_,_execLoop, _cont, _stack, ip_);
+        visitOrFinish(l_,_execLoop, _stack, ip_);
     }
 
     public static void processLastElementLoopWhile(ContextEl _conf, LoopBlockStack _l, StackCall _stack, ExecWhileCondition _loop, ExecOperationNodeListOff _condition) {
@@ -340,7 +340,7 @@ public final class ExecHelperBlocks {
         goToFirstBlock(l_.getContent(), _loop,ip_);
     }
 
-    public static void processTry(ContextEl _cont, StackCall _stack, String _label, ExecTryEval _block) {
+    public static void processTry(StackCall _stack, String _label, ExecTryEval _block) {
         AbstractPageEl ip_ = _stack.getLastPage();
         AbstractStask i_ = ip_.tryGetLastStack();
         if (i_ instanceof TryBlockStack && ((TryBlockStack)i_).getBlock() == _block) {
@@ -349,7 +349,7 @@ public final class ExecHelperBlocks {
                 ip_.setBlock(l_);
                 return;
             }
-            processBlockAndRemove(_cont, l_, _stack);
+            processBlockAndRemove(l_, _stack);
             return;
         }
         ExecBlock n_ = _block.getNextSibling();
@@ -379,7 +379,7 @@ public final class ExecHelperBlocks {
                 ip_.setBlock(next_);
                 return;
             }
-            processBlockAndRemove(_cont, _cond, _stackCall);
+            processBlockAndRemove(_cond, _stackCall);
             return;
         }
         ConditionReturn assert_ = condition(_cont, _cond, _stackCall, (TryBlockStack) if_, _condition);
@@ -439,7 +439,7 @@ public final class ExecHelperBlocks {
     public static void processSwitch(ContextEl _cont, StackCall _stack, String _label, ExecOperationNodeListOff _value, ExecAbstractSwitchBlock _bl) {
         AbstractPageEl ip_ = _stack.getLastPage();
         if (ip_.matchStatement(_bl)) {
-            processBlockAndRemove(_cont, _bl, _stack);
+            processBlockAndRemove(_bl, _stack);
             return;
         }
         ip_.globalOffset(_value.getOffset());
@@ -495,7 +495,7 @@ public final class ExecHelperBlocks {
             index_++;
         }
         ConditionReturn res_ = evaluateCondition(_cont, index_, _stack, _exp, _bl);
-        afterCond(_cont, _stack, _label, _bl, res_);
+        afterCond(_stack, _label, _bl, res_);
     }
 
     private static ConditionReturn evaluateCondition(ContextEl _context, int _index, StackCall _stackCall, ExecOperationNodeListOff _list, ExecForMutableIterativeLoop _block) {
@@ -911,7 +911,7 @@ public final class ExecHelperBlocks {
             return;
         }
         _cont.getCoverage().passLoop(_block, new Argument(BooleanStruct.of(!l_.getContent().isFinished())), _stack);
-        visitOrFinish(l_,_block,_cont,_stack,ip_);
+        visitOrFinish(l_,_block, _stack,ip_);
     }
 
     private static LoopBlockStack processLoopIter(ContextEl _conf, StackCall _stackCall, String _label, ExecOperationNodeListOff _init, ExecOperationNodeListOff _exp, ExecOperationNodeListOff _step, ExecForIterativeLoop _block) {
@@ -1018,21 +1018,21 @@ public final class ExecHelperBlocks {
             processLastElementLoop(_context,_stackCall,_bl,_l);
             return;
         }
-        visitOrFinish(_l, _next, _context, _stackCall, _current);
+        visitOrFinish(_l, _next, _stackCall, _current);
     }
 
-    private static void visitOrFinish(LoopBlockStack _l, ExecBlock _next, ContextEl _context, StackCall _stackCall, AbstractPageEl _current) {
+    private static void visitOrFinish(LoopBlockStack _l, ExecBlock _next, StackCall _stackCall, AbstractPageEl _current) {
         if (_l.getContent().isFinished()) {
-            processBlockAndRemove(_context, _next, _stackCall);
+            processBlockAndRemove(_next, _stackCall);
             return;
         }
         _current.setBlock(_l.getExecBlock().getFirstChild());
     }
 
-    public static void processUnclassed(ContextEl _cont, StackCall _stack, ExecUnclassedBracedBlock _bl) {
+    public static void processUnclassed(StackCall _stack, ExecUnclassedBracedBlock _bl) {
         AbstractPageEl ip_ = _stack.getLastPage();
         if (ip_.matchStatement(_bl)) {
-            processBlockAndRemove(_cont, _bl, _stack);
+            processBlockAndRemove(_bl, _stack);
             return;
         }
         IfBlockStack if_ = new IfBlockStack(_bl,_bl);
@@ -1042,8 +1042,8 @@ public final class ExecHelperBlocks {
         enterIfBlock(_bl,ip_,if_);
     }
 
-    public static void processEmpty(ContextEl _cont, StackCall _stack, ExecEmptyInstruction _bl) {
-        processBlock(_cont, _stack, _bl);
+    public static void processEmpty(StackCall _stack, ExecEmptyInstruction _bl) {
+        processBlock(_stack, _bl);
     }
 
     public static void processLine(ContextEl _cont, StackCall _stack, ExecOperationNodeListOff _exp, ExecLine _block) {
@@ -1071,7 +1071,7 @@ public final class ExecHelperBlocks {
 //            //fields of the current class are initialized if there is no other interface constructors to call
         }
         ip_.clearCurrentEls();
-        processBlock(_cont, _stack, _block);
+        processBlock(_stack, _block);
     }
 
     public static void processDeclare(ContextEl _cont, StackCall _stack, String _importedClassName, ExecDeclareVariable _block) {
@@ -1083,7 +1083,7 @@ public final class ExecHelperBlocks {
             LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,formatted_);
             ip_.putValueVar(v, lv_);
         }
-        processBlock(_cont, _stack, _block);
+        processBlock(_stack, _block);
     }
 
     public static void processMemberBlock(AbstractInitPageEl _lastPage) {
@@ -1103,7 +1103,7 @@ public final class ExecHelperBlocks {
         _lastPage.setNullReadWrite();
     }
 
-    private static void processBlock(ContextEl _conf, StackCall _stackCall, ExecBlock _execBlock) {
+    private static void processBlock(StackCall _stackCall, ExecBlock _execBlock) {
         ExecBlock n_ = _execBlock.getNextSibling();
         AbstractPageEl ip_ = _stackCall.getLastPage();
         if (n_ != null) {
@@ -1122,7 +1122,7 @@ public final class ExecHelperBlocks {
                 nextIfStack(ip_, par_, (IfBlockStack) lastStack_);
             }
             if (lastStack_ instanceof TryBlockStack) {
-                nextTryStack(_conf, _stackCall, ip_, par_, (TryBlockStack) lastStack_);
+                nextTryStack(_stackCall, ip_, par_, (TryBlockStack) lastStack_);
             }
             if (lastStack_ instanceof SwitchBlockStack) {
                 nextSwitchBlock(ip_, par_, (SwitchBlockStack) lastStack_);
@@ -1152,7 +1152,7 @@ public final class ExecHelperBlocks {
         }
     }
 
-    private static void nextTryStack(ContextEl _conf, StackCall _stackCall, AbstractPageEl _ip, ExecBracedBlock _par, TryBlockStack _lastStack) {
+    private static void nextTryStack(StackCall _stackCall, AbstractPageEl _ip, ExecBracedBlock _par, TryBlockStack _lastStack) {
         if (_par instanceof ExecTryEval) {
             _par.removeAllVars(_ip);
 //            _ip.setBlock(_par.getNextSibling());
@@ -1167,7 +1167,7 @@ public final class ExecHelperBlocks {
                 MethodCallingFinally callingFinally_ = call_.getCallingFinally();
                 if (callingFinally_ instanceof ExecBlock) {
                     if (callingFinally_ instanceof ExecAbstractExpressionReturnMethod) {
-                        callingFinally_.removeBlockFinally(_conf, _stackCall);
+                        callingFinally_.removeBlockFinally(_ip);
                     } else {
                         _ip.setBlock((ExecBlock)callingFinally_);
                     }

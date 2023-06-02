@@ -225,7 +225,7 @@ public abstract class AbstractPageEl {
             return;
         }
         if (en_ instanceof MethodCallingFinally) {
-            ((MethodCallingFinally)en_).removeBlockFinally(_context,_stack);
+            ((MethodCallingFinally)en_).removeBlockFinally(_stack.getLastPage());
             return;
         }
         if (en_ instanceof WithEl) {

@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 
@@ -12,7 +11,7 @@ public abstract class ExecAbstractExpressionReturnMethod extends ExecAbstractRet
     }
 
     @Override
-    public void removeBlockFinally(ContextEl _conf, StackCall _stack) {
+    public void removeBlockFinally(AbstractPageEl _stack) {
         tryReturn(_stack);
     }
 
