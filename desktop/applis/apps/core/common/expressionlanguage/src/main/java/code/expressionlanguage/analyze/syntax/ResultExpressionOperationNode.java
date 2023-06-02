@@ -54,9 +54,6 @@ public final class ResultExpressionOperationNode {
             return ((ForIterativeLoop)c_.block).getVariableNameOffset();
         }
         if (c_.block instanceof ForEachLoop) {
-//            if (((ForEachLoop) c_.block).getRoot().getResultClass().isArray()) {
-//                return -1;
-//            }
             int s_ = ((ForEachLoop)c_.block).getSepOffset();
             int v_ = ((ForEachLoop)c_.block).getVariableNameOffset();
             int n_ = ((ForEachLoop)c_.block).getVariableName().length();

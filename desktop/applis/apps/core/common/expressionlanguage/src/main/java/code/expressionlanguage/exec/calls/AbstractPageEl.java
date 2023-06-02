@@ -18,6 +18,7 @@ import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
+import code.util.Ints;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -338,10 +339,36 @@ public abstract class AbstractPageEl {
     public boolean stopBreakPoint(ContextEl _context) {
         if (checkBreakPoint()&&!isVisited()) {
             setVisited(true);
-            return _context.getClasses().getDebugMapping().getBreakPointsBlock().is(getFile(), getGlobalOffset());
+            int n_ = next();
+            for (int i: list(n_)) {
+                if (i > -1 && _context.getClasses().getDebugMapping().getBreakPointsBlock().is(getFile(), i)) {
+                    setGlobalOffset(i);
+                    return true;
+                }
+            }
+            return false;
         }
         return false;
     }
+
+    private Ints list(int _l) {
+        ExecBlock bl_ = getBlock();
+        AbstractStask st_ = tryGetLastStack();
+        if (st_ instanceof LoopBlockStack && bl_ instanceof ExecAbstractForEachLoop && !(bl_ instanceof ExecForEachIterable) && !((LoopBlockStack) st_).getContent().hasNext()) {
+            return Ints.newList(_l);
+        }
+        return Ints.newList(getGlobalOffset(), _l);
+    }
+
+    public int next() {
+        ExecBlock bl_ = getBlock();
+        AbstractStask st_ = tryGetLastStack();
+        if (st_ instanceof LoopBlockStack && bl_ instanceof ExecAbstractForEachLoop && !(bl_ instanceof ExecForEachIterable) && ((ExecAbstractForEachLoop) bl_).getVariable().getOffset() == getGlobalOffset()) {
+            return ((ExecAbstractForEachLoop) bl_).getSeparator();
+        }
+        return -1;
+    }
+
     public boolean checkBreakPoint() {
         if (readWrite == null) {
             return false;

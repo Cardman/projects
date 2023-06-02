@@ -642,13 +642,13 @@ public final class ExecHelperBlocks {
     private static void processLastElementLoopLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stack, ExecAbstractForEachLoop _loop) {
         _l.getContent().setEvaluatingKeepLoop(true);
         ConditionReturn hasNext_ = _loop.hasNext(_conf,_l, _stack);
-        if (hasNext_ == ConditionReturn.CALL_EX) {
-            return;
-        }
         incrOrFinishLoop(_loop,_conf, hasNext_,_l, _stack);
     }
 
     static void incrOrFinishLoop(ExecAbstractForEachLoop _loop,ContextEl _cont, ConditionReturn _hasNext, LoopBlockStack _l, StackCall _stackCall) {
+        if (_hasNext == ConditionReturn.CALL_EX) {
+            return;
+        }
         AbstractPageEl ip_ = _stackCall.getLastPage();
         if (_hasNext == ConditionReturn.NO) {
             ip_.clearCurrentEls();
@@ -666,7 +666,6 @@ public final class ExecHelperBlocks {
     }
 
     static void incrementLoopLoop(ExecAbstractForEachLoop _bk, ContextEl _conf, LoopBlockStack _l, StackCall _stackCall) {
-        _l.getContent().setIndex(_l.getContent().getIndex() + 1);
         AbstractPageEl abs_ = _stackCall.getLastPage();
 
         abs_.globalOffset(_bk.getVariable().getOffset());
