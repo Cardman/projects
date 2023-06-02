@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 
@@ -8,11 +7,6 @@ public abstract class ExecAbstractExpressionReturnMethod extends ExecAbstractRet
     private final ExecOperationNodeListOff exp;
     protected ExecAbstractExpressionReturnMethod(int _expressionOffset, CustList<ExecOperationNode> _opRet) {
         exp = new ExecOperationNodeListOff(_opRet,_expressionOffset);
-    }
-
-    @Override
-    public void removeBlockFinally(AbstractPageEl _stack) {
-        tryReturn(_stack);
     }
 
     public CustList<ExecOperationNode> getExp() {

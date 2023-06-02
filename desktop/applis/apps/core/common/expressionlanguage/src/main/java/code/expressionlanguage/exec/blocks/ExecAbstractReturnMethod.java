@@ -3,9 +3,9 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.stacks.AbstractStask;
 
-public abstract class ExecAbstractReturnMethod extends ExecLeaf implements MethodCallingFinally {
+public abstract class ExecAbstractReturnMethod extends ExecLeaf {
 
-    protected void tryReturn(AbstractPageEl _stack) {
+    public void tryReturn(AbstractPageEl _stack) {
         while (true) {
             AbstractStask bl_ = _stack.tryGetLastStack();
             if (bl_ == null) {

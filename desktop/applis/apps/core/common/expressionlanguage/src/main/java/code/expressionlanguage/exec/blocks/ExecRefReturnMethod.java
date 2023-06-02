@@ -24,8 +24,10 @@ public final class ExecRefReturnMethod extends ExecAbstractExpressionReturnMetho
             return;
         }
         ip_.clearCurrentEls();
-        ip_.setWrapper(argumentsPair_.getWrapper());
-        ip_.setReturnedArgument(argumentsPair_.getArgument());
+        if (!getExp().isEmpty()) {
+            ip_.setWrapper(argumentsPair_.getWrapper());
+            ip_.setReturnedArgument(argumentsPair_.getArgument());
+        }
         tryReturn(ip_);
     }
 

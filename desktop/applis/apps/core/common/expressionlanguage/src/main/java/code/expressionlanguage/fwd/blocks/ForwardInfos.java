@@ -1188,7 +1188,7 @@ public final class ForwardInfos {
     private static ExecBlock buildRet(Coverage _coverage, Forwards _forwards, AbsBk _en, OperationNode _r) {
         ExecBlock exec_;
         if (_r == null) {
-            exec_ = new ExecVoidReturnMethod();
+            exec_ = new ExecRefReturnMethod(((ReturnMethod) _en).getExpressionOffset(), new CustList<ExecOperationNode>());
         } else {
             CustList<ExecOperationNode> op_ = getExecutableNodes(_r, _coverage, _forwards, _en);
             if (_r instanceof WrappOperation){

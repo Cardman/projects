@@ -1,16 +1,16 @@
 package code.expressionlanguage.exec.stacks;
 
 
-import code.expressionlanguage.exec.blocks.MethodCallingFinally;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 
 public final class AbruptCallingFinally {
-    private final MethodCallingFinally callingFinally;
+    private final ExecBlock callingFinally;
 
-    public AbruptCallingFinally(MethodCallingFinally _callingFinally) {
+    public AbruptCallingFinally(ExecBlock _callingFinally) {
         callingFinally = _callingFinally;
     }
 
-    public MethodCallingFinally getCallingFinally() {
+    public ExecBlock getCallingFinally() {
         return callingFinally;
     }
 }
