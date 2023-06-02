@@ -1035,7 +1035,6 @@ public final class ExecHelperBlocks {
 
     public static void processDeclare(ContextEl _cont, StackCall _stack, String _importedClassName, ExecDeclareVariable _block) {
         AbstractPageEl ip_ = _stack.getLastPage();
-        ip_.globalOffset(_block.getDeclareOffset());
         String formatted_ = _stack.formatVarType(_importedClassName);
         Struct struct_ = ExecClassArgumentMatching.defaultValue(formatted_, _cont);
         for (String v: _block.getVariableNames()) {

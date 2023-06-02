@@ -271,9 +271,7 @@ public abstract class AbstractPageEl {
     }
 
     private void seNext(ExecBlock _block) {
-        if (_block instanceof ExecDeclareVariable) {
-            next = ((ExecDeclareVariable) _block).getDeclareOffset();
-        } else if (_block instanceof ExecLine) {
+        if (_block instanceof ExecLine) {
             next = ((ExecLine) _block).getExp().getOffset();
         } else if (_block instanceof ExecElseCondition) {
             next = ((ExecElseCondition) _block).getOff();
@@ -370,7 +368,10 @@ public abstract class AbstractPageEl {
             return false;
         }
         ExecBlock bl_ = getBlock();
-        if (bl_ instanceof ExecDeclareVariable || bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod || bl_ instanceof ExecDoWhileCondition) {
+        if (bl_ instanceof ExecDeclareVariable) {
+            return false;
+        }
+        if (bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod || bl_ instanceof ExecDoWhileCondition) {
             return true;
         }
         AbstractStask st_ = tryGetLastStack();

@@ -949,7 +949,7 @@ public final class ForwardInfos {
             return exec_;
         }
         if (_en instanceof DeclareVariable) {
-            ExecDeclareVariable exec_ = new ExecDeclareVariable(((DeclareVariable)_en).getClassNameOffset(),((DeclareVariable) _en).getImportedClassName(),((DeclareVariable) _en).getVariableNames());
+            ExecDeclareVariable exec_ = new ExecDeclareVariable(((DeclareVariable) _en).getImportedClassName(),((DeclareVariable) _en).getVariableNames());
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;
