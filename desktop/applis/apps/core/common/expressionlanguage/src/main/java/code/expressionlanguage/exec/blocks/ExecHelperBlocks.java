@@ -436,13 +436,11 @@ public final class ExecHelperBlocks {
         _l.getContent().setEvaluatingKeepLoop(true);
         int index_ = 0;
         ip_.globalOffset(_step.getOffset());
-        if (!_step.getList().isEmpty()) {
-            tryToCalculate(_conf,IndexConstants.FIRST_INDEX,_stack,_step.getList(),0, _block);
-            if (_conf.callsOrException(_stack)) {
-                return;
-            }
-            index_++;
+        tryToCalculate(_conf,IndexConstants.FIRST_INDEX,_stack,_step.getList(),0, _block);
+        if (_conf.callsOrException(_stack)) {
+            return;
         }
+        index_++;
         if (ip_.sizeEl() <= index_) {
             for (String v : _variableNames) {
                 ExecVariableTemplates.incrIndexLoop(_conf,v, -1, ip_.getCache(), ip_.getVars(), _stack);
@@ -471,10 +469,8 @@ public final class ExecHelperBlocks {
                 ip_.putValueVar(v, LocalVariable.newLocalVariable(struct_,formatted_));
             }
         }
-        if (!_init.getList().isEmpty()) {
-            tryToCalculate(_cont,IndexConstants.FIRST_INDEX,_stack,_init.getList(),0, _bl);
-            index_++;
-        }
+        tryToCalculate(_cont,IndexConstants.FIRST_INDEX,_stack,_init.getList(),0, _bl);
+        index_++;
         ConditionReturn res_ = evaluateCondition(_cont, index_, _stack, _exp, _bl);
         afterCond(_stack, _label, _bl, res_);
     }
@@ -482,11 +478,6 @@ public final class ExecHelperBlocks {
     private static ConditionReturn evaluateCondition(ContextEl _context, int _index, StackCall _stackCall, ExecOperationNodeListOff _list, ExecForMutableIterativeLoop _block) {
         if (_context.callsOrException(_stackCall)) {
             return ConditionReturn.CALL_EX;
-        }
-        AbstractPageEl last_ = _stackCall.getLastPage();
-        if (_list.getList().isEmpty()) {
-            last_.clearCurrentEls();
-            return ConditionReturn.YES;
         }
         return evaluateConditionBas(_context,_index,_stackCall,_block,_list);
     }
@@ -513,7 +504,9 @@ public final class ExecHelperBlocks {
             return ConditionReturn.CALL_EX;
         }
         last_.clearCurrentEls();
-        _context.getCoverage().passConditions(_execCondition, arg_, _condition.getList().last(), _stackCall);
+        if (!_condition.getList().isEmpty()) {
+            _context.getCoverage().passConditions(_execCondition, arg_, _condition.getList().last(), _stackCall);
+        }
         if (BooleanStruct.isTrue(arg_.getStruct())) {
             return ConditionReturn.YES;
         }
@@ -530,9 +523,6 @@ public final class ExecHelperBlocks {
         int offset_ = exp_.getOffset();
         AbstractPageEl lastPage_ = _stack.getLastPage();
         lastPage_.globalOffset(offset_);
-        if (list_.isEmpty()) {
-            return new ExecResultCase(ConditionReturn.YES, _br, index_);
-        }
         Argument visit_ = ExecHelperBlocks.tryToCalculate(_cont, 0, _stack, list_, 0, _br);
         if (_cont.callsOrException(_stack)) {
             String v_ = _in.getContent().getVariableName();

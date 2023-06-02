@@ -26,6 +26,10 @@ public final class ExpressionLanguage {
     public ExpressionLanguage(CustList<ExecOperationNode> _operations, ExecBlock _coveredBlock) {
         coveredBlock = _coveredBlock;
         arguments = buildArguments(_operations);
+        if (_operations.isEmpty()) {
+            argument = new ArgumentsPair();
+            argument.setArgument(new Argument(BooleanStruct.of(true)));
+        }
     }
 
     public static ArgumentsPair tryToCalculatePair(ContextEl _conf, ExpressionLanguage _right, int _offset, StackCall _stackCall) {
