@@ -491,4 +491,164 @@ public final class ProcessDbgDoWhileTest extends ProcessDbgCommon {
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext()), cont_.getContext());
         assertEq(0, next_.nbPages());
     }
+    @Test
+    public void test16() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  pkg.CustList<int> inst=new pkg.CustList<int>();\n");
+        xml_.append("  int res = 0;\n");
+        xml_.append("  inst.add(3i);\n");
+        xml_.append("  inst.add(1i);\n");
+        xml_.append("  inst.add(2i);\n");
+        xml_.append("  var v = inst.iterator();\n");
+        xml_.append("  int p = res;\n");
+        xml_.append("  do {\n");
+        xml_.append("   p = res;continue;\n");
+        xml_.append("  } while (v.hasNext() && p < (res += v.next()));\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",196,cont_);
+        MethodId id_ = getMethodId("m");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(196, now(stack_));
+        FieldableStruct s_ = (FieldableStruct) stack_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(stack_, cont_.getContext());
+        Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
+        assertEq(0, NumParsers.convertToNumber(v_).intStruct());
+    }
+    @Test
+    public void test17() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  pkg.CustList<int> inst=new pkg.CustList<int>();\n");
+        xml_.append("  int res = 0;\n");
+        xml_.append("  inst.add(3i);\n");
+        xml_.append("  inst.add(1i);\n");
+        xml_.append("  inst.add(2i);\n");
+        xml_.append("  var v = inst.iterator();\n");
+        xml_.append("  int p = res;\n");
+        xml_.append("  do {\n");
+        xml_.append("   p = res;continue;\n");
+        xml_.append("  } while (v.hasNext() && p < (res += v.next()));\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",196,cont_);
+        MethodId id_ = getMethodId("m");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
+        assertEq(1, next_.nbPages());
+        assertEq(196, now(next_));
+        FieldableStruct s_ = (FieldableStruct) next_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(next_, cont_.getContext());
+        Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
+        assertEq(1, NumParsers.convertToNumber(v_).intStruct());
+    }
+    @Test
+    public void test18() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  pkg.CustList<int> inst=new pkg.CustList<int>();\n");
+        xml_.append("  int res = 0;\n");
+        xml_.append("  inst.add(3i);\n");
+        xml_.append("  inst.add(1i);\n");
+        xml_.append("  inst.add(2i);\n");
+        xml_.append("  var v = inst.iterator();\n");
+        xml_.append("  int p = res;\n");
+        xml_.append("  do {\n");
+        xml_.append("   p = res;continue;\n");
+        xml_.append("  } while (v.hasNext() && p < (res += v.next()));\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",196,cont_);
+        MethodId id_ = getMethodId("m");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        StackCall next_ = dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext());
+        assertEq(1, next_.nbPages());
+        assertEq(196, now(next_));
+        FieldableStruct s_ = (FieldableStruct) next_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(next_, cont_.getContext());
+        Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
+        assertEq(2, NumParsers.convertToNumber(v_).intStruct());
+    }
+    @Test
+    public void test19() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  pkg.CustList<int> inst=new pkg.CustList<int>();\n");
+        xml_.append("  int res = 0;\n");
+        xml_.append("  inst.add(3i);\n");
+        xml_.append("  inst.add(1i);\n");
+        xml_.append("  inst.add(2i);\n");
+        xml_.append("  var v = inst.iterator();\n");
+        xml_.append("  int p = res;\n");
+        xml_.append("  do {\n");
+        xml_.append("   p = res;continue;\n");
+        xml_.append("  } while (v.hasNext() && p < (res += v.next()));\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",196,cont_);
+        MethodId id_ = getMethodId("m");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext());
+        assertEq(1, next_.nbPages());
+        assertEq(196, now(next_));
+        FieldableStruct s_ = (FieldableStruct) next_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(next_, cont_.getContext());
+        Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
+        assertEq(3, NumParsers.convertToNumber(v_).intStruct());
+    }
+    @Test
+    public void test20() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  pkg.CustList<int> inst=new pkg.CustList<int>();\n");
+        xml_.append("  int res = 0;\n");
+        xml_.append("  inst.add(3i);\n");
+        xml_.append("  inst.add(1i);\n");
+        xml_.append("  inst.add(2i);\n");
+        xml_.append("  var v = inst.iterator();\n");
+        xml_.append("  int p = res;\n");
+        xml_.append("  do {\n");
+        xml_.append("   p = res;continue;\n");
+        xml_.append("  } while (v.hasNext() && p < (res += v.next()));\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",196,cont_);
+        MethodId id_ = getMethodId("m");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext()), cont_.getContext());
+        assertEq(0, next_.nbPages());
+    }
 }
