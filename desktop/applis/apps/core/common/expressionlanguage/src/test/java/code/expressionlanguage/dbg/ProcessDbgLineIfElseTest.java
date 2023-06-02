@@ -29,7 +29,7 @@ public final class ProcessDbgLineIfElseTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(95, stack_.getLastPage().getNext());
+        assertEq(95, now(stack_));
     }
     @Test
     public void test4() {
@@ -99,7 +99,7 @@ public final class ProcessDbgLineIfElseTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(129, stack_.getLastPage().getNext());
+        assertEq(129, now(stack_));
     }
     @Test
     public void test7() {

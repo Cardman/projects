@@ -23,6 +23,9 @@ import code.util.StringMap;
 public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     protected static final String CUST_ITER_PATH = "pkg/CustIter";
     protected static final String CUST_LIST_PATH = "pkg/CustList";
+    protected int now(StackCall _stack) {
+        return _stack.getLastPage().getGlobalOffset();
+    }
     protected static StackCall dbgNormal(String _class, MethodId _method, ResultContext _cont) {
         ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
         ExecRootBlock classBody_ = _cont.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));

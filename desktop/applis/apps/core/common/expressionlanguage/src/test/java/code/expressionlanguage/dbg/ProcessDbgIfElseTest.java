@@ -29,7 +29,7 @@ public final class ProcessDbgIfElseTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(83, stack_.getLastPage().getNext());
+        assertEq(83, now(stack_));
     }
 
     @Test
@@ -77,7 +77,7 @@ public final class ProcessDbgIfElseTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(83, stack_.getLastPage().getNext());
+        assertEq(83, now(stack_));
     }
     @Test
     public void test4() {
@@ -126,7 +126,7 @@ public final class ProcessDbgIfElseTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(128, stack_.getLastPage().getNext());
+        assertEq(128, now(stack_));
     }
     @Test
     public void test6() {
@@ -177,7 +177,7 @@ public final class ProcessDbgIfElseTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(128, stack_.getLastPage().getNext());
+        assertEq(128, now(stack_));
     }
     @Test
     public void test8() {
@@ -226,7 +226,7 @@ public final class ProcessDbgIfElseTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(128, stack_.getLastPage().getNext());
+        assertEq(128, now(stack_));
     }
     @Test
     public void test10() {
@@ -274,7 +274,7 @@ public final class ProcessDbgIfElseTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(128, stack_.getLastPage().getNext());
+        assertEq(128, now(stack_));
     }
     @Test
     public void test12() {
@@ -323,7 +323,7 @@ public final class ProcessDbgIfElseTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(128, stack_.getLastPage().getNext());
+        assertEq(128, now(stack_));
     }
     @Test
     public void test14() {
@@ -371,7 +371,7 @@ public final class ProcessDbgIfElseTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(119, stack_.getLastPage().getNext());
+        assertEq(119, now(stack_));
     }
     @Test
     public void test16() {

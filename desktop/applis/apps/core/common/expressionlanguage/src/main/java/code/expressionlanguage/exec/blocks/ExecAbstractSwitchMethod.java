@@ -93,9 +93,7 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
     public ExecBlock cover(SwitchBlockStack _if, StackCall _stack) {
         AbstractPageEl page_ = _stack.getLastPage();
         page_.clearCurrentEls();
-        ExecAbstractSwitchBlock.visit(_if,page_, this);
-        ExecListLastBkSw infos_ = _if.getInfos();
-        return infos_.visit();
+        return ExecAbstractSwitchBlock.visit(_if,page_, this);
     }
 
     public CacheInfo getCacheInfo() {

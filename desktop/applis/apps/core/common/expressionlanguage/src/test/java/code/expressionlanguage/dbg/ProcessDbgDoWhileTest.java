@@ -38,7 +38,7 @@ public final class ProcessDbgDoWhileTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(224, stack_.getLastPage().getNext());
+        assertEq(224, now(stack_));
         FieldableStruct s_ = (FieldableStruct) stack_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(stack_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
         assertEq(0, NumParsers.convertToNumber(v_).intStruct());
@@ -71,7 +71,7 @@ public final class ProcessDbgDoWhileTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(224, next_.getLastPage().getNext());
+        assertEq(224, now(next_));
         FieldableStruct s_ = (FieldableStruct) next_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(next_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
         assertEq(1, NumParsers.convertToNumber(v_).intStruct());
@@ -104,7 +104,7 @@ public final class ProcessDbgDoWhileTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(224, next_.getLastPage().getNext());
+        assertEq(224, now(next_));
         FieldableStruct s_ = (FieldableStruct) next_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(next_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
         assertEq(2, NumParsers.convertToNumber(v_).intStruct());
@@ -137,7 +137,7 @@ public final class ProcessDbgDoWhileTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(224, next_.getLastPage().getNext());
+        assertEq(224, now(next_));
         FieldableStruct s_ = (FieldableStruct) next_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(next_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
         assertEq(3, NumParsers.convertToNumber(v_).intStruct());
@@ -198,7 +198,7 @@ public final class ProcessDbgDoWhileTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(233, stack_.getLastPage().getNext());
+        assertEq(233, now(stack_));
         FieldableStruct s_ = (FieldableStruct) stack_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(stack_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
         assertEq(0, NumParsers.convertToNumber(v_).intStruct());
@@ -231,7 +231,7 @@ public final class ProcessDbgDoWhileTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(233, next_.getLastPage().getNext());
+        assertEq(233, now(next_));
         FieldableStruct s_ = (FieldableStruct) next_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(next_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
         assertEq(1, NumParsers.convertToNumber(v_).intStruct());
@@ -264,7 +264,7 @@ public final class ProcessDbgDoWhileTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(233, next_.getLastPage().getNext());
+        assertEq(233, now(next_));
         FieldableStruct s_ = (FieldableStruct) next_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(next_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
         assertEq(2, NumParsers.convertToNumber(v_).intStruct());
@@ -297,7 +297,7 @@ public final class ProcessDbgDoWhileTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(233, next_.getLastPage().getNext());
+        assertEq(233, now(next_));
         FieldableStruct s_ = (FieldableStruct) next_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(next_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
         assertEq(3, NumParsers.convertToNumber(v_).intStruct());

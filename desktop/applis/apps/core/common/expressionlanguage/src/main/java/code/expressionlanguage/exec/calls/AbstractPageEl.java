@@ -30,7 +30,6 @@ public abstract class AbstractPageEl {
     private ReadWrite readWrite;
     private ExecBlock execBlock;
     private ExecBlock blockRoot;
-    private int next = -1;
     private boolean visited;
 
     private final CustList<AbstractStask> blockStacks = new CustList<AbstractStask>();
@@ -160,10 +159,6 @@ public abstract class AbstractPageEl {
 
     public abstract void processTagsBase(ContextEl _context, StackCall _stack);
 
-    public int getNext() {
-        return next;
-    }
-
     public ExpressionLanguage getCurrentEl(int _index, CustList<ExecOperationNode> _e, ExecBlock _coveredBlock) {
         ExpressionLanguage el_ = getNullableExp(_index);
         if (el_ == null) {
@@ -266,22 +261,7 @@ public abstract class AbstractPageEl {
 
     public void setBlock(ExecBlock _block) {
         execBlock = _block;
-        seNext(_block);
         setVisited(false);
-    }
-
-    private void seNext(ExecBlock _block) {
-        if (_block instanceof ExecLine) {
-            next = ((ExecLine) _block).getExp().getOffset();
-        } else if (_block instanceof ExecElseCondition) {
-            next = ((ExecElseCondition) _block).getOff();
-        } else if (_block instanceof ExecCondition) {
-            next = ((ExecCondition) _block).getCondition().getOffset();
-        } else if (_block instanceof ExecAbstractExpressionReturnMethod) {
-            next = ((ExecAbstractExpressionReturnMethod) _block).getExpressionOffset();
-        } else {
-            next = -1;
-        }
     }
 
     public boolean isVisited() {
@@ -302,7 +282,6 @@ public abstract class AbstractPageEl {
     public void setReadWrite(ReadWrite _readWrite) {
         readWrite = _readWrite;
         execBlock = _readWrite.getBlock();
-        seNext(execBlock);
     }
 
     public ExecBlock getBlockRoot() {
@@ -359,7 +338,7 @@ public abstract class AbstractPageEl {
     public boolean stopBreakPoint(ContextEl _context) {
         if (checkBreakPoint()&&!isVisited()) {
             setVisited(true);
-            return _context.getClasses().getDebugMapping().getBreakPointsBlock().is(getFile(), getNext());
+            return _context.getClasses().getDebugMapping().getBreakPointsBlock().is(getFile(), getGlobalOffset());
         }
         return false;
     }
@@ -368,7 +347,7 @@ public abstract class AbstractPageEl {
             return false;
         }
         ExecBlock bl_ = getBlock();
-        if (bl_ instanceof ExecDeclareVariable) {
+        if (bl_ instanceof ExecDeclareVariable || isEmptyEl()) {
             return false;
         }
         if (bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod || bl_ instanceof ExecDoWhileCondition) {
@@ -379,7 +358,7 @@ public abstract class AbstractPageEl {
             return !((EnteredStack) st_).isEntered();
         }
         if (st_ instanceof LoopBlockStack) {
-            return !((LoopBlockStack)st_).getContent().isFinished();
+            return true;
         }
         return bl_ instanceof ExecIfCondition || bl_ instanceof ExecWhileCondition;
     }

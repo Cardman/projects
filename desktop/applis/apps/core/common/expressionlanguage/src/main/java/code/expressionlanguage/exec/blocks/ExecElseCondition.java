@@ -15,7 +15,4 @@ public final class ExecElseCondition extends ExecBracedBlock implements WithEl {
         ExecHelperBlocks.processElse(this, _stack);
     }
 
-    public int getOff() {
-        return off;
-    }
 }

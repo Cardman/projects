@@ -18,8 +18,9 @@ public final class ExecRefReturnMethod extends ExecAbstractExpressionReturnMetho
     public void processEl(ContextEl _cont, StackCall _stack) {
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.globalOffset(getExpressionOffset());
-        ArgumentsPair argumentsPair_ = ExecHelperBlocks.tryToCalculatePair(_cont, IndexConstants.FIRST_INDEX, _stack, getExp(), 0, this);
-        if (argumentsPair_ == null) {
+        int size_ = ip_.sizeEl();
+        ArgumentsPair argumentsPair_ = ExecHelperBlocks.tryToCalculatePair(true, _cont, IndexConstants.FIRST_INDEX, _stack, getExp(), 0, this);
+        if (size_ < ip_.sizeEl() || argumentsPair_ == null) {
             return;
         }
         ip_.clearCurrentEls();

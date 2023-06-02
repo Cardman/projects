@@ -38,17 +38,18 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
     protected void addStack(SwitchBlockStack _if, StackCall _stack) {
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.clearCurrentEls();
-        visit(_if, ip_, this);
+        ExecBlock f_ = visit(_if, ip_, this);
+        if (f_ != null) {
+            ip_.setBlock(f_);
+        }
     }
 
-    static void visit(SwitchBlockStack _if, AbstractPageEl _ip, ExecBracedBlock _bl) {
+    static ExecBlock visit(SwitchBlockStack _if, AbstractPageEl _ip, ExecBracedBlock _bl) {
         ExecListLastBkSw infos_ = _if.getInfos();
         ExecBlock f_ = infos_.visit();
-        if (f_ != null) {
-            _ip.setBlock(f_);
-        }
         _if.setCurrentVisitedBlock(_bl);
         _ip.addBlock(_if);
+        return f_;
     }
 
     public String getInstanceTest() {

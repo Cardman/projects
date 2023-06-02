@@ -992,7 +992,7 @@ public final class ForwardInfos {
             return exec_;
         }
         if (_en instanceof FinallyEval) {
-            ExecFinallyEval exec_ = new ExecFinallyEval();
+            ExecElseCondition exec_ = new ExecElseCondition(_en.getOffset());
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;

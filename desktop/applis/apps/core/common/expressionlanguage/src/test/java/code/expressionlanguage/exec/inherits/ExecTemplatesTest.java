@@ -1127,7 +1127,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         StackCall stackCall_ = getStackCall(cont_);
         addPage(cont_, instancingClass_, stackCall_);
-        ExecHelperBlocks.processFinally(null, stackCall_);
+        ExecHelperBlocks.processElse(null, stackCall_);
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -1159,6 +1159,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         StackCall stackCall_ = getStackCall(cont_);
         addPage(cont_, instancingClass_, stackCall_);
+        ExecHelperBlocks.processElse(null, stackCall_);
         ExecHelperBlocks.processElse(null, stackCall_);
         assertNull(instancingClass_.getReadWrite());
     }

@@ -50,7 +50,7 @@ public final class LocalThrowing {
         }
         TryBlockStack curr_ = (TryBlockStack) _bl;
         ExecBlock currentBlock_ = curr_.getCurrentVisitedBlock();
-        if (currentBlock_ instanceof ExecFinallyEval) {
+        if (currentBlock_ instanceof ExecElseCondition) {
             _stackCall.setCallingState(new CustomFoundExc(_custCause));
             return false;
         }
@@ -73,7 +73,7 @@ public final class LocalThrowing {
             return true;
         }
         ExecBracedBlock l_ = curr_.getLastBlock();
-        if (l_ instanceof ExecFinallyEval) {
+        if (l_ instanceof ExecElseCondition) {
             goBlock(_stackCall, _bkIp, curr_, l_);
             return true;
         }

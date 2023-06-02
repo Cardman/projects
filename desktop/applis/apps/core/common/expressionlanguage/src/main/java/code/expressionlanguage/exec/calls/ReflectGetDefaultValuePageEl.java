@@ -52,8 +52,9 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
             init = true;
         }
         globalOffset(ann_.getDefaultValueOffset());
+        int size_ = sizeEl();
         Argument ret_ = ExecHelperBlocks.tryToCalculate(_context,0, _stack,ops,0, null);
-        if (_context.callsOrException(_stack)) {
+        if (size_ < sizeEl() || _context.callsOrException(_stack)) {
             return false;
         }
         clearCurrentEls();
