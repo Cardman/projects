@@ -9,7 +9,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 
 public final class ExecAbstractCaseCondition extends ExecBracedBlock implements
-        WithEl {
+        WithEl,ExecWithFilterContent {
 
     private final ExecOperationNodeListOff exp;
     private final ExecFilterContent content;

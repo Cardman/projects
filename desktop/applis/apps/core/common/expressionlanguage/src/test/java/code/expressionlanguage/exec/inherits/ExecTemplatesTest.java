@@ -1111,7 +1111,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         StackCall stackCall_ = getStackCall(cont_);
         addPage(cont_, instancingClass_, stackCall_);
-        ExecHelperBlocks.processCatch(cont_, stackCall_,null,null);
+        ExecHelperBlocks.processCatch(cont_, stackCall_,null);
         assertNull(instancingClass_.getReadWrite());
     }
     @Test

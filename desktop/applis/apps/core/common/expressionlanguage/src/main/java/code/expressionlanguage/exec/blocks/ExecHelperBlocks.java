@@ -109,7 +109,7 @@ public final class ExecHelperBlocks {
         if (!var_.isEmpty()) {
             ip_.putValueVar(var_, LocalVariable.newLocalVariable(((SwitchBlockStack) abstractStask_).getValue(), type_));
         }
-        entered(_cont, _stack, _block, (SwitchBlockStack) abstractStask_, new ExecResultCase(_block,0), ch_);
+        entered(_cont, _stack, _block, (SwitchBlockStack) abstractStask_, new ExecResultCase(ConditionReturn.YES, _block,0), ch_);
     }
     public static void setVisitedCase(ContextEl _cont, StackCall _stack, ExecBracedBlock _block) {
         AbstractPageEl ip_ = _stack.getLastPage();
@@ -123,13 +123,12 @@ public final class ExecHelperBlocks {
             ((SwitchBlockStack) abstractStask_).setCurrentVisitedBlock(_block);
             return;
         }
-        ExecResultCase res_ = tryFind(_cont, _stack, _block, (SwitchBlockStack) abstractStask_);
-        if (_cont.callsOrException(_stack)){
+        ExecResultCase res_ = procTypeVar(_cont, _stack, _block, (ExecAbstractCaseCondition) _block, ((SwitchBlockStack) abstractStask_).getValue(), false);
+        if (res_.getCondition() == ConditionReturn.CALL_EX){
             return;
         }
-        ExecBracedBlock v_ = ExecResultCase.block(res_);
-        if (v_ != null) {
-            entered(_cont, _stack, _block, (SwitchBlockStack) abstractStask_, res_, v_.getFirstChild());
+        if (res_.getCondition() == ConditionReturn.YES){
+            entered(_cont, _stack, _block, (SwitchBlockStack) abstractStask_, res_, _block.getFirstChild());
             return;
         }
         ExecBlock after_ = ((SwitchBlockStack) abstractStask_).next(_block);
@@ -365,7 +364,7 @@ public final class ExecHelperBlocks {
         ip_.setBlock(_block.getFirstChild());
     }
 
-    public static void processCatch(ContextEl _cont, StackCall _stackCall, ExecAbstractCatchEval _cond, ExecOperationNodeListOff _condition) {
+    public static void processCatch(ContextEl _cont, StackCall _stackCall, ExecAbstractCatchEval _cond) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         AbstractStask if_ = ip_.tryGetLastStack();
         if (!(if_ instanceof TryBlockStack)) {
@@ -382,20 +381,15 @@ public final class ExecHelperBlocks {
             processBlockAndRemove(_cond, _stackCall);
             return;
         }
-        ConditionReturn assert_ = condition(_cont, _cond, _stackCall, (TryBlockStack) if_, _condition);
-        if (assert_ == ConditionReturn.CALL_EX) {
+        ExecResultCase assert_ = procTypeVar(_cont, _stackCall, _cond, _cond, ((TryBlockStack) if_).getException(), _cond.isCatchAll());
+        if (assert_.getCondition() == ConditionReturn.CALL_EX) {
             return;
         }
-        if (assert_ == ConditionReturn.YES) {
+        if (assert_.getCondition() == ConditionReturn.YES) {
             ((TryBlockStack) if_).setCalling(null);
             enterGuardCatchBlock(_cond, ip_, (TryBlockStack) if_);
             Struct ex_ = ((TryBlockStack) if_).getException();
-            int m_ = _cond.getContent().getList().match(ex_, _cont);
-            if (m_ > -1) {
-                _cont.getCoverage().passCatches(ex_,new ExecResultCase(_cond,m_), _stackCall);
-                return;
-            }
-            _cont.getCoverage().passCatches(ex_,new ExecResultCase(_cond,0), _stackCall);
+            _cont.getCoverage().passCatches(ex_,assert_, _stackCall);
             return;
         }
         removeVar(_cond.getContent(), _stackCall);
@@ -412,19 +406,6 @@ public final class ExecHelperBlocks {
         if (!v_.isEmpty()) {
             _stackCall.getLastPage().removeRefVar(v_);
         }
-    }
-
-    private static ConditionReturn condition(ContextEl _cont, ExecAbstractCatchEval _cond, StackCall _stackCall, TryBlockStack _tr, ExecOperationNodeListOff _condition) {
-        int f_ = first(_cont, _stackCall, _cond.getContent(), _tr.getException(),_cond.isCatchAll());
-        if (f_ == -1) {
-            return ConditionReturn.NO;
-        }
-        ConditionReturn res_ = evaluateGuardBas(_cont, _stackCall, _cond, _condition);
-        String v_ = _cond.getContent().getVariableName();
-        if (!v_.isEmpty()&&!_stackCall.calls()) {
-            _stackCall.getLastPage().removeRefVar(v_);
-        }
-        return res_;
     }
 
     private static void enterGuardCatchBlock(ExecBracedBlock _block, AbstractPageEl _ip, TryBlockStack _ts) {
@@ -539,15 +520,10 @@ public final class ExecHelperBlocks {
         return ConditionReturn.NO;
     }
 
-    private static ExecResultCase tryFind(ContextEl _cont, StackCall _stack, ExecBracedBlock _in, SwitchBlockStack _st) {
-        Struct v_ = _st.getValue();
-        return procTypeVar(_cont, _stack, (ExecAbstractCaseCondition) _in, v_);
-    }
-
-    private static ExecResultCase procTypeVar(ContextEl _cont, StackCall _stack, ExecAbstractCaseCondition _in, Struct _arg) {
-        int index_ = first(_cont, _stack, _in.getContent(), _arg,false);
+    private static ExecResultCase procTypeVar(ContextEl _cont, StackCall _stack, ExecBracedBlock _br, ExecWithFilterContent _in, Struct _arg, boolean _all) {
+        int index_ = first(_cont, _stack, _in.getContent(), _arg, _all);
         if (index_ < 0) {
-            return null;
+            return new ExecResultCase(ConditionReturn.NO, _br, index_);
         }
         ExecOperationNodeListOff exp_ = _in.getExp();
         CustList<ExecOperationNode> list_ = exp_.getList();
@@ -555,15 +531,15 @@ public final class ExecHelperBlocks {
         AbstractPageEl lastPage_ = _stack.getLastPage();
         lastPage_.globalOffset(offset_);
         if (list_.isEmpty()) {
-            return new ExecResultCase(_in, index_);
+            return new ExecResultCase(ConditionReturn.YES, _br, index_);
         }
-        Argument visit_ = ExecHelperBlocks.tryToCalculate(_cont, 0, _stack, list_, 0, _in);
+        Argument visit_ = ExecHelperBlocks.tryToCalculate(_cont, 0, _stack, list_, 0, _br);
         if (_cont.callsOrException(_stack)) {
             String v_ = _in.getContent().getVariableName();
             if (!v_.isEmpty() && !_stack.calls()) {
                 _stack.getLastPage().removeRefVar(v_);
             }
-            return null;
+            return new ExecResultCase(ConditionReturn.CALL_EX, _br, index_);
         }
         _stack.getLastPage().clearCurrentEls();
         if (BooleanStruct.isFalse(visit_.getStruct())) {
@@ -571,9 +547,9 @@ public final class ExecHelperBlocks {
             if (!v_.isEmpty()) {
                 _stack.getLastPage().removeRefVar(v_);
             }
-            return null;
+            return new ExecResultCase(ConditionReturn.NO, _br, index_);
         }
-        return new ExecResultCase(_in, index_);
+        return new ExecResultCase(ConditionReturn.YES, _br, index_);
     }
 
     public static int first(ContextEl _cont, AbstractStackCall _stack, ExecFilterContent _in, Struct _arg, boolean _all) {
@@ -609,23 +585,6 @@ public final class ExecHelperBlocks {
         }
     }
 
-    private static ConditionReturn evaluateGuardBas(ContextEl _context, StackCall _stackCall, ExecBlock _execCondition, ExecOperationNodeListOff _condition) {
-        AbstractPageEl last_ = _stackCall.getLastPage();
-        last_.globalOffset(_condition.getOffset());
-        CustList<ExecOperationNode> list_ = _condition.getList();
-        if (list_.isEmpty()) {
-            return ConditionReturn.YES;
-        }
-        Argument arg_ = tryToCalculate(_context, IndexConstants.FIRST_INDEX, _stackCall, list_, 0, _execCondition);
-        if (_context.callsOrException(_stackCall)) {
-            return ConditionReturn.CALL_EX;
-        }
-        last_.clearCurrentEls();
-        if (BooleanStruct.isTrue(arg_.getStruct())) {
-            return ConditionReturn.YES;
-        }
-        return ConditionReturn.NO;
-    }
     public static void processForEach(ContextEl _cont, StackCall _stack, String _label, ExecOperationNodeListOff _expression, ExecAbstractForEachLoop _bl) {
         AbstractPageEl ip_ = _stack.getLastPage();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible(_bl);

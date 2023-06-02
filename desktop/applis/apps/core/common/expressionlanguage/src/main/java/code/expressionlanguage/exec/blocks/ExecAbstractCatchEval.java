@@ -6,15 +6,15 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 
-public final class ExecAbstractCatchEval extends ExecBracedBlock implements WithEl {
+public final class ExecAbstractCatchEval extends ExecBracedBlock implements WithEl,ExecWithFilterContent {
 
-    private final ExecOperationNodeListOff condition;
+    private final ExecOperationNodeListOff exp;
     private final ExecFilterContent content;
 
     private final boolean throwIfGuardError;
     private final boolean catchAll;
     public ExecAbstractCatchEval(CustList<ExecOperationNode> _ls, int _offset, ExecFilterContent _filterContent, boolean _thr, boolean _ca) {
-        condition = new ExecOperationNodeListOff(_ls,_offset);
+        exp = new ExecOperationNodeListOff(_ls,_offset);
         content = _filterContent;
         throwIfGuardError = _thr;
         catchAll = _ca;
@@ -22,7 +22,7 @@ public final class ExecAbstractCatchEval extends ExecBracedBlock implements With
 
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
-        ExecHelperBlocks.processCatch(_cont, _stack, this, condition);
+        ExecHelperBlocks.processCatch(_cont, _stack, this);
     }
 
     @Override
@@ -34,6 +34,10 @@ public final class ExecAbstractCatchEval extends ExecBracedBlock implements With
     }
     public ExecFilterContent getContent() {
         return content;
+    }
+
+    public ExecOperationNodeListOff getExp() {
+        return exp;
     }
 
     public boolean isCatchAll() {
