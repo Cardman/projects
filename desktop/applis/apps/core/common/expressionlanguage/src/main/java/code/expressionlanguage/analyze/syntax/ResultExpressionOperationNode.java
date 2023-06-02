@@ -44,11 +44,14 @@ public final class ResultExpressionOperationNode {
         if (c_.block instanceof ElseCondition || c_.block instanceof DoBlock) {
             return c_.block.getOffset();
         }
-        if (!(c_.block instanceof Line) && !(c_.block instanceof ReturnMethod) && !(c_.block instanceof ConditionBlock)) {
+        if (!(c_.block instanceof Line) && !(c_.block instanceof ReturnMethod) && !(c_.block instanceof ConditionBlock) && !(c_.block instanceof ForIterativeLoop)) {
             return -1;
         }
         if (c_.resultExpression != null) {
             return c_.resultExpression.getSumOffset();
+        }
+        if (c_.block instanceof ForIterativeLoop) {
+            return ((ForIterativeLoop)c_.block).getVariableNameOffset();
         }
         return -1;
     }

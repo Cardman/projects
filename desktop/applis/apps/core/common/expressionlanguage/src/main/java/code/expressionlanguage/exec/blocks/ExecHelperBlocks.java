@@ -937,7 +937,10 @@ public final class ExecHelperBlocks {
             ip_.clearCurrentEls();
             return null;
         }
-        ip_.clearCurrentEls();
+        ip_.globalOffset(_block.getVariable().getOffset());
+        if (checkBp(IndexConstants.SECOND_INDEX + 2,ip_,_block)) {
+            return null;
+        }
         long fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();
         long toValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argTo_.getStruct())).longStruct();
         long stepValue_ = stepValue(argStep_, fromValue_, toValue_);
@@ -986,6 +989,10 @@ public final class ExecHelperBlocks {
     }
 
     private static void incrementLoopIter(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall, ExecForIterativeLoop _loop) {
+        _stackCall.getLastPage().globalOffset(_loop.getVariable().getOffset());
+        if (checkBp(_stackCall.getLastPage(), _loop)) {
+            return;
+        }
         _l.getContent().setIndex(_l.getContent().getIndex() + 1);
         _l.getContent().incr();
         String variableName_ = _loop.getVariableName();

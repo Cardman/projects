@@ -10,22 +10,19 @@ public abstract class ExecForIterativeLoop extends ExecBracedBlock implements Wi
 
     private final String label;
 
-    private final String importedClassName;
-
     private final String importedClassIndexName;
 
-    private final String variableName;
+    private final ExecVariableName variable;
 
     private final ExecOperationNodeListOff init;
     private final ExecOperationNodeListOff exp;
     private final ExecOperationNodeListOff step;
 
-    protected ExecForIterativeLoop(String _label, String _importedClassName, String _importedClassIndexName, String _variableName,
+    protected ExecForIterativeLoop(String _label, String _importedClassIndexName, ExecVariableName _variable,
                                 ExecOperationNodeListOff _init, ExecOperationNodeListOff _exp, ExecOperationNodeListOff _step) {
         this.label = _label;
-        this.importedClassName = _importedClassName;
         this.importedClassIndexName = _importedClassIndexName;
-        this.variableName = _variableName;
+        this.variable = _variable;
         init = _init;
         exp = _exp;
         step = _step;
@@ -40,8 +37,12 @@ public abstract class ExecForIterativeLoop extends ExecBracedBlock implements Wi
         return importedClassIndexName;
     }
 
+    public ExecVariableName getVariable() {
+        return variable;
+    }
+
     public String getImportedClassName() {
-        return importedClassName;
+        return getVariable().getType();
     }
 
     @Override
@@ -54,7 +55,7 @@ public abstract class ExecForIterativeLoop extends ExecBracedBlock implements Wi
     }
 
     public String getVariableName() {
-        return variableName;
+        return getVariable().getName();
     }
 
 }

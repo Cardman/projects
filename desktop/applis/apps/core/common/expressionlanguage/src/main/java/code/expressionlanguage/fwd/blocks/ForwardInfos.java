@@ -1174,12 +1174,12 @@ public final class ForwardInfos {
     private static ExecForIterativeLoop buildIter(ForIterativeLoop _en, CustList<ExecOperationNode> _init, CustList<ExecOperationNode> _exp, CustList<ExecOperationNode> _step) {
         ExecForIterativeLoop exec_;
         if (_en.isEq()) {
-            exec_ = new ExecForIterativeLoopEq(_en.getLabel(), _en.getImportedClassName(),
-                    _en.getImportedClassIndexName(), _en.getVariableName(),
+            exec_ = new ExecForIterativeLoopEq(_en.getLabel(),
+                    _en.getImportedClassIndexName(), new ExecVariableName(_en.getImportedClassName(), _en.getVariableName(),_en.getVariableNameOffset()),
                     new ExecOperationNodeListOff(_init, _en.getInitOffset()), new ExecOperationNodeListOff(_exp, _en.getExpressionOffset()), new ExecOperationNodeListOff(_step, _en.getStepOffset()));
         } else {
-            exec_ = new ExecForIterativeLoopStrict(_en.getLabel(), _en.getImportedClassName(),
-                    _en.getImportedClassIndexName(), _en.getVariableName(),
+            exec_ = new ExecForIterativeLoopStrict(_en.getLabel(),
+                    _en.getImportedClassIndexName(), new ExecVariableName(_en.getImportedClassName(),_en.getVariableName(),_en.getVariableNameOffset()),
                     new ExecOperationNodeListOff(_init, _en.getInitOffset()), new ExecOperationNodeListOff(_exp, _en.getExpressionOffset()), new ExecOperationNodeListOff(_step, _en.getStepOffset()));
         }
         return exec_;
