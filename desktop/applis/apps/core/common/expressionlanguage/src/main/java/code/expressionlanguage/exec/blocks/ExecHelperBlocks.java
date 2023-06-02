@@ -729,7 +729,6 @@ public final class ExecHelperBlocks {
         String locName_ = _conf.getClasses().getNextVarCust();
         AbstractPageEl abs_ = _stack.getLastPage();
         abs_.putInternVars(locName_, _l.getContent().getStructIterator(), _conf);
-        abs_.globalOffset(_coveredBlock.getSeparator());
         return tryToCalculate(_conf,IndexConstants.SECOND_INDEX,_stack, _conf.getClasses().getExpsNextCust(),0, _coveredBlock);
     }
 

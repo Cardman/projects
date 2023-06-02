@@ -44,7 +44,7 @@ public final class ResultExpressionOperationNode {
         if (c_.block instanceof ElseCondition || c_.block instanceof DoBlock) {
             return c_.block.getOffset();
         }
-        if (!(c_.block instanceof Line) && !(c_.block instanceof ReturnMethod) && !(c_.block instanceof ConditionBlock) && !(c_.block instanceof ForIterativeLoop)) {
+        if (!(c_.block instanceof Line) && !(c_.block instanceof ReturnMethod) && !(c_.block instanceof ConditionBlock) && !(c_.block instanceof ForIterativeLoop) && !(c_.block instanceof ForEachLoop)) {
             return -1;
         }
         if (c_.resultExpression != null) {
@@ -52,6 +52,20 @@ public final class ResultExpressionOperationNode {
         }
         if (c_.block instanceof ForIterativeLoop) {
             return ((ForIterativeLoop)c_.block).getVariableNameOffset();
+        }
+        if (c_.block instanceof ForEachLoop) {
+//            if (((ForEachLoop) c_.block).getRoot().getResultClass().isArray()) {
+//                return -1;
+//            }
+            int s_ = ((ForEachLoop)c_.block).getSepOffset();
+            int v_ = ((ForEachLoop)c_.block).getVariableNameOffset();
+            int n_ = ((ForEachLoop)c_.block).getVariableName().length();
+            if (inRange(s_,_caret,s_+1)) {
+                return s_;
+            }
+            if (inRange(v_,_caret,v_+n_)) {
+                return v_;
+            }
         }
         return -1;
     }
