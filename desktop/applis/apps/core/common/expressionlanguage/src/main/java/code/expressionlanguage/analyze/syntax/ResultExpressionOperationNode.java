@@ -47,9 +47,6 @@ public final class ResultExpressionOperationNode {
         if (c_.block instanceof ReturnMethod && ((ReturnMethod)c_.block).isEmpty()) {
             return ((ReturnMethod)c_.block).getExpressionOffset();
         }
-        if (!(c_.block instanceof InfoBlock) && !(c_.block instanceof MemberCallingsBlock) && !(c_.block instanceof Line) && !(c_.block instanceof AbruptBlock) && !(c_.block instanceof ConditionBlock) && !(c_.block instanceof LabelledOtherBlock) && !(c_.block instanceof SwitchPartBlock) && !(c_.block instanceof AbsTryElementBlock)) {
-            return -1;
-        }
         if (c_.resultExpression != null) {
             return c_.resultExpression.getSumOffset();
         }
