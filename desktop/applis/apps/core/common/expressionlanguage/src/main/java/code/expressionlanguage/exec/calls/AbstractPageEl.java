@@ -375,7 +375,7 @@ public abstract class AbstractPageEl {
         if (bl_ instanceof ExecDeclareVariable || isEmptyEl()) {
             return false;
         }
-        if (bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod || bl_ instanceof ExecDoWhileCondition) {
+        if (bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod || bl_ instanceof MethodCallingFinally || bl_ instanceof ExecThrowing || bl_ instanceof ExecDoWhileCondition) {
             return true;
         }
         AbstractStask st_ = tryGetLastStack();

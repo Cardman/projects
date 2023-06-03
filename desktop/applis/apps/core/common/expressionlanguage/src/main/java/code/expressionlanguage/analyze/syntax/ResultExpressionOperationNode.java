@@ -41,10 +41,10 @@ public final class ResultExpressionOperationNode {
     }
     public static int beginPart(int _caret, FileBlock _file) {
         ResultExpressionOperationNode c_ = container(_caret, _file);
-        if (c_.block instanceof TryEval || c_.block instanceof FinallyEval || c_.block instanceof ElseCondition || c_.block instanceof DoBlock || c_.block instanceof DefaultCondition) {
+        if (c_.block instanceof TryEval || c_.block instanceof LabelAbruptBlock || c_.block instanceof FinallyEval || c_.block instanceof ElseCondition || c_.block instanceof DoBlock || c_.block instanceof DefaultCondition || c_.block instanceof UnclassedBracedBlock) {
             return c_.block.getOffset();
         }
-        if (!(c_.block instanceof Line) && !(c_.block instanceof ReturnMethod) && !(c_.block instanceof ConditionBlock) && !(c_.block instanceof LabelledOtherBlock) && !(c_.block instanceof SwitchPartBlock) && !(c_.block instanceof AbsTryElementBlock)) {
+        if (!(c_.block instanceof Line) && !(c_.block instanceof AbruptBlock) && !(c_.block instanceof ConditionBlock) && !(c_.block instanceof LabelledOtherBlock) && !(c_.block instanceof SwitchPartBlock) && !(c_.block instanceof AbsTryElementBlock)) {
             return -1;
         }
         if (c_.resultExpression != null) {

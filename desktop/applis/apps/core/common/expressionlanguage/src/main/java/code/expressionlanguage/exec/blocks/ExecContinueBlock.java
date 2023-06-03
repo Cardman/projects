@@ -5,13 +5,16 @@ import code.expressionlanguage.exec.stacks.AbstractStask;
 
 public final class ExecContinueBlock extends ExecLeaf implements MethodCallingFinally {
 
+    private final int off;
     private final String label;
-    public ExecContinueBlock(String _label) {
+    public ExecContinueBlock(int _o,String _label) {
+        off = _o;
         label = _label;
     }
 
     @Override
     public void removeBlockFinally(AbstractPageEl _stack) {
+        _stack.globalOffset(off);
         if (ExecHelperBlocks.checkBp(_stack,this)) {
             return;
         }

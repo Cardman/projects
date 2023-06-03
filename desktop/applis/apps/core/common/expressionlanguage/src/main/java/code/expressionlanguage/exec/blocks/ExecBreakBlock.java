@@ -5,13 +5,17 @@ import code.expressionlanguage.exec.stacks.AbstractStask;
 
 public final class ExecBreakBlock extends ExecLeaf implements MethodCallingFinally {
 
+    private final int off;
     private final String label;
-    public ExecBreakBlock(String _label) {
+
+    public ExecBreakBlock(int _o,String _label) {
+        off = _o;
         label = _label;
     }
 
     @Override
     public void removeBlockFinally(AbstractPageEl _stack) {
+        _stack.globalOffset(off);
         if (ExecHelperBlocks.checkBp(_stack,this)) {
             return;
         }

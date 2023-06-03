@@ -874,7 +874,7 @@ public final class ForwardInfos {
 
     private static ExecBlock block(AbsBk _en, ExecFileBlock _fileDest, Coverage _coverage, Forwards _forwards) {
         if (_en instanceof BreakBlock) {
-            ExecBreakBlock exec_ = new ExecBreakBlock(((BreakBlock) _en).getLabel());
+            ExecBreakBlock exec_ = new ExecBreakBlock(_en.getOffset(),((BreakBlock) _en).getLabel());
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;
@@ -943,7 +943,7 @@ public final class ForwardInfos {
             return exec_;
         }
         if (_en instanceof ContinueBlock) {
-            ExecContinueBlock exec_ = new ExecContinueBlock(((ContinueBlock) _en).getLabel());
+            ExecContinueBlock exec_ = new ExecContinueBlock(_en.getOffset(),((ContinueBlock) _en).getLabel());
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;
@@ -1089,7 +1089,7 @@ public final class ForwardInfos {
             return exec_;
         }
         if (_en instanceof UnclassedBracedBlock) {
-            ExecUnclassedBracedBlock exec_ = new ExecUnclassedBracedBlock();
+            ExecUnclassedBracedBlock exec_ = new ExecUnclassedBracedBlock(_en.getOffset());
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;
