@@ -235,9 +235,9 @@ public final class RendForwardInfos {
     private static RendAbstractCatchEval buildCatchEval(AnaRendCatchEval _f, Forwards _forwards) {
         OperationNode r_ = _f.getFilterContent().getResCondition().getRoot();
         if (!_f.getFilterContent().getImportedClassName().isEmpty()) {
-            return new RendAbstractCatchEval(getExecutableNodes(r_,_forwards), _f.getFilterContent().getConditionOffset(), new ExecFilterContent(_f.getFilterContent().getImportedClassName(), _f.getFilterContent().getVariableName(),new CustList<Argument>(),new CustList<ClassField>()), _f.isThrowIfGuardError(), _f.isCatchAll());
+            return new RendAbstractCatchEval(getExecutableNodes(r_,_forwards), _f.getFilterContent().getConditionOffset(), new ExecFilterContent(_f.getOffset(), _f.getFilterContent().getImportedClassName(), _f.getFilterContent().getVariableName(),new CustList<Argument>(),new CustList<ClassField>()), _f.isThrowIfGuardError(), _f.isCatchAll());
         }
-        return new RendAbstractCatchEval(getExecutableNodes(r_,_forwards), _f.getFilterContent().getConditionOffset(),new ExecFilterContent("","",_f.getFilterContent().getStdValues(), _f.getFilterContent().getEnumValues()), _f.isThrowIfGuardError(), _f.isCatchAll());
+        return new RendAbstractCatchEval(getExecutableNodes(r_,_forwards), _f.getFilterContent().getConditionOffset(),new ExecFilterContent(_f.getOffset(),"","",_f.getFilterContent().getStdValues(), _f.getFilterContent().getEnumValues()), _f.isThrowIfGuardError(), _f.isCatchAll());
     }
 
     private static RendBlock element(AnaRendBlock _current, Forwards _forwards) {
@@ -413,9 +413,9 @@ public final class RendForwardInfos {
         OperationNode r_ = _current.getFilterContent().getResCondition().getRoot();
         RendBlock exec_;
         if (!_current.getFilterContent().getImportedClassName().isEmpty()) {
-            exec_ = new RendAbstractCaseCondition(getExecutableNodes(r_,_fwd), _current.getFilterContent().getConditionOffset(), _current.getFilterContent().getImportedClassName(), _current.getVariableName(),new CustList<Argument>(),new CustList<ClassField>());
+            exec_ = new RendAbstractCaseCondition(_current.getOffset(), getExecutableNodes(r_,_fwd), _current.getFilterContent().getConditionOffset(), _current.getFilterContent().getImportedClassName(), _current.getVariableName(),new CustList<Argument>(),new CustList<ClassField>());
         } else {
-            exec_ = new RendAbstractCaseCondition(getExecutableNodes(r_,_fwd), _current.getFilterContent().getConditionOffset(),"","",_current.getFilterContent().getStdValues(), _current.getFilterContent().getEnumValues());
+            exec_ = new RendAbstractCaseCondition(_current.getOffset(), getExecutableNodes(r_,_fwd), _current.getFilterContent().getConditionOffset(),"","",_current.getFilterContent().getStdValues(), _current.getFilterContent().getEnumValues());
         }
         return exec_;
     }

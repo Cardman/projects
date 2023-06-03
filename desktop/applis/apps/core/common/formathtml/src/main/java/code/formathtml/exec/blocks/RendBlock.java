@@ -1202,7 +1202,7 @@ public abstract class RendBlock {
     }
 
     private static RendParentBlock procTypeVar(ContextEl _cont, RendStackCall _rendStack, RendAbstractCaseCondition _in, Argument _arg) {
-        boolean safe_ = ExecHelperBlocks.first(_cont,_rendStack,_in.getContent(),_arg.getStruct(),false) > -1;
+        boolean safe_ = ExecHelperBlocks.first(0, _cont,_rendStack,_in.getContent(),_arg.getStruct(),false) > -1;
         if (!safe_) {
             return null;
         }

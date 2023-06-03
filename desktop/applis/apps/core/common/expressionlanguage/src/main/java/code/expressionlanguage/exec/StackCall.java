@@ -84,8 +84,8 @@ public final class StackCall implements AbstractStackCall {
     }
 
     @Override
-    public boolean isEmptyElLast() {
-        return getLastPage().isEmptyEl();
+    public int sizeElLast() {
+        return getLastPage().sizeEl();
     }
 
     public AbstractPageEl getLastPage() {

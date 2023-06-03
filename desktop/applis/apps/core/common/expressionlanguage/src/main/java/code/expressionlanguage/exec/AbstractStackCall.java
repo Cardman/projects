@@ -6,5 +6,5 @@ public interface AbstractStackCall {
     String formatVarType(String _varType);
     StackCall stack();
     void putVar(String _key, LocalVariable _wrapper);
-    boolean isEmptyElLast();
+    int sizeElLast();
 }

@@ -87,7 +87,7 @@ public final class RendLocalThrowing {
     private static RendAbstractCatchEval ret(RendBlock _n, ContextEl _ctx, Struct _str, RendStackCall _rendStackCall, ImportingPage _bkIp) {
         if (_n instanceof RendAbstractCatchEval) {
             RendAbstractCatchEval ca_ = (RendAbstractCatchEval) _n;
-            int f_ = ExecHelperBlocks.first(_ctx, _rendStackCall, ca_.getContent(), _str, ca_.isCatchAll());
+            int f_ = ExecHelperBlocks.first(0, _ctx, _rendStackCall, ca_.getContent(), _str, ca_.isCatchAll());
             if (f_ == -1) {
                 return null;
             }

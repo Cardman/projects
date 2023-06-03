@@ -41,10 +41,10 @@ public final class ResultExpressionOperationNode {
     }
     public static int beginPart(int _caret, FileBlock _file) {
         ResultExpressionOperationNode c_ = container(_caret, _file);
-        if (c_.block instanceof ElseCondition || c_.block instanceof DoBlock) {
+        if (c_.block instanceof TryEval || c_.block instanceof FinallyEval || c_.block instanceof ElseCondition || c_.block instanceof DoBlock || c_.block instanceof DefaultCondition) {
             return c_.block.getOffset();
         }
-        if (!(c_.block instanceof Line) && !(c_.block instanceof ReturnMethod) && !(c_.block instanceof ConditionBlock) && !(c_.block instanceof AbstractForLoop)) {
+        if (!(c_.block instanceof Line) && !(c_.block instanceof ReturnMethod) && !(c_.block instanceof ConditionBlock) && !(c_.block instanceof LabelledOtherBlock) && !(c_.block instanceof SwitchPartBlock) && !(c_.block instanceof AbsTryElementBlock)) {
             return -1;
         }
         if (c_.resultExpression != null) {
@@ -58,40 +58,55 @@ public final class ResultExpressionOperationNode {
             return ((ForIterativeLoop) block).getVariableNameOffset();
         }
         if (block instanceof ForEachLoop) {
-            int s_ = ((ForEachLoop) block).getSepOffset();
-            int v_ = ((ForEachLoop) block).getVariableNameOffset();
-            int n_ = ((ForEachLoop) block).getVariableName().length();
-            if (inRange(s_,_caret,s_+1)) {
-                return s_;
-            }
-            if (inRange(v_,_caret,v_+n_)) {
-                return v_;
-            }
-            return block.getOffset();
+            return forEachIterable(_caret);
         }
         if (block instanceof ForEachTable) {
-            int s_ = ((ForEachTable) block).getSepOffset();
-            int sn_ = ((ForEachTable) block).getSepNext();
-            int vf_ = ((ForEachTable) block).getVariableNameOffsetFirst();
-            int nf_ = ((ForEachTable) block).getVariableNameFirst().length();
-            int vs_ = ((ForEachTable) block).getVariableNameOffsetSecond();
-            int ns_ = ((ForEachTable) block).getVariableNameSecond().length();
-            if (inRange(sn_, _caret,sn_+1)) {
-                return sn_;
-            }
-            if (inRange(s_, _caret,s_+1)) {
-                return s_;
-            }
-            if (inRange(vf_, _caret,vf_+nf_)) {
-                return vf_;
-            }
-            if (inRange(vs_, _caret,vs_+ns_)) {
-                return vs_;
+            return forEachTable(_caret);
+        }
+        if (block instanceof WithFilterContent) {
+            if (!((WithFilterContent)block).getFilterContent().getDeclaringType().isEmpty()){
+                return ((WithFilterContent)block).getFilterContent().getValueOffset();
             }
             return block.getOffset();
         }
         return -1;
     }
+
+    private int forEachTable(int _caret) {
+        int s_ = ((ForEachTable) block).getSepOffset();
+        int sn_ = ((ForEachTable) block).getSepNext();
+        int vf_ = ((ForEachTable) block).getVariableNameOffsetFirst();
+        int nf_ = ((ForEachTable) block).getVariableNameFirst().length();
+        int vs_ = ((ForEachTable) block).getVariableNameOffsetSecond();
+        int ns_ = ((ForEachTable) block).getVariableNameSecond().length();
+        if (inRange(sn_, _caret,sn_+1)) {
+            return sn_;
+        }
+        if (inRange(s_, _caret,s_+1)) {
+            return s_;
+        }
+        if (inRange(vf_, _caret,vf_+nf_)) {
+            return vf_;
+        }
+        if (inRange(vs_, _caret,vs_+ns_)) {
+            return vs_;
+        }
+        return block.getOffset();
+    }
+
+    private int forEachIterable(int _caret) {
+        int s_ = ((ForEachLoop) block).getSepOffset();
+        int v_ = ((ForEachLoop) block).getVariableNameOffset();
+        int n_ = ((ForEachLoop) block).getVariableName().length();
+        if (inRange(s_, _caret,s_+1)) {
+            return s_;
+        }
+        if (inRange(v_, _caret,v_+n_)) {
+            return v_;
+        }
+        return block.getOffset();
+    }
+
     public static CustList<RowSrcLocation> locationsDisplay(AnalyzedPageEl _page, String _fileName, int _caret) {
         return export(_page,locations(_page, _fileName, _caret));
     }

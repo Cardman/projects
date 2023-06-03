@@ -5,8 +5,10 @@ import code.expressionlanguage.exec.StackCall;
 
 public final class ExecTryEval extends ExecBracedBlock implements WithEl {
 
+    private final int off;
     private final String label;
-    public ExecTryEval(String _label) {
+    public ExecTryEval(int _o,String _label) {
+        off = _o;
         label= _label;
     }
 
@@ -15,4 +17,7 @@ public final class ExecTryEval extends ExecBracedBlock implements WithEl {
         ExecHelperBlocks.processTry(_stack, label, this);
     }
 
+    public int getOff() {
+        return off;
+    }
 }

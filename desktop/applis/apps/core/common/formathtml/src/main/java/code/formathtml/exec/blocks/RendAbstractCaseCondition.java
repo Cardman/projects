@@ -17,9 +17,9 @@ public final class RendAbstractCaseCondition extends RendParentBlock implements 
     private final RendOperationNodeListOff exp;
     private final ExecFilterContent content;
 
-    public RendAbstractCaseCondition(CustList<RendDynOperationNode> _list, int _offset, String _c, String _v, CustList<Argument> _stdValues, CustList<ClassField> _enumValues) {
+    public RendAbstractCaseCondition(int _b,CustList<RendDynOperationNode> _list, int _offset, String _c, String _v, CustList<Argument> _stdValues, CustList<ClassField> _enumValues) {
         exp = new RendOperationNodeListOff(_list, _offset);
-        content = new ExecFilterContent(_c, _v, _stdValues, _enumValues);
+        content = new ExecFilterContent(_b,_c, _v, _stdValues, _enumValues);
     }
 
     @Override

@@ -7,11 +7,13 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 public final class ExecDefaultCondition extends ExecBracedBlock implements
         WithEl {
     private final String variableName;
-    public ExecDefaultCondition(){
-        this("");
+    private final int off;
+    public ExecDefaultCondition(int _o){
+        this("", _o);
     }
-    public ExecDefaultCondition(String _varName){
+    public ExecDefaultCondition(String _varName, int _o){
         variableName = _varName;
+        off = _o;
     }
 
     @Override
@@ -28,5 +30,9 @@ public final class ExecDefaultCondition extends ExecBracedBlock implements
     }
     public String getVariableName() {
         return variableName;
+    }
+
+    public int getOff() {
+        return off;
     }
 }

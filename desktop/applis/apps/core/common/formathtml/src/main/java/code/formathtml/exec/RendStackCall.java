@@ -53,8 +53,8 @@ public final class RendStackCall extends AbsRendStackCall implements AbstractSta
     }
 
     @Override
-    public boolean isEmptyElLast() {
-        return true;
+    public int sizeElLast() {
+        return 0;
     }
 
     public void clearPages() {

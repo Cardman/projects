@@ -8,10 +8,7 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.stacks.AbstractStask;
-import code.expressionlanguage.exec.stacks.ConditionBlockStack;
-import code.expressionlanguage.exec.stacks.EnteredStack;
-import code.expressionlanguage.exec.stacks.LoopBlockStack;
+import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.*;
@@ -382,13 +379,19 @@ public abstract class AbstractPageEl {
             return true;
         }
         AbstractStask st_ = tryGetLastStack();
+        if (st_ instanceof TryBlockStack && bl_ instanceof ExecAbstractCatchEval) {
+            return true;
+        }
         if (st_ instanceof EnteredStack) {
             return !((EnteredStack) st_).isEntered();
         }
         if (st_ instanceof LoopBlockStack) {
             return !((LoopBlockStack) st_).getContent().isFinished();
         }
-        return bl_ instanceof ExecIfCondition || bl_ instanceof ExecWhileCondition || bl_ instanceof ExecDoBlock || bl_ instanceof ExecForIterativeLoop || bl_ instanceof ExecAbstractForEachLoop || bl_ instanceof ExecForMutableIterativeLoop || bl_ instanceof ExecForEachTable;
+        if (st_ instanceof SwitchBlockStack) {
+            return !((SwitchBlockStack) st_).isEntered();
+        }
+        return true;
     }
 
 }
