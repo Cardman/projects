@@ -44,6 +44,9 @@ public final class ResultExpressionOperationNode {
         if (c_.block instanceof TryEval || c_.block instanceof LabelAbruptBlock || c_.block instanceof FinallyEval || c_.block instanceof ElseCondition || c_.block instanceof DoBlock || c_.block instanceof DefaultCondition || c_.block instanceof UnclassedBracedBlock) {
             return c_.block.getOffset();
         }
+        if (c_.block instanceof ReturnMethod && ((ReturnMethod)c_.block).isEmpty()) {
+            return ((ReturnMethod)c_.block).getExpressionOffset();
+        }
         if (!(c_.block instanceof Line) && !(c_.block instanceof AbruptBlock) && !(c_.block instanceof ConditionBlock) && !(c_.block instanceof LabelledOtherBlock) && !(c_.block instanceof SwitchPartBlock) && !(c_.block instanceof AbsTryElementBlock)) {
             return -1;
         }
