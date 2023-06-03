@@ -119,44 +119,30 @@ public final class ExecClassesUtil {
     }
 
     public static void tryInitStaticlyTypes(ContextEl _context, Options _options) {
+        tryOrder(_context, false);
+        tryList(_context, _options, false);
+        afterInit(_context);
+    }
+
+    public static StackCall tryInitStaticlyTypesDbg(ContextEl _context, Options _options) {
+        StackCall st_ = tryOrder(_context, true);
+        if (st_.nbPages() > 0) {
+            return st_;
+        }
+        st_ = tryList(_context, _options, true);
+        return check(_context, st_);
+    }
+
+    private static StackCall check(ContextEl _context, StackCall _st) {
+        if (_st.nbPages() > 0) {
+            return _st;
+        }
+        afterInit(_context);
+        return _st;
+    }
+
+    private static void afterInit(ContextEl _context) {
         Classes cl_ = _context.getClasses();
-        forwardClassesMetaInfos(_context);
-        DefaultLockingClass dl_ = _context.getLocks();
-        dl_.init(_context);
-        CustList<String> all_ = cl_.getClassesBodies().getKeys();
-        _context.setExiting(new DefaultExiting(_context));
-        StackCall st_ = StackCall.newInstance(InitPhase.READ_ONLY_OTHERS,_context);
-        st_.getInitializingTypeInfos().setInitEnums(InitPhase.READ_ONLY_OTHERS);
-        while (true) {
-            StringList new_ = new StringList();
-            for (String c: all_) {
-                st_.getInitializingTypeInfos().resetInitEnums(st_);
-                StringMap<StringMap<Struct>> bk_ = buildFieldValues(cl_.getCommon().getStaticFields());
-                ProcessMethod.initializeClassPre(c,cl_.getClassBody(c), _context, st_);
-                if (st_.isFailInit()) {
-                    cl_.getCommon().setStaticFields(bk_);
-                } else {
-                    new_.add(c);
-                }
-            }
-            StringUtil.removeAllElements(all_, new_);
-            if (new_.isEmpty()) {
-                break;
-            }
-        }
-        st_.getInitializingTypeInfos().resetInitEnums(st_);
-        st_ = StackCall.newInstance(InitPhase.LIST,_context);
-        st_.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
-        dl_.initAlwaysSuccess();
-        for (String t: _options.getTypesInit()) {
-            String res_ = StringExpUtil.removeDottedSpaces(t);
-            ExecRootBlock classBody_ = _context.getClasses().getClassBody(res_);
-            if (classBody_ == null) {
-                continue;
-            }
-            st_.getInitializingTypeInfos().resetInitEnums(st_);
-            ProcessMethod.initializeClass(res_,classBody_,_context, st_);
-        }
         for (EntryCust<String, StringMap<Struct>> e: cl_.getCommon().getStaticFields().entryList()) {
             for (EntryCust<String, Struct> f: e.getValue().entryList()) {
                 f.setValue(NullStruct.def(f.getValue()));
@@ -165,6 +151,102 @@ public final class ExecClassesUtil {
         _context.setExiting(new NoExiting());
     }
 
+    private static StackCall tryOrder(ContextEl _context, boolean _dbg) {
+        Classes cl_ = _context.getClasses();
+        forwardClassesMetaInfos(_context);
+        DefaultLockingClass dl_ = _context.getLocks();
+        dl_.init(_context);
+        CustList<String> all_ = cl_.getClassesBodies().getKeys();
+        _context.setExiting(new DefaultExiting(_context));
+        StackCall st_ = StackCall.newInstance(InitPhase.READ_ONLY_OTHERS,_context);
+        st_.getInitializingTypeInfos().setInitEnums(InitPhase.READ_ONLY_OTHERS);
+        return endOrder(_context, _dbg, all_, st_);
+    }
+
+    private static StackCall endOrder(ContextEl _context, boolean _dbg, CustList<String> _filter, StackCall _st) {
+        if (_st.nbPages() > 0) {
+            return _st;
+        }
+        Classes cl_ = _context.getClasses();
+        while (true) {
+            StringList new_ = new StringList();
+            for (String c: _filter) {
+                _st.getInitializingTypeInfos().resetInitEnums(_st);
+                StringMap<StringMap<Struct>> bk_ = buildFieldValues(cl_.getCommon().getStaticFields());
+                ProcessMethod.initializeClassPre(c,cl_.getClassBody(c), _context, _st);
+                if (_st.isFailInit()) {
+                    cl_.getCommon().setStaticFields(bk_);
+                } else {
+                    if (_dbg && _st.nbPages() > 0) {
+                        return _st;
+                    }
+                    new_.add(c);
+                }
+            }
+            StringUtil.removeAllElements(_filter, new_);
+            if (new_.isEmpty()) {
+                break;
+            }
+        }
+        _st.getInitializingTypeInfos().resetInitEnums(_st);
+        return _st;
+    }
+
+    private static StackCall tryList(ContextEl _context, Options _options, boolean _dbg) {
+        StackCall st_ = StackCall.newInstance(InitPhase.LIST,_context);
+        st_.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
+        DefaultLockingClass dl_ = _context.getLocks();
+        dl_.initAlwaysSuccess();
+        return endList(_context, _options, _dbg, st_);
+    }
+
+    private static StackCall endList(ContextEl _context, Options _options, boolean _dbg, StackCall _st) {
+        if (_st.nbPages() > 0) {
+            return _st;
+        }
+        for (String t: _options.getTypesInit()) {
+            String res_ = StringExpUtil.removeDottedSpaces(t);
+            ExecRootBlock classBody_ = _context.getClasses().getClassBody(res_);
+            if (classBody_ == null) {
+                continue;
+            }
+            _st.getInitializingTypeInfos().resetInitEnums(_st);
+            ProcessMethod.initializeClass(res_,classBody_, _context, _st);
+            if (_dbg && _st.nbPages() > 0) {
+                return _st;
+            }
+        }
+        return _st;
+    }
+    public static StackCall keep(StackCall _original, Options _options, ContextEl _context) {
+        if (_original.getInitializingTypeInfos().getInitEnums() != InitPhase.READ_ONLY_OTHERS) {
+            return keepList(_original, _options, _context);
+        }
+        keepOrder(_original, _context);
+        if (_original.nbPages() > 0) {
+            return _original;
+        }
+        StackCall st_ = tryList(_context, _options, true);
+        return check(_context, st_);
+    }
+
+    public static void keepOrder(StackCall _original, ContextEl _context) {
+        _context.getInit().loopCalling(_context, _original);
+
+        Classes cl_ = _context.getClasses();
+        DefaultLockingClass dl_ = _context.getLocks();
+        CustList<String> notInitial_ = new CustList<String>();
+        for (EntryCust<String, ExecRootBlock> a: cl_.getClassesBodies().entryList()) {
+            if (dl_.getState(a.getValue()) == InitClassState.NOT_YET) {
+                notInitial_.add(a.getKey());
+            }
+        }
+        endOrder(_context,true,notInitial_,_original);
+    }
+    public static StackCall keepList(StackCall _original, Options _options, ContextEl _context) {
+        _context.getInit().loopCalling(_context, _original);
+        return endList(_context, _options, true, _original);
+    }
     public static void forwardClassesMetaInfos(ContextEl _context) {
         for (ClassMetaInfo c: _context.getClasses().getClassMetaInfos()) {
             String name_ = c.getFormatted().getFormatted();
