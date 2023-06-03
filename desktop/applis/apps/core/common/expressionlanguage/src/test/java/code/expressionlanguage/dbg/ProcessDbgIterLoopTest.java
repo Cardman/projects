@@ -171,6 +171,7 @@ public final class ProcessDbgIterLoopTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
         assertEq(160, now(stack_));
+        assertEq(1, stack_.getLastPage().sizeEl());
     }
     @Test
     public void test7() {
@@ -336,5 +337,59 @@ public final class ProcessDbgIterLoopTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("n");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, stack_.nbPages());
+    }
+    @Test
+    public void test13() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  pkg.CustList<int> inst=new pkg.CustList<int>();\n");
+        xml_.append("  int res;\n");
+        xml_.append("  inst.add(3i);\n");
+        xml_.append("  inst.add(1i);\n");
+        xml_.append("  inst.add(2i);\n");
+        xml_.append("  for(int e:inst){\n");
+        xml_.append("   res+=e.intValue();\n");
+        xml_.append("  }\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",150,cont_);
+        MethodId id_ = getMethodId("m");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(150, now(stack_));
+        assertEq(2, stack_.getLastPage().sizeEl());
+    }
+    @Test
+    public void test14() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  pkg.CustList<int> inst=new pkg.CustList<int>();\n");
+        xml_.append("  int res;\n");
+        xml_.append("  inst.add(3i);\n");
+        xml_.append("  inst.add(1i);\n");
+        xml_.append("  inst.add(2i);\n");
+        xml_.append("  for(int e:inst){\n");
+        xml_.append("   res+=e.intValue();\n");
+        xml_.append("  }\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",150,cont_);
+        MethodId id_ = getMethodId("m");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
 }

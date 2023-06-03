@@ -13,8 +13,10 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ExecForEachIterable extends ExecAbstractForEachLoop {
-    public ExecForEachIterable(String _label, String _importedClassIndexName, ExecVariableName _variableName, int _sep, int _expressionOffset, CustList<ExecOperationNode> _opList) {
+    private final int iteratorOffset;
+    public ExecForEachIterable(String _label, String _importedClassIndexName, ExecVariableName _variableName, int _sep, int _expressionOffset, CustList<ExecOperationNode> _opList, int _i) {
         super(_label, _importedClassIndexName, _variableName, _sep, _expressionOffset, _opList);
+        iteratorOffset = _i;
     }
 
     @Override
@@ -47,4 +49,7 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
         return ExecHelperBlocks.hasNext(_conf, _l, _stackCall, locName_, _conf.getClasses().getExpsHasNextCust(), _coveredBlock);
     }
 
+    public int getIteratorOffset() {
+        return iteratorOffset;
+    }
 }

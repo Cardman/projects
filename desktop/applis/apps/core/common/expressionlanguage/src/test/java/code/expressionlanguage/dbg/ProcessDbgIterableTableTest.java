@@ -583,6 +583,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
         assertEq(199, now(stack_));
+        assertEq(1, stack_.getLastPage().sizeEl());
         Struct s_ = stack_.getLastPage().getContentEx().getRefParams().getVal("res").getValue(stack_, cont_.getContext());
         assertEq(0, NumParsers.convertToNumber(s_).intStruct());
     }
@@ -647,5 +648,68 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("n");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, stack_.nbPages());
+    }
+    @Test
+    public void test21() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  CustTable<Number,Number> inst=new CustTable<Number,Number>();\n");
+        xml_.append("  int res;\n");
+        xml_.append("  inst.add(3,5);\n");
+        xml_.append("  inst.add(8,1);\n");
+        xml_.append("  inst.add(2,6);\n");
+        xml_.append("  for(Number f , Number s: inst){\n");
+        xml_.append("   res += f.intValue()+s.intValue();\n");
+        xml_.append("  }\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",174,cont_);
+        MethodId id_ = getMethodId("m");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(174, now(stack_));
+        assertEq(2, stack_.getLastPage().sizeEl());
+        Struct s_ = stack_.getLastPage().getContentEx().getRefParams().getVal("res").getValue(stack_, cont_.getContext());
+        assertEq(0, NumParsers.convertToNumber(s_).intStruct());
+    }
+    @Test
+    public void test22() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  CustTable<Number,Number> inst=new CustTable<Number,Number>();\n");
+        xml_.append("  int res;\n");
+        xml_.append("  inst.add(3,5);\n");
+        xml_.append("  inst.add(8,1);\n");
+        xml_.append("  inst.add(2,6);\n");
+        xml_.append("  for(Number f , Number s: inst){\n");
+        xml_.append("   res += f.intValue()+s.intValue();\n");
+        xml_.append("  }\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",174,cont_);
+        MethodId id_ = getMethodId("m");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
+        assertEq(0, next_.nbPages());
     }
 }

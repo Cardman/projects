@@ -709,8 +709,9 @@ public final class ExecHelperBlocks {
         String locName_ = _cont.getClasses().getIteratorVarCust();
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.putInternVars(locName_, _its, _cont);
-        Argument arg_ = tryToCalculate(false, _cont, IndexConstants.SECOND_INDEX, _stack, _cont.getClasses().getExpsIteratorCust(), 0, _block);
-        if (_cont.callsOrException(_stack)) {
+        int size_ = ip_.sizeEl();
+        Argument arg_ = tryToCalculate(_cont, IndexConstants.SECOND_INDEX, _stack, _cont.getClasses().getExpsIteratorCust(), 0, _block);
+        if (size_ < ip_.sizeEl() || _cont.callsOrException(_stack)) {
             return null;
         }
         long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -765,8 +766,9 @@ public final class ExecHelperBlocks {
         Classes cls_ = _cont.getClasses();
         String locName_ = cls_.getIteratorTableVarCust();
         _stack.getLastPage().putInternVars(locName_, its_, _cont);
-        Argument arg_ = tryToCalculate(false, _cont, IndexConstants.SECOND_INDEX, _stack, _cont.getClasses().getExpsIteratorTableCust(), 0, _block);
-        if (_cont.callsOrException(_stack)) {
+        int sizeIt_ = ip_.sizeEl();
+        Argument arg_ = tryToCalculate(_cont, IndexConstants.SECOND_INDEX, _stack, _cont.getClasses().getExpsIteratorTableCust(), 0, _block);
+        if (sizeIt_ < ip_.sizeEl() || _cont.callsOrException(_stack)) {
             return;
         }
         Struct iterStr_ = arg_.getStruct();
@@ -822,7 +824,7 @@ public final class ExecHelperBlocks {
         if (call_.sizeEl() < 2) {
             String locName_ = cls_.getNextPairVarCust();
             _stackCall.getLastPage().putInternVars(locName_, _l.getContent().getStructIterator(), _conf);
-            _stackCall.getLastPage().globalOffset(_block.getSeparatorNext());
+            _stackCall.getLastPage().globalOffset(_block.getOffsets().getSeparatorNext());
         }
         int sizeNext_ = call_.sizeEl();
         tryToCalculate(_conf,IndexConstants.SECOND_INDEX, _stackCall, _conf.getClasses().getExpsNextPairCust(),0, _block);
@@ -876,7 +878,7 @@ public final class ExecHelperBlocks {
 
     private static ConditionReturn iteratorHasNextTable(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall, ExecForEachTable _coveredBlock) {
         String locName_ = _conf.getClasses().getHasNextPairVarCust();
-        _stackCall.getLastPage().globalOffset(_coveredBlock.getSeparator());
+        _stackCall.getLastPage().globalOffset(_coveredBlock.getOffsets().getSeparator());
         return hasNext(_conf, _l, _stackCall, locName_, _conf.getClasses().getExpsHasNextPairCust(), _coveredBlock);
     }
 

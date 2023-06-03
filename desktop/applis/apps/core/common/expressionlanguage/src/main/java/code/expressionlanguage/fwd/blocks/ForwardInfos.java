@@ -1010,7 +1010,7 @@ public final class ForwardInfos {
                 }
             } else {
                 exec_ = new ExecForEachIterable(((ForEachLoop) _en).getLabel(),
-                        ((ForEachLoop) _en).getImportedClassIndexName(), new ExecVariableName(((ForEachLoop) _en).getImportedClassName(), ((ForEachLoop) _en).getVariableName(), ((ForEachLoop) _en).getVariableNameOffset()), ((ForEachLoop) _en).getSepOffset(), ((ForEachLoop) _en).getExpressionOffset(),op_);
+                        ((ForEachLoop) _en).getImportedClassIndexName(), new ExecVariableName(((ForEachLoop) _en).getImportedClassName(), ((ForEachLoop) _en).getVariableName(), ((ForEachLoop) _en).getVariableNameOffset()), ((ForEachLoop) _en).getSepOffset(), ((ForEachLoop) _en).getExpressionOffset(),op_, _en.getOffset());
             }
             _coverage.putBlockOperationsLoops((AbstractForLoop) _en, exec_);
             exec_.setFile(_fileDest);
@@ -1024,7 +1024,7 @@ public final class ForwardInfos {
         if (_en instanceof ForEachTable) {
             CustList<ExecOperationNode> op_ = getExecutableNodes(((ForEachTable) _en).getRoot(), _coverage, _forwards, _en);
             ExecForEachTable exec_ = new ExecForEachTable(((ForEachTable) _en).getLabel(), new ExecVariableName(((ForEachTable) _en).getImportedClassNameFirst(),((ForEachTable) _en).getVariableNameFirst(),((ForEachTable) _en).getVariableNameOffsetFirst()),
-                    new ExecVariableName(((ForEachTable) _en).getImportedClassNameSecond(), ((ForEachTable) _en).getVariableNameSecond(), ((ForEachTable) _en).getVariableNameOffsetSecond()), ((ForEachTable) _en).getSepOffset(), ((ForEachTable) _en).getSepNext(),
+                    new ExecVariableName(((ForEachTable) _en).getImportedClassNameSecond(), ((ForEachTable) _en).getVariableNameSecond(), ((ForEachTable) _en).getVariableNameOffsetSecond()), new ExecTableOffsets(((ForEachTable) _en).getSepOffset(), ((ForEachTable) _en).getSepNext(), _en.getOffset()),
                     ((ForEachTable) _en).getImportedClassIndexName(),
                     new ExecOperationNodeListOff(op_, ((ForEachTable) _en).getExpressionOffset()));
             _coverage.putBlockOperationsLoops((AbstractForLoop) _en, exec_);

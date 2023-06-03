@@ -359,6 +359,14 @@ public abstract class AbstractPageEl {
             }
             return NumberUtil.wrapIntArray(getGlobalOffset(), ((ExecAbstractForEachLoop) bl_).getSeparator());
         }
+        if (getLastLoopIfPossible(bl_) == null){
+            if (bl_ instanceof ExecForEachIterable && sizeEl() == 2) {
+                return NumberUtil.wrapIntArray(((ExecForEachIterable) bl_).getIteratorOffset());
+            }
+            if (bl_ instanceof ExecForEachTable && sizeEl() == 2) {
+                return NumberUtil.wrapIntArray(((ExecForEachTable) bl_).getOffsets().getIteratorOffset());
+            }
+        }
         return NumberUtil.wrapIntArray(getGlobalOffset());
     }
 

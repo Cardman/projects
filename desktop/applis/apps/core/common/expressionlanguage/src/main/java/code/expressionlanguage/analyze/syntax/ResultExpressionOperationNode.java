@@ -67,6 +67,7 @@ public final class ResultExpressionOperationNode {
             if (inRange(v_,_caret,v_+n_)) {
                 return v_;
             }
+            return block.getOffset();
         }
         if (block instanceof ForEachTable) {
             int s_ = ((ForEachTable) block).getSepOffset();
@@ -87,6 +88,7 @@ public final class ResultExpressionOperationNode {
             if (inRange(vs_, _caret,vs_+ns_)) {
                 return vs_;
             }
+            return block.getOffset();
         }
         return -1;
     }
