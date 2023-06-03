@@ -822,7 +822,7 @@ public final class ExecHelperBlocks {
         if (call_.sizeEl() < 2) {
             String locName_ = cls_.getNextPairVarCust();
             _stackCall.getLastPage().putInternVars(locName_, _l.getContent().getStructIterator(), _conf);
-            _stackCall.getLastPage().globalOffset(_block.getSeparator());
+            _stackCall.getLastPage().globalOffset(_block.getSeparatorNext());
         }
         int sizeNext_ = call_.sizeEl();
         tryToCalculate(_conf,IndexConstants.SECOND_INDEX, _stackCall, _conf.getClasses().getExpsNextPairCust(),0, _block);

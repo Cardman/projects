@@ -2329,6 +2329,7 @@ public final class FileResolver {
             int varOffset_ = typeOffset_ + declaringType_.length();
             varOffset_ += StringUtil.getFirstPrintableCharIndex(init_);
             int secType_ = varOffset_;
+            int sepNext_ = secType_ + nextIndexVar_;
             secType_ += nextIndexVar_+1;
             int secVarOff_ = secType_;
             secType_ += StringExpUtil.getOffset(declaringTypeSec_);
@@ -2341,7 +2342,7 @@ public final class FileResolver {
                     new OffsetClassVariableInfo(new OffsetStringInfo(typeOffset_ + _offset, declaringType_.trim()), new OffsetStringInfo(varOffset_ + _offset, firstVar_.trim())),
                     new OffsetClassVariableInfo(new OffsetStringInfo(secType_ + _offset, declaringTypeSec_.trim()), new OffsetStringInfo(secVarOff_ + _offset, secVar_)),
                     new OffsetStringInfo(expOffset_ + _offset, exp_.trim()), clNa_),
-                    _i.instLocAfter() + _offset, setOff_ + _offset, refVariable_, lab_);
+                    _i.instLocAfter() + _offset, setOff_ + _offset, sepNext_ + _offset, refVariable_, lab_);
             br_.getRes().partsAbsol(_i.getStringParts());
             _currentParent.appendChild(br_);
             return endMutableFor(_offset, _i, keyWordFor_, okIndex_, br_);
@@ -2569,6 +2570,7 @@ public final class FileResolver {
             }
             String declaringTypeSec_ = getFoundType(afterFirst_);
             int secType_ = varOffset_;
+            int sepNext_ = secType_ + nextIndexVar_;
             secType_ += nextIndexVar_+1;
             int secVarOff_ = secType_;
             secType_ += StringUtil.getFirstPrintableCharIndex(declaringTypeSec_);
@@ -2582,7 +2584,7 @@ public final class FileResolver {
             br_ = new ForEachTable(
                     new TableLoopExpressionContent(new OffsetClassVariableInfo(new OffsetStringInfo(typeOffset_+ _offset, declaringType_.trim()), new OffsetStringInfo(varOffset_+ _offset, firstVar_)),
                     new OffsetClassVariableInfo(new OffsetStringInfo(secType_+ _offset, declaringTypeSec_.trim()), new OffsetStringInfo(secVarOff_+ _offset, secVar_)),
-                    new OffsetStringInfo(expOffset_+ _offset, exp_.trim()), clNa_), _i.instLocAfter()+ _offset,setOff_+ _offset, refVariable_, lab_);
+                    new OffsetStringInfo(expOffset_+ _offset, exp_.trim()), clNa_), _i.instLocAfter()+ _offset,setOff_+ _offset, sepNext_ + _offset, refVariable_, lab_);
             ((ForEachTable)br_).getRes().partsAbsol(_i.getStringParts());
         }
         br_.setBegin(_i.instLocAfter()+ _offset);

@@ -1024,7 +1024,7 @@ public final class ForwardInfos {
         if (_en instanceof ForEachTable) {
             CustList<ExecOperationNode> op_ = getExecutableNodes(((ForEachTable) _en).getRoot(), _coverage, _forwards, _en);
             ExecForEachTable exec_ = new ExecForEachTable(((ForEachTable) _en).getLabel(), new ExecVariableName(((ForEachTable) _en).getImportedClassNameFirst(),((ForEachTable) _en).getVariableNameFirst(),((ForEachTable) _en).getVariableNameOffsetFirst()),
-                    new ExecVariableName(((ForEachTable) _en).getImportedClassNameSecond(), ((ForEachTable) _en).getVariableNameSecond(), ((ForEachTable) _en).getVariableNameOffsetSecond()), ((ForEachTable) _en).getSepOffset(),
+                    new ExecVariableName(((ForEachTable) _en).getImportedClassNameSecond(), ((ForEachTable) _en).getVariableNameSecond(), ((ForEachTable) _en).getVariableNameOffsetSecond()), ((ForEachTable) _en).getSepOffset(), ((ForEachTable) _en).getSepNext(),
                     ((ForEachTable) _en).getImportedClassIndexName(),
                     new ExecOperationNodeListOff(op_, ((ForEachTable) _en).getExpressionOffset()));
             _coverage.putBlockOperationsLoops((AbstractForLoop) _en, exec_);

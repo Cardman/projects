@@ -23,6 +23,9 @@ import code.util.StringMap;
 public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     protected static final String CUST_ITER_PATH = "pkg/CustIter";
     protected static final String CUST_LIST_PATH = "pkg/CustList";
+    protected static final String CUST_ITER_TABLE_PATH = "pkg/CustIterTable";
+    protected static final String CUST_PAIR_PATH = "pkg/CustPair";
+    protected static final String CUST_TABLE_PATH = "pkg/CustTable";
     protected int now(StackCall _stack) {
         return _stack.getLastPage().getGlobalOffset();
     }
@@ -121,6 +124,75 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         xml_.append("  return out;\n");
         xml_.append(" }\n");
         xml_.append(" public boolean hasNext(){\n");
+        xml_.append("  return index<length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        return xml_.toString();
+    }
+    protected static String getCustomPair() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.CustPair<U,V> :Pair<U,V>{\n");
+        xml_.append(" private U first;\n");
+        xml_.append(" private V second;\n");
+        xml_.append(" public CustPair(){\n");
+        xml_.append(" }\n");
+        xml_.append(" public CustPair(U f,V s){\n");
+        xml_.append("  first = f;\n");
+        xml_.append("  second = s;\n");
+        xml_.append(" }\n");
+        xml_.append(" public U getFirst(){\n");
+        xml_.append("  return first;\n");
+        xml_.append(" }\n");
+        xml_.append(" public V getSecond(){\n");
+        xml_.append("  return second;\n");
+        xml_.append(" }\n");
+        xml_.append(" public void setFirst(U f){\n");
+        xml_.append("  first = f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        return xml_.toString();
+    }
+    protected static String getCustomTable() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.CustTable<U,V> :IterableTable<U,V>{\n");
+        xml_.append(" private CustList<CustPair<U,V>> list;\n");
+        xml_.append(" public (){\n");
+        xml_.append("  list=new CustList<CustPair<U,V>>();\n");
+        xml_.append(" }\n");
+        xml_.append(" public void add(U f,V s){\n");
+        xml_.append("  list.add(new CustPair<U,V>(f,s));\n");
+        xml_.append(" }\n");
+        xml_.append(" public void add(CustPair<U,V> p){\n");
+        xml_.append("  list.add(p);\n");
+        xml_.append(" }\n");
+        xml_.append(" public int size(){\n");
+        xml_.append("  return list.size();\n");
+        xml_.append(" }\n");
+        xml_.append(" public CustPair<U,V> get(int index){\n");
+        xml_.append("  return list.get(index);\n");
+        xml_.append(" }\n");
+        xml_.append(" public IteratorTable<U,V> iteratorTable(){\n");
+        xml_.append("  return new CustIterTable<U,V>(this);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        return xml_.toString();
+    }
+    protected static String getCustomIteratorTable() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.CustIterTable<U,V> :IteratorTable<U,V>{\n");
+        xml_.append(" private CustTable<U,V> list;\n");
+        xml_.append(" private int length;\n");
+        xml_.append(" private int index;\n");
+        xml_.append(" public CustIterTable(CustTable<U,V> i){\n");
+        xml_.append("  list=i;\n");
+        xml_.append("  length=list.size();\n");
+        xml_.append(" }\n");
+        xml_.append(" public CustPair<U,V> nextPair(){\n");
+        xml_.append("  CustPair<U,V> out=list.get(index);\n");
+        xml_.append("  index++;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" public boolean hasNextPair(){\n");
         xml_.append("  return index<length;\n");
         xml_.append(" }\n");
         xml_.append("}\n");

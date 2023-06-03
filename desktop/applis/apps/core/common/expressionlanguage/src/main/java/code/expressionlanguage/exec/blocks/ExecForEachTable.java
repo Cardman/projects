@@ -15,17 +15,19 @@ public final class ExecForEachTable extends ExecBracedBlock implements WithEl {
     private final ExecVariableName variableSecond;
 
     private final int separator;
+    private final int separatorNext;
 
     private final String importedClassIndexName;
 
     private final ExecOperationNodeListOff expression;
 
-    public ExecForEachTable(String _label, ExecVariableName _f, ExecVariableName _s, int _sep,String _importedClassIndexName,
+    public ExecForEachTable(String _label, ExecVariableName _f, ExecVariableName _s, int _sep, int _sepNext, String _importedClassIndexName,
                             ExecOperationNodeListOff _expression) {
         this.label = _label;
         this.variableFirst = _f;
         this.variableSecond = _s;
         this.separator = _sep;
+        this.separatorNext = _sepNext;
         this.importedClassIndexName = _importedClassIndexName;
         expression = _expression;
     }
@@ -57,6 +59,10 @@ public final class ExecForEachTable extends ExecBracedBlock implements WithEl {
 
     public int getSeparator() {
         return separator;
+    }
+
+    public int getSeparatorNext() {
+        return separatorNext;
     }
 
     @Override

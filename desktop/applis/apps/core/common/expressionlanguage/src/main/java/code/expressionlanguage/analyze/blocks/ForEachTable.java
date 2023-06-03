@@ -41,15 +41,17 @@ public final class ForEachTable extends AbstractForLoop implements ImportForEach
     private final StringList nameErrorsSecond = new StringList();
 
     private final int sepOffset;
+    private final int sepNext;
     private final StringList sepErrors = new StringList();
     private boolean okVarFirst = true;
     private boolean okVarSecond = true;
     private final boolean refVariable;
 
-    public ForEachTable(TableLoopExpressionContent _cont, int _offset, int _sepOffset, boolean _refVariable, OffsetStringInfo _label) {
+    public ForEachTable(TableLoopExpressionContent _cont, int _offset, int _sepOffset, int _sepNext, boolean _refVariable, OffsetStringInfo _label) {
         super(_offset, _label);
         tableLoopExpressionContent = _cont;
         sepOffset = _sepOffset;
+        sepNext = _sepNext;
         refVariable = _refVariable;
     }
 
@@ -340,6 +342,10 @@ public final class ForEachTable extends AbstractForLoop implements ImportForEach
 
     public int getSepOffset() {
         return sepOffset;
+    }
+
+    public int getSepNext() {
+        return sepNext;
     }
 
     public StringList getSepErrors() {
