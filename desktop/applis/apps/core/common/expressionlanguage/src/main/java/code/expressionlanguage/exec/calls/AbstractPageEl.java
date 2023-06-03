@@ -380,7 +380,7 @@ public abstract class AbstractPageEl {
         if (st_ instanceof LoopBlockStack) {
             return !((LoopBlockStack) st_).getContent().isFinished();
         }
-        return bl_ instanceof ExecIfCondition || bl_ instanceof ExecWhileCondition || bl_ instanceof ExecDoBlock || bl_ instanceof ExecForIterativeLoop || bl_ instanceof ExecAbstractForEachLoop;
+        return bl_ instanceof ExecIfCondition || bl_ instanceof ExecWhileCondition || bl_ instanceof ExecDoBlock || bl_ instanceof ExecForIterativeLoop || bl_ instanceof ExecAbstractForEachLoop || bl_ instanceof ExecForMutableIterativeLoop;
     }
 
 }

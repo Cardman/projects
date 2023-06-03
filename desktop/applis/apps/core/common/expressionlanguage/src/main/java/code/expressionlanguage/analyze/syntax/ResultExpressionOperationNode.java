@@ -44,7 +44,7 @@ public final class ResultExpressionOperationNode {
         if (c_.block instanceof ElseCondition || c_.block instanceof DoBlock) {
             return c_.block.getOffset();
         }
-        if (!(c_.block instanceof Line) && !(c_.block instanceof ReturnMethod) && !(c_.block instanceof ConditionBlock) && !(c_.block instanceof ForIterativeLoop) && !(c_.block instanceof ForEachLoop)) {
+        if (!(c_.block instanceof Line) && !(c_.block instanceof ReturnMethod) && !(c_.block instanceof ConditionBlock) && !(c_.block instanceof ForIterativeLoop) && !(c_.block instanceof ForEachLoop) && !(c_.block instanceof ForMutableIterativeLoop)) {
             return -1;
         }
         if (c_.resultExpression != null) {
