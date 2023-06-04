@@ -50,7 +50,14 @@ public final class ResultExpressionOperationNode {
         if (c_.resultExpression != null) {
             return c_.resultExpression.getSumOffset();
         }
+        if (c_.block instanceof RootBlock) {
+            return ((RootBlock)c_.block).getIdRowCol();
+        }
         return c_.outExp(_caret);
+    }
+    public static boolean enabledTypeBp(int _caret, FileBlock _file) {
+        ResultExpressionOperationNode c_ = container(_caret, _file);
+        return c_.resultExpression == null && c_.block instanceof RootBlock;
     }
 
     private int outExp(int _caret) {

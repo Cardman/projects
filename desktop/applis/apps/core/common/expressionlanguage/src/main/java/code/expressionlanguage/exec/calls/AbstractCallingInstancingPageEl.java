@@ -15,6 +15,7 @@ import code.util.IdList;
 
 public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl implements ForwardPageEl {
 
+    private boolean checkBegin;
     private boolean calledImplicitConstructor;
 
     private boolean firstField;
@@ -35,6 +36,12 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
     }
 
     public final boolean checkCondition(StackCall _stack) {
+        if (!checkBegin) {
+            if (ExecHelperBlocks.checkBp(this,null)){
+                return false;
+            }
+            checkBegin = true;
+        }
         ExecRootBlock blockRootType_ = getBlockRootType();
         //class or enum (included inner enum)
         ExecFormattedRootBlock formattedSuperClass_ = blockRootType_.getFormattedSuperClass();

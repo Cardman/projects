@@ -31,6 +31,10 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
     protected static StackCall dbgNormal(String _class, MethodId _method, ResultContext _cont) {
         ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
+        return dbgNormalAfterInit(_class, _method, _cont);
+    }
+
+    protected static StackCall dbgNormalAfterInit(String _class, MethodId _method, ResultContext _cont) {
         ExecRootBlock classBody_ = _cont.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
         Argument argGlLoc_ = new Argument();

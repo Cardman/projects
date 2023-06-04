@@ -3,17 +3,14 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.ExecInfoBlock;
-import code.expressionlanguage.exec.blocks.ExecInitBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.BoolVal;
 
 public final class StaticInitPageEl extends AbstractInitPageEl {
-
+    private boolean checkBegin;
     private Argument fwd;
     private final IdMap<ExecInitBlock, BoolVal> processedBlocks = new IdMap<ExecInitBlock, BoolVal>();
 
@@ -24,6 +21,13 @@ public final class StaticInitPageEl extends AbstractInitPageEl {
     @Override
     public void processTagsBase(ContextEl _context, StackCall _stack){
         ExecRootBlock blockRoot_ = getBlockRootType();
+        if (!checkBegin) {
+            globalOffset(blockRoot_.getIdRowCol());
+            if (ExecHelperBlocks.checkBp(this,null)){
+                return;
+            }
+            checkBegin = true;
+        }
         //Super interfaces have no super classes
         //initialize the super class first
         if (_context.getExiting().hasToExit(_stack, blockRoot_.getUniqueType())) {

@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
+import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.*;
@@ -337,7 +338,8 @@ public abstract class AbstractPageEl {
         if (checkBreakPoint()&&!isVisited()) {
             setVisited(true);
             for (int i: list()) {
-                if (_context.getClasses().getDebugMapping().getBreakPointsBlock().is(getFile(), i)) {
+                BreakPoint bp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNull(getFile(), i);
+                if (stopCurrentBp(bp_)) {
                     setGlobalOffset(i);
                     return true;
                 }
@@ -345,6 +347,10 @@ public abstract class AbstractPageEl {
             return false;
         }
         return false;
+    }
+
+    private boolean stopCurrentBp(BreakPoint _bp) {
+        return _bp.isEnabled() && (!_bp.isEnabledChgtType() || _bp.isInstanceType() && this instanceof AbstractCallingInstancingPageEl || _bp.isStaticType() && this instanceof StaticInitPageEl);
     }
 
     private int[] list() {
