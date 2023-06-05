@@ -36,11 +36,8 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
     }
 
     public final boolean checkCondition(StackCall _stack) {
-        if (!checkBegin) {
-            if (ExecHelperBlocks.checkBp(this,null)){
-                return false;
-            }
-            checkBegin = true;
+        if (checkFirstEnter()) {
+            return false;
         }
         ExecRootBlock blockRootType_ = getBlockRootType();
         //class or enum (included inner enum)
@@ -82,6 +79,15 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
 //        }
 //        //fields of the current class are initialized if there is no interface constructors to call
         return !hasToInitFields(bl_,_stack);
+    }
+    protected boolean checkFirstEnter() {
+        if (!checkBegin) {
+            if (ExecHelperBlocks.checkBp(this,null)){
+                return true;
+            }
+            checkBegin = true;
+        }
+        return false;
     }
 
     public boolean hasToInitFields(ExecBlock _bl, StackCall _stack) {
