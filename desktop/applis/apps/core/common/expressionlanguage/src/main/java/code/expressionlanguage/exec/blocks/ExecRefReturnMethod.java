@@ -19,7 +19,7 @@ public final class ExecRefReturnMethod extends ExecAbstractExpressionReturnMetho
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.globalOffset(getExpressionOffset());
         int size_ = ip_.sizeEl();
-        ArgumentsPair argumentsPair_ = ExecHelperBlocks.tryToCalculatePair(true, _cont, IndexConstants.FIRST_INDEX, _stack, getExp(), 0, this);
+        ArgumentsPair argumentsPair_ = ExecHelperBlocks.tryToCalculatePair(_cont, IndexConstants.FIRST_INDEX, _stack, getExp(), 0, this);
         if (size_ < ip_.sizeEl() || argumentsPair_ == null) {
             return;
         }

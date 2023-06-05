@@ -498,18 +498,15 @@ public final class ExecHelperBlocks {
     }
 
     public static Argument tryToCalculate(ContextEl _context, int _index, StackCall _stackCall, CustList<ExecOperationNode> _list, int _offset, ExecBlock _coveredBlock) {
-        return tryToCalculate(true,  _context,_index, _stackCall, _list, _offset, _coveredBlock);
-    }
-    public static Argument tryToCalculate(boolean _skip,ContextEl _context, int _index, StackCall _stackCall, CustList<ExecOperationNode> _list, int _offset, ExecBlock _coveredBlock) {
-        ArgumentsPair argumentsPair_ = tryToCalculatePair(_skip, _context, _index, _stackCall, _list, _offset, _coveredBlock);
+        ArgumentsPair argumentsPair_ = tryToCalculatePair(_context, _index, _stackCall, _list, _offset, _coveredBlock);
         return ExpressionLanguage.getNullable(argumentsPair_);
     }
 
-    public static ArgumentsPair tryToCalculatePair(boolean _skip,ContextEl _context, int _index, StackCall _stackCall, CustList<ExecOperationNode> _list, int _offset, ExecBlock _coveredBlock) {
+    public static ArgumentsPair tryToCalculatePair(ContextEl _context, int _index, StackCall _stackCall, CustList<ExecOperationNode> _list, int _offset, ExecBlock _coveredBlock) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         ExpressionLanguageBp o_ = checkBpWithoutClear(_index, ip_, _list, _coveredBlock);
         ExpressionLanguage exp_ = o_.getExpressionLanguage();
-        if (_skip && o_.getDiff() == 1){
+        if (o_.getDiff() == 1){
             return null;
         }
         return ExpressionLanguage.tryToCalculatePair(_context, exp_, _offset, _stackCall);
