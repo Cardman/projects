@@ -2,7 +2,7 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.fwd.AbsContextGenerator;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.utilimpl.LgNamesUtils;
+import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
 import code.threads.AbstractAtomicBoolean;
 
 public final class AdvContextGenerator implements AbsContextGenerator {
@@ -14,6 +14,6 @@ public final class AdvContextGenerator implements AbsContextGenerator {
 
     @Override
     public ContextEl gene(Forwards _f) {
-        return ((LgNamesUtils)_f.getGenerator()).newContext(stop, _f.getGenerator().newContextCommon(_f.getOptions(),_f),((LgNamesUtils)_f.getGenerator()).args());
+        return ((LgNamesWithNewAliases)_f.getGenerator()).newContext(stop, _f.getGenerator().newContextCommon(_f.getOptions(),_f),((LgNamesWithNewAliases)_f.getGenerator()).args());
     }
 }

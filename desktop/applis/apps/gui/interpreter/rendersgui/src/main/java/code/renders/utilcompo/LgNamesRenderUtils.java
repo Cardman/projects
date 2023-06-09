@@ -24,6 +24,8 @@ import code.formathtml.util.BeanCustLgNames;
 import code.scripts.messages.gui.MessCdmRenderGr;
 import code.sml.Element;
 import code.sml.util.ResourcesMessagesUtil;
+import code.threads.AbstractAtomicBoolean;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -251,8 +253,18 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     }
 
     @Override
+    public ContextEl newContext(AbstractAtomicBoolean _at, CommonExecutionInfos _common, StringList _args) {
+        return new RunnableContextEl(_at,null,_common,_args);
+    }
+
+    @Override
     public CommonExecutionInfos newContextCommon(Options _opt, Forwards _options) {
         return new CommonExecutionInfos(execContent.getCustAliases().getInterceptor().newInterceptorStdCaller(execContent.getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new CustInitializer(execContent.getInfos().getThreadFactory().newAtomicLong(),execContent.getCustAliases().getInterceptor()));
+    }
+
+    @Override
+    public StringList args() {
+        return new StringList();
     }
 
     @Override
