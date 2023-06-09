@@ -391,7 +391,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
-        GuiContextEl r_ = new GuiContextEl(NullStruct.NULL_VALUE,ctx_.getExecutionInfos(),new StringList());
+        GuiContextEl r_ = new GuiContextEl(((RunnableContextEl)ctx_).getInterrupt(),NullStruct.NULL_VALUE,ctx_.getExecutionInfos(),new StringList());
         RunnableStruct.setupThread((RunnableContextEl) ctx_);
         RunnableStruct.setupThread(r_);
         call(new FctThreadJoinOthers(stds_.getExecContent().getCustAliases()), null, ctx_, th_, null, st_);
@@ -495,7 +495,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         update(pr_);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_,new StringMap<String>()).getContext();
         StackCall st_ = stack(ctx_);
@@ -509,7 +509,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         update(pr_);
         Options opt_ = new Options();
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_,new StringMap<String>()).getContext();
         StackCall st_ = stack(ctx_);

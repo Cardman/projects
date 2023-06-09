@@ -45,7 +45,7 @@ public final class MemoryLoggerTest extends EquallableElUtUtil {
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
@@ -58,7 +58,7 @@ public final class MemoryLoggerTest extends EquallableElUtUtil {
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();

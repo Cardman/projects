@@ -82,7 +82,7 @@ public final class RunningTest implements Runnable {
         if (result_.getType() == OutputType.NOTHING) {
             return false;
         }
-        ManageOptions manage_ = new ManageOptions(_lgs, linesFiles_,_progressingTests,_infos);
+        ManageOptions manage_ = new ManageOptions(_lgs, linesFiles_,_progressingTests);
         ExecutingOptions exec_ = manage_.getEx();
         Options opt_ = manage_.getOptions();
         StringMap<String> list_ = tryGetSrc(archive_, exec_, _infos, result_);
@@ -128,7 +128,7 @@ public final class RunningTest implements Runnable {
 
     private static ExecutingOptions exec(AbstractLightProgramInfos _factories, AbstractInterceptor _interceptor, AbstractAdvGraphicListGenerator _adv, AbstractAdvGraphicListGeneratorStruct _cr, String _lg) {
         CdmFactory cdmFactory_ = new CdmFactory(_factories, _interceptor, _adv, _cr);
-        ExecutingOptions ex_ = new ExecutingOptions(_factories.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions ex_ = new ExecutingOptions();
         ex_.setLightProgramInfos(_factories);
         ex_.setLg(_lg);
         ex_.setListGenerator(cdmFactory_);

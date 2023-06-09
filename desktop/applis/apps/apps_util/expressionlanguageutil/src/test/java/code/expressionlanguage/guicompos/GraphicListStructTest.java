@@ -386,7 +386,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         CdmFactory cdm_ = new CdmFactory(pr_, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct());
         Options opt_ = new Options();
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         e_.setListGenerator(cdm_);
         StringMap<String> files_ = new StringMap<String>();

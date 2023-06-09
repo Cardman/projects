@@ -29,6 +29,7 @@ import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
+import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
 import code.util.EntryCust;
@@ -74,7 +75,9 @@ public final class CustContextFactory {
                                KeyWords _definedKw,
                                LgNamesGui _definedLgNames, StringMap<String> _files,
                                ProgressingTests _progressingTests) {
-        _progressingTests.init(_exec);
+        AbstractAtomicBoolean stop_ = _definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean();
+        _progressingTests.setStop(stop_);
+        _definedLgNames.setAtomicBoolean(stop_);
         ResultContext res_ = build(_options, _exec, _mess,_definedKw,
                 _definedLgNames, _files, new StringList());
         ContextEl rCont_ = res_.getContext();

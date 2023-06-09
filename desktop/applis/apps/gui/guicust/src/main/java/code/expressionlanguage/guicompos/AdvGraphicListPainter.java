@@ -11,6 +11,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.gui.*;
 import code.gui.images.AbstractImageFactory;
+import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -18,9 +19,11 @@ import code.util.core.NumberUtil;
 
 public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
 
+    private final AbstractAtomicBoolean interrupt;
     private final StringList args;
-    public AdvGraphicListPainter(AbstractImageFactory _fact, CommonExecutionInfos _executionInfos, StringList _args) {
+    public AdvGraphicListPainter(AbstractImageFactory _fact, AbstractAtomicBoolean _i, CommonExecutionInfos _executionInfos, StringList _args) {
         super(_fact,_executionInfos);
+        interrupt = _i;
         args = _args;
     }
 
@@ -162,7 +165,7 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
         RunnableStruct.invoke(arg_, new ExecFormattedRootBlock(pair_.getType(),stds_.getGuiAliases().getAliasPaint()), _r,pair_, StackCall.newInstance(InitPhase.NOTHING,_r), argList_);
     }
     private GuiContextEl newCtx() {
-        GuiContextEl r_ = new GuiContextEl(null, getExecutionInfos(), args);
+        GuiContextEl r_ = new GuiContextEl(interrupt,null, getExecutionInfos(), args);
         RunnableStruct.setupThread(r_);
         return r_;
     }

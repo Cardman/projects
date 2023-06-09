@@ -6,6 +6,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.Struct;
 import code.gui.CdmFactory;
 import code.stream.BytesInfo;
+import code.threads.AbstractAtomicBoolean;
 
 public interface ProgressingTests {
     CdmFactory getFactory();
@@ -14,8 +15,8 @@ public interface ProgressingTests {
     void updateInfos(RunnableContextEl _ctx, Struct _infos, LgNamesWithNewAliases _evolved);
     void finish(RunnableContextEl _ctx, Struct _infos, LgNamesWithNewAliases _evolved);
     void setResults(RunnableContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved);
-    ExecutingOptions getExec();
-    void init(ExecutingOptions _exec);
+    AbstractAtomicBoolean getStop();
+    void setStop(AbstractAtomicBoolean _a);
     BytesInfo getExportedReport();
     RunnableContextEl ctx();
     void ctx(RunnableContextEl _ctx);

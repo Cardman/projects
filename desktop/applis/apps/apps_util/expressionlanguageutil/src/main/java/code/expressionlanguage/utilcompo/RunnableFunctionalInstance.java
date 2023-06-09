@@ -23,7 +23,7 @@ public final class RunnableFunctionalInstance extends LaunchableFunctionalStruct
 
     @Override
     public void run() {
-        callMethod(new RunnableContextEl(this, getExecutionInfos(), getArgs()), getFunctional(), new CustList<Argument>());
+        callMethod(new RunnableContextEl(getInterrupt(),this, getExecutionInfos(), getArgs()), getFunctional(), new CustList<Argument>());
     }
 
     public static Argument callMethod(RunnableContextEl _localThread, Struct _functional, CustList<Argument> _arguments) {

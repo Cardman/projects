@@ -28,7 +28,7 @@ public final class CloseTabEditorEvent implements AbsActionListener {
         if (rCont_ == null) {
             return;
         }
-        rCont_.getExecutingOptions().getInterrupt().set(true);
+        rCont_.getInterrupt().set(true);
         rCont_.getThread().getThread().stopJoinSleep();
     }
 }

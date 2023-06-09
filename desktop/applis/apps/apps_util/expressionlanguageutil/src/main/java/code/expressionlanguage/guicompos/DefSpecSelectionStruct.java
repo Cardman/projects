@@ -13,6 +13,7 @@ import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.gui.SpecSelectionStruct;
 import code.gui.images.MetaDimension;
+import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -21,10 +22,12 @@ public final class DefSpecSelectionStruct implements SpecSelectionStruct {
     private final CommonExecutionInfos executionInfos;
     private final Struct component;
     private final StringList args;
+    private final AbstractAtomicBoolean interrupt;
 
     public DefSpecSelectionStruct(RunnableContextEl _ctx, Struct _component) {
         executionInfos = _ctx.getExecutionInfos();
         args = _ctx.getArgs();
+        interrupt = _ctx.getInterrupt();
         this.component = _component;
     }
 
@@ -53,7 +56,7 @@ public final class DefSpecSelectionStruct implements SpecSelectionStruct {
         return Argument.getNullableValue(RunnableStruct.invoke(arg_, new ExecFormattedRootBlock(pair_.getType(), stds_.getGuiAliases().getAliasPaint()), _r,pair_, StackCall.newInstance(InitPhase.NOTHING,_r), argList_));
     }
     private GuiContextEl newCtx(CommonExecutionInfos _executionInfos) {
-        GuiContextEl r_ = new GuiContextEl(null, _executionInfos, args);
+        GuiContextEl r_ = new GuiContextEl(interrupt,null, _executionInfos, args);
         RunnableStruct.setupThread(r_);
         return r_;
     }

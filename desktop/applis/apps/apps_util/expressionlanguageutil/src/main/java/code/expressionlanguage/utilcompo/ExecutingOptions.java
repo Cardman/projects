@@ -4,8 +4,7 @@ import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.options.Options;
 import code.gui.CdmFactory;
-import code.gui.initialize.*;
-import code.threads.AbstractAtomicBoolean;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -24,7 +23,6 @@ public final class ExecutingOptions {
     private String outputZip = "out/results.zip";
     private String outputFolder = "";
     private String output = "";
-    private final AbstractAtomicBoolean interrupt;
     private boolean covering;
     private String coverFolder = "coverage";
     private String errorsFolder = "errors";
@@ -42,8 +40,7 @@ public final class ExecutingOptions {
     private CdmFactory listGenerator;
     private FileSystemParameterizing fileSystemParameterizing;
 
-    public ExecutingOptions(AbstractAtomicBoolean _inter) {
-        interrupt = _inter;
+    public ExecutingOptions() {
         setFileSystemParameterizing(new FileSystemParameterizing("d",new StringBuilder(),new Ints(), "f",new StringBuilder(),new Ints()));
     }
 
@@ -343,10 +340,6 @@ public final class ExecutingOptions {
 
     public void setOutputZip(String _outputZip) {
         this.outputZip = _outputZip;
-    }
-
-    public AbstractAtomicBoolean getInterrupt() {
-        return interrupt;
     }
 
     public boolean isCovering() {

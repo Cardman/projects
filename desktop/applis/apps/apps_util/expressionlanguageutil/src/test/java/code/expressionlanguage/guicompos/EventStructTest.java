@@ -44,7 +44,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){}}");
@@ -64,7 +64,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
@@ -81,7 +81,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){throw null;}}");
@@ -98,7 +98,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
@@ -118,7 +118,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){throw null;} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
@@ -143,7 +143,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){throw null;} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
@@ -163,7 +163,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public enum pkg.Sample:Runnable{ONE;public int i=2;(){i=i;name();ordinal();ObjectsUtil.getParent(this);ObjectsUtil.setParent(this,this);}public void run(){}}");
@@ -185,7 +185,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){Thread.interrupt();}}");
@@ -202,7 +202,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){Thread.currentThread().end();}}");
@@ -219,7 +219,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){} public static Fct fct(){Thread.print(\"\");return new Sample().$lambda(Runnable,run);}}");
@@ -240,7 +240,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Outer{public class Sample:Runnable{public int i=2;(){i=i;ObjectsUtil.getParent(this);}public void run(){ObjectsUtil.setParent(this,Outer.this);}}}");
@@ -259,7 +259,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
@@ -276,7 +276,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
@@ -300,7 +300,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public enum pkg.Sample:Runnable{ONE;public int i=2;(){i=i;name();ordinal();ObjectsUtil.getParent(this);ObjectsUtil.setParent(this,this);} public void run(){}}");
@@ -317,7 +317,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
@@ -355,7 +355,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Outer{public class Sample:Runnable{public int i=2;(){i=i;ObjectsUtil.getParent(this);}public void run(){ObjectsUtil.setParent(this,Outer.this);}}}");
@@ -374,7 +374,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
@@ -428,7 +428,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
@@ -448,7 +448,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
@@ -471,7 +471,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
@@ -493,7 +493,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
@@ -513,7 +513,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
@@ -533,11 +533,11 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
-        assertEq("",new DefSpecSelectionCtx(ctx_.getExecutionInfos(),new StringList()).convertStr(new StringStruct("")));
+        assertEq("",new DefSpecSelectionCtx(((RunnableContextEl)ctx_).getInterrupt(),ctx_.getExecutionInfos(),new StringList()).convertStr(new StringStruct("")));
     }
     @Test
     public void actWrap1() {
@@ -556,7 +556,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
@@ -573,7 +573,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
@@ -591,7 +591,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");

@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilimpl;
 
 import code.expressionlanguage.gui.unit.*;
+import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.MemInputFiles;
@@ -117,7 +118,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         assertEq(CommonExecution.CROSS_SUCCESS, bar_.getResults().get(1).getResultSuccess());
         assertFalse(bar_.getResults().get(0).isSuccess());
         assertTrue(bar_.getResults().get(1).isSuccess());
-        assertFalse(progTest_.getExec().getInterrupt().get());
+        assertFalse(progTest_.getStop().get());
     }
     @Test
     public void launch7() {
@@ -133,14 +134,14 @@ public final class RunTest extends EquallableElUtImplUtil {
     @Test
     public void splitMemo1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
-        ResultContext res_ = RunningTest.nextValidateMemo(RunningTest.baseValidateMemo("en", new StringList("keyWords=If=;"), new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null),null,null);
+        ResultContext res_ = together(RunningTest.baseValidateMemo("en", new StringList("keyWords=If=;"), new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null), null);
         assertTrue(res_.getPageEl().notAllEmptyErrors());
     }
     @Test
     public void splitMemo2() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         StringList lines_ = new StringList("","en","out=//");
-        ResultContext res_ = RunningTest.nextValidateMemo(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null),new MemInputFiles(new byte[0],new BytesInfo(new byte[0],false),new BytesInfo(new byte[0],false)),null);
+        ResultContext res_ = together(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null), new MemInputFiles(new byte[0],new BytesInfo(new byte[0],false),new BytesInfo(new byte[0],false)));
         assertFalse(res_.getPageEl().isCustomAna());
     }
     @Test
@@ -148,7 +149,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         StringList lines_ = new StringList("","en");
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt",""));
-        ResultContext res_ = RunningTest.nextValidateMemo(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null),new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)),null);
+        ResultContext res_ = together(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null), new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)));
         assertTrue(res_.getPageEl().isCustomAna());
         assertTrue(res_.getPageEl().notAllEmptyErrors());
     }
@@ -157,7 +158,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         StringList lines_ = new StringList("","en");
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{}"));
-        ResultContext res_ = RunningTest.nextValidateMemo(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null),new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)),null);
+        ResultContext res_ = together(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null), new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)));
         assertTrue(res_.getPageEl().isCustomAna());
         assertFalse(res_.getPageEl().notAllEmptyErrors());
     }
@@ -168,10 +169,16 @@ public final class RunTest extends EquallableElUtImplUtil {
         MockAdvGraphicListGenerator adv_ = new MockAdvGraphicListGenerator(true);
         AdvGraphicListGeneratorStruct cr_ = new AdvGraphicListGeneratorStruct();
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "\n"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{}"));
-        ResultContext res_ = RunningTest.nextValidateMemo(RunningTest.baseValidateMemoDef("en", inter_,pr_.light(), adv_, cr_),new MemInputFiles(StringUtil.encode("\n"),new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)),null);
+        ResultContext res_ = together(RunningTest.baseValidateMemoDef("en", inter_, pr_.light(), adv_, cr_), new MemInputFiles(StringUtil.encode("\n"), new BytesInfo(zipped_, false), new BytesInfo(new byte[0], false)));
         assertTrue(res_.getPageEl().isCustomAna());
         assertFalse(res_.getPageEl().notAllEmptyErrors());
     }
+
+    private ResultContext together(ResultContext _base, MemInputFiles _in) {
+        ((LgNamesGui)_base.getForwards().getGenerator()).setAtomicBoolean(((LgNamesGui)_base.getForwards().getGenerator()).getExecContent().getInfos().getThreadFactory().newAtomicBoolean());
+        return RunningTest.nextValidateMemo(_base, _in, null);
+    }
+
     @Test
     public void splitMemoQuick1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));

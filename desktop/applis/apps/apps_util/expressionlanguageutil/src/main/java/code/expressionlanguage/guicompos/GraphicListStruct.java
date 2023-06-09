@@ -23,7 +23,7 @@ public final class GraphicListStruct extends InputStruct implements GraphicListI
     public static AbsGraphicListStr init(GuiContextEl _ctx,boolean _simple) {
         GuiExecutingBlocks guiEx_ = ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks();
         AbstractAdvGraphicListGenerator graphicListGenerator_ = guiEx_.getGraphicListGenerator();
-        DefSpecSelectionCtx create_ = new DefSpecSelectionCtx(_ctx.getExecutionInfos(),_ctx.getArgs());
+        DefSpecSelectionCtx create_ = new DefSpecSelectionCtx(_ctx.getInterrupt(),_ctx.getExecutionInfos(),_ctx.getArgs());
         if (_simple) {
             return graphicListGenerator_.createSimple(create_,guiEx_.getCompoFactory());
         }
@@ -31,7 +31,7 @@ public final class GraphicListStruct extends InputStruct implements GraphicListI
     }
 
     private void init(GuiContextEl _ctx) {
-        grList.setDefCell(this, new DefSpecSelectionCtx(_ctx.getExecutionInfos(),_ctx.getArgs()));
+        grList.setDefCell(this, new DefSpecSelectionCtx(_ctx.getInterrupt(),_ctx.getExecutionInfos(),_ctx.getArgs()));
     }
 
     @Override
@@ -143,7 +143,7 @@ public final class GraphicListStruct extends InputStruct implements GraphicListI
 
     public static void setRender(GuiContextEl _ctx, Struct _render, GraphicListIntStruct _cr) {
         _cr.setRender(_render);
-        DefSpecSelectionCtx create_ = new DefSpecSelectionCtx(_ctx.getExecutionInfos(),_ctx.getArgs());
+        DefSpecSelectionCtx create_ = new DefSpecSelectionCtx(_ctx.getInterrupt(),_ctx.getExecutionInfos(),_ctx.getArgs());
         if (_render instanceof RenderStruct) {
             RenderStruct rend_ = (RenderStruct) _render;
             Struct paint_ = rend_.getPaint();

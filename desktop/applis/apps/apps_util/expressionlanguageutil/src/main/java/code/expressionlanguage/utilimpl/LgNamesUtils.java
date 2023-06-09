@@ -14,10 +14,12 @@ import code.expressionlanguage.structs.LambdaStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
+import code.threads.AbstractAtomicBoolean;
 import code.util.StringList;
 
 public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     private final LgNamesUtilsContent execContent;
+    private AbstractAtomicBoolean atomicBoolean;
 
     public LgNamesUtils(FileInfos _infos, AbstractInterceptor _inter) {
         super(_infos.getGenerator());
@@ -51,7 +53,14 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
 
     @Override
     public ContextEl newContext(Options _opt,Forwards _options) {
-        return new RunnableContextEl(null, new CommonExecutionInfos(execContent.getCustAliases().getInterceptor().newInterceptorStdCaller(execContent.getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new CustInitializer(execContent.getInfos().getThreadFactory().newAtomicLong(),execContent.getCustAliases().getInterceptor())), new StringList());
+        return new RunnableContextEl(atomicBoolean,null, new CommonExecutionInfos(execContent.getCustAliases().getInterceptor().newInterceptorStdCaller(execContent.getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new CustInitializer(execContent.getInfos().getThreadFactory().newAtomicLong(),execContent.getCustAliases().getInterceptor())), new StringList());
     }
 
+    public AbstractAtomicBoolean getAtomicBoolean() {
+        return atomicBoolean;
+    }
+
+    public void setAtomicBoolean(AbstractAtomicBoolean _a) {
+        this.atomicBoolean = _a;
+    }
 }

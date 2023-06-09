@@ -25,7 +25,7 @@ public final class CustRenderAction implements AbstractRenderAction {
 
     @Override
     public String execute(boolean _form, Element _elt) {
-        ContextEl ctx_ = creator.newContext(initialization.getContext());
+        ContextEl ctx_ = creator.newContext(render.getGene().getThreadFactory().newAtomicBoolean(),initialization.getContext());
         RendStackCall rendStackCall_ = std.execute(_form, _elt, navigation, ctx_);
         return afterAction(ctx_,rendStackCall_);
     }

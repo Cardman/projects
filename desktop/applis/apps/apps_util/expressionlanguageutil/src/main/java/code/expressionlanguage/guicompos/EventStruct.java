@@ -234,7 +234,7 @@ public final class EventStruct extends LaunchableStruct implements WithParentStr
         RunnableStruct.invoke(this,_r,_typeName,_methName, argList_);
     }
     private GuiContextEl newCtx() {
-        GuiContextEl r_ = new GuiContextEl(this, getExecutionInfos(), getArgs());
+        GuiContextEl r_ = new GuiContextEl(getInterrupt(),this, getExecutionInfos(), getArgs());
         RunnableStruct.setupThread(r_);
         return r_;
     }

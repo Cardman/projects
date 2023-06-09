@@ -110,7 +110,7 @@ public abstract class EquallableElUtImplUtil {
 
     public static LgNamesGui newLgNamesGuiSampleCl(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
-        stds_.getExecContent().setExecutingOptions(new ExecutingOptions(new MockAtomicBoolean()));
+        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
         return stds_;
     }
     public static LgNamesGui newLgNamesGui(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {

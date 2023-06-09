@@ -294,7 +294,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");

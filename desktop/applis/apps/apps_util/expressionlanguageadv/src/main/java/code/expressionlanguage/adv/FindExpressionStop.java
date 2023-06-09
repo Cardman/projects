@@ -12,7 +12,7 @@ public final class FindExpressionStop implements AbsActionListener {
     @Override
     public void action() {
         RunnableContextEl rCont_ = editor.getAction();
-        rCont_.getExecutingOptions().getInterrupt().set(true);
+        rCont_.getInterrupt().set(true);
         rCont_.getThread().getThread().stopJoinSleep();
     }
 }

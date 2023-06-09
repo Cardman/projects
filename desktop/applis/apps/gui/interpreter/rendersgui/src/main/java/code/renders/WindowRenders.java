@@ -124,7 +124,7 @@ public final class WindowRenders extends GroupFrame {
         StringMap<String> zipFiles_ = result_.getZipFiles();
         String clName_ = "";
         String mName_ = "";
-        ExecutingOptions exec_ = new ExecutingOptions(getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setAccess(archive_);
         exec_.setListGenerator(interceptor);
         String lg_ = getLanguageKey();

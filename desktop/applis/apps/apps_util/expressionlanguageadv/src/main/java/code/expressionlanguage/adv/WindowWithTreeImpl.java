@@ -557,7 +557,7 @@ public abstract class WindowWithTreeImpl {
     }
 
     protected ManageOptions manage(StringList _linesFiles) {
-        return new ManageOptions(commonFrame.getFrames().getLanguages(), _linesFiles, factory, commonFrame.getFrames().getThreadFactory());
+        return new ManageOptions(commonFrame.getFrames().getLanguages(), _linesFiles, factory);
     }
     public AbsCommonFrame getCommonFrame() {
         return commonFrame;

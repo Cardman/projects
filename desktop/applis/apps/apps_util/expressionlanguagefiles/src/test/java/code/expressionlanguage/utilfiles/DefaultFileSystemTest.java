@@ -24,7 +24,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
     public void initTest() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         assertTrue(pr_.getFileCoreStream().newFile("/files").isDirectory());
@@ -34,7 +34,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -46,7 +46,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -58,7 +58,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -70,7 +70,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -82,7 +82,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -94,7 +94,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -108,7 +108,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -122,7 +122,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -137,7 +137,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -152,7 +152,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -166,7 +166,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -180,7 +180,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -193,7 +193,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -206,7 +206,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -219,7 +219,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.25));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -232,7 +232,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -246,7 +246,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -259,7 +259,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.25));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -272,7 +272,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -286,7 +286,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -299,7 +299,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.25));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -312,7 +312,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -325,7 +325,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -338,7 +338,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.25));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -352,7 +352,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -366,7 +366,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -380,7 +380,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.25));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -394,7 +394,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -408,7 +408,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -422,7 +422,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -436,7 +436,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.25));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -450,7 +450,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -464,7 +464,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -478,7 +478,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -491,7 +491,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -505,7 +505,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -522,7 +522,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -541,7 +541,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -558,7 +558,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
@@ -574,7 +574,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
         GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);

@@ -20,6 +20,7 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.*;
 import code.scripts.messages.gui.MessCdmUnitGr;
 import code.sml.util.ResourcesMessagesUtil;
+import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractFuture;
 import code.util.StringMap;
@@ -162,13 +163,13 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         if (running != null) {
             ProgressingTests progressingTests_ = running.getProgressingTests();
             if (progressingTests_ != null) {
-                ExecutingOptions exec_ = progressingTests_.getExec();
+                AbstractAtomicBoolean exec_ = progressingTests_.getStop();
                 if (exec_ != null) {
-                    exec_.getInterrupt().set(true);
+                    exec_.set(true);
                 }
                 RunnableContextEl c_ = progressingTests_.ctx();
                 if (c_ != null) {
-                    c_.getExecutingOptions().getInterrupt().set(true);
+                    c_.getInterrupt().set(true);
                     c_.getThread().getThread().stopJoinSleep();
                 }
             }

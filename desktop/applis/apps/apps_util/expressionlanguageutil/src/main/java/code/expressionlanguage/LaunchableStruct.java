@@ -8,6 +8,7 @@ import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithParentStruct;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -18,6 +19,7 @@ public abstract class LaunchableStruct implements WithParentStruct, EnumerableSt
     private final CustList<ClassFieldStruct> fields;
     private final CommonExecutionInfos executionInfos;
     private final StringList args;
+    private final AbstractAtomicBoolean interrupt;
 
     private Struct parent;
 
@@ -36,6 +38,7 @@ public abstract class LaunchableStruct implements WithParentStruct, EnumerableSt
         parentClassName = _parentClassName;
         executionInfos = _original.getExecutionInfos();
         args = _original.getArgs();
+        interrupt = _original.getInterrupt();
     }
     @Override
     public String getName() {
@@ -92,5 +95,9 @@ public abstract class LaunchableStruct implements WithParentStruct, EnumerableSt
 
     public StringList getArgs() {
         return args;
+    }
+
+    public AbstractAtomicBoolean getInterrupt() {
+        return interrupt;
     }
 }

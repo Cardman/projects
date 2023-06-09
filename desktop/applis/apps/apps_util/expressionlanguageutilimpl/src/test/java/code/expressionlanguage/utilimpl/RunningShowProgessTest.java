@@ -30,6 +30,7 @@ import code.mock.MockFileSet;
 import code.mock.MockInterceptor;
 import code.mock.MockProgramInfos;
 import code.stream.BytesInfo;
+import code.threads.AbstractAtomicBoolean;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -43,7 +44,7 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         MemInputFiles mem_ = new MemInputFiles(StringUtil.encode(""), new BytesInfo(StringUtil.encode(""), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         LgNamesGui stds_ = new LgNamesGui(infos_, new MockInterceptor());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setLg("en");
         exec_.setLightProgramInfos(pr_);
         AbsCompoFactory compo_ = pr_.getCompoFactory();
@@ -54,7 +55,9 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"2\")) > new Sample2(new(\"1\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
-        progTest_.init(stds_.getExecContent().getExecutingOptions());
+        AbstractAtomicBoolean a_ = pr_.getThreadFactory().newAtomicBoolean();
+        progTest_.setStop(a_);
+        stds_.setAtomicBoolean(a_);
 
         ResultContext res_ = CustContextFactory.buildDefKw(new Options(), stds_.getExecContent().getExecutingOptions(), stds_, files_);
         ContextEl rCont_ = res_.getContext();
@@ -77,7 +80,7 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         MemInputFiles mem_ = new MemInputFiles(StringUtil.encode(""), new BytesInfo(StringUtil.encode(""), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         LgNamesGui stds_ = new LgNamesGui(infos_, new MockInterceptor());
-        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setLightProgramInfos(pr_);
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
@@ -89,7 +92,9 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"2\")) > new Sample2(new(\"1\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
-        progTest_.init(stds_.getExecContent().getExecutingOptions());
+        AbstractAtomicBoolean a_ = pr_.getThreadFactory().newAtomicBoolean();
+        progTest_.setStop(a_);
+        stds_.setAtomicBoolean(a_);
         ResultContext res_ = CustContextFactory.buildDefKw(new Options(), stds_.getExecContent().getExecutingOptions(), stds_, files_);
         fram_.setResults(res_.getContext(),new Argument(),stds_);
         assertEq(0, bar_.getMin());

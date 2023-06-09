@@ -308,7 +308,7 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         assertFalse(tabEditor(w_).getReplaceOneExp().isEnabled());
         TabEditor t_ = tabEditor(w_);
         closeTab(t_);
-        assertTrue(t_.getAction().getExecutingOptions().getInterrupt().get());
+        assertTrue(t_.getAction().getInterrupt().get());
     }
     @Test
     public void replaceNoOcc() {

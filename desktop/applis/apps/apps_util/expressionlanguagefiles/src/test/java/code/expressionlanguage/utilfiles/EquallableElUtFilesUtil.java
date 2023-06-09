@@ -109,7 +109,7 @@ public abstract class EquallableElUtFilesUtil {
 
     public static LgNamesGui newLgNamesGuiSampleCl(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
-        stds_.getExecContent().setExecutingOptions(new ExecutingOptions(new MockAtomicBoolean()));
+        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
         return stds_;
     }
     public static LgNamesGui newLgNamesGui(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {
@@ -125,7 +125,7 @@ public abstract class EquallableElUtFilesUtil {
         return stds_;
     }
     public static GuiContextEl newContext(LgNamesGui _stds,CustomSeedGene _opt) {
-        return new GuiContextEl(NullStruct.NULL_VALUE, new CommonExecutionInfos(new MockInterceptorStdCaller(),new CommonExecutionMetricsInfos(4,-1,_opt),_stds,new Classes(new DefTypePairHash()), new Coverage(false), new DefaultLockingClass(),
+        return new GuiContextEl(_stds.getExecContent().getInfos().getThreadFactory().newAtomicBoolean(),NullStruct.NULL_VALUE, new CommonExecutionInfos(new MockInterceptorStdCaller(),new CommonExecutionMetricsInfos(4,-1,_opt),_stds,new Classes(new DefTypePairHash()), new Coverage(false), new DefaultLockingClass(),
                 new GuiInitializer(_stds.getExecContent().getInfos().getThreadFactory().newAtomicLong(), _stds.getExecContent().getCustAliases().getInterceptor())),
                 new StringList(_stds.getExecContent().getExecutingOptions().getArgs()));
     }

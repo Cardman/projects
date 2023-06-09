@@ -21,7 +21,7 @@ public final class RunnableStruct extends LaunchableStruct {
     }
     @Override
     public void run() {
-        RunnableContextEl r_ = new RunnableContextEl(this, getExecutionInfos(), getArgs());
+        RunnableContextEl r_ = new RunnableContextEl(getInterrupt(),this, getExecutionInfos(), getArgs());
         setupThread(r_);
         invoke(this,r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(), new ArgumentListCall());
     }

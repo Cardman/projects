@@ -429,7 +429,7 @@ public final class TabEditor {
         ResultContext base_ = windowSecEditor.getMainFrame().getBaseResult();
         LgNamesGui lg_ = (LgNamesGui) base_.getForwards().getGenerator();
         FileInfos fileInfos_ = lg_.getExecContent().getInfos();
-        ExecutingOptions ex_ = new ExecutingOptions(windowSecEditor.getMainFrame().getCommonFrame().getFrames().getThreadFactory().newAtomicBoolean());
+        ExecutingOptions ex_ = new ExecutingOptions();
         ex_.setLightProgramInfos(lg_.getExecContent().getExecutingOptions().getLightProgramInfos());
         ex_.setListGenerator(lg_.getExecContent().getExecutingOptions().getListGenerator());
         ex_.setFileSystemParameterizing(lg_.getExecContent().getExecutingOptions().getFileSystemParameterizing());
@@ -446,6 +446,7 @@ public final class TabEditor {
         ex_.setBaseFiles(lg_.getExecContent().getExecutingOptions().getBaseFiles());
         ex_.getLgs().addAllElts(lg_.getExecContent().getExecutingOptions().getLgs());
         LgNamesGui lgCopy_ = new LgNamesGui(fileInfos_,windowSecEditor.getMainFrame().getFactory().getInterceptor());
+        lgCopy_.setAtomicBoolean(fileInfos_.getThreadFactory().newAtomicBoolean());
         lgCopy_.getContent().getStandards().addAllEntries(lg_.getContent().getStandards());
         lgCopy_.getContent().getPrimTypes().getPrimitiveTypes().addAllEntries(lg_.getContent().getPrimTypes().getPrimitiveTypes());
         lgCopy_.getExecContent().updateTranslations(ex_.getLightProgramInfos().getTranslations(),ex_.getLightProgramInfos().getLanguage(),ex_.getLg());

@@ -4,12 +4,14 @@ import code.expressionlanguage.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.structs.Struct;
 import code.stream.core.AbstractZipFact;
+import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
 import code.util.StringList;
 
 public class RunnableContextEl extends ContextEl implements Locking {
 
+    private final AbstractAtomicBoolean interrupt;
     private final ThreadStruct thread;
     private final AbstractThreadFactory threadFactory;
     private final AbstractZipFact zipFact;
@@ -18,7 +20,12 @@ public class RunnableContextEl extends ContextEl implements Locking {
     private StringList args;
 
     public RunnableContextEl(Struct _state, CommonExecutionInfos _executionInfos, StringList _args) {
+        this(gene(_executionInfos),_state,_executionInfos,_args);
+    }
+
+    public RunnableContextEl(AbstractAtomicBoolean _i,Struct _state, CommonExecutionInfos _executionInfos, StringList _args) {
         super(_executionInfos);
+        interrupt = _i;
         args = _args;
         LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) _executionInfos.getStandards();
         threadFactory = standards_.getExecContent().getInfos().getThreadFactory();
@@ -27,6 +34,10 @@ public class RunnableContextEl extends ContextEl implements Locking {
         zipFact = standards_.getExecContent().getInfos().getZipFact();
     }
 
+    private static AbstractAtomicBoolean gene(CommonExecutionInfos _executionInfos) {
+        LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) _executionInfos.getStandards();
+        return standards_.getExecContent().getInfos().getThreadFactory().newAtomicBoolean();
+    }
     public StringList getArgs() {
         return args;
     }
@@ -94,15 +105,18 @@ public class RunnableContextEl extends ContextEl implements Locking {
     }
 
     boolean stopped() {
-        return ((LgNamesWithNewAliases) getStandards()).getExecContent().getExecutingOptions().getInterrupt().get() || isCurrentThreadEnded();
+        return interrupt.get() || isCurrentThreadEnded();
     }
 
     public void interrupt() {
-        ((LgNamesWithNewAliases) getStandards()).getExecContent().getExecutingOptions().getInterrupt().set(true);
+        interrupt.set(true);
     }
 
     public AbstractZipFact getZipFact() {
         return zipFact;
     }
 
+    public AbstractAtomicBoolean getInterrupt() {
+        return interrupt;
+    }
 }

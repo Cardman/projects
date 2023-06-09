@@ -2,10 +2,8 @@ package code.expressionlanguage.utilimpl;
 
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
-import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.ProgressingTests;
 import code.gui.CdmFactory;
-import code.threads.AbstractThreadFactory;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -13,11 +11,11 @@ public final class ManageOptions {
     private final ExecutingOptions ex;
     private final Options options;
     private final String language;
-    public ManageOptions(StringList _lgs, StringList _linesFiles, ProgressingTests _progressingTests, FileInfos _infos) {
-        this(_lgs, _linesFiles,_progressingTests.getFactory(),_infos.getThreadFactory());
+    public ManageOptions(StringList _lgs, StringList _linesFiles, ProgressingTests _progressingTests) {
+        this(_lgs, _linesFiles,_progressingTests.getFactory());
     }
-    public ManageOptions(StringList _lgs, StringList _linesFiles, CdmFactory _progressingTests, AbstractThreadFactory _infos) {
-        ExecutingOptions exec_ = new ExecutingOptions(_infos.newAtomicBoolean());
+    public ManageOptions(StringList _lgs, StringList _linesFiles, CdmFactory _progressingTests) {
+        ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setListGenerator(_progressingTests);
         Options opt_ = new Options();
         if (!StringUtil.contains(_lgs,_linesFiles.get(1))){

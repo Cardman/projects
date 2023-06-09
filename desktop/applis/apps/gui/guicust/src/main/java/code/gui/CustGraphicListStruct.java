@@ -25,7 +25,7 @@ public final class CustGraphicListStruct extends InputStruct implements GraphicL
     }
 
     private void init(GuiContextEl _ctx) {
-        cuGr.setDefCell(this, new DefSpecSelectionCtx(_ctx.getExecutionInfos(),_ctx.getArgs()));
+        cuGr.setDefCell(this, new DefSpecSelectionCtx(_ctx.getInterrupt(),_ctx.getExecutionInfos(),_ctx.getArgs()));
     }
 
     @Override

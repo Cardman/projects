@@ -7,10 +7,11 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.CdmFactory;
 import code.stream.BytesInfo;
+import code.threads.AbstractAtomicBoolean;
 
 public abstract class ProgressingTestsAbs implements ProgressingTests {
     private final TestableFrame mainWindow;
-    private ExecutingOptions exec;
+    private AbstractAtomicBoolean stop;
     private RunnableContextEl context;
 
     protected ProgressingTestsAbs(TestableFrame _mainWindow) {
@@ -62,13 +63,11 @@ public abstract class ProgressingTestsAbs implements ProgressingTests {
         context = _ctx;
     }
 
-    @Override
-    public ExecutingOptions getExec() {
-        return exec;
+    public AbstractAtomicBoolean getStop() {
+        return stop;
     }
 
-    @Override
-    public void init(ExecutingOptions _exec) {
-        exec = _exec;
+    public void setStop(AbstractAtomicBoolean _a) {
+        this.stop = _a;
     }
 }
