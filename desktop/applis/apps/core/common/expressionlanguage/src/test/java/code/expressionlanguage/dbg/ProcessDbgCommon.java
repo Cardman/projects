@@ -30,23 +30,46 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return _stack.getLastPage().getGlobalOffset();
     }
     protected static StackCall dbgNormal(String _class, MethodId _method, ResultContext _cont) {
-        tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
-        return dbgNormalAfterInit(_class, _method, _cont);
+//        tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
+//        return dbgNormalAfterInit(_class, _method, _cont);
+//    }
+//
+//    protected static StackCall dbgNormalAfterInitGene(String _class, MethodId _method, ResultContext _cont) {
+        return dbgNormal(_class, _method, _cont,null);
+//        ExecRootBlock classBody_ = _cont.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+//        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
+//        Argument argGlLoc_ = new Argument();
+//        Parameters p_ = new Parameters();
+//        return ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getForwards().getOptions(),null,new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_)).getStack();
     }
-
-    protected static StackCall dbgNormalAfterInit(String _class, MethodId _method, ResultContext _cont) {
+    protected static StackCall dbgNormal(String _class, MethodId _method, ResultContext _cont, StackCall _st) {
+//        tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
+//        return dbgNormalAfterInit(_class, _method, _cont);
+//    }
+//
+//    protected static StackCall dbgNormalAfterInitGene(String _class, MethodId _method, ResultContext _cont) {
         ExecRootBlock classBody_ = _cont.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont.getContext());
-        ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_), _cont.getContext(), stackCall_);
-        return stackCall_;
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getForwards().getOptions(),_st,new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_)).getStack();
     }
+//    protected static StackCall dbgNormalAfterInit(String _class, MethodId _method, ResultContext _cont) {
+//        ExecRootBlock classBody_ = _cont.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+//        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
+//        Argument argGlLoc_ = new Argument();
+//        Parameters p_ = new Parameters();
+//        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont.getContext());
+//        ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_), _cont.getContext(), stackCall_);
+//        return stackCall_;
+//    }
 
     protected static StackCall dbgContinueNormal(StackCall _stack, ContextEl _cont) {
-        _cont.getInit().loopCalling(_cont, _stack);
-        return _stack;
+        return dbgContinueNormalValue(_stack, _cont).getStack();
+    }
+
+    protected static StackCallReturnValue dbgContinueNormalValue(StackCall _stack, ContextEl _cont) {
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null);
     }
     protected static ResultContext ctxLgReadOnlyOkQuick(String _lg, StringMap<String> _files, String... _types) {
         Options opt_ = newOptions();

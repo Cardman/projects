@@ -5,6 +5,8 @@ import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -120,6 +122,21 @@ public final class ExecClassesUtil {
 
     public static StackCall tryInitStaticlyTypes(ContextEl _context, Options _options) {
         return tryInitStaticlyTypes(_context,_options,null);
+    }
+    public static StackCallReturnValue tryInitStaticlyTypes(ContextEl _context, Options _options, StackCall _st, CallingState _callee) {
+        StackCall st_ = tryInitStaticlyTypes(_context, _options, _st);
+        if (st_.getInitializingTypeInfos().getInitEnums() == InitPhase.NOTHING) {
+            ArgumentWrapper arg_;
+            if (!st_.isStoppedBreakPoint()) {
+                arg_ = ProcessMethod.calculate(_callee, _context, st_);
+            } else {
+                AbstractPageEl f_ = st_.getCall(0);
+                _context.getInit().loopCalling(_context, st_);
+                arg_ = new ArgumentWrapper(f_.getReturnedArgument(),f_.getWrapper());
+            }
+            return new StackCallReturnValue(st_,arg_);
+        }
+        return new StackCallReturnValue(st_,null);
     }
     public static StackCall tryInitStaticlyTypes(ContextEl _context, Options _options, StackCall _st) {
         if (_st == null) {

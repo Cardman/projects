@@ -50,11 +50,11 @@ public final class ProcessDbgStaticTypeTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",13,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType("pkg/Ex",13,cont_, true);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointInstanceType("pkg/Ex",13,cont_, false);
-        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
-        StackCall next_ = tryInitStaticlyTypes(stack_, cont_.getForwards().getOptions(), cont_.getContext());
-        assertEq(0, next_.nbPages());
         MethodId id_ = getMethodId("exmeth");
-        StackCall stackLan_ = dbgNormalAfterInit("pkg.Ex", id_, cont_);
+        StackCall stack_ = dbgNormal("pkg.Ex", id_,cont_);
+        StackCall next_ = dbgNormal("pkg.Ex", id_,cont_, stack_);
+        assertEq(0, next_.nbPages());
+        StackCall stackLan_ = dbgNormal("pkg.Ex", id_, cont_,next_);
         assertEq(0, stackLan_.nbPages());
     }
     private ExecFileBlock file(ResultContext _cont) {

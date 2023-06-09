@@ -1,6 +1,8 @@
 package code.expressionlanguage.dbg;
 
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.StackCallReturnValue;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
 import code.util.StringMap;
@@ -49,6 +51,8 @@ public final class ProcessDbgUnclassedTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex", 79, cont_);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
-        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+        StackCallReturnValue r_ = dbgContinueNormalValue(stack_, cont_.getContext());
+        assertEq(0, r_.getStack().nbPages());
+        assertEq(3, NumParsers.convertToNumber(r_.getRetValue().getValue().getStruct()).intStruct());
     }
 }
