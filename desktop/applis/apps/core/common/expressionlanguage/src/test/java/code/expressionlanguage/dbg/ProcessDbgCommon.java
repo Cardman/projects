@@ -30,7 +30,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return _stack.getLastPage().getGlobalOffset();
     }
     protected static StackCall dbgNormal(String _class, MethodId _method, ResultContext _cont) {
-        ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
+        tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
         return dbgNormalAfterInit(_class, _method, _cont);
     }
 
@@ -66,6 +66,12 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ResultContext res_ = new ResultContext(a_, forwards_, a_.getMessages());
         res_.setContext(ctx_);
         return res_;
+    }
+    public static StackCall tryInitStaticlyTypes(ContextEl _context, Options _options) {
+        return tryInitStaticlyTypes(null, _options, _context);
+    }
+    public static StackCall tryInitStaticlyTypes(StackCall _original, Options _options, ContextEl _context) {
+        return ExecClassesUtil.tryInitStaticlyTypes(_context, _options, _original);
     }
     protected static String getCustomList() {
         StringBuilder xml_ = new StringBuilder();

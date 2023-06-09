@@ -21,7 +21,7 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",34,cont_);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
         assertEq(1, stack_.nbPages());
         assertEq(34, now(stack_));
     }
@@ -39,8 +39,8 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",34,cont_);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
-        StackCall next_ = ExecClassesUtil.keep(stack_, cont_.getForwards().getOptions(), cont_.getContext());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall next_ = tryInitStaticlyTypes(stack_, cont_.getForwards().getOptions(), cont_.getContext());
         assertEq(0, next_.nbPages());
     }
 
@@ -58,7 +58,7 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex");
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",66,cont_);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
         assertEq(1, stack_.nbPages());
         assertEq(66, now(stack_));
     }
@@ -77,8 +77,8 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex");
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",66,cont_);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
-        StackCall next_ = ExecClassesUtil.keep(stack_, cont_.getForwards().getOptions(), cont_.getContext());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall next_ = tryInitStaticlyTypes(stack_, cont_.getForwards().getOptions(), cont_.getContext());
         assertEq(0, next_.nbPages());
     }
 
@@ -97,7 +97,7 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",34,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",66,cont_);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
         assertEq(1, stack_.nbPages());
         assertEq(34, now(stack_));
     }
@@ -117,8 +117,8 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",34,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",51,cont_);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
-        StackCall next_ = ExecClassesUtil.keep(stack_, cont_.getForwards().getOptions(), cont_.getContext());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall next_ = tryInitStaticlyTypes(stack_, cont_.getForwards().getOptions(), cont_.getContext());
         assertEq(1, next_.nbPages());
         assertEq(51, now(next_));
     }
@@ -138,9 +138,9 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",34,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",51,cont_);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
-        StackCall next_ = ExecClassesUtil.keep(stack_, cont_.getForwards().getOptions(), cont_.getContext());
-        StackCall next2_ = ExecClassesUtil.keep(next_, cont_.getForwards().getOptions(), cont_.getContext());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall next_ = tryInitStaticlyTypes(stack_, cont_.getForwards().getOptions(), cont_.getContext());
+        StackCall next2_ = tryInitStaticlyTypes(next_, cont_.getForwards().getOptions(), cont_.getContext());
         assertEq(0, next2_.nbPages());
     }
 
@@ -160,7 +160,7 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex");
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",66,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",97,cont_);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
         assertEq(1, stack_.nbPages());
         assertEq(66, now(stack_));
     }
@@ -181,8 +181,8 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex");
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",66,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",97,cont_);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
-        StackCall next_ = ExecClassesUtil.keep(stack_, cont_.getForwards().getOptions(), cont_.getContext());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall next_ = tryInitStaticlyTypes(stack_, cont_.getForwards().getOptions(), cont_.getContext());
         assertEq(1, next_.nbPages());
         assertEq(97, now(next_));
     }
@@ -203,9 +203,9 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex");
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",66,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",97,cont_);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
-        StackCall next_ = ExecClassesUtil.keep(stack_, cont_.getForwards().getOptions(), cont_.getContext());
-        StackCall next2_ = ExecClassesUtil.keep(next_, cont_.getForwards().getOptions(), cont_.getContext());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall next_ = tryInitStaticlyTypes(stack_, cont_.getForwards().getOptions(), cont_.getContext());
+        StackCall next2_ = tryInitStaticlyTypes(next_, cont_.getForwards().getOptions(), cont_.getContext());
         assertEq(0, next2_.nbPages());
     }
 
@@ -233,7 +233,7 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",66,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex2",66,cont_);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
         assertEq(1, stack_.nbPages());
         assertEq(66, now(stack_));
         assertEq("pkg/Ex", stack_.getLastPage().getFile().getFileName());
@@ -263,11 +263,11 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",66,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex2",66,cont_);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
-        StackCall next_ = ExecClassesUtil.keep(stack_, cont_.getForwards().getOptions(), cont_.getContext());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall next_ = tryInitStaticlyTypes(stack_, cont_.getForwards().getOptions(), cont_.getContext());
         assertEq(1, next_.nbPages());
         assertEq(66, now(next_));
-        assertEq("pkg/Ex2", stack_.getLastPage().getFile().getFileName());
+        assertEq("pkg/Ex2", next_.getLastPage().getFile().getFileName());
     }
 
     @Test
@@ -294,9 +294,9 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",66,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex2",66,cont_);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
-        StackCall next_ = ExecClassesUtil.keep(stack_, cont_.getForwards().getOptions(), cont_.getContext());
-        StackCall next2_ = ExecClassesUtil.keep(next_, cont_.getForwards().getOptions(), cont_.getContext());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall next_ = tryInitStaticlyTypes(stack_, cont_.getForwards().getOptions(), cont_.getContext());
+        StackCall next2_ = tryInitStaticlyTypes(next_, cont_.getForwards().getOptions(), cont_.getContext());
         assertEq(0, next2_.nbPages());
     }
 
@@ -316,8 +316,10 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",13,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType("pkg/Ex",13,cont_,true);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",66,cont_);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
-        StackCall next_ = ExecClassesUtil.keep(stack_, cont_.getForwards().getOptions(), cont_.getContext());
-        assertEq(1, ExecClassesUtil.check(cont_.getContext(), next_).nbPages());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall next_ = tryInitStaticlyTypes(stack_, cont_.getForwards().getOptions(), cont_.getContext());
+        StackCall n_ = tryInitStaticlyTypes(tryInitStaticlyTypes(next_, cont_.getForwards().getOptions(), cont_.getContext()), cont_.getForwards().getOptions(), cont_.getContext());
+        assertEq(0, n_.nbPages());
+        assertEq(0, tryInitStaticlyTypes(n_,cont_.getForwards().getOptions(), cont_.getContext()).nbPages());
     }
 }

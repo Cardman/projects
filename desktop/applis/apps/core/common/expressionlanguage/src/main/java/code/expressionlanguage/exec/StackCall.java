@@ -25,6 +25,7 @@ public final class StackCall implements AbstractStackCall {
     private Struct seedSpecDoubleGenerator;
     private Struct seed;
     private final CustomSeedGene seedCust;
+    private boolean stoppedBreakPoint;
     public StackCall(InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
         initializingTypeInfos = new InitializingTypeInfos();
         initializingTypeInfos.setInitEnums(_readOnlyOthers);
@@ -164,5 +165,13 @@ public final class StackCall implements AbstractStackCall {
 
     public void setFullStack(AbstractFullStack _fullStack) {
         this.fullStack = _fullStack;
+    }
+
+    public boolean isStoppedBreakPoint() {
+        return stoppedBreakPoint;
+    }
+
+    public void setStoppedBreakPoint(boolean _s) {
+        this.stoppedBreakPoint = _s;
     }
 }

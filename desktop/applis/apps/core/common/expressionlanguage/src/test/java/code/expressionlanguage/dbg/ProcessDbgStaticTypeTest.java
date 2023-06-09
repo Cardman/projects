@@ -28,7 +28,7 @@ public final class ProcessDbgStaticTypeTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",13,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType("pkg/Ex",13,cont_, true);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointInstanceType("pkg/Ex",13,cont_, false);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
         assertEq(1, stack_.nbPages());
         assertEq(13, now(stack_));
         Struct v_ = cont_.getContext().getClasses().getCommon().getStaticFields().getVal("pkg.Ex").getVal("v");
@@ -50,8 +50,8 @@ public final class ProcessDbgStaticTypeTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",13,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType("pkg/Ex",13,cont_, true);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointInstanceType("pkg/Ex",13,cont_, false);
-        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
-        StackCall next_ = ExecClassesUtil.keep(stack_, cont_.getForwards().getOptions(), cont_.getContext());
+        StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall next_ = tryInitStaticlyTypes(stack_, cont_.getForwards().getOptions(), cont_.getContext());
         assertEq(0, next_.nbPages());
         MethodId id_ = getMethodId("exmeth");
         StackCall stackLan_ = dbgNormalAfterInit("pkg.Ex", id_, cont_);

@@ -68,6 +68,7 @@ public class DefaultInitializer implements Initializer {
     }
     @Override
     public final void loopCalling(ContextEl _owner, StackCall _stackCall) {
+        _stackCall.setStoppedBreakPoint(false);
         while (true) {
             AbstractInterceptorStdCaller caller_ = _owner.getCaller();
             if (caller_.stop(this,_owner, _stackCall) || caller_.exitAfterCallInt(this,_owner, _stackCall)) {
@@ -79,6 +80,7 @@ public class DefaultInitializer implements Initializer {
     public boolean stop(ContextEl _owner, StackCall _stackCall) {
         AbstractPageEl p_ = _stackCall.getLastPage();
         if (p_.stopBreakPoint(_owner)) {
+            _stackCall.setStoppedBreakPoint(true);
             return true;
         }
         ReadWrite rw_ = p_.getReadWrite();
