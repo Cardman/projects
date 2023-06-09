@@ -25,8 +25,7 @@ public final class GuiContextFactory {
 //            _undefinedLgNames.getGuiAliases().otherAliasGui(_exec.getAliases(),new StringMap<String>());
 //        }
         _options.setWarningShow(AnalysisMessages.build(_exec.getWarns(), _undefinedLgNames.getExecContent().getCustAliases().extractMessagesKeys()));
-        _undefinedLgNames.setAtomicBoolean(_currentElements.getThreadFactory().newAtomicBoolean());
-        return CustContextFactory.build(_options,_exec,mess_,kwl_,_undefinedLgNames,_files,_mainArgs);
+        return CustContextFactory.build(_currentElements.getThreadFactory().newAtomicBoolean(),_options,_exec, _undefinedLgNames,_files,_mainArgs);
     }
 
 }

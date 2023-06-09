@@ -26,7 +26,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
 
@@ -38,7 +38,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
         Struct e_ = call(new FctEntryText(), null, ctx_, null, two(new StringStruct("file.txt"), NullStruct.NULL_VALUE), st_);
@@ -54,7 +54,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
         Struct e_ = call(new FctEntryText(), null, ctx_, null, two(new StringStruct("file.txt"), new StringStruct("content")), st_);
@@ -70,7 +70,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
 
@@ -82,7 +82,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
         Struct e_ = call(new FctEntryBinary(), null, ctx_, null, two(NullStruct.NULL_VALUE, NullStruct.NULL_VALUE), st_);
@@ -98,7 +98,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
         ArrayStruct bs_ = new ArrayStruct(7,"");
@@ -122,7 +122,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
         ArrayStruct bs_ = new ArrayStruct(7,"");
@@ -146,7 +146,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
         ArrayStruct bs_ = new ArrayStruct(7,"");
@@ -170,7 +170,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
 
@@ -182,7 +182,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
         Struct e_ = call(new FctEntryText(), null, ctx_, null, two(new StringStruct("file.txt"), NullStruct.NULL_VALUE), st_);
@@ -205,7 +205,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
         Struct e_ = call(new FctEntryText(), null, ctx_, null, two(new StringStruct("file.txt"), new StringStruct("content")), st_);
@@ -230,7 +230,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
 
@@ -264,7 +264,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
 
@@ -276,7 +276,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
         Struct e_ = call(new FctEntryText(), null, ctx_, null, two(new StringStruct("file.txt"), NullStruct.NULL_VALUE), st_);
@@ -300,7 +300,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
         Struct e_ = call(new FctEntryText(), null, ctx_, null, two(new StringStruct("file.txt"), new StringStruct("content")), st_);
@@ -327,7 +327,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
         ArrayStruct bs_ = new ArrayStruct(7,"");
@@ -359,7 +359,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
         ArrayStruct bs_ = new ArrayStruct(7,"");

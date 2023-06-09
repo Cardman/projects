@@ -121,7 +121,6 @@ public final class ExecClassesUtil {
     public static void tryInitStaticlyTypes(ContextEl _context, Options _options) {
         tryOrder(_context, false);
         tryList(_context, _options, false);
-        afterInit(_context);
     }
 
     public static StackCall tryInitStaticlyTypesDbg(ContextEl _context, Options _options) {
@@ -129,19 +128,17 @@ public final class ExecClassesUtil {
         if (st_.nbPages() > 0) {
             return st_;
         }
-        st_ = tryList(_context, _options, true);
-        return check(_context, st_);
+        return tryList(_context, _options, true);
     }
 
-    private static StackCall check(ContextEl _context, StackCall _st) {
+    public static StackCall check(ContextEl _context, StackCall _st) {
         if (_st.nbPages() > 0) {
             return _st;
         }
-        afterInit(_context);
-        return _st;
+        return afterInit(_context);
     }
 
-    private static void afterInit(ContextEl _context) {
+    public static StackCall afterInit(ContextEl _context) {
         Classes cl_ = _context.getClasses();
         for (EntryCust<String, StringMap<Struct>> e: cl_.getCommon().getStaticFields().entryList()) {
             for (EntryCust<String, Struct> f: e.getValue().entryList()) {
@@ -149,9 +146,12 @@ public final class ExecClassesUtil {
             }
         }
         _context.setExiting(new NoExiting());
+        StackCall st_ = StackCall.newInstance(InitPhase.NOTHING,_context);
+        st_.getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
+        return st_;
     }
 
-    private static StackCall tryOrder(ContextEl _context, boolean _dbg) {
+    public static StackCall tryOrder(ContextEl _context, boolean _dbg) {
         Classes cl_ = _context.getClasses();
         forwardClassesMetaInfos(_context);
         DefaultLockingClass dl_ = _context.getLocks();
@@ -163,7 +163,7 @@ public final class ExecClassesUtil {
         return endOrder(_context, _dbg, all_, st_);
     }
 
-    private static StackCall endOrder(ContextEl _context, boolean _dbg, CustList<String> _filter, StackCall _st) {
+    public static StackCall endOrder(ContextEl _context, boolean _dbg, CustList<String> _filter, StackCall _st) {
         if (_st.nbPages() > 0) {
             return _st;
         }
@@ -192,7 +192,7 @@ public final class ExecClassesUtil {
         return _st;
     }
 
-    private static StackCall tryList(ContextEl _context, Options _options, boolean _dbg) {
+    public static StackCall tryList(ContextEl _context, Options _options, boolean _dbg) {
         StackCall st_ = StackCall.newInstance(InitPhase.LIST,_context);
         st_.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
         DefaultLockingClass dl_ = _context.getLocks();
@@ -200,7 +200,7 @@ public final class ExecClassesUtil {
         return endList(_context, _options, _dbg, st_);
     }
 
-    private static StackCall endList(ContextEl _context, Options _options, boolean _dbg, StackCall _st) {
+    public static StackCall endList(ContextEl _context, Options _options, boolean _dbg, StackCall _st) {
         if (_st.nbPages() > 0) {
             return _st;
         }
@@ -216,7 +216,7 @@ public final class ExecClassesUtil {
                 return _st;
             }
         }
-        return _st;
+        return check(_context, _st);
     }
     public static StackCall keep(StackCall _original, Options _options, ContextEl _context) {
         if (_original.getInitializingTypeInfos().getInitEnums() != InitPhase.READ_ONLY_OTHERS) {
@@ -226,8 +226,7 @@ public final class ExecClassesUtil {
         if (_original.nbPages() > 0) {
             return _original;
         }
-        StackCall st_ = tryList(_context, _options, true);
-        return check(_context, st_);
+        return tryList(_context, _options, true);
     }
 
     public static void keepOrder(StackCall _original, ContextEl _context) {

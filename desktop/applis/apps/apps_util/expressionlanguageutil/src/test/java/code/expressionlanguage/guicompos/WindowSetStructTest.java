@@ -29,7 +29,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new DfWindowSet(stds_.getExecContent().getCustAliases()),null,ctx_,null,st_);
         assertFalse(st_.isFailInit());
@@ -41,7 +41,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctWindowSet(stds_.getExecContent().getCustAliases()),null,ctx_,null,null,st_);
         assertFalse(st_.isFailInit());
@@ -53,7 +53,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
         call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()),null,ctx_,null,null,st_);
         assertTrue(st_.isFailInit());
@@ -64,7 +64,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()),null,ctx_,null,null,st_);
         assertFalse(st_.isFailInit());
@@ -76,7 +76,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
         Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         st_.getInitializingTypeInfos().getSensibleFields().add(all_);
@@ -89,7 +89,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         call(new FctWindowSetAdd(),null,ctx_,all_,one(NullStruct.NULL_VALUE),st_);
@@ -102,7 +102,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -119,7 +119,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -136,7 +136,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -155,7 +155,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -174,7 +174,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -194,7 +194,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -214,7 +214,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -232,7 +232,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -250,7 +250,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -268,7 +268,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -286,7 +286,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
         Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         st_.getInitializingTypeInfos().getSensibleFields().add(all_);
@@ -299,7 +299,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -317,7 +317,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -336,7 +336,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         call(new FctWindowSetAdd(),null,ctx_,all_,one(NullStruct.NULL_VALUE),st_);
@@ -349,7 +349,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertFalse(call(new FctWindowSetContains(),null,ctx_,all_,one(NullStruct.NULL_VALUE),st_));

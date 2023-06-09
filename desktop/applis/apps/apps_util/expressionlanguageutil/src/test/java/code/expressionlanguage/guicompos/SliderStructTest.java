@@ -39,7 +39,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct sl_ = call(new FctSlider0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctSliderAddChange(),null,ctx_,sl_,one(NullStruct.NULL_VALUE),st_);
@@ -53,7 +53,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctSlider1(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(new IntStruct(GuiConstants.HORIZONTAL)),st_);
         assertFalse(st_.isFailInit());
@@ -65,7 +65,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctSlider2(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,two(new IntStruct(5),new IntStruct(95)),st_);
         assertFalse(st_.isFailInit());
@@ -77,7 +77,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctSlider3(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,three(new IntStruct(5),new IntStruct(95),new IntStruct(35)),st_);
         assertFalse(st_.isFailInit());
@@ -89,7 +89,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctSlider4(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,four(new IntStruct(GuiConstants.HORIZONTAL),new IntStruct(5),new IntStruct(95),new IntStruct(35)),st_);
         assertFalse(st_.isFailInit());
@@ -101,7 +101,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         assertEq(GuiConstants.HORIZONTAL,toLong(call(new FctSliderGetOrientation(),null,ctx_,sl_,null,st_)));
@@ -112,7 +112,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.VERTICAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         assertEq(GuiConstants.VERTICAL,toLong(call(new FctSliderGetOrientation(),null,ctx_,sl_,null,st_)));
@@ -123,7 +123,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctSliderSetOrientation(),null,ctx_,sl_,one(new IntStruct(GuiConstants.VERTICAL)),st_);
@@ -135,7 +135,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.VERTICAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctSliderSetOrientation(),null,ctx_,sl_,one(new IntStruct(GuiConstants.HORIZONTAL)),st_);
@@ -147,7 +147,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctSliderSetMin(),null,ctx_,sl_,one(new IntStruct(3)),st_);
@@ -159,7 +159,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctSliderSetMax(),null,ctx_,sl_,one(new IntStruct(98)),st_);
@@ -171,7 +171,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctSliderSetValue(),null,ctx_,sl_,one(new IntStruct(55)),st_);
@@ -183,7 +183,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct ls_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctCompoToolTip1(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
@@ -195,7 +195,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct ls_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctCompoToolTip1(),null,ctx_,ls_,one(new StringStruct("_")),st_);
@@ -207,7 +207,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct ls_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctCompoSetVisible(),null,ctx_,ls_,one(BooleanStruct.of(false)),st_);
@@ -219,7 +219,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct ls_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctCompoSetVisible(),null,ctx_,ls_,one(BooleanStruct.of(true)),st_);
@@ -231,7 +231,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct ls_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctInputSetEnabled(),null,ctx_,ls_,one(BooleanStruct.of(false)),st_);
@@ -243,7 +243,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct ls_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctInputSetEnabled(),null,ctx_,ls_,one(BooleanStruct.of(true)),st_);

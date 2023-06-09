@@ -1,17 +1,21 @@
 package code.expressionlanguage.fwd;
 
-import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.*;
+import code.expressionlanguage.analyze.AbstractConstantsCalculator;
+import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.coverage.*;
+import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.dbg.DebugMapping;
-import code.expressionlanguage.fwd.blocks.*;
-import code.expressionlanguage.options.*;
-import code.expressionlanguage.stds.*;
-import code.expressionlanguage.structs.*;
-import code.util.*;
+import code.expressionlanguage.fwd.blocks.FwdRootBlockMembers;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.BuildableLgNames;
+import code.expressionlanguage.stds.LoggableLgNames;
+import code.expressionlanguage.structs.Struct;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.IdMap;
+import code.util.StringMap;
 
 public final class Forwards {
     private String aliasPrimBoolean="";
@@ -46,9 +50,6 @@ public final class Forwards {
     }
     public DebugMapping dbg() {
         return getClasses().getDebugMapping();
-    }
-    public ContextEl generate() {
-        return generator.newContext(options, this);
     }
 
     public Options getOptions() {

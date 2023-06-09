@@ -75,7 +75,7 @@ public abstract class CommonRenderExpUtil extends CommonRender {
     }
 
     protected static ContextEl getGenerate(DualNavigationContext _an) {
-        return _an.getDualAnalyzedContext().getForwards().generate();
+        return new DefRenderContextGenerator().gene(_an.getDualAnalyzedContext().getForwards());
     }
 
     protected static void generalForward(DualNavigationContext _cont) {

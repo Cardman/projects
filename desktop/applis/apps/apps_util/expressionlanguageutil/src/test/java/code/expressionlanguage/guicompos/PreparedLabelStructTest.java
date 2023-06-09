@@ -31,7 +31,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);
         call(new FctImageLabel0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         assertTrue(st_.isFailInit());
@@ -41,7 +41,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);
         call(new DfImageLabel(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,st_);
         assertTrue(st_.isFailInit());
@@ -52,7 +52,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctImageLabel0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         assertFalse(st_.isFailInit());
@@ -64,7 +64,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new DfImageLabel(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,st_);
         assertFalse(st_.isFailInit());
@@ -76,7 +76,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctImageLabel1(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(call(new FctImage(stds_.getGuiExecutingBlocks()),null,ctx_,null,three(new IntStruct(0),new IntStruct(0),BooleanStruct.of(true)),st_)),st_);
         assertFalse(st_.isFailInit());
@@ -88,7 +88,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctImageLabel(stds_.getGuiExecutingBlocks()),null,ctx_,i_,one(call(new FctImage(stds_.getGuiExecutingBlocks()),null,ctx_,null,three(new IntStruct(0),new IntStruct(0),BooleanStruct.of(true)),st_)),st_);
@@ -101,7 +101,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
         call(new FctImageLabel(stds_.getGuiExecutingBlocks()),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
@@ -114,7 +114,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoGetHeight(),null,ctx_,i_,null,st_);
@@ -127,7 +127,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoGetWidth(),null,ctx_,i_,null,st_);
@@ -140,7 +140,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoToolTip1(),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
@@ -152,7 +152,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoToolTip1(),null,ctx_,i_,one(new StringStruct("_")),st_);
@@ -164,7 +164,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoSetVisible(),null,ctx_,i_,one(BooleanStruct.of(false)),st_);
@@ -176,7 +176,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoSetVisible(),null,ctx_,i_,one(BooleanStruct.of(true)),st_);
@@ -188,7 +188,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoFocusable1(),null,ctx_,i_,one(BooleanStruct.of(false)),st_);
@@ -200,7 +200,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoFocusable1(),null,ctx_,i_,one(BooleanStruct.of(true)),st_);
@@ -212,7 +212,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoSetAutoscrolls(),null,ctx_,i_,one(BooleanStruct.of(false)),st_);
@@ -224,7 +224,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoSetAutoscrolls(),null,ctx_,i_,one(BooleanStruct.of(true)),st_);
@@ -236,7 +236,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctCompoGetNextCompo(),null,ctx_,i_,null,st_));
@@ -247,7 +247,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
         Struct label1_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
@@ -262,7 +262,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
         Struct label1_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
@@ -277,7 +277,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoLoc(),null,ctx_,i_,two(new IntStruct(2),new IntStruct(3)),st_);
@@ -290,7 +290,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoBorLine0(),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
@@ -339,7 +339,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddMouseListener(),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
@@ -351,7 +351,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddMouseListener(),null,ctx_,i_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
@@ -363,7 +363,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddMouseListener(),null,ctx_,i_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
@@ -376,7 +376,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
@@ -390,7 +390,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
@@ -406,7 +406,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         ((CustComponentStruct)i_).getComponent().addMouseListener((AbsMouseListener) null);
@@ -420,7 +420,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddKeyListener(),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
@@ -432,7 +432,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddKeyListener(),null,ctx_,i_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
@@ -444,7 +444,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddKeyListener(),null,ctx_,i_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
@@ -457,7 +457,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
@@ -471,7 +471,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
@@ -486,7 +486,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         ((CustComponentStruct)i_).getComponent().addKeyListener(null);
@@ -499,7 +499,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddWheelListener(),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
@@ -511,7 +511,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddWheelListener(),null,ctx_,i_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
@@ -523,7 +523,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddWheelListener(),null,ctx_,i_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
@@ -536,7 +536,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
@@ -550,7 +550,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
@@ -565,7 +565,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         ((CustComponentStruct)i_).getComponent().addMouseWheelListener(null);
@@ -578,7 +578,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
@@ -591,7 +591,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoBind(),null,ctx_,i_,three(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1),new IntStruct(1),new IntStruct(2)),st_);
@@ -604,7 +604,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoBind(),null,ctx_,i_,three(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1),new IntStruct(1),new IntStruct(2)),st_);
@@ -617,7 +617,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);

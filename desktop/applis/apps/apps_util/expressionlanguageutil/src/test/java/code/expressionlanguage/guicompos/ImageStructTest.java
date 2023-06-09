@@ -28,7 +28,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(true)), st_);
         assertEq(2, ((ImageStruct)img_).getImage().getWidth());
@@ -40,7 +40,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
         assertEq(2, ((ImageStruct)img_).getImage().getWidth());
@@ -52,7 +52,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
         assertEq(2, toLong(call(new FctImageGetWidth(),null,ctx_,img_,null,st_)));
@@ -63,7 +63,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
         assertEq(3, toLong(call(new FctImageGetHeight(),null,ctx_,img_,null,st_)));
@@ -74,7 +74,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(true)), st_);
         assertTrue(call(new FctImageIsWithAlpha(),null,ctx_,img_,null,st_));
@@ -85,7 +85,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
         assertFalse(call(new FctImageIsWithAlpha(),null,ctx_,img_,null,st_));
@@ -96,7 +96,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
         st_.getInitializingTypeInfos().getSensibleFields().add(img_);
@@ -109,7 +109,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
         call(new FctImageSet(),null,ctx_,img_,three(new IntStruct(-1),new IntStruct(2),new IntStruct(25)),st_);
@@ -131,7 +131,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         assertTrue(call(new FctImageEq(),null,ctx_,null,two(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st_));
     }
@@ -141,7 +141,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
         assertFalse(call(new FctImageEq(),null,ctx_,null,two(img_,NullStruct.NULL_VALUE),st_));
@@ -152,7 +152,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
         assertFalse(call(new FctImageEq(),null,ctx_,null,two(NullStruct.NULL_VALUE,img_),st_));
@@ -163,7 +163,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
         Struct img2_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
@@ -175,7 +175,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
         Struct img2_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
@@ -188,7 +188,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
         Struct img2_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(4), BooleanStruct.of(false)), st_);
@@ -200,7 +200,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
         Struct img2_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(4), new IntStruct(3), BooleanStruct.of(false)), st_);
@@ -212,7 +212,7 @@ public final class ImageStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
         ArrayStruct a_ = new ArrayStruct(1,"");

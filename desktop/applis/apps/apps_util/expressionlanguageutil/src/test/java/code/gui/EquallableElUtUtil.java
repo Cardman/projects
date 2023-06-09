@@ -1,12 +1,14 @@
 package code.gui;
 
 import code.expressionlanguage.AbstractExiting;
+import code.expressionlanguage.AdvContextGenerator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -136,16 +138,12 @@ public abstract class EquallableElUtUtil {
     public static LgNamesGui newLgNamesGui(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {
         byte[] zipped_ = _light.getZipFact().zipBinFiles(_files);
         FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), _issuer, new MemInputFiles(StringUtil.encode(_conf), new BytesInfo(StringUtil.encode(_src),false), new BytesInfo(GuiConstants.nullToEmpty(zipped_),false)), _light.getZipFact(), _light.getThreadFactory());
-        LgNamesGui lg_ = new LgNamesGui(infos_, new MockInterceptor());
-        lg_.setAtomicBoolean(_light.getThreadFactory().newAtomicBoolean());
-        return lg_;
+        return new LgNamesGui(infos_, new MockInterceptor());
     }
     public static LgNamesUtils newLgNamesUt(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {
         byte[] zipped_ = _light.getZipFact().zipBinFiles(_files);
         FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), _issuer, new MemInputFiles(StringUtil.encode(_conf), new BytesInfo(StringUtil.encode(_src),false), new BytesInfo(GuiConstants.nullToEmpty(zipped_),false)), _light.getZipFact(), _light.getThreadFactory());
-        LgNamesUtils lg_ = new LgNamesUtils(infos_, new MockInterceptor());
-        lg_.setAtomicBoolean(_light.getThreadFactory().newAtomicBoolean());
-        return lg_;
+        return new LgNamesUtils(infos_, new MockInterceptor());
     }
     public static ArgumentListCall one(Struct _arg) {
         CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();
@@ -719,7 +717,12 @@ public abstract class EquallableElUtUtil {
         ContextFactory.build(forwards_,_definedKw,_options,page_);
 //        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
         ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        return ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
+        page_.addResources(_files);
+        AnalyzedPageEl an_ = Classes.validateWithoutInit(ContextFactory.filter(_files, _exec.getSrcFolder()), page_);
+        ResultContext r_ = new ResultContext(an_,forwards_,an_.getMessages());
+        Classes.fwdGenerate(r_,new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()));
+        Classes.tryInit(r_);
+        return r_;
     }
 
     public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files) {
@@ -739,6 +742,17 @@ public abstract class EquallableElUtUtil {
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
         ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        return ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
+        page_.addResources(_files);
+        AnalyzedPageEl an_ = Classes.validateWithoutInit(ContextFactory.filter(_files, _exec.getSrcFolder()), page_);
+        ResultContext r_ = new ResultContext(an_,forwards_,an_.getMessages());
+        Classes.fwdGenerate(r_,new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()));
+        Classes.tryInit(r_);
+        return r_;
+    }
+    public static ContextEl gene(LgNamesUtils _definedLgNames, Options _opt) {
+        return new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()).gene(getForwards(_definedLgNames, _opt));
+    }
+    public static ContextEl gene(LgNamesGui _definedLgNames, Options _opt) {
+        return new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()).gene(getForwards(_definedLgNames, _opt));
     }
 }

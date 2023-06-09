@@ -2,7 +2,6 @@ package code.expressionlanguage.options;
 
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.instr.ParsedArgument;
-import code.expressionlanguage.exec.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
@@ -16,12 +15,6 @@ import code.util.core.StringUtil;
 public final class ContextFactory {
 
     private ContextFactory(){}
-
-    public static ResultContext addResourcesAndValidate(StringMap<String> _files, String _folder, AnalyzedPageEl _page, Forwards _forwards) {
-        StringMap<String> srcFiles_ = filter(_files, _folder);
-        _page.addResources(_files);
-        return Classes.validateAll(srcFiles_, _page, _forwards);
-    }
 
     public static StringMap<String> filter(StringMap<String> _files, String _folder) {
         StringMap<String> srcFiles_ = new StringMap<String>();

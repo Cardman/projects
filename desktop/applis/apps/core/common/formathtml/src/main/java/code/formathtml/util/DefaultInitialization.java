@@ -18,6 +18,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.AbsContextGenerator;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LoggableLgNames;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -59,7 +60,7 @@ public final class DefaultInitialization {
         this.log = _l;
     }
 
-    public String execute(Navigation _nav) {
+    public String execute(Navigation _nav, AbsContextGenerator _gene) {
         String content_ = fileNames.getVal(fileName);
         if (content_ == null) {
             return "";
@@ -74,7 +75,7 @@ public final class DefaultInitialization {
         keyWordDigit = du_.getAnalyzed().getKeyWords().getKeyWordNbDig();
         du_.getAnalyzed().setAbstractSymbolFactory(symbolFactory);
         _nav.setFiles(fileNames);
-        ContextEl ctx_ = stds.setupAll(new DualNavigationContext(_nav, du_)).getContext();
+        ContextEl ctx_ = stds.setupAll(new DualNavigationContext(_nav, du_), _gene).getContext();
         if (ctx_ == null) {
             return "";
         }

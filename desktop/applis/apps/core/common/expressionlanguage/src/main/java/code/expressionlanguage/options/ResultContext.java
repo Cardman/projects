@@ -3,7 +3,6 @@ package code.expressionlanguage.options;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.fwd.Forwards;
 
 public final class ResultContext {
@@ -16,9 +15,6 @@ public final class ResultContext {
         pageEl = _page;
         this.forwards = _fwd;
         this.reportedMessages = _reportedMessages;
-    }
-    public void forwardGenerate() {
-        setContext(Classes.forwardGenerate(this));
     }
 
     public void setContext(ContextEl _c) {

@@ -1,7 +1,5 @@
 package code.expressionlanguage.sample;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.CommonExecutionMetricsInfos;
 import code.expressionlanguage.exec.DefaultInitializer;
@@ -23,8 +21,7 @@ public final class CustLgNames extends LgNames {
     }
 
     @Override
-    public ContextEl newContext(Options _opt,Forwards _options) {
-        return new SingleContextEl(new CommonExecutionInfos(new ElInterceptorStdCaller(),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new DefaultInitializer()));
+    public CommonExecutionInfos newContextCommon(Options _opt, Forwards _options) {
+        return new CommonExecutionInfos(new ElInterceptorStdCaller(),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new DefaultInitializer());
     }
-
 }

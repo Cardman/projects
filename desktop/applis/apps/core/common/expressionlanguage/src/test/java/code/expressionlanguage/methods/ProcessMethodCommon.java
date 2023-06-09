@@ -1,9 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.EquallableElUtil;
-import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
@@ -56,7 +53,9 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static final String BOOLEAN = "java.lang.Boolean";
 
     protected static ResultContext validate(StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
-        return ContextFactory.addResourcesAndValidate(_files, "src", _page, _forwards);
+        _page.addResources(_files);
+        ResultContext res_ = validateAll(ContextFactory.filter(_files, "src"), _page, _forwards);
+        return res_;
     }
 
     protected static Argument calculateError(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
@@ -403,7 +402,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     protected static ResultContext validateAll(StringMap<String> _files, AnalyzedPageEl _cont, Forwards _fwd) {
-        return Classes.validateAll(_files, _cont, _fwd);
+        AnalyzedPageEl fwd_ = Classes.validateWithoutInit(_files, _cont);
+        ResultContext r_ = new ResultContext(fwd_,_fwd,fwd_.getMessages());
+        Classes.fwdGenerate(r_,new DefContextGenerator());
+        Classes.tryInit(r_);
+        return r_;
     }
 
     protected static ContextEl ctxMustInit(StringMap<String> _files) {
@@ -540,7 +543,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     protected static ContextEl forwardAndClear(Forwards _cont) {
-        ContextEl ctx_ = _cont.generate();
+        ContextEl ctx_ = new DefContextGenerator().gene(_cont);
         Classes.forwardAndClear(ctx_);
         return ctx_;
     }

@@ -38,7 +38,7 @@ public final class ScheduledExecutorServiceStructTest extends EquallableElUtUtil
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getExecContent().getCustAliases().setAliasFuture("_");
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         assertEq(stds_.getExecContent().getCustAliases().getAliasFuture(),call(new FctScheduledExecutorMillis0(),null,ctx_,essOne_, list_,null).getClassName(ctx_));
     }
     @Test
@@ -51,7 +51,7 @@ public final class ScheduledExecutorServiceStructTest extends EquallableElUtUtil
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getExecContent().getCustAliases().setAliasFuture("_");
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         assertEq(stds_.getExecContent().getCustAliases().getAliasFuture(),call(new FctScheduledExecutorNanos0(),null,ctx_,essOne_, list_,null).getClassName(ctx_));
     }
     @Test
@@ -62,7 +62,7 @@ public final class ScheduledExecutorServiceStructTest extends EquallableElUtUtil
         MockRunnableStruct s_ = new MockRunnableStruct("");
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         ArgumentListCall list_ = three(s_,new IntStruct(1),new IntStruct(1));
         call(new FctExecutorServiceShutdown(),null,null,essOne_, null,null);
         Struct f_ = call(new FctScheduledExecutorMillis0(), null, null, essOne_, list_, null);
@@ -76,7 +76,7 @@ public final class ScheduledExecutorServiceStructTest extends EquallableElUtUtil
         MockRunnableStruct s_ = new MockRunnableStruct("");
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         ArgumentListCall list_ = three(s_,new IntStruct(1),new IntStruct(1));
         call(new FctExecutorServiceShutdown(),null,null,essOne_, null,null);
         Struct f_ = call(new FctScheduledExecutorNanos0(), null, null, essOne_, list_, null);

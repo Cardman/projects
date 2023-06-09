@@ -299,4 +299,25 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         StackCall next2_ = ExecClassesUtil.keep(next_, cont_.getForwards().getOptions(), cont_.getContext());
         assertEq(0, next2_.nbPages());
     }
+
+    @Test
+    public void test14() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" static long v=Math.random(4);\n");
+        xml_.append(" static long w;\n");
+        xml_.append(" public static long catching(){\n");
+        xml_.append("  return v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",13,cont_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType("pkg/Ex",13,cont_,true);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",66,cont_);
+        StackCall stack_ = ExecClassesUtil.tryInitStaticlyTypesDbg(cont_.getContext(), cont_.getForwards().getOptions());
+        StackCall next_ = ExecClassesUtil.keep(stack_, cont_.getForwards().getOptions(), cont_.getContext());
+        assertEq(1, ExecClassesUtil.check(cont_.getContext(), next_).nbPages());
+    }
 }

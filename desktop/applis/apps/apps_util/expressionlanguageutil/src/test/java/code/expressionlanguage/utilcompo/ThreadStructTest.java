@@ -20,7 +20,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
         call(new FctThread(stds_.getExecContent().getCustAliases()),null,ctx_,null,null,st_);
         assertTrue(st_.isFailInit());
@@ -30,7 +30,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.LIST);
         st_.setFullStack(new DefaultFullStack(ctx_));
         call(new FctThread(stds_.getExecContent().getCustAliases()),null,ctx_,null,null,st_);
@@ -42,7 +42,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
         assertFalse(st_.isFailInit());
@@ -54,7 +54,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -67,7 +67,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -79,7 +79,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -91,7 +91,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -104,7 +104,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -117,7 +117,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -130,7 +130,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -143,7 +143,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -156,7 +156,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -168,7 +168,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -179,7 +179,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.LIST);
         st_.setFullStack(new DefaultFullStack(ctx_));
         ThreadStruct t_ = new ThreadStruct(pr_.getThreadFactory().newThread(), pr_.getThreadFactory().newAtomicBoolean(), NullStruct.NULL_VALUE);
@@ -192,7 +192,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -205,7 +205,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.LIST);
         st_.setFullStack(new DefaultFullStack(ctx_));
         call(new FctThreadCurrent(stds_.getExecContent().getCustAliases()),null,ctx_,null,null,st_);
@@ -217,7 +217,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         assertSame(((RunnableContextEl)ctx_).getThread(), call(new FctThreadCurrent(stds_.getExecContent().getCustAliases()), null, ctx_, null,null,st_));
     }
@@ -226,7 +226,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -237,7 +237,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.LIST);
         st_.setFullStack(new DefaultFullStack(ctx_));
         call(new FctThreadEq(stds_.getExecContent().getCustAliases()),null,ctx_,null,null,st_);
@@ -249,7 +249,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -262,7 +262,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -275,7 +275,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         MockRunnableStruct t_ = new MockRunnableStruct("");
@@ -290,7 +290,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         assertTrue(call(new FctThreadEq(stds_.getExecContent().getCustAliases()),null,ctx_,null,two(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st_));
         assertFalse(st_.isFailInit());
@@ -301,7 +301,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -314,7 +314,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -328,7 +328,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -340,7 +340,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -352,7 +352,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -375,7 +375,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -387,7 +387,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
@@ -403,7 +403,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
         RunnableStruct.setupThread((RunnableContextEl) ctx_);
         call(new FctThreadSleep(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
@@ -414,7 +414,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         RunnableStruct.setupThread((RunnableContextEl) ctx_);
         call(new FctThreadSleep(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
@@ -425,7 +425,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         RunnableStruct.setupThread((RunnableContextEl) ctx_);
         assertFalse(call(new FctThreadSleep(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(new IntStruct(-1)),st_));
@@ -437,7 +437,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.25)), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         RunnableStruct.setupThread((RunnableContextEl) ctx_);
         assertFalse(call(new FctThreadSleep(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(new IntStruct(1)),st_));
@@ -449,7 +449,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         RunnableStruct.setupThread((RunnableContextEl) ctx_);
         assertTrue(call(new FctThreadSleep(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(new IntStruct(1)),st_));
@@ -461,7 +461,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
         RunnableStruct.setupThread((RunnableContextEl) ctx_);
         call(new FctThreadPrint0(stds_.getExecContent().getCustAliases()),null,ctx_,null,null,st_);
@@ -472,7 +472,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         RunnableStruct.setupThread((RunnableContextEl) ctx_);
         call(new FctThreadPrint0(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(new StringStruct("")),st_);
@@ -483,7 +483,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         RunnableStruct.setupThread((RunnableContextEl) ctx_);
         call(new FctThreadPrint0(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(call(new FctThread(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_)),st_);
@@ -522,7 +522,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
         RunnableStruct.setupThread((RunnableContextEl) ctx_);
         call(new FctThreadNano(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
@@ -533,7 +533,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         RunnableStruct.setupThread((RunnableContextEl) ctx_);
         call(new FctThreadNano(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
@@ -544,7 +544,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
         RunnableStruct.setupThread((RunnableContextEl) ctx_);
         call(new FctThreadMillis(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
@@ -555,7 +555,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         RunnableStruct.setupThread((RunnableContextEl) ctx_);
         call(new FctThreadMillis(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);

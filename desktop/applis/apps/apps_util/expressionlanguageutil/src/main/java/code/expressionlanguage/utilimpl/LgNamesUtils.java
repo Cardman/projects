@@ -19,7 +19,6 @@ import code.util.StringList;
 
 public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     private final LgNamesUtilsContent execContent;
-    private AbstractAtomicBoolean atomicBoolean;
 
     public LgNamesUtils(FileInfos _infos, AbstractInterceptor _inter) {
         super(_infos.getGenerator());
@@ -51,16 +50,16 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
         return CustAliases.newFunctional(_className, _functional, _named, _contextEl);
     }
 
+    public StringList args() {
+        return new StringList();
+    }
     @Override
-    public ContextEl newContext(Options _opt,Forwards _options) {
-        return new RunnableContextEl(atomicBoolean,null, new CommonExecutionInfos(execContent.getCustAliases().getInterceptor().newInterceptorStdCaller(execContent.getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new CustInitializer(execContent.getInfos().getThreadFactory().newAtomicLong(),execContent.getCustAliases().getInterceptor())), new StringList());
+    public CommonExecutionInfos newContextCommon(Options _opt, Forwards _options) {
+        return new CommonExecutionInfos(execContent.getCustAliases().getInterceptor().newInterceptorStdCaller(execContent.getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new CustInitializer(execContent.getInfos().getThreadFactory().newAtomicLong(),execContent.getCustAliases().getInterceptor()));
     }
 
-    public AbstractAtomicBoolean getAtomicBoolean() {
-        return atomicBoolean;
+    public ContextEl newContext(AbstractAtomicBoolean _at,CommonExecutionInfos _common, StringList _args) {
+        return new RunnableContextEl(_at,null, _common, _args);
     }
 
-    public void setAtomicBoolean(AbstractAtomicBoolean _a) {
-        this.atomicBoolean = _a;
-    }
 }

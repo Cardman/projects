@@ -545,7 +545,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct e_ = call(new FctActionWrap("", stds_.getGuiExecutingBlocks().getCompoFactory()), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
         assertSame(NullStruct.NULL_VALUE,e_);

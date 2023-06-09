@@ -17,16 +17,14 @@ import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.expressionlanguage.structs.LambdaStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.AbstractInterceptor;
-import code.expressionlanguage.utilcompo.CustAliases;
-import code.expressionlanguage.utilcompo.FileInfos;
-import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
 import code.expressionlanguage.utilimpl.LgNamesUtilsContent;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -98,9 +96,20 @@ public class LgNamesGui extends LgNamesUtils {
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.TYPES_GUI);
         return LgNamesUtilsContent.extractMap(com_);
     }
+
     @Override
-    public ContextEl newContext(Options _opt,Forwards _options) {
-        return new GuiContextEl(getAtomicBoolean(),null, new CommonExecutionInfos(getExecContent().getCustAliases().getInterceptor().newInterceptorStdCaller(getExecContent().getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new GuiInitializer(getExecContent().getInfos().getThreadFactory().newAtomicLong(), getExecContent().getCustAliases().getInterceptor())), new StringList(getExecContent().getExecutingOptions().getArgs()));
+    public StringList args() {
+        return new StringList(getExecContent().getExecutingOptions().getArgs());
+    }
+
+    @Override
+    public CommonExecutionInfos newContextCommon(Options _opt, Forwards _options) {
+        return new CommonExecutionInfos(getExecContent().getCustAliases().getInterceptor().newInterceptorStdCaller(getExecContent().getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new GuiInitializer(getExecContent().getInfos().getThreadFactory().newAtomicLong(), getExecContent().getCustAliases().getInterceptor()));
+    }
+
+    @Override
+    public ContextEl newContext(AbstractAtomicBoolean _at, CommonExecutionInfos _common, StringList _args) {
+        return new GuiContextEl(_at,null, _common, _args);
     }
     @Override
     public AbstractConstantsCalculator newConstantsCalculator() {

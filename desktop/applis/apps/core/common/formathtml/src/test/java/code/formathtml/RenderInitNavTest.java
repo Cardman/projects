@@ -1556,7 +1556,7 @@ public final class RenderInitNavTest extends CommonRender {
     }
 
     private static ContextEl setupRendClassesInitStdMess(DualNavigationContext _a, Navigation _n) {
-        return _a.getDualAnalyzedContext().getStds().setupAll(_a).getContext();
+        return _a.getDualAnalyzedContext().getStds().setupAll(_a,new DefRenderContextGenerator()).getContext();
     }
 
     private void init(ContextEl _ctx,DualNavigationContext _a, Navigation _n) {
@@ -1570,7 +1570,7 @@ public final class RenderInitNavTest extends CommonRender {
     }
 
     private static ContextEl setupRendClassesInit(Navigation _nav, BeanCustLgNames _stds, DualAnalyzedContext _dual) {
-        return _stds.setupAll(new DualNavigationContext(_nav, _dual)).getContext();
+        return _stds.setupAll(new DualNavigationContext(_nav, _dual),new DefRenderContextGenerator()).getContext();
     }
 
     private static DualAnalyzedContext loadConfiguration(BeanCustLgNames _lgNames, String _xmlConf, Navigation _n) {
@@ -1579,7 +1579,7 @@ public final class RenderInitNavTest extends CommonRender {
     }
     private static String initDbOkConfCtx(String _xmlConf, String _clName, String _methodName, String _brCode, String _page) {
         DefaultInitialization de_ = initDbOkConfBuild(_xmlConf, _clName, _methodName, _brCode, _page);
-        String ex_ = de_.execute(new Navigation());
+        String ex_ = de_.execute(new Navigation(),new DefRenderContextGenerator());
         assertEq("ABCDEF",de_.getKeyWordDigit());
         assertNotNull(de_.getContext());
         return ex_;
@@ -1587,7 +1587,7 @@ public final class RenderInitNavTest extends CommonRender {
 
     private static String initDbOkConfNoCtx(String _xmlConf) {
         DefaultInitialization de_ = initDbOkConfBuild(_xmlConf, "", "", "", "");
-        String ex_ = de_.execute(new Navigation());
+        String ex_ = de_.execute(new Navigation(),new DefRenderContextGenerator());
         assertNull(de_.getContext());
         return ex_;
     }
@@ -1611,7 +1611,7 @@ public final class RenderInitNavTest extends CommonRender {
         basicStandards(stds_);
         DefaultInitialization de_ = new DefaultInitialization(stds_,new DefSymbolFactory(),"","conf.xml",new StringMap<String>(),"","");
         de_.setLog(new ListLoggableLgNames());
-        return de_.execute(new Navigation());
+        return de_.execute(new Navigation(),new DefRenderContextGenerator());
     }
 
     private static String initDbKoConfHere() {
@@ -1622,6 +1622,6 @@ public final class RenderInitNavTest extends CommonRender {
         files_.addEntry(cn_," ");
         DefaultInitialization de_ = new DefaultInitialization(stds_,new DefSymbolFactory(),"",cn_,files_,"","");
         de_.setLog(new ListLoggableLgNames());
-        return de_.execute(new Navigation());
+        return de_.execute(new Navigation(),new DefRenderContextGenerator());
     }
 }

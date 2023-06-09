@@ -43,7 +43,7 @@ public final class EventsTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct w_ = call(new FctWindowEvent(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         assertFalse(st_.isFailInit());
@@ -55,7 +55,7 @@ public final class EventsTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctActionEvent(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,four(BooleanStruct.of(true),BooleanStruct.of(true),BooleanStruct.of(true),new StringStruct("")),st_);
         assertFalse(st_.isFailInit());
@@ -66,7 +66,7 @@ public final class EventsTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct e_ = call(new FctActionEvent(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(BooleanStruct.of(false), BooleanStruct.of(false), BooleanStruct.of(false), new StringStruct("")), st_);
         assertFalse(call(new FctActionEventIsAlt(),null,ctx_,e_,null,st_));
@@ -80,7 +80,7 @@ public final class EventsTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct e_ = call(new FctActionEvent(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(BooleanStruct.of(true), BooleanStruct.of(true), BooleanStruct.of(true), new StringStruct("")), st_);
         assertTrue(call(new FctActionEventIsAlt(),null,ctx_,e_,null,st_));
@@ -95,7 +95,7 @@ public final class EventsTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct e_ = call(new FctKeyEvent(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, five(BooleanStruct.of(false), BooleanStruct.of(false), BooleanStruct.of(false), new CharStruct((char) 0), new CharStruct((char) 0)), st_);
         assertFalse(call(new FctKeyEventIsAlt(),null,ctx_,e_,null,st_));
@@ -110,7 +110,7 @@ public final class EventsTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct e_ = call(new FctKeyEvent(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, five(BooleanStruct.of(true), BooleanStruct.of(true), BooleanStruct.of(true), new CharStruct((char) 0), new CharStruct((char) 0)), st_);
         assertTrue(call(new FctKeyEventIsAlt(),null,ctx_,e_,null,st_));
@@ -126,7 +126,7 @@ public final class EventsTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct e_ = call(new FctMouseEvent(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, nine(new IntStruct(0),new IntStruct(0),BooleanStruct.of(false), BooleanStruct.of(false), BooleanStruct.of(false),BooleanStruct.of(false), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(0)), st_);
         assertFalse(call(new FctMouseEventIsAlt(),null,ctx_,e_,null,st_));
@@ -145,7 +145,7 @@ public final class EventsTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct e_ = call(new FctMouseEvent(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, nine(new IntStruct(0),new IntStruct(0),BooleanStruct.of(true), BooleanStruct.of(true), BooleanStruct.of(true),BooleanStruct.of(true), BooleanStruct.of(true), BooleanStruct.of(true), new IntStruct(0)), st_);
         assertTrue(call(new FctMouseEventIsAlt(),null,ctx_,e_,null,st_));
@@ -165,7 +165,7 @@ public final class EventsTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct e_ = call(new FctWheelEvent(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, ten(new IntStruct(0),new IntStruct(0),BooleanStruct.of(false), BooleanStruct.of(false), BooleanStruct.of(false),BooleanStruct.of(false), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(0), new IntStruct(0)), st_);
         assertFalse(call(new FctMouseEventIsAlt(),null,ctx_,e_,null,st_));
@@ -185,7 +185,7 @@ public final class EventsTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct e_ = call(new FctWheelEvent(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, ten(new IntStruct(0),new IntStruct(0),BooleanStruct.of(true), BooleanStruct.of(true), BooleanStruct.of(true),BooleanStruct.of(true), BooleanStruct.of(true), BooleanStruct.of(true), new IntStruct(0), new IntStruct(0)), st_);
         assertTrue(call(new FctMouseEventIsAlt(),null,ctx_,e_,null,st_));

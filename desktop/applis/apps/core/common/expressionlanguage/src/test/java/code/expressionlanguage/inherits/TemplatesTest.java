@@ -1,6 +1,7 @@
 package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefContextGenerator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
@@ -1197,7 +1198,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         validateInheritingClasses(page_);
         assertTrue(page_.getMessages().displayErrors(), isEmptyErrors(page_));
         postValidation(page_,forwards_);
-        return forwards_.generate();
+        return new DefContextGenerator().gene(forwards_);
     }
     private static AnalyzedPageEl unfullValidateOverridingMethodsAna(StringMap<String> _files) {
         Options opt_ = newOptions();
@@ -1231,7 +1232,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         validateOverridingInherit(page_);
         validateEl(page_);
         checkInterfaces(page_);
-        return forwards_.generate();
+        return new DefContextGenerator().gene(forwards_);
     }
 
     private static String getOverridingFullTypeByBases(ContextEl _cont, String _sub, String _sup) {

@@ -1,5 +1,6 @@
 package code.renders;
 
+import code.expressionlanguage.AdvContextGenerator;
 import code.formathtml.Navigation;
 import code.formathtml.util.DefaultInitialization;
 import code.gui.document.AbstractThreadActions;
@@ -33,7 +34,7 @@ public final class CustThreadActions extends AbstractThreadActions {
 
     @Override
     public void run() {
-        String res_ = init.execute(navigation);
+        String res_ = init.execute(navigation,new AdvContextGenerator(getPage().getGene().getThreadFactory().newAtomicBoolean()));
         getPage().setKeyWordDigit(init.getKeyWordDigit());
         if (res_ != null) {
             if (getPage().getArea() != null) {

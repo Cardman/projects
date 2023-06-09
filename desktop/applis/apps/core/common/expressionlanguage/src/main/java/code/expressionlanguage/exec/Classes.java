@@ -15,10 +15,10 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.dbg.DebugMapping;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.fwd.AbsContextGenerator;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
@@ -77,28 +77,23 @@ public final class Classes {
 		return getCommon().getResources();
 	}
 
-    /**Resources are possibly added before analyzing file types*/
-    public static ResultContext validateAll(StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
-        AnalyzedPageEl fwd_ = validateWithoutInit(_files, _page);
-        if (fwd_.notAllEmptyErrors()) {
-            //all errors are logged here
-            return new ResultContext(fwd_,_forwards, fwd_.getMessages());
+    public static void tryInit(ResultContext _res) {
+        ContextEl ctx_ = _res.getContext();
+        if (ctx_ != null) {
+            ExecClassesUtil.tryInitStaticlyTypes(ctx_, _res.getForwards().getOptions());
         }
-        ResultContext res_ = new ResultContext(fwd_, _forwards, fwd_.getMessages());
-        res_.forwardGenerate();
-        return res_;
     }
-    public static ContextEl forwardGenerate(ResultContext _res) {
+    public static void fwdGenerate(ResultContext _res, AbsContextGenerator _gene) {
         AnalyzedPageEl fwd_ = _res.getPageEl();
+        if (fwd_.notAllEmptyErrors()) {
+            return;
+        }
         Forwards f_ = _res.getForwards();
         ForwardInfos.generalForward(fwd_,f_);
-        ContextEl ctx_ = f_.generate();
+        ContextEl ctx_ = _gene.gene(f_);
         forwardAndClear(ctx_);
-        Options options_ = f_.getOptions();
-        ExecClassesUtil.tryInitStaticlyTypes(ctx_, options_);
-        return ctx_;
+        _res.setContext(ctx_);
     }
-
     public static void forwardAndClear(ContextEl _context) {
         _context.forwardAndClear();
     }

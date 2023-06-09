@@ -175,7 +175,6 @@ public final class RunTest extends EquallableElUtImplUtil {
     }
 
     private ResultContext together(ResultContext _base, MemInputFiles _in) {
-        ((LgNamesGui)_base.getForwards().getGenerator()).setAtomicBoolean(((LgNamesGui)_base.getForwards().getGenerator()).getExecContent().getInfos().getThreadFactory().newAtomicBoolean());
         return RunningTest.nextValidateMemo(_base, _in, null);
     }
 

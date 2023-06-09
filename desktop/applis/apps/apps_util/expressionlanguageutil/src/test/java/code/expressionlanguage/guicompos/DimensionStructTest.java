@@ -28,7 +28,7 @@ public final class DimensionStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct d_ = call(new FctDimension1(), null, ctx_, null, two(new IntStruct(2), new IntStruct(3)), st_);
         assertEq(2,((DimensionStruct)d_).getDimension().getWidth());
@@ -40,7 +40,7 @@ public final class DimensionStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct d_ = call(new FctDimension1(), null, ctx_, null, two(new IntStruct(2), new IntStruct(3)), st_);
         Struct n_ = call(new FctDimension0(), null, ctx_, null, one(d_), st_);
@@ -53,7 +53,7 @@ public final class DimensionStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct n_ = call(new FctDimension0(), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
         assertEq(0,((DimensionStruct)n_).getDimension().getWidth());
@@ -66,7 +66,7 @@ public final class DimensionStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct d_ = call(new FctDimension1(), null, ctx_, null, two(new IntStruct(2), new IntStruct(3)), st_);
         assertEq(2, toLong(call(new FctDimensionGetWidth(),null,ctx_,d_,null,st_)));
@@ -77,7 +77,7 @@ public final class DimensionStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct d_ = call(new FctDimension1(), null, ctx_, null, two(new IntStruct(2), new IntStruct(3)), st_);
         assertEq(3, toLong(call(new FctDimensionGetHeight(),null,ctx_,d_,null,st_)));
@@ -88,7 +88,7 @@ public final class DimensionStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct d_ = call(new FctDimension1(), null, ctx_, null, two(new IntStruct(2), new IntStruct(3)), st_);
         assertFalse(d_.sameReference(NullStruct.NULL_VALUE));
@@ -99,7 +99,7 @@ public final class DimensionStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct d1_ = call(new FctDimension1(), null, ctx_, null, two(new IntStruct(2), new IntStruct(3)), st_);
         Struct d2_ = call(new FctDimension1(), null, ctx_, null, two(new IntStruct(2), new IntStruct(4)), st_);
@@ -111,7 +111,7 @@ public final class DimensionStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct d1_ = call(new FctDimension1(), null, ctx_, null, two(new IntStruct(2), new IntStruct(3)), st_);
         Struct d2_ = call(new FctDimension1(), null, ctx_, null, two(new IntStruct(4), new IntStruct(3)), st_);
@@ -123,7 +123,7 @@ public final class DimensionStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct d1_ = call(new FctDimension1(), null, ctx_, null, two(new IntStruct(2), new IntStruct(3)), st_);
         Struct d2_ = call(new FctDimension1(), null, ctx_, null, two(new IntStruct(2), new IntStruct(3)), st_);

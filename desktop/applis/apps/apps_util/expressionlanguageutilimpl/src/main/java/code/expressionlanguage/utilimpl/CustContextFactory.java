@@ -1,11 +1,13 @@
 package code.expressionlanguage.utilimpl;
 
+import code.expressionlanguage.AdvContextGenerator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.StackCall;
@@ -39,16 +41,10 @@ import code.util.StringMap;
 public final class CustContextFactory {
     private CustContextFactory(){}
     public static ResultContext buildDefKw(Options _options, ExecutingOptions _exec, LgNamesGui _undefinedLgNames, StringMap<String> _files) {
-        KeyWords kwl_ = new KeyWords();
-        AnalysisMessages mess_ = new AnalysisMessages();
-        preinit(_options, _exec, mess_, kwl_, _undefinedLgNames);
-        return build(_options, _exec,mess_,kwl_, _undefinedLgNames, _files, new StringList());
+        return build(_undefinedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean(),_options, _exec, _undefinedLgNames, _files, new StringList());
     }
     public static void executeDefKw(Options _options, ExecutingOptions _exec, StringMap<String> _files, ProgressingTests _progressingTests, LgNamesGui _stds) {
-        AnalysisMessages mess_ = new AnalysisMessages();
-        KeyWords kwl_ = new KeyWords();
-        preinit(_options, _exec, mess_, kwl_, _stds);
-        execute(_options,_exec,mess_,kwl_, _stds,_files,_progressingTests);
+        execute(_options,_exec, _stds,_files,_progressingTests);
     }
 
     public static void preinit(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesGui _aliases) {
@@ -71,14 +67,11 @@ public final class CustContextFactory {
     }
 
     public static void execute(Options _options, ExecutingOptions _exec,
-                               AnalysisMessages _mess,
-                               KeyWords _definedKw,
                                LgNamesGui _definedLgNames, StringMap<String> _files,
                                ProgressingTests _progressingTests) {
         AbstractAtomicBoolean stop_ = _definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean();
         _progressingTests.setStop(stop_);
-        _definedLgNames.setAtomicBoolean(stop_);
-        ResultContext res_ = build(_options, _exec, _mess,_definedKw,
+        ResultContext res_ = build(stop_,_options, _exec,
                 _definedLgNames, _files, new StringList());
         ContextEl rCont_ = res_.getContext();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
@@ -123,13 +116,21 @@ public final class CustContextFactory {
             }
         }
     }
-    public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, StringList _mainArgs) {
+    public static ResultContext build(AbstractAtomicBoolean _stop,Options _options, ExecutingOptions _exec, LgNamesGui _definedLgNames, StringMap<String> _files, StringList _mainArgs) {
+        AnalysisMessages mess_ = new AnalysisMessages();
+        KeyWords kwl_ = new KeyWords();
+        preinit(_options, _exec, mess_, kwl_, _definedLgNames);
         parts(_exec, _definedLgNames, _mainArgs);
         AnalyzedPageEl page_ = mapping(_definedLgNames);
         Forwards forwards_ = builder(_options, _definedLgNames, page_);
-        AnalysisMessages.validateMessageContents(_mess.allMessages(_definedLgNames.getExecContent().getCustAliases().extractMessagesKeys()), page_);
-        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        return ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
+        AnalysisMessages.validateMessageContents(mess_.allMessages(_definedLgNames.getExecContent().getCustAliases().extractMessagesKeys()), page_);
+        ContextFactory.validateStds(forwards_,mess_, kwl_, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
+        page_.addResources(_files);
+        AnalyzedPageEl an_ = Classes.validateWithoutInit(ContextFactory.filter(_files, _exec.getSrcFolder()), page_);
+        ResultContext r_ = new ResultContext(an_,forwards_,an_.getMessages());
+        Classes.fwdGenerate(r_,new AdvContextGenerator(_stop));
+        Classes.tryInit(r_);
+        return r_;
     }
 
     public static ResultContext stds(FileInfos _file, ExecutingOptions _ex, Options _opts, AnalysisMessages _mess, KeyWords _kwl) {

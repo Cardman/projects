@@ -28,7 +28,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new DfFont(),null,ctx_,null,st_);
         assertFalse(st_.isFailInit());
@@ -40,7 +40,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctFont0(),null,ctx_,null,null,st_);
         assertFalse(st_.isFailInit());
@@ -52,7 +52,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctFont1(),null,ctx_,null,one(new IntStruct(13)),st_);
         assertFalse(st_.isFailInit());
@@ -64,7 +64,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctFont2(),null,ctx_,null,four(new StringStruct("_"),BooleanStruct.of(true),BooleanStruct.of(true),new IntStruct(13)),st_);
         assertFalse(st_.isFailInit());
@@ -76,7 +76,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct f_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(true), BooleanStruct.of(true), new IntStruct(13)), st_);
         assertEq("_",call(new FctFontGetName(),null,ctx_,f_,null,st_));
@@ -87,7 +87,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct f_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(true), new IntStruct(13)), st_);
         assertFalse(call(new FctFontIsBold(),null,ctx_,f_,null,st_));
@@ -98,7 +98,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct f_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(true), BooleanStruct.of(false), new IntStruct(13)), st_);
         assertTrue(call(new FctFontIsBold(),null,ctx_,f_,null,st_));
@@ -109,7 +109,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct f_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(true), BooleanStruct.of(false), new IntStruct(13)), st_);
         assertFalse(call(new FctFontIsItalic(),null,ctx_,f_,null,st_));
@@ -120,7 +120,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct f_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(true), new IntStruct(13)), st_);
         assertTrue(call(new FctFontIsItalic(),null,ctx_,f_,null,st_));
@@ -131,7 +131,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct f_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(true), BooleanStruct.of(true), new IntStruct(13)), st_);
         assertEq(13,toLong(call(new FctFontGetSize(),null,ctx_,f_,null,st_)));
@@ -142,7 +142,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(true), BooleanStruct.of(true), new IntStruct(13)), st_);
         assertFalse(c_.sameReference(NullStruct.NULL_VALUE));
@@ -154,7 +154,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(true), BooleanStruct.of(true), new IntStruct(13)), st_);
         Struct c2_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(true), BooleanStruct.of(true), new IntStruct(17)), st_);
@@ -166,7 +166,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(true), BooleanStruct.of(true), new IntStruct(13)), st_);
         Struct c2_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(true), BooleanStruct.of(false), new IntStruct(13)), st_);
@@ -178,7 +178,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(true), BooleanStruct.of(true), new IntStruct(13)), st_);
         Struct c2_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(true), new IntStruct(13)), st_);
@@ -190,7 +190,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(true), BooleanStruct.of(true), new IntStruct(13)), st_);
         Struct c2_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("__"), BooleanStruct.of(true), BooleanStruct.of(true), new IntStruct(13)), st_);
@@ -202,7 +202,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(true), BooleanStruct.of(true), new IntStruct(13)), st_);
         Struct c2_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(true), BooleanStruct.of(true), new IntStruct(13)), st_);
@@ -214,7 +214,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
         Struct c2_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(17)), st_);
@@ -226,7 +226,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
         Struct c2_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(true), new IntStruct(13)), st_);
@@ -238,7 +238,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
         Struct c2_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(true), BooleanStruct.of(false), new IntStruct(13)), st_);
@@ -250,7 +250,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
         Struct c2_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("__"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
@@ -262,7 +262,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
         Struct c2_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
@@ -274,7 +274,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
 //        Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(true)), st_);
@@ -289,7 +289,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(true)), st_);
@@ -304,7 +304,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(true)), st_);
@@ -319,7 +319,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
         call(new FctFontStringWidth1(stds_.getGuiExecutingBlocks()),null,ctx_,c_,one(new StringStruct("")),st_);
@@ -332,7 +332,7 @@ public final class FontStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctFontStringWidth0(stds_.getGuiExecutingBlocks()),null,ctx_,null,two(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());

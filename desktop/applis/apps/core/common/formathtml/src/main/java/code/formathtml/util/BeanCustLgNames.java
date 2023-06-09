@@ -26,6 +26,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.AbsContextGenerator;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
@@ -446,7 +447,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         return ValidatorStandard.tr(_list);
     }
 
-    public ResultContext setupAll(DualNavigationContext _dual) {
+    public ResultContext setupAll(DualNavigationContext _dual, AbsContextGenerator _gene) {
         Navigation nav_ = _dual.getNavigation();
         Configuration session_ = nav_.getSession();
         navigation = session_.getNavigation();
@@ -476,15 +477,15 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         rendExecutingBlocks.setRendDocumentBlock(RendForwardInfos.buildExec(analyzingDoc_, d_, forwards_, session_, renders_));
         rendExecutingBlocks.getRenders().addAllEntries(renders_);
         Options options_ = forwards_.getOptions();
-        ContextEl context_ = forwardAndClear(forwards_);
+        ContextEl context_ = forwardAndClear(forwards_,_gene);
         ExecClassesUtil.tryInitStaticlyTypes(context_, options_);
         ResultContext res_ = new ResultContext(copy_, forwards_, copy_.getMessages());
         res_.setContext(context_);
         return res_;
     }
 
-    public ContextEl forwardAndClear(Forwards _forward) {
-        ContextEl ctx_ = _forward.generate();
+    public ContextEl forwardAndClear(Forwards _forward, AbsContextGenerator _gene) {
+        ContextEl ctx_ = _gene.gene(_forward);
         Classes.forwardAndClear(ctx_);
         buildIterables(ctx_.getClasses());
         return ctx_;

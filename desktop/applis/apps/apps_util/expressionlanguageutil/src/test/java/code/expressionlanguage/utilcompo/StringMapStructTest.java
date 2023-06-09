@@ -25,7 +25,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPut(),null,ctx_,m_,two( NullStruct.NULL_VALUE, NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
@@ -37,7 +37,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(m_,InitPhase.READ_ONLY_OTHERS);
         call(new FctTastrPut(),null,ctx_,m_,two( NullStruct.NULL_VALUE, NullStruct.NULL_VALUE),st_);
         assertTrue(st_.isFailInit());
@@ -48,7 +48,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPut(),null,ctx_,m_,two( new StringStruct(""), NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
@@ -60,7 +60,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrReplace(),null,ctx_,m_,two( NullStruct.NULL_VALUE, NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
@@ -73,7 +73,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(m_,InitPhase.READ_ONLY_OTHERS);
         call(new FctTastrReplace(),null,ctx_,m_,two( NullStruct.NULL_VALUE, NullStruct.NULL_VALUE),st_);
         assertTrue(st_.isFailInit());
@@ -85,7 +85,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrReplace(),null,ctx_,m_,two( new StringStruct(""), NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
@@ -98,7 +98,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         assertSame(NullStruct.NULL_VALUE,call(new FctTastrReplace(),null,ctx_,m_,two(new StringStruct(""), new StringStruct("")),st_));
         assertSame(NullStruct.NULL_VALUE,call(new FctTastrGet() ,null,ctx_,m_,one(new StringStruct("")),st_));
@@ -109,7 +109,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         StringStruct value_ = new StringStruct("");
         assertSame(NullStruct.NULL_VALUE,call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""), value_),st_));
@@ -124,7 +124,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPutAbs(),null,ctx_,m_,two( NullStruct.NULL_VALUE, NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
@@ -137,7 +137,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(m_,InitPhase.READ_ONLY_OTHERS);
         call(new FctTastrPutAbs(),null,ctx_,m_,two( NullStruct.NULL_VALUE, NullStruct.NULL_VALUE),st_);
         assertTrue(st_.isFailInit());
@@ -149,7 +149,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPutAbs(),null,ctx_,m_,two( new StringStruct(""), NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
@@ -162,7 +162,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         StringStruct value_ = new StringStruct("");
         assertSame(NullStruct.NULL_VALUE,call(new FctTastrPutAbs(),null,ctx_,m_,two(new StringStruct(""), value_),st_));
@@ -174,7 +174,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         StringStruct value_ = new StringStruct("");
         assertSame(NullStruct.NULL_VALUE,call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""), value_),st_));
@@ -189,7 +189,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrGet(),null,ctx_,m_,one( NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
@@ -202,7 +202,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrRemove(),null,ctx_,m_,one( NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
@@ -215,7 +215,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(m_,InitPhase.READ_ONLY_OTHERS);
         call(new FctTastrRemove(),null,ctx_,m_,one( NullStruct.NULL_VALUE),st_);
         assertTrue(st_.isFailInit());
@@ -227,7 +227,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         assertSame(NullStruct.NULL_VALUE,call(new FctTastrRemove(),null,ctx_,m_,one(new StringStruct("")),st_));
         assertSame(NullStruct.NULL_VALUE,call(new FctTastrGet(),null,ctx_,m_,one(new StringStruct("")),st_));
@@ -238,7 +238,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         StringStruct value_ = new StringStruct("");
         assertSame(NullStruct.NULL_VALUE,call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""), value_),st_));
@@ -252,7 +252,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrHasValue(),null,ctx_,m_,one( NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
@@ -265,7 +265,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""),new StringStruct("")),st_);
         assertFalse(call(new FctTastrHasValue(),null,ctx_,m_,one( new StringStruct("_")),st_));
@@ -277,7 +277,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""),new StringStruct("")),st_);
         assertTrue(call(new FctTastrHasValue(),null,ctx_,m_,one( new StringStruct("")),st_));
@@ -289,7 +289,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrHasKey(),null,ctx_,m_,one( NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
@@ -302,7 +302,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""),new StringStruct("")),st_);
         assertFalse(call(new FctTastrHasKey(),null,ctx_,m_,one( new StringStruct("_")),st_));
@@ -314,7 +314,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""),new StringStruct("")),st_);
         assertTrue(call(new FctTastrHasKey(),null,ctx_,m_,one( new StringStruct("")),st_));
@@ -326,7 +326,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""),new StringStruct("")),st_);
         Struct pairs_ = call(new FctTastrPairs(), null, ctx_, m_, null, st_);
@@ -339,7 +339,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""),new StringStruct("")),st_);
         Struct pairs_ = call(new FctTastrKeys0(), null, ctx_, m_, null, st_);
@@ -352,7 +352,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""),new StringStruct("")),st_);
         Struct pairs_ = call(new FctTastrValues(), null, ctx_, m_, null, st_);
@@ -365,7 +365,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrKeys1(),null,ctx_,m_,one( NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
@@ -378,7 +378,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""),new StringStruct("")),st_);
         Struct pairs_ = call(new FctTastrKeys1(), null, ctx_, m_, one(new StringStruct("_")), st_);
@@ -391,7 +391,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""),new StringStruct("")),st_);
         Struct pairs_ = call(new FctTastrKeys1(), null, ctx_, m_, one(new StringStruct("")), st_);
@@ -404,7 +404,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
         call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""),new StringStruct("")),st_);
         st_.getInitializingTypeInfos().getSensibleFields().add(m_);
@@ -418,7 +418,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""),new StringStruct("")),st_);
         call(new FctTastrClear(),null,ctx_,m_,null,st_);
@@ -431,7 +431,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPutAll(),null,ctx_,m_,two( NullStruct.NULL_VALUE, NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
@@ -444,7 +444,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(m_,InitPhase.READ_ONLY_OTHERS);
         call(new FctTastrPutAll(),null,ctx_,m_,two( NullStruct.NULL_VALUE, NullStruct.NULL_VALUE),st_);
         assertTrue(st_.isFailInit());
@@ -456,7 +456,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         call(new FctTastrPutAll(),null,ctx_,m_,two( new StringStruct(""), NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
@@ -469,7 +469,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         StringMapStruct a_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
         call(new FctTastrPut(),null,ctx_,a_,two(new StringStruct(""),new StringStruct("")),st_);

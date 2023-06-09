@@ -1,11 +1,15 @@
 package code.expressionlanguage.utilimpl;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.guicompos.GuiContextEl;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -186,7 +190,13 @@ public final class RunningTest implements Runnable {
         if (resultAna_.notAllEmptyErrors()) {
             return res_;
         }
-        res_.forwardGenerate();
+        AnalyzedPageEl fwd_ = res_.getPageEl();
+        Forwards f_ = res_.getForwards();
+        ForwardInfos.generalForward(fwd_,f_);
+        ContextEl ctx_ =  new GuiContextEl(_lg.getExecContent().getInfos().getThreadFactory().newAtomicBoolean(),null,_lg.newContextCommon(f_.getOptions(),f_),_lg.args());
+        Classes.forwardAndClear(ctx_);
+        res_.setContext(ctx_);
+        ExecClassesUtil.tryInitStaticlyTypes(res_.getContext(), res_.getForwards().getOptions());
         return res_;
     }
 

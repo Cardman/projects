@@ -154,7 +154,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         all_.addEntry(du_.getFilesConfName(), StringUtil.join(_files.getKeys(),"\n"));
         _dualNav.getNavigation().setFiles(all_);
         setFirst("page1.html", _dualNav.getNavigation().getSession());
-        return dual_.getStds().setupAll(_dualNav).getContext();
+        return dual_.getStds().setupAll(_dualNav,new DefRenderContextGenerator()).getContext();
     }
 
     protected static AnalyzedPageEl anaErr(StringMap<String> _files, StringMap<String> _rend, DualNavigationContext _dualNav) {
@@ -166,7 +166,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         all_.addEntry(du_.getFilesConfName(), StringUtil.join(_files.getKeys(),"\n"));
         _dualNav.getNavigation().setFiles(all_);
         setFirst("page1.html", _dualNav.getNavigation().getSession());
-        return dual_.getStds().setupAll(_dualNav).getPageEl();
+        return dual_.getStds().setupAll(_dualNav,new DefRenderContextGenerator()).getPageEl();
     }
 
     private static Options newOptions() {

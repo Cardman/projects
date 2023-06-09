@@ -57,7 +57,6 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
         AbstractAtomicBoolean a_ = pr_.getThreadFactory().newAtomicBoolean();
         progTest_.setStop(a_);
-        stds_.setAtomicBoolean(a_);
 
         ResultContext res_ = CustContextFactory.buildDefKw(new Options(), stds_.getExecContent().getExecutingOptions(), stds_, files_);
         ContextEl rCont_ = res_.getContext();
@@ -94,7 +93,6 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
         AbstractAtomicBoolean a_ = pr_.getThreadFactory().newAtomicBoolean();
         progTest_.setStop(a_);
-        stds_.setAtomicBoolean(a_);
         ResultContext res_ = CustContextFactory.buildDefKw(new Options(), stds_.getExecContent().getExecutingOptions(), stds_, files_);
         fram_.setResults(res_.getContext(),new Argument(),stds_);
         assertEq(0, bar_.getMin());

@@ -105,7 +105,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_));
-        Classes.validateAll(new StringMap<String>(), page_, fwd_);
+        validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyStdError());
         assertTrue(page_.notAllEmptyErrors());
     }
@@ -127,7 +127,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_));
-        Classes.validateAll(new StringMap<String>(), page_, fwd_);
+        validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyStdError());
     }
 
@@ -145,7 +145,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_));
-        Classes.validateAll(new StringMap<String>(), page_, fwd_);
+        validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(page_.notAllEmptyErrors());
     }
@@ -162,7 +162,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_));
-        Classes.validateAll(new StringMap<String>(), page_, fwd_);
+        validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(page_.notAllEmptyErrors());
     }

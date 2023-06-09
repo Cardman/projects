@@ -19,7 +19,7 @@ public final class ColorStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctColor0(), null, ctx_, null, one(new IntStruct(8)), st_);
         assertEq(-16777208, ((ColorStruct)c_).getColor());
@@ -31,7 +31,7 @@ public final class ColorStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctColor0(), null, ctx_, null, one(new IntStruct(8+256*256*256)), st_);
         assertEq(-16777208, ((ColorStruct)c_).getColor());
@@ -44,7 +44,7 @@ public final class ColorStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctColor1(), null, ctx_, null, two(new IntStruct(8),BooleanStruct.of(false)), st_);
         assertEq(-16777208, ((ColorStruct)c_).getColor());
@@ -56,7 +56,7 @@ public final class ColorStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctColor1(), null, ctx_, null, two(new IntStruct(8),BooleanStruct.of(true)), st_);
         assertEq(8, ((ColorStruct)c_).getColor());
@@ -68,7 +68,7 @@ public final class ColorStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctColor2(), null, ctx_, null, three(new IntStruct(0),new IntStruct(0),new IntStruct(8)), st_);
         assertEq(-16777208, ((ColorStruct)c_).getColor());
@@ -80,7 +80,7 @@ public final class ColorStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctColor3(), null, ctx_, null, four(new IntStruct(0),new IntStruct(0),new IntStruct(8),new IntStruct(255)), st_);
         assertEq(-16777208, ((ColorStruct)c_).getColor());
@@ -92,7 +92,7 @@ public final class ColorStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctColor3(), null, ctx_, null, four(new IntStruct(37),new IntStruct(17),new IntStruct(23),new IntStruct(31)), st_);
         assertEq(37,toLong(call(new FctColorRed(),null,ctx_,c_,null,st_)));
@@ -103,7 +103,7 @@ public final class ColorStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctColor3(), null, ctx_, null, four(new IntStruct(37),new IntStruct(17),new IntStruct(23),new IntStruct(31)), st_);
         assertEq(17,toLong(call(new FctColorGreen(),null,ctx_,c_,null,st_)));
@@ -114,7 +114,7 @@ public final class ColorStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctColor3(), null, ctx_, null, four(new IntStruct(37),new IntStruct(17),new IntStruct(23),new IntStruct(31)), st_);
         assertEq(23,toLong(call(new FctColorBlue(),null,ctx_,c_,null,st_)));
@@ -125,7 +125,7 @@ public final class ColorStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctColor3(), null, ctx_, null, four(new IntStruct(37),new IntStruct(17),new IntStruct(23),new IntStruct(31)), st_);
         assertEq(31,toLong(call(new FctColorAlpha(),null,ctx_,c_,null,st_)));
@@ -136,7 +136,7 @@ public final class ColorStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctColor3(), null, ctx_, null, four(new IntStruct(37),new IntStruct(17),new IntStruct(23),new IntStruct(0)), st_);
         assertTrue(call(new FctColorTransparent(),null,ctx_,c_,null,st_));
@@ -147,7 +147,7 @@ public final class ColorStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctColor3(), null, ctx_, null, four(new IntStruct(37),new IntStruct(17),new IntStruct(23),new IntStruct(255)), st_);
         assertFalse(call(new FctColorTransparent(),null,ctx_,c_,null,st_));
@@ -158,7 +158,7 @@ public final class ColorStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctColor3(), null, ctx_, null, four(new IntStruct(37),new IntStruct(17),new IntStruct(23),new IntStruct(255)), st_);
         assertFalse(c_.sameReference(NullStruct.NULL_VALUE));
@@ -169,7 +169,7 @@ public final class ColorStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctColor3(), null, ctx_, null, four(new IntStruct(37),new IntStruct(17),new IntStruct(23),new IntStruct(255)), st_);
         Struct c2_ = call(new FctColor3(), null, ctx_, null, four(new IntStruct(37),new IntStruct(23),new IntStruct(17),new IntStruct(255)), st_);
@@ -181,7 +181,7 @@ public final class ColorStructTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
-        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct c_ = call(new FctColor3(), null, ctx_, null, four(new IntStruct(37),new IntStruct(17),new IntStruct(23),new IntStruct(255)), st_);
         Struct c2_ = call(new FctColor3(), null, ctx_, null, four(new IntStruct(37),new IntStruct(17),new IntStruct(23),new IntStruct(255)), st_);

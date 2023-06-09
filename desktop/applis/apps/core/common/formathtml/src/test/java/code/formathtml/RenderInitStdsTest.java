@@ -64,7 +64,7 @@ public final class RenderInitStdsTest extends CommonRender {
         ContextFactory.validatedStds(forwards_, am_, k_, new CustList<CommentDelimiters>(), options_, b_.getContent(), page_);
         b_.build();
         ValidatorStandard.setupOverrides(page_);
-        ContextEl generate_ = forwards_.generate();
+        ContextEl generate_ = new DefRenderContextGenerator().gene(forwards_);
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, generate_);
         BeanLgNames standards_ = (BeanLgNames) generate_.getStandards();
         String err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", new Ints(), generate_, rendStackCall_).getClassName(generate_);
