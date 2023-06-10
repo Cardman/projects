@@ -10,7 +10,7 @@ import code.util.StringMap;
 public final class DebugMapping {
     private final IdMap<FileBlock, ExecFileBlock> files = new IdMap<FileBlock, ExecFileBlock>();
     private StringMap<StringMap<Struct>> shared = new StringMap<StringMap<Struct>>();
-    private CustList<String> typesInit = new CustList<String>();
+    private final CustList<String> typesInit = new CustList<String>();
     private String initClass="";
     private final BreakPointBlockList breakPointsBlock = new BreakPointBlockList();
     private final boolean debugging;

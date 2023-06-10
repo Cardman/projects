@@ -229,29 +229,30 @@ public final class ExecClassesUtil {
 
     private static StackCall tryList(StackCall _orig, ContextEl _context, Options _options) {
         if (_orig.isStoppedBreakPoint()) {
-            return endList(_context, _options, _orig);
+            return endList(_context, _context.getClasses().getDebugMapping().getTypesInit(), _orig);
         }
         if (_orig.getInitializingTypeInfos().getInitEnums() == InitPhase.LIST) {
             StackCall st_ = StackCall.newInstance(InitPhase.LIST,_context);
             st_.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
-            return endList(_context, _options, st_);
+            return endList(_context, _context.getClasses().getDebugMapping().getTypesInit(), st_);
         }
         StackCall st_ = StackCall.newInstance(InitPhase.LIST,_context);
         st_.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
         DefaultLockingClass dl_ = _context.getLocks();
         dl_.initAlwaysSuccess();
+        CustList<String> filter_ = new CustList<String>(_options.getTypesInit());
         _context.getClasses().getDebugMapping().getTypesInit().clear();
-        _context.getClasses().getDebugMapping().getTypesInit().addAllElts(_options.getTypesInit());
-        return endList(_context, _options, st_);
+        _context.getClasses().getDebugMapping().getTypesInit().addAllElts(filter_);
+        return endList(_context, filter_, st_);
     }
 
-    private static StackCall endList(ContextEl _context, Options _options, StackCall _st) {
+    private static StackCall endList(ContextEl _context, CustList<String> _options, StackCall _st) {
         if (_st.isStoppedBreakPoint()) {
             return check(_context, _st);
         }
         CustList<String> ts_ = _context.getClasses().getDebugMapping().getTypesInit();
         CustList<String> init_ = new CustList<String>();
-        for (String t: _options.getTypesInit()) {
+        for (String t: _options) {
             String res_ = StringExpUtil.removeDottedSpaces(t);
             ExecRootBlock classBody_ = _context.getClasses().getClassBody(res_);
             if (classBody_ == null) {
