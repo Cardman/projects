@@ -1,9 +1,10 @@
 package code.expressionlanguage.exec.variables;
 
-public abstract class AbstractVariableWrapper implements AbstractWrapper {
+public abstract class AbstractVariableWrapper extends ValueWrapper {
     private final LocalVariable local;
 
     protected AbstractVariableWrapper(LocalVariable _local) {
+        super(_local.getStruct());
         local = _local;
     }
 

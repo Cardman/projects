@@ -115,16 +115,22 @@ public final class ExecArrayTemplates {
             return NullStruct.NULL_VALUE;
         }
         ArrayStruct arr_ = (ArrayStruct) _struct;
-        int index_ = NumParsers.convertToNumber(_index).intStruct();
-        if (!arr_.isValid(index_)) {
+        Struct e_ = elt(arr_, _index);
+        if (e_ == null) {
             String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
             StringBuilder mess_ = getIndexMessage(_index, arr_);
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
             return NullStruct.NULL_VALUE;
         }
-        Struct elt_ = arr_.get(index_);
-        _stackCall.getInitializingTypeInfos().addSensibleField(arr_, elt_);
-        return elt_;
+        _stackCall.getInitializingTypeInfos().addSensibleField(arr_, e_);
+        return e_;
+    }
+    public static Struct elt(ArrayStruct _arr, Struct _index) {
+        int index_ = NumParsers.convertToNumber(_index).intStruct();
+        if (!_arr.isValid(index_)) {
+            return null;
+        }
+        return _arr.get(index_);
     }
 
     public static Struct getRange(Struct _struct, Struct _index, ContextEl _conf, StackCall _stackCall) {

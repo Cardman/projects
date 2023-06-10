@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
@@ -34,6 +35,7 @@ public final class ReflectVariableWrapper extends AbstractVariableWrapper {
 
     @Override
     public void setValue(StackCall _stack, ContextEl _conf, Argument _right) {
+        setValue(ArgumentListCall.toStr(_right));
         String formattedClassVar_ = getLocal().getClassName();
         ExecInheritsAdv.checkQuick(formattedClassVar_, _right.getStruct().getClassName(_conf), _conf, _stack);
         if (!_conf.callsOrException(_stack)&&array.isValid(ind)) {

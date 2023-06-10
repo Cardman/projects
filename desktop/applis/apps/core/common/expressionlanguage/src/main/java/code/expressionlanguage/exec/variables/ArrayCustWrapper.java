@@ -14,18 +14,20 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunctionPair;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
-public final class ArrayCustWrapper implements AbstractWrapper {
+public final class ArrayCustWrapper extends ValueWrapper {
     private final CustList<ArgumentWrapper> ls;
     private final Struct parent;
     private final String previousClass;
     private final ExecTypeFunctionPair readWrite;
-    public ArrayCustWrapper(CustList<ArgumentWrapper> _list, Struct _pa, String _previousClass, ExecTypeFunctionPair _readWrite) {
+    public ArrayCustWrapper(Struct _v, CustList<ArgumentWrapper> _list, Struct _pa, String _previousClass, ExecTypeFunctionPair _readWrite) {
+        super(_v);
         ls = _list;
         parent = _pa;
         previousClass = _previousClass;
         readWrite = _readWrite;
     }
     public void setValue(StackCall _stack, ContextEl _conf, Argument _right) {
+        setValue(ArgumentListCall.toStr(_right));
         ExecCustArrOperation.redirect(_conf, _stack, readWrite.getInstWrite(), parent,ArgumentListCall.wrapCall(ls,_right));
     }
 

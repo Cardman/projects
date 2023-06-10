@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.opers.ExecWrappOperation;
 import code.expressionlanguage.exec.stacks.LoopBlockStackContent;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
 import code.expressionlanguage.structs.*;
@@ -315,13 +316,13 @@ public abstract class RendBlock {
         }
         CustList<LongTreeMap<DefNodeContainer>> stack_;
         RendDynOperationNode settable_ = RendAbstractAffectOperation.castDottedTo(res_);
-        Argument arg_;
+        Struct arg_ = ArgumentListCall.toStr(Argument.getNullableValue(args_.getValue(settable_.getOrder()).getArgument()));
         AbstractWrapper wr_;
         if (settable_ instanceof RendSettableFieldStatOperation) {
             ExecSettableOperationContent settableFieldContent_ = ((RendSettableFieldStatOperation) settable_).getSettableFieldContent();
             allObj_.add(NullStruct.NULL_VALUE);
             ExecRootBlock rootBlock_ = ((RendSettableFieldStatOperation) settable_).getRootBlock();
-            wr_ = new StaticFieldWrapper(settableFieldContent_.getRealType(),rootBlock_,
+            wr_ = new StaticFieldWrapper(arg_,settableFieldContent_.getRealType(),rootBlock_,
                     settableFieldContent_.getClassField());
         } else if (settable_ instanceof RendSettableFieldInstOperation) {
             ExecSettableOperationContent settableFieldContent_ = ((RendSettableFieldInstOperation) settable_).getSettableFieldContent();
@@ -329,21 +330,21 @@ public abstract class RendBlock {
             Struct parent_ = pairCh_.getArgumentParent().getStruct();
             ExecTypeReturn pair_ = ((RendSettableFieldInstOperation) settable_).getPair();
             allObj_.add(parent_);
-            wr_ = new InstanceFieldWrapper(parent_, parent_.getClassName(_ctx),settableFieldContent_.getRealType(),
+            wr_ = new InstanceFieldWrapper(arg_,parent_, parent_.getClassName(_ctx),settableFieldContent_.getRealType(),
                     settableFieldContent_.getClassField(), pair_);
         } else if (settable_ instanceof RendCustArrOperation) {
             RendCustArrOperation ch_ = (RendCustArrOperation)settable_;
             ArgumentsPair pairCh_ = RendDynOperationNode.getArgumentPair(args_, ch_);
             Struct parent_ = pairCh_.getArgumentParent().getStruct();
             CustList<ArgumentWrapper> argumentList_ = pairCh_.getArgumentList();
-            wr_ = new ArrayCustWrapper(argumentList_,parent_, parent_.getClassName(_ctx), ch_.getReadWrite());
+            wr_ = new ArrayCustWrapper(arg_,argumentList_,parent_, parent_.getClassName(_ctx), ch_.getReadWrite());
             allObj_.add(parent_);
             feed(argumentList_, allObj_);
         } else if (settable_ instanceof RendArrOperation){
             RendArrOperation ch_ = (RendArrOperation)settable_;
             Argument previousArgument_ = Argument.getNullableValue(RendDynOperationNode.getArgumentPair(args_, ch_).getArgumentParent());
             ArgumentsPair pairIndex_ = RendDynOperationNode.getArgumentPair(args_, ch_.getFirstChild());
-            wr_ = ExecWrappOperation.buildArrWrapp(previousArgument_,pairIndex_.getArgument().getStruct());
+            wr_ = ExecWrappOperation.buildArrWrapp(previousArgument_,pairIndex_.getArgument().getStruct(),arg_);
             allObj_.add(previousArgument_.getStruct());
             allObj_.add(pairIndex_.getArgument().getStruct());
         } else {
@@ -355,8 +356,7 @@ public abstract class RendBlock {
             feed(argumentList_, allObj_);
         }
         stack_ = _rendStackCall.getFormParts().getContainersMapStack();
-        arg_ = Argument.getNullableValue(args_.getValue(settable_.getOrder()).getArgument());
-        return new DefFetchedObjs(_idRad,wr_, allObj_, stack_, arg_.getStruct(), StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), DOT, name_));
+        return new DefFetchedObjs(_idRad,wr_, allObj_, stack_, arg_, StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), DOT, name_));
     }
 
     private static void feed(CustList<ArgumentWrapper> _argumentList, CustList<Struct> _allObj) {

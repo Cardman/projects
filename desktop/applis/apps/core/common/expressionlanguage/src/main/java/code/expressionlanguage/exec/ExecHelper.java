@@ -5,7 +5,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -15,6 +18,13 @@ public final class ExecHelper {
 
     public static void fwdWrapper(ArgumentsPair _to,ArgumentsPair _from) {
         _to.setWrapper(_from.getWrapper());
+        setValue(_to.getWrapper(), ArgumentListCall.toStr(_from.getArgument()));
+    }
+
+    public static void setValue(AbstractWrapper _aw, Struct _v) {
+        if (_aw != null) {
+            _aw.setValue(_v);
+        }
     }
 
     public static Argument getFirstArgument(CustList<Argument> _list) {

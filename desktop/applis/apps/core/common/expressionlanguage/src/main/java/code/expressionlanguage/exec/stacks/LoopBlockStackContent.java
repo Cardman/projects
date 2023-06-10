@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.stacks;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
@@ -19,6 +20,7 @@ public final class LoopBlockStackContent {
     private long step;
 
     private Struct container = NullStruct.NULL_VALUE;
+    private ArrayStruct array = new ArrayStruct(0,"");
 
     private long currentValue;
 
@@ -45,6 +47,10 @@ public final class LoopBlockStackContent {
 
     public void incr() {
         currentValue+=step;
+    }
+
+    public ArrayStruct getArray() {
+        return array;
     }
 
     public void setAchieveValue(long _achieveValue) {
@@ -109,5 +115,8 @@ public final class LoopBlockStackContent {
 
     public void setContainer(Struct _container) {
         this.container = Argument.getNull(_container);
+        if (_container instanceof ArrayStruct) {
+            array = (ArrayStruct) _container;
+        }
     }
 }
