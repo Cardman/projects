@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.dbg;
 
+import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 
 public final class BreakPointBlockKey {
@@ -15,5 +16,8 @@ public final class BreakPointBlockKey {
     }
     public boolean match(ExecFileBlock _file, int _offset) {
         return file == _file && offset == _offset;
+    }
+    public boolean matchRow(ExecFileBlock _file, FileMetrics _ana, int _row) {
+        return file == _file && _ana.getRowFile(offset) == _row;
     }
 }

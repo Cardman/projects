@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.dbg;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
+import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.options.ResultContext;
 import code.util.CustList;
@@ -109,5 +110,17 @@ public final class BreakPointBlockList {
             }
         }
         return null;
+    }
+    public CustList<BreakPointBlockPair> bp(ExecFileBlock _file, FileMetrics _ana, int _off) {
+        int r_ = _ana.getRowFile(_off);
+        CustList<BreakPointBlockPair> list_ = new CustList<BreakPointBlockPair>();
+        int len_ = list.size();
+        for (int i = 0; i < len_; i++) {
+            BreakPointBlockPair p_ = list.get(i);
+            if (p_.getKey().matchRow(_file, _ana, r_)) {
+                list_.add(p_);
+            }
+        }
+        return list_;
     }
 }
