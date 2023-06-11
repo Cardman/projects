@@ -3,15 +3,15 @@ package code.expressionlanguage.exec.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.exec.variables.LoopVariable;
-import code.expressionlanguage.exec.variables.NamedLoopVariable;
-import code.expressionlanguage.exec.variables.NamedWrapper;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public abstract class Cache {
@@ -25,6 +25,30 @@ public abstract class Cache {
             list_.add(n.getName());
         }
         return list_;
+    }
+    public static void sortByDeepThenName(CustList<ViewVariable> _ls) {
+        _ls.sortElts(new ViewVariableDeepNameCmp());
+    }
+    public static CustList<ViewVariable> view(StackCall _st, AbstractPageEl _page, ContextEl _ctx) {
+        CustList<ViewVariable> v_ = new CustList<ViewVariable>();
+        Cache c_ = _page.getCache();
+        if (c_ != null) {
+            StringMap<Integer> counts_ = new StringMap<Integer>();
+            for (NamedWrapper n: c_.locWrappers()) {
+                int current_;
+                if (counts_.contains(n.getName())) {
+                    current_ = counts_.getVal(n.getName())+1;
+                } else {
+                    current_ = 0;
+                }
+                v_.add(new ViewVariable(n.getName(),n.getWrapper(),_st,_page,current_,_ctx));
+                counts_.put(n.getName(),current_);
+            }
+        }
+        for (EntryCust<String, AbstractWrapper> n: _page.getContentEx().getRefParams().entryList()) {
+            v_.add(new ViewVariable(n.getKey(),n.getValue(),_st,_page,_ctx));
+        }
+        return v_;
     }
     protected CustList<NamedWrapper> locWrappers() {
         return localWrappers;
