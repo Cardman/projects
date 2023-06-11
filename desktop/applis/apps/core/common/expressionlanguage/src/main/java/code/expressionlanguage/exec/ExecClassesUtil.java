@@ -9,7 +9,9 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.variables.ViewVariable;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -134,9 +136,19 @@ public final class ExecClassesUtil {
                 _context.getInit().loopCalling(_context, st_);
                 arg_ = new ArgumentWrapper(f_.getReturnedArgument(),f_.getWrapper());
             }
-            return new StackCallReturnValue(st_,arg_);
+            return new StackCallReturnValue(st_,arg_,vars(_context, st_));
         }
-        return new StackCallReturnValue(st_,null);
+        return new StackCallReturnValue(st_,null,vars(_context, st_));
+    }
+    private static CustList<CustList<ViewVariable>> vars(ContextEl _context, StackCall _st) {
+        CustList<CustList<ViewVariable>> ls_ = new CustList<CustList<ViewVariable>>();
+        int pages_ = _st.nbPages();
+        for (int i = 0; i < pages_; i++) {
+            CustList<ViewVariable> v_ = Cache.view(_st, _st.getCall(i), _context);
+            Cache.sortByDeepThenName(v_);
+            ls_.add(v_);
+        }
+        return ls_;
     }
     public static StackCall tryInitStaticlyTypes(ContextEl _context, Options _options, StackCall _st) {
         if (_st == null) {
