@@ -20,7 +20,7 @@ import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 
-public abstract class WindowWithTreeImpl {
+public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     private final CdmFactory factory;
     private final AbsMenuItem languageMenu;
     private final AbsMenuItem tabulationsMenu;
@@ -177,16 +177,14 @@ public abstract class WindowWithTreeImpl {
         return "\n";
     }
 
-    int indexOpened(String _str) {
-        int opened_ = -1;
-        int s_ = getTabs().size();
-        for (int i = 0; i < s_; i++) {
-            if (StringUtil.quickEq(getTabs().get(i).getFullPath(), _str)) {
-                opened_ = i;
-                break;
-            }
-        }
-        return opened_;
+    @Override
+    public int tabCount() {
+        return getTabs().size();
+    }
+
+    @Override
+    public AbsTabEditor tab(int _i) {
+        return getTabs().get(_i);
     }
 
     static void refreshList(AbstractMutableTreeNode _sel, String _folderToVisit, AbstractProgramInfos _factories) {

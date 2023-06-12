@@ -32,7 +32,7 @@ import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class TabEditor {
+public final class TabEditor implements AbsTabEditor {
     private final WindowWithTreeImpl windowSecEditor;
     private final AbstractProgramInfos factories;
     private final AbsScrollPane scCenter;
@@ -433,6 +433,7 @@ public final class TabEditor {
         Forwards forwards_ = CustContextFactory.fwd(userResult_.getForwards().getOptions(), lg_, userResult_.getForwards().getFileBuilder());
         ResultContext copy_ = new ResultContext(userResult_.getPageEl(),forwards_,userResult_.getReportedMessages());
         AnalyzedPageEl fwd_ = copy_.getPageEl();
+        forwards_.getClasses().getCommon().setStaticFields(fwd_.getStaticFields());
         ForwardInfos.generalForward(fwd_,forwards_);
         ContextEl ctx_ = new AdvContextGenerator(fileInfos_.getThreadFactory().newAtomicBoolean()).gene(forwards_);
         RunnableContextEl res_ = (RunnableContextEl) ctx_;
@@ -501,6 +502,12 @@ public final class TabEditor {
     public void usedTypeReplace(String _u) {
         targetMethodReplace = dicoRepl.getVal(_u);
     }
+
+    @Override
+    public int getTabWidth() {
+        return getWindowSecEditor().getTabWidth();
+    }
+
     public String getUseFeed() {
         return useFeed;
     }

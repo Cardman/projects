@@ -1,9 +1,12 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilimpl.ManageOptions;
+import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.*;
 import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
@@ -19,6 +22,7 @@ import code.stream.core.AbstractZipFact;
 import code.threads.ThState;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 import org.junit.Assert;
 
@@ -42,6 +46,9 @@ public abstract class EquallableElAdvUtil {
     public static void assertSame(AbsCustComponent _expected, AbsCustComponent _result) {
         Assert.assertSame(_expected, _result);
     }
+    public static void assertSame(Struct _expected, Struct _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertSame(ThState _expected, ThState _result) {
         Assert.assertSame(_expected, _result);
     }
@@ -57,6 +64,89 @@ public abstract class EquallableElAdvUtil {
         Assert.assertFalse(_value);
     }
 
+    public static AbsDebuggerGui build() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+        String current_ = "/editor/conf.xml";
+        StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
+        StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
+        StringList lines_ = new StringList();
+        lines_.add("/project/sources");
+        lines_.add("en");
+        StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
+        pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
+        pr_.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
+        pr_.setLanguage(FileInfos.EN);
+        update(pr_);
+        return new InitDebGuiImpl("en",pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+    }
+    public static ManageOptions opt(AbsDebuggerGui _pr) {
+        AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
+        String flatConf_ = StreamTextFile.contentsOfFile("/editor/conf.xml", frs_.getFileCoreStream(), frs_.getStreams());
+        StringList linesFiles_ = ExecutingOptions.lines(StringUtil.nullToEmpty(flatConf_));
+        ManageOptions o_ = new ManageOptions(frs_.getLanguages(), linesFiles_, _pr.getFactory());
+        o_.getOptions().setDebugging(true);
+        return o_;
+    }
+    public static ResultContext res(AbsDebuggerGui _pr, ManageOptions _man) {
+        return PreAnalyzeExpressionSource.baseValidate(_man,null,_pr.getCommonFrame().getFrames(),_pr.getFactory());
+    }
+    public static void save(AbsDebuggerGui _pr, StringMap<String> _src, String _relative, String _content) {
+        AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
+        StreamTextFile.saveTextFile("/project/sources/"+_relative, _content,frs_.getStreams());
+        _src.addEntry(_relative,_content);
+    }
+    public static void guiAna(ResultContext _b, AbsDebuggerGui _g, ManageOptions _man, StringMap<String> _s) {
+        new AnalyzingDebugEvent(_g.getCommonFrame().getFrames().getThreadFactory().newExecutorService(), _b,_g,_man,_s).action();
+    }
+
+    public static void guiNoAna(AbsDebuggerGui _g, ManageOptions _man, StringMap<String> _s) {
+        _g.guiBuild(_man,_s);
+    }
+    public static void toggleBp(AbsDebuggerGui _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F2,0)).action();
+    }
+    public static void toggleBpEn(AbsDebuggerGui _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F3,0)).action();
+    }
+    public static void bpForm(AbsDebuggerGui _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F4,0)).action();
+    }
+    public static void bpFormOk(AbsDebuggerGui _w) {
+        ((MockPlainButton)_w.getOk()).getActionListeners().get(0).action();
+    }
+    public static void bpFormCancel(AbsDebuggerGui _w) {
+        ((MockPlainButton)_w.getCancel()).getActionListeners().get(0).action();
+    }
+    protected static ReadOnlyTabEditor tabEditor(AbsDebuggerGui _w) {
+        return tabEditor(_w,0);
+    }
+
+    protected static ReadOnlyTabEditor tabSelect(AbsDebuggerGui _w) {
+        return _w.getTabs().get(_w.getTabbedPane().getSelectedIndex());
+    }
+    public static ManageOptions optBad(AbsDebuggerGui _pr) {
+        AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
+        StringList lines_ = new StringList();
+        lines_.add("/project/sources");
+        lines_.add("en");
+        lines_.add("src=//");
+        ManageOptions o_ = new ManageOptions(frs_.getLanguages(), lines_, _pr.getFactory());
+        o_.getOptions().setDebugging(true);
+        return o_;
+    }
+   public static ManageOptions optBad2(AbsDebuggerGui _pr) {
+        AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
+        StringList lines_ = new StringList();
+        lines_.add("/project/sources");
+        lines_.add("en");
+        lines_.add("keyWords=If=;");
+        ManageOptions o_ = new ManageOptions(frs_.getLanguages(), lines_, _pr.getFactory());
+        o_.getOptions().setDebugging(true);
+        return o_;
+    }
+    protected static ReadOnlyTabEditor tabEditor(AbsDebuggerGui _w, int _index) {
+        return _w.getTabs().get(_index);
+    }
     public static WindowCdmEditor windowLoadDef(AbstractProgramInfos _pr) {
         WindowCdmEditor w_ = updated(_pr);
         AbsTreeGui tr_ = w_.getFolderSystem();

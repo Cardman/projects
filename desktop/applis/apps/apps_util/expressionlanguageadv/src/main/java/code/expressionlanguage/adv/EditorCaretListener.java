@@ -7,9 +7,9 @@ import code.gui.events.AbsCaretListener;
 import code.util.core.StringUtil;
 
 public final class EditorCaretListener implements AbsCaretListener {
-    private final TabEditor tabEditor;
+    private final AbsTabEditor tabEditor;
 
-    public EditorCaretListener(TabEditor _t) {
+    public EditorCaretListener(AbsTabEditor _t) {
         this.tabEditor = _t;
     }
 
@@ -17,7 +17,7 @@ public final class EditorCaretListener implements AbsCaretListener {
     public void caretUpdate(int _begin, int _end) {
         FileBlock fb_ = new FileBlock(0, false, "", new DefaultFileEscapedCalc());
         fb_.metrics(tabEditor.getCenter().getText());
-        FileMetrics m_ = fb_.getMetrics(tabEditor.getWindowSecEditor().getTabWidth());
+        FileMetrics m_ = fb_.getMetrics(tabEditor.getTabWidth());
         int i_ = tabEditor.getCenter().getCaretPosition();
         String selected_ = StringUtil.nullToEmpty(tabEditor.getCenter().getSelectedText());
         tabEditor.getLabel().setText(formatLciReal(m_,i_, tabEditor.getUseFeed().length(),selected_));
