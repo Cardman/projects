@@ -11,6 +11,8 @@ import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.variables.ViewInstance;
+import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.exec.variables.ViewVariable;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -140,13 +142,13 @@ public final class ExecClassesUtil {
         }
         return new StackCallReturnValue(st_,null,vars(_context, st_));
     }
-    private static CustList<CustList<ViewVariable>> vars(ContextEl _context, StackCall _st) {
-        CustList<CustList<ViewVariable>> ls_ = new CustList<CustList<ViewVariable>>();
+    private static CustList<ViewPage> vars(ContextEl _context, StackCall _st) {
+        CustList<ViewPage> ls_ = new CustList<ViewPage>();
         int pages_ = _st.nbPages();
         for (int i = 0; i < pages_; i++) {
             CustList<ViewVariable> v_ = Cache.view(_st, _st.getCall(i), _context);
             Cache.sortByDeepThenName(v_);
-            ls_.add(v_);
+            ls_.add(new ViewPage(v_,new ViewInstance(_context,_st.getCall(i))));
         }
         return ls_;
     }

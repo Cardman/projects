@@ -1,14 +1,14 @@
 package code.expressionlanguage.exec;
 
-import code.expressionlanguage.exec.variables.ViewVariable;
+import code.expressionlanguage.exec.variables.ViewPage;
 import code.util.CustList;
 
 public final class StackCallReturnValue {
     private final StackCall stack;
     private final ArgumentWrapper retValue;
-    private final CustList<CustList<ViewVariable>> variables;
+    private final CustList<ViewPage> variables;
 
-    public StackCallReturnValue(StackCall _s, ArgumentWrapper _r, CustList<CustList<ViewVariable>> _v) {
+    public StackCallReturnValue(StackCall _s, ArgumentWrapper _r, CustList<ViewPage> _v) {
         this.stack = _s;
         this.retValue = _r;
         this.variables = _v;
@@ -22,7 +22,7 @@ public final class StackCallReturnValue {
         return retValue;
     }
 
-    public CustList<CustList<ViewVariable>> getVariables() {
+    public CustList<ViewPage> getVariables() {
         return variables;
     }
 }

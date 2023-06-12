@@ -30,7 +30,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         StackCall stack_ = i_.getStack();
         assertEq(1, stack_.nbPages());
         assertEq(1, i_.getVariables().size());
-        CustList<ViewVariable> v_ = i_.getVariables().get(0);
+        CustList<ViewVariable> v_ = i_.getVariables().get(0).getVars();
         assertEq(2, v_.size());
         assertEq("t", v_.get(0).getName());
         assertEq(-1, v_.get(0).getDeep());
@@ -44,6 +44,8 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         assertEq(-1, v_.get(1).getIndex());
         assertEq("int", v_.get(1).getClassName());
         assertEq(3, NumParsers.convertToNumber(v_.get(1).getWrapper().getValue()).intStruct());
+        assertEq("pkg.Ex",i_.getVariables().get(0).getInstance().getClassName());
+        assertEq("",i_.getVariables().get(0).getInstance().getEval().getClassName(cont_.getContext()));
     }
 
     @Test
@@ -68,7 +70,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         StackCall stack_ = i_.getStack();
         assertEq(4, stack_.nbPages());
         assertEq(4, i_.getVariables().size());
-        CustList<ViewVariable> v_ = i_.getVariables().get(3);
+        CustList<ViewVariable> v_ = i_.getVariables().get(3).getVars();
         assertEq(5, v_.size());
         assertEq("fct", v_.get(0).getName());
         assertEq(0, v_.get(0).getDeep());
@@ -100,6 +102,8 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         assertEq(-1, v_.get(4).getIndex());
         assertEq("int", v_.get(4).getClassName());
         assertEq(13, NumParsers.convertToNumber(v_.get(4).getWrapper().getValue()).intStruct());
+        assertEq("pkg.Ex",i_.getVariables().get(3).getInstance().getClassName());
+        assertEq("pkg.Ex",i_.getVariables().get(3).getInstance().getEval().getClassName(cont_.getContext()));
     }
     @Test
     public void test3() {
@@ -123,7 +127,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         StackCall stack_ = i_.getStack();
         assertEq(4, stack_.nbPages());
         assertEq(4, i_.getVariables().size());
-        CustList<ViewVariable> v_ = i_.getVariables().get(3);
+        CustList<ViewVariable> v_ = i_.getVariables().get(3).getVars();
         assertEq(7, v_.size());
         assertEq("t", v_.get(0).getName());
         assertEq(1, v_.get(0).getDeep());
@@ -167,6 +171,8 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         assertEq(-1, v_.get(6).getIndex());
         assertEq("int", v_.get(6).getClassName());
         assertEq(17, NumParsers.convertToNumber(v_.get(6).getWrapper().getValue()).intStruct());
+        assertEq("pkg.Ex",i_.getVariables().get(3).getInstance().getClassName());
+        assertEq("pkg.Ex",i_.getVariables().get(3).getInstance().getEval().getClassName(cont_.getContext()));
     }
     @Test
     public void test4() {
@@ -189,7 +195,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         StackCall stack_ = i_.getStack();
         assertEq(1, stack_.nbPages());
         assertEq(1, i_.getVariables().size());
-        CustList<ViewVariable> v_ = i_.getVariables().get(0);
+        CustList<ViewVariable> v_ = i_.getVariables().get(0).getVars();
         assertEq(2, v_.size());
         assertEq("i", v_.get(0).getName());
         assertEq(-1, v_.get(0).getDeep());
@@ -203,6 +209,8 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         assertEq(-1, v_.get(1).getIndex());
         assertEq("int", v_.get(1).getClassName());
         assertEq(4, NumParsers.convertToNumber(v_.get(1).getWrapper().getValue()).intStruct());
+        assertEq("pkg.Ex",i_.getVariables().get(0).getInstance().getClassName());
+        assertEq("",i_.getVariables().get(0).getInstance().getEval().getClassName(cont_.getContext()));
     }
     @Test
     public void test5() {
@@ -232,7 +240,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         StackCall stack_ = i_.getStack();
         assertEq(3, stack_.nbPages());
         assertEq(3, i_.getVariables().size());
-        CustList<ViewVariable> v_ = i_.getVariables().get(2);
+        CustList<ViewVariable> v_ = i_.getVariables().get(2).getVars();
         assertEq(6, v_.size());
         assertEq("fct", v_.get(0).getName());
         assertEq(0, v_.get(0).getDeep());
@@ -270,6 +278,8 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         assertEq(-1, v_.get(5).getIndex());
         assertEq("int", v_.get(5).getClassName());
         assertEq(47, NumParsers.convertToNumber(v_.get(5).getWrapper().getValue()).intStruct());
+        assertEq("pkg.Ex",i_.getVariables().get(2).getInstance().getClassName());
+        assertEq("",i_.getVariables().get(2).getInstance().getEval().getClassName(cont_.getContext()));
     }
     @Test
     public void test6() {
@@ -299,7 +309,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         StackCall stack_ = i_.getStack();
         assertEq(3, stack_.nbPages());
         assertEq(3, i_.getVariables().size());
-        CustList<ViewVariable> v_ = i_.getVariables().get(2);
+        CustList<ViewVariable> v_ = i_.getVariables().get(2).getVars();
         assertEq(6, v_.size());
         assertEq("fct", v_.get(0).getName());
         assertEq(0, v_.get(0).getDeep());
@@ -337,5 +347,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         assertEq(-1, v_.get(5).getIndex());
         assertEq("int", v_.get(5).getClassName());
         assertEq(47, NumParsers.convertToNumber(v_.get(5).getWrapper().getValue()).intStruct());
+        assertEq("pkg.Ex",i_.getVariables().get(2).getInstance().getClassName());
+        assertEq("",i_.getVariables().get(2).getInstance().getEval().getClassName(cont_.getContext()));
     }
 }
