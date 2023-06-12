@@ -186,6 +186,7 @@ public final class RunningTest implements Runnable {
         AnalyzedPageEl resultAna_ = ClassesUtil.buildUserCode(srcFiles_, copy_);
         Classes.postValidate(resultAna_);
         Forwards forwards_ = CustContextFactory.fwd(_base.getForwards().getOptions(), _lg, _base.getForwards().getFileBuilder());
+        forwards_.getClasses().getCommon().setStaticFields(resultAna_.getStaticFields());
         ResultContext res_ = new ResultContext(resultAna_, forwards_, resultAna_.getMessages());
         if (resultAna_.notAllEmptyErrors()) {
             return res_;
@@ -206,6 +207,7 @@ public final class RunningTest implements Runnable {
             return _base;
         }
         Forwards forwards_ = CustContextFactory.fwd(_base.getForwards().getOptions(), _lg, _base.getForwards().getFileBuilder());
+        forwards_.getClasses().getCommon().setStaticFields(ana_.getStaticFields());
         return new ResultContext(ana_, forwards_, ana_.getMessages());
     }
 
