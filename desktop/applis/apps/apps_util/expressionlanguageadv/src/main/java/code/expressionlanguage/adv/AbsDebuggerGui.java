@@ -1,13 +1,11 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.exec.ExecClassesUtil;
-import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.StackCallReturnValue;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.dbg.BreakPoint;
+import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.NullStruct;
@@ -39,11 +37,17 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsPlainButton selectEnter;
     private AbsPlainButton nextAction;
     private AbsScrollPane detail;
+    private AbsSplitPane detailAll;
     private StackCall stackCall;
     private ResultContext currentResult;
     private final AbstractBaseExecutorService manageAnalyze;
     private DbgRootStruct root;
     private AbsTreeGui treeDetail;
+    private final CustList<AbsTreeGui> trees = new CustList<AbsTreeGui>();
+    private final CustList<DbgRootStruct> treesRoot = new CustList<DbgRootStruct>();
+    private final CustList<AbsPlainButton> callButtons = new CustList<AbsPlainButton>();
+    private AbsPanel callStack;
+
     protected AbsDebuggerGui(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         factory = _fact;
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
@@ -89,10 +93,12 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nextAction.setEnabled(false);
         nextAction.addActionListener(new DbgNextBpEvent(this));
         detail = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
-        detail.setVisible(false);
+        callStack = getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(callStack,detail);
+        detailAll.setVisible(false);
         page_.add(selectEnter);
         page_.add(nextAction);
-        page_.add(detail);
+        page_.add(detailAll);
         commonFrame.setContentPane(page_);
         commonFrame.setVisible(true);
         PackingWindowAfter.pack(commonFrame);
@@ -111,10 +117,12 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         StackCallReturnValue view_ = ExecClassesUtil.tryInitStaticlyTypes(currentResult.getContext(), currentResult.getForwards().getOptions(), stackCall, selected);
         stackCall = view_.getStack();
         if (stackCall.getInitializingTypeInfos().getInitEnums() == InitPhase.NOTHING && !stackCall.isStoppedBreakPoint()) {
+            callStack.removeAll();
+            callButtons.clear();
             root = new DbgRootStruct(currentResult);
             treeDetail = root.buildReturn(commonFrame.getFrames().getCompoFactory(), view_.getRetValue());
             detail.setViewportView(treeDetail);
-            detail.setVisible(true);
+            detailAll.setVisible(true);
             PackingWindowAfter.pack(commonFrame);
             selectEnter.setEnabled(true);
             int opened_ = tabbedPane.getSelectedIndex();
@@ -122,17 +130,44 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             stackCall = null;
             return;
         }
+        trees.clear();
+        treesRoot.clear();
+        callButtons.clear();
+        callStack.removeAll();
+        int nbPages_ = view_.getVariables().size();
+        for (int i = 0; i< nbPages_; i++) {
+            ViewPage p_ = view_.getVariables().get(i);
+            String dis_ = MetaInfoUtil.newStackTraceElement(currentResult.getContext(), i, stackCall).getDisplayedString(currentResult.getContext()).getInstance();
+            DbgRootStruct r_ = new DbgRootStruct(currentResult);
+            root = r_;
+            AbsTreeGui b_ = r_.build(commonFrame.getFrames().getCompoFactory(), p_);
+            treeDetail = b_;
+            trees.add(b_);
+            treesRoot.add(r_);
+            AbsPlainButton but_ = commonFrame.getFrames().getCompoFactory().newPlainButton(dis_);
+            callButtons.add(but_);
+            but_.addActionListener(new SelectCallStackEvent(this,i));
+            callStack.add(but_);
+        }
         AbstractPageEl last_ = stackCall.getLastPage();
         int opened_ = indexOpened(last_.getFile().getFileName());
         selectFocus(opened_, last_.getTraceIndex());
-        root = new DbgRootStruct(currentResult);
-        treeDetail = root.build(commonFrame.getFrames().getCompoFactory(),view_.getVariables().last());
         detail.setViewportView(treeDetail);
-        detail.setVisible(true);
+        detailAll.setVisible(true);
         PackingWindowAfter.pack(commonFrame);
         nextAction.setEnabled(true);
     }
 
+    public void updateGui(int _index) {
+        AbstractPageEl last_ = stackCall.getCall(_index);
+        int opened_ = indexOpened(last_.getFile().getFileName());
+        selectFocus(opened_, last_.getTraceIndex());
+        detail.setNullViewportView();
+        treeDetail = trees.get(_index);
+        root = treesRoot.get(_index);
+        detail.setViewportView(treeDetail);
+        commonFrame.pack();
+    }
     public void selectFocus(int _open, int _trace) {
         if (_open > -1) {
             tabbedPane.selectIndex(_open);
@@ -259,7 +294,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return nextAction;
     }
 
-    public AbsScrollPane getDetail() {
-        return detail;
+    public AbsSplitPane getDetailAll() {
+        return detailAll;
+    }
+
+    public CustList<AbsPlainButton> getCallButtons() {
+        return callButtons;
     }
 }

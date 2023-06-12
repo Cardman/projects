@@ -881,6 +881,49 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         assertTrue(classesFilter(b_).getList().isEmpty());
     }
+    @Test
+    public void i13() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] victoire){return callee(victoire);}public static int callee(String[] v){return v.length;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(134,134);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        ((MockPlainButton)b_.getCallButtons().get(0)).getActionListeners().get(0).action();
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        assertEq(2,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        trDetail_.select(trDetail_.getRoot());
+        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        trDetail_.select(trDetail_.getRoot().getFirstChild().getNextSibling());
+        assertEq(2,root_.getChildren().size());
+        assertEq("pkg.Ex",root_.getChildren().get(0).str());
+        assertSame(NullStruct.NULL_VALUE,root_.getChildren().get(0).value());
+        assertEq(0,root_.getChildren().get(0).getChildren().size());
+        assertEq("-1|victoire|[$core.String",root_.getChildren().get(1).str());
+        assertEq(1,root_.getChildren().get(1).getChildren().size());
+        assertEq("[0]",root_.getChildren().get(1).getChildren().get(0).str());
+        assertEq("Arg",((StringStruct)root_.getChildren().get(1).getChildren().get(0).value()).getInstance());
+    }
     private void launch(AbsDebuggerGui _d) {
         ((MockPlainButton)_d.getSelectEnter()).getActionListeners().get(0).action();
     }
