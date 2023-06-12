@@ -201,6 +201,15 @@ public final class RunningTest implements Runnable {
     }
 
     public static ResultContext nextValidateQuick(ResultContext _base, LgNamesGui _lg, ExecutingOptions _exec, FileInfos _file, StringMap<String> _addedFiles) {
+        AnalyzedPageEl ana_ = nextValidateQuickAna(_base, _exec, _file, _addedFiles);
+        if (ana_ == null) {
+            return _base;
+        }
+        Forwards forwards_ = CustContextFactory.fwd(_base.getForwards().getOptions(), _lg, _base.getForwards().getFileBuilder());
+        return new ResultContext(ana_, forwards_, ana_.getMessages());
+    }
+
+    public static AnalyzedPageEl nextValidateQuickAna(ResultContext _base, ExecutingOptions _exec, FileInfos _file, StringMap<String> _addedFiles) {
         String archive_ = _exec.getAccess();
         ReadFiles result_ = _file.getReporter().getFiles(archive_);
         for (EntryCust<String,String> e: _addedFiles.entryList()) {
@@ -208,15 +217,14 @@ public final class RunningTest implements Runnable {
         }
         StringMap<String> list_ = RunningTest.tryGetSrc(archive_, _exec, _file, result_);
         if (list_ == null) {
-            return _base;
+            return null;
         }
         StringMap<String> srcFiles_ = ContextFactory.filter(list_, _exec.getSrcFolder());
         AnalyzedPageEl copy_ = AnalyzedPageEl.copy(_base.getPageEl());
         copy_.addResources(list_);
         AnalyzedPageEl resultAna_ = ClassesUtil.buildUserCode(srcFiles_, copy_);
         Classes.postValidate(resultAna_);
-        Forwards forwards_ = CustContextFactory.fwd(_base.getForwards().getOptions(), _lg, _base.getForwards().getFileBuilder());
-        return new ResultContext(resultAna_, forwards_, resultAna_.getMessages());
+        return resultAna_;
     }
     public static StringMap<String> tryGetSrc(String _archive, ExecutingOptions _exec, FileInfos _infos,ReadFiles _results) {
         AbstractReporter reporter_ = _infos.getReporter();
