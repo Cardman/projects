@@ -56,15 +56,9 @@ public final class MethodFromFilter implements AfterValidateText {
             return false;
         }
         if (_p.isVarargs()) {
-            if (!getVararg().isSelected()) {
-                return false;
-            }
-            return StringUtil.quickEq(_r.getPageEl().getAliasString(), _p.getImportedParametersTypes().get(0));
+            return getVararg().isSelected() && StringUtil.quickEq(_r.getPageEl().getAliasString(), _p.getImportedParametersTypes().get(0));
         }
-        if (getVararg().isSelected()) {
-            return false;
-        }
-        return StringUtil.quickEq(StringExpUtil.getPrettyArrayType(_r.getPageEl().getAliasString()), _p.getImportedParametersTypes().get(0));
+        return !getVararg().isSelected() && StringUtil.quickEq(StringExpUtil.getPrettyArrayType(_r.getPageEl().getAliasString()), _p.getImportedParametersTypes().get(0));
     }
 
     public ResultContext getResult() {

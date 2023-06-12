@@ -329,6 +329,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         cl_.enterEvent();
         AutoCompleteDocument meths_ = methodFilter(b_);
         meths_.getTextField().setText("exmeth");
+        meths_.enterEvent();
         assertFalse(methods(b_).isEmpty());
     }
     @Test
@@ -345,6 +346,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         cl_.enterEvent();
         AutoCompleteDocument meths_ = methodFilter(b_);
         meths_.getTextField().setText("exmeth");
+        meths_.enterEvent();
         assertFalse(methods(b_).isEmpty());
     }
     @Test
@@ -377,6 +379,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         cl_.enterEvent();
         AutoCompleteDocument meths_ = methodFilter(b_);
         meths_.getTextField().setText("exmeth");
+        meths_.enterEvent();
         assertFalse(methods(b_).isEmpty());
     }
     @Test
@@ -394,6 +397,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         cl_.enterEvent();
         AutoCompleteDocument meths_ = methodFilter(b_);
         meths_.getTextField().setText("exmeth");
+        meths_.enterEvent();
         assertFalse(methods(b_).isEmpty());
     }
     @Test
@@ -411,6 +415,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         cl_.enterEvent();
         AutoCompleteDocument meths_ = methodFilter(b_);
         meths_.getTextField().setText("exmeth");
+        meths_.enterEvent();
         assertFalse(methods(b_).isEmpty());
     }
     @Test
@@ -428,6 +433,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         cl_.enterEvent();
         AutoCompleteDocument meths_ = methodFilter(b_);
         meths_.getTextField().setText("exmeth");
+        meths_.enterEvent();
         assertFalse(methods(b_).isEmpty());
     }
     @Test
@@ -520,7 +526,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         cl_.getTextField().setText("pkg.Ex");
         cl_.enterEvent();
         AutoCompleteDocument meths_ = methodFilter(b_);
-        meths_.getTextField().setText("exmeth");
+        meths_.getTextField().setText("exm");
         meths_.enterEvent();
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);

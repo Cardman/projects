@@ -30,6 +30,7 @@ public final class AnalyzeDebugTask implements Runnable {
         if (base.getPageEl().notAllEmptyErrors()) {
             return;
         }
+        base.getForwards().getOptions().setDebugging(true);
         AbstractProgramInfos fr_ = gui.getCommonFrame().getFrames();
         LgNamesGui lg_ = (LgNamesGui) base.getForwards().getGenerator();
         ExecutingOptions exec_ = lg_.getExecContent().getExecutingOptions();

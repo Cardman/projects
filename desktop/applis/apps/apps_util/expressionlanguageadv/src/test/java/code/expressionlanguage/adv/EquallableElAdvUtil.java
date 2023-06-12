@@ -83,9 +83,7 @@ public abstract class EquallableElAdvUtil {
         AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
         String flatConf_ = StreamTextFile.contentsOfFile("/editor/conf.xml", frs_.getFileCoreStream(), frs_.getStreams());
         StringList linesFiles_ = ExecutingOptions.lines(StringUtil.nullToEmpty(flatConf_));
-        ManageOptions o_ = new ManageOptions(frs_.getLanguages(), linesFiles_, _pr.getFactory());
-        o_.getOptions().setDebugging(true);
-        return o_;
+        return new ManageOptions(frs_.getLanguages(), linesFiles_, _pr.getFactory());
     }
     public static ResultContext res(AbsDebuggerGui _pr, ManageOptions _man) {
         return PreAnalyzeExpressionSource.baseValidate(_man,null,_pr.getCommonFrame().getFrames(),_pr.getFactory());
@@ -130,9 +128,7 @@ public abstract class EquallableElAdvUtil {
         lines_.add("/project/sources");
         lines_.add("en");
         lines_.add("src=//");
-        ManageOptions o_ = new ManageOptions(frs_.getLanguages(), lines_, _pr.getFactory());
-        o_.getOptions().setDebugging(true);
-        return o_;
+        return new ManageOptions(frs_.getLanguages(), lines_, _pr.getFactory());
     }
    public static ManageOptions optBad2(AbsDebuggerGui _pr) {
         AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
@@ -140,9 +136,7 @@ public abstract class EquallableElAdvUtil {
         lines_.add("/project/sources");
         lines_.add("en");
         lines_.add("keyWords=If=;");
-        ManageOptions o_ = new ManageOptions(frs_.getLanguages(), lines_, _pr.getFactory());
-        o_.getOptions().setDebugging(true);
-        return o_;
+        return new ManageOptions(frs_.getLanguages(), lines_, _pr.getFactory());
     }
     protected static ReadOnlyTabEditor tabEditor(AbsDebuggerGui _w, int _index) {
         return _w.getTabs().get(_index);
