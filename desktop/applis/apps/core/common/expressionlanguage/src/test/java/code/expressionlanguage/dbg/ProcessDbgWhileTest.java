@@ -41,7 +41,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         assertEq(184, now(stack_));
         FieldableStruct s_ = (FieldableStruct) stack_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(stack_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
-        assertEq(0, NumParsers.convertToNumber(v_).intStruct());
+        assertEq(0, toInt(v_));
     }
     @Test
     public void test2() {
@@ -74,7 +74,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         assertEq(184, now(next_));
         FieldableStruct s_ = (FieldableStruct) next_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(next_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
-        assertEq(1, NumParsers.convertToNumber(v_).intStruct());
+        assertEq(1, toInt(v_));
     }
     @Test
     public void test3() {
@@ -107,7 +107,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         assertEq(184, now(next_));
         FieldableStruct s_ = (FieldableStruct) next_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(next_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
-        assertEq(2, NumParsers.convertToNumber(v_).intStruct());
+        assertEq(2, toInt(v_));
     }
     @Test
     public void test4() {
@@ -140,7 +140,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         assertEq(184, now(next_));
         FieldableStruct s_ = (FieldableStruct) next_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(next_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
-        assertEq(3, NumParsers.convertToNumber(v_).intStruct());
+        assertEq(3, toInt(v_));
     }
     @Test
     public void test5() {
@@ -201,7 +201,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         assertEq(184, now(stack_));
         FieldableStruct s_ = (FieldableStruct) stack_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(stack_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
-        assertEq(0, NumParsers.convertToNumber(v_).intStruct());
+        assertEq(0, toInt(v_));
     }
     @Test
     public void test7() {
@@ -234,7 +234,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         assertEq(184, now(next_));
         FieldableStruct s_ = (FieldableStruct) next_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(next_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
-        assertEq(1, NumParsers.convertToNumber(v_).intStruct());
+        assertEq(1, toInt(v_));
     }
     @Test
     public void test8() {
@@ -267,7 +267,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         assertEq(184, now(next_));
         FieldableStruct s_ = (FieldableStruct) next_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(next_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
-        assertEq(2, NumParsers.convertToNumber(v_).intStruct());
+        assertEq(2, toInt(v_));
     }
     @Test
     public void test9() {
@@ -300,7 +300,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         assertEq(184, now(next_));
         FieldableStruct s_ = (FieldableStruct) next_.getLastPage().getContentEx().getRefParams().getVal("v").getValue(next_, cont_.getContext());
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.CustIter", "index")).getStruct();
-        assertEq(3, NumParsers.convertToNumber(v_).intStruct());
+        assertEq(3, toInt(v_));
     }
     @Test
     public void test10() {

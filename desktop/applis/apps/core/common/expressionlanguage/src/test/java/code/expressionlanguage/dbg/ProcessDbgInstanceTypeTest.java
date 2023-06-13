@@ -35,7 +35,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         assertEq(13, now(stack_));
         FieldableStruct s_ = (FieldableStruct) stack_.getLastPage().getContentEx().getGlobalStruct();
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.Ex", "v")).getStruct();
-        assertEq(0, NumParsers.convertToNumber(v_).intStruct());
+        assertEq(0, toInt(v_));
     }
     @Test
     public void test2() {
@@ -79,7 +79,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         assertEq(13, now(stack_));
         FieldableStruct s_ = (FieldableStruct) stack_.getLastPage().getContentEx().getGlobalStruct();
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.Ex", "v")).getStruct();
-        assertEq(0, NumParsers.convertToNumber(v_).intStruct());
+        assertEq(0, toInt(v_));
     }
     @Test
     public void test4() {
@@ -132,9 +132,9 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         assertEq(13, now(stack_));
         FieldableStruct s_ = (FieldableStruct) stack_.getLastPage().getContentEx().getGlobalStruct();
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.Ex", "v")).getStruct();
-        assertEq(0, NumParsers.convertToNumber(v_).intStruct());
+        assertEq(0, toInt(v_));
         Struct sec_ = s_.getEntryStruct(new ClassField("pkg.ExSuper", "s")).getStruct();
-        assertEq(0, NumParsers.convertToNumber(sec_).intStruct());
+        assertEq(0, toInt(sec_));
     }
     @Test
     public void test6() {
@@ -187,7 +187,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         assertEq(18, now(stack_));
         FieldableStruct s_ = (FieldableStruct) stack_.getLastPage().getContentEx().getGlobalStruct();
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.MyAnnot", "sample")).getStruct();
-        assertEq(2, NumParsers.convertToNumber(v_).intStruct());
+        assertEq(2, toInt(v_));
     }
 
     @Test
@@ -232,7 +232,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         assertEq(14, now(stack_));
         FieldableStruct s_ = (FieldableStruct) stack_.getLastPage().getContentEx().getGlobalStruct();
         Struct v_ = s_.getEntryStruct(new ClassField("pkg.MyRecord", "v")).getStruct();
-        assertEq(0, NumParsers.convertToNumber(v_).intStruct());
+        assertEq(0, toInt(v_));
     }
 
     @Test

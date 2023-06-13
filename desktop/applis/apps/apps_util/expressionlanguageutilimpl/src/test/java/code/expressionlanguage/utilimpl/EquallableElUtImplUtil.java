@@ -15,10 +15,7 @@ import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.DfInstancer;
 import code.expressionlanguage.stds.StdCaller;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.CharSequenceStruct;
-import code.expressionlanguage.structs.DoubleStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.GuiConstants;
 import code.gui.TextAnswerValue;
@@ -222,7 +219,7 @@ public abstract class EquallableElUtImplUtil {
         return new ArgumentListCall(ls_);
     }
     public static long toLong(Struct _str) {
-        return NumParsers.convertToNumber(_str).longStruct();
+        return ((NumberStruct)_str).longStruct();
     }
     public static Struct call(StdCaller _caller, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         return value(_caller.call(_exit, _cont, _instance, _firstArgs, _stackCall));

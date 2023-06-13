@@ -30,7 +30,7 @@ public final class ProcessDbgGeneForTest extends ProcessDbgCommon {
         assertEq(1, stack_.nbPages());
         assertEq(74, now(stack_));
         Struct s_ = stack_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(stack_, cont_.getContext());
-        assertEq(0, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(0, toInt(s_));
     }
     @Test
     public void test2() {
@@ -73,7 +73,7 @@ public final class ProcessDbgGeneForTest extends ProcessDbgCommon {
         assertEq(1, stack_.nbPages());
         assertEq(82, now(stack_));
         Struct s_ = stack_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(stack_, cont_.getContext());
-        assertEq(4, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(4, toInt(s_));
     }
     @Test
     public void test4() {
@@ -97,7 +97,7 @@ public final class ProcessDbgGeneForTest extends ProcessDbgCommon {
         assertEq(1, next_.nbPages());
         assertEq(82, now(next_));
         Struct s_ = next_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(next_, cont_.getContext());
-        assertEq(7, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(7, toInt(s_));
     }
     @Test
     public void test5() {
@@ -121,7 +121,7 @@ public final class ProcessDbgGeneForTest extends ProcessDbgCommon {
         assertEq(1, next_.nbPages());
         assertEq(82, now(next_));
         Struct s_ = next_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(next_, cont_.getContext());
-        assertEq(9, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(9, toInt(s_));
     }
     @Test
     public void test6() {
@@ -145,7 +145,7 @@ public final class ProcessDbgGeneForTest extends ProcessDbgCommon {
         assertEq(1, next_.nbPages());
         assertEq(82, now(next_));
         Struct s_ = next_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(next_, cont_.getContext());
-        assertEq(10, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(10, toInt(s_));
     }
     @Test
     public void test7() {
@@ -189,7 +189,7 @@ public final class ProcessDbgGeneForTest extends ProcessDbgCommon {
         assertEq(1, stack_.nbPages());
         assertEq(78, now(stack_));
         Struct s_ = stack_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(stack_, cont_.getContext());
-        assertEq(0, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(0, toInt(s_));
     }
     @Test
     public void test9() {
@@ -213,7 +213,7 @@ public final class ProcessDbgGeneForTest extends ProcessDbgCommon {
         assertEq(1, next_.nbPages());
         assertEq(78, now(next_));
         Struct s_ = next_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(next_, cont_.getContext());
-        assertEq(4, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(4, toInt(s_));
     }
     @Test
     public void test10() {
@@ -237,7 +237,7 @@ public final class ProcessDbgGeneForTest extends ProcessDbgCommon {
         assertEq(1, next_.nbPages());
         assertEq(78, now(next_));
         Struct s_ = next_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(next_, cont_.getContext());
-        assertEq(7, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(7, toInt(s_));
     }
     @Test
     public void test11() {
@@ -261,7 +261,7 @@ public final class ProcessDbgGeneForTest extends ProcessDbgCommon {
         assertEq(1, next_.nbPages());
         assertEq(78, now(next_));
         Struct s_ = next_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(next_, cont_.getContext());
-        assertEq(9, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(9, toInt(s_));
     }
     @Test
     public void test12() {
@@ -285,7 +285,7 @@ public final class ProcessDbgGeneForTest extends ProcessDbgCommon {
         assertEq(1, next_.nbPages());
         assertEq(78, now(next_));
         Struct s_ = next_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(next_, cont_.getContext());
-        assertEq(10, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(10, toInt(s_));
     }
     @Test
     public void test13() {

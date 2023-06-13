@@ -18,6 +18,8 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.sample.CustLgNames;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 
 public abstract class ProcessDbgCommon extends ProcessMethodCommon {
@@ -103,6 +105,9 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
     public static StackCall tryInitStaticlyTypes(StackCall _original, Options _options, ContextEl _context) {
         return ExecClassesUtil.tryInitStaticlyTypes(_context, _options, _original);
+    }
+    protected static int toInt(Struct _str) {
+        return ((NumberStruct)_str).intStruct();
     }
     protected static String getCustomList() {
         StringBuilder xml_ = new StringBuilder();

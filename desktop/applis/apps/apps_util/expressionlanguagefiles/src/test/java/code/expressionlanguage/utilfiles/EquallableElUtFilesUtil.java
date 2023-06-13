@@ -233,7 +233,7 @@ public abstract class EquallableElUtFilesUtil {
         return new ArgumentListCall(ls_);
     }
     public static long toLong(Struct _str) {
-        return NumParsers.convertToNumber(_str).longStruct();
+        return ((NumberStruct)_str).longStruct();
     }
     public static Struct call(StdCaller _caller, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         return value(_caller.call(_exit, _cont, _instance, _firstArgs, _stackCall));

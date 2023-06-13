@@ -222,11 +222,11 @@ public final class ProcessDbgReturnTest extends ProcessDbgCommon {
     }
     private static int value(StackCall _stack, ResultContext _cont, String _v) {
         Struct s_ = _stack.getLastPage().getContentEx().getRefParams().getVal(_v).getValue(_stack, _cont.getContext());
-        return NumParsers.convertToNumber(s_).intStruct();
+        return toInt(s_);
     }
 
     private static int valueCache(StackCall _stack, ResultContext _cont, String _v, int _d) {
         Struct s_ = _stack.getLastPage().getContentEx().getCache().getLocalWrapper(_v,_d).getValue(_stack, _cont.getContext());
-        return NumParsers.convertToNumber(s_).intStruct();
+        return toInt(s_);
     }
 }

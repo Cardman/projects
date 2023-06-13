@@ -30,7 +30,7 @@ public final class ProcessDbgForIterativeTest extends ProcessDbgCommon {
         assertEq(1, stack_.nbPages());
         assertEq(78, now(stack_));
         Struct s_ = stack_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(stack_, cont_.getContext());
-        assertEq(0, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(0, toInt(s_));
     }
     @Test
     public void test2() {
@@ -73,7 +73,7 @@ public final class ProcessDbgForIterativeTest extends ProcessDbgCommon {
         assertEq(1, stack_.nbPages());
         assertEq(91, now(stack_));
         Struct s_ = stack_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(stack_, cont_.getContext());
-        assertEq(0, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(0, toInt(s_));
     }
     @Test
     public void test4() {
@@ -116,7 +116,7 @@ public final class ProcessDbgForIterativeTest extends ProcessDbgCommon {
         assertEq(1, stack_.nbPages());
         assertEq(108, now(stack_));
         Struct s_ = stack_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(stack_, cont_.getContext());
-        assertEq(0, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(0, toInt(s_));
     }
     @Test
     public void test6() {
@@ -159,7 +159,7 @@ public final class ProcessDbgForIterativeTest extends ProcessDbgCommon {
         assertEq(1, stack_.nbPages());
         assertEq(75, now(stack_));
         Struct s_ = stack_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(stack_, cont_.getContext());
-        assertEq(0, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(0, toInt(s_));
     }
     @Test
     public void test8() {
@@ -183,7 +183,7 @@ public final class ProcessDbgForIterativeTest extends ProcessDbgCommon {
         assertEq(1, next_.nbPages());
         assertEq(75, now(next_));
         Struct s_ = next_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(next_, cont_.getContext());
-        assertEq(0, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(0, toInt(s_));
     }
     @Test
     public void test9() {
@@ -207,7 +207,7 @@ public final class ProcessDbgForIterativeTest extends ProcessDbgCommon {
         assertEq(1, next_.nbPages());
         assertEq(75, now(next_));
         Struct s_ = next_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(next_, cont_.getContext());
-        assertEq(1, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(1, toInt(s_));
     }
     @Test
     public void test10() {
@@ -231,7 +231,7 @@ public final class ProcessDbgForIterativeTest extends ProcessDbgCommon {
         assertEq(1, next_.nbPages());
         assertEq(75, now(next_));
         Struct s_ = next_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(next_, cont_.getContext());
-        assertEq(3, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(3, toInt(s_));
     }
     @Test
     public void test11() {
@@ -255,7 +255,7 @@ public final class ProcessDbgForIterativeTest extends ProcessDbgCommon {
         assertEq(1, next_.nbPages());
         assertEq(75, now(next_));
         Struct s_ = next_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(next_, cont_.getContext());
-        assertEq(6, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(6, toInt(s_));
     }
     @Test
     public void test12() {
@@ -300,7 +300,7 @@ public final class ProcessDbgForIterativeTest extends ProcessDbgCommon {
         assertEq(1, next_.nbPages());
         assertEq(75, now(next_));
         Struct s_ = next_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(next_, cont_.getContext());
-        assertEq(1, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(1, toInt(s_));
     }
     @Test
     public void test14() {
@@ -324,7 +324,7 @@ public final class ProcessDbgForIterativeTest extends ProcessDbgCommon {
         assertEq(1, next_.nbPages());
         assertEq(75, now(next_));
         Struct s_ = next_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(next_, cont_.getContext());
-        assertEq(3, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(3, toInt(s_));
     }
     @Test
     public void test15() {
@@ -348,7 +348,7 @@ public final class ProcessDbgForIterativeTest extends ProcessDbgCommon {
         assertEq(1, next_.nbPages());
         assertEq(75, now(next_));
         Struct s_ = next_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(next_, cont_.getContext());
-        assertEq(6, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(6, toInt(s_));
     }
     @Test
     public void test16() {
@@ -372,7 +372,7 @@ public final class ProcessDbgForIterativeTest extends ProcessDbgCommon {
         assertEq(1, next_.nbPages());
         assertEq(75, now(next_));
         Struct s_ = next_.getLastPage().getContentEx().getRefParams().getVal("t").getValue(next_, cont_.getContext());
-        assertEq(10, NumParsers.convertToNumber(s_).intStruct());
+        assertEq(10, toInt(s_));
     }
     @Test
     public void test17() {
