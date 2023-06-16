@@ -13,12 +13,10 @@ import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
 
 public final class ExecutingUtil {
     private ExecutingUtil() {
@@ -415,14 +413,8 @@ public final class ExecutingUtil {
         return _reflect == ReflectingType.CAST || _reflect == ReflectingType.CAST_DIRECT;
     }
 
-    public static void addPage(ContextEl _cont, AbstractPageEl _page, StackCall _stackCall) {
-        LgNames stds_ = _cont.getStandards();
-        String sof_ = stds_.getContent().getCoreNames().getAliasSof();
-        if (_cont.getStackOverFlow() >= IndexConstants.FIRST_INDEX && _cont.getStackOverFlow() <= _stackCall.nbPages()) {
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, sof_, _stackCall)));
-        } else {
-            _stackCall.addInternPage(_page);
-        }
+    public static void addPage(AbstractPageEl _page, StackCall _stackCall) {
+        _stackCall.addInternPage(_page);
     }
 
     private static boolean direct(boolean _direct, ExecTypeFunction _castOpId, String _className) {

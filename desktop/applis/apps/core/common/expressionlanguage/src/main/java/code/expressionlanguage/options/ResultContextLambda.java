@@ -115,7 +115,7 @@ public final class ResultContextLambda {
         p_.getRefParameters().addAllEntries(_page.getRefParams());
         p_.setCache(_page.getCache());
         AbstractPageEl page_ = new CustomFoundMethod(_page.getGlobalArgument(),_page.getGlobalClass(),lambda, p_).processAfterOperation(context,stackCall_);
-        ExecutingUtil.addPage(context, page_, stackCall_);
+        ExecutingUtil.addPage(page_, stackCall_);
         Initializer i_ = context.getInit();
         while (true) {
             if (i_.stopNormal(context, stackCall_) || i_.exitAfterCallInt(context, stackCall_)) {

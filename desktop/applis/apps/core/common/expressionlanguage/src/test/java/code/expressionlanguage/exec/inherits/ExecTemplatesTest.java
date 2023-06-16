@@ -633,7 +633,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArgumentListCall l_ = ArgumentListCall.wrapCall(args_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), stackCall_);
+        addPage(ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), stackCall_);
         SampleParamChecker sample_ = new SampleParamChecker();
         ExecInheritsAdv.checkQuick("","pkg.Ex<$int>",cont_, stackCall_);
         sample_.checkParams(new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"),Argument.createVoid(),null, cont_, stackCall_);
@@ -761,7 +761,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), stackCall_);
+        addPage(ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), stackCall_);
         ExecVariableTemplates.getIndexLoop(cont_,"", -1, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getVars(), stackCall_);
         assertNotNull(getTrueException(stackCall_));
     }
@@ -778,7 +778,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         instancingClass_.setCache(new HiddenCache(new StringMap<AbstractWrapper>(),new StringMap<LoopVariable>(),null));
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         ExecVariableTemplates.getIndexLoop(cont_,"", 0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getVars(), stackCall_);
         assertNotNull(getTrueException(stackCall_));
     }
@@ -801,7 +801,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Cache cache_ = new HiddenCache(new StringMap<AbstractWrapper>(), loops_,null);
         instancingClass_.setCache(cache_);
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         Argument myvar_ = ExecVariableTemplates.getIndexLoop(cont_, "myvar", 0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getVars(), stackCall_);
         assertNull(stackCall_.getCallingState());
         assertEq(2,getNumber(myvar_));
@@ -817,7 +817,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), stackCall_);
+        addPage(ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), stackCall_);
         ExecVariableTemplates.getWrapValue(cont_,"", -1, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getRefParams(), stackCall_);
         assertNull(stackCall_.getCallingState());
     }
@@ -834,7 +834,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         instancingClass_.setCache(new HiddenCache(new StringMap<AbstractWrapper>(),new StringMap<LoopVariable>(),null));
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         ExecVariableTemplates.getWrapValue(cont_,"", 0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getRefParams(), stackCall_);
         assertNull(stackCall_.getCallingState());
         ExecVariableTemplates.getValueVar("",new StringMap<LocalVariable>(),cont_, stackCall_);
@@ -856,7 +856,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Cache cache_ = new HiddenCache(refPar_,new StringMap<LoopVariable>(),null);
         instancingClass_.setCache(cache_);
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         Argument myvar_ = ExecVariableTemplates.getWrapValue(cont_, "myvar", 0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getRefParams(), stackCall_);
         assertNull(stackCall_.getCallingState());
         assertEq(2,getNumber(myvar_));
@@ -878,7 +878,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Cache cache_ = new HiddenCache(refPar_,new StringMap<LoopVariable>(),null);
         instancingClass_.setCache(cache_);
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         Argument myvar_ = ExecVariableTemplates.getWrapValue(cont_, "myvar", 0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getRefParams(), stackCall_);
         assertNull(stackCall_.getCallingState());
         assertEq(2,getNumber(myvar_));
@@ -894,7 +894,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), stackCall_);
+        addPage(ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), stackCall_);
         ExecVariableTemplates.setWrapValue(cont_,"", null,-1, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getRefParams(), stackCall_);
         assertNull(stackCall_.getCallingState());
     }
@@ -911,7 +911,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         instancingClass_.setCache(new HiddenCache(new StringMap<AbstractWrapper>(),new StringMap<LoopVariable>(),null));
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         ExecVariableTemplates.setWrapValue(cont_,"", null,0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getRefParams(), stackCall_);
         assertNull(stackCall_.getCallingState());
     }
@@ -931,7 +931,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Cache cache_ = new HiddenCache(refPar_,new StringMap<LoopVariable>(),null);
         instancingClass_.setCache(cache_);
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         Argument myvar_ = ExecVariableTemplates.setWrapValue(cont_, "myvar", new Argument(new IntStruct(4)),0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getRefParams(), stackCall_);
         assertNull(stackCall_.getCallingState());
         assertEq(4,getNumber(myvar_));
@@ -948,7 +948,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), stackCall_);
+        addPage(ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), stackCall_);
         ExecVariableTemplates.incrIndexLoop(cont_,"", 0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getVars(), stackCall_);
         assertNotNull(getTrueException(stackCall_));
     }
@@ -965,7 +965,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         instancingClass_.setCache(new HiddenCache(new StringMap<AbstractWrapper>(),new StringMap<LoopVariable>(),null));
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         ExecVariableTemplates.incrIndexLoop(cont_,"", 0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getVars(), stackCall_);
         assertNotNull(getTrueException(stackCall_));
     }
@@ -988,7 +988,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Cache cache_ = new HiddenCache(new StringMap<AbstractWrapper>(), loops_,null);
         instancingClass_.setCache(cache_);
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         ExecVariableTemplates.incrIndexLoop(cont_,"myvar", 0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getVars(), stackCall_);
         assertNull(stackCall_.getCallingState());
         assertEq(3,getNumber(new Argument(cache_.getLoopValue("myvar",0))));
@@ -1030,7 +1030,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), stackCall_);
+        addPage(ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), stackCall_);
         ExecNamedFunctionBlock first_ = ExecClassesUtil.getMethodBodiesById(classBody_, new MethodId(MethodAccessKind.STATIC, "m", new StringList("$int"))).first();
         wrapAndCall(cont_, classBody_, first_, stackCall_);
         assertNotNull(getTrueException(stackCall_));
@@ -1046,7 +1046,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
-        addPage(cont_, instancingClass_, getStackCall(cont_));
+        addPage(instancingClass_, getStackCall(cont_));
         assertNull(ExecHelperBlocks.hasBlockBreak(instancingClass_,""));
         assertNull(instancingClass_.getReadWrite());
     }
@@ -1062,7 +1062,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         assertNull(ExecHelperBlocks.hasBlockContinue(instancingClass_,""));
         assertNull(instancingClass_.getReadWrite());
     }
@@ -1078,7 +1078,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.setVisitedDefault(cont_, stackCall_,null);
         assertNull(instancingClass_.getReadWrite());
     }
@@ -1094,7 +1094,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.setVisitedCase(cont_, stackCall_,null);
         assertNull(instancingClass_.getReadWrite());
     }
@@ -1110,7 +1110,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.processCatch(cont_, stackCall_,null);
         assertNull(instancingClass_.getReadWrite());
     }
@@ -1126,7 +1126,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.processElse(null, stackCall_);
         assertNull(instancingClass_.getReadWrite());
     }
@@ -1142,7 +1142,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.processElseIf(cont_,null, stackCall_, new ExecOperationNodeListOff(new CustList<ExecOperationNode>(),0));
         assertNull(instancingClass_.getReadWrite());
     }
@@ -1158,7 +1158,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.processElse(null, stackCall_);
         ExecHelperBlocks.processElse(null, stackCall_);
         assertNull(instancingClass_.getReadWrite());
@@ -1175,7 +1175,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.processDoWhile(cont_,null, stackCall_, new ExecOperationNodeListOff(new CustList<ExecOperationNode>(),0));
         assertNull(instancingClass_.getReadWrite());
     }
@@ -1191,7 +1191,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         StackCall stackCall_ = getStackCall(cont_);
-        addPage(cont_, instancingClass_, stackCall_);
+        addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.processBlockAndRemove(null, stackCall_);
         assertNull(instancingClass_.getReadWrite());
     }
@@ -1208,7 +1208,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
         AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
         StackCall stackCall_ = getStackCall(c_);
-        addPage2(c_, instancingClass_, stackCall_);
+        addPage2(instancingClass_, stackCall_);
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass_.getGlobalArgument(), stackCall_);
         assertEq("@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot/1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
     }
@@ -1226,7 +1226,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
         AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
         StackCall stackCall_ = getStackCall(c_);
-        addPage2(c_, instancingClass_, stackCall_);
+        addPage2(instancingClass_, stackCall_);
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass_.getGlobalArgument(), stackCall_);
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_,instancingClass_.getGlobalArgument(), stackCall_);
         assertEq("@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot/1),myAnnot2=@pkg.Annot(pkg.Annot/1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
@@ -1244,11 +1244,11 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
         AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
         StackCall stackCall_ = getStackCall(c_);
-        addPage2(c_, instancingClass_, stackCall_);
+        addPage2(instancingClass_, stackCall_);
         AbstractPageEl instancingClass2_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass2_.getGlobalArgument(), stackCall_);
         stackCall_.removeLastPage();
-        addPage2(c_, instancingClass2_, stackCall_);
+        addPage2(instancingClass2_, stackCall_);
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass_.getGlobalArgument(), stackCall_);
         assertEq("@pkg.Annot(myAnnot=@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot/1)))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
     }
@@ -1266,12 +1266,12 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
         AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
         StackCall stackCall_ = getStackCall(c_);
-        addPage2(c_, instancingClass_, stackCall_);
+        addPage2(instancingClass_, stackCall_);
         AbstractPageEl instancingClass2_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass2_.getGlobalArgument(), stackCall_);
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_,instancingClass_.getGlobalArgument(), stackCall_);
         stackCall_.removeLastPage();
-        addPage2(c_, instancingClass2_, stackCall_);
+        addPage2(instancingClass2_, stackCall_);
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass2_.getGlobalArgument(), stackCall_);
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_,instancingClass_.getGlobalArgument(), stackCall_);
         assertEq("@pkg.Annot(myAnnot=@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot/2),myAnnot2=@pkg.Annot(pkg.Annot/1)),myAnnot2=@pkg.Annot(pkg.Annot/1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
@@ -1344,8 +1344,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         return array_;
     }
 
-    private void addPage(ContextEl _cont, AbstractPageEl _instancingClass, StackCall _stackCall) {
-        ExecutingUtil.addPage(_cont, _instancingClass, _stackCall);
+    private void addPage(AbstractPageEl _instancingClass, StackCall _stackCall) {
+        ExecutingUtil.addPage(_instancingClass, _stackCall);
     }
 
     protected static Struct getTrueException(StackCall _stackCall) {
@@ -1375,8 +1375,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         return ExecInherits.reflectFormat(_first,_second,_context);
     }
 
-    private void addPage2(ContextEl _c, AbstractPageEl _instancingClass2, StackCall _stackCall) {
-        ExecutingUtil.addPage(_c, _instancingClass2, _stackCall);
+    private void addPage2(AbstractPageEl _instancingClass2, StackCall _stackCall) {
+        ExecutingUtil.addPage(_instancingClass2, _stackCall);
     }
 
     private void wrapAndCall(ContextEl _cont, ExecRootBlock _classBody, ExecNamedFunctionBlock _first, StackCall _stackCall) {

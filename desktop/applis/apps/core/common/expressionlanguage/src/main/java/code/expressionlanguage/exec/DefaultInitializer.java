@@ -10,13 +10,16 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.ForwardPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public class DefaultInitializer implements Initializer {
 
@@ -107,7 +110,17 @@ public class DefaultInitializer implements Initializer {
         if (rw_ != null) {
             _stackCall.getLastPage().processTagsBase(_owner, _stackCall);
         }
+        checkStack(_owner, _stackCall);
         return false;
+    }
+
+    public static void checkStack(ContextEl _owner, StackCall _stackCall) {
+        if (_stackCall.calls() && _stackCall.getCallingState() != null && _owner.getStackOverFlow() >= IndexConstants.FIRST_INDEX && _owner.getStackOverFlow() <= _stackCall.nbPages()) {
+            LgNames stds_ = _owner.getStandards();
+            String sof_ = stds_.getContent().getCoreNames().getAliasSof();
+            CustomFoundExc exec_ = new CustomFoundExc(new ErrorStruct(_owner, sof_, _stackCall));
+            _stackCall.setCallingState(exec_);
+        }
     }
 
     private static void tryForward(ContextEl _owner, AbstractPageEl _p, AbstractPageEl _b, StackCall _stackCall) {
@@ -128,7 +141,7 @@ public class DefaultInitializer implements Initializer {
     protected boolean exitAfterCall(ContextEl _owner, StackCall _stack) {
         AbstractPageEl abs_ = ExecutingUtil.processAfterOperation(_owner, _stack);
         if (abs_ != null) {
-            ExecutingUtil.addPage(_owner,abs_, _stack);
+            ExecutingUtil.addPage(abs_, _stack);
         }
         ExecutingUtil.processException(_owner, _stack);
         return _owner.callsOrException(_stack);
