@@ -26,6 +26,7 @@ public final class StackCall implements AbstractStackCall {
     private Struct seed;
     private final CustomSeedGene seedCust;
     private boolean stoppedBreakPoint;
+    private boolean checkingException;
     public StackCall(InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
         initializingTypeInfos = new InitializingTypeInfos();
         initializingTypeInfos.setInitEnums(_readOnlyOthers);
@@ -173,5 +174,13 @@ public final class StackCall implements AbstractStackCall {
 
     public void setStoppedBreakPoint(boolean _s) {
         this.stoppedBreakPoint = _s;
+    }
+
+    public boolean isCheckingException() {
+        return checkingException;
+    }
+
+    public void setCheckingException(boolean _c) {
+        this.checkingException = _c;
     }
 }

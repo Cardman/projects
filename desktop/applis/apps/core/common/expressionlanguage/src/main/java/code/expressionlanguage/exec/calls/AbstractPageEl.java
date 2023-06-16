@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.inherits.ExecInherits;
@@ -334,13 +335,18 @@ public abstract class AbstractPageEl {
         return globalClass.getRootBlock();
     }
 
-    public boolean stopBreakPoint(ContextEl _context) {
-        if (checkBreakPoint()&&!isVisited()) {
+    public boolean stopBreakPoint(ContextEl _context, StackCall _stackCall) {
+        if (checkBreakPoint(_stackCall)&&!isVisited()) {
             setVisited(true);
-            for (int i: list()) {
+            if (_stackCall.getCallingState() instanceof CustomFoundExc) {
+                Struct e_ = ((CustomFoundExc) _stackCall.getCallingState()).getStruct();
+                if (StringUtil.contains(_context.getClasses().getDebugMapping().getExceptions(),e_.getClassName(_context))) {
+                    return true;
+                }
+            }
+            for (int i : list(_stackCall)) {
                 BreakPoint bp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNull(getFile(), i);
-                if (stopCurrentBp(bp_)) {
-                    setGlobalOffset(i);
+                if (stopCurrentBp(bp_, i)) {
                     return true;
                 }
             }
@@ -349,11 +355,21 @@ public abstract class AbstractPageEl {
         return false;
     }
 
+    private boolean stopCurrentBp(BreakPoint _bp, int _i) {
+        boolean s_ = stopCurrentBp(_bp);
+        if (s_) {
+            setGlobalOffset(_i);
+        }
+        return s_;
+    }
     private boolean stopCurrentBp(BreakPoint _bp) {
         return _bp.isEnabled() && (!_bp.isEnabledChgtType() || _bp.isInstanceType() && this instanceof AbstractCallingInstancingPageEl || _bp.isStaticType() && this instanceof StaticInitPageEl);
     }
 
-    private int[] list() {
+    private int[] list(StackCall _stackCall) {
+        if (_stackCall.isCheckingException()) {
+            return NumberUtil.wrapIntArray();
+        }
         ExecBlock bl_ = getBlock();
         AbstractStask st_ = tryGetLastStack();
         if (st_ instanceof LoopBlockStack && bl_ instanceof ExecAbstractForEachLoop && !(bl_ instanceof ExecForEachIterable) && ((ExecAbstractForEachLoop) bl_).getVariable().getOffset() == getGlobalOffset()) {
@@ -373,7 +389,10 @@ public abstract class AbstractPageEl {
         return NumberUtil.wrapIntArray(getGlobalOffset());
     }
 
-    public boolean checkBreakPoint() {
+    public boolean checkBreakPoint(StackCall _stackCall) {
+        if (_stackCall.isCheckingException()) {
+            return true;
+        }
         if (readWrite == null) {
             return false;
         }

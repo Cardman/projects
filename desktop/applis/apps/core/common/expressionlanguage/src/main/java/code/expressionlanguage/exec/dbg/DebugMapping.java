@@ -13,6 +13,7 @@ public final class DebugMapping {
     private final CustList<String> typesInit = new CustList<String>();
     private String initClass="";
     private final BreakPointBlockList breakPointsBlock = new BreakPointBlockList();
+    private final CustList<String> exceptions = new CustList<String>();
     private final boolean debugging;
 
     public DebugMapping(boolean _d) {
@@ -27,6 +28,10 @@ public final class DebugMapping {
     }
     public BreakPointBlockList getBreakPointsBlock() {
         return breakPointsBlock;
+    }
+
+    public CustList<String> getExceptions() {
+        return exceptions;
     }
 
     public IdMap<FileBlock, ExecFileBlock> getFiles() {

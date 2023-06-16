@@ -40,6 +40,9 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     protected int now(StackCall _stack) {
         return _stack.getLastPage().getGlobalOffset();
     }
+    protected int nowTrace(StackCall _stack) {
+        return _stack.getLastPage().getTraceIndex();
+    }
     protected static StackCall dbgNormal(String _class, MethodId _method, ResultContext _cont) {
 //        tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
 //        return dbgNormalAfterInit(_class, _method, _cont);
