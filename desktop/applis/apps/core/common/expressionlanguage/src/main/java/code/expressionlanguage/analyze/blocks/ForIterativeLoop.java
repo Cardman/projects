@@ -102,11 +102,10 @@ public final class ForIterativeLoop extends AbstractForLoop {
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         boolean res_ = processVariableNames(_page);
-        MemberCallingsBlock f_ = _page.getCurrentFct();
         String cl_ = importedClassName;
         _page.setSumOffset(oneLoopExpressionsContent.getResInit().getSumOffset());
         _page.zeroOffset();
-        MethodAccessKind static_ = f_.getStaticContext();
+        MethodAccessKind static_ = _page.getStaticContext();
         oneLoopExpressionsContent.getResInit().setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(oneLoopExpressionsContent.getResInit(), Calculation.staticCalculation(static_), _page));
 //        rootInit = _page.getCurrentRoot();
 //        ExecOperationNode initEl_ = init_.last();

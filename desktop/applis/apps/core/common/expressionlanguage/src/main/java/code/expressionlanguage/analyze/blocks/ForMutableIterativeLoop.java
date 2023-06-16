@@ -92,8 +92,7 @@ public final class ForMutableIterativeLoop extends AbstractForLoop implements
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         processVariables(_page);
-        MemberCallingsBlock f_ = _page.getCurrentFct();
-        MethodAccessKind static_ = f_.getStaticContext();
+        MethodAccessKind static_ = _page.getStaticContext();
         _page.getVariablesNames().clear();
         _page.getVariablesNamesToInfer().clear();
         _page.setSumOffset(manyLoopExpressionsContent.getResInit().getSumOffset());

@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.exec.util.ClassMethodIdOverrides;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecFunctionalInfo;
 import code.expressionlanguage.exec.util.ExecTypeVar;
@@ -17,8 +16,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private final ExecRootBlockContent rootBlockContent;
 
     private final AccessEnum access;
-
-    private final ClassMethodIdOverrides redirections = new ClassMethodIdOverrides();
 
     private final CustList<ExecRootBlock> staticInitImportedInterfaces = new CustList<ExecRootBlock>();
     private final CustList<ExecFormattedRootBlock> instanceInitImportedInterfaces = new CustList<ExecFormattedRootBlock>();
@@ -46,6 +43,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private final CustList<ExecBlock> allStaticMembers = new CustList<ExecBlock>();
     private final CustList<ExecInstanceBlock> allInstanceInits = new CustList<ExecInstanceBlock>();
     private final CustList<ExecStaticBlock> allStaticInits = new CustList<ExecStaticBlock>();
+    private int numberType;
 
     ExecRootBlock(ExecRootBlockContent _rootBlockContent, AccessEnum _access) {
         rootBlockContent = _rootBlockContent;
@@ -151,10 +149,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         return allSuperTypes;
     }
 
-    public ClassMethodIdOverrides getRedirections() {
-        return redirections;
-    }
-
     public CustList<ExecRootBlock> getChildrenTypes() {
         return childrenTypes;
     }
@@ -245,5 +239,13 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     public CustList<ExecStaticBlock> getAllStaticInits() {
         return allStaticInits;
+    }
+
+    public int getNumberType() {
+        return numberType;
+    }
+
+    public void setNumberType(int _n) {
+        this.numberType = _n;
     }
 }

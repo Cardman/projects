@@ -83,6 +83,11 @@ public class DefaultInitializer implements Initializer {
             _stackCall.setStoppedBreakPoint(true);
             return true;
         }
+        return stopNormal(_owner, _stackCall);
+    }
+
+    public boolean stopNormal(ContextEl _owner, StackCall _stackCall) {
+        AbstractPageEl p_ = _stackCall.getLastPage();
         ReadWrite rw_ = p_.getReadWrite();
         if (rw_ == null) {
             if (p_ instanceof StaticInitPageEl) {

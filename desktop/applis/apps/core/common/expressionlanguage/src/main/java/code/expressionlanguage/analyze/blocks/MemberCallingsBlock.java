@@ -31,6 +31,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Accesse
         AbsBk firstChild_ = getFirstChild();
         _page.setCurrentBlock(this);
         _page.setCurrentFct(this);
+        _page.setAccessStaticContext(getStaticContext());
         _page.setCurrentFile(getFile());
         StringMap<StringList> vars_ = ContextUtil.getCurrentConstraints(_page);
         Mapping mapping_ = new Mapping();

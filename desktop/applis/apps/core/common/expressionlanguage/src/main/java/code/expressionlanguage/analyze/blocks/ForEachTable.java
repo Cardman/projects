@@ -105,7 +105,6 @@ public final class ForEachTable extends AbstractForLoop implements ImportForEach
     }
 
     private MethodAccessKind processVarTypes(AnalyzedPageEl _page) {
-        MemberCallingsBlock f_ = _page.getCurrentFct();
         tableLoopExpressionContent.resolveIndex(this,_page);
         TokenErrorMessage resOne_ = ManageTokens.partVar(_page).checkTokenVar(tableLoopExpressionContent.getVariableNameFirst(), _page);
         if (resOne_.isError()) {
@@ -149,7 +148,7 @@ public final class ForEachTable extends AbstractForLoop implements ImportForEach
         }
         _page.setSumOffset(res.getSumOffset());
         _page.zeroOffset();
-        return f_.getStaticContext();
+        return _page.getStaticContext();
     }
 
     public void checkIterableCandidates(StringList _types, AnalyzedPageEl _page) {

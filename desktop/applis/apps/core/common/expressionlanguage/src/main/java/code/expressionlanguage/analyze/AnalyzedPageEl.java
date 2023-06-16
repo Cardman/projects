@@ -49,6 +49,7 @@ public final class AnalyzedPageEl {
     private AbstractFileBuilder fileBuilder;
     private StringMap<String> resources;
     private StringMap<StringMap<Struct>> staticFields;
+    private final StringMap<StringMap<Struct>> staticFieldsAna = new StringMap<StringMap<Struct>>();
 
     private AbsBk currentBlock;
     private ImportForEachLoop currentAnaBlockForEachLoop;
@@ -134,7 +135,9 @@ public final class AnalyzedPageEl {
     private CustList<AnonymousResult> currentAnonymousResults = new CustList<AnonymousResult>();
     private CustList<SegmentStringPart> currentParts = new CustList<SegmentStringPart>();
     private final CustList<AnonymousLambdaOperation> allAnonymousLambda = new CustList<AnonymousLambdaOperation>();
+    private final CustList<AnonymousLambdaOperation> anonymousLambda = new CustList<AnonymousLambdaOperation>();
     private final CustList<SwitchOperation> allSwitchMethods = new CustList<SwitchOperation>();
+    private final CustList<SwitchOperation> switchMethods = new CustList<SwitchOperation>();
     private final StringMap<FileBlock> filesBodies = new StringMap<FileBlock>();
     private final StringMap<FileBlock> previousFilesBodies = new StringMap<FileBlock>();
     private FileBlock refFileName;
@@ -1055,6 +1058,10 @@ public final class AnalyzedPageEl {
         return headers.getImplicitFromCastMethods();
     }
 
+    public StringMap<StringMap<Struct>> getStaticFieldsAna() {
+        return staticFieldsAna;
+    }
+
     public StringMap<CustList<MethodHeaderInfo>> getTrues() {
         return headers.getTrues();
     }
@@ -1183,8 +1190,16 @@ public final class AnalyzedPageEl {
         this.currentParts = _currentParts;
     }
 
+    public CustList<AnonymousLambdaOperation> getAnonymousLambda() {
+        return anonymousLambda;
+    }
+
     public CustList<AnonymousLambdaOperation> getAllAnonymousLambda() {
         return allAnonymousLambda;
+    }
+
+    public CustList<SwitchOperation> getSwitchMethods() {
+        return switchMethods;
     }
 
     public CustList<SwitchOperation> getAllSwitchMethods() {

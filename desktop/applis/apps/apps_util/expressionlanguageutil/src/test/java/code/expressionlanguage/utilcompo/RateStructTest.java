@@ -36,7 +36,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -60,7 +60,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -82,7 +82,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -106,7 +106,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -128,7 +128,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -150,7 +150,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -174,7 +174,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -196,7 +196,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -2606,7 +2606,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -2630,7 +2630,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -2654,7 +2654,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -2676,7 +2676,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -2700,7 +2700,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -2724,7 +2724,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -2746,7 +2746,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -2769,7 +2769,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -2792,7 +2792,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -2815,7 +2815,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
         RunnableStruct.setupThread(r_);
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(r_));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(r_).getVal(((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         RunnableStruct.invoke(arg_, mId_.getClassName(), r_, mId_.getPair(), resSt_, new ArgumentListCall());
@@ -2845,7 +2845,7 @@ public final class RateStructTest extends EquallableElUtUtil {
     private void invoke(Struct _inst, RunnableContextEl _ctx, StackCall _stack) {
         RunnableStruct.setupThread(_ctx);
         String base_ = StringExpUtil.getIdFromAllTypes(_inst.getClassName(_ctx));
-        ExecOverrideInfo mId_ = ((LgNamesWithNewAliases) _ctx.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getRedirections().getVal(((LgNamesWithNewAliases) _ctx.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
+        ExecOverrideInfo mId_ = getRedirections(_ctx).getVal(((LgNamesWithNewAliases) _ctx.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),base_);
         Argument arg_ = new Argument(_inst);
         RunnableStruct.invoke(arg_, mId_.getClassName(), _ctx, mId_.getPair(), _stack, new ArgumentListCall());
     }
@@ -2858,6 +2858,10 @@ public final class RateStructTest extends EquallableElUtUtil {
         MockProgramInfos prs_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         update(prs_);
         return prs_;
+    }
+
+    private ClassMethodIdOverrides getRedirections(RunnableContextEl _r) {
+        return _r.getClasses().getRedirections().get(((LgNamesWithNewAliases) _r.getStandards()).getExecContent().getExecutingBlocks().getRunnableType().getNumberType());
     }
 
 }

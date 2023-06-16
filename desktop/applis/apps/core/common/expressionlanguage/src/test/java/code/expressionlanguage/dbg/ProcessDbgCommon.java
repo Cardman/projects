@@ -2,11 +2,17 @@ package code.expressionlanguage.dbg;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefContextGenerator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -17,7 +23,10 @@ import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.sample.CustLgNames;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
@@ -108,6 +117,76 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
     protected static int toInt(Struct _str) {
         return ((NumberStruct)_str).intStruct();
+    }
+    protected Struct valueDbg(String _dyn, String _class, String _meth, int _caret, StringMap<String> _files) {
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
+        res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(ana_.getFile().getFileName(),_caret,res_);
+        return end(_dyn, _class, _meth, res_);
+    }
+    protected ArrayStruct valueDbgExc(String _dyn, String _class, String _meth, int _caret, StringMap<String> _files) {
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
+        res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(ana_.getFile().getFileName(),_caret,res_);
+        return endExc(_dyn, _class, _meth, res_);
+    }
+    protected Struct valueDbg(String _dyn, String _class, String _meth, String _file, int _caret, StringMap<String> _files) {
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(_file,_caret,res_);
+        return end(_dyn, _class, _meth, res_);
+    }
+
+    protected Struct valueDbg(String _dyn, String _class, String _meth, StringMap<String> _files, String... _types) {
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files, _types);
+        RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
+        res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(ana_.getFile().getFileName(),ana_.getIdRowCol(),res_);
+        res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointInstanceType(ana_.getFile().getFileName(),ana_.getIdRowCol(),res_,false);
+        res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType(ana_.getFile().getFileName(),ana_.getIdRowCol(),res_,true);
+        return end(_dyn,_class,_meth,res_);
+    }
+
+    protected ReportedMessages valueDbgKo(String _dyn, String _class, String _meth, StringMap<String> _files) {
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
+        res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(ana_.getFile().getFileName(),ana_.getIdRowCol(),res_);
+        res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointInstanceType(ana_.getFile().getFileName(),ana_.getIdRowCol(),res_,false);
+        res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType(ana_.getFile().getFileName(),ana_.getIdRowCol(),res_,true);
+        return endKo(_dyn,_class,_meth,res_);
+    }
+
+    private Struct end(String _dyn, String _class, String _meth, ResultContext _res) {
+        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
+        Argument argGlLoc_ = new Argument();
+        Parameters p_ = new Parameters();
+        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_));
+        AbstractPageEl page_ = stVal_.getStack().getLastPage();
+        return ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), page_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator()).eval(page_).getRetValue().getValue().getStruct();
+    }
+
+    private ArrayStruct endExc(String _dyn, String _class, String _meth, ResultContext _res) {
+        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
+        Argument argGlLoc_ = new Argument();
+        Parameters p_ = new Parameters();
+        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_));
+        AbstractPageEl page_ = stVal_.getStack().getLastPage();
+        ResultContextLambda resLam_ = ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), page_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator());
+        StackCall locSt_ = resLam_.eval(page_).getStack();
+        return ((ErrorStruct)((CustomFoundExc)locSt_.getCallingState()).getStruct()).getStack();
+    }
+    private ReportedMessages endKo(String _dyn, String _class, String _meth, ResultContext _res) {
+        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
+        Argument argGlLoc_ = new Argument();
+        Parameters p_ = new Parameters();
+        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_));
+        AbstractPageEl page_ = stVal_.getStack().getLastPage();
+        return ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), page_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator()).getReportedMessages();
+    }
+    protected AnalyzedPageEl scope(StringMap<String> _files, String _fileName, int _caret, String... _types) {
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files, _types);
+        return ResultExpressionOperationNode.prepare(_fileName,_caret,res_.getPageEl());
     }
     protected static String getCustomList() {
         StringBuilder xml_ = new StringBuilder();

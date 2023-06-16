@@ -15,6 +15,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.dbg.DebugMapping;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ClassMethodIdOverrides;
 import code.expressionlanguage.fwd.AbsContextGenerator;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -31,6 +32,7 @@ public final class Classes {
 
     private final ClassesCommon common;
     private final StringMap<ExecRootBlock> classesBodies;
+    private final CustList<ClassMethodIdOverrides> redirections = new CustList<ClassMethodIdOverrides>();
 
     private String iteratorVarCust;
     private String hasNextVarCust;
@@ -63,6 +65,10 @@ public final class Classes {
         classesBodies = new StringMap<ExecRootBlock>();
         checker = _checker;
         debugMapping = _d;
+    }
+
+    public CustList<ClassMethodIdOverrides> getRedirections() {
+        return redirections;
     }
 
     public DebugMapping getDebugMapping() {

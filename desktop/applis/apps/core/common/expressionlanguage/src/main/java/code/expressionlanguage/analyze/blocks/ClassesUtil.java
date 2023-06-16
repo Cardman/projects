@@ -54,9 +54,7 @@ public final class ClassesUtil {
         }
         for (RootBlock c: _page.getAllGroupFoundTypes()) {
             globalType(_page, c);
-            _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
-            _page.setImportingTypes(c);
             _page.getMappingLocal().clear();
             _page.getMappingLocal().putAllMap(c.getRefMappings());
             for (AbsBk b: getDirectChildren(c)) {
@@ -86,9 +84,7 @@ public final class ClassesUtil {
     private static void customOverrides(AnalyzedPageEl _page) {
         for (RootBlock e: _page.getAllGroupFoundTypes()) {
             globalType(_page, e);
-            _page.setImporting(e);
             _page.setImportingAcces(new TypeAccessor(e.getFullName()));
-            _page.setImportingTypes(e);
             _page.getMappingLocal().clear();
             _page.getMappingLocal().putAllMap(e.getRefMappings());
             for (AbsBk b: getDirectChildren(e)) {
@@ -1843,9 +1839,7 @@ public final class ClassesUtil {
             globalType(_page, c);
             _page.setCurrentPkg(c.getPackageName());
             _page.setCurrentFile(c.getFile());
-            _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
-            _page.setImportingTypes(c);
             _page.getMappingLocal().clear();
             _page.getMappingLocal().putAllMap(c.getRefMappings());
             c.validateIds(_page);
@@ -2166,46 +2160,42 @@ public final class ClassesUtil {
     private static void loopOverrides(AnalyzedPageEl _page) {
         _page.setAssignedFields(true);
         for (RootBlock c: _page.getFoundTypes()) {
-            _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
-            _page.setImportingTypes(c);
             CustList<AbsBk> bl_ = getDirectChildren(c);
             for (AbsBk b: bl_) {
                 if (!AbsBk.isOverBlock(b)) {
                     continue;
                 }
                 NamedCalledFunctionBlock method_ = (NamedCalledFunctionBlock) b;
+                globalType(_page, c);
+                _page.setCurrentPkg(c.getPackageName());
+                _page.setCurrentFile(c.getFile());
+                StringList params_ = method_.getParametersNames();
+                StringList types_ = method_.getImportedParametersTypes();
+                prepareParams(_page,method_.getParametersNamesOffset(), method_.getParamErrors(),params_, method_.getParametersRef(), types_, method_.isVarargs());
                 if (isStdOrExplicit(method_)) {
-                    globalType(_page, c);
-                    _page.setCurrentPkg(c.getPackageName());
-                    _page.setCurrentFile(c.getFile());
-                    StringList params_ = method_.getParametersNames();
-                    StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(_page,method_.getParametersNamesOffset(), method_.getParamErrors(),params_, method_.getParametersRef(), types_, method_.isVarargs());
                     method_.getUsedParameters().addAllEntries(_page.getInfosVars());
-                    _page.getMappingLocal().clear();
-                    _page.getMappingLocal().putAllMap(method_.getRefMappings());
-                    method_.buildFctInstructionsReadOnly(_page);
-                    AnalyzingEl a_ = _page.getAnalysisAss();
-                    a_.setVariableIssue(_page.isVariableIssue());
-                    _page.getResultsAnaMethod().addEntry(method_,a_);
                 } else {
-                    globalType(_page, c);
-                    _page.setCurrentPkg(c.getPackageName());
-                    _page.setCurrentFile(c.getFile());
-                     StringList params_ = method_.getParametersNames();
-                    StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(_page, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, method_.getParametersRef(), types_, method_.isVarargs());
                     processValueParam(_page, method_);
-                    _page.getMappingLocal().clear();
-                    _page.getMappingLocal().putAllMap(method_.getRefMappings());
-                    method_.buildFctInstructionsReadOnly(_page);
-                    AnalyzingEl a_ = _page.getAnalysisAss();
-                    a_.setVariableIssue(_page.isVariableIssue());
-                    _page.getResultsAnaMethod().addEntry(method_,a_);
                 }
+                _page.getMappingLocal().clear();
+                _page.getMappingLocal().putAllMap(method_.getRefMappings());
+                method_.buildFctInstructionsReadOnly(_page);
+                AnalyzingEl a_ = _page.getAnalysisAss();
+                a_.setVariableIssue(_page.isVariableIssue());
+                _page.getResultsAnaMethod().addEntry(method_,a_);
             }
         }
+    }
+    public static void prepare(NamedFunctionBlock _name,AnalyzedPageEl _page) {
+        StringList params_ = _name.getParametersNames();
+        StringList types_ = _name.getImportedParametersTypes();
+        prepareParams(_page,_name.getParametersNamesOffset(), _name.getParamErrors(),params_, _name.getParametersRef(), types_, _name.isVarargs());
+        if (_name instanceof NamedCalledFunctionBlock&&!isStdOrExplicit((NamedCalledFunctionBlock)_name)) {
+            processValueParam(_page, (NamedCalledFunctionBlock)_name);
+        }
+        _page.getMappingLocal().clear();
+        _page.getMappingLocal().putAllMap(_name.getRefMappings());
     }
 
     private static void loopAnnots(AnalyzedPageEl _page) {
@@ -2216,9 +2206,7 @@ public final class ClassesUtil {
     }
 
     private static void loopAnnots(AnalyzedPageEl _page, RootBlock _c) {
-        _page.setImporting(_c);
         _page.setImportingAcces(new TypeAccessor(_c.getFullName()));
-        _page.setImportingTypes(_c);
         globalType(_page, _c);
         _page.setCurrentPkg(_c.getPackageName());
         _page.setCurrentFile(_c.getFile());
@@ -2254,6 +2242,9 @@ public final class ClassesUtil {
         if (_c instanceof RootBlock) {
             _page.setGlobalType(new AnaFormattedRootBlock((RootBlock) _c));
             _page.setCurrentFile(_c.getFile());
+            _page.setImporting(_c);
+            _page.setImportingTypes(_c);
+            _page.setCurrentBlock((AbsBk) _c);
         }
     }
 
@@ -2305,10 +2296,8 @@ public final class ClassesUtil {
         b_.clear();
 
         for (RootBlock c: _page.getAllGroupFoundTypes()) {
-            _page.setImporting(c);
             globalType(_page,c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
-            _page.setImportingTypes(c);
             CustList<AbsBk> bl_ = getDirectChildren(c);
             for (AbsBk b: bl_) {
                 AnalyzingEl anAss_ = tryGetAss(b, _page.getResultsAnaMethod());
@@ -2352,10 +2341,8 @@ public final class ClassesUtil {
     }
 
     private static void checkFinalsInstanceFields(AnalyzedPageEl _page, AssignedVariablesBlock _assVars, RootBlock _c) {
-        _page.setImporting(_c);
         globalType(_page, _c);
         _page.setImportingAcces(new TypeAccessor(_c.getFullName()));
-        _page.setImportingTypes(_c);
         _page.getInitFields().clear();
         _page.getAssignedDeclaredFields().clear();
         _page.getAllDeclaredFields().clear();
@@ -2493,9 +2480,7 @@ public final class ClassesUtil {
     }
 
     private static void checkFinalsStaticFields(AnalyzedPageEl _page, AssignedVariablesBlock _assVars, RootBlock _c) {
-        _page.setImporting(_c);
         _page.setImportingAcces(new TypeAccessor(_c.getFullName()));
-        _page.setImportingTypes(_c);
         globalType(_page, _c);
         _page.getInitFields().clear();
         _page.getAssignedDeclaredFields().clear();
@@ -2614,10 +2599,8 @@ public final class ClassesUtil {
         }
         _page.setAssignedStaticFields(true);
         for (RootBlock c: _page.getAllGroupFoundTypes()) {
-            _page.setImporting(c);
             globalType(_page,c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
-            _page.setImportingTypes(c);
             _page.getInitFields().clear();
             _page.getAssignedDeclaredFields().clear();
             _page.getAllDeclaredFields().clear();
@@ -2634,10 +2617,8 @@ public final class ClassesUtil {
         _page.setAssignedFields(true);
 
         for (RootBlock c: _page.getAllGroupFoundTypes()) {
-            _page.setImporting(c);
             globalType(_page,c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
-            _page.setImportingTypes(c);
             CustList<AbsBk> bl_ = getDirectChildren(c);
             for (AbsBk b: bl_) {
                 AnalyzingEl anAss_ = tryGetAss(b, _page.getResultsAnaMethod());
@@ -2691,9 +2672,7 @@ public final class ClassesUtil {
     }
 
     private static void initAssignements(AnalyzedPageEl _page, RootBlock _c) {
-        _page.setImporting(_c);
         _page.setImportingAcces(new TypeAccessor(_c.getFullName()));
-        _page.setImportingTypes(_c);
         globalType(_page, _c);
         _page.getInitFields().clear();
         _page.getAssignedDeclaredFields().clear();
@@ -2809,6 +2788,7 @@ public final class ClassesUtil {
                 initStaticValues(cl_, b);
             }
             _page.getStaticFields().put(fullName_, cl_);
+            _page.getStaticFieldsAna().put(fullName_, cl_);
         }
         IdMap<ClassField,ClassFieldBlock> cstFields_ = new IdMap<ClassField,ClassFieldBlock>();
         for (RootBlock c: _page.getFoundTypes()) {

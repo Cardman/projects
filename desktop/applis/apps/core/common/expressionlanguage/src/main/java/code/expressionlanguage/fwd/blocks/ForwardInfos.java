@@ -23,6 +23,8 @@ import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.symbols.*;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.AbsForwardGenerator;
+import code.expressionlanguage.fwd.FirstForwardGenerator;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.Members;
 import code.expressionlanguage.fwd.opers.*;
@@ -34,6 +36,9 @@ public final class ForwardInfos {
     private ForwardInfos() {
     }
     public static void generalForward(AnalyzedPageEl _page, Forwards _forwards) {
+        generalForward(_page,_forwards,new FirstForwardGenerator());
+    }
+    public static void generalForward(AnalyzedPageEl _page, Forwards _forwards, AbsForwardGenerator _gener) {
         Coverage coverage_ = _forwards.getCoverage();
         coverage_.setKeyWords(_page.getKeyWords());
         coverage_.putToStringOwner(_page.getAliasObject());
@@ -49,7 +54,7 @@ public final class ForwardInfos {
             files_.add(exFile_);
             dbg_.addFile(content_,exFile_);
         }
-        feedExecTypes(_page, _forwards, coverage_, files_);
+        feedExecTypes(_page, _forwards,_gener, coverage_, files_);
         innerFetchExecEnd(_forwards);
         Classes classes_ = _forwards.getClasses();
         for (RootBlock e: _page.getSorted().values()) {
@@ -57,7 +62,7 @@ public final class ForwardInfos {
             String fullName_ = e.getFullName();
             classes_.getClassesBodies().addEntry(fullName_, e_);
         }
-        for (OperatorBlock o: _page.getAllOperators()){
+        for (OperatorBlock o: _gener.getAllOperators(_page)){
             ExecFileBlock exFile_ = files_.get(o.getFile().getNumberFile());
             ExecOperatorBlock e_ = new ExecOperatorBlock(o.isRetRef(), o.getName(), o.isVarargs(), o.getAccess(), o.getParametersNames(), o.getImportedParametersTypes(), o.getParametersRef());
             e_.setImportedReturnType(o.getImportedReturnType());
@@ -87,7 +92,7 @@ public final class ForwardInfos {
         feedParents(_forwards);
         feedInherits(_forwards);
         feedFunctional(_forwards, _page.getAliasFct());
-        feedFct(_page, _forwards, coverage_, files_);
+        feedFct(_page, _forwards,_gener, coverage_, files_);
         feedMemberLists(_forwards);
         for (FwdRootBlockMembers e: _forwards.getMembers()) {
             Members mem_ = e.getMembers();
@@ -130,8 +135,8 @@ public final class ForwardInfos {
         _classes.setKeyWordValue(_page.getKeyWords().getKeyWordValue());
     }
 
-    private static void feedExecTypes(AnalyzedPageEl _page, Forwards _forwards, Coverage _coverage, CustList<ExecFileBlock> _files) {
-        for (RootBlock r: _page.getAllFoundTypes()) {
+    private static void feedExecTypes(AnalyzedPageEl _page, Forwards _forwards, AbsForwardGenerator _gener, Coverage _coverage, CustList<ExecFileBlock> _files) {
+        for (RootBlock r: _gener.getAllFoundTypes(_page)) {
             Members v_ = new Members();
             FileBlock fileBlock_ = r.getFile();
             ExecFileBlock exFile_ = _files.get(fileBlock_.getNumberFile());
@@ -174,6 +179,8 @@ public final class ForwardInfos {
             }
             _coverage.putType(r);
             _forwards.addMember(r, v_);
+            v_.getRootBlock().setNumberType(_forwards.getCountTypes());
+            _forwards.setCountTypes(_forwards.getCountTypes()+1);
         }
     }
 
@@ -220,10 +227,10 @@ public final class ForwardInfos {
     }
 
     private static void feedRedirs(AnalyzedPageEl _page, Forwards _forwards) {
-        for (FwdRootBlockMembers e: _forwards.getMembers()) {
+        for (FwdRootBlockMembers e: _forwards.getAllMapMembers()) {
             RootBlock root_ = e.getRootBlock();
             Members mem_ = e.getMembers();
-            ClassMethodIdOverrides redirections_ = mem_.getRootBlock().getRedirections();
+            ClassMethodIdOverrides redirections_ = new ClassMethodIdOverrides();
             for (NamedCalledFunctionBlock o: root_.getOverridableBlocks()) {
                 if (o.hiddenInstance() || o.isFinalMethod()) {
                     continue;
@@ -238,6 +245,7 @@ public final class ForwardInfos {
                 }
                 redirections_.add(override_);
             }
+            _forwards.getClasses().getRedirections().add(redirections_);
         }
     }
 
@@ -280,7 +288,7 @@ public final class ForwardInfos {
                 Members mem_ = _forwards.getMember(rootBlock_);
                 ExecRootBlock ex_ = mem_.getRootBlock();
                 ExecOverridableBlock value_ = mem_.getOvNamed(b);
-                ExecOverrideInfo val_ = ex_.getRedirections().getVal(value_, _e.getRootBlock().getFullName());
+                ExecOverrideInfo val_ = _forwards.getClasses().getRedirections().get(ex_.getNumberType()).getVal(value_, _e.getRootBlock().getFullName());
                 if (val_ == null) {
                     String ret_ = b.getImportedReturnType();
                     _e.getMembers().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(FetchMemberUtil.formatType(_s,value_.getId()),FetchMemberUtil.formatType(_s,ret_), value_, _aliasFct));
@@ -289,7 +297,7 @@ public final class ForwardInfos {
         }
     }
 
-    private static void feedFct(AnalyzedPageEl _page, Forwards _forwards, Coverage _coverage, CustList<ExecFileBlock> _files) {
+    private static void feedFct(AnalyzedPageEl _page, Forwards _forwards, AbsForwardGenerator _gener, Coverage _coverage, CustList<ExecFileBlock> _files) {
         for (FwdRootBlockMembers e: _forwards.getMembers()) {
             RootBlock c = e.getRootBlock();
             Members mem_ = e.getMembers();
@@ -319,7 +327,7 @@ public final class ForwardInfos {
             ExecOperatorBlock value_ = e.getValue();
             _forwards.addFctBody(o,value_);
         }
-        for (AnonymousLambdaOperation e: _page.getAllAnonymousLambda()) {
+        for (AnonymousLambdaOperation e: _gener.getAllAnonymousLambda(_page)) {
             NamedCalledFunctionBlock method_ = e.getBlock();
             _coverage.putCallsAnon();
             ExecNamedFunctionBlock function_ = buildExecAnonymousLambdaOperation(e, _forwards);
@@ -328,7 +336,7 @@ public final class ForwardInfos {
             ExecFileBlock value_ = _files.get(numberFile_);
             function_.setFile(value_);
         }
-        for (SwitchOperation e: _page.getAllSwitchMethods()) {
+        for (SwitchOperation e: _gener.getAllSwitchMethods(_page)) {
             SwitchMethodBlock method_ = e.getSwitchMethod();
             _coverage.putCallsSwitchMethod();
             ExecAbstractSwitchMethod function_ = buildExecSwitchOperation(e, _forwards);

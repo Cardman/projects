@@ -105,8 +105,7 @@ public final class FilterContent {
     }
 
     public void buildExpressionLanguageReadOnly(AbsBk _bl,AnalyzedPageEl _page, boolean _instance, String _type) {
-        MemberCallingsBlock f_ = _page.getCurrentFct();
-        MethodAccessKind stCtx_ = f_.getStaticContext();
+        MethodAccessKind stCtx_ = _page.getStaticContext();
         _page.setSumOffset(valueOffset);
         _page.zeroOffset();
         if (!declaringType.trim().isEmpty()) {

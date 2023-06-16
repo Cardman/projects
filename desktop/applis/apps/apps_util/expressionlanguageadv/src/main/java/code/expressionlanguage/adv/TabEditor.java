@@ -474,7 +474,7 @@ public final class TabEditor implements AbsTabEditor {
         if (!(_type instanceof ExecClassBlock) || ((ExecClassBlock)_type).isAbstractType() || !_type.withoutInstance()) {
             return null;
         }
-        ExecOverrideInfo o_ = _look.getRedirections().getVal(_method, _k);
+        ExecOverrideInfo o_ = _ctx.getClasses().getRedirections().get(_look.getNumberType()).getVal(_method, _k);
         if (o_ == null) {
             return null;
         }

@@ -29,10 +29,9 @@ public final class Throwing extends AbruptBlock {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        MemberCallingsBlock f_ = _page.getCurrentFct();
         _page.zeroOffset();
         _page.setSumOffset(res.getSumOffset());
-        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(f_.getStaticContext()), _page));
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(_page.getStaticContext()), _page));
         if (!_page.getCurrentEmptyPartErr().isEmpty()) {
             addErrorBlock(_page.getCurrentEmptyPartErr());
         }

@@ -110,7 +110,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);
         ExecRootBlock type_ = _named.getType();
         ExecNamedFunctionBlock fct_ = _named.getFct();
-        ExecOverrideInfo res_ = type_.getRedirections().getVal(fct_,base_);
+        ExecOverrideInfo res_ = _conf.getClasses().getRedirections().get(type_.getNumberType()).getVal(fct_,base_);
         if (res_ != null) {
             return res_;
         }

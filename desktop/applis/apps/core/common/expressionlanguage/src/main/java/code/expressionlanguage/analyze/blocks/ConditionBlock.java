@@ -46,10 +46,9 @@ public abstract class ConditionBlock extends BracedBlock implements BuildableElM
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        MemberCallingsBlock f_ = _page.getCurrentFct();
         _page.setSumOffset(res.getSumOffset());
         _page.zeroOffset();
-        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(f_.getStaticContext()), _page));
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(_page.getStaticContext()), _page));
         err = _page.getCurrentEmptyPartErr();
         AnaTypeFctPair fcts_ = processBoolean(this, res.getRoot(), _page, conditionOffset);
         functions.setFunction(fcts_.getFunction());

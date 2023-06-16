@@ -53,7 +53,7 @@ public final class ReturnMethod extends AbruptBlock {
         if (retType_.isEmpty()) {
             return;
         }
-        MethodAccessKind stCtx_ = f_.getStaticContext();
+        MethodAccessKind stCtx_ = _page.getStaticContext();
         _page.setSumOffset(res.getSumOffset());
         _page.zeroOffset();
         res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(stCtx_), _page));

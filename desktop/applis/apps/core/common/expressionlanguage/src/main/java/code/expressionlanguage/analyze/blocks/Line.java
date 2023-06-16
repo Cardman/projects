@@ -37,8 +37,7 @@ public final class Line extends Leaf implements BuildableElMethod {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        MemberCallingsBlock f_ = _page.getCurrentFct();
-        MethodAccessKind st_ = f_.getStaticContext();
+        MethodAccessKind st_ = _page.getStaticContext();
         _page.setSumOffset(res.getSumOffset());
         _page.zeroOffset();
         res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(st_), _page));

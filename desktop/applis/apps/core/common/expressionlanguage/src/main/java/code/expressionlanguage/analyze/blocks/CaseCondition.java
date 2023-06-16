@@ -27,10 +27,9 @@ public final class CaseCondition extends SwitchPartBlock implements WithFilterCo
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        MemberCallingsBlock f_ = _page.getCurrentFct();
         _page.zeroOffset();
         BracedBlock par_ = getParent();
-        MethodAccessKind stCtx_ = f_.getStaticContext();
+        MethodAccessKind stCtx_ = _page.getStaticContext();
         if (!(par_ instanceof SwitchBlock)&&!(par_ instanceof SwitchMethodBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(getFile());

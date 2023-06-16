@@ -38,6 +38,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
         _page.getAllSwitchMethods().add(this);
+        _page.getSwitchMethods().add(this);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         fwdVarInfos(_page);
         ParentInferring par_ = ParentInferring.getParentInferring(this);

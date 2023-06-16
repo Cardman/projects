@@ -15,6 +15,7 @@ import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
@@ -39,6 +40,149 @@ public final class ResultExpressionOperationNode {
         }
         return "";
     }
+
+    public static AnalyzedPageEl prepare(String _fileName, int _caret, AnalyzedPageEl _original) {
+        FileBlock file_ = _original.getPreviousFilesBodies().getVal(_fileName);
+        ResultExpressionOperationNode c_ = container(_caret, file_);
+        AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
+        a_.setCurrentBlock(c_.block);
+        a_.setCurrentPkg(a_.getDefaultPkg());
+//        if (c_.resultExpression != null) {
+//            a_.setAnnotAnalysis(AbsBk.isAnnotBlock(c_.block)||c_.resultExpression.getAnalyzedString().trim().startsWith("@"));
+//        }
+        MemberCallingsBlock m_ = AbsBk.getOuterFuntionInType(c_.block);
+        if (AbsBk.isAnonBlock(m_)) {
+            a_.setupFctChars((NamedCalledFunctionBlock) m_);
+            a_.getCache().getLocalVariables().addAllElts(((NamedCalledFunctionBlock) m_).getCache().getLocalVariables());
+            a_.getCache().getLoopVariables().addAllElts(((NamedCalledFunctionBlock) m_).getCache().getLoopVariables());
+        }
+//        if (m_ instanceof SwitchMethodBlock) {
+//            a_.setupFctChars((SwitchMethodBlock) m_);
+//        }
+        if (m_ != null) {
+            a_.setCurrentFct(m_);
+            a_.setAccessStaticContext(m_.getStaticContext());
+            a_.getMappingLocal().addAllEntries(m_.getRefMappings());
+//            AbsBk curr_ = c_.block;
+//            while (curr_ != m_) {
+//                AbsBk prev_ = curr_;
+//                while (prev_ != null) {
+//                    if (prev_ instanceof DeclareVariable) {
+//                        String imp_ = ((DeclareVariable) prev_).getImportedClassName();
+//                        for (String v: ((DeclareVariable) prev_).getVariableNames()) {
+//                            AnaLocalVariable vari_ = new AnaLocalVariable();
+//                            if (((DeclareVariable) prev_).isRefVariable()) {
+//                                vari_.setConstType(ConstType.REF_LOC_VAR);
+//                            } else {
+//                                vari_.setConstType(ConstType.LOC_VAR);
+//                            }
+//                            vari_.setClassName(imp_);
+//                            a_.getInfosVars().addEntry(v,vari_);
+//                        }
+//                    }
+//                    prev_ = prev_.getPreviousSibling();
+//                }
+//                if (curr_ instanceof ForEachTable) {
+//                    AnaLocalVariable variFirst_ = new AnaLocalVariable();
+//                    variFirst_.setConstType(ConstType.FIX_VAR);
+//                    variFirst_.setClassName(((ForEachTable)curr_).getImportedClassNameFirst());
+//                    a_.getInfosVars().addEntry(((ForEachTable)curr_).getVariableNameFirst(),variFirst_);
+//                    AnaLoopVariable loopFirst_ = new AnaLoopVariable();
+//                    loopFirst_.setIndexClassName(((ForEachTable)curr_).getImportedClassIndexName());
+//                    a_.getLoopsVars().addEntry(((ForEachTable)curr_).getVariableNameFirst(), loopFirst_);
+//                    AnaLocalVariable variSecond_ = new AnaLocalVariable();
+//                    variSecond_.setConstType(ConstType.FIX_VAR);
+//                    variSecond_.setClassName(((ForEachTable)curr_).getImportedClassNameSecond());
+//                    a_.getInfosVars().addEntry(((ForEachTable)curr_).getVariableNameSecond(),variSecond_);
+//                    AnaLoopVariable loopSecond_ = new AnaLoopVariable();
+//                    loopSecond_.setIndexClassName(((ForEachTable)curr_).getImportedClassIndexName());
+//                    a_.getLoopsVars().addEntry(((ForEachTable)curr_).getVariableNameSecond(), loopSecond_);
+//                }
+//                if (curr_ instanceof ForEachLoop) {
+//                    AnaLocalVariable vari_ = new AnaLocalVariable();
+//                    if (((ForEachLoop) curr_).isRefVariable()) {
+//                        vari_.setConstType(ConstType.REF_LOC_VAR);
+//                    } else {
+//                        vari_.setConstType(ConstType.FIX_VAR);
+//                    }
+//                    vari_.setClassName(((ForEachLoop)curr_).getImportedClassName());
+//                    a_.getInfosVars().addEntry(((ForEachLoop)curr_).getVariableName(),vari_);
+//                    AnaLoopVariable loop_ = new AnaLoopVariable();
+//                    loop_.setIndexClassName(((ForEachLoop)curr_).getImportedClassIndexName());
+//                    a_.getLoopsVars().addEntry(((ForEachLoop)curr_).getVariableName(), loop_);
+//                }
+//                if (curr_ instanceof ForIterativeLoop) {
+//                    AnaLocalVariable vari_ = new AnaLocalVariable();
+//                    vari_.setConstType(ConstType.FIX_VAR);
+//                    vari_.setClassName(((ForIterativeLoop)curr_).getImportedClassName());
+//                    a_.getInfosVars().addEntry(((ForIterativeLoop)curr_).getVariableName(),vari_);
+//                    AnaLoopVariable loop_ = new AnaLoopVariable();
+//                    loop_.setIndexClassName(((ForIterativeLoop)curr_).getImportedClassIndexName());
+//                    a_.getLoopsVars().addEntry(((ForIterativeLoop)curr_).getVariableName(), loop_);
+//                }
+//                if (curr_ instanceof ForMutableIterativeLoop) {
+//                    String imp_ = ((ForMutableIterativeLoop) curr_).getImportedClassName();
+//                    String ind_ = ((ForMutableIterativeLoop) curr_).getImportedClassIndexName();
+//                    for (String v: ((ForMutableIterativeLoop) curr_).getVariableNames()) {
+//                        AnaLocalVariable vari_ = new AnaLocalVariable();
+//                        if (((ForMutableIterativeLoop) curr_).isRefVariable()) {
+//                            vari_.setConstType(ConstType.REF_LOC_VAR);
+//                        } else {
+//                            vari_.setConstType(ConstType.LOC_VAR);
+//                        }
+//                        vari_.setClassName(imp_);
+//                        a_.getInfosVars().addEntry(v,vari_);
+//                        AnaLoopVariable loop_ = new AnaLoopVariable();
+//                        loop_.setIndexClassName(ind_);
+//                        a_.getLoopsVars().addEntry(v, loop_);
+//                    }
+//                }
+//                curr_ = curr_.getParent();
+//            }
+        }
+        if (m_ instanceof NamedFunctionBlock) {
+            ClassesUtil.prepare((NamedFunctionBlock)m_,a_);
+        }
+        if (c_.block instanceof InfoBlock) {
+            ClassesUtil.globalType(a_,((InfoBlock) c_.block).getDeclaringType());
+            if (((InfoBlock) c_.block).isStaticField()) {
+                a_.setAccessStaticContext(MethodAccessKind.STATIC);
+            } else {
+                a_.setAccessStaticContext(MethodAccessKind.INSTANCE);
+            }
+        }
+        RootBlock par_ = parent(m_);
+        if (par_ != null) {
+            ClassesUtil.globalType(a_, par_);
+            a_.setCurrentPkg(par_.getPackageName());
+        }
+        a_.setCurrentFile(file_);
+        MemberCallingsBlock memb_ = a_.getCurrentFct();
+        if (memb_ != null) {
+            a_.setAccessStaticContext(memb_.getStaticContext());
+        }
+        if (c_.block instanceof RootBlock) {
+            a_.setAccessStaticContext(MethodAccessKind.STATIC);
+            ClassesUtil.globalType(a_, (AccessedBlock) c_.block);
+        }
+//        if (a_.isAnnotAnalysis()) {
+//            a_.setAccessStaticContext(MethodAccessKind.STATIC);
+//        }
+        return a_;
+    }
+    private static RootBlock parent(MemberCallingsBlock _m) {
+        BracedBlock b_;
+        if (_m == null) {
+            b_ = null;
+        } else {
+            b_ = _m.getParent();
+        }
+        if (b_ instanceof RootBlock) {
+            return (RootBlock) b_;
+        }
+        return null;
+    }
+
     public static int beginPart(int _caret, FileBlock _file) {
         ResultExpressionOperationNode c_ = container(_caret, _file);
         if (c_.block instanceof TryEval || c_.block instanceof LabelAbruptBlock || c_.block instanceof FinallyEval || c_.block instanceof ElseCondition || c_.block instanceof DoBlock || c_.block instanceof DefaultCondition || c_.block instanceof UnclassedBracedBlock) {

@@ -28,7 +28,7 @@ public final class RunnableStruct extends LaunchableStruct {
 
     public static Struct invoke(Struct _instance, RunnableContextEl _r, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, ArgumentListCall _argList) {
         String base_ = StringExpUtil.getIdFromAllTypes(_instance.getClassName(_r));
-        ExecOverrideInfo mId_ = _rootBlock.getRedirections().getVal(_method,base_);
+        ExecOverrideInfo mId_ = _r.getClasses().getRedirections().get(_rootBlock.getNumberType()).getVal(_method,base_);
         if (mId_ == null) {
             _r.getCustInit().removeThreadFromList(_r);
             return NullStruct.NULL_VALUE;

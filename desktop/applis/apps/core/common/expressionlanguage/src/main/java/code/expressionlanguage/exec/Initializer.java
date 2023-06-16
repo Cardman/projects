@@ -13,4 +13,6 @@ public interface Initializer {
     Struct processInitAnnot(ContextEl _context, ExecFormattedRootBlock _className,ExecRootBlock _rootBlock);
 
     void loopCalling(ContextEl _owner, StackCall _stackCall);
+    boolean stopNormal(ContextEl _owner, StackCall _stackCall);
+    boolean exitAfterCallInt(ContextEl _owner, StackCall _stack);
 }

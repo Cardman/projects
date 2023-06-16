@@ -176,6 +176,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     public final void buildImportedTypes(AnalyzedPageEl _page) {
         _page.setCurrentBlock(this);
         _page.setCurrentFct(this);
+        _page.setAccessStaticContext(getStaticContext());
         buildInternImportedTypes(_page);
     }
 

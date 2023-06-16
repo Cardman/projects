@@ -82,6 +82,7 @@ public final class ElUtil {
         setSyntheticRoot(op_, _calcul);
         getSortedDescNodesReadOnly(op_, _calcul, _page, d_);
         _res.setRoot(op_);
+        _page.setAccessStaticContext(_calcul.getStaticBlock());
         return op_;
     }
 
@@ -143,27 +144,21 @@ public final class ElUtil {
     }
 
     private static void processDot(OperationNode _next, OperationNode _current, MethodOperation _par, AnalyzedPageEl _page) {
-        if (_par instanceof AbstractDotOperation) {
-            if (!(_next instanceof PossibleIntermediateDotted)) {
-                return;
-            }
-            PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _next;
-            check(_current, possible_, _page);
-            if (_current instanceof StaticCallAccessOperation){
-                possible_.setIntermediateDotted();
-                MethodAccessKind access_ = MethodAccessKind.STATIC_CALL;
-                if (!(_next instanceof LambdaOperation) && ((StaticCallAccessOperation)_current).isImplicit() && _page.getStaticContext() == MethodAccessKind.STATIC) {
-                    access_ = MethodAccessKind.STATIC;
-                }
-                possible_.setPreviousResultClass(_current.getResultClass(), access_);
-
-            } else {
-                MethodAccessKind static_ = MethodId.getKind(_current instanceof StaticAccessOperation);
-                possible_.setIntermediateDotted();
-                possible_.setPreviousResultClass(_current.getResultClass(), static_);
-
-            }
+        if (!(_par instanceof AbstractDotOperation) || !(_next instanceof PossibleIntermediateDotted)) {
+            return;
         }
+        PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _next;
+        check(_current, possible_, _page);
+        possible_.setIntermediateDotted();
+        MethodAccessKind access_;
+        if (!(_current instanceof StaticCallAccessOperation)) {
+            access_ = MethodId.getKind(_current instanceof StaticAccessOperation);
+        } else if (!(_next instanceof LambdaOperation) && ((StaticCallAccessOperation) _current).isImplicit() && _page.getStaticContext() == MethodAccessKind.STATIC) {
+            access_ = MethodAccessKind.STATIC;
+        } else {
+            access_ = MethodAccessKind.STATIC_CALL;
+        }
+        possible_.setPreviousResultClass(_current.getResultClass(), access_);
     }
 
     public static void check(OperationNode _current, PossibleIntermediateDotted _next, AnalyzedPageEl _page) {

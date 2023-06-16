@@ -89,7 +89,6 @@ public final class ForEachLoop extends AbstractForLoop implements ImportForEachL
     }
 
     private MethodAccessKind processVarTypes(AnalyzedPageEl _page) {
-        MemberCallingsBlock f_ = _page.getCurrentFct();
         listLoopExpressionContent.resolveIndex(this,_page);
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(listLoopExpressionContent.getVariableName(), _page);
         if (res_.isError()) {
@@ -114,7 +113,7 @@ public final class ForEachLoop extends AbstractForLoop implements ImportForEachL
         }
         _page.setSumOffset(res.getSumOffset());
         _page.zeroOffset();
-        return f_.getStaticContext();
+        return _page.getStaticContext();
     }
 
     public void inferArrayClass(AnaClassArgumentMatching _elt, AnalyzedPageEl _page) {

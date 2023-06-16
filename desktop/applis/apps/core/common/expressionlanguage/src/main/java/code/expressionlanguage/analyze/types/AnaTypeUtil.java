@@ -228,10 +228,7 @@ public final class AnaTypeUtil {
     }
 
     private static void staticInitType(AnalyzedPageEl _page, RootBlock _c) {
-        _page.setImporting(_c);
         _page.setImportingAcces(new TypeAccessor(_c.getFullName()));
-        _page.setImportingTypes(_c);
-        _page.setCurrentBlock(_c);
         ClassesUtil.globalType(_page, _c);
         StringList ints_ = _c.getStaticInitInterfaces();
         int len_ = ints_.size();
@@ -271,10 +268,7 @@ public final class AnaTypeUtil {
     }
 
     private static void recordType(AnalyzedPageEl _page, RootBlock _c) {
-        _page.setImporting(_c);
         _page.setImportingAcces(new TypeAccessor(_c.getFullName()));
-        _page.setImportingTypes(_c);
-        _page.setCurrentBlock(_c);
         ClassesUtil.globalType(_page, _c);
         StringList ints_ = _c.getInstInitInterfaces();
         int len_ = ints_.size();
@@ -434,7 +428,7 @@ public final class AnaTypeUtil {
                 if (!a_.isStaticField()) {
                     continue;
                 }
-                boolean allCst_ = allCst(_page, _i, a_);
+                boolean allCst_ = allCst(_page, _i, a_.getElements().getFieldName());
                 if (!allCst_) {
                     _filteredStatic.add(_i);
                 }
@@ -445,9 +439,9 @@ public final class AnaTypeUtil {
         }
     }
 
-    private static boolean allCst(AnalyzedPageEl _page, String _i, InfoBlock _a) {
+    public static boolean allCst(AnalyzedPageEl _page, String _i, CustList<String> _fields) {
         boolean allCst_ = true;
-        for (String n: _a.getElements().getFieldName()) {
+        for (String n: _fields) {
             StringMap<StringMap<Struct>> staticFields_ = _page.getStaticFields();
             if (NullStruct.def(NumParsers.getStaticField(new ClassField(_i, n), staticFields_)) == NullStruct.DEF_VALUE) {
                 allCst_ = false;
