@@ -12,7 +12,9 @@ import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.expressionlanguage.analyze.types.LocationsPartTypeUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -65,25 +67,8 @@ public final class ResultExpressionOperationNode {
             a_.setCurrentFct(m_);
             a_.setAccessStaticContext(m_.getStaticContext());
             a_.getMappingLocal().addAllEntries(m_.getRefMappings());
-//            AbsBk curr_ = c_.block;
-//            while (curr_ != m_) {
-//                AbsBk prev_ = curr_;
-//                while (prev_ != null) {
-//                    if (prev_ instanceof DeclareVariable) {
-//                        String imp_ = ((DeclareVariable) prev_).getImportedClassName();
-//                        for (String v: ((DeclareVariable) prev_).getVariableNames()) {
-//                            AnaLocalVariable vari_ = new AnaLocalVariable();
-//                            if (((DeclareVariable) prev_).isRefVariable()) {
-//                                vari_.setConstType(ConstType.REF_LOC_VAR);
-//                            } else {
-//                                vari_.setConstType(ConstType.LOC_VAR);
-//                            }
-//                            vari_.setClassName(imp_);
-//                            a_.getInfosVars().addEntry(v,vari_);
-//                        }
-//                    }
-//                    prev_ = prev_.getPreviousSibling();
-//                }
+        }
+        feedVars(c_, a_);
 //                if (curr_ instanceof ForEachTable) {
 //                    AnaLocalVariable variFirst_ = new AnaLocalVariable();
 //                    variFirst_.setConstType(ConstType.FIX_VAR);
@@ -139,9 +124,6 @@ public final class ResultExpressionOperationNode {
 //                        a_.getLoopsVars().addEntry(v, loop_);
 //                    }
 //                }
-//                curr_ = curr_.getParent();
-//            }
-        }
         if (m_ instanceof NamedFunctionBlock) {
             ClassesUtil.prepare((NamedFunctionBlock)m_,a_);
         }
@@ -173,6 +155,42 @@ public final class ResultExpressionOperationNode {
 //            a_.setAccessStaticContext(MethodAccessKind.STATIC);
 //        }
         return a_;
+    }
+
+    private static void feedVars(ResultExpressionOperationNode _c, AnalyzedPageEl _a) {
+        AbsBk curr_ = _c.block;
+        while (curr_ != null) {
+            if (curr_ instanceof MemberCallingsBlock) {
+                break;
+            }
+            if (curr_ instanceof RootBlock) {
+                curr_ = null;
+            } else {
+                localVarsLine(_a,curr_);
+                curr_ = curr_.getParent();
+            }
+        }
+    }
+
+    private static void localVarsLine(AnalyzedPageEl _a,AbsBk _curr) {
+        AbsBk prev_ = _curr;
+        while (prev_ != null) {
+            if (prev_ instanceof DeclareVariable) {
+                String imp_ = ((DeclareVariable) prev_).getImportedClassName();
+                for (String v: ((DeclareVariable) prev_).getVariableNames()) {
+                    AnaLocalVariable vari_ = new AnaLocalVariable();
+                    if (((DeclareVariable) prev_).isRefVariable()) {
+                        vari_.setConstType(ConstType.REF_LOC_VAR);
+                    } else {
+                        vari_.setConstType(ConstType.LOC_VAR);
+                    }
+                    vari_.setFinalVariable(((DeclareVariable) prev_).isFinalVariable());
+                    vari_.setClassName(imp_);
+                    _a.getInfosVars().addEntry(v,vari_);
+                }
+            }
+            prev_ = prev_.getPreviousSibling();
+        }
     }
     private static RootBlock parent(MemberCallingsBlock _m) {
         BracedBlock b_;
