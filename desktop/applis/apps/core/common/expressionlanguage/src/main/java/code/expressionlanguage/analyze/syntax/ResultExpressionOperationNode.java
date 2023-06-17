@@ -70,23 +70,6 @@ public final class ResultExpressionOperationNode {
             a_.getMappingLocal().addAllEntries(m_.getRefMappings());
         }
         feedVars(c_, a_);
-//                if (curr_ instanceof ForMutableIterativeLoop) {
-//                    String imp_ = ((ForMutableIterativeLoop) curr_).getImportedClassName();
-//                    String ind_ = ((ForMutableIterativeLoop) curr_).getImportedClassIndexName();
-//                    for (String v: ((ForMutableIterativeLoop) curr_).getVariableNames()) {
-//                        AnaLocalVariable vari_ = new AnaLocalVariable();
-//                        if (((ForMutableIterativeLoop) curr_).isRefVariable()) {
-//                            vari_.setConstType(ConstType.REF_LOC_VAR);
-//                        } else {
-//                            vari_.setConstType(ConstType.LOC_VAR);
-//                        }
-//                        vari_.setClassName(imp_);
-//                        a_.getInfosVars().addEntry(v,vari_);
-//                        AnaLoopVariable loop_ = new AnaLoopVariable();
-//                        loop_.setIndexClassName(ind_);
-//                        a_.getLoopsVars().addEntry(v, loop_);
-//                    }
-//                }
         if (m_ instanceof NamedFunctionBlock) {
             ClassesUtil.prepare((NamedFunctionBlock)m_,a_);
         }
@@ -179,6 +162,28 @@ public final class ResultExpressionOperationNode {
                 AnaLoopVariable loopSecond_ = new AnaLoopVariable();
                 loopSecond_.setIndexClassName(((ForEachTable)_curr).getImportedClassIndexName());
                 _a.getLoopsVars().addEntry(((ForEachTable)_curr).getVariableNameSecond(), loopSecond_);
+            }
+        }
+        chgVars(_a, _curr);
+    }
+
+    private static void chgVars(AnalyzedPageEl _a, AbsBk _curr) {
+        if (_curr instanceof ForMutableIterativeLoop) {
+            String imp_ = ((ForMutableIterativeLoop) _curr).getImportedClassName();
+            String ind_ = ((ForMutableIterativeLoop) _curr).getImportedClassIndexName();
+            for (String v: ((ForMutableIterativeLoop) _curr).getVariableNames()) {
+                AnaLocalVariable vari_ = new AnaLocalVariable();
+                if (((ForMutableIterativeLoop) _curr).isRefVariable()) {
+                    vari_.setConstType(ConstType.REF_LOC_VAR);
+                } else {
+                    vari_.setConstType(ConstType.LOC_VAR);
+                }
+                vari_.setFinalVariable(((ForMutableIterativeLoop) _curr).isFinalVariable());
+                vari_.setClassName(imp_);
+                _a.getInfosVars().addEntry(v,vari_);
+                AnaLoopVariable loop_ = new AnaLoopVariable();
+                loop_.setIndexClassName(ind_);
+                _a.getLoopsVars().addEntry(v, loop_);
             }
         }
     }
