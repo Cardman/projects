@@ -20,4 +20,18 @@ public final class ProcessDbgEvalSwitchTest extends ProcessDbgCommon {
         Struct cont_ = valueDbg("t-u","pkg.Ex","exmeth",92,files_);
         assertEq(5,((NumberStruct)cont_).intStruct());
     }
+    @Test
+    public void test3() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int t=8;int u=3;return switch(t+u){case var v?:v==12; return 1;default w; return 1;};}}");
+        Struct cont_ = valueDbg("(t-u)*w","pkg.Ex","exmeth",129,files_);
+        assertEq(55,((NumberStruct)cont_).intStruct());
+    }
+    @Test
+    public void test4() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int t=8;int u=3;return switch(t+u){case 11?:t+u==12; return 1;default; return 1;};}}");
+        Struct cont_ = valueDbg("t-u","pkg.Ex","exmeth",126,files_);
+        assertEq(5,((NumberStruct)cont_).intStruct());
+    }
 }

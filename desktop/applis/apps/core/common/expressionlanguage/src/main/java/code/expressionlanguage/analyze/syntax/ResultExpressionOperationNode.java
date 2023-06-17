@@ -200,6 +200,16 @@ public final class ResultExpressionOperationNode {
                 _a.getInfosVars().addEntry(w_.getFilterContent().getVariableName(), lv_);
             }
         }
+        if (_curr instanceof DefaultCondition) {
+            DefaultCondition w_ = (DefaultCondition) _curr;
+            if (!w_.getVariableName().isEmpty()) {
+                AnaLocalVariable lv_ = new AnaLocalVariable();
+                lv_.setClassName(w_.getInstanceTest());
+                lv_.setConstType(ConstType.FIX_VAR);
+                lv_.setFinalVariable(true);
+                _a.getInfosVars().addEntry(w_.getVariableName(), lv_);
+            }
+        }
     }
 
     private static void localVarsLine(AnalyzedPageEl _a,AbsBk _curr) {
