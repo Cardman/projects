@@ -1,5 +1,6 @@
 package code.expressionlanguage.dbg;
 
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
@@ -40,5 +41,12 @@ public final class ProcessDbgEvalGeneForTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){return exmeth(3,4);}public static int exmeth(int t, int u){int v = 1;for(int àçéèñùâäêëÿûüîïôö=t-1;àçéèñùâäêëÿûüîïôö<u-1;àçéèñùâäêëÿûüîïôö++){v+=àçéèñùâäêëÿûüîïôö;}return v;}}");
         Struct cont_ = valueDbg("àçéèñùâäêëÿûüîïôö","pkg.Ex","exmeth",125,files_);
         assertEq(0,((NumberStruct)cont_).intStruct());
+    }
+    @Test
+    public void test6() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){return exmeth(3,4);}public static int exmeth(int t, int u){int v = 1;for(int àçéèñùâäêëÿûüîïôö=t-1;àçéèñùâäêëÿûüîïôö<u-1;àçéèñùâäêëÿûüîïôö++){v+=àçéèñùâäêëÿûüîïôö;}return v;}}");
+        ReportedMessages cont_ = valueDbgKo("àçéèñùâäêëÿûüîïôö","pkg.Ex","exmeth",219,files_);
+        assertTrue(cont_.notAllEmptyErrors());
     }
 }
