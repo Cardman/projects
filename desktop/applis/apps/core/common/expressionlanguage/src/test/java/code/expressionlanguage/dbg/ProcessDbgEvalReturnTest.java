@@ -41,4 +41,39 @@ public final class ProcessDbgEvalReturnTest extends ProcessDbgCommon {
         Struct cont_ = valueDbg("(t+u)*v","pkg.Ex","exmeth",142,files_);
         assertEq(22,((NumberStruct)cont_).intStruct());
     }
+    @Test
+    public void test6() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){return exmeth(8,3);}public static int exmeth(int t, int u){Fct<int,int,int> fct=(t,u)->{int v = Math.mod(t+#t,u+#u);return v;};return fct.call(23,27);}}");
+        Struct cont_ = valueDbg("((int t,int u,int v:int)->t+u+v).call(#t,#u,v)","pkg.Ex","exmeth",171,files_);
+        assertEq(12,((NumberStruct)cont_).intStruct());
+    }
+    @Test
+    public void test7() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){return exmeth(8,3);}public static int exmeth(int t, int u){Fct<int,int,int> fct=(t,u)->{int v = Math.mod(t+#t,u+#u);return v;};return fct.call(23,27);}}");
+        Struct cont_ = valueDbg("((int t,int u,int v:int)->t+u+v).call(t,u,v)","pkg.Ex","exmeth",171,files_);
+        assertEq(51,((NumberStruct)cont_).intStruct());
+    }
+    @Test
+    public void test8() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){return exmeth(8,3);}public static int exmeth(int t, int u){Fct<int,int,int> fct=(t,u)->{int v = Math.mod(t+#t,u+#u);return v;};return switch(2){case 2;return fct.call(23,27);default;return 1;};}}");
+        Struct cont_ = valueDbg("switch[int](2){case 2;return #t+#u+v;default;return-1;}","pkg.Ex","exmeth",171,files_);
+        assertEq(12,((NumberStruct)cont_).intStruct());
+    }
+    @Test
+    public void test9() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){return exmeth(8,3);}public static int exmeth(int t, int u){Fct<int,int,int> fct=(t,u)->{int v = Math.mod(t+#t,u+#u);return v;};return switch(2){case 2;return fct.call(23,27);default;return 1;};}}");
+        Struct cont_ = valueDbg("switch[int](2){case 2;return t+u+v;default;return-1;}","pkg.Ex","exmeth",171,files_);
+        assertEq(51,((NumberStruct)cont_).intStruct());
+    }
+    @Test
+    public void test10() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){return new MyInt1(){public int field = 5;public int m(int a){return 3*a+--field;}}.m(2);}}public interface pkg.MyInt1{public int m(int a);}public interface pkg.MyInt2{public int m(int a);}");
+        Struct cont_ = valueDbg("((MyInt2)new(){public int field2 = 5;public int m(int a){return 3*a+--field2;}}).m(field-3)","pkg.Ex","exmeth",116,files_);
+        assertEq(10,((NumberStruct)cont_).intStruct());
+    }
 }
