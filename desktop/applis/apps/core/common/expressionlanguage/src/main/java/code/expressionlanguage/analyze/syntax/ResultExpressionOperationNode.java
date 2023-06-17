@@ -165,6 +165,7 @@ public final class ResultExpressionOperationNode {
             }
         }
         chgVars(_a, _curr);
+        caseCatch(_a, _curr);
     }
 
     private static void chgVars(AnalyzedPageEl _a, AbsBk _curr) {
@@ -184,6 +185,19 @@ public final class ResultExpressionOperationNode {
                 AnaLoopVariable loop_ = new AnaLoopVariable();
                 loop_.setIndexClassName(ind_);
                 _a.getLoopsVars().addEntry(v, loop_);
+            }
+        }
+    }
+
+    private static void caseCatch(AnalyzedPageEl _a, AbsBk _curr) {
+        if (_curr instanceof WithFilterContent) {
+            WithFilterContent w_ = (WithFilterContent) _curr;
+            if (!w_.getFilterContent().getVariableName().isEmpty()) {
+                AnaLocalVariable lv_ = new AnaLocalVariable();
+                lv_.setClassName(w_.getFilterContent().getImportedType());
+                lv_.setConstType(ConstType.FIX_VAR);
+                lv_.setFinalVariable(true);
+                _a.getInfosVars().addEntry(w_.getFilterContent().getVariableName(), lv_);
             }
         }
     }
