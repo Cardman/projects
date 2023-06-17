@@ -63,4 +63,25 @@ public final class ProcessDbgEvalLineTest extends ProcessDbgCommon {
         Struct cont_ = valueDbg("t+u","pkg.Ex","exmeth",141,files_);
         assertEq(11,((NumberStruct)cont_).intStruct());
     }
+    @Test
+    public void test9() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){return exmeth(8,3);}public static int exmeth(int t, int u){int v = Math.mod(t,u);return v;}}");
+        Struct cont_ = valueDbg("t+u+\"_\".length()","pkg.Ex","exmeth",111,files_);
+        assertEq(12,((NumberStruct)cont_).intStruct());
+    }
+    @Test
+    public void test10() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){return exmeth(8,3);}public static int exmeth(int t, int u){int v = Math.mod(t,u);return v;}}");
+        Struct cont_ = valueDbg("t+u+class(Ex).getName().length()","pkg.Ex","exmeth",111,files_);
+        assertEq(17,((NumberStruct)cont_).intStruct());
+    }
+    @Test
+    public void test11() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public int field=4;public static int exmeth(){return new Ex().exmeth(8,3);}public int exmeth(int t, int u){int v = Math.mod(t,u);return v;}}");
+        Struct cont_ = valueDbg("t+u+field","pkg.Ex","exmeth",132,files_);
+        assertEq(15,((NumberStruct)cont_).intStruct());
+    }
 }
