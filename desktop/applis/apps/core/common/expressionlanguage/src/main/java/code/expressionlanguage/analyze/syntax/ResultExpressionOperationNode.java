@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.expressionlanguage.analyze.types.LocationsPartTypeUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.CstFieldInfo;
@@ -98,15 +99,6 @@ public final class ResultExpressionOperationNode {
 //                    loop_.setIndexClassName(((ForEachLoop)curr_).getImportedClassIndexName());
 //                    a_.getLoopsVars().addEntry(((ForEachLoop)curr_).getVariableName(), loop_);
 //                }
-//                if (curr_ instanceof ForIterativeLoop) {
-//                    AnaLocalVariable vari_ = new AnaLocalVariable();
-//                    vari_.setConstType(ConstType.FIX_VAR);
-//                    vari_.setClassName(((ForIterativeLoop)curr_).getImportedClassName());
-//                    a_.getInfosVars().addEntry(((ForIterativeLoop)curr_).getVariableName(),vari_);
-//                    AnaLoopVariable loop_ = new AnaLoopVariable();
-//                    loop_.setIndexClassName(((ForIterativeLoop)curr_).getImportedClassIndexName());
-//                    a_.getLoopsVars().addEntry(((ForIterativeLoop)curr_).getVariableName(), loop_);
-//                }
 //                if (curr_ instanceof ForMutableIterativeLoop) {
 //                    String imp_ = ((ForMutableIterativeLoop) curr_).getImportedClassName();
 //                    String ind_ = ((ForMutableIterativeLoop) curr_).getImportedClassIndexName();
@@ -167,6 +159,15 @@ public final class ResultExpressionOperationNode {
                 curr_ = null;
             } else {
                 localVarsLine(_a,curr_);
+                if (curr_ instanceof ForIterativeLoop && _c.block != curr_) {
+                    AnaLocalVariable vari_ = new AnaLocalVariable();
+                    vari_.setConstType(ConstType.FIX_VAR);
+                    vari_.setClassName(((ForIterativeLoop)curr_).getImportedClassName());
+                    _a.getInfosVars().addEntry(((ForIterativeLoop)curr_).getVariableName(),vari_);
+                    AnaLoopVariable loop_ = new AnaLoopVariable();
+                    loop_.setIndexClassName(((ForIterativeLoop)curr_).getImportedClassIndexName());
+                    _a.getLoopsVars().addEntry(((ForIterativeLoop)curr_).getVariableName(), loop_);
+                }
                 curr_ = curr_.getParent();
             }
         }

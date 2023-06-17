@@ -157,6 +157,13 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return endKo(_dyn,_class,_meth,res_);
     }
 
+    protected ReportedMessages valueDbgKo(String _dyn, String _class, String _meth, int _caret, StringMap<String> _files) {
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
+        res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(ana_.getFile().getFileName(),_caret,res_);
+        return endKo(_dyn,_class,_meth,res_);
+    }
+
     private Struct end(String _dyn, String _class, String _meth, ResultContext _res) {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
