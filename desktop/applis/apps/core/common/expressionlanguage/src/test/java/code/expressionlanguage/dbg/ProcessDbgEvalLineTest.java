@@ -56,4 +56,11 @@ public final class ProcessDbgEvalLineTest extends ProcessDbgCommon {
         Struct cont_ = valueDbg("t+u","pkg.Ex","exmeth",57,files_);
         assertEq(11,((NumberStruct)cont_).intStruct());
     }
+    @Test
+    public void test8() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){return exmeth(8,3);}public static int exmeth(int t, int u){return switch[int](1){default;int v = Math.mod(t,u);return v;};}}");
+        Struct cont_ = valueDbg("t+u","pkg.Ex","exmeth",141,files_);
+        assertEq(11,((NumberStruct)cont_).intStruct());
+    }
 }

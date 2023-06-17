@@ -56,9 +56,11 @@ public final class ResultExpressionOperationNode {
             a_.getCache().getLocalVariables().addAllElts(((NamedCalledFunctionBlock) m_).getCache().getLocalVariables());
             a_.getCache().getLoopVariables().addAllElts(((NamedCalledFunctionBlock) m_).getCache().getLoopVariables());
         }
-//        if (m_ instanceof SwitchMethodBlock) {
-//            a_.setupFctChars((SwitchMethodBlock) m_);
-//        }
+        if (m_ instanceof SwitchMethodBlock) {
+            a_.setupFctChars((SwitchMethodBlock) m_);
+            a_.getCache().getLocalVariables().addAllElts(((SwitchMethodBlock) m_).getCache().getLocalVariables());
+            a_.getCache().getLoopVariables().addAllElts(((SwitchMethodBlock) m_).getCache().getLoopVariables());
+        }
         if (m_ != null) {
             a_.setCurrentFct(m_);
             a_.setAccessStaticContext(m_.getStaticContext());
@@ -150,6 +152,8 @@ public final class ResultExpressionOperationNode {
             } else {
                 a_.setAccessStaticContext(MethodAccessKind.INSTANCE);
             }
+            a_.setCurrentFct(null);
+            a_.getMappingLocal().addAllEntries(((InfoBlock) c_.block).getDeclaringType().getRefMappings());
         }
         RootBlock par_ = parent(m_);
         if (par_ != null) {
