@@ -76,4 +76,11 @@ public final class ProcessDbgEvalReturnTest extends ProcessDbgCommon {
         Struct cont_ = valueDbg("((MyInt2)new(){public int field2 = 5;public int m(int a){return 3*a+--field2;}}).m(field-3)","pkg.Ex","exmeth",116,files_);
         assertEq(10,((NumberStruct)cont_).intStruct());
     }
+    @Test
+    public void test11() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){return new MyInt1(){public int field = 5;public int m(int a){return 3*a+--field;}}.m(2);}}public interface pkg.MyInt1{public int m(int a);}public interface pkg.MyInt2{public int m(int a);}");
+        Struct cont_ = valueDbg("((MyInt2)new MyInt2(){public int field2 = 5;public int m(int a){return 3*a+--field2;}}).m(field-3)","pkg.Ex","exmeth",116,files_);
+        assertEq(10,((NumberStruct)cont_).intStruct());
+    }
 }
