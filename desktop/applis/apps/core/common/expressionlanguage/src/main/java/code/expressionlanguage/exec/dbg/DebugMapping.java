@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.dbg;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -13,7 +14,7 @@ public final class DebugMapping {
     private final CustList<String> typesInit = new CustList<String>();
     private String initClass="";
     private final BreakPointBlockList breakPointsBlock = new BreakPointBlockList();
-    private final CustList<String> exceptions = new CustList<String>();
+    private final StringMap<ConditionReturn> exceptions = new StringMap<ConditionReturn>();
     private final boolean debugging;
 
     public DebugMapping(boolean _d) {
@@ -30,7 +31,7 @@ public final class DebugMapping {
         return breakPointsBlock;
     }
 
-    public CustList<String> getExceptions() {
+    public StringMap<ConditionReturn> getExceptions() {
         return exceptions;
     }
 

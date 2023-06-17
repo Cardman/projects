@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
@@ -338,15 +339,14 @@ public abstract class AbstractPageEl {
     public boolean stopBreakPoint(ContextEl _context, StackCall _stackCall) {
         if (checkBreakPoint(_stackCall)&&!isVisited()) {
             setVisited(true);
-            if (_stackCall.getCallingState() instanceof CustomFoundExc) {
-                Struct e_ = ((CustomFoundExc) _stackCall.getCallingState()).getStruct();
-                if (StringUtil.contains(_context.getClasses().getDebugMapping().getExceptions(),e_.getClassName(_context))) {
-                    return true;
-                }
+            if (stopExc(_context, _stackCall)) {
+                _stackCall.setGlobalOffset(getGlobalOffset());
+                return true;
             }
             for (int i : list(_stackCall)) {
                 BreakPoint bp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNull(getFile(), i);
-                if (stopCurrentBp(bp_, i)) {
+                if (stopCurrentBp(bp_)) {
+                    _stackCall.setGlobalOffset(i);
                     return true;
                 }
             }
@@ -354,13 +354,22 @@ public abstract class AbstractPageEl {
         }
         return false;
     }
-
-    private boolean stopCurrentBp(BreakPoint _bp, int _i) {
-        boolean s_ = stopCurrentBp(_bp);
-        if (s_) {
-            setGlobalOffset(_i);
+    private boolean stopExc(ContextEl _context, StackCall _stackCall) {
+        AbstractStask stLast_ = tryGetLastStack();
+        ExecBlock bl_ = getBlock();
+        if (stLast_ instanceof TryBlockStack && bl_ instanceof ExecAbstractCatchEval) {
+            Struct e_ = ((TryBlockStack) stLast_).getException();
+            ConditionReturn st_ = _context.getClasses().getDebugMapping().getExceptions().getVal(e_.getClassName(_context));
+            if ((st_ == ConditionReturn.YES || st_ == ConditionReturn.CALL_EX) && ExecHelperBlocks.firstMatch(_context, _stackCall, ((ExecAbstractCatchEval)bl_).getContent(), e_, ((ExecAbstractCatchEval)bl_).isCatchAll()) && sizeEl() < 2) {
+                return true;
+            }
         }
-        return s_;
+        if (_stackCall.getCallingState() instanceof CustomFoundExc) {
+            Struct e_ = ((CustomFoundExc) _stackCall.getCallingState()).getStruct();
+            ConditionReturn st_ = _context.getClasses().getDebugMapping().getExceptions().getVal(e_.getClassName(_context));
+            return st_ == ConditionReturn.NO || st_ == ConditionReturn.CALL_EX;
+        }
+        return false;
     }
     private boolean stopCurrentBp(BreakPoint _bp) {
         return _bp.isEnabled() && (!_bp.isEnabledChgtType() || _bp.isInstanceType() && this instanceof AbstractCallingInstancingPageEl || _bp.isStaticType() && this instanceof StaticInitPageEl);

@@ -599,6 +599,24 @@ public final class ExecHelperBlocks {
         return -1;
     }
 
+    public static boolean firstMatch(ContextEl _cont, AbstractStackCall _stack, ExecFilterContent _in, Struct _arg, boolean _all) {
+        if (_all) {
+            return true;
+        }
+        int m_ = _in.getList().match(_arg, _cont);
+        if (m_ > -1) {
+            return true;
+        }
+        String cl_ = _in.getImportedClassName();
+        if (!cl_.isEmpty()) {
+            if (_arg == NullStruct.NULL_VALUE) {
+                return false;
+            }
+            String name_ = _stack.formatVarType(cl_);
+            return ExecInherits.safeObject(name_, _arg.getClassName(_cont), _cont) == ErrorType.NOTHING;
+        }
+        return false;
+    }
     private static void putVar(AbstractStackCall _stack, ExecFilterContent _in, String _type, Struct _arg) {
         String varName_ = _in.getVariableName();
         if (!varName_.isEmpty()) {

@@ -27,6 +27,8 @@ public final class StackCall implements AbstractStackCall {
     private final CustomSeedGene seedCust;
     private boolean stoppedBreakPoint;
     private boolean checkingException;
+
+    private int globalOffset;
     public StackCall(InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
         initializingTypeInfos = new InitializingTypeInfos();
         initializingTypeInfos.setInitEnums(_readOnlyOthers);
@@ -182,5 +184,13 @@ public final class StackCall implements AbstractStackCall {
 
     public void setCheckingException(boolean _c) {
         this.checkingException = _c;
+    }
+
+    public int getGlobalOffset() {
+        return globalOffset;
+    }
+
+    public void setGlobalOffset(int _g) {
+        this.globalOffset = _g;
     }
 }
