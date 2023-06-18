@@ -58,20 +58,28 @@ public final class ResultExpressionOperationNode {
             a_.setupFctChars((NamedCalledFunctionBlock) m_);
             a_.getCache().getLocalVariables().addAllElts(((NamedCalledFunctionBlock) m_).getCache().getLocalVariables());
             a_.getCache().getLoopVariables().addAllElts(((NamedCalledFunctionBlock) m_).getCache().getLoopVariables());
-        }
-        if (m_ instanceof SwitchMethodBlock) {
+        } else if (m_ instanceof SwitchMethodBlock) {
             a_.setupFctChars((SwitchMethodBlock) m_);
             a_.getCache().getLocalVariables().addAllElts(((SwitchMethodBlock) m_).getCache().getLocalVariables());
             a_.getCache().getLoopVariables().addAllElts(((SwitchMethodBlock) m_).getCache().getLoopVariables());
+        } else if (m_ instanceof OperatorBlock) {
+            a_.setImporting((OperatorBlock)m_);
+            a_.setImportingTypes((OperatorBlock)m_);
+            a_.setCurrentPkg(a_.getDefaultPkg());
+        } else {
+            RootBlock par_ = parent(m_);
+            if (par_ != null) {
+                ClassesUtil.globalType(a_, par_);
+                a_.setCurrentPkg(par_.getPackageName());
+            }
         }
         if (m_ != null) {
             a_.setCurrentFct(m_);
             a_.setAccessStaticContext(m_.getStaticContext());
-            a_.getMappingLocal().addAllEntries(m_.getRefMappings());
         }
         feedVars(c_, a_);
-        if (m_ instanceof NamedFunctionBlock) {
-            ClassesUtil.prepare((NamedFunctionBlock)m_,a_);
+        if (m_ != null) {
+            ClassesUtil.prepare(m_, a_);
         }
         if (c_.block instanceof InfoBlock) {
             ClassesUtil.globalType(a_,((InfoBlock) c_.block).getDeclaringType());
@@ -80,19 +88,11 @@ public final class ResultExpressionOperationNode {
             } else {
                 a_.setAccessStaticContext(MethodAccessKind.INSTANCE);
             }
+            a_.setCurrentPkg(((InfoBlock) c_.block).getDeclaringType().getPackageName());
             a_.setCurrentFct(null);
             a_.getMappingLocal().addAllEntries(((InfoBlock) c_.block).getDeclaringType().getRefMappings());
         }
-        RootBlock par_ = parent(m_);
-        if (par_ != null) {
-            ClassesUtil.globalType(a_, par_);
-            a_.setCurrentPkg(par_.getPackageName());
-        }
         a_.setCurrentFile(file_);
-        MemberCallingsBlock memb_ = a_.getCurrentFct();
-        if (memb_ != null) {
-            a_.setAccessStaticContext(memb_.getStaticContext());
-        }
         if (c_.block instanceof RootBlock) {
             a_.setAccessStaticContext(MethodAccessKind.STATIC);
             ClassesUtil.globalType(a_, (AccessedBlock) c_.block);

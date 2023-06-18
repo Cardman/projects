@@ -52,6 +52,10 @@ public final class ClassesUtil {
         } else {
             validateSimFinals(_page);
         }
+        checkEnd(_page);
+    }
+
+    public static void checkEnd(AnalyzedPageEl _page) {
         for (RootBlock c: _page.getAllGroupFoundTypes()) {
             globalType(_page, c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
@@ -340,11 +344,7 @@ public final class ClassesUtil {
             copy_.setImportingTypes(o);
             copy_.setCurrentPkg(copy_.getDefaultPkg());
             copy_.setCurrentFile(o.getFile());
-            StringList params_ = o.getParametersNames();
-            StringList types_ = o.getImportedParametersTypes();
-            prepareParams(copy_,o.getParametersNamesOffset(),o.getParamErrors(), params_, o.getParametersRef(), types_, o.isVarargs());
-            copy_.getMappingLocal().clear();
-            copy_.getMappingLocal().putAllMap(o.getRefMappings());
+            prepare(o,copy_);
             o.buildFctInstructionsReadOnly(copy_);
             AnalyzingEl a_ = copy_.getAnalysisAss();
             a_.setVariableIssue(copy_.isVariableIssue());
@@ -472,11 +472,7 @@ public final class ClassesUtil {
             _page.getCache().getLoopVariables().clear();
             _page.getCache().getLocalVariables().addAllElts(e.getCache().getLocalVariables());
             _page.getCache().getLoopVariables().addAllElts(e.getCache().getLoopVariables());
-            StringList params_ = e.getParametersNames();
-            StringList types_ = e.getImportedParametersTypes();
-            prepareParams(_page, e.getParametersNamesOffset(), e.getParamErrors(),params_,e.getParametersRef(), types_, e.isVarargs());
-            _page.getMappingLocal().clear();
-            _page.getMappingLocal().putAllMap(e.getRefMappings());
+            prepare(e,_page);
             e.buildFctInstructionsReadOnly(_page);
             AnalyzingEl a_ = _page.getAnalysisAss();
             a_.setVariableIssue(_page.isVariableIssue());
@@ -491,8 +487,7 @@ public final class ClassesUtil {
             _page.getCache().getLoopVariables().clear();
             _page.getCache().getLocalVariables().addAllElts(e.getCache().getLocalVariables());
             _page.getCache().getLoopVariables().addAllElts(e.getCache().getLoopVariables());
-            _page.getMappingLocal().clear();
-            _page.getMappingLocal().putAllMap(e.getRefMappings());
+            prepare(e,_page);
             e.buildFctInstructionsReadOnly(_page);
             AnalyzingEl a_ = _page.getAnalysisAss();
             a_.setVariableIssue(_page.isVariableIssue());
@@ -2066,8 +2061,7 @@ public final class ClassesUtil {
                 _page.setCurrentPkg(_c.getPackageName());
                 _page.setCurrentFile(_c.getFile());
                 StaticBlock method_ = (StaticBlock) b;
-                _page.getMappingLocal().clear();
-                _page.getMappingLocal().putAllMap(method_.getRefMappings());
+                prepare(method_,_page);
                 method_.buildFctInstructionsReadOnly(_page);
                 AnalyzingEl a_ = _page.getAnalysisAss();
                 a_.setVariableIssue(_page.isVariableIssue());
@@ -2125,8 +2119,7 @@ public final class ClassesUtil {
                 _page.setCurrentPkg(_c.getPackageName());
                 _page.setCurrentFile(_c.getFile());
                 InstanceBlock method_ = (InstanceBlock) b;
-                _page.getMappingLocal().clear();
-                _page.getMappingLocal().putAllMap(method_.getRefMappings());
+                prepare(method_,_page);
                 method_.buildFctInstructionsReadOnly(_page);
                 AnalyzingEl a_ = _page.getAnalysisAss();
                 a_.setVariableIssue(_page.isVariableIssue());
@@ -2144,11 +2137,7 @@ public final class ClassesUtil {
                 _page.setCurrentPkg(_c.getPackageName());
                 _page.setCurrentFile(_c.getFile());
                 ConstructorBlock method_ = (ConstructorBlock) b;
-                StringList params_ = method_.getParametersNames();
-                StringList types_ = method_.getImportedParametersTypes();
-                prepareParams(_page, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, method_.getParametersRef(), types_, method_.isVarargs());
-                _page.getMappingLocal().clear();
-                _page.getMappingLocal().putAllMap(method_.getRefMappings());
+                prepare(method_,_page);
                 method_.buildFctInstructionsReadOnly(_page);
                 AnalyzingEl a_ = _page.getAnalysisAss();
                 a_.setVariableIssue(_page.isVariableIssue());
@@ -2170,16 +2159,10 @@ public final class ClassesUtil {
                 globalType(_page, c);
                 _page.setCurrentPkg(c.getPackageName());
                 _page.setCurrentFile(c.getFile());
-                StringList params_ = method_.getParametersNames();
-                StringList types_ = method_.getImportedParametersTypes();
-                prepareParams(_page,method_.getParametersNamesOffset(), method_.getParamErrors(),params_, method_.getParametersRef(), types_, method_.isVarargs());
+                prepare(method_,_page);
                 if (isStdOrExplicit(method_)) {
                     method_.getUsedParameters().addAllEntries(_page.getInfosVars());
-                } else {
-                    processValueParam(_page, method_);
                 }
-                _page.getMappingLocal().clear();
-                _page.getMappingLocal().putAllMap(method_.getRefMappings());
                 method_.buildFctInstructionsReadOnly(_page);
                 AnalyzingEl a_ = _page.getAnalysisAss();
                 a_.setVariableIssue(_page.isVariableIssue());
@@ -2187,15 +2170,17 @@ public final class ClassesUtil {
             }
         }
     }
-    public static void prepare(NamedFunctionBlock _name,AnalyzedPageEl _page) {
-        StringList params_ = _name.getParametersNames();
-        StringList types_ = _name.getImportedParametersTypes();
-        prepareParams(_page,_name.getParametersNamesOffset(), _name.getParamErrors(),params_, _name.getParametersRef(), types_, _name.isVarargs());
-        if (_name instanceof NamedCalledFunctionBlock&&!isStdOrExplicit((NamedCalledFunctionBlock)_name)) {
+    public static void prepare(MemberCallingsBlock _name,AnalyzedPageEl _page) {
+        if (_name instanceof NamedFunctionBlock) {
+            StringList params_ = ((NamedFunctionBlock)_name).getParametersNames();
+            StringList types_ = ((NamedFunctionBlock)_name).getImportedParametersTypes();
+            prepareParams(_page,((NamedFunctionBlock)_name).getParametersNamesOffset(), ((NamedFunctionBlock)_name).getParamErrors(),params_, ((NamedFunctionBlock)_name).getParametersRef(), types_, ((NamedFunctionBlock)_name).isVarargs());
+        }
+        if (_name instanceof NamedCalledFunctionBlock) {
             processValueParam(_page, (NamedCalledFunctionBlock)_name);
         }
         _page.getMappingLocal().clear();
-        _page.getMappingLocal().putAllMap(_name.getRefMappings());
+        _page.getMappingLocal().addAllEntries(_name.getRefMappings());
     }
 
     private static void loopAnnots(AnalyzedPageEl _page) {
@@ -2585,7 +2570,7 @@ public final class ClassesUtil {
         }
     }
 
-    private static void validateSimFinals(AnalyzedPageEl _page) {
+    public static void validateSimFinals(AnalyzedPageEl _page) {
         AssignedVariablesBlock assVars_ = new AssignedVariablesBlock();
         _page.setAssignedStaticFields(false);
         _page.setAssignedFields(false);

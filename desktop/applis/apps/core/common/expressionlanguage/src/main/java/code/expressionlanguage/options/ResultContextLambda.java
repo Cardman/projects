@@ -70,7 +70,9 @@ public final class ResultContextLambda {
         }
         AnonymousLambdaOperation mainLambda_ = al_.first();
         ClassesUtil.processAnonymous(a_);
-        ClassesUtil.postValidation(a_);
+        a_.setAnnotAnalysis(false);
+        ClassesUtil.validateSimFinals(a_);
+        ClassesUtil.checkEnd(a_);
         for (EntryCust<String, StringMap<Struct>> e:a_.getStaticFieldsAna().entryList()) {
             if (!AnaTypeUtil.allCst(a_,e.getKey(),e.getValue().getKeys())) {
                 return new ResultContextLambda(null,null,a_.getMessages());

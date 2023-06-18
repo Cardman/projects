@@ -25,5 +25,5 @@ public interface InfoBlock extends AnnotableBlock {
 
     AccessEnum getAccess();
     AnonymousElementsField getElements();
-
+    void buildExpressionLanguageReadOnly(AnalyzedPageEl _page);
 }
