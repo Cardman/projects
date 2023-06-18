@@ -728,7 +728,7 @@ public final class FileResolver {
             boolean ok_ = parseHeader_.isOk();
             OperatorBlock currentParent_ = new OperatorBlock(parseHeader_, new OffsetStringInfo(typeOffset_ + _input.getOffset(), declaringType_.trim()),
                     new OffsetStringInfo(symbolIndex_ + _input.getOffset(), symbol_.toString().trim()),
-                    nextIndex_ + _input.getOffset());
+                    instructionTrimLocation_ + _input.getOffset());
             currentParent_.setRealLength(currentParent_.getName().length());
             currentParent_.getAnnotationsParams().addAllElts(annotationsParams_);
             currentParent_.getImports().addAllElts(importedTypes_);

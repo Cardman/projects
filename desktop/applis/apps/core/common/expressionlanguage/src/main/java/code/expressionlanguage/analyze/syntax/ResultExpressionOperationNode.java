@@ -50,9 +50,10 @@ public final class ResultExpressionOperationNode {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setCurrentBlock(c_.block);
         a_.setCurrentPkg(a_.getDefaultPkg());
-//        if (c_.resultExpression != null) {
-//            a_.setAnnotAnalysis(AbsBk.isAnnotBlock(c_.block)||c_.resultExpression.getAnalyzedString().trim().startsWith("@"));
-//        }
+        setAnnot(c_, a_);
+        if (a_.isAnnotAnalysis()) {
+            return annotationCase(file_, c_, a_);
+        }
         MemberCallingsBlock m_ = AbsBk.getOuterFuntionInType(c_.block);
         if (AbsBk.isAnonBlock(m_)) {
             a_.setupFctChars((NamedCalledFunctionBlock) m_);
@@ -99,10 +100,44 @@ public final class ResultExpressionOperationNode {
             a_.getMappingLocal().addAllEntries(((RootBlock) c_.block).getRefMappings());
         }
         a_.setCurrentFile(file_);
-//        if (a_.isAnnotAnalysis()) {
-//            a_.setAccessStaticContext(MethodAccessKind.STATIC);
-//        }
         return a_;
+    }
+
+    private static void setAnnot(ResultExpressionOperationNode _c, AnalyzedPageEl _a) {
+        if (_c.resultExpression != null) {
+            _a.setAnnotAnalysis(AbsBk.isAnnotBlock(_c.block)|| _c.resultExpression.getAnalyzedString().trim().startsWith("@"));
+        }
+    }
+
+    private static AnalyzedPageEl annotationCase(FileBlock _file, ResultExpressionOperationNode _c, AnalyzedPageEl _a) {
+        AbsBk m_ = _c.block;
+        if (AbsBk.isAnonBlock(m_)) {
+            _a.setupFctChars((NamedCalledFunctionBlock) m_);
+            _a.getMappingLocal().addAllEntries(((NamedCalledFunctionBlock) m_).getRefMappings());
+        } else if (m_ instanceof SwitchMethodBlock) {
+            _a.setupFctChars((SwitchMethodBlock) m_);
+            _a.getMappingLocal().addAllEntries(((SwitchMethodBlock) m_).getRefMappings());
+        } else if (m_ instanceof OperatorBlock) {
+            _a.setImporting((OperatorBlock)m_);
+            _a.setImportingTypes((OperatorBlock)m_);
+            _a.setCurrentPkg(_a.getDefaultPkg());
+        } else {
+            RootBlock par_ = parent(m_);
+            if (par_ != null) {
+                ClassesUtil.globalType(_a, par_);
+                _a.setCurrentPkg(par_.getPackageName());
+                _a.getMappingLocal().addAllEntries(par_.getRefMappings());
+            }
+            if (m_ instanceof RootBlock) {
+                ClassesUtil.globalType(_a, (RootBlock)m_);
+                _a.setCurrentPkg(((RootBlock)m_).getPackageName());
+                _a.getMappingLocal().addAllEntries(((RootBlock)m_).getRefMappings());
+            }
+        }
+        _a.setCurrentFct(null);
+        _a.setCurrentFile(_file);
+        _a.setAccessStaticContext(MethodAccessKind.STATIC);
+        return _a;
     }
 
     private static void feedVars(ResultExpressionOperationNode _c, AnalyzedPageEl _a) {
@@ -234,7 +269,7 @@ public final class ResultExpressionOperationNode {
             prev_ = prev_.getPreviousSibling();
         }
     }
-    private static RootBlock parent(MemberCallingsBlock _m) {
+    private static RootBlock parent(AbsBk _m) {
         BracedBlock b_;
         if (_m == null) {
             b_ = null;
