@@ -42,8 +42,8 @@ public final class ResultContextLambda {
         this.reportedMessages = _r;
     }
 
-    public static ResultContextLambda dynamicAnalyze(String _exp, String _fileName, int _caret, ResultContext _result, String _type, AbsContextGenerator _gene) {
-        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_fileName, _caret, _result.getPageEl());
+    public static ResultContextLambda dynamicAnalyze(String _exp, String _fileName, int _caret, ResultContext _result, String _type, AbsContextGenerator _gene, MethodAccessKind _flag) {
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_fileName, _caret, _result.getPageEl(),_flag);
         MethodAccessKind stCtx_ = a_.getStaticContext();
         MemberCallingsBlock memb_ = a_.getCurrentFct();
         Line l_ = new Line(new OffsetStringInfo(0,"(:"+ _type+")->"+_exp),0);

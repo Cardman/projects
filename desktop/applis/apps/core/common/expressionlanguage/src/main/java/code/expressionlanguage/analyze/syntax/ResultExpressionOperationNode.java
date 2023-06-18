@@ -44,7 +44,7 @@ public final class ResultExpressionOperationNode {
         return "";
     }
 
-    public static AnalyzedPageEl prepare(String _fileName, int _caret, AnalyzedPageEl _original) {
+    public static AnalyzedPageEl prepare(String _fileName, int _caret, AnalyzedPageEl _original, MethodAccessKind _flag) {
         FileBlock file_ = _original.getPreviousFilesBodies().getVal(_fileName);
         ResultExpressionOperationNode c_ = container(_caret, file_);
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
@@ -91,12 +91,14 @@ public final class ResultExpressionOperationNode {
             a_.setCurrentPkg(((InfoBlock) c_.block).getDeclaringType().getPackageName());
             a_.setCurrentFct(null);
             a_.getMappingLocal().addAllEntries(((InfoBlock) c_.block).getDeclaringType().getRefMappings());
+        } else if (c_.block instanceof RootBlock) {
+            a_.setAccessStaticContext(_flag);
+            ClassesUtil.globalType(a_, (AccessedBlock) c_.block);
+            a_.setCurrentPkg(((RootBlock) c_.block).getPackageName());
+            a_.setCurrentFct(null);
+            a_.getMappingLocal().addAllEntries(((RootBlock) c_.block).getRefMappings());
         }
         a_.setCurrentFile(file_);
-        if (c_.block instanceof RootBlock) {
-            a_.setAccessStaticContext(MethodAccessKind.STATIC);
-            ClassesUtil.globalType(a_, (AccessedBlock) c_.block);
-        }
 //        if (a_.isAnnotAnalysis()) {
 //            a_.setAccessStaticContext(MethodAccessKind.STATIC);
 //        }
