@@ -104,4 +104,11 @@ public final class ProcessDbgEvalReturnTest extends ProcessDbgCommon {
         Struct cont_ = valueDbg("((MyEnum..ONE)MyEnum.ONE).method()+1","pkg.Ex","exmeth",55,files_);
         assertEq(6,((NumberStruct)cont_).intStruct());
     }
+    @Test
+    public void test15() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public final int field;public Ex(int p){field=p;}public static int exmeth(){return 0;}}operator+ pkg.Ex(pkg.Ex a, pkg.Ex b){return new(a.field+b.field);}");
+        Struct cont_ = valueDbg("(new Ex(2)+new Ex(4)).field","pkg.Ex","exmeth",104,files_);
+        assertEq(6,((NumberStruct)cont_).intStruct());
+    }
 }
