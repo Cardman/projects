@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.dbg.BreakPointBlockList;
 import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
 import code.expressionlanguage.exec.inherits.Parameters;
@@ -131,6 +132,11 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
     protected static StackCall dbgContinueNormalValueStepRet(StackCall _stack, ContextEl _cont) {
         return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.RETURN_METHOD).getStack();
+    }
+
+    protected static StackCall dbgContinueNormalValueCursor(StackCall _stack, ContextEl _cont, int _caret) {
+        _cont.getClasses().getDebugMapping().getBreakPointsBlock().getListTmp().add(new BreakPointBlockPair(_stack.getLastPage().getFile(), _caret, new BreakPoint()));
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.CURSOR).getStack();
     }
     protected static ResultContext ctxLgReadOnlyOkQuick(String _lg, StringMap<String> _files, String... _types) {
         Options opt_ = newOptions();

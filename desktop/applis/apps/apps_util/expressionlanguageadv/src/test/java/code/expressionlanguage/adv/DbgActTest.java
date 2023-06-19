@@ -850,6 +850,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         launch(b_);
         b_.selectFocus(-1,-1);
         b_.focus(-1);
+        b_.possibleSelect(-1);
         assertEq(src_.getVal("src/file.txt"),tabSelect(b_).getCenter().getText());
         assertTrue(b_.getSelectEnter().isEnabled());
     }
@@ -1030,7 +1031,48 @@ public final class DbgActTest extends EquallableElAdvUtil {
         nextGoInMethod(b_);
         assertTrue(b_.getNextInMethod().isEnabled());
         nextGoInMethod(b_);
+        assertTrue(b_.getNextInMethod().isEnabled());
+        nextGoInMethod(b_);
         assertFalse(b_.getNextInMethod().isEnabled());
+        DbgRootStruct root_ = b_.getRoot();
+        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        assertEq(1,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        trDetail_.select(trDetail_.getRoot());
+        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        assertEq(1,root_.getChildren().size());
+        assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
+    }
+    @Test
+    public void i17() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(62,62);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exmeth");
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        assertTrue(b_.getNextCursor().isEnabled());
+        tabEditor(b_).getCenter().select(85,85);
+        nextCursor(b_);
+        assertTrue(b_.getNextCursor().isEnabled());
+        nextGoInMethod(b_);
+        assertFalse(b_.getNextCursor().isEnabled());
         DbgRootStruct root_ = b_.getRoot();
         IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
         assertEq(1,chs_.size());
@@ -1054,6 +1096,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
 
     private void nextGoUp(AbsDebuggerGui _d) {
         ((MockPlainButton)_d.getNextGoUp()).getActionListeners().get(0).action();
+    }
+
+    private void nextCursor(AbsDebuggerGui _d) {
+        ((MockPlainButton)_d.getNextCursor()).getActionListeners().get(0).action();
     }
 
     private void nextGoInMethod(AbsDebuggerGui _d) {

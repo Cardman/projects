@@ -1,9 +1,12 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
 import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.options.Options;
@@ -43,6 +46,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsPlainButton nextInstruction;
     private AbsPlainButton nextGoUp;
     private AbsPlainButton nextInMethod;
+    private AbsPlainButton nextCursor;
     private AbsScrollPane detail;
     private AbsSplitPane detailAll;
     private StackCall stackCall;
@@ -115,7 +119,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nextGoUp.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.RETURN_METHOD));
         nextInMethod = getCommonFrame().getFrames().getCompoFactory().newPlainButton("=");
         nextInMethod.setEnabled(false);
-        nextInMethod.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.RETURN_METHOD));
+        nextInMethod.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.NEXT_IN_METHOD));
+        nextCursor = getCommonFrame().getFrames().getCompoFactory().newPlainButton("_");
+        nextCursor.setEnabled(false);
+        nextCursor.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.CURSOR));
         detail = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
         callStack = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(callStack,detail);
@@ -125,6 +132,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         page_.add(nextInstruction);
         page_.add(nextGoUp);
         page_.add(nextInMethod);
+        page_.add(nextCursor);
         page_.add(detailAll);
         commonFrame.setContentPane(page_);
         commonFrame.setVisible(true);
@@ -141,6 +149,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         tabbedPane.addIntTab(name_, te_.getPanel(), _path);
     }
     void next(StepDbgActionEnum _step){
+        if (_step == StepDbgActionEnum.CURSOR) {
+            int s_ = tabbedPane.getSelectedIndex();
+            possibleSelect(s_);
+        }
         StackCallReturnValue view_ = ExecClassesUtil.tryInitStaticlyTypes(currentResult.getContext(), currentResult.getForwards().getOptions(), stackCall, selected,_step);
         stackCall = view_.getStack();
         if (stackCall.getInitializingTypeInfos().getInitEnums() == InitPhase.NOTHING && !stackCall.isStoppedBreakPoint()) {
@@ -186,6 +198,15 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nextInstruction.setEnabled(true);
         nextGoUp.setEnabled(true);
         nextInMethod.setEnabled(true);
+        nextCursor.setEnabled(true);
+    }
+
+    public void possibleSelect(int _s) {
+        if (_s > -1) {
+            FileBlock f_ = currentResult.getPageEl().getPreviousFilesBodies().getVal(tabs.get(_s).getFullPath());
+            ExecFileBlock e_ = currentResult.getContext().getClasses().getDebugMapping().getFiles().getVal(f_);
+            currentResult.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getListTmp().add(new BreakPointBlockPair(e_, tabs.get(_s).getCenter().getCaretPosition(), new BreakPoint()));
+        }
     }
 
     public void updateGui(int _index) {
@@ -346,6 +367,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public AbsPlainButton getNextInMethod() {
         return nextInMethod;
+    }
+
+    public AbsPlainButton getNextCursor() {
+        return nextCursor;
     }
 
     public AbsSplitPane getDetailAll() {

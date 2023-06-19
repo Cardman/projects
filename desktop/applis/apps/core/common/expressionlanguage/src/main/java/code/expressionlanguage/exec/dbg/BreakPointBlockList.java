@@ -11,6 +11,7 @@ import code.util.CustList;
 
 public final class BreakPointBlockList {
     private final CustList<BreakPointBlockPair> list = new CustList<BreakPointBlockPair>();
+    private final CustList<BreakPointBlockPair> listTmp = new CustList<BreakPointBlockPair>();
     public void toggleBreakPoint(String _file, int _offset, ResultContext _f) {
         toggleBreakPoint(_f.getPageEl().getPreviousFilesBodies().getVal(_file),_offset,_f.getForwards().dbg());
     }
@@ -134,5 +135,19 @@ public final class BreakPointBlockList {
             }
         }
         return list_;
+    }
+
+    public boolean isTmp(ExecFileBlock _file, int _offset) {
+        int len_ = listTmp.size();
+        for (int i = 0; i < len_; i++) {
+            BreakPointBlockPair p_ = listTmp.get(i);
+            if (p_.match(_file, _offset)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public CustList<BreakPointBlockPair> getListTmp() {
+        return listTmp;
     }
 }

@@ -341,7 +341,7 @@ public abstract class AbstractPageEl {
     public boolean stopBreakPoint(ContextEl _context, StackCall _stackCall) {
         if (checkBreakPoint(_stackCall)&&!isVisited()) {
             setVisited(true);
-            if (stopStep(_stackCall)) {
+            if (stopStep(_context,_stackCall)) {
                 _stackCall.setGlobalOffset(getGlobalOffset());
                 return true;
             }
@@ -361,10 +361,21 @@ public abstract class AbstractPageEl {
         return false;
     }
 
-    private boolean stopStep(StackCall _stackCall) {
-        return _stackCall.getStep() == StepDbgActionEnum.RETURN_METHOD && readWrite == null || _stackCall.getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getPreviousNbPages() >= _stackCall.nbPages() || _stackCall.getStep() == StepDbgActionEnum.NEXT_INSTRUCTION;
+    private boolean stopStep(ContextEl _context, StackCall _stackCall) {
+        return _stackCall.getStep() == StepDbgActionEnum.RETURN_METHOD && readWrite == null || _stackCall.getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getPreviousNbPages() >= _stackCall.nbPages() || _stackCall.getStep() == StepDbgActionEnum.NEXT_INSTRUCTION || stopTmp(_context, _stackCall);
     }
 
+    private boolean stopTmp(ContextEl _context, StackCall _stackCall) {
+        if (_stackCall.getStep() == StepDbgActionEnum.CURSOR) {
+            for (int i : list(_stackCall)) {
+                if (_context.getClasses().getDebugMapping().getBreakPointsBlock().isTmp(getFile(), i)) {
+                    _stackCall.setGlobalOffset(getGlobalOffset());
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     private boolean stopExc(ContextEl _context, StackCall _stackCall) {
         AbstractStask stLast_ = tryGetLastStack();
         ExecBlock bl_ = getBlock();
