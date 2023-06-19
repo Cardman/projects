@@ -459,8 +459,8 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex2",13,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointInstanceType("pkg/Ex",13,cont_, true);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointInstanceType("pkg/Ex2",13,cont_, false);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().get(file(cont_,"pkg/Ex"),13).isInstanceType());
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().get(file(cont_,"pkg/Ex2"),13).isInstanceType());
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(cont_,"pkg/Ex"),13).getValue().isInstanceType());
+        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(cont_,"pkg/Ex2"),13).getValue().isInstanceType());
     }
 
     @Test
@@ -489,8 +489,8 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex2",13,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType("pkg/Ex",13,cont_, false);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType("pkg/Ex2",13,cont_, true);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().get(file(cont_,"pkg/Ex"),13).isStaticType());
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().get(file(cont_,"pkg/Ex2"),13).isStaticType());
+        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(cont_,"pkg/Ex"),13).getValue().isStaticType());
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(cont_,"pkg/Ex2"),13).getValue().isStaticType());
     }
     @Test
     public void test24() {

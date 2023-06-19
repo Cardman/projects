@@ -96,6 +96,20 @@ public final class ResultContextLambda {
         SplitExpressionUtil.feed(_resultExpression, _int, _type, _page.getImporting());
     }
 
+    public static ReportedMessages after(ResultContextLambda _res) {
+        if (_res.getContext() == null) {
+            return _res.getReportedMessages();
+        }
+        return new ReportedMessages();
+    }
+
+    public static ResultContextLambda okOrNull(ResultContextLambda _res) {
+        if (_res.getContext() == null) {
+            return null;
+        }
+        return _res;
+    }
+
 //    private static AccessedBlock tryGetOperator(BracedBlock _mem) {
 //        AccessedBlock op_ = null;
 //        if (AbsBk.isAnonBlock(_mem)) {
@@ -164,5 +178,9 @@ public final class ResultContextLambda {
 
     public ReportedMessages getReportedMessages() {
         return reportedMessages;
+    }
+
+    public ContextEl getContext() {
+        return context;
     }
 }

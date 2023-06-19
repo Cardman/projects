@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.syntax;
 
+import code.expressionlanguage.analyze.AllAccessedTypes;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.*;
@@ -48,6 +49,7 @@ public final class ResultExpressionOperationNode {
         FileBlock file_ = _original.getPreviousFilesBodies().getVal(_fileName);
         ResultExpressionOperationNode c_ = container(_caret, file_);
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
+        a_.setDynamic(true);
         a_.setCurrentBlock(c_.block);
         a_.setCurrentPkg(a_.getDefaultPkg());
         setAnnot(c_, a_);
@@ -100,6 +102,7 @@ public final class ResultExpressionOperationNode {
             a_.getMappingLocal().addAllEntries(((RootBlock) c_.block).getRefMappings());
         }
         a_.setCurrentFile(file_);
+        a_.setImportingAcces(new AllAccessedTypes());
         return a_;
     }
 
@@ -137,6 +140,7 @@ public final class ResultExpressionOperationNode {
         _a.setCurrentFct(null);
         _a.setCurrentFile(_file);
         _a.setAccessStaticContext(MethodAccessKind.STATIC);
+        _a.setImportingAcces(new AllAccessedTypes());
         return _a;
     }
 

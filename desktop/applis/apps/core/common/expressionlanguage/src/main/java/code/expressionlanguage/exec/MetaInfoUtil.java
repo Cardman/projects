@@ -47,13 +47,11 @@ public final class MetaInfoUtil {
         AbstractPageEl call_ = _stackCall.getCall(_index);
         ExecFileBlock f_ = call_.getFile();
         RowColumnIndex rci_;
-        String fileName_;
+        String fileName_ = ExecFileBlock.name(f_);
         if (f_ != null) {
-            fileName_ = f_.getFileName();
             int trace_ = call_.getTraceIndex();
             rci_ = RowColumnIndex.calculate(f_, trace_, _cont.getTabWidth());
         } else {
-            fileName_ = "";
             rci_ = RowColumnIndex.def();
         }
         String currentClassName_ = call_.getGlobalClass().getFormatted();

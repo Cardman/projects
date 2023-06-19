@@ -4,7 +4,7 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.dbg.BreakPoint;
+import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
 import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
@@ -23,7 +23,7 @@ import code.util.core.StringUtil;
 public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private final CdmFactory factory;
     private final AbsCommonFrame commonFrame;
-    private BreakPoint selectedPb;
+    private BreakPointBlockPair selectedPb;
     private AbsCustCheckBox instanceType;
     private AbsCustCheckBox staticType;
     private AbsCustCheckBox enabledBp;
@@ -250,11 +250,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return factory;
     }
 
-    public BreakPoint getSelectedPb() {
+    public BreakPointBlockPair getSelectedPb() {
         return selectedPb;
     }
 
-    public void setSelectedPb(BreakPoint _s) {
+    public void setSelectedPb(BreakPointBlockPair _s) {
         this.selectedPb = _s;
     }
 

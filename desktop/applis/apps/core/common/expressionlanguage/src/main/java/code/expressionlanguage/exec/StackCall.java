@@ -16,6 +16,7 @@ import code.util.CustList;
 public final class StackCall implements AbstractStackCall {
 
     private CallingState callingState;
+    private CallingState callingStateSub;
 
     private final CustList<AbstractPageEl> importing = new CustList<AbstractPageEl>();
 
@@ -160,6 +161,14 @@ public final class StackCall implements AbstractStackCall {
     }
     public void setCallingState(CallingState _callingState) {
         this.callingState = _callingState;
+    }
+
+    public CallingState getCallingStateSub() {
+        return callingStateSub;
+    }
+
+    public void setCallingStateSub(CallingState _c) {
+        this.callingStateSub = _c;
     }
 
     public AbstractFullStack getFullStack() {

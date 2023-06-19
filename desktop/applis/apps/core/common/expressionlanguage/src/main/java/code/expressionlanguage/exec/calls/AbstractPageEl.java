@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.StackCallReturnValue;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
@@ -12,9 +13,12 @@ import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.*;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.*;
+import code.expressionlanguage.options.ResultContextLambda;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -345,7 +349,7 @@ public abstract class AbstractPageEl {
             }
             for (int i : list(_stackCall)) {
                 BreakPoint bp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNull(getFile(), i);
-                if (stopCurrentBp(bp_)) {
+                if (stopCurrentBp(_context,_stackCall,bp_)) {
                     _stackCall.setGlobalOffset(i);
                     return true;
                 }
@@ -371,8 +375,29 @@ public abstract class AbstractPageEl {
         }
         return false;
     }
-    private boolean stopCurrentBp(BreakPoint _bp) {
-        return _bp.isEnabled() && (!_bp.isEnabledChgtType() || _bp.isInstanceType() && this instanceof AbstractCallingInstancingPageEl || _bp.isStaticType() && this instanceof StaticInitPageEl);
+    private boolean stopCurrentBp(ContextEl _context, StackCall _stackCall, BreakPoint _bp) {
+        if (!(_bp.isEnabled() && (!_bp.isEnabledChgtType() || _bp.isInstanceType() && this instanceof AbstractCallingInstancingPageEl || _bp.isStaticType() && this instanceof StaticInitPageEl))) {
+            return false;
+        }
+        ResultContextLambda condition_ = stopCurrentBpCondition(_bp);
+        if (condition_ == null) {
+            return true;
+        }
+        StackCallReturnValue result_ = condition_.eval(_context, this);
+        if (result_.getStack().getCallingState() != null) {
+            _stackCall.setCallingStateSub(result_.getStack().getCallingState());
+            return true;
+        }
+        return BooleanStruct.isTrue(ArgumentListCall.toStr(result_.getRetValue().getValue()));
+    }
+    private ResultContextLambda stopCurrentBpCondition(BreakPoint _bp) {
+        if (!_bp.isEnabledChgtType()) {
+            return _bp.getResultStd();
+        }
+        if (_bp.isInstanceType()) {
+            return _bp.getResultInstance();
+        }
+        return _bp.getResultStatic();
     }
 
     private int[] list(StackCall _stackCall) {

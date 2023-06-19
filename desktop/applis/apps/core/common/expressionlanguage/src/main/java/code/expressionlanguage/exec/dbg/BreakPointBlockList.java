@@ -1,9 +1,11 @@
 package code.expressionlanguage.exec.dbg;
 
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
+import code.expressionlanguage.fwd.AbsContextGenerator;
 import code.expressionlanguage.options.ResultContext;
 import code.util.CustList;
 
@@ -21,18 +23,18 @@ public final class BreakPointBlockList {
         toggle(f_,o_, ResultExpressionOperationNode.enabledTypeBp(_offset, _file));
     }
     public void toggle(ExecFileBlock _file, int _offset, boolean _enType) {
-        BreakPointBlockKey b_ = new BreakPointBlockKey(_file, _offset);
+        BreakPoint v_ = new BreakPoint();
+        v_.setEnabled(true);
+        v_.setEnabledChgtType(_enType);
+        BreakPointBlockPair pair_ = new BreakPointBlockPair(_file, _offset, v_);
         int len_ = list.size();
         for (int i = 0; i < len_; i++) {
-            if (list.get(i).getKey().match(b_)) {
+            if (list.get(i).match(pair_)) {
                 list.remove(i);
                 return;
             }
         }
-        BreakPoint v_ = new BreakPoint();
-        v_.setEnabled(true);
-        v_.setEnabledChgtType(_enType);
-        list.add(new BreakPointBlockPair(b_, v_));
+        list.add(pair_);
     }
     public void toggleBreakPointEnabled(String _file, int _offset, ResultContext _f) {
         toggleBreakPointEnabled(_f.getPageEl().getPreviousFilesBodies().getVal(_file),_offset,_f.getForwards().dbg());
@@ -46,18 +48,18 @@ public final class BreakPointBlockList {
         toggleEnabled(f_,o_, ResultExpressionOperationNode.enabledTypeBp(_offset, _file));
     }
     public void toggleEnabled(ExecFileBlock _file, int _offset, boolean _enType) {
-        BreakPointBlockKey b_ = new BreakPointBlockKey(_file, _offset);
+        BreakPoint v_ = new BreakPoint();
+        v_.setEnabled(true);
+        v_.setEnabledChgtType(_enType);
+        BreakPointBlockPair pair_ = new BreakPointBlockPair(_file, _offset, v_);
         int len_ = list.size();
         for (int i = 0; i < len_; i++) {
-            if (list.get(i).getKey().match(b_)) {
+            if (list.get(i).match(pair_)) {
                 list.get(i).getValue().setEnabled(!list.get(i).getValue().isEnabled());
                 return;
             }
         }
-        BreakPoint v_ = new BreakPoint();
-        v_.setEnabled(true);
-        v_.setEnabledChgtType(_enType);
-        list.add(new BreakPointBlockPair(b_, v_));
+        list.add(pair_);
     }
     public void breakPointEnabled(String _file, int _offset, ResultContext _f, boolean _newValue) {
         breakPointUpdate(_file, _offset, _f, new BreakPointBooleanUpdaterEnabled(),_newValue);
@@ -79,11 +81,20 @@ public final class BreakPointBlockList {
         ExecFileBlock f_ = _d.getFiles().getVal(_file);
         update(f_,o_, _updater,_newValue);
     }
+    public static ReportedMessages breakPointCtxStd(BreakPointBlockPair _bp, ResultContext _f, AbsContextGenerator _gene, String _newValue) {
+        return new BreakPointLambdaCtxUpdaterStd(_f,_gene).update(ExecFileBlock.name(_bp.getFile()),_bp.getOffset(),_bp.getValue(),_newValue);
+    }
+    public static ReportedMessages breakPointCtxInstance(BreakPointBlockPair _bp, ResultContext _f, AbsContextGenerator _gene, String _newValue) {
+        return new BreakPointLambdaCtxUpdaterInstance(_f,_gene).update(ExecFileBlock.name(_bp.getFile()),_bp.getOffset(),_bp.getValue(),_newValue);
+    }
+    public static ReportedMessages breakPointCtxStatic(BreakPointBlockPair _bp, ResultContext _f, AbsContextGenerator _gene, String _newValue) {
+        return new BreakPointLambdaCtxUpdaterStatic(_f,_gene).update(ExecFileBlock.name(_bp.getFile()),_bp.getOffset(),_bp.getValue(),_newValue);
+    }
 
     public void update(ExecFileBlock _file, int _offset, BreakPointBooleanUpdater _updater, boolean _newValue) {
         int len_ = list.size();
         for (int i = 0; i < len_; i++) {
-            if (list.get(i).getKey().match(_file, _offset)) {
+            if (list.get(i).match(_file, _offset)) {
                 _updater.update(list.get(i).getValue(), _newValue);
                 return;
             }
@@ -93,20 +104,21 @@ public final class BreakPointBlockList {
         return getNotNull(_file, _offset).isEnabled();
     }
     public BreakPoint getNotNull(ExecFileBlock _file, int _offset) {
-        BreakPoint b_ = get(_file, _offset);
+        BreakPointBlockPair b_ = getPair(_file, _offset);
         if (b_ == null) {
             BreakPoint bp_ = new BreakPoint();
             bp_.setEnabled(false);
             return bp_;
         }
-        return b_;
+        return b_.getValue();
     }
-    public BreakPoint get(ExecFileBlock _file, int _offset) {
+
+    public BreakPointBlockPair getPair(ExecFileBlock _file, int _offset) {
         int len_ = list.size();
         for (int i = 0; i < len_; i++) {
             BreakPointBlockPair p_ = list.get(i);
-            if (p_.getKey().match(_file, _offset)) {
-                return p_.getValue();
+            if (p_.match(_file, _offset)) {
+                return p_;
             }
         }
         return null;
@@ -117,7 +129,7 @@ public final class BreakPointBlockList {
         int len_ = list.size();
         for (int i = 0; i < len_; i++) {
             BreakPointBlockPair p_ = list.get(i);
-            if (p_.getKey().matchRow(_file, _ana, r_)) {
+            if (p_.matchRow(_file, _ana, r_)) {
                 list_.add(p_);
             }
         }

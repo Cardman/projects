@@ -15,6 +15,13 @@ public final class ExecFileBlock extends ExecFileBlockAbs {
         fileName = _fileName;
     }
 
+    public static String name(ExecFileBlock _f) {
+        if (_f == null) {
+            return "";
+        }
+        return _f.getFileName();
+    }
+
     public String getFileName() {
         return fileName;
     }

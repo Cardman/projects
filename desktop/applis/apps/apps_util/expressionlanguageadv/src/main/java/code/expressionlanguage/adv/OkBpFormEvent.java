@@ -12,9 +12,9 @@ public final class OkBpFormEvent implements AbsActionListener {
     @Override
     public void action() {
         window.getBpForm().setVisible(false);
-        window.getSelectedPb().setEnabled(window.getEnabledBp().isSelected());
-        window.getSelectedPb().setInstanceType(window.getInstanceType().isSelected());
-        window.getSelectedPb().setStaticType(window.getStaticType().isSelected());
+        window.getSelectedPb().getValue().setEnabled(window.getEnabledBp().isSelected());
+        window.getSelectedPb().getValue().setInstanceType(window.getInstanceType().isSelected());
+        window.getSelectedPb().getValue().setStaticType(window.getStaticType().isSelected());
         window.setSelectedPb(null);
     }
 }

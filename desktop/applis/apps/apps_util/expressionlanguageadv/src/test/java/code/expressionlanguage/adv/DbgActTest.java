@@ -125,8 +125,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getInstanceType().setSelected(false);
         bpFormCancel(b_);
         assertFalse(b_.getBpForm().isVisible());
-        assertTrue(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().get(file(b_.getCurrentResult()),13).isInstanceType());
-        assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().get(file(b_.getCurrentResult()),13).isStaticType());
+        assertTrue(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isInstanceType());
+        assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isStaticType());
     }
     @Test
     public void bp9() {
@@ -144,8 +144,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getInstanceType().setSelected(false);
         bpFormOk(b_);
         assertFalse(b_.getBpForm().isVisible());
-        assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().get(file(b_.getCurrentResult()),13).isInstanceType());
-        assertTrue(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().get(file(b_.getCurrentResult()),13).isStaticType());
+        assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isInstanceType());
+        assertTrue(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isStaticType());
     }
     @Test
     public void bp10() {
@@ -169,8 +169,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getInstanceType().setSelected(false);
         bpFormCancel(b_);
         assertFalse(b_.getBpForm().isVisible());
-        assertTrue(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().get(file(b_.getCurrentResult()),13).isInstanceType());
-        assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().get(file(b_.getCurrentResult()),13).isStaticType());
+        assertTrue(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isInstanceType());
+        assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isStaticType());
     }
     @Test
     public void bp11() {
@@ -194,8 +194,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getInstanceType().setSelected(false);
         bpFormOk(b_);
         assertFalse(b_.getBpForm().isVisible());
-        assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().get(file(b_.getCurrentResult()),13).isInstanceType());
-        assertTrue(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().get(file(b_.getCurrentResult()),13).isStaticType());
+        assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isInstanceType());
+        assertTrue(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isStaticType());
     }
     @Test
     public void bp12() {

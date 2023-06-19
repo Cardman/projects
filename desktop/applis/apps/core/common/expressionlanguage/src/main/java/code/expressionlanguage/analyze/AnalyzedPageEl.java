@@ -165,6 +165,7 @@ public final class AnalyzedPageEl {
     private StringMap<String> mappingAliases = new StringMap<String>();
     private IdMap<NamedCalledFunctionBlock, StringMap<GeneStringOverridable>> overriding = new IdMap<NamedCalledFunctionBlock, StringMap<GeneStringOverridable>>();
     private boolean customAna;
+    private boolean dynamic;
 
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
@@ -176,6 +177,7 @@ public final class AnalyzedPageEl {
     }
     public static AnalyzedPageEl copy(AnalyzedPageEl _original) {
         AnalyzedPageEl copy_ = setInnerAnalyzing();
+        copy_.setDynamic(false);
         copy_.abstractSymbolFactory= _original.abstractSymbolFactory;
         copy_.mappingKeyWords= _original.mappingKeyWords;
         copy_.mappingAliases= _original.mappingAliases;
@@ -684,6 +686,9 @@ public final class AnalyzedPageEl {
     }
 
     public void setImportingAcces(AccessingImportingBlock _importingAcces) {
+        if (isDynamic() && importingAcces instanceof AllAccessedTypes) {
+            return;
+        }
         this.importingAcces = _importingAcces;
     }
 
@@ -1434,5 +1439,13 @@ public final class AnalyzedPageEl {
 
     public void setOverriding(IdMap<NamedCalledFunctionBlock, StringMap<GeneStringOverridable>> _o) {
         this.overriding = _o;
+    }
+
+    public boolean isDynamic() {
+        return dynamic;
+    }
+
+    public void setDynamic(boolean _d) {
+        this.dynamic = _d;
     }
 }

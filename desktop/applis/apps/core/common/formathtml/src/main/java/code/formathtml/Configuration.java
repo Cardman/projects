@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AllAccessedTypes;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.FileBlock;
@@ -13,7 +14,6 @@ import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
-import code.formathtml.analyze.VirtualImportingBlock;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.syntax.RendSplitExpressionUtil;
@@ -63,7 +63,7 @@ public final class Configuration {
 
     public void initInstancesPattern(AnalyzedPageEl _page, AnalyzingDoc _anaDoc, FileBlock _conf) {
         String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
-        _page.setImportingAcces(new VirtualImportingBlock());
+        _page.setImportingAcces(new AllAccessedTypes());
         _page.getCurrentParts().clear();
         _page.getCurrentNumbers().clear();
         _page.getCurrentAnnotDelNew().clear();
