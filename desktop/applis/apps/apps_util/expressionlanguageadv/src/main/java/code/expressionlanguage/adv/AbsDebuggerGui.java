@@ -40,6 +40,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private final AbstractBaseExecutorService debugActions;
     private AbsPlainButton selectEnter;
     private AbsPlainButton nextAction;
+    private AbsPlainButton nextInstruction;
     private AbsScrollPane detail;
     private AbsSplitPane detailAll;
     private StackCall stackCall;
@@ -103,13 +104,17 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         selectEnter.setEnabled(false);
         nextAction = getCommonFrame().getFrames().getCompoFactory().newPlainButton(">>");
         nextAction.setEnabled(false);
-        nextAction.addActionListener(new DbgNextBpEvent(this));
+        nextAction.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.KEEP));
+        nextInstruction = getCommonFrame().getFrames().getCompoFactory().newPlainButton(">");
+        nextInstruction.setEnabled(false);
+        nextInstruction.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.NEXT_INSTRUCTION));
         detail = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
         callStack = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(callStack,detail);
         detailAll.setVisible(false);
         page_.add(selectEnter);
         page_.add(nextAction);
+        page_.add(nextInstruction);
         page_.add(detailAll);
         commonFrame.setContentPane(page_);
         commonFrame.setVisible(true);
@@ -168,6 +173,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         detailAll.setVisible(true);
         PackingWindowAfter.pack(commonFrame);
         nextAction.setEnabled(true);
+        nextInstruction.setEnabled(true);
     }
 
     public void updateGui(int _index) {
@@ -316,6 +322,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public AbsPlainButton getNextAction() {
         return nextAction;
+    }
+
+    public AbsPlainButton getNextInstruction() {
+        return nextInstruction;
     }
 
     public AbsSplitPane getDetailAll() {
