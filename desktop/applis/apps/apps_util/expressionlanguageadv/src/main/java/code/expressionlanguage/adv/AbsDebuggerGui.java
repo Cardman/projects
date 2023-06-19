@@ -14,6 +14,7 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.BytesInfo;
 import code.stream.StreamTextFile;
+import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractBaseExecutorService;
 import code.util.CustList;
 import code.util.StringMap;
@@ -25,8 +26,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private final AbsCommonFrame commonFrame;
     private BreakPointBlockPair selectedPb;
     private AbsCustCheckBox instanceType;
+    private AbsTextArea conditionalInstance;
     private AbsCustCheckBox staticType;
+    private AbsTextArea conditionalStatic;
     private AbsCustCheckBox enabledBp;
+    private AbsTextArea conditionalStd;
     private AbsPlainButton cancel;
     private AbsPlainButton ok;
     private AbsPanel bpForm;
@@ -47,12 +51,14 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private final CustList<DbgRootStruct> treesRoot = new CustList<DbgRootStruct>();
     private final CustList<AbsPlainButton> callButtons = new CustList<AbsPlainButton>();
     private AbsPanel callStack;
+    private AbstractAtomicBoolean stopDbg;
 
     protected AbsDebuggerGui(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         factory = _fact;
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         debugActions = _list.getThreadFactory().newExecutorService();
         manageAnalyze = _list.getThreadFactory().newExecutorService();
+        stopDbg = _list.getThreadFactory().newAtomicBoolean();
     }
 
     public void build(ResultContext _b,ManageOptions _man, StringMap<String> _src) {
@@ -62,14 +68,20 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public void guiBuild(ManageOptions _man, StringMap<String> _src) {
         instanceType = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("instance");
+        conditionalInstance = getCommonFrame().getFrames().getCompoFactory().newTextArea();
         staticType = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("static");
+        conditionalStatic = getCommonFrame().getFrames().getCompoFactory().newTextArea();
         enabledBp = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
+        conditionalStd = getCommonFrame().getFrames().getCompoFactory().newTextArea();
         cancel = getCommonFrame().getFrames().getCompoFactory().newPlainButton("cancel");
         ok = getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
         bpForm = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         bpForm.add(enabledBp);
+        bpForm.add(conditionalStd);
         bpForm.add(instanceType);
+        bpForm.add(conditionalInstance);
         bpForm.add(staticType);
+        bpForm.add(conditionalStatic);
         ok.addActionListener(new OkBpFormEvent(this));
         bpForm.add(ok);
         cancel.addActionListener(new CancelBpFormEvent(this));
@@ -262,6 +274,18 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return instanceType;
     }
 
+    public AbsTextArea getConditionalInstance() {
+        return conditionalInstance;
+    }
+
+    public AbsTextArea getConditionalStatic() {
+        return conditionalStatic;
+    }
+
+    public AbsTextArea getConditionalStd() {
+        return conditionalStd;
+    }
+
     public AbsCustCheckBox getStaticType() {
         return staticType;
     }
@@ -300,5 +324,13 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public CustList<AbsPlainButton> getCallButtons() {
         return callButtons;
+    }
+
+    public AbstractAtomicBoolean getStopDbg() {
+        return stopDbg;
+    }
+
+    public void setStopDbg(AbstractAtomicBoolean _s) {
+        this.stopDbg = _s;
     }
 }

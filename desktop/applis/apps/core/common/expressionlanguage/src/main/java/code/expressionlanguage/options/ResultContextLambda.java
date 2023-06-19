@@ -110,6 +110,12 @@ public final class ResultContextLambda {
         return _res;
     }
 
+    public static String okOrEmpty(ResultContextLambda _res, String _str) {
+        if (_res.getContext() == null) {
+            return "";
+        }
+        return StringUtil.nullToEmpty(_str);
+    }
 //    private static AccessedBlock tryGetOperator(BracedBlock _mem) {
 //        AccessedBlock op_ = null;
 //        if (AbsBk.isAnonBlock(_mem)) {

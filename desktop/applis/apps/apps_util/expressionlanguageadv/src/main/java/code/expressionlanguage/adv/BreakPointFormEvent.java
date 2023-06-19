@@ -32,10 +32,16 @@ public final class BreakPointFormEvent implements AbsActionListener {
         }
         window.setSelectedPb(bp_);
         window.getEnabledBp().setSelected(bp_.getValue().isEnabled());
+        window.getConditionalStd().setVisible(!bp_.getValue().isEnabledChgtType());
+        window.getConditionalStd().setText(bp_.getValue().getResultStrStd());
         window.getInstanceType().setEnabled(bp_.getValue().isEnabledChgtType());
         window.getInstanceType().setSelected(bp_.getValue().isInstanceType());
         window.getStaticType().setEnabled(bp_.getValue().isEnabledChgtType());
         window.getStaticType().setSelected(bp_.getValue().isStaticType());
+        window.getConditionalStatic().setVisible(bp_.getValue().isEnabledChgtType());
+        window.getConditionalStatic().setText(bp_.getValue().getResultStrStatic());
+        window.getConditionalInstance().setVisible(bp_.getValue().isEnabledChgtType());
+        window.getConditionalInstance().setText(bp_.getValue().getResultStrInstance());
         window.getBpForm().setVisible(true);
     }
 

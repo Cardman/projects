@@ -188,6 +188,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), ana_.getIdRowCol());
         assertTrue(BreakPointBlockList.breakPointCtxStatic(pair_, _res,new DefContextGenerator(), _dyn).isAllEmptyErrors());
+        assertEq(_dyn,pair_.getValue().getResultStrStatic());
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
@@ -217,6 +218,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), ana_.getIdRowCol());
         assertTrue(BreakPointBlockList.breakPointCtxInstance(pair_, _res,new DefContextGenerator(), _dyn).isAllEmptyErrors());
+        assertEq(_dyn,pair_.getValue().getResultStrInstance());
         CustomFoundMethod state_ = state(_res,_class, _meth);
         return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_);
     }
@@ -257,6 +259,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), _caret);
         assertTrue(BreakPointBlockList.breakPointCtxStd(pair_, _res,new DefContextGenerator(), _dyn).isAllEmptyErrors());
+        assertEq(_dyn,pair_.getValue().getResultStrStd());
         CustomFoundMethod state_ = state(_res,_class, _meth);
         return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_);
     }

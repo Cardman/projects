@@ -19,6 +19,7 @@ public final class BreakPointLambdaCtxUpdaterInstance implements BreakPointLambd
         String type_ = result.getPageEl().getAliasPrimBoolean();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, _fileName, _caret, result, type_, gene, MethodAccessKind.INSTANCE);
         _bp.setResultInstance(ResultContextLambda.okOrNull(res_));
+        _bp.setResultStrInstance(ResultContextLambda.okOrEmpty(res_,_newValue));
         return ResultContextLambda.after(res_);
     }
 

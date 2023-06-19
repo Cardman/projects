@@ -12,6 +12,7 @@ import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilimpl.CustContextFactory;
 import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.initialize.AbstractProgramInfos;
+import code.threads.AbstractAtomicBoolean;
 import code.util.StringMap;
 
 public final class AnalyzeDebugTask implements Runnable {
@@ -44,9 +45,11 @@ public final class AnalyzeDebugTask implements Runnable {
         AnalyzedPageEl page_ = cust_.getPageEl();
         f_.getClasses().getCommon().setStaticFields(page_.getStaticFields());
         ForwardInfos.generalForward(page_,f_);
-        ContextEl ctx_ = new AdvContextGenerator(fr_.getThreadFactory().newAtomicBoolean()).gene(f_);
+        AbstractAtomicBoolean st_ = fr_.getThreadFactory().newAtomicBoolean();
+        ContextEl ctx_ = new AdvContextGenerator(st_).gene(f_);
         Classes.forwardAndClear(ctx_);
         cust_.setContext(ctx_);
         gui.update(cust_);
+        gui.setStopDbg(st_);
     }
 }
