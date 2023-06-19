@@ -168,10 +168,14 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
 
     protected ReportedMessages valueDbgKo(String _dyn, String _class, String _meth, int _caret, StringMap<String> _files) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        ResultContext res_ = firstAna(_files);
         RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
         res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(ana_.getFile().getFileName(),_caret,res_);
         return endKo(_dyn,_class,_meth,res_);
+    }
+
+    protected ResultContext firstAna(StringMap<String> _files) {
+        return ctxLgReadOnlyOkQuick("en", _files);
     }
 
     private Struct end(String _dyn, String _class, String _meth, ResultContext _res) {
@@ -183,6 +187,27 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
         return ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), st_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(),null).eval(page_).getRetValue().getValue().getStruct();
+    }
+
+    protected ResultContextLambda dynAna(String _dyn, String _class, int _caret, ResultContext _res) {
+        RootBlock ana_ = _res.getPageEl().getAnaClassBody(_class);
+        _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(ana_.getFile().getFileName(),_caret,_res);
+        return ResultContextLambda.dynamicAnalyze(_dyn, ana_.getFile().getFileName(), _caret, _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(),null);
+    }
+
+    protected Struct dynEval(ResultContextLambda _dyn, String _class, String _meth, ResultContext _res) {
+        AbstractPageEl page_ = goToBp(_res, _class, _meth);
+        return _dyn.eval(_res.getContext(),page_).getRetValue().getValue().getStruct();
+    }
+
+    protected AbstractPageEl goToBp(ResultContext _res, String _class, String _meth) {
+        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
+        Argument argGlLoc_ = new Argument();
+        Parameters p_ = new Parameters();
+        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_));
+        StackCall st_ = stVal_.getStack();
+        return st_.getLastPage();
     }
 
     private ArrayStruct endExc(String _dyn, String _class, String _meth, ResultContext _res) {

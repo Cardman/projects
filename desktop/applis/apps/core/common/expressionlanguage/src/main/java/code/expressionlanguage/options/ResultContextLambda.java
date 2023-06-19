@@ -1,6 +1,7 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.*;
@@ -13,12 +14,14 @@ import code.expressionlanguage.analyze.syntax.IntermediaryResults;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.analyze.syntax.SplitExpressionUtil;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.AbsContextGenerator;
@@ -26,15 +29,15 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.SecondForwardGenerator;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringMap;
+import code.util.comparators.NaturalComparator;
+import code.util.core.StringUtil;
 
 public final class ResultContextLambda {
     private final ExecTypeFunction lambda;
     private final ContextEl context;
     private final ReportedMessages reportedMessages;
+    private boolean initTypes;
 
     public ResultContextLambda(ContextEl _c, ExecTypeFunction _l, ReportedMessages _r) {
         this.lambda = _l;
@@ -73,11 +76,6 @@ public final class ResultContextLambda {
         a_.setAnnotAnalysis(false);
         ClassesUtil.validateSimFinals(a_);
         ClassesUtil.checkEnd(a_);
-        for (EntryCust<String, StringMap<Struct>> e:a_.getStaticFieldsAna().entryList()) {
-            if (!AnaTypeUtil.allCst(a_,e.getKey(),e.getValue().getKeys())) {
-                return new ResultContextLambda(null,null,a_.getMessages());
-            }
-        }
         if (a_.notAllEmptyErrors()) {
             return new ResultContextLambda(null,null,a_.getMessages());
         }
@@ -111,6 +109,39 @@ public final class ResultContextLambda {
 //        }
 //        return op_;
 //    }
+    public StackCallReturnValue eval(ContextEl _original,AbstractPageEl _page) {
+        if (!initTypes) {
+            initTypes = true;
+            ExecClassesUtil.forwardClassesMetaInfos(context);
+            DefaultLockingClass dl_ = context.getLocks();
+            dl_.init(context);
+            context.setExiting(new DefaultExiting(context));
+            StackCall st_ = StackCall.newInstance(InitPhase.LIST,context);
+            st_.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
+            endOrder(_original,st_);
+            ExecClassesUtil.updateAfter(context);
+        }
+        return eval(_page);
+    }
+
+    private void endOrder(ContextEl _original, StackCall _st) {
+        CustList<String> f_ = context.getClasses().getClassesBodies().getKeys();
+        StringUtil.removeAllElements(f_, _original.getClasses().getClassesBodies().getKeys());
+        f_.sortElts(new NaturalComparator());
+        Classes cl_ = context.getClasses();
+        cl_.getCommon().getStaticFields().putAllMap(_original.getClasses().getStaticFields());
+        for (String c: f_) {
+            _st.getInitializingTypeInfos().resetInitEnums(_st);
+            ExecRootBlock r_ = cl_.getClassBody(c);
+            if (ProcessMethod.stateMismatch(r_, context, InitClassState.SUCCESS)) {
+                context.getLocks().initClass(r_);
+                AbstractPageEl page_ = new NotInitializedClass(new ExecFormattedRootBlock(r_,c),r_,null).processAfterOperation(context,_st);
+                loop(_st, page_);
+            }
+        }
+        _st.getInitializingTypeInfos().resetInitEnums(_st);
+    }
+
     public StackCallReturnValue eval(AbstractPageEl _page) {
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING, context);
         Parameters p_ = new Parameters();
@@ -118,11 +149,15 @@ public final class ResultContextLambda {
         p_.setCache(_page.getCache());
         AbstractPageEl page_ = new CustomFoundMethod(_page.getGlobalArgument(),_page.getGlobalClass(),lambda, p_).processAfterOperation(context,stackCall_);
         page_.getVars().addAllEntries(_page.getVars());
-        ExecutingUtil.addPage(page_, stackCall_);
+        return loop(stackCall_, page_);
+    }
+
+    private StackCallReturnValue loop(StackCall _stack, AbstractPageEl _page) {
+        ExecutingUtil.addPage(_page, _stack);
         Initializer i_ = context.getInit();
         while (true) {
-            if (i_.stopNormal(context, stackCall_) || i_.exitAfterCallInt(context, stackCall_)) {
-                return new StackCallReturnValue(stackCall_,new ArgumentWrapper(ArgumentListCall.toStr(page_.getReturnedArgument())),new CustList<ViewPage>());
+            if (i_.stopNormal(context, _stack) || i_.exitAfterCallInt(context, _stack)) {
+                return new StackCallReturnValue(_stack, new ArgumentWrapper(ArgumentListCall.toStr(_page.getReturnedArgument())), new CustList<ViewPage>());
             }
         }
     }

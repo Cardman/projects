@@ -186,6 +186,13 @@ public final class ExecClassesUtil {
     }
 
     private static StackCall afterInit(ContextEl _context) {
+        updateAfter(_context);
+        StackCall st_ = StackCall.newInstance(InitPhase.NOTHING,_context);
+        st_.getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
+        return st_;
+    }
+
+    public static void updateAfter(ContextEl _context) {
         Classes cl_ = _context.getClasses();
         for (EntryCust<String, StringMap<Struct>> e: cl_.getCommon().getStaticFields().entryList()) {
             for (EntryCust<String, Struct> f: e.getValue().entryList()) {
@@ -193,9 +200,6 @@ public final class ExecClassesUtil {
             }
         }
         _context.setExiting(new NoExiting());
-        StackCall st_ = StackCall.newInstance(InitPhase.NOTHING,_context);
-        st_.getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
-        return st_;
     }
 
     private static StackCall init(ContextEl _context) {
@@ -297,7 +301,7 @@ public final class ExecClassesUtil {
         return notInitial_;
     }
 
-    private static void forwardClassesMetaInfos(ContextEl _context) {
+    public static void forwardClassesMetaInfos(ContextEl _context) {
         for (ClassMetaInfo c: _context.getClasses().getClassMetaInfos()) {
             String name_ = c.getFormatted().getFormatted();
             ClassMetaInfo.forward(ClassMetaInfo.getClassMetaInfo(_context,name_),c);
