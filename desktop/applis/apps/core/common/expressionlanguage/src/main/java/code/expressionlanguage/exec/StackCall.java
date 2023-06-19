@@ -31,6 +31,7 @@ public final class StackCall implements AbstractStackCall {
 
     private int globalOffset;
     private StepDbgActionEnum step = StepDbgActionEnum.RUN;
+    private int previousNbPages;
     public StackCall(InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
         initializingTypeInfos = new InitializingTypeInfos();
         initializingTypeInfos.setInitEnums(_readOnlyOthers);
@@ -210,5 +211,13 @@ public final class StackCall implements AbstractStackCall {
 
     public void setStep(StepDbgActionEnum _s) {
         this.step = _s;
+    }
+
+    public int getPreviousNbPages() {
+        return previousNbPages;
+    }
+
+    public void setPreviousNbPages(int _p) {
+        this.previousNbPages = _p;
     }
 }

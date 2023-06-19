@@ -125,6 +125,10 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     protected static StackCall dbgContinueNormalValueNextInst(StackCall _stack, ContextEl _cont) {
         return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.NEXT_INSTRUCTION).getStack();
     }
+
+    protected static StackCall dbgContinueNormalValueStepRet(StackCall _stack, ContextEl _cont) {
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.RETURN_METHOD).getStack();
+    }
     protected static ResultContext ctxLgReadOnlyOkQuick(String _lg, StringMap<String> _files, String... _types) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);

@@ -41,6 +41,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsPlainButton selectEnter;
     private AbsPlainButton nextAction;
     private AbsPlainButton nextInstruction;
+    private AbsPlainButton nextGoUp;
     private AbsScrollPane detail;
     private AbsSplitPane detailAll;
     private StackCall stackCall;
@@ -108,6 +109,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nextInstruction = getCommonFrame().getFrames().getCompoFactory().newPlainButton(">");
         nextInstruction.setEnabled(false);
         nextInstruction.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.NEXT_INSTRUCTION));
+        nextGoUp = getCommonFrame().getFrames().getCompoFactory().newPlainButton("^");
+        nextGoUp.setEnabled(false);
+        nextGoUp.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.RETURN_METHOD));
         detail = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
         callStack = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(callStack,detail);
@@ -115,6 +119,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         page_.add(selectEnter);
         page_.add(nextAction);
         page_.add(nextInstruction);
+        page_.add(nextGoUp);
         page_.add(detailAll);
         commonFrame.setContentPane(page_);
         commonFrame.setVisible(true);
@@ -174,6 +179,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         PackingWindowAfter.pack(commonFrame);
         nextAction.setEnabled(true);
         nextInstruction.setEnabled(true);
+        nextGoUp.setEnabled(true);
     }
 
     public void updateGui(int _index) {
@@ -326,6 +332,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public AbsPlainButton getNextInstruction() {
         return nextInstruction;
+    }
+
+    public AbsPlainButton getNextGoUp() {
+        return nextGoUp;
     }
 
     public AbsSplitPane getDetailAll() {

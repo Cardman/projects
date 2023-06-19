@@ -279,6 +279,7 @@ public abstract class AbstractPageEl {
     }
     public void setNullReadWrite() {
         readWrite = null;
+        setVisited(false);
     }
 
     public void setReadWrite(ReadWrite _readWrite) {
@@ -340,6 +341,10 @@ public abstract class AbstractPageEl {
     public boolean stopBreakPoint(ContextEl _context, StackCall _stackCall) {
         if (checkBreakPoint(_stackCall)&&!isVisited()) {
             setVisited(true);
+            if (_stackCall.getStep() == StepDbgActionEnum.RETURN_METHOD && readWrite == null) {
+                _stackCall.setGlobalOffset(getGlobalOffset());
+                return true;
+            }
             if (_stackCall.getStep() == StepDbgActionEnum.NEXT_INSTRUCTION) {
                 _stackCall.setGlobalOffset(getGlobalOffset());
                 return true;
@@ -429,7 +434,7 @@ public abstract class AbstractPageEl {
             return true;
         }
         if (readWrite == null) {
-            return false;
+            return _stackCall.getStep() == StepDbgActionEnum.RETURN_METHOD && _stackCall.getPreviousNbPages() >= _stackCall.nbPages();
         }
         ExecBlock bl_ = getBlock();
         if (bl_ instanceof ExecDeclareVariable || isEmptyEl()) {

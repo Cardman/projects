@@ -1,5 +1,5 @@
 package code.expressionlanguage.exec;
 
 public enum StepDbgActionEnum {
-    RUN,DEBUG,KEEP,NEXT_INSTRUCTION
+    RUN,DEBUG,KEEP,NEXT_INSTRUCTION,RETURN_METHOD
 }

@@ -84,6 +84,7 @@ public class DefaultInitializer implements Initializer {
         AbstractPageEl p_ = _stackCall.getLastPage();
         if (p_.stopBreakPoint(_owner,_stackCall)) {
             _stackCall.setStoppedBreakPoint(true);
+            _stackCall.setPreviousNbPages(_stackCall.nbPages());
             return true;
         }
         return stopNormal(_owner, _stackCall);
