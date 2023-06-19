@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -205,7 +206,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         if (_s > -1) {
             FileBlock f_ = currentResult.getPageEl().getPreviousFilesBodies().getVal(tabs.get(_s).getFullPath());
             ExecFileBlock e_ = currentResult.getContext().getClasses().getDebugMapping().getFiles().getVal(f_);
-            currentResult.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getListTmp().add(new BreakPointBlockPair(e_, tabs.get(_s).getCenter().getCaretPosition(), new BreakPoint()));
+            int caret_ = tabs.get(_s).getCenter().getCaretPosition();
+            currentResult.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getListTmp().add(new BreakPointBlockPair(e_, ResultExpressionOperationNode.beginPart(caret_,f_), new BreakPoint()));
         }
     }
 
