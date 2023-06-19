@@ -125,8 +125,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         tabs.add(te_);
         tabbedPane.addIntTab(name_, te_.getPanel(), _path);
     }
-    void next(){
-        StackCallReturnValue view_ = ExecClassesUtil.tryInitStaticlyTypes(currentResult.getContext(), currentResult.getForwards().getOptions(), stackCall, selected);
+    void next(StepDbgActionEnum _step){
+        StackCallReturnValue view_ = ExecClassesUtil.tryInitStaticlyTypes(currentResult.getContext(), currentResult.getForwards().getOptions(), stackCall, selected,_step);
         stackCall = view_.getStack();
         if (stackCall.getInitializingTypeInfos().getInitEnums() == InitPhase.NOTHING && !stackCall.isStoppedBreakPoint()) {
             callStack.removeAll();
@@ -227,7 +227,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         if (l_ != null) {
             selected = l_;
             selectEnter.setEnabled(false);
-            debugActions.submit(new DbgLaunchTask(this));
+            debugActions.submit(new DbgLaunchTask(this, StepDbgActionEnum.DEBUG));
         } else {
             selected = new CustomFoundExc(NullStruct.NULL_VALUE);
         }

@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.exec.StepDbgActionEnum;
 import code.gui.events.AbsActionListener;
 
 public final class DbgNextBpEvent implements AbsActionListener {
@@ -13,6 +14,6 @@ public final class DbgNextBpEvent implements AbsActionListener {
     public void action() {
         window.getNextAction().setEnabled(false);
         window.getDetailAll().setVisible(false);
-        window.getDebugActions().submit(new DbgLaunchTask(window));
+        window.getDebugActions().submit(new DbgLaunchTask(window, StepDbgActionEnum.KEEP));
     }
 }

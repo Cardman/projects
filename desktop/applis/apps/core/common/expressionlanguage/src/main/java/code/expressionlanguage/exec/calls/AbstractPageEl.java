@@ -2,10 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ConditionReturn;
-import code.expressionlanguage.exec.ExpressionLanguage;
-import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.StackCallReturnValue;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
@@ -343,6 +340,10 @@ public abstract class AbstractPageEl {
     public boolean stopBreakPoint(ContextEl _context, StackCall _stackCall) {
         if (checkBreakPoint(_stackCall)&&!isVisited()) {
             setVisited(true);
+            if (_stackCall.getStep() == StepDbgActionEnum.NEXT_INSTRUCTION) {
+                _stackCall.setGlobalOffset(getGlobalOffset());
+                return true;
+            }
             if (stopExc(_context, _stackCall)) {
                 _stackCall.setGlobalOffset(getGlobalOffset());
                 return true;

@@ -58,4 +58,8 @@ public final class DebugMapping {
     public void setInitClass(String _i) {
         this.initClass = _i;
     }
+
+    public boolean isDebugging() {
+        return debugging;
+    }
 }

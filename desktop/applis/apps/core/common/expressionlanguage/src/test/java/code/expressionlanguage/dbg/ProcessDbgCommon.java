@@ -52,7 +52,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
 //    }
 //
 //    protected static StackCall dbgNormalAfterInitGene(String _class, MethodId _method, ResultContext _cont) {
-        return dbgNormal(_class, _method, _cont,null);
+        return dbgNormalInit(_class, _method, _cont);
 //        ExecRootBlock classBody_ = _cont.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
 //        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
 //        Argument argGlLoc_ = new Argument();
@@ -65,9 +65,17 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
 //    }
 //
 //    protected static StackCall dbgNormalAfterInitGene(String _class, MethodId _method, ResultContext _cont) {
-        return dbgNormalInfo(_class, _method, _cont, _st).getStack();
+        return dbgNormalInfoKeep(_class, _method, _cont, _st).getStack();
     }
-    protected static StackCallReturnValue dbgNormalInfo(String _class, MethodId _method, ResultContext _cont, StackCall _st) {
+    protected static StackCall dbgNormalInit(String _class, MethodId _method, ResultContext _cont) {
+//        tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
+//        return dbgNormalAfterInit(_class, _method, _cont);
+//    }
+//
+//    protected static StackCall dbgNormalAfterInitGene(String _class, MethodId _method, ResultContext _cont) {
+        return dbgNormalInfoInit(_class, _method, _cont).getStack();
+    }
+    protected static StackCallReturnValue dbgNormalInfoKeep(String _class, MethodId _method, ResultContext _cont, StackCall _st) {
 //        tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
 //        return dbgNormalAfterInit(_class, _method, _cont);
 //    }
@@ -77,7 +85,19 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        return ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getForwards().getOptions(),_st,new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_));
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getForwards().getOptions(),_st,new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),StepDbgActionEnum.KEEP);
+    }
+    protected static StackCallReturnValue dbgNormalInfoInit(String _class, MethodId _method, ResultContext _cont) {
+//        tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
+//        return dbgNormalAfterInit(_class, _method, _cont);
+//    }
+//
+//    protected static StackCall dbgNormalAfterInitGene(String _class, MethodId _method, ResultContext _cont) {
+        ExecRootBlock classBody_ = _cont.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
+        Argument argGlLoc_ = new Argument();
+        Parameters p_ = new Parameters();
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getForwards().getOptions(),null,new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),StepDbgActionEnum.DEBUG);
     }
 //    protected static StackCall dbgNormalAfterInit(String _class, MethodId _method, ResultContext _cont) {
 //        ExecRootBlock classBody_ = _cont.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
@@ -95,11 +115,15 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
 
 
     protected static StackCall dbgContinueNormalQuick(StackCall _stack, ContextEl _cont) {
-        return ExecClassesUtil.tryInitStaticlyTypes(_cont, new Options(), _stack, null).getStack();
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont, new Options(), _stack, null,StepDbgActionEnum.KEEP).getStack();
     }
 
     protected static StackCallReturnValue dbgContinueNormalValue(StackCall _stack, ContextEl _cont) {
-        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null);
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.KEEP);
+    }
+
+    protected static StackCall dbgContinueNormalValueNextInst(StackCall _stack, ContextEl _cont) {
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.NEXT_INSTRUCTION).getStack();
     }
     protected static ResultContext ctxLgReadOnlyOkQuick(String _lg, StringMap<String> _files, String... _types) {
         Options opt_ = newOptions();
@@ -192,7 +216,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_));
+        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null);
     }
 
     protected ResultContext ctxSt(String _class, StringMap<String> _files) {
@@ -220,7 +244,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         assertTrue(BreakPointBlockList.breakPointCtxInstance(pair_, _res,new DefContextGenerator(), _dyn).isAllEmptyErrors());
         assertEq(_dyn,pair_.getValue().getResultStrInstance());
         CustomFoundMethod state_ = state(_res,_class, _meth);
-        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_);
+        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_,null);
     }
 
     protected CustomFoundMethod state(ResultContext _res, String _class, String _meth) {
@@ -261,7 +285,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         assertTrue(BreakPointBlockList.breakPointCtxStd(pair_, _res,new DefContextGenerator(), _dyn).isAllEmptyErrors());
         assertEq(_dyn,pair_.getValue().getResultStrStd());
         CustomFoundMethod state_ = state(_res,_class, _meth);
-        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_);
+        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_, null);
     }
 
     protected ReportedMessages conditionalStdViewBad(String _dyn, String _class, int _caret, StringMap<String> _files) {
@@ -288,7 +312,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_));
+        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
         return ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), st_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(),null).eval(page_).getRetValue().getValue().getStruct();
@@ -310,7 +334,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_));
+        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null);
         StackCall st_ = stVal_.getStack();
         return st_.getLastPage();
     }
@@ -320,7 +344,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_));
+        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
         ResultContextLambda resLam_ = ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), st_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), null);
@@ -332,7 +356,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_));
+        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
         return ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), st_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(),null).getReportedMessages();
@@ -342,7 +366,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_));
+        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
         return ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), st_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), MethodAccessKind.STATIC).getReportedMessages();

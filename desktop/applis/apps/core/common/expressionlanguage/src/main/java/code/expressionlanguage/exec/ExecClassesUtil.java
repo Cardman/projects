@@ -127,7 +127,10 @@ public final class ExecClassesUtil {
     public static StackCall tryInitStaticlyTypes(ContextEl _context, Options _options) {
         return tryInitStaticlyTypes(_context,_options,null);
     }
-    public static StackCallReturnValue tryInitStaticlyTypes(ContextEl _context, Options _options, StackCall _st, CallingState _callee) {
+    public static StackCallReturnValue tryInitStaticlyTypes(ContextEl _context, Options _options, StackCall _st, CallingState _callee, StepDbgActionEnum _step) {
+        if (_st != null) {
+            _st.setStep(_step);
+        }
         StackCall st_ = tryInitStaticlyTypes(_context, _options, _st);
         if (st_.getInitializingTypeInfos().getInitEnums() == InitPhase.NOTHING) {
             ArgumentWrapper arg_;
@@ -182,14 +185,13 @@ public final class ExecClassesUtil {
         if (_st.isStoppedBreakPoint()) {
             return _st;
         }
-        return afterInit(_context);
+        return afterInit(_context,_st);
     }
 
-    private static StackCall afterInit(ContextEl _context) {
+    private static StackCall afterInit(ContextEl _context, StackCall _st) {
         updateAfter(_context);
-        StackCall st_ = StackCall.newInstance(InitPhase.NOTHING,_context);
-        st_.getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
-        return st_;
+        _st.getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
+        return _st;
     }
 
     public static void updateAfter(ContextEl _context) {
@@ -209,7 +211,14 @@ public final class ExecClassesUtil {
         _context.setExiting(new DefaultExiting(_context));
         StackCall st_ = StackCall.newInstance(InitPhase.READ_ONLY_OTHERS,_context);
         st_.getInitializingTypeInfos().setInitEnums(InitPhase.READ_ONLY_OTHERS);
+        stepDbgOrRun(_context, st_);
         return st_;
+    }
+
+    private static void stepDbgOrRun(ContextEl _context, StackCall _st) {
+        if (_context.getClasses().getDebugMapping().isDebugging()) {
+            _st.setStep(StepDbgActionEnum.DEBUG);
+        }
     }
 
     private static StackCall endOrder(ContextEl _context, StackCall _st) {
@@ -250,18 +259,16 @@ public final class ExecClassesUtil {
             return endList(_context, _context.getClasses().getDebugMapping().getTypesInit(), _orig);
         }
         if (_orig.getInitializingTypeInfos().getInitEnums() == InitPhase.LIST) {
-            StackCall st_ = StackCall.newInstance(InitPhase.LIST,_context);
-            st_.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
-            return endList(_context, _context.getClasses().getDebugMapping().getTypesInit(), st_);
+            _orig.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
+            return endList(_context, _context.getClasses().getDebugMapping().getTypesInit(), _orig);
         }
-        StackCall st_ = StackCall.newInstance(InitPhase.LIST,_context);
-        st_.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
+        _orig.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
         DefaultLockingClass dl_ = _context.getLocks();
         dl_.initAlwaysSuccess();
         CustList<String> filter_ = new CustList<String>(_options.getTypesInit());
         _context.getClasses().getDebugMapping().getTypesInit().clear();
         _context.getClasses().getDebugMapping().getTypesInit().addAllElts(filter_);
-        return endList(_context, filter_, st_);
+        return endList(_context, filter_, _orig);
     }
 
     private static StackCall endList(ContextEl _context, CustList<String> _options, StackCall _st) {

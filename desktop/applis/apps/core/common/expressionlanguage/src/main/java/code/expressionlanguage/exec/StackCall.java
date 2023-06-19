@@ -30,6 +30,7 @@ public final class StackCall implements AbstractStackCall {
     private boolean checkingException;
 
     private int globalOffset;
+    private StepDbgActionEnum step = StepDbgActionEnum.RUN;
     public StackCall(InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
         initializingTypeInfos = new InitializingTypeInfos();
         initializingTypeInfos.setInitEnums(_readOnlyOthers);
@@ -201,5 +202,13 @@ public final class StackCall implements AbstractStackCall {
 
     public void setGlobalOffset(int _g) {
         this.globalOffset = _g;
+    }
+
+    public StepDbgActionEnum getStep() {
+        return step;
+    }
+
+    public void setStep(StepDbgActionEnum _s) {
+        this.step = _s;
     }
 }

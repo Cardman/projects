@@ -26,7 +26,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",87,cont_);
         MethodId id_ = getMethodId("exmeth");
-        StackCallReturnValue i_ = dbgNormalInfo("pkg.Ex", id_, cont_,null);
+        StackCallReturnValue i_ = dbgNormalInfoInit("pkg.Ex", id_, cont_);
         StackCall stack_ = i_.getStack();
         assertEq(1, stack_.nbPages());
         assertEq(1, i_.getVariables().size());
@@ -66,7 +66,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",164,cont_);
         MethodId id_ = getMethodId("exmeth");
-        StackCallReturnValue i_ = dbgNormalInfo("pkg.Ex", id_, cont_,null);
+        StackCallReturnValue i_ = dbgNormalInfoInit("pkg.Ex", id_, cont_);
         StackCall stack_ = i_.getStack();
         assertEq(4, stack_.nbPages());
         assertEq(4, i_.getVariables().size());
@@ -123,7 +123,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",184,cont_);
         MethodId id_ = getMethodId("exmeth");
-        StackCallReturnValue i_ = dbgNormalInfo("pkg.Ex", id_, cont_,null);
+        StackCallReturnValue i_ = dbgNormalInfoInit("pkg.Ex", id_, cont_);
         StackCall stack_ = i_.getStack();
         assertEq(4, stack_.nbPages());
         assertEq(4, i_.getVariables().size());
@@ -191,7 +191,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",88,cont_);
         MethodId id_ = getMethodId("exmeth");
-        StackCallReturnValue i_ = dbgNormalInfo("pkg.Ex", id_, cont_,null);
+        StackCallReturnValue i_ = dbgNormalInfoInit("pkg.Ex", id_, cont_);
         StackCall stack_ = i_.getStack();
         assertEq(1, stack_.nbPages());
         assertEq(1, i_.getVariables().size());
@@ -236,7 +236,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",155,cont_);
         MethodId id_ = getMethodId("exmeth");
-        StackCallReturnValue i_ = dbgNormalInfo("pkg.Ex", id_, cont_,null);
+        StackCallReturnValue i_ = dbgNormalInfoInit("pkg.Ex", id_, cont_);
         StackCall stack_ = i_.getStack();
         assertEq(3, stack_.nbPages());
         assertEq(3, i_.getVariables().size());
