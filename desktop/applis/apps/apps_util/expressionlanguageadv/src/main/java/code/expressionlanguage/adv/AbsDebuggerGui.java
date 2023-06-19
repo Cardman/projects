@@ -42,6 +42,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsPlainButton nextAction;
     private AbsPlainButton nextInstruction;
     private AbsPlainButton nextGoUp;
+    private AbsPlainButton nextInMethod;
     private AbsScrollPane detail;
     private AbsSplitPane detailAll;
     private StackCall stackCall;
@@ -112,6 +113,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nextGoUp = getCommonFrame().getFrames().getCompoFactory().newPlainButton("^");
         nextGoUp.setEnabled(false);
         nextGoUp.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.RETURN_METHOD));
+        nextInMethod = getCommonFrame().getFrames().getCompoFactory().newPlainButton("=");
+        nextInMethod.setEnabled(false);
+        nextInMethod.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.RETURN_METHOD));
         detail = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
         callStack = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(callStack,detail);
@@ -120,6 +124,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         page_.add(nextAction);
         page_.add(nextInstruction);
         page_.add(nextGoUp);
+        page_.add(nextInMethod);
         page_.add(detailAll);
         commonFrame.setContentPane(page_);
         commonFrame.setVisible(true);
@@ -180,6 +185,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nextAction.setEnabled(true);
         nextInstruction.setEnabled(true);
         nextGoUp.setEnabled(true);
+        nextInMethod.setEnabled(true);
     }
 
     public void updateGui(int _index) {
@@ -336,6 +342,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public AbsPlainButton getNextGoUp() {
         return nextGoUp;
+    }
+
+    public AbsPlainButton getNextInMethod() {
+        return nextInMethod;
     }
 
     public AbsSplitPane getDetailAll() {

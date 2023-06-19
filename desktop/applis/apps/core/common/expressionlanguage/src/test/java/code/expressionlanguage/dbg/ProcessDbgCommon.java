@@ -126,6 +126,9 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.NEXT_INSTRUCTION).getStack();
     }
 
+    protected static StackCall dbgContinueNormalValueNextInstMethod(StackCall _stack, ContextEl _cont) {
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.NEXT_IN_METHOD).getStack();
+    }
     protected static StackCall dbgContinueNormalValueStepRet(StackCall _stack, ContextEl _cont) {
         return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.RETURN_METHOD).getStack();
     }

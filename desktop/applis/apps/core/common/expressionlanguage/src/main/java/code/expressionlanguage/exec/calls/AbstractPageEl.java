@@ -341,11 +341,7 @@ public abstract class AbstractPageEl {
     public boolean stopBreakPoint(ContextEl _context, StackCall _stackCall) {
         if (checkBreakPoint(_stackCall)&&!isVisited()) {
             setVisited(true);
-            if (_stackCall.getStep() == StepDbgActionEnum.RETURN_METHOD && readWrite == null) {
-                _stackCall.setGlobalOffset(getGlobalOffset());
-                return true;
-            }
-            if (_stackCall.getStep() == StepDbgActionEnum.NEXT_INSTRUCTION) {
+            if (stopStep(_stackCall)) {
                 _stackCall.setGlobalOffset(getGlobalOffset());
                 return true;
             }
@@ -364,6 +360,11 @@ public abstract class AbstractPageEl {
         }
         return false;
     }
+
+    private boolean stopStep(StackCall _stackCall) {
+        return _stackCall.getStep() == StepDbgActionEnum.RETURN_METHOD && readWrite == null || _stackCall.getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getPreviousNbPages() >= _stackCall.nbPages() || _stackCall.getStep() == StepDbgActionEnum.NEXT_INSTRUCTION;
+    }
+
     private boolean stopExc(ContextEl _context, StackCall _stackCall) {
         AbstractStask stLast_ = tryGetLastStack();
         ExecBlock bl_ = getBlock();
