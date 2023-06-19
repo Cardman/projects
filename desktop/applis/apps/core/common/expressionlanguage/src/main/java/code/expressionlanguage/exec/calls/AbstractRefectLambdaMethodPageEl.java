@@ -22,6 +22,7 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
             return;
         }
         setNullReadWrite();
+        _stack.setVisited(false);
     }
 
     private boolean checkCondition(ContextEl _context, StackCall _stack) {

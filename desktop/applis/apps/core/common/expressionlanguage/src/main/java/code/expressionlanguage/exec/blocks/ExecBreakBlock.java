@@ -15,10 +15,6 @@ public final class ExecBreakBlock extends ExecLeaf implements MethodCallingFinal
 
     @Override
     public void removeBlockFinally(AbstractPageEl _stack) {
-        _stack.globalOffset(off);
-        if (ExecHelperBlocks.checkBp(_stack,this)) {
-            return;
-        }
         //when labelled this loop does not remove if
         //the last statement is a "try" with "finally" clause
         //and the current block is a "try" or a "catch"
@@ -31,4 +27,8 @@ public final class ExecBreakBlock extends ExecLeaf implements MethodCallingFinal
 
     }
 
+    @Override
+    public int getOff() {
+        return off;
+    }
 }

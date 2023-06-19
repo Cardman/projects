@@ -14,10 +14,6 @@ public final class ExecContinueBlock extends ExecLeaf implements MethodCallingFi
 
     @Override
     public void removeBlockFinally(AbstractPageEl _stack) {
-        _stack.globalOffset(off);
-        if (ExecHelperBlocks.checkBp(_stack,this)) {
-            return;
-        }
         while (true) {
             AbstractStask bl_ = ExecHelperBlocks.hasBlockContinue(_stack,label);
             if (ExecHelperBlocks.setRemovedCallingFinallyToProcessLoop(_stack, bl_, this, null)) {
@@ -26,4 +22,8 @@ public final class ExecContinueBlock extends ExecLeaf implements MethodCallingFi
         }
     }
 
+    @Override
+    public int getOff() {
+        return off;
+    }
 }

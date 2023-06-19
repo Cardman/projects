@@ -11,7 +11,7 @@ public final class DirectCallConstructorPageEl extends AbstractCallingInstancing
 
     @Override
     public void processTagsBase(ContextEl _context, StackCall _stack) {
-        if (checkFirstEnter()) {
+        if (checkFirstEnter(_stack)) {
             return;
         }
         commonTageBase(_context,_stack,null);

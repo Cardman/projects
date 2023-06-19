@@ -31,6 +31,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
             return;
         }
         setNullReadWrite();
+        _stack.setVisited(false);
     }
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         ExecMemberCallingsBlock annotableBlock_ = metaInfo.getCallee();

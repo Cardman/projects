@@ -32,7 +32,7 @@ public final class ExecForEachRefArray extends ExecAbstractForEachLoop {
 
     @Override
     protected Argument retrieveValue(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
-        if (ExecHelperBlocks.checkBp(_stack.getLastPage(),this)) {
+        if (ExecHelperBlocks.checkBp(_stack,_stack.getLastPage(),this)) {
             return null;
         }
         _l.getContent().setIndex(_l.getContent().getIndex() + 1);
@@ -49,7 +49,7 @@ public final class ExecForEachRefArray extends ExecAbstractForEachLoop {
         if (c_ == ConditionReturn.NO) {
             AbstractPageEl abs_ = _stack.getLastPage();
             abs_.globalOffset(getVariable().getOffset());
-            if (ExecHelperBlocks.checkBp(abs_,this)) {
+            if (ExecHelperBlocks.checkBp(_stack,abs_,this)) {
                 return ConditionReturn.CALL_EX;
             }
         }

@@ -32,7 +32,6 @@ public abstract class AbstractPageEl {
     private ReadWrite readWrite;
     private ExecBlock execBlock;
     private ExecBlock blockRoot;
-    private boolean visited;
 
     private final CustList<AbstractStask> blockStacks = new CustList<AbstractStask>();
 
@@ -161,12 +160,12 @@ public abstract class AbstractPageEl {
 
     public abstract void processTagsBase(ContextEl _context, StackCall _stack);
 
-    public ExpressionLanguage getCurrentEl(int _index, CustList<ExecOperationNode> _e, ExecBlock _coveredBlock) {
+    public ExpressionLanguage getCurrentEl(StackCall _stack, int _index, CustList<ExecOperationNode> _e, ExecBlock _coveredBlock) {
         ExpressionLanguage el_ = getNullableExp(_index);
         if (el_ == null) {
             el_ = new ExpressionLanguage(_e, _coveredBlock);
             currentEls.add(el_);
-            setVisited(false);
+            _stack.setVisited(false);
         }
         return el_;
     }
@@ -222,6 +221,10 @@ public abstract class AbstractPageEl {
             return;
         }
         if (en_ instanceof MethodCallingFinally) {
+            _stack.getLastPage().globalOffset(((MethodCallingFinally)en_).getOff());
+            if (ExecHelperBlocks.checkBp(_stack,_stack.getLastPage(),en_)) {
+                return;
+            }
             ((MethodCallingFinally)en_).removeBlockFinally(_stack.getLastPage());
             return;
         }
@@ -230,6 +233,7 @@ public abstract class AbstractPageEl {
             return;
         }
         setNullReadWrite();
+        _stack.setVisited(false);
     }
 
     public void clearCurrentEls() {
@@ -263,15 +267,6 @@ public abstract class AbstractPageEl {
 
     public void setBlock(ExecBlock _block) {
         execBlock = _block;
-        setVisited(false);
-    }
-
-    public boolean isVisited() {
-        return visited;
-    }
-
-    public void setVisited(boolean _v) {
-        this.visited = _v;
     }
 
     public ReadWrite getReadWrite() {
@@ -279,7 +274,6 @@ public abstract class AbstractPageEl {
     }
     public void setNullReadWrite() {
         readWrite = null;
-        setVisited(false);
     }
 
     public void setReadWrite(ReadWrite _readWrite) {
@@ -339,8 +333,8 @@ public abstract class AbstractPageEl {
     }
 
     public boolean stopBreakPoint(ContextEl _context, StackCall _stackCall) {
-        if (checkBreakPoint(_stackCall)&&!isVisited()) {
-            setVisited(true);
+        if (checkBreakPoint(_stackCall)&&!_stackCall.isVisited()) {
+            _stackCall.setVisited(true);
             if (stopStep(_context,_stackCall)) {
                 _stackCall.setGlobalOffset(getGlobalOffset());
                 return true;

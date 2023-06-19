@@ -99,7 +99,7 @@ public final class ExecHelperBlocks {
             return;
         }
         ip_.globalOffset(_block.getOff());
-        if (checkBp(ip_,_block)) {
+        if (checkBp(_stack,ip_,_block)) {
             return;
         }
         if (((SwitchBlockStack) abstractStask_).isEntered()) {
@@ -174,7 +174,7 @@ public final class ExecHelperBlocks {
             ip_.setNullReadWrite();
             return;
         }
-        if (checkBp(ip_,_block)) {
+        if (checkBp(_stackCall,ip_,_block)) {
             return;
         }
         ((EnteredStack)ts_).setCurrentVisitedBlock(_block);
@@ -273,6 +273,7 @@ public final class ExecHelperBlocks {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         if (ip_.noBlock()) {
             ip_.setNullReadWrite();
+            _stackCall.setVisited(false);
             return;
         }
         ip_.removeLastBlock();
@@ -333,13 +334,13 @@ public final class ExecHelperBlocks {
         AbstractPageEl ip_ = _stack.getLastPage();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible(_loop);
         if (c_ != null) {
-            if (!c_.getContent().isEvaluatingKeepLoop() && checkBp(ip_, _loop)) {
+            if (!c_.getContent().isEvaluatingKeepLoop() && checkBp(_stack,ip_, _loop)) {
                 return;
             }
             processVisitedLoop(c_, _loop, _loop.getNextSibling(), _cont, _stack, ip_);
             return;
         }
-        if (checkBp(ip_, _loop)) {
+        if (checkBp(_stack,ip_, _loop)) {
             return;
         }
         LoopBlockStack l_ = new LoopBlockStack(_loop);
@@ -361,7 +362,7 @@ public final class ExecHelperBlocks {
             return;
         }
         ip_.globalOffset(_block.getOff());
-        if (checkBp(ip_, _block)) {
+        if (checkBp(_stack,ip_, _block)) {
             return;
         }
         ExecBlock n_ = _block.getNextSibling();
@@ -504,7 +505,7 @@ public final class ExecHelperBlocks {
 
     public static ArgumentsPair tryToCalculatePair(ContextEl _context, int _index, StackCall _stackCall, CustList<ExecOperationNode> _list, int _offset, ExecBlock _coveredBlock) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
-        ExpressionLanguageBp o_ = checkBpWithoutClear(_index, ip_, _list, _coveredBlock);
+        ExpressionLanguageBp o_ = checkBpWithoutClear(_stackCall,_index, ip_, _list, _coveredBlock);
         ExpressionLanguage exp_ = o_.getExpressionLanguage();
         if (o_.getDiff() == 1){
             return null;
@@ -536,7 +537,7 @@ public final class ExecHelperBlocks {
     private static ExecResultCase procTypeVar(ContextEl _cont, StackCall _stack, ExecBracedBlock _br, ExecWithFilterContent _in, Struct _arg, boolean _all) {
         AbstractPageEl lastPage_ = _stack.getLastPage();
         lastPage_.globalOffset(_in.getContent().getOffset());
-        if (checkBpWithoutClear(0,lastPage_,new CustList<ExecOperationNode>(),_br).getDiff() == 1) {
+        if (checkBpWithoutClear(_stack,0,lastPage_,new CustList<ExecOperationNode>(),_br).getDiff() == 1) {
             return new ExecResultCase(ConditionReturn.CALL_EX, _br, -1);
         }
         int index_ = first(1, _cont, _stack, _in.getContent(), _arg, _all);
@@ -962,7 +963,7 @@ public final class ExecHelperBlocks {
             return null;
         }
         ip_.globalOffset(_block.getVariable().getOffset());
-        if (checkBp(IndexConstants.SECOND_INDEX + 2,ip_,_block)) {
+        if (checkBp(_stackCall,IndexConstants.SECOND_INDEX + 2,ip_,_block)) {
             return null;
         }
         long fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();
@@ -1014,7 +1015,7 @@ public final class ExecHelperBlocks {
 
     private static void incrementLoopIter(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall, ExecForIterativeLoop _loop) {
         _stackCall.getLastPage().globalOffset(_loop.getVariable().getOffset());
-        if (checkBp(_stackCall.getLastPage(), _loop)) {
+        if (checkBp(_stackCall,_stackCall.getLastPage(), _loop)) {
             return;
         }
         _l.getContent().setIndex(_l.getContent().getIndex() + 1);
@@ -1052,7 +1053,7 @@ public final class ExecHelperBlocks {
             processBlockAndRemove(_bl, _stack);
             return;
         }
-        if (checkBp(ip_,_bl)) {
+        if (checkBp(_stack,ip_,_bl)) {
             return;
         }
         IfBlockStack if_ = new IfBlockStack(_bl,_bl);
@@ -1062,20 +1063,20 @@ public final class ExecHelperBlocks {
         enterIfBlock(_bl,ip_,if_);
     }
 
-    public static boolean checkBp(AbstractPageEl _ip, ExecBlock _bl) {
-        return checkBp(0, _ip, _bl);
+    public static boolean checkBp(StackCall _stack,AbstractPageEl _ip, ExecBlock _bl) {
+        return checkBp(_stack,0, _ip, _bl);
     }
-    public static boolean checkBp(int _index,AbstractPageEl _ip, ExecBlock _bl) {
-        ExpressionLanguageBp el_ = checkBpWithoutClear(_index, _ip, new CustList<ExecOperationNode>(), _bl);
+    public static boolean checkBp(StackCall _stack, int _index,AbstractPageEl _ip, ExecBlock _bl) {
+        ExpressionLanguageBp el_ = checkBpWithoutClear(_stack,_index, _ip, new CustList<ExecOperationNode>(), _bl);
         if (el_.getDiff() != 0) {
             return true;
         }
         _ip.clearCurrentEls();
         return false;
     }
-    public static ExpressionLanguageBp checkBpWithoutClear(int _index,AbstractPageEl _ip, CustList<ExecOperationNode> _list, ExecBlock _bl) {
+    public static ExpressionLanguageBp checkBpWithoutClear(StackCall _stack, int _index,AbstractPageEl _ip, CustList<ExecOperationNode> _list, ExecBlock _bl) {
         int size_ = _ip.sizeEl();
-        ExpressionLanguage el_ = _ip.getCurrentEl(_index, _list, _bl);
+        ExpressionLanguage el_ = _ip.getCurrentEl(_stack,_index, _list, _bl);
         if (size_ < _ip.sizeEl()) {
             return new ExpressionLanguageBp(el_,1);
         }
@@ -1125,7 +1126,7 @@ public final class ExecHelperBlocks {
         processBlock(_stack, _block);
     }
 
-    public static void processMemberBlock(AbstractInitPageEl _lastPage) {
+    public static void processMemberBlock(StackCall _stack,AbstractInitPageEl _lastPage) {
         int cur_ = _lastPage.getMember();
         int next_ = cur_ + 1;
         CustList<ExecBlock> visited_ = _lastPage.getVisited();
@@ -1140,6 +1141,7 @@ public final class ExecHelperBlocks {
 //            return;
 //        }
         _lastPage.setNullReadWrite();
+        _stack.setVisited(false);
     }
 
     private static void processBlock(StackCall _stackCall, ExecBlock _execBlock) {
@@ -1169,6 +1171,7 @@ public final class ExecHelperBlocks {
             return;
         }
         ip_.setNullReadWrite();
+        _stackCall.setVisited(false);
     }
 
     private static void nextSwitchBlock(AbstractPageEl _ip, ExecBracedBlock _par, SwitchBlockStack _lastStack) {
@@ -1207,7 +1210,7 @@ public final class ExecHelperBlocks {
             if (call_ != null) {
                 ExecBlock callingFinally_ = call_.getCallingFinally();
                 if (callingFinally_ instanceof ExecAbstractExpressionReturnMethod) {
-                    ((ExecAbstractExpressionReturnMethod)callingFinally_).tryReturn(_ip);
+                    ((ExecAbstractExpressionReturnMethod)callingFinally_).tryReturn(_stackCall,_ip);
                 } else if (callingFinally_ != null){
                     _ip.setBlock(callingFinally_);
                 } else {

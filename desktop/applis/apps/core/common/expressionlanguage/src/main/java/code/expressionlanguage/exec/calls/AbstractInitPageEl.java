@@ -34,10 +34,11 @@ public abstract class AbstractInitPageEl extends AbstractPageEl {
             return;
         }
         if (en_ != null) {
-            ExecHelperBlocks.processMemberBlock(this);
+            ExecHelperBlocks.processMemberBlock(_stack,this);
             return;
         }
         setNullReadWrite();
+        _stack.setVisited(false);
     }
     public void blockRoot(ExecRootBlock _type) {
         setBlockRoot(_type);

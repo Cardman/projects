@@ -40,6 +40,7 @@ public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
             }
         }
         setNullReadWrite();
+        _stack.setVisited(false);
     }
 
 }

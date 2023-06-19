@@ -59,7 +59,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock {
             return;
         }
         _last.clearCurrentEls();
-        ExecHelperBlocks.processMemberBlock(_last);
+        ExecHelperBlocks.processMemberBlock(_stack,_last);
     }
 
     private void setValue(ContextEl _cont, Argument _arg, ExecRootBlock _type, StackCall _stackCall) {

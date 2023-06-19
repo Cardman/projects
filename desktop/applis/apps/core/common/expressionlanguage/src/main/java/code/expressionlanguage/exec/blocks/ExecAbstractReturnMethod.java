@@ -1,11 +1,12 @@
 package code.expressionlanguage.exec.blocks;
 
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.stacks.AbstractStask;
 
 public abstract class ExecAbstractReturnMethod extends ExecLeaf {
 
-    public void tryReturn(AbstractPageEl _stack) {
+    public void tryReturn(StackCall _call, AbstractPageEl _stack) {
         while (true) {
             AbstractStask bl_ = _stack.tryGetLastStack();
             if (bl_ == null) {
@@ -16,6 +17,7 @@ public abstract class ExecAbstractReturnMethod extends ExecLeaf {
             }
         }
         _stack.setNullReadWrite();
+        _call.setVisited(false);
     }
 
 }

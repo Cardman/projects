@@ -38,6 +38,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
             return;
         }
         setNullReadWrite();
+        _stack.setVisited(false);
     }
 
     private boolean checkCondition(ContextEl _context, StackCall _stack) {

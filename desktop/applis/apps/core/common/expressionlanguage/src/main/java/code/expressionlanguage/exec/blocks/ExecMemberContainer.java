@@ -28,7 +28,7 @@ public abstract class ExecMemberContainer {
             return;
         }
         _last.clearCurrentEls();
-        ExecHelperBlocks.processMemberBlock(_last);
+        ExecHelperBlocks.processMemberBlock(_stack,_last);
     }
 
     public CustList<ExecOperationNode> getOpValue() {

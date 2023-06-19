@@ -32,7 +32,7 @@ public final class ExecReturnMethod extends ExecAbstractExpressionReturnMethod {
             return;
         }
         ip_.setReturnedArgument(arg_);
-        tryReturn(ip_);
+        tryReturn(_stack,ip_);
     }
 
 }

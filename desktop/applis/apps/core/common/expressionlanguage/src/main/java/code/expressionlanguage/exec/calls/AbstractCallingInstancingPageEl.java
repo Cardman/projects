@@ -36,7 +36,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
     }
 
     public final boolean checkCondition(StackCall _stack) {
-        if (checkFirstEnter()) {
+        if (checkFirstEnter(_stack)) {
             return false;
         }
         ExecRootBlock blockRootType_ = getBlockRootType();
@@ -80,9 +80,9 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
 //        //fields of the current class are initialized if there is no interface constructors to call
         return !hasToInitFields(bl_,_stack);
     }
-    protected boolean checkFirstEnter() {
+    protected boolean checkFirstEnter(StackCall _stack) {
         if (!checkBegin) {
-            if (ExecHelperBlocks.checkBp(this,null)){
+            if (ExecHelperBlocks.checkBp(_stack,this,null)){
                 return true;
             }
             checkBegin = true;

@@ -23,7 +23,7 @@ public final class StaticInitPageEl extends AbstractInitPageEl {
         ExecRootBlock blockRoot_ = getBlockRootType();
         if (!checkBegin) {
             globalOffset(blockRoot_.getIdRowCol());
-            if (ExecHelperBlocks.checkBp(this,null)){
+            if (ExecHelperBlocks.checkBp(_stack,this,null)){
                 return;
             }
             checkBegin = true;

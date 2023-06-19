@@ -28,7 +28,7 @@ public final class ExecRefReturnMethod extends ExecAbstractExpressionReturnMetho
             ip_.setWrapper(argumentsPair_.getWrapper());
             ip_.setReturnedArgument(argumentsPair_.getArgument());
         }
-        tryReturn(ip_);
+        tryReturn(_stack,ip_);
     }
 
 }

@@ -30,6 +30,7 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
             return;
         }
         setNullReadWrite();
+        _stack.setVisited(false);
     }
     protected boolean keep(GeneType _gene,ContextEl _context, StackCall _stackCall) {
         LgNames stds_ = _context.getStandards();
