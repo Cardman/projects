@@ -28,11 +28,4 @@ public final class ProcessDbgEvalKoTest extends ProcessDbgCommon {
         ReportedMessages cont_ = valueDbgKoStType("}","pkg.Ex","exmeth",files_);
         assertTrue(cont_.notAllEmptyErrors());
     }
-    @Test
-    public void test4() {
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){return exmeth(8,3);}public static int exmeth(int t, int u){int v = Math.mod(t,u);return v;}}");
-        ReportedMessages cont_ = valueDbgKoStType("","pkg.Ex","exmeth",files_);
-        assertTrue(cont_.notAllEmptyErrors());
-    }
 }

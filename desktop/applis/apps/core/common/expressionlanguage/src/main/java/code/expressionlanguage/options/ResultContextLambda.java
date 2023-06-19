@@ -47,6 +47,9 @@ public final class ResultContextLambda {
     }
 
     public static ResultContextLambda dynamicAnalyze(String _exp, String _fileName, int _caret, ResultContext _result, String _type, AbsContextGenerator _gene, MethodAccessKind _flag) {
+        if (_exp.trim().isEmpty()) {
+            return new ResultContextLambda(null,null,new ReportedMessages());
+        }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_fileName, _caret, _result.getPageEl(),_flag);
         MethodAccessKind stCtx_ = a_.getStaticContext();
         MemberCallingsBlock memb_ = a_.getCurrentFct();

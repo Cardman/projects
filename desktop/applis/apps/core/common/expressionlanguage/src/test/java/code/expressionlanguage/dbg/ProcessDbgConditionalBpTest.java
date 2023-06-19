@@ -95,6 +95,13 @@ public final class ProcessDbgConditionalBpTest extends ProcessDbgCommon {
     }
     @Test
     public void test12() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ax{public static int f=1;}public class pkg.Ex {public static int exmeth(){return exmeth(8,3);}public static int exmeth(int t, int u){int v = Math.mod(t,u);return v;}}");
+        StackCall cont_ = conditionalSt("","pkg.Ex","exmeth",files_);
+        assertEq(1,cont_.nbPages());
+    }
+    @Test
+    public void test13() {
         assertFalse(new AllAccessedTypes().isTypeHidden(null,null));
     }
 }
