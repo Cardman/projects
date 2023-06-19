@@ -14,4 +14,9 @@ public final class MockInitializer extends DefaultInitializer {
     public boolean stop(ContextEl _owner, StackCall _stackCall) {
         return true;
     }
+
+    @Override
+    public boolean stopNormal(ContextEl _owner, StackCall _stackCall) {
+        return true;
+    }
 }

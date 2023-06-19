@@ -29,6 +29,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.SecondForwardGenerator;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.util.CustList;
 import code.util.comparators.NaturalComparator;
 import code.util.core.StringUtil;
@@ -175,8 +176,9 @@ public final class ResultContextLambda {
     private StackCallReturnValue loop(StackCall _stack, AbstractPageEl _page) {
         ExecutingUtil.addPage(_page, _stack);
         Initializer i_ = context.getInit();
+        AbstractInterceptorStdCaller c_ = context.getCaller();
         while (true) {
-            if (i_.stopNormal(context, _stack) || i_.exitAfterCallInt(context, _stack)) {
+            if (c_.stopNormal(i_, context, _stack) || c_.exitAfterCallInt(i_,context, _stack)) {
                 return new StackCallReturnValue(_stack, new ArgumentWrapper(ArgumentListCall.toStr(_page.getReturnedArgument())), new CustList<ViewPage>());
             }
         }

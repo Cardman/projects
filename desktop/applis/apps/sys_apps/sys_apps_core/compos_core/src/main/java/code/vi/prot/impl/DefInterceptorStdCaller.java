@@ -3,7 +3,7 @@ package code.vi.prot.impl;
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.DefaultInitializer;
+import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -21,7 +21,7 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     }
 
     @Override
-    public boolean stop(DefaultInitializer _init, ContextEl _owner, StackCall _stackCall) {
+    public boolean stop(Initializer _init, ContextEl _owner, StackCall _stackCall) {
         try {
             return tryStop(_init, _owner, _stackCall);
         } catch (OutOfMemoryError e) {
@@ -29,7 +29,7 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
         }
     }
 
-    private boolean tryStop(DefaultInitializer _init, ContextEl _owner, StackCall _stackCall) {
+    private boolean tryStop(Initializer _init, ContextEl _owner, StackCall _stackCall) {
         try {
             return _init.stop(_owner, _stackCall);
         } catch (Exception e) {
@@ -38,6 +38,23 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
         }
     }
 
+    @Override
+    public boolean stopNormal(Initializer _init, ContextEl _owner, StackCall _stackCall) {
+        try {
+            return tryStopNormal(_init, _owner, _stackCall);
+        } catch (OutOfMemoryError e) {
+            return tryThrowException(_owner, _stackCall);
+        }
+    }
+
+    private boolean tryStopNormal(Initializer _init, ContextEl _owner, StackCall _stackCall) {
+        try {
+            return _init.stopNormal(_owner, _stackCall);
+        } catch (Exception e) {
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_owner, cl, _stackCall)));
+            return false;
+        }
+    }
     private boolean tryThrowException(ContextEl _owner, StackCall _stackCall) {
         try {
             _stackCall.setCallingState(new CustomFoundExc(gene.generate(cl,_owner,_stackCall)));
@@ -48,7 +65,7 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     }
 
     @Override
-    public boolean exitAfterCallInt(DefaultInitializer _init, ContextEl _owner, StackCall _stack) {
+    public boolean exitAfterCallInt(Initializer _init, ContextEl _owner, StackCall _stack) {
         try {
             return tryExit(_init, _owner, _stack);
         } catch (OutOfMemoryError e) {
@@ -56,7 +73,7 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
         }
     }
 
-    private static boolean tryExit(DefaultInitializer _init, ContextEl _owner, StackCall _stack) {
+    private static boolean tryExit(Initializer _init, ContextEl _owner, StackCall _stack) {
         try {
             return _init.exitAfterCallInt(_owner, _stack);
         } catch (Exception e) {

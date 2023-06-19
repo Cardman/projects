@@ -3,7 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.DefaultInitializer;
+import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
@@ -12,12 +12,16 @@ import code.expressionlanguage.structs.Struct;
 
 public final class TestedRenderInterceptorStdCaller implements AbstractInterceptorStdCaller {
     @Override
-    public boolean stop(DefaultInitializer _init, ContextEl _owner, StackCall _stackCall) {
+    public boolean stop(Initializer _init, ContextEl _owner, StackCall _stackCall) {
         return _init.stop(_owner, _stackCall);
+    }
+    @Override
+    public boolean stopNormal(Initializer _init, ContextEl _owner, StackCall _stackCall) {
+        return _init.stopNormal(_owner, _stackCall);
     }
 
     @Override
-    public boolean exitAfterCallInt(DefaultInitializer _init, ContextEl _owner, StackCall _stack) {
+    public boolean exitAfterCallInt(Initializer _init, ContextEl _owner, StackCall _stack) {
         return _init.exitAfterCallInt(_owner, _stack);
     }
 

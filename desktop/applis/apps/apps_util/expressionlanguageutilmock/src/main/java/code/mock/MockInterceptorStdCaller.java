@@ -3,7 +3,7 @@ package code.mock;
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.DefaultInitializer;
+import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
@@ -12,12 +12,16 @@ import code.expressionlanguage.structs.Struct;
 
 public final class MockInterceptorStdCaller implements AbstractInterceptorStdCaller {
     @Override
-    public boolean stop(DefaultInitializer _defaultInitializer, ContextEl _contextEl, StackCall _stackCall) {
+    public boolean stop(Initializer _defaultInitializer, ContextEl _contextEl, StackCall _stackCall) {
         return _defaultInitializer.stop(_contextEl,_stackCall);
+    }
+    @Override
+    public boolean stopNormal(Initializer _defaultInitializer, ContextEl _contextEl, StackCall _stackCall) {
+        return _defaultInitializer.stopNormal(_contextEl,_stackCall);
     }
 
     @Override
-    public boolean exitAfterCallInt(DefaultInitializer _defaultInitializer, ContextEl _contextEl, StackCall _stackCall) {
+    public boolean exitAfterCallInt(Initializer _defaultInitializer, ContextEl _contextEl, StackCall _stackCall) {
         return _defaultInitializer.exitAfterCallInt(_contextEl,_stackCall);
     }
 

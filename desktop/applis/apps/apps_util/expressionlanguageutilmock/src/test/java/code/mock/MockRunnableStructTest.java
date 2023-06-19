@@ -14,6 +14,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         AbstractInterceptorStdCaller int_ = new MockInterceptor().newInterceptorStdCaller("");
         assertTrue(int_.exitAfterCallInt(new MockInitializer(),null,null));
         assertTrue(int_.stop(new MockInitializer(),null,null));
+        assertTrue(int_.stopNormal(new MockInitializer(),null,null));
         assertTrue(int_.invoke(new MockStdCaller(),null,null,null,null,null).getValue().getStruct().sameReference(NullStruct.NULL_VALUE));
     }
     @Test
