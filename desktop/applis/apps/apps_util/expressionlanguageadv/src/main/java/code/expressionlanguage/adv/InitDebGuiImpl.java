@@ -95,6 +95,12 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
         return null;
     }
 
+    @Override
+    protected void endCall() {
+        setStackCall(null);
+        super.endCall();
+    }
+
     public FormInputDebugLines getFormInputDebugLines() {
         return formInputDebugLines;
     }

@@ -51,6 +51,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsScrollPane detail;
     private AbsSplitPane detailAll;
     private StackCall stackCall;
+    private StackCallReturnValue stackCallView;
     private ResultContext currentResult;
     private final AbstractBaseExecutorService manageAnalyze;
     private DbgRootStruct root;
@@ -155,19 +156,19 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             possibleSelect(s_);
         }
         StackCallReturnValue view_ = ExecClassesUtil.tryInitStaticlyTypes(currentResult.getContext(), currentResult.getForwards().getOptions(), stackCall, selected,_step);
-        stackCall = view_.getStack();
-        if (stackCall.getInitializingTypeInfos().getInitEnums() == InitPhase.NOTHING && !stackCall.isStoppedBreakPoint()) {
+        setStackCallView(view_);
+        stackCall = getStackCallView().getStack();
+        if (!stackCall.isStoppedBreakPoint()) {
             callStack.removeAll();
             callButtons.clear();
             root = new DbgRootStruct(currentResult);
             treeDetail = root.buildReturn(commonFrame.getFrames().getCompoFactory(), view_.getRetValue());
             detail.setViewportView(treeDetail);
             detailAll.setVisible(true);
-            PackingWindowAfter.pack(commonFrame);
             selectEnter.setEnabled(true);
             int opened_ = tabbedPane.getSelectedIndex();
             focus(opened_);
-            stackCall = null;
+            endCall();
             return;
         }
         trees.clear();
@@ -212,7 +213,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     }
 
     public void updateGui(int _index) {
-        AbstractPageEl last_ = stackCall.getCall(_index);
+        AbstractPageEl last_ = getStackCall().getCall(_index);
         int opened_ = indexOpened(last_.getFile().getFileName());
         selectFocus(opened_, last_.getTraceIndex());
         detail.setNullViewportView();
@@ -272,6 +273,25 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         } else {
             selected = new CustomFoundExc(NullStruct.NULL_VALUE);
         }
+    }
+    protected void endCall(){
+        PackingWindowAfter.pack(commonFrame);
+    }
+
+    public StackCall getStackCall() {
+        return stackCall;
+    }
+
+    public void setStackCall(StackCall _s) {
+        this.stackCall = _s;
+    }
+
+    public StackCallReturnValue getStackCallView() {
+        return stackCallView;
+    }
+
+    public void setStackCallView(StackCallReturnValue _s) {
+        this.stackCallView = _s;
     }
 
     public DbgRootStruct getRoot() {
