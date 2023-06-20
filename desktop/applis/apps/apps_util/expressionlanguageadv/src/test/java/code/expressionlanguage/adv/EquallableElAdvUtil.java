@@ -94,6 +94,29 @@ public abstract class EquallableElAdvUtil {
         update(pr_);
         return new ExpDebGuiImpl("en",pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
     }
+
+    public static MockProgramInfos genePr() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+        String current_ = "/editor/conf.xml";
+        CdmParameterSoftModel c_ = new CdmParameterSoftModel();
+        c_.setExecConf(current_);
+        c_.getOpenedFiles().add("src/file.txt");
+        c_.setFolderExpression("/project/sources");
+        StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(c_),pr_.getStreams());
+        StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
+        StringList lines_ = new StringList();
+        lines_.add("/project/sources");
+        lines_.add("en");
+        StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
+        pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
+        pr_.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
+        pr_.setLanguage(FileInfos.EN);
+        update(pr_);
+        return pr_;
+    }
+    public static AbsDebuggerGui buildWindow(MockProgramInfos _pr) {
+        return new ExpDebGuiImpl("en", _pr, new CdmFactory(_pr, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct()));
+    }
     public static ManageOptions opt(AbsDebuggerGui _pr) {
         AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
         String flatConf_ = StreamTextFile.contentsOfFile("/editor/conf.xml", frs_.getFileCoreStream(), frs_.getStreams());
@@ -108,8 +131,14 @@ public abstract class EquallableElAdvUtil {
         StreamTextFile.saveTextFile("/project/sources/"+_relative, _content,frs_.getStreams());
         _src.addEntry(_relative,_content);
     }
+    public static void save(AbstractProgramInfos _pr, String _relative, String _content) {
+        StreamTextFile.saveTextFile("/project/sources/"+_relative, _content,_pr.getStreams());
+    }
     public static void guiAna(ResultContext _b, AbsDebuggerGui _g, ManageOptions _man, StringMap<String> _s) {
         new AnalyzingDebugEvent(new ExpMenuFrameInteract(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem()),_b,_g,_man,_s).action();
+    }
+    public static void guiAna(WindowExpressionEditor _w, AbsDebuggerGui _g) {
+        new AnalyzingDebugExpEvent(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem(),_w,_g).action();
     }
 
     public static void guiNoAna(AbsDebuggerGui _g, ManageOptions _man, StringMap<String> _s) {
@@ -167,7 +196,7 @@ public abstract class EquallableElAdvUtil {
         return w_;
     }
 
-    private static WindowCdmEditor updated(AbstractProgramInfos _pr) {
+    protected static WindowCdmEditor updated(AbstractProgramInfos _pr) {
         WindowCdmEditor w_ = quickCreate(_pr);
         w_.updateCommentsInit(new StringList());
         return w_;
@@ -440,6 +469,13 @@ public abstract class EquallableElAdvUtil {
         ((MockMenuItem) _w.getFolderExpressionMenu()).getActionListeners().get(0).action();
         ((MockPlainButton)((FolderForExpression)((MockMenuItem) _w.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getChooseFolder()).getActionListeners().get(0).action();
         ((MockPlainButton)((FolderForExpression)((MockMenuItem) _w.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getCreateEnv()).getActionListeners().get(0).action();
+        return _w.getExpressionEditors().get(0);
+    }
+
+    public static WindowExpressionEditor geneSecAlready(WindowCdmEditor _w) {
+        _w.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        StreamTextFile.saveTextFile("/folder/exp/file.txt","", _w.getCommonFrame().getFrames().getStreams());
+        ((MockMenuItem) _w.getFolderExpressionMenu()).getActionListeners().get(0).action();
         return _w.getExpressionEditors().get(0);
     }
     public static MockProgramInfos newMockProgramInfosInitConf() {

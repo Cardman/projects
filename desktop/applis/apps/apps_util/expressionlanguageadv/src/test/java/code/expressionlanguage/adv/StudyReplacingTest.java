@@ -5,6 +5,7 @@ import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.AbsSpinner;
 import code.gui.AbsTxtComponent;
 import code.mock.MockPlainButton;
+import code.mock.MockProgramInfos;
 import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -315,6 +316,26 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         txt(b_).setText("C t C t");
         launch(b_);
         assertEq(0,found(b_).size());
+    }
+    @Test
+    public void window() {
+        MockProgramInfos pr_ = genePr();
+        WindowCdmEditor w_ = updated(pr_);
+        w_.getFuture().attendre();
+        WindowExpressionEditor e_ = geneSecAlready(w_);
+        save(pr_,"src/file.txt","public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:i,end:i+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
+        e_.getTree().select(e_.getTree().getRoot());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
+        AbsDebuggerGui b_ = buildWindow(pr_);
+        guiAna(e_,b_);
+        StringMap<ExecConstructorOverrideInfo> d_ = form(b_).getDico();
+        assertEq(1, d_.size());
+        assertTrue(d_.contains("pkg.ExClass"));
+        StringMap<ExecConstructorOverrideInfo> rp_ = form(b_).getDicoRepl();
+        assertEq(1, rp_.size());
+        assertTrue(rp_.contains("pkg.ExClass"));
     }
     private CustList<SegmentFindPart> found(AbsDebuggerGui _b) {
         return ((ExpDebGuiImpl)_b).getFound();
