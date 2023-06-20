@@ -10,12 +10,14 @@ import code.util.StringList;
 public final class WindowExpressionEditor extends WindowWithTreeImpl {
     private final WindowCdmEditor mainFrame;
     private final AbsMenuItem folderExpressionMenu;
+    private final AbsOpenFrameInteract folderInteract;
     public WindowExpressionEditor(WindowCdmEditor _parent, AbsMenuItem _menu) {
         super(_parent.getCommonFrame().getLanguageKey(),_parent.getCommonFrame().getFrames(),_parent.getFactory());
         folderExpressionMenu = _menu;
         mainFrame = _parent;
         AbstractProgramInfos frames_ = _parent.getCommonFrame().getFrames();
-        getCommonFrame().addWindowListener(new CloseExpFrame(this,_menu));
+        folderInteract = new ExpMenuFrameInteract(_menu);
+        getCommonFrame().addWindowListener(new CloseExpFrame(this, folderInteract));
         AbsMenuBar bar_ = frames_.getCompoFactory().newMenuBar();
         AbsMenu file_ = frames_.getCompoFactory().newMenu("file");
         bar_.add(file_);
@@ -29,7 +31,7 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
         setEditors(getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane());
     }
     public void updateEnv(boolean _first) {
-        folderExpressionMenu.setEnabled(false);
+        folderInteract.open();
         if (!_first) {
             getCommonFrame().setVisible(true);
             return;
@@ -99,6 +101,7 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
     }
 
     public void closeWindows() {
+        folderInteract.close();
         getCommonFrame().setVisible(false);
         closeSecs();
     }

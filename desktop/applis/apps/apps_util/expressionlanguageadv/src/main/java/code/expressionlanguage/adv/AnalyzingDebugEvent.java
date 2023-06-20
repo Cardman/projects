@@ -5,15 +5,22 @@ import code.expressionlanguage.utilimpl.ManageOptions;
 import code.util.StringMap;
 
 public final class AnalyzingDebugEvent extends AbsAnalyzingDebugEvent {
+    private final AbsOpenFrameInteract acting;
     private final ResultContext resultContext;
     private final ManageOptions manageOptions;
     private final StringMap<String> srcFiles;
 
-    public AnalyzingDebugEvent(ResultContext _b, AbsDebuggerGui _g, ManageOptions _man, StringMap<String> _s) {
+    public AnalyzingDebugEvent(AbsOpenFrameInteract _a,ResultContext _b, AbsDebuggerGui _g, ManageOptions _man, StringMap<String> _s) {
         super(_g);
+        this.acting = _a;
         this.resultContext = _b;
         this.manageOptions = _man;
         this.srcFiles = _s;
+    }
+
+    @Override
+    protected AbsOpenFrameInteract act() {
+        return acting;
     }
 
     @Override

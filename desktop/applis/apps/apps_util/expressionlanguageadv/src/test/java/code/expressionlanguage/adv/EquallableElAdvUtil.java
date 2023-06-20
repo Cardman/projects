@@ -109,7 +109,7 @@ public abstract class EquallableElAdvUtil {
         _src.addEntry(_relative,_content);
     }
     public static void guiAna(ResultContext _b, AbsDebuggerGui _g, ManageOptions _man, StringMap<String> _s) {
-        new AnalyzingDebugEvent(_b,_g,_man,_s).action();
+        new AnalyzingDebugEvent(new ExpMenuFrameInteract(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem()),_b,_g,_man,_s).action();
     }
 
     public static void guiNoAna(AbsDebuggerGui _g, ManageOptions _man, StringMap<String> _s) {

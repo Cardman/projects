@@ -61,6 +61,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private final CustList<AbsPlainButton> callButtons = new CustList<AbsPlainButton>();
     private AbsPanel callStack;
     private AbstractAtomicBoolean stopDbg;
+    private AbsOpenFrameInteract dbgMenu;
 
     protected AbsDebuggerGui(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         factory = _fact;
@@ -71,9 +72,15 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         stopDbg = _list.getThreadFactory().newAtomicBoolean();
     }
 
-    public void build(ResultContext _b,ManageOptions _man, StringMap<String> _src) {
+    public void build(AbsOpenFrameInteract _a,ResultContext _b,ManageOptions _man, StringMap<String> _src) {
+        dbgMenu = _a;
+        getDbgMenu().open();
         guiBuild(_man, _src);
         manageAnalyze.submit(new AnalyzeDebugTask(_b,this,_src));
+    }
+
+    public AbsOpenFrameInteract getDbgMenu() {
+        return dbgMenu;
     }
 
     public void guiBuild(ManageOptions _man, StringMap<String> _src) {

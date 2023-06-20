@@ -14,8 +14,10 @@ public abstract class AbsAnalyzingDebugEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        gui.getManageGui().submit(new BuildGuiTask(base(),gui,manageOpt(),src()));
+        gui.getManageGui().submit(new BuildGuiTask(act(),base(),gui,manageOpt(),src()));
     }
+
+    protected abstract AbsOpenFrameInteract act();
 
     protected abstract ResultContext base();
 
