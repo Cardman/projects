@@ -3,7 +3,6 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.AbsMenuItem;
-import code.util.CustList;
 import code.util.StringMap;
 
 public final class AnalyzingDebugExpEvent extends AbsAnalyzingDebugEvent {
@@ -33,12 +32,6 @@ public final class AnalyzingDebugExpEvent extends AbsAnalyzingDebugEvent {
 
     @Override
     protected StringMap<String> src() {
-        StringMap<String> s_ = new StringMap<String>();
-        CustList<TabEditor> tabs_ = window.getTabs();
-        int size_ = tabs_.size();
-        for (int i = 0; i < size_; i++) {
-            s_.addEntry(tabs_.get(i).getRelPath(),tabs_.get(i).getCenter().getText());
-        }
-        return s_;
+        return AnalyzeExpressionSource.added(window);
     }
 }
