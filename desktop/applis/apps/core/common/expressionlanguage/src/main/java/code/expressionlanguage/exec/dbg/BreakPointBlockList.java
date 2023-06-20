@@ -82,6 +82,15 @@ public final class BreakPointBlockList {
         ExecFileBlock f_ = _d.getFiles().getVal(_file);
         update(f_,o_, _updater,_newValue);
     }
+    public static void breakPointCountStd(BreakPointBlockPair _bp,int _newValue) {
+        new BreakPointCountUpdaterStd().update(_bp.getValue(),_newValue);
+    }
+    public static void breakPointCountInstance(BreakPointBlockPair _bp, int _newValue) {
+        new BreakPointCountUpdaterInstance().update(_bp.getValue(),_newValue);
+    }
+    public static void breakPointCountStatic(BreakPointBlockPair _bp, int _newValue) {
+        new BreakPointCountUpdaterStatic().update(_bp.getValue(),_newValue);
+    }
     public static ReportedMessages breakPointCtxStd(BreakPointBlockPair _bp, ResultContext _f, AbsContextGenerator _gene, String _newValue) {
         return new BreakPointLambdaCtxUpdaterStd(_f,_gene).update(ExecFileBlock.name(_bp.getFile()),_bp.getOffset(),_bp.getValue(),_newValue);
     }
@@ -135,6 +144,13 @@ public final class BreakPointBlockList {
             }
         }
         return list_;
+    }
+    public void resetList() {
+        int len_ = list.size();
+        for (int i = 0; i < len_; i++) {
+            BreakPointBlockPair p_ = list.get(i);
+            p_.getValue().resetCount();
+        }
     }
 
     public boolean isTmp(ExecFileBlock _file, int _offset) {

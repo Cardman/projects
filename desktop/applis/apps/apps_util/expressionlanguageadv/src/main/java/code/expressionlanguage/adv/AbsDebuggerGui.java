@@ -30,10 +30,13 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private BreakPointBlockPair selectedPb;
     private AbsCustCheckBox instanceType;
     private AbsTextArea conditionalInstance;
+    private AbsSpinner countInstance;
     private AbsCustCheckBox staticType;
     private AbsTextArea conditionalStatic;
+    private AbsSpinner countStatic;
     private AbsCustCheckBox enabledBp;
     private AbsTextArea conditionalStd;
+    private AbsSpinner countStd;
     private AbsPlainButton cancel;
     private AbsPlainButton ok;
     private AbsPanel bpForm;
@@ -86,19 +89,25 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     public void guiBuild(ManageOptions _man, StringMap<String> _src) {
         instanceType = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("instance");
         conditionalInstance = getCommonFrame().getFrames().getCompoFactory().newTextArea();
+        countInstance = getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         staticType = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("static");
         conditionalStatic = getCommonFrame().getFrames().getCompoFactory().newTextArea();
+        countStatic = getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         enabledBp = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
         conditionalStd = getCommonFrame().getFrames().getCompoFactory().newTextArea();
+        countStd = getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         cancel = getCommonFrame().getFrames().getCompoFactory().newPlainButton("cancel");
         ok = getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
         bpForm = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         bpForm.add(enabledBp);
         bpForm.add(conditionalStd);
+        bpForm.add(countStd);
         bpForm.add(instanceType);
         bpForm.add(conditionalInstance);
+        bpForm.add(countInstance);
         bpForm.add(staticType);
         bpForm.add(conditionalStatic);
+        bpForm.add(countStatic);
         ok.addActionListener(new OkBpFormEvent(this));
         bpForm.add(ok);
         cancel.addActionListener(new CancelBpFormEvent(this));
@@ -347,12 +356,24 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return conditionalInstance;
     }
 
+    public AbsSpinner getCountInstance() {
+        return countInstance;
+    }
+
     public AbsTextArea getConditionalStatic() {
         return conditionalStatic;
     }
 
+    public AbsSpinner getCountStatic() {
+        return countStatic;
+    }
+
     public AbsTextArea getConditionalStd() {
         return conditionalStd;
+    }
+
+    public AbsSpinner getCountStd() {
+        return countStd;
     }
 
     public AbsCustCheckBox getStaticType() {

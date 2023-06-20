@@ -216,8 +216,17 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return conditionalSt(_dyn, _class, _meth, res_);
     }
 
+    protected StackCall countSt(int _dyn, String _class, String _meth, StringMap<String> _files) {
+        ResultContext res_ = ctxSt(_class, _files);
+        return countSt(_dyn, _class, _meth, res_);
+    }
+
     protected StackCall conditionalSt(String _dyn, String _class, String _meth, ResultContext _res) {
         return conditionalStView(_dyn, _class, _meth, _res).getStack();
+    }
+
+    protected StackCall countSt(int _dyn, String _class, String _meth, ResultContext _res) {
+        return countStView(_dyn, _class, _meth, _res).getStack();
     }
 
     protected StackCallReturnValue conditionalStView(String _dyn, String _class, String _meth, ResultContext _res) {
@@ -225,7 +234,18 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), ana_.getIdRowCol());
         assertTrue(BreakPointBlockList.breakPointCtxStatic(pair_, _res,new DefContextGenerator(), _dyn).isAllEmptyErrors());
-        assertEq(_dyn,pair_.getValue().getResultStrStatic());
+        assertEq(_dyn,pair_.getValue().getResultStatic().getResultStr());
+        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
+        Argument argGlLoc_ = new Argument();
+        Parameters p_ = new Parameters();
+        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null);
+    }
+
+    protected StackCallReturnValue countStView(int _dyn, String _class, String _meth, ResultContext _res) {
+        RootBlock ana_ = _res.getPageEl().getAnaClassBody(_class);
+        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), ana_.getIdRowCol());
+        BreakPointBlockList.breakPointCountStatic(pair_, _dyn);
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
@@ -245,9 +265,18 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return conditionalInstView(_dyn, _class, _meth, _files).getStack();
     }
 
+    protected StackCall countInst(int _dyn, String _class, String _meth, StringMap<String> _files) {
+        return countInstView(_dyn, _class, _meth, _files).getStack();
+    }
+
     protected StackCallReturnValue conditionalInstView(String _dyn, String _class, String _meth, StringMap<String> _files) {
         ResultContext res_ = ctxInst(_class, _files);
         return conditionalInstView(_dyn, _class, _meth, res_);
+    }
+
+    protected StackCallReturnValue countInstView(int _dyn, String _class, String _meth, StringMap<String> _files) {
+        ResultContext res_ = ctxInst(_class, _files);
+        return countInstView(_dyn, _class, _meth, res_);
     }
 
     protected StackCallReturnValue conditionalInstView(String _dyn, String _class, String _meth, ResultContext _res) {
@@ -255,11 +284,19 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), ana_.getIdRowCol());
         assertTrue(BreakPointBlockList.breakPointCtxInstance(pair_, _res,new DefContextGenerator(), _dyn).isAllEmptyErrors());
-        assertEq(_dyn,pair_.getValue().getResultStrInstance());
+        assertEq(_dyn,pair_.getValue().getResultInstance().getResultStr());
         CustomFoundMethod state_ = state(_res,_class, _meth);
         return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_,null);
     }
 
+    protected StackCallReturnValue countInstView(int _dyn, String _class, String _meth, ResultContext _res) {
+        RootBlock ana_ = _res.getPageEl().getAnaClassBody(_class);
+        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), ana_.getIdRowCol());
+        BreakPointBlockList.breakPointCountInstance(pair_, _dyn);
+        CustomFoundMethod state_ = state(_res,_class, _meth);
+        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_,null);
+    }
     protected CustomFoundMethod state(ResultContext _res, String _class, String _meth) {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
@@ -280,11 +317,18 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     protected StackCall conditionalStd(String _dyn, String _class, String _meth, int _caret, StringMap<String> _files) {
         return conditionalStdView(_dyn, _class, _meth, _caret, _files).getStack();
     }
+
+    protected StackCall countStd(int _dyn, String _class, String _meth, int _caret, StringMap<String> _files) {
+        return countStdView(_dyn, _class, _meth, _caret, _files).getStack();
+    }
     protected StackCallReturnValue conditionalStdView(String _dyn, String _class, String _meth, int _caret, StringMap<String> _files) {
         ResultContext res_ = ctxStd(_class, _caret, _files);
         return conditionalStdView(_dyn, _class, _meth, _caret, _files, res_);
     }
-
+    protected StackCallReturnValue countStdView(int _dyn, String _class, String _meth, int _caret, StringMap<String> _files) {
+        ResultContext res_ = ctxStd(_class, _caret, _files);
+        return countStdView(_dyn, _class, _meth, _caret, _files, res_);
+    }
     protected ResultContext ctxStd(String _class, int _caret, StringMap<String> _files) {
         ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
         RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
@@ -296,11 +340,18 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), _caret);
         assertTrue(BreakPointBlockList.breakPointCtxStd(pair_, _res,new DefContextGenerator(), _dyn).isAllEmptyErrors());
-        assertEq(_dyn,pair_.getValue().getResultStrStd());
+        assertEq(_dyn,pair_.getValue().getResultStd().getResultStr());
         CustomFoundMethod state_ = state(_res,_class, _meth);
         return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_, null);
     }
 
+    protected StackCallReturnValue countStdView(int _dyn, String _class, String _meth, int _caret, StringMap<String> _files,ResultContext _res) {
+        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), _caret);
+        BreakPointBlockList.breakPointCountStd(pair_, _dyn);
+        CustomFoundMethod state_ = state(_res,_class, _meth);
+        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_, null);
+    }
     protected ReportedMessages conditionalStdViewBad(String _dyn, String _class, int _caret, StringMap<String> _files) {
         ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
         RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);

@@ -20,8 +20,11 @@ public final class OkBpFormEvent implements AbsActionListener {
         if (window.getSelectedPb().getValue().isEnabledChgtType()) {
             BreakPointBlockList.breakPointCtxInstance(window.getSelectedPb(),window.getCurrentResult(),new AdvContextGenerator(window.getStopDbg()),window.getConditionalInstance().getText());
             BreakPointBlockList.breakPointCtxStatic(window.getSelectedPb(),window.getCurrentResult(),new AdvContextGenerator(window.getStopDbg()),window.getConditionalStatic().getText());
+            BreakPointBlockList.breakPointCountInstance(window.getSelectedPb(),window.getCountInstance().getValue());
+            BreakPointBlockList.breakPointCountStatic(window.getSelectedPb(),window.getCountStatic().getValue());
         } else {
             BreakPointBlockList.breakPointCtxStd(window.getSelectedPb(),window.getCurrentResult(),new AdvContextGenerator(window.getStopDbg()),window.getConditionalStd().getText());
+            BreakPointBlockList.breakPointCountStd(window.getSelectedPb(),window.getCountStd().getValue());
         }
         window.setSelectedPb(null);
     }
