@@ -12,7 +12,6 @@ import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
 import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
@@ -40,7 +39,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsPanel bpForm;
     private AbsTabbedPane tabbedPane;
     private final CustList<ReadOnlyTabEditor> tabs = new CustList<ReadOnlyTabEditor>();
-    private CallingState selected = new CustomFoundExc(NullStruct.NULL_VALUE);
+    private CallingState selected = new CustomFoundExc(null);
     private final AbstractBaseExecutorService debugActions;
     private AbsPlainButton selectEnter;
     private AbsPlainButton nextAction;
@@ -54,6 +53,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private StackCallReturnValue stackCallView;
     private ResultContext currentResult;
     private final AbstractBaseExecutorService manageAnalyze;
+    private final AbstractBaseExecutorService manageGui;
     private DbgRootStruct root;
     private AbsTreeGui treeDetail;
     private final CustList<AbsTreeGui> trees = new CustList<AbsTreeGui>();
@@ -67,6 +67,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         debugActions = _list.getThreadFactory().newExecutorService();
         manageAnalyze = _list.getThreadFactory().newExecutorService();
+        manageGui = _list.getThreadFactory().newExecutorService();
         stopDbg = _list.getThreadFactory().newAtomicBoolean();
     }
 
@@ -271,7 +272,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             selectEnter.setEnabled(false);
             debugActions.submit(new DbgLaunchTask(this, StepDbgActionEnum.DEBUG));
         } else {
-            selected = new CustomFoundExc(NullStruct.NULL_VALUE);
+            selected = new CustomFoundExc(null);
         }
     }
     protected void endCall(){
@@ -401,6 +402,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public CustList<AbsPlainButton> getCallButtons() {
         return callButtons;
+    }
+
+    public AbstractBaseExecutorService getManageGui() {
+        return manageGui;
     }
 
     public AbstractAtomicBoolean getStopDbg() {

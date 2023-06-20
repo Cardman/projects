@@ -6,7 +6,6 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilimpl.ManageOptions;
-import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.*;
 import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
@@ -110,7 +109,7 @@ public abstract class EquallableElAdvUtil {
         _src.addEntry(_relative,_content);
     }
     public static void guiAna(ResultContext _b, AbsDebuggerGui _g, ManageOptions _man, StringMap<String> _s) {
-        new AnalyzingDebugEvent(_g.getCommonFrame().getFrames().getThreadFactory().newExecutorService(), _b,_g,_man,_s).action();
+        new AnalyzingDebugEvent(_b,_g,_man,_s).action();
     }
 
     public static void guiNoAna(AbsDebuggerGui _g, ManageOptions _man, StringMap<String> _s) {
