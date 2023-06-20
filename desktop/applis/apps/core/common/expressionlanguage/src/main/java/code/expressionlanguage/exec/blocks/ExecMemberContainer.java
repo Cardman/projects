@@ -21,7 +21,7 @@ public abstract class ExecMemberContainer {
     }
 
     public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last, ExecBlock _coveredBlock) {
-        _last.globalOffset(offset);
+        firstEnter(_last);
         int size_ = _last.sizeEl();
         ExecHelperBlocks.tryToCalculate(_cont,0,_stack, opValue, trOffset, _coveredBlock);
         if (size_ < _last.sizeEl() || _cont.callsOrException(_stack)) {
@@ -29,6 +29,12 @@ public abstract class ExecMemberContainer {
         }
         _last.clearCurrentEls();
         ExecHelperBlocks.processMemberBlock(_stack,_last);
+    }
+
+    protected abstract void firstEnter(AbstractInitPageEl _last);
+
+    public int getOffset() {
+        return offset;
     }
 
     public CustList<ExecOperationNode> getOpValue() {

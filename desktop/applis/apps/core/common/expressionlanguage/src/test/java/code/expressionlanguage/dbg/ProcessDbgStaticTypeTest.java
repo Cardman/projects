@@ -76,6 +76,7 @@ public final class ProcessDbgStaticTypeTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",26,cont_);
         StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
         assertEq(1, stack_.nbPages());
+        assertEq(22, now(stack_));
     }
     @Test
     public void test4() {

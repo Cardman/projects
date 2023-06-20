@@ -294,6 +294,9 @@ public final class ResultExpressionOperationNode {
         if (c_.block instanceof ReturnMethod && ((ReturnMethod)c_.block).isEmpty()) {
             return ((ReturnMethod)c_.block).getExpressionOffset();
         }
+        if ((c_.resultExpression == null || !c_.resultExpression.getAnalyzedString().trim().startsWith("@")) && c_.block instanceof InnerTypeOrElement) {
+            return ((InnerTypeOrElement)c_.block).getFieldNameOffset();
+        }
         if (c_.resultExpression != null) {
             return c_.resultExpression.getSumOffset();
         }

@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
+import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.fwd.blocks.ExecFieldContent;
 
 public final class ExecExpFieldContainer extends ExecMemberContainer {
@@ -9,6 +10,11 @@ public final class ExecExpFieldContainer extends ExecMemberContainer {
     public ExecExpFieldContainer(ExecFieldContent _elementContent) {
         super(_elementContent.getValueOffset(),0);
         this.fieldContent = _elementContent;
+    }
+
+    @Override
+    protected void firstEnter(AbstractInitPageEl _last) {
+        _last.globalOffset(getOffset());
     }
 
     public ExecFieldContent getFieldContent() {

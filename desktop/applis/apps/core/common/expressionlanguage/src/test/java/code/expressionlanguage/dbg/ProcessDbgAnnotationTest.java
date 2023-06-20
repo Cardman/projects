@@ -182,4 +182,47 @@ public final class ProcessDbgAnnotationTest extends ProcessDbgCommon {
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
 
+    @Test
+    public void test9() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.MyAnnot {\n");
+        xml_.append("}\n");
+        xml_.append("public enum pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" ONE;\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  class(Ex).getDeclaredFields()[0].getAnnotations();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",56,cont_);
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(2, stack_.nbPages());
+        assertEq(56, now(stack_));
+    }
+
+    @Test
+    public void test10() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.MyAnnot {\n");
+        xml_.append("}\n");
+        xml_.append("public enum pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" ONE;\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  class(Ex).getDeclaredFields()[0].getAnnotations();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",56,cont_);
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+
 }
