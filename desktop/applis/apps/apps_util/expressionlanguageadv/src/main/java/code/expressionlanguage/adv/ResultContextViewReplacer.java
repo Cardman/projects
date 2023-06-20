@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -7,12 +8,9 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.utilcompo.CustAliases;
-import code.expressionlanguage.utilcompo.RunnableContextEl;
-import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 
 public final class ResultContextViewReplacer {
-    private RunnableContextEl resultContext;
     private ExecRootBlock viewType;
     private ExecNamedFunctionBlock viewMethod;
     private ExecRootBlock replaceType;
@@ -20,10 +18,8 @@ public final class ResultContextViewReplacer {
     private String aliasStringSegment="";
     private String aliasStringSegmentBegin="";
     private String aliasStringSegmentEnd="";
-    private String lastBuilt=CustAliases.YYYY_MM_DD_HH_MM_SS_SSS_DASH;
 
-    public String update(CustAliases _aliases, LgNamesContent _content, RunnableContextEl _result, AbstractProgramInfos _frames) {
-        resultContext = _result;
+    public void update(CustAliases _aliases, LgNamesContent _content, ContextEl _result) {
         viewType = _result.getClasses().getClassBody(_aliases.getAliasAbsStringView());
         MethodId index_ = new MethodId(MethodAccessKind.INSTANCE,
                 _aliases.getAliasAbsStringViewIndex(),new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimInteger()));
@@ -35,12 +31,6 @@ public final class ResultContextViewReplacer {
         aliasStringSegment = _aliases.getAliasStringSegment();
         aliasStringSegmentBegin = _aliases.getAliasStringSegmentBegin();
         aliasStringSegmentEnd = _aliases.getAliasStringSegmentEnd();
-        lastBuilt = CustAliases.getDateTimeText(_frames.getThreadFactory());
-        return lastBuilt;
-    }
-
-    public RunnableContextEl getResultContext() {
-        return resultContext;
     }
 
     public ExecNamedFunctionBlock getReplaceMethod() {
@@ -71,7 +61,4 @@ public final class ResultContextViewReplacer {
         return aliasStringSegmentEnd;
     }
 
-    public String getLastBuilt() {
-        return lastBuilt;
-    }
 }

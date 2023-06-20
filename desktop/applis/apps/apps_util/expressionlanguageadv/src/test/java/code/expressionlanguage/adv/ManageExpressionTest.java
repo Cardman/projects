@@ -1,10 +1,12 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.AdvContextGenerator;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.mock.MockAtomicBoolean;
 import code.mock.MockMenuItem;
 import code.util.StringList;
 import code.util.StringMap;
@@ -33,7 +35,6 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     public void failSrcFile() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "");
         analyze(w_);
-        assertEq(CustAliases.YYYY_MM_DD_HH_MM_SS_SSS_DASH,w_.getResultContext().getLastBuilt());
         refreshClasses(w_);
         assertEq(0,tabEditor(w_).getDico().size());
     }
@@ -450,8 +451,10 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         tabEditor(w_).getCompleteClasses().enterEvent();
         selectClass(w_);
         assertTrue(tabEditor(w_).getFindingExpression().isEnabled());
-        tabEditor(w_).setAction(tabEditor(w_).getResultContext().getResultContext());
+        MockAtomicBoolean v_ = new MockAtomicBoolean();
+        tabEditor(w_).setAction((RunnableContextEl) new AdvContextGenerator(v_).gene(w_.getBaseResult().getForwards()));
         findStop(w_);
+        assertTrue(v_.get());
         closeExp(w_);
         assertEq(0,tabEditor(w_).getPartsExp().size());
     }

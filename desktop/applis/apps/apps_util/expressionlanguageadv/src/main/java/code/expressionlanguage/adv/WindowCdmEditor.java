@@ -62,7 +62,6 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private CdmParameterSoftModel softParams;
     private final CustList<WindowExpressionEditor> expressionEditors = new CustList<WindowExpressionEditor>();
     private String confGlobal="";
-    private final ResultContextViewReplacer resultContext = new ResultContextViewReplacer();
     private final AbstractBaseExecutorService service;
     private final AbsCommonFrame statusAnalyze;
     private final AbsTextArea statusAnalyzeArea;
@@ -565,10 +564,6 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
 
     public AbsMenuItem getAnalyzeMenuSt() {
         return analyzeMenuSt;
-    }
-
-    public ResultContextViewReplacer getResultContext() {
-        return resultContext;
     }
 
     public AbsCommonFrame getStatusAnalyze() {

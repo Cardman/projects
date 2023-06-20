@@ -5,18 +5,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;
-import code.expressionlanguage.exec.blocks.ExecClassBlock;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.structs.ClassMetaInfo;
-import code.expressionlanguage.structs.ConstructorMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
@@ -28,7 +21,6 @@ import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractBaseExecutorService;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -59,7 +51,6 @@ public final class TabEditor implements AbsTabEditor {
     private final AbsPanel replacerPanel;
     private final AbsPlainButton refreshExpression;
     private final AbsPlainLabel lastBuild;
-    private final AbsTextField finderExpClasses;
     private final AbsPlainButton selectExpressionClass;
     private final AbsPlainButton findingExpression;
     private final AbsPlainButton findingExpressionCancel;
@@ -77,7 +68,6 @@ public final class TabEditor implements AbsTabEditor {
     private final AbsEnabledAction redo;
     private final AbstractBaseExecutorService taskManager;
     private final AbstractBaseExecutorService taskManagerExp;
-    private final AutoCompleteDocument completeClasses;
     private final AbsPanel expSpli;
     private final AbsSplitPane mainSplitter;
     private boolean enabledSyntax = true;
@@ -92,13 +82,9 @@ public final class TabEditor implements AbsTabEditor {
     private final AbsSpinner row;
     private final AbsSpinner col;
     private final AbsPlainButton val;
-    private final ResultContextViewReplacer resultContext = new ResultContextViewReplacer();
-    private ExecConstructorOverrideInfo targetMethodView;
-    private ExecConstructorOverrideInfo targetMethodReplace;
     private RunnableContextEl action;
     private Struct instance = NullStruct.NULL_VALUE;
-    private final StringMap<ExecConstructorOverrideInfo> dico = new StringMap<ExecConstructorOverrideInfo>();
-    private final StringMap<ExecConstructorOverrideInfo> dicoRepl = new StringMap<ExecConstructorOverrideInfo>();
+    private final FormFindReplaceExpression findReplaceExpression;
 
     public TabEditor(WindowWithTreeImpl _editor, String _fullPath, String _rel, String _lr) {
         useFeed = _lr;
@@ -106,6 +92,7 @@ public final class TabEditor implements AbsTabEditor {
         relPath = _rel;
         windowSecEditor = _editor;
         AbstractProgramInfos frames_ = _editor.getCommonFrame().getFrames();
+        findReplaceExpression = new FormFindReplaceExpression(frames_);
         taskManager = frames_.getThreadFactory().newExecutorService();
         taskManagerExp = frames_.getThreadFactory().newExecutorService();
         factories = frames_;
@@ -126,8 +113,6 @@ public final class TabEditor implements AbsTabEditor {
         prevOcc = frames_.getCompoFactory().newPlainButton("<-");
         nextOcc = frames_.getCompoFactory().newPlainButton("->");
         closeFinder = frames_.getCompoFactory().newPlainButton("x");
-        finderExpClasses = frames_.getCompoFactory().newTextField();
-        completeClasses = new AutoCompleteDocument(finderExpClasses, new StringList(), frames_,new FeedExpressionClassValue());
         refreshExpression = frames_.getCompoFactory().newPlainButton("refresh");
         lastBuild = frames_.getCompoFactory().newPlainLabel(CustAliases.YYYY_MM_DD_HH_MM_SS_SSS_DASH);
         selectExpressionClass = frames_.getCompoFactory().newPlainButton("reset");
@@ -188,7 +173,7 @@ public final class TabEditor implements AbsTabEditor {
         AbsPanel finderClass_ = frames_.getCompoFactory().newLineBox();
         finderClass_.add(refreshExpression);
         finderClass_.add(lastBuild);
-        finderClass_.add(finderExpClasses);
+        finderClass_.add(findReplaceExpression.getFinderExpClasses());
         selectExpressionClass.addActionListener(new SelectClassEvent(this));
         selectExpressionClass.setEnabled(false);
         finderClass_.add(selectExpressionClass);
@@ -413,7 +398,7 @@ public final class TabEditor implements AbsTabEditor {
 
     public void refresh() {
         enableExp(false);
-        finderExpClasses.setEnabled(false);
+        findReplaceExpression.getFinderExpClasses().setEnabled(false);
         findingExpressionCancel.setEnabled(false);
         applyExp.setEnabled(false);
         prevOccExp.setEnabled(false);
@@ -422,9 +407,9 @@ public final class TabEditor implements AbsTabEditor {
         if (userResult_ == null) {
             lastBuild.setText(CustAliases.YYYY_MM_DD_HH_MM_SS_SSS_DASH);
             selectExpressionClass.setEnabled(false);
-            completeClasses.setDictionary(new StringList());
-            dico.clear();
-            dicoRepl.clear();
+            findReplaceExpression.getCompleteClasses().setDictionary(new StringList());
+            findReplaceExpression.getDico().clear();
+            findReplaceExpression.getDicoRepl().clear();
             return;
         }
         ResultContext base_ = windowSecEditor.getMainFrame().getBaseResult();
@@ -444,63 +429,21 @@ public final class TabEditor implements AbsTabEditor {
         RunnableStruct.setupThread(res_);
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, options_);
         AbstractProgramInfos frames_ = windowSecEditor.getMainFrame().getCommonFrame().getFrames();
-        ResultContextViewReplacer vr_ = getResultContext();
-        lastBuild.setText(vr_.update(lg_.getExecContent().getCustAliases(), lg_.getContent(),getAction(),frames_));
+        lastBuild.setText(CustAliases.getDateTimeText(frames_.getThreadFactory()));
         selectExpressionClass.setEnabled(true);
-        ExecRootBlock typeView_ = vr_.getViewType();
-        ExecNamedFunctionBlock methodView_ = vr_.getViewMethod();
-        ExecRootBlock typeRepl_ = vr_.getReplaceType();
-        ExecNamedFunctionBlock methodRepl_ = vr_.getReplaceMethod();
-        dico.clear();
-        dicoRepl.clear();
-        StringList dict_ = new StringList();
-        for (EntryCust<String, ExecRootBlock> e: res_.getClasses().getClassesBodies().entryList()) {
-            ExecRootBlock type_ = e.getValue();
-            String name_ = e.getKey();
-            ExecConstructorOverrideInfo ov_ = isValid(name_, type_, res_, typeView_, methodView_);
-            if (ov_ != null) {
-                dict_.add(name_);
-                dico.addEntry(name_,ov_);
-            }
-            ExecConstructorOverrideInfo ovRep_ = isValid(name_, type_, res_, typeRepl_, methodRepl_);
-            if (ovRep_ != null) {
-                dicoRepl.addEntry(name_,ovRep_);
-            }
-        }
-        completeClasses.setDictionary(dict_);
-        finderExpClasses.setEnabled(true);
-    }
-    private static ExecConstructorOverrideInfo isValid(String _k, ExecRootBlock _type, ContextEl _ctx, ExecRootBlock _look, ExecNamedFunctionBlock _method) {
-        if (!(_type instanceof ExecClassBlock) || ((ExecClassBlock)_type).isAbstractType() || !_type.withoutInstance()) {
-            return null;
-        }
-        ExecOverrideInfo o_ = _ctx.getClasses().getRedirections().get(_look.getNumberType()).getVal(_method, _k);
-        if (o_ == null) {
-            return null;
-        }
-        for (ConstructorMetaInfo c: new ClassMetaInfo(new ExecFormattedRootBlock(_type), _ctx).getConstructorsInfos()) {
-            if (c.getFid().getParametersTypesLength() == 0) {
-                return new ExecConstructorOverrideInfo(c,o_);
-            }
-        }
-        return null;
+        findReplaceExpression.refresh(base_,ctx_);
     }
 
     public void usedType(String _u) {
-        usedTypeReplace(_u);
-        targetMethodView = dico.getVal(_u);
+        findReplaceExpression.usedType(_u);
     }
 
     public StringMap<ExecConstructorOverrideInfo> getDico() {
-        return dico;
+        return findReplaceExpression.getDico();
     }
 
     public StringMap<ExecConstructorOverrideInfo> getDicoRepl() {
-        return dicoRepl;
-    }
-
-    public void usedTypeReplace(String _u) {
-        targetMethodReplace = dicoRepl.getVal(_u);
+        return findReplaceExpression.getDicoRepl();
     }
 
     @Override
@@ -613,7 +556,7 @@ public final class TabEditor implements AbsTabEditor {
     }
 
     public AbsTextField getFinderExpClasses() {
-        return finderExpClasses;
+        return findReplaceExpression.getFinderExpClasses();
     }
 
     public AbsPlainButton getFindingExpression() {
@@ -713,15 +656,15 @@ public final class TabEditor implements AbsTabEditor {
     }
 
     public ExecConstructorOverrideInfo getTargetMethodView() {
-        return targetMethodView;
+        return findReplaceExpression.getTargetMethodView();
     }
 
     public ExecConstructorOverrideInfo getTargetMethodReplace() {
-        return targetMethodReplace;
+        return findReplaceExpression.getTargetMethodReplace();
     }
 
     public ResultContextViewReplacer getResultContext() {
-        return resultContext;
+        return findReplaceExpression.getResultContext();
     }
 
     public AbsPlainButton getSelectExpressionClass() {
@@ -729,7 +672,7 @@ public final class TabEditor implements AbsTabEditor {
     }
 
     public AutoCompleteDocument getCompleteClasses() {
-        return completeClasses;
+        return findReplaceExpression.getCompleteClasses();
     }
 
     public AbsPanel getExpSpli() {
