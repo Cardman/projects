@@ -149,7 +149,7 @@ public final class ExecClassesUtil {
         CustList<ViewPage> ls_ = new CustList<ViewPage>();
         int pages_ = _st.nbPages();
         for (int i = 0; i < pages_; i++) {
-            CustList<ViewVariable> v_ = Cache.view(_st, _st.getCall(i), _context);
+            CustList<ViewVariable> v_ = Cache.view(_st.getCall(i), _context);
             Cache.sortByDeepThenName(v_);
             ls_.add(new ViewPage(v_,new ViewInstance(_context,_st.getCall(i))));
         }

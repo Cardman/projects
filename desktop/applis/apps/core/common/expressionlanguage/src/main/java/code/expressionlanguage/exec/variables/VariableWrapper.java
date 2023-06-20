@@ -25,7 +25,7 @@ public final class VariableWrapper extends AbstractVariableWrapper {
     }
 
     @Override
-    public String getClassName(StackCall _stack, ContextEl _conf) {
+    public String getClassName(ContextEl _conf) {
         return getLocal().getClassName();
     }
 }

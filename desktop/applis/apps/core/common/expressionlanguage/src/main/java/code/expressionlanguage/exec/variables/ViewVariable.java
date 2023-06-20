@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.variables;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 
 public final class ViewVariable {
@@ -11,16 +10,16 @@ public final class ViewVariable {
     private final LoopVariable loop;
     private final int deep;
 
-    public ViewVariable(String _n, AbstractWrapper _w, StackCall _st, AbstractPageEl _page, ContextEl _ctx) {
-        this.className = _w.getClassName(_st,_ctx);
+    public ViewVariable(String _n, AbstractWrapper _w, AbstractPageEl _page, ContextEl _ctx) {
+        this.className = _w.getClassName(_ctx);
         this.name = _n;
         this.wrapper = _w;
         loop = _page.getVars().getVal(_n);
         deep = -1;
     }
 
-    public ViewVariable(String _n, AbstractWrapper _w, StackCall _st, AbstractPageEl _page, int _deep,ContextEl _ctx) {
-        this.className = _w.getClassName(_st,_ctx);
+    public ViewVariable(String _n, AbstractWrapper _w, AbstractPageEl _page, int _deep, ContextEl _ctx) {
+        this.className = _w.getClassName(_ctx);
         this.name = _n;
         this.wrapper = _w;
         loop = _page.getCache().getLoopVar(_n, _deep);

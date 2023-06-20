@@ -24,7 +24,8 @@ public final class StaticFieldWrapper extends FieldWrapper {
 
         return ExecFieldTemplates.getStaticField(_conf.getExiting(),root, getFieldType(), _conf, _stack, getId()).getStruct();
     }
-    public String getClassName(StackCall _stack, ContextEl _conf) {
+    @Override
+    public String getClassName(ContextEl _conf) {
         return getFieldType();
     }
 }

@@ -10,5 +10,5 @@ public interface AbstractWrapper {
     Struct getValue();
     void setValue(Struct _v);
     Struct getValue(StackCall _stack, ContextEl _conf);
-    String getClassName(StackCall _stack, ContextEl _conf);
+    String getClassName(ContextEl _conf);
 }

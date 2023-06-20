@@ -36,7 +36,7 @@ public final class ArrayCustWrapper extends ValueWrapper {
     }
 
     @Override
-    public String getClassName(StackCall _stack, ContextEl _conf) {
+    public String getClassName(ContextEl _conf) {
         ExecTypeFunction fct_ = readWrite.getInstWrite().getPair();
         ExecRootBlock type_ = fct_.getType();
         ExecNamedFunctionBlock named_ = fct_.getFct();

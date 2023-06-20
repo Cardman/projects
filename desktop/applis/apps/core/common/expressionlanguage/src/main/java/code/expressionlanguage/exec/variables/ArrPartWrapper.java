@@ -30,7 +30,7 @@ public final class ArrPartWrapper extends ValueWrapper {
     }
 
     @Override
-    public String getClassName(StackCall _stack, ContextEl _conf) {
+    public String getClassName(ContextEl _conf) {
         return array.getClassName(_conf);
     }
 }

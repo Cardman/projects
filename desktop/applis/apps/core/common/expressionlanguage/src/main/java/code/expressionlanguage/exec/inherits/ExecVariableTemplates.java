@@ -94,7 +94,7 @@ public final class ExecVariableTemplates {
     public static AbstractWrapper getWrapper(boolean _set,ExecVariableContent _varCont, Cache _cache, StringMap<AbstractWrapper> _refParams) {
         AbstractWrapper w_ = getWrapper(_varCont.getVariableName(), _varCont.getDeep(), _cache, _refParams);
         if (_set && w_ instanceof VariableWrapper && !_varCont.isRef() && _varCont.getDeep() < 0) {
-            VariableWrapper ch_ = new VariableWrapper(LocalVariable.newLocalVariable(w_.getValue(null, null), w_.getClassName(null, null)));
+            VariableWrapper ch_ = new VariableWrapper(LocalVariable.newLocalVariable(w_.getValue(null, null), w_.getClassName( null)));
             _refParams.set(_varCont.getVariableName(), ch_);
             return ch_;
         }

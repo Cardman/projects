@@ -29,7 +29,7 @@ public final class ArrayWrapper extends ValueWrapper {
     }
 
     @Override
-    public String getClassName(StackCall _stack, ContextEl _conf) {
+    public String getClassName(ContextEl _conf) {
         ArrayStruct arr_ = ExecArrayFieldOperation.getArray(container, _conf);
         return StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arr_.getClassName()));
     }

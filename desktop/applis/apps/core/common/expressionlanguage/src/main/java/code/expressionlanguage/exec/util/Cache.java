@@ -29,7 +29,7 @@ public abstract class Cache {
     public static void sortByDeepThenName(CustList<ViewVariable> _ls) {
         _ls.sortElts(new ViewVariableDeepNameCmp());
     }
-    public static CustList<ViewVariable> view(StackCall _st, AbstractPageEl _page, ContextEl _ctx) {
+    public static CustList<ViewVariable> view(AbstractPageEl _page, ContextEl _ctx) {
         CustList<ViewVariable> v_ = new CustList<ViewVariable>();
         Cache c_ = _page.getCache();
         if (c_ != null) {
@@ -41,12 +41,12 @@ public abstract class Cache {
                 } else {
                     current_ = 0;
                 }
-                v_.add(new ViewVariable(n.getName(),n.getWrapper(),_st,_page,current_,_ctx));
+                v_.add(new ViewVariable(n.getName(),n.getWrapper(), _page,current_,_ctx));
                 counts_.put(n.getName(),current_);
             }
         }
         for (EntryCust<String, AbstractWrapper> n: _page.getContentEx().getRefParams().entryList()) {
-            v_.add(new ViewVariable(n.getKey(),n.getValue(),_st,_page,_ctx));
+            v_.add(new ViewVariable(n.getKey(),n.getValue(), _page,_ctx));
         }
         return v_;
     }

@@ -30,7 +30,7 @@ public final class InstanceFieldWrapper extends FieldWrapper {
     }
 
     @Override
-    public String getClassName(StackCall _stack, ContextEl _conf) {
+    public String getClassName(ContextEl _conf) {
         return ExecFieldTemplates.formatType(_conf,pair.getRootBlock(),getFieldType(),className);
     }
 }

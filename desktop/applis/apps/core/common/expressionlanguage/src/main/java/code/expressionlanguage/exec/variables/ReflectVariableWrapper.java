@@ -47,7 +47,7 @@ public final class ReflectVariableWrapper extends AbstractVariableWrapper {
     }
 
     @Override
-    public String getClassName(StackCall _stack, ContextEl _conf) {
+    public String getClassName(ContextEl _conf) {
         return getLocal().getStruct().getClassName(_conf);
     }
 }

@@ -37,7 +37,7 @@ public final class ShownCache extends Cache {
             String cl_ = ExecInherits.quickFormat(_classNameFound, v.getType());
             NamedWrapper namedWrapper_ = locWrappers().get(i_);
             AbstractWrapper wrapper_ = namedWrapper_.getWrapper();
-            Struct struct_ = ExecInheritsAdv.checkObjectEx(cl_, wrapper_.getClassName(_stackCall, _context), _context, _stackCall);
+            Struct struct_ = ExecInheritsAdv.checkObjectEx(cl_, wrapper_.getClassName(_context), _context, _stackCall);
             if (struct_ != null) {
                 return struct_;
             }

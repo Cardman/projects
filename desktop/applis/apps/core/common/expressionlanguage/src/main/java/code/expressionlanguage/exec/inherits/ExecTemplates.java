@@ -180,7 +180,7 @@ public final class ExecTemplates {
             LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,param_);
             _p.getRefParameters().addEntry(_params.getNamesAll().get(_i),new VariableWrapper(lv_));
         } else {
-            Struct ex_ = ExecInheritsAdv.checkObjectEx(param_, w_.getClassName(_stackCall, _conf), _conf, _stackCall);
+            Struct ex_ = ExecInheritsAdv.checkObjectEx(param_, w_.getClassName(_conf), _conf, _stackCall);
             if (ex_ != null) {
                 _p.setError(ex_);
                 return;
