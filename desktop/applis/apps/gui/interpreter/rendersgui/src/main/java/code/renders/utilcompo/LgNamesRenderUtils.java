@@ -5,8 +5,6 @@ import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.exec.CommonExecutionInfos;
-import code.expressionlanguage.exec.CommonExecutionMetricsInfos;
-import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
