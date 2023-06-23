@@ -24,7 +24,6 @@ import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.stds.*;
-import code.expressionlanguage.utilimpl.LgNamesUtilsContent;
 import code.scripts.messages.gui.MessCdmBaseGr;
 import code.sml.util.*;
 import code.threads.AbstractDate;
@@ -621,13 +620,6 @@ public final class CustAliases {
     private static final String ITER_TA_VAR_SECOND="782";
     private static final String PAIR_VAR_FIRST="783";
     private static final String PAIR_VAR_SECOND="784";
-    private static final String ABS_STRING_VIEW="____________2136";
-    private static final String ABS_STRING_VIEW_INDEX="____________2137";
-    private static final String ABS_STRING_REPLACER="____________2140";
-    private static final String ABS_STRING_REPLACER_REPLACE="____________2141";
-    private static final String STRING_SEGMENT="____________2146";
-    private static final String STRING_SEGMENT_BEGIN="____________2147";
-    private static final String STRING_SEGMENT_END="____________2148";
     private String aliasRunnable;
     private String aliasThreadSet;
     private String aliasThreadSetAll;
@@ -852,17 +844,9 @@ public final class CustAliases {
     private String aliasRateDen;
     private String aliasRateNum;
 
-    private String aliasAbsStringView;
-    private String aliasAbsStringViewIndex;
-    private String aliasAbsStringReplacer;
-    private String aliasAbsStringReplacerReplace;
-
-    private String aliasStringSegment;
-    private String aliasStringSegmentBegin;
-    private String aliasStringSegmentEnd;
-
     private String aliasConcurrentError;
     private final StringMap<String> properties = MessCdmBaseGr.ms();
+    private final StringViewReplaceAliases stringViewReplaceAliases = new StringViewReplaceAliases();
 
     private final CustAliasParameters custAliasParameters = new CustAliasParameters();
 
@@ -1997,9 +1981,6 @@ public final class CustAliases {
         map_.put(METHOD_FORMAT,charSeq_.getAliasFormat());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasFormatType, content_);
-        stds_.put(aliasAbsStringView,buildStringView(_keyWords, _content));
-        stds_.put(aliasAbsStringReplacer,buildStringReplacer(_keyWords, _content));
-        stds_.put(aliasStringSegment,buildStringSegment(_keyWords, _content));
         return stds_;
     }
     private static void placeHolder(StringMap<String> _map, String _va, KeyWords _keyWords, StringMap<PrimitiveType> _primitiveTypes, AliasCore _coreNames, String... _args) {
@@ -2007,28 +1988,6 @@ public final class CustAliases {
     }
     private static String wrap(String _element) {
         return '{'+_element+'}';
-    }
-
-    private String buildStringView(KeyWords _keyWords, LgNamesContent _content) {
-        String result_ = _keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordInterface()+" "+aliasAbsStringView+"{";
-        result_+=_keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordAbstract()+" "+aliasStringSegment+" "+aliasAbsStringViewIndex+"("+_content.getCharSeq().getAliasString()+" "+custAliasParameters.getAliasAbsStringView0Index0()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+custAliasParameters.getAliasAbsStringView0Index1()+");";
-        result_+="}";
-        return result_;
-    }
-
-    private String buildStringReplacer(KeyWords _keyWords, LgNamesContent _content) {
-        String result_ = _keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordInterface()+" "+aliasAbsStringReplacer+":"+aliasAbsStringView+"{";
-        result_+=_keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordAbstract()+" "+_content.getCharSeq().getAliasString()+" "+aliasAbsStringReplacerReplace+"("+_content.getCharSeq().getAliasString()+" "+custAliasParameters.getAliasAbsStringReplacer0Replace0()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+custAliasParameters.getAliasAbsStringReplacer0Replace1()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+custAliasParameters.getAliasAbsStringReplacer0Replace2()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+custAliasParameters.getAliasAbsStringReplacer0Replace3()+");";
-        result_+="}";
-        return result_;
-    }
-
-    private String buildStringSegment(KeyWords _keyWords, LgNamesContent _content) {
-        String result_ = _keyWords.getKeyWordPublic()+" @"+_keyWords.getKeyWordInterface()+" "+aliasStringSegment+"{\n";
-        result_+=_keyWords.getKeyWordPublic()+" "+_content.getPrimTypes().getAliasPrimInteger()+" "+aliasStringSegmentBegin+";\n";
-        result_+=_keyWords.getKeyWordPublic()+" "+_content.getPrimTypes().getAliasPrimInteger()+" "+aliasStringSegmentEnd+";\n";
-        result_+="}";
-        return result_;
     }
 
     public void messages(AnalysisMessages _mess, StringMap<String> _cust) {
@@ -2043,14 +2002,14 @@ public final class CustAliases {
         TranslationsLg lg_ = lg(getTranslations(), getUserLg(), getLanguage());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.MESSAGES);
-        return LgNamesUtilsContent.extractKeys(com_);
+        return TranslationsFile.extractKeys(com_);
     }
 
     public static StringMap<String> defMessages(String _lg, Translations _trs, String _language) {
         TranslationsLg lg_ = lg(_trs, _lg, _language);
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.MESSAGES);
-        return LgNamesUtilsContent.extractMap(com_);
+        return TranslationsFile.extractMap(com_);
     }
 
     public void keyWord(KeyWords _kw, StringMap<String> _cust) {
@@ -2064,14 +2023,14 @@ public final class CustAliases {
         TranslationsLg lg_ = lg(getTranslations(), getUserLg(), getLanguage());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.KEYWORDS);
-        return LgNamesUtilsContent.extractKeys(com_);
+        return TranslationsFile.extractKeys(com_);
     }
 
     public static StringMap<String> defKeywords(String _lg, Translations _trs, String _language) {
         TranslationsLg lg_ = lg(_trs, _lg, _language);
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.KEYWORDS);
-        return LgNamesUtilsContent.extractMap(com_);
+        return TranslationsFile.extractMap(com_);
     }
     public void otherAlias(LgNamesContent _content, StringMap<String> _cust) {
         StringMap<String> keys_ = extractAliasesKeys();
@@ -2087,14 +2046,14 @@ public final class CustAliases {
         TranslationsLg lg_ = lg(getTranslations(), getUserLg(), getLanguage());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.TYPES);
-        return LgNamesUtilsContent.extractKeys(com_);
+        return TranslationsFile.extractKeys(com_);
     }
 
     public static StringMap<String> defAliases(String _lg, Translations _trs, String _language) {
         TranslationsLg lg_ = lg(_trs, _lg, _language);
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.TYPES);
-        return LgNamesUtilsContent.extractMap(com_);
+        return TranslationsFile.extractMap(com_);
     }
     public void build(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
         setAliasIllegalThreadStateException(LgNamesContent.get(_util,_cust,_mapping.getVal(ILLEGAL_THREAD_STATE_EXCEPTION)));
@@ -2311,13 +2270,7 @@ public final class CustAliases {
         setAliasAfter(LgNamesContent.get(_util,_cust,_mapping.getVal(AFTER)));
         setAliasSizeTa(LgNamesContent.get(_util,_cust,_mapping.getVal(SIZE_TA)));
         setAliasAssert(LgNamesContent.get(_util,_cust,_mapping.getVal(ASSERT)));
-        setAliasAbsStringView(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_STRING_VIEW)));
-        setAliasAbsStringViewIndex(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_STRING_VIEW_INDEX)));
-        setAliasAbsStringReplacer(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_STRING_REPLACER)));
-        setAliasAbsStringReplacerReplace(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_STRING_REPLACER_REPLACE)));
-        setAliasStringSegment(LgNamesContent.get(_util,_cust,_mapping.getVal(STRING_SEGMENT)));
-        setAliasStringSegmentBegin(LgNamesContent.get(_util,_cust,_mapping.getVal(STRING_SEGMENT_BEGIN)));
-        setAliasStringSegmentEnd(LgNamesContent.get(_util,_cust,_mapping.getVal(STRING_SEGMENT_END)));
+        stringViewReplaceAliases.build(_util, _cust, _mapping);
         custAliasParameters.build(_util,_cust,_mapping);
     }
     public static TranslationsFile en() {
@@ -2534,13 +2487,7 @@ public final class CustAliases {
         _en.add(ITER_TA_VAR_SECOND,"IterTaVarSecond=U");
         _en.add(PAIR_VAR_FIRST,"PairVarFirst=T");
         _en.add(PAIR_VAR_SECOND,"PairVarSecond=U");
-        _en.add(ABS_STRING_VIEW,"AbsStringView=$core.AbsStringView");
-        _en.add(ABS_STRING_VIEW_INDEX,"AbsStringViewIndex=index");
-        _en.add(ABS_STRING_REPLACER,"AbsStringReplacer=$core.AbsStringReplacer");
-        _en.add(ABS_STRING_REPLACER_REPLACE,"AbsStringReplacerReplace=replace");
-        _en.add(STRING_SEGMENT,"StringSegment=$core.StringSegment");
-        _en.add(STRING_SEGMENT_BEGIN,"StringSegmentBegin=begin");
-        _en.add(STRING_SEGMENT_END,"StringSegmentEnd=end");
+        StringViewReplaceAliases.en(_en);
         CustAliasParameters.en(_en);
     }
     public static TranslationsFile fr() {
@@ -2757,13 +2704,7 @@ public final class CustAliases {
         _fr.add(ITER_TA_VAR_SECOND,"IterTaVarSecond=U");
         _fr.add(PAIR_VAR_FIRST,"PairVarFirst=T");
         _fr.add(PAIR_VAR_SECOND,"PairVarSecond=U");
-        _fr.add(ABS_STRING_VIEW,"AbsStringView=$coeur.AbsChaineVue");
-        _fr.add(ABS_STRING_VIEW_INDEX,"AbsStringViewIndex=indice");
-        _fr.add(ABS_STRING_REPLACER,"AbsStringReplacer=$coeur.AbsChaineRemplacement");
-        _fr.add(ABS_STRING_REPLACER_REPLACE,"AbsStringReplacerReplace=remplace");
-        _fr.add(STRING_SEGMENT,"StringSegment=$coeur.ChaineSegment");
-        _fr.add(STRING_SEGMENT_BEGIN,"StringSegmentBegin=debut");
-        _fr.add(STRING_SEGMENT_END,"StringSegmentEnd=fin");
+        StringViewReplaceAliases.fr(_fr);
         CustAliasParameters.fr(_fr);
     }
 
@@ -2853,16 +2794,14 @@ public final class CustAliases {
         f_.addEntry(getAliasTable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(LIST_TA),getAliasListTa())
         ));
-        f_.addEntry(getAliasStringSegment(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(_mapping.getVal(STRING_SEGMENT_BEGIN),getAliasStringSegmentBegin()),
-                new KeyValueMemberName(_mapping.getVal(STRING_SEGMENT_END),getAliasStringSegmentEnd())
-        ));
+        f_.addAllEntries(stringViewReplaceAliases.allTableTypeFieldNames(_mapping));
         return f_;
     }
 
     public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(StringMap<String> _mapping) {
         CustList<CustList<KeyValueMemberName>> m_ = new CustList<CustList<KeyValueMemberName>>();
         m_.addAllElts(custAliasParameters.allTableTypeMethodParamNames(_mapping));
+        m_.addAllElts(stringViewReplaceAliases.allTableTypeMethodParamNames(_mapping));
         return m_;
     }
 
@@ -3057,12 +2996,7 @@ public final class CustAliases {
         ));
         m_.addEntry(getAliasEltDifference(), new CustList<KeyValueMemberName>(
         ));
-        m_.addEntry(getAliasAbsStringView(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(_mapping.getVal(ABS_STRING_VIEW_INDEX),getAliasAbsStringViewIndex())
-        ));
-        m_.addEntry(getAliasAbsStringReplacer(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(_mapping.getVal(ABS_STRING_REPLACER),getAliasAbsStringReplacerReplace())
-        ));
+        m_.addAllEntries(stringViewReplaceAliases.allTableTypeMethodNames(_mapping));
         return m_;
     }
     public static CustList<KeyValueMemberName> merge(StringMap<CustList<KeyValueMemberName>> _methods, String _key, KeyValueMemberName..._values) {
@@ -3113,9 +3047,7 @@ public final class CustAliases {
         ref_.addEntry(_mapping.getVal(ENTRY_TEXT),getAliasEntryText());
         ref_.addEntry(_mapping.getVal(ENTRY_STRING_OBJECT),getAliasEntryStringObject());
         ref_.addEntry(_mapping.getVal(TABLE_STRING_OBJECT),getAliasTableStringObject());
-        ref_.addEntry(_mapping.getVal(ABS_STRING_VIEW),getAliasAbsStringView());
-        ref_.addEntry(_mapping.getVal(ABS_STRING_REPLACER),getAliasAbsStringReplacer());
-        ref_.addEntry(_mapping.getVal(STRING_SEGMENT),getAliasStringSegment());
+        ref_.addAllEntries(stringViewReplaceAliases.allRefTypes(_mapping));
         return ref_;
     }
 
@@ -4832,60 +4764,8 @@ public final class CustAliases {
         aliasConcurrentError = _aliasConcurrentError;
     }
 
-    public String getAliasAbsStringView() {
-        return aliasAbsStringView;
-    }
-
-    public void setAliasAbsStringView(String _v) {
-        this.aliasAbsStringView = _v;
-    }
-
-    public String getAliasAbsStringViewIndex() {
-        return aliasAbsStringViewIndex;
-    }
-
-    public void setAliasAbsStringViewIndex(String _v) {
-        this.aliasAbsStringViewIndex = _v;
-    }
-
-    public String getAliasAbsStringReplacer() {
-        return aliasAbsStringReplacer;
-    }
-
-    public void setAliasAbsStringReplacer(String _v) {
-        this.aliasAbsStringReplacer = _v;
-    }
-
-    public String getAliasAbsStringReplacerReplace() {
-        return aliasAbsStringReplacerReplace;
-    }
-
-    public void setAliasAbsStringReplacerReplace(String _v) {
-        this.aliasAbsStringReplacerReplace = _v;
-    }
-
-    public String getAliasStringSegment() {
-        return aliasStringSegment;
-    }
-
-    public void setAliasStringSegment(String _v) {
-        this.aliasStringSegment = _v;
-    }
-
-    public String getAliasStringSegmentBegin() {
-        return aliasStringSegmentBegin;
-    }
-
-    public void setAliasStringSegmentBegin(String _v) {
-        this.aliasStringSegmentBegin = _v;
-    }
-
-    public String getAliasStringSegmentEnd() {
-        return aliasStringSegmentEnd;
-    }
-
-    public void setAliasStringSegmentEnd(String _v) {
-        this.aliasStringSegmentEnd = _v;
+    public StringViewReplaceAliases getStringViewReplaceAliases() {
+        return stringViewReplaceAliases;
     }
 
     public FileInfos getInfos() {

@@ -22,6 +22,7 @@ import code.threads.ThState;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 import org.junit.Assert;
 
@@ -76,7 +77,10 @@ public abstract class EquallableElAdvUtil {
         pr_.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
         pr_.setLanguage(FileInfos.EN);
         update(pr_);
-        return new InitDebGuiImpl("en",pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
+        pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
+        MockResultContextNext m_ = new MockResultContextNext("src");
+        return new InitDebGuiImpl(m_,"en",pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
     }
 
     public static AbsDebuggerGui buildExp() {
@@ -92,7 +96,10 @@ public abstract class EquallableElAdvUtil {
         pr_.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
         pr_.setLanguage(FileInfos.EN);
         update(pr_);
-        return new ExpDebGuiImpl("en",pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
+        pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
+        MockResultContextNext m_ = new MockResultContextNext("src");
+        return new ExpDebGuiImpl(m_,"en",pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
     }
 
     public static MockProgramInfos genePr() {
@@ -115,7 +122,9 @@ public abstract class EquallableElAdvUtil {
         return pr_;
     }
     public static AbsDebuggerGui buildWindow(MockProgramInfos _pr) {
-        return new ExpDebGuiImpl("en", _pr, new CdmFactory(_pr, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct()));
+        _pr.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
+        _pr.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
+        return new ExpDebGuiImpl(new MockResultContextNext("src"),"en", _pr, new CdmFactory(_pr, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct()));
     }
     public static ManageOptions opt(AbsDebuggerGui _pr) {
         AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
@@ -124,7 +133,7 @@ public abstract class EquallableElAdvUtil {
         return new ManageOptions(frs_.getLanguages(), linesFiles_, _pr.getFactory());
     }
     public static ResultContext res(AbsDebuggerGui _pr, ManageOptions _man) {
-        return PreAnalyzeExpressionSource.baseValidate(_man,null,_pr.getCommonFrame().getFrames(),_pr.getFactory());
+        return _pr.getResultContextNext().init(_man.getOptions());
     }
     public static void save(AbsDebuggerGui _pr, StringMap<String> _src, String _relative, String _content) {
         AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
@@ -138,6 +147,11 @@ public abstract class EquallableElAdvUtil {
         new AnalyzingDebugEvent(new ExpMenuFrameInteract(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem()),_b,_g,_man,_s).action();
     }
     public static void guiAna(WindowExpressionEditor _w, AbsDebuggerGui _g) {
+        _g.setResultContextNext(_w.getResultContextNext());
+        menuExp(_w, _g);
+    }
+
+    public static void menuExp(WindowExpressionEditor _w, AbsDebuggerGui _g) {
         new AnalyzingDebugExpEvent(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem(),_w,_g).action();
     }
 
@@ -349,6 +363,11 @@ public abstract class EquallableElAdvUtil {
     }
 
     protected static void analyze(WindowCdmEditor _w) {
+        AbstractProgramInfos pr_ = _w.getCommonFrame().getFrames();
+        pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
+        pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
+        MockResultContextNext res_ = new MockResultContextNext(_w.getManageOptions().getEx().getSrcFolder(),StreamFolderFile.getFiles(_w.getFolderExpression(),new DefaultUniformingString(),pr_.getFileCoreStream(), pr_.getStreams()).getZipFiles());
+        _w.setResultContextNext(res_);
         _w.getFuture().attendre();
         AbsActionListener ev_ = ((MockMenuItem) _w.getAnalyzeMenu()).getActionListeners().get(0);
         ev_.action();
@@ -403,6 +422,7 @@ public abstract class EquallableElAdvUtil {
         ManageOptions copy_ = w_.manage(w_.getSoftParams().getLines());
         copy_.getEx().setAccess("/project/sources/exp/");
         copy_.getEx().setSrcFolder(_srcFolder);
+        w_.getSoftParams().setFolderExpression("/project/sources/exp");
         w_.getSoftParams().setLines(WindowCdmEditor.linesConf(copy_));
         return w_;
     }

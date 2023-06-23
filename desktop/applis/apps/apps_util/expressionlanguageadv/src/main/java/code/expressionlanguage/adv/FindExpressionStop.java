@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.events.AbsActionListener;
 
 public final class FindExpressionStop implements AbsActionListener {
@@ -11,8 +10,6 @@ public final class FindExpressionStop implements AbsActionListener {
     }
     @Override
     public void action() {
-        RunnableContextEl rCont_ = editor.getAction();
-        rCont_.getInterrupt().set(true);
-        rCont_.getThread().getThread().stopJoinSleep();
+        editor.tryInterrupt();
     }
 }

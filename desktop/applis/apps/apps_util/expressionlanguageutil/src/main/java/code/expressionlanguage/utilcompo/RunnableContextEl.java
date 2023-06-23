@@ -1,7 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.*;
-import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.structs.Struct;
 import code.stream.core.AbstractZipFact;
 import code.threads.AbstractAtomicBoolean;
@@ -9,9 +8,8 @@ import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
 import code.util.StringList;
 
-public class RunnableContextEl extends ContextEl implements Locking {
+public class RunnableContextEl extends InterruptibleContextEl implements Locking {
 
-    private final AbstractAtomicBoolean interrupt;
     private final ThreadStruct thread;
     private final AbstractThreadFactory threadFactory;
     private final AbstractZipFact zipFact;
@@ -24,8 +22,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
     }
 
     public RunnableContextEl(AbstractAtomicBoolean _i,Struct _state, CommonExecutionInfos _executionInfos, StringList _args) {
-        super(_executionInfos);
-        interrupt = _i;
+        super(_i, _executionInfos);
         args = _args;
         LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) _executionInfos.getStandards();
         threadFactory = standards_.getExecContent().getInfos().getThreadFactory();
@@ -97,26 +94,17 @@ public class RunnableContextEl extends ContextEl implements Locking {
     }
 
     @Override
-    public boolean callsOrException(StackCall _stack) {
-        if (stopped()) {
-            return true;
-        }
-        return super.callsOrException(_stack);
+    protected boolean stopped() {
+        return super.stopped() || isCurrentThreadEnded();
     }
 
-    boolean stopped() {
-        return interrupt.get() || isCurrentThreadEnded();
+    @Override
+    public void stopJoinSleep(){
+        getThread().getThread().stopJoinSleep();
+        super.stopJoinSleep();
     }
-
-    public void interrupt() {
-        interrupt.set(true);
-    }
-
     public AbstractZipFact getZipFact() {
         return zipFact;
     }
 
-    public AbstractAtomicBoolean getInterrupt() {
-        return interrupt;
-    }
 }

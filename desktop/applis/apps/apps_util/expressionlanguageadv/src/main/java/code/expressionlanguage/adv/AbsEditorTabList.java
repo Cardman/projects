@@ -1,9 +1,13 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.util.core.StringUtil;
 
 public abstract class AbsEditorTabList {
-
+    private AbsResultContextNext resultContextNext;
+    protected AbsEditorTabList(AbsResultContextNext _a) {
+        setResultContextNext(_a);
+    }
     int indexOpened(String _str) {
         int opened_ = -1;
         int s_ = tabCount();
@@ -17,4 +21,12 @@ public abstract class AbsEditorTabList {
     }
     public abstract int tabCount();
     public abstract AbsTabEditor tab(int _i);
+
+    public AbsResultContextNext getResultContextNext() {
+        return resultContextNext;
+    }
+
+    public void setResultContextNext(AbsResultContextNext _r) {
+        this.resultContextNext = _r;
+    }
 }

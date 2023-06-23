@@ -24,7 +24,7 @@ public abstract class TestedBeanCustLgNames extends BeanCustLgNames {
 
     @Override
     public CommonExecutionInfos newContextCommon(Options _opt, Forwards _options) {
-        return new CommonExecutionInfos(new TestedRenderInterceptorStdCaller(),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new DefaultInitializer());
+        return commonExecutionInfos(new TestedRenderInterceptorStdCaller(),_opt,_options, new DefaultInitializer());
     }
     @Override
     public AbstractFileBuilder newFileBuilder() {

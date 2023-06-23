@@ -1,10 +1,7 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.CustAliases;
-import code.expressionlanguage.utilcompo.FileInfos;
-import code.expressionlanguage.utilimpl.CustContextFactory;
 import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
@@ -20,19 +17,15 @@ public final class AnalyzeExpressionSource implements Runnable {
     public void run() {
         mainFrame.getAnalyzeMenu().setEnabled(false);
         mainFrame.getStatusAnalyzeArea().setText("");
-        ResultContext base_ = mainFrame.getBaseResult();
-        LgNamesGui lg_ = (LgNamesGui) base_.getForwards().getGenerator();
-        FileInfos fileInfos_ = lg_.getExecContent().getInfos();
         AbstractProgramInfos frames_ = mainFrame.getCommonFrame().getFrames();
         StringMap<String> added_ = addedExp(mainFrame);
-        ResultContext resUser_ = RunningTest.nextValidateQuick(mainFrame.getBaseResult(), lg_, lg_.getExecContent().getExecutingOptions(), fileInfos_, added_);
-        if (!resUser_.getPageEl().isCustomAna()) {
+        ResultContext resUser_ = RunningTest.nextValidateQuick(mainFrame.getResultContextNext(),mainFrame.getBaseResult(), added_);
+        if (resUser_ == null || !resUser_.getPageEl().isCustomAna()) {
             mainFrame.getStatusAnalyzeArea().append("KO\n");
             mainFrame.getStatusAnalyzeArea().append(CustAliases.getDateTimeText(frames_.getThreadFactory()));
             mainFrame.getAnalyzeMenu().setEnabled(true);
             return;
         }
-        CustContextFactory.reportErrors(base_.getForwards().getOptions(), lg_.getExecContent().getExecutingOptions(), resUser_.getReportedMessages(), fileInfos_);
         mainFrame.setUserResultGene(resUser_);
         if (resUser_.getPageEl().notAllEmptyErrors()) {
             mainFrame.getStatusAnalyzeArea().append(CustAliases.getDateTimeText(frames_.getThreadFactory()));

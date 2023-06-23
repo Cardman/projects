@@ -5,6 +5,7 @@ import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
+import code.expressionlanguage.utilcompo.InterruptibleContextEl;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.mock.MockAtomicBoolean;
 import code.mock.MockMenuItem;
@@ -309,7 +310,7 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         assertFalse(tabEditor(w_).getReplaceOneExp().isEnabled());
         TabEditor t_ = tabEditor(w_);
         closeTab(t_);
-        assertTrue(t_.getAction().getInterrupt().get());
+        assertTrue(((InterruptibleContextEl)t_.getAction()).getInterrupt().get());
     }
     @Test
     public void replaceNoOcc() {
@@ -452,9 +453,10 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         selectClass(w_);
         assertTrue(tabEditor(w_).getFindingExpression().isEnabled());
         MockAtomicBoolean v_ = new MockAtomicBoolean();
-        tabEditor(w_).setAction((RunnableContextEl) new AdvContextGenerator(v_).gene(w_.getBaseResult().getForwards()));
+        InterruptibleContextEl c_ = (InterruptibleContextEl) w_.getResultContextNext().generate(v_).gene(w_.getBaseResult().getForwards());
+        tabEditor(w_).setAction(c_);
         findStop(w_);
-        assertTrue(v_.get());
+        assertTrue(c_.getInterrupt().get());
         closeExp(w_);
         assertEq(0,tabEditor(w_).getPartsExp().size());
     }

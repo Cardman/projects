@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultAliasGroups;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.assign.util.AssignedVariables;
@@ -32,8 +33,10 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNamesContent;
+import code.expressionlanguage.stds.ListLoggableLgNames;
 import code.expressionlanguage.structs.*;
 import code.sml.util.TranslationsFile;
 import code.util.CustList;
@@ -165,6 +168,14 @@ public final class ClassesTest extends ProcessMethodCommon {
         validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(page_.notAllEmptyErrors());
+    }
+    @Test
+    public void aliasTest() {
+        assertFalse(KeyWords.en().getMapping().isEmpty());
+        assertFalse(KeyWords.fr().getMapping().isEmpty());
+        ResultContext b_ = base();
+        ResultContext res_ = ResultContext.def(b_, b_.getForwards().getGenerator(), new ListLoggableLgNames(), new StringMap<String>(), "");
+        assertTrue(isEmptyErrors(res_.getPageEl()));
     }
     @Test
     public void resolve1Test() {
@@ -7972,5 +7983,25 @@ public final class ClassesTest extends ProcessMethodCommon {
         validateInheritingClasses(page_);
         assertTrue( isEmptyErrors(page_));
         return page_;
+    }
+    private static ResultContext base() {
+        KeyWords kwl_ = new KeyWords();
+        Options opt_ = new Options();
+        AnalysisMessages mess_ = new AnalysisMessages();
+        opt_.setReadOnly(true);
+        CustLgNames stds_ = new CustLgNames();
+        TranslationsFile en_ = new TranslationsFile();
+        LgNamesContent.en(en_);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        stds_.getContent().build(TranslationsFile.extractMap(en_),new StringMap<String>(),TranslationsFile.extractKeys(en_));
+        TranslationsFile k_ = KeyWords.en();
+        kwl_.build(TranslationsFile.extractMap(k_),new StringMap<String>(),TranslationsFile.extractKeys(k_));
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(stds_.getContent());
+        Forwards forwards_ = new Forwards(stds_, new ListLoggableLgNames(), fileBuilder_, opt_);
+        page_.setLogErr(forwards_);
+        ContextFactory.beforeBuild(forwards_,mess_,kwl_,new CustList<CommentDelimiters>(),opt_,stds_.getContent(),page_);
+        ContextFactory.build(forwards_,kwl_,opt_,page_);
+        ClassesUtil.buildCoreBracesBodies(page_);
+        return new ResultContext(page_, forwards_, page_.getMessages());
     }
 }

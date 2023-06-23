@@ -6,8 +6,6 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.CommonExecutionInfos;
-import code.expressionlanguage.exec.CommonExecutionMetricsInfos;
-import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -19,7 +17,6 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
-import code.expressionlanguage.utilimpl.LgNamesUtilsContent;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
@@ -87,14 +84,14 @@ public class LgNamesGui extends LgNamesUtils {
         TranslationsLg lg_ = CustAliases.lg(_cust.getTranslations(), _cust.getUserLg(), _cust.getLanguage());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.TYPES_GUI);
-        return LgNamesUtilsContent.extractKeys(com_);
+        return TranslationsFile.extractKeys(com_);
     }
 
     public static StringMap<String> defAliases(String _lg, Translations _trs, String _language) {
         TranslationsLg lg_ = CustAliases.lg(_trs, _lg, _language);
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.TYPES_GUI);
-        return LgNamesUtilsContent.extractMap(com_);
+        return TranslationsFile.extractMap(com_);
     }
 
     @Override
@@ -104,7 +101,7 @@ public class LgNamesGui extends LgNamesUtils {
 
     @Override
     public CommonExecutionInfos newContextCommon(Options _opt, Forwards _options) {
-        return new CommonExecutionInfos(getExecContent().getCustAliases().getInterceptor().newInterceptorStdCaller(getExecContent().getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new GuiInitializer(getExecContent().getInfos().getThreadFactory().newAtomicLong(), getExecContent().getCustAliases().getInterceptor()));
+        return commonExecutionInfos(getExecContent().getCustAliases().getInterceptor().newInterceptorStdCaller(getExecContent().getCustAliases().getAliasConcurrentError()),_opt,_options, new GuiInitializer(getExecContent().getInfos().getThreadFactory().newAtomicLong(), getExecContent().getCustAliases().getInterceptor()));
     }
 
     @Override

@@ -1,11 +1,30 @@
 package code.mock;
 
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.AbsAdvContextGenerator;
 import code.gui.AbsGraphicListStr;
 import code.threads.AbstractConcurrentMap;
 import code.threads.AbstractThread;
+import code.util.CustList;
+import code.util.StringMap;
 import org.junit.Test;
 
 public final class MockRunnableStructTest extends EquallableMockCdmUtil {
@@ -94,5 +113,23 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
     public void wh() {
         MockMouseWheel m_ = new MockMouseWheel(1);
         assertEq(1,m_.getWheelRotation());
+    }
+    @Test
+    public void build() {
+        MockResultContextNext m_ = new MockResultContextNext("src");
+        ResultContext b_ = m_.init(new Options());
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
+        ResultContext user_ = m_.next(b_, m_.next(b_, src_));
+        Forwards f_ = user_.getForwards();
+        AnalyzedPageEl page_ = user_.getPageEl();
+        ForwardInfos.generalForward(page_,f_);
+        AbsAdvContextGenerator gn_ = m_.generate();
+        ContextEl ctx_ = gn_.geneWith(f_);
+        Classes.forwardAndClear(ctx_);
+        user_.setContext(ctx_);
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Ex");
+        ArgumentWrapper a_ = ProcessMethod.calculate(new CustomFoundMethod(new ExecFormattedRootBlock(ex_), new ExecTypeFunction(ex_, ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "exmeth", new CustList<String>())).first()), new Parameters()), user_.getContext(), StackCall.newInstance(InitPhase.NOTHING, ctx_));
+        assertEq(1,((NumberStruct) ArgumentListCall.toStr(a_.getValue())).intStruct());
     }
 }

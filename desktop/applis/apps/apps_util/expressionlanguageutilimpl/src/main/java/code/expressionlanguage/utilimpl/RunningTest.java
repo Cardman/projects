@@ -6,15 +6,11 @@ import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;
-import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.guicompos.GuiContextEl;
 import code.expressionlanguage.guicompos.LgNamesGui;
-import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
-import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.options.*;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.AbstractAdvGraphicListGeneratorStruct;
 import code.gui.CdmFactory;
@@ -24,7 +20,6 @@ import code.stream.BytesInfo;
 import code.stream.core.OutputType;
 import code.stream.core.ReadBinFiles;
 import code.stream.core.ReadFiles;
-import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -99,7 +94,7 @@ public final class RunningTest implements Runnable {
     }
 
     public static ResultContext baseValidateMemoDef(String _lg, AbstractInterceptor _interceptor, AbstractLightProgramInfos _factories, AbstractAdvGraphicListGenerator _adv, AbstractAdvGraphicListGeneratorStruct _cr) {
-        FileInfos file_ = fileInfos(_factories, null, new MemInputFiles(new byte[0], new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true)));
+        FileInfos file_ = MemoResultContextNext.fileInfos(_factories, null, new MemInputFiles(new byte[0], new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true)));
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
         Options opts_ = new Options();
@@ -121,13 +116,11 @@ public final class RunningTest implements Runnable {
         ls_.add("");
         ls_.add(_lg);
         ls_.addAllElts(_otherLines);
-        FileInfos file_ = fileInfos(_factories, _issuer, new MemInputFiles(StringUtil.encode(StringUtil.join(ls_, '\n')), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true)));
-        KeyWords kwl_ = new KeyWords();
-        AnalysisMessages mess_ = new AnalysisMessages();
+        FileInfos file_ = MemoResultContextNext.fileInfos(_factories, _issuer, new MemInputFiles(StringUtil.encode(StringUtil.join(ls_, '\n')), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true)));
         Options opts_ = new Options();
         ExecutingOptions ex_ = exec(_factories, _interceptor, _adv, _cr, _lg);
         ExecutingOptions.setupOptionals(0,opts_,ex_,_otherLines);
-        return CustContextFactory.stds(file_, ex_, opts_, mess_, kwl_);
+        return CustContextFactory.stds(file_, ex_, opts_);
     }
 
     private static ExecutingOptions exec(AbstractLightProgramInfos _factories, AbstractInterceptor _interceptor, AbstractAdvGraphicListGenerator _adv, AbstractAdvGraphicListGeneratorStruct _cr, String _lg) {
@@ -144,11 +137,7 @@ public final class RunningTest implements Runnable {
             return _base;
         }
         LgNamesGui lg_ = (LgNamesGui) _base.getForwards().getGenerator();
-        ExecutingOptions exec_ = lg_.getExecContent().getExecutingOptions();
-        MemoryReporter m_ = (MemoryReporter) lg_.getExecContent().getInfos().getReporter();
-        MemInputFiles src_ = new MemInputFiles(m_.getConf(),_input.getSrc(),_input.getFiles());
-        FileInfos file_ = fileInfos(exec_.getLightProgramInfos(), _issuer, src_);
-        return nextValidate(_base, lg_, exec_, file_);
+        return nextValidate(_base, lg_, new MemoResultContextNext(_base,_input,_issuer));
     }
 
     public static ResultContext nextValidateMemoQuick(ResultContext _base, MemInputFiles _input, AbstractIssuer _issuer) {
@@ -158,37 +147,16 @@ public final class RunningTest implements Runnable {
         if (_base.getPageEl().notAllEmptyErrors()) {
             return _base;
         }
-        LgNamesGui lg_ = (LgNamesGui) _base.getForwards().getGenerator();
-        ExecutingOptions exec_ = lg_.getExecContent().getExecutingOptions();
-        MemoryReporter m_ = (MemoryReporter) lg_.getExecContent().getInfos().getReporter();
-        MemInputFiles src_ = new MemInputFiles(m_.getConf(),_input.getSrc(),_input.getFiles());
-        FileInfos file_ = fileInfos(exec_.getLightProgramInfos(), _issuer, src_);
-        return nextValidateQuick(_base, lg_, exec_, file_, _addedFiles);
-    }
-
-    private static FileInfos fileInfos(AbstractLightProgramInfos _frames, AbstractIssuer _issuer, MemInputFiles _input) {
-        AbstractNameValidating validator_ = _frames.getValidator();
-        return FileInfos.buildMemoryFromFile(_frames, _frames.getGenerator(),
-                validator_, _issuer, _input, _frames.getZipFact(), _frames.getThreadFactory());
+        return nextValidateQuick(new MemoResultContextNext(_base,_input,_issuer),_base, _addedFiles);
     }
 
 
-    public static ResultContext nextValidate(ResultContext _base, LgNamesGui _lg, ExecutingOptions _exec, FileInfos _file) {
-        String archive_ = _exec.getAccess();
-        ReadFiles result_ = _file.getReporter().getFiles(archive_);
-        StringMap<String> list_ = RunningTest.tryGetSrc(archive_, _exec, _file, result_);
-        if (list_ == null) {
+    public static ResultContext nextValidate(ResultContext _base, LgNamesWithNewAliases _lg, AbsLightResultContextNext _n) {
+        ResultContext res_ = _n.next(_base, new StringMap<String>());
+        if (res_ == null) {
             return _base;
         }
-        StringMap<String> srcFiles_ = ContextFactory.filter(list_, _exec.getSrcFolder());
-        AnalyzedPageEl copy_ = AnalyzedPageEl.copy(_base.getPageEl());
-        copy_.addResources(list_);
-        AnalyzedPageEl resultAna_ = ClassesUtil.buildUserCode(srcFiles_, copy_);
-        Classes.postValidate(resultAna_);
-        Forwards forwards_ = CustContextFactory.fwd(_base.getForwards().getOptions(), _lg, _base.getForwards().getFileBuilder());
-        forwards_.getClasses().getCommon().setStaticFields(resultAna_.getStaticFields());
-        ResultContext res_ = new ResultContext(resultAna_, forwards_, resultAna_.getMessages());
-        if (resultAna_.notAllEmptyErrors()) {
+        if (res_.getPageEl().notAllEmptyErrors()) {
             return res_;
         }
         AnalyzedPageEl fwd_ = res_.getPageEl();
@@ -201,33 +169,14 @@ public final class RunningTest implements Runnable {
         return res_;
     }
 
-    public static ResultContext nextValidateQuick(ResultContext _base, LgNamesGui _lg, ExecutingOptions _exec, FileInfos _file, StringMap<String> _addedFiles) {
-        AnalyzedPageEl ana_ = nextValidateQuickAna(_base, _exec, _file, _addedFiles);
+    public static ResultContext nextValidateQuick(AbsLightResultContextNext _a, ResultContext _base, StringMap<String> _addedFiles) {
+        ResultContext ana_ = _a.next(_base, _addedFiles);
         if (ana_ == null) {
             return _base;
         }
-        Forwards forwards_ = CustContextFactory.fwd(_base.getForwards().getOptions(), _lg, _base.getForwards().getFileBuilder());
-        forwards_.getClasses().getCommon().setStaticFields(ana_.getStaticFields());
-        return new ResultContext(ana_, forwards_, ana_.getMessages());
+        return ana_;
     }
 
-    public static AnalyzedPageEl nextValidateQuickAna(ResultContext _base, ExecutingOptions _exec, FileInfos _file, StringMap<String> _addedFiles) {
-        String archive_ = _exec.getAccess();
-        ReadFiles result_ = _file.getReporter().getFiles(archive_);
-        for (EntryCust<String,String> e: _addedFiles.entryList()) {
-            result_.getZipFiles().put(e.getKey(),e.getValue());
-        }
-        StringMap<String> list_ = RunningTest.tryGetSrc(archive_, _exec, _file, result_);
-        if (list_ == null) {
-            return null;
-        }
-        StringMap<String> srcFiles_ = ContextFactory.filter(list_, _exec.getSrcFolder());
-        AnalyzedPageEl copy_ = AnalyzedPageEl.copy(_base.getPageEl());
-        copy_.addResources(list_);
-        AnalyzedPageEl resultAna_ = ClassesUtil.buildUserCode(srcFiles_, copy_);
-        Classes.postValidate(resultAna_);
-        return resultAna_;
-    }
     public static StringMap<String> tryGetSrc(String _archive, ExecutingOptions _exec, FileInfos _infos,ReadFiles _results) {
         AbstractReporter reporter_ = _infos.getReporter();
         String folderPath_ = reporter_.getFolderPath(_archive,_exec,_results);

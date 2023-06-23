@@ -4,7 +4,6 @@ import code.expressionlanguage.guicompos.GuiAliases;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.FileInfos;
-import code.expressionlanguage.utilimpl.LgNamesUtilsContent;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
@@ -77,15 +76,15 @@ public final class OutputDialogAliases implements WithFrame{
         TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getLanguageKey());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.KEYWORDS);
-        return LgNamesUtilsContent.extractKeys(com_).values();
+        return TranslationsFile.extractKeys(com_).values();
     }
     static StringList aliases(WindowWithTreeImpl _w) {
         TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getLanguageKey());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile types_ = app_.getMapping().getVal(FileInfos.TYPES);
         TranslationsFile typesGui_ = app_.getMapping().getVal(FileInfos.TYPES_GUI);
-        StringList v_ = new StringList(LgNamesUtilsContent.extractKeys(types_).values());
-        v_.addAllElts(LgNamesUtilsContent.extractKeys(typesGui_).values());
+        StringList v_ = new StringList(TranslationsFile.extractKeys(types_).values());
+        v_.addAllElts(TranslationsFile.extractKeys(typesGui_).values());
         return v_;
     }
 
@@ -93,7 +92,7 @@ public final class OutputDialogAliases implements WithFrame{
         TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getLanguageKey());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.MESSAGES);
-        return LgNamesUtilsContent.extractKeys(com_).values();
+        return TranslationsFile.extractKeys(com_).values();
     }
 
     @Override

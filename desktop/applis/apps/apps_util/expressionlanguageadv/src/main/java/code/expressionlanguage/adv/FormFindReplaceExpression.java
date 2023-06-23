@@ -6,10 +6,10 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
-import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
+import code.expressionlanguage.utilcompo.LightLgNamesWithNewAliases;
 import code.gui.AbsTextField;
 import code.gui.AutoCompleteDocument;
 import code.gui.initialize.AbstractProgramInfos;
@@ -31,9 +31,9 @@ public final class FormFindReplaceExpression {
     }
 
     public void refresh(ResultContext _base, ContextEl _ctx) {
-        LgNamesGui lg_ = (LgNamesGui) _base.getForwards().getGenerator();
+        LightLgNamesWithNewAliases lg_ = (LightLgNamesWithNewAliases) _base.getForwards().getGenerator();
         ResultContextViewReplacer vr_ = getResultContext();
-        vr_.update(lg_.getExecContent().getCustAliases(), lg_.getContent(),_ctx);
+        vr_.update(lg_.getStrAlias(), lg_.getContent(),_ctx);
         ExecRootBlock typeView_ = vr_.getViewType();
         ExecNamedFunctionBlock methodView_ = vr_.getViewMethod();
         ExecRootBlock typeRepl_ = vr_.getReplaceType();

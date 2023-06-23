@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.DefaultAliasGroups;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNamesContent;
-import code.util.EntryCust;
 import code.util.StringMap;
 
 public class CustFileBuilder extends DefaultFileBuilder {
@@ -20,9 +19,8 @@ public class CustFileBuilder extends DefaultFileBuilder {
     @Override
     public StringMap<String> buildFiles(KeyWords _keyWords) {
         StringMap<String> m_ = super.buildFiles(_keyWords);
-        for (EntryCust<String,String> e:custAliases.buildFiles(_keyWords, getContent()).entryList()) {
-            m_.addEntry(e.getKey(),e.getValue());
-        }
+        m_.addAllEntries(custAliases.buildFiles(_keyWords, getContent()));
+        m_.addAllEntries(custAliases.getStringViewReplaceAliases().buildFiles(_keyWords, getContent()));
         return m_;
     }
 }

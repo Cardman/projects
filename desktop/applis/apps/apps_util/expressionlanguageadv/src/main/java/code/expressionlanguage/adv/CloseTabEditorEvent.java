@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.AbsTabbedPane;
 import code.gui.GuiBaseUtil;
 import code.gui.events.AbsActionListener;
@@ -24,11 +23,6 @@ public final class CloseTabEditorEvent implements AbsActionListener {
         tabEditor.getWindowSecEditor().updateDoc();
         tabEditor.getTaskManager().shutdown();
         tabEditor.getTaskManagerExp().shutdown();
-        RunnableContextEl rCont_ = tabEditor.getAction();
-        if (rCont_ == null) {
-            return;
-        }
-        rCont_.getInterrupt().set(true);
-        rCont_.getThread().getThread().stopJoinSleep();
+        tabEditor.tryInterrupt();
     }
 }

@@ -133,15 +133,17 @@ public final class CustContextFactory {
         return r_;
     }
 
-    public static ResultContext stds(FileInfos _file, ExecutingOptions _ex, Options _opts, AnalysisMessages _mess, KeyWords _kwl) {
+    public static ResultContext stds(FileInfos _file, ExecutingOptions _ex, Options _opts) {
+        KeyWords kwl_ = new KeyWords();
+        AnalysisMessages mess_ = new AnalysisMessages();
         _opts.setReadOnly(true);
         LgNamesGui stds_ = new LgNamesGui(_file, _ex.getListGenerator().getInterceptor());
-        CustContextFactory.preinit(_opts, _ex, _mess, _kwl, stds_);
+        CustContextFactory.preinit(_opts, _ex, mess_, kwl_, stds_);
         CustContextFactory.parts(_ex,stds_,new StringList());
         AnalyzedPageEl page_ = CustContextFactory.mapping(stds_);
         Forwards forwards_ = CustContextFactory.builder(_opts, stds_, page_);
-        AnalysisMessages.validateMessageContents(_mess.allMessages(stds_.getExecContent().getCustAliases().extractMessagesKeys()), page_);
-        ContextFactory.validateStds(forwards_, _mess, _kwl, stds_.getExecContent().getCustAliases().defComments(), _opts, stds_.getContent(), page_);
+        AnalysisMessages.validateMessageContents(mess_.allMessages(stds_.getExecContent().getCustAliases().extractMessagesKeys()), page_);
+        ContextFactory.validateStds(forwards_, mess_, kwl_, stds_.getExecContent().getCustAliases().defComments(), _opts, stds_.getContent(), page_);
         if (page_.notAllEmptyErrors()) {
             return new ResultContext(page_, forwards_, page_.getMessages());
         }
@@ -160,7 +162,7 @@ public final class CustContextFactory {
         return forwards_;
     }
 
-    public static AnalyzedPageEl mapping(LgNamesGui _definedLgNames) {
+    public static AnalyzedPageEl mapping(LgNamesWithNewAliases _definedLgNames) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
         page_.setMappingKeyWords(_definedLgNames.getExecContent().getCustAliases().extractKeywordsKeys());

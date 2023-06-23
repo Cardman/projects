@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.syntax.RowSrcLocation;
 import code.expressionlanguage.analyze.syntax.SrcFileLocation;
 import code.expressionlanguage.options.CommentsUtil;
+import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
@@ -61,7 +62,8 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     private int limitSymbol;
     private final AbstractBaseExecutorService finderSymbol;
     private final CustList<ResultRowSrcLocationList> symbols = new CustList<ResultRowSrcLocationList>();
-    protected WindowWithTreeImpl(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
+    protected WindowWithTreeImpl(AbsResultContextNext _a,String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
+        super(_a);
         factory = _fact;
         finderSymbol = _list.getThreadFactory().newExecutorService();
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);

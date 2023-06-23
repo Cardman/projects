@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
 import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
@@ -66,7 +67,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbstractAtomicBoolean stopDbg;
     private AbsOpenFrameInteract dbgMenu;
 
-    protected AbsDebuggerGui(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
+    protected AbsDebuggerGui(AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
+        super(_a);
         factory = _fact;
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         debugActions = _list.getThreadFactory().newExecutorService();

@@ -1,24 +1,21 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.AdvContextGenerator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;
-import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
-import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
-import code.expressionlanguage.utilimpl.CustContextFactory;
 import code.gui.*;
 import code.gui.events.AbsEnabledAction;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractProgramInfos;
+import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractBaseExecutorService;
 import code.util.CustList;
 import code.util.StringList;
@@ -82,7 +79,7 @@ public final class TabEditor implements AbsTabEditor {
     private final AbsSpinner row;
     private final AbsSpinner col;
     private final AbsPlainButton val;
-    private RunnableContextEl action;
+    private ContextEl action;
     private Struct instance = NullStruct.NULL_VALUE;
     private final FormFindReplaceExpression findReplaceExpression;
 
@@ -413,20 +410,16 @@ public final class TabEditor implements AbsTabEditor {
             return;
         }
         ResultContext base_ = windowSecEditor.getMainFrame().getBaseResult();
-        LgNamesGui lg_ = (LgNamesGui) base_.getForwards().getGenerator();
-        FileInfos fileInfos_ = lg_.getExecContent().getInfos();
-        Forwards forwards_ = CustContextFactory.fwd(userResult_.getForwards().getOptions(), lg_, userResult_.getForwards().getFileBuilder());
-        ResultContext copy_ = new ResultContext(userResult_.getPageEl(),forwards_,userResult_.getReportedMessages());
+        ResultContext copy_ = windowSecEditor.getResultContextNext().next(base_,userResult_);
         AnalyzedPageEl fwd_ = copy_.getPageEl();
-        forwards_.getClasses().getCommon().setStaticFields(fwd_.getStaticFields());
-        ForwardInfos.generalForward(fwd_,forwards_);
-        ContextEl ctx_ = new AdvContextGenerator(fileInfos_.getThreadFactory().newAtomicBoolean()).gene(forwards_);
-        RunnableContextEl res_ = (RunnableContextEl) ctx_;
-        setAction(res_);
+        copy_.getForwards().getClasses().getCommon().setStaticFields(fwd_.getStaticFields());
+        ForwardInfos.generalForward(fwd_,copy_.getForwards());
+        AbstractAtomicBoolean inter_ = windowSecEditor.getMainFrame().getCommonFrame().getFrames().getThreadFactory().newAtomicBoolean();
+        action = windowSecEditor.getResultContextNext().generate(inter_).geneWith(copy_.getForwards());
+        ContextEl ctx_ = action;
         getFindingExpressionCancel().setEnabled(true);
         Classes.forwardAndClear(ctx_);
-        Options options_ = forwards_.getOptions();
-        RunnableStruct.setupThread(res_);
+        Options options_ = copy_.getForwards().getOptions();
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, options_);
         AbstractProgramInfos frames_ = windowSecEditor.getMainFrame().getCommonFrame().getFrames();
         lastBuild.setText(CustAliases.getDateTimeText(frames_.getThreadFactory()));
@@ -434,6 +427,11 @@ public final class TabEditor implements AbsTabEditor {
         findReplaceExpression.refresh(base_,ctx_);
     }
 
+    public void tryInterrupt() {
+        if (action instanceof InterruptibleContextEl) {
+            ((InterruptibleContextEl)action).stopJoinSleep();
+        }
+    }
     public void usedType(String _u) {
         findReplaceExpression.usedType(_u);
     }
@@ -703,11 +701,11 @@ public final class TabEditor implements AbsTabEditor {
         return nextOccExp;
     }
 
-    public RunnableContextEl getAction() {
+    public ContextEl getAction() {
         return action;
     }
 
-    public void setAction(RunnableContextEl _act) {
+    public void setAction(ContextEl _act) {
         this.action = _act;
     }
 }

@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.InitPhase;
@@ -14,7 +15,6 @@ import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.AbsTextPane;
 import code.util.CustList;
 import code.util.Ints;
@@ -41,7 +41,7 @@ public final class ReplaceExpressionTask implements Runnable {
         String text_ = editor_.getText();
         StringBuilder copy_ = new StringBuilder(text_);
         Struct instance_ = current.getInstance();
-        RunnableContextEl act_ = current.getAction();
+        ContextEl act_ = current.getAction();
         int cur_ = current.getCurrentPartExp();
         CustList<SegmentFindPart> rev_ = current.getPartsExp();
         int lastIndex_ = rev_.size() - 1;

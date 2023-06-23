@@ -12,7 +12,7 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
     private final AbsMenuItem folderExpressionMenu;
     private final AbsOpenFrameInteract folderInteract;
     public WindowExpressionEditor(WindowCdmEditor _parent, AbsMenuItem _menu) {
-        super(_parent.getCommonFrame().getLanguageKey(),_parent.getCommonFrame().getFrames(),_parent.getFactory());
+        super(_parent.getResultContextNext(),_parent.getCommonFrame().getLanguageKey(),_parent.getCommonFrame().getFrames(),_parent.getFactory());
         folderExpressionMenu = _menu;
         mainFrame = _parent;
         AbstractProgramInfos frames_ = _parent.getCommonFrame().getFrames();

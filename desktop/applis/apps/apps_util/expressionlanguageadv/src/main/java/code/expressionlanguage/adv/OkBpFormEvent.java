@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.AdvContextGenerator;
 import code.expressionlanguage.exec.dbg.BreakPointBlockList;
 import code.gui.events.AbsActionListener;
 
@@ -18,12 +17,12 @@ public final class OkBpFormEvent implements AbsActionListener {
         window.getSelectedPb().getValue().setInstanceType(window.getInstanceType().isSelected());
         window.getSelectedPb().getValue().setStaticType(window.getStaticType().isSelected());
         if (window.getSelectedPb().getValue().isEnabledChgtType()) {
-            BreakPointBlockList.breakPointCtxInstance(window.getSelectedPb(),window.getCurrentResult(),new AdvContextGenerator(window.getStopDbg()),window.getConditionalInstance().getText());
-            BreakPointBlockList.breakPointCtxStatic(window.getSelectedPb(),window.getCurrentResult(),new AdvContextGenerator(window.getStopDbg()),window.getConditionalStatic().getText());
+            BreakPointBlockList.breakPointCtxInstance(window.getSelectedPb(),window.getCurrentResult(), window.getResultContextNext().generate(window.getStopDbg()),window.getConditionalInstance().getText());
+            BreakPointBlockList.breakPointCtxStatic(window.getSelectedPb(),window.getCurrentResult(), window.getResultContextNext().generate(window.getStopDbg()),window.getConditionalStatic().getText());
             BreakPointBlockList.breakPointCountInstance(window.getSelectedPb(),window.getCountInstance().getValue());
             BreakPointBlockList.breakPointCountStatic(window.getSelectedPb(),window.getCountStatic().getValue());
         } else {
-            BreakPointBlockList.breakPointCtxStd(window.getSelectedPb(),window.getCurrentResult(),new AdvContextGenerator(window.getStopDbg()),window.getConditionalStd().getText());
+            BreakPointBlockList.breakPointCtxStd(window.getSelectedPb(),window.getCurrentResult(), window.getResultContextNext().generate(window.getStopDbg()),window.getConditionalStd().getText());
             BreakPointBlockList.breakPointCountStd(window.getSelectedPb(),window.getCountStd().getValue());
         }
         window.setSelectedPb(null);

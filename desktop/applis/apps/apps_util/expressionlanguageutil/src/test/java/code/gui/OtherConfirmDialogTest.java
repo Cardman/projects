@@ -1,5 +1,15 @@
 package code.gui;
 
+import code.expressionlanguage.AdvContextGenerator;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.utilcompo.InterruptibleContextEl;
+import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.expressionlanguage.utilimpl.LgNamesUtils;
+import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -293,5 +303,16 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
         assertTrue(button_.isAccessible());
         button_.getActionListeners().first().action();
         assertFalse(conf_.getDialog().isVisible());
+    }
+    @Test
+    public void print() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl c_ = new AdvContextGenerator(new MockAtomicBoolean()).geneWith(getForwards(stds_, opt_));
+        StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);
+        assertFalse(StringUtil.nullToEmpty(stds_.getStrAlias().getAliasStringSegment()+"_").isEmpty());
+        ((InterruptibleContextEl)c_).stopJoinSleep();
+        assertTrue(c_.callsOrException(st_));
     }
 }

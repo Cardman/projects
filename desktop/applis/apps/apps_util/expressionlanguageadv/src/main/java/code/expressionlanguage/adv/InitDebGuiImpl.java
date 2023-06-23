@@ -16,6 +16,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
@@ -34,8 +35,8 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
     private FormInputDebugLines formInputDebugLines;
     private AutoCompleteDocument clMethFieldAutoComplete;
 
-    public InitDebGuiImpl(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
-        super(_lg, _list, _fact);
+    public InitDebGuiImpl(AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
+        super(_a,_lg, _list, _fact);
         methodFilter = new MethodFromFilter();
     }
 

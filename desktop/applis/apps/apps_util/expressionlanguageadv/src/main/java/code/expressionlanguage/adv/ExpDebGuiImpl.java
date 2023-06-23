@@ -17,6 +17,7 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
@@ -38,8 +39,8 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
     private int occ = -1;
     private StringBuilder copy = new StringBuilder();
 
-    public ExpDebGuiImpl(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
-        super(_lg, _list, _fact);
+    public ExpDebGuiImpl(AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
+        super(_a,_lg, _list, _fact);
     }
 
     @Override

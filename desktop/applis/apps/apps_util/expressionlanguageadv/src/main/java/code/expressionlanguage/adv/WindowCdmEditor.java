@@ -52,6 +52,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final AbsMenuItem analyzeMenuSt;
     private final FileOpenDialogAbs fileOpenDialogInt;
     private final FolderOpenDialogAbs folderOpenDialogInt;
+    private final AdvResultContextNext mainResultNext;
     private StringMap<String> messages;
     private final AbsMenuItem chooseFile;
     private final AbsPlainButton chooseFolder;
@@ -71,7 +72,9 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private AbstractFuture future;
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
-        super(_lg, _list, _fact);
+        super(null,_lg, _list, _fact);
+        mainResultNext = new AdvResultContextNext(this,_list, _fact);
+        setResultContextNext(getMainResultNext());
         service = _list.getThreadFactory().newExecutorService();
         statusAnalyze = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         statusAnalyzeArea = _list.getCompoFactory().newTextArea();
@@ -610,4 +613,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         this.future = _f;
     }
 
+    public AdvResultContextNext getMainResultNext() {
+        return mainResultNext;
+    }
 }

@@ -38,6 +38,11 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     }
 
     @Override
+    public StringViewReplaceAliases getStrAlias() {
+        return getExecContent().getCustAliases().getStringViewReplaceAliases();
+    }
+
+    @Override
     public LgNamesUtilsContent getExecContent() {
         return execContent;
     }
@@ -259,7 +264,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
 
     @Override
     public CommonExecutionInfos newContextCommon(Options _opt, Forwards _options) {
-        return new CommonExecutionInfos(execContent.getCustAliases().getInterceptor().newInterceptorStdCaller(execContent.getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new CustInitializer(execContent.getInfos().getThreadFactory().newAtomicLong(),execContent.getCustAliases().getInterceptor()));
+        return commonExecutionInfos(execContent.getCustAliases().getInterceptor().newInterceptorStdCaller(execContent.getCustAliases().getAliasConcurrentError()), _opt, _options, new CustInitializer(execContent.getInfos().getThreadFactory().newAtomicLong(),execContent.getCustAliases().getInterceptor()));
     }
 
     @Override

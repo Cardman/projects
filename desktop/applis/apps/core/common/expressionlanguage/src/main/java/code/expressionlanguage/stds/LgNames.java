@@ -5,10 +5,12 @@ import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.DisplayedStrings;
-import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
@@ -30,6 +32,9 @@ public abstract class LgNames implements BuildableLgNames {
         setCalculator(new DefaultExecConstantsCalculator(content.getNbAlias()));
     }
 
+    public CommonExecutionInfos commonExecutionInfos(AbstractInterceptorStdCaller _caller, Options _opt, Forwards _options, Initializer _initializer) {
+        return new CommonExecutionInfos(_caller,new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),_initializer);
+    }
     /**Called after setters*/
     public void buildBase() {
         content.getCoreNames().build(this);

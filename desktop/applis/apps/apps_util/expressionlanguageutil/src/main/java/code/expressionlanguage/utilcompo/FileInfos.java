@@ -2,7 +2,7 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.guicompos.GuiAliases;
-import code.expressionlanguage.utilimpl.MessCdmKeywords;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.utilimpl.MessCdmLogs;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
@@ -54,13 +54,13 @@ public final class FileInfos {
     }
     public static void enTr(TranslationsAppli _lgs) {
         _lgs.getMapping().addEntry(MESSAGES, MessCdmLogs.en());
-        _lgs.getMapping().addEntry(KEYWORDS, MessCdmKeywords.en());
+        _lgs.getMapping().addEntry(KEYWORDS, KeyWords.en());
         _lgs.getMapping().addEntry(TYPES, CustAliases.en());
         _lgs.getMapping().addEntry(TYPES_GUI, GuiAliases.en());
     }
     public static void frTr(TranslationsAppli _lgs) {
         _lgs.getMapping().addEntry(MESSAGES, MessCdmLogs.fr());
-        _lgs.getMapping().addEntry(KEYWORDS, MessCdmKeywords.fr());
+        _lgs.getMapping().addEntry(KEYWORDS, KeyWords.fr());
         _lgs.getMapping().addEntry(TYPES, CustAliases.fr());
         _lgs.getMapping().addEntry(TYPES_GUI, GuiAliases.fr());
     }

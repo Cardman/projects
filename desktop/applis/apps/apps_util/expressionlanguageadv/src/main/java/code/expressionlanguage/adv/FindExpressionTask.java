@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
@@ -16,7 +17,6 @@ import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.util.CustList;
 import code.util.core.NumberUtil;
 
@@ -30,7 +30,7 @@ public final class FindExpressionTask implements Runnable {
     public void run() {
         editor.getFindingExpression().setEnabled(false);
         ResultContextViewReplacer vr_ = editor.getResultContext();
-        RunnableContextEl rCont_ = editor.getAction();
+        ContextEl rCont_ = editor.getAction();
         String text_ = editor.getPreview().getText();
         ExecConstructorOverrideInfo info_ = editor.getTargetMethodView();
         ArrayStruct empty_ = new ArrayStruct(0, StringExpUtil.getPrettyArrayType(rCont_.getStandards().getCoreNames().getAliasObject()));

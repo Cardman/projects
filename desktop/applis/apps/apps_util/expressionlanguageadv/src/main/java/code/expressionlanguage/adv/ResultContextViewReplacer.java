@@ -7,7 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNamesContent;
-import code.expressionlanguage.utilcompo.CustAliases;
+import code.expressionlanguage.utilcompo.StringViewReplaceAliases;
 import code.util.StringList;
 
 public final class ResultContextViewReplacer {
@@ -19,7 +19,7 @@ public final class ResultContextViewReplacer {
     private String aliasStringSegmentBegin="";
     private String aliasStringSegmentEnd="";
 
-    public void update(CustAliases _aliases, LgNamesContent _content, ContextEl _result) {
+    public void update(StringViewReplaceAliases _aliases, LgNamesContent _content, ContextEl _result) {
         viewType = _result.getClasses().getClassBody(_aliases.getAliasAbsStringView());
         MethodId index_ = new MethodId(MethodAccessKind.INSTANCE,
                 _aliases.getAliasAbsStringViewIndex(),new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimInteger()));
