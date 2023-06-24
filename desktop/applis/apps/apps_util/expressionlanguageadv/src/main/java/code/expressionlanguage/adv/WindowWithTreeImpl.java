@@ -213,17 +213,6 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         }
     }
 
-    static String buildPath(AbstractMutableTreeNode _treePath) {
-        StringList pathFull_ = new StringList();
-        AbstractMutableTreeNode current_ = _treePath;
-        while (current_ != null) {
-            pathFull_.add(0,current_.getUserObject());
-            current_ = (AbstractMutableTreeNode) current_.getParent();
-        }
-        StringUtil.removeObj(pathFull_, "");
-        return StringUtil.join(pathFull_,"");
-    }
-
     void refresh(AbstractMutableTreeNode _sel, String _str) {
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         AbstractMutableTreeNode r_ = getTree().getRoot();

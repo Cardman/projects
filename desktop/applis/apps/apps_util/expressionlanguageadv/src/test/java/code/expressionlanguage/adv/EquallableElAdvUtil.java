@@ -140,6 +140,12 @@ public abstract class EquallableElAdvUtil {
         StreamTextFile.saveTextFile("/project/sources/"+_relative, _content,frs_.getStreams());
         _src.addEntry(_relative,_content);
     }
+    public static void saveFolder(AbsDebuggerGui _pr, StringMap<String> _src, String _relative, String _content) {
+        AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
+        StreamFolderFile.makeParent("/project/sources/"+_relative, frs_.getFileCoreStream());
+        StreamTextFile.saveTextFile("/project/sources/"+_relative, _content,frs_.getStreams());
+        _src.addEntry(_relative,_content);
+    }
     public static void save(AbstractProgramInfos _pr, String _relative, String _content) {
         StreamTextFile.saveTextFile("/project/sources/"+_relative, _content,_pr.getStreams());
     }
@@ -155,8 +161,8 @@ public abstract class EquallableElAdvUtil {
         new AnalyzingDebugExpEvent(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem(),_w,_g).action();
     }
 
-    public static void guiNoAna(AbsDebuggerGui _g, ManageOptions _man, StringMap<String> _s) {
-        _g.guiBuild(_man,_s);
+    public static void guiNoAna(AbsDebuggerGui _g, ManageOptions _man) {
+        _g.guiBuild(_man);
     }
     public static void toggleBp(AbsDebuggerGui _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F2,0)).action();
@@ -730,6 +736,9 @@ public abstract class EquallableElAdvUtil {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK)).action();
     }
     protected void closeTab(WindowCdmEditor _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabSelect(_w).getCenter(), GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
+    protected void closeReadOnlyTab(AbsDebuggerGui _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabSelect(_w).getCenter(), GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK)).action();
     }
     protected void currentElement(TabEditor _w) {

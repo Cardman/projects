@@ -8,7 +8,7 @@ import code.gui.initialize.AbstractLightProgramInfos;
 import code.stream.core.ReadFiles;
 import code.util.StringMap;
 
-public class MemoResultContextNext implements AbsLightResultContextNext {
+public final class MemoResultContextNext implements AbsLightResultContextNext {
     private final FileInfos fileInfos;
     public MemoResultContextNext(ResultContext _base, MemInputFiles _input, AbstractIssuer _issuer) {
         LgNamesGui lg_ = (LgNamesGui) _base.getForwards().getGenerator();

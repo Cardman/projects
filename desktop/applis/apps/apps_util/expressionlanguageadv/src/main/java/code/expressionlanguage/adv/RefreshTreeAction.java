@@ -12,7 +12,7 @@ public final class RefreshTreeAction implements AbsActionListener {
     @Override
     public void action() {
         AbstractMutableTreeNode sel_ = editor.getTree().selectEvt();
-        String str_ = WindowWithTreeImpl.buildPath(sel_);
+        String str_ = AbsEditorTabList.buildPath(sel_);
         editor.refresh(sel_,str_);
     }
 }

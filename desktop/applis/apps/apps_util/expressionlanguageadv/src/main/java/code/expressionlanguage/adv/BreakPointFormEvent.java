@@ -10,7 +10,6 @@ import code.gui.events.AbsActionListener;
 public final class BreakPointFormEvent implements AbsActionListener {
     private final AbsDebuggerGui window;
     private final ReadOnlyTabEditor tabEditor;
-    private ResultContext result;
 
     public BreakPointFormEvent(AbsDebuggerGui _dbg,ReadOnlyTabEditor _t) {
         window = _dbg;
@@ -19,10 +18,7 @@ public final class BreakPointFormEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        ResultContext r_ = getResult();
-        if (r_ == null) {
-            return;
-        }
+        ResultContext r_ = tabEditor.getDebuggerGui().getCurrentResult();
         FileBlock af_ = r_.getPageEl().getPreviousFilesBodies().getVal(tabEditor.getFullPath());
         ExecFileBlock f_ = r_.getForwards().dbg().getFiles().getVal(af_);
         int o_ = ResultExpressionOperationNode.beginPart(tabEditor.getCenter().getCaretPosition(), r_.getPageEl().getPreviousFilesBodies().getVal(tabEditor.getFullPath()));
@@ -51,11 +47,4 @@ public final class BreakPointFormEvent implements AbsActionListener {
         window.getBpForm().setVisible(true);
     }
 
-    public ResultContext getResult() {
-        return result;
-    }
-
-    public void setResult(ResultContext _r) {
-        this.result = _r;
-    }
 }

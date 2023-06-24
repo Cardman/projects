@@ -2,12 +2,14 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.AbsAdvContextGenerator;
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
+import code.util.EntryCust;
 import code.util.StringMap;
 
 public final class AnalyzeDebugTask implements Runnable {
@@ -23,11 +25,16 @@ public final class AnalyzeDebugTask implements Runnable {
 
     @Override
     public void run() {
-        if (base == null||base.getPageEl().notAllEmptyErrors()) {
-            return;
+        if (base != null) {
+            base.getForwards().getOptions().setDebugging(true);
         }
-        base.getForwards().getOptions().setDebugging(true);
         AbsResultContextNext gen_ = gui.getResultContextNext();
+        StringMap<String> all_ = gen_.files(base, src);
+        if (base != null) {
+            for (EntryCust<String, FileBlock> m: base.getPageEl().getPreviousFilesBodies().entryList()) {
+                all_.addEntry(m.getKey(),m.getValue().getContent());
+            }
+        }
         ResultContext ana_ = gen_.next(base, src);
         if (ana_ == null) {
             return;
@@ -39,7 +46,8 @@ public final class AnalyzeDebugTask implements Runnable {
         ContextEl ctx_ = gn_.gene(f_);
         Classes.forwardAndClear(ctx_);
         ana_.setContext(ctx_);
-        gui.update(ana_);
+        gui.setViewable(all_);
+        gui.update(ana_, src);
         gui.setStopDbg(gn_.getStop());
     }
 }

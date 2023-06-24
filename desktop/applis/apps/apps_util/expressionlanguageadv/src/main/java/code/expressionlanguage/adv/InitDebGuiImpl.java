@@ -21,6 +21,7 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 
@@ -65,8 +66,8 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
     }
 
     @Override
-    public void update(ResultContext _res) {
-        super.update(_res);
+    public void update(ResultContext _res, StringMap<String> _src) {
+        super.update(_res, _src);
         if (_res.getPageEl().notAllEmptyErrors()) {
             return;
         }

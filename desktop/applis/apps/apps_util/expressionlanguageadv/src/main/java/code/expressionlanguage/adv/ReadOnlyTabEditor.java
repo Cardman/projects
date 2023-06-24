@@ -1,7 +1,6 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
@@ -9,18 +8,17 @@ import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class ReadOnlyTabEditor implements AbsTabEditor {
+    private final AbsDebuggerGui debuggerGui;
     private final AbsScrollPane scCenter;
     private final AbsTextPane center;
     private final AbsPanel panel;
     private final AbsPlainLabel label;
-    private final ToggleBreakPointEvent toggleBp;
-    private final ToggleBreakPointEnabledEvent toggleBpEvent;
-    private final BreakPointFormEvent formBpEvent;
     private final AbsCompoFactory compoFactory;
     private final String fullPath;
     private final String useFeed;
     private final Options opt;
     public ReadOnlyTabEditor(AbsDebuggerGui _dbg, AbstractProgramInfos _frame, String _rel, String _lr, Options _options) {
+        debuggerGui = _dbg;
         opt = _options;
         useFeed = _lr;
         fullPath = _rel;
@@ -36,12 +34,10 @@ public final class ReadOnlyTabEditor implements AbsTabEditor {
         center.setCaretColor(GuiConstants.WHITE);
         center.addCaretListener(new EditorCaretListener(this));
         center.setEditable(false);
-        toggleBp = new ToggleBreakPointEvent(this);
-        center.registerKeyboardAction(compoFactory.wrap(toggleBp),GuiConstants.VK_F2,0);
-        toggleBpEvent = new ToggleBreakPointEnabledEvent(this);
-        center.registerKeyboardAction(compoFactory.wrap(toggleBpEvent),GuiConstants.VK_F3,0);
-        formBpEvent = new BreakPointFormEvent(_dbg, this);
-        center.registerKeyboardAction(compoFactory.wrap(formBpEvent),GuiConstants.VK_F4,0);
+        center.registerKeyboardAction(compoFactory.wrap(new ToggleBreakPointEvent(this)),GuiConstants.VK_F2,0);
+        center.registerKeyboardAction(compoFactory.wrap(new ToggleBreakPointEnabledEvent(this)),GuiConstants.VK_F3,0);
+        center.registerKeyboardAction(compoFactory.wrap(new BreakPointFormEvent(_dbg, this)),GuiConstants.VK_F4,0);
+        center.registerKeyboardAction(compoFactory.wrap(new CloseReadOnlyTabEditorEvent(this)),GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK);
         panel = compoFactory.newPageBox();
         AbsPanel upp_ = compoFactory.newPageBox();
         scCenter = compoFactory.newAbsScrollPane(center);
@@ -53,12 +49,6 @@ public final class ReadOnlyTabEditor implements AbsTabEditor {
 
     public AbsScrollPane getScCenter() {
         return scCenter;
-    }
-
-    public void update(ResultContext _result) {
-        toggleBp.setResult(_result);
-        toggleBpEvent.setResult(_result);
-        formBpEvent.setResult(_result);
     }
 
     @Override
@@ -87,6 +77,10 @@ public final class ReadOnlyTabEditor implements AbsTabEditor {
 
     public String getFullPath() {
         return fullPath;
+    }
+
+    public AbsDebuggerGui getDebuggerGui() {
+        return debuggerGui;
     }
 
     public AbsCompoFactory getCompoFactory() {

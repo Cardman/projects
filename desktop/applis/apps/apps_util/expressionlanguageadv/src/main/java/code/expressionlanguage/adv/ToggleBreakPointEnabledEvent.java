@@ -5,7 +5,6 @@ import code.gui.events.AbsActionListener;
 
 public final class ToggleBreakPointEnabledEvent implements AbsActionListener {
     private final ReadOnlyTabEditor tabEditor;
-    private ResultContext result;
 
     public ToggleBreakPointEnabledEvent(ReadOnlyTabEditor _t) {
         this.tabEditor = _t;
@@ -13,19 +12,9 @@ public final class ToggleBreakPointEnabledEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        ResultContext r_ = getResult();
-        if (r_ == null) {
-            return;
-        }
+        ResultContext r_ = tabEditor.getDebuggerGui().getCurrentResult();
         r_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled(tabEditor.getFullPath(), tabEditor.getCenter().getCaretPosition(), r_);
         ToggleBreakPointEvent.afterToggle(r_, tabEditor);
     }
 
-    public ResultContext getResult() {
-        return result;
-    }
-
-    public void setResult(ResultContext _r) {
-        this.result = _r;
-    }
 }

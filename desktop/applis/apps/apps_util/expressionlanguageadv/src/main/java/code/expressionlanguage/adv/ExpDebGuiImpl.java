@@ -21,6 +21,7 @@ import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
+import code.util.StringMap;
 import code.util.core.NumberUtil;
 
 public final class ExpDebGuiImpl extends AbsDebuggerGui {
@@ -71,8 +72,8 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
     }
 
     @Override
-    public void update(ResultContext _res) {
-        super.update(_res);
+    public void update(ResultContext _res, StringMap<String> _src) {
+        super.update(_res, _src);
         if (_res.getPageEl().notAllEmptyErrors()) {
             return;
         }

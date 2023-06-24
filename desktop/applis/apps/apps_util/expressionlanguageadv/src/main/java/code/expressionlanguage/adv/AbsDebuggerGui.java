@@ -15,6 +15,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.BytesInfo;
 import code.stream.StreamTextFile;
@@ -22,6 +23,7 @@ import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractBaseExecutorService;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.comparators.NaturalComparator;
 import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 
@@ -41,6 +43,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsPlainButton cancel;
     private AbsPlainButton ok;
     private AbsPanel bpForm;
+    private AbsTreeGui folderSystem;
     private AbsTabbedPane tabbedPane;
     private final CustList<ReadOnlyTabEditor> tabs = new CustList<ReadOnlyTabEditor>();
     private CallingState selected = new CustomFoundExc(null);
@@ -66,6 +69,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsPanel callStack;
     private AbstractAtomicBoolean stopDbg;
     private AbsOpenFrameInteract dbgMenu;
+    private StringMap<String> viewable = new StringMap<String>();
+    private ManageOptions manageOptions;
 
     protected AbsDebuggerGui(AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a);
@@ -80,7 +85,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     public void build(AbsOpenFrameInteract _a,ResultContext _b,ManageOptions _man, StringMap<String> _src) {
         dbgMenu = _a;
         getDbgMenu().open();
-        guiBuild(_man, _src);
+        guiBuild(_man);
         manageAnalyze.submit(new AnalyzeDebugTask(_b,this,_src));
     }
 
@@ -88,7 +93,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return dbgMenu;
     }
 
-    public void guiBuild(ManageOptions _man, StringMap<String> _src) {
+    public void guiBuild(ManageOptions _man) {
+        manageOptions = _man;
         instanceType = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("instance");
         conditionalInstance = getCommonFrame().getFrames().getCompoFactory().newTextArea();
         countInstance = getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
@@ -116,14 +122,13 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         bpForm.add(cancel);
         bpForm.setVisible(false);
         AbsPanel page_ = commonFrame.getFrames().getCompoFactory().newPageBox();
+        AbstractMutableTreeNode default_ = commonFrame.getFrames().getCompoFactory().newMutableTreeNode("");
+        folderSystem = commonFrame.getFrames().getCompoFactory().newTreeGui(default_);
+        folderSystem.select(folderSystem.getRoot());
+        folderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(this));
         tabbedPane = commonFrame.getFrames().getCompoFactory().newAbsTabbedPane();
-        int len_ = _src.size();
-        for (int i = 0; i < len_; i++) {
-            String fullPath_ = pathToSrc(_man)+ _src.getKey(i);
-            BytesInfo content_ = new BytesInfo(StringUtil.encode(_src.getValue(i)),false);
-            addTab(_man,fullPath_,content_, _man.getOptions());
-        }
-        page_.add(tabbedPane);
+        tabbedPane.setPreferredSize(new MetaDimension(512,512));
+        page_.add(commonFrame.getFrames().getCompoFactory().newHorizontalSplitPane(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(folderSystem),tabbedPane));
         page_.add(bpForm);
         page_.add(buildPart());
         selectEnter = getCommonFrame().getFrames().getCompoFactory().newPlainButton("|>");
@@ -160,6 +165,77 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         PackingWindowAfter.pack(commonFrame);
     }
 
+    public void setViewable(StringMap<String> _v) {
+        this.viewable = _v;
+    }
+
+    public boolean applyTreeChangeSelected() {
+        if (getCurrentResult() == null) {
+            return false;
+        }
+        AbstractMutableTreeNode sel_ = getTree().selectEvt();
+        if (sel_ == null) {
+            return false;
+        }
+        String str_ = buildPath(sel_);
+        if (openFile(str_)) {
+            return false;
+        }
+        refresh(sel_,str_);
+        return true;
+    }
+
+    boolean openFile(String _str) {
+        String res_ = viewable.getVal(_str);
+        if (res_ != null) {
+            int opened_ = indexOpened(_str);
+            if (opened_ > -1) {
+                getTabbedPane().selectIndex(opened_);
+                return true;
+            }
+            String fullPath_ = pathToSrc(manageOptions)+ _str;
+            BytesInfo content_ = new BytesInfo(StringUtil.encode(res_),false);
+            addTab(manageOptions,fullPath_,content_,manageOptions.getOptions());
+            getTabbedPane().selectIndex(getTabs().getLastIndex());
+            return true;
+        }
+        return false;
+    }
+    void refresh(AbstractMutableTreeNode _sel, String _str) {
+        refParent(_sel, _str);
+    }
+
+    void refParent(AbstractMutableTreeNode _parent, String _parentPath) {
+        _parent.removeAllChildren();
+        refreshList(_parent, viewable, _parentPath);
+        MutableTreeNodeUtil.reload(getTree());
+    }
+    static void refreshList(AbstractMutableTreeNode _sel, StringMap<String> _files, String _folderToVisit) {
+        CustList<String> currentFolders_ = new CustList<String>();
+        CustList<String> currentFiles_ = new CustList<String>();
+        for (String f: _files.getKeys()) {
+            if (f.startsWith(_folderToVisit)) {
+                String rel_ = f.substring(_folderToVisit.length());
+                int sl_ = rel_.indexOf('/');
+                if (sl_ > -1) {
+                    String part_ = rel_.substring(0, sl_);
+                    if (!StringUtil.contains(currentFolders_,part_)) {
+                        currentFolders_.add(part_);
+                    }
+                } else {
+                    currentFiles_.add(rel_);
+                }
+            }
+        }
+        currentFolders_.sortElts(new NaturalComparator());
+        currentFiles_.sortElts(new NaturalComparator());
+        for (String f : currentFolders_) {
+            _sel.add(f+"/");
+        }
+        for (String f : currentFiles_) {
+            _sel.add(f);
+        }
+    }
     protected abstract AbsPanel buildPart();
     void addTab(ManageOptions _man,String _path, BytesInfo _content, Options _opt) {
         String dec_ = StringUtil.nullToEmpty(StringUtil.decode(_content.getBytes()));
@@ -271,17 +347,26 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         String acc_ = _man.getEx().getAccess();
         return acc_+ StreamTextFile.SEPARATEUR;
     }
-    public void update(ResultContext _res) {
+    public void update(ResultContext _res, StringMap<String> _src) {
         if (_res.getPageEl().notAllEmptyErrors()) {
             selectEnter.setVisible(false);
-            PackingWindowAfter.pack(commonFrame);
         } else {
-            currentResult = _res;
             selectEnter.setEnabled(true);
-            for (ReadOnlyTabEditor r: getTabs()) {
-                r.update(_res);
-            }
         }
+        currentResult = _res;
+        refreshList(folderSystem.selectEvt(),viewable, "");
+        int len_ = _src.size();
+        for (int i = 0; i < len_; i++) {
+            String fullPath_ = pathToSrc(manageOptions)+ _src.getKey(i);
+            BytesInfo content_ = new BytesInfo(StringUtil.encode(_src.getValue(i)),false);
+            addTab(manageOptions,fullPath_,content_, manageOptions.getOptions());
+        }
+        PackingWindowAfter.pack(commonFrame);
+    }
+    public void closeAll() {
+        tabbedPane.removeAll();
+        tabs.clear();
+        PackingWindowAfter.pack(commonFrame);
     }
     public void launchDebug() {
         CallingState l_ = look();
@@ -292,6 +377,12 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         } else {
             selected = new CustomFoundExc(null);
         }
+    }
+    public AbsTreeGui getTree() {
+        return getFolderSystem();
+    }
+    public AbsTreeGui getFolderSystem() {
+        return folderSystem;
     }
     protected void endCall(){
         PackingWindowAfter.pack(commonFrame);

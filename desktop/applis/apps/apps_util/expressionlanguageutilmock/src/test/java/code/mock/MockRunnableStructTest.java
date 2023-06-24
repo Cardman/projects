@@ -120,6 +120,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         ResultContext b_ = m_.init(new Options());
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
+        assertEq(1,m_.files(b_,src_).size());
         ResultContext user_ = m_.next(b_, m_.next(b_, src_));
         Forwards f_ = user_.getForwards();
         AnalyzedPageEl page_ = user_.getPageEl();

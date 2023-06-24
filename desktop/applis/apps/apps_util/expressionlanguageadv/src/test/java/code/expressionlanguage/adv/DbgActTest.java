@@ -47,10 +47,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         ManageOptions o_ = opt(b_);
         StringMap<String> src_ = new StringMap<String>();
         save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
-        guiNoAna(b_,o_,src_);
-        tabEditor(b_).getCenter().select(55,55);
-        toggleBp(b_);
-        assertEq(55,tabEditor(b_).getCenter().getCaretPosition());
+        guiNoAna(b_,o_);
+        assertTrue(b_.getCommonFrame().isVisible());
     }
     @Test
     public void bp4() {
@@ -70,10 +68,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         ManageOptions o_ = opt(b_);
         StringMap<String> src_ = new StringMap<String>();
         save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
-        guiNoAna(b_,o_,src_);
-        tabEditor(b_).getCenter().select(55,55);
-        toggleBpEn(b_);
-        assertEq(55,tabEditor(b_).getCenter().getCaretPosition());
+        guiNoAna(b_,o_);
+        assertTrue(b_.getCommonFrame().isVisible());
     }
     @Test
     public void bp6() {
@@ -215,10 +211,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         ManageOptions o_ = opt(b_);
         StringMap<String> src_ = new StringMap<String>();
         save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
-        guiNoAna(b_,o_,src_);
-        tabEditor(b_).getCenter().select(55,55);
-        bpForm(b_);
-        assertEq(55,tabEditor(b_).getCenter().getCaretPosition());
+        guiNoAna(b_,o_);
+        assertTrue(b_.getCommonFrame().isVisible());
     }
     @Test
     public void m1() {
@@ -442,7 +436,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         ManageOptions o_ = opt(b_);
         StringMap<String> src_ = new StringMap<String>();
         save(b_,src_,"src/file.txt","public class pkg.Ex {static int v;public static that int exmeth(String... _v){return that(v);}}");
-        guiNoAna(b_,o_,src_);
+        guiNoAna(b_,o_);
         vararg(b_).setSelected(true);
         retVal(b_).setSelected(true);
         AutoCompleteDocument cl_ = classesFilter(b_);
@@ -455,8 +449,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     public void arg1() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);
-        StringMap<String> src_ = new StringMap<String>();
-        guiNoAna(b_,o_,src_);
+        guiNoAna(b_,o_);
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
@@ -466,8 +459,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     public void arg2() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);
-        StringMap<String> src_ = new StringMap<String>();
-        guiNoAna(b_,o_,src_);
+        guiNoAna(b_,o_);
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
@@ -479,8 +471,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     public void arg3() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);
-        StringMap<String> src_ = new StringMap<String>();
-        guiNoAna(b_,o_,src_);
+        guiNoAna(b_,o_);
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
@@ -494,8 +485,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     public void arg4() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);
-        StringMap<String> src_ = new StringMap<String>();
-        guiNoAna(b_,o_,src_);
+        guiNoAna(b_,o_);
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg1");
@@ -1081,6 +1071,730 @@ public final class DbgActTest extends EquallableElAdvUtil {
         trDetail_.select(trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
+    }
+    @Test
+    public void t1() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        assertEq(13,t_.getRoot().getChildCount());
+    }
+    @Test
+    public void t2() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        assertEq("src/",t_.selectEvt().getUserObject());
+        assertEq(4,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild()).getChildCount());
+    }
+    @Test
+    public void t3() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        assertEq("sub1/",t_.selectEvt().getUserObject());
+        assertEq(3,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild()).getChildCount());
+    }
+    @Test
+    public void t4() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild());
+        assertEq("sub3/",t_.selectEvt().getUserObject());
+        assertEq(2,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild()).getChildCount());
+    }
+    @Test
+    public void t5() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        assertEq("sub2/",t_.selectEvt().getUserObject());
+        assertEq(3,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t6() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild());
+        assertEq("sub4/",t_.selectEvt().getUserObject());
+        assertEq(2,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild()).getChildCount());
+    }
+    @Test
+    public void t7() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling());
+        assertEq("file1.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t8() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling().getNextSibling());
+        assertEq("file2.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t9() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling());
+        assertEq("file3.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t10() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getNextSibling());
+        assertEq("file4.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t11() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling());
+        assertEq("file5.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t12() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling().getNextSibling());
+        assertEq("file6.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t13() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild());
+        assertEq("file7.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild()).getChildCount());
+    }
+    @Test
+    public void t14() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild().getNextSibling());
+        assertEq("file8.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t15() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild());
+        assertEq("file0.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild()).getChildCount());
+    }
+    @Test
+    public void t16() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild().getNextSibling());
+        assertEq("file9.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t17() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        b_.closeAll();
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling());
+        assertEq("file1.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t18() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        b_.closeAll();
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling().getNextSibling());
+        assertEq("file2.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t19() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        b_.closeAll();
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling());
+        assertEq("file3.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t20() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        b_.closeAll();
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getNextSibling());
+        assertEq("file4.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t21() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        b_.closeAll();
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling());
+        assertEq("file5.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t22() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        b_.closeAll();
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling().getNextSibling());
+        assertEq("file6.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t23() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        b_.closeAll();
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild());
+        assertEq("file7.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild()).getChildCount());
+    }
+    @Test
+    public void t24() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        b_.closeAll();
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild().getNextSibling());
+        assertEq("file8.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t25() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        b_.closeAll();
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild());
+        assertEq("file0.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild()).getChildCount());
+    }
+    @Test
+    public void t26() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        b_.closeAll();
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild().getNextSibling());
+        assertEq("file9.txt",t_.selectEvt().getUserObject());
+        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild().getNextSibling()).getChildCount());
+    }
+    @Test
+    public void t27() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/file2.txt","public class pkg.Ex2 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file3.txt","public class pkg.Ex3 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/file4.txt","public class pkg.Ex4 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file5.txt","public class pkg.Ex5 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/file6.txt","public class pkg.Ex6 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file7.txt","public class pkg.Ex7 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiNoAna(b_,o_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        assertEq(0,t_.getRoot().getChildCount());
+    }
+    @Test
+    public void closeTab() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        saveFolder(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        AbsTreeGui t_ = b_.getTree();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        assertEq(1,b_.getTabs().size());
+        closeReadOnlyTab(b_);
+        assertEq(0,b_.getTabs().size());
     }
     private void launch(AbsDebuggerGui _d) {
         ((MockPlainButton)_d.getSelectEnter()).getActionListeners().get(0).action();

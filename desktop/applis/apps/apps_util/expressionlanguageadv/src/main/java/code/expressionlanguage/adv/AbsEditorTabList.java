@@ -1,6 +1,8 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
+import code.gui.AbstractMutableTreeNode;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public abstract class AbsEditorTabList {
@@ -8,6 +10,18 @@ public abstract class AbsEditorTabList {
     protected AbsEditorTabList(AbsResultContextNext _a) {
         setResultContextNext(_a);
     }
+
+    static String buildPath(AbstractMutableTreeNode _treePath) {
+        StringList pathFull_ = new StringList();
+        AbstractMutableTreeNode current_ = _treePath;
+        while (current_ != null) {
+            pathFull_.add(0,current_.getUserObject());
+            current_ = (AbstractMutableTreeNode) current_.getParent();
+        }
+        StringUtil.removeObj(pathFull_, "");
+        return StringUtil.join(pathFull_,"");
+    }
+
     int indexOpened(String _str) {
         int opened_ = -1;
         int s_ = tabCount();

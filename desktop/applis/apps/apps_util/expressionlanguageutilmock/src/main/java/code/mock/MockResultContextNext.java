@@ -63,6 +63,14 @@ public final class MockResultContextNext implements AbsResultContextNext {
     }
 
     @Override
+    public StringMap<String> files(ResultContext _r, StringMap<String> _files) {
+        StringMap<String> v_ = new StringMap<String>();
+        v_.addAllEntries(system);
+        v_.putAllMap(_files);
+        return v_;
+    }
+
+    @Override
     public ResultContext next(ResultContext _base, StringMap<String> _files) {
         StringMap<String> v_ = new StringMap<String>();
         v_.addAllEntries(system);
