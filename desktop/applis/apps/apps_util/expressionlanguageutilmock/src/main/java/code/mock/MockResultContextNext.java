@@ -71,6 +71,11 @@ public final class MockResultContextNext implements AbsResultContextNext {
     }
 
     @Override
+    public AnalyzedPageEl nextAna(ResultContext _base, StringMap<String> _files) {
+        return ResultContext.def(_base.getPageEl(), _files, filter);
+    }
+
+    @Override
     public ResultContext next(ResultContext _base, StringMap<String> _files) {
         StringMap<String> v_ = new StringMap<String>();
         v_.addAllEntries(system);

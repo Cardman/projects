@@ -133,4 +133,25 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         ArgumentWrapper a_ = ProcessMethod.calculate(new CustomFoundMethod(new ExecFormattedRootBlock(ex_), new ExecTypeFunction(ex_, ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "exmeth", new CustList<String>())).first()), new Parameters()), user_.getContext(), StackCall.newInstance(InitPhase.NOTHING, ctx_));
         assertEq(1,((NumberStruct) ArgumentListCall.toStr(a_.getValue())).intStruct());
     }
+    @Test
+    public void buildAna() {
+        MockResultContextNext m_ = new MockResultContextNext("src");
+        ResultContext b_ = m_.init(new Options());
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
+        AnalyzedPageEl resultAna_ = m_.nextAna(b_, m_.files(b_,src_));
+        Forwards forwards_ = new Forwards(b_.getForwards().getGenerator(), b_.getForwards().getLoggable(), b_.getForwards().getFileBuilder(), b_.getForwards().getOptions());
+        forwards_.getClasses().getCommon().setStaticFields(resultAna_.getStaticFields());
+        ResultContext user_ = new ResultContext(resultAna_, forwards_, resultAna_.getMessages());
+        Forwards f_ = user_.getForwards();
+        AnalyzedPageEl page_ = user_.getPageEl();
+        ForwardInfos.generalForward(page_,f_);
+        AbsAdvContextGenerator gn_ = m_.generate();
+        ContextEl ctx_ = gn_.geneWith(f_);
+        Classes.forwardAndClear(ctx_);
+        user_.setContext(ctx_);
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Ex");
+        ArgumentWrapper a_ = ProcessMethod.calculate(new CustomFoundMethod(new ExecFormattedRootBlock(ex_), new ExecTypeFunction(ex_, ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "exmeth", new CustList<String>())).first()), new Parameters()), user_.getContext(), StackCall.newInstance(InitPhase.NOTHING, ctx_));
+        assertEq(1,((NumberStruct) ArgumentListCall.toStr(a_.getValue())).intStruct());
+    }
 }

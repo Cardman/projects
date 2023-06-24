@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.AdvContextGenerator;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.gui.unit.UnitIssuer;
@@ -61,6 +62,16 @@ public final class AdvResultContextNext implements AbsResultContextNext {
         result_.getZipFiles().putAllMap(_files);
         AbstractReporter reporter_ = file_.getReporter();
         return reporter_.getSrc(archive_, exec_, result_);
+    }
+
+    @Override
+    public AnalyzedPageEl nextAna(ResultContext _r, StringMap<String> _files) {
+        if (_r == null) {
+            return AnalyzedPageEl.setInnerAnalyzing();
+        }
+        LgNamesWithNewAliases lg_ = (LgNamesWithNewAliases) _r.getForwards().getGenerator();
+        ExecutingOptions exec_ = lg_.getExecContent().getExecutingOptions();
+        return ResultContext.def(_r.getPageEl(),_files,exec_.getSrcFolder());
     }
 
     @Override

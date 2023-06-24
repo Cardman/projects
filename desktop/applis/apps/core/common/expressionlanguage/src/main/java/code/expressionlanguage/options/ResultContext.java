@@ -23,16 +23,22 @@ public final class ResultContext {
     }
 
     public static ResultContext def(ResultContext _base, BuildableLgNames _generator, LoggableLgNames _loggable, StringMap<String> _files, String _filter) {
-        StringMap<String> srcFiles_ = ContextFactory.filter(_files, _filter);
-        AnalyzedPageEl copy_ = AnalyzedPageEl.copy(_base.getPageEl());
-        copy_.getFoundTypes().addAllElts(_base.getPageEl().getFoundTypes());
-        copy_.addResources(_files);
-        AnalyzedPageEl resultAna_ = ClassesUtil.buildUserCode(srcFiles_, copy_);
-        Classes.postValidate(resultAna_);
+        AnalyzedPageEl resultAna_ = def(_base.getPageEl(), _files, _filter);
         Forwards forwards_ = new Forwards(_generator, _loggable, _base.getForwards().getFileBuilder(), _base.getForwards().getOptions());
         forwards_.getClasses().getCommon().setStaticFields(resultAna_.getStaticFields());
         return new ResultContext(resultAna_, forwards_, resultAna_.getMessages());
     }
+
+    public static AnalyzedPageEl def(AnalyzedPageEl _base, StringMap<String> _files, String _filter) {
+        StringMap<String> srcFiles_ = ContextFactory.filter(_files, _filter);
+        AnalyzedPageEl copy_ = AnalyzedPageEl.copy(_base);
+        copy_.getFoundTypes().addAllElts(_base.getFoundTypes());
+        copy_.addResources(_files);
+        AnalyzedPageEl resultAna_ = ClassesUtil.buildUserCode(srcFiles_, copy_);
+        Classes.postValidate(resultAna_);
+        return resultAna_;
+    }
+
     public void setContext(ContextEl _c) {
         this.context = _c;
     }

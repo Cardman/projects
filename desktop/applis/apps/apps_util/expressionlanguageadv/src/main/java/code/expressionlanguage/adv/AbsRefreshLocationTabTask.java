@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.analyze.syntax.RowSrcLocation;
 import code.expressionlanguage.analyze.syntax.SrcFileLocation;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.AbsPanel;
 import code.util.CustList;
 import code.util.StringMap;
@@ -26,11 +25,7 @@ public abstract class AbsRefreshLocationTabTask implements Runnable {
         WindowCdmEditor mainFrame_ = window.getMainFrame();
         ResultContext base_ = mainFrame_.getBaseResult();
         StringMap<String> added_ = AnalyzeExpressionSource.addedExp(mainFrame_);
-        ResultContext resUser_ = RunningTest.nextValidateQuick(mainFrame_.getResultContextNext(),base_, added_);
-        if (resUser_ == null) {
-            return;
-        }
-        AnalyzedPageEl page_ = resUser_.getPageEl();
+        AnalyzedPageEl page_ = mainFrame_.getResultContextNext().nextAna(base_, mainFrame_.getResultContextNext().files(base_,added_));
         String relPath_ = path();
         int caret_ = caret();
         CustList<SrcFileLocation> l_ = ResultExpressionOperationNode.locations(page_, relPath_, caret_);
