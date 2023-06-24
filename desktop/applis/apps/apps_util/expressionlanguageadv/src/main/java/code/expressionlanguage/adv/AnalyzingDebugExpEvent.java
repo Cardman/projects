@@ -7,9 +7,9 @@ import code.util.StringMap;
 
 public final class AnalyzingDebugExpEvent extends AbsAnalyzingDebugEvent {
     private final AbsOpenFrameInteract acting;
-    private final WindowExpressionEditor window;
+    private final WindowWithTreeImpl window;
 
-    public AnalyzingDebugExpEvent(AbsMenuItem _menu, WindowExpressionEditor _window, AbsDebuggerGui _g) {
+    public AnalyzingDebugExpEvent(AbsMenuItem _menu, WindowWithTreeImpl _window, AbsDebuggerGui _g) {
         super(_g);
         this.window = _window;
         this.acting = new ExpMenuFrameInteract(_menu);

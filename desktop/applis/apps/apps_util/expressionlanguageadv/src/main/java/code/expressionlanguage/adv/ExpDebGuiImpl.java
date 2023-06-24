@@ -40,8 +40,9 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
     private int occ = -1;
     private StringBuilder copy = new StringBuilder();
 
-    public ExpDebGuiImpl(AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
+    public ExpDebGuiImpl(AbsOpenFrameInteract _m,AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a,_lg, _list, _fact);
+        getCommonFrame().addWindowListener(new CloseDbgFrame(_m));
     }
 
     @Override

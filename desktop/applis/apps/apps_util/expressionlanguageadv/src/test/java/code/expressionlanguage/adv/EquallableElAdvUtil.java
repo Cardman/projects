@@ -99,7 +99,7 @@ public abstract class EquallableElAdvUtil {
         pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
         pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
         MockResultContextNext m_ = new MockResultContextNext("src");
-        return new ExpDebGuiImpl(m_,"en",pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        return new ExpDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_,"en",pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
     }
 
     public static MockProgramInfos genePr() {
@@ -124,7 +124,7 @@ public abstract class EquallableElAdvUtil {
     public static AbsDebuggerGui buildWindow(MockProgramInfos _pr) {
         _pr.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
         _pr.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
-        return new ExpDebGuiImpl(new MockResultContextNext("src"),"en", _pr, new CdmFactory(_pr, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct()));
+        return new ExpDebGuiImpl(new ExpMenuFrameInteract(_pr.getCompoFactory().newMenuItem()),new MockResultContextNext("src"),"en", _pr, new CdmFactory(_pr, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct()));
     }
     public static ManageOptions opt(AbsDebuggerGui _pr) {
         AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
@@ -160,7 +160,7 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static void menuExp(WindowExpressionEditor _w, AbsDebuggerGui _g) {
-        _g.build(new AnalyzingDebugExpEvent(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem(),_w,_g));
+        ((MockMenuItem)_w.getSession()).getActionListeners().get(0).action();
         ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();
     }
 

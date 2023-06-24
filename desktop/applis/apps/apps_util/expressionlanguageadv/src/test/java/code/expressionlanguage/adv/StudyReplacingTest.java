@@ -328,7 +328,9 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         e_.getTree().select(e_.getTree().getRoot().getFirstChild());
         e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
         e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
-        AbsDebuggerGui b_ = buildWindow(pr_);
+        pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
+        pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
+        AbsDebuggerGui b_ = e_.getSessionExp();
         guiAna(e_,b_);
         StringMap<ExecConstructorOverrideInfo> d_ = form(b_).getDico();
         assertEq(1, d_.size());
@@ -336,6 +338,25 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         StringMap<ExecConstructorOverrideInfo> rp_ = form(b_).getDicoRepl();
         assertEq(1, rp_.size());
         assertTrue(rp_.contains("pkg.ExClass"));
+    }
+    @Test
+    public void windowClose() {
+        MockProgramInfos pr_ = genePr();
+        WindowCdmEditor w_ = updated(pr_);
+        w_.getFuture().attendre();
+        WindowExpressionEditor e_ = geneSecAlready(w_);
+        save(pr_,"src/file.txt","public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:i,end:i+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
+        e_.getTree().select(e_.getTree().getRoot());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
+        pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
+        pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
+        AbsDebuggerGui b_ = e_.getSessionExp();
+        guiAna(e_,b_);
+        assertFalse(e_.getSession().isEnabled());
+        b_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
+        assertTrue(e_.getSession().isEnabled());
     }
     private CustList<SegmentFindPart> found(AbsDebuggerGui _b) {
         return ((ExpDebGuiImpl)_b).getFound();

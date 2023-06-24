@@ -34,7 +34,7 @@ public final class AdvResultContextNextTest extends EquallableElAdvUtil {
         e_.getTree().select(e_.getTree().getRoot().getFirstChild());
         e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
         e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
-        AbsDebuggerGui b_ = buildExpAdv(w_);
+        AbsDebuggerGui b_ = e_.getSessionExp();
         menuExp(e_,b_);
         assertEq(0,found(b_).size());
     }
@@ -51,7 +51,7 @@ public final class AdvResultContextNextTest extends EquallableElAdvUtil {
         e_.getTree().select(e_.getTree().getRoot().getFirstChild());
         e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
         e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
-        AbsDebuggerGui b_ = buildExpAdv(w_);
+        AbsDebuggerGui b_ = e_.getSessionExp();
         menuExp(e_,b_);
         assertEq(0,found(b_).size());
     }
@@ -135,7 +135,7 @@ public final class AdvResultContextNextTest extends EquallableElAdvUtil {
     public static AbsDebuggerGui buildExpAdv(WindowCdmEditor _w) {
         AbstractProgramInfos pr_ = _w.getCommonFrame().getFrames();
         AdvResultContextNext m_ = new AdvResultContextNext(_w,_w.getCommonFrame().getFrames(),_w.getFactory());
-        return new ExpDebGuiImpl(m_,"en",pr_,_w.getFactory());
+        return new ExpDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_,"en",pr_,_w.getFactory());
     }
     public static AbsDebuggerGui buildExpAdvCore(WindowCdmEditor _w) {
         AbstractProgramInfos pr_ = _w.getCommonFrame().getFrames();
