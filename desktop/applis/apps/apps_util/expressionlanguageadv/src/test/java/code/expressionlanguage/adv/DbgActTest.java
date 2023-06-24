@@ -47,7 +47,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         ManageOptions o_ = opt(b_);
         StringMap<String> src_ = new StringMap<String>();
         save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
-        guiNoAna(b_,o_);
+        guiNoAna(b_);
         assertTrue(b_.getCommonFrame().isVisible());
     }
     @Test
@@ -68,7 +68,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         ManageOptions o_ = opt(b_);
         StringMap<String> src_ = new StringMap<String>();
         save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
-        guiNoAna(b_,o_);
+        guiNoAna(b_);
         assertTrue(b_.getCommonFrame().isVisible());
     }
     @Test
@@ -211,7 +211,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         ManageOptions o_ = opt(b_);
         StringMap<String> src_ = new StringMap<String>();
         save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
-        guiNoAna(b_,o_);
+        guiNoAna(b_);
         assertTrue(b_.getCommonFrame().isVisible());
     }
     @Test
@@ -436,7 +436,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         ManageOptions o_ = opt(b_);
         StringMap<String> src_ = new StringMap<String>();
         save(b_,src_,"src/file.txt","public class pkg.Ex {static int v;public static that int exmeth(String... _v){return that(v);}}");
-        guiNoAna(b_,o_);
+        guiNoAna(b_);
         vararg(b_).setSelected(true);
         retVal(b_).setSelected(true);
         AutoCompleteDocument cl_ = classesFilter(b_);
@@ -449,7 +449,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     public void arg1() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);
-        guiNoAna(b_,o_);
+        guiNoAna(b_);
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
@@ -459,7 +459,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     public void arg2() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);
-        guiNoAna(b_,o_);
+        guiNoAna(b_);
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
@@ -471,7 +471,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     public void arg3() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);
-        guiNoAna(b_,o_);
+        guiNoAna(b_);
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
@@ -485,7 +485,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     public void arg4() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);
-        guiNoAna(b_,o_);
+        guiNoAna(b_);
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg1");
@@ -1773,7 +1773,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
-        guiNoAna(b_,o_);
+        guiNoAna(b_);
         AbsTreeGui t_ = b_.getTree();
         t_.select(null);
         t_.select(t_.getRoot());

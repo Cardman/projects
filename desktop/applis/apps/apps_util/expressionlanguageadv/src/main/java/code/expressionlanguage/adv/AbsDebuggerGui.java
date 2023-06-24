@@ -30,6 +30,7 @@ import code.util.core.StringUtil;
 public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private final CdmFactory factory;
     private final AbsCommonFrame commonFrame;
+    private AbsMenuItem analyzeMenu;
     private BreakPointBlockPair selectedPb;
     private AbsCustCheckBox instanceType;
     private AbsTextArea conditionalInstance;
@@ -60,7 +61,6 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private StackCallReturnValue stackCallView;
     private ResultContext currentResult;
     private final AbstractBaseExecutorService manageAnalyze;
-    private final AbstractBaseExecutorService manageGui;
     private DbgRootStruct root;
     private AbsTreeGui treeDetail;
     private final CustList<AbsTreeGui> trees = new CustList<AbsTreeGui>();
@@ -71,6 +71,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsOpenFrameInteract dbgMenu;
     private StringMap<String> viewable = new StringMap<String>();
     private ManageOptions manageOptions;
+    private AbsAnalyzingDebugEvent event;
 
     protected AbsDebuggerGui(AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a);
@@ -78,23 +79,26 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         debugActions = _list.getThreadFactory().newExecutorService();
         manageAnalyze = _list.getThreadFactory().newExecutorService();
-        manageGui = _list.getThreadFactory().newExecutorService();
         stopDbg = _list.getThreadFactory().newAtomicBoolean();
     }
 
-    public void build(AbsOpenFrameInteract _a,ResultContext _b,ManageOptions _man, StringMap<String> _src) {
-        dbgMenu = _a;
-        getDbgMenu().open();
-        guiBuild(_man);
-        manageAnalyze.submit(new AnalyzeDebugTask(_b,this,_src));
+    public void build(AbsAnalyzingDebugEvent _ev) {
+        setEvent(_ev);
+        guiBuild();
+    }
+    public void analyze() {
+        StringMap<String> s_ = getEvent().src();
+        manageAnalyze.submit(new AnalyzeDebugTask(getEvent().base(),this,s_));
     }
 
     public AbsOpenFrameInteract getDbgMenu() {
         return dbgMenu;
     }
 
-    public void guiBuild(ManageOptions _man) {
-        manageOptions = _man;
+    public void guiBuild() {
+        dbgMenu = getEvent().act();
+        getDbgMenu().open();
+        manageOptions = getEvent().manageOpt();
         instanceType = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("instance");
         conditionalInstance = getCommonFrame().getFrames().getCompoFactory().newTextArea();
         countInstance = getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
@@ -162,6 +166,13 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         page_.add(detailAll);
         commonFrame.setContentPane(page_);
         commonFrame.setVisible(true);
+        AbsMenuBar bar_ = getCommonFrame().getFrames().getCompoFactory().newMenuBar();
+        AbsMenu session_ = getCommonFrame().getFrames().getCompoFactory().newMenu("session");
+        analyzeMenu = getCommonFrame().getFrames().getCompoFactory().newMenuItem("analyze");
+        analyzeMenu.addActionListener(getEvent());
+        session_.addMenuItem(analyzeMenu);
+        bar_.add(session_);
+        commonFrame.setJMenuBar(bar_);
         PackingWindowAfter.pack(commonFrame);
     }
 
@@ -525,8 +536,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return callButtons;
     }
 
-    public AbstractBaseExecutorService getManageGui() {
-        return manageGui;
+    public AbsMenuItem getAnalyzeMenu() {
+        return analyzeMenu;
     }
 
     public AbstractAtomicBoolean getStopDbg() {
@@ -535,5 +546,13 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public void setStopDbg(AbstractAtomicBoolean _s) {
         this.stopDbg = _s;
+    }
+
+    public AbsAnalyzingDebugEvent getEvent() {
+        return event;
+    }
+
+    public void setEvent(AbsAnalyzingDebugEvent _e) {
+        this.event = _e;
     }
 }

@@ -150,7 +150,9 @@ public abstract class EquallableElAdvUtil {
         StreamTextFile.saveTextFile("/project/sources/"+_relative, _content,_pr.getStreams());
     }
     public static void guiAna(ResultContext _b, AbsDebuggerGui _g, ManageOptions _man, StringMap<String> _s) {
-        new AnalyzingDebugEvent(new ExpMenuFrameInteract(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem()),_b,_g,_man,_s).action();
+        ExpMenuFrameInteract exp_ = new ExpMenuFrameInteract(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem());
+        _g.build(new AnalyzingDebugEvent(exp_,_b,_g,_man,_s));
+        ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();
     }
     public static void guiAna(WindowExpressionEditor _w, AbsDebuggerGui _g) {
         _g.setResultContextNext(_w.getResultContextNext());
@@ -158,11 +160,12 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static void menuExp(WindowExpressionEditor _w, AbsDebuggerGui _g) {
-        new AnalyzingDebugExpEvent(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem(),_w,_g).action();
+        _g.build(new AnalyzingDebugExpEvent(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem(),_w,_g));
+        ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();
     }
 
-    public static void guiNoAna(AbsDebuggerGui _g, ManageOptions _man) {
-        _g.guiBuild(_man);
+    public static void guiNoAna(AbsDebuggerGui _g) {
+        _g.build(new AnalyzingDebugEvent(new ExpMenuFrameInteract(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem()),null,_g,null,new StringMap<String>()));
     }
     public static void toggleBp(AbsDebuggerGui _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F2,0)).action();
