@@ -8,6 +8,8 @@ import code.util.CustList;
 import code.util.StringMap;
 
 public final class GuiStackForm {
+    private AbsTextArea conditional;
+    private AbsSpinner count;
     private ReadOnlyFormTabEditor readOnlyFormTabEditor;
     private AbsPlainButton bpAddFile;
     private AbsPlainButton bpRemoveFile;
@@ -56,11 +58,15 @@ public final class GuiStackForm {
     }
 
     public AbsScrollPane guiBuild(AbsDebuggerGui _d) {
+        conditional = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
+        count = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         bpFolderSystem = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui(_d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(""));
         bpFolderSystem.select(bpFolderSystem.getRoot());
         bpFolderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(_d,bpFolderSystem,new SelOpeningReadOnlyFile(this)));
         readOnlyFormTabEditor = new ReadOnlyFormTabEditor(_d,_d.getCommonFrame().getFrames(), _d.getManageOptions().getOptions());
         staIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        staIncExc.add(conditional);
+        staIncExc.add(count);
         staIncExc.add(_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(bpFolderSystem),readOnlyFormTabEditor.getPanel()));
         bpAddFile = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add include");
         bpAddFile.addActionListener(new AddIncludeEvent(this,_d));
@@ -144,4 +150,11 @@ public final class GuiStackForm {
         return readOnlyFormTabEditor;
     }
 
+    public AbsTextArea getConditional() {
+        return conditional;
+    }
+
+    public AbsSpinner getCount() {
+        return count;
+    }
 }
