@@ -164,8 +164,8 @@ public abstract class EquallableElAdvUtil {
         ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();
     }
 
-    public static void guiNoAna(AbsDebuggerGui _g) {
-        _g.build(new AnalyzingDebugEvent(new ExpMenuFrameInteract(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem()),null,_g,null,new StringMap<String>()));
+    public static void guiNoAna(AbsDebuggerGui _g, ManageOptions _m) {
+        _g.build(new AnalyzingDebugEvent(new ExpMenuFrameInteract(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem()),null,_g,_m,new StringMap<String>()));
     }
     public static void toggleBp(AbsDebuggerGui _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F2,0)).action();
@@ -175,6 +175,18 @@ public abstract class EquallableElAdvUtil {
     }
     public static void bpForm(AbsDebuggerGui _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F4,0)).action();
+    }
+    public static void bpFormStdAddInc(AbsDebuggerGui _w) {
+        ((MockPlainButton)_w.getGuiStdStackForm().getBpAddFile()).getActionListeners().get(0).action();
+    }
+    public static void bpFormStdAddExc(AbsDebuggerGui _w) {
+        ((MockPlainButton)_w.getGuiStdStackForm().getBpRemoveFile()).getActionListeners().get(0).action();
+    }
+    public static void bpFormStdRemInc(AbsDebuggerGui _w, int _index) {
+        ((MockPlainButton) _w.getGuiStdStackForm().getIncludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
+    }
+    public static void bpFormStdRemExc(AbsDebuggerGui _w, int _index) {
+        ((MockPlainButton) _w.getGuiStdStackForm().getExcludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
     }
     public static void bpFormOk(AbsDebuggerGui _w) {
         ((MockPlainButton)_w.getOk()).getActionListeners().get(0).action();

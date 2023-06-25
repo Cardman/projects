@@ -7,9 +7,9 @@ import code.gui.events.AbsCaretListener;
 import code.util.core.StringUtil;
 
 public final class EditorCaretListener implements AbsCaretListener {
-    private final AbsTabEditor tabEditor;
+    private final AbsLightTabEditor tabEditor;
 
-    public EditorCaretListener(AbsTabEditor _t) {
+    public EditorCaretListener(AbsLightTabEditor _t) {
         this.tabEditor = _t;
     }
 

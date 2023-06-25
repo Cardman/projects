@@ -30,6 +30,9 @@ import code.util.core.StringUtil;
 public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private final CdmFactory factory;
     private final AbsCommonFrame commonFrame;
+    private final GuiStackForm guiStdStackForm = new GuiStackForm();
+    private final GuiStackForm guiInsStackForm = new GuiStackForm();
+    private final GuiStackForm guiStaStackForm = new GuiStackForm();
     private AbsMenuItem analyzeMenu;
     private BreakPointBlockPair selectedPb;
     private AbsCustCheckBox instanceType;
@@ -120,16 +123,18 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         bpForm.add(staticType);
         bpForm.add(conditionalStatic);
         bpForm.add(countStatic);
+        bpForm.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(guiStdStackForm.guiBuild(this)));
+        bpForm.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(guiInsStackForm.guiBuild(this)));
+        bpForm.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(guiStaStackForm.guiBuild(this)));
         ok.addActionListener(new OkBpFormEvent(this));
         bpForm.add(ok);
         cancel.addActionListener(new CancelBpFormEvent(this));
         bpForm.add(cancel);
         bpForm.setVisible(false);
         AbsPanel page_ = commonFrame.getFrames().getCompoFactory().newPageBox();
-        AbstractMutableTreeNode default_ = commonFrame.getFrames().getCompoFactory().newMutableTreeNode("");
-        folderSystem = commonFrame.getFrames().getCompoFactory().newTreeGui(default_);
+        folderSystem = commonFrame.getFrames().getCompoFactory().newTreeGui(commonFrame.getFrames().getCompoFactory().newMutableTreeNode(""));
         folderSystem.select(folderSystem.getRoot());
-        folderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(this));
+        folderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(this,folderSystem,new TabOpeningReadOnlyFile()));
         tabbedPane = commonFrame.getFrames().getCompoFactory().newAbsTabbedPane();
         tabbedPane.setPreferredSize(new MetaDimension(512,512));
         page_.add(commonFrame.getFrames().getCompoFactory().newHorizontalSplitPane(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(folderSystem),tabbedPane));
@@ -180,46 +185,37 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         this.viewable = _v;
     }
 
-    public boolean applyTreeChangeSelected() {
+    public void applyTreeChangeSelected(AbsOpeningReadOnlyFile _a, AbsTreeGui _t) {
         if (getCurrentResult() == null) {
-            return false;
+            return;
         }
-        AbstractMutableTreeNode sel_ = getTree().selectEvt();
+        AbstractMutableTreeNode sel_ = _t.selectEvt();
         if (sel_ == null) {
-            return false;
+            return;
         }
         String str_ = buildPath(sel_);
-        if (openFile(str_)) {
-            return false;
+        if (openFile(_a,str_)) {
+            return;
         }
-        refresh(sel_,str_);
-        return true;
+        refresh(sel_,str_, _t);
     }
 
-    boolean openFile(String _str) {
+    boolean openFile(AbsOpeningReadOnlyFile _a, String _str) {
         String res_ = viewable.getVal(_str);
         if (res_ != null) {
-            int opened_ = indexOpened(_str);
-            if (opened_ > -1) {
-                getTabbedPane().selectIndex(opened_);
-                return true;
-            }
-            String fullPath_ = pathToSrc(manageOptions)+ _str;
-            BytesInfo content_ = new BytesInfo(StringUtil.encode(res_),false);
-            addTab(manageOptions,fullPath_,content_,manageOptions.getOptions());
-            getTabbedPane().selectIndex(getTabs().getLastIndex());
+            _a.openFile(this,_str,res_);
             return true;
         }
         return false;
     }
-    void refresh(AbstractMutableTreeNode _sel, String _str) {
-        refParent(_sel, _str);
+    void refresh(AbstractMutableTreeNode _sel, String _str, AbsTreeGui _t) {
+        refParent(_sel, _str, _t);
     }
 
-    void refParent(AbstractMutableTreeNode _parent, String _parentPath) {
+    void refParent(AbstractMutableTreeNode _parent, String _parentPath, AbsTreeGui _t) {
         _parent.removeAllChildren();
         refreshList(_parent, viewable, _parentPath);
-        MutableTreeNodeUtil.reload(getTree());
+        MutableTreeNodeUtil.reload(_t);
     }
     static void refreshList(AbstractMutableTreeNode _sel, StringMap<String> _files, String _folderToVisit) {
         CustList<String> currentFolders_ = new CustList<String>();
@@ -366,6 +362,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         }
         currentResult = _res;
         refreshList(folderSystem.selectEvt(),viewable, "");
+        getGuiStdStackForm().refresh(viewable, "");
+        getGuiInsStackForm().refresh(viewable, "");
+        getGuiStaStackForm().refresh(viewable, "");
         int len_ = _src.size();
         for (int i = 0; i < len_; i++) {
             String fullPath_ = pathToSrc(manageOptions)+ _src.getKey(i);
@@ -374,6 +373,19 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         }
         PackingWindowAfter.pack(commonFrame);
     }
+
+    public GuiStackForm getGuiStdStackForm() {
+        return guiStdStackForm;
+    }
+
+    public GuiStackForm getGuiInsStackForm() {
+        return guiInsStackForm;
+    }
+
+    public GuiStackForm getGuiStaStackForm() {
+        return guiStaStackForm;
+    }
+
     public void closeAll() {
         tabbedPane.removeAll();
         tabs.clear();
@@ -434,6 +446,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     protected abstract CallingState look();
     public CustList<ReadOnlyTabEditor> getTabs() {
         return tabs;
+    }
+
+    public ManageOptions getManageOptions() {
+        return manageOptions;
     }
 
     public AbsTabbedPane getTabbedPane() {

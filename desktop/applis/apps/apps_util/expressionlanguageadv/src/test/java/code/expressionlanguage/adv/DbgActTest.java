@@ -3,6 +3,7 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.linkage.LinkedNamedArgParts;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -47,7 +48,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         ManageOptions o_ = opt(b_);
         StringMap<String> src_ = new StringMap<String>();
         save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
-        guiNoAna(b_);
+        guiNoAna(b_,o_);
         assertTrue(b_.getCommonFrame().isVisible());
     }
     @Test
@@ -68,7 +69,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         ManageOptions o_ = opt(b_);
         StringMap<String> src_ = new StringMap<String>();
         save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
-        guiNoAna(b_);
+        guiNoAna(b_,o_);
         assertTrue(b_.getCommonFrame().isVisible());
     }
     @Test
@@ -211,8 +212,308 @@ public final class DbgActTest extends EquallableElAdvUtil {
         ManageOptions o_ = opt(b_);
         StringMap<String> src_ = new StringMap<String>();
         save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
-        guiNoAna(b_);
+        guiNoAna(b_,o_);
         assertTrue(b_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void bp14() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(55,55);
+        toggleBp(b_);
+        bpForm(b_);
+        bpFormStdAddExc(b_);
+        bpFormStdAddInc(b_);
+        GuiStackForm.remove(new CustList<LinkedNamedArgParts>(),null);
+        assertEq(0,b_.getGuiStdStackForm().getMustBe().size());
+        assertEq(0,b_.getGuiStdStackForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp15() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(55,55);
+        toggleBp(b_);
+        bpForm(b_);
+        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExc(b_);
+        assertEq(0,b_.getGuiStdStackForm().getMustBe().size());
+        assertEq(1,b_.getGuiStdStackForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp16() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(55,55);
+        toggleBp(b_);
+        bpForm(b_);
+        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddInc(b_);
+        assertEq(1,b_.getGuiStdStackForm().getMustBe().size());
+        assertEq(0,b_.getGuiStdStackForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp17() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(55,55);
+        toggleBp(b_);
+        bpForm(b_);
+        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExc(b_);
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(56,56);
+        bpFormStdAddExc(b_);
+        assertEq(0,b_.getGuiStdStackForm().getMustBe().size());
+        assertEq(2,b_.getGuiStdStackForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp18() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(55,55);
+        toggleBp(b_);
+        bpForm(b_);
+        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddInc(b_);
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(56,56);
+        bpFormStdAddInc(b_);
+        assertEq(2,b_.getGuiStdStackForm().getMustBe().size());
+        assertEq(0,b_.getGuiStdStackForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp19() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(55,55);
+        toggleBp(b_);
+        bpForm(b_);
+        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExc(b_);
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExc(b_);
+        assertEq(0,b_.getGuiStdStackForm().getMustBe().size());
+        assertEq(2,b_.getGuiStdStackForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp20() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(55,55);
+        toggleBp(b_);
+        bpForm(b_);
+        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddInc(b_);
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddInc(b_);
+        assertEq(2,b_.getGuiStdStackForm().getMustBe().size());
+        assertEq(0,b_.getGuiStdStackForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp21() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(55,55);
+        toggleBp(b_);
+        bpForm(b_);
+        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExc(b_);
+        bpFormStdAddExc(b_);
+        assertEq(0,b_.getGuiStdStackForm().getMustBe().size());
+        assertEq(1,b_.getGuiStdStackForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp22() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(55,55);
+        toggleBp(b_);
+        bpForm(b_);
+        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddInc(b_);
+        bpFormStdAddInc(b_);
+        assertEq(1,b_.getGuiStdStackForm().getMustBe().size());
+        assertEq(0,b_.getGuiStdStackForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp23() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(55,55);
+        toggleBp(b_);
+        bpForm(b_);
+        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExc(b_);
+        bpFormStdRemExc(b_,0);
+        assertEq(0,b_.getGuiStdStackForm().getMustBe().size());
+        assertEq(0,b_.getGuiStdStackForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp24() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(55,55);
+        toggleBp(b_);
+        bpForm(b_);
+        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddInc(b_);
+        bpFormStdRemInc(b_,0);
+        assertEq(0,b_.getGuiStdStackForm().getMustBe().size());
+        assertEq(0,b_.getGuiStdStackForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp25() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(55,55);
+        toggleBp(b_);
+        bpForm(b_);
+        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExc(b_);
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddInc(b_);
+        assertEq(1,b_.getGuiStdStackForm().getMustBe().size());
+        assertEq(1,b_.getGuiStdStackForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp26() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(55,55);
+        toggleBp(b_);
+        bpForm(b_);
+        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExc(b_);
+        bpFormStdAddInc(b_);
+        assertEq(1,b_.getGuiStdStackForm().getMustBe().size());
+        assertEq(1,b_.getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
     public void m1() {
@@ -436,7 +737,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         ManageOptions o_ = opt(b_);
         StringMap<String> src_ = new StringMap<String>();
         save(b_,src_,"src/file.txt","public class pkg.Ex {static int v;public static that int exmeth(String... _v){return that(v);}}");
-        guiNoAna(b_);
+        guiNoAna(b_,o_);
         vararg(b_).setSelected(true);
         retVal(b_).setSelected(true);
         AutoCompleteDocument cl_ = classesFilter(b_);
@@ -449,7 +750,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     public void arg1() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);
-        guiNoAna(b_);
+        guiNoAna(b_,o_);
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
@@ -459,7 +760,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     public void arg2() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);
-        guiNoAna(b_);
+        guiNoAna(b_,o_);
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
@@ -471,7 +772,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     public void arg3() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);
-        guiNoAna(b_);
+        guiNoAna(b_,o_);
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
@@ -485,7 +786,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     public void arg4() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);
-        guiNoAna(b_);
+        guiNoAna(b_,o_);
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg1");
@@ -1773,7 +2074,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         saveFolder(b_,src_,"src/sub1/sub3/file8.txt","public class pkg.Ex8 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
-        guiNoAna(b_);
+        guiNoAna(b_,o_);
         AbsTreeGui t_ = b_.getTree();
         t_.select(null);
         t_.select(t_.getRoot());
