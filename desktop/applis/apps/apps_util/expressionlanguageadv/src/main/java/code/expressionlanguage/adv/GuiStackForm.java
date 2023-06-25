@@ -1,7 +1,8 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
-import code.expressionlanguage.linkage.LinkedNamedArgParts;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
+import code.expressionlanguage.exec.dbg.ExecFileBlockTraceIndex;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 import code.util.CustList;
@@ -18,32 +19,33 @@ public final class GuiStackForm {
     private AbsPanel excludedFileIndex;
     private AbsPanel staIncExc;
     private AbsScrollPane staScIncExc;
-    private final CustList<LinkedNamedArgParts> mustBe = new CustList<LinkedNamedArgParts>();
-    private final CustList<LinkedNamedArgParts> mustNotBe = new CustList<LinkedNamedArgParts>();
+    private final CustList<ExecFileBlockTraceIndex> mustBe = new CustList<ExecFileBlockTraceIndex>();
+    private final CustList<ExecFileBlockTraceIndex> mustNotBe = new CustList<ExecFileBlockTraceIndex>();
 
-    public static void add(ResultContext _res, CustList<LinkedNamedArgParts> _list, ReadOnlyFormTabEditor _e) {
+    public static void add(ResultContext _res, CustList<ExecFileBlockTraceIndex> _list, ReadOnlyFormTabEditor _e) {
         FileBlock v_ = _res.getPageEl().getPreviousFilesBodies().getVal(_e.getFullPath());
-        if (v_ == null) {
+        ExecFileBlock f_ = _res.getForwards().dbg().getFiles().getVal(v_);
+        if (f_ == null) {
             return;
         }
-        add(_list, new LinkedNamedArgParts(v_,_e.getCenter().getCaretPosition()));
+        add(_list, new ExecFileBlockTraceIndex(f_,_e.getCenter().getCaretPosition()));
     }
 
-    public static void add(CustList<LinkedNamedArgParts> _list, LinkedNamedArgParts _l) {
+    public static void add(CustList<ExecFileBlockTraceIndex> _list, ExecFileBlockTraceIndex _l) {
         int i_ = index(_list, _l);
         if (i_ == -1) {
             _list.add(_l);
         }
     }
 
-    public static void remove(CustList<LinkedNamedArgParts> _list, LinkedNamedArgParts _l) {
+    public static void remove(CustList<ExecFileBlockTraceIndex> _list, ExecFileBlockTraceIndex _l) {
         int i_ = index(_list, _l);
         if (i_ > -1) {
             _list.remove(i_);
         }
     }
 
-    public static int index(CustList<LinkedNamedArgParts> _list, LinkedNamedArgParts _l) {
+    public static int index(CustList<ExecFileBlockTraceIndex> _list, ExecFileBlockTraceIndex _l) {
         int s_ = _list.size();
         for (int i = 0; i < s_; i++) {
             if (match(_l, _list.get(i))) {
@@ -53,8 +55,8 @@ public final class GuiStackForm {
         return -1;
     }
 
-    public static boolean match(LinkedNamedArgParts _l, LinkedNamedArgParts _one) {
-        return _one.getFile() == _l.getFile() && _one.getOffset() == _l.getOffset();
+    public static boolean match(ExecFileBlockTraceIndex _l, ExecFileBlockTraceIndex _one) {
+        return _l.match(_one.getFile(),_one.getIndex());
     }
 
     public AbsScrollPane guiBuild(AbsDebuggerGui _d) {
@@ -88,13 +90,13 @@ public final class GuiStackForm {
     public void actualiseLists(AbsDebuggerGui _d) {
         includedFileIndex.removeAll();
         excludedFileIndex.removeAll();
-        for (LinkedNamedArgParts l: getMustBe()) {
-            AbsPlainButton r_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("+ "+l.getFile().getFileName() + ":" + l.getOffset());
+        for (ExecFileBlockTraceIndex l: getMustBe()) {
+            AbsPlainButton r_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("+ "+l.getFile().getFileName() + ":" + l.getIndex());
             r_.addActionListener(new RemoveIncludeEvent(this,_d, l));
             includedFileIndex.add(r_);
         }
-        for (LinkedNamedArgParts l: getMustNotBe()) {
-            AbsPlainButton r_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("- "+l.getFile().getFileName() + ":" + l.getOffset());
+        for (ExecFileBlockTraceIndex l: getMustNotBe()) {
+            AbsPlainButton r_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("- "+l.getFile().getFileName() + ":" + l.getIndex());
             r_.addActionListener(new RemoveExcludeEvent(this,_d, l));
             excludedFileIndex.add(r_);
         }
@@ -103,8 +105,8 @@ public final class GuiStackForm {
     }
 
     private void border() {
-        for (LinkedNamedArgParts l: getMustBe()) {
-            for (LinkedNamedArgParts m: getMustNotBe()) {
+        for (ExecFileBlockTraceIndex l: getMustBe()) {
+            for (ExecFileBlockTraceIndex m: getMustNotBe()) {
                 if (match(l,m)) {
                     staIncExc.setLineBorder(GuiConstants.RED);
                     return;
@@ -126,11 +128,11 @@ public final class GuiStackForm {
         return excludedFileIndex;
     }
 
-    public CustList<LinkedNamedArgParts> getMustBe() {
+    public CustList<ExecFileBlockTraceIndex> getMustBe() {
         return mustBe;
     }
 
-    public CustList<LinkedNamedArgParts> getMustNotBe() {
+    public CustList<ExecFileBlockTraceIndex> getMustNotBe() {
         return mustNotBe;
     }
 

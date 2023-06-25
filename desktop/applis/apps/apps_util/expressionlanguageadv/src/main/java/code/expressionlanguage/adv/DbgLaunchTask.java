@@ -9,6 +9,9 @@ public final class DbgLaunchTask implements Runnable {
     public DbgLaunchTask(AbsDebuggerGui _w, StepDbgActionEnum _s) {
         this.window = _w;
         this.step = _s;
+        if (_s == StepDbgActionEnum.CURSOR) {
+            window.possibleSelect(_w.getTabbedPane().getSelectedIndex());
+        }
     }
 
     @Override

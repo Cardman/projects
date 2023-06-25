@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -17,6 +18,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.dbg.BreakPointBlockList;
 import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
+import code.expressionlanguage.exec.dbg.ExecFileBlockTraceIndex;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -33,6 +35,7 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
+import code.util.CustList;
 import code.util.StringMap;
 
 public abstract class ProcessDbgCommon extends ProcessMethodCommon {
@@ -349,6 +352,66 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), _caret);
         BreakPointBlockList.breakPointCountStd(pair_, _dyn);
+        CustomFoundMethod state_ = state(_res,_class, _meth);
+        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_, null);
+    }
+
+    protected StackCallReturnValue stackStdView(String _class, String _meth, int _caret, StringMap<String> _files, String[] _names, int[] _carets) {
+        ResultContext res_ = ctxStd(_class, _caret, _files);
+        return stackStdView(_class, _meth, _caret, res_, _names, _carets);
+    }
+    protected StackCallReturnValue stackStdView(String _class, String _meth, int _caret, ResultContext _res, String[] _names, int[] _carets) {
+        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), _caret);
+        ExecFileBlockTraceIndex inc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[0])),_carets[0]);
+        ExecFileBlockTraceIndex exc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[1])),_carets[1]);
+        CustList<ExecFileBlockTraceIndex> incList_ = new CustList<ExecFileBlockTraceIndex>();
+        incList_.add(inc_);
+        CustList<ExecFileBlockTraceIndex> excList_ = new CustList<ExecFileBlockTraceIndex>();
+        excList_.add(exc_);
+        BreakPointBlockList.breakPointFileIndexUpdaterIncludeStd(pair_, incList_);
+        BreakPointBlockList.breakPointFileIndexUpdaterExcludeStd(pair_, excList_);
+        CustomFoundMethod state_ = state(_res,_class, _meth);
+        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_, null);
+    }
+
+    protected StackCall stackSta(String _class, String _meth, StringMap<String> _files, String[] _names, int[] _carets) {
+        ResultContext res_ = ctxSt(_class, _files);
+        return stackStaView(_class, _meth, res_, _names, _carets).getStack();
+    }
+    protected StackCallReturnValue stackStaView(String _class, String _meth, ResultContext _res, String[] _names, int[] _carets) {
+        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        RootBlock ana_ = _res.getPageEl().getAnaClassBody(_class);
+        BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), ana_.getIdRowCol());
+        ExecFileBlockTraceIndex inc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[0])),_carets[0]);
+        ExecFileBlockTraceIndex exc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[1])),_carets[1]);
+        CustList<ExecFileBlockTraceIndex> incList_ = new CustList<ExecFileBlockTraceIndex>();
+        incList_.add(inc_);
+        CustList<ExecFileBlockTraceIndex> excList_ = new CustList<ExecFileBlockTraceIndex>();
+        excList_.add(exc_);
+        BreakPointBlockList.breakPointFileIndexUpdaterIncludeStatic(pair_, incList_);
+        BreakPointBlockList.breakPointFileIndexUpdaterExcludeStatic(pair_, excList_);
+        CustomFoundMethod state_ = state(_res,_class, _meth);
+        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_, null);
+    }
+
+    protected StackCall stackIns(String _class, String _meth, StringMap<String> _files, String[] _names, int[] _carets) {
+        ResultContext res_ = ctxInst(_class, _files);
+        return stackInsView(_class, _meth, res_, _names, _carets).getStack();
+    }
+
+    protected StackCallReturnValue stackInsView(String _class, String _meth, ResultContext _res, String[] _names, int[] _carets) {
+        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        RootBlock ana_ = _res.getPageEl().getAnaClassBody(_class);
+        BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), ana_.getIdRowCol());
+        ExecFileBlockTraceIndex inc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[0])),_carets[0]);
+        ExecFileBlockTraceIndex exc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[1])),_carets[1]);
+        CustList<ExecFileBlockTraceIndex> incList_ = new CustList<ExecFileBlockTraceIndex>();
+        incList_.add(inc_);
+        CustList<ExecFileBlockTraceIndex> excList_ = new CustList<ExecFileBlockTraceIndex>();
+        excList_.add(exc_);
+        BreakPointBlockList.breakPointFileIndexUpdaterIncludeInstance(pair_, incList_);
+        BreakPointBlockList.breakPointFileIndexUpdaterExcludeInstance(pair_, excList_);
         CustomFoundMethod state_ = state(_res,_class, _meth);
         return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_, null);
     }

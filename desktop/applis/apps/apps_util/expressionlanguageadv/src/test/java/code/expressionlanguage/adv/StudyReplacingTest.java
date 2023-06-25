@@ -4,6 +4,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.AbsSpinner;
 import code.gui.AbsTxtComponent;
+import code.mock.MockMenuItem;
 import code.mock.MockPlainButton;
 import code.mock.MockProgramInfos;
 import code.util.CustList;
@@ -357,6 +358,24 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         assertFalse(e_.getSession().isEnabled());
         b_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         assertTrue(e_.getSession().isEnabled());
+    }
+    @Test
+    public void windowReopen() {
+        MockProgramInfos pr_ = genePr();
+        WindowCdmEditor w_ = updated(pr_);
+        w_.getFuture().attendre();
+        WindowExpressionEditor e_ = geneSecAlready(w_);
+        save(pr_,"src/file.txt","public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:i,end:i+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
+        e_.getTree().select(e_.getTree().getRoot());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
+        pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
+        pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
+        AbsDebuggerGui b_ = e_.getSessionExp();
+        ((MockMenuItem)e_.getSession()).getActionListeners().get(0).action();
+        ((MockMenuItem)e_.getSession()).getActionListeners().get(0).action();
+        assertTrue(b_.getCommonFrame().isVisible());
     }
     private CustList<SegmentFindPart> found(AbsDebuggerGui _b) {
         return ((ExpDebGuiImpl)_b).getFound();

@@ -36,7 +36,6 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsTabbedPane tabbedPane;
     private final CustList<ReadOnlyTabEditor> tabs = new CustList<ReadOnlyTabEditor>();
     private CallingState selected = new CustomFoundExc(null);
-    private final AbstractBaseExecutorService debugActions;
     private AbsPlainButton selectEnter;
     private AbsPlainButton nextAction;
     private AbsPlainButton nextInstruction;
@@ -48,7 +47,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private StackCall stackCall;
     private StackCallReturnValue stackCallView;
     private ResultContext currentResult;
-    private final AbstractBaseExecutorService manageAnalyze;
+    private AbstractBaseExecutorService actions;
     private DbgRootStruct root;
     private AbsTreeGui treeDetail;
     private final CustList<AbsTreeGui> trees = new CustList<AbsTreeGui>();
@@ -66,8 +65,6 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         factory = _fact;
         frameBpForm = new FrameBpForm(this,_lg, _list);
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
-        debugActions = _list.getThreadFactory().newExecutorService();
-        manageAnalyze = _list.getThreadFactory().newExecutorService();
         stopDbg = _list.getThreadFactory().newAtomicBoolean();
     }
 
@@ -77,7 +74,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     }
     public void analyze() {
         StringMap<String> s_ = getEvent().src();
-        manageAnalyze.submit(new AnalyzeDebugTask(getEvent().base(),this,s_));
+        actions.submit(new AnalyzeDebugTask(getEvent().base(),this,s_));
     }
 
     public AbsOpenFrameInteract getDbgMenu() {
@@ -89,6 +86,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         getDbgMenu().open();
         manageOptions = getEvent().manageOpt();
         frameBpForm.guiBuild(this);
+        actions = commonFrame.getFrames().getThreadFactory().newExecutorService();
         AbsPanel page_ = commonFrame.getFrames().getCompoFactory().newPageBox();
         folderSystem = commonFrame.getFrames().getCompoFactory().newTreeGui(commonFrame.getFrames().getCompoFactory().newMutableTreeNode(""));
         folderSystem.select(folderSystem.getRoot());
@@ -210,11 +208,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         tabbedPane.addIntTab(name_, te_.getPanel(), _path);
     }
     void next(StepDbgActionEnum _step){
-        if (_step == StepDbgActionEnum.CURSOR) {
-            int s_ = tabbedPane.getSelectedIndex();
-            possibleSelect(s_);
-        }
         StackCallReturnValue view_ = ExecClassesUtil.tryInitStaticlyTypes(currentResult.getContext(), currentResult.getForwards().getOptions(), stackCall, selected,_step);
+        if (getStopDbg().get()) {
+            setStackCall(null);
+            return;
+        }
         setStackCallView(view_);
         stackCall = getStackCallView().getStack();
         if (!stackCall.isStoppedBreakPoint()) {
@@ -331,16 +329,21 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     }
 
     public void closeAll() {
+        closeCompos();
+        actions.shutdown();
+    }
+
+    public void closeCompos() {
         tabbedPane.removeAll();
         tabs.clear();
-        PackingWindowAfter.pack(commonFrame);
     }
+
     public void launchDebug() {
         CallingState l_ = look();
         if (l_ != null) {
             selected = l_;
             selectEnter.setEnabled(false);
-            debugActions.submit(new DbgLaunchTask(this, StepDbgActionEnum.DEBUG));
+            actions.submit(new DbgLaunchTask(this, StepDbgActionEnum.DEBUG));
         } else {
             selected = new CustomFoundExc(null);
         }
@@ -383,8 +386,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return selectEnter;
     }
 
-    public AbstractBaseExecutorService getDebugActions() {
-        return debugActions;
+    public AbstractBaseExecutorService getActions() {
+        return actions;
     }
 
     protected abstract CallingState look();

@@ -3,7 +3,7 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.linkage.LinkedNamedArgParts;
+import code.expressionlanguage.exec.dbg.ExecFileBlockTraceIndex;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -229,7 +229,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         bpForm(b_);
         bpFormStdAddExc(b_);
         bpFormStdAddInc(b_);
-        GuiStackForm.remove(new CustList<LinkedNamedArgParts>(),null);
+        GuiStackForm.remove(new CustList<ExecFileBlockTraceIndex>(),null);
         assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
         assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
@@ -799,6 +799,34 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq(1,f_.getOutput().size());
         assertEq(0,f_.getCommentsRows().get(0).getIndex());
         assertEq("Arg2",f_.getOutput().get(0).getInstance());
+    }
+    @Test
+    public void iStop() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {static int a=2;static int b=4;public static int exmeth(String[] v){return v.length;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(96,96);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        b_.getStopDbg().set(true);
+        launch(b_);
+        assertTrue(b_.getStopDbg().get());
     }
     @Test
     public void i1() {
@@ -1802,7 +1830,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         guiAna(r_,b_,o_,src_);
-        b_.closeAll();
+        b_.closeCompos();
         AbsTreeGui t_ = b_.getTree();
         t_.select(null);
         t_.select(t_.getRoot());
@@ -1828,7 +1856,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         guiAna(r_,b_,o_,src_);
-        b_.closeAll();
+        b_.closeCompos();
         AbsTreeGui t_ = b_.getTree();
         t_.select(null);
         t_.select(t_.getRoot());
@@ -1855,7 +1883,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         guiAna(r_,b_,o_,src_);
-        b_.closeAll();
+        b_.closeCompos();
         AbsTreeGui t_ = b_.getTree();
         t_.select(null);
         t_.select(t_.getRoot());
@@ -1882,7 +1910,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         guiAna(r_,b_,o_,src_);
-        b_.closeAll();
+        b_.closeCompos();
         AbsTreeGui t_ = b_.getTree();
         t_.select(null);
         t_.select(t_.getRoot());
@@ -1909,7 +1937,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         guiAna(r_,b_,o_,src_);
-        b_.closeAll();
+        b_.closeCompos();
         AbsTreeGui t_ = b_.getTree();
         t_.select(null);
         t_.select(t_.getRoot());
@@ -1936,7 +1964,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         guiAna(r_,b_,o_,src_);
-        b_.closeAll();
+        b_.closeCompos();
         AbsTreeGui t_ = b_.getTree();
         t_.select(null);
         t_.select(t_.getRoot());
@@ -1963,7 +1991,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         guiAna(r_,b_,o_,src_);
-        b_.closeAll();
+        b_.closeCompos();
         AbsTreeGui t_ = b_.getTree();
         t_.select(null);
         t_.select(t_.getRoot());
@@ -1991,7 +2019,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         guiAna(r_,b_,o_,src_);
-        b_.closeAll();
+        b_.closeCompos();
         AbsTreeGui t_ = b_.getTree();
         t_.select(null);
         t_.select(t_.getRoot());
@@ -2019,7 +2047,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         guiAna(r_,b_,o_,src_);
-        b_.closeAll();
+        b_.closeCompos();
         AbsTreeGui t_ = b_.getTree();
         t_.select(null);
         t_.select(t_.getRoot().getFirstChild());
@@ -2047,7 +2075,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         saveFolder(b_,src_,"src/sub2/sub4/file0.txt","public class pkg.Ex0 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         saveFolder(b_,src_,"src/sub2/sub4/file9.txt","public class pkg.Ex9 {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
         guiAna(r_,b_,o_,src_);
-        b_.closeAll();
+        b_.closeCompos();
         AbsTreeGui t_ = b_.getTree();
         t_.select(null);
         t_.select(t_.getRoot().getFirstChild());

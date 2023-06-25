@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
+import code.expressionlanguage.exec.dbg.ExecFileBlockTraceIndex;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.*;
@@ -392,7 +393,7 @@ public abstract class AbstractPageEl {
             return false;
         }
         BreakPointCondition condition_ = stopCurrentBpCondition(_bp);
-        if (condition(_context,_stackCall,condition_)) {
+        if (okStack(_stackCall,condition_) && condition(_context,_stackCall,condition_)) {
             int c_ = condition_.getCountModulo();
             if (c_ <= 0) {
                 return true;
@@ -400,6 +401,40 @@ public abstract class AbstractPageEl {
             int p_ = condition_.getCount();
             condition_.setCount(p_ + 1);
             return NumberUtil.mod(condition_.getCount(),c_) == 0;
+        }
+        return false;
+    }
+    private boolean okStack(StackCall _stackCall, BreakPointCondition _bp) {
+        for (ExecFileBlockTraceIndex e: _bp.getExclude()) {
+            if (!excOk(_stackCall,e)) {
+                return false;
+            }
+        }
+        for (ExecFileBlockTraceIndex e: _bp.getInclude()) {
+            if (!incOk(_stackCall,e)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean excOk(StackCall _stackCall, ExecFileBlockTraceIndex _elt) {
+        int nb_ = _stackCall.nbPages();
+        for (int i = 0; i < nb_; i++) {
+            AbstractPageEl e_ = _stackCall.getCall(i);
+            if (_elt.match(e_.file,e_.getTraceIndex())){
+                return false;
+            }
+        }
+        return true;
+    }
+    private boolean incOk(StackCall _stackCall, ExecFileBlockTraceIndex _elt) {
+        int nb_ = _stackCall.nbPages();
+        for (int i = 0; i < nb_; i++) {
+            AbstractPageEl e_ = _stackCall.getCall(i);
+            if (_elt.match(e_.file,e_.getTraceIndex())){
+                return true;
+            }
         }
         return false;
     }

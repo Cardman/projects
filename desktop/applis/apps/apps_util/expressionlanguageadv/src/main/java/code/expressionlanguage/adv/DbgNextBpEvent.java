@@ -20,6 +20,6 @@ public final class DbgNextBpEvent implements AbsActionListener {
         window.getNextInMethod().setEnabled(false);
         window.getNextCursor().setEnabled(false);
         window.getDetailAll().setVisible(false);
-        window.getDebugActions().submit(new DbgLaunchTask(window, keep));
+        window.getActions().submit(new DbgLaunchTask(window, keep));
     }
 }

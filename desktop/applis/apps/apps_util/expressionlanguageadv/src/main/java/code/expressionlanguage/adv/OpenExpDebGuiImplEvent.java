@@ -12,6 +12,9 @@ public final class OpenExpDebGuiImplEvent implements AbsActionListener {
     @Override
     public void action() {
         ExpDebGuiImpl g_ = expressionEditor.getSessionExp();
+        if (g_.getCommonFrame().isVisible()) {
+            return;
+        }
         g_.build(new AnalyzingDebugExpEvent(expressionEditor.getSession(),expressionEditor,g_));
     }
 }
