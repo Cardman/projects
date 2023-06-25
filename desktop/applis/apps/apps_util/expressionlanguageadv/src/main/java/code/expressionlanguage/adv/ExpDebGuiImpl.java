@@ -42,7 +42,7 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
 
     public ExpDebGuiImpl(AbsOpenFrameInteract _m,AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a,_lg, _list, _fact);
-        getCommonFrame().addWindowListener(new CloseDbgFrame(_m));
+        getCommonFrame().addWindowListener(new CloseDbgFrame(this,_m));
     }
 
     @Override

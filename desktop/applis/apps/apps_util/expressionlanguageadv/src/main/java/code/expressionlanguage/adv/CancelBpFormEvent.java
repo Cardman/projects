@@ -11,7 +11,11 @@ public final class CancelBpFormEvent implements AbsWindowListenerClosing {
 
     @Override
     public void windowClosing() {
-        window.getFrameBpForm().getCommonFrame().setVisible(false);
-        window.getFrameBpForm().setSelectedPb(null);
+        act(window);
+    }
+
+    static void act(AbsDebuggerGui _w) {
+        _w.getFrameBpForm().getCommonFrame().setVisible(false);
+        _w.getFrameBpForm().setSelectedPb(null);
     }
 }
