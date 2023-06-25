@@ -5,7 +5,9 @@ import code.expressionlanguage.AdvContextGenerator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultAliasGroups;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.Classes;
@@ -19,9 +21,7 @@ import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.stds.DfInstancer;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.StdCaller;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
@@ -32,6 +32,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.sml.Node;
+import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.stream.BytesInfo;
 import code.stream.core.ContentTime;
@@ -116,6 +117,21 @@ public abstract class EquallableElUtUtil {
         stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
 //        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
         basicStandards(stds_);
+        return stds_;
+    }
+
+    public static MockLgNames mock(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
+        MockLgNames stds_ = new MockLgNames();
+        TranslationsFile en_ = new TranslationsFile();
+        LgNamesContent.en(en_);
+        StringViewReplaceAliases.en(en_);
+//        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        stds_.getContent().build(TranslationsFile.extractMap(en_),new StringMap<String>(), TranslationsFile.extractKeys(en_));
+        stds_.getStrAlias().build(TranslationsFile.extractMap(en_),new StringMap<String>(), TranslationsFile.extractKeys(en_));
+//        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+//        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
+//        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
+//        basicStandards(stds_);
         return stds_;
     }
     public static LgNamesUtils newLgNamesUtSample(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
@@ -702,7 +718,7 @@ public abstract class EquallableElUtUtil {
         _definedLgNames.getExecContent().setExecutingOptions(_exec);
         _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos(),_exec.getListGenerator());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
+        page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames.getExecContent().getCustAliases().getMathAdvAliases()));
         StringMap<String> m_ = _definedLgNames.getExecContent().getCustAliases().extractAliasesKeys();
         m_.addAllEntries(LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases()));
         page_.setMappingAliases(m_);
@@ -733,7 +749,7 @@ public abstract class EquallableElUtUtil {
         StringMap<String> m_ = _definedLgNames.getExecContent().getCustAliases().extractAliasesKeys();
         m_.addAllEntries(LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases()));
         page_.setMappingAliases(m_);
-        page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
+        page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames.getExecContent().getCustAliases().getMathAdvAliases()));
         CustFileBuilder fileBuilder_ = new CustFileBuilder(_definedLgNames.getContent(), _definedLgNames.getExecContent().getCustAliases(),new CustAliasGroups(_definedLgNames.getExecContent().getCustAliases(), _definedLgNames.getContent()));
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
         page_.setLogErr(forwards_);
@@ -743,6 +759,44 @@ public abstract class EquallableElUtUtil {
         AnalyzedPageEl an_ = Classes.validateWithoutInit(ContextFactory.filter(_files, _exec.getSrcFolder()), page_);
         ResultContext r_ = new ResultContext(an_,forwards_,an_.getMessages());
         Classes.fwdGenerate(r_,new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()));
+        Classes.tryInit(r_);
+        return r_;
+    }
+
+    public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, MockLgNames _definedLgNames, StringMap<String> _files) {
+//        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage(),"en");
+//        _definedLgNames.getExecContent().getCustAliases().messages(_mess, _exec.getMessages());
+
+        TranslationsFile en_ = new TranslationsFile();
+        MathAdvAliases.en(en_);
+        MathAdvAliases a_ = new MathAdvAliases();
+//        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        a_.build(TranslationsFile.extractMap(en_),new StringMap<String>(), TranslationsFile.extractKeys(en_));
+        a_.buildOther(_definedLgNames.getContent());
+//        _definedLgNames.getStandards().addAllEntries();
+
+        TranslationsFile k_ = KeyWords.en();
+        _definedKw.build(TranslationsFile.extractMap(k_),new StringMap<String>(), TranslationsFile.extractKeys(k_));
+        _definedKw.initSupplDigits();
+//        _definedLgNames.getExecContent().getCustAliases().otherAlias(_definedLgNames.getContent(), _exec.getAliases());
+//        _definedLgNames.getExecContent().setExecutingOptions(_exec);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+//        StringMap<String> m_ = _definedLgNames.getExecContent().getCustAliases().extractAliasesKeys();
+//        m_.addAllEntries(LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases()));
+//        page_.setMappingAliases(m_);
+        page_.setAbstractSymbolFactory(new AdvSymbolFactory(a_));
+        MockFileBuilder fileBuilder_ = new MockFileBuilder(_definedLgNames.getContent(),  new DefaultAliasGroups(_definedLgNames.getContent()),_definedLgNames.getStrAlias());
+        Forwards forwards_ = new Forwards(_definedLgNames, new ListLoggableLgNames(), fileBuilder_, _options);
+        page_.setLogErr(forwards_);
+        ContextFactory.beforeBuild(forwards_,_mess,_definedKw,new CustList<CommentDelimiters>(),_options,_definedLgNames.getContent(),page_);
+        ContextFactory.build(forwards_,_definedKw,_options,page_);
+//        AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
+//        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
+        page_.addResources(_files);
+        _files.addEntry("src/runnable.txt","public interface pkg.Runnable{public void run();}");
+        AnalyzedPageEl an_ = Classes.validateWithoutInit(ContextFactory.filter(_files, _exec.getSrcFolder()), page_);
+        ResultContext r_ = new ResultContext(an_,forwards_,an_.getMessages());
+        Classes.fwdGenerate(r_,new MockContextGenerator(new MockAtomicBoolean()));
         Classes.tryInit(r_);
         return r_;
     }

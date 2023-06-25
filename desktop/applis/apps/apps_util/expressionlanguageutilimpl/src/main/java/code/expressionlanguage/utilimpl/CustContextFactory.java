@@ -164,7 +164,7 @@ public final class CustContextFactory {
 
     public static AnalyzedPageEl mapping(LgNamesWithNewAliases _definedLgNames) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
+        page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames.getExecContent().getCustAliases().getMathAdvAliases()));
         page_.setMappingKeyWords(_definedLgNames.getExecContent().getCustAliases().extractKeywordsKeys());
         StringMap<String> m_ = _definedLgNames.getExecContent().getCustAliases().extractAliasesKeys();
         m_.addAllEntries(LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases()));

@@ -8,24 +8,26 @@ import code.maths.Rate;
 
 public final class RateStruct extends WithoutParentStruct implements AnaDisplayableStruct, DisplayableStruct {
     private final Rate rate;
+    private final MathAdvAliases alias;
 
-    public RateStruct(Rate _r) {
+    public RateStruct(Rate _r, MathAdvAliases _a) {
         this.rate = _r;
+        this.alias = _a;
     }
 
-    public static RateStruct def(Struct _d) {
+    public static RateStruct def(Struct _d, MathAdvAliases _a) {
         if (_d instanceof RateStruct) {
             return (RateStruct) _d;
         }
-        return new RateStruct(Rate.zero());
+        return new RateStruct(Rate.zero(),_a);
     }
 
     @Override
     public String getClassName(ContextEl _contextEl) {
         if (rate.isInteger()) {
-            return ((LgNamesWithNewAliases)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasLgInt();
+            return alias.getAliasLgInt();
         }
-        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasRate();
+        return alias.getAliasRate();
     }
 
     @Override

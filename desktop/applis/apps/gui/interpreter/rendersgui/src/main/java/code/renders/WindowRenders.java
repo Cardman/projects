@@ -168,7 +168,7 @@ public final class WindowRenders extends GroupFrame {
         session.initNav(n_.getCore(),n_.getSession().getRendKeyWords().group());
         session.setLanguage(lg_,lgs_);
         session.setFiles(zipFiles_);
-        DefaultInitialization ini_ = new DefaultInitialization(lgNames_, new AdvSymbolFactory(lgNames_), lgCode_, confRel_, zipFiles_, clName_, mName_);
+        DefaultInitialization ini_ = new DefaultInitialization(lgNames_, new AdvSymbolFactory(lgNames_.getExecContent().getCustAliases().getMathAdvAliases()), lgCode_, confRel_, zipFiles_, clName_, mName_);
         ini_.setLog(lgNames_.getExecContent());
         session.initializeOnlyConf(new CustRenderAction(ini_,n_,new CustContextCreator(),session,lgNames_), lgNames_, inst(ini_, session,n_));
     }

@@ -6,12 +6,18 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.DfInstancer;
+import code.expressionlanguage.utilcompo.MathAdvAliases;
 import code.expressionlanguage.utilcompo.RateStruct;
 import code.maths.Rate;
 
 public final class DfLgNumber implements DfInstancer {
+    private final MathAdvAliases aliases;
+    public DfLgNumber(MathAdvAliases _m) {
+        aliases = _m;
+    }
+
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(new RateStruct(Rate.zero()));
+        return new ArgumentWrapper(new RateStruct(Rate.zero(),aliases));
     }
 }

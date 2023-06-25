@@ -12,9 +12,9 @@ import code.util.CustList;
 import code.util.core.StringUtil;
 
 public final class AdvSymbolFactory implements AbstractSymbolFactory {
-    private final LgNamesWithNewAliases stds;
+    private final MathAdvAliases stds;
 
-    public AdvSymbolFactory(LgNamesWithNewAliases _s) {
+    public AdvSymbolFactory(MathAdvAliases _s) {
         this.stds = _s;
     }
 
@@ -23,7 +23,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
         if (StringUtil.quickEq("-", _symbol) && matchLg(_unary)) {
             ResultOperand res_ = new ResultOperand();
             _unary.setCheckOnlyNullPe(true);
-            res_.setSymbol(new CommonOperOppositeRate());
+            res_.setSymbol(new CommonOperOppositeRate(stds));
             res_.setResult(new AnaClassArgumentMatching(alias(_unary)));
             return res_;
         }
@@ -37,14 +37,14 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
         if (StringUtil.quickEq("--", _symbol) && matchLg(_unary)) {
             ResultOperand res_ = new ResultOperand();
             _unary.setCheckOnlyNullPe(true);
-            res_.setSymbol(new CommonOperMinusOneRate());
+            res_.setSymbol(new CommonOperMinusOneRate(stds));
             res_.setResult(new AnaClassArgumentMatching(alias(_unary)));
             return res_;
         }
         if (StringUtil.quickEq("++", _symbol) && matchLg(_unary)) {
             ResultOperand res_ = new ResultOperand();
             _unary.setCheckOnlyNullPe(true);
-            res_.setSymbol(new CommonOperPlusOneRate());
+            res_.setSymbol(new CommonOperPlusOneRate(stds));
             res_.setResult(new AnaClassArgumentMatching(alias(_unary)));
             return res_;
         }
@@ -57,7 +57,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _left.setCheckOnlyNullPe(true);
             _right.setCheckOnlyNullPe(true);
             ResultOperand res_ = new ResultOperand();
-            res_.setSymbol(new CommonOperSumRate());
+            res_.setSymbol(new CommonOperSumRate(stds));
             res_.setResult(new AnaClassArgumentMatching(alias(_left, _right)));
             return res_;
         }
@@ -65,7 +65,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _left.setCheckOnlyNullPe(true);
             _right.setCheckOnlyNullPe(true);
             ResultOperand res_ = new ResultOperand();
-            res_.setSymbol(new CommonOperDiffRate());
+            res_.setSymbol(new CommonOperDiffRate(stds));
             res_.setResult(new AnaClassArgumentMatching(alias(_left, _right)));
             return res_;
         }
@@ -73,7 +73,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _left.setCheckOnlyNullPe(true);
             _right.setCheckOnlyNullPe(true);
             ResultOperand res_ = new ResultOperand();
-            res_.setSymbol(new CommonOperMultRate());
+            res_.setSymbol(new CommonOperMultRate(stds));
             res_.setResult(new AnaClassArgumentMatching(alias(_left, _right)));
             return res_;
         }
@@ -81,7 +81,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _left.setCheckOnlyNullPe(true);
             _right.setCheckOnlyNullPe(true);
             ResultOperand res_ = new ResultOperand();
-            res_.setSymbol(new CommonOperDivRate(matchLgInt(_left, _right)));
+            res_.setSymbol(new CommonOperDivRate(stds,matchLgInt(_left, _right)));
             res_.setResult(new AnaClassArgumentMatching(alias(_left, _right)));
             return res_;
         }
@@ -89,7 +89,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _left.setCheckOnlyNullPe(true);
             _right.setCheckOnlyNullPe(true);
             ResultOperand res_ = new ResultOperand();
-            res_.setSymbol(new CommonOperModRate(matchLgInt(_left, _right)));
+            res_.setSymbol(new CommonOperModRate(stds,matchLgInt(_left, _right)));
             res_.setResult(new AnaClassArgumentMatching(alias(_left, _right)));
             return res_;
         }
@@ -149,23 +149,23 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
     }
 
     private String alias(AnaClassArgumentMatching _l) {
-        if (_l.matchClass(stds.getExecContent().getCustAliases().getAliasLgInt())) {
-            return stds.getExecContent().getCustAliases().getAliasLgInt();
+        if (_l.matchClass(stds.getAliasLgInt())) {
+            return stds.getAliasLgInt();
         }
-        return stds.getExecContent().getCustAliases().getAliasRate();
+        return stds.getAliasRate();
     }
 
     private String alias(AnaClassArgumentMatching _l, AnaClassArgumentMatching _r) {
         if (matchLgInt(_l,_r)) {
-            return stds.getExecContent().getCustAliases().getAliasLgInt();
+            return stds.getAliasLgInt();
         }
-        return stds.getExecContent().getCustAliases().getAliasRate();
+        return stds.getAliasRate();
     }
     private boolean matchLg(AnaClassArgumentMatching _opr) {
-        return _opr.matchClass(stds.getExecContent().getCustAliases().getAliasRate()) || _opr.matchClass(stds.getExecContent().getCustAliases().getAliasLgInt());
+        return _opr.matchClass(stds.getAliasRate()) || _opr.matchClass(stds.getAliasLgInt());
     }
     private boolean matchLgInt(AnaClassArgumentMatching _l, AnaClassArgumentMatching _r) {
-        return _l.matchClass(stds.getExecContent().getCustAliases().getAliasLgInt()) && _r.matchClass(stds.getExecContent().getCustAliases().getAliasLgInt());
+        return _l.matchClass(stds.getAliasLgInt()) && _r.matchClass(stds.getAliasLgInt());
     }
 
     @Override
@@ -173,22 +173,22 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
         CustList<CustList<ParamReturn>> bin_ = new CustList<CustList<ParamReturn>>();
         if (StringUtil.quickEq("+", _symbol) || StringUtil.quickEq("-", _symbol)||StringUtil.quickEq("*", _symbol) || StringUtil.quickEq("/", _symbol)||StringUtil.quickEq("%", _symbol)){
             CustList<ParamReturn> gr_ = new CustList<ParamReturn>();
-            gr_.add(withBinNum(stds.getExecContent().getCustAliases().getAliasLgInt(),stds.getExecContent().getCustAliases().getAliasLgInt(),true));
-            gr_.add(withBinNum(stds.getExecContent().getCustAliases().getAliasRate(),stds.getExecContent().getCustAliases().getAliasRate(),false));
+            gr_.add(withBinNum(stds.getAliasLgInt(),stds.getAliasLgInt(),true));
+            gr_.add(withBinNum(stds.getAliasRate(),stds.getAliasRate(),false));
             bin_.add(gr_);
         }
         if (StringUtil.quickEq("<", _symbol) || StringUtil.quickEq(">", _symbol) || StringUtil.quickEq("<=", _symbol) || StringUtil.quickEq(">=", _symbol)) {
             CustList<ParamReturn> gr_ = new CustList<ParamReturn>();
             String bool_ = _page.getAliasPrimBoolean();
-            gr_.add(withCmpNum(stds.getExecContent().getCustAliases().getAliasLgInt(),bool_));
-            gr_.add(withCmpNum(stds.getExecContent().getCustAliases().getAliasRate(),bool_));
+            gr_.add(withCmpNum(stds.getAliasLgInt(),bool_));
+            gr_.add(withCmpNum(stds.getAliasRate(),bool_));
             bin_.add(gr_);
         }
         return bin_;
     }
 
-    private static ParamReturn withBinNum(String _in, String _out, boolean _all) {
-        return new ParamReturn(_in,_out).with("+",new CommonOperSumRate()).with("-",new CommonOperDiffRate()).with("*",new CommonOperMultRate()).with("/",new CommonOperDivRate(_all)).with("%",new CommonOperModRate(_all));
+    private ParamReturn withBinNum(String _in, String _out, boolean _all) {
+        return new ParamReturn(_in,_out).with("+",new CommonOperSumRate(stds)).with("-",new CommonOperDiffRate(stds)).with("*",new CommonOperMultRate(stds)).with("/",new CommonOperDivRate(stds,_all)).with("%",new CommonOperModRate(stds,_all));
     }
 
     private static ParamReturn withCmpNum(String _in, String _out) {
@@ -199,44 +199,44 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
         CustList<CustList<ParamReturn>> un_ = new CustList<CustList<ParamReturn>>();
         if (StringUtil.quickEq("-", _symbol)){
             CustList<ParamReturn> gr_ = new CustList<ParamReturn>();
-            gr_.add(withUnNum(stds.getExecContent().getCustAliases().getAliasLgInt(),stds.getExecContent().getCustAliases().getAliasLgInt()));
-            gr_.add(withUnNum(stds.getExecContent().getCustAliases().getAliasRate(),stds.getExecContent().getCustAliases().getAliasRate()));
+            gr_.add(withUnNum(stds.getAliasLgInt(),stds.getAliasLgInt()));
+            gr_.add(withUnNum(stds.getAliasRate(),stds.getAliasRate()));
             un_.add(gr_);
         }
         if (StringUtil.quickEq("+", _symbol)){
             CustList<ParamReturn> gr_ = new CustList<ParamReturn>();
-            gr_.add(withUnNumId(stds.getExecContent().getCustAliases().getAliasLgInt(),stds.getExecContent().getCustAliases().getAliasLgInt()));
-            gr_.add(withUnNumId(stds.getExecContent().getCustAliases().getAliasRate(),stds.getExecContent().getCustAliases().getAliasRate()));
+            gr_.add(withUnNumId(stds.getAliasLgInt(),stds.getAliasLgInt()));
+            gr_.add(withUnNumId(stds.getAliasRate(),stds.getAliasRate()));
             un_.add(gr_);
         }
         if (StringUtil.quickEq("--", _symbol)){
             CustList<ParamReturn> gr_ = new CustList<ParamReturn>();
-            gr_.add(withUnDec(stds.getExecContent().getCustAliases().getAliasLgInt(),stds.getExecContent().getCustAliases().getAliasLgInt()));
-            gr_.add(withUnDec(stds.getExecContent().getCustAliases().getAliasRate(),stds.getExecContent().getCustAliases().getAliasRate()));
+            gr_.add(withUnDec(stds.getAliasLgInt(),stds.getAliasLgInt()));
+            gr_.add(withUnDec(stds.getAliasRate(),stds.getAliasRate()));
             un_.add(gr_);
         }
         if (StringUtil.quickEq("++", _symbol)){
             CustList<ParamReturn> gr_ = new CustList<ParamReturn>();
-            gr_.add(withUnInc(stds.getExecContent().getCustAliases().getAliasLgInt(),stds.getExecContent().getCustAliases().getAliasLgInt()));
-            gr_.add(withUnInc(stds.getExecContent().getCustAliases().getAliasRate(),stds.getExecContent().getCustAliases().getAliasRate()));
+            gr_.add(withUnInc(stds.getAliasLgInt(),stds.getAliasLgInt()));
+            gr_.add(withUnInc(stds.getAliasRate(),stds.getAliasRate()));
             un_.add(gr_);
         }
         return un_;
     }
 
-    private static ParamReturn withUnNum(String _in, String _out) {
-        return new ParamReturn(_in,_out).with("-",new CommonOperOppositeRate());
+    private ParamReturn withUnNum(String _in, String _out) {
+        return new ParamReturn(_in,_out).with("-",new CommonOperOppositeRate(stds));
     }
 
-    private static ParamReturn withUnNumId(String _in, String _out) {
+    private ParamReturn withUnNumId(String _in, String _out) {
         return new ParamReturn(_in,_out).with("+",new CommonOperSameRate());
     }
 
-    private static ParamReturn withUnDec(String _in, String _out) {
-        return new ParamReturn(_in,_out).with("--",new CommonOperMinusOneRate());
+    private ParamReturn withUnDec(String _in, String _out) {
+        return new ParamReturn(_in,_out).with("--",new CommonOperMinusOneRate(stds));
     }
 
-    private static ParamReturn withUnInc(String _in, String _out) {
-        return new ParamReturn(_in,_out).with("++",new CommonOperPlusOneRate());
+    private ParamReturn withUnInc(String _in, String _out) {
+        return new ParamReturn(_in,_out).with("++",new CommonOperPlusOneRate(stds));
     }
 }

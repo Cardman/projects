@@ -9,18 +9,22 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.MathAdvAliases;
 import code.expressionlanguage.utilcompo.RateStruct;
 import code.maths.Rate;
 
 public final class FctNbRateNum implements AnaStdCaller {
-
+    private final MathAdvAliases aliases;
+    public FctNbRateNum(MathAdvAliases _m) {
+        aliases = _m;
+    }
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(new RateStruct(new Rate(((RateStruct)_instance).getRate().getNumerator())));
+        return new ArgumentWrapper(new RateStruct(new Rate(((RateStruct)_instance).getRate().getNumerator()),aliases));
     }
 
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return new RateStruct(new Rate(RateStruct.def(_instance).getRate().getNumerator()));
+        return new RateStruct(new Rate(RateStruct.def(_instance,aliases).getRate().getNumerator()),aliases);
     }
 }
