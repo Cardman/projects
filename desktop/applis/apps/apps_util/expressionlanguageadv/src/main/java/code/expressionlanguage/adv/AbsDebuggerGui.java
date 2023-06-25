@@ -30,23 +30,8 @@ import code.util.core.StringUtil;
 public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private final CdmFactory factory;
     private final AbsCommonFrame commonFrame;
-    private final GuiStackForm guiStdStackForm = new GuiStackForm();
-    private final GuiStackForm guiInsStackForm = new GuiStackForm();
-    private final GuiStackForm guiStaStackForm = new GuiStackForm();
     private AbsMenuItem analyzeMenu;
-    private BreakPointBlockPair selectedPb;
-    private AbsCustCheckBox instanceType;
-    private AbsTextArea conditionalInstance;
-    private AbsSpinner countInstance;
-    private AbsCustCheckBox staticType;
-    private AbsTextArea conditionalStatic;
-    private AbsSpinner countStatic;
-    private AbsCustCheckBox enabledBp;
-    private AbsTextArea conditionalStd;
-    private AbsSpinner countStd;
-    private AbsPlainButton cancel;
-    private AbsPlainButton ok;
-    private AbsPanel bpForm;
+    private final FrameBpForm frameBpForm;
     private AbsTreeGui folderSystem;
     private AbsTabbedPane tabbedPane;
     private final CustList<ReadOnlyTabEditor> tabs = new CustList<ReadOnlyTabEditor>();
@@ -79,6 +64,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     protected AbsDebuggerGui(AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a);
         factory = _fact;
+        frameBpForm = new FrameBpForm(this,_lg, _list);
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         debugActions = _list.getThreadFactory().newExecutorService();
         manageAnalyze = _list.getThreadFactory().newExecutorService();
@@ -102,35 +88,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         dbgMenu = getEvent().act();
         getDbgMenu().open();
         manageOptions = getEvent().manageOpt();
-        instanceType = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("instance");
-        conditionalInstance = getCommonFrame().getFrames().getCompoFactory().newTextArea();
-        countInstance = getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
-        staticType = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("static");
-        conditionalStatic = getCommonFrame().getFrames().getCompoFactory().newTextArea();
-        countStatic = getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
-        enabledBp = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
-        conditionalStd = getCommonFrame().getFrames().getCompoFactory().newTextArea();
-        countStd = getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
-        cancel = getCommonFrame().getFrames().getCompoFactory().newPlainButton("cancel");
-        ok = getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
-        bpForm = getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        bpForm.add(enabledBp);
-        bpForm.add(conditionalStd);
-        bpForm.add(countStd);
-        bpForm.add(instanceType);
-        bpForm.add(conditionalInstance);
-        bpForm.add(countInstance);
-        bpForm.add(staticType);
-        bpForm.add(conditionalStatic);
-        bpForm.add(countStatic);
-        bpForm.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(guiStdStackForm.guiBuild(this)));
-        bpForm.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(guiInsStackForm.guiBuild(this)));
-        bpForm.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(guiStaStackForm.guiBuild(this)));
-        ok.addActionListener(new OkBpFormEvent(this));
-        bpForm.add(ok);
-        cancel.addActionListener(new CancelBpFormEvent(this));
-        bpForm.add(cancel);
-        bpForm.setVisible(false);
+        frameBpForm.guiBuild(this);
         AbsPanel page_ = commonFrame.getFrames().getCompoFactory().newPageBox();
         folderSystem = commonFrame.getFrames().getCompoFactory().newTreeGui(commonFrame.getFrames().getCompoFactory().newMutableTreeNode(""));
         folderSystem.select(folderSystem.getRoot());
@@ -138,7 +96,6 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         tabbedPane = commonFrame.getFrames().getCompoFactory().newAbsTabbedPane();
         tabbedPane.setPreferredSize(new MetaDimension(512,512));
         page_.add(commonFrame.getFrames().getCompoFactory().newHorizontalSplitPane(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(folderSystem),tabbedPane));
-        page_.add(bpForm);
         page_.add(buildPart());
         selectEnter = getCommonFrame().getFrames().getCompoFactory().newPlainButton("|>");
         selectEnter.addActionListener(new DbgLaunchEvent(this));
@@ -362,9 +319,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         }
         currentResult = _res;
         refreshList(folderSystem.selectEvt(),viewable, "");
-        getGuiStdStackForm().refresh(viewable, "");
-        getGuiInsStackForm().refresh(viewable, "");
-        getGuiStaStackForm().refresh(viewable, "");
+        frameBpForm.refresh(viewable);
+
         int len_ = _src.size();
         for (int i = 0; i < len_; i++) {
             String fullPath_ = pathToSrc(manageOptions)+ _src.getKey(i);
@@ -372,18 +328,6 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             addTab(manageOptions,fullPath_,content_, manageOptions.getOptions());
         }
         PackingWindowAfter.pack(commonFrame);
-    }
-
-    public GuiStackForm getGuiStdStackForm() {
-        return guiStdStackForm;
-    }
-
-    public GuiStackForm getGuiInsStackForm() {
-        return guiInsStackForm;
-    }
-
-    public GuiStackForm getGuiStaStackForm() {
-        return guiStaStackForm;
     }
 
     public void closeAll() {
@@ -460,60 +404,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return factory;
     }
 
-    public BreakPointBlockPair getSelectedPb() {
-        return selectedPb;
-    }
-
-    public void setSelectedPb(BreakPointBlockPair _s) {
-        this.selectedPb = _s;
-    }
-
-    public AbsCustCheckBox getInstanceType() {
-        return instanceType;
-    }
-
-    public AbsTextArea getConditionalInstance() {
-        return conditionalInstance;
-    }
-
-    public AbsSpinner getCountInstance() {
-        return countInstance;
-    }
-
-    public AbsTextArea getConditionalStatic() {
-        return conditionalStatic;
-    }
-
-    public AbsSpinner getCountStatic() {
-        return countStatic;
-    }
-
-    public AbsTextArea getConditionalStd() {
-        return conditionalStd;
-    }
-
-    public AbsSpinner getCountStd() {
-        return countStd;
-    }
-
-    public AbsCustCheckBox getStaticType() {
-        return staticType;
-    }
-
-    public AbsCustCheckBox getEnabledBp() {
-        return enabledBp;
-    }
-
-    public AbsPlainButton getCancel() {
-        return cancel;
-    }
-
-    public AbsPlainButton getOk() {
-        return ok;
-    }
-
-    public AbsPanel getBpForm() {
-        return bpForm;
+    public FrameBpForm getFrameBpForm() {
+        return frameBpForm;
     }
 
     public AbsCommonFrame getCommonFrame() {

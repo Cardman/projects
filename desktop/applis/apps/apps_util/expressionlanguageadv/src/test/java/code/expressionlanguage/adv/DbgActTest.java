@@ -83,10 +83,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
         bpForm(b_);
-        assertTrue(b_.getBpForm().isVisible());
-        b_.getEnabledBp().setSelected(false);
+        assertTrue(b_.getFrameBpForm().getCommonFrame().isVisible());
+        b_.getFrameBpForm().getEnabledBp().setSelected(false);
         bpFormCancel(b_);
-        assertFalse(b_.getBpForm().isVisible());
+        assertFalse(b_.getFrameBpForm().getCommonFrame().isVisible());
         assertTrue(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(b_.getCurrentResult()),55));
     }
     @Test
@@ -100,10 +100,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
         bpForm(b_);
-        assertTrue(b_.getBpForm().isVisible());
-        b_.getEnabledBp().setSelected(false);
+        assertTrue(b_.getFrameBpForm().getCommonFrame().isVisible());
+        b_.getFrameBpForm().getEnabledBp().setSelected(false);
         bpFormOk(b_);
-        assertFalse(b_.getBpForm().isVisible());
+        assertFalse(b_.getFrameBpForm().getCommonFrame().isVisible());
         assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(b_.getCurrentResult()),55));
     }
     @Test
@@ -117,11 +117,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(13,13);
         toggleBp(b_);
         bpForm(b_);
-        assertTrue(b_.getBpForm().isVisible());
-        b_.getStaticType().setSelected(true);
-        b_.getInstanceType().setSelected(false);
+        assertTrue(b_.getFrameBpForm().getCommonFrame().isVisible());
+        b_.getFrameBpForm().getStaticType().setSelected(true);
+        b_.getFrameBpForm().getInstanceType().setSelected(false);
         bpFormCancel(b_);
-        assertFalse(b_.getBpForm().isVisible());
+        assertFalse(b_.getFrameBpForm().getCommonFrame().isVisible());
         assertTrue(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isInstanceType());
         assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isStaticType());
     }
@@ -136,11 +136,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(13,13);
         toggleBp(b_);
         bpForm(b_);
-        assertTrue(b_.getBpForm().isVisible());
-        b_.getStaticType().setSelected(true);
-        b_.getInstanceType().setSelected(false);
+        assertTrue(b_.getFrameBpForm().getCommonFrame().isVisible());
+        b_.getFrameBpForm().getStaticType().setSelected(true);
+        b_.getFrameBpForm().getInstanceType().setSelected(false);
         bpFormOk(b_);
-        assertFalse(b_.getBpForm().isVisible());
+        assertFalse(b_.getFrameBpForm().getCommonFrame().isVisible());
         assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isInstanceType());
         assertTrue(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isStaticType());
     }
@@ -155,17 +155,17 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(13,13);
         toggleBp(b_);
         bpForm(b_);
-        assertTrue(b_.getBpForm().isVisible());
-        b_.getStaticType().setSelected(false);
-        b_.getInstanceType().setSelected(true);
+        assertTrue(b_.getFrameBpForm().getCommonFrame().isVisible());
+        b_.getFrameBpForm().getStaticType().setSelected(false);
+        b_.getFrameBpForm().getInstanceType().setSelected(true);
         bpFormOk(b_);
-        assertFalse(b_.getBpForm().isVisible());
+        assertFalse(b_.getFrameBpForm().getCommonFrame().isVisible());
         bpForm(b_);
-        assertTrue(b_.getBpForm().isVisible());
-        b_.getStaticType().setSelected(true);
-        b_.getInstanceType().setSelected(false);
+        assertTrue(b_.getFrameBpForm().getCommonFrame().isVisible());
+        b_.getFrameBpForm().getStaticType().setSelected(true);
+        b_.getFrameBpForm().getInstanceType().setSelected(false);
         bpFormCancel(b_);
-        assertFalse(b_.getBpForm().isVisible());
+        assertFalse(b_.getFrameBpForm().getCommonFrame().isVisible());
         assertTrue(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isInstanceType());
         assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isStaticType());
     }
@@ -180,17 +180,17 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(13,13);
         toggleBp(b_);
         bpForm(b_);
-        assertTrue(b_.getBpForm().isVisible());
-        b_.getStaticType().setSelected(false);
-        b_.getInstanceType().setSelected(true);
+        assertTrue(b_.getFrameBpForm().getCommonFrame().isVisible());
+        b_.getFrameBpForm().getStaticType().setSelected(false);
+        b_.getFrameBpForm().getInstanceType().setSelected(true);
         bpFormOk(b_);
-        assertFalse(b_.getBpForm().isVisible());
+        assertFalse(b_.getFrameBpForm().getCommonFrame().isVisible());
         bpForm(b_);
-        assertTrue(b_.getBpForm().isVisible());
-        b_.getStaticType().setSelected(true);
-        b_.getInstanceType().setSelected(false);
+        assertTrue(b_.getFrameBpForm().getCommonFrame().isVisible());
+        b_.getFrameBpForm().getStaticType().setSelected(true);
+        b_.getFrameBpForm().getInstanceType().setSelected(false);
         bpFormOk(b_);
-        assertFalse(b_.getBpForm().isVisible());
+        assertFalse(b_.getFrameBpForm().getCommonFrame().isVisible());
         assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isInstanceType());
         assertTrue(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(b_.getCurrentResult()),13).getValue().isStaticType());
     }
@@ -204,7 +204,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         tabEditor(b_).getCenter().select(55,55);
         bpForm(b_);
-        assertFalse(b_.getBpForm().isVisible());
+        assertFalse(b_.getFrameBpForm().getCommonFrame().isVisible());
     }
     @Test
     public void bp13() {
@@ -230,8 +230,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         bpFormStdAddExc(b_);
         bpFormStdAddInc(b_);
         GuiStackForm.remove(new CustList<LinkedNamedArgParts>(),null);
-        assertEq(0,b_.getGuiStdStackForm().getMustBe().size());
-        assertEq(0,b_.getGuiStdStackForm().getMustNotBe().size());
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
     public void bp15() {
@@ -245,15 +245,15 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
         bpForm(b_);
-        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        AbsTreeGui t_ = b_.getFrameBpForm().getGuiStdStackForm().getBpFolderSystem();
         t_.select(null);
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
         bpFormStdAddExc(b_);
-        assertEq(0,b_.getGuiStdStackForm().getMustBe().size());
-        assertEq(1,b_.getGuiStdStackForm().getMustNotBe().size());
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
+        assertEq(1,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
     public void bp16() {
@@ -267,15 +267,15 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
         bpForm(b_);
-        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        AbsTreeGui t_ = b_.getFrameBpForm().getGuiStdStackForm().getBpFolderSystem();
         t_.select(null);
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
         bpFormStdAddInc(b_);
-        assertEq(1,b_.getGuiStdStackForm().getMustBe().size());
-        assertEq(0,b_.getGuiStdStackForm().getMustNotBe().size());
+        assertEq(1,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
     public void bp17() {
@@ -289,17 +289,17 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
         bpForm(b_);
-        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        AbsTreeGui t_ = b_.getFrameBpForm().getGuiStdStackForm().getBpFolderSystem();
         t_.select(null);
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
         bpFormStdAddExc(b_);
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(56,56);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(56,56);
         bpFormStdAddExc(b_);
-        assertEq(0,b_.getGuiStdStackForm().getMustBe().size());
-        assertEq(2,b_.getGuiStdStackForm().getMustNotBe().size());
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
+        assertEq(2,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
     public void bp18() {
@@ -313,17 +313,17 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
         bpForm(b_);
-        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        AbsTreeGui t_ = b_.getFrameBpForm().getGuiStdStackForm().getBpFolderSystem();
         t_.select(null);
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
         bpFormStdAddInc(b_);
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(56,56);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(56,56);
         bpFormStdAddInc(b_);
-        assertEq(2,b_.getGuiStdStackForm().getMustBe().size());
-        assertEq(0,b_.getGuiStdStackForm().getMustNotBe().size());
+        assertEq(2,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
     public void bp19() {
@@ -337,18 +337,18 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
         bpForm(b_);
-        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        AbsTreeGui t_ = b_.getFrameBpForm().getGuiStdStackForm().getBpFolderSystem();
         t_.select(null);
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
         bpFormStdAddExc(b_);
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
         bpFormStdAddExc(b_);
-        assertEq(0,b_.getGuiStdStackForm().getMustBe().size());
-        assertEq(2,b_.getGuiStdStackForm().getMustNotBe().size());
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
+        assertEq(2,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
     public void bp20() {
@@ -362,18 +362,18 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
         bpForm(b_);
-        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        AbsTreeGui t_ = b_.getFrameBpForm().getGuiStdStackForm().getBpFolderSystem();
         t_.select(null);
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
         bpFormStdAddInc(b_);
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
         bpFormStdAddInc(b_);
-        assertEq(2,b_.getGuiStdStackForm().getMustBe().size());
-        assertEq(0,b_.getGuiStdStackForm().getMustNotBe().size());
+        assertEq(2,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
     public void bp21() {
@@ -387,16 +387,16 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
         bpForm(b_);
-        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        AbsTreeGui t_ = b_.getFrameBpForm().getGuiStdStackForm().getBpFolderSystem();
         t_.select(null);
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
         bpFormStdAddExc(b_);
         bpFormStdAddExc(b_);
-        assertEq(0,b_.getGuiStdStackForm().getMustBe().size());
-        assertEq(1,b_.getGuiStdStackForm().getMustNotBe().size());
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
+        assertEq(1,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
     public void bp22() {
@@ -410,16 +410,16 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
         bpForm(b_);
-        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        AbsTreeGui t_ = b_.getFrameBpForm().getGuiStdStackForm().getBpFolderSystem();
         t_.select(null);
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
         bpFormStdAddInc(b_);
         bpFormStdAddInc(b_);
-        assertEq(1,b_.getGuiStdStackForm().getMustBe().size());
-        assertEq(0,b_.getGuiStdStackForm().getMustNotBe().size());
+        assertEq(1,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
     public void bp23() {
@@ -433,16 +433,16 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
         bpForm(b_);
-        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        AbsTreeGui t_ = b_.getFrameBpForm().getGuiStdStackForm().getBpFolderSystem();
         t_.select(null);
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
         bpFormStdAddExc(b_);
         bpFormStdRemExc(b_,0);
-        assertEq(0,b_.getGuiStdStackForm().getMustBe().size());
-        assertEq(0,b_.getGuiStdStackForm().getMustNotBe().size());
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
     public void bp24() {
@@ -456,16 +456,16 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
         bpForm(b_);
-        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        AbsTreeGui t_ = b_.getFrameBpForm().getGuiStdStackForm().getBpFolderSystem();
         t_.select(null);
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
         bpFormStdAddInc(b_);
         bpFormStdRemInc(b_,0);
-        assertEq(0,b_.getGuiStdStackForm().getMustBe().size());
-        assertEq(0,b_.getGuiStdStackForm().getMustNotBe().size());
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
     public void bp25() {
@@ -479,18 +479,18 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
         bpForm(b_);
-        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        AbsTreeGui t_ = b_.getFrameBpForm().getGuiStdStackForm().getBpFolderSystem();
         t_.select(null);
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
         bpFormStdAddExc(b_);
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
         bpFormStdAddInc(b_);
-        assertEq(1,b_.getGuiStdStackForm().getMustBe().size());
-        assertEq(1,b_.getGuiStdStackForm().getMustNotBe().size());
+        assertEq(1,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
+        assertEq(1,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
     public void bp26() {
@@ -504,16 +504,16 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
         bpForm(b_);
-        AbsTreeGui t_ = b_.getGuiStdStackForm().getBpFolderSystem();
+        AbsTreeGui t_ = b_.getFrameBpForm().getGuiStdStackForm().getBpFolderSystem();
         t_.select(null);
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
-        b_.getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
         bpFormStdAddExc(b_);
         bpFormStdAddInc(b_);
-        assertEq(1,b_.getGuiStdStackForm().getMustBe().size());
-        assertEq(1,b_.getGuiStdStackForm().getMustNotBe().size());
+        assertEq(1,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
+        assertEq(1,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
     public void m1() {
@@ -1103,7 +1103,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(13,13);
         toggleBp(b_);
         bpForm(b_);
-        b_.getStaticType().setSelected(true);
+        b_.getFrameBpForm().getStaticType().setSelected(true);
         bpFormOk(b_);
         vararg(b_).setSelected(false);
         retVal(b_).setSelected(true);

@@ -1,8 +1,8 @@
 package code.expressionlanguage.adv;
 
-import code.gui.events.AbsActionListener;
+import code.gui.events.AbsWindowListenerClosing;
 
-public final class CancelBpFormEvent implements AbsActionListener {
+public final class CancelBpFormEvent implements AbsWindowListenerClosing {
     private final AbsDebuggerGui window;
 
     public CancelBpFormEvent(AbsDebuggerGui _w) {
@@ -10,8 +10,8 @@ public final class CancelBpFormEvent implements AbsActionListener {
     }
 
     @Override
-    public void action() {
-        window.getBpForm().setVisible(false);
-        window.setSelectedPb(null);
+    public void windowClosing() {
+        window.getFrameBpForm().getCommonFrame().setVisible(false);
+        window.getFrameBpForm().setSelectedPb(null);
     }
 }

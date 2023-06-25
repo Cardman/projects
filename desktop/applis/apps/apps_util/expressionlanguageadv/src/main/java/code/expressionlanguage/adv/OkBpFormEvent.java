@@ -12,19 +12,19 @@ public final class OkBpFormEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        window.getBpForm().setVisible(false);
-        window.getSelectedPb().getValue().setEnabled(window.getEnabledBp().isSelected());
-        window.getSelectedPb().getValue().setInstanceType(window.getInstanceType().isSelected());
-        window.getSelectedPb().getValue().setStaticType(window.getStaticType().isSelected());
-        if (window.getSelectedPb().getValue().isEnabledChgtType()) {
-            BreakPointBlockList.breakPointCtxInstance(window.getSelectedPb(),window.getCurrentResult(), window.getResultContextNext().generate(window.getStopDbg()),window.getConditionalInstance().getText());
-            BreakPointBlockList.breakPointCtxStatic(window.getSelectedPb(),window.getCurrentResult(), window.getResultContextNext().generate(window.getStopDbg()),window.getConditionalStatic().getText());
-            BreakPointBlockList.breakPointCountInstance(window.getSelectedPb(),window.getCountInstance().getValue());
-            BreakPointBlockList.breakPointCountStatic(window.getSelectedPb(),window.getCountStatic().getValue());
+        window.getFrameBpForm().getCommonFrame().setVisible(false);
+        window.getFrameBpForm().getSelectedPb().getValue().setEnabled(window.getFrameBpForm().getEnabledBp().isSelected());
+        window.getFrameBpForm().getSelectedPb().getValue().setInstanceType(window.getFrameBpForm().getInstanceType().isSelected());
+        window.getFrameBpForm().getSelectedPb().getValue().setStaticType(window.getFrameBpForm().getStaticType().isSelected());
+        if (window.getFrameBpForm().getSelectedPb().getValue().isEnabledChgtType()) {
+            BreakPointBlockList.breakPointCtxInstance(window.getFrameBpForm().getSelectedPb(),window.getCurrentResult(), window.getResultContextNext().generate(window.getStopDbg()),window.getFrameBpForm().getConditionalInstance().getText());
+            BreakPointBlockList.breakPointCtxStatic(window.getFrameBpForm().getSelectedPb(),window.getCurrentResult(), window.getResultContextNext().generate(window.getStopDbg()),window.getFrameBpForm().getConditionalStatic().getText());
+            BreakPointBlockList.breakPointCountInstance(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getCountInstance().getValue());
+            BreakPointBlockList.breakPointCountStatic(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getCountStatic().getValue());
         } else {
-            BreakPointBlockList.breakPointCtxStd(window.getSelectedPb(),window.getCurrentResult(), window.getResultContextNext().generate(window.getStopDbg()),window.getConditionalStd().getText());
-            BreakPointBlockList.breakPointCountStd(window.getSelectedPb(),window.getCountStd().getValue());
+            BreakPointBlockList.breakPointCtxStd(window.getFrameBpForm().getSelectedPb(),window.getCurrentResult(), window.getResultContextNext().generate(window.getStopDbg()),window.getFrameBpForm().getConditionalStd().getText());
+            BreakPointBlockList.breakPointCountStd(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getCountStd().getValue());
         }
-        window.setSelectedPb(null);
+        window.getFrameBpForm().setSelectedPb(null);
     }
 }

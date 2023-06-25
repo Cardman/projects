@@ -3,10 +3,7 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.linkage.LinkedNamedArgParts;
 import code.expressionlanguage.options.ResultContext;
-import code.gui.AbsPanel;
-import code.gui.AbsPlainButton;
-import code.gui.AbsTreeGui;
-import code.gui.GuiConstants;
+import code.gui.*;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -18,6 +15,7 @@ public final class GuiStackForm {
     private AbsPanel includedFileIndex;
     private AbsPanel excludedFileIndex;
     private AbsPanel staIncExc;
+    private AbsScrollPane staScIncExc;
     private final CustList<LinkedNamedArgParts> mustBe = new CustList<LinkedNamedArgParts>();
     private final CustList<LinkedNamedArgParts> mustNotBe = new CustList<LinkedNamedArgParts>();
 
@@ -57,7 +55,7 @@ public final class GuiStackForm {
         return _one.getFile() == _l.getFile() && _one.getOffset() == _l.getOffset();
     }
 
-    public AbsPanel guiBuild(AbsDebuggerGui _d) {
+    public AbsScrollPane guiBuild(AbsDebuggerGui _d) {
         bpFolderSystem = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui(_d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(""));
         bpFolderSystem.select(bpFolderSystem.getRoot());
         bpFolderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(_d,bpFolderSystem,new SelOpeningReadOnlyFile(this)));
@@ -74,7 +72,8 @@ public final class GuiStackForm {
         excludedFileIndex = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         staIncExc.add(includedFileIndex);
         staIncExc.add(excludedFileIndex);
-        return staIncExc;
+        staScIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(staIncExc);
+        return staScIncExc;
     }
     public void refresh(StringMap<String> _files, String _folderToVisit) {
         AbsDebuggerGui.refreshList(bpFolderSystem.selectEvt(),_files, _folderToVisit);
@@ -107,6 +106,10 @@ public final class GuiStackForm {
             }
         }
         staIncExc.setLineBorder(GuiConstants.GREEN);
+    }
+
+    public AbsScrollPane getStaScIncExc() {
+        return staScIncExc;
     }
 
     public AbsPanel getIncludedFileIndex() {

@@ -177,22 +177,22 @@ public abstract class EquallableElAdvUtil {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F4,0)).action();
     }
     public static void bpFormStdAddInc(AbsDebuggerGui _w) {
-        ((MockPlainButton)_w.getGuiStdStackForm().getBpAddFile()).getActionListeners().get(0).action();
+        ((MockPlainButton)_w.getFrameBpForm().getGuiStdStackForm().getBpAddFile()).getActionListeners().get(0).action();
     }
     public static void bpFormStdAddExc(AbsDebuggerGui _w) {
-        ((MockPlainButton)_w.getGuiStdStackForm().getBpRemoveFile()).getActionListeners().get(0).action();
+        ((MockPlainButton)_w.getFrameBpForm().getGuiStdStackForm().getBpRemoveFile()).getActionListeners().get(0).action();
     }
     public static void bpFormStdRemInc(AbsDebuggerGui _w, int _index) {
-        ((MockPlainButton) _w.getGuiStdStackForm().getIncludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
+        ((MockPlainButton) _w.getFrameBpForm().getGuiStdStackForm().getIncludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
     }
     public static void bpFormStdRemExc(AbsDebuggerGui _w, int _index) {
-        ((MockPlainButton) _w.getGuiStdStackForm().getExcludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
+        ((MockPlainButton) _w.getFrameBpForm().getGuiStdStackForm().getExcludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
     }
     public static void bpFormOk(AbsDebuggerGui _w) {
-        ((MockPlainButton)_w.getOk()).getActionListeners().get(0).action();
+        ((MockPlainButton)_w.getFrameBpForm().getOk()).getActionListeners().get(0).action();
     }
     public static void bpFormCancel(AbsDebuggerGui _w) {
-        ((MockPlainButton)_w.getCancel()).getActionListeners().get(0).action();
+        _w.getFrameBpForm().getCommonFrame().getWindowListenersDef().get(0).windowClosing();
     }
     protected static ReadOnlyTabEditor tabEditor(AbsDebuggerGui _w) {
         return tabEditor(_w,0);
