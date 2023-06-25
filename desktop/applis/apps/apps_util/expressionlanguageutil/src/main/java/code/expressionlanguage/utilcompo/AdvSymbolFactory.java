@@ -23,7 +23,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
         if (StringUtil.quickEq("-", _symbol) && matchLg(_unary)) {
             ResultOperand res_ = new ResultOperand();
             _unary.setCheckOnlyNullPe(true);
-            res_.setSymbol(new CommonOperOppositeRate(stds));
+            res_.setSymbol(new CommonOperOppositeRate());
             res_.setResult(new AnaClassArgumentMatching(alias(_unary)));
             return res_;
         }
@@ -37,14 +37,14 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
         if (StringUtil.quickEq("--", _symbol) && matchLg(_unary)) {
             ResultOperand res_ = new ResultOperand();
             _unary.setCheckOnlyNullPe(true);
-            res_.setSymbol(new CommonOperMinusOneRate(stds));
+            res_.setSymbol(new CommonOperMinusOneRate());
             res_.setResult(new AnaClassArgumentMatching(alias(_unary)));
             return res_;
         }
         if (StringUtil.quickEq("++", _symbol) && matchLg(_unary)) {
             ResultOperand res_ = new ResultOperand();
             _unary.setCheckOnlyNullPe(true);
-            res_.setSymbol(new CommonOperPlusOneRate(stds));
+            res_.setSymbol(new CommonOperPlusOneRate());
             res_.setResult(new AnaClassArgumentMatching(alias(_unary)));
             return res_;
         }
@@ -57,7 +57,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _left.setCheckOnlyNullPe(true);
             _right.setCheckOnlyNullPe(true);
             ResultOperand res_ = new ResultOperand();
-            res_.setSymbol(new CommonOperSumRate(stds));
+            res_.setSymbol(new CommonOperSumRate());
             res_.setResult(new AnaClassArgumentMatching(alias(_left, _right)));
             return res_;
         }
@@ -65,7 +65,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _left.setCheckOnlyNullPe(true);
             _right.setCheckOnlyNullPe(true);
             ResultOperand res_ = new ResultOperand();
-            res_.setSymbol(new CommonOperDiffRate(stds));
+            res_.setSymbol(new CommonOperDiffRate());
             res_.setResult(new AnaClassArgumentMatching(alias(_left, _right)));
             return res_;
         }
@@ -73,7 +73,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _left.setCheckOnlyNullPe(true);
             _right.setCheckOnlyNullPe(true);
             ResultOperand res_ = new ResultOperand();
-            res_.setSymbol(new CommonOperMultRate(stds));
+            res_.setSymbol(new CommonOperMultRate());
             res_.setResult(new AnaClassArgumentMatching(alias(_left, _right)));
             return res_;
         }
@@ -81,7 +81,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _left.setCheckOnlyNullPe(true);
             _right.setCheckOnlyNullPe(true);
             ResultOperand res_ = new ResultOperand();
-            res_.setSymbol(new CommonOperDivRate(stds,matchLgInt(_left, _right)));
+            res_.setSymbol(new CommonOperDivRate(matchLgInt(_left, _right)));
             res_.setResult(new AnaClassArgumentMatching(alias(_left, _right)));
             return res_;
         }
@@ -89,7 +89,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _left.setCheckOnlyNullPe(true);
             _right.setCheckOnlyNullPe(true);
             ResultOperand res_ = new ResultOperand();
-            res_.setSymbol(new CommonOperModRate(stds,matchLgInt(_left, _right)));
+            res_.setSymbol(new CommonOperModRate(matchLgInt(_left, _right)));
             res_.setResult(new AnaClassArgumentMatching(alias(_left, _right)));
             return res_;
         }
@@ -188,7 +188,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
     }
 
     private ParamReturn withBinNum(String _in, String _out, boolean _all) {
-        return new ParamReturn(_in,_out).with("+",new CommonOperSumRate(stds)).with("-",new CommonOperDiffRate(stds)).with("*",new CommonOperMultRate(stds)).with("/",new CommonOperDivRate(stds,_all)).with("%",new CommonOperModRate(stds,_all));
+        return new ParamReturn(_in,_out).with("+",new CommonOperSumRate()).with("-",new CommonOperDiffRate()).with("*",new CommonOperMultRate()).with("/",new CommonOperDivRate(_all)).with("%",new CommonOperModRate(_all));
     }
 
     private static ParamReturn withCmpNum(String _in, String _out) {
@@ -225,7 +225,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
     }
 
     private ParamReturn withUnNum(String _in, String _out) {
-        return new ParamReturn(_in,_out).with("-",new CommonOperOppositeRate(stds));
+        return new ParamReturn(_in,_out).with("-",new CommonOperOppositeRate());
     }
 
     private ParamReturn withUnNumId(String _in, String _out) {
@@ -233,10 +233,10 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
     }
 
     private ParamReturn withUnDec(String _in, String _out) {
-        return new ParamReturn(_in,_out).with("--",new CommonOperMinusOneRate(stds));
+        return new ParamReturn(_in,_out).with("--",new CommonOperMinusOneRate());
     }
 
     private ParamReturn withUnInc(String _in, String _out) {
-        return new ParamReturn(_in,_out).with("++",new CommonOperPlusOneRate(stds));
+        return new ParamReturn(_in,_out).with("++",new CommonOperPlusOneRate());
     }
 }

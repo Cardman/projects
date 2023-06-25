@@ -6,9 +6,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultAliasGroups;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.files.CommentDelimiters;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.InitPhase;
@@ -763,42 +762,19 @@ public abstract class EquallableElUtUtil {
         return r_;
     }
 
-    public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, MockLgNames _definedLgNames, StringMap<String> _files) {
-//        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage(),"en");
-//        _definedLgNames.getExecContent().getCustAliases().messages(_mess, _exec.getMessages());
-
+    public static ResultContext build(Options _options, ExecutingOptions _exec, StringMap<String> _files) {
         TranslationsFile en_ = new TranslationsFile();
+        LgNamesContent.en(en_);
         MathAdvAliases.en(en_);
         MathAdvAliases a_ = new MathAdvAliases();
-//        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        a_.build(TranslationsFile.extractMap(en_),new StringMap<String>(), TranslationsFile.extractKeys(en_));
-        a_.buildOther(_definedLgNames.getContent());
-//        _definedLgNames.getStandards().addAllEntries();
-
-        TranslationsFile k_ = KeyWords.en();
-        _definedKw.build(TranslationsFile.extractMap(k_),new StringMap<String>(), TranslationsFile.extractKeys(k_));
-        _definedKw.initSupplDigits();
-//        _definedLgNames.getExecContent().getCustAliases().otherAlias(_definedLgNames.getContent(), _exec.getAliases());
-//        _definedLgNames.getExecContent().setExecutingOptions(_exec);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-//        StringMap<String> m_ = _definedLgNames.getExecContent().getCustAliases().extractAliasesKeys();
-//        m_.addAllEntries(LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases()));
-//        page_.setMappingAliases(m_);
-        page_.setAbstractSymbolFactory(new AdvSymbolFactory(a_));
-        MockFileBuilder fileBuilder_ = new MockFileBuilder(_definedLgNames.getContent(),  new DefaultAliasGroups(_definedLgNames.getContent()),_definedLgNames.getStrAlias());
-        Forwards forwards_ = new Forwards(_definedLgNames, new ListLoggableLgNames(), fileBuilder_, _options);
-        page_.setLogErr(forwards_);
-        ContextFactory.beforeBuild(forwards_,_mess,_definedKw,new CustList<CommentDelimiters>(),_options,_definedLgNames.getContent(),page_);
-        ContextFactory.build(forwards_,_definedKw,_options,page_);
-//        AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
-//        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        page_.addResources(_files);
+        StringMap<String> mapp_ = TranslationsFile.extractMap(en_);
+        StringMap<String> keys_ = TranslationsFile.extractKeys(en_);
+        a_.build(mapp_,new StringMap<String>(), keys_);
+        MockLightLgNames stds_ = new MockLightLgNames(new MockPairRateLgIntType(a_.getAliasLgInt(),a_.getAliasRate()));
+        stds_.getContent().build(mapp_,new StringMap<String>(), keys_);
+        a_.buildOther(stds_.getContent());
         _files.addEntry("src/runnable.txt","public interface pkg.Runnable{public void run();}");
-        AnalyzedPageEl an_ = Classes.validateWithoutInit(ContextFactory.filter(_files, _exec.getSrcFolder()), page_);
-        ResultContext r_ = new ResultContext(an_,forwards_,an_.getMessages());
-        Classes.fwdGenerate(r_,new MockContextGenerator(new MockAtomicBoolean()));
-        Classes.tryInit(r_);
-        return r_;
+        return MockLightLgNames.resultContext(_options,stds_,new DefaultFileBuilder(stds_.getContent(), new DefaultAliasGroups(stds_.getContent())),en_,_files,_exec.getSrcFolder(), new AdvSymbolFactory(a_));
     }
     public static ContextEl gene(LgNamesUtils _definedLgNames, Options _opt) {
         return new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()).gene(getForwards(_definedLgNames, _opt));

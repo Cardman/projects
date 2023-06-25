@@ -256,6 +256,16 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     }
 
     @Override
+    public String getAliasLgInt() {
+        return getExecContent().getCustAliases().getMathAdvAliases().getAliasLgInt();
+    }
+
+    @Override
+    public String getAliasRate() {
+        return getExecContent().getCustAliases().getMathAdvAliases().getAliasRate();
+    }
+
+    @Override
     public ContextEl newContext(AbstractAtomicBoolean _at, CommonExecutionInfos _common, StringList _args) {
         return new RunnableContextEl(_at,null,_common,_args);
     }

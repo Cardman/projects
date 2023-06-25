@@ -312,6 +312,8 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
         ContextEl c_ = new AdvContextGenerator(new MockAtomicBoolean()).geneWith(getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);
         assertFalse(StringUtil.nullToEmpty(stds_.getStrAlias().getAliasStringSegment()+"_").isEmpty());
+        assertFalse(StringUtil.nullToEmpty(stds_.getAliasLgInt()+"_").isEmpty());
+        assertFalse(StringUtil.nullToEmpty(stds_.getAliasRate()+"_").isEmpty());
         ((InterruptibleContextEl)c_).stopJoinSleep();
         assertTrue(c_.callsOrException(st_));
     }

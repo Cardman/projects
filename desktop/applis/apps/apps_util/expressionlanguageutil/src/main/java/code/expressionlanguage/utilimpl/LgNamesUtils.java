@@ -38,6 +38,16 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
         buildOther();
     }
 
+    @Override
+    public String getAliasLgInt() {
+        return getExecContent().getCustAliases().getMathAdvAliases().getAliasLgInt();
+    }
+
+    @Override
+    public String getAliasRate() {
+        return getExecContent().getCustAliases().getMathAdvAliases().getAliasRate();
+    }
+
     public void buildOther() {
         execContent.getCustAliases().buildOther(getContent(),execContent.getExecutingBlocks());
     }
