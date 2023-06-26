@@ -770,11 +770,13 @@ public abstract class EquallableElUtUtil {
         StringMap<String> mapp_ = TranslationsFile.extractMap(en_);
         StringMap<String> keys_ = TranslationsFile.extractKeys(en_);
         a_.build(mapp_,new StringMap<String>(), keys_);
-        MockLightLgNames stds_ = new MockLightLgNames(new MockPairRateLgIntType(a_.getAliasLgInt(),a_.getAliasRate()));
+        MockLightLgNames stds_ = new MockLightLgNames();
+        stds_.setAliasLgInt(a_.getAliasLgInt());
+        stds_.setAliasRate(a_.getAliasRate());
         stds_.getContent().build(mapp_,new StringMap<String>(), keys_);
         a_.buildOther(stds_.getContent());
         _files.addEntry("src/runnable.txt","public interface pkg.Runnable{public void run();}");
-        return MockLightLgNames.resultContext(_options,stds_,new DefaultFileBuilder(stds_.getContent(), new DefaultAliasGroups(stds_.getContent())),en_,_files,_exec.getSrcFolder(), new AdvSymbolFactory(a_));
+        return MockLightLgNames.resultContext(_options,stds_,DefaultFileBuilder.newInstance(stds_.getContent()),en_,_files,_exec.getSrcFolder(), new AdvSymbolFactory(a_));
     }
     public static ContextEl gene(LgNamesUtils _definedLgNames, Options _opt) {
         return new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()).gene(getForwards(_definedLgNames, _opt));

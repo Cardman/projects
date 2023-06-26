@@ -1,8 +1,9 @@
 package code.mock;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.*;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
+import code.expressionlanguage.analyze.AbstractSymbolFactory;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.Classes;
@@ -16,7 +17,6 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.stds.BuildableLgNames;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.stds.ListLoggableLgNames;
 import code.expressionlanguage.utilcompo.AbsPairRateLgIntType;
 import code.maths.montecarlo.DefaultGenerator;
@@ -26,20 +26,29 @@ import code.util.StringMap;
 
 public final class MockLightLgNames extends LgNames implements BuildableLgNames, AbsPairRateLgIntType {
 
-    private final MockPairRateLgIntType pair;
-    public MockLightLgNames(MockPairRateLgIntType _r) {
+    private String aliasLgInt = "";
+    private String aliasRate = "";
+
+    public MockLightLgNames() {
         super(DefaultGenerator.oneElt());
-        pair = _r;
     }
 
     @Override
     public String getAliasLgInt() {
-        return pair.getAliasLgInt();
+        return aliasLgInt;
+    }
+
+    public void setAliasLgInt(String _a) {
+        this.aliasLgInt = _a;
     }
 
     @Override
     public String getAliasRate() {
-        return pair.getAliasRate();
+        return aliasRate;
+    }
+
+    public void setAliasRate(String _a) {
+        this.aliasRate = _a;
     }
 
     @Override
@@ -52,13 +61,22 @@ public final class MockLightLgNames extends LgNames implements BuildableLgNames,
         return commonExecutionInfos(new MockInterceptorStdCaller(),_opt,_options,new DefaultInitializer());
     }
 
-    public static ResultContext resultContext(MockPairRateLgIntType _r,StringMap<String> _src, String _folder) {
-        TranslationsFile en_ = new TranslationsFile();
-        LgNamesContent.en(en_);
-        MockLightLgNames m_ = new MockLightLgNames(_r);
-        return resultContext(new Options(),m_,new DefaultFileBuilder(m_.getContent(), new DefaultAliasGroups(m_.getContent())),en_,_src, _folder, new DefSymbolFactory());
-    }
     public static ResultContext resultContext(Options _o,LgNames _lg, DefaultFileBuilder _d, TranslationsFile _tr, StringMap<String> _src, String _folder, AbstractSymbolFactory _a) {
+        ResultContext b_ = resultContextCore(_o, _lg, _d, _tr, _a);
+        ResultContext user_ = ResultContext.def(b_, _src, _folder);
+        return fwd(user_);
+    }
+
+    public static ResultContext fwd(ResultContext _user) {
+        Forwards f_ = _user.getForwards();
+        ForwardInfos.generalForward(_user);
+        ContextEl ctx_ = new MockContextGenerator(new MockAtomicBoolean()).geneWith(f_);
+        Classes.forwardAndClear(ctx_);
+        _user.setContext(ctx_);
+        return _user;
+    }
+
+    public static ResultContext resultContextCore(Options _o,LgNames _lg, DefaultFileBuilder _d, TranslationsFile _tr,AbstractSymbolFactory _a) {
         AnalysisMessages mess_ = new AnalysisMessages();
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(_a);
@@ -71,14 +89,6 @@ public final class MockLightLgNames extends LgNames implements BuildableLgNames,
         kwl_.build(TranslationsFile.extractMap(k_),new StringMap<String>(), TranslationsFile.extractKeys(k_));
         ContextFactory.beforeBuild(forwards_,mess_,kwl_,new CustList<CommentDelimiters>(),_o,_lg.getContent(),page_);
         ContextFactory.build(forwards_,kwl_,_o,page_);
-        ClassesUtil.buildCoreBracesBodies(page_);
-        ResultContext b_ = new ResultContext(page_, forwards_, page_.getMessages());
-        ResultContext user_ = ResultContext.def(b_, _src, _folder);
-        Forwards f_ = user_.getForwards();
-        ForwardInfos.generalForward(user_);
-        ContextEl ctx_ = new MockContextGenerator(new MockAtomicBoolean()).geneWith(f_);
-        Classes.forwardAndClear(ctx_);
-        user_.setContext(ctx_);
-        return user_;
+        return new ResultContext(page_, forwards_);
     }
 }

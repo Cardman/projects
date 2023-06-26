@@ -34,25 +34,22 @@ public final class StringViewReplaceAliases {
         return stds_;
     }
     private String buildStringView(KeyWords _keyWords, LgNamesContent _content) {
-        String result_ = _keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordInterface()+" "+aliasAbsStringView+"{";
-        result_+=_keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordAbstract()+" "+aliasStringSegment+" "+aliasAbsStringViewIndex+"("+_content.getCharSeq().getAliasString()+" "+ stringAliasParameters.getAliasAbsStringView0Index0()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+ stringAliasParameters.getAliasAbsStringView0Index1()+");";
-        result_+="}";
-        return result_;
+        return _keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordInterface()+" "+aliasAbsStringView+"{"
+         +_keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordAbstract()+" "+aliasStringSegment+" "+aliasAbsStringViewIndex+"("+_content.getCharSeq().getAliasString()+" "+ stringAliasParameters.getAliasAbsStringView0Index0()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+ stringAliasParameters.getAliasAbsStringView0Index1()+");"
+         +"}";
     }
 
     private String buildStringReplacer(KeyWords _keyWords, LgNamesContent _content) {
-        String result_ = _keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordInterface()+" "+aliasAbsStringReplacer+":"+aliasAbsStringView+"{";
-        result_+=_keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordAbstract()+" "+_content.getCharSeq().getAliasString()+" "+aliasAbsStringReplacerReplace+"("+_content.getCharSeq().getAliasString()+" "+ stringAliasParameters.getAliasAbsStringReplacer0Replace0()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+ stringAliasParameters.getAliasAbsStringReplacer0Replace1()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+ stringAliasParameters.getAliasAbsStringReplacer0Replace2()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+ stringAliasParameters.getAliasAbsStringReplacer0Replace3()+");";
-        result_+="}";
-        return result_;
+        return _keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordInterface()+" "+aliasAbsStringReplacer+":"+aliasAbsStringView+"{"
+         +_keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordAbstract()+" "+_content.getCharSeq().getAliasString()+" "+aliasAbsStringReplacerReplace+"("+_content.getCharSeq().getAliasString()+" "+ stringAliasParameters.getAliasAbsStringReplacer0Replace0()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+ stringAliasParameters.getAliasAbsStringReplacer0Replace1()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+ stringAliasParameters.getAliasAbsStringReplacer0Replace2()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+ stringAliasParameters.getAliasAbsStringReplacer0Replace3()+");"
+         +"}";
     }
 
     private String buildStringSegment(KeyWords _keyWords, LgNamesContent _content) {
-        String result_ = _keyWords.getKeyWordPublic()+" @"+_keyWords.getKeyWordInterface()+" "+aliasStringSegment+"{\n";
-        result_+=_keyWords.getKeyWordPublic()+" "+_content.getPrimTypes().getAliasPrimInteger()+" "+aliasStringSegmentBegin+";\n";
-        result_+=_keyWords.getKeyWordPublic()+" "+_content.getPrimTypes().getAliasPrimInteger()+" "+aliasStringSegmentEnd+";\n";
-        result_+="}";
-        return result_;
+        return _keyWords.getKeyWordPublic()+" @"+_keyWords.getKeyWordInterface()+" "+aliasStringSegment+"{\n"
+         +_keyWords.getKeyWordPublic()+" "+_content.getPrimTypes().getAliasPrimInteger()+" "+aliasStringSegmentBegin+";\n"
+         +_keyWords.getKeyWordPublic()+" "+_content.getPrimTypes().getAliasPrimInteger()+" "+aliasStringSegmentEnd+";\n"
+         +"}";
     }
 
     public void build(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {

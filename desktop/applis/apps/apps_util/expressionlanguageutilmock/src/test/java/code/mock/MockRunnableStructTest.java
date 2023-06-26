@@ -2,7 +2,6 @@ package code.mock;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultAliasGroups;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -156,26 +155,19 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         ArgumentWrapper a_ = ProcessMethod.calculate(new CustomFoundMethod(new ExecFormattedRootBlock(ex_), new ExecTypeFunction(ex_, ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "exmeth", new CustList<String>())).first()), new Parameters()), user_.getContext(), StackCall.newInstance(InitPhase.NOTHING, ctx_));
         assertEq(1,((NumberStruct) ArgumentListCall.toStr(a_.getValue())).intStruct());
     }
+
     @Test
-    public void buildLight1() {
-        StringMap<String> src_ = new StringMap<String>();
-        src_.addEntry("src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
-        ResultContext user_ = MockLightLgNames.resultContext(new MockPairRateLgIntType("",""),src_,"src");
-        ContextEl ctx_ = user_.getContext();
-        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Ex");
-        ArgumentWrapper a_ = ProcessMethod.calculate(new CustomFoundMethod(new ExecFormattedRootBlock(ex_), new ExecTypeFunction(ex_, ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "exmeth", new CustList<String>())).first()), new Parameters()), ctx_, StackCall.newInstance(InitPhase.NOTHING, ctx_));
-        assertEq(1,((NumberStruct) ArgumentListCall.toStr(a_.getValue())).intStruct());
-    }
-    @Test
-    public void buildLight2() {
+    public void buildLight() {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
         TranslationsFile en_ = new TranslationsFile();
         LgNamesContent.en(en_);
-        MockLightLgNames m_ = new MockLightLgNames(new MockPairRateLgIntType("",""));
+        MockLightLgNames m_ = new MockLightLgNames();
+        m_.setAliasLgInt("");
+        m_.setAliasRate("");
         assertEq("",m_.getAliasLgInt());
         assertEq("",m_.getAliasRate());
-        ResultContext user_ = MockLightLgNames.resultContext(new Options(),m_, new DefaultFileBuilder(m_.getContent(), new DefaultAliasGroups(m_.getContent())), en_, src_, "src", null);
+        ResultContext user_ = MockLightLgNames.resultContext(new Options(),m_, DefaultFileBuilder.newInstance(m_.getContent()), en_, src_, "src", null);
         ContextEl ctx_ = user_.getContext();
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ArgumentWrapper a_ = ProcessMethod.calculate(new CustomFoundMethod(new ExecFormattedRootBlock(ex_), new ExecTypeFunction(ex_, ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "exmeth", new CustList<String>())).first()), new Parameters()), ctx_, StackCall.newInstance(InitPhase.NOTHING, ctx_));
