@@ -1,6 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.analyze.AbstractConstantsCalculator;
+import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
@@ -13,4 +14,5 @@ public interface BuildableLgNames {
 
     CommonExecutionInfos newContextCommon(Options _opt, Forwards _options);
     AbstractInterceptorStdCaller interceptor();
+    DisplayedStrings getDisplayedStrings();
 }

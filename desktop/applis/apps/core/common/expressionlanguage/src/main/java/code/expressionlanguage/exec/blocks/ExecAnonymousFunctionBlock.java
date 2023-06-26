@@ -11,13 +11,20 @@ import code.util.core.IndexConstants;
 
 public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock implements ExecReturnableWithSignature,WithCache {
 
+    private final String idFull;
     private final MethodModifier methodModifier;
     private final ExecAnonFctContent anonFctContent;
 
-    public ExecAnonymousFunctionBlock(AccessEnum _access, MethodModifier _modifier, ExecAnonFctContent _anonFctContent, ExecExecNamedFunctionContent _content) {
+    public ExecAnonymousFunctionBlock(String _i,AccessEnum _access, MethodModifier _modifier, ExecAnonFctContent _anonFctContent, ExecExecNamedFunctionContent _content) {
         super(_access, _content);
+        idFull = _i;
         methodModifier = _modifier;
         anonFctContent = _anonFctContent;
+    }
+
+    @Override
+    public String id() {
+        return idFull;
     }
 
     public MethodId getId() {

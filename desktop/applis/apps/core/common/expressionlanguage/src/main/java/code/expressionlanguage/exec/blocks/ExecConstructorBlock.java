@@ -12,8 +12,15 @@ public final class ExecConstructorBlock extends ExecNamedFunctionBlock implement
 
     private boolean implicitCallSuper;
 
-    public ExecConstructorBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, StringList _importedParametersTypes, CustList<BoolVal> _parametersRef) {
+    private final String idFull;
+    public ExecConstructorBlock(String _i,String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, StringList _importedParametersTypes, CustList<BoolVal> _parametersRef) {
         super(_access, new ExecExecNamedFunctionContent(_name, _importedParametersTypes, _parametersRef, _parametersNames, false, _varargs));
+        idFull = _i;
+    }
+
+    @Override
+    public String id() {
+        return idFull;
     }
 
     public ConstructorId getId() {

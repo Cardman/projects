@@ -20,6 +20,7 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
 
     private final CustList<ExecAnnotContent> annotationsOps = new CustList<ExecAnnotContent>();
 
+    private final String idFull;
     private final String name;
 
     private final String importedParamType;
@@ -32,13 +33,19 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
     private final ExecAnonFctContent anonFctContent;
     private final CustList<ExecAnnotContent> execAnnotContentsSupp = new CustList<ExecAnnotContent>();
 
-    protected ExecAbstractSwitchMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, String _retType, ExecAnonFctContent _anonFctContent) {
+    protected ExecAbstractSwitchMethod(String _i,boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, String _retType, ExecAnonFctContent _anonFctContent) {
+        idFull = _i;
         name = _name;
         retRef = _retRef;
         importedParamType = _importedParamType;
         kind = _modifier;
         retType = _retType;
         anonFctContent = _anonFctContent;
+    }
+
+    @Override
+    public String id() {
+        return idFull;
     }
 
     @Override

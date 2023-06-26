@@ -10,8 +10,16 @@ public abstract class ExecInitBlock extends ExecMemberCallingsBlock implements E
     private final int offsetTrim;
 
     private int number;
-    ExecInitBlock(int _offsetTrim) {
+
+    private final String idFull;
+    ExecInitBlock(String _i,int _offsetTrim) {
+        idFull = _i;
         offsetTrim = _offsetTrim;
+    }
+
+    @Override
+    public String id() {
+        return idFull;
     }
 
     public int getOffsetTrim() {

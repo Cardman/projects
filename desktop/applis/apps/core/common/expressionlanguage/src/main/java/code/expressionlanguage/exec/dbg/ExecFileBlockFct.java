@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.dbg;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecReturnableWithSignature;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -22,8 +21,7 @@ public final class ExecFileBlockFct implements AbsCallContraints {
     @Override
     public boolean match(ContextEl _context, AbstractPageEl _call) {
         ExecBlock b_ = _call.getBlockRoot();
-        String currentClassName_ = StringExpUtil.getIdFromAllTypes(_call.getGlobalClass().getFormatted());
-        return b_ instanceof ExecReturnableWithSignature && match(currentClassName_+"."+((ExecReturnableWithSignature) b_).getSignature(_context));
+        return b_ instanceof ExecReturnableWithSignature && match(((ExecReturnableWithSignature) b_).id());
     }
 
     public boolean match(String _i) {

@@ -14,10 +14,18 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
     private final MethodModifier methodModifier;
 
     private final ExecMethodKind kind;
-    public ExecOverridableBlock(AccessEnum _access, MethodModifier _modifier, ExecMethodKind _execKind, ExecExecNamedFunctionContent _content) {
+
+    private final String idFull;
+    public ExecOverridableBlock(String _i,AccessEnum _access, MethodModifier _modifier, ExecMethodKind _execKind, ExecExecNamedFunctionContent _content) {
         super(_access, _content);
+        idFull = _i;
         methodModifier = _modifier;
         kind = _execKind;
+    }
+
+    @Override
+    public String id() {
+        return idFull;
     }
 
     public MethodId getId() {

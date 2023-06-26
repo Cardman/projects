@@ -18,6 +18,7 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
@@ -67,7 +68,7 @@ public final class ResultExpressionOperationNode {
             a_.setImportingTypes((OperatorBlock)m_);
             a_.setCurrentPkg(a_.getDefaultPkg());
         } else {
-            RootBlock par_ = parent(m_);
+            RootBlock par_ = ForwardInfos.parent(m_);
             if (par_ != null) {
                 ClassesUtil.globalType(a_, par_);
                 a_.setCurrentPkg(par_.getPackageName());
@@ -122,7 +123,7 @@ public final class ResultExpressionOperationNode {
             _a.setImportingTypes((OperatorBlock)m_);
             _a.setCurrentPkg(_a.getDefaultPkg());
         } else {
-            RootBlock par_ = parent(m_);
+            RootBlock par_ = ForwardInfos.parent(m_);
             if (par_ != null) {
                 ClassesUtil.globalType(_a, par_);
                 _a.setCurrentPkg(par_.getPackageName());
@@ -270,47 +271,11 @@ public final class ResultExpressionOperationNode {
             prev_ = prev_.getPreviousSibling();
         }
     }
-    private static RootBlock parent(AbsBk _m) {
-        BracedBlock b_;
-        if (_m == null) {
-            b_ = null;
-        } else {
-            b_ = _m.getParent();
-        }
-        if (b_ instanceof RootBlock) {
-            return (RootBlock) b_;
-        }
-        return null;
-    }
 
     public static String beginPartFct(int _caret, FileBlock _file, DisplayedStrings _page) {
         ResultExpressionOperationNode c_ = container(_caret, _file);
         MemberCallingsBlock m_ = AbsBk.getOuterFuntionInType(c_.block);
-        RootBlock p_ = parent(m_);
-        String cl_;
-        if (p_ != null) {
-            cl_ = p_.getFullName();
-        } else {
-            AccessedBlock acc_;
-            if (AbsBk.isAnonBlock(m_)) {
-                acc_ = ((NamedCalledFunctionBlock)m_).getAccessedBlock();
-            } else if (m_ instanceof SwitchMethodBlock) {
-                acc_ = ((SwitchMethodBlock)m_).getAccessedBlock();
-            } else {
-                acc_ = null;
-            }
-            if (acc_ instanceof RootBlock) {
-                cl_ = ((RootBlock)acc_).getFullName();
-            } else if (acc_ instanceof OperatorBlock){
-                cl_ = ((OperatorBlock)acc_).getSignature(_page);
-            } else {
-                cl_ = "";
-            }
-        }
-        if (m_ != null) {
-            return cl_+"."+m_.getSignature(_page);
-        }
-        return "";
+        return ForwardInfos.clName(_page, m_);
     }
     public static int beginPart(int _caret, FileBlock _file) {
         ResultExpressionOperationNode c_ = container(_caret, _file);

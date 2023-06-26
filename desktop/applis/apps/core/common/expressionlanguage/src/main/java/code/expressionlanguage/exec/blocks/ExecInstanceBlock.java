@@ -3,8 +3,8 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.functionid.MethodAccessKind;
 
 public final class ExecInstanceBlock extends ExecInitBlock {
-    public ExecInstanceBlock(int _offsetTrim) {
-        super(_offsetTrim);
+    public ExecInstanceBlock(String _i,int _offsetTrim) {
+        super(_i,_offsetTrim);
     }
 
     @Override

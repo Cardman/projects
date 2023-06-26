@@ -518,7 +518,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = validated(files_);
         StackCall stackCall_ = getStackCall(cont_);
-        ExecSwitchInstanceMethod ex_ = new ExecSwitchInstanceMethod(false,"",null,"$int", "",new ExecAnonFctContent(new AnaAnonFctContent()));
+        ExecSwitchInstanceMethod ex_ = new ExecSwitchInstanceMethod("",false,"",null,"$int", "",new ExecAnonFctContent(new AnaAnonFctContent()));
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         stackCall_.addInternPage(instancingClass_);
