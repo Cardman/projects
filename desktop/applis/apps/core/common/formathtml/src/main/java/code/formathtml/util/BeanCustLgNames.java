@@ -458,7 +458,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         AnalyzedPageEl page_ = ana_.getAnalyzed();
         Forwards forwards_ = ana_.getForwards();
         DualConfigurationContext confCont_ = ana_.getContext();
-        AnalyzedPageEl copy_ = setupRendClasses(files_, page_, confCont_.getFilesConfName(), confCont_.getAddedResources(), confCont_.getRenderFiles());
+        AnalyzedPageEl copy_ = setupRendClasses(forwards_,files_, page_, confCont_.getFilesConfName(), confCont_.getAddedResources(), confCont_.getRenderFiles());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
         FileBlock blockConf_ = ana_.getBlock();
@@ -468,7 +468,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         analyzingDoc_.setLanguages(languages_);
         session_.setCurrentLanguage(language_);
         StringMap<AnaRendDocumentBlock> d_ = session_.analyzedRenders(files_, analyzingDoc_, copy_, confCont_, blockConf_);
-        Classes.postValidate(copy_);
+        ResultContext.postValidate(copy_);
         if (copy_.notAllEmptyErrors()) {
             return new ResultContext(copy_,forwards_, copy_.getMessages());
         }
@@ -491,7 +491,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         return ctx_;
     }
 
-    private static AnalyzedPageEl setupRendClasses(StringMap<String> _files, AnalyzedPageEl _page, String _filesConfName, StringList _added, StringList _render) {
+    private static AnalyzedPageEl setupRendClasses(Forwards _fwd,StringMap<String> _files, AnalyzedPageEl _page, String _filesConfName, StringList _added, StringList _render) {
         StringList content_ = new StringList();
         for (EntryCust<String, String> e: _files.entryList()) {
             if (StringUtil.quickEq(e.getKey(), _filesConfName)) {
@@ -518,7 +518,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
             }
         }
         //!classFiles_.isEmpty()
-        _page.addResources(resFiles_);
+        _fwd.getResources().addAllEntries(resFiles_);
         return ClassesUtil.buildAllBracesBodies(classFiles_, _page);
     }
 

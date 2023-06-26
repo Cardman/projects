@@ -4,7 +4,6 @@ import code.expressionlanguage.AdvContextGenerator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.*;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.Classes;
@@ -123,14 +122,14 @@ public final class CustContextFactory {
         parts(_exec, _definedLgNames, _mainArgs);
         AnalyzedPageEl page_ = mapping(_definedLgNames);
         Forwards forwards_ = builder(_options, _definedLgNames, page_);
+        forwards_.getResources().addAllEntries(_files);
         AnalysisMessages.validateMessageContents(mess_.allMessages(_definedLgNames.getExecContent().getCustAliases().extractMessagesKeys()), page_);
         ContextFactory.validateStds(forwards_,mess_, kwl_, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        page_.addResources(_files);
-        AnalyzedPageEl an_ = Classes.validateWithoutInit(ContextFactory.filter(_files, _exec.getSrcFolder()), page_);
-        ResultContext r_ = new ResultContext(an_,forwards_,an_.getMessages());
-        Classes.fwdGenerate(r_,new AdvContextGenerator(_stop));
-        Classes.tryInit(r_);
-        return r_;
+        ResultContext r_ = new ResultContext(page_, forwards_);
+        ResultContext res_ = ResultContext.def(r_, _files,  _exec.getSrcFolder());
+        ResultContext.fwd(res_, new AdvContextGenerator(_stop));
+        Classes.tryInit(res_);
+        return res_;
     }
 
     public static ResultContext stds(FileInfos _file, ExecutingOptions _ex, Options _opts) {
@@ -147,8 +146,7 @@ public final class CustContextFactory {
         if (page_.notAllEmptyErrors()) {
             return new ResultContext(page_, forwards_, page_.getMessages());
         }
-        ClassesUtil.buildCoreBracesBodies(page_);
-        return new ResultContext(page_, forwards_, page_.getMessages());
+        return new ResultContext(page_, forwards_);
     }
     public static void parts(ExecutingOptions _exec, LgNamesGui _definedLgNames, StringList _mainArgs) {
         _definedLgNames.getExecContent().setExecutingOptions(_exec);

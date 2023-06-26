@@ -127,8 +127,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         assertEq(1,m_.files(b_,src_).size());
         ResultContext user_ = m_.next(b_, m_.next(b_, src_));
         Forwards f_ = user_.getForwards();
-        AnalyzedPageEl page_ = user_.getPageEl();
-        ForwardInfos.generalForward(page_,f_);
+        ForwardInfos.generalForward(user_);
         AbsAdvContextGenerator gn_ = m_.generate();
         ContextEl ctx_ = gn_.geneWith(f_);
         Classes.forwardAndClear(ctx_);
@@ -148,8 +147,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         forwards_.getClasses().getCommon().setStaticFields(resultAna_.getStaticFields());
         ResultContext user_ = new ResultContext(resultAna_, forwards_, resultAna_.getMessages());
         Forwards f_ = user_.getForwards();
-        AnalyzedPageEl page_ = user_.getPageEl();
-        ForwardInfos.generalForward(page_,f_);
+        ForwardInfos.generalForward(user_);
         AbsAdvContextGenerator gn_ = m_.generate();
         ContextEl ctx_ = gn_.geneWith(f_);
         Classes.forwardAndClear(ctx_);

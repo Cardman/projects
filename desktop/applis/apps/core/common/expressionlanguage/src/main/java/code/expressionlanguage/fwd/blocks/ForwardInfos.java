@@ -23,11 +23,9 @@ import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.symbols.*;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.fwd.AbsForwardGenerator;
-import code.expressionlanguage.fwd.FirstForwardGenerator;
-import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.Members;
+import code.expressionlanguage.fwd.*;
 import code.expressionlanguage.fwd.opers.*;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -35,8 +33,16 @@ import code.util.core.StringUtil;
 public final class ForwardInfos {
     private ForwardInfos() {
     }
+    public static void generalForward(ResultContext _res) {
+        generalForward(_res.getPageEl(),_res.getForwards());
+    }
     public static void generalForward(AnalyzedPageEl _page, Forwards _forwards) {
         generalForward(_page,_forwards,new FirstForwardGenerator());
+    }
+    public static Forwards generalForward(AnalyzedPageEl _page, ResultContext _result) {
+        Forwards forwards_ = new Forwards(_result.getForwards(),_page);
+        ForwardInfos.generalForward(_page,forwards_,new SecondForwardGenerator());
+        return forwards_;
     }
     public static void generalForward(AnalyzedPageEl _page, Forwards _forwards, AbsForwardGenerator _gener) {
         Coverage coverage_ = _forwards.getCoverage();

@@ -4115,8 +4115,6 @@ public final class CallersRefTest extends ProcessMethodCommon {
         CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        getForwards(opt_,lgName_,kw_,page_);
-        return validateWithoutInit(_files, page_);
+        return validateAndRetWithoutInitCheck(opt_,lgName_,kw_,_files,new StringMap<String>()).getPageEl();
     }
 }

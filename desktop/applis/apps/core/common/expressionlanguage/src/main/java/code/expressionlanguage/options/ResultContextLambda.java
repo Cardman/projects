@@ -4,7 +4,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
+import code.expressionlanguage.analyze.blocks.Line;
+import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.StringComment;
@@ -24,9 +27,8 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.fwd.AbsContextGenerator;
+import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.SecondForwardGenerator;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
@@ -46,7 +48,7 @@ public final class ResultContextLambda {
         this.reportedMessages = _r;
     }
 
-    public static ResultContextLambda dynamicAnalyze(String _exp, String _fileName, int _caret, ResultContext _result, String _type, AbsContextGenerator _gene, MethodAccessKind _flag) {
+    public static ResultContextLambda dynamicAnalyze(String _exp, String _fileName, int _caret, ResultContext _result, String _type, AbsLightContextGenerator _gene, MethodAccessKind _flag) {
         if (_exp.trim().isEmpty()) {
             return new ResultContextLambda(null,null,new ReportedMessages());
         }
@@ -83,8 +85,7 @@ public final class ResultContextLambda {
         if (a_.notAllEmptyErrors()) {
             return new ResultContextLambda(null,null,a_.getMessages());
         }
-        Forwards forwards_ = new Forwards(_result.getForwards(),a_);
-        ForwardInfos.generalForward(a_,forwards_,new SecondForwardGenerator());
+        Forwards forwards_ = ForwardInfos.generalForward(a_,_result);
         ContextEl ctx_ = _gene.gene(forwards_);
         Classes.forwardAndClear(ctx_);
         return new ResultContextLambda(ctx_, ForwardInfos.buildAnonFctPair(forwards_, mainLambda_), a_.getMessages());

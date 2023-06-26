@@ -73,9 +73,9 @@ public final class MockLightLgNames extends LgNames implements BuildableLgNames,
         ContextFactory.build(forwards_,kwl_,_o,page_);
         ClassesUtil.buildCoreBracesBodies(page_);
         ResultContext b_ = new ResultContext(page_, forwards_, page_.getMessages());
-        ResultContext user_ = ResultContext.def(b_, b_.getForwards().getGenerator(), b_.getForwards().getLoggable(), _src, _folder);
+        ResultContext user_ = ResultContext.def(b_, _src, _folder);
         Forwards f_ = user_.getForwards();
-        ForwardInfos.generalForward(user_.getPageEl(),f_);
+        ForwardInfos.generalForward(user_);
         ContextEl ctx_ = new MockContextGenerator(new MockAtomicBoolean()).geneWith(f_);
         Classes.forwardAndClear(ctx_);
         user_.setContext(ctx_);

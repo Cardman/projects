@@ -3,7 +3,6 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultAliasGroups;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.assign.util.AssignedVariables;
@@ -12,7 +11,6 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.reach.blocks.ReachCaseCondition;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.IdTypeList;
 import code.expressionlanguage.analyze.types.ResolvedIdType;
@@ -24,7 +22,6 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ClassFieldStruct;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -55,9 +52,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
-        ContextEl ctx_ = validateAndRet(files_, page_,forwards_).getContext();
+        ResultContext res_ = validateAndRet(opt_, lgName_, kw_, files_, new StringMap<String>());
+        AnalyzedPageEl page_ = res_.getPageEl();
+        ContextEl ctx_ = res_.getContext();
         inexistErrors(page_);
         assertEq(0, new AssignedVariables().getLastFieldsOrEmpty().size());
         assertEq(0, new AssignedVariables().getLastVariablesOrEmpty().size());
@@ -108,7 +105,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_));
-        validateAll(new StringMap<String>(), page_, fwd_);
+        validateAndRetWithoutInitCheck(opts_, lgName_, kw_, new StringMap<String>(), new StringMap<String>());
         assertTrue(!page_.isEmptyStdError());
         assertTrue(page_.notAllEmptyErrors());
     }
@@ -130,7 +127,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_));
-        validateAll(new StringMap<String>(), page_, fwd_);
+        validateAndRetWithoutInitCheck(opts_, lgName_, kw_, new StringMap<String>(), new StringMap<String>());
         assertTrue(!page_.isEmptyStdError());
     }
 
@@ -148,7 +145,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_));
-        validateAll(new StringMap<String>(), page_, fwd_);
+        validateAndRetWithoutInitCheck(opts_, lgName_, kw_, new StringMap<String>(), new StringMap<String>());
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(page_.notAllEmptyErrors());
     }
@@ -165,7 +162,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_));
-        validateAll(new StringMap<String>(), page_, fwd_);
+        validateAndRetWithoutInitCheck(opts_, lgName_, kw_, new StringMap<String>(), new StringMap<String>());
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(page_.notAllEmptyErrors());
     }
@@ -174,7 +171,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertFalse(KeyWords.en().getMapping().isEmpty());
         assertFalse(KeyWords.fr().getMapping().isEmpty());
         ResultContext b_ = base();
-        ResultContext res_ = ResultContext.def(b_, b_.getForwards().getGenerator(), new ListLoggableLgNames(), new StringMap<String>(), "");
+        ResultContext res_ = ResultContext.def(b_, new StringMap<String>(), "");
         assertTrue(isEmptyErrors(res_.getPageEl()));
     }
     @Test
@@ -8001,7 +7998,6 @@ public final class ClassesTest extends ProcessMethodCommon {
         page_.setLogErr(forwards_);
         ContextFactory.beforeBuild(forwards_,mess_,kwl_,new CustList<CommentDelimiters>(),opt_,stds_.getContent(),page_);
         ContextFactory.build(forwards_,kwl_,opt_,page_);
-        ClassesUtil.buildCoreBracesBodies(page_);
-        return new ResultContext(page_, forwards_, page_.getMessages());
+        return new ResultContext(page_, forwards_);
     }
 }

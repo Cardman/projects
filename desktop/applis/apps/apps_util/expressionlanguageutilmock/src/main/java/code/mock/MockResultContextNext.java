@@ -59,6 +59,7 @@ public final class MockResultContextNext implements AbsResultContextNext {
     public ResultContext next(ResultContext _r, ResultContext _u) {
         BuildableLgNames lg_ = _r.getForwards().getGenerator();
         Forwards forwards_ = new Forwards(lg_, new ListLoggableLgNames(), _u.getForwards().getFileBuilder(), _u.getForwards().getOptions());
+        forwards_.getClasses().getCommon().setStaticFields(_u.getPageEl().getStaticFields());
         return new ResultContext(_u.getPageEl(),forwards_,_u.getReportedMessages());
     }
 
@@ -80,17 +81,16 @@ public final class MockResultContextNext implements AbsResultContextNext {
         StringMap<String> v_ = new StringMap<String>();
         v_.addAllEntries(system);
         v_.putAllMap(_files);
-        return ResultContext.def(_base, _base.getForwards().getGenerator(), _base.getForwards().getLoggable(), v_, filter);
+        return ResultContext.def(_base, v_, filter);
     }
 
     @Override
     public AbsAdvContextGenerator generate() {
-        return generate(new MockAtomicBoolean());
+        return generateAdv(new MockAtomicBoolean());
     }
 
     @Override
-    public AbsAdvContextGenerator generate(AbstractAtomicBoolean _at) {
+    public AbsAdvContextGenerator generateAdv(AbstractAtomicBoolean _at) {
         return new MockContextGenerator(_at);
     }
-
 }

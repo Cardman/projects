@@ -1,14 +1,16 @@
 package code.expressionlanguage.utilimpl;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.stream.core.ReadFiles;
+import code.threads.AbstractAtomicBoolean;
 import code.util.StringMap;
 
-public final class MemoResultContextNext implements AbsLightResultContextNext {
+public final class MemoResultContextNext implements AbsLightMemoResultContextNext {
     private final FileInfos fileInfos;
     public MemoResultContextNext(ResultContext _base, MemInputFiles _input, AbstractIssuer _issuer) {
         LgNamesGui lg_ = (LgNamesGui) _base.getForwards().getGenerator();
@@ -34,8 +36,12 @@ public final class MemoResultContextNext implements AbsLightResultContextNext {
         if (list_ == null) {
             return null;
         }
-        return ResultContext.def(_r,lg_,lg_.getExecContent(),list_,exec_.getSrcFolder());
+        return ResultContext.def(_r, list_,exec_.getSrcFolder());
     }
 
 
+    @Override
+    public AbsLightContextGenerator generate(AbstractAtomicBoolean _at) {
+        return new MemoContextGenerator(_at);
+    }
 }

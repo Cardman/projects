@@ -723,18 +723,18 @@ public abstract class EquallableElUtUtil {
         page_.setMappingAliases(m_);
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
+        forwards_.getResources().addAllEntries(_files);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
         ContextFactory.beforeBuild(forwards_,_mess,_definedKw,_definedLgNames.getExecContent().getCustAliases().defComments(),_options,_definedLgNames.getContent(),page_);
         ContextFactory.build(forwards_,_definedKw,_options,page_);
 //        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
         ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        page_.addResources(_files);
-        AnalyzedPageEl an_ = Classes.validateWithoutInit(ContextFactory.filter(_files, _exec.getSrcFolder()), page_);
-        ResultContext r_ = new ResultContext(an_,forwards_,an_.getMessages());
-        Classes.fwdGenerate(r_,new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()));
-        Classes.tryInit(r_);
-        return r_;
+        ResultContext r_ = new ResultContext(page_, forwards_);
+        ResultContext res_ = ResultContext.def(r_, _files,  _exec.getSrcFolder());
+        ResultContext.fwd(res_, new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()));
+        Classes.tryInit(res_);
+        return res_;
     }
 
     public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files) {
@@ -751,15 +751,15 @@ public abstract class EquallableElUtUtil {
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames.getExecContent().getCustAliases().getMathAdvAliases()));
         CustFileBuilder fileBuilder_ = new CustFileBuilder(_definedLgNames.getContent(), _definedLgNames.getExecContent().getCustAliases(),new CustAliasGroups(_definedLgNames.getExecContent().getCustAliases(), _definedLgNames.getContent()));
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
+        forwards_.getResources().addAllEntries(_files);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
         ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        page_.addResources(_files);
-        AnalyzedPageEl an_ = Classes.validateWithoutInit(ContextFactory.filter(_files, _exec.getSrcFolder()), page_);
-        ResultContext r_ = new ResultContext(an_,forwards_,an_.getMessages());
-        Classes.fwdGenerate(r_,new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()));
-        Classes.tryInit(r_);
-        return r_;
+        ResultContext r_ = new ResultContext(page_, forwards_);
+        ResultContext res_ = ResultContext.def(r_, _files,  _exec.getSrcFolder());
+        ResultContext.fwd(res_, new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()));
+        Classes.tryInit(res_);
+        return res_;
     }
 
     public static ResultContext build(Options _options, ExecutingOptions _exec, StringMap<String> _files) {

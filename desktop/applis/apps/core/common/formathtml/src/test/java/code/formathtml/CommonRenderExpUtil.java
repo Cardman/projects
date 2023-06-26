@@ -12,21 +12,16 @@ import code.expressionlanguage.analyze.opers.MethodOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.options.ResultContext;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
-import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.util.DualAnalyzedContext;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
@@ -53,7 +48,13 @@ public abstract class CommonRenderExpUtil extends CommonRender {
         Configuration conf_ = EquallableRenderUtil.newConfiguration();
         DualNavigationContext a_ = buildNav(conf_,_types);
         DualAnalyzedContext f_ = a_.getDualAnalyzedContext();
-        AnalyzedPageEl copy_ = Classes.validateWithoutInit(_files, f_.getAnalyzed());
+
+        AnalyzedPageEl page_ = f_.getAnalyzed();
+        ResultContext r_ = new ResultContext(page_, f_.getForwards());
+        StringMap<String> all_ = new StringMap<String>();
+        ResultContext user_ = ResultContext.afterDef(r_, all_, ResultContext.defFilter(page_, all_, _files));
+
+        AnalyzedPageEl copy_ = user_.getPageEl();
         assertTrue(isEmptyErrors(copy_));
         return new DualNavigationContext(a_.getNavigation(),new DualAnalyzedContext(f_.getForwards(),copy_,f_.getStds(),f_.getContext(),f_.getBlock()));
     }

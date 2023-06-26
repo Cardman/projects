@@ -2355,7 +2355,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         page_.setMappingKeyWords(KeyWords.mapping());
         page_.setMappingAliases(LgNamesContent.mapping());
         assertTrue(ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_));
-        ResultContext ctx_ = validate(all_, page_, forwards_);
+        ResultContext ctx_ = validate(options_,lgName_,kw_,all_);
         assertTrue(isEmptyErrors(ctx_.getPageEl()));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
@@ -2403,7 +2403,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         page_.setMappingKeyWords(KeyWords.mapping());
         page_.setMappingAliases(LgNamesContent.mapping());
         assertTrue(ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_));
-        ResultContext ctx_ = validate(all_, page_, forwards_);
+        ResultContext ctx_ = validate(options_,lgName_,kw_,all_);
         assertTrue(isEmptyErrors(ctx_.getPageEl()));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();

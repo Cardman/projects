@@ -248,12 +248,6 @@ public final class AnalyzedPageEl {
         return resources;
     }
 
-    public void addResources(StringMap<String> _resources) {
-        for (EntryCust<String, String> e: _resources.entryList()) {
-            resources.addEntry(e.getKey(), e.getValue());
-        }
-    }
-
     public void setStaticFields(StringMap<StringMap<Struct>> _staticFields) {
         this.staticFields = _staticFields;
     }

@@ -1,16 +1,14 @@
 package code.expressionlanguage.utilimpl;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
-import code.expressionlanguage.guicompos.GuiContextEl;
 import code.expressionlanguage.guicompos.LgNamesGui;
-import code.expressionlanguage.options.*;
+import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.AbstractAdvGraphicListGeneratorStruct;
 import code.gui.CdmFactory;
@@ -107,8 +105,7 @@ public final class RunningTest implements Runnable {
         Forwards forwards_ = CustContextFactory.builder(opts_, stds_, page_);
         ContextFactory.beforeBuild(forwards_, mess_, kwl_,stds_.getExecContent().getCustAliases().defComments(), opts_,stds_.getContent(), page_);
         ContextFactory.build(forwards_, kwl_, opts_,page_);
-        ClassesUtil.buildCoreBracesBodies(page_);
-        return new ResultContext(page_, forwards_, page_.getMessages());
+        return new ResultContext(page_, forwards_);
     }
 
     public static ResultContext baseValidateMemo(String _lg, StringList _otherLines, AbstractInterceptor _interceptor, AbstractLightProgramInfos _factories, AbstractAdvGraphicListGenerator _adv, AbstractAdvGraphicListGeneratorStruct _cr, AbstractIssuer _issuer) {
@@ -151,21 +148,13 @@ public final class RunningTest implements Runnable {
     }
 
 
-    public static ResultContext nextValidate(ResultContext _base, LgNamesWithNewAliases _lg, AbsLightResultContextNext _n) {
+    public static ResultContext nextValidate(ResultContext _base, LgNamesWithNewAliases _lg, AbsLightMemoResultContextNext _n) {
         ResultContext res_ = _n.next(_base, new StringMap<String>());
         if (res_ == null) {
             return _base;
         }
-        if (res_.getPageEl().notAllEmptyErrors()) {
-            return res_;
-        }
-        AnalyzedPageEl fwd_ = res_.getPageEl();
-        Forwards f_ = res_.getForwards();
-        ForwardInfos.generalForward(fwd_,f_);
-        ContextEl ctx_ =  new GuiContextEl(_lg.getExecContent().getInfos().getThreadFactory().newAtomicBoolean(),null,_lg.newContextCommon(f_.getOptions(),f_),_lg.args());
-        Classes.forwardAndClear(ctx_);
-        res_.setContext(ctx_);
-        ExecClassesUtil.tryInitStaticlyTypes(res_.getContext(), res_.getForwards().getOptions());
+        ResultContext.fwd(res_,_n.generate(_lg.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()));
+        Classes.tryInit(res_);
         return res_;
     }
 

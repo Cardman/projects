@@ -23,7 +23,6 @@ public final class LookForCallersTask implements Runnable {
 
     static void updateCallersView(WindowWithTreeImpl _window, ResultRowSrcLocationList _result) {
         AbsTreeGui tree_ = tree(_window, _result);
-        tree_.addTreeSelectionListener(new LocationsTreeEvent(_result.getPage(), _window, _result.getRoot()));
         _window.getPanelSymbolsDetailScroll().setViewportView(tree_);
         GuiBaseUtil.recalculate(_window.getPanelSymbolsDetailScroll());
     }

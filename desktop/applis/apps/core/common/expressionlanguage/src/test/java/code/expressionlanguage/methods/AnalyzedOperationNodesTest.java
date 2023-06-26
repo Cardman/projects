@@ -4630,20 +4630,9 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         getForwards(opt_,lgName_,kw_,page_);
-        AnalyzedPageEl a_ = validateWithoutInit(_files, page_);
+        AnalyzedPageEl a_ = validateAndRetWithoutInitCheck(opt_,lgName_,kw_,_files,new StringMap<String>()).getPageEl();
         assertTrue( isEmptyErrors(a_));
         return a_;
-    }
-
-    private static AnalyzedPageEl quickAnalyze(StringMap<String> _files) {
-        Options opt_ = newOptions();
-        addTypesInit(opt_);
-        CustLgNames lgName_ = getLgNames();
-        KeyWords kw_ = new KeyWords();
-        setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        getForwards(opt_,lgName_,kw_,page_);
-        return validateWithoutInit(_files, page_);
     }
 
     private static ClassMethodIdVarArg getClassMethodId(AbsFctOperation _fct) {

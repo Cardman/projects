@@ -1,11 +1,6 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.FileBlock;
-import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.AbsAdvContextGenerator;
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
@@ -39,13 +34,14 @@ public final class AnalyzeDebugTask implements Runnable {
         if (ana_ == null) {
             return;
         }
-        Forwards f_ = ana_.getForwards();
-        AnalyzedPageEl page_ = ana_.getPageEl();
-        ForwardInfos.generalForward(page_,f_);
         AbsAdvContextGenerator gn_ = gen_.generate();
-        ContextEl ctx_ = gn_.gene(f_);
-        Classes.forwardAndClear(ctx_);
-        ana_.setContext(ctx_);
+        ResultContext.fwdWithoutCheck(ana_,gn_);
+//        Forwards f_ = ana_.getForwards();
+//        AnalyzedPageEl page_ = ana_.getPageEl();
+//        ForwardInfos.generalForward(page_,f_);
+//        ContextEl ctx_ = gn_.gene(f_);
+//        Classes.forwardAndClear(ctx_);
+//        ana_.setContext(ctx_);
         gui.setViewable(all_);
         gui.update(ana_, src);
         gui.setStopDbg(gn_.getStop());

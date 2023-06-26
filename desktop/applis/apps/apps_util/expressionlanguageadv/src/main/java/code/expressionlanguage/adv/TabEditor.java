@@ -1,7 +1,6 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
@@ -9,7 +8,8 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.*;
+import code.expressionlanguage.utilcompo.CustAliases;
+import code.expressionlanguage.utilcompo.InterruptibleContextEl;
 import code.gui.*;
 import code.gui.events.AbsEnabledAction;
 import code.gui.images.MetaDimension;
@@ -411,11 +411,9 @@ public final class TabEditor implements AbsTabEditor {
         }
         ResultContext base_ = windowSecEditor.getMainFrame().getBaseResult();
         ResultContext copy_ = windowSecEditor.getResultContextNext().next(base_,userResult_);
-        AnalyzedPageEl fwd_ = copy_.getPageEl();
-        copy_.getForwards().getClasses().getCommon().setStaticFields(fwd_.getStaticFields());
-        ForwardInfos.generalForward(fwd_,copy_.getForwards());
+        ForwardInfos.generalForward(copy_);
         AbstractAtomicBoolean inter_ = windowSecEditor.getMainFrame().getCommonFrame().getFrames().getThreadFactory().newAtomicBoolean();
-        action = windowSecEditor.getResultContextNext().generate(inter_).geneWith(copy_.getForwards());
+        action = windowSecEditor.getResultContextNext().generateAdv(inter_).geneWith(copy_.getForwards());
         ContextEl ctx_ = action;
         getFindingExpressionCancel().setEnabled(true);
         Classes.forwardAndClear(ctx_);

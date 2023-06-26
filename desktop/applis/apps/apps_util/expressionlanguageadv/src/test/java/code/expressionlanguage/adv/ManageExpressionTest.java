@@ -453,7 +453,7 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         selectClass(w_);
         assertTrue(tabEditor(w_).getFindingExpression().isEnabled());
         MockAtomicBoolean v_ = new MockAtomicBoolean();
-        InterruptibleContextEl c_ = (InterruptibleContextEl) w_.getResultContextNext().generate(v_).gene(w_.getBaseResult().getForwards());
+        InterruptibleContextEl c_ = (InterruptibleContextEl) w_.getResultContextNext().generateAdv(v_).gene(w_.getBaseResult().getForwards());
         tabEditor(w_).setAction(c_);
         findStop(w_);
         assertTrue(c_.getInterrupt().get());

@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.syntax.RowSrcLocation;
 import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
-import code.util.StringMap;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
@@ -39,12 +38,11 @@ public final class LocationsTreeEvent implements AbsShortListTree {
         CustList<FileBlockIndex> locs_ = ((MetaCaller)e_).getNumber();
         int len_ = locs_.size();
         AbsCompoFactory comp_ = window.getCommonFrame().getFrames().getCompoFactory();
-        StringMap<String> resources_ = page.getResources();
         AbsPanel pa_ = comp_.newPageBox();
         for (int i = 0; i < len_; i++) {
             FileBlockIndex elt_ = locs_.get(i);
             String name_ = FileBlock.name(elt_.getFile());
-            String content_ = StringUtil.nullToEmpty(resources_.getVal(name_));
+            String content_ = resource(elt_.getFile());
             int lenContent_ = content_.length();
             int locIndex_ = elt_.getIndex();
             if (locIndex_ >= lenContent_) {
@@ -76,6 +74,13 @@ public final class LocationsTreeEvent implements AbsShortListTree {
         }
         window.getPanelSymbolsLocationScroll().setViewportView(pa_);
         GuiBaseUtil.recalculate(window.getPanelSymbolsLocationScroll());
+    }
+
+    static String resource(FileBlock _res) {
+        if (_res == null) {
+            return "";
+        }
+        return StringUtil.nullToEmpty(_res.getContent());
     }
 
     static String transform(String _string) {

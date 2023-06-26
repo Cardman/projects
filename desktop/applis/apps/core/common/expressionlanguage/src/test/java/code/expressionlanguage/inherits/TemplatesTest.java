@@ -3,6 +3,7 @@ package code.expressionlanguage.inherits;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefContextGenerator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.DefTypePairHash;
@@ -11,6 +12,7 @@ import code.expressionlanguage.common.OthTypePairHash;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.sample.CustLgNames;
@@ -1214,6 +1216,14 @@ public final class TemplatesTest extends ProcessMethodCommon {
         assertTrue(page_.getMessages().displayErrors(), isEmptyErrors(page_));
         postValidation(page_,forwards_);
         return page_;
+    }
+
+    private static void postValidation(AnalyzedPageEl _ctx,Forwards _fwd) {
+        ClassesUtil.postValidation(_ctx);
+        generalForward(_ctx,_fwd);
+    }
+    private static void generalForward(AnalyzedPageEl _cont, Forwards _fwd) {
+        ForwardInfos.generalForward(_cont, _fwd);
     }
 
     private static ContextEl simpleContextEl() {

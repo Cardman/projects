@@ -1359,12 +1359,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
-        AnalyzedPageEl a_ = validateWithoutInit(_files, page_);
-        assertTrue(isEmptyErrors(a_));
-        generalForward(a_,forwards_);
-        return forwardAndClear(forwards_);
+        return validateAndRetWithoutInit(opt_,lgName_,kw_,_files,new StringMap<String>()).getContext();
     }
 
     private static StackCall getStackCall(ContextEl _ctx) {

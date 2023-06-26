@@ -150,15 +150,16 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         CustLgNames lgName_ = getLgNames();
         assertEq("en",_lg);
         KeyWords kwl_ = en(lgName_);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = getForwards(opt_,lgName_,kwl_,page_);
-        AnalyzedPageEl a_ = validateWithoutInit(_files, page_);
-        assertTrue( isEmptyErrors(a_));
-        generalForward(a_, forwards_);
-        ContextEl ctx_ = forwardAndClear(forwards_);
-        ResultContext res_ = new ResultContext(a_, forwards_, a_.getMessages());
-        res_.setContext(ctx_);
-        return res_;
+        return validateAndRetWithoutInit(opt_,lgName_,kwl_,_files,new StringMap<String>());
+//        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+//        Forwards forwards_ = getForwards(opt_,lgName_,kwl_,page_);
+//        AnalyzedPageEl a_ = validateWithoutInit(_files, page_);
+//        assertTrue( isEmptyErrors(a_));
+//        generalForward(a_, forwards_);
+//        ContextEl ctx_ = forwardAndClear(forwards_);
+//        ResultContext res_ = new ResultContext(a_, forwards_, a_.getMessages());
+//        res_.setContext(ctx_);
+//        return res_;
     }
     public static StackCall tryInitStaticlyTypes(ContextEl _context, Options _options) {
         return tryInitStaticlyTypes(null, _options, _context);

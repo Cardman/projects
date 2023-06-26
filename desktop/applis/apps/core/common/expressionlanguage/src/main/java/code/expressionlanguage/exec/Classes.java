@@ -1,12 +1,6 @@
 package code.expressionlanguage.exec;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
-import code.expressionlanguage.analyze.blocks.FileBlock;
-import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.AbstractTypePairHash;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -16,16 +10,12 @@ import code.expressionlanguage.exec.dbg.DebugMapping;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ClassMethodIdOverrides;
-import code.expressionlanguage.fwd.AbsContextGenerator;
-import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringMap;
 
 public final class Classes {
@@ -89,52 +79,9 @@ public final class Classes {
             ExecClassesUtil.tryInitStaticlyTypes(ctx_, _res.getForwards().getOptions());
         }
     }
-    public static void fwdGenerate(ResultContext _res, AbsContextGenerator _gene) {
-        AnalyzedPageEl fwd_ = _res.getPageEl();
-        if (fwd_.notAllEmptyErrors()) {
-            return;
-        }
-        Forwards f_ = _res.getForwards();
-        ForwardInfos.generalForward(fwd_,f_);
-        ContextEl ctx_ = _gene.gene(f_);
-        forwardAndClear(ctx_);
-        _res.setContext(ctx_);
-    }
+
     public static void forwardAndClear(ContextEl _context) {
         _context.forwardAndClear();
-    }
-
-    public static AnalyzedPageEl validateWithoutInit(StringMap<String> _files, AnalyzedPageEl _page) {
-        if (_page.notAllEmptyErrors()) {
-            //all standards errors are logged here
-            return _page;
-        }
-        AnalyzedPageEl copy_ = ClassesUtil.buildAllBracesBodies(_files, _page);
-        postValidate(copy_);
-        return copy_;
-    }
-
-    public static void postValidate(AnalyzedPageEl _page) {
-        _page.setCustomAna(true);
-        ClassesUtil.checkImpls(_page);
-        if (_page.isGettingErrors()) {
-            _page.getToStringOwners().add(_page.getAliasObject());
-            _page.getRandCodeOwners().add(_page.getAliasObject());
-            for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getToStr().entryList()) {
-                String fullName_ = e.getKey().getFullName();
-                _page.getToStringOwners().add(fullName_);
-            }
-            for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getRandCodes().entryList()) {
-                String fullName_ = e.getKey().getFullName();
-                _page.getRandCodeOwners().add(fullName_);
-            }
-            for (EntryCust<String, FileBlock> f: _page.getPreviousFilesBodies().entryList()) {
-                FileBlock content_ = f.getValue();
-                _page.getErrors().putFile(content_);
-            }
-            ReportedMessages messages_ = _page.getMessages();
-            messages_.setErrors(FileBlock.errors(_page));
-        }
     }
 
 
