@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.*;
@@ -32,7 +31,6 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -458,30 +456,32 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         AnalyzedPageEl page_ = ana_.getAnalyzed();
         Forwards forwards_ = ana_.getForwards();
         DualConfigurationContext confCont_ = ana_.getContext();
-        AnalyzedPageEl copy_ = setupRendClasses(forwards_,files_, page_, confCont_.getFilesConfName(), confCont_.getAddedResources(), confCont_.getRenderFiles());
+        StringMap<String> copy_ = setupRendClasses(forwards_,files_, confCont_.getFilesConfName(), confCont_.getAddedResources(), confCont_.getRenderFiles());
+        ResultContext r_ = new ResultContext(page_, forwards_);
+        StringMap<String> all_ = forwards_.getResources();
+        AnalyzedPageEl usAn_ = ResultContext.defFilterUser(page_, all_, copy_);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
         FileBlock blockConf_ = ana_.getBlock();
-        session_.initInstancesPattern(copy_, analyzingDoc_,blockConf_);
+        session_.initInstancesPattern(usAn_, analyzingDoc_,blockConf_);
         preInitBeans(session_);
         analyzingDoc_.setRendAnalysisMessages(confCont_.getAnalysisMessages());
         analyzingDoc_.setLanguages(languages_);
         session_.setCurrentLanguage(language_);
-        StringMap<AnaRendDocumentBlock> d_ = session_.analyzedRenders(files_, analyzingDoc_, copy_, confCont_, blockConf_);
-        ResultContext.postValidate(copy_);
-        if (copy_.notAllEmptyErrors()) {
-            return new ResultContext(copy_,forwards_, copy_.getMessages());
+        StringMap<AnaRendDocumentBlock> d_ = session_.analyzedRenders(files_, analyzingDoc_, usAn_, confCont_, blockConf_);
+        ResultContext.postValidate(usAn_);
+        ResultContext user_ = ResultContext.afterDef(r_, all_, usAn_);
+        if (usAn_.notAllEmptyErrors()) {
+            return user_;
         }
-        ForwardInfos.generalForward(copy_, forwards_);
+        ForwardInfos.generalForward(user_);
         StringMap<RendDocumentBlock> renders_ = new StringMap<RendDocumentBlock>();
-        rendExecutingBlocks.setRendDocumentBlock(RendForwardInfos.buildExec(analyzingDoc_, d_, forwards_, session_, renders_));
+        rendExecutingBlocks.setRendDocumentBlock(RendForwardInfos.buildExec(analyzingDoc_, d_, user_.getForwards(), session_, renders_));
         rendExecutingBlocks.getRenders().addAllEntries(renders_);
-        Options options_ = forwards_.getOptions();
-        ContextEl context_ = forwardAndClear(forwards_,_gene);
-        ExecClassesUtil.tryInitStaticlyTypes(context_, options_);
-        ResultContext res_ = new ResultContext(copy_, forwards_, copy_.getMessages());
-        res_.setContext(context_);
-        return res_;
+        ContextEl context_ = forwardAndClear(user_.getForwards(),_gene);
+        user_.setContext(context_);
+        Classes.tryInit(user_);
+        return user_;
     }
 
     public ContextEl forwardAndClear(Forwards _forward, AbsContextGenerator _gene) {
@@ -491,7 +491,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         return ctx_;
     }
 
-    private static AnalyzedPageEl setupRendClasses(Forwards _fwd,StringMap<String> _files, AnalyzedPageEl _page, String _filesConfName, StringList _added, StringList _render) {
+    private static StringMap<String> setupRendClasses(Forwards _fwd, StringMap<String> _files, String _filesConfName, StringList _added, StringList _render) {
         StringList content_ = new StringList();
         for (EntryCust<String, String> e: _files.entryList()) {
             if (StringUtil.quickEq(e.getKey(), _filesConfName)) {
@@ -519,7 +519,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         }
         //!classFiles_.isEmpty()
         _fwd.getResources().addAllEntries(resFiles_);
-        return ClassesUtil.buildAllBracesBodies(classFiles_, _page);
+        return classFiles_;
     }
 
     public void preInitBeans(Configuration _conf) {

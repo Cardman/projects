@@ -51,12 +51,16 @@ public final class ResultContext {
     }
 
     public static AnalyzedPageEl defFilter(AnalyzedPageEl _base, StringMap<String> _files, StringMap<String> _src) {
+        AnalyzedPageEl resultAna_ = defFilterUser(_base, _files, _src);
+        postValidate(resultAna_);
+        return resultAna_;
+    }
+
+    public static AnalyzedPageEl defFilterUser(AnalyzedPageEl _base, StringMap<String> _files, StringMap<String> _src) {
         AnalyzedPageEl copy_ = AnalyzedPageEl.copy(_base);
         copy_.getFoundTypes().addAllElts(_base.getFoundTypes());
         copy_.setResources(_files);
-        AnalyzedPageEl resultAna_ = ClassesUtil.buildUserCode(_src, copy_);
-        postValidate(resultAna_);
-        return resultAna_;
+        return ClassesUtil.buildUserCode(_src, copy_);
     }
 
     public static void fwd(ResultContext _res, AbsLightContextGenerator _g) {
