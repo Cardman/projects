@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.dbg.DebugMapping;
 import code.expressionlanguage.fwd.blocks.FwdRootBlockMembers;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.BuildableLgNames;
 import code.expressionlanguage.stds.LoggableLgNames;
 import code.expressionlanguage.structs.Struct;
@@ -43,27 +44,30 @@ public final class Forwards {
     private final LoggableLgNames loggable;
     private final Options options;
     private int countTypes;
+    private final AbstractInterceptorStdCaller interceptor;
 
     public Forwards(BuildableLgNames _generator, LoggableLgNames _loggable, AbstractFileBuilder _fileBuilder, Options _options) {
         generator = _generator;
         loggable = _loggable;
         options = _options;
         constantsCalculator = _generator.newConstantsCalculator();
+        interceptor = _generator.interceptor();
         coverage = new Coverage(_options.isCovering());
         coverage.getOptionsReport().setDisplayImplicit(_options.getOptionsReport().isDisplayImplicit());
         coverage.getOptionsReport().setDisplayImplicitLabel(_options.getOptionsReport().isDisplayImplicitLabel());
         coverage.getOptionsReport().setEncodeHeader(_options.getOptionsReport().isEncodeHeader());
-        classes = new Classes(_options.getChecker(),new DebugMapping(_options.isDebugging()));
+        classes = new Classes(_options.getChecker(),new DebugMapping(_options.isDebugging(),interceptor));
         fileBuilder = _fileBuilder;
     }
 
     public Forwards(Forwards _from, AnalyzedPageEl _page) {
         generator = _from.getGenerator();
+        interceptor = _from.getInterceptor();
         loggable = _from.getLoggable();
         options = new Options();
         constantsCalculator = _from.getGenerator().newConstantsCalculator();
         coverage = new Coverage(false);
-        classes = new Classes(_page.getChecker(),new DebugMapping(false));
+        classes = new Classes(_page.getChecker(),new DebugMapping(false,interceptor));
         fileBuilder = _page.getFileBuilder();
         getAllMapOperators().addAllEntries(_from.getAllMapOperators());
         getAllMapInnerEltTypes().addAllEntries(_from.getAllMapInnerEltTypes());
@@ -83,6 +87,10 @@ public final class Forwards {
 
     public LoggableLgNames getLoggable() {
         return loggable;
+    }
+
+    public AbstractInterceptorStdCaller getInterceptor() {
+        return interceptor;
     }
 
     public BuildableLgNames getGenerator() {

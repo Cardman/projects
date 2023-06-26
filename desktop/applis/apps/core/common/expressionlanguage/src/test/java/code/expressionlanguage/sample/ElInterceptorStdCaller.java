@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.StdCaller;
@@ -28,5 +29,15 @@ public final class ElInterceptorStdCaller implements AbstractInterceptorStdCalle
     @Override
     public ArgumentWrapper invoke(StdCaller _caller, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         return _caller.call(_exit, _cont, _instance, _firstArgs, _stackCall);
+    }
+
+    @Override
+    public AbsCollection<BreakPointBlockPair> newBreakPointKeyStringCollection() {
+        return new ConcList<BreakPointBlockPair>(this);
+    }
+
+    @Override
+    public AbsCollection<ExecFileBlockTraceIndex> newExecFileBlockTraceIndexCollection() {
+        return new ConcList<ExecFileBlockTraceIndex>(this);
     }
 }

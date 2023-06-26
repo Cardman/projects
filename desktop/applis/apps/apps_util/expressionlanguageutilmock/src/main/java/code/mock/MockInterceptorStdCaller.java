@@ -5,6 +5,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
+import code.expressionlanguage.exec.dbg.AbsCollection;
+import code.expressionlanguage.exec.dbg.ConcList;
+import code.expressionlanguage.exec.dbg.ExecFileBlockTraceIndex;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.StdCaller;
@@ -28,5 +32,15 @@ public final class MockInterceptorStdCaller implements AbstractInterceptorStdCal
     @Override
     public ArgumentWrapper invoke(StdCaller _stdCaller, AbstractExiting _abstractExiting, ContextEl _contextEl, Struct _struct, ArgumentListCall _argumentListCall, StackCall _stackCall) {
         return _stdCaller.call(_abstractExiting,_contextEl,_struct,_argumentListCall,_stackCall);
+    }
+
+    @Override
+    public AbsCollection<BreakPointBlockPair> newBreakPointKeyStringCollection() {
+        return new ConcList<BreakPointBlockPair>(this);
+    }
+
+    @Override
+    public AbsCollection<ExecFileBlockTraceIndex> newExecFileBlockTraceIndexCollection() {
+        return new ConcList<ExecFileBlockTraceIndex>(this);
     }
 }

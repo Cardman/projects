@@ -7,10 +7,7 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.utilcompo.LightLgNamesWithNewAliases;
 import code.expressionlanguage.utilcompo.StringViewReplaceAliases;
 import code.expressionlanguage.utilcompo.stds.FctInterrupt;
@@ -43,5 +40,10 @@ public final class MockLgNames extends LgNames implements LightLgNamesWithNewAli
     @Override
     public CommonExecutionInfos newContextCommon(Options _opt, Forwards _options) {
         return commonExecutionInfos(new MockInterceptorStdCaller(),_opt,_options,new DefaultInitializer());
+    }
+
+    @Override
+    public AbstractInterceptorStdCaller interceptor() {
+        return new MockInterceptorStdCaller();
     }
 }

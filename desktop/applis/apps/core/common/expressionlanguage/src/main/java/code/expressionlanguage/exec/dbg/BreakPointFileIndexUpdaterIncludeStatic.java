@@ -6,8 +6,7 @@ public final class BreakPointFileIndexUpdaterIncludeStatic implements BreakPoint
 
     @Override
     public void update(BreakPoint _bp, CustList<ExecFileBlockTraceIndex> _newValue) {
-        _bp.getResultStatic().getInclude().clear();
-        _bp.getResultStatic().getInclude().addAllElts(_newValue);
+        ExecFileBlockTraceIndex.setAll(_bp.getResultStatic().getInclude(),_newValue);
     }
 
 }

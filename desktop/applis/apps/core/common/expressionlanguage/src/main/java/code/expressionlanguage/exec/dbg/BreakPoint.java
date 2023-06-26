@@ -1,13 +1,20 @@
 package code.expressionlanguage.exec.dbg;
 
+import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
+
 public final class BreakPoint {
     private boolean enabled;
     private boolean enabledChgtType;
     private boolean instanceType = true;
     private boolean staticType;
-    private final BreakPointCondition resultStd = new BreakPointCondition();
-    private final BreakPointCondition resultStatic = new BreakPointCondition();
-    private final BreakPointCondition resultInstance = new BreakPointCondition();
+    private final BreakPointCondition resultStd;
+    private final BreakPointCondition resultStatic;
+    private final BreakPointCondition resultInstance;
+    public BreakPoint(AbstractInterceptorStdCaller _i){
+        resultStd = new BreakPointCondition(_i);
+        resultStatic = new BreakPointCondition(_i);
+        resultInstance = new BreakPointCondition(_i);
+    }
 
     public void resetCount() {
         resultStd.setCount(0);

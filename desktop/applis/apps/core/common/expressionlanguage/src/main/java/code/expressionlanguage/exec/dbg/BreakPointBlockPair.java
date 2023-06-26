@@ -22,6 +22,9 @@ public final class BreakPointBlockPair {
     public boolean matchRow(ExecFileBlock _file, FileMetrics _ana, int _row) {
         return file == _file && _ana.getRowFile(offset) == _row;
     }
+    public String keyStr() {
+        return ExecFileBlock.name(file)+"/"+offset;
+    }
 
     public ExecFileBlock getFile() {
         return file;

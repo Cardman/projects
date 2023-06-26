@@ -405,12 +405,12 @@ public abstract class AbstractPageEl {
         return false;
     }
     private boolean okStack(StackCall _stackCall, BreakPointCondition _bp) {
-        for (ExecFileBlockTraceIndex e: _bp.getExclude()) {
+        for (ExecFileBlockTraceIndex e: _bp.getExclude().elts()) {
             if (!excOk(_stackCall,e)) {
                 return false;
             }
         }
-        for (ExecFileBlockTraceIndex e: _bp.getInclude()) {
+        for (ExecFileBlockTraceIndex e: _bp.getInclude().elts()) {
             if (!incOk(_stackCall,e)) {
                 return false;
             }

@@ -1,21 +1,25 @@
 package code.expressionlanguage.exec.dbg;
 
 import code.expressionlanguage.options.ResultContextLambda;
-import code.util.CustList;
+import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 
 public final class BreakPointCondition {
     private ResultContextLambda result;
     private String resultStr = "";
     private int countModulo;
     private int count;
-    private final CustList<ExecFileBlockTraceIndex> exclude = new CustList<ExecFileBlockTraceIndex>();
-    private final CustList<ExecFileBlockTraceIndex> include = new CustList<ExecFileBlockTraceIndex>();
+    private final AbsCollection<ExecFileBlockTraceIndex> exclude;
+    private final AbsCollection<ExecFileBlockTraceIndex> include;
+    public BreakPointCondition(AbstractInterceptorStdCaller _i) {
+        exclude = _i.newExecFileBlockTraceIndexCollection();
+        include = _i.newExecFileBlockTraceIndexCollection();
+    }
 
-    public CustList<ExecFileBlockTraceIndex> getExclude() {
+    public AbsCollection<ExecFileBlockTraceIndex> getExclude() {
         return exclude;
     }
 
-    public CustList<ExecFileBlockTraceIndex> getInclude() {
+    public AbsCollection<ExecFileBlockTraceIndex> getInclude() {
         return include;
     }
 

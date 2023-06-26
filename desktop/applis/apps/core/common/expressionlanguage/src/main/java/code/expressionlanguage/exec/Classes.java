@@ -47,9 +47,6 @@ public final class Classes {
     private String keyWordValue = "";
     private final AbstractTypePairHash checker;
     private final DebugMapping debugMapping;
-    public Classes(AbstractTypePairHash _checker){
-        this(_checker,new DebugMapping(false));
-    }
     public Classes(AbstractTypePairHash _checker, DebugMapping _d){
         common = new ClassesCommon();
         classesBodies = new StringMap<ExecRootBlock>();

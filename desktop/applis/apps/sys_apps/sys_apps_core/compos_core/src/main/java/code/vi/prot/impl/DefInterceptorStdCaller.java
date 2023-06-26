@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.StdCaller;
@@ -89,5 +90,15 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, cl, _stackCall)));
             return new ArgumentWrapper(null);
         }
+    }
+
+    @Override
+    public AbsCollection<BreakPointBlockPair> newBreakPointKeyStringCollection() {
+        return new ConcMap<BreakPointBlockPair>(new BreakPointBlockPairKeyString(),this);
+    }
+
+    @Override
+    public AbsCollection<ExecFileBlockTraceIndex> newExecFileBlockTraceIndexCollection() {
+        return new ConcMap<ExecFileBlockTraceIndex>(new ExecFileBlockTraceIndexKeyString(),this);
     }
 }

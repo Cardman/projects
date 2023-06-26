@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.dbg;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
+import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -13,12 +14,13 @@ public final class DebugMapping {
     private StringMap<StringMap<Struct>> shared = new StringMap<StringMap<Struct>>();
     private final CustList<String> typesInit = new CustList<String>();
     private String initClass="";
-    private final BreakPointBlockList breakPointsBlock = new BreakPointBlockList();
+    private final BreakPointBlockList breakPointsBlock;
     private final StringMap<ConditionReturn> exceptions = new StringMap<ConditionReturn>();
     private final boolean debugging;
 
-    public DebugMapping(boolean _d) {
+    public DebugMapping(boolean _d, AbstractInterceptorStdCaller _i) {
         this.debugging = _d;
+        breakPointsBlock = new BreakPointBlockList(_i);
     }
 
     public void addFile(FileBlock _file, ExecFileBlock _e) {

@@ -12,4 +12,5 @@ public interface BuildableLgNames {
     AbstractConstantsCalculator newConstantsCalculator();
 
     CommonExecutionInfos newContextCommon(Options _opt, Forwards _options);
+    AbstractInterceptorStdCaller interceptor();
 }

@@ -265,7 +265,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             FileBlock f_ = currentResult.getPageEl().getPreviousFilesBodies().getVal(tabs.get(_s).getFullPath());
             ExecFileBlock e_ = currentResult.getContext().getClasses().getDebugMapping().getFiles().getVal(f_);
             int caret_ = tabs.get(_s).getCenter().getCaretPosition();
-            currentResult.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getListTmp().add(new BreakPointBlockPair(e_, ResultExpressionOperationNode.beginPart(caret_,f_), new BreakPoint()));
+            currentResult.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getListTmp().add(new BreakPointBlockPair(e_, ResultExpressionOperationNode.beginPart(caret_,f_), new BreakPoint(currentResult.getContext().getCaller())));
         }
     }
 

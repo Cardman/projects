@@ -3,6 +3,9 @@ package code.expressionlanguage.dbg;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
+import code.expressionlanguage.exec.dbg.BreakPointBlockPairKeyString;
+import code.expressionlanguage.exec.dbg.ExecFileBlockTraceIndex;
+import code.expressionlanguage.exec.dbg.ExecFileBlockTraceIndexKeyString;
 import code.expressionlanguage.options.ResultContext;
 import code.util.CustList;
 import code.util.StringMap;
@@ -520,6 +523,11 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex2",71,cont_);
         CustList<BreakPointBlockPair> ls_ = cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().bp(file(cont_), cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex").getMetrics(4), 70);
         assertEq(1,ls_.size());
+    }
+    @Test
+    public void test() {
+        assertEq("/0",new BreakPointBlockPairKeyString().keyString(new BreakPointBlockPair(null,0,null)));
+        assertEq("/0",new ExecFileBlockTraceIndexKeyString().keyString(new ExecFileBlockTraceIndex(null,0)));
     }
     private ExecFileBlock file(ResultContext _cont) {
         return file(_cont,"pkg/Ex");

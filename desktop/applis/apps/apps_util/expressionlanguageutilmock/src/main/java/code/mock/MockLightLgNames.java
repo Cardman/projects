@@ -15,6 +15,7 @@ import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.BuildableLgNames;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ListLoggableLgNames;
@@ -61,6 +62,10 @@ public final class MockLightLgNames extends LgNames implements BuildableLgNames,
         return commonExecutionInfos(new MockInterceptorStdCaller(),_opt,_options,new DefaultInitializer());
     }
 
+    @Override
+    public AbstractInterceptorStdCaller interceptor() {
+        return new MockInterceptorStdCaller();
+    }
     public static ResultContext resultContext(Options _o,LgNames _lg, DefaultFileBuilder _d, TranslationsFile _tr, StringMap<String> _src, String _folder, AbstractSymbolFactory _a) {
         ResultContext b_ = resultContextCore(_o, _lg, _d, _tr, _a);
         ResultContext user_ = ResultContext.def(b_, _src, _folder);

@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.expressionlanguage.structs.LambdaStruct;
@@ -70,7 +71,12 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
         return commonExecutionInfos(execContent.getCustAliases().getInterceptor().newInterceptorStdCaller(execContent.getCustAliases().getAliasConcurrentError()),_opt,_options, new CustInitializer(execContent.getInfos().getThreadFactory().newAtomicLong(),execContent.getCustAliases().getInterceptor()));
     }
 
-    public ContextEl newContext(AbstractAtomicBoolean _at,CommonExecutionInfos _common, StringList _args) {
+    @Override
+    public AbstractInterceptorStdCaller interceptor() {
+        return execContent.getCustAliases().getInterceptor().newInterceptorStdCaller(execContent.getCustAliases().getAliasConcurrentError());
+    }
+
+    public ContextEl newContext(AbstractAtomicBoolean _at, CommonExecutionInfos _common, StringList _args) {
         return new RunnableContextEl(_at,null, _common, _args);
     }
 
