@@ -14,7 +14,7 @@ public final class AddExcludeEvent implements AbsActionListener {
     @Override
     public void action() {
         ReadOnlyFormTabEditor e_ = form.getReadOnlyFormTabEditor();
-        GuiStackForm.add(window.getCurrentResult(),form.getMustNotBe(), e_);
+        form.add(window.getCurrentResult(),form.getMustNotBe(), e_);
         form.actualiseLists(window);
     }
 }

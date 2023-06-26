@@ -37,7 +37,7 @@ public final class ElInterceptorStdCaller implements AbstractInterceptorStdCalle
     }
 
     @Override
-    public AbsCollection<ExecFileBlockTraceIndex> newExecFileBlockTraceIndexCollection() {
-        return new ConcList<ExecFileBlockTraceIndex>(this);
+    public AbsCollection<AbsCallContraints> newExecFileBlockTraceIndexCollection() {
+        return new ConcList<AbsCallContraints>(this);
     }
 }

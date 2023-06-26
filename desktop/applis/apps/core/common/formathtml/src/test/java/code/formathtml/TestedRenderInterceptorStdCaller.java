@@ -5,10 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
-import code.expressionlanguage.exec.dbg.AbsCollection;
-import code.expressionlanguage.exec.dbg.ConcList;
-import code.expressionlanguage.exec.dbg.ExecFileBlockTraceIndex;
+import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.StdCaller;
@@ -40,7 +37,7 @@ public final class TestedRenderInterceptorStdCaller implements AbstractIntercept
     }
 
     @Override
-    public AbsCollection<ExecFileBlockTraceIndex> newExecFileBlockTraceIndexCollection() {
-        return new ConcList<ExecFileBlockTraceIndex>(this);
+    public AbsCollection<AbsCallContraints> newExecFileBlockTraceIndexCollection() {
+        return new ConcList<AbsCallContraints>(this);
     }
 }

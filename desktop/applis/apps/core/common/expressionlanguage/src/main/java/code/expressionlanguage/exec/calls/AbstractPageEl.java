@@ -6,9 +6,9 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
+import code.expressionlanguage.exec.dbg.AbsCallContraints;
 import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
-import code.expressionlanguage.exec.dbg.ExecFileBlockTraceIndex;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.*;
@@ -393,7 +393,7 @@ public abstract class AbstractPageEl {
             return false;
         }
         BreakPointCondition condition_ = stopCurrentBpCondition(_bp);
-        if (okStack(_stackCall,condition_) && condition(_context,_stackCall,condition_)) {
+        if (okStack(_context,_stackCall,condition_) && condition(_context,_stackCall,condition_)) {
             int c_ = condition_.getCountModulo();
             if (c_ <= 0) {
                 return true;
@@ -404,35 +404,35 @@ public abstract class AbstractPageEl {
         }
         return false;
     }
-    private boolean okStack(StackCall _stackCall, BreakPointCondition _bp) {
-        for (ExecFileBlockTraceIndex e: _bp.getExclude().elts()) {
-            if (!excOk(_stackCall,e)) {
+    private boolean okStack(ContextEl _context, StackCall _stackCall, BreakPointCondition _bp) {
+        for (AbsCallContraints e: _bp.getExclude().elts()) {
+            if (!excOk(_context,_stackCall,e)) {
                 return false;
             }
         }
-        for (ExecFileBlockTraceIndex e: _bp.getInclude().elts()) {
-            if (!incOk(_stackCall,e)) {
+        for (AbsCallContraints e: _bp.getInclude().elts()) {
+            if (!incOk(_context,_stackCall,e)) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean excOk(StackCall _stackCall, ExecFileBlockTraceIndex _elt) {
+    private boolean excOk(ContextEl _context, StackCall _stackCall, AbsCallContraints _elt) {
         int nb_ = _stackCall.nbPages();
         for (int i = 0; i < nb_; i++) {
             AbstractPageEl e_ = _stackCall.getCall(i);
-            if (_elt.match(e_.file,e_.getTraceIndex())){
+            if (_elt.match(_context,e_)){
                 return false;
             }
         }
         return true;
     }
-    private boolean incOk(StackCall _stackCall, ExecFileBlockTraceIndex _elt) {
+    private boolean incOk(ContextEl _context, StackCall _stackCall, AbsCallContraints _elt) {
         int nb_ = _stackCall.nbPages();
         for (int i = 0; i < nb_; i++) {
             AbstractPageEl e_ = _stackCall.getCall(i);
-            if (_elt.match(e_.file,e_.getTraceIndex())){
+            if (_elt.match(_context,e_)){
                 return true;
             }
         }

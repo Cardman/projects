@@ -14,7 +14,7 @@ public final class AddIncludeEvent implements AbsActionListener {
     @Override
     public void action() {
         ReadOnlyFormTabEditor e_ = form.getReadOnlyFormTabEditor();
-        GuiStackForm.add(window.getCurrentResult(),form.getMustBe(), e_);
+        form.add(window.getCurrentResult(),form.getMustBe(), e_);
         form.actualiseLists(window);
     }
 }

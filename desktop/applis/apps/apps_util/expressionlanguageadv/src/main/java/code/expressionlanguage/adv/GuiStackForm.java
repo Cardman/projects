@@ -1,7 +1,10 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
+import code.expressionlanguage.exec.dbg.AbsCallContraints;
+import code.expressionlanguage.exec.dbg.ExecFileBlockFct;
 import code.expressionlanguage.exec.dbg.ExecFileBlockTraceIndex;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
@@ -14,38 +17,43 @@ public final class GuiStackForm {
     private ReadOnlyFormTabEditor readOnlyFormTabEditor;
     private AbsPlainButton bpAddFile;
     private AbsPlainButton bpRemoveFile;
+    private AbsCustCheckBox singleCaret;
     private AbsTreeGui bpFolderSystem;
     private AbsPanel includedFileIndex;
     private AbsPanel excludedFileIndex;
     private AbsPanel staIncExc;
     private AbsScrollPane staScIncExc;
-    private final CustList<ExecFileBlockTraceIndex> mustBe = new CustList<ExecFileBlockTraceIndex>();
-    private final CustList<ExecFileBlockTraceIndex> mustNotBe = new CustList<ExecFileBlockTraceIndex>();
+    private final CustList<AbsCallContraints> mustBe = new CustList<AbsCallContraints>();
+    private final CustList<AbsCallContraints> mustNotBe = new CustList<AbsCallContraints>();
 
-    public static void add(ResultContext _res, CustList<ExecFileBlockTraceIndex> _list, ReadOnlyFormTabEditor _e) {
+    public void add(ResultContext _res, CustList<AbsCallContraints> _list, ReadOnlyFormTabEditor _e) {
         FileBlock v_ = _res.getPageEl().getPreviousFilesBodies().getVal(_e.getFullPath());
         ExecFileBlock f_ = _res.getForwards().dbg().getFiles().getVal(v_);
         if (f_ == null) {
             return;
         }
-        add(_list, new ExecFileBlockTraceIndex(f_,_e.getCenter().getCaretPosition()));
+        if (singleCaret.isSelected()) {
+            add(_list, new ExecFileBlockTraceIndex(f_,_e.getCenter().getCaretPosition()));
+        } else {
+            add(_list, new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFct(_e.getCenter().getCaretPosition(),v_,_res.getPageEl().getDisplayedStrings())));
+        }
     }
 
-    public static void add(CustList<ExecFileBlockTraceIndex> _list, ExecFileBlockTraceIndex _l) {
+    public static void add(CustList<AbsCallContraints> _list, AbsCallContraints _l) {
         int i_ = index(_list, _l);
         if (i_ == -1) {
             _list.add(_l);
         }
     }
 
-    public static void remove(CustList<ExecFileBlockTraceIndex> _list, ExecFileBlockTraceIndex _l) {
+    public static void remove(CustList<AbsCallContraints> _list, AbsCallContraints _l) {
         int i_ = index(_list, _l);
         if (i_ > -1) {
             _list.remove(i_);
         }
     }
 
-    public static int index(CustList<ExecFileBlockTraceIndex> _list, ExecFileBlockTraceIndex _l) {
+    public static int index(CustList<AbsCallContraints> _list, AbsCallContraints _l) {
         int s_ = _list.size();
         for (int i = 0; i < s_; i++) {
             if (match(_l, _list.get(i))) {
@@ -55,8 +63,8 @@ public final class GuiStackForm {
         return -1;
     }
 
-    public static boolean match(ExecFileBlockTraceIndex _l, ExecFileBlockTraceIndex _one) {
-        return _l.match(_one.getFile(),_one.getIndex());
+    public static boolean match(AbsCallContraints _l, AbsCallContraints _one) {
+        return _l.match(_one);
     }
 
     public AbsScrollPane guiBuild(AbsDebuggerGui _d) {
@@ -70,6 +78,9 @@ public final class GuiStackForm {
         staIncExc.add(conditional);
         staIncExc.add(count);
         staIncExc.add(_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(bpFolderSystem),readOnlyFormTabEditor.getPanel()));
+        singleCaret = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("single");
+        singleCaret.setSelected(true);
+        staIncExc.add(singleCaret);
         bpAddFile = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add include");
         bpAddFile.addActionListener(new AddIncludeEvent(this,_d));
         staIncExc.add(bpAddFile);
@@ -90,13 +101,13 @@ public final class GuiStackForm {
     public void actualiseLists(AbsDebuggerGui _d) {
         includedFileIndex.removeAll();
         excludedFileIndex.removeAll();
-        for (ExecFileBlockTraceIndex l: getMustBe()) {
-            AbsPlainButton r_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("+ "+l.getFile().getFileName() + ":" + l.getIndex());
+        for (AbsCallContraints l: getMustBe()) {
+            AbsPlainButton r_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("+ "+l.keyStr());
             r_.addActionListener(new RemoveIncludeEvent(this,_d, l));
             includedFileIndex.add(r_);
         }
-        for (ExecFileBlockTraceIndex l: getMustNotBe()) {
-            AbsPlainButton r_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("- "+l.getFile().getFileName() + ":" + l.getIndex());
+        for (AbsCallContraints l: getMustNotBe()) {
+            AbsPlainButton r_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("- "+l.keyStr());
             r_.addActionListener(new RemoveExcludeEvent(this,_d, l));
             excludedFileIndex.add(r_);
         }
@@ -105,8 +116,8 @@ public final class GuiStackForm {
     }
 
     private void border() {
-        for (ExecFileBlockTraceIndex l: getMustBe()) {
-            for (ExecFileBlockTraceIndex m: getMustNotBe()) {
+        for (AbsCallContraints l: getMustBe()) {
+            for (AbsCallContraints m: getMustNotBe()) {
                 if (match(l,m)) {
                     staIncExc.setLineBorder(GuiConstants.RED);
                     return;
@@ -128,11 +139,11 @@ public final class GuiStackForm {
         return excludedFileIndex;
     }
 
-    public CustList<ExecFileBlockTraceIndex> getMustBe() {
+    public CustList<AbsCallContraints> getMustBe() {
         return mustBe;
     }
 
-    public CustList<ExecFileBlockTraceIndex> getMustNotBe() {
+    public CustList<AbsCallContraints> getMustNotBe() {
         return mustNotBe;
     }
 
@@ -150,6 +161,10 @@ public final class GuiStackForm {
 
     public ReadOnlyFormTabEditor getReadOnlyFormTabEditor() {
         return readOnlyFormTabEditor;
+    }
+
+    public AbsCustCheckBox getSingleCaret() {
+        return singleCaret;
     }
 
     public AbsTextArea getConditional() {

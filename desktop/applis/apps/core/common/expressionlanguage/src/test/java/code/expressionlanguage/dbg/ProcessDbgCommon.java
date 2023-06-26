@@ -15,10 +15,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
-import code.expressionlanguage.exec.dbg.BreakPoint;
-import code.expressionlanguage.exec.dbg.BreakPointBlockList;
-import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
-import code.expressionlanguage.exec.dbg.ExecFileBlockTraceIndex;
+import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -364,11 +361,30 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     protected StackCallReturnValue stackStdView(String _class, String _meth, int _caret, ResultContext _res, String[] _names, int[] _carets) {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), _caret);
-        ExecFileBlockTraceIndex inc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[0])),_carets[0]);
-        ExecFileBlockTraceIndex exc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[1])),_carets[1]);
-        CustList<ExecFileBlockTraceIndex> incList_ = new CustList<ExecFileBlockTraceIndex>();
+        AbsCallContraints inc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[0])),_carets[0]);
+        AbsCallContraints exc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[1])),_carets[1]);
+        CustList<AbsCallContraints> incList_ = new CustList<AbsCallContraints>();
         incList_.add(inc_);
-        CustList<ExecFileBlockTraceIndex> excList_ = new CustList<ExecFileBlockTraceIndex>();
+        CustList<AbsCallContraints> excList_ = new CustList<AbsCallContraints>();
+        excList_.add(exc_);
+        BreakPointBlockList.breakPointFileIndexUpdaterIncludeStd(pair_, incList_);
+        BreakPointBlockList.breakPointFileIndexUpdaterExcludeStd(pair_, excList_);
+        CustomFoundMethod state_ = state(_res,_class, _meth);
+        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_, null);
+    }
+
+    protected StackCallReturnValue stackStdViewCall(String _class, String _meth, int _caret, StringMap<String> _files, String[] _names, int[] _carets) {
+        ResultContext res_ = ctxStd(_class, _caret, _files);
+        return stackStdViewCall(_class, _meth, _caret, res_, _names, _carets);
+    }
+    protected StackCallReturnValue stackStdViewCall(String _class, String _meth, int _caret, ResultContext _res, String[] _names, int[] _carets) {
+        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), _caret);
+        AbsCallContraints inc_ = new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFct(_carets[0],_res.getPageEl().getPreviousFilesBodies().getVal(_names[0]),_res.getPageEl().getDisplayedStrings()));
+        AbsCallContraints exc_ = new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFct(_carets[1],_res.getPageEl().getPreviousFilesBodies().getVal(_names[1]),_res.getPageEl().getDisplayedStrings()));
+        CustList<AbsCallContraints> incList_ = new CustList<AbsCallContraints>();
+        incList_.add(inc_);
+        CustList<AbsCallContraints> excList_ = new CustList<AbsCallContraints>();
         excList_.add(exc_);
         BreakPointBlockList.breakPointFileIndexUpdaterIncludeStd(pair_, incList_);
         BreakPointBlockList.breakPointFileIndexUpdaterExcludeStd(pair_, excList_);
@@ -384,11 +400,11 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         RootBlock ana_ = _res.getPageEl().getAnaClassBody(_class);
         BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), ana_.getIdRowCol());
-        ExecFileBlockTraceIndex inc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[0])),_carets[0]);
-        ExecFileBlockTraceIndex exc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[1])),_carets[1]);
-        CustList<ExecFileBlockTraceIndex> incList_ = new CustList<ExecFileBlockTraceIndex>();
+        AbsCallContraints inc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[0])),_carets[0]);
+        AbsCallContraints exc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[1])),_carets[1]);
+        CustList<AbsCallContraints> incList_ = new CustList<AbsCallContraints>();
         incList_.add(inc_);
-        CustList<ExecFileBlockTraceIndex> excList_ = new CustList<ExecFileBlockTraceIndex>();
+        CustList<AbsCallContraints> excList_ = new CustList<AbsCallContraints>();
         excList_.add(exc_);
         BreakPointBlockList.breakPointFileIndexUpdaterIncludeStatic(pair_, incList_);
         BreakPointBlockList.breakPointFileIndexUpdaterExcludeStatic(pair_, excList_);
@@ -405,11 +421,11 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         RootBlock ana_ = _res.getPageEl().getAnaClassBody(_class);
         BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), ana_.getIdRowCol());
-        ExecFileBlockTraceIndex inc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[0])),_carets[0]);
-        ExecFileBlockTraceIndex exc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[1])),_carets[1]);
-        CustList<ExecFileBlockTraceIndex> incList_ = new CustList<ExecFileBlockTraceIndex>();
+        AbsCallContraints inc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[0])),_carets[0]);
+        AbsCallContraints exc_ = new ExecFileBlockTraceIndex(_res.getForwards().dbg().getFiles().getVal(_res.getPageEl().getPreviousFilesBodies().getVal(_names[1])),_carets[1]);
+        CustList<AbsCallContraints> incList_ = new CustList<AbsCallContraints>();
         incList_.add(inc_);
-        CustList<ExecFileBlockTraceIndex> excList_ = new CustList<ExecFileBlockTraceIndex>();
+        CustList<AbsCallContraints> excList_ = new CustList<AbsCallContraints>();
         excList_.add(exc_);
         BreakPointBlockList.breakPointFileIndexUpdaterIncludeInstance(pair_, incList_);
         BreakPointBlockList.breakPointFileIndexUpdaterExcludeInstance(pair_, excList_);

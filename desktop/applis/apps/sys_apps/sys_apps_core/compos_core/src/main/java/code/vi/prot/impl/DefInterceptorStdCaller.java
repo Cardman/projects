@@ -98,7 +98,7 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     }
 
     @Override
-    public AbsCollection<ExecFileBlockTraceIndex> newExecFileBlockTraceIndexCollection() {
-        return new ConcMap<ExecFileBlockTraceIndex>(new ExecFileBlockTraceIndexKeyString(),this);
+    public AbsCollection<AbsCallContraints> newExecFileBlockTraceIndexCollection() {
+        return new ConcMap<AbsCallContraints>(new ExecFileBlockTraceIndexKeyString(),this);
     }
 }

@@ -91,22 +91,22 @@ public final class BreakPointBlockList {
         ExecFileBlock f_ = _d.getFiles().getVal(_file);
         update(f_,o_, _updater,_newValue);
     }
-    public static void breakPointFileIndexUpdaterExcludeStd(BreakPointBlockPair _bp,CustList<ExecFileBlockTraceIndex> _newValue) {
+    public static void breakPointFileIndexUpdaterExcludeStd(BreakPointBlockPair _bp,CustList<AbsCallContraints> _newValue) {
         new BreakPointFileIndexUpdaterExcludeStd().update(_bp.getValue(),_newValue);
     }
-    public static void breakPointFileIndexUpdaterExcludeInstance(BreakPointBlockPair _bp, CustList<ExecFileBlockTraceIndex> _newValue) {
+    public static void breakPointFileIndexUpdaterExcludeInstance(BreakPointBlockPair _bp, CustList<AbsCallContraints> _newValue) {
         new BreakPointFileIndexUpdaterExcludeInstance().update(_bp.getValue(),_newValue);
     }
-    public static void breakPointFileIndexUpdaterExcludeStatic(BreakPointBlockPair _bp, CustList<ExecFileBlockTraceIndex> _newValue) {
+    public static void breakPointFileIndexUpdaterExcludeStatic(BreakPointBlockPair _bp, CustList<AbsCallContraints> _newValue) {
         new BreakPointFileIndexUpdaterExcludeStatic().update(_bp.getValue(),_newValue);
     }
-    public static void breakPointFileIndexUpdaterIncludeStd(BreakPointBlockPair _bp,CustList<ExecFileBlockTraceIndex> _newValue) {
+    public static void breakPointFileIndexUpdaterIncludeStd(BreakPointBlockPair _bp,CustList<AbsCallContraints> _newValue) {
         new BreakPointFileIndexUpdaterIncludeStd().update(_bp.getValue(),_newValue);
     }
-    public static void breakPointFileIndexUpdaterIncludeInstance(BreakPointBlockPair _bp, CustList<ExecFileBlockTraceIndex> _newValue) {
+    public static void breakPointFileIndexUpdaterIncludeInstance(BreakPointBlockPair _bp, CustList<AbsCallContraints> _newValue) {
         new BreakPointFileIndexUpdaterIncludeInstance().update(_bp.getValue(),_newValue);
     }
-    public static void breakPointFileIndexUpdaterIncludeStatic(BreakPointBlockPair _bp, CustList<ExecFileBlockTraceIndex> _newValue) {
+    public static void breakPointFileIndexUpdaterIncludeStatic(BreakPointBlockPair _bp, CustList<AbsCallContraints> _newValue) {
         new BreakPointFileIndexUpdaterIncludeStatic().update(_bp.getValue(),_newValue);
     }
     public static void breakPointCountStd(BreakPointBlockPair _bp,int _newValue) {

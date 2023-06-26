@@ -15,10 +15,7 @@ import code.expressionlanguage.analyze.types.LocationsPartTypeUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.common.CstFieldInfo;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
@@ -286,6 +283,21 @@ public final class ResultExpressionOperationNode {
         return null;
     }
 
+    public static String beginPartFct(int _caret, FileBlock _file, DisplayedStrings _page) {
+        ResultExpressionOperationNode c_ = container(_caret, _file);
+        MemberCallingsBlock m_ = AbsBk.getOuterFuntionInType(c_.block);
+        RootBlock p_ = parent(m_);
+        String cl_;
+        if (p_ != null) {
+            cl_ = p_.getFullName();
+        } else {
+            cl_ = "";
+        }
+        if (m_ != null) {
+            return cl_+"."+m_.getSignature(_page);
+        }
+        return "";
+    }
     public static int beginPart(int _caret, FileBlock _file) {
         ResultExpressionOperationNode c_ = container(_caret, _file);
         if (c_.block instanceof TryEval || c_.block instanceof LabelAbruptBlock || c_.block instanceof FinallyEval || c_.block instanceof ElseCondition || c_.block instanceof DoBlock || c_.block instanceof DefaultCondition || c_.block instanceof UnclassedBracedBlock) {

@@ -8,18 +8,18 @@ public final class BreakPointCondition {
     private String resultStr = "";
     private int countModulo;
     private int count;
-    private final AbsCollection<ExecFileBlockTraceIndex> exclude;
-    private final AbsCollection<ExecFileBlockTraceIndex> include;
+    private final AbsCollection<AbsCallContraints> exclude;
+    private final AbsCollection<AbsCallContraints> include;
     public BreakPointCondition(AbstractInterceptorStdCaller _i) {
         exclude = _i.newExecFileBlockTraceIndexCollection();
         include = _i.newExecFileBlockTraceIndexCollection();
     }
 
-    public AbsCollection<ExecFileBlockTraceIndex> getExclude() {
+    public AbsCollection<AbsCallContraints> getExclude() {
         return exclude;
     }
 
-    public AbsCollection<ExecFileBlockTraceIndex> getInclude() {
+    public AbsCollection<AbsCallContraints> getInclude() {
         return include;
     }
 
