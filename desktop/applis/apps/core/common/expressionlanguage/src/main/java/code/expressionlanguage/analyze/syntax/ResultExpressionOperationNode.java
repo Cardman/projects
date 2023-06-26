@@ -291,7 +291,21 @@ public final class ResultExpressionOperationNode {
         if (p_ != null) {
             cl_ = p_.getFullName();
         } else {
-            cl_ = "";
+            AccessedBlock acc_;
+            if (AbsBk.isAnonBlock(m_)) {
+                acc_ = ((NamedCalledFunctionBlock)m_).getAccessedBlock();
+            } else if (m_ instanceof SwitchMethodBlock) {
+                acc_ = ((SwitchMethodBlock)m_).getAccessedBlock();
+            } else {
+                acc_ = null;
+            }
+            if (acc_ instanceof RootBlock) {
+                cl_ = ((RootBlock)acc_).getFullName();
+            } else if (acc_ instanceof OperatorBlock){
+                cl_ = ((OperatorBlock)acc_).getSignature(_page);
+            } else {
+                cl_ = "";
+            }
         }
         if (m_ != null) {
             return cl_+"."+m_.getSignature(_page);

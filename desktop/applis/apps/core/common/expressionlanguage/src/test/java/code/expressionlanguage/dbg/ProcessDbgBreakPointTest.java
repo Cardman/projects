@@ -580,6 +580,110 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         assertEq("",ResultExpressionOperationNode.beginPartFct(22,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex"),cont_.getPageEl().getDisplayedStrings()));
     }
     @Test
+    public void test27() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return ((int t,int u:int)->t+u).call(8,3);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringBuilder xml2_ = new StringBuilder();
+        xml2_.append("@Ex3\n");
+        xml2_.append("public class pkg.Ex2 {\n");
+        xml2_.append(" public static int exmeth(){\n");
+        xml2_.append("  int t = 8;\n");
+        xml2_.append("  int u = 3;\n");
+        xml2_.append("  return Math.mod(t,u);\n");
+        xml2_.append(" }\n");
+        xml2_.append("}\n");
+        StringBuilder xml3_ = new StringBuilder();
+        xml3_.append("public annotation pkg.Ex3 {\n");
+        xml3_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put("pkg/Ex2", xml2_.toString());
+        files_.put("pkg/Ex3", xml3_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        assertEq("pkg.Ex.static .1(int,int)",ResultExpressionOperationNode.beginPartFct(80,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex"),cont_.getPageEl().getDisplayedStrings()));
+    }
+    @Test
+    public void test28() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return switch(10){default;return 1;};\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringBuilder xml2_ = new StringBuilder();
+        xml2_.append("@Ex3\n");
+        xml2_.append("public class pkg.Ex2 {\n");
+        xml2_.append(" public static int exmeth(){\n");
+        xml2_.append("  int t = 8;\n");
+        xml2_.append("  int u = 3;\n");
+        xml2_.append("  return Math.mod(t,u);\n");
+        xml2_.append(" }\n");
+        xml2_.append("}\n");
+        StringBuilder xml3_ = new StringBuilder();
+        xml3_.append("public annotation pkg.Ex3 {\n");
+        xml3_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put("pkg/Ex2", xml2_.toString());
+        files_.put("pkg/Ex3", xml3_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        assertEq("pkg.Ex.static .1(int)",ResultExpressionOperationNode.beginPartFct(86,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex"),cont_.getPageEl().getDisplayedStrings()));
+    }
+    @Test
+    public void test29() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("operator+ pkg.Ex2(pkg.Ex2 a){\n");
+        xml_.append(" ((int t,int u:int)->t+u).call(8,3);return null;\n");
+        xml_.append("}\n");
+        StringBuilder xml2_ = new StringBuilder();
+        xml2_.append("@Ex3\n");
+        xml2_.append("public class pkg.Ex2 {\n");
+        xml2_.append(" public static int exmeth(){\n");
+        xml2_.append("  int t = 8;\n");
+        xml2_.append("  int u = 3;\n");
+        xml2_.append("  return Math.mod(t,u);\n");
+        xml2_.append(" }\n");
+        xml2_.append("}\n");
+        StringBuilder xml3_ = new StringBuilder();
+        xml3_.append("public annotation pkg.Ex3 {\n");
+        xml3_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put("pkg/Ex2", xml2_.toString());
+        files_.put("pkg/Ex3", xml3_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        assertEq("static +(pkg.Ex2).static .1(int,int)",ResultExpressionOperationNode.beginPartFct(51,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex"),cont_.getPageEl().getDisplayedStrings()));
+    }
+    @Test
+    public void test30() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("operator+ pkg.Ex2(pkg.Ex2 a){\n");
+        xml_.append(" (switch(10){default;return 1;});return null;\n");
+        xml_.append("}\n");
+        StringBuilder xml2_ = new StringBuilder();
+        xml2_.append("@Ex3\n");
+        xml2_.append("public class pkg.Ex2 {\n");
+        xml2_.append(" public static int exmeth(){\n");
+        xml2_.append("  int t = 8;\n");
+        xml2_.append("  int u = 3;\n");
+        xml2_.append("  return Math.mod(t,u);\n");
+        xml2_.append(" }\n");
+        xml2_.append("}\n");
+        StringBuilder xml3_ = new StringBuilder();
+        xml3_.append("public annotation pkg.Ex3 {\n");
+        xml3_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put("pkg/Ex2", xml2_.toString());
+        files_.put("pkg/Ex3", xml3_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        assertEq("static +(pkg.Ex2).static .1(int)",ResultExpressionOperationNode.beginPartFct(58,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex"),cont_.getPageEl().getDisplayedStrings()));
+    }
+    @Test
     public void test() {
         assertEq("/0",new BreakPointBlockPairKeyString().keyString(new BreakPointBlockPair(null,0,null)));
         assertEq("/0",new ExecFileBlockTraceIndexKeyString().keyString(new ExecFileBlockTraceIndex(null,0)));

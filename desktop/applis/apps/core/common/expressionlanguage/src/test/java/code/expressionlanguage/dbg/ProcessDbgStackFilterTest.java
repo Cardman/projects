@@ -165,6 +165,25 @@ public final class ProcessDbgStackFilterTest extends ProcessDbgCommon {
         assertEq(7,cont_.nbPages());
     }
     @Test
+    public void test18() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex0", "public class pkg.Ex0 {public static int sup1(){return sub();}public static int sup2(){return sub();}public static int sup3(){return sub();}public static int sub(){return Ex2._();}}");
+        files_.put("pkg/Ex1", "public class pkg.Ex1 {public static int sup1(){return sub();}public static int sup2(){return sub();}public static int sup3(){return sub();}public static int sub(){return Ex2._();}}");
+        files_.put("pkg/Ex2", "public class pkg.Ex2 {public static int exmeth(){((int a:int)->a).call(1);return Ex0.sup1()+Ex0.sup2()+Ex1.sup1()+Ex1.sup2();}public static int _(){return 1;}}");
+        StackCall cont_ = stackStdViewCall("pkg.Ex2","exmeth",63,files_,new String[]{"pkg/Ex2","pkg/Ex0"},new int[]{63,132}).getStack();
+        assertEq(3,cont_.nbPages());
+    }
+    @Test
+    public void test19() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex0", "public class pkg.Ex0 {public static int sup1(){return sub();}public static int sup2(){return sub();}public static int sup3(){return sub();}public static int sub(){return Ex2._();}}");
+        files_.put("pkg/Ex1", "public class pkg.Ex1 {public static int sup1(){return sub();}public static int sup2(){return sub();}public static int sup3(){return sub();}public static int sub(){return Ex2._();}}");
+        files_.put("pkg/Ex2", "public class pkg.Ex2 {public static int exmeth(){((int a:int)->a).call(1);return Ex0.sup1()+Ex0.sup2()+Ex1.sup1()+Ex1.sup2();}public static int _(){return 1;}}");
+        ResultContext res_ = ctxStd("pkg.Ex2", 63, files_);
+        StackCallReturnValue cont_ = stackStdViewCall("pkg.Ex2","exmeth",63,res_,new String[]{"pkg/Ex2","pkg/Ex0"},new int[]{63,132});
+        assertEq(0,dbgNormal("pkg.Ex2",getMethodId("exmeth"),res_,cont_.getStack()).nbPages());
+    }
+    @Test
     public void f1() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex0", "public class pkg.Ex0 {public static int sup1(){return sub();}public static int sup2(){return sub();}public static int sup3(){return sub();}public static int sub(){return Ex2._();}}");
