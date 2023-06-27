@@ -7,15 +7,17 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.util.core.StringUtil;
 
 public final class ExecFileBlockFct implements AbsCallContraints {
+    private final String key;
     private final String index;
 
-    public ExecFileBlockFct(String _i) {
+    public ExecFileBlockFct(String _k,String _i) {
+        this.key = _k;
         this.index = _i;
     }
 
     @Override
     public boolean match(AbsCallContraints _call) {
-        return _call instanceof ExecFileBlockFct && match(((ExecFileBlockFct) _call).index);
+        return _call instanceof ExecFileBlockFct && match(((ExecFileBlockFct) _call).key);
     }
 
     @Override
@@ -25,14 +27,15 @@ public final class ExecFileBlockFct implements AbsCallContraints {
     }
 
     public boolean match(String _i) {
-        return StringUtil.quickEq(getIndex(),_i);
-    }
-
-    public String getIndex() {
-        return index;
+        return StringUtil.quickEq(keyStr(),_i);
     }
 
     public String keyStr() {
+        return key;
+    }
+
+    @Override
+    public String valueStr() {
         return index;
     }
 }

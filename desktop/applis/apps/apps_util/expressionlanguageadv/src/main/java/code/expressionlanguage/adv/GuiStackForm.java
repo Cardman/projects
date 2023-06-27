@@ -35,7 +35,7 @@ public final class GuiStackForm {
         if (singleCaret.isSelected()) {
             add(_list, new ExecFileBlockTraceIndex(f_,_e.getCenter().getCaretPosition()));
         } else {
-            add(_list, new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFct(_e.getCenter().getCaretPosition(),v_,_res.getPageEl().getDisplayedStrings())));
+            add(_list, new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFctKey(_e.getCenter().getCaretPosition(),v_),ResultExpressionOperationNode.beginPartFct(_e.getCenter().getCaretPosition(),v_,_res.getPageEl().getDisplayedStrings())));
         }
     }
 
@@ -102,12 +102,12 @@ public final class GuiStackForm {
         includedFileIndex.removeAll();
         excludedFileIndex.removeAll();
         for (AbsCallContraints l: getMustBe()) {
-            AbsPlainButton r_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("+ "+l.keyStr());
+            AbsPlainButton r_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("+ "+l.valueStr());
             r_.addActionListener(new RemoveIncludeEvent(this,_d, l));
             includedFileIndex.add(r_);
         }
         for (AbsCallContraints l: getMustNotBe()) {
-            AbsPlainButton r_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("- "+l.keyStr());
+            AbsPlainButton r_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("- "+l.valueStr());
             r_.addActionListener(new RemoveExcludeEvent(this,_d, l));
             excludedFileIndex.add(r_);
         }

@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.syntax;
 
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.common.DisplayedStrings;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
 
 public final class SrcFileLocationMethod extends AbsSrcFileLocation {
     private final BracedBlock owner;
@@ -35,7 +34,7 @@ public final class SrcFileLocationMethod extends AbsSrcFileLocation {
     @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
         MemberCallingsBlock m_ = getMethod();
-        AccessedBlock acc_ = ForwardInfos.accessed(m_);
+        AccessedBlock acc_ = MemberCallingsBlock.accessed(m_);
         if (acc_ instanceof RootBlock) {
             return new RowSrcLocation(EnSrcLocation.METHOD,((RootBlock)acc_).getFullName()+"."+ m_.getSignature(_dis), getFileName(),getIndex());
         }

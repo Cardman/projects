@@ -24,6 +24,22 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Accesse
         }
     }
 
+    public static String clName(MemberCallingsBlock _m) {
+        return _m.getFile().getNumberFile()+"/"+_m.getOffset();
+    }
+
+    public static AccessedBlock accessed(MemberCallingsBlock _m) {
+        AccessedBlock acc_;
+        if (isAnonBlock(_m)) {
+            acc_ = ((NamedCalledFunctionBlock) _m).getAccessedBlock();
+        } else if (_m instanceof SwitchMethodBlock) {
+            acc_ = ((SwitchMethodBlock) _m).getAccessedBlock();
+        } else {
+            acc_ = null;
+        }
+        return acc_;
+    }
+
     public final void buildFctInstructionsReadOnly(AnalyzedPageEl _page) {
         _page.setSumOffset(getOffset());
         _page.zeroOffset();

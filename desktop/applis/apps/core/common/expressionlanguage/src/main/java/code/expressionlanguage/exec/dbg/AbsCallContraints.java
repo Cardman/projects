@@ -10,4 +10,5 @@ public interface AbsCallContraints {
 
 
     String keyStr();
+    String valueStr();
 }

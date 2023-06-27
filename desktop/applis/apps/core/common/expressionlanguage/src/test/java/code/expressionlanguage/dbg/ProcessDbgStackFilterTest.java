@@ -249,8 +249,8 @@ public final class ProcessDbgStackFilterTest extends ProcessDbgCommon {
         files_.put("pkg/Ex1", "public class pkg.Ex1 {public static int sup1(){return sub();}public static int sup2(){return sub();}public static int sup3(){return sub();}public static int sub(){return Ex2._();}}");
         files_.put("pkg/Ex2", "public class pkg.Ex2 {public static int exmeth(){return Ex0.sup1()+Ex0.sup2()+Ex1.sup1()+Ex1.sup2();}public static int _(){new Ex2();return 1;}{i=i;}int i;}");
         ResultContext res_ = ctxStd("pkg.Ex2", 144, files_);
-        AbsCallContraints one_ = new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFct(54,res_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex0"),res_.getPageEl().getDisplayedStrings()));
-        AbsCallContraints two_ = new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFct(93,res_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex0"),res_.getPageEl().getDisplayedStrings()));
+        AbsCallContraints one_ = execFileBlockFct(res_,54,"pkg/Ex0");
+        AbsCallContraints two_ = execFileBlockFct(res_,93,"pkg/Ex0");
         assertFalse(one_.match(two_));
     }
     @Test
@@ -260,8 +260,8 @@ public final class ProcessDbgStackFilterTest extends ProcessDbgCommon {
         files_.put("pkg/Ex1", "public class pkg.Ex1 {public static int sup1(){return sub();}public static int sup2(){return sub();}public static int sup3(){return sub();}public static int sub(){return Ex2._();}}");
         files_.put("pkg/Ex2", "public class pkg.Ex2 {public static int exmeth(){return Ex0.sup1()+Ex0.sup2()+Ex1.sup1()+Ex1.sup2();}public static int _(){new Ex2();return 1;}{i=i;}int i;}");
         ResultContext res_ = ctxStd("pkg.Ex2", 144, files_);
-        AbsCallContraints one_ = new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFct(54,res_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex0"),res_.getPageEl().getDisplayedStrings()));
-        AbsCallContraints two_ = new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFct(54,res_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex1"),res_.getPageEl().getDisplayedStrings()));
+        AbsCallContraints one_ = execFileBlockFct(res_,54,"pkg/Ex0");
+        AbsCallContraints two_ = execFileBlockFct(res_,54,"pkg/Ex1");
         assertFalse(one_.match(two_));
     }
     @Test
@@ -272,7 +272,7 @@ public final class ProcessDbgStackFilterTest extends ProcessDbgCommon {
         files_.put("pkg/Ex2", "public class pkg.Ex2 {public static int exmeth(){return Ex0.sup1()+Ex0.sup2()+Ex1.sup1()+Ex1.sup2();}public static int _(){new Ex2();return 1;}{i=i;}int i;}");
         ResultContext res_ = ctxStd("pkg.Ex2", 144, files_);
         AbsCallContraints one_ = new ExecFileBlockTraceIndex(res_.getForwards().dbg().getFiles().getVal(res_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex1")),54);
-        AbsCallContraints two_ = new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFct(54,res_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex1"),res_.getPageEl().getDisplayedStrings()));
+        AbsCallContraints two_ = execFileBlockFct(res_,54,"pkg/Ex1");
         assertFalse(one_.match(two_));
     }
     @Test
@@ -283,7 +283,7 @@ public final class ProcessDbgStackFilterTest extends ProcessDbgCommon {
         files_.put("pkg/Ex2", "public class pkg.Ex2 {public static int exmeth(){return Ex0.sup1()+Ex0.sup2()+Ex1.sup1()+Ex1.sup2();}public static int _(){new Ex2();return 1;}{i=i;}int i;}");
         ResultContext res_ = ctxStd("pkg.Ex2", 144, files_);
         AbsCallContraints one_ = new ExecFileBlockTraceIndex(res_.getForwards().dbg().getFiles().getVal(res_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex1")),54);
-        AbsCallContraints two_ = new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFct(54,res_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex1"),res_.getPageEl().getDisplayedStrings()));
+        AbsCallContraints two_ = execFileBlockFct(res_,54,"pkg/Ex1");
         assertFalse(two_.match(one_));
     }
     @Test
@@ -315,8 +315,8 @@ public final class ProcessDbgStackFilterTest extends ProcessDbgCommon {
         files_.put("pkg/Ex1", "public class pkg.Ex1 {public static int sup1(){return sub();}public static int sup2(){return sub();}public static int sup3(){return sub();}public static int sub(){return Ex2._();}}");
         files_.put("pkg/Ex2", "public class pkg.Ex2 {public static int exmeth(){return Ex0.sup1()+Ex0.sup2()+Ex1.sup1()+Ex1.sup2();}public static int _(){new Ex2();return 1;}{i=i;}int i;}");
         ResultContext res_ = ctxStd("pkg.Ex2", 144, files_);
-        AbsCallContraints one_ = new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFct(54,res_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex0"),res_.getPageEl().getDisplayedStrings()));
-        AbsCallContraints two_ = new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFct(55,res_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex0"),res_.getPageEl().getDisplayedStrings()));
+        AbsCallContraints one_ = execFileBlockFct(res_,54,"pkg/Ex0");
+        AbsCallContraints two_ = execFileBlockFct(res_,55,"pkg/Ex0");
         assertTrue(one_.match(two_));
     }
     @Test

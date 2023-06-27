@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.options.ResultContext;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
@@ -578,6 +579,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex3", xml3_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         assertEq("",ResultExpressionOperationNode.beginPartFct(22,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex"),cont_.getPageEl().getDisplayedStrings()));
+        assertEq("",ResultExpressionOperationNode.beginPartFctKey(22,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex")));
     }
     @Test
     public void test27() {
@@ -687,7 +689,9 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
     public void test() {
         assertEq("/0",new BreakPointBlockPairKeyString().keyString(new BreakPointBlockPair(null,0,null)));
         assertEq("/0",new ExecFileBlockTraceIndexKeyString().keyString(new ExecFileBlockTraceIndex(null,0)));
-        assertEq("",new ExecFileBlockTraceIndexKeyString().keyString(new ExecFileBlockFct("")));
+        assertEq("",new ExecFileBlockTraceIndexKeyString().keyString(new ExecFileBlockFct("","")));
+        assertEq("",new ExecFileBlockFct("","").valueStr());
+        assertFalse(StringUtil.nullToEmpty(new ExecFileBlockTraceIndex(null,0).valueStr()+"_").isEmpty());
     }
     private ExecFileBlock file(ResultContext _cont) {
         return file(_cont,"pkg/Ex");

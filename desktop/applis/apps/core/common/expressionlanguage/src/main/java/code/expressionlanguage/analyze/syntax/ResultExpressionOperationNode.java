@@ -18,7 +18,6 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
@@ -68,7 +67,7 @@ public final class ResultExpressionOperationNode {
             a_.setImportingTypes((OperatorBlock)m_);
             a_.setCurrentPkg(a_.getDefaultPkg());
         } else {
-            RootBlock par_ = ForwardInfos.parent(m_);
+            RootBlock par_ = parent(m_);
             if (par_ != null) {
                 ClassesUtil.globalType(a_, par_);
                 a_.setCurrentPkg(par_.getPackageName());
@@ -123,7 +122,7 @@ public final class ResultExpressionOperationNode {
             _a.setImportingTypes((OperatorBlock)m_);
             _a.setCurrentPkg(_a.getDefaultPkg());
         } else {
-            RootBlock par_ = ForwardInfos.parent(m_);
+            RootBlock par_ = parent(m_);
             if (par_ != null) {
                 ClassesUtil.globalType(_a, par_);
                 _a.setCurrentPkg(par_.getPackageName());
@@ -278,7 +277,49 @@ public final class ResultExpressionOperationNode {
         if (m_ == null) {
             return "";
         }
-        return ForwardInfos.clName(_page, m_);
+        return clName(_page, m_);
+    }
+
+    public static String clName(DisplayedStrings _page, MemberCallingsBlock _m) {
+        RootBlock p_ = parent(_m);
+        String cl_;
+        if (p_ != null) {
+            cl_ = p_.getFullName();
+        } else {
+            AccessedBlock acc_ = MemberCallingsBlock.accessed(_m);
+            if (acc_ instanceof RootBlock) {
+                cl_ = ((RootBlock)acc_).getFullName();
+            } else if (acc_ instanceof OperatorBlock){
+                cl_ = ((OperatorBlock)acc_).getSignature(_page);
+            } else {
+                cl_ = "";
+            }
+        }
+        if (cl_.isEmpty()) {
+            return _m.getSignature(_page);
+        }
+        return cl_+"."+_m.getSignature(_page);
+    }
+
+    public static RootBlock parent(AbsBk _m) {
+        BracedBlock b_;
+        if (_m == null) {
+            b_ = null;
+        } else {
+            b_ = _m.getParent();
+        }
+        if (b_ instanceof RootBlock) {
+            return (RootBlock) b_;
+        }
+        return null;
+    }
+    public static String beginPartFctKey(int _caret, FileBlock _file) {
+        ResultExpressionOperationNode c_ = container(_caret, _file);
+        MemberCallingsBlock m_ = AbsBk.getOuterFuntionInType(c_.block);
+        if (m_ == null) {
+            return "";
+        }
+        return MemberCallingsBlock.clName(m_);
     }
     public static int beginPart(int _caret, FileBlock _file) {
         ResultExpressionOperationNode c_ = container(_caret, _file);

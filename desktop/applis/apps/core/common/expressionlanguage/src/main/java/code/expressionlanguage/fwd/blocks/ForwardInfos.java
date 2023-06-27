@@ -70,7 +70,7 @@ public final class ForwardInfos {
         }
         for (OperatorBlock o: _gener.getAllOperators(_page)){
             ExecFileBlock exFile_ = files_.get(o.getFile().getNumberFile());
-            String cl_ = clName(_forwards.getGenerator().getDisplayedStrings(), o);
+            String cl_ = MemberCallingsBlock.clName(o);
             ExecOperatorBlock e_ = new ExecOperatorBlock(cl_,o.getAccess(), new ExecExecNamedFunctionContent(o.getName(), o.getImportedParametersTypes(), o.getParametersRef(), o.getParametersNames(), o.isRetRef(), o.isVarargs()));
             e_.setImportedReturnType(o.getImportedReturnType());
             e_.setFile(exFile_);
@@ -547,7 +547,7 @@ public final class ForwardInfos {
         RootBlock k_ = _r.getRootBlock();
         Members mem_ = _r.getMembers();
         buildFieldInfos(_forwards, current_, k_, mem_);
-        buildFctInfos(_forwards, current_, k_, mem_);
+        buildFctInfos(current_, k_, mem_);
         IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> ovNamed_ = ovNamed(mem_);
         IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> named_ = named(mem_);
         IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> ctors_;
@@ -632,10 +632,10 @@ public final class ForwardInfos {
         return ovNamed_;
     }
 
-    private static void buildFctInfos(Forwards _forwards, ExecRootBlock _current, RootBlock _k, Members _mem) {
+    private static void buildFctInfos(ExecRootBlock _current, RootBlock _k, Members _mem) {
         for (NamedCalledFunctionBlock b: _k.getOverridableBlocks()) {
             MethodKind kind_ = b.getKind();
-            String cl_ = clName(_forwards.getGenerator().getDisplayedStrings(), b);
+            String cl_ = MemberCallingsBlock.clName(b);
             ExecOverridableBlock val_ = new ExecOverridableBlock(cl_,b.getAccess(), b.getModifier(), toExecMethodKind(kind_), new ExecExecNamedFunctionContent(b.getName(), b.getImportedParametersTypes(), b.getParametersRef(), b.getParametersNames(), b.isRetRef(), b.isVarargs()));
             val_.setFile(_current.getFile());
             _mem.addOvNamed(b,val_);
@@ -654,7 +654,7 @@ public final class ForwardInfos {
             val_.getImportedParametersTypes().addAllElts(b.getImportedParametersTypes());
         }
         for (ConstructorBlock b: _k.getConstructorBlocks()) {
-            String cl_ = clName(_forwards.getGenerator().getDisplayedStrings(), b);
+            String cl_ = MemberCallingsBlock.clName(b);
             ExecConstructorBlock val_ = new ExecConstructorBlock(cl_,b.getName(), b.isVarargs(), b.getAccess(), b.getParametersNames(), b.getImportedParametersTypes(), b.getParametersRef());
             val_.setFile(_current.getFile());
             _mem.addCtor(b,val_);
@@ -662,7 +662,7 @@ public final class ForwardInfos {
             val_.setImportedReturnType(b.getImportedReturnType());
         }
         for (InstanceBlock b: _k.getInstanceBlocks()) {
-            String cl_ = clName(_forwards.getGenerator().getDisplayedStrings(), b);
+            String cl_ = MemberCallingsBlock.clName(b);
             ExecInstanceBlock val_ = new ExecInstanceBlock(cl_,b.getOffset());
             val_.setFile(_current.getFile());
             val_.setNumber(b.getNumber());
@@ -670,7 +670,7 @@ public final class ForwardInfos {
             _current.getAllInstanceInits().add(val_);
         }
         for (StaticBlock b: _k.getStaticBlocks()) {
-            String cl_ = clName(_forwards.getGenerator().getDisplayedStrings(), b);
+            String cl_ = MemberCallingsBlock.clName(b);
             ExecStaticBlock val_ = new ExecStaticBlock(cl_,b.getOffset());
             val_.setFile(_current.getFile());
             val_.setNumber(b.getNumber());
@@ -817,7 +817,7 @@ public final class ForwardInfos {
 //        ExecRootBlock declaring_ = _forwards.getMapMembers().getValue(_s.getRootNumber()).getRootBlock();
         NamedCalledFunctionBlock block_ = _s.getBlock();
         block_.setNumberLambda(_forwards.countAnonLambda());
-        String cl_ = clName(_forwards.getGenerator().getDisplayedStrings(), _s.getBlock());
+        String cl_ = MemberCallingsBlock.clName(_s.getBlock());
         ExecAnonymousFunctionBlock fct_ = new ExecAnonymousFunctionBlock(cl_,block_.getAccess(), block_.getModifier(), new ExecAnonFctContent(block_.getAnaAnonFctContent()), new ExecExecNamedFunctionContent(block_.getName(), block_.getImportedParametersTypes(), block_.getParametersRef(), block_.getParametersNames(), block_.isRetRef(), block_.isVarargs()));
         _forwards.addAnonLambda(block_,fct_);
         fct_.setImportedReturnType(block_.getImportedReturnType());
@@ -833,7 +833,7 @@ public final class ForwardInfos {
         MethodAccessKind kind_ = block_.getStaticContext();
         String retType_ = block_.getRetType();
         ExecAnonFctContent anonFctContent_ = new ExecAnonFctContent(block_.getAnaAnonFctContent());
-        String cl_ = clName(_forwards.getGenerator().getDisplayedStrings(), block_);
+        String cl_ = MemberCallingsBlock.clName(block_);
         ExecAbstractSwitchMethod fct_;
         if (block_.isInstance()) {
             fct_ = new ExecSwitchInstanceMethod(cl_,retRef_, name_, kind_, parType_, retType_, anonFctContent_);
@@ -1965,49 +1965,5 @@ public final class ForwardInfos {
         return out_;
     }
 
-    public static RootBlock parent(AbsBk _m) {
-        BracedBlock b_;
-        if (_m == null) {
-            b_ = null;
-        } else {
-            b_ = _m.getParent();
-        }
-        if (b_ instanceof RootBlock) {
-            return (RootBlock) b_;
-        }
-        return null;
-    }
 
-    public static String clName(DisplayedStrings _page, MemberCallingsBlock _m) {
-        RootBlock p_ = parent(_m);
-        String cl_;
-        if (p_ != null) {
-            cl_ = p_.getFullName();
-        } else {
-            AccessedBlock acc_ = accessed(_m);
-            if (acc_ instanceof RootBlock) {
-                cl_ = ((RootBlock)acc_).getFullName();
-            } else if (acc_ instanceof OperatorBlock){
-                cl_ = ((OperatorBlock)acc_).getSignature(_page);
-            } else {
-                cl_ = "";
-            }
-        }
-        if (cl_.isEmpty()) {
-            return _m.getSignature(_page);
-        }
-        return cl_+"."+_m.getSignature(_page);
-    }
-
-    public static AccessedBlock accessed(MemberCallingsBlock _m) {
-        AccessedBlock acc_;
-        if (AbsBk.isAnonBlock(_m)) {
-            acc_ = ((NamedCalledFunctionBlock) _m).getAccessedBlock();
-        } else if (_m instanceof SwitchMethodBlock) {
-            acc_ = ((SwitchMethodBlock) _m).getAccessedBlock();
-        } else {
-            acc_ = null;
-        }
-        return acc_;
-    }
 }

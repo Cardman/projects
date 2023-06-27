@@ -48,4 +48,9 @@ public final class ExecFileBlockTraceIndex implements AbsCallContraints {
     public String keyStr() {
         return ExecFileBlock.name(file)+"/"+index;
     }
+
+    @Override
+    public String valueStr() {
+        return ExecFileBlock.name(file)+" : "+index;
+    }
 }

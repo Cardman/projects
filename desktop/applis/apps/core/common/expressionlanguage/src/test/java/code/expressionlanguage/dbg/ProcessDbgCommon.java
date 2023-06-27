@@ -9,7 +9,6 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -20,7 +19,6 @@ import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.KeyWords;
@@ -378,8 +376,8 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     protected StackCallReturnValue stackStdViewCall(String _class, String _meth, int _caret, ResultContext _res, String[] _names, int[] _carets) {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), _caret);
-        AbsCallContraints inc_ = new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFct(_carets[0],_res.getPageEl().getPreviousFilesBodies().getVal(_names[0]),_res.getPageEl().getDisplayedStrings()));
-        AbsCallContraints exc_ = new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFct(_carets[1],_res.getPageEl().getPreviousFilesBodies().getVal(_names[1]),_res.getPageEl().getDisplayedStrings()));
+        AbsCallContraints inc_ = execFileBlockFct(_res, _carets[0], _names[0]);
+        AbsCallContraints exc_ = execFileBlockFct(_res, _carets[1], _names[1]);
         CustList<AbsCallContraints> incList_ = new CustList<AbsCallContraints>();
         incList_.add(inc_);
         CustList<AbsCallContraints> excList_ = new CustList<AbsCallContraints>();
@@ -517,6 +515,11 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files, _types);
         return ResultExpressionOperationNode.prepare(_fileName,_caret,res_.getPageEl(),null);
     }
+
+    protected ExecFileBlockFct execFileBlockFct(ResultContext _res, int _caret, String _name) {
+        return new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFctKey(_caret, _res.getPageEl().getPreviousFilesBodies().getVal(_name)),ResultExpressionOperationNode.beginPartFct(_caret, _res.getPageEl().getPreviousFilesBodies().getVal(_name), _res.getPageEl().getDisplayedStrings()));
+    }
+
     protected static String getCustomList() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.CustList<U> :Iterable<U>{\n");
