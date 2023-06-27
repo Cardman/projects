@@ -169,6 +169,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         assertEq("",m_.getAliasRate());
         ResultContext user_ = MockLightLgNames.resultContext(new Options(),m_, DefaultFileBuilder.newInstance(m_.getContent()), en_, src_, "src", null);
         ContextEl ctx_ = user_.getContext();
+        assertFalse(ctx_.getCaller().newExecFileBlockTraceIndexCollection().elts().iterator().hasNext());
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ArgumentWrapper a_ = ProcessMethod.calculate(new CustomFoundMethod(new ExecFormattedRootBlock(ex_), new ExecTypeFunction(ex_, ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "exmeth", new CustList<String>())).first()), new Parameters()), ctx_, StackCall.newInstance(InitPhase.NOTHING, ctx_));
         assertEq(1,((NumberStruct) ArgumentListCall.toStr(a_.getValue())).intStruct());
