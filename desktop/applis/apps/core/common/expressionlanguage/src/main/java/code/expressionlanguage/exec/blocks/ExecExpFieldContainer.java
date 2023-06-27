@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.fwd.blocks.ExecFieldContent;
 
@@ -13,7 +14,7 @@ public final class ExecExpFieldContainer extends ExecMemberContainer {
     }
 
     @Override
-    protected void firstEnter(AbstractInitPageEl _last) {
+    protected void firstEnter(StackCall _stack, AbstractInitPageEl _last) {
         _last.globalOffset(getOffset());
     }
 

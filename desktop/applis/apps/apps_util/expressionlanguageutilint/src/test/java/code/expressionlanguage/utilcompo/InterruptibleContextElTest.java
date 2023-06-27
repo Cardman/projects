@@ -3,6 +3,7 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -93,6 +94,6 @@ public  final class InterruptibleContextElTest extends EquallableElIntUtil {
         return _a.getValue().getStruct();
     }
     public static StackCall stack(ContextEl _phase) {
-        return StackCall.newInstance(InitPhase.NOTHING,_phase,new CustomSeedGene());
+        return StackCall.newInstance(new DefStackStopper(),InitPhase.NOTHING,_phase,new CustomSeedGene());
     }
 }

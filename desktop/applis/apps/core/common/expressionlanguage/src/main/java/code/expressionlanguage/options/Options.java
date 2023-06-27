@@ -14,7 +14,6 @@ public final class Options {
     private final StringList typesInit = new StringList();
     private boolean readOnly;
     private boolean covering;
-    private boolean debugging;
     private boolean gettingErrors;
     private final OptionsReport optionsReport = new OptionsReport();
     private WarningShow warningShow;
@@ -55,14 +54,6 @@ public final class Options {
 
     public void setCovering(boolean _covering) {
         covering = _covering;
-    }
-
-    public boolean isDebugging() {
-        return debugging;
-    }
-
-    public void setDebugging(boolean _d) {
-        this.debugging = _d;
     }
 
     public boolean isGettingErrors() {

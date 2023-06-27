@@ -30,10 +30,13 @@ public final class StackCall implements AbstractStackCall {
     private boolean checkingException;
 
     private int globalOffset;
-    private StepDbgActionEnum step = StepDbgActionEnum.RUN;
+    private StepDbgActionEnum step;
     private int previousNbPages;
     private boolean visited;
-    public StackCall(InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
+    private final AbsStackStopper stopper;
+    public StackCall(AbsStackStopper _s,InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
+        stopper = _s;
+        step = _s.firstStep();
         initializingTypeInfos = new InitializingTypeInfos();
         initializingTypeInfos.setInitEnums(_readOnlyOthers);
         seedSpecGenerator = NullStruct.NULL_VALUE;
@@ -43,14 +46,19 @@ public final class StackCall implements AbstractStackCall {
     }
 
     public static StackCall newInstance(InitPhase _readOnlyOthers, ContextEl _ctx) {
-        return newInstance(_readOnlyOthers, _ctx, _ctx.getExecutionInfos().getSeed());
+        return newInstance(_ctx.getClasses().getDebugMapping().getStopper(), _readOnlyOthers, _ctx, _ctx.getExecutionInfos().getSeed());
     }
 
-    public static StackCall newInstance(InitPhase _readOnlyOthers, ContextEl _ctx, CustomSeedGene _seed) {
-        StackCall st_ = new StackCall(_readOnlyOthers,CustomSeedGene.copy(_seed));
+    public static StackCall newInstance(AbsStackStopper _s,InitPhase _readOnlyOthers, ContextEl _ctx, CustomSeedGene _seed) {
+        StackCall st_ = new StackCall(_s,_readOnlyOthers,CustomSeedGene.copy(_seed));
         st_.setFullStack(new DefaultFullStack(_ctx));
         return st_;
     }
+
+    public AbsStackStopper getStopper() {
+        return stopper;
+    }
+
     public void clearPages() {
         importing.clear();
     }

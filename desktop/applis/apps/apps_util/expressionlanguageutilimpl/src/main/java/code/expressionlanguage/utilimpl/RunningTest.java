@@ -3,6 +3,7 @@ package code.expressionlanguage.utilimpl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.ContextFactory;
@@ -149,7 +150,7 @@ public final class RunningTest implements Runnable {
 
 
     public static ResultContext nextValidate(ResultContext _base, LgNamesWithNewAliases _lg, AbsLightMemoResultContextNext _n) {
-        ResultContext res_ = _n.next(_base, new StringMap<String>());
+        ResultContext res_ = _n.next(_base, new StringMap<String>(), new DefStackStopper());
         if (res_ == null) {
             return _base;
         }
@@ -159,7 +160,7 @@ public final class RunningTest implements Runnable {
     }
 
     public static ResultContext nextValidateQuick(AbsLightResultContextNext _a, ResultContext _base, StringMap<String> _addedFiles) {
-        ResultContext ana_ = _a.next(_base, _addedFiles);
+        ResultContext ana_ = _a.next(_base, _addedFiles, new DefStackStopper());
         if (ana_ == null) {
             return _base;
         }

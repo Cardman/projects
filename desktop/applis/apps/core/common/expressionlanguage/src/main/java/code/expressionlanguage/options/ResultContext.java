@@ -7,7 +7,9 @@ import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.exec.AbsStackStopper;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
@@ -34,12 +36,18 @@ public final class ResultContext {
     }
 
     public static ResultContext def(ResultContext _base, StringMap<String> _files, String _filter) {
+        return def(_base, _files, _filter, new DefStackStopper());
+    }
+    public static ResultContext def(ResultContext _base, StringMap<String> _files, String _filter, AbsStackStopper _s) {
         AnalyzedPageEl resultAna_ = def(_base.getPageEl(), _files, _filter);
-        return afterDef(_base, _files, resultAna_);
+        return afterDef(_base, _files, resultAna_, _s);
     }
 
     public static ResultContext afterDef(ResultContext _base, StringMap<String> _files, AnalyzedPageEl _resultAna) {
-        Forwards forwards_ = new Forwards(_base.getForwards().getGenerator(), _base.getForwards().getLoggable(), _base.getForwards().getFileBuilder(), _base.getForwards().getOptions());
+        return afterDef(_base, _files, _resultAna, new DefStackStopper());
+    }
+    public static ResultContext afterDef(ResultContext _base, StringMap<String> _files, AnalyzedPageEl _resultAna, AbsStackStopper _s) {
+        Forwards forwards_ = new Forwards(_base.getForwards().getGenerator(), _base.getForwards().getLoggable(), _base.getForwards().getFileBuilder(), _base.getForwards().getOptions(), _s);
         forwards_.getResources().addAllEntries(_files);
         forwards_.getClasses().getCommon().setStaticFields(_resultAna.getStaticFields());
         return new ResultContext(_resultAna, forwards_, _resultAna.getMessages());

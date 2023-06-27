@@ -1,7 +1,9 @@
 package code.expressionlanguage.exec.dbg;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.exec.AbsStackStopper;
 import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.structs.Struct;
@@ -16,15 +18,15 @@ public final class DebugMapping {
     private String initClass="";
     private final BreakPointBlockList breakPointsBlock;
     private final StringMap<ConditionReturn> exceptions = new StringMap<ConditionReturn>();
-    private final boolean debugging;
+    private final AbsStackStopper stopper;
 
-    public DebugMapping(boolean _d, AbstractInterceptorStdCaller _i) {
-        this.debugging = _d;
+    public DebugMapping(AbsStackStopper _s, AbstractInterceptorStdCaller _i) {
+        this.stopper = _s;
         breakPointsBlock = new BreakPointBlockList(_i);
     }
 
     public void addFile(FileBlock _file, ExecFileBlock _e) {
-        if (!debugging) {
+        if (stopper instanceof DefStackStopper) {
             return;
         }
         files.addEntry(_file, _e);
@@ -61,7 +63,7 @@ public final class DebugMapping {
         this.initClass = _i;
     }
 
-    public boolean isDebugging() {
-        return debugging;
+    public AbsStackStopper getStopper() {
+        return stopper;
     }
 }

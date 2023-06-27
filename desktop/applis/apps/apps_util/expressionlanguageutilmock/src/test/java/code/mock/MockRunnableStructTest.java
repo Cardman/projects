@@ -124,7 +124,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
         assertEq(1,m_.files(b_,src_).size());
-        ResultContext user_ = m_.next(b_, m_.next(b_, src_));
+        ResultContext user_ = m_.next(b_, m_.next(b_, src_, new DefStackStopper()));
         Forwards f_ = user_.getForwards();
         ForwardInfos.generalForward(user_);
         AbsAdvContextGenerator gn_ = m_.generate();

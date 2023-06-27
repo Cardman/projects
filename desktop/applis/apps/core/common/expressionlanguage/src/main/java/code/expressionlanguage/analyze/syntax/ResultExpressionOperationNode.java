@@ -275,6 +275,9 @@ public final class ResultExpressionOperationNode {
     public static String beginPartFct(int _caret, FileBlock _file, DisplayedStrings _page) {
         ResultExpressionOperationNode c_ = container(_caret, _file);
         MemberCallingsBlock m_ = AbsBk.getOuterFuntionInType(c_.block);
+        if (m_ == null) {
+            return "";
+        }
         return ForwardInfos.clName(_page, m_);
     }
     public static int beginPart(int _caret, FileBlock _file) {

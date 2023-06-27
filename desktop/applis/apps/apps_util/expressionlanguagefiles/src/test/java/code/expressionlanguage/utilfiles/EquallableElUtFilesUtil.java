@@ -4,7 +4,6 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.DefTypePairHash;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.dbg.DebugMapping;
@@ -126,7 +125,7 @@ public abstract class EquallableElUtFilesUtil {
         return stds_;
     }
     public static GuiContextEl newContext(LgNamesGui _stds,CustomSeedGene _opt) {
-        return new GuiContextEl(_stds.getExecContent().getInfos().getThreadFactory().newAtomicBoolean(),NullStruct.NULL_VALUE, new CommonExecutionInfos(new MockInterceptorStdCaller(),new CommonExecutionMetricsInfos(4,-1,_opt),_stds,new Classes(new DefTypePairHash(),new DebugMapping(false,new MockInterceptorStdCaller())), new Coverage(false), new DefaultLockingClass(),
+        return new GuiContextEl(_stds.getExecContent().getInfos().getThreadFactory().newAtomicBoolean(),NullStruct.NULL_VALUE, new CommonExecutionInfos(new MockInterceptorStdCaller(),new CommonExecutionMetricsInfos(4,-1,_opt),_stds,new Classes(new DefTypePairHash(),new DebugMapping(new DefStackStopper(), new MockInterceptorStdCaller())), new Coverage(false), new DefaultLockingClass(),
                 new GuiInitializer(_stds.getExecContent().getInfos().getThreadFactory().newAtomicLong(), _stds.getExecContent().getCustAliases().getInterceptor())),
                 new StringList(_stds.getExecContent().getExecutingOptions().getArgs()));
     }
@@ -249,11 +248,6 @@ public abstract class EquallableElUtFilesUtil {
     }
     public static FileInfos newFileInfos(AbstractLightProgramInfos _light) {
         return FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), null, new MemInputFiles(new byte[0],new BytesInfo(new byte[0],false),new BytesInfo(new byte[0],false)), _light.getZipFact(), _light.getThreadFactory());
-    }
-    public static StackCall stack(Struct _sensible, InitPhase _phase) {
-        StackCall st_ = new StackCall(_phase,new CustomSeedGene());
-        st_.getInitializingTypeInfos().getSensibleFields().add(_sensible);
-        return st_;
     }
     public static StackCall stack(ContextEl _phase) {
         return StackCall.newInstance(InitPhase.NOTHING,_phase);

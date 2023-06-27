@@ -2,6 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.AdvContextGenerator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.exec.AbsStackStopper;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.gui.unit.UnitIssuer;
@@ -73,7 +74,7 @@ public abstract class AbsAdvResultContextNext implements AbsResultContextNext {
     }
 
     @Override
-    public ResultContext next(ResultContext _r, StringMap<String> _files) {
+    public ResultContext next(ResultContext _r, StringMap<String> _files, AbsStackStopper _s) {
         if (_r == null) {
             return null;
         }
@@ -90,7 +91,7 @@ public abstract class AbsAdvResultContextNext implements AbsResultContextNext {
         if (list_ == null) {
             return null;
         }
-        ResultContext d_ = ResultContext.def(_r, list_, exec_.getSrcFolder());
+        ResultContext d_ = ResultContext.def(_r, list_, exec_.getSrcFolder(), _s);
         CustContextFactory.reportErrors(_r.getForwards().getOptions(), lg_.getExecContent().getExecutingOptions(), d_.getReportedMessages(), file_);
         return d_;
     }

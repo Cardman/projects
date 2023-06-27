@@ -141,13 +141,11 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     protected static ResultContext ctxLgReadOnlyOkQuick(String _lg, StringMap<String> _files, String... _types) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
-        opt_.setDebugging(false);
-        opt_.setDebugging(true);
         addTypesInit(opt_, _types);
         CustLgNames lgName_ = getLgNames();
         assertEq("en",_lg);
         KeyWords kwl_ = en(lgName_);
-        return validateAndRetWithoutInit(opt_,lgName_,kwl_,_files,new StringMap<String>());
+        return validateAndRetWithoutInit(opt_,lgName_,kwl_,_files,new StringMap<String>(),new DbgStackStopper());
 //        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
 //        Forwards forwards_ = getForwards(opt_,lgName_,kwl_,page_);
 //        AnalyzedPageEl a_ = validateWithoutInit(_files, page_);

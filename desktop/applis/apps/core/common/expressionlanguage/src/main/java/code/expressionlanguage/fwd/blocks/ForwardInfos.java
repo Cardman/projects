@@ -1984,14 +1984,7 @@ public final class ForwardInfos {
         if (p_ != null) {
             cl_ = p_.getFullName();
         } else {
-            AccessedBlock acc_;
-            if (AbsBk.isAnonBlock(_m)) {
-                acc_ = ((NamedCalledFunctionBlock) _m).getAccessedBlock();
-            } else if (_m instanceof SwitchMethodBlock) {
-                acc_ = ((SwitchMethodBlock) _m).getAccessedBlock();
-            } else {
-                acc_ = null;
-            }
+            AccessedBlock acc_ = accessed(_m);
             if (acc_ instanceof RootBlock) {
                 cl_ = ((RootBlock)acc_).getFullName();
             } else if (acc_ instanceof OperatorBlock){
@@ -2000,9 +1993,21 @@ public final class ForwardInfos {
                 cl_ = "";
             }
         }
-        if (_m != null) {
-            return cl_+"."+_m.getSignature(_page);
+        if (cl_.isEmpty()) {
+            return _m.getSignature(_page);
         }
-        return "";
+        return cl_+"."+_m.getSignature(_page);
+    }
+
+    public static AccessedBlock accessed(MemberCallingsBlock _m) {
+        AccessedBlock acc_;
+        if (AbsBk.isAnonBlock(_m)) {
+            acc_ = ((NamedCalledFunctionBlock) _m).getAccessedBlock();
+        } else if (_m instanceof SwitchMethodBlock) {
+            acc_ = ((SwitchMethodBlock) _m).getAccessedBlock();
+        } else {
+            acc_ = null;
+        }
+        return acc_;
     }
 }

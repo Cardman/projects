@@ -8,10 +8,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultAliasGroups;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.guicompos.GuiFileBuilder;
@@ -278,7 +275,7 @@ public abstract class EquallableElUtUtil {
         return FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), null, new MemInputFiles(new byte[0],new BytesInfo(new byte[0],false),new BytesInfo(new byte[0],false)), _light.getZipFact(), _light.getThreadFactory());
     }
     public static StackCall stack(Struct _sensible, InitPhase _phase) {
-        StackCall st_ = new StackCall(_phase,new CustomSeedGene());
+        StackCall st_ = new StackCall(new DefStackStopper(),_phase,new CustomSeedGene());
         st_.getInitializingTypeInfos().getSensibleFields().add(_sensible);
         return st_;
     }

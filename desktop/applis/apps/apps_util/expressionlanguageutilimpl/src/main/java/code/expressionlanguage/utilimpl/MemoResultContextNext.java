@@ -1,5 +1,6 @@
 package code.expressionlanguage.utilimpl;
 
+import code.expressionlanguage.exec.AbsStackStopper;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.guicompos.LgNamesGui;
@@ -26,7 +27,7 @@ public final class MemoResultContextNext implements AbsLightMemoResultContextNex
     }
 
     @Override
-    public ResultContext next(ResultContext _r, StringMap<String> _files) {
+    public ResultContext next(ResultContext _r, StringMap<String> _files, AbsStackStopper _s) {
         LgNamesWithNewAliases lg_ = (LgNamesWithNewAliases) _r.getForwards().getGenerator();
         ExecutingOptions exec_ = lg_.getExecContent().getExecutingOptions();
         String archive_ = exec_.getAccess();
@@ -36,7 +37,7 @@ public final class MemoResultContextNext implements AbsLightMemoResultContextNex
         if (list_ == null) {
             return null;
         }
-        return ResultContext.def(_r, list_,exec_.getSrcFolder());
+        return ResultContext.def(_r, list_,exec_.getSrcFolder(),_s);
     }
 
 

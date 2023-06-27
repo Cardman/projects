@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.exec.dbg.DbgStackStopper;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.AbsAdvContextGenerator;
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
@@ -20,9 +21,6 @@ public final class AnalyzeDebugTask implements Runnable {
 
     @Override
     public void run() {
-        if (base != null) {
-            base.getForwards().getOptions().setDebugging(true);
-        }
         AbsResultContextNext gen_ = gui.getResultContextNext();
         StringMap<String> all_ = gen_.files(base, src);
         if (base != null) {
@@ -30,7 +28,7 @@ public final class AnalyzeDebugTask implements Runnable {
                 all_.addEntry(m.getKey(),m.getValue().getContent());
             }
         }
-        ResultContext ana_ = gen_.next(base, src);
+        ResultContext ana_ = gen_.next(base, src, new DbgStackStopper());
         if (ana_ == null) {
             return;
         }

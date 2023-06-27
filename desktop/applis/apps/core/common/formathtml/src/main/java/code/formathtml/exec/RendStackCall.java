@@ -2,6 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.AbstractStackCall;
+import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecInherits;
@@ -27,7 +28,7 @@ public final class RendStackCall extends AbsRendStackCall implements AbstractSta
     public RendStackCall(InitPhase _readOnlyOthers, ContextEl _ctx, CustomSeedGene _cust) {
         super();
         formParts = new DefFormParts();
-        stackCall = StackCall.newInstance(_readOnlyOthers, _ctx,_cust);
+        stackCall = StackCall.newInstance(new DefStackStopper(),_readOnlyOthers, _ctx,_cust);
     }
 
     public DefHtmlPage getHtmlPage() {

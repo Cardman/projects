@@ -62,7 +62,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     globalOffset(ops_.getOffset());
                     int size_ = sizeEl();
                     Argument ret_ = ExecHelperBlocks.tryToCalculate(_context,0,_stack,ops_.getOperations(),0,null);
-                    if (size_ < sizeEl() || _context.callsOrException(_stack)) {
+                    if (_stack.getStopper().stopAt(_context,_stack,size_)) {
                         return false;
                     }
                     clearCurrentEls();
@@ -82,7 +82,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             globalOffset(ops_.getOffset());
             int size_ = sizeEl();
             Argument ret_ = ExecHelperBlocks.tryToCalculate(_context,0,_stack,ops_.getOperations(),0, null);
-            if (size_ < sizeEl() || _context.callsOrException(_stack)) {
+            if (_stack.getStopper().stopAt(_context,_stack,size_)) {
                 return false;
             }
             clearCurrentEls();

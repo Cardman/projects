@@ -1,0 +1,48 @@
+package code.expressionlanguage.exec;
+
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.util.CustList;
+
+public final class DefStackStopper implements AbsStackStopper {
+    @Override
+    public StepDbgActionEnum firstStep() {
+        return StepDbgActionEnum.RUN;
+    }
+    @Override
+    public boolean firstEnter(AbstractPageEl _page) {
+        return false;
+    }
+
+    @Override
+    public boolean stopAt(AbstractPageEl _page, int _size) {
+        return false;
+    }
+
+    @Override
+    public boolean stopAt(ContextEl _context, StackCall _stack, int _size) {
+        return _context.callsOrException(_stack);
+    }
+
+    @Override
+    public boolean stopBreakPoint(ContextEl _context, StackCall _stackCall) {
+        return false;
+    }
+
+    @Override
+    public boolean isCheckingException(StackCall _stackCall) {
+        return false;
+    }
+
+    @Override
+    public boolean hasFoundException(StackCall _stackCall) {
+        return false;
+    }
+
+    @Override
+    public ExpressionLanguageBp checkBpWithoutClear(StackCall _stack, int _index, AbstractPageEl _ip, CustList<ExecOperationNode> _list, ExecBlock _bl) {
+        return new ExpressionLanguageBp(_ip.getCurrentEl(_stack,_index, _list, _bl),0);
+    }
+}

@@ -235,11 +235,6 @@ public abstract class EquallableElUtImplUtil {
     public static FileInfos newFileInfos(AbstractLightProgramInfos _light) {
         return FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), null, new MemInputFiles(new byte[0],new BytesInfo(new byte[0],false),new BytesInfo(new byte[0],false)), _light.getZipFact(), _light.getThreadFactory());
     }
-    public static StackCall stack(Struct _sensible, InitPhase _phase) {
-        StackCall st_ = new StackCall(_phase,new CustomSeedGene());
-        st_.getInitializingTypeInfos().getSensibleFields().add(_sensible);
-        return st_;
-    }
     public static StackCall stack(ContextEl _phase) {
         return StackCall.newInstance(InitPhase.NOTHING,_phase);
     }

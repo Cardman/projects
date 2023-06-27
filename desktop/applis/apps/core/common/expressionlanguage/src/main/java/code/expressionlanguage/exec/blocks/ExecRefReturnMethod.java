@@ -20,7 +20,7 @@ public final class ExecRefReturnMethod extends ExecAbstractExpressionReturnMetho
         ip_.globalOffset(getExpressionOffset());
         int size_ = ip_.sizeEl();
         ArgumentsPair argumentsPair_ = ExecHelperBlocks.tryToCalculatePair(_cont, IndexConstants.FIRST_INDEX, _stack, getExp(), 0, this);
-        if (size_ < ip_.sizeEl() || argumentsPair_ == null) {
+        if (_stack.getStopper().stopAt(ip_,size_) || argumentsPair_ == null) {
             return;
         }
         ip_.clearCurrentEls();

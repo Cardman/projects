@@ -51,7 +51,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock {
         _last.globalOffset(defaultValueOffset);
         int size_ = _last.sizeEl();
         Argument arg_ = ExecHelperBlocks.tryToCalculate(_cont,0,_stack,getOpValue(),0, this);
-        if (size_ < _last.sizeEl()) {
+        if (_stack.getStopper().stopAt(_last,size_)) {
             return;
         }
         setValue(_cont,arg_, _last.getBlockRootType(), _stack);

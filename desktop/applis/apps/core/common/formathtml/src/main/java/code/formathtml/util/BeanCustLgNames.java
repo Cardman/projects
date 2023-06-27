@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -470,7 +471,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         session_.setCurrentLanguage(language_);
         StringMap<AnaRendDocumentBlock> d_ = session_.analyzedRenders(files_, analyzingDoc_, usAn_, confCont_, blockConf_);
         ResultContext.postValidate(usAn_);
-        ResultContext user_ = ResultContext.afterDef(r_, all_, usAn_);
+        ResultContext user_ = ResultContext.afterDef(r_, all_, usAn_, new DefStackStopper());
         if (usAn_.notAllEmptyErrors()) {
             return user_;
         }

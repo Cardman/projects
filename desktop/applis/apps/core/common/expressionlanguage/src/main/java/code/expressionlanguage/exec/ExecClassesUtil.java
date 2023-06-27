@@ -4,10 +4,16 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
-import code.expressionlanguage.exec.opers.*;
+import code.expressionlanguage.exec.opers.ExecDotOperation;
+import code.expressionlanguage.exec.opers.ExecFctOperation;
+import code.expressionlanguage.exec.opers.ExecInternVariableOperation;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -214,14 +220,7 @@ public final class ExecClassesUtil {
         _context.setExiting(new DefaultExiting(_context));
         StackCall st_ = StackCall.newInstance(InitPhase.READ_ONLY_OTHERS,_context);
         st_.getInitializingTypeInfos().setInitEnums(InitPhase.READ_ONLY_OTHERS);
-        stepDbgOrRun(_context, st_);
         return st_;
-    }
-
-    private static void stepDbgOrRun(ContextEl _context, StackCall _st) {
-        if (_context.getClasses().getDebugMapping().isDebugging()) {
-            _st.setStep(StepDbgActionEnum.DEBUG);
-        }
     }
 
     private static StackCall endOrder(ContextEl _context, StackCall _st) {

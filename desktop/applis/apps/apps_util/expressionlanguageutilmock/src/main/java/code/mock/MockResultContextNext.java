@@ -3,6 +3,7 @@ package code.mock;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefSymbolFactory;
 import code.expressionlanguage.analyze.DefaultAliasGroups;
+import code.expressionlanguage.exec.AbsStackStopper;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
@@ -61,11 +62,11 @@ public final class MockResultContextNext implements AbsResultContextNext {
     }
 
     @Override
-    public ResultContext next(ResultContext _base, StringMap<String> _files) {
+    public ResultContext next(ResultContext _base, StringMap<String> _files, AbsStackStopper _s) {
         StringMap<String> v_ = new StringMap<String>();
         v_.addAllEntries(system);
         v_.putAllMap(_files);
-        return ResultContext.def(_base, v_, filter);
+        return ResultContext.def(_base, v_, filter, _s);
     }
 
     @Override

@@ -21,17 +21,17 @@ public abstract class ExecMemberContainer {
     }
 
     public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last, ExecBlock _coveredBlock) {
-        firstEnter(_last);
+        firstEnter(_stack,_last);
         int size_ = _last.sizeEl();
         ExecHelperBlocks.tryToCalculate(_cont,0,_stack, opValue, trOffset, _coveredBlock);
-        if (size_ < _last.sizeEl() || _cont.callsOrException(_stack)) {
+        if (_stack.getStopper().stopAt(_cont,_stack,size_)) {
             return;
         }
         _last.clearCurrentEls();
         ExecHelperBlocks.processMemberBlock(_stack,_last);
     }
 
-    protected abstract void firstEnter(AbstractInitPageEl _last);
+    protected abstract void firstEnter(StackCall _stack, AbstractInitPageEl _last);
 
     public int getOffset() {
         return offset;

@@ -4,7 +4,9 @@ import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.exec.AbsStackStopper;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.dbg.DebugMapping;
@@ -47,6 +49,9 @@ public final class Forwards {
     private final AbstractInterceptorStdCaller interceptor;
 
     public Forwards(BuildableLgNames _generator, LoggableLgNames _loggable, AbstractFileBuilder _fileBuilder, Options _options) {
+        this(_generator,_loggable,_fileBuilder,_options,new DefStackStopper());
+    }
+    public Forwards(BuildableLgNames _generator, LoggableLgNames _loggable, AbstractFileBuilder _fileBuilder, Options _options, AbsStackStopper _s) {
         generator = _generator;
         loggable = _loggable;
         options = _options;
@@ -56,7 +61,7 @@ public final class Forwards {
         coverage.getOptionsReport().setDisplayImplicit(_options.getOptionsReport().isDisplayImplicit());
         coverage.getOptionsReport().setDisplayImplicitLabel(_options.getOptionsReport().isDisplayImplicitLabel());
         coverage.getOptionsReport().setEncodeHeader(_options.getOptionsReport().isEncodeHeader());
-        classes = new Classes(_options.getChecker(),new DebugMapping(_options.isDebugging(),interceptor));
+        classes = new Classes(_options.getChecker(),new DebugMapping(_s, interceptor));
         fileBuilder = _fileBuilder;
     }
 
@@ -67,7 +72,7 @@ public final class Forwards {
         options = new Options();
         constantsCalculator = _from.getGenerator().newConstantsCalculator();
         coverage = new Coverage(false);
-        classes = new Classes(_page.getChecker(),new DebugMapping(false,interceptor));
+        classes = new Classes(_page.getChecker(),new DebugMapping(new DefStackStopper(), interceptor));
         fileBuilder = _page.getFileBuilder();
         getAllMapOperators().addAllEntries(_from.getAllMapOperators());
         getAllMapInnerEltTypes().addAllEntries(_from.getAllMapInnerEltTypes());

@@ -493,17 +493,23 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     protected static ResultContext validateAndRetWithoutInit(Options _opt, CustLgNames _lgNames, KeyWords _kw, StringMap<String> _files, StringMap<String> _all) {
-        ResultContext res_ = validateAndRetWithoutInitCheck(_opt, _lgNames, _kw, _files, _all);
+        return validateAndRetWithoutInit(_opt, _lgNames, _kw, _files, _all, new DefStackStopper());
+    }
+    protected static ResultContext validateAndRetWithoutInit(Options _opt, CustLgNames _lgNames, KeyWords _kw, StringMap<String> _files, StringMap<String> _all, AbsStackStopper _s) {
+        ResultContext res_ = validateAndRetWithoutInitCheck(_opt, _lgNames, _kw, _files, _all,_s);
         assertTrue(isEmptyErrors(res_.getPageEl()));
         ResultContext.fwd(res_, new DefContextGenerator());
         return res_;
     }
 
     protected static ResultContext validateAndRetWithoutInitCheck(Options _opt, CustLgNames _lgNames, KeyWords _kw, StringMap<String> _files, StringMap<String> _all) {
+        return validateAndRetWithoutInitCheck(_opt, _lgNames, _kw, _files, _all, new DefStackStopper());
+    }
+    protected static ResultContext validateAndRetWithoutInitCheck(Options _opt, CustLgNames _lgNames, KeyWords _kw, StringMap<String> _files, StringMap<String> _all, AbsStackStopper _s) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = getForwards(_opt, _lgNames, _kw,page_, _all);
+        Forwards forwards_ = getForwards(_opt, _lgNames, _kw,page_, _all,_s);
         ResultContext r_ = new ResultContext(page_, forwards_);
-        return ResultContext.afterDef(r_, _all, ResultContext.defFilter(page_, _all, _files));
+        return ResultContext.afterDef(r_, _all, ResultContext.defFilter(page_, _all, _files),_s);
     }
 
     protected static ContextEl ctxLgOk(String _lg,StringMap<String> _files, String... _types) {
@@ -880,7 +886,10 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     public static Forwards fwd(CustLgNames _lgName, DefaultFileBuilder _fileBuilder, Options _opt, StringMap<String> _res) {
-        Forwards f_ = new Forwards(_lgName, new ListLoggableLgNames(), _fileBuilder, _opt);
+        return fwd(_lgName, _fileBuilder, _opt, _res, new DefStackStopper());
+    }
+    public static Forwards fwd(CustLgNames _lgName, DefaultFileBuilder _fileBuilder, Options _opt, StringMap<String> _res, AbsStackStopper _s) {
+        Forwards f_ = new Forwards(_lgName, new ListLoggableLgNames(), _fileBuilder, _opt, _s);
         f_.getResources().addAllEntries(_res);
         return f_;
     }
@@ -915,8 +924,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return getForwards(_opt, _lgName, _kw, _page, new StringMap<String>());
     }
     protected static Forwards getForwards(Options _opt, CustLgNames _lgName, KeyWords _kw, AnalyzedPageEl _page, StringMap<String> _res) {
+        return getForwards(_opt, _lgName, _kw, _page, _res,new DefStackStopper());
+    }
+    protected static Forwards getForwards(Options _opt, CustLgNames _lgName, KeyWords _kw, AnalyzedPageEl _page, StringMap<String> _res, AbsStackStopper _s) {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(_lgName.getContent());
-        Forwards forwards_ = fwd(_lgName, fileBuilder_, _opt, _res);
+        Forwards forwards_ = fwd(_lgName, fileBuilder_, _opt, _res, _s);
 
         validatedStds(_page, forwards_, _kw, _opt, _lgName);
         return forwards_;
