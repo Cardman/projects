@@ -120,7 +120,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
     @Test
     public void build() {
         MockResultContextNext m_ = new MockResultContextNext("src");
-        ResultContext b_ = m_.init(new Options());
+        ResultContext b_ = m_.init(new Options(),false);
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
         assertEq(1,m_.files(b_,src_).size());
@@ -138,7 +138,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
     @Test
     public void buildAna() {
         MockResultContextNext m_ = new MockResultContextNext("src");
-        ResultContext b_ = m_.init(new Options());
+        ResultContext b_ = m_.init(new Options(), true);
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
         AnalyzedPageEl resultAna_ = m_.nextAna(b_, m_.files(b_,src_));

@@ -1025,10 +1025,24 @@ public final class GuiAliases {
     private String aliasComponentUnbind;
     private String aliasComponentCommands;
     private final GuiAliasParameters guiAliasParameters = new GuiAliasParameters();
-    private final StringMap<String> propertiesGui = MessCdmGuiGr.ms();
-
+    private final StringMap<String> propertiesGui;
+    private final boolean light;
+    public GuiAliases() {
+        this(false);
+    }
+    public GuiAliases(boolean _l) {
+        light = _l;
+        if (_l) {
+            propertiesGui = new StringMap<String>();
+        } else {
+            propertiesGui = MessCdmGuiGr.ms();
+        }
+    }
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content) {
         StringMap<String> stds_ = new StringMap<String>();
+        if (light) {
+            return stds_;
+        }
         String content_ = res(RESOURCES_LG_GUI_ACTION_EVENT_TXT);
         PrimitiveTypes primTypes_ = _content.getPrimTypes();
         StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
@@ -1598,6 +1612,9 @@ public final class GuiAliases {
     }
 
     public void buildOther(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
+        if (light) {
+            return;
+        }
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();

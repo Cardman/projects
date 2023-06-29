@@ -64,18 +64,22 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final CustList<WindowExpressionEditor> expressionEditors = new CustList<WindowExpressionEditor>();
     private String confGlobal="";
     private final AbstractBaseExecutorService service;
+    private final AbstractBaseExecutorService serviceDbg;
     private final AbsCommonFrame statusAnalyze;
     private final AbsTextArea statusAnalyzeArea;
     private ResultContext baseResult;
+    private ResultContext baseResultDbg;
     private ResultContext userResultGene;
     private ResultContext userResult;
     private AbstractFuture future;
+    private AbstractFuture futureDbg;
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(null,_lg, _list, _fact);
         mainResultNext = new AdvResultContextNext(this,_list, _fact);
         setResultContextNext(getMainResultNext());
         service = _list.getThreadFactory().newExecutorService();
+        serviceDbg = _list.getThreadFactory().newExecutorService();
         statusAnalyze = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         statusAnalyzeArea = _list.getCompoFactory().newTextArea();
         statusAnalyzeArea.setEditable(false);
@@ -191,7 +195,8 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
 
     public void trySubmit() {
         if (softParams.getLines().size() > 1) {
-            setFuture(getService().submitLater(new PreAnalyzeExpressionSource(this)));
+            setFuture(getService().submitLater(new PreAnalyzeExpressionSource(this, false)));
+            setFutureDbg(getServiceDbg().submitLater(new PreAnalyzeExpressionSource(this, true)));
         }
     }
 
@@ -581,12 +586,24 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         return service;
     }
 
+    public AbstractBaseExecutorService getServiceDbg() {
+        return serviceDbg;
+    }
+
     public ResultContext getBaseResult() {
         return baseResult;
     }
 
     public void setBaseResult(ResultContext _b) {
         this.baseResult = _b;
+    }
+
+    public ResultContext getBaseResultDbg() {
+        return baseResultDbg;
+    }
+
+    public void setBaseResultDbg(ResultContext _b) {
+        this.baseResultDbg = _b;
     }
 
     public ResultContext getUserResultGene() {
@@ -611,6 +628,14 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
 
     public void setFuture(AbstractFuture _f) {
         this.future = _f;
+    }
+
+    public AbstractFuture getFutureDbg() {
+        return futureDbg;
+    }
+
+    public void setFutureDbg(AbstractFuture _f) {
+        this.futureDbg = _f;
     }
 
     public AdvResultContextNext getMainResultNext() {

@@ -22,7 +22,7 @@ public final class AnalyzingDebugExpEvent extends AbsAnalyzingDebugEvent {
 
     @Override
     protected ResultContext base() {
-        return window.getMainFrame().getBaseResult();
+        return window.getMainFrame().getBaseResultDbg();
     }
 
     @Override

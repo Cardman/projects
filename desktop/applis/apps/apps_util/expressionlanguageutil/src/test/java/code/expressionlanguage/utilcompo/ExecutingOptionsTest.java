@@ -461,7 +461,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void coverage() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         update(pr_);
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();

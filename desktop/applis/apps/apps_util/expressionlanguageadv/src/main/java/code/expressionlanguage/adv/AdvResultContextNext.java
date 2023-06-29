@@ -14,9 +14,9 @@ public final class AdvResultContextNext extends AbsAdvResultContextNext {
         mainWindow = _w;
     }
     @Override
-    public ResultContext init(Options _opt) {
+    public ResultContext init(Options _opt, boolean _light) {
         ManageOptions man_ = mainWindow.manage(mainWindow.getSoftParams().getLines());
-        return init(_opt,man_,new UnitIssuer(mainWindow.getStatusAnalyzeArea()));
+        return init(_opt,man_,new UnitIssuer(mainWindow.getStatusAnalyzeArea()),_light);
     }
 
 }

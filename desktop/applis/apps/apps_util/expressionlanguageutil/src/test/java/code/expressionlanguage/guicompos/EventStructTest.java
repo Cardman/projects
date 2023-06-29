@@ -256,7 +256,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void evt1() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();
@@ -273,7 +273,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void evt2() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();
@@ -297,7 +297,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void evt3() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();
@@ -314,7 +314,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void evt4() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();
@@ -352,7 +352,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void evt5() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();
@@ -371,7 +371,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void evt6() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();
@@ -425,7 +425,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void evt7() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();
@@ -445,7 +445,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void paint1() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();
@@ -468,7 +468,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void paint2() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();
@@ -490,7 +490,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void paint3() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();
@@ -510,7 +510,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void paint4() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();
@@ -530,7 +530,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void convert() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();
@@ -553,7 +553,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void actWrap2() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();
@@ -570,7 +570,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void enabled1() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();
@@ -588,7 +588,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void enabled2() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();

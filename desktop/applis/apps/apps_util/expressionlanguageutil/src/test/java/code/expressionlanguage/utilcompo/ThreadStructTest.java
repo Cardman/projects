@@ -493,7 +493,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
     public void print4() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         update(pr_);
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
@@ -508,7 +508,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         update(pr_);
         Options opt_ = new Options();
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         ExecutingOptions e_ = new ExecutingOptions();
         e_.setLightProgramInfos(pr_);
         ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_,new StringMap<String>()).getContext();

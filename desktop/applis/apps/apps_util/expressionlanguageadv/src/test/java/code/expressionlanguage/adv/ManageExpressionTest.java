@@ -576,6 +576,14 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         assertEq(1, r_.size());
         assertTrue(r_.contains("pkg.ExClass2"));
     }
+    @Test
+    public void refreshNo() {
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public abstract class pkg.ExClass{public ExClass(int p){}}");
+        analyze(w_);
+        assertTrue(w_.getUserResult().getReportedMessages().isAllEmptyErrors());
+        refreshClasses(w_);
+        assertEq(0,tabEditor(w_).getDico().size());
+    }
 //    @Test
 //    public void cancelAnalyze() {
 //        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace("src//double", "");

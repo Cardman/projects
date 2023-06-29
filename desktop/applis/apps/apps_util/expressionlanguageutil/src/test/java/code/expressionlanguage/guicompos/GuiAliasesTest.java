@@ -249,7 +249,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     @Test
     public void str4() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        LgNamesUtils stds_ = newLgNamesUtSampleLight(pr_, null);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
@@ -258,7 +258,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     @Test
     public void str5() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        LgNamesUtils stds_ = newLgNamesUtSampleLight(pr_, null);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         ExecEnumBlock ex_ = new ExecEnumBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC);
@@ -269,7 +269,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     @Test
     public void str6() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        LgNamesUtils stds_ = newLgNamesUtSampleLight(pr_, null);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         assertEq(stds_.getNbAlias().getAliasInteger(),stds_.getStringOfObject(ctx_,new IntStruct(1)).getInstance());
@@ -277,7 +277,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     @Test
     public void str7() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        LgNamesUtils stds_ = newLgNamesUtSampleLight(pr_, null);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         ExecEnumBlock ex_ = new ExecEnumBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC);
@@ -291,7 +291,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void paint() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         update(pr_);
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
         ExecutingOptions e_ = new ExecutingOptions();

@@ -323,6 +323,7 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         MockProgramInfos pr_ = genePr();
         WindowCdmEditor w_ = updated(pr_);
         w_.getFuture().attendre();
+        w_.getFutureDbg().attendre();
         WindowExpressionEditor e_ = geneSecAlready(w_);
         save(pr_,"src/file.txt","public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:i,end:i+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
         e_.getTree().select(e_.getTree().getRoot());

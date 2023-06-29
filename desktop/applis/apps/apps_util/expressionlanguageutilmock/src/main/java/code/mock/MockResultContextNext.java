@@ -29,7 +29,7 @@ public final class MockResultContextNext implements AbsResultContextNext {
     }
 
     @Override
-    public ResultContext init(Options _opt) {
+    public ResultContext init(Options _opt, boolean _light) {
         _opt.setReadOnly(true);
         MockLgNames stds_ = new MockLgNames();
         TranslationsFile en_ = new TranslationsFile();

@@ -19,7 +19,7 @@ public final class GuiContextEl extends RunnableContextEl {
     public void forwardAndClear() {
         super.forwardAndClear();
         LgNamesGui standards_ = (LgNamesGui) getStandards();
-        standards_.getGuiExecutingBlocks().forwardAndClear(standards_.getGuiAliases(),standards_.getContent(), this, getClasses());
+        standards_.forwardAndClear(standards_.getGuiAliases(),standards_.getContent(), this, getClasses());
     }
 
 //    public void disposeAll(StackCall _stackCall) {

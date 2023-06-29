@@ -31,6 +31,9 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
         file_.addMenuItem(getDelete());
         AbsMenu menu_ = getParameters();
         bar_.add(menu_);
+        AbsMenu run_ = frames_.getCompoFactory().newMenu("run");
+        run_.addMenuItem(session);
+        bar_.add(run_);
         getCommonFrame().setJMenuBar(bar_);
         chgManagement(false);
         setEditors(getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane());

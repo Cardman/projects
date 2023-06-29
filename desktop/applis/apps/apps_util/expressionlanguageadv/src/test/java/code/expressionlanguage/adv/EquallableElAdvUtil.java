@@ -133,7 +133,7 @@ public abstract class EquallableElAdvUtil {
         return new ManageOptions(frs_.getLanguages(), linesFiles_, _pr.getFactory());
     }
     public static ResultContext res(AbsDebuggerGui _pr, ManageOptions _man) {
-        return _pr.getResultContextNext().init(_man.getOptions());
+        return _pr.getResultContextNext().init(_man.getOptions(),true);
     }
     public static void save(AbsDebuggerGui _pr, StringMap<String> _src, String _relative, String _content) {
         AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();

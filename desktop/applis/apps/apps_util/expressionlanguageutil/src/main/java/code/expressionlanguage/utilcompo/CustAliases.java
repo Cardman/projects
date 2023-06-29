@@ -833,7 +833,7 @@ public final class CustAliases {
     private String aliasInfoTestExecuted;
 
     private String aliasConcurrentError;
-    private final StringMap<String> properties = MessCdmBaseGr.ms();
+    private final StringMap<String> properties;
     private final StringViewReplaceAliases stringViewReplaceAliases = new StringViewReplaceAliases();
     private final MathAdvAliases mathAdvAliases = new MathAdvAliases();
 
@@ -844,6 +844,18 @@ public final class CustAliases {
     private Translations translations;
     private String language = "";
     private String userLg = "";
+    private final boolean light;
+    public CustAliases() {
+        this(false);
+    }
+    public CustAliases(boolean _l) {
+        light = _l;
+        if (_l) {
+            properties = new StringMap<String>();
+        } else {
+            properties = MessCdmBaseGr.ms();
+        }
+    }
 
     public static boolean isEnumType(GeneType _type) {
         return _type instanceof ExecEnumBlock || _type instanceof ExecInnerElementBlock;
@@ -868,6 +880,9 @@ public final class CustAliases {
 
     public void buildOther(LgNamesContent _content, ExecutingBlocks _executingBlocks) {
         mathAdvAliases.buildOther(_content);
+        if (light) {
+            return;
+        }
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
@@ -1368,6 +1383,9 @@ public final class CustAliases {
     }
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content) {
         StringMap<String> stds_ = new StringMap<String>();
+        if (light) {
+            return stds_;
+        }
         String content_ = properties.getVal(RESOURCES_LG_THREADS_RUNNABLE_TXT);
         StringMap<PrimitiveType> primitiveTypes_ = _content.getPrimTypes().getPrimitiveTypes();
         AliasCore coreNames_ = _content.getCoreNames();
@@ -1937,6 +1955,11 @@ public final class CustAliases {
         stds_.put(aliasFormatType, content_);
         return stds_;
     }
+
+    public boolean isLight() {
+        return light;
+    }
+
     private static void placeHolder(StringMap<String> _map, String _va, KeyWords _keyWords, StringMap<PrimitiveType> _primitiveTypes, AliasCore _coreNames, String... _args) {
         _map.put(wrap(_va),tr(_va,_keyWords,_primitiveTypes,_coreNames,_args));
     }

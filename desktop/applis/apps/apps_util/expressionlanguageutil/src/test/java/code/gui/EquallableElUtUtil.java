@@ -107,8 +107,16 @@ public abstract class EquallableElUtUtil {
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
     }
-    public static LgNamesGui newLgNamesGuiSample(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
+    public static LgNamesGui newLgNamesGuiSampleFull(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
+        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
+//        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
+        basicStandards(stds_);
+        return stds_;
+    }
+    public static LgNamesGui newLgNamesGuiSample(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
+        LgNamesGui stds_ = newLgNamesGuiLight(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
         stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
         stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
 //        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
@@ -138,8 +146,17 @@ public abstract class EquallableElUtUtil {
         basicStandards(stds_);
         return stds_;
     }
+
+    public static LgNamesUtils newLgNamesUtSampleLight(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
+        LgNamesUtils stds_ = newLgNamesUtLight(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
+        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
+//        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
+        basicStandards(stds_);
+        return stds_;
+    }
     public static LgNamesGui newLgNamesGuiSampleCl(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
-        LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
+        LgNamesGui stds_ = newLgNamesGuiLight(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
         stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
         stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"");
         return stds_;
@@ -149,10 +166,21 @@ public abstract class EquallableElUtUtil {
         FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), _issuer, new MemInputFiles(StringUtil.encode(_conf), new BytesInfo(StringUtil.encode(_src),false), new BytesInfo(GuiConstants.nullToEmpty(zipped_),false)), _light.getZipFact(), _light.getThreadFactory());
         return new LgNamesGui(infos_, new MockInterceptor());
     }
+    public static LgNamesGui newLgNamesGuiLight(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {
+        byte[] zipped_ = _light.getZipFact().zipBinFiles(_files);
+        FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), _issuer, new MemInputFiles(StringUtil.encode(_conf), new BytesInfo(StringUtil.encode(_src),false), new BytesInfo(GuiConstants.nullToEmpty(zipped_),false)), _light.getZipFact(), _light.getThreadFactory());
+        return new LgNamesGui(infos_, new MockInterceptor(),true);
+    }
     public static LgNamesUtils newLgNamesUt(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {
         byte[] zipped_ = _light.getZipFact().zipBinFiles(_files);
         FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), _issuer, new MemInputFiles(StringUtil.encode(_conf), new BytesInfo(StringUtil.encode(_src),false), new BytesInfo(GuiConstants.nullToEmpty(zipped_),false)), _light.getZipFact(), _light.getThreadFactory());
         return new LgNamesUtils(infos_, new MockInterceptor());
+    }
+
+    public static LgNamesUtils newLgNamesUtLight(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {
+        byte[] zipped_ = _light.getZipFact().zipBinFiles(_files);
+        FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), _issuer, new MemInputFiles(StringUtil.encode(_conf), new BytesInfo(StringUtil.encode(_src),false), new BytesInfo(GuiConstants.nullToEmpty(zipped_),false)), _light.getZipFact(), _light.getThreadFactory());
+        return new LgNamesUtils(infos_, new MockInterceptor(), true);
     }
     public static ArgumentListCall one(Struct _arg) {
         CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();

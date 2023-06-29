@@ -133,10 +133,13 @@ public final class CustContextFactory {
     }
 
     public static ResultContext stds(FileInfos _file, ExecutingOptions _ex, Options _opts) {
+        return stds(_file, _ex, _opts, false);
+    }
+    public static ResultContext stds(FileInfos _file, ExecutingOptions _ex, Options _opts, boolean _light) {
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
         _opts.setReadOnly(true);
-        LgNamesGui stds_ = new LgNamesGui(_file, _ex.getListGenerator().getInterceptor());
+        LgNamesGui stds_ = new LgNamesGui(_file, _ex.getListGenerator().getInterceptor(),_light);
         CustContextFactory.preinit(_opts, _ex, mess_, kwl_, stds_);
         CustContextFactory.parts(_ex,stds_,new StringList());
         AnalyzedPageEl page_ = CustContextFactory.mapping(stds_);

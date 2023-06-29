@@ -4,13 +4,18 @@ import code.expressionlanguage.AdvContextGenerator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.utilcompo.InterruptibleContextEl;
+import code.expressionlanguage.utilcompo.MathAdvAliases;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
+import code.sml.util.TranslationsFile;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -307,7 +312,18 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     @Test
     public void print() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        TranslationsFile en_ = new TranslationsFile();
+        LgNamesContent.en(en_);
+        MathAdvAliases.en(en_);
+        StringMap<String> mapp_ = TranslationsFile.extractMap(en_);
+        StringMap<String> keys_ = TranslationsFile.extractKeys(en_);
+        stds_.getExecContent().getCustAliases().getMathAdvAliases().build(mapp_,new StringMap<String>(), keys_);
+        stds_.buildOther();
+        stds_.forwardAndClear(null,null, null, null);
+        stds_.getExecContent().forwardAndClear(null,null);
+        stds_.getExecContent().getCustAliases().buildFiles(null,null);
+        stds_.getGuiAliases().buildFiles(null,null);
         Options opt_ = new Options();
         ContextEl c_ = new AdvContextGenerator(new MockAtomicBoolean()).geneWith(getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);

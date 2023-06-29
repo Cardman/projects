@@ -8,7 +8,7 @@ import code.expressionlanguage.utilcompo.*;
 import code.sml.util.Translations;
 
 public final class LgNamesUtilsContent implements LoggableLgNames {
-    private final CustAliases custAliases = new CustAliases();
+    private final CustAliases custAliases;
 
     private final FileInfos infos;
 
@@ -16,6 +16,13 @@ public final class LgNamesUtilsContent implements LoggableLgNames {
 
     private final ExecutingBlocks executingBlocks = new ExecutingBlocks();
     public LgNamesUtilsContent(FileInfos _infos, AbstractInterceptor _inter) {
+        custAliases = new CustAliases();
+        custAliases.setInfos(_infos);
+        custAliases.setInterceptor(_inter);
+        infos = _infos;
+    }
+    public LgNamesUtilsContent(FileInfos _infos, AbstractInterceptor _inter, boolean _l) {
+        custAliases = new CustAliases(_l);
         custAliases.setInfos(_infos);
         custAliases.setInterceptor(_inter);
         infos = _infos;
@@ -26,6 +33,9 @@ public final class LgNamesUtilsContent implements LoggableLgNames {
         return _info;
     }
     public void forwardAndClear(LgNamesContent _content, Classes _classes) {
+        if (getCustAliases().isLight()) {
+            return;
+        }
         getExecutingBlocks().forwardAndClear(_content, getCustAliases(),_classes);
     }
     public AbstractInterceptor getInterceptor() {
