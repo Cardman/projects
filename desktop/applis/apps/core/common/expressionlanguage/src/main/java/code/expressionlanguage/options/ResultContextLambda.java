@@ -145,6 +145,8 @@ public final class ResultContextLambda {
             st_.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
             endOrder(_original,st_);
             ExecClassesUtil.updateAfter(context);
+        } else {
+            context.getClasses().getCommon().getStaticFields().putAllMap(_original.getClasses().getStaticFields());
         }
         return eval(_page);
     }
