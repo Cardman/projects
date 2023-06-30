@@ -100,6 +100,7 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
     @Override
     protected void endCall() {
         setStackCall(null);
+        getStopStack().setEnabled(false);
         super.endCall();
     }
 

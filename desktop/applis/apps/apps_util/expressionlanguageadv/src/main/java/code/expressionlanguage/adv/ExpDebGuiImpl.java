@@ -127,6 +127,7 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
             targetMethod_ = null;
         }
         if (targetMethod_ == null) {
+            getStopStack().setEnabled(false);
             setStackCall(null);
             instance = NullStruct.NULL_VALUE;
             found.clear();
@@ -169,6 +170,7 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
                 textOutput.setText(copy.toString());
                 occ--;
                 if (occ < fromIndex) {
+                    getStopStack().setEnabled(false);
                     setStackCall(null);
                     instance = NullStruct.NULL_VALUE;
                     found.clear();
@@ -183,6 +185,7 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
                 textOutput.setText(typed);
                 occ = -1;
             } else {
+                getStopStack().setEnabled(false);
                 setStackCall(null);
                 instance = NullStruct.NULL_VALUE;
                 found.clear();

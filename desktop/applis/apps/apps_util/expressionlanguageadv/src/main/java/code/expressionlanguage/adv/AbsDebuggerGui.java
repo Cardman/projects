@@ -61,6 +61,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsAnalyzingDebugEvent event;
     private AbsCustCheckBox mute;
     private AbsPlainButton pauseStack;
+    private AbsPlainButton stopStack;
+    private AbsTextArea statusAnalyzeArea;
 
     protected AbsDebuggerGui(AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a);
@@ -119,19 +121,28 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         pauseStack = getCommonFrame().getFrames().getCompoFactory().newPlainButton("||");
         pauseStack.addActionListener(new PauseStackEvent(this));
         pauseStack.setEnabled(false);
+        stopStack = getCommonFrame().getFrames().getCompoFactory().newPlainButton("stop");
+        stopStack.addActionListener(new StopStackEvent(this));
+        stopStack.setEnabled(false);
         detail = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
         callStack = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(callStack,detail);
         detailAll.setVisible(false);
-        page_.add(mute);
-        page_.add(selectEnter);
-        page_.add(nextAction);
-        page_.add(nextInstruction);
-        page_.add(nextGoUp);
-        page_.add(nextInMethod);
-        page_.add(nextCursor);
-        page_.add(pauseStack);
+        AbsPanel nav_ = commonFrame.getFrames().getCompoFactory().newLineBox();
+        nav_.add(mute);
+        nav_.add(selectEnter);
+        nav_.add(nextAction);
+        nav_.add(nextInstruction);
+        nav_.add(nextGoUp);
+        nav_.add(nextInMethod);
+        nav_.add(nextCursor);
+        nav_.add(pauseStack);
+        nav_.add(stopStack);
+        page_.add(nav_);
         page_.add(detailAll);
+        statusAnalyzeArea = commonFrame.getFrames().getCompoFactory().newTextArea();
+        statusAnalyzeArea.setEditable(false);
+        page_.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(statusAnalyzeArea));
         commonFrame.setContentPane(page_);
         commonFrame.setVisible(true);
         AbsMenuBar bar_ = getCommonFrame().getFrames().getCompoFactory().newMenuBar();
@@ -217,9 +228,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     }
     void next(StepDbgActionEnum _step){
         getPauseStack().setEnabled(true);
+        getStopStack().setEnabled(true);
         StackCallReturnValue view_ = ExecClassesUtil.tryInitStaticlyTypes(currentResult.getContext(), currentResult.getForwards().getOptions(), stackCall, selected,_step, mute.isSelected());
         getPauseStack().setEnabled(false);
         if (getStopDbg().get()) {
+            getStopStack().setEnabled(false);
             setStackCall(null);
             return;
         }
@@ -321,6 +334,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     }
     public void update(ResultContext _res, StringMap<String> _src) {
         if (_res.getPageEl().notAllEmptyErrors()) {
+            statusAnalyzeArea.append(_res.getReportedMessages().displayErrors());
             selectEnter.setVisible(false);
         } else {
             selectEnter.setEnabled(true);
@@ -471,6 +485,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public AbstractAtomicBoolean getStopDbg() {
         return stopDbg;
+    }
+
+    public AbsPlainButton getStopStack() {
+        return stopStack;
     }
 
     public void setStopDbg(AbstractAtomicBoolean _s) {

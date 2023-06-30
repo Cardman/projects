@@ -923,7 +923,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
         validValues(f_);
         assertFalse(methods(b_).isEmpty());
-        b_.getStopDbg().set(true);
+        ((MockPlainButton)b_.getStopStack()).getActionListeners().get(0).action();
         launch(b_);
         assertTrue(b_.getStopDbg().get());
     }
