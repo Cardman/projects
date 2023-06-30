@@ -23,6 +23,6 @@ public final class FctFileWrite extends FctFileAbs {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
         String file_ = ((StringStruct)argumentWrappers_.get(0).getValue().getStruct()).getInstance();
         String txt_ = CustAliases.getStandarString(_cont,argumentWrappers_.get(1).getValue().getStruct());
-        return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().saveTextFile(file_, txt_, (RunnableContextEl) _cont)));
+        return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().saveTextFile(file_, txt_, ((RunnableContextEl) _cont).getCurrentDir())));
     }
 }

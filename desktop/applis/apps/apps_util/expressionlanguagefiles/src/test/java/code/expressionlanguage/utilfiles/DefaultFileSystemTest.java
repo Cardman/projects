@@ -1,20 +1,12 @@
 package code.expressionlanguage.utilfiles;
 
-import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.filenames.DefaultNameValidating;
-import code.expressionlanguage.guicompos.GuiContextEl;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
-import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
-import code.stream.core.ContentTime;
-import code.stream.core.OutputType;
-import code.stream.core.ReadBinFiles;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -30,18 +22,6 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         assertTrue(pr_.getFileCoreStream().newFile("/files").isDirectory());
     }
     @Test
-    public void currDir() {
-        CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
-        MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
-        DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
-        ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setBaseFiles("/files/");
-        f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
-        assertEq("/files/",f_.currentDir(g_));
-    }
-    @Test
     public void absol1() {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.75));
         MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
@@ -49,9 +29,9 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
-        assertTrue(f_.isAbsolute("/files",g_));
+        
+        
+        assertTrue(f_.isAbsoluteFct("/files"));
     }
     @Test
     public void absol2() {
@@ -61,9 +41,9 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
-        assertFalse(f_.isAbsolute("files",g_));
+        
+        
+        assertFalse(f_.isAbsoluteFct("files"));
     }
     @Test
     public void absol3() {
@@ -73,9 +53,9 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
-        assertEq("/files",f_.absolutePath("/files",g_));
+        
+        
+        assertEq("/files",f_.absolutePath("/files","/files/"));
     }
     @Test
     public void absol4() {
@@ -85,9 +65,9 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/folder/");
-        assertEq("/folder/files",f_.absolutePath("files",g_));
+        
+
+        assertEq("/folder/files",f_.absolutePath("files","/folder/"));
     }
     @Test
     public void chg1() {
@@ -97,11 +77,10 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
+        
         pr_.setCurrentPath("/files/");
-        g_.setCurrentDir("/files/");
-        f_.changeDir("/inexist",g_);
-        assertEq("/files/",f_.currentDir(g_));
+        
+        assertEq("/files/",f_.changeDir("/inexist","/files/"));
     }
     @Test
     public void chg2() {
@@ -111,11 +90,10 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
+        
         pr_.setCurrentPath("/files/");
-        g_.setCurrentDir("/files/");
-        f_.changeDir("inexist",g_);
-        assertEq("/files/",f_.currentDir(g_));
+        
+        assertEq("/files/",f_.changeDir("inexist","/files/"));
     }
     @Test
     public void chg3() {
@@ -125,12 +103,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
         pr_.getFileCoreStream().newFile("next/").mkdirs();
-        f_.changeDir("next/",g_);
-        assertEq("/files/next/",f_.currentDir(g_));
+        assertEq("/files/next/",f_.changeDir("next/","/files/"));
     }
     @Test
     public void chg4() {
@@ -140,12 +117,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
         StreamTextFile.saveTextFile("next","",pr_.getStreams());
-        f_.changeDir("next/",g_);
-        assertEq("/files/",f_.currentDir(g_));
+        assertEq("/files/",f_.changeDir("next/","/files/"));
     }
     @Test
     public void dir() {
@@ -155,11 +131,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
         pr_.getFileCoreStream().newFile("next/").mkdirs();
-        assertTrue(f_.isDirectory("next/",g_));
+        assertTrue(f_.isDirectory("next/","/files/"));
     }
     @Test
     public void mk1() {
@@ -169,11 +145,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertTrue(f_.mkdirs("next/",g_));
-        assertFalse(f_.mkdirs("next/",g_));
+        assertTrue(f_.mkdirs("next/","/files/"));
+        assertFalse(f_.mkdirs("next/","/files/"));
     }
     @Test
     public void mk2() {
@@ -183,10 +159,10 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertFalse(f_.mkdirs("next//",g_));
+        assertFalse(f_.mkdirs("next//","/files/"));
     }
     @Test
     public void mk3() {
@@ -196,10 +172,10 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertFalse(f_.mkdirs("/next/",g_));
+        assertFalse(f_.mkdirs("/next/","/files/"));
     }
     @Test
     public void mk4() {
@@ -209,10 +185,10 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertTrue(f_.mkdirs("/files/next/",g_));
+        assertTrue(f_.mkdirs("/files/next/","/files/"));
     }
     @Test
     public void saveTxt1() {
@@ -222,10 +198,10 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertFalse(f_.saveTextFile("file","",g_));
+        assertFalse(f_.saveTextFile("file","","/files/"));
     }
     @Test
     public void saveTxt2() {
@@ -235,11 +211,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertTrue(f_.saveTextFile("file","_",g_));
-        assertEq("_",f_.contentsOfFile("file",g_));
+        assertTrue(f_.saveTextFile("file","_","/files/"));
+        assertEq("_",f_.contentsOfFile("file","/files/"));
     }
     @Test
     public void saveTxt3() {
@@ -249,10 +225,10 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertFalse(f_.saveTextFile("fi//le","",g_));
+        assertFalse(f_.saveTextFile("fi//le","","/files/"));
     }
     @Test
     public void saveBin1() {
@@ -262,10 +238,10 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertFalse(f_.writeFile("file",new byte[0],g_));
+        assertFalse(f_.writeFile("file",new byte[0],"/files/"));
     }
     @Test
     public void saveBin2() {
@@ -275,11 +251,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertTrue(f_.writeFile("file", StringUtil.encode("_"),g_));
-        assertEq("_",StringUtil.decode(f_.loadFile("file",g_).getBytes()));
+        assertTrue(f_.writeFile("file", StringUtil.encode("_"),"/files/"));
+        assertEq("_",StringUtil.decode(f_.loadFile("file","/files/").getBytes()));
     }
     @Test
     public void saveBin3() {
@@ -289,10 +265,10 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertFalse(f_.writeFile("fi//le",new byte[0],g_));
+        assertFalse(f_.writeFile("fi//le",new byte[0],"/files/"));
     }
     @Test
     public void logTxt1() {
@@ -302,10 +278,10 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertFalse(f_.logToFile("file","",g_));
+        assertFalse(f_.logToFile("file","","/files/"));
     }
     @Test
     public void logTxt2() {
@@ -315,10 +291,10 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertTrue(f_.logToFile("file","",g_));
+        assertTrue(f_.logToFile("file","","/files/"));
     }
     @Test
     public void logTxt3() {
@@ -328,10 +304,10 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertFalse(f_.logToFile("fi//le","",g_));
+        assertFalse(f_.logToFile("fi//le","","/files/"));
     }
     @Test
     public void del1() {
@@ -341,11 +317,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertFalse(f_.saveTextFile("file","",g_));
-        assertFalse(f_.delete("file",g_));
+        assertFalse(f_.saveTextFile("file","","/files/"));
+        assertFalse(f_.delete("file","/files/"));
     }
     @Test
     public void del2() {
@@ -355,11 +331,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertTrue(f_.saveTextFile("file","_",g_));
-        assertTrue(f_.delete("file",g_));
+        assertTrue(f_.saveTextFile("file","_","/files/"));
+        assertTrue(f_.delete("file","/files/"));
     }
     @Test
     public void del3() {
@@ -369,11 +345,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertFalse(f_.saveTextFile("fi//le","",g_));
-        assertFalse(f_.delete("fil//e",g_));
+        assertFalse(f_.saveTextFile("fi//le","","/files/"));
+        assertFalse(f_.delete("fil//e","/files/"));
     }
     @Test
     public void ren1() {
@@ -383,11 +359,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertFalse(f_.saveTextFile("file","",g_));
-        assertFalse(f_.rename("file","next",g_));
+        assertFalse(f_.saveTextFile("file","","/files/"));
+        assertFalse(f_.rename("file","next","/files/"));
     }
     @Test
     public void ren2() {
@@ -397,11 +373,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertTrue(f_.saveTextFile("file","_",g_));
-        assertTrue(f_.rename("file","next",g_));
+        assertTrue(f_.saveTextFile("file","_","/files/"));
+        assertTrue(f_.rename("file","next","/files/"));
     }
     @Test
     public void ren3() {
@@ -411,11 +387,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertFalse(f_.saveTextFile("fi//le","",g_));
-        assertFalse(f_.rename("fil//e","next",g_));
+        assertFalse(f_.saveTextFile("fi//le","","/files/"));
+        assertFalse(f_.rename("fil//e","next","/files/"));
     }
     @Test
     public void ren4() {
@@ -425,11 +401,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertFalse(f_.saveTextFile("fi//le","",g_));
-        assertFalse(f_.rename("file","n//ext",g_));
+        assertFalse(f_.saveTextFile("fi//le","","/files/"));
+        assertFalse(f_.rename("file","n//ext","/files/"));
     }
     @Test
     public void isFile1() {
@@ -439,11 +415,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertFalse(f_.saveTextFile("file","",g_));
-        assertFalse(f_.isFile("file",g_));
+        assertFalse(f_.saveTextFile("file","","/files/"));
+        assertFalse(f_.isFile("file","/files/"));
     }
     @Test
     public void isFile2() {
@@ -453,11 +429,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertTrue(f_.saveTextFile("file","_",g_));
-        assertTrue(f_.isFile("file",g_));
+        assertTrue(f_.saveTextFile("file","_","/files/"));
+        assertTrue(f_.isFile("file","/files/"));
     }
     @Test
     public void isFile3() {
@@ -467,11 +443,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        f_.mkdirs("next/",g_);
-        assertFalse(f_.isFile("next/",g_));
+        f_.mkdirs("next/","/files/");
+        assertFalse(f_.isFile("next/","/files/"));
     }
     @Test
     public void parent1() {
@@ -481,10 +457,10 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        assertEq("",f_.getParentPath("/",g_));
+        assertEq("",f_.getParentPath("/","/files/"));
     }
     @Test
     public void parent2() {
@@ -494,11 +470,11 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        f_.mkdirs("next/",g_);
-        assertEq("/files",f_.getParentPath("/files/next/",g_));
+        f_.mkdirs("next/","/files/");
+        assertEq("/files",f_.getParentPath("/files/next/","/files/"));
     }
     @Test
     public void files1() {
@@ -508,12 +484,12 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        f_.mkdirs("next1/",g_);
-        f_.saveTextFile("next2","_",g_);
-        StringList fs_ = f_.getFiles("/files/", g_);
+        f_.mkdirs("next1/","/files/");
+        f_.saveTextFile("next2","_","/files/");
+        StringList fs_ = f_.getFiles("/files/", "/files/");
         assertEq(1, fs_.size());
         assertEq("/files/next2",fs_.get(0));
     }
@@ -525,15 +501,15 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        f_.mkdirs("next1/",g_);
-        f_.saveTextFile("next2","_",g_);
-        assertEq(6,f_.lastModified("next2",g_));
-        assertEq(1,f_.length("next2",g_));
-        assertEq("next2",f_.getName("next2",g_));
-        StringList fs_ = f_.getFiles("/files/next2", g_);
+        f_.mkdirs("next1/","/files/");
+        f_.saveTextFile("next2","_","/files/");
+        assertEq(6,f_.lastModified("next2","/files/"));
+        assertEq(1,f_.length("next2","/files/"));
+        assertEq("next2",f_.getName("next2","/files/"));
+        StringList fs_ = f_.getFiles("/files/next2", "/files/");
         assertNull(fs_);
     }
     @Test
@@ -544,12 +520,12 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        f_.mkdirs("next1/",g_);
-        f_.saveTextFile("next2","_",g_);
-        StringList fs_ = f_.getFolders("/files/", g_);
+        f_.mkdirs("next1/","/files/");
+        f_.saveTextFile("next2","_","/files/");
+        StringList fs_ = f_.getFolders("/files/", "/files/");
         assertEq(1, fs_.size());
         assertEq("/files/next1",fs_.get(0));
     }
@@ -561,12 +537,12 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        f_.mkdirs("next1/",g_);
-        f_.saveTextFile("next2","_",g_);
-        StringList fs_ = f_.getFolders("/files/next2", g_);
+        f_.mkdirs("next1/","/files/");
+        f_.saveTextFile("next2","_","/files/");
+        StringList fs_ = f_.getFolders("/files/next2", "/files/");
         assertNull(fs_);
     }
     @Test
@@ -577,10 +553,10 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setBaseFiles("/files/");
         f_.build(exec_, null);
-        GuiContextEl g_ = newContext(newLgNamesGuiLight(pr_,exec_),law_);
-        g_.setCurrentDir("/files/");
+        
+        
         pr_.setCurrentPath("/files/");
-        StringList fs_ = f_.getRoots(g_);
+        StringList fs_ = f_.getRoots();
         assertEq(1, fs_.size());
         assertEq("/",fs_.get(0));
     }

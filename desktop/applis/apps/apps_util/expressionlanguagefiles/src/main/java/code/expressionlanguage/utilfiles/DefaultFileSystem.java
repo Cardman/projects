@@ -4,7 +4,6 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.PathUtil;
 import code.expressionlanguage.utilcompo.AbstractFileSystem;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
-import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.stream.*;
 import code.stream.core.ReadBinFiles;
 import code.stream.core.TechStreams;
@@ -35,32 +34,27 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public void changeDir(String _file, RunnableContextEl _rCont) {
+    public String changeDir(String _file, String _rCont) {
         String abs_ = absolutePath(_file, _rCont);
         String normal_ = StringUtil.replaceBackSlashDot(abs_);
         if (!normal_.startsWith(base)) {
-            return;
+            return _rCont;
         }
         if (!isDirectory(normal_,_rCont)) {
-            return;
+            return _rCont;
         }
-        _rCont.setCurrentDir(normal_);
+        return normal_;
     }
 
     @Override
-    public String currentDir(RunnableContextEl _rCont) {
-        return _rCont.getCurrentDir();
-    }
-
-    @Override
-    public String contentsOfFile(String _file, RunnableContextEl _rCont) {
+    public String contentsOfFile(String _file, String _rCont) {
         String file_ = prefix(_file, _rCont);
         return StreamTextFile.contentsOfFile(file_, uniformingString,fileCoreStream,streams);
     }
 
     @Override
-    public boolean saveTextFile(String _file, String _content, RunnableContextEl _rCont) {
-        if (koName(_file, _rCont)) {
+    public boolean saveTextFile(String _file, String _content, String _rCont) {
+        if (koName(_file)) {
             return false;
         }
         String file_ = prefix(_file, _rCont);
@@ -68,14 +62,14 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public BytesInfo loadFile(String _file, RunnableContextEl _rCont) {
+    public BytesInfo loadFile(String _file, String _rCont) {
         String file_ = prefix(_file, _rCont);
         return StreamBinaryFile.loadFile(file_, streams);
     }
 
     @Override
-    public boolean writeFile(String _file, byte[] _content, RunnableContextEl _rCont) {
-        if (koName(_file, _rCont)) {
+    public boolean writeFile(String _file, byte[] _content, String _rCont) {
+        if (koName(_file)) {
             return false;
         }
         String file_ = prefix(_file, _rCont);
@@ -83,8 +77,8 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public boolean delete(String _file, RunnableContextEl _rCont) {
-        if (koName(_file, _rCont)) {
+    public boolean delete(String _file, String _rCont) {
+        if (koName(_file)) {
             return false;
         }
         String file_ = prefix(_file, _rCont);
@@ -92,8 +86,8 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public boolean rename(String _origin, String _dest, RunnableContextEl _rCont) {
-        if (koName(_origin, _rCont) || koName(_dest, _rCont)) {
+    public boolean rename(String _origin, String _dest, String _rCont) {
+        if (koName(_origin) || koName(_dest)) {
             return false;
         }
         String origin_ = prefix(_origin, _rCont);
@@ -102,8 +96,8 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public boolean logToFile(String _file, String _content, RunnableContextEl _rCont) {
-        if (koName(_file, _rCont)) {
+    public boolean logToFile(String _file, String _content, String _rCont) {
+        if (koName(_file)) {
             return false;
         }
         String file_ = prefix(_file, _rCont);
@@ -111,35 +105,34 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public String absolutePath(String _file, RunnableContextEl _rCont) {
-        if (isAbsolute(_file, _rCont)) {
+    public String absolutePath(String _file, String _rCont) {
+        if (isAbsoluteFct(_file)) {
             return StringUtil.replaceBackSlash(_file);
         }
-        String abs_ = _rCont.getCurrentDir();
-        return PathUtil.transform(abs_,_file);
+        return PathUtil.transform(_rCont,_file);
     }
 
     @Override
-    public long length(String _file, RunnableContextEl _rCont) {
+    public long length(String _file, String _rCont) {
         String file_ = prefix(_file, _rCont);
         return fileCoreStream.newFile(file_).length();
     }
 
     @Override
-    public String getName(String _file, RunnableContextEl _rCont) {
+    public String getName(String _file, String _rCont) {
         String file_ = prefix(_file, _rCont);
         return fileCoreStream.newFile(file_).getName();
     }
 
     @Override
-    public String getParentPath(String _file, RunnableContextEl _rCont) {
+    public String getParentPath(String _file, String _rCont) {
         String file_ = prefix(_file, _rCont);
         String parent_ = fileCoreStream.newFile(file_).getParent();
         return StringUtil.replaceBackSlash(parent_);
     }
 
     @Override
-    public boolean isDirectory(String _file, RunnableContextEl _rCont) {
+    public boolean isDirectory(String _file, String _rCont) {
         String file_ = prefix(_file, _rCont);
         return isDirectory(file_);
     }
@@ -154,7 +147,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public boolean isFile(String _file, RunnableContextEl _rCont) {
+    public boolean isFile(String _file, String _rCont) {
         String file_ = prefix(_file, _rCont);
         AbstractFile info_ = fileCoreStream.newFile(file_);
         return file(info_);
@@ -165,14 +158,14 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public StringList getRoots(RunnableContextEl _rCont) {
+    public StringList getRoots() {
         StringList roots_ = StreamFolderFile.listRootsAbPath(fileCoreStream);
         roots_.sort();
         return roots_;
     }
 
     @Override
-    public boolean isAbsolute(String _file, RunnableContextEl _rCont) {
+    public boolean isAbsoluteFct(String _file) {
         return isAbsolute(_file);
     }
 
@@ -181,9 +174,9 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public boolean mkdirs(String _file, RunnableContextEl _rCont) {
+    public boolean mkdirs(String _file, String _rCont) {
         String file_ = ExecutingOptions.adjustPath(_file);
-        if (koName(file_, _rCont)) {
+        if (koName(file_)) {
             return false;
         }
         String pref_ = prefix(file_, _rCont);
@@ -191,14 +184,14 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public long lastModified(String _file, RunnableContextEl _rCont) {
+    public long lastModified(String _file, String _rCont) {
         String file_ = prefix(_file, _rCont);
         AbstractFile info_ = fileCoreStream.newFile(file_);
         return info_.lastModified();
     }
 
     @Override
-    public StringList getFiles(String _file, RunnableContextEl _rCont) {
+    public StringList getFiles(String _file, String _rCont) {
         String file_ = prefix(_file, _rCont);
         AbstractFile info_ = fileCoreStream.newFile(file_);
         FileListInfo files_ = PathsUtil.abs(info_,fileCoreStream);
@@ -216,7 +209,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public StringList getFolders(String _file, RunnableContextEl _rCont) {
+    public StringList getFolders(String _file, String _rCont) {
         String file_ = prefix(_file, _rCont);
         AbstractFile info_ = fileCoreStream.newFile(file_);
         FileListInfo files_ = PathsUtil.abs(info_,fileCoreStream);
@@ -236,10 +229,10 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     private boolean simpleMkdirs(String _modified) {
         return StreamFolderFile.makeParent(_modified+"/",fileCoreStream);
     }
-    private boolean koName(String _file, RunnableContextEl _rCont) {
+    private boolean koName(String _file) {
         String normal_ = StringUtil.replaceBackSlash(_file);
         String ext_ = normal_;
-        if (isAbsolute(normal_, _rCont)) {
+        if (isAbsoluteFct(normal_)) {
             if (!normal_.startsWith(base)) {
                 return true;
             }
@@ -248,11 +241,11 @@ public final class DefaultFileSystem implements AbstractFileSystem {
         return !nameValidating.okPath(ext_, '/', '\\');
     }
 
-    private String prefix(String _file, RunnableContextEl _rCont) {
+    private String prefix(String _file, String _rCont) {
         String chg_ = StringUtil.replaceBackSlash(_file);
         String file_ = chg_;
-        if (!isAbsolute(chg_, _rCont)) {
-            file_ = _rCont.getCurrentDir()+chg_;
+        if (!isAbsoluteFct(chg_)) {
+            file_ = _rCont+chg_;
         }
         return file_;
     }

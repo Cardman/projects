@@ -6,7 +6,7 @@ import code.util.*;
 public final class FileResultMem {
     private final FolderStruct folder;
     private final String simpleName;
-    public FileResultMem(MemoryFileSystem _mem,String _file, RunnableContextEl _rCont) {
+    public FileResultMem(MemoryFileSystem _mem, String _file, String _rCont) {
         String abs_ = _mem.absolutePath(_file, _rCont);
         StringList parts_ = PathUtil.splitParts(abs_);
         FolderStruct curr_ = _mem.getParentFolder(parts_);

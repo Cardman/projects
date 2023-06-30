@@ -7,7 +7,7 @@ public final class FolderResultMem {
     private final FolderStruct current;
     private final int delta;
     private final String simpleName;
-    public FolderResultMem(MemoryFileSystem _mem, String _file, RunnableContextEl _rCont) {
+    public FolderResultMem(MemoryFileSystem _mem, String _file, String _rCont) {
         String abs_ = _mem.absolutePath(_file, _rCont);
         delta = MemoryFileSystem.delta(MemoryFileSystem.endsSep(abs_));
         CustList<String> parts_ = PathUtil.splitParts(abs_);

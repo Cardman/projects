@@ -28,6 +28,6 @@ public final class FctFileRename extends FctFileAbs {
         }
         String file_ = ((StringStruct)oldName_).getInstance();
         String dest_ = ((StringStruct)newName_).getInstance();
-        return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().rename(file_,dest_, (RunnableContextEl) _cont)));
+        return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().rename(file_,dest_, ((RunnableContextEl) _cont).getCurrentDir())));
     }
 }

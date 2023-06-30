@@ -18,7 +18,7 @@ public final class FctFileDir0 extends FctFileAbs {
 
     @Override
     public ArgumentWrapper file(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(new StringStruct(_infos.getFileSystem().currentDir((RunnableContextEl) _cont)));
+        return new ArgumentWrapper(new StringStruct(((RunnableContextEl) _cont).getCurrentDir()));
     }
 
     @Override

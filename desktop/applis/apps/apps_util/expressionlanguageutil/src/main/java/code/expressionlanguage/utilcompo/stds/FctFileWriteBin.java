@@ -35,6 +35,6 @@ public final class FctFileWriteBin extends FctFileAbs {
             }
             bin_[i] = ((NumberStruct)byte_).byteStruct();
         }
-        return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().writeFile(file_, bin_, (RunnableContextEl) _cont)));
+        return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().writeFile(file_, bin_, ((RunnableContextEl) _cont).getCurrentDir())));
     }
 }

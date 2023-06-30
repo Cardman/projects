@@ -3,15 +3,10 @@ package code.expressionlanguage.utilfiles;
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.DefTypePairHash;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.coverage.Coverage;
-import code.expressionlanguage.exec.dbg.DebugMapping;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.guicompos.GuiContextEl;
 import code.expressionlanguage.guicompos.GuiFileBuilder;
-import code.expressionlanguage.guicompos.GuiInitializer;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.DfInstancer;
@@ -19,7 +14,6 @@ import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
-import code.gui.GuiConstants;
 import code.gui.TextAnswerValue;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractLightProgramInfos;
@@ -107,28 +101,6 @@ public abstract class EquallableElUtFilesUtil {
         Assert.assertFalse(_value);
     }
 
-    public static LgNamesGui newLgNamesGuiSampleCl(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
-        LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
-        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
-        return stds_;
-    }
-    public static LgNamesGui newLgNamesGui(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {
-        byte[] zipped_ = _light.getZipFact().zipBinFiles(_files);
-        FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), _issuer, new MemInputFiles(StringUtil.encode(_conf), new BytesInfo(StringUtil.encode(_src),false), new BytesInfo(GuiConstants.nullToEmpty(zipped_),false)), _light.getZipFact(), _light.getThreadFactory());
-        return new LgNamesGui(infos_, new MockInterceptor());
-    }
-    public static LgNamesGui newLgNamesGuiLight(AbstractLightProgramInfos _light,ExecutingOptions _opt) {
-        FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), null, new MemInputFiles(new byte[0], new BytesInfo(new byte[0],true), new BytesInfo(new byte[0],true)), _light.getZipFact(), _light.getThreadFactory());
-        LgNamesGui stds_ = new LgNamesGui(infos_, new MockInterceptor());
-        stds_.getExecContent().setExecutingOptions(_opt);
-        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),_opt.getLg());
-        return stds_;
-    }
-    public static GuiContextEl newContext(LgNamesGui _stds,CustomSeedGene _opt) {
-        return new GuiContextEl(_stds.getExecContent().getInfos().getThreadFactory().newAtomicBoolean(),NullStruct.NULL_VALUE, new CommonExecutionInfos(new MockInterceptorStdCaller(),new CommonExecutionMetricsInfos(4,-1,_opt),_stds,new Classes(new DefTypePairHash(),new DebugMapping(new DefStackStopper(), new MockInterceptorStdCaller())), new Coverage(false), new DefaultLockingClass(),
-                new GuiInitializer(_stds.getExecContent().getInfos().getThreadFactory().newAtomicLong(), _stds.getExecContent().getCustAliases().getInterceptor())),
-                new StringList(_stds.getExecContent().getExecutingOptions().getArgs()));
-    }
     public static ArgumentListCall one(Struct _arg) {
         CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();
         ls_.add(new ArgumentWrapper(_arg));
@@ -286,10 +258,7 @@ public abstract class EquallableElUtFilesUtil {
     public static Struct str(Argument _arg) {
         return _arg.getStruct();
     }
-    public static void memoryFileSystem(LgNamesGui _stds, AbstractProgramInfos _pr, MockNameFile... _files) {
-        AbstractFileSystem m_ = _stds.getExecContent().getCustAliases().getInfos().getFileSystem();
-        m_.build(_stds.getExecContent().getExecutingOptions(), StreamZipFile.getZippedBinFiles(new BytesInfo(_pr.getZipFact().zipBinFiles(MockZipFact.wrapText(_files)),false), _pr.getZipFact()));
-    }
+
     public static double[] dbs(double... _args) {
         return _args;
     }

@@ -11,7 +11,6 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.FileInfos;
-import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.util.StringList;
 
 public final class FctFileRoots extends FctFileAbs {
@@ -21,7 +20,7 @@ public final class FctFileRoots extends FctFileAbs {
 
     @Override
     public ArgumentWrapper file(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        StringList roots_ = _infos.getFileSystem().getRoots((RunnableContextEl) _cont);
+        StringList roots_ = _infos.getFileSystem().getRoots();
         int len_ = roots_.size();
         ArrayStruct arr_ = new ArrayStruct(len_, StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getCharSeq().getAliasString()));
         for (int i = 0; i < len_; i++) {

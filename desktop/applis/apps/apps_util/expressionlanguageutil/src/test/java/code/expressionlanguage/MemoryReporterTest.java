@@ -154,7 +154,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         files_.addEntry("src/folder/file.txt","public class pkg.Sample{}");
         ResultContext re_ = build(opt_, e_, new AnalysisMessages(), new KeyWords(), stds_, files_);
         stds_.getExecContent().getCustAliases().getInfos().getFileSystem().build(e_, new ReadBinFiles(new StringMap<ContentTime>(),new StringMap<ContentTime>(), OutputType.FOLDER));
-        stds_.getExecContent().getCustAliases().getInfos().getFileSystem().saveTextFile("file","content",(RunnableContextEl)re_.getContext());
+        stds_.getExecContent().getCustAliases().getInfos().getFileSystem().saveTextFile("file","content",((RunnableContextEl)re_.getContext()).getCurrentDir());
         stds_.getExecContent().getCustAliases().getInfos().getLogger().log("folder2","file2","after",(RunnableContextEl)re_.getContext());
         stds_.getExecContent().getCustAliases().getInfos().getReporter().coverFile(e_,"folder/file.txt","{}");
         String d_ = StringUtil.decode(stds_.getExecContent().getCustAliases().getInfos().getReporter().export(e_,stds_.getExecContent().getCustAliases().getInfos().getFileSystem(), stds_.getExecContent().getCustAliases().getInfos().getLogger()).getBytes());

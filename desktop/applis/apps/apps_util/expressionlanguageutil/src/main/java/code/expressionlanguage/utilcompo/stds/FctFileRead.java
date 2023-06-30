@@ -20,7 +20,7 @@ public final class FctFileRead extends FctFileAbs {
     @Override
     public ArgumentWrapper file(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         StringStruct str_ = (StringStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
-        String read_ = _infos.getFileSystem().contentsOfFile(str_.getInstance(), (RunnableContextEl) _cont);
+        String read_ = _infos.getFileSystem().contentsOfFile(str_.getInstance(), ((RunnableContextEl) _cont).getCurrentDir());
         if (read_ == null) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }

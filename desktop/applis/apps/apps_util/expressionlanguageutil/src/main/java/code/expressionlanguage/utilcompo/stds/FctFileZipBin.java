@@ -29,6 +29,6 @@ public final class FctFileZipBin extends FctFileAbs {
             Struct byte_ = struct_.get(i);
             file_[i] = NumParsers.convertToNumber(byte_).byteStruct();
         }
-        return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().writeFile(fileName_,file_, (RunnableContextEl) _cont)));
+        return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().writeFile(fileName_,file_, ((RunnableContextEl) _cont).getCurrentDir())));
     }
 }

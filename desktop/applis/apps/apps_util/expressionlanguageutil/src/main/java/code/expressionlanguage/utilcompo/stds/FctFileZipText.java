@@ -53,6 +53,6 @@ public final class FctFileZipText extends FctFileAbs {
         }
         byte[] finalFile_ = GuiConstants.nullToEmpty(ZipBinStructUtil.getZipBinFileAsArray(bs_,_infos.getZipFact()));
         StringStruct str_ = (StringStruct)name_;
-        return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().writeFile(str_.getInstance(),finalFile_, (RunnableContextEl) _cont)));
+        return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().writeFile(str_.getInstance(),finalFile_, ((RunnableContextEl) _cont).getCurrentDir())));
     }
 }
