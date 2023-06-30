@@ -22,6 +22,7 @@ public final class InputTypeCreation {
     private CustList<SegmentStringPart> stringParts = new CustList<SegmentStringPart>();
 
     private FileResolverContext cont;
+    private boolean skipElement;
 
     public int getNextIndex() {
         return nextIndex;
@@ -111,4 +112,11 @@ public final class InputTypeCreation {
         this.cont = _c;
     }
 
+    public boolean isSkipElement() {
+        return skipElement;
+    }
+
+    public void setSkipElement(boolean _s) {
+        this.skipElement = _s;
+    }
 }

@@ -111,17 +111,21 @@ public final class ParsedInstruction {
         String after_;
         if (ParsedAnnotations.startsWithAnnot(trLeft_, _keyWords.getKeyWordClass(), _keyWords.getKeyWordInterface())) {
             // accessOffesType_ == nextIndex_ == i_ + 1;
-            ParsedAnnotations par_ = new ParsedAnnotations(trLeft_, instructionTrimLocation_ + _input.getOffset());
-            par_.parse(getStringParts(), _keyWords.getKeyWordClass(), _keyWords.getKeyWordInterface());
-            annotationsTypes_.set(par_);
-            afterOffset = par_.getIndex() - _input.getOffset();
-            after_ = par_.getAfter();
+            afterOffset = next(0,annotationsTypes_,_input.getOffset(),getStringParts(),instructionTrimLocation_,trLeft_,_keyWords.getKeyWordClass(), _keyWords.getKeyWordInterface());
+            after_ = annotationsTypes_.getPre();
         } else {
             afterOffset = instructionTrimLocation_;
             after_ = trLeft_;
         }
         builderAfter.append(after_);
         annotationsTypes = annotationsTypes_;
+    }
+
+    public static int next(int _delta, ResultParsedAnnots _annotations, int _offset, CustList<SegmentStringPart> _parts, int _j, String _part, String... _keyWordClass) {
+        ParsedAnnotations parse_ = new ParsedAnnotations(_part, _delta + _j + _offset);
+        parse_.parse(_parts,_keyWordClass);
+        _annotations.set(parse_);
+        return parse_.getIndex() - _delta - _offset;
     }
 
     public ResultParsedAnnots getAnnotationsTypes() {

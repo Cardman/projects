@@ -59,12 +59,7 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         while (j_ < len_) {
             int k_ = j_;
             ResultParsedAnnots annotationsParam_ = new ResultParsedAnnots();
-            if (_info.startsWith(ANNOT,k_)) {
-                ParsedAnnotations par_ = new ParsedAnnotations(_info.substring(k_), k_+ offsetLast);
-                par_.parse(_parts);
-                annotationsParam_.set(par_);
-                k_ = DefaultProcessKeyWord.skipWhiteSpace(_info,par_.getIndex() - offsetLast);
-            }
+            k_ = incrAnnot(k_,0,_info,annotationsParam_,offsetLast,_parts);
             BoolVal ref_ = ref(_info,k_,_keyWordThat);
             k_ = afterRef(_info,k_,_keyWordThat,ref_);
             int typeOff_ = k_;
@@ -139,12 +134,7 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         while (j_ < len_) {
             int k_ = j_;
             ResultParsedAnnots annotationsParam_ = new ResultParsedAnnots();
-            if (_string.startsWith(ANNOT,k_)) {
-                ParsedAnnotations par_ = new ParsedAnnotations(_string.substring(k_), k_+_offset);
-                par_.parse(_parts);
-                annotationsParam_.set(par_);
-                k_ = DefaultProcessKeyWord.skipWhiteSpace(_string,par_.getIndex() - _offset);
-            }
+            k_ = incrAnnot(k_,0,_string,annotationsParam_,_offset,_parts);
             BoolVal ref_ = ref(_string,k_,_keyWordThat);
             k_ = afterRef(_string,k_,_keyWordThat,ref_);
             ParsedType p_ = new ParsedType();
@@ -239,12 +229,7 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
 
     private void processExplicitRetType(int _indexLeftPar, String _string, int _offset, String _keyWordThat, int _j, CustList<SegmentStringPart> _parts) {
         int k_ = DefaultProcessKeyWord.skipWhiteSpace(_string, _j +1);
-        if (_string.startsWith(ANNOT,k_)) {
-            ParsedAnnotations par_ = new ParsedAnnotations(_string.substring(k_), k_+ _offset);
-            par_.parse(_parts);
-            annotations.set(par_);
-            k_ = DefaultProcessKeyWord.skipWhiteSpace(_string,par_.getIndex()- _offset);
-        }
+        k_ = incrAnnot(k_,0,_string,annotations,_offset,_parts);
         if (StringExpUtil.startsWithKeyWord(_string,k_, _keyWordThat)) {
             k_ += _keyWordThat.length();
             k_ = DefaultProcessKeyWord.skipWhiteSpace(_string,k_);
@@ -265,6 +250,14 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         nextIndex = until_;
         initLeftBrace(_string, nextRightPar_);
         setReturnType(_string.substring(k_, until_));
+    }
+    public static int incrAnnot(int _j, int _delta, String _string, ResultParsedAnnots _annotations, int _offset, CustList<SegmentStringPart> _parts) {
+        int j_ = _j;
+        if (_string.startsWith(ANNOT,j_)) {
+            int res_ = ParsedInstruction.next(_delta, _annotations, _offset, _parts, j_, _string.substring(j_));
+            j_ = DefaultProcessKeyWord.skipWhiteSpace(_string, res_);
+        }
+        return j_;
     }
 
     private void initLeftBrace(String _string, int _beforeArrow) {

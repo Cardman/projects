@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.analyze.AnaBlockCounts;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.InterfacesPart;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -311,7 +312,9 @@ public final class FileResolver {
         if (endInstr_ != EndInstruction.NONE) {
             AfterBuiltInstruction after_ = processInstruction(_out, _input, _parsedInstruction.getPackageName(), _parsedInstruction.getCurrentParent(),
                     _parsedInstruction,_fa);
-            postInstruction(_countAnon, after_);
+            if (!_input.isSkipElement()) {
+                postInstruction(_countAnon, after_);
+            }
             _parsedInstruction.setCurrentParent(after_.getParent());
             _parsedInstruction.setIndex(i_);
             _parsedInstruction.setPackageName(after_.getPackageName());
@@ -3256,4 +3259,36 @@ public final class FileResolver {
         return ((EnumBlock)_bl).isCanHaveElements();
     }
 
+    public static int resAnonLambdaLight(int _i, String _string, CurrentExpElts _curElts, ParsedFctHeader _parse, int _indAfterArrow, int _indBeforeArrow, int _k) {
+        int instrLoc_ = _curElts.getInstrLoc();
+        String part_ = _string.substring(_indAfterArrow, _k);
+        int begAnon_ = _indBeforeArrow + instrLoc_;
+        int begImplRet_ = _indAfterArrow + instrLoc_;
+        NamedCalledFunctionBlock block_ = new NamedCalledFunctionBlock(begAnon_, begImplRet_, _curElts.getCont().getStat(), _curElts.getCont().getKeys());
+        block_.setAnnotations(_parse.getAnnotations());
+        block_.getAnnotationsParams().addAllElts(_parse.getAnnotationsParams());
+        block_.setBegin(begImplRet_);
+        block_.setLengthHeader(1);
+        block_.setFile(_curElts.getFile());
+        postInst(_curElts.getCounts(),block_);
+        String tr_ = part_.trim();
+        ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(begImplRet_, tr_), begImplRet_);
+        ret_.setImplicit(true);
+        ret_.setBegin(begAnon_);
+        ret_.setLengthHeader(2);
+        ret_.getRes().partsAbsol(_curElts.getStringParts());
+        block_.appendChild(ret_);
+        AnonymousResult anonymous_ = new AnonymousResult();
+        anonymous_.setResults(new ParsedFctHeaderResult(_parse));
+        anonymous_.setIndex(_i);
+        int withoutWhiteBoundsCount_ = part_.length() - tr_.length();
+        anonymous_.setUntil(_k - withoutWhiteBoundsCount_ -1);
+        anonymous_.setLength(_k - withoutWhiteBoundsCount_ - _indBeforeArrow);
+        anonymous_.setType(block_);
+        anonymous_.setNext(_k);
+        block_.setEndAll(begImplRet_+tr_.length());
+        ret_.setEndAll(begImplRet_+tr_.length());
+        _curElts.getRes().getAnonymousResults().add(anonymous_);
+        return _k;
+    }
 }

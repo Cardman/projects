@@ -348,13 +348,7 @@ public final class ElRetrieverAnonymous {
         j_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_);
         ResultParsedAnnots res_ = new ResultParsedAnnots();
         _stack.getAnnotDelNew().add(j_);
-        if (_string.startsWith("@",j_)) {
-            ParsedAnnotations parse_ = new ParsedAnnotations(_string.substring(j_),j_+ _curElts.getInstrLoc());
-            parse_.parse(_curElts.getStringParts());
-            res_.set(parse_);
-            j_ = parse_.getIndex()- _curElts.getInstrLoc();
-            j_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_);
-        }
+        j_ = incrAnnot(j_, 0, _string, _curElts, res_);
         _stack.getAnnotDelNew().add(j_);
         if (StringExpUtil.startsWithKeyWord(_string,j_, _keyWordInterfaces)) {
             int k_ = _string.indexOf(ElResolver.PAR_LEFT, j_);
@@ -434,25 +428,16 @@ public final class ElRetrieverAnonymous {
     }
     private static int incrAnnot(CurrentExpElts _curElts, int _j, String _afterSwitch, int _k, ResultParsedAnnots _annotations, ResultParsedAnnots _annotationsParam) {
         int l_ = DefaultProcessKeyWord.skipWhiteSpace(_afterSwitch,_k+1);
-        if (_afterSwitch.startsWith("@",l_)) {
-            ParsedAnnotations parse_ = new ParsedAnnotations(_afterSwitch.substring(l_), _j +l_+ _curElts.getInstrLoc());
-            parse_.parse(_curElts.getStringParts());
-            _annotations.set(parse_);
-            l_ = parse_.getIndex() - _j - _curElts.getInstrLoc();
-            l_ = DefaultProcessKeyWord.skipWhiteSpace(_afterSwitch,l_);
-        }
+        l_ = incrAnnot(l_,_j,_afterSwitch,_curElts,_annotations);
         if (_afterSwitch.startsWith(":",l_)) {
             int m_ = DefaultProcessKeyWord.skipWhiteSpace(_afterSwitch,l_+1);
-            if (_afterSwitch.startsWith("@",m_)) {
-                ParsedAnnotations parse_ = new ParsedAnnotations(_afterSwitch.substring(m_), _j +m_+ _curElts.getInstrLoc());
-                parse_.parse(_curElts.getStringParts());
-                _annotationsParam.set(parse_);
-                m_ = parse_.getIndex() - _j - _curElts.getInstrLoc();
-                m_ = DefaultProcessKeyWord.skipWhiteSpace(_afterSwitch,m_);
-            }
+            m_ = incrAnnot(m_,_j,_afterSwitch,_curElts,_annotationsParam);
             l_ = m_;
         }
         return l_;
+    }
+    private static int incrAnnot(int _j, int _off, String _string, CurrentExpElts _curElts, ResultParsedAnnots _annotations) {
+        return ParsedFctHeader.incrAnnot(_j,_off,_string,_annotations,_curElts.getInstrLoc(), _curElts.getStringParts());
     }
 
     private static int endExpType(String _string, StackDelimiters _stack, int _j, ResultParsedAnnots _annotations, ResultParsedAnnots _annotationsParam, String _retSwitch, int _k) {
@@ -524,6 +509,7 @@ public final class ElRetrieverAnonymous {
             int indAfterArrow_ = DefaultProcessKeyWord.skipWhiteSpace(_string, afArro_);
             if (StringExpUtil.nextCharIs(_string,indAfterArrow_,len_,ElResolver.ANN_ARR_LEFT)) {
                 InputTypeCreation input_ = buildStdInput(OuterBlockEnum.ANON_FCT, _curElts, indAfterArrow_);
+                input_.setSkipElement(true);
                 ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts, _string);
                 if (res_.isOkType()) {
                     return res_.getNextIndex();
@@ -560,15 +546,7 @@ public final class ElRetrieverAnonymous {
             parse_.getParametersType().add("");
             parse_.getParametersRef().add(BoolVal.FALSE);
             parse_.getAnnotationsParams().add(new ResultParsedAnnots());
-            if (StringExpUtil.nextCharIs(_string,indAfterArrow_,len_,ElResolver.ANN_ARR_LEFT)) {
-                InputTypeCreation input_ = buildInputAnonFct(_curElts, indAfterArrow_, indBeforeArrow_, parse_);
-                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts, _string);
-                if (res_.isOkType()) {
-                    return resAnonLambda(res_, parse_, _i, input_, _curElts);
-                }
-                return -1;
-            }
-            return resAnonLambdaLight(_i, _string, _curElts, parse_, indAfterArrow_, indBeforeArrow_);
+            return anon(_i, _string, _curElts, parse_, indBeforeArrow_, indAfterArrow_, StringExpUtil.nextCharIs(_string,indAfterArrow_,len_, ElResolver.ANN_ARR_LEFT));
         }
         return afterWord_;
     }
@@ -617,11 +595,9 @@ public final class ElRetrieverAnonymous {
     }
 
     private static int parLeft(StackOperators _parsBrackets, StackDelimiters _stack, int _i, char _curChar, String _string, CurrentExpElts _curElts) {
-        KeyWords keyWords_ = _curElts.getCont().getKeys();
         if (!_stack.getCallings().containsObj(_i)) {
             ParsedFctHeader parse_ = new ParsedFctHeader();
-            int instrLoc_ = _curElts.getInstrLoc();
-            parse_.parseAnonymous(_curElts.getStringParts(), _i, _string,instrLoc_, keyWords_.getKeyWordThat());
+            parseAnonymous(parse_, _i, _string,_curElts);
             int rightPar_ = parse_.getNextIndex();
             if (rightPar_ > _i) {
                 if (parse_.isAfterArrowLeftBrace()) {
@@ -630,6 +606,7 @@ public final class ElRetrieverAnonymous {
                     InputTypeCreation input_ = buildStdInput(OuterBlockEnum.ANON_FCT, _curElts, j_);
                     input_.setAnnotations(parse_.getAnnotations());
                     input_.setAnnotationsParams(parse_.getAnnotationsParams());
+                    input_.setSkipElement(true);
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts, _string);
                     if (res_.isOkType()) {
                         return res_.getNextIndex();
@@ -663,6 +640,7 @@ public final class ElRetrieverAnonymous {
                 InputTypeCreation input_ = buildStdInput(OuterBlockEnum.ANON_TYPE, _curElts, _i);
                 input_.setAnnotations(_stack.getAnnotationsEnd().get(indexLast_));
                 input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
+                input_.setSkipElement(true);
                 ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts, _string);
                 if (res_.isOkType()) {
                     return res_.getNextIndex();
@@ -675,6 +653,7 @@ public final class ElRetrieverAnonymous {
                 input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
                 input_.setAnnotations(_stack.getAnnotationsEndSw().get(indexLastSw_));
                 input_.setAnnotationsParams(new CustList<ResultParsedAnnots>(_stack.getAnnotationsEndSwPar().get(indexLastSw_)));
+                input_.setSkipElement(true);
                 ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts, _string);
                 if (res_.isOkType()) {
                     return res_.getNextIndex();
@@ -708,25 +687,15 @@ public final class ElRetrieverAnonymous {
     }
 
     private static int parLeftBegin(StackOperators _parsBrackets, StackDelimiters _stack, int _i, char _curChar, String _string, CurrentExpElts _curElts) {
-        KeyWords keyWords_ = _curElts.getCont().getKeys();
         if (!_stack.getCallings().containsObj(_i)) {
             ParsedFctHeader parse_ = new ParsedFctHeader();
-            int instrLoc_ = _curElts.getInstrLoc();
-            parse_.parseAnonymous(_curElts.getStringParts(), _i, _string,instrLoc_, keyWords_.getKeyWordThat());
+            parseAnonymous(parse_, _i, _string,_curElts);
             int rightPar_ = parse_.getNextIndex();
             if (rightPar_ > _i) {
                 int offAfArr_ = parse_.getArrowPlusSpaceAfter();
                 int indBeforeArrow_ = parse_.getBeforeArrowIndex();
                 int indAfterArrow_ =indBeforeArrow_+ offAfArr_;
-                if (parse_.isAfterArrowLeftBrace()) {
-                    InputTypeCreation input_ = buildInputAnonFct(_curElts, indAfterArrow_, indBeforeArrow_, parse_);
-                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts, _string);
-                    if (res_.isOkType()) {
-                        return resAnonLambda(res_, parse_, _i, input_, _curElts);
-                    }
-                    return -1;
-                }
-                return resAnonLambdaLight(_i, _string, _curElts, parse_, indAfterArrow_, indBeforeArrow_);
+                return anon(_i, _string, _curElts, parse_, indBeforeArrow_, indAfterArrow_, parse_.isAfterArrowLeftBrace());
             }
         }
 
@@ -736,6 +705,28 @@ public final class ElRetrieverAnonymous {
         }
         _stack.getCallings().add(_i);
         return incrOpsStack(_parsBrackets, _i, _curChar, _string);
+    }
+    private static void parseAnonymous(ParsedFctHeader _parse,int _i, String _string, CurrentExpElts _curElts) {
+        KeyWords keyWords_ = _curElts.getCont().getKeys();
+        int instrLoc_ = _curElts.getInstrLoc();
+        _parse.parseAnonymous(_curElts.getStringParts(), _i, _string,instrLoc_, keyWords_.getKeyWordThat());
+    }
+
+    private static int anon(int _i, String _string, CurrentExpElts _curElts, ParsedFctHeader _parse, int _indBeforeArrow, int _indAfterArrow, boolean _brace) {
+        if (_brace) {
+            return anonBrace(_i, _string, _curElts, _parse, _indBeforeArrow, _indAfterArrow);
+        }
+        int k_ = stack(_string, _indAfterArrow, _curElts);
+        return FileResolver.resAnonLambdaLight(_i, _string, _curElts, _parse, _indAfterArrow, _indBeforeArrow, k_);
+    }
+
+    private static int anonBrace(int _i, String _string, CurrentExpElts _curElts, ParsedFctHeader _parse, int _indBeforeArrow, int _indAfterArrow) {
+        InputTypeCreation input_ = buildInputAnonFct(_curElts, _indAfterArrow, _indBeforeArrow, _parse);
+        ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts, _string);
+        if (res_.isOkType()) {
+            return resAnonLambda(res_, _parse, _i, input_, _curElts);
+        }
+        return -1;
     }
 
     private static int annArrLeftBegin(StackOperators _parsBrackets, StackDelimiters _stack, int _i, char _curChar, String _string, CurrentExpElts _curElts) {
@@ -778,40 +769,6 @@ public final class ElRetrieverAnonymous {
         input_.setAnnotations(_parse.getAnnotations());
         input_.setAnnotationsParams(_parse.getAnnotationsParams());
         return input_;
-    }
-
-    private static int resAnonLambdaLight(int _i, String _string, CurrentExpElts _curElts, ParsedFctHeader _parse, int _indAfterArrow, int _indBeforeArrow) {
-        int instrLoc_ = _curElts.getInstrLoc();
-        int k_ = stack(_string, _indAfterArrow, _curElts);
-        String part_ = _string.substring(_indAfterArrow,k_);
-        int begAnon_ = _indBeforeArrow + instrLoc_;
-        int begImplRet_ = _indAfterArrow + instrLoc_;
-        NamedCalledFunctionBlock block_ = new NamedCalledFunctionBlock(begAnon_, begImplRet_, _curElts.getCont().getStat(), _curElts.getCont().getKeys());
-        block_.setAnnotations(_parse.getAnnotations());
-        block_.getAnnotationsParams().addAllElts(_parse.getAnnotationsParams());
-        block_.setBegin(begImplRet_);
-        block_.setLengthHeader(1);
-        block_.setFile(_curElts.getFile());
-        FileResolver.postInst(_curElts.getCounts(),block_);
-        String tr_ = part_.trim();
-        ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(begImplRet_, tr_), begImplRet_);
-        ret_.setImplicit(true);
-        ret_.setBegin(begAnon_);
-        ret_.setLengthHeader(2);
-        ret_.getRes().partsAbsol(_curElts.getStringParts());
-        block_.appendChild(ret_);
-        AnonymousResult anonymous_ = new AnonymousResult();
-        anonymous_.setResults(new ParsedFctHeaderResult(_parse));
-        anonymous_.setIndex(_i);
-        int withoutWhiteBoundsCount_ = part_.length() - tr_.length();
-        anonymous_.setUntil(k_- withoutWhiteBoundsCount_ -1);
-        anonymous_.setLength(k_- withoutWhiteBoundsCount_ - _indBeforeArrow);
-        anonymous_.setType(block_);
-        anonymous_.setNext(k_);
-        block_.setEndAll(begImplRet_+tr_.length());
-        ret_.setEndAll(begImplRet_+tr_.length());
-        _curElts.getRes().getAnonymousResults().add(anonymous_);
-        return k_;
     }
 
     private static int resAnonLambda(ResultCreation _res, ParsedFctHeader _parse, int _i, InputTypeCreation _input, CurrentExpElts _curElts) {

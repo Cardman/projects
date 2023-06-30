@@ -13,10 +13,12 @@ public final class ResultParsedAnnots {
     private CustList<ResultParsedAnnot> annotations = new CustList<ResultParsedAnnot>();
     private CustList<SegmentStringPart> parts = new CustList<SegmentStringPart>();
     private CustList<OperationNode> roots = new CustList<OperationNode>();
+    private String pre = "";
 
     public void set(ParsedAnnotations _par) {
         annotations = _par.getRetAnnots();
         parts = _par.getAllParts();
+        pre = _par.getAfter();
     }
     public void buildAnnotations(AnalyzedPageEl _page) {
         roots = new CustList<OperationNode>();
@@ -42,5 +44,9 @@ public final class ResultParsedAnnots {
 
     public CustList<SegmentStringPart> getParts() {
         return parts;
+    }
+
+    public String getPre() {
+        return pre;
     }
 }
