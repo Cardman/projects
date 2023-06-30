@@ -4,12 +4,11 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefSymbolFactory;
 import code.expressionlanguage.analyze.DefaultAliasGroups;
 import code.expressionlanguage.exec.AbsStackStopper;
+import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.stds.BuildableLgNames;
 import code.expressionlanguage.stds.LgNamesContent;
-import code.expressionlanguage.stds.ListLoggableLgNames;
 import code.expressionlanguage.utilcompo.AbsAdvContextGenerator;
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.expressionlanguage.utilcompo.StringViewReplaceAliases;
@@ -42,8 +41,7 @@ public final class MockResultContextNext implements AbsResultContextNext {
 
     @Override
     public ResultContext next(ResultContext _r, ResultContext _u) {
-        BuildableLgNames lg_ = _r.getForwards().getGenerator();
-        Forwards forwards_ = new Forwards(lg_, new ListLoggableLgNames(), _u.getForwards().getFileBuilder(), _u.getForwards().getOptions());
+        Forwards forwards_ = new Forwards(_u.getForwards(),new DefStackStopper());
         forwards_.getClasses().getCommon().setStaticFields(_u.getPageEl().getStaticFields());
         return new ResultContext(_u.getPageEl(),forwards_,_u.getReportedMessages());
     }

@@ -47,7 +47,7 @@ public final class ResultContext {
         return afterDef(_base, _files, _resultAna, new DefStackStopper());
     }
     public static ResultContext afterDef(ResultContext _base, StringMap<String> _files, AnalyzedPageEl _resultAna, AbsStackStopper _s) {
-        Forwards forwards_ = new Forwards(_base.getForwards().getGenerator(), _base.getForwards().getLoggable(), _base.getForwards().getFileBuilder(), _base.getForwards().getOptions(), _s);
+        Forwards forwards_ = new Forwards(_base.getForwards(), _s);
         forwards_.getResources().addAllEntries(_files);
         forwards_.getClasses().getCommon().setStaticFields(_resultAna.getStaticFields());
         return new ResultContext(_resultAna, forwards_, _resultAna.getMessages());

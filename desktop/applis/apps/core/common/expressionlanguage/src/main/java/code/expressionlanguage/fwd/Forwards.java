@@ -51,16 +51,19 @@ public final class Forwards {
     public Forwards(BuildableLgNames _generator, LoggableLgNames _loggable, AbstractFileBuilder _fileBuilder, Options _options) {
         this(_generator,_loggable,_fileBuilder,_options,new DefStackStopper());
     }
+    public Forwards(Forwards _from, AbsStackStopper _s) {
+        this(_from.generator, _from.constantsCalculator, _from.interceptor, _from.loggable, _from.fileBuilder, _from.options, _s);
+    }
     public Forwards(BuildableLgNames _generator, LoggableLgNames _loggable, AbstractFileBuilder _fileBuilder, Options _options, AbsStackStopper _s) {
+        this(_generator,_generator.newConstantsCalculator(), _generator.interceptor(), _loggable,_fileBuilder,_options,_s);
+    }
+    public Forwards(BuildableLgNames _generator, AbstractConstantsCalculator _csts, AbstractInterceptorStdCaller _inter, LoggableLgNames _loggable, AbstractFileBuilder _fileBuilder, Options _options, AbsStackStopper _s) {
         generator = _generator;
         loggable = _loggable;
         options = _options;
-        constantsCalculator = _generator.newConstantsCalculator();
-        interceptor = _generator.interceptor();
-        coverage = new Coverage(_options.isCovering());
-        coverage.getOptionsReport().setDisplayImplicit(_options.getOptionsReport().isDisplayImplicit());
-        coverage.getOptionsReport().setDisplayImplicitLabel(_options.getOptionsReport().isDisplayImplicitLabel());
-        coverage.getOptionsReport().setEncodeHeader(_options.getOptionsReport().isEncodeHeader());
+        constantsCalculator = _csts;
+        interceptor = _inter;
+        coverage = cov(_options);
         classes = new Classes(_options.getChecker(),new DebugMapping(_s, interceptor));
         fileBuilder = _fileBuilder;
     }
@@ -70,7 +73,7 @@ public final class Forwards {
         interceptor = _from.getInterceptor();
         loggable = _from.getLoggable();
         options = new Options();
-        constantsCalculator = _from.getGenerator().newConstantsCalculator();
+        constantsCalculator = _from.constantsCalculator;
         coverage = new Coverage(false);
         classes = new Classes(_page.getChecker(),new DebugMapping(new DefStackStopper(), interceptor));
         fileBuilder = _page.getFileBuilder();
@@ -81,6 +84,14 @@ public final class Forwards {
         getAllMapAnonLambda().addAllEntries(_from.getAllMapAnonLambda());
         getAllMapSwitchMethods().addAllEntries(_from.getAllMapSwitchMethods());
         setCountTypes(_from.getCountTypes());
+    }
+
+    private static Coverage cov(Options _opt) {
+        Coverage cov_ = new Coverage(_opt.isCovering());
+        cov_.getOptionsReport().setDisplayImplicit(_opt.getOptionsReport().isDisplayImplicit());
+        cov_.getOptionsReport().setDisplayImplicitLabel(_opt.getOptionsReport().isDisplayImplicitLabel());
+        cov_.getOptionsReport().setEncodeHeader(_opt.getOptionsReport().isEncodeHeader());
+        return cov_;
     }
     public DebugMapping dbg() {
         return getClasses().getDebugMapping();

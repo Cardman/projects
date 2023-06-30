@@ -3,6 +3,7 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.AdvContextGenerator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.AbsStackStopper;
+import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.gui.unit.UnitIssuer;
@@ -42,8 +43,7 @@ public abstract class AbsAdvResultContextNext implements AbsResultContextNext {
 
     @Override
     public ResultContext next(ResultContext _r, ResultContext _u) {
-        LgNamesWithNewAliases lg_ = (LgNamesWithNewAliases) _r.getForwards().getGenerator();
-        Forwards forwards_ = CustContextFactory.fwd(_u.getForwards().getOptions(), lg_, _u.getForwards().getFileBuilder());
+        Forwards forwards_ = new Forwards(_u.getForwards(),new DefStackStopper());
         forwards_.getClasses().getCommon().setStaticFields(_u.getPageEl().getStaticFields());
         return new ResultContext(_u.getPageEl(),forwards_,_u.getReportedMessages());
     }
