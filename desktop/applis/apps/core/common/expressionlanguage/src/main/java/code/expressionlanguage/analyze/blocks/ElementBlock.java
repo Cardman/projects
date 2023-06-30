@@ -209,4 +209,14 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     public AnaElementContent getElementContent() {
         return elementContent;
     }
+
+    @Override
+    public int getInfoBlockNb() {
+        return elementContent.getInfoBlockNb();
+    }
+
+    @Override
+    public void setInfoBlockNb(int _i) {
+        this.elementContent.setInfoBlockNb(_i);
+    }
 }

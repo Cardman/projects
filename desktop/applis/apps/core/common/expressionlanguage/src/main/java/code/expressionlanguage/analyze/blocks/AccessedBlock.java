@@ -10,8 +10,7 @@ public interface AccessedBlock extends ImportingBlock {
     StringList getAllReservedInners();
     StringMap<MappingLocalType> getRefMappings();
 
-    int getCountsAnonFct();
+    int getAccessNb();
 
-    void setCountsAnonFct(int _i);
-
+    void setAccessNb(int _a);
 }

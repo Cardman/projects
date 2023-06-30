@@ -98,7 +98,7 @@ public final class ResultContextLambda {
     }
 
     private static void feedResult(AnalyzedPageEl _page, ResultExpression _resultExpression, IntermediaryResults _int, RootBlock _type) {
-        SplitExpressionUtil.feed(_resultExpression, _int, _type, _page.getImporting());
+        SplitExpressionUtil.feed(_page,_resultExpression, _int, _type, _page.getImporting());
     }
 
     public static ReportedMessages after(ResultContextLambda _res) {

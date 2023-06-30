@@ -87,15 +87,15 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
         }
         AccessedFct imp_ = _page.getAccessedFct();
         if (imp_ != null) {
-            imp_.getElements().getElements().getSwitches().add(switchMethod);
+            _page.getCountElts().getAnonElts().get(imp_.getAccessedFctNb()).getElements().getSwitches().add(switchMethod);
         }
         AbsBk currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
-            ((InfoBlock) currentBlock_).getElements().getElements().getSwitches().add(switchMethod);
+            _page.getCountElts().getAnonFieldsElts().get(((InfoBlock)currentBlock_).getInfoBlockNb()).getSwitches().add(switchMethod);
         } else if (currentBlock_ instanceof MemberCallingsBlock) {
-            ((MemberCallingsBlock)currentBlock_).getElements().getElements().getSwitches().add(switchMethod);
+            _page.getCountElts().getAnonElts().get(((MemberCallingsBlock)currentBlock_).getAccessedFctNb()).getElements().getSwitches().add(switchMethod);
         } else if (currentBlock_ instanceof RootBlock) {
-            ((RootBlock)currentBlock_).getElementsType().getSwitches().add(switchMethod);
+            _page.getCountElts().getAnonTypesElts().get(((RootBlock)currentBlock_).getCreated()).getSwitches().add(switchMethod);
         }
     }
 

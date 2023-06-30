@@ -179,15 +179,15 @@ public final class AnonymousInstancingOperation extends
         }
         AccessedFct imp_ = _page.getAccessedFct();
         if (imp_ != null) {
-            imp_.getElements().getElements().getTypes().add(instancingAnonContent.getBlock());
+            _page.getCountElts().getAnonElts().get(imp_.getAccessedFctNb()).getElements().getTypes().add(instancingAnonContent.getBlock());
         }
         AbsBk currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
-            ((InfoBlock) currentBlock_).getElements().getElements().getTypes().add(instancingAnonContent.getBlock());
+            _page.getCountElts().getAnonFieldsElts().get(((InfoBlock)currentBlock_).getInfoBlockNb()).getTypes().add(instancingAnonContent.getBlock());
         } else if (currentBlock_ instanceof MemberCallingsBlock) {
-            ((MemberCallingsBlock)currentBlock_).getElements().getElements().getTypes().add(instancingAnonContent.getBlock());
+            _page.getCountElts().getAnonElts().get(((MemberCallingsBlock)currentBlock_).getAccessedFctNb()).getElements().getTypes().add(instancingAnonContent.getBlock());
         } else if (currentBlock_ instanceof RootBlock) {
-            ((RootBlock)currentBlock_).getElementsType().getTypes().add(instancingAnonContent.getBlock());
+            _page.getCountElts().getAnonTypesElts().get(((RootBlock)currentBlock_).getCreated()).getTypes().add(instancingAnonContent.getBlock());
         }
         instancingAnonContent.getBlock().getStaticInitInterfaces().addAllElts(getStaticInitInterfaces());
         instancingAnonContent.getBlock().getStaticInitInterfacesOffset().addAllElts(getStaticInitInterfacesOffset());

@@ -373,7 +373,7 @@ public final class ClassesUtil {
     }
 
     private static void nbTypesOpers(AnalyzedPageEl _page, OperatorBlock _o) {
-        for (RootBlock c: _o.getAnonymousTypes()) {
+        for (RootBlock c: _page.getCountElts().getAnonTypes().get(_o.getAccessMemNb())) {
             StringMap<Integer> countsAnon_ = _page.getCountsAnon();
             Integer val_ = countsAnon_.getVal(c.getName());
             if (val_ == null) {
@@ -384,7 +384,7 @@ public final class ClassesUtil {
                 c.setSuffix("*"+(val_+1));
             }
         }
-        for (RootBlock c: _o.getLocalTypes()) {
+        for (RootBlock c: _page.getCountElts().getLocalTypes().get(_o.getAccessMemNb())) {
             StringMap<Integer> counts_ = _page.getCounts();
             Integer val_ = counts_.getVal(c.getName());
             if (val_ == null) {
@@ -952,7 +952,7 @@ public final class ClassesUtil {
         }
         StringList simpleNames_ = new StringList();
         while (true) {
-            feedReserved(c_);
+            feedReserved(_page,c_);
             if (c_ instanceof RootBlock) {
                 proc(_basePkgFound,(RootBlock) c_,allReservedInnersRoot_,simpleNames_,addPkg_,_page);
             }
@@ -978,10 +978,10 @@ public final class ClassesUtil {
         }
     }
 
-    private static void feedReserved(AbsBk _c) {
+    private static void feedReserved(AnalyzedPageEl _page, AbsBk _c) {
         if (_c instanceof MemberCallingsBlock) {
             MemberCallingsBlock cur_ = (MemberCallingsBlock) _c;
-            cur_.getElements().getReserved().addAllElts(inners(cur_));
+            _page.getCountElts().getAnonElts().get(cur_.getAccessedFctNb()).getReserved().addAllElts(inners(cur_));
         }
     }
 
@@ -1118,7 +1118,7 @@ public final class ClassesUtil {
             add_ = false;
         }
         if (_outerFuntion != null) {
-            for (RootBlock o : _outerFuntion.getElements().getReserved()) {
+            for (RootBlock o : _page.getCountElts().getAnonElts().get(_outerFuntion.getAccessedFctNb()).getReserved()) {
                 _r.getAllReservedInners().add(o.getName());
             }
             if (StringUtil.contains(_reserv, s_)) {
@@ -1279,10 +1279,10 @@ public final class ClassesUtil {
     private static StringList allPossibleDirectSuperTypes(AnalyzedPageEl _page, RootBlock _c, CustList<RootBlock> _allAncestors) {
         StringList allPossibleDirectSuperTypes_ = new StringList();
         MemberCallingsBlock outerFct_ = _c.getOuterFuntionInType();
-        feedReserved(outerFct_, allPossibleDirectSuperTypes_);
+        feedReserved(_page,outerFct_, allPossibleDirectSuperTypes_);
         for (RootBlock a: _allAncestors) {
             MemberCallingsBlock outerFctAnc_ = a.getOuterFuntionInType();
-            feedReserved(outerFctAnc_, allPossibleDirectSuperTypes_);
+            feedReserved(_page,outerFctAnc_, allPossibleDirectSuperTypes_);
             feedInners(a, allPossibleDirectSuperTypes_);
             for (String s: a.getAllSuperTypes()) {
                 RootBlock g_ = _page.getAnaClassBody(s);
@@ -1305,9 +1305,9 @@ public final class ClassesUtil {
         }
     }
 
-    private static void feedReserved(MemberCallingsBlock _outerFct, StringList _allPossibleDirectSuperTypes) {
+    private static void feedReserved(AnalyzedPageEl _page, MemberCallingsBlock _outerFct, StringList _allPossibleDirectSuperTypes) {
         if (_outerFct != null) {
-            for (RootBlock r: _outerFct.getElements().getReserved()) {
+            for (RootBlock r: _page.getCountElts().getAnonElts().get(_outerFct.getAccessedFctNb()).getReserved()) {
                 _allPossibleDirectSuperTypes.add(r.getFullName());
             }
         }

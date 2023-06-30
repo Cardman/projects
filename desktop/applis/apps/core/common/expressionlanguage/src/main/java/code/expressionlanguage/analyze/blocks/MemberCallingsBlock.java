@@ -13,7 +13,7 @@ import code.util.StringMap;
 public abstract class MemberCallingsBlock extends BracedBlock implements AccessedFct,FunctionBlock,ReturnableWithSignature,WithContext {
 
     private final StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
-    private final AnonymousElementsFct elements = new AnonymousElementsFct();
+    private int accessedFctNb;
     MemberCallingsBlock(int _offset) {
         super(_offset);
     }
@@ -142,8 +142,12 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Accesse
     }
 
     @Override
-    public AnonymousElementsFct getElements() {
-        return elements;
+    public int getAccessedFctNb() {
+        return accessedFctNb;
     }
 
+    @Override
+    public void setAccessedFctNb(int _a) {
+        this.accessedFctNb = _a;
+    }
 }

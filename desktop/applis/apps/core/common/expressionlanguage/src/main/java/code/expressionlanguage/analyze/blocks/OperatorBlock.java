@@ -13,14 +13,13 @@ import code.util.core.IndexConstants;
 
 public final class OperatorBlock extends NamedFunctionBlock implements AccessedBlockMembers,ReturnableWithSignature {
     private final StringList allReservedInners = new StringList();
-    private final CustList<RootBlock> localTypes = new CustList<RootBlock>();
-    private final CustList<AnonymousTypeBlock> anonymousTypes = new CustList<AnonymousTypeBlock>();
     private final String labelNumber;
-    private int countsAnonFct;
     private final StringList imports = new StringList();
 
     private final Ints importsOffset = new Ints();
     private int operatorNumber;
+    private int accessNb;
+    private int accessMemNb;
 
     public OperatorBlock(ParsedFctHeader _header, OffsetStringInfo _retType, OffsetStringInfo _fctName,
                          int _offset) {
@@ -67,20 +66,23 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
         return allReservedInners;
     }
 
-    public CustList<RootBlock> getLocalTypes() {
-        return localTypes;
+    @Override
+    public int getAccessNb() {
+        return accessNb;
     }
 
-    public CustList<AnonymousTypeBlock> getAnonymousTypes() {
-        return anonymousTypes;
+    public void setAccessNb(int _a) {
+        this.accessNb = _a;
     }
 
-    public int getCountsAnonFct() {
-        return countsAnonFct;
+    @Override
+    public int getAccessMemNb() {
+        return accessMemNb;
     }
 
-    public void setCountsAnonFct(int _countsAnonFct) {
-        this.countsAnonFct = _countsAnonFct;
+    @Override
+    public void setAccessMemNb(int _a) {
+        this.accessMemNb = _a;
     }
 
     public int getOperatorNumber() {

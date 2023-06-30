@@ -25,7 +25,7 @@ public final class AnaElementContent {
 
     private boolean koTy;
     private final CustList<AnaResultPartTypeDtoInt> partOffsets = new CustList<AnaResultPartTypeDtoInt>();
-
+    private int infoBlockNb;
     public AnaElementContent(EnumBlock _m, OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
                              OffsetStringInfo _value) {
@@ -91,5 +91,13 @@ public final class AnaElementContent {
 
     public CustList<AnaResultPartTypeDtoInt> getPartOffsets() {
         return partOffsets;
+    }
+
+    public int getInfoBlockNb() {
+        return infoBlockNb;
+    }
+
+    public void setInfoBlockNb(int _i) {
+        this.infoBlockNb = _i;
     }
 }

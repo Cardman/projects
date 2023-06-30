@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.instr;
 
+import code.expressionlanguage.analyze.AnaBlockCounts;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.FileResolverContext;
 import code.expressionlanguage.analyze.files.FileAliases;
@@ -20,6 +21,9 @@ public final class CurrentExpElts {
         this.file = _file;
         this.instrLoc = _instrLoc;
         res = _rs;
+    }
+    public AnaBlockCounts getCounts() {
+        return cont.getCounts();
     }
     public FileAliases getFileAliases() {
         return cont.getFileAliases();

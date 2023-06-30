@@ -166,6 +166,7 @@ public final class AnalyzedPageEl {
     private IdMap<NamedCalledFunctionBlock, StringMap<GeneStringOverridable>> overriding = new IdMap<NamedCalledFunctionBlock, StringMap<GeneStringOverridable>>();
     private boolean customAna;
     private boolean dynamic;
+    private final AnaBlockCounts countAnon = new AnaBlockCounts();
 
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
@@ -199,6 +200,7 @@ public final class AnalyzedPageEl {
         copy_.countOperators = _original.countOperators;
         copy_.countInnerEltTypes = _original.countInnerEltTypes;
         copy_.countTypes = _original.countTypes;
+        AnaBlockCounts.addFromTo(_original.countAnon, copy_.countAnon);
         copy_.sorted.putAllMap(_original.sorted);
         copy_.allFoundTypes.addAllElts(_original.allFoundTypes);
         copy_.allOperators.addAllElts(_original.allOperators);
@@ -935,6 +937,10 @@ public final class AnalyzedPageEl {
 
     public void setCountTypes(int _countTypes) {
         this.countTypes = _countTypes;
+    }
+
+    public AnaBlockCounts getCountElts() {
+        return countAnon;
     }
 
     public int getCountInnerEltTypes() {

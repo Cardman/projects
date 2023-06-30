@@ -130,7 +130,7 @@ public final class ForwardInfos {
             }
         }
         fwdAnnotated(_forwards, coverage_);
-        feedFct(_forwards);
+        feedFct(_page,_forwards);
         endForward(_page, classes_);
     }
 
@@ -459,54 +459,56 @@ public final class ForwardInfos {
         }
     }
 
-    private static void feedFct(Forwards _forwards) {
+    private static void feedFct(AnalyzedPageEl _page,Forwards _forwards) {
         for (FwdRootBlockMembers e: _forwards.getMembers()) {
-            feedFctRoot(_forwards, e);
+            feedFctRoot(_page,_forwards, e);
         }
         for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getOperators()) {
             OperatorBlock key_ = e.getKey();
             ExecOperatorBlock value_ = e.getValue();
-            feedFct(key_, value_, _forwards);
+            feedFct(_page,key_, value_, _forwards);
         }
         for (EntryCust<NamedCalledFunctionBlock, ExecAnonymousFunctionBlock> a: _forwards.getAnonLambdas()) {
             NamedCalledFunctionBlock key_ = a.getKey();
             ExecAnonymousFunctionBlock value_ = a.getValue();
-            feedFct(key_, value_, _forwards);
+            feedFct(_page,key_, value_, _forwards);
         }
         for (EntryCust<SwitchMethodBlock, ExecAbstractSwitchMethod> a: _forwards.getSwitchMethods()) {
             SwitchMethodBlock key_ = a.getKey();
             ExecAbstractSwitchMethod value_ = a.getValue();
-            feedFct(key_, value_, _forwards);
+            feedFct(_page,key_, value_, _forwards);
         }
     }
 
-    private static void feedFctRoot(Forwards _forwards, FwdRootBlockMembers _e) {
+    private static void feedFctRoot(AnalyzedPageEl _page,Forwards _forwards, FwdRootBlockMembers _e) {
         RootBlock root_ = _e.getRootBlock();
         Members valueMember_ = _e.getMembers();
         for (InfoBlock b: root_.getFieldsBlocks()) {
+            AnonymousElements elts_ = _page.getCountElts().getAnonFieldsElts().get(b.getInfoBlockNb());
             ExecInfoBlock value_ = valueMember_.getField(b);
             ExecFieldContainer container_ = value_.getElementContent().getContainer();
-            for (AnonymousTypeBlock a: b.getElements().getElements().getTypes()) {
+            for (AnonymousTypeBlock a: elts_.getTypes()) {
                 container_.getAnonymous().add(_forwards.getAnonType(a));
             }
-            for (SwitchMethodBlock a: b.getElements().getElements().getSwitches()) {
+            for (SwitchMethodBlock a: elts_.getSwitches()) {
                 container_.getSwitchMethods().add(_forwards.getSwitchMethod(a));
             }
-            for (NamedCalledFunctionBlock a: b.getElements().getElements().getLambdas()) {
+            for (NamedCalledFunctionBlock a: elts_.getLambdas()) {
                 container_.getAnonymousLambda().add(_forwards.getAnonLambda(a));
             }
         }
         for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> f:valueMember_.getFcts()) {
-            feedFct(f.getKey(), f.getValue(), _forwards);
+            feedFct(_page,f.getKey(), f.getValue(), _forwards);
         }
+        AnonymousElements elts_ = _page.getCountElts().getAnonTypesElts().get(root_.getCreated());
         ExecRootBlock value_ = _e.getMembers().getRootBlock();
-        for (NamedCalledFunctionBlock a: root_.getElementsType().getLambdas()) {
+        for (NamedCalledFunctionBlock a: elts_.getLambdas()) {
             value_.getAnonymousRootLambda().add(_forwards.getAnonLambda(a));
         }
-        for (SwitchMethodBlock a: root_.getElementsType().getSwitches()) {
+        for (SwitchMethodBlock a: elts_.getSwitches()) {
             value_.getSwitchMethodsRoot().add(_forwards.getSwitchMethod(a));
         }
-        for (AnonymousTypeBlock a: root_.getElementsType().getTypes()) {
+        for (AnonymousTypeBlock a: elts_.getTypes()) {
             value_.getAnonymousRoot().add(_forwards.getAnonType(a));
         }
     }
@@ -521,17 +523,18 @@ public final class ForwardInfos {
         }
     }
 
-    public static void feedFct(AccessedFct _b1, ExecAccessedFct _value, Forwards _forwards) {
-        for (SwitchMethodBlock a: _b1.getElements().getElements().getSwitches()) {
+    public static void feedFct(AnalyzedPageEl _page, AccessedFct _b1, ExecAccessedFct _value, Forwards _forwards) {
+        AnonymousElementsFct elts_ = _page.getCountElts().getAnonElts().get(_b1.getAccessedFctNb());
+        for (SwitchMethodBlock a: elts_.getElements().getSwitches()) {
             _value.getSwitchMethods().add(_forwards.getSwitchMethod(a));
         }
-        for (NamedCalledFunctionBlock a: _b1.getElements().getElements().getLambdas()) {
+        for (NamedCalledFunctionBlock a: elts_.getElements().getLambdas()) {
             _value.getAnonymousLambda().add(_forwards.getAnonLambda(a));
         }
-        for (AnonymousTypeBlock a: _b1.getElements().getElements().getTypes()) {
+        for (AnonymousTypeBlock a: elts_.getElements().getTypes()) {
             _value.getAnonymous().add(_forwards.getAnonType(a));
         }
-        for (RootBlock a: _b1.getElements().getReserved()) {
+        for (RootBlock a: elts_.getReserved()) {
             _value.getReserved().add(_forwards.getMember(a).getRootBlock());
         }
     }

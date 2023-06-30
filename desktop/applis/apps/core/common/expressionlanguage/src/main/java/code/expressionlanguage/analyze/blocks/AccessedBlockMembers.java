@@ -1,10 +1,8 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.util.CustList;
-
 public interface AccessedBlockMembers extends AccessedBlock{
 
-    CustList<RootBlock> getLocalTypes();
+    int getAccessMemNb();
 
-    CustList<AnonymousTypeBlock> getAnonymousTypes();
+    void setAccessMemNb(int _a);
 }

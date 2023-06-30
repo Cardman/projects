@@ -90,7 +90,7 @@ public final class AnonymousLambdaOperation extends
         }
         AccessedFct imp_ = _page.getAccessedFct();
         if (imp_ != null) {
-            imp_.getElements().getElements().getLambdas().add(block);
+            _page.getCountElts().getAnonElts().get(imp_.getAccessedFctNb()).getElements().getLambdas().add(block);
         }
         boolean built_ = false;
         StringList parTypes_ = parse.getParametersType();
@@ -106,11 +106,11 @@ public final class AnonymousLambdaOperation extends
         RootBlock.validateParameters(block, _page, _page.getCurrentFile());
         AbsBk currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
-            ((InfoBlock) currentBlock_).getElements().getElements().getLambdas().add(block);
+            _page.getCountElts().getAnonFieldsElts().get(((InfoBlock)currentBlock_).getInfoBlockNb()).getLambdas().add(block);
         } else if (currentBlock_ instanceof MemberCallingsBlock) {
-            ((MemberCallingsBlock)currentBlock_).getElements().getElements().getLambdas().add(block);
+            _page.getCountElts().getAnonElts().get(((MemberCallingsBlock)currentBlock_).getAccessedFctNb()).getElements().getLambdas().add(block);
         } else if (currentBlock_ instanceof RootBlock) {
-            ((RootBlock)currentBlock_).getElementsType().getLambdas().add(block);
+            _page.getCountElts().getAnonTypesElts().get(((RootBlock)currentBlock_).getCreated()).getLambdas().add(block);
         }
         String importedReturnType_ = block.getImportedReturnType();
         MethodId idC_ = block.getId();

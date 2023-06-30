@@ -14,7 +14,6 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.structs.BeanInfo;
 import code.sml.Element;
-import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -22,10 +21,7 @@ import code.util.core.StringUtil;
 
 public final class AnaRendDocumentBlock extends AnaRendParentBlock implements AccessedFct,AccessedBlockMembers,WithContext {
     private final StringList allReservedInners = new StringList();
-    private final CustList<RootBlock> localTypes = new CustList<RootBlock>();
-    private final CustList<AnonymousTypeBlock> anonymousTypes = new CustList<AnonymousTypeBlock>();
-    private int countsAnonFct;
-
+    private int accessedFctNb;
     private final Element elt;
 
     private final String fileName;
@@ -36,7 +32,8 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     private final IntTreeMap<Integer> escapedChar;
     private MethodAccessKind accessKind;
     private AnaFormattedRootBlock declClass = AnaFormattedRootBlock.defValue();
-    private final AnonymousElementsFct elements = new AnonymousElementsFct();
+    private int accessNb;
+    private int accessMemNb;
 
     public AnaRendDocumentBlock(Element _elt, int _offset, AdvFileEscapedCalc _e, FileBlock _fileBl) {
         super(_offset);
@@ -169,6 +166,34 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     }
 
     @Override
+    public int getAccessNb() {
+        return accessNb;
+    }
+
+    public void setAccessNb(int _a) {
+        this.accessNb = _a;
+    }
+
+    @Override
+    public int getAccessMemNb() {
+        return accessMemNb;
+    }
+
+    @Override
+    public void setAccessMemNb(int _a) {
+        this.accessMemNb = _a;
+    }
+
+    @Override
+    public int getAccessedFctNb() {
+        return accessedFctNb;
+    }
+
+    @Override
+    public void setAccessedFctNb(int _a) {
+        this.accessedFctNb = _a;
+    }
+    @Override
     public FileBlock getFile() {
         return fileBlock;
     }
@@ -184,21 +209,6 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     }
 
     @Override
-    public CustList<AnonymousTypeBlock> getAnonymousTypes() {
-        return anonymousTypes;
-    }
-
-    @Override
-    public CustList<RootBlock> getLocalTypes() {
-        return localTypes;
-    }
-
-    @Override
-    public AnonymousElementsFct getElements() {
-        return elements;
-    }
-
-    @Override
     public StringList getAllReservedInners() {
         return allReservedInners;
     }
@@ -206,16 +216,6 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     @Override
     public StringMap<MappingLocalType> getRefMappings() {
         return new StringMap<MappingLocalType>();
-    }
-
-    @Override
-    public int getCountsAnonFct() {
-        return countsAnonFct;
-    }
-
-    @Override
-    public void setCountsAnonFct(int _v) {
-        this.countsAnonFct = _v;
     }
 
     private static void checkBreakable(AnaRendBlock _block, StringList _labels, AnalyzedPageEl _page) {

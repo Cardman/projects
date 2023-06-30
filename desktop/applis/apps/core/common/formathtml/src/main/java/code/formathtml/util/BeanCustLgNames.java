@@ -477,7 +477,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         }
         ForwardInfos.generalForward(user_);
         StringMap<RendDocumentBlock> renders_ = new StringMap<RendDocumentBlock>();
-        rendExecutingBlocks.setRendDocumentBlock(RendForwardInfos.buildExec(analyzingDoc_, d_, user_.getForwards(), session_, renders_));
+        rendExecutingBlocks.setRendDocumentBlock(RendForwardInfos.buildExec(analyzingDoc_, d_, user_, session_, renders_));
         rendExecutingBlocks.getRenders().addAllEntries(renders_);
         ContextEl context_ = forwardAndClear(user_.getForwards(),_gene);
         user_.setContext(context_);

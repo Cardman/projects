@@ -81,15 +81,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final CustList<AnaFormattedRootBlock> allGenericClassesInfo = new CustList<AnaFormattedRootBlock>();
     private int nbOperators;
     private int numberAll = -1;
+    private int accessNb;
+    private int created;
     private final StringList allSuperTypes = new StringList();
     private final IdList<AnaGeneType> allSuperTypesInfo = new IdList<AnaGeneType>();
     private final StringList allReservedInners = new StringList();
-    private final StringMap<Integer> counts = new StringMap<Integer>();
-    private final StringMap<Integer> countsAnon = new StringMap<Integer>();
-    private int countsAnonFct;
     private final StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
     private ConstructorBlock emptyCtor;
-    private final AnonymousElements elementsType = new AnonymousElements();
     private final CustList<NamedCalledFunctionBlock> overridableBlocks = new CustList<NamedCalledFunctionBlock>();
     private final CustList<NamedCalledFunctionBlock> annotationsMethodsBlocks = new CustList<NamedCalledFunctionBlock>();
     private final CustList<ConstructorBlock> constructorBlocks = new CustList<ConstructorBlock>();
@@ -2016,20 +2014,21 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         numberAll = _number;
     }
 
+    @Override
+    public int getAccessNb() {
+        return accessNb;
+    }
+
+    public void setAccessNb(int _a) {
+        this.accessNb = _a;
+    }
+
     public CustList<AnaFormattedRootBlock> getImportedDirectSuperTypesInfo() {
         return importedDirectSuperTypes;
     }
 
     public StringList getAllReservedInners() {
         return allReservedInners;
-    }
-
-    public StringMap<Integer> getCounts() {
-        return counts;
-    }
-
-    public StringMap<Integer> getCountsAnon() {
-        return countsAnon;
     }
 
     public void setSuffix(String _suffix) {
@@ -2050,18 +2049,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public void setEmptyCtor(ConstructorBlock _emptyCtor) {
         emptyCtor = _emptyCtor;
-    }
-
-    public int getCountsAnonFct() {
-        return countsAnonFct;
-    }
-
-    public void setCountsAnonFct(int _countsAnonFct) {
-        this.countsAnonFct = _countsAnonFct;
-    }
-
-    public AnonymousElements getElementsType() {
-        return elementsType;
     }
 
     public CustList<NamedCalledFunctionBlock> getOverridableBlocks() {
@@ -2113,5 +2100,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public CustList<ConstructorBlock> getValidCtors() {
         return validCtors;
+    }
+
+    public int getCreated() {
+        return created;
+    }
+
+    public void setCreated(int _c) {
+        this.created = _c;
     }
 }

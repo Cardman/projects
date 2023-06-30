@@ -3,17 +3,12 @@ package code.expressionlanguage.analyze.blocks;
 import code.util.StringList;
 
 public final class AnonymousElementsField {
-    private final AnonymousElements elements = new AnonymousElements();
 
     private final StringList fieldName = new StringList();
 
     private int fieldNumber;
 
     private String importedClassName;
-
-    public AnonymousElements getElements() {
-        return elements;
-    }
 
     public StringList getFieldName() {
         return fieldName;

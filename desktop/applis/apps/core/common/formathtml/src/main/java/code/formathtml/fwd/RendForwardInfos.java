@@ -22,6 +22,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.fwd.opers.*;
+import code.expressionlanguage.options.ResultContext;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.InternGlobalOperation;
@@ -40,15 +41,15 @@ import code.util.core.StringUtil;
 public final class RendForwardInfos {
     private RendForwardInfos() {
     }
-    private static RendDocumentBlock build(AnaRendDocumentBlock _ana, Forwards _forwards, AnalyzingDoc _anaDoc) {
-        RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getFileName(),_ana.getEsc(),_ana.getFile().getMetricsCore(), _ana.getElt(), _ana.getBeanName(), fwdType(_ana, _forwards));
+    private static RendDocumentBlock build(AnaRendDocumentBlock _ana, ResultContext _forwards, AnalyzingDoc _anaDoc) {
+        RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getFileName(),_ana.getEsc(),_ana.getFile().getMetricsCore(), _ana.getElt(), _ana.getBeanName(), fwdType(_ana, _forwards.getForwards()));
         RendAnaExec pair_ = new RendAnaExec(_ana, rendDoc_);
         while (pair_.getRead() != null) {
-            RendBlock loc_ = newRendBlock(pair_.getRead(), _forwards);
+            RendBlock loc_ = newRendBlock(pair_.getRead(), _forwards.getForwards());
             pair_.setWrite(complete(_anaDoc, rendDoc_, pair_.getWrite(), loc_));
             nextPair(pair_);
         }
-        ForwardInfos.feedFct(_ana,rendDoc_,_forwards);
+        ForwardInfos.feedFct(_forwards.getPageEl(),_ana,rendDoc_,_forwards.getForwards());
         return rendDoc_;
     }
 
@@ -995,14 +996,14 @@ public final class RendForwardInfos {
         }
     }
 
-    public static RendDocumentBlock buildExec(AnalyzingDoc _analyzingDoc, StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf, StringMap<RendDocumentBlock> _renders) {
+    public static RendDocumentBlock buildExec(AnalyzingDoc _analyzingDoc, StringMap<AnaRendDocumentBlock> _d, ResultContext _forwards, Configuration _conf, StringMap<RendDocumentBlock> _renders) {
         RendDocumentBlock rendDocumentBlock_ = buildExec(_d, _forwards, _conf, _analyzingDoc, _renders);
-        initBeansInstances(_analyzingDoc, _forwards);
-        initValidatorsInstance(_analyzingDoc, _forwards);
+        initBeansInstances(_analyzingDoc, _forwards.getForwards());
+        initValidatorsInstance(_analyzingDoc, _forwards.getForwards());
         return rendDocumentBlock_;
     }
 
-    private static RendDocumentBlock buildExec(StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf, AnalyzingDoc _anaDoc, StringMap<RendDocumentBlock> _renders) {
+    private static RendDocumentBlock buildExec(StringMap<AnaRendDocumentBlock> _d, ResultContext _forwards, Configuration _conf, AnalyzingDoc _anaDoc, StringMap<RendDocumentBlock> _renders) {
         for (EntryCust<String,AnaRendDocumentBlock> v: _d.entryList()) {
             AnaRendDocumentBlock value_ = v.getValue();
             RendDocumentBlock rendDoc_ = build(value_, _forwards, _anaDoc);

@@ -1,20 +1,19 @@
 package code.expressionlanguage.analyze.files;
 
+import code.expressionlanguage.analyze.AnaBlockCounts;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InterfacesPart;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
+import code.expressionlanguage.analyze.instr.CurrentExpElts;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.AnaClassContent;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.util.CustList;
-import code.util.IntMap;
-import code.util.Ints;
-import code.util.StringList;
+import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -73,7 +72,7 @@ public final class FileResolver {
             return;
         }
         InputTypeCreation input_ = new InputTypeCreation();
-        input_.setCont(new FileResolverContext(_page.getKeyWords(),_page.getStaticContext(), _page.getDefaultAccess(),_page.fileAliases()));
+        input_.setCont(new FileResolverContext(_page.getCountElts(),_page.getKeyWords(),_page.getStaticContext(), _page.getDefaultAccess(),_page.fileAliases()));
         input_.setNextIndex(i_);
         input_.setType(OuterBlockEnum.OUTER_TYPE);
         input_.setStringParts(stringParts_);
@@ -133,7 +132,7 @@ public final class FileResolver {
         while (true) {
             FileAliases fa_ = _page.fileAliases();
             String def_ = defPkg(_file, i_, _input.getCont().getKeys(), _page.getDefaultPkg());
-            ResultCreation res_ = createType(_file, _input, def_,fa_);
+            ResultCreation res_ = createType(_file, _input, def_,_page.getCountElts(),fa_);
             Ints badIndexes_ = _input.getBadIndexes();
             bad(_block, _page, badIndexes_);
             AbsBk block_ = res_.getBlock();
@@ -253,12 +252,16 @@ public final class FileResolver {
         }
     }
 
-    private static ResultCreation createType(String _file, InputTypeCreation _input, String _defaultPkg, FileAliases _fa) {
+    private static ResultCreation createType(String _file, InputTypeCreation _input, String _defaultPkg, AnaBlockCounts _countAnon, FileAliases _fa) {
         _input.setOffset(0);
-        return processOuterTypeBody(_input, _defaultPkg, _file, _fa);
+        return processOuterTypeBody(_input, _defaultPkg, _file, _fa,_countAnon);
+    }
+    public static ResultCreation processOuterTypeBody(InputTypeCreation _input, CurrentExpElts _pkgName,
+                                                      String _file) {
+        return processOuterTypeBody(_input,_pkgName.getPackageName(),_file,_pkgName.getFileAliases(),_pkgName.getCounts());
     }
     public static ResultCreation processOuterTypeBody(InputTypeCreation _input, String _pkgName,
-                                                      String _file, FileAliases _fa) {
+                                                      String _file, FileAliases _fa, AnaBlockCounts _countAnon) {
         ResultCreation out_ = new ResultCreation();
         int len_ = _file.length();
         int instructionLocation_ = _input.getNextIndex();
@@ -271,7 +274,7 @@ public final class FileResolver {
         parsedInstruction_.setPackageName(_pkgName);
         ParseDelimitersState parsPars_ = new ParseDelimitersState(braces_,parentheses_);
         while (parsedInstruction_.getIndex() < len_) {
-            if (exitLoop(_input,_file, parsedInstruction_,parsPars_,out_,_fa)) {
+            if (exitLoop(_input,_file, parsedInstruction_,parsPars_,out_,_fa,_countAnon)) {
                 break;
             }
         }
@@ -285,7 +288,7 @@ public final class FileResolver {
         return out_;
     }
     private static boolean exitLoop(InputTypeCreation _input,
-                                    String _file, ParsedInstruction _parsedInstruction, ParseDelimitersState _parsPars, ResultCreation _out, FileAliases _fa) {
+                                    String _file, ParsedInstruction _parsedInstruction, ParseDelimitersState _parsPars, ResultCreation _out, FileAliases _fa, AnaBlockCounts _countAnon) {
         CustList<SegmentStringPart> stringParts_ = _input.getStringParts();
         int i_ = _parsedInstruction.getIndex();
         char currentChar_ = _file.charAt(i_);
@@ -308,6 +311,7 @@ public final class FileResolver {
         if (endInstr_ != EndInstruction.NONE) {
             AfterBuiltInstruction after_ = processInstruction(_out, _input, _parsedInstruction.getPackageName(), _parsedInstruction.getCurrentParent(),
                     _parsedInstruction,_fa);
+            postInstruction(_countAnon, after_);
             _parsedInstruction.setCurrentParent(after_.getParent());
             _parsedInstruction.setIndex(i_);
             _parsedInstruction.setPackageName(after_.getPackageName());
@@ -321,6 +325,32 @@ public final class FileResolver {
 
         _parsedInstruction.setIndex(i_ + 1);
         return false;
+    }
+
+    private static void postInstruction(AnaBlockCounts _countAnon, AfterBuiltInstruction _after) {
+        if (_after.getCreated() instanceof AccessedBlock) {
+            ((AccessedBlock) _after.getCreated()).setAccessNb(_countAnon.getCountAnon().size());
+            _countAnon.getCountAnon().add(0);
+        }
+        if (_after.getCreated() instanceof AccessedFct) {
+            ((AccessedFct) _after.getCreated()).setAccessedFctNb(_countAnon.getAnonElts().size());
+            _countAnon.getAnonElts().add(new AnonymousElementsFct());
+        }
+        if (_after.getCreated() instanceof AccessedBlockMembers) {
+            ((AccessedBlockMembers) _after.getCreated()).setAccessMemNb(_countAnon.getAnonTypes().size());
+            _countAnon.getAnonTypes().add(new CustList<AnonymousTypeBlock>());
+            _countAnon.getLocalTypes().add(new CustList<RootBlock>());
+        }
+        if (_after.getCreated() instanceof InfoBlock) {
+            ((InfoBlock) _after.getCreated()).setInfoBlockNb(_countAnon.getAnonFieldsElts().size());
+            _countAnon.getAnonFieldsElts().add(new AnonymousElements());
+        }
+        if (_after.getCreated() instanceof RootBlock) {
+            ((RootBlock) _after.getCreated()).setCreated(_countAnon.getAnonTypesElts().size());
+            _countAnon.getAnonTypesElts().add(new AnonymousElements());
+            _countAnon.getCountsAnon().add(new StringMap<Integer>());
+            _countAnon.getCounts().add(new StringMap<Integer>());
+        }
     }
 
     private static EndInstruction endInstr(InputTypeCreation _input, int _parentheses, ParsedInstruction _parsedInstruction, char _currentChar, KeyWords _keyWords) {
@@ -622,6 +652,7 @@ public final class FileResolver {
             bl_.setEndAll(_parsedInstruction.getIndex() + _input.getOffset()+1);
             currentParent_ = possibleVisit(_parsedInstruction.getCurChar(), currentParent_, bl_,bl_.getEndAll());
             after_.setParent(currentParent_);
+            after_.setCreated(bl_);
             after_.setPackageName(_pkgName);
             return after_;
         }
@@ -634,6 +665,7 @@ public final class FileResolver {
             br_.setEndAll(_parsedInstruction.getIndex() + _input.getOffset()+1);
             currentParent_ = possibleVisit(_parsedInstruction.getCurChar(), currentParent_, br_,br_.getEndAll());
             after_.setParent(currentParent_);
+            after_.setCreated(br_);
             after_.setPackageName(_pkgName);
             return after_;
         }
@@ -741,6 +773,7 @@ public final class FileResolver {
             }
             currentParent_.setEndAll(_parsedInstruction.getIndex()+ _input.getOffset()+1);
             after_.setParent(currentParent_);
+            after_.setCreated(currentParent_);
             after_.setPackageName(_packageName);
             return after_;
         }
@@ -757,6 +790,7 @@ public final class FileResolver {
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
         _typeBlock.setEndAll(_e);
         after_.setParent(_typeBlock);
+        after_.setCreated(_typeBlock);
         after_.setPackageName(_packageName);
         return after_;
     }
@@ -928,6 +962,7 @@ public final class FileResolver {
         _typeBlock.setEndAll(_e);
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
         after_.setParent(_typeBlock);
+        after_.setCreated(_typeBlock);
         after_.setPackageName(_packageName);
         return after_;
     }
@@ -1002,6 +1037,7 @@ public final class FileResolver {
         _currentParent.appendChild(int_);
         int_.setEndAll(_instructionTrimLocation + _input.getOffset()+_keyWords.getKeyWordIntern().length()+lastPar_+1);
         after_.setParent(_currentParent);
+        after_.setCreated(int_);
         after_.setPackageName(_packageName);
         return after_;
     }
@@ -1144,6 +1180,7 @@ public final class FileResolver {
             currentParent_ = possibleVisit(_parsedInstruction.getCurChar(), currentParent_, _br,e_);
         }
         after_.setParent(currentParent_);
+        after_.setCreated(_br);
         after_.setPackageName(_packageName);
         return after_;
     }
@@ -1155,7 +1192,7 @@ public final class FileResolver {
         char curChar_ = _parsedInstruction.getCurChar();
         if (_parsedInstruction.getFirstPrIndex() <= -1) {
             tryAllow((EnumBlock) currentParent_, curChar_);
-            return endElement(_input,_packageName, currentParent_, curChar_,_parsedInstruction);
+            return endElement(_input,_packageName, currentParent_, curChar_,_parsedInstruction, null);
         }
         int fieldOffest_ = _parsedInstruction.getAfterOffset();
         String found_ = _parsedInstruction.getAfter();
@@ -1224,7 +1261,7 @@ public final class FileResolver {
         if (curChar_ == BEGIN_BLOCK) {
             currentParent_ = (BracedBlock) br_;
         }
-        return endElement(_input, _packageName, currentParent_, curChar_, _parsedInstruction);
+        return endElement(_input, _packageName, currentParent_, curChar_, _parsedInstruction, br_);
     }
 
     private static void tryAllow(EnumBlock _currentParent, char _curChar) {
@@ -1233,7 +1270,7 @@ public final class FileResolver {
         }
     }
 
-    private static AfterBuiltInstruction endElement(InputTypeCreation _input, String _packageName, BracedBlock _currentParent, char _curChar, ParsedInstruction _parsedInstruction) {
+    private static AfterBuiltInstruction endElement(InputTypeCreation _input, String _packageName, BracedBlock _currentParent, char _curChar, ParsedInstruction _parsedInstruction, AbsBk _cr) {
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
         int e_ = _parsedInstruction.getIndex() + _input.getOffset()+1;
         BracedBlock currentParent_ = _currentParent;
@@ -1244,6 +1281,7 @@ public final class FileResolver {
             ((EnumBlock) currentParent_).setCanHaveElements(false);
         }
         after_.setParent(currentParent_);
+        after_.setCreated(_cr);
         after_.setPackageName(_packageName);
         return after_;
     }
@@ -1297,6 +1335,7 @@ public final class FileResolver {
         br_ = built_;
         currentParent_ = possibleVisit(_parsedInstruction.getCurChar(), currentParent_, br_,br_.getEndAll()+1);
         after_.setParent(currentParent_);
+        after_.setCreated(br_);
         after_.setPackageName(_packageName);
         return after_;
     }
@@ -1339,6 +1378,7 @@ public final class FileResolver {
         if (ok_) {
             currentParent_ = possibleVisit(_parsedInstruction.getCurChar(), currentParent_, br_,br_.getEndAll());
             after_.setParent(currentParent_);
+            after_.setCreated(br_);
             after_.setPackageName(_packageName);
             return after_;
         }
@@ -1388,6 +1428,7 @@ public final class FileResolver {
         currentParent_.appendChild(br_);
         currentParent_ = possibleVisit(_parsedInstruction.getCurChar(), currentParent_, br_,br_.getEndAll());
         after_.setParent(currentParent_);
+        after_.setCreated(br_);
         after_.setPackageName(_packageName);
         return after_;
     }

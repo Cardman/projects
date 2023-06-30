@@ -136,6 +136,16 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
 
+    @Override
+    public int getInfoBlockNb() {
+        return elementContent.getInfoBlockNb();
+    }
+
+    @Override
+    public void setInfoBlockNb(int _i) {
+        this.elementContent.setInfoBlockNb(_i);
+    }
+
     public OperationNode getRoot() {
         return res.getRoot();
     }

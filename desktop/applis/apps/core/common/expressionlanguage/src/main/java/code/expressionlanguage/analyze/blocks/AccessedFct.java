@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 public interface AccessedFct {
 
-    AnonymousElementsFct getElements();
+    int getAccessedFctNb();
+    void setAccessedFctNb(int _a);
 
 }

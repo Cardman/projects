@@ -2,8 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AllAccessedTypes;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
-import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
@@ -26,6 +25,7 @@ import code.sml.ConfigurationCore;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
+import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -132,6 +132,13 @@ public final class Configuration {
                 continue;
             }
             AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(document_, file_, _page, _analyzingDoc, es_, fileBl_);
+            anaDoc_.setAccessNb(_page.getCountElts().getCountAnon().size());
+            _page.getCountElts().getCountAnon().add(0);
+            anaDoc_.setAccessMemNb(_page.getCountElts().getAnonTypes().size());
+            _page.getCountElts().getAnonTypes().add(new CustList<AnonymousTypeBlock>());
+            _page.getCountElts().getLocalTypes().add(new CustList<RootBlock>());
+            anaDoc_.setAccessedFctNb(_page.getCountElts().getAnonElts().size());
+            _page.getCountElts().getAnonElts().add(new AnonymousElementsFct());
             d_.addEntry(s,anaDoc_);
         }
         buildDocs(_analyzingDoc, _page, d_, _analyzingDoc.getBeansInfosBefore());
