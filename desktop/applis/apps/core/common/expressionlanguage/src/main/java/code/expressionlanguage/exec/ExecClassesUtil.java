@@ -131,13 +131,14 @@ public final class ExecClassesUtil {
     }
 
     public static StackCall tryInitStaticlyTypes(ContextEl _context, Options _options) {
-        return tryInitStaticlyTypes(_context,_options,null);
+        return tryInitStaticlyTypes(_context,_options,null, false);
     }
-    public static StackCallReturnValue tryInitStaticlyTypes(ContextEl _context, Options _options, StackCall _st, CallingState _callee, StepDbgActionEnum _step) {
+    public static StackCallReturnValue tryInitStaticlyTypes(ContextEl _context, Options _options, StackCall _st, CallingState _callee, StepDbgActionEnum _step, boolean _mute) {
         if (_st != null) {
             _st.setStep(_step);
+            _st.setMute(_mute);
         }
-        StackCall st_ = tryInitStaticlyTypes(_context, _options, _st);
+        StackCall st_ = tryInitStaticlyTypes(_context, _options, _st, _mute);
         if (st_.getInitializingTypeInfos().getInitEnums() == InitPhase.NOTHING) {
             ArgumentWrapper arg_;
             if (!st_.isStoppedBreakPoint()) {
@@ -164,9 +165,9 @@ public final class ExecClassesUtil {
         }
         return ls_;
     }
-    public static StackCall tryInitStaticlyTypes(ContextEl _context, Options _options, StackCall _st) {
+    public static StackCall tryInitStaticlyTypes(ContextEl _context, Options _options, StackCall _st, boolean _mute) {
         if (_st == null) {
-            StackCall s_ = endOrder(_context, init(_context));
+            StackCall s_ = endOrder(_context, init(_context, _mute));
             return tryList(s_,_context, _options);
         }
         if (_st.getInitializingTypeInfos().getInitEnums() == InitPhase.NOTHING) {
@@ -213,12 +214,13 @@ public final class ExecClassesUtil {
         _context.setExiting(new NoExiting());
     }
 
-    private static StackCall init(ContextEl _context) {
+    private static StackCall init(ContextEl _context, boolean _mute) {
         forwardClassesMetaInfos(_context);
         DefaultLockingClass dl_ = _context.getLocks();
         dl_.init(_context);
         _context.setExiting(new DefaultExiting(_context));
         StackCall st_ = StackCall.newInstance(InitPhase.READ_ONLY_OTHERS,_context);
+        st_.setMute(_mute);
         st_.getInitializingTypeInfos().setInitEnums(InitPhase.READ_ONLY_OTHERS);
         return st_;
     }

@@ -59,6 +59,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private StringMap<String> viewable = new StringMap<String>();
     private ManageOptions manageOptions;
     private AbsAnalyzingDebugEvent event;
+    private AbsCustCheckBox mute;
 
     protected AbsDebuggerGui(AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a);
@@ -95,6 +96,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         tabbedPane.setPreferredSize(new MetaDimension(512,512));
         page_.add(commonFrame.getFrames().getCompoFactory().newHorizontalSplitPane(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(folderSystem),tabbedPane));
         page_.add(buildPart());
+        mute = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("mute");
         selectEnter = getCommonFrame().getFrames().getCompoFactory().newPlainButton("|>");
         selectEnter.addActionListener(new DbgLaunchEvent(this));
         selectEnter.setEnabled(false);
@@ -117,6 +119,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         callStack = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(callStack,detail);
         detailAll.setVisible(false);
+        page_.add(mute);
         page_.add(selectEnter);
         page_.add(nextAction);
         page_.add(nextInstruction);
@@ -208,7 +211,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         tabbedPane.addIntTab(name_, te_.getPanel(), _path);
     }
     void next(StepDbgActionEnum _step){
-        StackCallReturnValue view_ = ExecClassesUtil.tryInitStaticlyTypes(currentResult.getContext(), currentResult.getForwards().getOptions(), stackCall, selected,_step);
+        StackCallReturnValue view_ = ExecClassesUtil.tryInitStaticlyTypes(currentResult.getContext(), currentResult.getForwards().getOptions(), stackCall, selected,_step, mute.isSelected());
         if (getStopDbg().get()) {
             setStackCall(null);
             return;
@@ -384,6 +387,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public AbsPlainButton getSelectEnter() {
         return selectEnter;
+    }
+
+    public AbsCustCheckBox getMute() {
+        return mute;
     }
 
     public AbstractBaseExecutorService getActions() {

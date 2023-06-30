@@ -31,6 +31,7 @@ public final class StackCall implements AbstractStackCall {
 
     private int globalOffset;
     private StepDbgActionEnum step;
+    private boolean mute;
     private int previousNbPages;
     private boolean visited;
     private final AbsStackStopper stopper;
@@ -220,6 +221,14 @@ public final class StackCall implements AbstractStackCall {
 
     public void setStep(StepDbgActionEnum _s) {
         this.step = _s;
+    }
+
+    public boolean isMute() {
+        return mute;
+    }
+
+    public void setMute(boolean _m) {
+        this.mute = _m;
     }
 
     public int getPreviousNbPages() {

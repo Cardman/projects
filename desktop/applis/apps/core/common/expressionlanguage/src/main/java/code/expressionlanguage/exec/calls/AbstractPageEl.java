@@ -340,6 +340,9 @@ public abstract class AbstractPageEl {
                 _stackCall.setGlobalOffset(getGlobalOffset());
                 return true;
             }
+            if (_stackCall.isMute()) {
+                return false;
+            }
             if (stopExc(_context, _stackCall)) {
                 _stackCall.setGlobalOffset(getGlobalOffset());
                 return true;
