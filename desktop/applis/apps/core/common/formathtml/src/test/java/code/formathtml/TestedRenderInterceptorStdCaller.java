@@ -40,4 +40,9 @@ public final class TestedRenderInterceptorStdCaller implements AbstractIntercept
     public AbsCollection<AbsCallContraints> newExecFileBlockTraceIndexCollection() {
         return new ConcList<AbsCallContraints>(this);
     }
+
+    @Override
+    public AbsAtBool newAtBool() {
+        return new ConcBool();
+    }
 }

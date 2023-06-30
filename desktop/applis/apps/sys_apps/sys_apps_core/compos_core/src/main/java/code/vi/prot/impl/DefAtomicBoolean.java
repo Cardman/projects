@@ -1,10 +1,11 @@
 package code.vi.prot.impl;
 
+import code.expressionlanguage.exec.dbg.AbsAtBool;
 import code.threads.AbstractAtomicBoolean;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public final class DefAtomicBoolean implements AbstractAtomicBoolean {
+public final class DefAtomicBoolean implements AbstractAtomicBoolean, AbsAtBool {
     private final AtomicBoolean booleanValue;
     public DefAtomicBoolean() {
         booleanValue = new AtomicBoolean();

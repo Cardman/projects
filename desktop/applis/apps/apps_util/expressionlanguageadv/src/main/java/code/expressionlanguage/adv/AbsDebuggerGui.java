@@ -60,6 +60,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private ManageOptions manageOptions;
     private AbsAnalyzingDebugEvent event;
     private AbsCustCheckBox mute;
+    private AbsPlainButton pauseStack;
 
     protected AbsDebuggerGui(AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a);
@@ -115,6 +116,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nextCursor = getCommonFrame().getFrames().getCompoFactory().newPlainButton("_");
         nextCursor.setEnabled(false);
         nextCursor.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.CURSOR));
+        pauseStack = getCommonFrame().getFrames().getCompoFactory().newPlainButton("||");
+        pauseStack.addActionListener(new PauseStackEvent(this));
+        pauseStack.setEnabled(false);
         detail = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
         callStack = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(callStack,detail);
@@ -126,6 +130,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         page_.add(nextGoUp);
         page_.add(nextInMethod);
         page_.add(nextCursor);
+        page_.add(pauseStack);
         page_.add(detailAll);
         commonFrame.setContentPane(page_);
         commonFrame.setVisible(true);
@@ -211,7 +216,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         tabbedPane.addIntTab(name_, te_.getPanel(), _path);
     }
     void next(StepDbgActionEnum _step){
+        getPauseStack().setEnabled(true);
         StackCallReturnValue view_ = ExecClassesUtil.tryInitStaticlyTypes(currentResult.getContext(), currentResult.getForwards().getOptions(), stackCall, selected,_step, mute.isSelected());
+        getPauseStack().setEnabled(false);
         if (getStopDbg().get()) {
             setStackCall(null);
             return;
@@ -444,6 +451,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public AbsPlainButton getNextCursor() {
         return nextCursor;
+    }
+
+    public AbsPlainButton getPauseStack() {
+        return pauseStack;
     }
 
     public AbsSplitPane getDetailAll() {

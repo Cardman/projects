@@ -14,11 +14,13 @@ public final class BreakPointBlockList {
     private final AbsCollection<BreakPointBlockPair> list;
     private final AbsCollection<BreakPointBlockPair> listTmp;
     private final AbstractInterceptorStdCaller interceptor;
+    private final AbsAtBool pausedLoop;
 
     public BreakPointBlockList(AbstractInterceptorStdCaller _i) {
         interceptor = _i;
         listTmp = _i.newBreakPointKeyStringCollection();
         list = _i.newBreakPointKeyStringCollection();
+        pausedLoop = _i.newAtBool();
     }
 
     public void toggleBreakPoint(String _file, int _offset, ResultContext _f) {
@@ -183,5 +185,9 @@ public final class BreakPointBlockList {
     }
     public AbsCollection<BreakPointBlockPair> getListTmp() {
         return listTmp;
+    }
+
+    public AbsAtBool getPausedLoop() {
+        return pausedLoop;
     }
 }
