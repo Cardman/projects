@@ -275,18 +275,18 @@ public final class FileResolver {
         parsedInstruction_.setPackageName(_pkgName);
         ParseDelimitersState parsPars_ = new ParseDelimitersState(braces_,parentheses_);
         AnaBlockCounts bk_ = new AnaBlockCounts();
-        AnaBlockCounts.addFromTo(_countAnon,bk_);
+        AnaBlockCounts.completeFromTo(_countAnon,bk_);
         while (parsedInstruction_.getIndex() < len_) {
             if (exitLoop(_input,_file, parsedInstruction_,parsPars_,out_,_fa,bk_)) {
                 break;
             }
         }
         if (out_.isOkType()) {
-            AnaBlockCounts.setFromTo(bk_,_countAnon);
+            AnaBlockCounts.completeFromTo(bk_,_countAnon);
             parsedInstruction_.setIndex(parsedInstruction_.getIndex()+1);
         } else {
             if (_input.getType() == OuterBlockEnum.OUTER_TYPE) {
-                AnaBlockCounts.setFromTo(bk_,_countAnon);
+                AnaBlockCounts.completeFromTo(bk_,_countAnon);
             }
             addPossibleEmpty(parsedInstruction_.getCurrentParent());
             addBadIndex(_input, parsedInstruction_.getCurrentParent(), out_, len_+_input.getOffset());

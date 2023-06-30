@@ -13,47 +13,55 @@ public final class AnaBlockCounts {
     private final CustList<StringMap<Integer>> countsAnon = new CustList<StringMap<Integer>>();
     private final CustList<StringMap<Integer>> counts = new CustList<StringMap<Integer>>();
 
-    public static void setFromTo(AnaBlockCounts _from, AnaBlockCounts _dest) {
-        _dest.countAnon.clear();
-        _dest.countsAnon.clear();
-        _dest.counts.clear();
-        _dest.localTypes.clear();
-        _dest.anonTypes.clear();
-        _dest.anonElts.clear();
-        _dest.anonFieldsElts.clear();
-        _dest.anonTypesElts.clear();
-        addFromTo(_from, _dest);
+    public static void completeFromTo(AnaBlockCounts _from, AnaBlockCounts _dest) {
+        feedCountAnon(_from, _dest, _dest.countAnon.size(), _from.countAnon.size());
+        feedCount(_from.countsAnon, _dest.countsAnon, _dest.countsAnon.size(), _from.countsAnon.size());
+        feedCount(_from.counts, _dest.counts, _dest.counts.size(), _from.counts.size());
+        feedLocal(_from, _dest, _dest.localTypes.size(), _from.localTypes.size());
+        feedAnon(_from, _dest, _dest.anonTypes.size(), _from.anonTypes.size());
+        feedAnonElts(_from, _dest, _dest.anonElts.size(), _from.anonElts.size());
+        feedLoop(_from.anonFieldsElts, _dest.anonFieldsElts, _dest.anonFieldsElts.size(), _from.anonFieldsElts.size());
+        feedLoop(_from.anonTypesElts, _dest.anonTypesElts, _dest.anonTypesElts.size(), _from.anonTypesElts.size());
     }
-    public static void addFromTo(AnaBlockCounts _from, AnaBlockCounts _dest) {
-        _dest.countAnon.addAllElts(_from.countAnon);
-        feedCount(_from.countsAnon, _dest.countsAnon);
-        feedCount(_from.counts, _dest.counts);
-        for (CustList<RootBlock> e: _from.localTypes) {
-            _dest.localTypes.add(new CustList<RootBlock>(e));
+
+    private static void feedCountAnon(AnaBlockCounts _from, AnaBlockCounts _dest, int _begin, int _end) {
+        for (int i = _begin; i < _end; i++) {
+            _dest.countAnon.add(_from.countAnon.get(i));
         }
-        for (CustList<AnonymousTypeBlock> e: _from.anonTypes) {
-            _dest.anonTypes.add(new CustList<AnonymousTypeBlock>(e));
-        }
-        for (AnonymousElementsFct e: _from.anonElts) {
+    }
+
+    private static void feedAnonElts(AnaBlockCounts _from, AnaBlockCounts _dest, int _begin, int _end) {
+        for (int i = _begin; i < _end; i++) {
+            AnonymousElementsFct e_ = _from.anonElts.get(i);
             AnonymousElementsFct cp_ = new AnonymousElementsFct();
-            cp_.getReserved().addAllElts(e.getReserved());
-            feed(cp_.getElements(), e.getElements());
+            cp_.getReserved().addAllElts(e_.getReserved());
+            feed(cp_.getElements(), e_.getElements());
             _dest.anonElts.add(cp_);
         }
-        feedLoop(_from.anonFieldsElts, _dest.anonFieldsElts);
-        feedLoop(_from.anonTypesElts, _dest.anonTypesElts);
     }
 
-    private static void feedCount(CustList<StringMap<Integer>> _from, CustList<StringMap<Integer>> _dest) {
-        for (StringMap<Integer> e: _from) {
-            _dest.add(new StringMap<Integer>(e));
+    private static void feedAnon(AnaBlockCounts _from, AnaBlockCounts _dest, int _begin, int _end) {
+        for (int i = _begin; i < _end; i++) {
+            _dest.anonTypes.add(new CustList<AnonymousTypeBlock>(_from.anonTypes.get(i)));
         }
     }
 
-    private static void feedLoop(CustList<AnonymousElements> _from, CustList<AnonymousElements> _dest) {
-        for (AnonymousElements e: _from) {
+    private static void feedLocal(AnaBlockCounts _from, AnaBlockCounts _dest, int _begin, int _end) {
+        for (int i = _begin; i < _end; i++) {
+            _dest.localTypes.add(new CustList<RootBlock>(_from.localTypes.get(i)));
+        }
+    }
+
+    private static void feedCount(CustList<StringMap<Integer>> _from, CustList<StringMap<Integer>> _dest, int _begin, int _end) {
+        for (int i = _begin; i < _end; i++) {
+            _dest.add(new StringMap<Integer>(_from.get(i)));
+        }
+    }
+
+    private static void feedLoop(CustList<AnonymousElements> _from, CustList<AnonymousElements> _dest, int _begin, int _end) {
+        for (int i = _begin; i < _end; i++) {
             AnonymousElements cp_ = new AnonymousElements();
-            feed(cp_, e);
+            feed(cp_, _from.get(i));
             _dest.add(cp_);
         }
     }

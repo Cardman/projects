@@ -200,7 +200,7 @@ public final class AnalyzedPageEl {
         copy_.countOperators = _original.countOperators;
         copy_.countInnerEltTypes = _original.countInnerEltTypes;
         copy_.countTypes = _original.countTypes;
-        AnaBlockCounts.addFromTo(_original.countAnon, copy_.countAnon);
+        AnaBlockCounts.completeFromTo(_original.countAnon, copy_.countAnon);
         copy_.sorted.putAllMap(_original.sorted);
         copy_.allFoundTypes.addAllElts(_original.allFoundTypes);
         copy_.allOperators.addAllElts(_original.allOperators);
