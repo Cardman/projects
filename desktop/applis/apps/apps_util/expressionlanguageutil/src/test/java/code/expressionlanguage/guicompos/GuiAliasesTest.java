@@ -213,6 +213,19 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         stds_.getGuiAliases().setAliasConfirm("");
         stds_.getGuiAliases().setAliasPanelBorder("");
+        stds_.getNbAlias().setAliasBoolean("1");
+        stds_.getNbAlias().setAliasByte("2");
+        stds_.getNbAlias().setAliasCharacter("3");
+        stds_.getNbAlias().setAliasShort("4");
+        stds_.getNbAlias().setAliasInteger("5");
+        stds_.getNbAlias().setAliasLong("6");
+        stds_.getNbAlias().setAliasFloat("7");
+        stds_.getNbAlias().setAliasDouble("8");
+        stds_.getNbAlias().setAliasMinValueField("1");
+        stds_.getNbAlias().setAliasMaxValueField("2");
+        stds_.getNbAlias().setAliasMinusInfinityField("3");
+        stds_.getNbAlias().setAliasPlusInfinityField("4");
+        stds_.getNbAlias().setAliasNanField("5");
         assertEq(Double.MAX_VALUE,new AdvancedConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_")));
     }
     @Test
@@ -244,6 +257,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getNbAlias().setAliasInteger("_");
         assertEq(stds_.getNbAlias().getAliasInteger(),stds_.getStringOfObject(ctx_,new IntStruct(1)).getInstance());
     }
     @Test
@@ -272,6 +286,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
         LgNamesUtils stds_ = newLgNamesUtSampleLight(pr_, null);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getNbAlias().setAliasInteger("_");
         assertEq(stds_.getNbAlias().getAliasInteger(),stds_.getStringOfObject(ctx_,new IntStruct(1)).getInstance());
     }
     @Test

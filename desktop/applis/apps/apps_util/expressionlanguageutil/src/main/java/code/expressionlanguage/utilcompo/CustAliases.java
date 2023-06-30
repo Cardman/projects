@@ -833,7 +833,6 @@ public final class CustAliases {
     private String aliasInfoTestExecuted;
 
     private String aliasConcurrentError;
-    private final StringMap<String> properties;
     private final StringViewReplaceAliases stringViewReplaceAliases = new StringViewReplaceAliases();
     private final MathAdvAliases mathAdvAliases = new MathAdvAliases();
 
@@ -850,11 +849,6 @@ public final class CustAliases {
     }
     public CustAliases(boolean _l) {
         light = _l;
-        if (_l) {
-            properties = new StringMap<String>();
-        } else {
-            properties = MessCdmBaseGr.ms();
-        }
     }
 
     public static boolean isEnumType(GeneType _type) {
@@ -1386,7 +1380,8 @@ public final class CustAliases {
         if (light) {
             return stds_;
         }
-        String content_ = properties.getVal(RESOURCES_LG_THREADS_RUNNABLE_TXT);
+        StringMap<String> properties_ = MessCdmBaseGr.ms();
+        String content_ = properties_.getVal(RESOURCES_LG_THREADS_RUNNABLE_TXT);
         StringMap<PrimitiveType> primitiveTypes_ = _content.getPrimTypes().getPrimitiveTypes();
         AliasCore coreNames_ = _content.getCoreNames();
         PrimitiveTypes primTypes_ = _content.getPrimTypes();
@@ -1429,7 +1424,7 @@ public final class CustAliases {
         map_.put(wrap(PARAM_002), custAliasParameters.getAliasRunnableImplicit0Implicit1());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasRunnable, content_);
-        content_ = properties.getVal(RESOURCES_LG_COLLECTIONS_LIST_TXT);
+        content_ = properties_.getVal(RESOURCES_LG_COLLECTIONS_LIST_TXT);
         map_ = new StringMap<String>();
         map_.put(KW_PUBLIC, public_);
         map_.put(KW_PRIVATE, private_);
@@ -1476,7 +1471,7 @@ public final class CustAliases {
         map_.put(METHOD_CLEAR,aliasListClear);
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasList, content_);
-        content_ = properties.getVal(RESOURCES_LG_COLLECTIONS_TABLE_TXT);
+        content_ = properties_.getVal(RESOURCES_LG_COLLECTIONS_TABLE_TXT);
         map_.put(TYPE_CUST_PAIR,aliasCustPair);
         map_.put(TYPE_PAIR,predefTypes_.getAliasPairType());
         map_.put(TYPE_PARAM_U,aliasPairVarFirst);
@@ -1531,7 +1526,7 @@ public final class CustAliases {
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasTable, content_);
 
-        content_ = properties.getVal(RESOURCES_LG_TESTS_RUN_TXT);
+        content_ = properties_.getVal(RESOURCES_LG_TESTS_RUN_TXT);
         placeHolder(map_, PARAM_033, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
         placeHolder(map_, PARAM_034, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
         placeHolder(map_, PARAM_035, _keyWords, primitiveTypes_, coreNames_,
@@ -1941,7 +1936,7 @@ public final class CustAliases {
         content_ = StringUtil.formatQuote(content_, map_);
 
         stds_.put(aliasExecute, content_);
-        content_ = properties.getVal(RESOURCES_LG_THREADS_FORMATTING_TXT);
+        content_ = properties_.getVal(RESOURCES_LG_THREADS_FORMATTING_TXT);
         map_.put(TYPE_FORMAT,aliasFormatType);
         map_.put(TYPE_INT, int_);
         map_.put(wrap(PARAM_162), custAliasParameters.getAliasFormatType0Print0());

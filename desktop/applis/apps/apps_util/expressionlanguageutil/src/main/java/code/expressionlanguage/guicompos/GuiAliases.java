@@ -1025,25 +1025,20 @@ public final class GuiAliases {
     private String aliasComponentUnbind;
     private String aliasComponentCommands;
     private final GuiAliasParameters guiAliasParameters = new GuiAliasParameters();
-    private final StringMap<String> propertiesGui;
     private final boolean light;
     public GuiAliases() {
         this(false);
     }
     public GuiAliases(boolean _l) {
         light = _l;
-        if (_l) {
-            propertiesGui = new StringMap<String>();
-        } else {
-            propertiesGui = MessCdmGuiGr.ms();
-        }
     }
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content) {
         StringMap<String> stds_ = new StringMap<String>();
         if (light) {
             return stds_;
         }
-        String content_ = res(RESOURCES_LG_GUI_ACTION_EVENT_TXT);
+        StringMap<String> propertiesGui_ = MessCdmGuiGr.ms();
+        String content_ = res(RESOURCES_LG_GUI_ACTION_EVENT_TXT, propertiesGui_);
         PrimitiveTypes primTypes_ = _content.getPrimTypes();
         StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
         AliasCore co_ = _content.getCoreNames();
@@ -1077,7 +1072,7 @@ public final class GuiAliases {
         map_.put(PARAM_5, guiAliasParameters.getAliasActionListener0ActionPerformed0());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasActionListener, content_);
-        content_ = res(RESOURCES_LG_GUI_CHANGE_EVENT_TXT);
+        content_ = res(RESOURCES_LG_GUI_CHANGE_EVENT_TXT, propertiesGui_);
         map_ = new StringMap<String>();
         map_.put(KW_PUBLIC, public_);
         map_.put(KW_INTERFACE, interface_);
@@ -1086,7 +1081,7 @@ public final class GuiAliases {
         map_.put(KW_VOID, co_.getAliasVoid());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasChangeListener, content_);
-        content_ = res(RESOURCES_LG_GUI_TREE_EVENT_TXT);
+        content_ = res(RESOURCES_LG_GUI_TREE_EVENT_TXT, propertiesGui_);
         map_ = new StringMap<String>();
         map_.put(KW_PUBLIC, public_);
         map_.put(KW_INTERFACE, interface_);
@@ -1097,7 +1092,7 @@ public final class GuiAliases {
         map_.put(PARAM_5, guiAliasParameters.getAliasTreeListener0TreeListenerValueChanged0());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasTreeListener, content_);
-        content_ = res(RESOURCES_LG_GUI_TABLE_EVENT_TXT);
+        content_ = res(RESOURCES_LG_GUI_TABLE_EVENT_TXT, propertiesGui_);
         map_ = new StringMap<String>();
         map_.put(KW_PUBLIC, public_);
         map_.put(KW_INTERFACE, interface_);
@@ -1109,7 +1104,7 @@ public final class GuiAliases {
         map_.put(PARAM_6, guiAliasParameters.getAliasTableListener0TableValueTableChanged1());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasTableListener, content_);
-        content_ = res(RESOURCES_LG_GUI_MOUSE_EVENT_TXT);
+        content_ = res(RESOURCES_LG_GUI_MOUSE_EVENT_TXT, propertiesGui_);
         map_ = new StringMap<String>();
         map_.put(KW_PUBLIC, public_);
         map_.put(KW_INTERFACE, interface_);
@@ -1132,7 +1127,7 @@ public final class GuiAliases {
         map_.put(PARAM_7, guiAliasParameters.getAliasMouseListener0MouseMoved0());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasMouseListener, content_);
-        content_ = res(RESOURCES_LG_GUI_WHEEL_EVENT_TXT);
+        content_ = res(RESOURCES_LG_GUI_WHEEL_EVENT_TXT, propertiesGui_);
         map_ = new StringMap<String>();
         map_.put(KW_PUBLIC, public_);
         map_.put(KW_INTERFACE, interface_);
@@ -1143,7 +1138,7 @@ public final class GuiAliases {
         map_.put(KW_VOID, co_.getAliasVoid());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasWheelListener, content_);
-        content_ = res(RESOURCES_LG_GUI_KEY_EVENT_TXT);
+        content_ = res(RESOURCES_LG_GUI_KEY_EVENT_TXT, propertiesGui_);
         map_ = new StringMap<String>();
         map_.put(KW_PUBLIC, public_);
         map_.put(KW_INTERFACE, interface_);
@@ -1158,7 +1153,7 @@ public final class GuiAliases {
         map_.put(wrap(PARAM_3), guiAliasParameters.getAliasKeyListener0KeyReleased0());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasKeyListener, content_);
-        content_ = res(RESOURCES_LG_GUI_WINDOW_EVENT_TXT);
+        content_ = res(RESOURCES_LG_GUI_WINDOW_EVENT_TXT, propertiesGui_);
         map_ = new StringMap<String>();
         map_.put(KW_PUBLIC, public_);
         map_.put(KW_INTERFACE, interface_);
@@ -1181,7 +1176,7 @@ public final class GuiAliases {
         map_.put(PARAM_7, guiAliasParameters.getAliasWindowListener0WindowDeactivated0());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasWindowListener, content_);
-        content_ = res(RESOURCES_LG_GUI_LIST_EVENT_TXT);
+        content_ = res(RESOURCES_LG_GUI_LIST_EVENT_TXT, propertiesGui_);
         map_ = new StringMap<String>();
         map_.put(KW_PUBLIC, public_);
         map_.put(KW_INTERFACE, interface_);
@@ -1193,7 +1188,7 @@ public final class GuiAliases {
         map_.put(PARAM_6, guiAliasParameters.getAliasListSelection0ValueChanged1());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasListSelection, content_);
-        content_ = res(RESOURCES_LG_GUI_REPAINT_TXT);
+        content_ = res(RESOURCES_LG_GUI_REPAINT_TXT, propertiesGui_);
         map_ = new StringMap<String>();
         map_.put(KW_PUBLIC, public_);
         map_.put(KW_ABSTRACT, abstract_);
@@ -1607,8 +1602,8 @@ public final class GuiAliases {
         return '{'+_element+'}';
     }
 
-    public String res(String _file) {
-        return StringUtil.nullToEmpty(propertiesGui.getVal(_file));
+    public String res(String _file, StringMap<String> _prop) {
+        return StringUtil.nullToEmpty(_prop.getVal(_file));
     }
 
     public void buildOther(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
