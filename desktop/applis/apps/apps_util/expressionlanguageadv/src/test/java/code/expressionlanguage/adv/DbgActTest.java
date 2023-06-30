@@ -567,6 +567,54 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
+    public void bp29() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(56,56);
+        toggleBp(b_);
+        bpForm(b_);
+        AbsTreeGui t_ = b_.getFrameBpForm().getGuiStdStackForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExc(b_);
+        bpFormOk(b_);
+        bpForm(b_);
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
+        assertEq(1,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp30() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(56,56);
+        toggleBp(b_);
+        bpForm(b_);
+        AbsTreeGui t_ = b_.getFrameBpForm().getGuiStdStackForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFrameBpForm().getGuiStdStackForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddInc(b_);
+        bpFormOk(b_);
+        bpForm(b_);
+        assertEq(1,b_.getFrameBpForm().getGuiStdStackForm().getMustBe().size());
+        assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
+    }
+    @Test
     public void m1() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);

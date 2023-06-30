@@ -17,8 +17,11 @@ public final class BreakPoint {
     }
 
     public void resetCount() {
+        resultStd.getEnabled().set(true);
         resultStd.setCount(0);
+        resultStatic.getEnabled().set(true);
         resultStatic.setCount(0);
+        resultInstance.getEnabled().set(true);
         resultInstance.setCount(0);
     }
     public boolean isEnabled() {

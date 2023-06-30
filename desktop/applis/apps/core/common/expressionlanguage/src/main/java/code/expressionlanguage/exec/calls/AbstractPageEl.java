@@ -402,15 +402,27 @@ public abstract class AbstractPageEl {
         }
         BreakPointCondition condition_ = stopCurrentBpCondition(_bp);
         if (okStack(_context,_stackCall,condition_) && condition(_context,_stackCall,condition_)) {
-            int c_ = condition_.getCountModulo();
-            if (c_ <= 0) {
+            if (!condition_.getEnabled().get()) {
+                return false;
+            }
+            if (countMatch(condition_)) {
+                if (condition_.getDisableWhenHit().get()) {
+                    condition_.getEnabled().set(false);
+                }
                 return true;
             }
-            int p_ = condition_.getCount();
-            condition_.setCount(p_ + 1);
-            return NumberUtil.mod(condition_.getCount(),c_) == 0;
+            return false;
         }
         return false;
+    }
+    private static boolean countMatch(BreakPointCondition _cond) {
+        int c_ = _cond.getCountModulo();
+        if (c_ <= 0) {
+            return true;
+        }
+        int p_ = _cond.getCount();
+        _cond.setCount(p_ + 1);
+        return NumberUtil.mod(_cond.getCount(),c_) == 0;
     }
     private boolean okStack(ContextEl _context, StackCall _stackCall, BreakPointCondition _bp) {
         for (AbsCallContraints e: _bp.getExclude().elts()) {

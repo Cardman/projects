@@ -12,6 +12,8 @@ import code.util.CustList;
 import code.util.StringMap;
 
 public final class GuiStackForm {
+    private AbsCustCheckBox enabledSub;
+    private AbsCustCheckBox disabledWhenHit;
     private AbsTextArea conditional;
     private AbsSpinner count;
     private ReadOnlyFormTabEditor readOnlyFormTabEditor;
@@ -68,6 +70,9 @@ public final class GuiStackForm {
     }
 
     public AbsScrollPane guiBuild(AbsDebuggerGui _d) {
+        enabledSub = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("specific enabled");
+        enabledSub.setSelected(true);
+        disabledWhenHit = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("disabled when hit");
         conditional = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
         count = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         bpFolderSystem = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui(_d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(""));
@@ -75,6 +80,8 @@ public final class GuiStackForm {
         bpFolderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(_d,bpFolderSystem,new SelOpeningReadOnlyFile(this)));
         readOnlyFormTabEditor = new ReadOnlyFormTabEditor(_d,_d.getCommonFrame().getFrames(), _d.getManageOptions().getOptions());
         staIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        staIncExc.add(enabledSub);
+        staIncExc.add(disabledWhenHit);
         staIncExc.add(conditional);
         staIncExc.add(count);
         staIncExc.add(_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(bpFolderSystem),readOnlyFormTabEditor.getPanel()));
@@ -165,6 +172,14 @@ public final class GuiStackForm {
 
     public AbsCustCheckBox getSingleCaret() {
         return singleCaret;
+    }
+
+    public AbsCustCheckBox getEnabledSub() {
+        return enabledSub;
+    }
+
+    public AbsCustCheckBox getDisabledWhenHit() {
+        return disabledWhenHit;
     }
 
     public AbsTextArea getConditional() {

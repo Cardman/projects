@@ -25,11 +25,17 @@ public final class OkBpFormEvent implements AbsActionListener {
             BreakPointBlockList.breakPointFileIndexUpdaterExcludeStatic(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getGuiStaStackForm().getMustNotBe());
             BreakPointBlockList.breakPointFileIndexUpdaterIncludeInstance(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getGuiInsStackForm().getMustBe());
             BreakPointBlockList.breakPointFileIndexUpdaterIncludeStatic(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getGuiStaStackForm().getMustBe());
+            window.getFrameBpForm().getSelectedPb().getValue().getResultInstance().getEnabled().set(window.getFrameBpForm().getGuiInsStackForm().getEnabledSub().isSelected());
+            window.getFrameBpForm().getSelectedPb().getValue().getResultStatic().getEnabled().set(window.getFrameBpForm().getGuiStaStackForm().getEnabledSub().isSelected());
+            window.getFrameBpForm().getSelectedPb().getValue().getResultInstance().getDisableWhenHit().set(window.getFrameBpForm().getGuiInsStackForm().getDisabledWhenHit().isSelected());
+            window.getFrameBpForm().getSelectedPb().getValue().getResultStatic().getDisableWhenHit().set(window.getFrameBpForm().getGuiStaStackForm().getDisabledWhenHit().isSelected());
         } else {
             BreakPointBlockList.breakPointCtxStd(window.getFrameBpForm().getSelectedPb(),window.getCurrentResult(), window.getResultContextNext().generateAdv(window.getStopDbg()),window.getFrameBpForm().getGuiStdStackForm().getConditional().getText());
             BreakPointBlockList.breakPointCountStd(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getGuiStdStackForm().getCount().getValue());
             BreakPointBlockList.breakPointFileIndexUpdaterExcludeStd(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getGuiStdStackForm().getMustNotBe());
             BreakPointBlockList.breakPointFileIndexUpdaterIncludeStd(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getGuiStdStackForm().getMustBe());
+            window.getFrameBpForm().getSelectedPb().getValue().getResultStd().getEnabled().set(window.getFrameBpForm().getGuiStdStackForm().getEnabledSub().isSelected());
+            window.getFrameBpForm().getSelectedPb().getValue().getResultStd().getDisableWhenHit().set(window.getFrameBpForm().getGuiStdStackForm().getDisabledWhenHit().isSelected());
         }
         window.getFrameBpForm().setSelectedPb(null);
     }

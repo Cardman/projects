@@ -4,6 +4,8 @@ import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 
 public final class BreakPointCondition {
+    private final AbsAtBool disableWhenHit;
+    private final AbsAtBool enabled;
     private ResultContextLambda result;
     private String resultStr = "";
     private int countModulo;
@@ -13,6 +15,9 @@ public final class BreakPointCondition {
     public BreakPointCondition(AbstractInterceptorStdCaller _i) {
         exclude = _i.newExecFileBlockTraceIndexCollection();
         include = _i.newExecFileBlockTraceIndexCollection();
+        disableWhenHit = _i.newAtBool();
+        enabled = _i.newAtBool();
+        enabled.set(true);
     }
 
     public AbsCollection<AbsCallContraints> getExclude() {
@@ -53,5 +58,13 @@ public final class BreakPointCondition {
 
     public void setCount(int _p) {
         this.count = _p;
+    }
+
+    public AbsAtBool getDisableWhenHit() {
+        return disableWhenHit;
+    }
+
+    public AbsAtBool getEnabled() {
+        return enabled;
     }
 }

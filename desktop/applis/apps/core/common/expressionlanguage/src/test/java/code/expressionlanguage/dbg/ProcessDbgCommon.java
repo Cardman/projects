@@ -298,6 +298,16 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         CustomFoundMethod state_ = state(_res,_class, _meth);
         return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_,null, false);
     }
+    protected StackCallReturnValue disableHitStdView(String _class, String _meth, int _caret, ResultContext _res) {
+        RootBlock ana_ = _res.getPageEl().getAnaClassBody(_class);
+        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(ana_.getFile().getFileName(), _caret,_res);
+        BreakPointBlockPair pair_ = _res.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(classBody_.getFile(), _caret);
+        pair_.getValue().getResultStd().getEnabled().set(true);
+        pair_.getValue().getResultStd().getDisableWhenHit().set(true);
+        CustomFoundMethod state_ = state(_res,_class, _meth);
+        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_,null, false);
+    }
     protected CustomFoundMethod state(ResultContext _res, String _class, String _meth) {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
