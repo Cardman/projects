@@ -13,6 +13,17 @@ public final class AnaBlockCounts {
     private final CustList<StringMap<Integer>> countsAnon = new CustList<StringMap<Integer>>();
     private final CustList<StringMap<Integer>> counts = new CustList<StringMap<Integer>>();
 
+    public static void setFromTo(AnaBlockCounts _from, AnaBlockCounts _dest) {
+        _dest.countAnon.clear();
+        _dest.countsAnon.clear();
+        _dest.counts.clear();
+        _dest.localTypes.clear();
+        _dest.anonTypes.clear();
+        _dest.anonElts.clear();
+        _dest.anonFieldsElts.clear();
+        _dest.anonTypesElts.clear();
+        addFromTo(_from, _dest);
+    }
     public static void addFromTo(AnaBlockCounts _from, AnaBlockCounts _dest) {
         _dest.countAnon.addAllElts(_from.countAnon);
         feedCount(_from.countsAnon, _dest.countsAnon);
