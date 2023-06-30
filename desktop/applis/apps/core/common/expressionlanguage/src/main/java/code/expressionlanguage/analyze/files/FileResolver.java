@@ -328,25 +328,29 @@ public final class FileResolver {
     }
 
     private static void postInstruction(AnaBlockCounts _countAnon, AfterBuiltInstruction _after) {
-        if (_after.getCreated() instanceof AccessedBlock) {
-            ((AccessedBlock) _after.getCreated()).setAccessNb(_countAnon.getCountAnon().size());
+        postInst(_countAnon, _after.getCreated());
+    }
+
+    public static void postInst(AnaBlockCounts _countAnon, AbsBk _created) {
+        if (_created instanceof AccessedBlock) {
+            ((AccessedBlock) _created).setAccessNb(_countAnon.getCountAnon().size());
             _countAnon.getCountAnon().add(0);
         }
-        if (_after.getCreated() instanceof AccessedFct) {
-            ((AccessedFct) _after.getCreated()).setAccessedFctNb(_countAnon.getAnonElts().size());
+        if (_created instanceof AccessedFct) {
+            ((AccessedFct) _created).setAccessedFctNb(_countAnon.getAnonElts().size());
             _countAnon.getAnonElts().add(new AnonymousElementsFct());
         }
-        if (_after.getCreated() instanceof AccessedBlockMembers) {
-            ((AccessedBlockMembers) _after.getCreated()).setAccessMemNb(_countAnon.getAnonTypes().size());
+        if (_created instanceof AccessedBlockMembers) {
+            ((AccessedBlockMembers) _created).setAccessMemNb(_countAnon.getAnonTypes().size());
             _countAnon.getAnonTypes().add(new CustList<AnonymousTypeBlock>());
             _countAnon.getLocalTypes().add(new CustList<RootBlock>());
         }
-        if (_after.getCreated() instanceof InfoBlock) {
-            ((InfoBlock) _after.getCreated()).setInfoBlockNb(_countAnon.getAnonFieldsElts().size());
+        if (_created instanceof InfoBlock) {
+            ((InfoBlock) _created).setInfoBlockNb(_countAnon.getAnonFieldsElts().size());
             _countAnon.getAnonFieldsElts().add(new AnonymousElements());
         }
-        if (_after.getCreated() instanceof RootBlock) {
-            ((RootBlock) _after.getCreated()).setCreated(_countAnon.getAnonTypesElts().size());
+        if (_created instanceof RootBlock) {
+            ((RootBlock) _created).setCreated(_countAnon.getAnonTypesElts().size());
             _countAnon.getAnonTypesElts().add(new AnonymousElements());
             _countAnon.getCountsAnon().add(new StringMap<Integer>());
             _countAnon.getCounts().add(new StringMap<Integer>());

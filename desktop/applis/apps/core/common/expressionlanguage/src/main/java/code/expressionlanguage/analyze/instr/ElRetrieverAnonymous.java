@@ -792,6 +792,7 @@ public final class ElRetrieverAnonymous {
         block_.setBegin(begImplRet_);
         block_.setLengthHeader(1);
         block_.setFile(_curElts.getFile());
+        FileResolver.postInst(_curElts.getCounts(),block_);
         String tr_ = part_.trim();
         ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(begImplRet_, tr_), begImplRet_);
         ret_.setImplicit(true);
