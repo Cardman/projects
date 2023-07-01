@@ -69,7 +69,7 @@ import code.util.core.*;
 //import code.util.core.NumberUtil;
 //import code.util.core.StringUtil;
 
-public final class WindowAiki extends GroupFrame implements WindowAikiInt {
+public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpenQuit {
 //public final class WindowAiki extends NetGroupFrame
     //implemented SettingInfosAfterCompiler
 
@@ -256,7 +256,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
     private final AbstractBaseExecutorService expThread;
 
     public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
-        super(_lg, _list, MessGuiGr.ms());
+        super(_lg, _list);
+        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
         expThread = _list.getThreadFactory().newExecutorService();
         selectEgg = new SelectEgg(_list);
         selectPokemon = new SelectPokemon(_list);
@@ -362,7 +363,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
             battle.getHtmlDialogs().get(0).closeWindow();
             dataBattle.setEnabled(inBattle);
         }
-        basicDispose();
+        GuiBaseUtil.trEx(this);
 //        if (indexInGame != IndexConstants.INDEX_NOT_FOUND_ELT) {
 //            QuitAiki quit_ = new QuitAiki();
 //            quit_.setClosing(true);
@@ -457,7 +458,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
 ////            }
 //        }
     }
-    @Override
+//    @Override
     public void dispose() {
         if (isPaintingScene()) {
             return;
@@ -474,7 +475,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         //clearHtmlDialogs();
         //battle.clearHtmlDialogs();
         //removeAll();
-        basicDispose();
+        GuiBaseUtil.trEx(this);
         //facade = null;
     }
     public void initMessages() {

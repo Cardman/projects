@@ -29,7 +29,6 @@ import code.util.core.StringUtil;
 
 public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private final CdmFactory factory;
-    private final AbsCommonFrame commonFrame;
     private AbsMenuItem analyzeMenu;
     private final FrameBpForm frameBpForm;
     private AbsTreeGui folderSystem;
@@ -66,10 +65,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsPanel navigation;
 
     protected AbsDebuggerGui(AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
-        super(_a);
+        super(_a,_lg,_list);
         factory = _fact;
         frameBpForm = new FrameBpForm(this,_lg, _list);
-        commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         stopDbg = _list.getThreadFactory().newAtomicBoolean();
     }
 
@@ -91,14 +89,14 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         getDbgMenu().open();
         manageOptions = getEvent().manageOpt();
         frameBpForm.guiBuild(this);
-        actions = commonFrame.getFrames().getThreadFactory().newExecutorService();
-        AbsPanel page_ = commonFrame.getFrames().getCompoFactory().newPageBox();
-        folderSystem = commonFrame.getFrames().getCompoFactory().newTreeGui(commonFrame.getFrames().getCompoFactory().newMutableTreeNode(""));
+        actions = getCommonFrame().getFrames().getThreadFactory().newExecutorService();
+        AbsPanel page_ = getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        folderSystem = getCommonFrame().getFrames().getCompoFactory().newTreeGui(getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(""));
         folderSystem.select(folderSystem.getRoot());
         folderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(this,folderSystem,new TabOpeningReadOnlyFile()));
-        tabbedPane = commonFrame.getFrames().getCompoFactory().newAbsTabbedPane();
+        tabbedPane = getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
         tabbedPane.setPreferredSize(new MetaDimension(512,512));
-        page_.add(commonFrame.getFrames().getCompoFactory().newHorizontalSplitPane(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(folderSystem),tabbedPane));
+        page_.add(getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(folderSystem),tabbedPane));
         page_.add(buildPart());
         mute = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("mute");
         selectEnter = getCommonFrame().getFrames().getCompoFactory().newPlainButton("|>");
@@ -129,7 +127,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         callStack = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(callStack,detail);
         detailAll.setVisible(false);
-        navigation = commonFrame.getFrames().getCompoFactory().newLineBox();
+        navigation = getCommonFrame().getFrames().getCompoFactory().newLineBox();
         navigation.setVisible(false);
         AbsPanel nav_ = navigation;
         nav_.add(mute);
@@ -143,19 +141,19 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nav_.add(stopStack);
         page_.add(nav_);
         page_.add(detailAll);
-        statusAnalyzeArea = commonFrame.getFrames().getCompoFactory().newTextArea();
+        statusAnalyzeArea = getCommonFrame().getFrames().getCompoFactory().newTextArea();
         statusAnalyzeArea.setEditable(false);
-        page_.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(statusAnalyzeArea));
-        commonFrame.setContentPane(page_);
-        commonFrame.setVisible(true);
+        page_.add(getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(statusAnalyzeArea));
+        getCommonFrame().setContentPane(page_);
+        getCommonFrame().setVisible(true);
         AbsMenuBar bar_ = getCommonFrame().getFrames().getCompoFactory().newMenuBar();
         AbsMenu session_ = getCommonFrame().getFrames().getCompoFactory().newMenu("session");
         analyzeMenu = getCommonFrame().getFrames().getCompoFactory().newMenuItem("analyze");
         analyzeMenu.addActionListener(getEvent());
         session_.addMenuItem(analyzeMenu);
         bar_.add(session_);
-        commonFrame.setJMenuBar(bar_);
-        PackingWindowAfter.pack(commonFrame);
+        getCommonFrame().setJMenuBar(bar_);
+        PackingWindowAfter.pack(getCommonFrame());
     }
 
     public void setViewable(StringMap<String> _v) {
@@ -224,7 +222,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     void addTab(ManageOptions _man,String _path, BytesInfo _content, Options _opt) {
         String dec_ = StringUtil.nullToEmpty(StringUtil.decode(_content.getBytes()));
         String name_ = _path.substring(_path.lastIndexOf('/')+1);
-        ReadOnlyTabEditor te_ = new ReadOnlyTabEditor(this,commonFrame.getFrames(), _path.substring(pathToSrc(_man).length()), WindowWithTreeImpl.lineSeparator(dec_),_opt);
+        ReadOnlyTabEditor te_ = new ReadOnlyTabEditor(this,getCommonFrame().getFrames(), _path.substring(pathToSrc(_man).length()), WindowWithTreeImpl.lineSeparator(dec_),_opt);
         te_.getCenter().setText(new DefaultUniformingString().apply(dec_));
         tabs.add(te_);
         tabbedPane.addIntTab(name_, te_.getPanel(), _path);
@@ -245,7 +243,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             callStack.removeAll();
             callButtons.clear();
             root = new DbgRootStruct(currentResult);
-            treeDetail = root.buildReturn(commonFrame.getFrames().getCompoFactory(), view_.getRetValue());
+            treeDetail = root.buildReturn(getCommonFrame().getFrames().getCompoFactory(), view_.getRetValue());
             detail.setViewportView(treeDetail);
             detailAll.setVisible(true);
             selectEnter.setEnabled(true);
@@ -264,11 +262,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             String dis_ = MetaInfoUtil.newStackTraceElement(currentResult.getContext(), i, stackCall).getDisplayedString(currentResult.getContext()).getInstance();
             DbgRootStruct r_ = new DbgRootStruct(currentResult);
             root = r_;
-            AbsTreeGui b_ = r_.build(commonFrame.getFrames().getCompoFactory(), p_);
+            AbsTreeGui b_ = r_.build(getCommonFrame().getFrames().getCompoFactory(), p_);
             treeDetail = b_;
             trees.add(b_);
             treesRoot.add(r_);
-            AbsPlainButton but_ = commonFrame.getFrames().getCompoFactory().newPlainButton(dis_);
+            AbsPlainButton but_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton(dis_);
             callButtons.add(but_);
             but_.addActionListener(new SelectCallStackEvent(this,i));
             callStack.add(but_);
@@ -278,7 +276,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         selectFocus(opened_, last_.getTraceIndex());
         detail.setViewportView(treeDetail);
         detailAll.setVisible(true);
-        PackingWindowAfter.pack(commonFrame);
+        PackingWindowAfter.pack(getCommonFrame());
         nextAction.setEnabled(true);
         nextInstruction.setEnabled(true);
         nextGoUp.setEnabled(true);
@@ -303,7 +301,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         treeDetail = trees.get(_index);
         root = treesRoot.get(_index);
         detail.setViewportView(treeDetail);
-        commonFrame.pack();
+        getCommonFrame().pack();
     }
     public void selectFocus(int _open, int _trace) {
         if (_open > -1) {
@@ -354,7 +352,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             BytesInfo content_ = new BytesInfo(StringUtil.encode(_src.getValue(i)),false);
             addTab(manageOptions,fullPath_,content_, manageOptions.getOptions());
         }
-        PackingWindowAfter.pack(commonFrame);
+        PackingWindowAfter.pack(getCommonFrame());
     }
 
     public void closeAll() {
@@ -384,7 +382,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return folderSystem;
     }
     protected void endCall(){
-        PackingWindowAfter.pack(commonFrame);
+        PackingWindowAfter.pack(getCommonFrame());
     }
 
     public StackCall getStackCall() {
@@ -442,10 +440,6 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public FrameBpForm getFrameBpForm() {
         return frameBpForm;
-    }
-
-    public AbsCommonFrame getCommonFrame() {
-        return commonFrame;
     }
 
     public ResultContext getCurrentResult() {

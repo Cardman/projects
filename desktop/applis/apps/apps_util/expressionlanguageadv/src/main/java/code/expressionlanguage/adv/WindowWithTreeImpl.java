@@ -37,7 +37,6 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     private final CustList<OutputDialogSrc> srcFrames = new CustList<OutputDialogSrc>();
     private final AbsMenuItem commentsMenu;
     private final AbsMenuItem aliasesMenu;
-    private final AbsCommonFrame commonFrame;
     private final AbsPanel panel;
     private final AbsPanel panelSymbols;
     private final AbsTextArea analyzeState;
@@ -63,20 +62,19 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     private final AbstractBaseExecutorService finderSymbol;
     private final CustList<ResultRowSrcLocationList> symbols = new CustList<ResultRowSrcLocationList>();
     protected WindowWithTreeImpl(AbsResultContextNext _a,String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
-        super(_a);
+        super(_a,_lg,_list);
         factory = _fact;
         finderSymbol = _list.getThreadFactory().newExecutorService();
-        commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
         AbsMenu file_ = _list.getCompoFactory().newMenu("file");
         bar_.add(file_);
-        srcMenu = commonFrame.getFrames().getCompoFactory().newMenuItem("inputs output conf");
+        srcMenu = getCommonFrame().getFrames().getCompoFactory().newMenuItem("inputs output conf");
         srcMenu.addActionListener(new ChangeSrcEvent(this, srcMenu));
-        create = commonFrame.getFrames().getCompoFactory().newMenuItem("new");
+        create = getCommonFrame().getFrames().getCompoFactory().newMenuItem("new");
         create.addActionListener(new AddNewTreeFileNode(this));
         create.setAccelerator(GuiConstants.VK_N,GuiConstants.CTRL_DOWN_MASK);
         create.setEnabled(false);
-        delete = commonFrame.getFrames().getCompoFactory().newMenuItem("delete");
+        delete = getCommonFrame().getFrames().getCompoFactory().newMenuItem("delete");
         delete.addActionListener(new RemoveTreeAction(this));
         delete.setAccelerator(GuiConstants.VK_DELETE,0);
         delete.setEnabled(false);
@@ -105,11 +103,11 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         events = _list.getCompoFactory().newAbsTabbedPane();
         events.add("find", _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsScroll, _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsDetailScroll, panelSymbolsLocationScroll)));
         events.add("event", _list.getCompoFactory().newAbsScrollPane(analyzeState));
-        editors = commonFrame.getFrames().getCompoFactory().newAbsTabbedPane();
-        commonFrame.setContentPane(panel);
-        commonFrame.setJMenuBar(bar_);
-        commonFrame.pack();
-        commonFrame.setVisible(true);
+        editors = getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        getCommonFrame().setContentPane(panel);
+        getCommonFrame().setJMenuBar(bar_);
+        getCommonFrame().pack();
+        getCommonFrame().setVisible(true);
         setLimitSymbol(16);
     }
 
@@ -300,12 +298,12 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         cancelDialog.addActionListener(new CloseTreeDialog(this));
         panel_.add(cancelDialog);
         scrollDialog.setViewportView(panel_);
-        GuiBaseUtil.recalculate(commonFrame.getPane());
+        GuiBaseUtil.recalculate(getCommonFrame().getPane());
     }
 
     public void fileOrFolder() {
         String str_ = buildPath(selectedNode);
-        AbstractProgramInfos frs_ = commonFrame.getFrames();
+        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         AbstractFile currentFolder_ = frs_.getFileCoreStream().newFile(str_);
         if (!currentFolder_.isDirectory()) {
             clearTreeDialog();
@@ -359,11 +357,11 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         cancelDialog.addActionListener(new CloseTreeDialog(this));
         panel_.add(cancelDialog);
         scrollDialog.setViewportView(panel_);
-        GuiBaseUtil.recalculate(commonFrame.getPane());
+        GuiBaseUtil.recalculate(getCommonFrame().getPane());
     }
 
     void renameValidate() {
-        AbstractProgramInfos frs_ = commonFrame.getFrames();
+        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         String str_ = buildPath(selectedNode);
         AbstractMutableTreeNode par_ = (AbstractMutableTreeNode) selectedNode.getParent();
         String dest_ = buildPath(par_)+targetName.getText();
@@ -405,10 +403,10 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         cancelDialog.addActionListener(new CloseTreeDialog(this));
         panel_.add(cancelDialog);
         scrollDialog.setViewportView(panel_);
-        GuiBaseUtil.recalculate(commonFrame.getPane());
+        GuiBaseUtil.recalculate(getCommonFrame().getPane());
     }
     void removeValidate() {
-        AbstractProgramInfos frs_ = commonFrame.getFrames();
+        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         String str_ = buildPath(selectedNode);
         AbstractMutableTreeNode par_ = (AbstractMutableTreeNode) selectedNode.getParent();
         if (!frs_.getFileCoreStream().newFile(str_).delete()){
@@ -428,7 +426,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     void clearTreeDialog() {
         setSelectedNode(null);
         scrollDialog.setVisible(false);
-        GuiBaseUtil.recalculate(commonFrame.getPane());
+        GuiBaseUtil.recalculate(getCommonFrame().getPane());
         changeEnable(getTree().selectEvt());
     }
 
@@ -546,10 +544,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     }
 
     protected ManageOptions manage(StringList _linesFiles) {
-        return new ManageOptions(commonFrame.getFrames().getLanguages(), _linesFiles, factory);
-    }
-    public AbsCommonFrame getCommonFrame() {
-        return commonFrame;
+        return new ManageOptions(getCommonFrame().getFrames().getLanguages(), _linesFiles, factory);
     }
 
     public AbsTreeGui getFolderSystem() {

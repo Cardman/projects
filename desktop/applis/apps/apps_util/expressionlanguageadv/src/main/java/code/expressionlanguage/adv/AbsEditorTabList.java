@@ -2,12 +2,15 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.gui.AbstractMutableTreeNode;
+import code.gui.GroupFrame;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public abstract class AbsEditorTabList {
+public abstract class AbsEditorTabList extends GroupFrame {
     private AbsResultContextNext resultContextNext;
-    protected AbsEditorTabList(AbsResultContextNext _a) {
+    protected AbsEditorTabList(AbsResultContextNext _a, String _lg, AbstractProgramInfos _list) {
+        super(_lg, _list);
         setResultContextNext(_a);
     }
 

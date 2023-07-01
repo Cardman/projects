@@ -663,7 +663,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
     @Override
     public void quit() {
-        basicDispose();
+        GuiBaseUtil.trEx(this);
         getButtonClick().setEnabled(true);
         /*if (containerGame instanceof ContainerMulti) {
             if (!getMultiStop().isEnabled()) {
@@ -705,7 +705,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            }
         }*/
     }
-    @Override
+//    @Override
     public void dispose() {
         netg.changerNombreDePartiesEnQuittant(this);
         ecrireCoordonnees();
@@ -713,7 +713,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 ////            helpFrames.first().dispose();
 //            helpFrames.first().setVisible(false);
 //        }
-        basicDispose();
+        GuiBaseUtil.trEx(this);
     }
 
 //    private int saving() {
@@ -1061,7 +1061,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         menuPrincipal();
         closeConnexion(_exit,_socket);
         if (_exit != null && _exit.isClosing()) {
-            basicDispose();
+            GuiBaseUtil.trEx(this);
             return;
         }
         pack();
@@ -1148,7 +1148,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         resetIndexInGame();
         closeConnexion(_exit,_socket);
         if (_exit != null && _exit.isClosing()) {
-            basicDispose();
+            GuiBaseUtil.trEx(this);
             return;
         }
         pack();

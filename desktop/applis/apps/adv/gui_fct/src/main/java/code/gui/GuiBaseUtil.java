@@ -179,7 +179,10 @@ public final class GuiBaseUtil {
         return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
 
-    public static void choose(String _lg, AbstractProgramInfos _list, AbsGroupFrame _this, StringMap<String> _res) {
+    public static void choose(String _lg, AbsOpenQuit _this, StringMap<String> _res) {
+        choose(_lg, _this.getCommonFrame().getFrames(),_this,_res);
+    }
+    public static void choose(String _lg, AbstractProgramInfos _list, AbsOpenQuit _this, StringMap<String> _res) {
         _list.getFrames().add(_this);
         AbsGroupFrame first_ = _list.getFrames().first();
         if (_list.getFrames().size() == 1) {
@@ -188,7 +191,7 @@ public final class GuiBaseUtil {
     }
 
     public static boolean tryToReopen(String _applicationName, AbstractProgramInfos _list) {
-        for (AbsGroupFrame g: _list.getFrames()) {
+        for (AbsOpenQuit g: _list.getFrames()) {
             if (StringUtil.quickEq(g.getApplicationName(), _applicationName)) {
                 g.getCommonFrame().pack();
                 g.getCommonFrame().setVisible(true);
@@ -261,5 +264,10 @@ public final class GuiBaseUtil {
         }
         _rec.finish();
         return true;
+    }
+
+    public static void trEx(AbsOpenQuit _t) {
+        tryExit(_t.getCommonFrame());
+        _t.getCommonFrame().getFrames().getCounts().getVal(_t.getApplicationName()).decrementAndGet();
     }
 }

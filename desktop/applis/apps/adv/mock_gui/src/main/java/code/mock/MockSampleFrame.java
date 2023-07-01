@@ -2,10 +2,11 @@ package code.mock;
 
 import code.gui.AbsCommonFrame;
 import code.gui.AbsGroupFrame;
+import code.gui.AbsOpenQuit;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
-public final class MockSampleFrame implements AbsGroupFrame {
+public final class MockSampleFrame implements AbsGroupFrame, AbsOpenQuit {
     private final AbsCommonFrame frame;
     private StringMap<String> messages = new StringMap<String>();
 //    private boolean changeable;

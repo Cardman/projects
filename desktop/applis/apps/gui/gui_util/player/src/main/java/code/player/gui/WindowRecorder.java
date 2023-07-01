@@ -8,7 +8,7 @@ import code.stream.AbsPlayBack;
 import code.stream.AbsSoundRecord;
 import code.stream.StreamBinaryFile;
 
-public final class WindowRecorder extends GroupFrame {
+public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
     private final AbsSlider rate;
     private final AbsSlider size;
     private final AbsSlider channel;
@@ -24,7 +24,8 @@ public final class WindowRecorder extends GroupFrame {
     private boolean built;
 
     public WindowRecorder(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list, MessGuiGr.ms());
+        super(_lg, _list);
+        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
         setTitle("recorder");
         soundRecord = _list.newSoundPattern();
         AbsPanel container_ = _list.getCompoFactory().newPageBox();
@@ -101,7 +102,7 @@ public final class WindowRecorder extends GroupFrame {
     }
     @Override
     public void quit() {
-        basicDispose();
+        GuiBaseUtil.trEx(this);
     }
 
     @Override

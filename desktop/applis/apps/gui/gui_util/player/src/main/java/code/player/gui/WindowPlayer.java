@@ -29,7 +29,7 @@ import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public final class WindowPlayer extends GroupFrame implements LineShortListenable {
+public final class WindowPlayer extends GroupFrame implements LineShortListenable,AbsOpenQuit {
     private static final String ACCESS = "player.gui.mainwindow";
 
     private static final String CST_START = "start";
@@ -97,7 +97,8 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private AbstractFuture abstractFuture;
 
     public WindowPlayer(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list, MessGuiGr.ms());
+        super(_lg, _list);
+        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
         initMessages(_lg);
         setTitle(messages.getVal(CST_TITLE_PLAYER));
         setIconImage(LaunchingPlayer.getIcon(_list.getImageFactory()));
@@ -142,10 +143,10 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         addWindowListener(new QuittingEvent(this));
     }
 
-    @Override
+//    @Override
     public void dispose() {
         saveState();
-        basicDispose();
+        GuiBaseUtil.trEx(this);
     }
 
     public void loadList(String _fileName) {
@@ -612,7 +613,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
 
     @Override
     public void quit() {
-        basicDispose();
+        GuiBaseUtil.trEx(this);
     }
 
 //    @Override

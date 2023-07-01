@@ -17,7 +17,7 @@ import code.util.StringList;
 import code.util.consts.Constants;
 import code.util.core.StringUtil;
 
-public final class WindowConverter extends GroupFrame {
+public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
 
     private static final String EMPTY_STRING = "";
 
@@ -44,7 +44,8 @@ public final class WindowConverter extends GroupFrame {
     private final AbsTextField pathExport;
 
     public WindowConverter(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list, MessGuiGr.ms());
+        super(_lg, _list);
+        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
         setTitle(CONVERT_IMAGE);
         AbsPanel content_ = _list.getCompoFactory().newPageBox();
         readImages = getCompoFactory().newCustCheckBox(READ_IMAGES);
@@ -166,11 +167,11 @@ public final class WindowConverter extends GroupFrame {
     }
     @Override
     public void quit() {
-        basicDispose();
+        GuiBaseUtil.trEx(this);
     }
 
     public void dispose() {
-        basicDispose();
+        GuiBaseUtil.trEx(this);
     }
 //    @Override
 //    public boolean canChangeLanguage() {

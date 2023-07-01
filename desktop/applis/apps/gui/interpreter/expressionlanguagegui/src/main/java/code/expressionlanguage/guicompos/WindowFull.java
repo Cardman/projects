@@ -18,7 +18,7 @@ import code.util.StringMap;
 
 
 
-public final class WindowFull extends GroupFrame {
+public final class WindowFull extends GroupFrame implements AbsOpenQuit{
     private final AbsMenu menu;
     private final AbsMenuItem open;
 
@@ -37,7 +37,8 @@ public final class WindowFull extends GroupFrame {
     private GuiContextEl context;
 
     public WindowFull(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos) {
-        super(_lg, _programInfos, MessGuiGr.ms());
+        super(_lg, _programInfos);
+        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
         cdmFactory = _list;
 //        currentElements = new GuiInterpreterElements(getFrames());
         setAccessFile("launcher.mainwindow");
@@ -91,9 +92,9 @@ public final class WindowFull extends GroupFrame {
         launchFileConf(fichier_,true);
     }
 
-    @Override
+//    @Override
     public void dispose() {
-        basicDispose();
+        GuiBaseUtil.trEx(this);
     }
 
     public void process() {
@@ -145,7 +146,7 @@ public final class WindowFull extends GroupFrame {
         coverage.setEnabled(false);
         stop.setEnabled(false);
         light = null;
-        basicDispose();
+        GuiBaseUtil.trEx(this);
     }
 
     @Override

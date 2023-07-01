@@ -29,7 +29,7 @@ import code.util.core.StringUtil;
 
 
 
-public final class WindowApps extends GroupFrame {
+public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 
     private static final String APPLICATIONS = "Applications";
 
@@ -49,7 +49,8 @@ public final class WindowApps extends GroupFrame {
     private final CustList<AbsRadioButton> radios = new CustList<AbsRadioButton>();
 
     public WindowApps(String _lg, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, CdmFactory _cdmFactory) {
-        super(_lg, _list, MessGuiGr.ms());
+        super(_lg, _list);
+        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
         setFocusableWindowState(true);
         setTitle(APPLICATIONS);
         AbsPanel panel_ = getCompoFactory().newPageBox();
@@ -164,7 +165,7 @@ public final class WindowApps extends GroupFrame {
     public void changeLanguage(String _language) {
         setLanguageKey(_language);
         StreamLanguageUtil.saveLanguage(LaunchingApplications.getTempFolder(getFrames()), _language,getStreams());
-        for (AbsGroupFrame g: getFrames().getFrames()) {
+        for (AbsOpenQuit g: getFrames().getFrames()) {
             g.changeLanguage(_language);
         }
         selectLangagueButton(_language);

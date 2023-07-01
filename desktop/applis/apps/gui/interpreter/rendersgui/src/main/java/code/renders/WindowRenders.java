@@ -33,7 +33,7 @@ import code.util.ints.UniformingString;
 
 
 
-public final class WindowRenders extends GroupFrame {
+public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
     private final AbsMenu menu;
     private final AbsMenuItem open;
     private final AbsTextField lgCode;
@@ -42,7 +42,8 @@ public final class WindowRenders extends GroupFrame {
     private final CdmFactory interceptor;
 
     public WindowRenders(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos) {
-        super(_lg, _programInfos, MessGuiGr.ms());
+        super(_lg, _programInfos);
+        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
         interceptor = _list;
         setJMenuBar(getCompoFactory().newMenuBar());
         menu = getCompoFactory().newMenu("file");
@@ -86,9 +87,9 @@ public final class WindowRenders extends GroupFrame {
         return CustThreadActions.inst(_page, _init,_nav);
     }
 
-    @Override
+//    @Override
     public void dispose() {
-        basicDispose();
+        GuiBaseUtil.trEx(this);
     }
 
     public void load() {
@@ -181,7 +182,7 @@ public final class WindowRenders extends GroupFrame {
 
     @Override
     public void quit() {
-        basicDispose();
+        GuiBaseUtil.trEx(this);
     }
 
     @Override

@@ -34,7 +34,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGroupFrame {
+public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGroupFrame,AbsOpenQuit {
     public static final String TEMP_FOLDER = "10";
     public static final String NODE_FILES = "0";
     public static final String NODE_EXP_FILES = "1";
@@ -44,19 +44,15 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     public static final String DEF_CONF = "0";
     public static final String ROOT_CONF = "_";
     public static final String CDM_EDITOR = "cdm_editor";
-    private final FileSaveDialogAbs fileSaveDialogInt;
     private final AbsDialog dialogSoft;
     private final AbsDialog dialogFolderExpression;
     private final AbsMenuItem folderExpressionMenu;
     private final AbsMenuItem softParamsMenu;
     private final AbsMenuItem analyzeMenu;
     private final AbsMenuItem analyzeMenuSt;
-    private final FileOpenDialogAbs fileOpenDialogInt;
-    private final FolderOpenDialogAbs folderOpenDialogInt;
     private final AdvResultContextNext mainResultNext;
     private final SetterLanguage setterLanguage;
     private final StringMap<String> coreMessages;
-    private StringMap<String> messages;
     private final AbsMenuItem chooseFile;
     private final AbsPlainButton chooseFolder;
     private final AbsPlainButton createFile;
@@ -91,14 +87,11 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         statusAnalyze.setContentPane(_list.getCompoFactory().newAbsScrollPane(statusAnalyzeArea));
         statusAnalyze.pack();
         softParams = new CdmParameterSoftModel();
-        fileOpenDialogInt = _list.getFileOpenDialogInt();
-        fileSaveDialogInt = _list.getFileSaveDialogInt();
-        folderOpenDialogInt = _list.getFolderOpenDialogInt();
         setterLanguage = _list.getSetterLanguage();
         dialogSoft = _list.getFrameFactory().newDialog();
         dialogFolderExpression = _list.getFrameFactory().newDialog();
         coreMessages = MessGuiGr.ms();
-        GuiBaseUtil.choose(_lg, _list, this, coreMessages);
+        GuiBaseUtil.choose(_lg, this, coreMessages);
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
         AbsMenu file_ = _list.getCompoFactory().newMenu("file");
         bar_.add(file_);
@@ -360,18 +353,6 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         }
     }
 
-    public FileOpenDialogAbs getFileOpenDialogInt() {
-        return fileOpenDialogInt;
-    }
-
-    public FileSaveDialogAbs getFileSaveDialogInt() {
-        return fileSaveDialogInt;
-    }
-
-    public FolderOpenDialogAbs getFolderOpenDialogInt() {
-        return folderOpenDialogInt;
-    }
-
     public AbsTextField getSrcFolder() {
         return srcFolder;
     }
@@ -521,13 +502,6 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         return CDM_EDITOR;
     }
 
-    public StringMap<String> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(StringMap<String> _messages) {
-        this.messages = _messages;
-    }
     @Override
     public void changeLanguage(String _language) {
         getCommonFrame().setLanguageKey(_language);
@@ -546,8 +520,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     @Override
     public void quit() {
         closeAll();
-        GuiBaseUtil.tryExit(getCommonFrame());
-        getCommonFrame().getFrames().getCounts().getVal(getApplicationName()).decrementAndGet();
+        GuiBaseUtil.trEx(this);
     }
 
     public void closeAll() {

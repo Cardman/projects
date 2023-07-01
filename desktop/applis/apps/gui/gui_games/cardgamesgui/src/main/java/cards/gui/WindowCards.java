@@ -59,7 +59,7 @@ import code.util.core.*;
 
     fenetre principale non redimensionnable
  Au premier lancement, il y une barre de menus et quatre boutons de jeu*/
-public final class WindowCards extends GroupFrame implements WindowCardsInt {
+public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsOpenQuit {
 //public final class WindowCards extends NetGroupFrame
 
     public static final String TOO_GAME = "tooGame";
@@ -445,7 +445,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
                        StringMap<StringMap<PreparedPagesCards>> _president,
                        StringMap<StringMap<PreparedPagesCards>> _tarot,
                        CardFactories _cardFactories) {
-        super(_lg, _list, MessGuiGr.ms());
+        super(_lg, _list);
+        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
         core = new WindowCardsCore(_lg, _list, _belote, _president, _tarot, _cardFactories);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
@@ -623,7 +624,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
     }*/
     @Override
     public void quit() {
-        basicDispose();
+        GuiBaseUtil.trEx(this);
         closeOpened();
         /*if (containerGame instanceof ContainerMulti) {
             if (!getMultiStop().isEnabled()) {
@@ -665,12 +666,12 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
 //            }
         }*/
     }
-    @Override
+//    @Override
     public void dispose() {
         changerNombreDePartiesEnQuittant();
         ecrireCoordonnees();
         closeOpened();
-        basicDispose();
+        GuiBaseUtil.trEx(this);
     }
 
     private void closeOpened() {

@@ -1,12 +1,12 @@
 package code.gui.events;
 
-import code.gui.AbsGroupFrame;
+import code.gui.AbsOpenQuit;
 
 public class QuittingEvent implements AbsWindowListenerClosing {
 
-    private final AbsGroupFrame frame;
+    private final AbsOpenQuit frame;
 
-    public QuittingEvent(AbsGroupFrame _frame) {
+    public QuittingEvent(AbsOpenQuit _frame) {
         frame = _frame;
     }
 

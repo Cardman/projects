@@ -2,7 +2,7 @@ package code.gui.initialize;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.AbsButton;
-import code.gui.AbsGroupFrame;
+import code.gui.AbsOpenQuit;
 import code.gui.images.AbstractImageFactory;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.util.Translations;
@@ -15,7 +15,7 @@ import code.util.StringMap;
 
 public class ProgramInfosBase {
     private Translations translations = new Translations();
-    private final CustList<AbsGroupFrame> frames = new CustList<AbsGroupFrame>();
+    private final CustList<AbsOpenQuit> frames = new CustList<AbsOpenQuit>();
     private final StringMap<AbstractAtomicInteger> counts = new StringMap<AbstractAtomicInteger>();
     private final StringMap<AbsButton> buttons = new StringMap<AbsButton>();
     private final String homePath;
@@ -51,7 +51,7 @@ public class ProgramInfosBase {
         return tmpUserFolder;
     }
 
-    public CustList<AbsGroupFrame> getFrames() {
+    public CustList<AbsOpenQuit> getFrames() {
         return frames;
     }
 

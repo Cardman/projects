@@ -1,6 +1,8 @@
 package code.network;
 
+import code.gui.AbsOpenQuit;
 import code.gui.GroupFrame;
+import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.AbstractServerSocket;
 import code.gui.initialize.AbstractSocket;
@@ -14,7 +16,7 @@ import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
 import code.util.StringList;
 
-public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
+public abstract class NetGroupFrame extends GroupFrame implements NetWindow, AbsOpenQuit {
 
     private AbstractSocket socket;
 
@@ -30,7 +32,8 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     private BasicClient basicClient;
 
     protected NetGroupFrame(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list, MessGuiGr.ms());
+        super(_lg, _list);
+        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
         lock = _list.getThreadFactory().newExecutorService();
     }
     /**

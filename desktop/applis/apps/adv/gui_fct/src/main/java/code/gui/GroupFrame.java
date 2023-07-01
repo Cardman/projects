@@ -28,19 +28,14 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     private final FileOpenDialogAbs fileOpenDialogInt;
     private final FileSaveDialogAbs fileSaveDialogInt;
 
-    protected GroupFrame(String _lg, AbstractProgramInfos _list, StringMap<String> _ms) {
+    protected GroupFrame(String _lg, AbstractProgramInfos _list) {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
-        choose(_lg, _list, _ms);
         confirmDialogText = _list.getConfirmDialogText();
         confirmDialogAns = _list.getConfirmDialogAns();
         folderOpenDialogInt = _list.getFolderOpenDialogInt();
         fileOpenDialogInt = _list.getFileOpenDialogInt();
         fileSaveDialogInt = _list.getFileSaveDialogInt();
         languageDialog = _list.getSetterLanguage();
-    }
-
-    private void choose(String _lg, AbstractProgramInfos _list, StringMap<String> _ms) {
-        GuiBaseUtil.choose(_lg, _list, this, _ms);
     }
 
     public void setImageIconFrame(AbstractImage _imageIconFrame) {
@@ -156,35 +151,35 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     }
 
     //@Override
-    public void dispose() {
-        basicDispose();
-    }
+//    public void dispose() {
+//        basicDispose();
+//    }
 
-    public void basicDispose() {
-        //int index_ = CustList.FIRST_INDEX;
-//        for (GroupFrame g: FRAMES) {
-//            if (g == this) {
-//                //super.dispose();
-//                setVisible(false);
-//                //FRAMES.remove(index_);
-//                break;
-//            }
-//            //index_ ++;
-//        }
-        setVisible(false);
-//        int nbOpenedWindows_ = CustList.SIZE_EMPTY;
-//        for (Window w: Window.getWindows()) {
-//            if (w == null) {
-//                continue;
-//            }
-//            if (w.isDisplayable()) {
-//                nbOpenedWindows_ ++;
-//            }
-//        }
-//        if(index_ == CustList.SIZE_EMPTY) {}
-        GuiBaseUtil.tryExit(this.getCommonFrame());
-        getFrames().getCounts().getVal(getApplicationName()).decrementAndGet();
-    }
+//    public void basicDispose() {
+//        //int index_ = CustList.FIRST_INDEX;
+////        for (GroupFrame g: FRAMES) {
+////            if (g == this) {
+////                //super.dispose();
+////                setVisible(false);
+////                //FRAMES.remove(index_);
+////                break;
+////            }
+////            //index_ ++;
+////        }
+//        setVisible(false);
+////        int nbOpenedWindows_ = CustList.SIZE_EMPTY;
+////        for (Window w: Window.getWindows()) {
+////            if (w == null) {
+////                continue;
+////            }
+////            if (w.isDisplayable()) {
+////                nbOpenedWindows_ ++;
+////            }
+////        }
+////        if(index_ == CustList.SIZE_EMPTY) {}
+//        GuiBaseUtil.tryExit(this.getCommonFrame());
+//        getFrames().getCounts().getVal(getApplicationName()).decrementAndGet();
+//    }
 
     public void nativeExit() {
         GuiBaseUtil.removeAllListeners(getCommonFrame());

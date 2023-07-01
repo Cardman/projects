@@ -15,7 +15,7 @@ public interface AbstractProgramInfos extends AbstractLightProgramInfos {
     StringList getExcludedFolders();
     String getHomePath();
     String getTmpUserFolder();
-    CustList<AbsGroupFrame> getFrames();
+    CustList<AbsOpenQuit> getFrames();
     AbsFrameFactory getFrameFactory();
     StringMap<AbstractAtomicInteger> getCounts();
     StringMap<AbsButton> getButtons();

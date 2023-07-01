@@ -22,7 +22,7 @@ import code.util.StringMap;
 
 
 
-public final class WindowRts extends GroupFrame {
+public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 
     public static final String MOUSE_ARROW_FILE = "resources_rts/mouse_arrow.txt";
 
@@ -61,7 +61,8 @@ public final class WindowRts extends GroupFrame {
     private String noteFile = "";
 
     public WindowRts(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list, MessGuiGr.ms());
+        super(_lg, _list);
+        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
         CustList<AbsMetaLabelRts> elts_ = new CustList<AbsMetaLabelRts>();
         stopped = _list.getThreadFactory().newAtomicBoolean();
         stopped.set(true);
@@ -153,9 +154,9 @@ public final class WindowRts extends GroupFrame {
         getFrames().getFrameFactory().setCursor(_battlegroundWrapper,_wCurs, _hCurs, _pixels);
     }
 
-    @Override
+//    @Override
     public void dispose() {
-        basicDispose();
+        GuiBaseUtil.trEx(this);
     }
 
     public void setEnabledPause(boolean _enabled) {
@@ -271,7 +272,7 @@ public final class WindowRts extends GroupFrame {
 
     @Override
     public void quit() {
-        basicDispose();
+        GuiBaseUtil.trEx(this);
     }
 
     @Override

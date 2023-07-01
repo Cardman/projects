@@ -31,7 +31,7 @@ import code.util.ints.UniformingString;
 
 
 
-public final class WindowUnit extends GroupFrame implements TestableFrame {
+public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpenQuit {
     private final AbsMenu menu;
     private final AbsMenuItem open;
     private final AbsCheckBoxMenuItem logErr;
@@ -68,7 +68,8 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     private final CommonExecution commonExecution;
 
     public WindowUnit(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos) {
-        super(_lg, _programInfos, MessGuiGr.ms());
+        super(_lg, _programInfos);
+        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
         exec = _programInfos.getThreadFactory().newExecutorService();
         interceptor = _list;
         setAccessFile("unit.mainwindow");
@@ -155,9 +156,9 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         return interceptor;
     }
 
-    @Override
+//    @Override
     public void dispose() {
-        basicDispose();
+        GuiBaseUtil.trEx(this);
     }
 
     public void stop() {
@@ -183,7 +184,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         }
         filesFrame.setVisible(false);
         simpleFrame.setEnabled(true);
-        basicDispose();
+        GuiBaseUtil.trEx(this);
     }
 
     @Override
