@@ -11,6 +11,7 @@ import code.maths.geo.CustPoint;
 import code.minirts.events.*;
 import code.minirts.rts.RtsDirection;
 import code.minirts.rts.Facade;
+import code.scripts.messages.gui.MessGuiGr;
 import code.scripts.messages.gui.MessPlayerGr;
 import code.threads.*;
 import code.util.CustList;
@@ -60,7 +61,7 @@ public final class WindowRts extends GroupFrame {
     private String noteFile = "";
 
     public WindowRts(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list);
+        super(_lg, _list, MessGuiGr.ms());
         CustList<AbsMetaLabelRts> elts_ = new CustList<AbsMetaLabelRts>();
         stopped = _list.getThreadFactory().newAtomicBoolean();
         stopped.set(true);

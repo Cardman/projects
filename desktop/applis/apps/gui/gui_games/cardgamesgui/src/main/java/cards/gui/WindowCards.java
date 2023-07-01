@@ -445,7 +445,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
                        StringMap<StringMap<PreparedPagesCards>> _president,
                        StringMap<StringMap<PreparedPagesCards>> _tarot,
                        CardFactories _cardFactories) {
-        super(_lg, _list);
+        super(_lg, _list, MessGuiGr.ms());
         core = new WindowCardsCore(_lg, _list, _belote, _president, _tarot, _cardFactories);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);

@@ -7,6 +7,7 @@ import code.gui.initialize.AbstractSocket;
 import code.gui.initialize.AbstractSocketFactory;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
+import code.scripts.messages.gui.MessGuiGr;
 import code.sml.Document;
 import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractFuture;
@@ -29,7 +30,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     private BasicClient basicClient;
 
     protected NetGroupFrame(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list);
+        super(_lg, _list, MessGuiGr.ms());
         lock = _list.getThreadFactory().newExecutorService();
     }
     /**

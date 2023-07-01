@@ -46,6 +46,7 @@ import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
 //import code.gui.initialize.AbstractSocket;
 //import code.network.*;
+import code.scripts.messages.gui.MessGuiGr;
 import code.scripts.messages.gui.MessGuiPkGr;
 //import code.sml.Document;
 //import code.sml.Element;
@@ -255,7 +256,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
     private final AbstractBaseExecutorService expThread;
 
     public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
-        super(_lg, _list);
+        super(_lg, _list, MessGuiGr.ms());
         expThread = _list.getThreadFactory().newExecutorService();
         selectEgg = new SelectEgg(_list);
         selectPokemon = new SelectPokemon(_list);

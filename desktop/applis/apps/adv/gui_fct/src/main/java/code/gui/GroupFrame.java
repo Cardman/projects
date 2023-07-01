@@ -9,7 +9,6 @@ import code.gui.images.MetaPoint;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
-import code.scripts.messages.gui.MessGuiGr;
 import code.stream.AbstractFileCoreStream;
 import code.stream.core.TechStreams;
 import code.threads.AbstractThreadFactory;
@@ -29,9 +28,9 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     private final FileOpenDialogAbs fileOpenDialogInt;
     private final FileSaveDialogAbs fileSaveDialogInt;
 
-    protected GroupFrame(String _lg, AbstractProgramInfos _list) {
+    protected GroupFrame(String _lg, AbstractProgramInfos _list, StringMap<String> _ms) {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
-        choose(_lg, _list);
+        choose(_lg, _list, _ms);
         confirmDialogText = _list.getConfirmDialogText();
         confirmDialogAns = _list.getConfirmDialogAns();
         folderOpenDialogInt = _list.getFolderOpenDialogInt();
@@ -40,8 +39,8 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         languageDialog = _list.getSetterLanguage();
     }
 
-    private void choose(String _lg, AbstractProgramInfos _list) {
-        GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
+    private void choose(String _lg, AbstractProgramInfos _list, StringMap<String> _ms) {
+        GuiBaseUtil.choose(_lg, _list, this, _ms);
     }
 
     public void setImageIconFrame(AbstractImage _imageIconFrame) {
@@ -71,18 +70,9 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         commonFrame.setLanguageKey(_language);
     }
 
-    public AbstractImage getImageIconFrame() {
-        return commonFrame.getImageIconFrame();
-    }
-
     //@Override
     public void setAccessFile(String _accessFile) {
         commonFrame.setAccessFile(_accessFile);
-    }
-
-    //@Override
-    public int getWidth() {
-        return commonFrame.getWidth();
     }
 
     //@Override
@@ -92,11 +82,6 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
 
     //@Override
     public void setContentPane(AbsPanel _contentPane) {
-        commonFrame.setContentPane(_contentPane);
-    }
-
-    //@Override
-    public void setContentPane(AbsScrollPane _contentPane) {
         commonFrame.setContentPane(_contentPane);
     }
 
@@ -120,30 +105,6 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         commonFrame.setJMenuBar(_menu);
     }
 
-    //@Override
-    public void setLocation(int _x, int _y) {
-        commonFrame.setLocation(_x, _y);
-    }
-
-    //@Override
-    public void setLocationRelativeTo(AbsCommonFrame _c) {
-        commonFrame.setLocationRelativeTo(_c);
-    }
-
-    //@Override
-    public void setLocationRelativeTo(AbsCustComponent _c) {
-        commonFrame.setLocationRelativeTo(_c);
-    }
-
-    //@Override
-    public void setLocationRelativeToNull() {
-        commonFrame.setLocationRelativeToNull();
-    }
-
-    public void setOwner(Ownable _owner) {
-        commonFrame.setOwner(_owner);
-    }
-
     public void setTitle(String _title) {
         commonFrame.setTitle(_title);
     }
@@ -164,29 +125,12 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     }
 
     //@Override
-    public int getHeight() {
-        return commonFrame.getHeight();
-    }
-
-    //@Override
     public String getAccessFile() {
         return commonFrame.getAccessFile();
     }
 
-    public Ownable getOwner() {
-        return commonFrame.getOwner();
-    }
-
-    public MetaPoint getLocationOnScreen() {
-        return commonFrame.getLocationOnScreen();
-    }
-
     public String getTitle() {
         return commonFrame.getTitle();
-    }
-
-    public boolean isVisible() {
-        return commonFrame.isVisible();
     }
 
     public void addWindowListener(AbsWindowListenerClosing _l) {

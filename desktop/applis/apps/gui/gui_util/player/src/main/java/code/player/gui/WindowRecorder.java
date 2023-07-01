@@ -3,6 +3,7 @@ package code.player.gui;
 import code.gui.*;
 import code.gui.events.*;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.messages.gui.MessGuiGr;
 import code.stream.AbsPlayBack;
 import code.stream.AbsSoundRecord;
 import code.stream.StreamBinaryFile;
@@ -23,7 +24,7 @@ public final class WindowRecorder extends GroupFrame {
     private boolean built;
 
     public WindowRecorder(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list);
+        super(_lg, _list, MessGuiGr.ms());
         setTitle("recorder");
         soundRecord = _list.newSoundPattern();
         AbsPanel container_ = _list.getCompoFactory().newPageBox();

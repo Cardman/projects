@@ -281,6 +281,48 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         GuiBaseUtil.recordSong(m_);
         assertFalse(launch(m_));
     }
+    @Test
+    public void gr() {
+        MockProgramInfosSecSample pr_ = init();
+        pr_.getCounts().addEntry("",new MockAtomicInteger());
+        GroupFrame s_ = new SampleGroupFrame("",pr_,new StringMap<String>());
+        s_.setImageIconFrame(null);
+        s_.getFolderOpenDialogInt();
+        s_.getFileOpenDialogInt();
+        s_.getFileSaveDialogInt();
+        s_.getConfirmDialogText();
+        s_.getConfirmDialogAns();
+        s_.getLanguageDialog();
+        s_.getValidator();
+        s_.getFileCoreStream();
+        s_.getStreams();
+        s_.getThreadFactory();
+        s_.getCompoFactory();
+        s_.getImageFactory();
+        s_.getGenerator();
+        s_.setContentPane(new MockPanel(MockLayout.ABSOLUTE));
+        s_.revalidateFrame();
+        s_.pack();
+        s_.requestFocus();
+        s_.changeLanguage("");
+        s_.quit();
+        s_.dispatchExit();
+        s_.dispose();
+        s_.setJMenuBar(new MockMenuBar());
+        s_.getPane().add(new MockPlainLabel(""));
+        s_.getJMenuBar().add(new MockMenu(""));
+        s_.setFocusable(true);
+        s_.setFocusable(false);
+        s_.setFocusableWindowState(true);
+        s_.setFocusableWindowState(false);
+        s_.addWindowListener(new QuittingEvent(s_));
+        s_.setAccessFile("");
+        s_.getLocation();
+        assertEq("",s_.getAccessFile());
+        assertEq(0,s_.getMessages().size());
+        s_.setTitle("frime");
+        assertEq("frime",s_.getTitle());
+    }
     private boolean launch(MockSoundRecord _pl) {
         return GuiBaseUtil.launch(_pl.build());
     }

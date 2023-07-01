@@ -9,6 +9,7 @@ import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.images.BaseSixtyFourUtil;
+import code.scripts.messages.gui.MessGuiGr;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
@@ -43,7 +44,7 @@ public final class WindowConverter extends GroupFrame {
     private final AbsTextField pathExport;
 
     public WindowConverter(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list);
+        super(_lg, _list, MessGuiGr.ms());
         setTitle(CONVERT_IMAGE);
         AbsPanel content_ = _list.getCompoFactory().newPageBox();
         readImages = getCompoFactory().newCustCheckBox(READ_IMAGES);

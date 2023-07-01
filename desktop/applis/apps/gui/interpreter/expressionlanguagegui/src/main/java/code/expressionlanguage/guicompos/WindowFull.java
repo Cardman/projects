@@ -10,6 +10,7 @@ import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.*;
 import code.scripts.messages.gui.MessCdmGuiGr;
+import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
@@ -36,7 +37,7 @@ public final class WindowFull extends GroupFrame {
     private GuiContextEl context;
 
     public WindowFull(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos) {
-        super(_lg, _programInfos);
+        super(_lg, _programInfos, MessGuiGr.ms());
         cdmFactory = _list;
 //        currentElements = new GuiInterpreterElements(getFrames());
         setAccessFile("launcher.mainwindow");
