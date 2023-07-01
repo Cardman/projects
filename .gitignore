@@ -302,6 +302,11 @@
 !/desktop/applis/apps/gui/guicust/src/**/
 !/desktop/applis/apps/gui/guicust/src/**/*.java
 !/desktop/applis/apps/gui/interpreter/
+!/desktop/applis/apps/gui/interpreter/expressionlanguageadvlaunch/
+!/desktop/applis/apps/gui/interpreter/expressionlanguageadvlaunch/pom.xml
+!/desktop/applis/apps/gui/interpreter/expressionlanguageadvlaunch/src/
+!/desktop/applis/apps/gui/interpreter/expressionlanguageadvlaunch/src/**/
+!/desktop/applis/apps/gui/interpreter/expressionlanguageadvlaunch/src/**/*.java
 !/desktop/applis/apps/gui/interpreter/expressionlanguagegui/
 !/desktop/applis/apps/gui/interpreter/expressionlanguagegui/pom.xml
 !/desktop/applis/apps/gui/interpreter/expressionlanguagegui/src/

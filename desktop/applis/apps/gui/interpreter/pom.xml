@@ -12,6 +12,7 @@
 	<artifactId>interpreter</artifactId>
 	<packaging>pom</packaging>
 	<modules>
+		<module>expressionlanguageadvlaunch</module>
 		<module>expressionlanguagegui</module>
 		<module>expressionlanguageunit</module>
 		<module>rendersgui</module>
