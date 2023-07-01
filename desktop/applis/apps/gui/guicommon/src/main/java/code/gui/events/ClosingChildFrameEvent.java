@@ -1,12 +1,12 @@
 package code.gui.events;
 
-import code.gui.ChildFrame;
+import code.gui.AbsChildFrame;
 
 public class ClosingChildFrameEvent implements AbsWindowListenerClosing {
 
-    private final ChildFrame frame;
+    private final AbsChildFrame frame;
 
-    public ClosingChildFrameEvent(ChildFrame _frame) {
+    public ClosingChildFrameEvent(AbsChildFrame _frame) {
         frame = _frame;
     }
 

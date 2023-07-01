@@ -23,7 +23,7 @@ import code.util.core.StringUtil;
 
 
 
-public final class SimpleFilesFrame extends ChildFrame implements TestableFrame {
+public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,AbsChildFrame {
     private static final String DIALOG_ACCESS = "unit.simplefilesframe";
     private final AbsMenu menu;
     private final AbsMenuItem open;
@@ -60,14 +60,14 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     private String filePath = "";
 
     public SimpleFilesFrame(WindowUnit _parent, String _title) {
-        super(_parent.getLanguageKey(),_parent);
+        super(_parent.getLanguageKey(),_parent.getFrames());
         parent =_parent;
         setAccessFile(DIALOG_ACCESS);
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_unit/gui/messages", getLanguageKey(), getAccessFile());
         String loadedResourcesMessages_ = MessCdmUnitGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         setDialogIcon(_parent.getCommonFrame());
-        setLocationRelativeTo(_parent);
+        getCommonFrame().setLocationRelativeTo(_parent.getCommonFrame());
         setTitle(_title);
         setFocusableWindowState(true);
         setJMenuBar(parent.getCompoFactory().newMenuBar());
@@ -163,7 +163,10 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         setVisible(false);
         parent.getSimpleFrame().setEnabled(true);
     }
-
+    public void setDialogIcon(AbsCommonFrame _group) {
+        setIconImage(_group.getImageIconFrame());
+        setImageIconFrame(_group.getImageIconFrame());
+    }
 //    @Override
 //    public boolean ok(String _file) {
 //        AbstractThread th_ = parent.getTh();

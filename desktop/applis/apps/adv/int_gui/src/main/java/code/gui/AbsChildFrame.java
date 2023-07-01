@@ -1,6 +1,6 @@
 package code.gui;
 
-public interface AbsChildFrame extends ChangeableTitle {
+public interface AbsChildFrame {
     void setDialogIcon(AbsCommonFrame _group);
     void closeWindow();
     AbsCommonFrame getCommonFrame();

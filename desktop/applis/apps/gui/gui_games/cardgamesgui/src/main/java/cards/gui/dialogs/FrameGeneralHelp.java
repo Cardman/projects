@@ -20,7 +20,7 @@ import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-public final class FrameGeneralHelp extends ChildFrame {
+public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.framegeneralhelp";
 
 //    private static final String TRUMP_SUIT = "trumpSuit";
@@ -59,7 +59,7 @@ public final class FrameGeneralHelp extends ChildFrame {
     private final AbsMenuItem menuItem;
 
     public FrameGeneralHelp(String _titre, WindowCards _fenetre, AbsMenuItem _menu) {
-        super(_fenetre.getLanguageKey(),_fenetre);
+        super(_fenetre.getLanguageKey(),_fenetre.getFrames());
         setAccessFile(DIALOG_ACCESS);
         setDialogIcon(_fenetre.getCommonFrame());
         setTitle(_titre);
@@ -70,7 +70,10 @@ public final class FrameGeneralHelp extends ChildFrame {
         menuItem.setEnabled(false);
         //window = _fenetre;
     }
-
+    public void setDialogIcon(AbsCommonFrame _group) {
+        setIconImage(_group.getImageIconFrame());
+        setImageIconFrame(_group.getImageIconFrame());
+    }
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
     public static void initialize(NatNavigation _nav, MetaDocument _metaDoc, RenderedPage _cur) {
         coreInfos(_cur, _nav);

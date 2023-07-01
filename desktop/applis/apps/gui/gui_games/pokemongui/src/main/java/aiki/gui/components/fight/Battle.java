@@ -54,7 +54,7 @@ import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class Battle extends ChildFrame {
+public class Battle extends GroupFrame implements AbsChildFrame {
 
     private static final String BATTLE = "aiki.gui.components.fight.battle";
     private static final String ACTION_TYPE = "aiki.game.fight.enums.actiontype";
@@ -233,17 +233,17 @@ public class Battle extends ChildFrame {
     private final AbsPanel forms = getFrames().getCompoFactory().newLineBox();
     private final AbsPanel team = getFrames().getCompoFactory().newPageBox();
     public Battle(WindowAiki _window, FacadeGame _facade, FrontBattle _frontBattle) {
-        super(_window.getLanguageKey(),_window);
+        super(_window.getLanguageKey(),_window.getFrames());
 //        super(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
 //        splitter = new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
 //        setContentPane(splitter);
         facade = _facade;
         scroll = getFrames().getCompoFactory().newAbsScrollPane(lower);
-        setContentPane(scroll);
+        getCommonFrame().setContentPane(scroll);
         window = _window;
         nickname = _window.getCompoFactory().newPlainLabel("");
         setDialogIcon(_window.getCommonFrame());
-        setLocationRelativeTo(_window);
+        getCommonFrame().setLocationRelativeTo(_window.getCommonFrame());
         frontBattle = _frontBattle;
         //scrollUpper = new JScrollPane(upper);
         //actionsBattle = new JSplitPane(JSplitPane.VERTICAL_SPLIT, scrollUpper, new JScrollPane(lower));
@@ -261,7 +261,10 @@ public class Battle extends ChildFrame {
     public void closeWindow() {
         setVisible(false);
     }
-
+    public void setDialogIcon(AbsCommonFrame _group) {
+        setIconImage(_group.getImageIconFrame());
+        setImageIconFrame(_group.getImageIconFrame());
+    }
     public void initMessages() {
         String lg_ = window.getLanguageKey();
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, BATTLE);
@@ -1044,7 +1047,7 @@ public class Battle extends ChildFrame {
     public void refreshSession() {
         for (FrameHtmlData f: htmlDialogs) {
             f.setTitle(messages.getVal(TITLE));
-            if (!f.isVisible()) {
+            if (!f.getCommonFrame().isVisible()) {
                 continue;
             }
             f.refresh(window);
@@ -1055,7 +1058,7 @@ public class Battle extends ChildFrame {
     public void resetWindows() {
         if (facade.isChangeToFightScene()) {
             if (!htmlDialogs.isEmpty()) {
-                if (htmlDialogs.first().isVisible()) {
+                if (htmlDialogs.first().getCommonFrame().isVisible()) {
 //                    AbstractThread fightThread_ = window.getPreparedFightThread();
                     PreparedRenderedPages fightTask_ = window.getPreparedFightTask();
 //                    if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
@@ -1565,7 +1568,7 @@ public class Battle extends ChildFrame {
         if (htmlDialogs.isEmpty()) {
             return false;
         }
-        return htmlDialogs.first().isVisible();
+        return htmlDialogs.first().getCommonFrame().isVisible();
     }
 
     public WindowAiki getWindow() {

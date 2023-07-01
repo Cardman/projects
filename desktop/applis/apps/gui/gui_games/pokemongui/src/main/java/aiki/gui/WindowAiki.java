@@ -1005,7 +1005,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         pack();
         for (FrameHtmlData f: htmlDialogs) {
             f.setTitle(messages.getVal(TITLE_WEB));
-            if (!f.isVisible()) {
+            if (!f.getCommonFrame().isVisible()) {
                 continue;
             }
             f.refresh(this);
@@ -1072,7 +1072,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         if (htmlDialogs.isEmpty()) {
             return false;
         }
-        return htmlDialogs.first().isVisible();
+        return htmlDialogs.first().getCommonFrame().isVisible();
     }
     private void ecrireCoordonnees() {
         MetaPoint point_=getLocation();

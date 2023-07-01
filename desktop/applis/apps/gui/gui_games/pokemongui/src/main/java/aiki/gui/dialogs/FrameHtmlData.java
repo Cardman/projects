@@ -20,7 +20,7 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
-public final class FrameHtmlData extends ChildFrame {
+public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.framehtmldata";
 
     private static final String TEXT = "0";
@@ -37,16 +37,16 @@ public final class FrameHtmlData extends ChildFrame {
     private final AbsMenuItem menuItem;
 
     public FrameHtmlData(WindowAiki _parent, String _title, RenderedPage _session, AbsMenuItem _m) {
-        super(_parent.getLanguageKey(),_parent);
+        super(_parent.getLanguageKey(),_parent.getFrames());
         setAccessFile(DIALOG_ACCESS);
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
         setDialogIcon(_parent.getCommonFrame());
-        setLocationRelativeTo(_parent);
+        getCommonFrame().setLocationRelativeTo(_parent.getCommonFrame());
         setTitle(_title);
         dialog = new ProgressingWebDialog(_parent.getFrames());
         setFocusableWindowState(true);
         session = _session;
-        session.setFrame(this);
+        session.setFrame(getCommonFrame());
         session.setDialog(dialog);
         AbsPanel panel_ = _parent.getCompoFactory().newPageBox();
         AbsPlainLabel area_ = _parent.getCompoFactory().newPlainLabel(TEXT);
@@ -67,7 +67,10 @@ public final class FrameHtmlData extends ChildFrame {
         menuItem = _m;
         menuItem.setEnabled(false);
     }
-
+    public void setDialogIcon(AbsCommonFrame _group) {
+        setIconImage(_group.getImageIconFrame());
+        setImageIconFrame(_group.getImageIconFrame());
+    }
     public static void initializeOnlyConf(PreparedAnalyzed _prepared, String _lg, BeanNatCommonLgNamesForm _stds, RenderedPage _cur) {
         NatNavigation n_ = _prepared.getNavigation();
         n_.setLanguage(_lg);
