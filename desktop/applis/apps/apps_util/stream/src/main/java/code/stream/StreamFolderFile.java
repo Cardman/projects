@@ -12,6 +12,14 @@ public final class StreamFolderFile {
     private StreamFolderFile() {
     }
 
+    public static StringList getFilesNames(AbstractFileCoreStream _list,String[] _args) {
+        StringList files_ = new StringList();
+        for (String s: _args) {
+            files_.add(StringUtil.replaceBackSlash(_list.newFile(s).getAbsolutePath()));
+        }
+        return files_;
+    }
+
     public static String getCurrentPath(AbstractFileCoreStream _list) {
         return StringUtil.replaceBackSlashDot(_list.newFile(".").getAbsolutePath());
     }

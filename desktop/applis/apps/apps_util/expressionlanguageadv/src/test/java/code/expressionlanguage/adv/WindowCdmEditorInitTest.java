@@ -582,9 +582,22 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         AbsGroupFrame w_ =newWindowLoadDef();
 //        w_.canChangeLanguage();
         w_.getApplicationName();
-        w_.changeLanguage("");
         w_.dispatchExit();
         assertFalse(w_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void lg1() {
+        WindowCdmEditor w_ =newWindowLoadDef();
+        w_.getSetterLanguage().setLanguage("");
+        w_.getLanguageEvent().action();
+        assertEq("en",w_.getCommonFrame().getLanguageKey());
+    }
+    @Test
+    public void lg2() {
+        WindowCdmEditor w_ =newWindowLoadDef();
+        w_.getSetterLanguage().setLanguage("fr");
+        w_.getLanguageEvent().action();
+        assertEq("fr",w_.getCommonFrame().getLanguageKey());
     }
     @Test
     public void closeMain() {

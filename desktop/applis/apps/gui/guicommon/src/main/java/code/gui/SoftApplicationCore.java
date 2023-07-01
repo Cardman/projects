@@ -8,12 +8,9 @@ import code.gui.stream.DocumentReaderGuiUtil;
 import code.gui.stream.DocumentWriterGuiUtil;
 import code.images.BaseSixtyFourUtil;
 import code.images.IntPoint;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
-import code.sml.Element;
-import code.sml.Node;
 import code.stream.AbstractFileCoreStream;
 import code.stream.StreamFolderFile;
+import code.stream.StreamLanguageUtil;
 import code.stream.StreamTextFile;
 import code.stream.core.TechStreams;
 import code.util.consts.Constants;
@@ -21,15 +18,9 @@ import code.util.core.StringUtil;
 
 public abstract class SoftApplicationCore {
 
-    private static final String LOCALE = "locale";
-
-    private static final String PARAMETERS = "parameters";
-
     private static final int MIN_BORDER = 50;
 
     private static final String LANGUAGE_TXT = "langue.txt";
-
-    private static final String LANGUAGE = "langue.xml";
 
     private static final String EMPTY_STRING = "";
 
@@ -71,8 +62,8 @@ public abstract class SoftApplicationCore {
     /**@throws LangueException*/
     private static String loadLanguage(String _dir, AbstractFileCoreStream _fact, TechStreams _tech) {
 //        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(getFolderJarPath()+LANGUAGE);
-        String language_ = tryToGetXmlLanguage(_dir,_fact,_tech);
-        if (language_ != null) {
+        String language_ = StreamLanguageUtil.tryToGetXmlLanguage(_dir,_fact,_tech,Constants.getAvailableLanguages());
+        if (!language_.isEmpty()) {
             return language_;
         }
 //        String content_ = StreamTextFile.contentsOfFile(ConstFiles.getFolderJarPath()+LANGUAGE_TXT);
@@ -91,39 +82,6 @@ public abstract class SoftApplicationCore {
             return EMPTY_STRING;
         }
         return content_;
-    }
-
-    private static String tryToGetXmlLanguage(String _dir,AbstractFileCoreStream _fact, TechStreams _tech) {
-        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(StringUtil.concat(_dir,StreamTextFile.SEPARATEUR,LANGUAGE),_fact,_tech);
-        if (noeud_ == null) {
-            return null;
-        }
-        for(Element e: noeud_.getChildElements()){
-            if(StringUtil.quickEq(e.getTagName(),LOCALE)){
-                String code_ = e.getAttribute(LOCALE);
-                boolean valide_ = false;
-                for (String l: Constants.getAvailableLanguages()) {
-                    if (StringUtil.quickEq(code_,l)) {
-                        valide_ = true;
-                    }
-                }
-                if(!valide_) {
-                    return null;
-                }
-                return code_;
-            }
-        }
-        return null;
-    }
-
-    public static void saveLanguage(String _folder, String _locale,TechStreams _str) {
-        Document document_= DocumentBuilder.newXmlDocument();
-        Element info_=document_.createElement(PARAMETERS);
-        Element infoPart_ = document_.createElement(LOCALE);
-        infoPart_.setAttribute(LOCALE, _locale);
-        info_.appendChild(infoPart_);
-        document_.appendChild(info_);
-        StreamTextFile.saveTextFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,LANGUAGE), document_.export(),_str);
     }
 
     public static void setLocation(AbsCommonFrame _frame, TopLeftFrame _topLeft) {

@@ -153,4 +153,14 @@ public final class StreamFolderFileTest extends EquallableStreamUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
         assertTrue(StreamFolderFile.isAbsolute("/tmp", pr_.getFileCoreStream()));
     }
+    @Test
+    public void getFilesNames() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
+        StreamFolderFile.makeParent("/one/",pr_.getFileCoreStream());
+        StreamTextFile.saveTextFile("/one/hello.txt","",pr_.getStreams());
+        pr_.setCurrentPath("/one/");
+        StringList list_ = StreamFolderFile.getFilesNames(pr_.getFileCoreStream(), StringUtil.wrapStringArray("hello.txt"));
+        assertEq(1,list_.size());
+        assertEq("/one/hello.txt",list_.get(0));
+    }
 }

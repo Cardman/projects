@@ -5,6 +5,7 @@ import code.gui.events.LanguageChoice;
 import code.gui.events.SetterLanguage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
+import code.stream.StreamLanguageUtil;
 import code.util.consts.Constants;
 
 
@@ -23,7 +24,7 @@ public final class LanguageDialog implements SetterLanguage {
             return;
         }
         GuiBaseUtil.changeStaticLanguage(_lg, _infos, MessGuiGr.ms());
-        SoftApplicationCore.saveLanguage(_folder, _lg,_infos.getStreams());
+        StreamLanguageUtil.saveLanguage(_folder, _lg,_infos.getStreams());
 
     }
 

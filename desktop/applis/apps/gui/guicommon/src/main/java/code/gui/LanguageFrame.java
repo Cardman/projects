@@ -7,6 +7,7 @@ import code.gui.events.QuittingEvent;
 import code.gui.events.SetterLanguage;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
+import code.stream.StreamLanguageUtil;
 import code.util.consts.Constants;
 
 public final class LanguageFrame extends GroupFrame implements SetterLanguage {
@@ -59,7 +60,7 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage {
     public void setLanguage(String _language) {
         langue = _language;
         commonFrame.dispose();
-        SoftApplicationCore.saveLanguage(dir, _language,soft.getFrames().getStreams());
+        StreamLanguageUtil.saveLanguage(dir, _language,soft.getFrames().getStreams());
         commonFrame.getPane().removeAll();
         getFrames().getFrames().removeLast();
         soft.launchFile(args,langue);

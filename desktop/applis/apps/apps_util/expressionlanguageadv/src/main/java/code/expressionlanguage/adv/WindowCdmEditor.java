@@ -11,6 +11,7 @@ import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
 import code.gui.events.QuittingEvent;
+import code.gui.events.SetterLanguage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.Document;
@@ -53,6 +54,8 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final FileOpenDialogAbs fileOpenDialogInt;
     private final FolderOpenDialogAbs folderOpenDialogInt;
     private final AdvResultContextNext mainResultNext;
+    private final SetterLanguage setterLanguage;
+    private final StringMap<String> coreMessages;
     private StringMap<String> messages;
     private final AbsMenuItem chooseFile;
     private final AbsPlainButton chooseFolder;
@@ -73,9 +76,11 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private ResultContext userResult;
     private AbstractFuture future;
     private AbstractFuture futureDbg;
+    private final CdmGuiLanguageEvent languageEvent;
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(null,_lg, _list, _fact);
+        languageEvent = new CdmGuiLanguageEvent(this);
         mainResultNext = new AdvResultContextNext(this,_list, _fact);
         setResultContextNext(getMainResultNext());
         service = _list.getThreadFactory().newExecutorService();
@@ -89,9 +94,11 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         fileOpenDialogInt = _list.getFileOpenDialogInt();
         fileSaveDialogInt = _list.getFileSaveDialogInt();
         folderOpenDialogInt = _list.getFolderOpenDialogInt();
+        setterLanguage = _list.getSetterLanguage();
         dialogSoft = _list.getFrameFactory().newDialog();
         dialogFolderExpression = _list.getFrameFactory().newDialog();
-        GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
+        coreMessages = MessGuiGr.ms();
+        GuiBaseUtil.choose(_lg, _list, this, coreMessages);
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
         AbsMenu file_ = _list.getCompoFactory().newMenu("file");
         bar_.add(file_);
@@ -527,6 +534,10 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         setMessages(getMessages());
     }
 
+    public SetterLanguage getSetterLanguage() {
+        return setterLanguage;
+    }
+
     @Override
     public void dispatchExit() {
         getCommonFrame().dispatchExit();
@@ -552,6 +563,10 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
             w.getMenu().setEnabled(isEditing());
         }
         expressionEditors.clear();
+    }
+
+    public StringMap<String> getCoreMessages() {
+        return coreMessages;
     }
 
     public CustList<WindowExpressionEditor> getExpressionEditors() {
@@ -640,5 +655,9 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
 
     public AdvResultContextNext getMainResultNext() {
         return mainResultNext;
+    }
+
+    public CdmGuiLanguageEvent getLanguageEvent() {
+        return languageEvent;
     }
 }

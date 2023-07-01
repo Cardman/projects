@@ -63,6 +63,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsPlainButton pauseStack;
     private AbsPlainButton stopStack;
     private AbsTextArea statusAnalyzeArea;
+    private AbsPanel navigation;
 
     protected AbsDebuggerGui(AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a);
@@ -128,7 +129,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         callStack = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(callStack,detail);
         detailAll.setVisible(false);
-        AbsPanel nav_ = commonFrame.getFrames().getCompoFactory().newLineBox();
+        navigation = commonFrame.getFrames().getCompoFactory().newLineBox();
+        navigation.setVisible(false);
+        AbsPanel nav_ = navigation;
         nav_.add(mute);
         nav_.add(selectEnter);
         nav_.add(nextAction);
@@ -335,9 +338,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     public void update(ResultContext _res, StringMap<String> _src) {
         if (_res.getPageEl().notAllEmptyErrors()) {
             statusAnalyzeArea.append(_res.getReportedMessages().displayErrors());
-            selectEnter.setVisible(false);
+            selectEnter.setEnabled(false);
+            navigation.setVisible(false);
         } else {
             selectEnter.setEnabled(true);
+            navigation.setVisible(true);
         }
         currentResult = _res;
         refreshList(folderSystem.selectEvt(),viewable, "");

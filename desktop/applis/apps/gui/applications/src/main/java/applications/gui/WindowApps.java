@@ -17,6 +17,7 @@ import code.minirts.LaunchingDemo;
 import code.network.LaunchingNetwork;
 import code.player.main.LaunchingPlayer;
 import code.renders.LaunchingRenders;
+import code.stream.StreamLanguageUtil;
 import code.threads.AbstractAtomicInteger;
 import code.util.CustList;
 import code.util.consts.Constants;
@@ -161,7 +162,7 @@ public final class WindowApps extends GroupFrame {
     @Override
     public void changeLanguage(String _language) {
         setLanguageKey(_language);
-        SoftApplicationCore.saveLanguage(LaunchingApplications.getTempFolder(getFrames()), _language,getStreams());
+        StreamLanguageUtil.saveLanguage(LaunchingApplications.getTempFolder(getFrames()), _language,getStreams());
         for (AbsGroupFrame g: getFrames().getFrames()) {
             g.changeLanguage(_language);
         }
