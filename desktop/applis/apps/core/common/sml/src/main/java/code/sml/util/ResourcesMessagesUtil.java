@@ -19,10 +19,11 @@ public final class ResourcesMessagesUtil {
     }
 
     public static StringMap<String> getMessagesFromContent(String _loadedResourcesMessages) {
-        if (_loadedResourcesMessages.isEmpty()) {
+        String load_ = StringUtil.nullToEmpty(_loadedResourcesMessages);
+        if (load_.isEmpty()) {
             return new StringMap<String>();
         }
-        StringMap<String> messages_ = MessagesUtil.getMessages(_loadedResourcesMessages);
+        StringMap<String> messages_ = MessagesUtil.getMessages(load_);
         for (String k: messages_.getKeys()) {
             String value_ = messages_.getVal(k);
             messages_.put(k, DocumentBuilder.transformSpecialChars(value_));
