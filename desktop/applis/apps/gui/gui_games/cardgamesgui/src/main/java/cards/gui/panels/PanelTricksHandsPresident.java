@@ -16,6 +16,7 @@ import code.util.IntMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 
@@ -120,13 +121,12 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 //            list_.add(indicePli_-1);
             map_.put(indicePli_-1, Long.toString(indicePli_-1L));
         }
-        map_.put(null, EMPTY);
+        map_.put(-2, EMPTY);
         //Add this line to store at last the current trick
 //        list_.add(null);
 //        numerosPlis_[nbNumbers_ - 1] = CURRENT_TRICK;
 //        trickNumber=new NumComboBox(numerosPlis_);
         trickNumber=new IntTreeComboBox(window.getFrames().getGeneComboBox().createCombo(window.getImageFactory(),new StringList(),-1, window.getCompoFactory()));
-        trickNumber.setWithDefaultValue(true);
         trickNumber.refresh(map_);
         trickNumber.setListener(new ListenerTricks(this));
         selectionGameState_.add(trickNumber.self());
@@ -170,7 +170,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 //        Object o_ = trickNumber.getSelectedItem();
         CoordsHandsMap panels_ = new CoordsHandsMap();
 //        if (StringList.eq(CURRENT_TRICK, String.valueOf(o_)))
-        if (trickNumber.isSelectNullCurrent()) {
+        if (trickNumber.getSelectedItem().isEmpty()) {
             CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
             tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers);
             hands.removeAll();
@@ -248,7 +248,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         }
 //        byte numeroPli_=Byte.parseByte(o_.toString());
         CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
-        int numeroPli_= trickNumber.getCurrent();
+        int numeroPli_= NumberUtil.parseInt(trickNumber.getSelectedItem());
         numeroPli_ = tricksHands.getFilledTricksIndex(numeroPli_);
         tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers, (byte) numeroPli_);
         hands.removeAll();
@@ -344,13 +344,12 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         String lg_ = window.getLanguageKey();
         CoordsHandsMap panels_ = new CoordsHandsMap();
 //        if (StringList.eq(CURRENT_TRICK,String.valueOf(o_)))
-        if (trickNumber.isSelectNullCurrent()) {
+        if (trickNumber.getSelectedItem().isEmpty()) {
             CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
-            Integer selected_ = cardNumberTrick.getCurrent();
-            if (selected_ == null) {
+            if (cardNumberTrick.getSelectedItem().isEmpty()) {
                 return;
             }
-            byte numeroCarte_=(byte)(int)selected_;
+            byte numeroCarte_=(byte) NumberUtil.parseInt(cardNumberTrick.getSelectedItem());
             numeroCarte_--;
             DealPresident dealt_ = tricksHands.getDistribution();
             tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingPresident, numberPlayers, numeroCarte_);
@@ -425,14 +424,13 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         }
 //        Object o_ = trickNumber.getSelectedItem();
 //        byte numeroPli_=Byte.parseByte(o_.toString());
-        int numeroPli_=trickNumber.getCurrent();
-        Integer selected_ = cardNumberTrick.getCurrent();
-        if (selected_ == null) {
+        int numeroPli_=NumberUtil.parseInt(trickNumber.getSelectedItem());
+        if (cardNumberTrick.getSelectedItem().isEmpty()) {
             return;
         }
         CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
         numeroPli_ = tricksHands.getFilledTricksIndex(numeroPli_);
-        byte numeroCarte_=(byte)(int)selected_;
+        byte numeroCarte_=(byte)NumberUtil.parseInt(cardNumberTrick.getSelectedItem());
         numeroCarte_--;
         DealPresident dealt_ = tricksHands.getDistribution();
         CustList<TrickPresident> tricks_ = tricksHands.getTricks();

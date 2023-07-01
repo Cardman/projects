@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.util.core.StringUtil;
+
 public abstract class AbsComboBox {
     private final GraphicComboGrInt combo;
     protected AbsComboBox(GraphicComboGrInt _combo) {
@@ -8,6 +10,10 @@ public abstract class AbsComboBox {
 
     public int getSelectedIndex() {
         return combo.getSelectedIndex();
+    }
+
+    public String getSelectedItem() {
+        return StringUtil.nullToEmpty(combo.getSelectedItem());
     }
 
     public int getItemCount() {

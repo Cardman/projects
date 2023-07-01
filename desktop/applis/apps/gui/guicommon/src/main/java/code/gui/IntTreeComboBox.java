@@ -7,8 +7,6 @@ public final class IntTreeComboBox extends AbsComboBox {
     //implements GraphicComboGrIntBase
 //implements TranslatableComponent
 
-    private static final String EMPTY_STRING = "";
-
 //    private FacadeGame facade;
 
 //    private List<T> order = new List<T>();
@@ -17,39 +15,21 @@ public final class IntTreeComboBox extends AbsComboBox {
 
     private TreeMap<Integer,String> elements;
 
-    private boolean withDefaultValue;
-
     public IntTreeComboBox(GraphicComboGrInt _combo){
         super(_combo);
     }
 
-    private static StringList str(Integer... _elements) {
-        StringList ls_ = new StringList();
-        for (Integer i: _elements) {
-            ls_.add(Integer.toString(i));
-        }
-        return ls_;
-    }
-    protected TreeMap<Integer, String> getElements() {
+    public TreeMap<Integer, String> getElements() {
         return elements;
     }
 
     public void refresh(AbsMap<Integer,String> _tr) {
         removeAllItems();
-        IntMap<String> m_ = createMap(_tr);
-        elements = new TreeMap<Integer,String>(new ComparatorMapValue<Integer>(m_));
-        elements.putAllMap(m_);
+        elements = new TreeMap<Integer,String>(new ComparatorMapValue<Integer>(_tr));
+        elements.putAllMap(_tr);
         for (Integer e: elements.getKeys()) {
             addItem(_tr.getVal(e));
         }
-    }
-
-    private IntMap<String> createMap(AbsMap<Integer,String> _tr) {
-        IntMap<String> m_ = new IntMap<String>(_tr);
-        if (withDefaultValue) {
-            m_.put(null, EMPTY_STRING);
-        }
-        return m_;
     }
 
 //    @Override
@@ -81,20 +61,6 @@ public final class IntTreeComboBox extends AbsComboBox {
         getElements().clear();
         getCombo().removeAllItems();
     }
-    public Integer getCurrent() {
-        int index_ = getSelectedIndex();
-        if (index_ < 0) {
-            return null;
-        }
-        return elements.getKey(index_);
-    }
-    public boolean isSelectNullCurrent() {
-        int index_ = getSelectedIndex();
-        if (index_ < 0) {
-            return false;
-        }
-        return elements.getKey(index_) == null;
-    }
 
 //    public void setCurrent(T _current) {
 //        List<T> keys_ = new List<T>(elements.getKeys());
@@ -105,11 +71,4 @@ public final class IntTreeComboBox extends AbsComboBox {
 //        setSelectedIndex(index_);
 //    }
 
-    public void setWithDefaultValue(boolean _withDefaultValue) {
-        withDefaultValue = _withDefaultValue;
-    }
-
-    public boolean isWithDefaultValue() {
-        return withDefaultValue;
-    }
 }
