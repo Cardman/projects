@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.structs.StringStruct;
 import code.gui.AbsCommonFrame;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
@@ -12,9 +11,9 @@ public final class FormInputDebugLines {
     private final CustList<EditValueRow> commentsRows;
     private final AbsPlainButton add;
     private final AbsPlainButton rem;
-    private final AbsPlainButton val;
+//    private final AbsPlainButton val;
     private final AbsScrollPane scrollPaneGl;
-    private final CustList<StringStruct> output = new CustList<StringStruct>();
+//    private final CustList<StringStruct> output = new CustList<StringStruct>();
     public FormInputDebugLines(AbsCommonFrame _par) {
         AbstractProgramInfos factories_ = _par.getFrames();
         commentsRows = new CustList<EditValueRow>();
@@ -27,9 +26,9 @@ public final class FormInputDebugLines {
         rem = factories_.getCompoFactory().newPlainButton("-");
         rem.addActionListener(new RemoveValueRow(commentsRows,dels_, _par));
         all_.add(rem);
-        val = factories_.getCompoFactory().newPlainButton("OK");
-        val.addActionListener(new ValidateValues(output,commentsRows));
-        all_.add(val);
+//        val = factories_.getCompoFactory().newPlainButton("OK");
+//        val.addActionListener(new ValidateValues(output,commentsRows));
+//        all_.add(val);
         scrollPaneGl = factories_.getCompoFactory().newAbsScrollPane(all_);
     }
 
@@ -41,9 +40,9 @@ public final class FormInputDebugLines {
         return add;
     }
 
-    public CustList<StringStruct> getOutput() {
-        return output;
-    }
+//    public CustList<StringStruct> getOutput() {
+//        return output;
+//    }
 
     public AbsPlainButton getRem() {
         return rem;
@@ -53,7 +52,7 @@ public final class FormInputDebugLines {
         return commentsRows;
     }
 
-    public AbsPlainButton getVal() {
-        return val;
-    }
+//    public AbsPlainButton getVal() {
+//        return val;
+//    }
 }

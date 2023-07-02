@@ -18,7 +18,7 @@ public interface AbstractMutableTreeNode extends AbstractMutableTreeNodeNav{
 
     AbstractMutableTreeNode add(String _info);
 
-    AbstractMutableTreeNode original();
-
     String getUserObject();
+
+    void setUserObject(String _str);
 }

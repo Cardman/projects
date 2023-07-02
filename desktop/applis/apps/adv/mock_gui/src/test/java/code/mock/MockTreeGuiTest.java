@@ -269,9 +269,10 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
         assertEq("0", c_.getUserObject());
         assertEq(1,t1_.getChildCount());
         assertSame(c_, t1_.getChildAt(0));
-        assertSame(t1_, t1_.original());
         t1_.setAccessible(true);
         assertTrue(t1_.isAccessible());
+        c_.setUserObject("1");
+        assertEq("1",c_.getUserObject());
     }
     @Test
     public void t19() {

@@ -853,7 +853,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        assertEq(0,f_.getOutput().size());
+        assertEq(1,f_.getCommentsRows().size());
+        assertEq("Arg",f_.getCommentsRows().get(0).getValueArea().getText());
     }
     @Test
     public void arg2() {
@@ -863,9 +864,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
-        assertEq(1,f_.getOutput().size());
-        assertEq("Arg",f_.getOutput().get(0).getInstance());
+        //validValues(f_);
+        assertEq(1,f_.getCommentsRows().size());
+        assertEq("Arg",f_.getCommentsRows().get(0).getValueArea().getText());
     }
     @Test
     public void arg3() {
@@ -875,11 +876,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         f_.getCommentsRows().get(0).getSelectForDelete().setSelected(true);
         remRow(f_);
-        validValues(f_);
-        assertEq(0,f_.getOutput().size());
+        //validValues(f_);
+        assertEq(0,f_.getCommentsRows().size());
     }
     @Test
     public void arg4() {
@@ -891,13 +892,13 @@ public final class DbgActTest extends EquallableElAdvUtil {
         f_.getCommentsRows().get(0).getValueArea().setText("Arg1");
         addRow(f_);
         f_.getCommentsRows().get(1).getValueArea().setText("Arg2");
-        validValues(f_);
+        //validValues(f_);
         f_.getCommentsRows().get(0).getSelectForDelete().setSelected(true);
         remRow(f_);
-        validValues(f_);
-        assertEq(1,f_.getOutput().size());
+        //validValues(f_);
+        assertEq(1,f_.getCommentsRows().size());
         assertEq(0,f_.getCommentsRows().get(0).getIndex());
-        assertEq("Arg2",f_.getOutput().get(0).getInstance());
+        assertEq("Arg2",f_.getCommentsRows().get(0).getValueArea().getText());
     }
     @Test
     public void iStop() {
@@ -921,7 +922,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         ((MockPlainButton)b_.getStopStack()).getActionListeners().get(0).action();
         launch(b_);
@@ -949,7 +950,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         DbgRootStruct root_ = b_.getRoot();
@@ -996,7 +997,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         DbgRootStruct root_ = b_.getRoot();
@@ -1038,7 +1039,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         DbgRootStruct root_ = b_.getRoot();
@@ -1081,7 +1082,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         DbgRootStruct root_ = b_.getRoot();
@@ -1129,7 +1130,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         DbgRootStruct root_ = b_.getRoot();
@@ -1170,7 +1171,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         next(b_);
@@ -1205,7 +1206,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         next(b_);
@@ -1243,7 +1244,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         next(b_);
@@ -1322,7 +1323,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         ((MockPlainButton)b_.getCallButtons().get(0)).getActionListeners().get(0).action();
@@ -1364,7 +1365,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         assertTrue(b_.getNextInstruction().isEnabled());
@@ -1404,7 +1405,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         assertTrue(b_.getNextGoUp().isEnabled());
@@ -1442,7 +1443,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         assertTrue(b_.getNextInMethod().isEnabled());
@@ -1482,7 +1483,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         assertTrue(b_.getNextCursor().isEnabled());
@@ -1522,7 +1523,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         b_.getMute().setSelected(true);
         launch(b_);
@@ -1559,7 +1560,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         FormInputDebugLines f_ = formArgs(b_);
         addRow(f_);
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
-        validValues(f_);
+        //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         b_.getPauseStack().setEnabled(true);
         ((MockPlainButton)b_.getPauseStack()).getActionListeners().get(0).action();
@@ -2318,9 +2319,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
     private void remRow(FormInputDebugLines _r) {
         ((MockPlainButton) _r.getRem()).getActionListeners().get(0).action();
     }
-    private void validValues(FormInputDebugLines _r) {
-        ((MockPlainButton) _r.getVal()).getActionListeners().get(0).action();
-    }
+//    private void validValues(FormInputDebugLines _r) {
+//        ((MockPlainButton) _r.getVal()).getActionListeners().get(0).action();
+//    }
     private CustList<ExecOverridableBlock> methods(AbsDebuggerGui _b) {
         String idCl_ = ((InitDebGuiImpl)_b).getClassesField().getText();
         ExecRootBlock type_ = ((InitDebGuiImpl)_b).selectedType(idCl_);

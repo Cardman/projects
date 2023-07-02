@@ -9,18 +9,13 @@ import javax.swing.tree.MutableTreeNode;
 public final class DefMutableTreeNode extends MutableTreeNodeNav implements AbstractMutableTreeNode {
     private final DefaultMutableTreeNode node;
 
-    private final UsObj userObject;
-
     public DefMutableTreeNode(String _name) {
         String value_ = StringUtil.nullToEmpty(_name);
-        UsObj us_ = new UsObj(this,value_);
         node = new DefaultMutableTreeNode(value_);
-        userObject = us_;
     }
 
-    public DefMutableTreeNode(MutableTreeNode _name, UsObj _userObject) {
+    public DefMutableTreeNode(MutableTreeNode _name) {
         node = (DefaultMutableTreeNode) _name;
-        userObject = _userObject;
     }
 
     public MutableTreeNode node() {
@@ -96,25 +91,20 @@ public final class DefMutableTreeNode extends MutableTreeNodeNav implements Abst
     }
 
     static DefMutableTreeNode build(DefaultMutableTreeNode _node) {
-        return new DefMutableTreeNode(_node,new UsObj(null,(String)_node.getUserObject()));
-    }
-
-    @Override
-    public AbstractMutableTreeNode original() {
-        try {
-            return userObject.getNode();
-        } catch (Exception e) {
-            return null;
-        }
+        return new DefMutableTreeNode(_node);
     }
 
     @Override
     public String getUserObject() {
         try {
-            return userObject.getUserObject();
+            return (String) node.getUserObject();
         } catch (Exception e) {
             return "";
         }
     }
 
+    @Override
+    public void setUserObject(String _str) {
+        node.setUserObject(StringUtil.nullToEmpty(_str));
+    }
 }

@@ -16,6 +16,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
@@ -86,10 +87,12 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
             Parameters p_ = new Parameters();
             String name_ = res_.first().getParametersName(0);
             String argType_ = StringExpUtil.getPrettyArrayType(getCurrentResult().getPageEl().getAliasString());
-            int s_ = formInputDebugLines.getOutput().size();
+            int s_ = formInputDebugLines.getCommentsRows().size();
             ArrayStruct arr_ = new ArrayStruct(s_, argType_);
             for (int i = 0; i < s_; i++) {
-                arr_.set(i, formInputDebugLines.getOutput().get(i));
+                EditValueRow e_ = formInputDebugLines.getCommentsRows().get(i);
+                e_.updateComment();
+                arr_.set(i, new StringStruct(e_.getValue()));
             }
             p_.getRefParameters().addEntry(name_,new VariableWrapper(LocalVariable.newLocalVariable(arr_, argType_)));
             return new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(type_, idCl_), new ExecTypeFunction(type_, res_.first()), p_);

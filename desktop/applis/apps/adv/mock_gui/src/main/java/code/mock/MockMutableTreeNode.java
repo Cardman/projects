@@ -4,7 +4,7 @@ import code.gui.*;
 import code.util.core.StringUtil;
 
 public final class MockMutableTreeNode extends MutableTreeNodeNav implements AbstractMutableTreeNode {
-    private final String userObject;
+    private String userObject;
     private boolean accessible;
 
     public MockMutableTreeNode(String _name) {
@@ -60,13 +60,13 @@ public final class MockMutableTreeNode extends MutableTreeNodeNav implements Abs
     }
 
     @Override
-    public AbstractMutableTreeNode original() {
-        return this;
+    public String getUserObject() {
+        return userObject;
     }
 
     @Override
-    public String getUserObject() {
-        return userObject;
+    public void setUserObject(String _str) {
+        userObject = _str;
     }
 
     public boolean isAccessible() {
