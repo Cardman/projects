@@ -144,7 +144,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
     @Override
     public void changeTrick() {
 
-        byte numeroPli_=(byte)NumberUtil.parseInt(trickNumber.getCurrent().toString());
+        byte numeroPli_=(byte)NumberUtil.parseInt(trickNumber.getSelectedItem());
         tricksHands.restituerMains(displayingBelote, numberPlayers, numeroPli_);
         hands.removeAll();
         DealBelote dealt_ = tricksHands.getDistribution();
@@ -239,11 +239,11 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
     @Override
     public void changeCard() {
 
-        byte numeroPli_=(byte)NumberUtil.parseInt(trickNumber.getCurrent().toString());
+        byte numeroPli_=(byte)NumberUtil.parseInt(trickNumber.getSelectedItem());
         if(numeroPli_<1) {
             return;
         }
-        byte numeroCarte_=(byte)NumberUtil.parseInt(cardNumberTrick.getCurrent().toString());
+        byte numeroCarte_=(byte)NumberUtil.parseInt(cardNumberTrick.getSelectedItem());
         numeroCarte_--;
         DealBelote dealt_ = tricksHands.getDistribution();
         CustList<TrickBelote> tricks_ = tricksHands.getTricks();

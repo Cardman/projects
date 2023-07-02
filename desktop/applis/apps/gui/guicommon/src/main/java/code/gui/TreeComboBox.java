@@ -1,7 +1,8 @@
 package code.gui;
 import code.util.AbsMap;
+import code.util.core.NumberUtil;
 
-public abstract class TreeComboBox<T> extends AbsComboBox {
+public abstract class TreeComboBox extends AbsComboBox {
 //implements TranslatableComponent
     // implements GraphicComboGrIntBase
 
@@ -13,14 +14,14 @@ public abstract class TreeComboBox<T> extends AbsComboBox {
 
 //    private Class<T> enumClass;
 
-    private final AbsMap<T,String> elements;
+    private final AbsMap<Integer,String> elements;
 
-    protected TreeComboBox(AbsMap<T, String> _tr, GraphicComboGrInt _combo){
+    protected TreeComboBox(AbsMap<Integer, String> _tr, GraphicComboGrInt _combo){
         super(_combo);
         elements = _tr;
     }
 
-    protected AbsMap<T, String> getElements() {
+    protected AbsMap<Integer, String> getElements() {
         return elements;
     }
 
@@ -38,12 +39,8 @@ public abstract class TreeComboBox<T> extends AbsComboBox {
         getElements().clear();
         getCombo().removeAllItems();
     }
-    public T getCurrent() {
-        int index_ = getSelectedIndex();
-        if (index_ < 0) {
-            return null;
-        }
-        return getElements().getKey(index_);
+    public int getCurrent() {
+        return NumberUtil.parseInt(getSelectedItem());
     }
 
 //    public void setCurrent(T _current) {

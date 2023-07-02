@@ -1,12 +1,11 @@
 package code.gui;
-import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractGraphicComboBoxGenerator;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 import code.util.core.NumberUtil;
 
 
-public class NumComboBox extends TreeComboBox<Integer> {
+public class NumComboBox extends TreeComboBox {
 
     public NumComboBox(AbstractProgramInfos _fact, AbstractGraphicComboBoxGenerator _gene) {
         super(new IntTreeMap<String>(), _gene.createCombo(_fact.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _fact.getCompoFactory()));
@@ -24,8 +23,8 @@ public class NumComboBox extends TreeComboBox<Integer> {
     private static IntTreeMap< String> getTree(int... _ints) {
         IntTreeMap< String> tr_;
         tr_ = new IntTreeMap< String>();
-        for (Integer i: _ints) {
-            tr_.put(i, i.toString());
+        for (int i: _ints) {
+            tr_.put(i, Integer.toString(i));
         }
         return tr_;
     }

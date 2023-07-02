@@ -1,7 +1,5 @@
 package code.gui;
 import code.util.*;
-import code.util.TreeMap;
-import code.util.comparators.ComparatorMapValue;
 
 public final class IntTreeComboBox extends AbsComboBox {
     //implements GraphicComboGrIntBase
@@ -13,28 +11,28 @@ public final class IntTreeComboBox extends AbsComboBox {
 
 //    private Class<T> enumClass;
 
-    private TreeMap<Integer,String> elements;
+    private final IntMap<String> elements;
 
     public IntTreeComboBox(GraphicComboGrInt _combo){
         super(_combo);
+        elements = new IntMap<String>();
     }
 
-    public TreeMap<Integer, String> getElements() {
+    public IntMap<String> getElements() {
         return elements;
     }
 
     public void refresh(AbsMap<Integer,String> _tr) {
         removeAllItems();
-        elements = new TreeMap<Integer,String>(new ComparatorMapValue<Integer>(_tr));
-        elements.putAllMap(_tr);
-        for (Integer e: elements.getKeys()) {
-            addItem(_tr.getVal(e));
+        elements.addAllEntries(_tr);
+        for (EntryCust<Integer,String> e: _tr.entryList()) {
+            addItem(e.getValue());
         }
     }
 
 //    @Override
     public void removeItem(int _anIndex) {
-        TreeMap<Integer, String> tr_;
+        IntMap<String> tr_;
         tr_ = getElements();
         Integer e_ = tr_.getKey(_anIndex);
         tr_.removeKey(e_);

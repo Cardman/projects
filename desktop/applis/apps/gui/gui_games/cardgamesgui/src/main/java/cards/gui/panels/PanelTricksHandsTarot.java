@@ -159,7 +159,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
     @Override
     public void changeTrick() {
         String lg_ = window.getLanguageKey();
-        byte numeroSelectionne_=(byte)NumberUtil.parseInt(trickNumber.getCurrent().toString());
+        byte numeroSelectionne_=(byte)NumberUtil.parseInt(trickNumber.getSelectedItem());
         byte numeroPli_=numeroSelectionne_;
         CustList<TrickTarot> tricks_ = tricksHands.getTricks();
         tricksHands.restoreHandsAtSelectedNumberedTrick(displayingTarot, numberPlayers, numeroPli_);
@@ -255,13 +255,13 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
     @Override
     public void changeCard() {
         String lg_ = window.getLanguageKey();
-        byte numeroSelectionne_=(byte)NumberUtil.parseInt(trickNumber.getCurrent().toString());
+        byte numeroSelectionne_=(byte)NumberUtil.parseInt(trickNumber.getSelectedItem());
         byte numeroPli_=numeroSelectionne_;
         if(numeroPli_<1) {
             return;
         }
         CustList<TrickTarot> tricks_ = tricksHands.getTricks();
-        byte numeroCarte_=(byte)NumberUtil.parseInt(cardNumberTrick.getCurrent().toString());
+        byte numeroCarte_=(byte)NumberUtil.parseInt(cardNumberTrick.getSelectedItem());
         numeroCarte_--;
         tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingTarot, numberPlayers, numeroPli_, numeroCarte_);
 

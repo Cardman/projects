@@ -47,6 +47,7 @@ import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public class ContainerMultiPresident extends ContainerPresident implements
@@ -102,7 +103,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         choiceOfPlaceForPlayingGame.setSelectedItem(_players.getPseudos()
                 .size() - 1);
-        indexInGame = choiceOfPlaceForPlayingGame.getCurrent().byteValue();
+        indexInGame = (byte) NumberUtil.parseInt(choiceOfPlaceForPlayingGame.getSelectedItem());
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
         panel_.add(choiceOfPlaceForPlayingGame.self());
         ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowNetWork.READY));
@@ -166,7 +167,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         if (readyToPlay) {
             return;
         }
-        indexInGame = choiceOfPlaceForPlayingGame.getCurrent().byteValue();
+        indexInGame = (byte) NumberUtil.parseInt(choiceOfPlaceForPlayingGame.getSelectedItem());
         ChoosenPlace choice_ = new ChoosenPlace();
         choice_.setIndex(noClient);
         choice_.setPlace(indexInGame);

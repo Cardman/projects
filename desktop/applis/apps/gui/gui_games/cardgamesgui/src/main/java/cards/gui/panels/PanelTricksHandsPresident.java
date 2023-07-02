@@ -116,12 +116,12 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 //        numerosPlis_=new Integer[nbNumbers_];
         IntMap<String> map_ = new IntMap<String>();
 //        Ints list_ = new Ints();
+        map_.put(-2, EMPTY);
         for(byte indicePli_ = IndexConstants.FIRST_INDEX; indicePli_<nbNumbers_; indicePli_++) {
 //            numerosPlis_[indicePli_]=indicePli_-1;
 //            list_.add(indicePli_-1);
             map_.put(indicePli_-1, Long.toString(indicePli_-1L));
         }
-        map_.put(-2, EMPTY);
         //Add this line to store at last the current trick
 //        list_.add(null);
 //        numerosPlis_[nbNumbers_ - 1] = CURRENT_TRICK;

@@ -5,7 +5,7 @@ import code.util.AbsMap;
 import code.util.CustList;
 import code.util.*;
 
-public final class ComboBoxEnumCards<E> extends TreeComboBox<Integer> {
+public final class ComboBoxEnumCards<E> extends TreeComboBox {
 
     private final CustList<E> real = new CustList<E>();
 
@@ -26,8 +26,8 @@ public final class ComboBoxEnumCards<E> extends TreeComboBox<Integer> {
     }
 
     public E getCurrentElement() {
-        Integer key_ = getCurrent();
-        if (key_ == null) {
+        int key_ = getSelectedIndex();
+        if (key_ < 0) {
             return null;
         }
         return real.get(key_);

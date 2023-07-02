@@ -1,13 +1,14 @@
 package cards.gui.comboboxes;
+
+import code.gui.AbsComboBox;
 import code.gui.GraphicComboGrInt;
-import code.gui.TreeComboBox;
-import code.util.*;
+import code.util.core.StringUtil;
 
 
-public class StringComboBox extends TreeComboBox<Integer> {
+public class StringComboBox extends AbsComboBox {
 
     public StringComboBox(GraphicComboGrInt _combo) {
-        super(new IntTreeMap<String>(), _combo);
+        super(_combo);
     }
 
 //    @Override
@@ -19,6 +20,6 @@ public class StringComboBox extends TreeComboBox<Integer> {
 //    }
 
     public String getSelectedComboItem() {
-        return getCombo().getSelectedItem();
+        return StringUtil.nullToEmpty(getCombo().getSelectedItem());
     }
 }
