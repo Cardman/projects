@@ -80,7 +80,7 @@ public abstract class EquallableElAdvUtil {
         pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
         pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
         MockResultContextNext m_ = new MockResultContextNext("src");
-        return new InitDebGuiImpl(m_,"en",pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        return new InitDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_,"en",pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
     }
 
     public static AbsDebuggerGui buildExp() {
@@ -158,12 +158,20 @@ public abstract class EquallableElAdvUtil {
         _g.setResultContextNext(_w.getResultContextNext());
         menuExp(_w, _g);
     }
+    public static void guiAnaSingleMain(WindowExpressionEditor _w, AbsDebuggerGui _g) {
+        _g.setResultContextNext(_w.getResultContextNext());
+        menuSingleMain(_w, _g);
+    }
 
     public static void menuExp(WindowExpressionEditor _w, AbsDebuggerGui _g) {
-        ((MockMenuItem)_w.getSession()).getActionListeners().get(0).action();
+        ((MockMenuItem)_w.getSessionMenuExp()).getActionListeners().get(0).action();
         ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();
     }
 
+    public static void menuSingleMain(WindowExpressionEditor _w, AbsDebuggerGui _g) {
+        ((MockMenuItem)_w.getSessionMenuSingleMain()).getActionListeners().get(0).action();
+        ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();
+    }
     public static void guiNoAna(AbsDebuggerGui _g, ManageOptions _m) {
         _g.build(new AnalyzingDebugEvent(new ExpMenuFrameInteract(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem()),null,_g,_m,new StringMap<String>()));
     }

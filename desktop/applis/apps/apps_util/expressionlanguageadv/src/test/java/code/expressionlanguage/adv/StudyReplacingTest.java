@@ -356,9 +356,9 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
         AbsDebuggerGui b_ = e_.getSessionExp();
         guiAna(e_,b_);
-        assertFalse(e_.getSession().isEnabled());
+        assertFalse(e_.getSessionMenuExp().isEnabled());
         b_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
-        assertTrue(e_.getSession().isEnabled());
+        assertTrue(e_.getSessionMenuExp().isEnabled());
     }
     @Test
     public void windowReopen() {
@@ -374,8 +374,8 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
         pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
         AbsDebuggerGui b_ = e_.getSessionExp();
-        ((MockMenuItem)e_.getSession()).getActionListeners().get(0).action();
-        ((MockMenuItem)e_.getSession()).getActionListeners().get(0).action();
+        ((MockMenuItem)e_.getSessionMenuExp()).getActionListeners().get(0).action();
+        ((MockMenuItem)e_.getSessionMenuExp()).getActionListeners().get(0).action();
         assertTrue(b_.getCommonFrame().isVisible());
     }
     private CustList<SegmentFindPart> found(AbsDebuggerGui _b) {

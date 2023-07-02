@@ -63,9 +63,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsPlainButton stopStack;
     private AbsTextArea statusAnalyzeArea;
     private AbsPanel navigation;
+    private final AbsOpenFrameInteract menuManage;
 
-    protected AbsDebuggerGui(AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
+    protected AbsDebuggerGui(AbsOpenFrameInteract _m, AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a,_lg,_list);
+        menuManage = _m;
         factory = _fact;
         frameBpForm = new FrameBpForm(this,_lg, _list);
         stopDbg = _list.getThreadFactory().newAtomicBoolean();
@@ -500,5 +502,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public void setEvent(AbsAnalyzingDebugEvent _e) {
         this.event = _e;
+    }
+
+    public AbsOpenFrameInteract getMenuManage() {
+        return menuManage;
     }
 }

@@ -1,20 +1,13 @@
 package code.expressionlanguage.adv;
 
-import code.gui.events.AbsActionListener;
+public final class OpenExpDebGuiImplEvent extends AbsOpenDebGuiImplEvent {
 
-public final class OpenExpDebGuiImplEvent implements AbsActionListener {
-    private final WindowExpressionEditor expressionEditor;
-
-    public OpenExpDebGuiImplEvent(WindowExpressionEditor _e) {
-        this.expressionEditor = _e;
+    public OpenExpDebGuiImplEvent(WindowWithTreeImpl _e, AbsDebuggerGui _d) {
+        super(_e, _d);
     }
 
     @Override
-    public void action() {
-        ExpDebGuiImpl g_ = expressionEditor.getSessionExp();
-        if (g_.getCommonFrame().isVisible()) {
-            return;
-        }
-        g_.build(new AnalyzingDebugExpEvent(expressionEditor.getSession(),expressionEditor,g_));
+    protected AbsAnalyzingDebugExpEvent event() {
+        return new ExpAnalyzingDebugExpEvent(getDbg().getMenuManage(), getExpressionEditor(), getDbg());
     }
 }

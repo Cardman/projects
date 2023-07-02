@@ -12,6 +12,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
 import code.mock.MockPlainButton;
+import code.mock.MockProgramInfos;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.StringMap;
@@ -2289,6 +2290,32 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq(1,b_.getTabs().size());
         closeReadOnlyTab(b_);
         assertEq(0,b_.getTabs().size());
+    }
+    @Test
+    public void window() {
+        MockProgramInfos pr_ = genePr();
+        WindowCdmEditor w_ = updated(pr_);
+        w_.getFuture().attendre();
+        w_.getFutureDbgInit().attendre();
+        WindowExpressionEditor e_ = geneSecAlready(w_);
+        save(pr_,"src/file.txt","public class pkg.Ex {static int v;public static that int exmeth(String[] _v){return that(v);}}");
+        e_.getTree().select(e_.getTree().getRoot());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
+        pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
+        pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
+        AbsDebuggerGui b_ = e_.getSessionSingleMain();
+        menuSingleMain(e_,b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(true);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exmeth");
+        meths_.enterEvent();
+        assertFalse(methods(b_).isEmpty());
     }
     private void launch(AbsDebuggerGui _d) {
         ((MockPlainButton)_d.getSelectEnter()).getActionListeners().get(0).action();

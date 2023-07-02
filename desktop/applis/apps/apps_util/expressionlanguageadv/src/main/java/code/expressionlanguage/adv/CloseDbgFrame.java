@@ -4,16 +4,14 @@ import code.gui.events.AbsWindowListenerClosing;
 
 public final class CloseDbgFrame implements AbsWindowListenerClosing {
     private final AbsDebuggerGui gui;
-    private final AbsOpenFrameInteract associated;
 
-    public CloseDbgFrame(AbsDebuggerGui _g,AbsOpenFrameInteract _a) {
+    public CloseDbgFrame(AbsDebuggerGui _g) {
         gui = _g;
-        associated = _a;
     }
 
     @Override
     public void windowClosing() {
-        associated.close();
+        gui.getMenuManage().close();
         gui.closeAll();
         CancelBpFormEvent.act(gui);
         gui.getStopDbg().set(true);

@@ -68,10 +68,12 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final AbsTextArea statusAnalyzeArea;
     private ResultContext baseResult;
     private ResultContext baseResultDbg;
+    private ResultContext baseResultDbgInit;
     private ResultContext userResultGene;
     private ResultContext userResult;
     private AbstractFuture future;
     private AbstractFuture futureDbg;
+    private AbstractFuture futureDbgInit;
     private final CdmGuiLanguageEvent languageEvent;
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
@@ -195,8 +197,9 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
 
     public void trySubmit() {
         if (softParams.getLines().size() > 1) {
-            setFuture(getService().submitLater(new PreAnalyzeExpressionSource(this, false)));
-            setFutureDbg(getServiceDbg().submitLater(new PreAnalyzeExpressionSource(this, true)));
+            setFuture(getService().submitLater(new PreAnalyzeExpressionSource(this, 0)));
+            setFutureDbg(getServiceDbg().submitLater(new PreAnalyzeExpressionSource(this, 1)));
+            setFutureDbgInit(getServiceDbg().submitLater(new PreAnalyzeExpressionSource(this, 2)));
         }
     }
 
@@ -594,6 +597,14 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         this.baseResultDbg = _b;
     }
 
+    public ResultContext getBaseResultDbgInit() {
+        return baseResultDbgInit;
+    }
+
+    public void setBaseResultDbgInit(ResultContext _b) {
+        this.baseResultDbgInit = _b;
+    }
+
     public ResultContext getUserResultGene() {
         return userResultGene;
     }
@@ -624,6 +635,14 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
 
     public void setFutureDbg(AbstractFuture _f) {
         this.futureDbg = _f;
+    }
+
+    public AbstractFuture getFutureDbgInit() {
+        return futureDbgInit;
+    }
+
+    public void setFutureDbgInit(AbstractFuture _f) {
+        this.futureDbgInit = _f;
     }
 
     public AdvResultContextNext getMainResultNext() {

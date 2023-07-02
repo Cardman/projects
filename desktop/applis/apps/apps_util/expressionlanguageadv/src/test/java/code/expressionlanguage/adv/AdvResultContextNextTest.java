@@ -140,7 +140,7 @@ public final class AdvResultContextNextTest extends EquallableElAdvUtil {
     public static AbsDebuggerGui buildExpAdvCore(WindowCdmEditor _w) {
         AbstractProgramInfos pr_ = _w.getCommonFrame().getFrames();
         AdvResultContextNext m_ = new AdvResultContextNext(_w,_w.getCommonFrame().getFrames(),_w.getFactory());
-        return new InitDebGuiImpl(m_,"en",pr_,_w.getFactory());
+        return new InitDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_,"en",pr_,_w.getFactory());
     }
     private static MockProgramInfos advPr() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
