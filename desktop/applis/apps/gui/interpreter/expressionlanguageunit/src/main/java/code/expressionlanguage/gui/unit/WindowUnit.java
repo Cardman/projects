@@ -19,7 +19,6 @@ import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.*;
 import code.scripts.messages.gui.MessCdmUnitGr;
-import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractBaseExecutorService;
@@ -69,7 +68,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
 
     public WindowUnit(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos) {
         super(_lg, _programInfos);
-        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
+        GuiBaseUtil.choose(_lg, this, _programInfos.getCommon());
         exec = _programInfos.getThreadFactory().newExecutorService();
         interceptor = _list;
         setAccessFile("unit.mainwindow");

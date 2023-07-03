@@ -4,8 +4,6 @@ package code.gui;
 import code.gui.events.LanguageChoice;
 import code.gui.events.SetterLanguage;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.messages.gui.MessGuiGr;
-import code.stream.StreamLanguageUtil;
 import code.util.consts.Constants;
 
 
@@ -18,18 +16,6 @@ public final class LanguageDialog implements SetterLanguage {
 
     public LanguageDialog(AbstractProgramInfos _frameFactory) {
         absDialog = _frameFactory.getFrameFactory().newDialog();
-    }
-    public static void changeLanguage(String _lg, AbstractProgramInfos _infos, String _folder){
-        if(_lg == null || _lg.isEmpty()) {
-            return;
-        }
-        GuiBaseUtil.changeStaticLanguage(_lg, _infos, MessGuiGr.ms());
-        StreamLanguageUtil.saveLanguage(_folder, _lg,_infos.getStreams());
-
-    }
-
-    public static void setLanguageDialog(AbsGroupFrame _owner,WithDialogs _w, String _title) {
-        _w.getLanguageDialog().init(_owner.getCommonFrame(),_owner.getCommonFrame().getFrames(), _title);
     }
 
     public void init(AbsCommonFrame _owner,AbstractProgramInfos _pr, String _title) {
@@ -52,10 +38,6 @@ public final class LanguageDialog implements SetterLanguage {
     public void setLanguage(String _language) {
         langue = _language;
         absDialog.closeWindow();
-    }
-
-    public static String getStaticLanguage(SetterLanguage _dialog) {
-        return _dialog.getLanguage();
     }
 
     @Override

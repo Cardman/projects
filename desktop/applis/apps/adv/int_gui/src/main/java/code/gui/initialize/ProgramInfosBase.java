@@ -26,6 +26,7 @@ public class ProgramInfosBase {
     private final CompoundedInitParts compoundedInitParts;
     private StringList languages = new StringList();
     private String language = "";
+    private StringMap<String> common = new StringMap<String>();
 
     public ProgramInfosBase(String _h, String _t, AbstractGenerator _g, AbstractGraphicStringListGenerator _l, AbstractGraphicComboBoxGenerator _c, CompoundedInitParts _parts) {
         this.homePath = _h;
@@ -41,6 +42,14 @@ public class ProgramInfosBase {
 
     public void setTranslations(Translations _trs) {
         this.translations = _trs;
+    }
+
+    public StringMap<String> getCommon() {
+        return common;
+    }
+
+    public void setCommon(StringMap<String> _c) {
+        this.common = _c;
     }
 
     public String getHomePath() {

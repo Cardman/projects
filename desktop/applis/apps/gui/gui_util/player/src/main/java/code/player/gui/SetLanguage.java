@@ -3,12 +3,11 @@ package code.player.gui;
 import code.gui.GuiBaseUtil;
 import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.messages.gui.MessGuiGr;
 
 class SetLanguage implements AbsActionListener {
 
-    private String language;
-    private AbstractProgramInfos list;
+    private final String language;
+    private final AbstractProgramInfos list;
 
     SetLanguage(String _language, AbstractProgramInfos _list) {
         language = _language;
@@ -17,6 +16,6 @@ class SetLanguage implements AbsActionListener {
 
     @Override
     public void action() {
-        GuiBaseUtil.changeStaticLanguage(language, list, MessGuiGr.ms());
+        GuiBaseUtil.changeStaticLanguage(language, list, list.getCommon());
     }
 }

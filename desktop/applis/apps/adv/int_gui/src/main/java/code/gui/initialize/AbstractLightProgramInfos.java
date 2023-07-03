@@ -7,10 +7,13 @@ import code.sml.util.Translations;
 import code.stream.core.AbstractZipFact;
 import code.threads.AbstractThreadFactory;
 import code.util.StringList;
+import code.util.StringMap;
 
 public interface AbstractLightProgramInfos {
     Translations getTranslations();
     void setTranslations(Translations _trs);
+    StringMap<String> getCommon();
+    void setCommon(StringMap<String> _c);
     AbsLightFrameFactory getLightFrameFactory();
     AbstractGenerator getGenerator();
     AbstractThreadFactory getThreadFactory();

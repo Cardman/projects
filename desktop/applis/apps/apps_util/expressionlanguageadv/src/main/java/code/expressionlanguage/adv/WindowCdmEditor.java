@@ -13,7 +13,6 @@ import code.gui.*;
 import code.gui.events.QuittingEvent;
 import code.gui.events.SetterLanguage;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.messages.gui.MessGuiGr;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -92,7 +91,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         setterLanguage = _list.getSetterLanguage();
         dialogSoft = _list.getFrameFactory().newDialog();
         dialogFolderExpression = _list.getFrameFactory().newDialog();
-        coreMessages = MessGuiGr.ms();
+        coreMessages = _list.getCommon();
         GuiBaseUtil.choose(_lg, this, coreMessages);
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
         AbsMenu file_ = _list.getCompoFactory().newMenu("file");

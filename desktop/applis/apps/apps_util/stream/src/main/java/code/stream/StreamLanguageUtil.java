@@ -35,14 +35,17 @@ public final class StreamLanguageUtil {
         return "";
     }
 
-    public static void saveLanguage(String _folder, String _locale,TechStreams _str) {
+    public static boolean saveLanguage(String _folder, String _locale,TechStreams _str) {
+        if (_locale.isEmpty()) {
+            return false;
+        }
         Document document_= DocumentBuilder.newXmlDocument();
         Element info_=document_.createElement(PARAMETERS);
         Element infoPart_ = document_.createElement(LOCALE);
         infoPart_.setAttribute(LOCALE, _locale);
         info_.appendChild(infoPart_);
         document_.appendChild(info_);
-        StreamTextFile.saveTextFile(lg(_folder), document_.export(),_str);
+        return StreamTextFile.saveTextFile(lg(_folder), document_.export(),_str);
     }
 
     static String lg(String _f) {

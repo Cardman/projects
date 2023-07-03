@@ -179,9 +179,12 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
         GuiBaseUtil.choose("",pr_,fr_,m_);
         GuiBaseUtil.choose("",fr_,m_);
-        GuiBaseUtil.changeStaticLanguage("",pr_,m_);
+        assertFalse(GuiBaseUtil.changeStaticLanguage("",pr_,m_));
+        assertTrue(GuiBaseUtil.changeStaticLanguage("_",pr_,m_));
         GuiBaseUtil.showDialogError(0,fr_.getCommonFrame());
         assertTrue(GuiBaseUtil.tryToReopen("",pr_));
+        GuiBaseUtil.getStaticLanguage(new MockSetterLanguage());
+        GuiBaseUtil.setLanguageDialog(fr_,new MockWithDialogs(pr_),"");
     }
     @Test
     public void tryToReopen2() {

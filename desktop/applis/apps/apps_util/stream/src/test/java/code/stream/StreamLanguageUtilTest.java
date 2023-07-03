@@ -13,14 +13,14 @@ public final class StreamLanguageUtilTest extends EquallableStreamUtil {
     public void lg1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
         StreamFolderFile.makeParent("/folder/lg.txt",pr_.getFileCoreStream());
-        StreamLanguageUtil.saveLanguage("/folder","0", pr_.getStreams());
+        assertTrue(StreamLanguageUtil.saveLanguage("/folder","0", pr_.getStreams()));
         assertEq("",StreamLanguageUtil.tryToGetXmlLanguage("/folder",pr_.getFileCoreStream(),pr_.getStreams(),new CustList<String>()));
     }
     @Test
     public void lg2() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
         StreamFolderFile.makeParent("/folder/lg.txt",pr_.getFileCoreStream());
-        StreamLanguageUtil.saveLanguage("/folder","0", pr_.getStreams());
+        assertTrue(StreamLanguageUtil.saveLanguage("/folder","0", pr_.getStreams()));
         CustList<String> lgs_ = new CustList<String>();
         lgs_.add("0");
         lgs_.add("1");
@@ -30,7 +30,7 @@ public final class StreamLanguageUtilTest extends EquallableStreamUtil {
     public void lg3() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
         StreamFolderFile.makeParent("/folder/lg.txt",pr_.getFileCoreStream());
-        StreamLanguageUtil.saveLanguage("/folder","1", pr_.getStreams());
+        assertTrue(StreamLanguageUtil.saveLanguage("/folder","1", pr_.getStreams()));
         CustList<String> lgs_ = new CustList<String>();
         lgs_.add("0");
         lgs_.add("1");
@@ -62,5 +62,11 @@ public final class StreamLanguageUtilTest extends EquallableStreamUtil {
         lgs_.add("0");
         lgs_.add("1");
         assertEq("",StreamLanguageUtil.tryToGetXmlLanguage("/folder",pr_.getFileCoreStream(),pr_.getStreams(), lgs_));
+    }
+    @Test
+    public void lg6() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
+        StreamFolderFile.makeParent("/folder/lg.txt",pr_.getFileCoreStream());
+        assertFalse(StreamLanguageUtil.saveLanguage("/folder","", pr_.getStreams()));
     }
 }

@@ -446,7 +446,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
                        StringMap<StringMap<PreparedPagesCards>> _tarot,
                        CardFactories _cardFactories) {
         super(_lg, _list);
-        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
+        GuiBaseUtil.choose(_lg, this, _list.getCommon());
         core = new WindowCardsCore(_lg, _list, _belote, _president, _tarot, _cardFactories);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);

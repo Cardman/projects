@@ -5,6 +5,7 @@ import code.expressionlanguage.utilcompo.FileInfos;
 import code.gui.*;
 import code.gui.events.SetterLanguage;
 import code.gui.initialize.*;
+import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.TranslationsLg;
 import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
@@ -81,6 +82,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         FileInfos.enTr(FileInfos.initComments(lg(EN)));
         FileInfos.frTr(FileInfos.initComments(lg(FR)));
         setterLanguage = new LanguageDialog(this);
+        setCommon(MessGuiGr.ms());
 //        excludedFolders = StreamTextFile.getExcludedFolders(fileCoreStream,tmpUserFolder,StringUtil.replaceBackSlash(System.getProperty("java.class.path")));
     }
     private TranslationsLg lg(String _key) {

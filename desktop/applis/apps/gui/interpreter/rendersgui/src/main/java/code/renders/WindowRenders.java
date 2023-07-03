@@ -18,7 +18,6 @@ import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.*;
 import code.renders.utilcompo.LgNamesRenderUtils;
-import code.scripts.messages.gui.MessGuiGr;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.core.OutputType;
@@ -43,7 +42,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
 
     public WindowRenders(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos) {
         super(_lg, _programInfos);
-        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
+        GuiBaseUtil.choose(_lg, this, _programInfos.getCommon());
         interceptor = _list;
         setJMenuBar(getCompoFactory().newMenuBar());
         menu = getCompoFactory().newMenu("file");

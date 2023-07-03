@@ -12,7 +12,6 @@ import code.images.BaseSixtyFourUtil;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.player.main.LaunchingPlayer;
-import code.scripts.messages.gui.MessGuiGr;
 import code.stream.*;
 import code.scripts.messages.gui.MessPlayerGr;
 import code.sml.Document;
@@ -98,7 +97,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
 
     public WindowPlayer(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
-        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
+        GuiBaseUtil.choose(_lg, this, _list.getCommon());
         initMessages(_lg);
         setTitle(messages.getVal(CST_TITLE_PLAYER));
         setIconImage(LaunchingPlayer.getIcon(_list.getImageFactory()));

@@ -46,15 +46,11 @@ import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
 //import code.gui.initialize.AbstractSocket;
 //import code.network.*;
-import code.scripts.messages.gui.MessGuiGr;
 import code.scripts.messages.gui.MessGuiPkGr;
 //import code.sml.Document;
 //import code.sml.Element;
 import code.sml.util.ResourcesMessagesUtil;
-import code.stream.AbstractFile;
-import code.stream.AbstractFileCoreStream;
-import code.stream.StreamFolderFile;
-import code.stream.StreamTextFile;
+import code.stream.*;
 import code.stream.core.TechStreams;
 import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractThread;
@@ -257,7 +253,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
         super(_lg, _list);
-        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
+        GuiBaseUtil.choose(_lg, this, _list.getCommon());
         expThread = _list.getThreadFactory().newExecutorService();
         selectEgg = new SelectEgg(_list);
         selectPokemon = new SelectPokemon(_list);
@@ -941,9 +937,12 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //            GuiBaseUtil.showDialogError(GuiConstants.ERROR_MESSAGE, this.getCommonFrame());
 //            return;
 //        }
-        LanguageDialog.setLanguageDialog(this,this, messages.getVal(CST_LANGUAGE));
-        String langue_ = LanguageDialog.getStaticLanguage(getLanguageDialog());
-        LanguageDialog.changeLanguage(langue_,getFrames(),LaunchingPokemon.getTempFolder(getFrames()));
+        GuiBaseUtil.setLanguageDialog(this,this, messages.getVal(CST_LANGUAGE));
+        String langue_ = GuiBaseUtil.getStaticLanguage(getLanguageDialog());
+        AbstractProgramInfos infos_ = getFrames();
+        String value_ = StringUtil.nullToEmpty(langue_);
+        GuiBaseUtil.changeStaticLanguage(value_, infos_, infos_.getCommon());
+        StreamLanguageUtil.saveLanguage(LaunchingPokemon.getTempFolder(getFrames()), value_,infos_.getStreams());
     }
 
     public void manageParams() {

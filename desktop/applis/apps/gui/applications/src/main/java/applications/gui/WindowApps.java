@@ -17,7 +17,6 @@ import code.minirts.LaunchingDemo;
 import code.network.LaunchingNetwork;
 import code.player.main.LaunchingPlayer;
 import code.renders.LaunchingRenders;
-import code.scripts.messages.gui.MessGuiGr;
 import code.stream.StreamLanguageUtil;
 import code.threads.AbstractAtomicInteger;
 import code.util.CustList;
@@ -50,7 +49,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 
     public WindowApps(String _lg, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, CdmFactory _cdmFactory) {
         super(_lg, _list);
-        GuiBaseUtil.choose(_lg, this, MessGuiGr.ms());
+        GuiBaseUtil.choose(_lg, this, _list.getCommon());
         setFocusableWindowState(true);
         setTitle(APPLICATIONS);
         AbsPanel panel_ = getCompoFactory().newPageBox();

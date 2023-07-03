@@ -12,6 +12,7 @@ import code.stream.core.TechStreams;
 import code.threads.FileStruct;
 import code.threads.ThState;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.NumberUtil;
 import org.junit.Test;
 
@@ -92,6 +93,8 @@ public class ThreadsTest extends EquallableIntGuiUtil {
         t_.setLanguages(new StringList());
         t_.setTranslations(new Translations());
         t_.getTranslations().getMapping().clear();
+        t_.setCommon(new StringMap<String>());
+        t_.getCommon().clear();
         t_.setLanguage("");
         assertNull(t_.getThreadFactory());
         assertNull(t_.getCompoFactory());

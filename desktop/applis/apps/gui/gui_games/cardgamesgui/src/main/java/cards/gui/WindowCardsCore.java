@@ -184,9 +184,12 @@ public final class WindowCardsCore {
 //            GuiBaseUtil.showDialogError(GuiConstants.ERROR_MESSAGE, _inst.getCommonFrame());
 //            return;
 //        }
-        LanguageDialog.setLanguageDialog(_inst,_inst, _inst.getMessages().getVal(CST_LANGUAGE));
-        String langue_ = LanguageDialog.getStaticLanguage(_inst.getLanguageDialog());
-        LanguageDialog.changeLanguage(langue_,_inst.getFrames(),LaunchingCards.getTempFolder(_inst.getFrames()));
+        GuiBaseUtil.setLanguageDialog(_inst,_inst, _inst.getMessages().getVal(CST_LANGUAGE));
+        String langue_ = GuiBaseUtil.getStaticLanguage(_inst.getLanguageDialog());
+        AbstractProgramInfos infos_ = _inst.getFrames();
+        String value_ = StringUtil.nullToEmpty(langue_);
+        GuiBaseUtil.changeStaticLanguage(value_, infos_, infos_.getCommon());
+        StreamLanguageUtil.saveLanguage(LaunchingCards.getTempFolder(_inst.getFrames()), value_,infos_.getStreams());
     }
     public void displayingGame(WindowCardsInt _inst,GameEnum _game) {
         String lg_ = _inst.getLanguageKey();

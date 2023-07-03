@@ -2,6 +2,7 @@ package code.gui;
 
 import code.gui.events.AbsEnabledAction;
 import code.gui.events.AbsWindowListenerClosing;
+import code.gui.events.SetterLanguage;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractLightProgramInfos;
@@ -210,9 +211,13 @@ public final class GuiBaseUtil {
 //        return true;
 //    }
 
-    public static void changeStaticLanguage(String _language, AbstractProgramInfos _list, StringMap<String> _res) {
+    public static boolean changeStaticLanguage(String _language, AbstractProgramInfos _list, StringMap<String> _res) {
+        if (_language.isEmpty()) {
+            return false;
+        }
         _list.getFrames().first().setMessages(group(_language, _res));
         _list.getFrames().first().changeLanguage(_language);
+        return true;
     }
 
     public static void showDialogError(int _errorMessage, AbsCommonFrame _com) {
@@ -269,5 +274,13 @@ public final class GuiBaseUtil {
     public static void trEx(AbsOpenQuit _t) {
         tryExit(_t.getCommonFrame());
         _t.getCommonFrame().getFrames().getCounts().getVal(_t.getApplicationName()).decrementAndGet();
+    }
+
+    public static void setLanguageDialog(AbsGroupFrame _owner,WithDialogs _w, String _title) {
+        _w.getLanguageDialog().init(_owner.getCommonFrame(),_owner.getCommonFrame().getFrames(), _title);
+    }
+
+    public static String getStaticLanguage(SetterLanguage _dialog) {
+        return _dialog.getLanguage();
     }
 }
