@@ -4,9 +4,9 @@ package code.gui;
 
 
 
-import code.gui.events.ClickHeaderEvent;
-import code.gui.events.ClickRowEvent;
-import code.gui.events.DeployTreeEvent;
+import code.gui.files.ClickHeaderEvent;
+import code.gui.files.ClickRowEvent;
+import code.gui.files.DeployTreeEvent;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaPoint;
 import code.gui.initialize.AbsCompoFactory;

@@ -1,10 +1,10 @@
 package code.gui;
 
 
-import code.gui.events.CancelSelectFileEvent;
-import code.gui.events.CreateFolderEvent;
-import code.gui.events.SubmitKeyEvent;
-import code.gui.events.SubmitMouseEvent;
+import code.gui.files.CancelSelectFileEvent;
+import code.gui.files.CreateFolderEvent;
+import code.gui.files.SubmitKeyEvent;
+import code.gui.files.SubmitMouseEvent;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;

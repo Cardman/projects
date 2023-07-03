@@ -2,8 +2,8 @@ package code.gui;
 
 
 
-import code.gui.events.AnswerEvent;
-import code.gui.events.AnswerTextEvent;
+import code.gui.files.AnswerEvent;
+import code.gui.files.AnswerTextEvent;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;

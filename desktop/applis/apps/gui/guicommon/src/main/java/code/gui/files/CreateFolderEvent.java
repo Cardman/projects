@@ -1,13 +1,11 @@
-package code.gui.events;
+package code.gui.files;
 
-import code.gui.AbsMouseButtons;
-import code.gui.AbsCtrlKeyState;
-import code.gui.AbsMouseLocation;
 import code.gui.FileSaveDialog;
+import code.gui.events.AbsActionListener;
 
 public class CreateFolderEvent implements AbsActionListener {
 
-    private FileSaveDialog dialog;
+    private final FileSaveDialog dialog;
 
     public CreateFolderEvent(FileSaveDialog _dialog) {
         dialog = _dialog;

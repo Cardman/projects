@@ -1,13 +1,11 @@
-package code.gui.events;
+package code.gui.files;
 
-import code.gui.AbsMouseButtons;
-import code.gui.AbsCtrlKeyState;
-import code.gui.AbsMouseLocation;
 import code.gui.SingleFileSelection;
+import code.gui.events.AbsActionListener;
 
 public class SubmitMouseEvent implements AbsActionListener {
 
-    private SingleFileSelection dialog;
+    private final SingleFileSelection dialog;
 
     public SubmitMouseEvent(SingleFileSelection _dialog) {
         dialog = _dialog;

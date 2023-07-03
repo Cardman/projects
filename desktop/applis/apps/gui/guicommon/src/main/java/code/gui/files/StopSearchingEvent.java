@@ -1,15 +1,13 @@
-package code.gui.events;
+package code.gui.files;
 
-import code.gui.AbsMouseButtons;
-import code.gui.AbsCtrlKeyState;
-import code.gui.AbsMouseLocation;
 import code.gui.FileOpenDialog;
+import code.gui.events.AbsActionListener;
 
 public class StopSearchingEvent implements AbsActionListener{
 
-    private FileOpenDialog dialog;
+    private final FileOpenDialog dialog;
 
-    private boolean newResults;
+    private final boolean newResults;
 
     public StopSearchingEvent(FileOpenDialog _dialog, boolean _newResults) {
         dialog = _dialog;

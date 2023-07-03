@@ -1,8 +1,9 @@
-package code.gui.events;
+package code.gui.files;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.FileDialog;
+import code.gui.events.AbsMouseListenerCl;
 
 public class ClickHeaderEvent implements AbsMouseListenerCl {
 

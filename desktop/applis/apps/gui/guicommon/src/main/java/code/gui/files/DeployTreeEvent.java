@@ -1,4 +1,4 @@
-package code.gui.events;
+package code.gui.files;
 
 import code.gui.AbsShortListTree;
 import code.gui.AbstractMutableTreeNodeCore;

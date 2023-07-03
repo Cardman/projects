@@ -1,13 +1,11 @@
-package code.gui.events;
+package code.gui.files;
 
-import code.gui.AbsMouseButtons;
-import code.gui.AbsCtrlKeyState;
-import code.gui.AbsMouseLocation;
 import code.gui.FileDialog;
+import code.gui.events.AbsActionListener;
 
 public class CancelSelectFileEvent implements AbsActionListener {
 
-    private FileDialog dialog;
+    private final FileDialog dialog;
 
     public CancelSelectFileEvent(FileDialog _dialog) {
         dialog = _dialog;

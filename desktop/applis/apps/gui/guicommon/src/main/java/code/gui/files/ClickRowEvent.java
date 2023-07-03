@@ -1,6 +1,7 @@
-package code.gui.events;
+package code.gui.files;
 
 import code.gui.FileDialog;
+import code.gui.events.AbsListSelectionListener;
 
 public class ClickRowEvent implements AbsListSelectionListener {
 
