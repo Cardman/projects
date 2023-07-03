@@ -6,6 +6,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -65,30 +66,37 @@ public final class MetaInfoUtil {
     }
 
     public static boolean hasToExit(ContextEl _cont, GeneType _className, Argument _arg, StackCall _stackCall) {
+        CallingState state_ = state(_cont, _className, _arg, _stackCall);
+        if (state_ instanceof NotInitializedClass) {
+            _cont.getLocks().initClass(((NotInitializedClass)state_).getRootBlock());
+        }
+        if (state_ != null) {
+            _stackCall.setCallingState(state_);
+            return true;
+        }
+        return false;
+    }
+
+    public static CallingState state(ContextEl _cont, GeneType _className, Argument _arg, StackCall _stackCall) {
         if (_stackCall.getLastPage().getGlobalClass().getRootBlock() == _className) {
-            return false;
+            return null;
         }
         if (_className instanceof ExecRootBlock) {
             DefaultLockingClass locks_ = _cont.getLocks();
             InitClassState res_ = locks_.getState((ExecRootBlock) _className);
             if (_stackCall.getInitializingTypeInfos().isInitEnums()) {
                 if (res_ != InitClassState.SUCCESS) {
-                    _stackCall.failInitEnums();
-                    return true;
+                    return new CustomFoundExc(null,true);
                 }
-                return false;
+                return null;
             }
             if (res_ == InitClassState.NOT_YET) {
-                locks_.initClass((ExecRootBlock) _className);
-                _stackCall.setCallingState(new NotInitializedClass(new ExecFormattedRootBlock((ExecRootBlock) _className,_className.getFullName()),(ExecRootBlock) _className, _arg));
-                return true;
+                return new NotInitializedClass(new ExecFormattedRootBlock((ExecRootBlock) _className,_className.getFullName()),(ExecRootBlock) _className, _arg);
             }
             if (res_ == InitClassState.ERROR) {
-                CausingErrorStruct causing_ = new CausingErrorStruct(_className.getFullName(), _cont, _stackCall);
-                _stackCall.setCallingState(new CustomFoundExc(causing_));
-                return true;
+                return new CustomFoundExc(new CausingErrorStruct(_className.getFullName(), _cont, _stackCall));
             }
         }
-        return false;
+        return null;
     }
 }
