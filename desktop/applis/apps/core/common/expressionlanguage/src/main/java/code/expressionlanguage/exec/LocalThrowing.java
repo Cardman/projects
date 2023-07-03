@@ -3,7 +3,6 @@ package code.expressionlanguage.exec;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.stacks.AbruptCallingFinally;
 import code.expressionlanguage.exec.stacks.AbstractStask;
@@ -33,12 +32,12 @@ public final class LocalThrowing {
             custCause_ = _conf.getLocks().processErrorClass(_conf, retrieve(_stackCall,custCause_), bkIp_, _stackCall);
             _stackCall.removeLastPage();
         }
-        _stackCall.setCallingState(new CustomFoundExc(custCause_));
+        _stackCall.setCallingState(new CustomFoundExc(custCause_,_stackCall.isFailInit()));
     }
     public static Struct retrieve(StackCall _stackCall, Struct _old) {
-        CallingState c_ = _stackCall.getCallingState();
-        if (c_ instanceof CustomFoundExc) {
-            return ((CustomFoundExc)c_).getStruct();
+        CustomFoundExc c_ = _stackCall.trueException();
+        if (c_ != null) {
+            return c_.getStruct();
         }
         return _old;
     }

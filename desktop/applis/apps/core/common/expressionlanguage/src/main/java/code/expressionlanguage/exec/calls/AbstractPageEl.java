@@ -389,8 +389,9 @@ public abstract class AbstractPageEl {
                 return true;
             }
         }
-        if (_stackCall.getCallingState() instanceof CustomFoundExc) {
-            Struct e_ = ((CustomFoundExc) _stackCall.getCallingState()).getStruct();
+        CustomFoundExc exc_ = _stackCall.trueException();
+        if (exc_ != null) {
+            Struct e_ = exc_.getStruct();
             ConditionReturn st_ = _context.getClasses().getDebugMapping().getExceptions().getVal(e_.getClassName(_context));
             return st_ == ConditionReturn.NO || st_ == ConditionReturn.CALL_EX;
         }

@@ -1,12 +1,12 @@
 package code.expressionlanguage.exec;
 
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.*;
 import code.util.IdList;
 import code.util.core.StringUtil;
 
 public final class InitializingTypeInfos {
     private InitPhase initEnums = InitPhase.READ_ONLY_OTHERS;
-    private boolean failInit;
     private final IdList<Struct> sensibleFields = new IdList<Struct>();
     public boolean isSensibleField(String _clName, StackCall _stackCall) {
         if (!isInitEnums()) {
@@ -76,11 +76,11 @@ public final class InitializingTypeInfos {
         }
         return !(_s instanceof AnnotationStruct);
     }
-    public void failInitEnums() {
+    public void failInitEnums(StackCall _stackCall) {
         if (!isInitEnums()) {
             return;
         }
-        setFailInit(true);
+        _stackCall.setCallingState(new CustomFoundExc(null,true));
     }
     public boolean isInitEnums() {
         return getInitEnums() == InitPhase.READ_ONLY_OTHERS;
@@ -91,7 +91,6 @@ public final class InitializingTypeInfos {
 
 
     public void resetInitEnums(StackCall _stackCall) {
-        setFailInit(false);
         _stackCall.setNullCallingState();
         getSensibleFields().clear();
         _stackCall.clearPages();
@@ -105,14 +104,6 @@ public final class InitializingTypeInfos {
 
     public void setInitEnums(InitPhase _initEnums) {
         this.initEnums = _initEnums;
-    }
-
-    public boolean isFailInit() {
-        return failInit;
-    }
-
-    public void setFailInit(boolean _failInit) {
-        this.failInit = _failInit;
     }
 
     public IdList<Struct> getSensibleFields() {

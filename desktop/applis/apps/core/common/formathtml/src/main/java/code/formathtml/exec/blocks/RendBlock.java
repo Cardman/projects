@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
@@ -931,9 +930,9 @@ public abstract class RendBlock {
     }
 
     private static void processGeneException(ContextEl _context, RendStackCall _rendStackCall) {
-        CallingState callingState_ = _rendStackCall.getStackCall().getCallingState();
-        if (callingState_ instanceof CustomFoundExc) {
-            Struct exc_ = ((CustomFoundExc) callingState_).getStruct();
+        CustomFoundExc callingState_ = _rendStackCall.getStackCall().trueException();
+        if (callingState_ != null) {
+            Struct exc_ = callingState_.getStruct();
             RendLocalThrowing.removeBlockFinally(_context,exc_, _rendStackCall);
         }
     }

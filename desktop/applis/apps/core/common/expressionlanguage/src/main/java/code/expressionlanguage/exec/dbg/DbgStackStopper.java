@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.StepDbgActionEnum;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 
@@ -45,7 +44,7 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     @Override
     public boolean hasFoundException(StackCall _stackCall) {
-        return _stackCall.getCallingState() instanceof CustomFoundExc;
+        return _stackCall.trueException() != null;
     }
 
     @Override

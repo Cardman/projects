@@ -23,15 +23,15 @@ public final class ExecutingUtil {
     }
 
     static void processException(ContextEl _context, StackCall _stackCall) {
-        if (!_stackCall.getInitializingTypeInfos().isFailInit()) {
+        if (!_stackCall.isFailInit()) {
             processGeneException(_context, _stackCall);
         }
     }
 
     public static void processGeneException(ContextEl _context, StackCall _stackCall) {
-        CallingState callingState_ = _stackCall.getCallingState();
-        if (callingState_ instanceof CustomFoundExc) {
-            Struct exc_ = ((CustomFoundExc)callingState_).getStruct();
+        CustomFoundExc callingState_ = _stackCall.trueException();
+        if (callingState_ != null) {
+            Struct exc_ = callingState_.getStruct();
             LocalThrowing.removeBlockFinally(_context, exc_, _stackCall);
         }
     }

@@ -83,9 +83,22 @@ public final class StackCall implements AbstractStackCall {
         setNullCallingState();
     }
     public void failInitEnums() {
-        getInitializingTypeInfos().failInitEnums();
+        getInitializingTypeInfos().failInitEnums(this);
     }
-
+    public CustomFoundExc trueException() {
+        CallingState c_ = getCallingState();
+        if (c_ instanceof CustomFoundExc && !((CustomFoundExc)c_).isFailInit()) {
+            return (CustomFoundExc) c_;
+        }
+        return null;
+    }
+    public CustomFoundExc falseException() {
+        CallingState c_ = getCallingState();
+        if (c_ instanceof CustomFoundExc && ((CustomFoundExc)c_).isFailInit()) {
+            return (CustomFoundExc) c_;
+        }
+        return null;
+    }
     public static ExecFormattedRootBlock formatVarType(AbstractStackCall _stack,ExecFormattedRootBlock _varType) {
         return new ExecFormattedRootBlock(_varType, _stack.formatVarType(_varType.getFormatted()));
     }
@@ -121,14 +134,11 @@ public final class StackCall implements AbstractStackCall {
     }
 
     private static boolean callsOrExceptionBase(StackCall _context) {
-        if (_context.callingState != null) {
-            return true;
-        }
-        return _context.isFailInit();
+        return _context.callingState != null;
     }
 
     public boolean calls() {
-        return !(getCallingState() instanceof CustomFoundExc);
+        return trueException() == null;
     }
 
     public InitializingTypeInfos getInitializingTypeInfos() {
@@ -136,7 +146,7 @@ public final class StackCall implements AbstractStackCall {
     }
 
     public boolean isFailInit() {
-        return initializingTypeInfos.isFailInit();
+        return falseException() != null;
     }
 
     public Struct getSeedSpecDoubleGenerator() {

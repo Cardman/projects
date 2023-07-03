@@ -48,9 +48,9 @@ public final class ProcessMethod {
     }
 
     public static String error(ContextEl _cont, StackCall _stackCall) {
-        CallingState exc_ = _stackCall.getCallingState();
-        if (exc_ instanceof CustomFoundExc) {
-            Struct exception_ = ((CustomFoundExc) exc_).getStruct();
+        CustomFoundExc exc_ = _stackCall.trueException();
+        if (exc_ != null) {
+            Struct exception_ = exc_.getStruct();
             if (exception_ instanceof DisplayableStruct) {
                 return ((DisplayableStruct)exception_).getDisplayedString(_cont).getInstance();
             }
