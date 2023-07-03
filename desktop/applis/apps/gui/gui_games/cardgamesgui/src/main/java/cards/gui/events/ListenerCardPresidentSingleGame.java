@@ -11,7 +11,6 @@ import cards.president.DealPresident;
 import cards.president.GamePresident;
 import cards.president.enumerations.CardPresident;
 import code.gui.AbsMouseLocation;
-import code.gui.ConfirmDialog;
 import code.gui.GuiConstants;
 import code.util.core.StringUtil;
 

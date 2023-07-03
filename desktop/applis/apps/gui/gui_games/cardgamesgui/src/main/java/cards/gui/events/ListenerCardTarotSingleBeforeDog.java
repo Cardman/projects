@@ -12,7 +12,6 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.PlayingDog;
 import code.gui.AbsMouseLocation;
-import code.gui.ConfirmDialog;
 import code.gui.GuiConstants;
 import code.util.core.StringUtil;
 

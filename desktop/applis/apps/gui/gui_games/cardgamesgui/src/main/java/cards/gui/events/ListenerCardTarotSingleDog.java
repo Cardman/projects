@@ -11,7 +11,6 @@ import cards.tarot.GameTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.ReasonDiscard;
 import code.gui.AbsMouseLocation;
-import code.gui.ConfirmDialog;
 import code.gui.GuiConstants;
 import code.util.core.StringUtil;
 

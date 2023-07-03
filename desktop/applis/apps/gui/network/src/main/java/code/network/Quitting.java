@@ -2,7 +2,6 @@ package code.network;
 
 
 
-import code.gui.ConfirmDialog;
 import code.gui.GuiConstants;
 import code.gui.initialize.AbstractSocket;
 import code.scripts.messages.gui.MessGuiNetGr;
