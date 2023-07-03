@@ -820,7 +820,7 @@ public final class ForwardInfos {
 //        ExecRootBlock declaring_ = _forwards.getMapMembers().getValue(_s.getRootNumber()).getRootBlock();
         NamedCalledFunctionBlock block_ = _s.getBlock();
         block_.setNumberLambda(_forwards.countAnonLambda());
-        String cl_ = MemberCallingsBlock.clName(_s.getBlock());
+        String cl_ = MemberCallingsBlock.clName(block_);
         ExecAnonymousFunctionBlock fct_ = new ExecAnonymousFunctionBlock(cl_,block_.getAccess(), block_.getModifier(), new ExecAnonFctContent(block_.getAnaAnonFctContent()), new ExecExecNamedFunctionContent(block_.getName(), block_.getImportedParametersTypes(), block_.getParametersRef(), block_.getParametersNames(), block_.isRetRef(), block_.isVarargs()));
         _forwards.addAnonLambda(block_,fct_);
         fct_.setImportedReturnType(block_.getImportedReturnType());

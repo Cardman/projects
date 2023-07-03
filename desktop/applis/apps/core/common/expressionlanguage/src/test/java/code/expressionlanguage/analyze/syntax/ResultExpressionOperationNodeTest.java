@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.syntax;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -5200,7 +5201,7 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("FOUR=FIVE;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertEq("",vexerChamps(files_,"pkg/Ex",98));
+        assertEq("",vexerChamps(files_,"pkg/Ex",98).getClassName());
     }
     @Test
     public void vexer2() {
@@ -5214,7 +5215,7 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("FOUR=FIVE;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertEq("",vexerChamps(files_,"pkg/Ex",0));
+        assertEq("",vexerChamps(files_,"pkg/Ex",0).getClassName());
     }
     @Test
     public void vexer3() {
@@ -5228,7 +5229,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         xml_.append("FOUR=FIVE;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertEq("FOUR",vexerChamps(files_,"pkg/Ex",93));
+        ClassField cf_ = vexerChamps(files_, "pkg/Ex", 93);
+        assertEq("pkg.Outer", cf_.getClassName());
+        assertEq("FOUR", cf_.getFieldName());
     }
     private static CustList<RowSrcLocation> locationsDisplay(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
@@ -5238,7 +5241,7 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return ResultExpressionOperationNode.locations(a_,_fileName,_caret);
     }
-    private static String vexerChamps(StringMap<String> _files, String _fileName, int _caret) {
+    private static ClassField vexerChamps(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return ResultExpressionOperationNode.vexerChamps(a_,_fileName,_caret);
     }

@@ -34,12 +34,12 @@ public final class ResultExpressionOperationNode {
     private OperationNode found;
     private ResultExpressionOperationNode(){
     }
-    public static String vexerChamps(AnalyzedPageEl _page, String _fileName, int _caret) {
+    public static ClassField vexerChamps(AnalyzedPageEl _page, String _fileName, int _caret) {
         ResultExpressionOperationNode res_ = container(_caret, _page.getPreviousFilesBodies().getVal(_fileName));
         if (res_.getFound() instanceof SettableAbstractFieldOperation) {
-            return ((SettableAbstractFieldOperation)res_.getFound()).getFieldIdReadOnly().getFieldName();
+            return ((SettableAbstractFieldOperation)res_.getFound()).getFieldIdReadOnly();
         }
-        return "";
+        return new ClassField("","");
     }
 
     public static AnalyzedPageEl prepare(String _fileName, int _caret, AnalyzedPageEl _original, MethodAccessKind _flag) {
