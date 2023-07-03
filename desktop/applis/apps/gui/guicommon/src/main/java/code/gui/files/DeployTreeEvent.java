@@ -2,7 +2,6 @@ package code.gui.files;
 
 import code.gui.AbsShortListTree;
 import code.gui.AbstractMutableTreeNodeCore;
-import code.gui.FileDialog;
 
 public class DeployTreeEvent implements AbsShortListTree {
 

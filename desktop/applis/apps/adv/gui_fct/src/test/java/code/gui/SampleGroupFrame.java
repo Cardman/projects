@@ -3,7 +3,7 @@ package code.gui;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
-public final class SampleGroupFrame extends GroupFrame implements AbsOpenQuit {
+public final class SampleGroupFrame extends GroupFrame implements AbsOpenQuit,AbsChildFrame {
     public SampleGroupFrame(String _lg, AbstractProgramInfos _list, StringMap<String> _ms) {
         super(_lg, _list);
         GuiBaseUtil.choose(_lg, this, _ms);
@@ -22,5 +22,15 @@ public final class SampleGroupFrame extends GroupFrame implements AbsOpenQuit {
     @Override
     public void quit() {
         nativeExit();
+    }
+
+    @Override
+    public void setDialogIcon(AbsCommonFrame _group) {
+        setIconImage(_group.getImageIconFrame());
+    }
+
+    @Override
+    public void closeWindow() {
+        setVisible(false);
     }
 }

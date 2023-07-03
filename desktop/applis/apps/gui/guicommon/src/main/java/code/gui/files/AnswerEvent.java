@@ -1,6 +1,5 @@
 package code.gui.files;
 
-import code.gui.ConfirmDialog;
 import code.gui.events.AbsActionListener;
 
 public class AnswerEvent implements AbsActionListener {

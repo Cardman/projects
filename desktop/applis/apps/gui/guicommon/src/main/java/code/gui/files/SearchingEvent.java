@@ -1,7 +1,6 @@
 package code.gui.files;
 
 import code.gui.AbsPlainButton;
-import code.gui.FileOpenDialog;
 import code.gui.events.AbsActionListener;
 
 public class SearchingEvent implements AbsActionListener {

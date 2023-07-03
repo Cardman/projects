@@ -6,6 +6,7 @@ import code.mock.*;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.*;
 import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
@@ -330,6 +331,35 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         s_.setTitle("frime");
         assertEq("frime",s_.getTitle());
     }
+
+    @Test
+    public void clock() {
+        MockProgramInfosSecSample pr_ = init();
+        Clock c_ = new Clock(pr_);
+        ThreadInvoker.invokeNow(pr_.getThreadFactory(),new UpdateTimeEvent(pr_.getThreadFactory(),c_),pr_);
+        ((MockCompoFactory)pr_.getCompoFactory()).invoke();
+        LabelButtonUtil.paintDefaultLabel(new MockImage(new int[1][1]),"",1,1,1,1,1);
+        assertFalse(StringUtil.nullToEmpty(((MockTextField)c_.getComponent()).getText()+"_"+Clock.getDateTimeText(pr_.getThreadFactory())).isEmpty());
+    }
+
+    @Test
+    public void topLeft() {
+        TopLeftFrame t_ = new TopLeftFrame();
+        t_.setHeight(1);
+        t_.setWidth(2);
+        assertEq(1,t_.getHeight());
+        assertEq(2,t_.getWidth());
+    }
+
+    @Test
+    public void quit() {
+        SampleGroupFrame fr_ = new SampleGroupFrame("", init(), new StringMap<String>());
+        new QuitEvent(fr_).action();
+        assertEq(0,fr_.getCommonFrame().getWindowListenersDef().size());
+        new ClosingChildFrameEvent(fr_).windowClosing();
+        assertFalse(fr_.getCommonFrame().isVisible());
+    }
+
     private boolean launch(MockSoundRecord _pl) {
         return GuiBaseUtil.launch(_pl.build());
     }

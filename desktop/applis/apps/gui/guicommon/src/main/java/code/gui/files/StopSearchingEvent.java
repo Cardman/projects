@@ -1,6 +1,5 @@
 package code.gui.files;
 
-import code.gui.FileOpenDialog;
 import code.gui.events.AbsActionListener;
 
 public class StopSearchingEvent implements AbsActionListener{

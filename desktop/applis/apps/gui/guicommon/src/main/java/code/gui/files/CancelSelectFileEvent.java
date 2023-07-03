@@ -1,6 +1,5 @@
 package code.gui.files;
 
-import code.gui.FileDialog;
 import code.gui.events.AbsActionListener;
 
 public class CancelSelectFileEvent implements AbsActionListener {

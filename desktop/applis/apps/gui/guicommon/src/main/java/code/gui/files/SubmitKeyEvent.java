@@ -1,6 +1,5 @@
 package code.gui.files;
 
-import code.gui.SingleFileSelection;
 import code.gui.events.AbsActionListener;
 
 public class SubmitKeyEvent implements AbsActionListener {

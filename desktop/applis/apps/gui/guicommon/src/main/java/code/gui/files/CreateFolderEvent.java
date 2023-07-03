@@ -1,6 +1,5 @@
 package code.gui.files;
 
-import code.gui.FileSaveDialog;
 import code.gui.events.AbsActionListener;
 
 public class CreateFolderEvent implements AbsActionListener {
