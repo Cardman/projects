@@ -4,24 +4,17 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
-import code.expressionlanguage.exec.dbg.AbsCallContraints;
-import code.expressionlanguage.exec.dbg.BreakPoint;
-import code.expressionlanguage.exec.dbg.BreakPointCondition;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.*;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.*;
-import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringMap;
-import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public abstract class AbstractPageEl {
@@ -331,206 +324,6 @@ public abstract class AbstractPageEl {
 
     public ExecRootBlock getBlockRootType() {
         return globalClass.getRootBlock();
-    }
-
-    public boolean stopBreakPoint(ContextEl _context, StackCall _stackCall) {
-        if (checkBreakPoint(_stackCall)&&!_stackCall.isVisited()) {
-            _stackCall.setVisited(true);
-            if (stopStep(_context,_stackCall)) {
-                _stackCall.setGlobalOffset(getGlobalOffset());
-                return true;
-            }
-            if (_context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().get()) {
-                _context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().set(false);
-                _stackCall.setGlobalOffset(getGlobalOffset());
-                return true;
-            }
-            if (_stackCall.isMute()) {
-                return false;
-            }
-            if (stopExc(_context, _stackCall)) {
-                _stackCall.setGlobalOffset(getGlobalOffset());
-                return true;
-            }
-            for (int i : list(_stackCall)) {
-                BreakPoint bp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNull(getFile(), i);
-                if (stopCurrentBp(_context,_stackCall,bp_)) {
-                    _stackCall.setGlobalOffset(i);
-                    return true;
-                }
-            }
-            return false;
-        }
-        return false;
-    }
-
-    private boolean stopStep(ContextEl _context, StackCall _stackCall) {
-        return _stackCall.getStep() == StepDbgActionEnum.RETURN_METHOD && readWrite == null || _stackCall.getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getPreviousNbPages() >= _stackCall.nbPages() || _stackCall.getStep() == StepDbgActionEnum.NEXT_INSTRUCTION || stopTmp(_context, _stackCall);
-    }
-
-    private boolean stopTmp(ContextEl _context, StackCall _stackCall) {
-        if (_stackCall.getStep() == StepDbgActionEnum.CURSOR) {
-            for (int i : list(_stackCall)) {
-                if (_context.getClasses().getDebugMapping().getBreakPointsBlock().isTmp(getFile(), i)) {
-                    _stackCall.setGlobalOffset(getGlobalOffset());
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    private boolean stopExc(ContextEl _context, StackCall _stackCall) {
-        AbstractStask stLast_ = tryGetLastStack();
-        ExecBlock bl_ = getBlock();
-        if (stLast_ instanceof TryBlockStack && bl_ instanceof ExecAbstractCatchEval) {
-            Struct e_ = ((TryBlockStack) stLast_).getException();
-            ConditionReturn st_ = _context.getClasses().getDebugMapping().getExceptions().getVal(e_.getClassName(_context));
-            if ((st_ == ConditionReturn.YES || st_ == ConditionReturn.CALL_EX) && ExecHelperBlocks.firstMatch(_context, _stackCall, ((ExecAbstractCatchEval)bl_).getContent(), e_, ((ExecAbstractCatchEval)bl_).isCatchAll()) && sizeEl() < 2) {
-                return true;
-            }
-        }
-        CustomFoundExc exc_ = _stackCall.trueException();
-        if (exc_ != null) {
-            Struct e_ = exc_.getStruct();
-            ConditionReturn st_ = _context.getClasses().getDebugMapping().getExceptions().getVal(e_.getClassName(_context));
-            return st_ == ConditionReturn.NO || st_ == ConditionReturn.CALL_EX;
-        }
-        return false;
-    }
-    private boolean stopCurrentBp(ContextEl _context, StackCall _stackCall, BreakPoint _bp) {
-        if (!(_bp.isEnabled() && (!_bp.isEnabledChgtType() || _bp.isInstanceType() && this instanceof AbstractCallingInstancingPageEl || _bp.isStaticType() && this instanceof StaticInitPageEl))) {
-            return false;
-        }
-        BreakPointCondition condition_ = stopCurrentBpCondition(_bp);
-        if (okStack(_context,_stackCall,condition_) && condition(_context,_stackCall,condition_)) {
-            if (!condition_.getEnabled().get()) {
-                return false;
-            }
-            if (countMatch(condition_)) {
-                if (condition_.getDisableWhenHit().get()) {
-                    condition_.getEnabled().set(false);
-                }
-                return true;
-            }
-            return false;
-        }
-        return false;
-    }
-    private static boolean countMatch(BreakPointCondition _cond) {
-        int c_ = _cond.getCountModulo();
-        if (c_ <= 0) {
-            return true;
-        }
-        int p_ = _cond.getCount();
-        _cond.setCount(p_ + 1);
-        return NumberUtil.mod(_cond.getCount(),c_) == 0;
-    }
-    private boolean okStack(ContextEl _context, StackCall _stackCall, BreakPointCondition _bp) {
-        for (AbsCallContraints e: _bp.getExclude().elts()) {
-            if (!excOk(_context,_stackCall,e)) {
-                return false;
-            }
-        }
-        for (AbsCallContraints e: _bp.getInclude().elts()) {
-            if (!incOk(_context,_stackCall,e)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean excOk(ContextEl _context, StackCall _stackCall, AbsCallContraints _elt) {
-        int nb_ = _stackCall.nbPages();
-        for (int i = 0; i < nb_; i++) {
-            AbstractPageEl e_ = _stackCall.getCall(i);
-            if (_elt.match(_context,e_)){
-                return false;
-            }
-        }
-        return true;
-    }
-    private boolean incOk(ContextEl _context, StackCall _stackCall, AbsCallContraints _elt) {
-        int nb_ = _stackCall.nbPages();
-        for (int i = 0; i < nb_; i++) {
-            AbstractPageEl e_ = _stackCall.getCall(i);
-            if (_elt.match(_context,e_)){
-                return true;
-            }
-        }
-        return false;
-    }
-    private boolean condition(ContextEl _context, StackCall _stackCall, BreakPointCondition _bp) {
-        if (_bp.getResult() == null) {
-            return true;
-        }
-        StackCallReturnValue result_ = _bp.getResult().eval(_context, this);
-        if (result_.getStack().getCallingState() != null) {
-            _stackCall.setCallingStateSub(result_.getStack().getCallingState());
-            return true;
-        }
-        return BooleanStruct.isTrue(ArgumentListCall.toStr(result_.getRetValue().getValue()));
-    }
-    private BreakPointCondition stopCurrentBpCondition(BreakPoint _bp) {
-        if (!_bp.isEnabledChgtType()) {
-            return _bp.getResultStd();
-        }
-        if (_bp.isInstanceType()) {
-            return _bp.getResultInstance();
-        }
-        return _bp.getResultStatic();
-    }
-
-    private int[] list(StackCall _stackCall) {
-        if (_stackCall.isCheckingException()) {
-            return NumberUtil.wrapIntArray();
-        }
-        ExecBlock bl_ = getBlock();
-        AbstractStask st_ = tryGetLastStack();
-        if (st_ instanceof LoopBlockStack && bl_ instanceof ExecAbstractForEachLoop && !(bl_ instanceof ExecForEachIterable) && ((ExecAbstractForEachLoop) bl_).getVariable().getOffset() == getGlobalOffset()) {
-            if (!((LoopBlockStack) st_).getContent().hasNext()) {
-                return NumberUtil.wrapIntArray(((ExecAbstractForEachLoop) bl_).getSeparator());
-            }
-            return NumberUtil.wrapIntArray(getGlobalOffset(), ((ExecAbstractForEachLoop) bl_).getSeparator());
-        }
-        if (getLastLoopIfPossible(bl_) == null){
-            if (bl_ instanceof ExecForEachIterable && sizeEl() == 2) {
-                return NumberUtil.wrapIntArray(((ExecForEachIterable) bl_).getIteratorOffset());
-            }
-            if (bl_ instanceof ExecForEachTable && sizeEl() == 2) {
-                return NumberUtil.wrapIntArray(((ExecForEachTable) bl_).getOffsets().getIteratorOffset());
-            }
-        }
-        return NumberUtil.wrapIntArray(getGlobalOffset());
-    }
-
-    public boolean checkBreakPoint(StackCall _stackCall) {
-        if (_stackCall.isCheckingException()) {
-            return true;
-        }
-        if (readWrite == null) {
-            return _stackCall.getStep() == StepDbgActionEnum.RETURN_METHOD && _stackCall.getPreviousNbPages() >= _stackCall.nbPages();
-        }
-        ExecBlock bl_ = getBlock();
-        if (bl_ instanceof ExecDeclareVariable || isEmptyEl()) {
-            return false;
-        }
-        if (bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod || bl_ instanceof MethodCallingFinally || bl_ instanceof ExecThrowing || bl_ instanceof ExecDoWhileCondition) {
-            return true;
-        }
-        AbstractStask st_ = tryGetLastStack();
-        if (st_ instanceof TryBlockStack && bl_ instanceof ExecAbstractCatchEval) {
-            return true;
-        }
-        if (st_ instanceof EnteredStack) {
-            return !((EnteredStack) st_).isEntered();
-        }
-        if (st_ instanceof LoopBlockStack) {
-            return !((LoopBlockStack) st_).getContent().isFinished();
-        }
-        if (st_ instanceof SwitchBlockStack) {
-            return !((SwitchBlockStack) st_).isEntered();
-        }
-        return true;
     }
 
 }
