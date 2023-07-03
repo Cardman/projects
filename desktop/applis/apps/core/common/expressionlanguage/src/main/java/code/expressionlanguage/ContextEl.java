@@ -10,7 +10,7 @@ import code.expressionlanguage.stds.*;
 public abstract class ContextEl {
 
     private final CommonExecutionInfos executionInfos;
-    private AbstractExiting exiting = new NoExiting();
+    private AbstractExiting exiting = new AfterInitExiting(this);
 
     protected ContextEl(CommonExecutionInfos _executionInfos) {
         executionInfos = _executionInfos;

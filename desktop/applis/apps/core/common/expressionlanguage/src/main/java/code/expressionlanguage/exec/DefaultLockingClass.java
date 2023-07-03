@@ -28,13 +28,16 @@ public final class DefaultLockingClass {
         }
     }
     public void initClass(ExecRootBlock _className) {
-        classes.put(_className, InitClassState.PROGRESSING);
+        state(_className, InitClassState.PROGRESSING);
     }
     public InitClassState getState(ExecRootBlock _className) {
         return classes.getVal(_className);
     }
     public void successClass(ExecRootBlock _className) {
-        classes.put(_className, InitClassState.SUCCESS);
+        state(_className, InitClassState.SUCCESS);
+    }
+    public void state(ExecRootBlock _className, InitClassState _state) {
+        classes.put(_className, _state);
     }
     public Struct processErrorClass(ContextEl _context, Struct _cause, AbstractPageEl _lastPage, StackCall _stackCall) {
         if (!(_lastPage instanceof StaticInitPageEl)) {
@@ -52,6 +55,10 @@ public final class DefaultLockingClass {
     }
     private void errorClass(ExecRootBlock _className, StackCall _stackCall) {
         _stackCall.failInitEnums();
-        classes.put(_className, InitClassState.ERROR);
+        state(_className, InitClassState.ERROR);
+    }
+
+    public RootStatus getClasses() {
+        return classes;
     }
 }

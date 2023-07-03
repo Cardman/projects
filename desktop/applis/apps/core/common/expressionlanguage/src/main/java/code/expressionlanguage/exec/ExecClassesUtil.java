@@ -1,8 +1,8 @@
 package code.expressionlanguage.exec;
 
+import code.expressionlanguage.AfterInitExiting;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -211,7 +211,7 @@ public final class ExecClassesUtil {
                 f.setValue(NullStruct.def(f.getValue()));
             }
         }
-        _context.setExiting(new NoExiting());
+        _context.setExiting(new AfterInitExiting(_context));
     }
 
     private static StackCall init(ContextEl _context, boolean _mute) {

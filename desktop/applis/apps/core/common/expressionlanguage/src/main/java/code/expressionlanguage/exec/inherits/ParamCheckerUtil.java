@@ -1,9 +1,6 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.NoExiting;
+import code.expressionlanguage.*;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.ClassCategory;
@@ -43,7 +40,7 @@ public final class ParamCheckerUtil {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         StdCaller caller_ = StandardType.caller(_ctor, null);
-        NoExiting exit_ = new NoExiting();
+        AfterInitExiting exit_ = new AfterInitExiting(_conf);
         return _conf.getCaller().invoke(caller_, exit_,_conf,NullStruct.NULL_VALUE,_arguments,_stackCall);
     }
 

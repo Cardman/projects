@@ -463,7 +463,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         KeyWords kw_ = new KeyWords();
 
         setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
-        return validateAndRet(opt_,lgName_,kw_,_srcFiles, _all).getContext();
+        return validateAndRetAfterInit(opt_,lgName_,kw_,_srcFiles, _all).getContext();
     }
 
     protected static ContextEl ctxOk(StringMap<String> _files, String... _types) {
@@ -489,6 +489,14 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ResultContext validateAndRet(Options _opt, CustLgNames _lgNames, KeyWords _kw, StringMap<String> _files, StringMap<String> _all) {
         ResultContext res_ = validateAndRetWithoutInit(_opt, _lgNames, _kw, _files, _all);
         Classes.tryInit(res_);
+        res_.getContext().setExiting(new NoExiting());
+        return res_;
+    }
+
+    protected static ResultContext validateAndRetAfterInit(Options _opt, CustLgNames _lgNames, KeyWords _kw, StringMap<String> _files, StringMap<String> _all) {
+        ResultContext res_ = validateAndRetWithoutInit(_opt, _lgNames, _kw, _files, _all);
+        Classes.tryInit(res_);
+        res_.getContext().setExiting(new AfterInitExiting(res_.getContext()));
         return res_;
     }
 

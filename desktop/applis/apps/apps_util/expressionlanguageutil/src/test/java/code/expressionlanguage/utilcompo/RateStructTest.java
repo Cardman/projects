@@ -2839,6 +2839,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         assertFalse(ctx_.isAllEmptyErrors());
     }
     private Struct instance(ContextEl _rCtor, ExecRootBlock _ex, ContextEl _ctx) {
+        _ctx.setExiting(new NoExiting());
+        _rCtor.setExiting(new NoExiting());
         StackCall resStCtor_ = StackCall.newInstance(InitPhase.NOTHING, _rCtor);
         Argument result_ = ProcessMethod.calculate(new CustomFoundConstructor(new ExecFormattedRootBlock(_ex),_ex.getEmptyCtorPair(),new Argument(),new Parameters(),InstancingStep.NEWING), _ctx,resStCtor_).getValue();
         return ArgumentListCall.toStr(result_);
@@ -2855,6 +2857,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         ExecOverridableBlock a_ = ExecClassesUtil.getMethodBodiesById(cl_, new MethodId(MethodAccessKind.INSTANCE, "run", new CustList<String>())).first();
         ExecOverrideInfo mId_ = _ctx.getClasses().getRedirections().get(cl_.getNumberType()).getVal(a_,base_);
         Argument arg_ = new Argument(_inst);
+        _ctx.setExiting(new NoExiting());
         Parameters parameters_ = ExecTemplates.wrapAndCall(mId_.getPair(), mId_.getClassName(), arg_, _ctx, _stack, new ArgumentListCall());
         ProcessMethod.calculate(new CustomFoundMethod(arg_, mId_.getClassName(), mId_.getPair(), parameters_), _ctx, _stack);
     }

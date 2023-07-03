@@ -99,4 +99,24 @@ public final class MetaInfoUtil {
         }
         return null;
     }
+
+    public static boolean hasToExitAfterInit(ContextEl _cont, GeneType _className, StackCall _stackCall) {
+        CallingState state_ = stateAfterInit(_cont, _className, _stackCall);
+        if (state_ != null) {
+            _stackCall.setCallingState(state_);
+            return true;
+        }
+        return false;
+    }
+
+    public static CallingState stateAfterInit(ContextEl _cont, GeneType _className, StackCall _stackCall) {
+        if (_className instanceof ExecRootBlock) {
+            DefaultLockingClass locks_ = _cont.getLocks();
+            InitClassState res_ = locks_.getState((ExecRootBlock) _className);
+            if (res_ != InitClassState.SUCCESS) {
+                return new CustomFoundExc(new CausingErrorStruct(_className.getFullName(), _cont, _stackCall));
+            }
+        }
+        return null;
+    }
 }

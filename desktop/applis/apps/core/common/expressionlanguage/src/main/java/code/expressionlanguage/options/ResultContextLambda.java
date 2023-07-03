@@ -33,6 +33,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.comparators.NaturalComparator;
 import code.util.core.StringUtil;
 
@@ -147,6 +148,9 @@ public final class ResultContextLambda {
             ExecClassesUtil.updateAfter(context);
         } else {
             context.getClasses().getCommon().getStaticFields().putAllMap(_original.getClasses().getStaticFields());
+        }
+        for (EntryCust<ExecRootBlock, InitClassState> c: _original.getLocks().getClasses().entryList()) {
+            context.getLocks().state(c.getKey(),c.getValue());
         }
         return eval(_page);
     }

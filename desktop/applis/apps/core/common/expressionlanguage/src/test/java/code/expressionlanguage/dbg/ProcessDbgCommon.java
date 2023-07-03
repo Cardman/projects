@@ -3,6 +3,7 @@ package code.expressionlanguage.dbg;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefContextGenerator;
+import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.RootBlock;
@@ -147,7 +148,9 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         CustLgNames lgName_ = getLgNames();
         assertEq("en",_lg);
         KeyWords kwl_ = en(lgName_);
-        return validateAndRetWithoutInit(opt_,lgName_,kwl_,_files,new StringMap<String>(),new DbgStackStopper());
+        ResultContext res_ = validateAndRetWithoutInit(opt_, lgName_, kwl_, _files, new StringMap<String>(), new DbgStackStopper());
+        res_.getContext().setExiting(new NoExiting());
+        return res_;
 //        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
 //        Forwards forwards_ = getForwards(opt_,lgName_,kwl_,page_);
 //        AnalyzedPageEl a_ = validateWithoutInit(_files, page_);
@@ -473,14 +476,10 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
 
     private Struct end(String _dyn, String _class, String _meth, ResultContext _res) {
-        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
-        Argument argGlLoc_ = new Argument();
-        Parameters p_ = new Parameters();
-        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null, false);
+        StackCallReturnValue stVal_ = goLoop(_res, _class, _meth, null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
-        return ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), st_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(),null).eval(page_).getRetValue().getValue().getStruct();
+        return eval(ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), st_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), null), _res, page_);
     }
 
     protected ResultContextLambda dynAna(String _dyn, String _class, int _caret, ResultContext _res) {
@@ -489,27 +488,32 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return ResultContextLambda.dynamicAnalyze(_dyn, ana_.getFile().getFileName(), _caret, _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(),null);
     }
 
-    protected Struct dynEval(ResultContextLambda _dyn, String _class, String _meth, ResultContext _res) {
-        AbstractPageEl page_ = goToBp(_res, _class, _meth);
-        return _dyn.eval(_res.getContext(),page_).getRetValue().getValue().getStruct();
+    protected Struct dynEval(ResultContextLambda _dyn, String _class, String _meth, ResultContext _res, StackCall _stack) {
+        AbstractPageEl page_ = goToBp(_res, _class, _meth, _stack);
+        return eval(_dyn, _res, page_);
     }
 
-    protected AbstractPageEl goToBp(ResultContext _res, String _class, String _meth) {
-        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
-        Argument argGlLoc_ = new Argument();
-        Parameters p_ = new Parameters();
-        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null, false);
+    protected Struct eval(ResultContextLambda _dyn, ResultContext _res, AbstractPageEl _page) {
+        return _dyn.eval(_res.getContext(), _page).getRetValue().getValue().getStruct();
+    }
+
+    protected AbstractPageEl goToBp(ResultContext _res, String _class, String _meth, StackCall _stack) {
+        StackCallReturnValue stVal_ = goLoop(_res, _class, _meth, _stack);
         StackCall st_ = stVal_.getStack();
         return st_.getLastPage();
     }
 
-    private ArrayStruct endExc(String _dyn, String _class, String _meth, ResultContext _res) {
+    protected StackCallReturnValue goLoop(ResultContext _res, String _class, String _meth, StackCall _stack) {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null, false);
+        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), _stack, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null, false);
+        return stVal_;
+    }
+
+    private ArrayStruct endExc(String _dyn, String _class, String _meth, ResultContext _res) {
+        StackCallReturnValue stVal_ = goLoop(_res, _class, _meth, null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
         ResultContextLambda resLam_ = ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), st_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), null);
@@ -517,21 +521,13 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return ((ErrorStruct)((CustomFoundExc)locSt_.getCallingState()).getStruct()).getStack();
     }
     private ReportedMessages endKo(String _dyn, String _class, String _meth, ResultContext _res) {
-        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
-        Argument argGlLoc_ = new Argument();
-        Parameters p_ = new Parameters();
-        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null, false);
+        StackCallReturnValue stVal_ = goLoop(_res, _class, _meth, null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
         return ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), st_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(),null).getReportedMessages();
     }
     private ReportedMessages endKoSt(String _dyn, String _class, String _meth, ResultContext _res) {
-        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
-        Argument argGlLoc_ = new Argument();
-        Parameters p_ = new Parameters();
-        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null, false);
+        StackCallReturnValue stVal_ = goLoop(_res, _class, _meth, null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
         return ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), st_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), MethodAccessKind.STATIC).getReportedMessages();
