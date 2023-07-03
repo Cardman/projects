@@ -65,18 +65,6 @@ public final class MetaInfoUtil {
         return new StackTraceElementStruct(fileName_,rci_,currentClassName_,signature_);
     }
 
-    public static boolean hasToExit(ContextEl _cont, GeneType _className, Argument _arg, StackCall _stackCall) {
-        CallingState state_ = state(_cont, _className, _arg, _stackCall);
-        if (state_ instanceof NotInitializedClass) {
-            _cont.getLocks().initClass(((NotInitializedClass)state_).getRootBlock());
-        }
-        if (state_ != null) {
-            _stackCall.setCallingState(state_);
-            return true;
-        }
-        return false;
-    }
-
     public static CallingState state(ContextEl _cont, GeneType _className, Argument _arg, StackCall _stackCall) {
         if (_stackCall.getLastPage().getGlobalClass().getRootBlock() == _className) {
             return null;
@@ -98,15 +86,6 @@ public final class MetaInfoUtil {
             }
         }
         return null;
-    }
-
-    public static boolean hasToExitAfterInit(ContextEl _cont, GeneType _className, StackCall _stackCall) {
-        CallingState state_ = stateAfterInit(_cont, _className, _stackCall);
-        if (state_ != null) {
-            _stackCall.setCallingState(state_);
-            return true;
-        }
-        return false;
     }
 
     public static CallingState stateAfterInit(ContextEl _cont, GeneType _className, StackCall _stackCall) {

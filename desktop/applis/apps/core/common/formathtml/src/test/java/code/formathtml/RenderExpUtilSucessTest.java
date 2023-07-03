@@ -2,7 +2,6 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
@@ -5690,8 +5689,12 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(conf_, all_);
         ContextEl ctx_ = getGenerate(conf_);
         assertTrue(isAllEmptyErrors(conf_));
+        ctx_.getLocks().successClass(ctx_.getClasses().getClassBody("pkg.Ex"));
+        ctx_.getLocks().successClass(ctx_.getClasses().getClassBody("pkg.ExTwo"));
 //        ExecClassesUtil.forwardClassesMetaInfos(conf_.getContext());
         RendStackCall build_ = prepare(ctx_);
+        ctx_.getLocks().successClass(ctx_.getClasses().getClassBody("pkg.Ex"));
+        ctx_.getLocks().successClass(ctx_.getClasses().getClassBody("pkg.ExTwo"));
 //        _lastPage.setGlobalArgumentStruct(_analyzing.getArgument().getStruct(), _context);
         return caculateReuse(ctx_, executableNodes_, build_);
     }
@@ -5934,7 +5937,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
 
     private static RendStackCall prepare(ContextEl _ctx) {
-        _ctx.setExiting(new NoExiting());
+//        _ctx.setExiting(new NoExiting());
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, _ctx);
 //        RendStackCall build_ = _conf.build(InitPhase.NOTHING, _ctx);
         build_.addPage(new ImportingPage());
