@@ -28,7 +28,7 @@ public final class FctStringBuilderSetCharAt implements StdCaller {
 
     private static void setCharAt(StringBuilderStruct _instance, NumberStruct _index, CharStruct _ch, ContextEl _an, StackCall _stackCall) {
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
             return;
         }
         int index_ = _index.intStruct();

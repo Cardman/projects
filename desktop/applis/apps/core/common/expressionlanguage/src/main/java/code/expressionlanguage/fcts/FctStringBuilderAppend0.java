@@ -24,7 +24,7 @@ public final class FctStringBuilderAppend0 implements StdCaller {
 
     private static void append(StringBuilderStruct _instance, StringStruct _b, StackCall _stackCall) {
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
             return;
         }
         _instance.getInstance().append(_b.getInstance());

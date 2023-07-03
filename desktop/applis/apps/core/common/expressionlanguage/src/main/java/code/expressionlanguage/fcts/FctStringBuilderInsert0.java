@@ -30,7 +30,7 @@ public final class FctStringBuilderInsert0 implements StdCaller {
 
     private static void insert(StringBuilderStruct _instance, NumberStruct _dstOffset, StringStruct _s, ContextEl _an, StackCall _stackCall) {
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
             return;
         }
         int index_ = _dstOffset.intStruct();

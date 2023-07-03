@@ -16,7 +16,7 @@ public final class FctImageDrawOval implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         ImageStruct image_ = (ImageStruct) _instance;

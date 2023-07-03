@@ -20,7 +20,7 @@ public final class FctStringBuilderClear implements StdCaller {
 
     private static void clear(StringBuilderStruct _instance, StackCall _stackCall) {
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
             return;
         }
         _instance.getInstance().delete(0, _instance.getInstance().length());

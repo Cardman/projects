@@ -20,7 +20,7 @@ public final class FctStringBuilderReverse implements StdCaller {
 
     private static void reverse(StringBuilderStruct _instance, StackCall _stackCall) {
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
             return;
         }
         _instance.getInstance().reverse();

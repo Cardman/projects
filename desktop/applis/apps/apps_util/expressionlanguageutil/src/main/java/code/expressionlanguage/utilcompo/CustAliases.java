@@ -3012,7 +3012,7 @@ public final class CustAliases {
     }
     public void processFailInit(ContextEl _cont, StackCall _stackCall) {
         if (_stackCall.getInitializingTypeInfos().isInitEnums()) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
         } else {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, aliasConcurrentError, _stackCall)));
         }

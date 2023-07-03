@@ -73,7 +73,7 @@ public final class MetaInfoUtil {
             InitClassState res_ = locks_.getState((ExecRootBlock) _className);
             if (_stackCall.getInitializingTypeInfos().isInitEnums()) {
                 if (res_ != InitClassState.SUCCESS) {
-                    _stackCall.getInitializingTypeInfos().failInitEnums();
+                    _stackCall.failInitEnums();
                     return true;
                 }
                 return false;

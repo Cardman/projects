@@ -109,7 +109,7 @@ public final class StringMapStruct extends WithoutParentIdStruct implements Stru
     }
     public Struct put(ContextEl _contextEl, StackCall _stack, Struct _key, Struct _value) {
         if (_stack.getInitializingTypeInfos().isContainedSensibleFields(this)) {
-            _stack.getInitializingTypeInfos().failInitEnums();
+            _stack.failInitEnums();
             return NullStruct.NULL_VALUE;
         }
         if (!(_key instanceof StringStruct) || _value == NullStruct.NULL_VALUE) {
@@ -121,7 +121,7 @@ public final class StringMapStruct extends WithoutParentIdStruct implements Stru
     }
     public Struct putIfAbs(ContextEl _contextEl, StackCall _stack, Struct _key, Struct _value) {
         if (_stack.getInitializingTypeInfos().isContainedSensibleFields(this)) {
-            _stack.getInitializingTypeInfos().failInitEnums();
+            _stack.failInitEnums();
             return NullStruct.NULL_VALUE;
         }
         if (!(_key instanceof StringStruct) || _value == NullStruct.NULL_VALUE) {
@@ -143,7 +143,7 @@ public final class StringMapStruct extends WithoutParentIdStruct implements Stru
     }
     public Struct remove(ContextEl _contextEl, StackCall _stack, Struct _key) {
         if (_stack.getInitializingTypeInfos().isContainedSensibleFields(this)) {
-            _stack.getInitializingTypeInfos().failInitEnums();
+            _stack.failInitEnums();
             return NullStruct.NULL_VALUE;
         }
         if (!(_key instanceof StringStruct)) {
@@ -155,7 +155,7 @@ public final class StringMapStruct extends WithoutParentIdStruct implements Stru
     }
     public Struct replace(ContextEl _contextEl, StackCall _stack, Struct _key, Struct _value) {
         if (_stack.getInitializingTypeInfos().isContainedSensibleFields(this)) {
-            _stack.getInitializingTypeInfos().failInitEnums();
+            _stack.failInitEnums();
             return NullStruct.NULL_VALUE;
         }
         if (!(_key instanceof StringStruct) || _value == NullStruct.NULL_VALUE) {
@@ -173,14 +173,14 @@ public final class StringMapStruct extends WithoutParentIdStruct implements Stru
     }
     public void clear(StackCall _stack) {
         if (_stack.getInitializingTypeInfos().isContainedSensibleFields(this)) {
-            _stack.getInitializingTypeInfos().failInitEnums();
+            _stack.failInitEnums();
             return;
         }
         elementSet.clear();
     }
     public void putAll(ContextEl _contextEl, StackCall _stack,Struct _map) {
         if (_stack.getInitializingTypeInfos().isContainedSensibleFields(this)) {
-            _stack.getInitializingTypeInfos().failInitEnums();
+            _stack.failInitEnums();
             return;
         }
         if (!(_map instanceof StringMapStruct)) {

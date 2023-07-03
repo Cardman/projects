@@ -33,7 +33,7 @@ public final class FctStringBuilderInsert2 implements StdCaller {
     private static void insert(StringBuilderStruct _instance, NumberStruct _dstOffset, DisplayableStruct _s, NumberStruct _start,
                                NumberStruct _end, ContextEl _an, StackCall _stackCall) {
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
             return;
         }
         String toApp_= _s.getDisplayedString(_an).getInstance();

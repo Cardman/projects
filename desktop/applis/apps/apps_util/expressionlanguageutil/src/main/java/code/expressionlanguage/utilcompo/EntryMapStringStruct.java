@@ -30,7 +30,7 @@ public final class EntryMapStringStruct extends WithoutParentIdStruct implements
 
     public Struct value(ContextEl _contextEl, StackCall _stack,Struct _v) {
         if (_stack.getInitializingTypeInfos().isContainedSensibleFields(this)) {
-            _stack.getInitializingTypeInfos().failInitEnums();
+            _stack.failInitEnums();
             return NullStruct.NULL_VALUE;
         }
         if (_v == NullStruct.NULL_VALUE) {

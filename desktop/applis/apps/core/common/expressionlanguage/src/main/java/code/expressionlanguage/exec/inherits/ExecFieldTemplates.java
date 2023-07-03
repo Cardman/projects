@@ -170,7 +170,7 @@ public final class ExecFieldTemplates {
             return Argument.createVoid();
         }
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(previous_)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
             return _right;
         }
         entry_.setStruct(_right.getStruct());
@@ -187,7 +187,7 @@ public final class ExecFieldTemplates {
         }
         String className_ = _fieldId.getClassName();
         if (_stackCall.getInitializingTypeInfos().isSensibleField(className_, _stackCall)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
             return _right;
         }
         NumParsers.getStaticFieldMap(className_, classes_.getStaticFields()).set(_fieldId.getFieldName(), _right.getStruct());

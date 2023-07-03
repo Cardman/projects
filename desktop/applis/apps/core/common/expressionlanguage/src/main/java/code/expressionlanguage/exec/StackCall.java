@@ -82,6 +82,9 @@ public final class StackCall implements AbstractStackCall {
         importing.add(_page);
         setNullCallingState();
     }
+    public void failInitEnums() {
+        getInitializingTypeInfos().failInitEnums();
+    }
 
     public static ExecFormattedRootBlock formatVarType(AbstractStackCall _stack,ExecFormattedRootBlock _varType) {
         return new ExecFormattedRootBlock(_varType, _stack.formatVarType(_varType.getFormatted()));

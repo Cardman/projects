@@ -51,7 +51,7 @@ public final class DefaultLockingClass {
         return new CausingErrorStruct(_cause,_context, _stackCall);
     }
     private void errorClass(ExecRootBlock _className, StackCall _stackCall) {
-        _stackCall.getInitializingTypeInfos().failInitEnums();
+        _stackCall.failInitEnums();
         classes.put(_className, InitClassState.ERROR);
     }
 }

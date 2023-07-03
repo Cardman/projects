@@ -24,7 +24,7 @@ public final class FctStringBuilderSetLength implements StdCaller {
 
     private static void setLength(StringBuilderStruct _instance, NumberStruct _newLength, ContextEl _an, StackCall _stackCall) {
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
             return;
         }
         int newLength_ = _newLength.intStruct();

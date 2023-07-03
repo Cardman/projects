@@ -23,7 +23,7 @@ public final class FctStringBuilderEnsureCapacity implements StdCaller {
 
     private static void ensureCapacity(StringBuilderStruct _instance, NumberStruct _minimumCapacity, StackCall _stackCall) {
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
             return;
         }
         _instance.getInstance().ensureCapacity(_minimumCapacity.intStruct());

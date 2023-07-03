@@ -226,7 +226,7 @@ public final class ExecArrayTemplates {
             }
         }
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_arr)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
             return NullStruct.NULL_VALUE;
         }
         Struct err_ = boundErr(_conf, _stackCall, _ind, _arr);
@@ -379,7 +379,7 @@ public final class ExecArrayTemplates {
             return;
         }
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(arr_)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
             return;
         }
         arr_.set(index_, value_);

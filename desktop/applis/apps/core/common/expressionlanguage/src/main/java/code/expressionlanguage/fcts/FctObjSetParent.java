@@ -31,7 +31,7 @@ public final class FctObjSetParent implements StdCaller {
             return;
         }
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(i_)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
             return;
         }
         i_.setParent(_par);

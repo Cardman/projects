@@ -23,7 +23,7 @@ public final class FctStringBuilderDeleteCharAt implements StdCaller {
 
     private static void deleteCharAt(StringBuilderStruct _instance, NumberStruct _index, ContextEl _an, StackCall _stackCall) {
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+            _stackCall.failInitEnums();
             return;
         }
         int index_ = _index.intStruct();
