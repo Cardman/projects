@@ -17,7 +17,7 @@ public abstract class FieldWrapper extends ValueWrapper {
         return fieldType;
     }
 
-    protected ClassField getId() {
+    public ClassField getId() {
         return id;
     }
 }

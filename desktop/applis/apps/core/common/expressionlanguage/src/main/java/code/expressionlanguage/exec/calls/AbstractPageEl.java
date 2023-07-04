@@ -251,7 +251,7 @@ public abstract class AbstractPageEl {
     public ExecBlock getCoveredBlock() {
         return getLastEl().getCoveredBlock();
     }
-    private ExpressionLanguage getLastEl() {
+    public ExpressionLanguage getLastEl() {
         return currentEls.last();
     }
 

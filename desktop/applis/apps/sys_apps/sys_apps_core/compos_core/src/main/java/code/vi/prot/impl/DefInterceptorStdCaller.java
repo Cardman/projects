@@ -98,6 +98,11 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     }
 
     @Override
+    public AbsCollection<WatchPointBlockPair> newWatchPointKeyStringCollection() {
+        return new ConcMap<WatchPointBlockPair>(new WatchPointBlockPairKeyString(),this);
+    }
+
+    @Override
     public AbsCollection<AbsCallContraints> newExecFileBlockTraceIndexCollection() {
         return new ConcMap<AbsCallContraints>(new ExecFileBlockTraceIndexKeyString(),this);
     }

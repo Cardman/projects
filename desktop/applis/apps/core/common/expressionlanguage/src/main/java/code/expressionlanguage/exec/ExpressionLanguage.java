@@ -39,7 +39,7 @@ public final class ExpressionLanguage {
         }
         IdMap<ExecOperationNode, ArgumentsPair> allRight_ = _right.getArguments();
         calculate(allRight_, _right, _conf, _offset, _stackCall);
-        if (_conf.callsOrException(_stackCall)) {
+        if (_stackCall.getStopper().isChecking(_right,_conf,_stackCall)) {
             return null;
         }
         _right.argument = ExecHelper.getArgumentPair(_right.arguments,_right.arguments.size()-1);
@@ -63,6 +63,9 @@ public final class ExpressionLanguage {
                     return;
                 }
             }
+            if (_stackCall.getStopper().isStopAt(_el,o,_context,_stackCall)){
+                return;
+            }
             ArgumentsPair pair_ = _nodes.getValue(fr_);
             if (!(o instanceof AtomicExecCalculableOperation)) {
                 Argument a_ = Argument.getNullableValue(o.getArgument());
@@ -76,6 +79,7 @@ public final class ExpressionLanguage {
                 a_.calculate(_nodes, _context, _stackCall);
                 fr_ = getNextIndex(len_,_nodes,o, fr_ + 1,_context,_stackCall,_el);
             }
+            restVist(_el, o, _stackCall);
         }
     }
 
@@ -129,12 +133,20 @@ public final class ExpressionLanguage {
         if (currentOper_ instanceof CallExecSimpleOperation) {
             ((CallExecSimpleOperation) currentOper_).endCalculate(_cont, arguments, _arg, _stackCall);
             getNextIndex(currentOper_, least_,_cont,_stackCall);
+            restVist(this,currentOper_,_stackCall);
             return;
         }
         currentOper_.setSimpleArgument(_arg, _cont, arguments, _stackCall);
         getNextIndex(currentOper_, least_,_cont,_stackCall);
+        restVist(this,currentOper_,_stackCall);
     }
 
+    private static void restVist(ExpressionLanguage _el, ExecOperationNode _op, StackCall _stackCall) {
+        if (_op != _el.currentOper) {
+//            _stackCall.setVisited(false);
+            _stackCall.setVisitedExp(false);
+        }
+    }
     private void getNextIndex(ExecOperationNode _currentOper, int _least, ContextEl _context, StackCall _stackCall) {
         if (_context.callsOrException(_stackCall)) {
             return;
@@ -215,10 +227,18 @@ public final class ExpressionLanguage {
         return arguments;
     }
 
+    public void currentOper(ExecOperationNode _currentOper) {
+        setCurrentOper(_currentOper);
+    }
     private void setCurrentOper(ExecOperationNode _currentOper) {
         currentOper = _currentOper;
         index = _currentOper.getOrder();
     }
+
+    public ExecOperationNode getCurrentOper() {
+        return currentOper;
+    }
+
     public int getIndex() {
         return index;
     }

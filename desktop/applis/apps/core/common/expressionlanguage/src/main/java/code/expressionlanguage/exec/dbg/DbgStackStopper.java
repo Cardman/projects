@@ -1,15 +1,22 @@
 package code.expressionlanguage.exec.dbg;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
+import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ImplicitMethods;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.exec.variables.FieldWrapper;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -26,22 +33,182 @@ public final class DbgStackStopper implements AbsStackStopper {
         return _page.sizeEl() == 0;
     }
     @Override
-    public boolean stopAt(AbstractPageEl _page, int _size) {
-        return _size < _page.sizeEl();
+    public boolean stopAt(AbstractPageEl _page, StackCall _stack, int _size) {
+        return _size < _page.sizeEl() || !_stack.getCheckingExp().getClassName().isEmpty();
     }
 
     @Override
     public boolean stopAt(ContextEl _context, StackCall _stack, int _size) {
-        return _size < _stack.getLastPage().sizeEl() || _context.callsOrException(_stack);
+        return stopAt(_stack.getLastPage(),_stack,_size) || _context.callsOrException(_stack);
+    }
+
+    @Override
+    public boolean isStopAt(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, StackCall _stackCall) {
+        if (_stackCall.isVisitedExp()) {
+            _stackCall.setCheckingExp(new ClassField("",""));
+            return false;
+        }
+        _stackCall.setVisitedExp(true);
+        if (_o instanceof ExecAbstractAffectOperation) {
+            return affectationOrCompound(_el, (ExecAbstractAffectOperation)_o, _stackCall);
+        }
+        if (_o instanceof ExecSettableFieldInstOperation || (_o instanceof ExecSettableFieldStatOperation && _context.getExiting().state(_stackCall, ((ExecSettableFieldStatOperation) _o).getRootBlock(), null) == null)) {
+            return field(_el, (ExecSettableFieldOperation) _o, _stackCall);
+        }
+        if (_o instanceof ExecStdRefVariableOperation) {
+            return variable(_el, (ExecStdRefVariableOperation)_o, _stackCall);
+        }
+        _stackCall.setCheckingExp(new ClassField("",""));
+        return false;
+    }
+
+    private boolean affectationOrCompound(ExpressionLanguage _el, ExecAbstractAffectOperation _o, StackCall _stack) {
+        if (_o.getSettableParent() instanceof ExecSafeDotOperation && Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableParent().getFirstChild()).getArgument()).isNull()) {
+            _stack.setCheckingExp(new ClassField("",""));
+            return false;
+        }
+        if (_o instanceof ExecCompoundAffectationOperation) {
+            return compound(_el, (ExecCompoundAffectationOperation)_o, _stack);
+        }
+        _stack.setCheckingExp(new ClassField("",""));
+        return false;
+    }
+
+    private boolean field(ExpressionLanguage _el, ExecSettableFieldOperation _o, StackCall _stackCall) {
+        if (sub(_o)) {
+            _stackCall.setCheckingExp(_o.getSettableFieldContent().getClassField());
+            _el.currentOper(_o);
+            _stackCall.setVisited(false);
+            return true;
+        }
+        _stackCall.setCheckingExp(new ClassField("",""));
+        return false;
+    }
+
+    private boolean variable(ExpressionLanguage _el, ExecStdRefVariableOperation _o, StackCall _stackCall) {
+        if (sub(_o)) {
+            String v_ = _o.getVariableContent().getVariableName();
+            AbstractWrapper w_ = ExecVariableTemplates.getWrapper(v_, _o.getVariableContent().getDeep(),_stackCall.getLastPage().getCache(),_stackCall.getLastPage().getRefParams());
+            if (w_ instanceof FieldWrapper) {
+                _stackCall.setCheckingExp(((FieldWrapper)w_).getId());
+                _el.currentOper(_o);
+                _stackCall.setVisited(false);
+                return true;
+            }
+        }
+        _stackCall.setCheckingExp(new ClassField("",""));
+        return false;
+    }
+    private boolean compound(ExpressionLanguage _el, ExecCompoundAffectationOperation _o, StackCall _stackCall) {
+        ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableAnc());
+        if (argumentPair_.isArgumentTest()) {
+            if (!ExecCompoundAffectationOperation.sh(_o.getOperatorContent())) {
+                ExecOperationNode set_ = _o.getSettable();
+                return settable(_el, _o, _stackCall, set_);
+            }
+            _stackCall.setCheckingExp(new ClassField("",""));
+            return false;
+        }
+        if (_o instanceof ExecCompoundAffectationStringOperation) {
+            ImplicitMethods implicits_ = _o.getConverter();
+            ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_el.getArguments(), _o);
+            int indexImplicit_ = pairBefore_.getIndexImplicitConv();
+            if (ImplicitMethods.isValidIndex(implicits_,indexImplicit_)) {
+                _stackCall.setCheckingExp(new ClassField("",""));
+                return false;
+            }
+            ExecOperationNode set_ = _o.getSettable();
+            return settable(_el, _o, _stackCall, set_);
+        }
+        _stackCall.setCheckingExp(new ClassField("",""));
+        return false;
+    }
+
+    private boolean settable(ExpressionLanguage _el, ExecOperationNode _o, StackCall _stackCall, ExecOperationNode _set) {
+        if (_set instanceof ExecSettableFieldOperation) {
+            _stackCall.setCheckingExp(((ExecSettableFieldOperation) _set).getSettableFieldContent().getClassField());
+            _el.currentOper(_o);
+            _stackCall.setVisited(false);
+            return true;
+        }
+        if (_set instanceof ExecStdRefVariableOperation || _set instanceof ExecSettableCallFctOperation) {
+            ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), _set);
+            AbstractWrapper w_ = argumentPair_.getWrapper();
+            if (w_ instanceof FieldWrapper) {
+                _stackCall.setCheckingExp(((FieldWrapper)w_).getId());
+                _el.currentOper(_o);
+                _stackCall.setVisited(false);
+                return true;
+            }
+        }
+        _stackCall.setCheckingExp(new ClassField("",""));
+        return false;
+    }
+
+    private static boolean sub(ExecOperationNode _o) {
+        ExecOperationNode curr_ = _o;
+        while (curr_ != null) {
+            if (curr_ instanceof ExecCompoundAffectationOperation && ((ExecCompoundAffectationOperation)curr_).getSettable() == _o) {
+                return true;
+            }
+            curr_ = curr_.getParent();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isChecking(ExpressionLanguage _o, ContextEl _context, StackCall _stackCall) {
+        return !_stackCall.getCheckingExp().getClassName().isEmpty() ||_context.callsOrException(_stackCall);
     }
 
     @Override
     public boolean stopBreakPoint(ContextEl _context, StackCall _stackCall) {
         AbstractPageEl p_ = _stackCall.getLastPage();
+        if (p_.getReadWrite() == null && _stackCall.nbPages() > 1) {
+            AbstractPageEl previous_ = _stackCall.getCall(_stackCall.nbPages() - 2);
+            if (!previous_.isEmptyEl()) {
+                ExpressionLanguage el_ = previous_.getLastEl();
+                endCall(_stackCall, el_);
+            }
+        }
         if (checkBreakPoint(_stackCall,p_)) {
             return stopAtCheckedBp(_context, _stackCall, p_);
         }
         return false;
+    }
+
+    private void endCall(StackCall _stackCall, ExpressionLanguage _el) {
+        if (_stackCall.isVisited()) {
+            return;
+        }
+        ExecOperationNode ex_ = _el.getCurrentOper();
+        if (ex_ instanceof ExecCompoundAffectationOperation) {
+            ImplicitMethods implicits_ = ((ExecCompoundAffectationOperation) ex_).getConverter();
+            ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_el.getArguments(),ex_);
+            int indexImplicit_ = pairBefore_.getIndexImplicitConv();
+            if (!ImplicitMethods.isValidIndex(implicits_,indexImplicit_)&&!pairBefore_.isEndCalculate()) {
+                ExecOperationNode set_ = ((ExecCompoundAffectationOperation) ex_).getSettable();
+                if (set_ instanceof ExecSettableFieldOperation) {
+                    ClassField clField_ = ((ExecSettableFieldOperation) set_).getSettableFieldContent().getClassField();
+                    _stackCall.setCheckingExp(clField_);
+                }
+                if (set_ instanceof ExecStdRefVariableOperation || set_ instanceof ExecSettableCallFctOperation) {
+                    ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), set_);
+                    AbstractWrapper w_ = argumentPair_.getWrapper();
+                    wrapp(w_, _stackCall);
+                }
+            }
+        }
+        if (ex_ instanceof ExecSettableCallFctOperation && sub(ex_)) {
+            AbstractWrapper w_ = _stackCall.getLastPage().getWrapper();
+            wrapp(w_, _stackCall);
+        }
+    }
+
+    private void wrapp(AbstractWrapper _w, StackCall _stackCall) {
+        if (_w instanceof FieldWrapper) {
+            _stackCall.setCheckingExp(((FieldWrapper) _w).getId());
+        }
     }
 
     @Override
@@ -61,19 +228,34 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     private boolean stopAtCheckedBp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
         if (_stackCall.isVisited()) {
+            _stackCall.setCheckingExp(new ClassField("",""));
             return false;
         }
         _stackCall.setVisited(true);
         if (stopStep(_context, _stackCall, _p)) {
             _stackCall.setGlobalOffset(_p.getGlobalOffset());
+            _stackCall.setCheckingExp(new ClassField("",""));
             return true;
         }
         if (_context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().get()) {
             _context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().set(false);
             _stackCall.setGlobalOffset(_p.getGlobalOffset());
+            _stackCall.setCheckingExp(new ClassField("",""));
             return true;
         }
         if (_stackCall.isMute()) {
+            _stackCall.setCheckingExp(new ClassField("",""));
+            return false;
+        }
+        if (!_stackCall.getCheckingExp().getClassName().isEmpty()) {
+            ClassField clField_ = _stackCall.getCheckingExp();
+            WatchPoint bp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNullWatch(clField_);
+            if (stopCurrentWp(bp_)) {
+                _stackCall.setGlobalOffset(_p.getTraceIndex());
+                _stackCall.setCheckingExp(new ClassField("",""));
+                return true;
+            }
+            _stackCall.setCheckingExp(new ClassField("",""));
             return false;
         }
         if (stopExc(_context, _stackCall, _p)) {
@@ -141,6 +323,10 @@ public final class DbgStackStopper implements AbsStackStopper {
             return false;
         }
         return false;
+    }
+
+    private boolean stopCurrentWp(WatchPoint _bp) {
+        return _bp.isEnabled();
     }
     private static boolean countMatch(BreakPointCondition _cond) {
         int c_ = _cond.getCountModulo();
@@ -230,7 +416,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private boolean checkBreakPoint(StackCall _stackCall, AbstractPageEl _p) {
-        if (_stackCall.isCheckingException()) {
+        if (_stackCall.isCheckingException() || !_stackCall.getCheckingExp().getClassName().isEmpty()) {
             return true;
         }
         if (_p.getReadWrite() == null) {

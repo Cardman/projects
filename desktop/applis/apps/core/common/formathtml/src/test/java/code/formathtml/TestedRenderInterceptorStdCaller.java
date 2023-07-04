@@ -37,6 +37,11 @@ public final class TestedRenderInterceptorStdCaller implements AbstractIntercept
     }
 
     @Override
+    public AbsCollection<WatchPointBlockPair> newWatchPointKeyStringCollection() {
+        return new ConcList<WatchPointBlockPair>(this);
+    }
+
+    @Override
     public AbsCollection<AbsCallContraints> newExecFileBlockTraceIndexCollection() {
         return new ConcList<AbsCallContraints>(this);
     }

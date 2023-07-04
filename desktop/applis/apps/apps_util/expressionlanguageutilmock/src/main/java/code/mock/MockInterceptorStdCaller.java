@@ -37,6 +37,11 @@ public final class MockInterceptorStdCaller implements AbstractInterceptorStdCal
     }
 
     @Override
+    public AbsCollection<WatchPointBlockPair> newWatchPointKeyStringCollection() {
+        return new ConcList<WatchPointBlockPair>(this);
+    }
+
+    @Override
     public AbsCollection<AbsCallContraints> newExecFileBlockTraceIndexCollection() {
         return new ConcList<AbsCallContraints>(this);
     }

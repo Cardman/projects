@@ -548,7 +548,7 @@ public final class ExecHelperBlocks {
         lastPage_.globalOffset(offset_);
         int size_ = lastPage_.sizeEl();
         Argument visit_ = ExecHelperBlocks.tryToCalculate(_cont, 1, _stack, list_, 0, _br);
-        if (_stack.getStopper().stopAt(lastPage_,size_)){
+        if (_stack.getStopper().stopAt(lastPage_,_stack,size_)){
             return new ExecResultCase(ConditionReturn.CALL_EX, _br, index_);
         }
         if (_cont.callsOrException(_stack)) {

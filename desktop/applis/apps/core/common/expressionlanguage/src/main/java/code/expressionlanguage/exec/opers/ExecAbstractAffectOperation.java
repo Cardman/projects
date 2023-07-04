@@ -159,7 +159,7 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
     }
 
 
-    protected ExecOperatorContent getOperatorContent() {
+    public ExecOperatorContent getOperatorContent() {
         return operatorContent;
     }
     public ExecOperationNode getSettableAnc() {

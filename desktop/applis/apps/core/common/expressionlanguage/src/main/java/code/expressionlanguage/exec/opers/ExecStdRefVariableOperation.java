@@ -45,6 +45,10 @@ public final class ExecStdRefVariableOperation extends ExecLeafOperation impleme
         return variableContent.getVariableName();
     }
 
+    public ExecVariableContent getVariableContent() {
+        return variableContent;
+    }
+
     @Override
     public Argument calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack) {
         return trySetArgument(_nodes,_conf, _right, _stack);

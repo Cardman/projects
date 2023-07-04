@@ -17,13 +17,23 @@ public final class DefStackStopper implements AbsStackStopper {
     }
 
     @Override
-    public boolean stopAt(AbstractPageEl _page, int _size) {
+    public boolean stopAt(AbstractPageEl _page, StackCall _stack, int _size) {
         return false;
     }
 
     @Override
     public boolean stopAt(ContextEl _context, StackCall _stack, int _size) {
         return _context.callsOrException(_stack);
+    }
+
+    @Override
+    public boolean isStopAt(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, StackCall _stackCall) {
+        return false;
+    }
+
+    @Override
+    public boolean isChecking(ExpressionLanguage _o, ContextEl _context, StackCall _stackCall) {
+        return _context.callsOrException(_stackCall);
     }
 
     @Override

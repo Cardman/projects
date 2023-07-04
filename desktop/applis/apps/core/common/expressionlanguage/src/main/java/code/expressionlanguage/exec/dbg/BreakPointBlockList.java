@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.dbg;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
@@ -15,11 +16,13 @@ public final class BreakPointBlockList {
     private final AbsCollection<BreakPointBlockPair> listTmp;
     private final AbstractInterceptorStdCaller interceptor;
     private final AbsAtBool pausedLoop;
+    private final AbsCollection<WatchPointBlockPair> watchList;
 
     public BreakPointBlockList(AbstractInterceptorStdCaller _i) {
         interceptor = _i;
         listTmp = _i.newBreakPointKeyStringCollection();
         list = _i.newBreakPointKeyStringCollection();
+        watchList = _i.newWatchPointKeyStringCollection();
         pausedLoop = _i.newAtBool();
     }
 
@@ -182,6 +185,68 @@ public final class BreakPointBlockList {
             }
         }
         return false;
+    }
+
+    public void toggleWatchPoint(String _file, int _offset, ResultContext _f) {
+        ClassField o_ = ResultExpressionOperationNode.vexerChamps(_f.getPageEl(), _file, _offset);
+        if (o_.getClassName().isEmpty()) {
+            return;
+        }
+        toggleWatch(o_);
+    }
+    public void toggleWatch(ClassField _field) {
+        WatchPoint v_ = new WatchPoint();
+        v_.setEnabled(true);
+        WatchPointBlockPair pair_ = new WatchPointBlockPair(_field, v_);
+        int i_ = 0;
+        for (WatchPointBlockPair b: watchList.elts()) {
+            if (b.match(pair_)) {
+                watchList.remove(i_,b);
+                return;
+            }
+            i_++;
+        }
+        watchList.add(pair_);
+    }
+    public void toggleWatchPointEnabled(String _file, int _offset, ResultContext _f) {
+        ClassField o_ = ResultExpressionOperationNode.vexerChamps(_f.getPageEl(), _file, _offset);
+        if (o_.getClassName().isEmpty()) {
+            return;
+        }
+        toggleEnabledWatch(o_);
+    }
+    public void toggleEnabledWatch(ClassField _field) {
+        WatchPoint v_ = new WatchPoint();
+        v_.setEnabled(true);
+        WatchPointBlockPair pair_ = new WatchPointBlockPair(_field, v_);
+        for (WatchPointBlockPair b: watchList.elts()) {
+            if (b.match(pair_)) {
+                b.getValue().setEnabled(!b.getValue().isEnabled());
+                return;
+            }
+        }
+        watchList.add(pair_);
+    }
+    public boolean isWatch(ClassField _field) {
+        return getNotNullWatch(_field).isEnabled();
+    }
+    public WatchPoint getNotNullWatch(ClassField _field) {
+        WatchPointBlockPair b_ = getPairWatch(_field);
+        if (b_ == null) {
+            WatchPoint bp_ = new WatchPoint();
+            bp_.setEnabled(false);
+            return bp_;
+        }
+        return b_.getValue();
+    }
+
+    public WatchPointBlockPair getPairWatch(ClassField _field) {
+        for (WatchPointBlockPair b: watchList.elts()) {
+            if (b.match(_field)) {
+                return b;
+            }
+        }
+        return null;
     }
     public AbsCollection<BreakPointBlockPair> getListTmp() {
         return listTmp;
