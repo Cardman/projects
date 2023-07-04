@@ -297,6 +297,7 @@ public final class ExecClassesUtil {
             init_.add(t);
         }
         StringUtil.removeAllElements(ts_,init_);
+        _context.getLocks().restore();
         return check(_context, _st);
     }
 

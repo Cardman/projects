@@ -89,12 +89,8 @@ public final class MetaInfoUtil {
     }
 
     public static CallingState stateAfterInit(ContextEl _cont, GeneType _className, StackCall _stackCall) {
-        if (_className instanceof ExecRootBlock) {
-            DefaultLockingClass locks_ = _cont.getLocks();
-            InitClassState res_ = locks_.getState((ExecRootBlock) _className);
-            if (res_ != InitClassState.SUCCESS) {
-                return new CustomFoundExc(new CausingErrorStruct(_className.getFullName(), _cont, _stackCall));
-            }
+        if (_className instanceof ExecRootBlock && _cont.getLocks().getState((ExecRootBlock) _className) == InitClassState.ERROR) {
+            return new CustomFoundExc(new CausingErrorStruct(_className.getFullName(), _cont, _stackCall));
         }
         return null;
     }

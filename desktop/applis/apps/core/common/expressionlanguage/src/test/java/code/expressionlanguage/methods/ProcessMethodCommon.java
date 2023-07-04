@@ -921,7 +921,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     protected static boolean isInitialized(ContextEl _cont, String _cl) {
-        return ProcessMethod.stateMismatch(asExecRootBlock(_cont, _cl), _cont, InitClassState.NOT_YET);
+        return ProcessMethod.stateMatch(asExecRootBlock(_cont, _cl), _cont, InitClassState.SUCCESS);
     }
 
     private static ExecRootBlock asExecRootBlock(ContextEl _cont, String _cl) {

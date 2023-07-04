@@ -62,4 +62,12 @@ public final class ProcessDbgEvalAnnotationTest extends ProcessDbgCommon {
         Struct cont_ = valueDbg("2","pkg.Ex","catching",38,files_);
         assertEq(2,((NumberStruct)cont_).intStruct());
     }
+
+    @Test
+    public void test8() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public annotation pkg.MyAnnot {}public class pkg.Ex {@MyAnnot public int field;public static void catching(){class(Ex).getDeclaredFields()[0].getAnnotations();}}");
+        Struct cont_ = valueDbg("2","pkg.Ex","catching",53,files_);
+        assertEq(2,((NumberStruct)cont_).intStruct());
+    }
 }

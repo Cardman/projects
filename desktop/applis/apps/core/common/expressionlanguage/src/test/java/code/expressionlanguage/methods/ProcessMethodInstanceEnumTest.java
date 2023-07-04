@@ -1124,12 +1124,9 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOkRead(files_);
         assertTrue(!isInitialized(cont_, "pkg.Ex"));
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        InitClassState state_ = cont_.getLocks().getState(classBody_);
-        assertSame(InitClassState.NOT_YET, state_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         ProcessMethod.initializeClass("pkg.Ex", classBody_, cont_, stackCall_);
-        assertTrue(isInitialized(cont_, "pkg.Ex"));
-        state_ = cont_.getLocks().getState(classBody_);
+        InitClassState state_ = cont_.getLocks().getState(classBody_);
         assertSame(InitClassState.ERROR, state_);
         Struct exc_ = getTrueException(stackCall_);
         assertTrue(exc_ instanceof CausingErrorStruct);

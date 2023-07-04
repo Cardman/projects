@@ -58,6 +58,14 @@ public final class DefaultLockingClass {
         state(_className, InitClassState.ERROR);
     }
 
+    public void restore() {
+        for (EntryCust<ExecRootBlock, InitClassState> e: classes.entryList()) {
+            if (e.getValue() != InitClassState.SUCCESS) {
+                e.setValue(InitClassState.ERROR);
+            }
+        }
+    }
+
     public RootStatus getClasses() {
         return classes;
     }

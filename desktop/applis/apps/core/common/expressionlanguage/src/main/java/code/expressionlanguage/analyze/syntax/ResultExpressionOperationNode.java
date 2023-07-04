@@ -81,26 +81,30 @@ public final class ResultExpressionOperationNode {
         if (m_ != null) {
             ClassesUtil.prepare(m_, a_);
         }
-        if (c_.block instanceof InfoBlock) {
-            ClassesUtil.globalType(a_,((InfoBlock) c_.block).getDeclaringType());
-            if (((InfoBlock) c_.block).isStaticField()) {
-                a_.setAccessStaticContext(MethodAccessKind.STATIC);
-            } else {
-                a_.setAccessStaticContext(MethodAccessKind.INSTANCE);
-            }
-            a_.setCurrentPkg(((InfoBlock) c_.block).getDeclaringType().getPackageName());
-            a_.setCurrentFct(null);
-            a_.getMappingLocal().addAllEntries(((InfoBlock) c_.block).getDeclaringType().getRefMappings());
-        } else if (c_.block instanceof RootBlock) {
-            a_.setAccessStaticContext(_flag);
-            ClassesUtil.globalType(a_, (AccessedBlock) c_.block);
-            a_.setCurrentPkg(((RootBlock) c_.block).getPackageName());
-            a_.setCurrentFct(null);
-            a_.getMappingLocal().addAllEntries(((RootBlock) c_.block).getRefMappings());
-        }
+        typeOrField(_flag, a_, c_.block);
         a_.setCurrentFile(file_);
         a_.setImportingAcces(new AllAccessedTypes());
         return a_;
+    }
+
+    private static void typeOrField(MethodAccessKind _flag, AnalyzedPageEl _a, AbsBk _bl) {
+        if (_bl instanceof InfoBlock) {
+            ClassesUtil.globalType(_a,((InfoBlock) _bl).getDeclaringType());
+            if (((InfoBlock) _bl).isStaticField()) {
+                _a.setAccessStaticContext(MethodAccessKind.STATIC);
+            } else {
+                _a.setAccessStaticContext(MethodAccessKind.INSTANCE);
+            }
+            _a.setCurrentPkg(((InfoBlock) _bl).getDeclaringType().getPackageName());
+            _a.setCurrentFct(null);
+            _a.getMappingLocal().addAllEntries(((InfoBlock) _bl).getDeclaringType().getRefMappings());
+        } else if (_bl instanceof RootBlock) {
+            _a.setAccessStaticContext(_flag);
+            ClassesUtil.globalType(_a, (AccessedBlock) _bl);
+            _a.setCurrentPkg(((RootBlock) _bl).getPackageName());
+            _a.setCurrentFct(null);
+            _a.getMappingLocal().addAllEntries(((RootBlock) _bl).getRefMappings());
+        }
     }
 
     private static void setAnnot(ResultExpressionOperationNode _c, AnalyzedPageEl _a) {
@@ -122,16 +126,18 @@ public final class ResultExpressionOperationNode {
             _a.setImportingTypes((OperatorBlock)m_);
             _a.setCurrentPkg(_a.getDefaultPkg());
         } else {
-            RootBlock par_ = parent(m_);
+            RootBlock par_;
+            if (m_ instanceof NamedFunctionBlock) {
+                par_ = parent(m_);
+            } else {
+                par_ = null;
+            }
             if (par_ != null) {
                 ClassesUtil.globalType(_a, par_);
                 _a.setCurrentPkg(par_.getPackageName());
                 _a.getMappingLocal().addAllEntries(par_.getRefMappings());
-            }
-            if (m_ instanceof RootBlock) {
-                ClassesUtil.globalType(_a, (RootBlock)m_);
-                _a.setCurrentPkg(((RootBlock)m_).getPackageName());
-                _a.getMappingLocal().addAllEntries(((RootBlock)m_).getRefMappings());
+            } else {
+                typeOrField(MethodAccessKind.STATIC, _a, m_);
             }
         }
         _a.setCurrentFct(null);

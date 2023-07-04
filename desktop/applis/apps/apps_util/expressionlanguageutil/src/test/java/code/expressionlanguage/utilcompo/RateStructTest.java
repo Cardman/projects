@@ -2553,16 +2553,12 @@ public final class RateStructTest extends EquallableElUtUtil {
 
     private Struct lgInst(ContextEl _ctx) {
         ExecRootBlock ex_ = _ctx.getClasses().getClassBody("pkg.Sample");
-        _ctx.getLocks().successClass(ex_);
-        ExecRootBlock ex2_ = _ctx.getClasses().getClassBody("pkg.Sample2");
-        _ctx.getLocks().successClass(ex2_);
         return instance(_ctx, ex_, _ctx);
     }
 
 
     private Struct quick(ContextEl _ctx) {
         ExecRootBlock ex_ = _ctx.getClasses().getClassBody("pkg.Sample");
-        _ctx.getLocks().successClass(ex_);
         return _ctx.getInit().processInit(_ctx, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
     }
 
