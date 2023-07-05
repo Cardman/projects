@@ -124,8 +124,9 @@ public final class DbgStackStopper implements AbsStackStopper {
         return false;
     }
 
-    private boolean settable(ExpressionLanguage _el, ExecOperationNode _o, StackCall _stackCall, ExecOperationNode _set) {
+    private boolean settable(ExpressionLanguage _el, ExecAbstractAffectOperation _o, StackCall _stackCall, ExecOperationNode _set) {
         if (_set instanceof ExecSettableFieldOperation) {
+            _o.setRelOffsetPossibleLastPage(_o.getOperatorContent().getOpOffset(), _stackCall);
             _stackCall.setCheckingExp(((ExecSettableFieldOperation) _set).getSettableFieldContent().getClassField());
             _el.currentOper(_o);
             _stackCall.setVisited(false);
@@ -135,6 +136,7 @@ public final class DbgStackStopper implements AbsStackStopper {
             ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), _set);
             AbstractWrapper w_ = argumentPair_.getWrapper();
             if (w_ instanceof FieldWrapper) {
+                _o.setRelOffsetPossibleLastPage(_o.getOperatorContent().getOpOffset(), _stackCall);
                 _stackCall.setCheckingExp(((FieldWrapper)w_).getId());
                 _el.currentOper(_o);
                 _stackCall.setVisited(false);

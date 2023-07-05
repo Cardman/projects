@@ -26,7 +26,6 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
 
     @Override
     protected void calculateSpec(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        setRelOffsetPossibleLastPage(getOperatorContent().getOpOffset(), _stack);
         Argument leftArg_ = getFirstArgument(_nodes,this);
         Argument rightArg_ = getLastArgument(_nodes,this);
         ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes,this);

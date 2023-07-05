@@ -82,7 +82,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(80, now(next_));
+        assertEq(83, now(next_));
     }
     @Test
     public void test5() {
@@ -452,7 +452,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(80, now(next_));
+        assertEq(83, now(next_));
     }
     @Test
     public void test18() {
@@ -552,7 +552,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(104, now(next_));
+        assertEq(105, now(next_));
     }
     @Test
     public void test23() {
@@ -784,7 +784,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(80, now(next_));
+        assertEq(84, now(next_));
     }
     @Test
     public void test32() {
@@ -868,7 +868,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(80, now(next_));
+        assertEq(85, now(next_));
     }
     @Test
     public void test36() {
