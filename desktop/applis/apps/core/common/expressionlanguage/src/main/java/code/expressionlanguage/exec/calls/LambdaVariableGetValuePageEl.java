@@ -21,4 +21,8 @@ public final class LambdaVariableGetValuePageEl extends AbstractLambdaVariable {
         return new Argument(ExecTemplates.getWrap(firstArgumentWrapper_.getWrapper()).getValue(_stack,_context));
     }
 
+    @Override
+    boolean stopAt(ContextEl _context, StackCall _stack) {
+        return _stack.getStopper().isStopAtRefGetVar(arr,_context,_stack);
+    }
 }

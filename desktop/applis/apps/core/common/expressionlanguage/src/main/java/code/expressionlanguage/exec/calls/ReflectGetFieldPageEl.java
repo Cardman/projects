@@ -46,4 +46,8 @@ public final class ReflectGetFieldPageEl extends AbstractLambdaVariable {
         return arg_;
     }
 
+    @Override
+    boolean stopAt(ContextEl _context, StackCall _stack) {
+        return _stack.getStopper().isStopAtRefGetField(metaInfo,_context,_stack);
+    }
 }

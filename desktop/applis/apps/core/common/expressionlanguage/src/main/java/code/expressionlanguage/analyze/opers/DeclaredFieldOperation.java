@@ -21,6 +21,7 @@ public final class DeclaredFieldOperation extends
         super(_indexInEl, _indexChild, _m, _op);
         infoBlock = _info;
         errsField = _op.getErrors();
+        getSettableFieldContent().setDeclare(true);
     }
     @Override
     public void analyze(AnalyzedPageEl _page) {

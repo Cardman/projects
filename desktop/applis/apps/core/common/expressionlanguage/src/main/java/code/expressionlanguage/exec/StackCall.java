@@ -38,6 +38,7 @@ public final class StackCall implements AbstractStackCall {
     private boolean visitedExp;
     private ClassField checkingExp = new ClassField("","");
     private final AbsStackStopper stopper;
+    private int modeField = -1;
     public StackCall(AbsStackStopper _s,InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
         stopper = _s;
         step = _s.firstStep();
@@ -277,5 +278,13 @@ public final class StackCall implements AbstractStackCall {
 
     public void setCheckingExp(ClassField _v) {
         this.checkingExp = _v;
+    }
+
+    public int getModeField() {
+        return modeField;
+    }
+
+    public void setModeField(int _m) {
+        this.modeField = _m;
     }
 }

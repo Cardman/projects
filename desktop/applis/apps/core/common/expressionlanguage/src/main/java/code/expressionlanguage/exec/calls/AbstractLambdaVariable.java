@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 
 public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl {
 
+    private boolean visited;
     private boolean calledAfter;
 
     protected AbstractLambdaVariable(boolean _lambda) {
@@ -14,6 +15,12 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
     }
     @Override
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
+        if (!visited) {
+            visited = true;
+            if (stopAt(_context, _stack)) {
+                return false;
+            }
+        }
         if (!calledAfter) {
             setWrapException(false);
             Argument arg_ = prepare(_context, _stack);
@@ -32,4 +39,6 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
     }
 
     abstract Argument prepare(ContextEl _context, StackCall _stack);
+
+    abstract boolean stopAt(ContextEl _context, StackCall _stack);
 }

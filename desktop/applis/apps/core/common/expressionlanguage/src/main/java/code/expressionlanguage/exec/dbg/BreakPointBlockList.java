@@ -197,6 +197,10 @@ public final class BreakPointBlockList {
     public void toggleWatch(ClassField _field) {
         WatchPoint v_ = new WatchPoint();
         v_.setEnabled(true);
+        v_.setRead(true);
+        v_.setWrite(true);
+        v_.setCompoundRead(true);
+        v_.setCompoundWrite(true);
         WatchPointBlockPair pair_ = new WatchPointBlockPair(_field, v_);
         int i_ = 0;
         for (WatchPointBlockPair b: watchList.elts()) {
@@ -218,6 +222,10 @@ public final class BreakPointBlockList {
     public void toggleEnabledWatch(ClassField _field) {
         WatchPoint v_ = new WatchPoint();
         v_.setEnabled(true);
+        v_.setRead(true);
+        v_.setWrite(true);
+        v_.setCompoundRead(true);
+        v_.setCompoundWrite(true);
         WatchPointBlockPair pair_ = new WatchPointBlockPair(_field, v_);
         for (WatchPointBlockPair b: watchList.elts()) {
             if (b.match(pair_)) {

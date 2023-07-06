@@ -21,6 +21,7 @@ public final class SettableFieldOperation extends
                                   MethodOperation _m, OperationsSequence _op, AnaSettableAbstractFieldOperation _interf) {
         super(_indexInEl, _indexChild, _m, _op);
         interf = _interf;
+        getSettableFieldContent().setDeclare(false);
     }
     @Override
     public void analyze(AnalyzedPageEl _page) {

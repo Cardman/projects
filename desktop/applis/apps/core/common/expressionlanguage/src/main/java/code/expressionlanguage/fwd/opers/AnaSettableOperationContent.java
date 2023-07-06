@@ -13,6 +13,7 @@ public final class AnaSettableOperationContent {
     private int anc;
 
     private CstFieldInfo cstFieldInfo;
+    private boolean declare;
     public boolean isVariable() {
         return variable;
     }
@@ -67,5 +68,13 @@ public final class AnaSettableOperationContent {
 
     public void setCstFieldInfo(CstFieldInfo _c) {
         this.cstFieldInfo = _c;
+    }
+
+    public boolean isDeclare() {
+        return declare;
+    }
+
+    public void setDeclare(boolean _d) {
+        this.declare = _d;
     }
 }

@@ -32,6 +32,10 @@ public abstract class ExecSettableFieldOperation extends
         setQuickNoConvertSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 
+    public boolean isDeclare() {
+        return settableFieldContent.isDeclare();
+    }
+
     public ExecSettableOperationContent getSettableFieldContent() {
         return settableFieldContent;
     }

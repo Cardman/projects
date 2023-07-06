@@ -4,6 +4,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.structs.FieldMetaInfo;
 import code.util.CustList;
 
 public final class DefStackStopper implements AbsStackStopper {
@@ -24,6 +26,26 @@ public final class DefStackStopper implements AbsStackStopper {
     @Override
     public boolean stopAt(ContextEl _context, StackCall _stack, int _size) {
         return _context.callsOrException(_stack);
+    }
+
+    @Override
+    public boolean isStopAtRefGetField(FieldMetaInfo _meta, ContextEl _context, StackCall _stackCall) {
+        return false;
+    }
+
+    @Override
+    public boolean isStopAtRefGetVar(ArgumentListCall _meta, ContextEl _context, StackCall _stackCall) {
+        return false;
+    }
+
+    @Override
+    public boolean isStopAtRefSetField(FieldMetaInfo _meta, ContextEl _context, StackCall _stackCall) {
+        return false;
+    }
+
+    @Override
+    public boolean isStopAtRefSetVar(ArgumentListCall _meta, ContextEl _context, StackCall _stackCall) {
+        return false;
     }
 
     @Override

@@ -25,4 +25,8 @@ public final class LambdaVariableSetValuePageEl extends AbstractLambdaVariable {
         return right_;
     }
 
+    @Override
+    boolean stopAt(ContextEl _context, StackCall _stack) {
+        return _stack.getStopper().isStopAtRefSetVar(arr,_context,_stack);
+    }
 }
