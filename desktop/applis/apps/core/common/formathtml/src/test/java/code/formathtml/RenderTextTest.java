@@ -3757,6 +3757,19 @@ public final class RenderTextTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         assertEq("<html><body>1</body></html>", getRes2(folder_, relative_, html_, files_));
     }
+    @Test
+    public void process156Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body>{pkg.Ex.inst/=0}</body></html>";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int inst=1;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertNotNull(getEx(folder_, relative_, html_, files_));
+    }
     private Struct getExOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec, String... _types) {
         return getCommExOneBean(_folder,_relative,_html,_files,_filesSec,_types);
     }
