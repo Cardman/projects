@@ -38,7 +38,7 @@ public final class ProcessDbgConditionalBpTest extends ProcessDbgCommon {
     public void test4() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ax{public int f=1;}public class pkg.Ex:Ax {public static int exmeth(){return new Ex().f;}public static int exmeth(int t, int u){int v = Math.mod(t,u);return v;}}");
-        ResultContext res_ = ctxSt("pkg.Ex", files_);
+        ResultContext res_ = ctxInst("pkg.Ex", files_);
         StackCallReturnValue cont_ = conditionalInstView("f>=0","pkg.Ex","exmeth",res_);
         assertEq(0,dbgNormal("pkg.Ex",getMethodId("exmeth"),res_,cont_.getStack()).nbPages());
     }
