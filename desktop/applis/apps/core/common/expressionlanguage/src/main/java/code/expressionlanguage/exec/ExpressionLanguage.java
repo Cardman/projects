@@ -79,8 +79,9 @@ public final class ExpressionLanguage {
                 a_.calculate(_nodes, _context, _stackCall);
                 fr_ = getNextIndex(len_,_nodes,o, fr_ + 1,_context,_stackCall,_el);
             }
-            restVist(_el, o, _stackCall);
+            restVist(_context,_stackCall);
         }
+        restVist(_context,_stackCall);
     }
 
     private static void processCalling(ExpressionLanguage _el, AbstractPageEl _pageEl, ExecOperationNode _o, StackCall _stackCall) {
@@ -133,17 +134,16 @@ public final class ExpressionLanguage {
         if (currentOper_ instanceof CallExecSimpleOperation) {
             ((CallExecSimpleOperation) currentOper_).endCalculate(_cont, arguments, _arg, _stackCall);
             getNextIndex(currentOper_, least_,_cont,_stackCall);
-            restVist(this,currentOper_,_stackCall);
+            restVist(_cont,_stackCall);
             return;
         }
         currentOper_.setSimpleArgument(_arg, _cont, arguments, _stackCall);
         getNextIndex(currentOper_, least_,_cont,_stackCall);
-        restVist(this,currentOper_,_stackCall);
+        restVist(_cont,_stackCall);
     }
 
-    private static void restVist(ExpressionLanguage _el, ExecOperationNode _op, StackCall _stackCall) {
-        if (_op != _el.currentOper) {
-//            _stackCall.setVisited(false);
+    private static void restVist(ContextEl _context, StackCall _stackCall) {
+        if (!_context.callsOrException(_stackCall)) {
             _stackCall.setVisitedExp(false);
         }
     }
