@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
+import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -26,23 +27,29 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
 
     @Override
     protected void calculateSpec(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        Argument leftArg_ = getFirstArgument(_nodes,this);
-        Argument rightArg_ = getLastArgument(_nodes,this);
         ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes,this);
         ImplicitMethods implicits_ = getConverter();
         int indexImplicit_ = pairBefore_.getIndexImplicitConv();
         if (ImplicitMethods.isValidIndex(implicits_,indexImplicit_)) {
             String tres_ = implicits_.get(indexImplicit_).getFct().getImportedParametersTypes().first();
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
+            Argument leftArg_ = getFirstArgument(_nodes,this);
+            Argument rightArg_ = getLastArgument(_nodes,this);
             Argument res_ = new Argument(symbol.calculateOperator(leftArg_.getStruct(), rightArg_.getStruct(), cast_, _conf, _stack));
             pairBefore_.setIndexImplicitConv(ParamCheckerUtil.processConverter(_conf,res_,implicits_,indexImplicit_, _stack));
             return;
         }
-        Argument res_ = new Argument(symbol.calculateOperator(leftArg_.getStruct(), rightArg_.getStruct(), getResultClass().getUnwrapObjectNb(), _conf, _stack));
+        Argument res_ = new Argument(calculated(_nodes,_conf, _stack));
         Argument before_ = firstArg(this,_nodes);
         Argument set_ = calculateChSetting(_nodes,_conf,res_,_stack);
         Argument arg_ = getPrePost(isStaticPostEltContent(), before_, set_);
         setSimpleArgument(arg_, _conf, _nodes, _stack);
+    }
+
+    public Struct calculated(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
+        Argument leftArg_ = getFirstArgument(_nodes,this);
+        Argument rightArg_ = getLastArgument(_nodes,this);
+        return symbol.calculateOperator(leftArg_.getStruct(), rightArg_.getStruct(), getResultClass().getUnwrapObjectNb(), _conf, _stack);
     }
 
 }

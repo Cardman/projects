@@ -1,12 +1,23 @@
 package code.expressionlanguage.exec.dbg;
 
+import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
+
 public final class WatchPoint {
     private boolean enabled;
     private boolean read;
     private boolean write;
     private boolean compoundRead;
     private boolean compoundWrite;
-
+    private final BreakPointCondition resultRead;
+    private final BreakPointCondition resultWrite;
+    private final BreakPointCondition resultCompoundRead;
+    private final BreakPointCondition resultCompoundWrite;
+    public WatchPoint(AbstractInterceptorStdCaller _i){
+        resultRead = new BreakPointCondition(_i);
+        resultWrite = new BreakPointCondition(_i);
+        resultCompoundRead = new BreakPointCondition(_i);
+        resultCompoundWrite = new BreakPointCondition(_i);
+    }
     public boolean isEnabled() {
         return enabled;
     }
@@ -45,5 +56,21 @@ public final class WatchPoint {
 
     public void setCompoundWrite(boolean _e) {
         this.compoundWrite = _e;
+    }
+
+    public BreakPointCondition getResultRead() {
+        return resultRead;
+    }
+
+    public BreakPointCondition getResultWrite() {
+        return resultWrite;
+    }
+
+    public BreakPointCondition getResultCompoundRead() {
+        return resultCompoundRead;
+    }
+
+    public BreakPointCondition getResultCompoundWrite() {
+        return resultCompoundWrite;
     }
 }

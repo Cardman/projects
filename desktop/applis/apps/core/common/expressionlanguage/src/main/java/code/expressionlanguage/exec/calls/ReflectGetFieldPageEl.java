@@ -6,6 +6,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.FieldMetaInfo;
 
@@ -48,6 +49,6 @@ public final class ReflectGetFieldPageEl extends AbstractLambdaVariable {
 
     @Override
     boolean stopAt(ContextEl _context, StackCall _stack) {
-        return _stack.getStopper().isStopAtRefGetField(metaInfo,_context,_stack);
+        return _stack.getStopper().isStopAtRefGetField(metaInfo, ArgumentListCall.toStr(argument),_context,_stack);
     }
 }

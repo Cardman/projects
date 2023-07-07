@@ -33,4 +33,8 @@ public final class InstanceFieldWrapper extends FieldWrapper {
     public String getClassName(ContextEl _conf) {
         return ExecFieldTemplates.formatType(_conf,pair.getRootBlock(),getFieldType(),className);
     }
+
+    public Struct getParent() {
+        return parent;
+    }
 }

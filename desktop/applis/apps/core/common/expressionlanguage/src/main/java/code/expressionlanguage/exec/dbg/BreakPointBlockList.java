@@ -132,7 +132,6 @@ public final class BreakPointBlockList {
     public static ReportedMessages breakPointCtxStatic(BreakPointBlockPair _bp, ResultContext _f, AbsLightContextGenerator _gene, String _newValue) {
         return new BreakPointLambdaCtxUpdaterStatic(_f,_gene).update(ExecFileBlock.name(_bp.getFile()),_bp.getOffset(),_bp.getValue(),_newValue);
     }
-
     public void update(ExecFileBlock _file, int _offset, BreakPointBooleanUpdater _updater, boolean _newValue) {
         for (BreakPointBlockPair b: list.elts()) {
             if (b.match(_file, _offset)) {
@@ -195,7 +194,7 @@ public final class BreakPointBlockList {
         toggleWatch(o_);
     }
     public void toggleWatch(ClassField _field) {
-        WatchPoint v_ = new WatchPoint();
+        WatchPoint v_ = new WatchPoint(interceptor);
         v_.setEnabled(true);
         v_.setRead(true);
         v_.setWrite(true);
@@ -220,7 +219,7 @@ public final class BreakPointBlockList {
         toggleEnabledWatch(o_);
     }
     public void toggleEnabledWatch(ClassField _field) {
-        WatchPoint v_ = new WatchPoint();
+        WatchPoint v_ = new WatchPoint(interceptor);
         v_.setEnabled(true);
         v_.setRead(true);
         v_.setWrite(true);
@@ -241,7 +240,7 @@ public final class BreakPointBlockList {
     public WatchPoint getNotNullWatch(ClassField _field) {
         WatchPointBlockPair b_ = getPairWatch(_field);
         if (b_ == null) {
-            WatchPoint bp_ = new WatchPoint();
+            WatchPoint bp_ = new WatchPoint(interceptor);
             bp_.setEnabled(false);
             return bp_;
         }

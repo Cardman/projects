@@ -1,13 +1,11 @@
 package code.expressionlanguage.options;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
-import code.expressionlanguage.analyze.blocks.Line;
-import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
-import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.StringComment;
@@ -17,6 +15,7 @@ import code.expressionlanguage.analyze.syntax.IntermediaryResults;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.analyze.syntax.SplitExpressionUtil;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -25,6 +24,8 @@ import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
@@ -32,6 +33,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.comparators.NaturalComparator;
@@ -54,42 +56,58 @@ public final class ResultContextLambda {
             return new ResultContextLambda(null,null,new ReportedMessages());
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_fileName, _caret, _result.getPageEl(),_flag);
-        MethodAccessKind stCtx_ = a_.getStaticContext();
-        MemberCallingsBlock memb_ = a_.getCurrentFct();
-        Line l_ = new Line(new OffsetStringInfo(0,"(:"+ _type+")->"+_exp),0);
+        return build(_exp, _result, _type, _gene, a_);
+    }
+
+    public static ResultContextLambda dynamicAnalyzeField(String _exp, ClassField _id, ResultContext _result, String _type, AbsLightContextGenerator _gene, boolean _setting) {
+        if (_exp.trim().isEmpty()) {
+            return new ResultContextLambda(null,null,new ReportedMessages());
+        }
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareFields(_id, _result.getPageEl(),_setting);
+        return build(_exp, _result, _type, _gene, a_);
+    }
+
+    private static ResultContextLambda build(String _exp, ResultContext _result, String _type, AbsLightContextGenerator _gene, AnalyzedPageEl _a) {
+        FileBlock file_ = _a.getCurrentFile();
+        if (file_ == null) {
+            return new ResultContextLambda(null,null,new ReportedMessages());
+        }
+        MethodAccessKind stCtx_ = _a.getStaticContext();
+        MemberCallingsBlock memb_ = _a.getCurrentFct();
+        Line l_ = new Line(new OffsetStringInfo(0,"(:"+ _type +")->"+ _exp),0);
         StringComment s_ = new StringComment(l_.getExpression(),new CustList<CommentDelimiters>());
         l_.getRes().partsAbsol(s_.getStringParts());
-        l_.setFile(a_.getCurrentFile());
+        l_.setFile(file_);
         String value_ = l_.getExpression();
         ResultExpression resultExpression_ = l_.getRes();
         resultExpression_.setAnalyzedString(value_);
         resultExpression_.setSumOffset(l_.getExpressionOffset());
         IntermediaryResults anon_ = new IntermediaryResults();
-        extractAnon(a_, anon_, a_.getGlobalType().getRootBlock(), resultExpression_);
+        extractAnon(_a, anon_, _a.getGlobalType().getRootBlock(), resultExpression_);
 
-        a_.setNextResults(SplitExpressionUtil.anonymous(anon_,a_));
-        a_.setCurrentFct(memb_);
-        a_.setAccessStaticContext(stCtx_);
-        a_.setAccessedFct(null);
-        a_.setCurrentFile(l_.getFile());
-        a_.setCurrentBlock(l_);
-        l_.buildExpressionLanguageReadOnly(a_);
-        CustList<AnonymousLambdaOperation> al_ = a_.getAnonymousLambda();
+        _a.setNextResults(SplitExpressionUtil.anonymous(anon_, _a));
+        _a.setCurrentFct(memb_);
+        _a.setAccessStaticContext(stCtx_);
+        _a.setAccessedFct(null);
+        _a.setCurrentFile(l_.getFile());
+        _a.setCurrentBlock(l_);
+        l_.buildExpressionLanguageReadOnly(_a);
+        CustList<AnonymousLambdaOperation> al_ = _a.getAnonymousLambda();
         if (al_.isEmpty()) {
-            return new ResultContextLambda(null,null,a_.getMessages());
+            return new ResultContextLambda(null, null, _a.getMessages());
         }
         AnonymousLambdaOperation mainLambda_ = al_.first();
-        ClassesUtil.processAnonymous(a_);
-        a_.setAnnotAnalysis(false);
-        ClassesUtil.validateSimFinals(a_);
-        ClassesUtil.checkEnd(a_);
-        if (a_.notAllEmptyErrors()) {
-            return new ResultContextLambda(null,null,a_.getMessages());
+        ClassesUtil.processAnonymous(_a);
+        _a.setAnnotAnalysis(false);
+        ClassesUtil.validateSimFinals(_a);
+        ClassesUtil.checkEnd(_a);
+        if (_a.notAllEmptyErrors()) {
+            return new ResultContextLambda(null, null, _a.getMessages());
         }
-        Forwards forwards_ = ForwardInfos.generalForward(a_,_result);
+        Forwards forwards_ = ForwardInfos.generalForward(_a, _result);
         ContextEl ctx_ = _gene.gene(forwards_);
         Classes.forwardAndClear(ctx_);
-        return new ResultContextLambda(ctx_, ForwardInfos.buildAnonFctPair(forwards_, mainLambda_), a_.getMessages());
+        return new ResultContextLambda(ctx_, ForwardInfos.buildAnonFctPair(forwards_, mainLambda_), _a.getMessages());
     }
 
     private static void extractAnon(AnalyzedPageEl _page, IntermediaryResults _int, RootBlock _type, ResultExpression _resultExpression) {
@@ -135,7 +153,12 @@ public final class ResultContextLambda {
 //        }
 //        return op_;
 //    }
-    public StackCallReturnValue eval(ContextEl _original,AbstractPageEl _page) {
+    public StackCallReturnValue eval(ContextEl _original, CheckedExecOperationNodeInfos _addon,AbstractPageEl _page) {
+        prepare(_original);
+        return eval(_addon,_page);
+    }
+
+    private void prepare(ContextEl _original) {
         if (!initTypes) {
             initTypes = true;
             ExecClassesUtil.forwardClassesMetaInfos(context);
@@ -152,7 +175,6 @@ public final class ResultContextLambda {
         for (EntryCust<ExecRootBlock, InitClassState> c: _original.getLocks().getClasses().entryList()) {
             context.getLocks().state(c.getKey(),c.getValue());
         }
-        return eval(_page);
     }
 
     private void endOrder(ContextEl _original, StackCall _st) {
@@ -173,13 +195,21 @@ public final class ResultContextLambda {
         _st.getInitializingTypeInfos().resetInitEnums(_st);
     }
 
-    public StackCallReturnValue eval(AbstractPageEl _page) {
+    public StackCallReturnValue eval(CheckedExecOperationNodeInfos _addon,AbstractPageEl _page) {
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING, context);
         Parameters p_ = new Parameters();
-        p_.getRefParameters().addAllEntries(_page.getRefParams());
-        p_.setCache(_page.getCache());
-        AbstractPageEl page_ = new CustomFoundMethod(_page.getGlobalArgument(),_page.getGlobalClass(),lambda, p_).processAfterOperation(context,stackCall_);
-        page_.getVars().addAllEntries(_page.getVars());
+        if (_addon == null) {
+            p_.getRefParameters().addAllEntries(_page.getRefParams());
+            p_.setCache(_page.getCache());
+            AbstractPageEl page_ = new CustomFoundMethod(_page.getGlobalArgument(),_page.getGlobalClass(),lambda, p_).processAfterOperation(context,stackCall_);
+            page_.getVars().addAllEntries(_page.getVars());
+            return loop(stackCall_, page_);
+        }
+        Struct r_ = _addon.getRight();
+        if (r_ != null) {
+            p_.getRefParameters().addEntry(context.getClasses().getKeyWordValue(),new VariableWrapper(LocalVariable.newLocalVariable(r_,context)));
+        }
+        AbstractPageEl page_ = new CustomFoundMethod(new Argument(_addon.getInstance()),_addon.getDeclaring(),lambda, p_).processAfterOperation(context,stackCall_);
         return loop(stackCall_, page_);
     }
 

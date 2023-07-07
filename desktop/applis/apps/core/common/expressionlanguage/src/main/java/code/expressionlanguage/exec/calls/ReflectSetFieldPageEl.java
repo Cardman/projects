@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.FieldMetaInfo;
 
 public final class ReflectSetFieldPageEl extends AbstractLambdaVariable {
@@ -39,6 +40,6 @@ public final class ReflectSetFieldPageEl extends AbstractLambdaVariable {
 
     @Override
     boolean stopAt(ContextEl _context, StackCall _stack) {
-        return _stack.getStopper().isStopAtRefSetField(metaInfo,_context,_stack);
+        return _stack.getStopper().isStopAtRefSetField(metaInfo, ArgumentListCall.toStr(first), ArgumentListCall.toStr(last),_context,_stack);
     }
 }

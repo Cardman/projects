@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.FieldMetaInfo;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public interface AbsStackStopper {
@@ -20,8 +21,8 @@ public interface AbsStackStopper {
 
     boolean isStopAt(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, StackCall _stackCall);
     boolean isChecking(ExpressionLanguage _o,ContextEl _context, StackCall _stackCall);
-    boolean isStopAtRefGetField(FieldMetaInfo _meta, ContextEl _context, StackCall _stackCall);
-    boolean isStopAtRefSetField(FieldMetaInfo _meta, ContextEl _context, StackCall _stackCall);
+    boolean isStopAtRefGetField(FieldMetaInfo _meta, Struct _instance, ContextEl _context, StackCall _stackCall);
+    boolean isStopAtRefSetField(FieldMetaInfo _meta, Struct _instance, Struct _right, ContextEl _context, StackCall _stackCall);
     boolean isStopAtRefGetVar(ArgumentListCall _meta, ContextEl _context, StackCall _stackCall);
     boolean isStopAtRefSetVar(ArgumentListCall _meta, ContextEl _context, StackCall _stackCall);
 }

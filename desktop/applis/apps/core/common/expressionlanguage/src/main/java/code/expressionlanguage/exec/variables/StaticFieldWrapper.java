@@ -28,4 +28,8 @@ public final class StaticFieldWrapper extends FieldWrapper {
     public String getClassName(ContextEl _conf) {
         return getFieldType();
     }
+
+    public ExecRootBlock getRoot() {
+        return root;
+    }
 }
