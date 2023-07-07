@@ -2076,7 +2076,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
         readCondition("class(Ex<U>)==class(Ex<int>)&&v==1",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(1, stack_.nbPages());
     }
 
@@ -2101,7 +2101,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
         readCondition("class(Ex<U>)==class(Ex<int>)&&v==1",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
 
@@ -2126,7 +2126,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
         readCondition("v==3",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
 
@@ -2151,7 +2151,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
         writeCondition("class(Ex<U>)==class(Ex<int>)&&value==3",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(1, stack_.nbPages());
     }
 
@@ -2176,7 +2176,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
         writeCondition("class(Ex<U>)==class(Ex<int>)&&value==3",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
 
@@ -2201,7 +2201,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
         writeCondition("value==4",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
 
@@ -2226,7 +2226,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
         compoundReadCondition("class(Ex<U>)==class(Ex<int>)&&v==3",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(1, stack_.nbPages());
     }
 
@@ -2251,7 +2251,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
         compoundReadCondition("class(Ex<U>)==class(Ex<int>)&&v==3",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
 
@@ -2276,7 +2276,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
         compoundReadCondition("v==4",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
 
@@ -2301,7 +2301,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
         compoundWriteCondition("class(Ex<U>)==class(Ex<int>)&&value==5",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(1, stack_.nbPages());
     }
 
@@ -2326,7 +2326,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
         compoundWriteCondition("class(Ex<U>)==class(Ex<int>)&&value==5",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
 
@@ -2351,7 +2351,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
         compoundWriteCondition("value==6",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
 
@@ -2387,7 +2387,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",36,cont_);
         compoundWriteCondition("class(Ex<U>)==class(Ex<int>)&&value.v==5",cont_, cf("pkg.Ex2", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(2, stack_.nbPages());
     }
 
@@ -2423,7 +2423,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",36,cont_);
         compoundWriteCondition("class(Ex<U>)==class(Ex<int>)&&value.v==5",cont_, cf("pkg.Ex2", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
 
@@ -2459,7 +2459,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",36,cont_);
         compoundWriteCondition("value.v==4",cont_, cf("pkg.Ex2", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
 
@@ -2484,7 +2484,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
         writeCondition("{return(:boolean)->{int value=1;return class(Ex<U>)==class(Ex<int>)&&#value==4-value;}.call();}",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(1, stack_.nbPages());
     }
 
@@ -2509,7 +2509,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
         writeCondition("{return(:boolean)->{int value=1;return class(Ex<U>)==class(Ex<int>)&&#value==4-value;}.call();}",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
 
@@ -2534,7 +2534,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
         writeCondition("",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(1, stack_.nbPages());
     }
 
@@ -2559,7 +2559,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",30,cont_);
         writeCondition("",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(1, stack_.nbPages());
     }
 
@@ -2585,7 +2585,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         writeCondition("v==v",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(1, stack_.nbPages());
     }
     @Test
@@ -2604,7 +2604,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",78,cont_);
         readCondition("0==0",cont_, cf("$core.Integer", "MAX_VALUE"));
         MethodId id_ = getMethodId("catching2");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
 
@@ -2626,7 +2626,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         readCondition("v==1",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(1, stack_.nbPages());
     }
 
@@ -2648,7 +2648,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         readCondition("v==1",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
 
@@ -2670,7 +2670,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         readCondition("v==3",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
 
@@ -2692,7 +2692,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         writeCondition("value==3",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(1, stack_.nbPages());
     }
 
@@ -2714,7 +2714,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         writeCondition("value==3",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
 
@@ -2736,7 +2736,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         writeCondition("value==4",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
 
@@ -2758,7 +2758,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         compoundReadCondition("v==3",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(1, stack_.nbPages());
     }
 
@@ -2780,7 +2780,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         compoundReadCondition("v==3",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
 
@@ -2802,7 +2802,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         compoundReadCondition("v==4",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
 
@@ -2824,7 +2824,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         compoundWriteCondition("value==5",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(1, stack_.nbPages());
     }
 
@@ -2846,7 +2846,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         compoundWriteCondition("value==5",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
 
@@ -2868,7 +2868,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         compoundWriteCondition("value==6",cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
-        StackCall stack_ = dbgNormal("pkg.ExCaller", id_, cont_);
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
 
