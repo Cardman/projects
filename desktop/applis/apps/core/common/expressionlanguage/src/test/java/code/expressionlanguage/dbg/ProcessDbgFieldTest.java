@@ -2872,6 +2872,453 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         assertEq(0, stack_.nbPages());
     }
 
+    @Test
+    public void test121() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new ExSub<int>();\n");
+        xml_.append("  that int m = that(l.v);\n");
+        xml_.append("  m=m+2;\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
+        writeCondition("class(Ex<U>)==class(Ex<int>)&&value==3",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        assertEq(1, stack_.nbPages());
+    }
+
+    @Test
+    public void test122() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new ExSub<int>();\n");
+        xml_.append("  that int m = that(l.v);\n");
+        xml_.append("  m=m+2;\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
+        writeCondition("class(Ex<U>)==class(Ex<int>)&&value==3",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test123() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new ExSub<int>();\n");
+        xml_.append("  that int m = that(l.v);\n");
+        xml_.append("  m=m+2;\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
+        writeCondition("value==4",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+
+    @Test
+    public void test124() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new ExSub<int>();\n");
+        xml_.append("  that int m = that(l.v);\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
+        compoundReadCondition("class(Ex<U>)==class(Ex<int>)&&v==1",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        assertEq(1, stack_.nbPages());
+    }
+
+    @Test
+    public void test125() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new ExSub<int>();\n");
+        xml_.append("  that int m = that(l.v);\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
+        compoundReadCondition("class(Ex<U>)==class(Ex<int>)&&v==1",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test126() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new ExSub<int>();\n");
+        xml_.append("  that int m = that(l.v);\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
+        compoundReadCondition("v==4",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+
+    @Test
+    public void test127() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new ExSub<int>();\n");
+        xml_.append("  that int m = that(l.v);\n");
+        xml_.append("  m=m+2;\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
+        compoundWriteCondition("class(Ex<U>)==class(Ex<int>)&&value==5",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        assertEq(1, stack_.nbPages());
+    }
+
+    @Test
+    public void test128() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new ExSub<int>();\n");
+        xml_.append("  that int m = that(l.v);\n");
+        xml_.append("  m=m+2;\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
+        compoundWriteCondition("class(Ex<U>)==class(Ex<int>)&&value==5",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test129() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new ExSub<int>();\n");
+        xml_.append("  that int m = that(l.v);\n");
+        xml_.append("  m=m+2;\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
+        compoundWriteCondition("value==6",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+
+    @Test
+    public void test130() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex2<U> {\n");
+        xml_.append(" ExSub<U> v=new();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append(" public static ExSub<T> $(int i){\n");
+        xml_.append("  ExSub<T> e = new();\n");
+        xml_.append("  e.v = (T) i;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int $(ExSub<T> i){\n");
+        xml_.append("  return (int)i.v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new Ex2<int>();\n");
+        xml_.append("  that ExSub<int> m = that(l.v);\n");
+        xml_.append("  m=m+2;\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",36,cont_);
+        compoundWriteCondition("class(Ex<U>)==class(Ex<int>)&&value.v==5",cont_, cf("pkg.Ex2", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        assertEq(2, stack_.nbPages());
+    }
+
+    @Test
+    public void test131() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex2<U> {\n");
+        xml_.append(" ExSub<U> v=new();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append(" public static ExSub<T> $(int i){\n");
+        xml_.append("  ExSub<T> e = new();\n");
+        xml_.append("  e.v = (T) i;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int $(ExSub<T> i){\n");
+        xml_.append("  return (int)i.v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new Ex2<int>();\n");
+        xml_.append("  that ExSub<int> m = that(l.v);\n");
+        xml_.append("  m=m+2;\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",36,cont_);
+        compoundWriteCondition("class(Ex<U>)==class(Ex<int>)&&value.v==5",cont_, cf("pkg.Ex2", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test132() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex2<U> {\n");
+        xml_.append(" ExSub<U> v=new();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append(" public static ExSub<T> $(int i){\n");
+        xml_.append("  ExSub<T> e = new();\n");
+        xml_.append("  e.v = (T) i;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int $(ExSub<T> i){\n");
+        xml_.append("  return (int)i.v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new Ex2<int>();\n");
+        xml_.append("  that ExSub<int> m = that(l.v);\n");
+        xml_.append("  m=m+2;\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",36,cont_);
+        compoundWriteCondition("value.v==4",cont_, cf("pkg.Ex2", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+
+    @Test
+    public void test133() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new ExSub<int>();\n");
+        xml_.append("  that int m = that(l.v);\n");
+        xml_.append("  m=m+2;\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
+        readCondition("class(Ex<U>)==class(Ex<int>)&&v==1",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        assertEq(1, stack_.nbPages());
+    }
+
+    @Test
+    public void test134() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new ExSub<int>();\n");
+        xml_.append("  that int m = that(l.v);\n");
+        xml_.append("  m=m+2;\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
+        readCondition("class(Ex<U>)==class(Ex<int>)&&v==1",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        assertEq(1, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test135() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new ExSub<int>();\n");
+        xml_.append("  that int m = that(l.v);\n");
+        xml_.append("  m=m+2;\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
+        readCondition("class(Ex<U>)==class(Ex<int>)&&v==1",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
+        assertEq(1, next_.nbPages());
+    }
+
+    @Test
+    public void test136() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" U v=(U)1;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub<T>:Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller {\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  var l = new ExSub<int>();\n");
+        xml_.append("  that int m = that(l.v);\n");
+        xml_.append("  m=m+2;\n");
+        xml_.append("  m+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",28,cont_);
+        readCondition("class(Ex<U>)==class(Ex<int>)&&v==1",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
+        assertEq(0, dbgContinueNormal(next_, cont_.getContext()).nbPages());
+    }
     private void readCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         read(_cont, _cf);
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
