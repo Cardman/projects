@@ -119,7 +119,7 @@ public class DefaultInitializer implements Initializer {
         checkStack(_owner, _stackCall);
         if (_stackCall.getStopper().hasFoundException(_stackCall)) {
             _stackCall.setCheckingException(true);
-            _stackCall.setVisited(false);
+            _stackCall.resetVisit();
         }
         return false;
     }

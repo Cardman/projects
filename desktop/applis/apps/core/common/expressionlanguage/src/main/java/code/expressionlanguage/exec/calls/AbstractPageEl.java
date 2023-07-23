@@ -159,8 +159,7 @@ public abstract class AbstractPageEl {
         if (el_ == null) {
             el_ = new ExpressionLanguage(_e, _coveredBlock);
             currentEls.add(el_);
-            _stack.setVisited(false);
-            _stack.setVisitedExp(false);
+            _stack.resetVisit();
         }
         return el_;
     }

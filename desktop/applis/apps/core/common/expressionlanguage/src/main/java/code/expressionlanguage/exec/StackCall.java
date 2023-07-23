@@ -129,6 +129,9 @@ public final class StackCall implements AbstractStackCall {
     public void nullReadWrite() {
         AbstractPageEl l_ = getLastPage();
         l_.setNullReadWrite();
+        resetVisit();
+    }
+    public void resetVisit() {
         setVisited(false);
         setVisitedExp(false);
     }

@@ -230,7 +230,7 @@ public final class DbgStackStopper implements AbsStackStopper {
             _stackCall.setCheckingExp(cf_);
             _stackCall.setOperElt(new CheckedExecOperationNodeInfos(formatted(_context,cf_,_instance),_instance,null));
             _stackCall.setModeField(READ);
-            _stackCall.setVisited(false);
+            _stackCall.resetVisit();
             return true;
         }
         return false;
@@ -244,7 +244,7 @@ public final class DbgStackStopper implements AbsStackStopper {
             ClassField cf_ = ((FieldWrapper) w_).getId();
             _stackCall.setCheckingExp(cf_);
             _stackCall.setModeField(READ);
-            _stackCall.setVisited(false);
+            _stackCall.resetVisit();
             Struct instance_ = value(w_);
             _stackCall.setOperElt(new CheckedExecOperationNodeInfos(formatted(_context, (FieldWrapper) w_,cf_),instance_,null));
             return true;
@@ -259,7 +259,7 @@ public final class DbgStackStopper implements AbsStackStopper {
             _stackCall.setCheckingExp(cf_);
             _stackCall.setOperElt(new CheckedExecOperationNodeInfos(formatted(_context,cf_,_instance),_instance,_right));
             _stackCall.setModeField(WRITE);
-            _stackCall.setVisited(false);
+            _stackCall.resetVisit();
             return true;
         }
         return false;
@@ -274,7 +274,7 @@ public final class DbgStackStopper implements AbsStackStopper {
             ClassField cf_ = ((FieldWrapper) w_).getId();
             _stackCall.setCheckingExp(cf_);
             _stackCall.setModeField(WRITE);
-            _stackCall.setVisited(false);
+            _stackCall.resetVisit();
             Struct right_ = ArgumentListCall.toStr(ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)));
             Struct instance_ = value(w_);
             _stackCall.setOperElt(new CheckedExecOperationNodeInfos(formatted(_context, (FieldWrapper) w_,cf_),instance_,right_));
