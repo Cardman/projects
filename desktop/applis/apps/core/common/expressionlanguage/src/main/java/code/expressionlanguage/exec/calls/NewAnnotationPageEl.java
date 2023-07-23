@@ -50,8 +50,7 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
                 return;
             }
         }
-        setNullReadWrite();
-        _stack.setVisited(false);
+        _stack.nullReadWrite();
     }
 
 }

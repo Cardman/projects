@@ -15,8 +15,7 @@ public abstract class AbstractBasicReflectPageEl extends AbstractReflectPageEl {
         if (!checkCondition(_context, _stack)) {
             return;
         }
-        setNullReadWrite();
-        _stack.setVisited(false);
+        _stack.nullReadWrite();
     }
     @Override
     public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {

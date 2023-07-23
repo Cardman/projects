@@ -1046,8 +1046,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
-        addPage(instancingClass_, getStackCall(cont_));
-        assertNull(ExecHelperBlocks.hasBlockBreak(instancingClass_,""));
+        StackCall stackCall_ = getStackCall(cont_);
+        addPage(instancingClass_, stackCall_);
+        assertNull(ExecHelperBlocks.hasBlockBreak(stackCall_,instancingClass_,""));
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -1063,7 +1064,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         StackCall stackCall_ = getStackCall(cont_);
         addPage(instancingClass_, stackCall_);
-        assertNull(ExecHelperBlocks.hasBlockContinue(instancingClass_,""));
+        assertNull(ExecHelperBlocks.hasBlockContinue(stackCall_,instancingClass_,""));
         assertNull(instancingClass_.getReadWrite());
     }
     @Test

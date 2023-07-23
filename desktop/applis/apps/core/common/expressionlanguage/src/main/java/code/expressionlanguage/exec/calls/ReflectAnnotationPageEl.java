@@ -46,8 +46,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         if (!checkCondition(_context, _stack)) {
             return;
         }
-        setNullReadWrite();
-        _stack.setVisited(false);
+        _stack.nullReadWrite();
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {

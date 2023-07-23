@@ -29,8 +29,7 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
         if (!checkCondition(_context, _stack)) {
             return;
         }
-        setNullReadWrite();
-        _stack.setVisited(false);
+        _stack.nullReadWrite();
     }
     protected boolean keep(GeneType _gene,ContextEl _context, StackCall _stackCall) {
         LgNames stds_ = _context.getStandards();

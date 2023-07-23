@@ -37,8 +37,7 @@ public abstract class AbstractInitPageEl extends AbstractPageEl {
             ExecHelperBlocks.processMemberBlock(_stack,this);
             return;
         }
-        setNullReadWrite();
-        _stack.setVisited(false);
+        _stack.nullReadWrite();
     }
     public void blockRoot(ExecRootBlock _type) {
         setBlockRoot(_type);

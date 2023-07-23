@@ -16,8 +16,7 @@ public abstract class ExecAbstractReturnMethod extends ExecLeaf {
                 return;
             }
         }
-        _stack.setNullReadWrite();
-        _call.setVisited(false);
+        _call.nullReadWrite();
     }
 
 }

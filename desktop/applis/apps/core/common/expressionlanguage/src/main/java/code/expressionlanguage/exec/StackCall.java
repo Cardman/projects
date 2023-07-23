@@ -126,6 +126,12 @@ public final class StackCall implements AbstractStackCall {
         return getLastPage().sizeEl();
     }
 
+    public void nullReadWrite() {
+        AbstractPageEl l_ = getLastPage();
+        l_.setNullReadWrite();
+        setVisited(false);
+        setVisitedExp(false);
+    }
     public AbstractPageEl getLastPage() {
         return importing.last();
     }

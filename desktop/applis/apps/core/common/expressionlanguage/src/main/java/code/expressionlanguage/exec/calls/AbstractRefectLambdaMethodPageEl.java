@@ -21,8 +21,7 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
         if (!checkCondition(_context, _stack)) {
             return;
         }
-        setNullReadWrite();
-        _stack.setVisited(false);
+        _stack.nullReadWrite();
     }
 
     private boolean checkCondition(ContextEl _context, StackCall _stack) {

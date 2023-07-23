@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.stacks.AbstractStask;
 
@@ -13,9 +14,9 @@ public final class ExecContinueBlock extends ExecLeaf implements MethodCallingFi
     }
 
     @Override
-    public void removeBlockFinally(AbstractPageEl _stack) {
+    public void removeBlockFinally(StackCall _stackCall, AbstractPageEl _stack) {
         while (true) {
-            AbstractStask bl_ = ExecHelperBlocks.hasBlockContinue(_stack,label);
+            AbstractStask bl_ = ExecHelperBlocks.hasBlockContinue(_stackCall,_stack,label);
             if (ExecHelperBlocks.setRemovedCallingFinallyToProcessLoop(_stack, bl_, this, null)) {
                 return;
             }

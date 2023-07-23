@@ -31,10 +31,10 @@ public final class ExecHelperBlocks {
     private ExecHelperBlocks() {
     }
 
-    public static AbstractStask hasBlockBreak(AbstractPageEl _ip, String _label) {
+    public static AbstractStask hasBlockBreak(StackCall _stackCall, AbstractPageEl _ip, String _label) {
         AbstractStask bl_ = _ip.tryGetLastStack();
         if (bl_ == null) {
-            _ip.setNullReadWrite();
+            _stackCall.nullReadWrite();
             return null;
         }
         if (_label.isEmpty()) {
@@ -73,10 +73,10 @@ public final class ExecHelperBlocks {
         return bl_;
     }
 
-    public static AbstractStask hasBlockContinue(AbstractPageEl _ip, String _label) {
+    public static AbstractStask hasBlockContinue(StackCall _stackCall, AbstractPageEl _ip, String _label) {
         AbstractStask bl_ = _ip.tryGetLastStack();
         if (bl_ == null) {
-            _ip.setNullReadWrite();
+            _stackCall.nullReadWrite();
             return null;
         }
         if (bl_ instanceof LoopBlockStack) {
@@ -95,7 +95,7 @@ public final class ExecHelperBlocks {
         AbstractPageEl ip_ = _stack.getLastPage();
         AbstractStask abstractStask_ = ip_.tryGetLastStack();
         if (!(abstractStask_ instanceof SwitchBlockStack)) {
-            ip_.setNullReadWrite();
+            _stack.nullReadWrite();
             return;
         }
         ip_.globalOffset(_block.getOff());
@@ -119,7 +119,7 @@ public final class ExecHelperBlocks {
         AbstractPageEl ip_ = _stack.getLastPage();
         AbstractStask abstractStask_ = ip_.tryGetLastStack();
         if (!(abstractStask_ instanceof SwitchBlockStack)) {
-            ip_.setNullReadWrite();
+            _stack.nullReadWrite();
             return;
         }
         if (((SwitchBlockStack) abstractStask_).isEntered()) {
@@ -171,7 +171,7 @@ public final class ExecHelperBlocks {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         AbstractStask ts_ = ip_.tryGetLastStack();
         if (!(ts_ instanceof EnteredStack)) {
-            ip_.setNullReadWrite();
+            _stackCall.nullReadWrite();
             return;
         }
         if (checkBp(_stackCall,ip_,_block)) {
@@ -223,7 +223,7 @@ public final class ExecHelperBlocks {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         AbstractStask if_ = ip_.tryGetLastStack();
         if (!(if_ instanceof IfBlockStack)) {
-            ip_.setNullReadWrite();
+            _stackCall.nullReadWrite();
             return;
         }
         ((EnteredStack)if_).setCurrentVisitedBlock(_cond);
@@ -253,7 +253,7 @@ public final class ExecHelperBlocks {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         AbstractStask l_ = ip_.tryGetLastStack();
         if (!(l_ instanceof LoopBlockStack)) {
-            ip_.setNullReadWrite();
+            _stackCall.nullReadWrite();
             return;
         }
         ((LoopBlockStack) l_).getContent().setEvaluatingKeepLoop(true);
@@ -272,8 +272,7 @@ public final class ExecHelperBlocks {
     public static void processBlockAndRemove(ExecBlock _bl, StackCall _stackCall) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         if (ip_.noBlock()) {
-            ip_.setNullReadWrite();
-            _stackCall.setVisited(false);
+            _stackCall.nullReadWrite();
             return;
         }
         ip_.removeLastBlock();
@@ -382,7 +381,7 @@ public final class ExecHelperBlocks {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         AbstractStask if_ = ip_.tryGetLastStack();
         if (!(if_ instanceof TryBlockStack)) {
-            ip_.setNullReadWrite();
+            _stackCall.nullReadWrite();
             return;
         }
         ((TryBlockStack)if_).setCurrentVisitedBlock(_cond);
@@ -1137,8 +1136,7 @@ public final class ExecHelperBlocks {
 //            _lastPage.setBlock(n_);
 //            return;
 //        }
-        _lastPage.setNullReadWrite();
-        _stack.setVisited(false);
+        _stack.nullReadWrite();
     }
 
     private static void processBlock(StackCall _stackCall, ExecBlock _execBlock) {
@@ -1167,8 +1165,7 @@ public final class ExecHelperBlocks {
             }
             return;
         }
-        ip_.setNullReadWrite();
-        _stackCall.setVisited(false);
+        _stackCall.nullReadWrite();
     }
 
     private static void nextSwitchBlock(AbstractPageEl _ip, ExecBracedBlock _par, SwitchBlockStack _lastStack) {

@@ -160,6 +160,7 @@ public abstract class AbstractPageEl {
             el_ = new ExpressionLanguage(_e, _coveredBlock);
             currentEls.add(el_);
             _stack.setVisited(false);
+            _stack.setVisitedExp(false);
         }
         return el_;
     }
@@ -219,15 +220,14 @@ public abstract class AbstractPageEl {
             if (ExecHelperBlocks.checkBp(_stack,_stack.getLastPage(),en_)) {
                 return;
             }
-            ((MethodCallingFinally)en_).removeBlockFinally(_stack.getLastPage());
+            ((MethodCallingFinally)en_).removeBlockFinally(_stack,_stack.getLastPage());
             return;
         }
         if (en_ instanceof WithEl) {
             ((WithEl)en_).processEl(_context, _stack);
             return;
         }
-        setNullReadWrite();
-        _stack.setVisited(false);
+        _stack.nullReadWrite();
     }
 
     public void clearCurrentEls() {

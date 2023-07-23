@@ -1648,7 +1648,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
-        assertEq(121, now(stack_));
+        assertEq(126, now(stack_));
     }
     @Test
     public void test68() {
@@ -1671,7 +1671,31 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
-        assertEq(0, next_.nbPages());
+        assertEq(2, next_.nbPages());
+        assertEq(121, now(stack_));
+    }
+    @Test
+    public void test0() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" int v;\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  Ex e = new();\n");
+        xml_.append("  e.r();\n");
+        xml_.append(" }\n");
+        xml_.append(" public that int r(){\n");
+        xml_.append("  return that(v);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",27,cont_);
+        read(cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
+        assertEq(0, dbgContinueNormal(next_, cont_.getContext()).nbPages());
     }
     @Test
     public void test69() {
