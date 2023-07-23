@@ -3,7 +3,6 @@ package code.expressionlanguage.exec;
 import code.expressionlanguage.AbstractFullStack;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultFullStack;
-import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -36,9 +35,7 @@ public final class StackCall implements AbstractStackCall {
     private int previousNbPages;
     private boolean visited;
     private boolean visitedExp;
-    private ClassField checkingExp = new ClassField("","");
     private final AbsStackStopper stopper;
-    private int modeField = -1;
     private CheckedExecOperationNodeInfos operElt;
     public StackCall(AbsStackStopper _s,InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
         stopper = _s;
@@ -134,6 +131,7 @@ public final class StackCall implements AbstractStackCall {
     public void resetVisit() {
         setVisited(false);
         setVisitedExp(false);
+        setOperElt(null);
     }
     public AbstractPageEl getLastPage() {
         return importing.last();
@@ -280,22 +278,6 @@ public final class StackCall implements AbstractStackCall {
 
     public void setVisitedExp(boolean _v) {
         this.visitedExp = _v;
-    }
-
-    public ClassField getCheckingExp() {
-        return checkingExp;
-    }
-
-    public void setCheckingExp(ClassField _v) {
-        this.checkingExp = _v;
-    }
-
-    public int getModeField() {
-        return modeField;
-    }
-
-    public void setModeField(int _m) {
-        this.modeField = _m;
     }
 
     public CheckedExecOperationNodeInfos getOperElt() {

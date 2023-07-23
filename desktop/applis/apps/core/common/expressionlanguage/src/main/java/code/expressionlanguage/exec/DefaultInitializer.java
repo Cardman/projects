@@ -72,6 +72,7 @@ public class DefaultInitializer implements Initializer {
     @Override
     public final void loopCalling(ContextEl _owner, StackCall _stackCall) {
         _stackCall.setStoppedBreakPoint(false);
+        _stackCall.setOperElt(null);
         _stackCall.setCallingStateSub(null);
         while (true) {
             AbstractInterceptorStdCaller caller_ = _owner.getCaller();
