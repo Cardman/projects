@@ -31,7 +31,7 @@ public final class RendSettableFieldStatOperation extends
         } else {
             String fieldType_ = getRealType();
             ClassField fieldId_ = getClassField();
-            result_ = ExecFieldTemplates.getStaticField(_context.getExiting(), getRootBlock(), fieldType_, _context, _rendStack.getStackCall(), fieldId_);
+            result_ = ExecFieldTemplates.getStaticField(fieldType_, _context, _rendStack.getStackCall(), fieldId_);
         }
         postCalulate(_nodes, _context, _rendStack, result_);
     }
@@ -45,7 +45,7 @@ public final class RendSettableFieldStatOperation extends
         //Come from code directly so constant static fields can be initialized here
         String fieldType_ = getRealType();
         ClassField fieldId_ = getClassField();
-        Argument arg_ = ExecFieldTemplates.setStaticField(_context.getExiting(), getRootBlock(), fieldType_, _right, _context, _rendStack.getStackCall(), fieldId_);
+        Argument arg_ = ExecFieldTemplates.setStaticField(fieldType_, _right, _context, _rendStack.getStackCall(), fieldId_);
         return RendDynOperationNode.processCall(arg_, _context, _rendStack).getValue();
     }
 

@@ -55,15 +55,7 @@ public final class ExpressionLanguage {
         while (fr_ < len_) {
             ExecOperationNode o = _nodes.getKey(fr_);
             o.setRelativeOffsetPossibleLastPage(_stackCall);
-            ExecMethodOperation parent_ = o.getParent();
-            if (parent_ instanceof ExecAbstractInstancingOperation && ((ExecAbstractInstancingOperation) parent_).isInitBefore() && o.getIndexChild() == 0) {
-                ExecRootBlock type_ = ((ExecAbstractInstancingOperation) parent_).getInstancingCommonContent().getPair().getType();
-                if (!(type_ instanceof ExecInnerElementBlock)&&_context.getExiting().hasToExit(_stackCall, type_)) {
-                    processCalling(_el, pageEl_, o, _stackCall);
-                    return;
-                }
-            }
-            if (_stackCall.getStopper().isStopAt(_el,o,_context,_stackCall)){
+            if (hasToExit(o, _el, _context, _stackCall) || _stackCall.getStopper().isStopAt(_el, o, _context, _stackCall)) {
                 return;
             }
             ArgumentsPair pair_ = _nodes.getValue(fr_);
@@ -80,6 +72,31 @@ public final class ExpressionLanguage {
                 fr_ = getNextIndex(len_,_nodes,o, fr_ + 1,_context,_stackCall,_el);
             }
         }
+    }
+    private static boolean hasToExit(ExecOperationNode _o, ExpressionLanguage _el, ContextEl _context, StackCall _stackCall) {
+        AbstractPageEl pageEl_ = _stackCall.getLastPage();
+        ExecMethodOperation parent_ = _o.getParent();
+        if (parent_ instanceof ExecAbstractInstancingOperation && ((ExecAbstractInstancingOperation) parent_).isInitBefore() && _o.getIndexChild() == 0) {
+            ExecRootBlock type_ = ((ExecAbstractInstancingOperation) parent_).getInstancingCommonContent().getPair().getType();
+            if (!(type_ instanceof ExecInnerElementBlock)&&_context.getExiting().hasToExit(_stackCall, type_)) {
+                processCalling(_el, pageEl_, _o, _stackCall);
+                return true;
+            }
+        }
+        if (_o instanceof ExecSettableFieldStatOperation && !((ExecSettableFieldStatOperation)_o).resultCanBeSet() && _context.getExiting().hasToExit(_stackCall, ((ExecSettableFieldStatOperation)_o).getRootBlock())) {
+            _stackCall.setOffset(((ExecSettableFieldStatOperation)_o).getOff());
+            processCalling(_el, pageEl_, _o, _stackCall);
+            return true;
+        }
+        if (_o instanceof ExecAffectationOperation) {
+            ExecOperationNode s_ = ((ExecAbstractAffectOperation) _o).getSettable();
+            if (s_ instanceof ExecSettableFieldStatOperation && _context.getExiting().hasToExit(_stackCall, ((ExecSettableFieldStatOperation)s_).getRootBlock())) {
+                _stackCall.setOffset(((ExecSettableFieldStatOperation)s_).getOff());
+                processCalling(_el, pageEl_, _o, _stackCall);
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void processCalling(ExpressionLanguage _el, AbstractPageEl _pageEl, ExecOperationNode _o, StackCall _stackCall) {

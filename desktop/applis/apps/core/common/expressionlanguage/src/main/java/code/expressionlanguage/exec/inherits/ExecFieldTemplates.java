@@ -1,10 +1,8 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ClassFieldStruct;
@@ -59,7 +57,7 @@ public final class ExecFieldTemplates {
 
         ClassField fieldId_ = new ClassField(baseClass_, fieldName_);
         if (isStaticField_) {
-            return getStaticField(_conf.getExiting(),_meta.getFormatted().getRootBlock(), type_, _conf, _stackCall, fieldId_);
+            return getStaticField(type_, _conf, _stackCall, fieldId_);
         }
         return getInstanceField(_previous, _conf, _stackCall, fieldId_);
     }
@@ -98,11 +96,8 @@ public final class ExecFieldTemplates {
         return new Argument(struct_);
     }
 
-    public static Argument getStaticField(AbstractExiting _exit, GeneType _init, String _ret, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
+    public static Argument getStaticField(String _ret, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
         Classes classes_ = _conf.getClasses();
-        if (_exit.hasToExit(_stackCall, _init)) {
-            return Argument.createVoid();
-        }
         Struct struct_ = classes_.getStaticField(_fieldId,_ret, _conf);
         String className_ = _fieldId.getClassName();
         _stackCall.getInitializingTypeInfos().addSensibleField(className_, struct_, _stackCall);
@@ -133,7 +128,7 @@ public final class ExecFieldTemplates {
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
                 return Argument.createVoid();
             }
-            return setStaticField(_conf.getExiting(), declaring_, type_, _right, _conf, _stackCall, fieldId_);
+            return setStaticField(type_, _right, _conf, _stackCall, fieldId_);
         }
         return setInstanceField(_previous, _right, _conf, _stackCall, fieldId_, new ExecTypeReturn(declaring_, type_));
     }
@@ -177,11 +172,8 @@ public final class ExecFieldTemplates {
         return _right;
     }
 
-    public static Argument setStaticField(AbstractExiting _exit, GeneType _init, String _returnType, Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
+    public static Argument setStaticField(String _returnType, Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
         Classes classes_ = _conf.getClasses();
-        if (_exit.hasToExit(_stackCall, _init)) {
-            return Argument.createVoid();
-        }
         if (!ExecInheritsAdv.checkQuick(_returnType, _right.getStruct().getClassName(_conf), _conf, _stackCall)) {
             return Argument.createVoid();
         }

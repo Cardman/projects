@@ -30,7 +30,7 @@ public final class ExecSettableFieldStatOperation extends
             offset(_stack);
             ClassField fieldId_ = getSettableFieldContent().getClassField();
             String fieldType_ = getSettableFieldContent().getRealType();
-            Argument arg_ = ExecFieldTemplates.getStaticField(_conf.getExiting(), rootBlock, fieldType_, _conf, _stack, fieldId_);
+            Argument arg_ = ExecFieldTemplates.getStaticField(fieldType_, _conf, _stack, fieldId_);
             setSimpleArgument(arg_, _conf, _nodes, _stack);
         }
     }
@@ -46,7 +46,7 @@ public final class ExecSettableFieldStatOperation extends
         offset(_stack);
         String fieldType_ = getSettableFieldContent().getRealType();
         ClassField fieldId_ = getSettableFieldContent().getClassField();
-        return ExecFieldTemplates.setStaticField(_conf.getExiting(), rootBlock, fieldType_, _right, _conf, _stack, fieldId_);
+        return ExecFieldTemplates.setStaticField(fieldType_, _right, _conf, _stack, fieldId_);
     }
 
     public ExecRootBlock getRootBlock() {

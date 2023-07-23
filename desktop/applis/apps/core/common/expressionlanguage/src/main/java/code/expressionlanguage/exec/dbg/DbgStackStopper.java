@@ -61,7 +61,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (_o instanceof ExecAbstractAffectOperation) {
             return affectationOrCompound(_el, (ExecAbstractAffectOperation)_o, _context, _stackCall);
         }
-        if (isField(_o, _context, _stackCall)) {
+        if (isField(_o)) {
             return field(_el, (ExecSettableFieldOperation) _o,  _context, _stackCall);
         }
         if (_o instanceof ExecStdRefVariableOperation) {
@@ -151,7 +151,7 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     private static boolean settable(ExpressionLanguage _el, ExecAbstractAffectOperation _o, ContextEl _ctx, StackCall _stackCall, int _mode, Struct _right) {
         ExecOperationNode set_ = _o.getSettable();
-        if (isField(set_,_ctx,_stackCall)) {
+        if (isField(set_)) {
             int anc_ = ((ExecSettableFieldOperation) set_).getSettableFieldContent().getAnc();
             Struct instance_ = instanceSet(_el, anc_, set_,  ((ExecSettableFieldOperation) set_).resultCanBeSet(),_stackCall);
             check(_el, _o, _stackCall, ((ExecSettableFieldOperation) set_).getSettableFieldContent().getClassField(), _mode, new CheckedExecOperationNodeInfos(formatted(_ctx, ((ExecSettableFieldOperation) set_).getSettableFieldContent().getClassField(), instance_), instance_, _right));
@@ -170,8 +170,8 @@ public final class DbgStackStopper implements AbsStackStopper {
         return false;
     }
 
-    private static boolean isField(ExecOperationNode _o, ContextEl _context, StackCall _stackCall) {
-        return (_o instanceof ExecSettableFieldInstOperation || (_o instanceof ExecSettableFieldStatOperation && _context.getExiting().state(_stackCall, ((ExecSettableFieldStatOperation) _o).getRootBlock(), null) == null)) && !((ExecSettableFieldOperation) _o).isDeclare();
+    private static boolean isField(ExecOperationNode _o) {
+        return (_o instanceof ExecSettableFieldOperation) && !((ExecSettableFieldOperation) _o).isDeclare();
     }
 
     private static void check(ExpressionLanguage _el, ExecOperationNode _o, StackCall _stackCall, ClassField _id, int _mode, CheckedExecOperationNodeInfos _oper) {
