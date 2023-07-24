@@ -47,6 +47,11 @@ public final class TestedRenderInterceptorStdCaller implements AbstractIntercept
     }
 
     @Override
+    public AbsCollection<ExcPointBlockPair> newExcPointKeyStringCollection() {
+        return new ConcList<ExcPointBlockPair>(this);
+    }
+
+    @Override
     public AbsAtBool newAtBool() {
         return new ConcBool();
     }

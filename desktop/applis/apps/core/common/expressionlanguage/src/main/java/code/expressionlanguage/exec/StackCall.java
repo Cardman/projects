@@ -36,7 +36,7 @@ public final class StackCall implements AbstractStackCall {
     private boolean visited;
     private boolean visitedExp;
     private final AbsStackStopper stopper;
-    private CheckedExecOperationNodeInfos operElt;
+    private CoreCheckedExecOperationNodeInfos operElt;
     public StackCall(AbsStackStopper _s,InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
         stopper = _s;
         step = _s.firstStep();
@@ -280,11 +280,11 @@ public final class StackCall implements AbstractStackCall {
         this.visitedExp = _v;
     }
 
-    public CheckedExecOperationNodeInfos getOperElt() {
+    public CoreCheckedExecOperationNodeInfos getOperElt() {
         return operElt;
     }
 
-    public void setOperElt(CheckedExecOperationNodeInfos _o) {
+    public void setOperElt(CoreCheckedExecOperationNodeInfos _o) {
         this.operElt = _o;
     }
 }

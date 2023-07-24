@@ -16,6 +16,7 @@ public interface AbstractInterceptorStdCaller {
     ArgumentWrapper invoke(StdCaller _caller,AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall);
     AbsCollection<BreakPointBlockPair> newBreakPointKeyStringCollection();
     AbsCollection<WatchPointBlockPair> newWatchPointKeyStringCollection();
+    AbsCollection<ExcPointBlockPair> newExcPointKeyStringCollection();
     AbsCollection<AbsCallContraints> newExecFileBlockTraceIndexCollection();
     AbsAtBool newAtBool();
 }

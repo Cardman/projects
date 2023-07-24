@@ -5,7 +5,9 @@ import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.FileMetrics;
+import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
+import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
@@ -17,12 +19,14 @@ public final class BreakPointBlockList {
     private final AbstractInterceptorStdCaller interceptor;
     private final AbsAtBool pausedLoop;
     private final AbsCollection<WatchPointBlockPair> watchList;
+    private final AbsCollection<ExcPointBlockPair> excPointList;
 
     public BreakPointBlockList(AbstractInterceptorStdCaller _i) {
         interceptor = _i;
         listTmp = _i.newBreakPointKeyStringCollection();
         list = _i.newBreakPointKeyStringCollection();
         watchList = _i.newWatchPointKeyStringCollection();
+        excPointList = _i.newExcPointKeyStringCollection();
         pausedLoop = _i.newAtBool();
     }
 
@@ -186,6 +190,79 @@ public final class BreakPointBlockList {
         return false;
     }
 
+    public void toggleExcPoint(String _clName, ResultContext _f) {
+        String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, _f.getContext());
+        if (koExc(solved_, _clName)) {
+            return;
+        }
+        toggleExc(solved_);
+    }
+    public void toggleExc(String _clName) {
+        ExcPoint v_ = new ExcPoint(interceptor);
+        v_.setEnabled(true);
+        v_.setConditionReturn(ConditionReturn.CALL_EX);
+        ExcPointBlockPair pair_ = new ExcPointBlockPair(_clName, v_);
+        int i_ = 0;
+        for (ExcPointBlockPair b: excPointList.elts()) {
+            if (b.match(pair_)) {
+                excPointList.remove(i_,b);
+                return;
+            }
+            i_++;
+        }
+        excPointList.add(pair_);
+    }
+    public void toggleExcPointEnabled(String _clName, ResultContext _f) {
+        String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, _f.getContext());
+        if (koExc(solved_, _clName)) {
+            return;
+        }
+        toggleEnabledExc(solved_);
+    }
+
+    private static boolean koExc(String _solved, String _clName) {
+        return _solved.isEmpty() && !_clName.trim().isEmpty();
+    }
+
+    public void toggleEnabledExc(String _field) {
+        ExcPoint v_ = new ExcPoint(interceptor);
+        v_.setEnabled(true);
+        v_.setConditionReturn(ConditionReturn.CALL_EX);
+        ExcPointBlockPair pair_ = new ExcPointBlockPair(_field, v_);
+        for (ExcPointBlockPair b: excPointList.elts()) {
+            if (b.match(pair_)) {
+                if (b.getValue().getConditionReturn() == null) {
+                    b.getValue().setConditionReturn(ConditionReturn.CALL_EX);
+                } else {
+                    b.getValue().setConditionReturn(null);
+                }
+                b.getValue().setEnabled(!b.getValue().isEnabled());
+                return;
+            }
+        }
+        excPointList.add(pair_);
+    }
+    public boolean isExc(String _field) {
+        return getNotNullExc(_field).isEnabled();
+    }
+    public ExcPoint getNotNullExc(String _field) {
+        ExcPointBlockPair b_ = getPairExc(_field);
+        if (b_ == null) {
+            ExcPoint bp_ = new ExcPoint(interceptor);
+            bp_.setEnabled(false);
+            return bp_;
+        }
+        return b_.getValue();
+    }
+
+    public ExcPointBlockPair getPairExc(String _field) {
+        for (ExcPointBlockPair b: excPointList.elts()) {
+            if (b.match(_field)) {
+                return b;
+            }
+        }
+        return null;
+    }
     public void toggleWatchPoint(String _file, int _offset, ResultContext _f) {
         ClassField o_ = ResultExpressionOperationNode.vexerChamps(_f.getPageEl(), _file, _offset);
         if (o_.getClassName().isEmpty()) {

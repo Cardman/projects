@@ -67,6 +67,14 @@ public final class ResultContextLambda {
         return build(_exp, _result, _type, _gene, a_);
     }
 
+    public static ResultContextLambda dynamicAnalyzeExc(String _exp, String _id, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
+        if (_exp.trim().isEmpty()) {
+            return new ResultContextLambda(null,null,new ReportedMessages());
+        }
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareExc(_id, _result.getPageEl());
+        return build(_exp, _result, _type, _gene, a_);
+    }
+
     private static ResultContextLambda build(String _exp, ResultContext _result, String _type, AbsLightContextGenerator _gene, AnalyzedPageEl _a) {
         FileBlock file_ = _a.getCurrentFile();
         if (file_ == null) {
@@ -153,7 +161,7 @@ public final class ResultContextLambda {
 //        }
 //        return op_;
 //    }
-    public StackCallReturnValue eval(ContextEl _original, CheckedExecOperationNodeInfos _addon,AbstractPageEl _page) {
+    public StackCallReturnValue eval(ContextEl _original, CoreCheckedExecOperationNodeInfos _addon,AbstractPageEl _page) {
         prepare(_original);
         return eval(_addon,_page);
     }
@@ -195,7 +203,7 @@ public final class ResultContextLambda {
         _st.getInitializingTypeInfos().resetInitEnums(_st);
     }
 
-    public StackCallReturnValue eval(CheckedExecOperationNodeInfos _addon,AbstractPageEl _page) {
+    public StackCallReturnValue eval(CoreCheckedExecOperationNodeInfos _addon,AbstractPageEl _page) {
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING, context);
         Parameters p_ = new Parameters();
         if (_addon == null) {

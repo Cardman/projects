@@ -108,6 +108,11 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     }
 
     @Override
+    public AbsCollection<ExcPointBlockPair> newExcPointKeyStringCollection() {
+        return new ConcMap<ExcPointBlockPair>(new ExcKeyString(),this);
+    }
+
+    @Override
     public AbsAtBool newAtBool() {
         return new DefAtomicBoolean();
     }

@@ -75,6 +75,18 @@ public final class ResultExpressionOperationNode {
         return a_;
     }
 
+    public static AnalyzedPageEl prepareExc(String _id, AnalyzedPageEl _original) {
+        AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
+        a_.setDynamic(true);
+        a_.setCurrentPkg(a_.getDefaultPkg());
+        RootBlock r_ = _original.getAnaClassBody(_id);
+        if (r_ != null) {
+            field(a_,r_,false);
+            a_.setCurrentFile(r_.getFile());
+        }
+        a_.setImportingAcces(new AllAccessedTypes());
+        return a_;
+    }
     public static AnalyzedPageEl prepare(String _fileName, int _caret, AnalyzedPageEl _original, MethodAccessKind _flag) {
         FileBlock file_ = _original.getPreviousFilesBodies().getVal(_fileName);
         ResultExpressionOperationNode c_ = container(_caret, file_);

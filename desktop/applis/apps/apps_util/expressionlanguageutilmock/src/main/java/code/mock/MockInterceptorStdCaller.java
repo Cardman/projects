@@ -47,6 +47,11 @@ public final class MockInterceptorStdCaller implements AbstractInterceptorStdCal
     }
 
     @Override
+    public AbsCollection<ExcPointBlockPair> newExcPointKeyStringCollection() {
+        return new ConcList<ExcPointBlockPair>(this);
+    }
+
+    @Override
     public AbsAtBool newAtBool() {
         return new ConcBool();
     }

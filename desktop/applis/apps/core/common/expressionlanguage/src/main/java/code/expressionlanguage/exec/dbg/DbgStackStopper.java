@@ -359,11 +359,11 @@ public final class DbgStackStopper implements AbsStackStopper {
             reset(_stackCall);
             return false;
         }
-        CheckedExecOperationNodeInfos oper_ = _stackCall.getOperElt();
-        if (oper_ != null) {
-            ClassField clField_ = oper_.getIdClass();
+        CoreCheckedExecOperationNodeInfos oper_ = _stackCall.getOperElt();
+        if (oper_ instanceof CheckedExecOperationNodeInfos) {
+            ClassField clField_ = ((CheckedExecOperationNodeInfos)oper_).getIdClass();
             WatchPoint bp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNullWatch(clField_);
-            if (stopCurrentWp(bp_,_context,_p,_stackCall,oper_)) {
+            if (stopCurrentWp(bp_,_context,_p,_stackCall,((CheckedExecOperationNodeInfos)oper_))) {
                 _stackCall.setGlobalOffset(_p.getTraceIndex());
                 return true;
             }
@@ -404,20 +404,48 @@ public final class DbgStackStopper implements AbsStackStopper {
         return false;
     }
     private static boolean stopExc(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
+        Struct str_ = stopExcValuRetThrowCatch(_stackCall, _p);
+        ExcPoint bp_ = stopExcValuRet(_context, str_);
+        if (!(str_ != null && stopExcValue(_context,_stackCall,_p,bp_))) {
+            return false;
+        }
+        BreakPointCondition condition_ = bp_.getResult();
+        String clName_ = str_.getClassName(_context);
+        _stackCall.setOperElt(new CoreCheckedExecOperationNodeInfos(new ExecFormattedRootBlock(_context.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(clName_)), clName_),str_,null));
+        return stopCurrent(_context, _stackCall, _p, condition_);
+    }
+    private static ExcPoint stopExcValuRet(ContextEl _context, Struct _str) {
+        if (_str != null) {
+            return _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNullExc(_str.getClassName(_context));
+        }
+        ExcPoint bp_ = new ExcPoint(_context.getCaller());
+        bp_.setEnabled(false);
+        return bp_;
+    }
+    private static Struct stopExcValuRetThrowCatch(StackCall _stackCall, AbstractPageEl _p) {
+        AbstractStask stLast_ = _p.tryGetLastStack();
+        ExecBlock bl_ = _p.getBlock();
+        if (stLast_ instanceof TryBlockStack && bl_ instanceof ExecAbstractCatchEval) {
+            return ((TryBlockStack) stLast_).getException();
+        }
+        CustomFoundExc exc_ = _stackCall.trueException();
+        if (exc_ != null) {
+            return exc_.getStruct();
+        }
+        return null;
+    }
+    private static boolean stopExcValue(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, ExcPoint _ex) {
         AbstractStask stLast_ = _p.tryGetLastStack();
         ExecBlock bl_ = _p.getBlock();
         if (stLast_ instanceof TryBlockStack && bl_ instanceof ExecAbstractCatchEval) {
             Struct e_ = ((TryBlockStack) stLast_).getException();
-            ConditionReturn st_ = _context.getClasses().getDebugMapping().getExceptions().getVal(e_.getClassName(_context));
-            if ((st_ == ConditionReturn.YES || st_ == ConditionReturn.CALL_EX) && ExecHelperBlocks.firstMatch(_context, _stackCall, ((ExecAbstractCatchEval)bl_).getContent(), e_, ((ExecAbstractCatchEval)bl_).isCatchAll()) && _p.sizeEl() < 2) {
+            if ((_ex.getConditionReturn() == ConditionReturn.YES || _ex.getConditionReturn() == ConditionReturn.CALL_EX) && ExecHelperBlocks.firstMatch(_context, _stackCall, ((ExecAbstractCatchEval)bl_).getContent(), e_, ((ExecAbstractCatchEval)bl_).isCatchAll()) && _p.sizeEl() < 2) {
                 return true;
             }
         }
         CustomFoundExc exc_ = _stackCall.trueException();
         if (exc_ != null) {
-            Struct e_ = exc_.getStruct();
-            ConditionReturn st_ = _context.getClasses().getDebugMapping().getExceptions().getVal(e_.getClassName(_context));
-            return st_ == ConditionReturn.NO || st_ == ConditionReturn.CALL_EX;
+            return _ex.getConditionReturn() == ConditionReturn.NO || _ex.getConditionReturn() == ConditionReturn.CALL_EX;
         }
         return false;
     }
