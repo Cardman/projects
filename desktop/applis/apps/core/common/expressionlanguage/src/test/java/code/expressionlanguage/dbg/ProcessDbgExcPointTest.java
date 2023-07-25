@@ -21,7 +21,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex"));
+        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex",true));
     }
 
     @Test
@@ -38,8 +38,8 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex"));
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_,true);
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex",true));
     }
 
     @Test
@@ -56,9 +56,9 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex"));
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_,true);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_,true);
+        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex",true));
     }
 
     @Test
@@ -77,9 +77,9 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex2",cont_);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex"));
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex2"));
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex2",cont_,true);
+        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex",true));
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex2",true));
     }
 
     @Test
@@ -95,8 +95,8 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex3",cont_);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex3"));
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex3",cont_,true);
+        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex3",true));
     }
 
     @Test
@@ -113,9 +113,9 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex"));
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_,true);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_,true);
+        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex",true));
     }
 
     @Test
@@ -132,10 +132,10 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex"));
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_,true);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_,true);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_,true);
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex",true));
     }
 
     @Test
@@ -152,8 +152,8 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex"));
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_,true);
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex",true));
     }
 
     @Test
@@ -170,8 +170,8 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex3",cont_);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex3"));
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex3",cont_,true);
+        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex3",true));
     }
 
     @Test
@@ -190,10 +190,10 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex2",cont_);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex"));
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex2"));
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_,true);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex2",cont_,true);
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex",true));
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex2",true));
     }
 
     @Test
@@ -212,10 +212,10 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex2",cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex2"));
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_,true);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex2",cont_,true);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_,true);
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex2",true));
     }
 
     @Test
@@ -234,10 +234,10 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex2",cont_);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex"));
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex2"));
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_,true);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex2",cont_,true);
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex",true));
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex2",true));
     }
 
     @Test
@@ -254,8 +254,8 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("",cont_);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc(""));
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("",cont_,true);
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("",true));
     }
     @Test
     public void test14() {
@@ -271,10 +271,10 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex"));
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_,true);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_,true);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",cont_,true);
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex",true));
     }
     @Test
     public void test15() {
@@ -290,13 +290,101 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex"));
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_,true);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_,true);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex",cont_,true);
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex",true));
+    }
+
+    @Test
+    public void test16() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" static int f,s;\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex2",cont_,true);
+        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex2",false));
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex2",true));
+    }
+
+    @Test
+    public void test17() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" static int f,s;\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex2",cont_,false);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex2",cont_,true);
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex2",false));
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex2",true));
+    }
+
+    @Test
+    public void test18() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" static int f,s;\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex2",cont_,false);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex2",cont_,true);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex2",cont_,false);
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex2",true));
+    }
+
+    @Test
+    public void test19() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" static int f,s;\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex2",cont_,false);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled("pkg.Ex2",cont_,true);
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex2",false));
+        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isExc("pkg.Ex2",true));
     }
     @Test
     public void test() {
-        assertEq("",new ExcKeyString().keyString(new ExcPointBlockPair("",null)));
+        assertEq("1",new ExcKeyString().keyString(new ExcPointBlockPair(true,"",null)));
+        assertEq("0",new ExcKeyString().keyString(new ExcPointBlockPair(false,"",null)));
     }
 }

@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.FileMetrics;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
@@ -190,18 +191,15 @@ public final class BreakPointBlockList {
         return false;
     }
 
-    public void toggleExcPoint(String _clName, ResultContext _f) {
+    public void toggleExcPoint(String _clName, ResultContext _f, boolean _exact) {
         String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, _f.getContext());
         if (koExc(solved_, _clName)) {
             return;
         }
-        toggleExc(solved_);
+        toggleExc(solved_,_exact);
     }
-    public void toggleExc(String _clName) {
-        ExcPoint v_ = new ExcPoint(interceptor);
-        v_.setEnabled(true);
-        v_.setConditionReturn(ConditionReturn.CALL_EX);
-        ExcPointBlockPair pair_ = new ExcPointBlockPair(_clName, v_);
+    public void toggleExc(String _clName, boolean _exact) {
+        ExcPointBlockPair pair_ = build(_exact, _clName);
         int i_ = 0;
         for (ExcPointBlockPair b: excPointList.elts()) {
             if (b.match(pair_)) {
@@ -212,23 +210,31 @@ public final class BreakPointBlockList {
         }
         excPointList.add(pair_);
     }
-    public void toggleExcPointEnabled(String _clName, ResultContext _f) {
+
+    private ExcPointBlockPair build(boolean _exact, String _clName) {
+        ExcPoint v_ = new ExcPoint(interceptor);
+        v_.setEnabled(true);
+        v_.setConditionReturn(ConditionReturn.CALL_EX);
+        if (_exact) {
+            return new ExcPointBlockPair(true, _clName, v_);
+        }
+        return new ExcPointBlockPair(false, StringExpUtil.getIdFromAllTypes(_clName), v_);
+    }
+
+    public void toggleExcPointEnabled(String _clName, ResultContext _f, boolean _exact) {
         String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, _f.getContext());
         if (koExc(solved_, _clName)) {
             return;
         }
-        toggleEnabledExc(solved_);
+        toggleEnabledExc(solved_,_exact);
     }
 
     private static boolean koExc(String _solved, String _clName) {
         return _solved.isEmpty() && !_clName.trim().isEmpty();
     }
 
-    public void toggleEnabledExc(String _field) {
-        ExcPoint v_ = new ExcPoint(interceptor);
-        v_.setEnabled(true);
-        v_.setConditionReturn(ConditionReturn.CALL_EX);
-        ExcPointBlockPair pair_ = new ExcPointBlockPair(_field, v_);
+    public void toggleEnabledExc(String _field, boolean _exact) {
+        ExcPointBlockPair pair_ = build(_exact, _field);
         for (ExcPointBlockPair b: excPointList.elts()) {
             if (b.match(pair_)) {
                 if (b.getValue().getConditionReturn() == null) {
@@ -242,11 +248,12 @@ public final class BreakPointBlockList {
         }
         excPointList.add(pair_);
     }
-    public boolean isExc(String _field) {
-        return getNotNullExc(_field).isEnabled();
+
+    public boolean isExc(String _field, boolean _exact) {
+        return getNotNullExc(_field,_exact).isEnabled();
     }
-    public ExcPoint getNotNullExc(String _field) {
-        ExcPointBlockPair b_ = getPairExc(_field);
+    public ExcPoint getNotNullExc(String _field, boolean _exact) {
+        ExcPointBlockPair b_ = getPairExc(_field,_exact);
         if (b_ == null) {
             ExcPoint bp_ = new ExcPoint(interceptor);
             bp_.setEnabled(false);
@@ -255,9 +262,9 @@ public final class BreakPointBlockList {
         return b_.getValue();
     }
 
-    public ExcPointBlockPair getPairExc(String _field) {
+    public ExcPointBlockPair getPairExc(String _field, boolean _exact) {
         for (ExcPointBlockPair b: excPointList.elts()) {
-            if (b.match(_field)) {
+            if (b.match(_field,_exact)) {
                 return b;
             }
         }

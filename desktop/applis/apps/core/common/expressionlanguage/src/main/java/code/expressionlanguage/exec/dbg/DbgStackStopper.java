@@ -409,13 +409,19 @@ public final class DbgStackStopper implements AbsStackStopper {
             return false;
         }
         String clName_ = str_.getClassName(_context);
-        ExcPoint bp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNullExc(clName_);
-        if (!stopExcValue(_context,_stackCall,_p,bp_)) {
+        ExcPoint bp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNullExc(clName_,true);
+        return checkExc(_context, _stackCall, _p, str_, bp_) || checkExc(_context, _stackCall, _p, str_, _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNullExc(StringExpUtil.getIdFromAllTypes(clName_),false));
+    }
+
+    private static boolean checkExc(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, Struct _str, ExcPoint _bp) {
+        if (!stopExcValue(_context, _stackCall, _p, _bp)) {
             return false;
         }
-        _stackCall.setOperElt(new CoreCheckedExecOperationNodeInfos(new ExecFormattedRootBlock(_context.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(clName_)), clName_),str_,null));
-        return stopCurrent(_context, _stackCall, _p, bp_.getResult());
+        String clName_ = _str.getClassName(_context);
+        _stackCall.setOperElt(new CoreCheckedExecOperationNodeInfos(new ExecFormattedRootBlock(_context.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(clName_)), clName_), _str,null));
+        return stopCurrent(_context, _stackCall, _p, _bp.getResult());
     }
+
     private static Struct stopExcValuRetThrowCatch(StackCall _stackCall, AbstractPageEl _p) {
         AbstractStask stLast_ = _p.tryGetLastStack();
         ExecBlock bl_ = _p.getBlock();

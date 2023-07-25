@@ -37,15 +37,14 @@ public final class AnaInherits {
         if (!_second.contains(PREFIX_VAR_TYPE)) {
             return _second;
         }
-        DimComp dc_ = StringExpUtil.getQuickComponentBaseType(_second);
-        if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
-            return typeVarReturn(_first,_second,_page, dc_.getDim());
-        }
         StringList types_ = StringExpUtil.getAllTypes(_first);
         CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(_page.getAnaGeneType(StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent()));
-        String objType_ = _page.getAliasObject();
         if (typeVar_.size() != types_.size() - 1){
-            return objType_;
+            return _page.getAliasObject();
+        }
+        DimComp dc_ = StringExpUtil.getQuickComponentBaseType(_second);
+        if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
+            return typeVarReturn(_second,_page, dc_.getDim(), types_, typeVar_);
         }
         StringMap<String> varTypes_ = new StringMap<String>();
         int i_ = IndexConstants.FIRST_INDEX;
@@ -57,17 +56,15 @@ public final class AnaInherits {
         return StringExpUtil.getWildCardFormattedTypeReturn(_second, varTypes_);
     }
 
-    private static String typeVarReturn(String _first, String _second, AnalyzedPageEl _page, int _d) {
-        StringList types_ = StringExpUtil.getAllTypes(_first);
-        CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(_page.getAnaGeneType(StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent()));
+    private static String typeVarReturn(String _second, AnalyzedPageEl _page, int _d, StringList _types, CustList<TypeVar> _typeVar) {
         String objType_ = _page.getAliasObject();
         String name_ = _second.substring(PREFIX_VAR_TYPE.length()+ _d);
 
         int index_ = -1;
-        for (TypeVar t: typeVar_) {
+        for (TypeVar t: _typeVar) {
             index_++;
             if (StringUtil.quickEq(t.getName(), name_)) {
-                String formatted_ = types_.get(index_+1);
+                String formatted_ = _types.get(index_+1);
                 //return type, field getting
                 if (StringUtil.quickEq(formatted_, SUB_TYPE)) {
                     return StringExpUtil.getPrettyArrayType(objType_, _d);
@@ -96,14 +93,14 @@ public final class AnaInherits {
         if (!_second.contains(PREFIX_VAR_TYPE)) {
             return _second;
         }
-        DimComp dc_ = StringExpUtil.getQuickComponentBaseType(_second);
-        if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
-            return typeVarParam(_first,_second,_page, dc_.getDim());
-        }
         StringList types_ = StringExpUtil.getAllTypes(_first);
         CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(_page.getAnaGeneType(StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent()));
         if (typeVar_.size() != types_.size() - 1){
             return "";
+        }
+        DimComp dc_ = StringExpUtil.getQuickComponentBaseType(_second);
+        if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
+            return typeVarParam(_second, dc_.getDim(), types_, typeVar_);
         }
         StringMap<String> varTypes_ = new StringMap<String>();
         int i_ = IndexConstants.FIRST_INDEX;
@@ -116,16 +113,14 @@ public final class AnaInherits {
         return StringExpUtil.getWildCardFormattedTypeParam(objType_,_second, varTypes_);
     }
 
-    private static String typeVarParam(String _first, String _second, AnalyzedPageEl _page, int _d) {
-        StringList types_ = StringExpUtil.getAllTypes(_first);
-        CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(_page.getAnaGeneType(StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent()));
+    private static String typeVarParam(String _second, int _d, StringList _types, CustList<TypeVar> _typeVar) {
         String name_ = _second.substring(PREFIX_VAR_TYPE.length()+ _d);
 
         int index_ = -1;
-        for (TypeVar t: typeVar_) {
+        for (TypeVar t: _typeVar) {
             index_++;
             if (StringUtil.quickEq(t.getName(), name_)) {
-                String formatted_ = types_.get(index_+1);
+                String formatted_ = _types.get(index_+1);
                 //parameters, field affectation
                 if (formatted_.startsWith(SUB_TYPE)) {
                     return "";
