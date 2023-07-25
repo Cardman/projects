@@ -750,6 +750,92 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
+    @Test
+    public void test33() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  try{\n");
+        xml_.append("   throw 10;\n");
+        xml_.append("  } catch (10) {\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        nbe(cont_, ConditionReturn.YES);
+        condition("this-2==8",cont_,cont_.getContext().getStandards().getNbAlias().getAliasInteger());
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test34() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  try{\n");
+        xml_.append("   throw 10;\n");
+        xml_.append("  } catch (10) {\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        nbe(cont_, ConditionReturn.YES);
+        condition("this-2==7",cont_,cont_.getContext().getStandards().getNbAlias().getAliasInteger());
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+    @Test
+    public void test35() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  try{\n");
+        xml_.append("   throw new int[]{10};\n");
+        xml_.append("  } catch (int[] a) {\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        nbea(cont_, ConditionReturn.YES);
+        condition("this[0]-2==8",cont_,"[int");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test36() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  try{\n");
+        xml_.append("   throw new int[]{10};\n");
+        xml_.append("  } catch (int[] a) {\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        nbea(cont_, ConditionReturn.YES);
+        condition("this[0]-2==7",cont_,"[int");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
     private void npe(ResultContext _cont, ConditionReturn _cond) {
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(),_cont,true);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(),true).getValue().setConditionReturn(_cond);
@@ -765,6 +851,10 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getNbAlias().getAliasInteger(),true).getValue().setConditionReturn(_cond);
     }
 
+    private void nbea(ResultContext _cont, ConditionReturn _cond) {
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("[int",_cont,true);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("[int",true).getValue().setConditionReturn(_cond);
+    }
     private void unk(ResultContext _cont, ConditionReturn _cond) {
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("",_cont,true);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("",true).getValue().setConditionReturn(_cond);

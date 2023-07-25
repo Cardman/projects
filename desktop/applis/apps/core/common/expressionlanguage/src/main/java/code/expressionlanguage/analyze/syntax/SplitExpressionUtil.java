@@ -58,18 +58,12 @@ public final class SplitExpressionUtil {
             suffixAnonTypes(anonymousTypes_,_page.getCountElts());
             for (NamedCalledFunctionBlock c: anonymousFunctions_) {
                 AccessedBlock operator_ = c.getAccessedBlock();
-                int index_ = operator_.getAccessNb();
-                int old_ = _page.getCountElts().getCountAnon().get(index_);
-                int ne_ = old_ + 1;
-                _page.getCountElts().getCountAnon().set(index_,ne_);
+                int ne_ = incr(operator_, _page);
                 c.setIntenName(Long.toString(ne_));
             }
             for (SwitchMethodBlock c: switchMethods_) {
                 AccessedBlock operator_ = c.getAccessedBlock();
-                int index_ = operator_.getAccessNb();
-                int old_ = _page.getCountElts().getCountAnon().get(index_);
-                int ne_ = old_ + 1;
-                _page.getCountElts().getCountAnon().set(index_,ne_);
+                int ne_ = incr(operator_, _page);
                 c.setIntenName(Long.toString(ne_));
             }
             processAnont(_page, int_, anonymousTypes_, anonymousFunctions_, switchMethods_);
@@ -91,6 +85,20 @@ public final class SplitExpressionUtil {
             }
         }
         return list_;
+    }
+
+    private static int incr(AccessedBlock _operator, AnalyzedPageEl _page) {
+        if (_operator == null) {
+            int old_ = _page.getCountElts().getCountOut();
+            int ne_ = old_ + 1;
+            _page.getCountElts().setCountOut(ne_);
+            return ne_;
+        }
+        int index_ = _operator.getAccessNb();
+        int old_ = _page.getCountElts().getCountAnon().get(index_);
+        int ne_ = old_ + 1;
+        _page.getCountElts().getCountAnon().set(index_,ne_);
+        return ne_;
     }
 
     private static void suffixAnonTypes(CustList<AnonymousTypeBlock> _anonymousTypes, AnaBlockCounts _countElts) {

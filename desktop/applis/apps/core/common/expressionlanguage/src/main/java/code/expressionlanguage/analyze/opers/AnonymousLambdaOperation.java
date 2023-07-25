@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
+import code.expressionlanguage.analyze.AnaBlockCounts;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.ParsedFctHeaderResult;
@@ -80,13 +81,13 @@ public final class AnonymousLambdaOperation extends
         lambdaCommonContent.setFoundFormatted(copy_);
         lambdaCommonContent.setFileName(_page.getLocalizer().getCurrentFileName());
         AccessedBlock acc_ = block.getAccessedBlock();
-        block.getAllReservedInners().addAllElts(acc_.getAllReservedInners());
+        block.getAllReservedInners().addAllElts(AnaBlockCounts.getAllReservedInners(acc_));
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
             block.getMappings().putAllMap(currentFct_.getRefMappings());
             block.getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
-            block.getMappings().putAllMap(acc_.getRefMappings());
+            block.getMappings().putAllMap(AnaBlockCounts.getRefMappings(acc_));
         }
         AccessedFct imp_ = _page.getAccessedFct();
         if (imp_ != null) {

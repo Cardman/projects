@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
+import code.expressionlanguage.analyze.AnaBlockCounts;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
@@ -169,13 +170,13 @@ public final class AnonymousInstancingOperation extends
         instancingAnonContent.getBlock().getRowColDirectSuperTypes().put(-1, superType_);
         base = base_;
         AccessedBlock acc_ = instancingAnonContent.getBlock().getAccessedBlock();
-        instancingAnonContent.getBlock().getAllReservedInners().addAllElts(acc_.getAllReservedInners());
+        instancingAnonContent.getBlock().getAllReservedInners().addAllElts(AnaBlockCounts.getAllReservedInners(acc_));
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
             instancingAnonContent.getBlock().getMappings().putAllMap(currentFct_.getRefMappings());
             instancingAnonContent.getBlock().getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
-            instancingAnonContent.getBlock().getMappings().putAllMap(acc_.getRefMappings());
+            instancingAnonContent.getBlock().getMappings().putAllMap(AnaBlockCounts.getRefMappings(acc_));
         }
         AccessedFct imp_ = _page.getAccessedFct();
         if (imp_ != null) {

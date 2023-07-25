@@ -1,10 +1,12 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.util.*;
 
 public final class AnaBlockCounts {
     private final Ints countAnon = new Ints();
+    private int countOut;
     private final CustList<CustList<RootBlock>> localTypes = new CustList<CustList<RootBlock>>();
     private final CustList<CustList<AnonymousTypeBlock>> anonTypes = new CustList<CustList<AnonymousTypeBlock>>();
     private final CustList<AnonymousElementsFct> anonElts = new CustList<AnonymousElementsFct>();
@@ -14,6 +16,7 @@ public final class AnaBlockCounts {
     private final CustList<StringMap<Integer>> counts = new CustList<StringMap<Integer>>();
 
     public static void completeFromTo(AnaBlockCounts _from, AnaBlockCounts _dest) {
+        _dest.countOut = _from.countOut;
         feedCountAnon(_from, _dest, _dest.countAnon.size(), _from.countAnon.size());
         feedCount(_from.countsAnon, _dest.countsAnon, _dest.countsAnon.size(), _from.countsAnon.size());
         feedCount(_from.counts, _dest.counts, _dest.counts.size(), _from.counts.size());
@@ -70,6 +73,27 @@ public final class AnaBlockCounts {
         _dest.getLambdas().addAllElts(_from.getLambdas());
         _dest.getSwitches().addAllElts(_from.getSwitches());
         _dest.getTypes().addAllElts(_from.getTypes());
+    }
+
+    public static StringList getAllReservedInners(AccessedBlock _acc){
+        if (_acc != null) {
+            return _acc.getAllReservedInners();
+        }
+        return new StringList();
+    }
+
+    public static StringMap<MappingLocalType> getRefMappings(AccessedBlock _acc){
+        if (_acc != null) {
+            return _acc.getRefMappings();
+        }
+        return new StringMap<MappingLocalType>();
+    }
+    public int getCountOut() {
+        return countOut;
+    }
+
+    public void setCountOut(int _c) {
+        this.countOut = _c;
     }
 
     public Ints getCountAnon() {

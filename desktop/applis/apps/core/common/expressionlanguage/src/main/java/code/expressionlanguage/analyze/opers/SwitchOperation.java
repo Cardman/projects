@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
+import code.expressionlanguage.analyze.AnaBlockCounts;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -77,13 +78,13 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
             switchMethod.setRetRef(true);
         }
         AccessedBlock acc_ = switchMethod.getAccessedBlock();
-        switchMethod.getAllReservedInners().addAllElts(acc_.getAllReservedInners());
+        switchMethod.getAllReservedInners().addAllElts(AnaBlockCounts.getAllReservedInners(acc_));
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
             switchMethod.getMappings().putAllMap(currentFct_.getRefMappings());
             switchMethod.getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
-            switchMethod.getMappings().putAllMap(acc_.getRefMappings());
+            switchMethod.getMappings().putAllMap(AnaBlockCounts.getRefMappings(acc_));
         }
         AccessedFct imp_ = _page.getAccessedFct();
         if (imp_ != null) {

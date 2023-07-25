@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.expressionlanguage.analyze.types.LocationsPartTypeUtil;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -83,6 +84,9 @@ public final class ResultExpressionOperationNode {
         if (r_ != null) {
             field(a_,r_,false);
             a_.setCurrentFile(r_.getFile());
+        } else {
+            a_.setAccessStaticContext(MethodAccessKind.INSTANCE);
+            a_.setGlobalType(new AnaFormattedRootBlock((RootBlock)null,_id));
         }
         a_.setImportingAcces(new AllAccessedTypes());
         return a_;

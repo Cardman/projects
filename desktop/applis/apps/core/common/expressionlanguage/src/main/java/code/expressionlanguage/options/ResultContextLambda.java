@@ -16,6 +16,7 @@ import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.analyze.syntax.SplitExpressionUtil;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.DefaultFileEscapedCalc;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -77,12 +78,19 @@ public final class ResultContextLambda {
 
     private static ResultContextLambda build(String _exp, ResultContext _result, String _type, AbsLightContextGenerator _gene, AnalyzedPageEl _a) {
         FileBlock file_ = _a.getCurrentFile();
+        String dynLda_ = "(:" + _type + ")->" + _exp;
         if (file_ == null) {
-            return new ResultContextLambda(null,null,new ReportedMessages());
+            FileBlock anon_ = new FileBlock(0, false, "", new DefaultFileEscapedCalc());
+            _a.setCurrentFile(anon_);
+            anon_.metrics(dynLda_);
+            anon_.setNumberFile(_a.getFilesBodies().size()+_a.getPreviousFilesBodies().size());
+            _a.putFileBlock("", anon_);
+            _a.getPreviousFilesBodies().addEntry("",anon_);
+            file_ = _a.getCurrentFile();
         }
         MethodAccessKind stCtx_ = _a.getStaticContext();
         MemberCallingsBlock memb_ = _a.getCurrentFct();
-        Line l_ = new Line(new OffsetStringInfo(0,"(:"+ _type +")->"+ _exp),0);
+        Line l_ = new Line(new OffsetStringInfo(0, dynLda_),0);
         StringComment s_ = new StringComment(l_.getExpression(),new CustList<CommentDelimiters>());
         l_.getRes().partsAbsol(s_.getStringParts());
         l_.setFile(file_);
