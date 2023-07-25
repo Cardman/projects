@@ -56,6 +56,7 @@ public final class AnalyzedPageEl {
     private ImportForEachTable currentAnaBlockForEachTable;
 
     private AnaFormattedRootBlock globalType = AnaFormattedRootBlock.defValue();
+    private AnaFormattedRootBlock originalGlobalType = AnaFormattedRootBlock.defValue();
     private String currentPkg = "";
     private FileBlock currentFile;
 
@@ -544,9 +545,14 @@ public final class AnalyzedPageEl {
 
     public void setGlobalType(AnaFormattedRootBlock _globalType) {
         if (isDynamic() && _globalType.getFormatted().isEmpty()) {
+            globalType = originalGlobalType;
             return;
         }
         globalType = _globalType;
+    }
+
+    public void setOriginalGlobalType(AnaFormattedRootBlock _o) {
+        this.originalGlobalType = _o;
     }
 
     public void setupFctChars(NamedCalledFunctionBlock _fct) {

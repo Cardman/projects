@@ -87,6 +87,7 @@ public final class ResultExpressionOperationNode {
         } else {
             a_.setAccessStaticContext(MethodAccessKind.INSTANCE);
             a_.setGlobalType(new AnaFormattedRootBlock((RootBlock)null,_id));
+            a_.setOriginalGlobalType(new AnaFormattedRootBlock((RootBlock)null,_id));
         }
         a_.setImportingAcces(new AllAccessedTypes());
         return a_;
