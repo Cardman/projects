@@ -79,7 +79,7 @@ public final class ResultExpressionOperationNode {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);
         a_.setCurrentPkg(a_.getDefaultPkg());
-        RootBlock r_ = _original.getAnaClassBody(_id);
+        RootBlock r_ = _original.getAnaClassBody(StringExpUtil.getIdFromAllTypes(_id));
         if (r_ != null) {
             field(a_,r_,false);
             a_.setCurrentFile(r_.getFile());
