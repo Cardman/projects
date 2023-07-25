@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.dbg;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.exec.AbsStackStopper;
-import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
@@ -17,7 +16,6 @@ public final class DebugMapping {
     private final CustList<String> typesInit = new CustList<String>();
     private String initClass="";
     private final BreakPointBlockList breakPointsBlock;
-    private final StringMap<ConditionReturn> exceptions = new StringMap<ConditionReturn>();
     private final AbsStackStopper stopper;
 
     public DebugMapping(AbsStackStopper _s, AbstractInterceptorStdCaller _i) {
@@ -33,10 +31,6 @@ public final class DebugMapping {
     }
     public BreakPointBlockList getBreakPointsBlock() {
         return breakPointsBlock;
-    }
-
-    public StringMap<ConditionReturn> getExceptions() {
-        return exceptions;
     }
 
     public IdMap<FileBlock, ExecFileBlock> getFiles() {

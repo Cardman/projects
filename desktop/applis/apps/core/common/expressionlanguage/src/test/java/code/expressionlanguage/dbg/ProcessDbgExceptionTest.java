@@ -675,37 +675,31 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
         assertEq(0, stack_.nbPages());
     }
     private void npe(ResultContext _cont, ConditionReturn _cond) {
-        _cont.getContext().getClasses().getDebugMapping().getExceptions().addEntry(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(), _cond);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(),_cont,true);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(),true).getValue().setConditionReturn(_cond);
     }
 
     private void div(ResultContext _cont, ConditionReturn _cond) {
-        _cont.getContext().getClasses().getDebugMapping().getExceptions().addEntry(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), _cond);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(),_cont,true);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(),true).getValue().setConditionReturn(_cond);
     }
 
     private void nbe(ResultContext _cont, ConditionReturn _cond) {
-        _cont.getContext().getClasses().getDebugMapping().getExceptions().addEntry(_cont.getContext().getStandards().getNbAlias().getAliasInteger(), _cond);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint(_cont.getContext().getStandards().getNbAlias().getAliasInteger(),_cont,true);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getNbAlias().getAliasInteger(),true).getValue().setConditionReturn(_cond);
     }
 
     private void unk(ResultContext _cont, ConditionReturn _cond) {
-        _cont.getContext().getClasses().getDebugMapping().getExceptions().addEntry("", _cond);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("",_cont,true);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("",true).getValue().setConditionReturn(_cond);
     }
 
     private void std(ResultContext _cont, ConditionReturn _cond) {
-        _cont.getContext().getClasses().getDebugMapping().getExceptions().addEntry("pkg.Ex", _cond);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex",_cont,true);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("pkg.Ex",true).getValue().setConditionReturn(_cond);
     }
 
     private void stdInc(ResultContext _cont, ConditionReturn _cond) {
-        _cont.getContext().getClasses().getDebugMapping().getExceptions().addEntry("pkg.Ex", _cond);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint("pkg.Ex<?>",_cont,false);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("pkg.Ex",false).getValue().setConditionReturn(_cond);
     }
