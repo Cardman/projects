@@ -1,6 +1,7 @@
 package code.expressionlanguage.dbg;
 
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
 import code.util.StringMap;
@@ -32,7 +33,8 @@ public final class ProcessDbgArrLoopTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(159, now(stack_));
+        assertTrue(((LoopBlockStack)stack_.getLastPage().tryGetLastStack()).getContent().hasNext());
+        assertEq(-1, ((LoopBlockStack)stack_.getLastPage().tryGetLastStack()).getContent().getIndex());
     }
     @Test
     public void test2() {
@@ -60,7 +62,8 @@ public final class ProcessDbgArrLoopTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(159, now(next_));
+        assertTrue(((LoopBlockStack)stack_.getLastPage().tryGetLastStack()).getContent().hasNext());
+        assertEq(0, ((LoopBlockStack)stack_.getLastPage().tryGetLastStack()).getContent().getIndex());
     }
     @Test
     public void test3() {
@@ -88,7 +91,8 @@ public final class ProcessDbgArrLoopTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(159, now(next_));
+        assertTrue(((LoopBlockStack)stack_.getLastPage().tryGetLastStack()).getContent().hasNext());
+        assertEq(1, ((LoopBlockStack)stack_.getLastPage().tryGetLastStack()).getContent().getIndex());
     }
     @Test
     public void test4() {
@@ -116,7 +120,8 @@ public final class ProcessDbgArrLoopTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(159, now(next_));
+        assertFalse(((LoopBlockStack)stack_.getLastPage().tryGetLastStack()).getContent().hasNext());
+        assertEq(2, ((LoopBlockStack)stack_.getLastPage().tryGetLastStack()).getContent().getIndex());
     }
     @Test
     public void test5() {
@@ -334,7 +339,8 @@ public final class ProcessDbgArrLoopTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext());
         assertEq(1, next_.nbPages());
-        assertEq(164, now(next_));
+        assertFalse(((LoopBlockStack)stack_.getLastPage().tryGetLastStack()).getContent().hasNext());
+        assertEq(2, ((LoopBlockStack)stack_.getLastPage().tryGetLastStack()).getContent().getIndex());
     }
     @Test
     public void test13() {

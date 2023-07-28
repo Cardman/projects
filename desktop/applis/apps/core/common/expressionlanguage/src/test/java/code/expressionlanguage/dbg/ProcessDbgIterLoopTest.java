@@ -363,8 +363,9 @@ public final class ProcessDbgIterLoopTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(150, now(stack_));
+        assertTrue(stack_.getLastPage().noBlock());
         assertEq(2, stack_.getLastPage().sizeEl());
+        assertEq("pkg.CustList<int>",stack_.getLastPage().getInternVars().getVal(cont_.getContext().getClasses().getIteratorVarCust()).getStruct().getClassName(cont_.getContext()));
     }
     @Test
     public void test14() {

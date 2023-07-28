@@ -677,8 +677,9 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
-        assertEq(174, now(stack_));
+        assertTrue(stack_.getLastPage().noBlock());
         assertEq(2, stack_.getLastPage().sizeEl());
+        assertEq("pkg.CustTable<$core.Number,$core.Number>",stack_.getLastPage().getInternVars().getVal(cont_.getContext().getClasses().getIteratorTableVarCust()).getStruct().getClassName(cont_.getContext()));
         Struct s_ = stack_.getLastPage().getContentEx().getRefParams().getVal("res").getValue(stack_, cont_.getContext());
         assertEq(0, toInt(s_));
     }

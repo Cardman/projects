@@ -29,7 +29,6 @@ public final class StackCall implements AbstractStackCall {
     private final CustomSeedGene seedCust;
     private boolean stoppedBreakPoint;
 
-    private int globalOffset;
     private StepDbgActionEnum step;
     private boolean mute;
     private int previousNbPages;
@@ -216,14 +215,6 @@ public final class StackCall implements AbstractStackCall {
 
     public void setStoppedBreakPoint(boolean _s) {
         this.stoppedBreakPoint = _s;
-    }
-
-    public int getGlobalOffset() {
-        return globalOffset;
-    }
-
-    public void setGlobalOffset(int _g) {
-        this.globalOffset = _g;
     }
 
     public StepDbgActionEnum getStep() {

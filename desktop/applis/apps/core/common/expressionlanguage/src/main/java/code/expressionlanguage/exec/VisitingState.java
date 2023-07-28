@@ -8,9 +8,9 @@ public enum VisitingState {
     private final boolean visited;
     private final boolean visitedExp;
 
-    VisitingState(boolean visited, boolean visitedExp) {
-        this.visited = visited;
-        this.visitedExp = visitedExp;
+    VisitingState(boolean _i, boolean _e) {
+        this.visited = _i;
+        this.visitedExp = _e;
     }
 
     public boolean isVisited() {

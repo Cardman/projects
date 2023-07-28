@@ -41,7 +41,8 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     protected static final String CUST_PAIR_PATH = "pkg/CustPair";
     protected static final String CUST_TABLE_PATH = "pkg/CustTable";
     protected int now(StackCall _stack) {
-        return _stack.getGlobalOffset();
+        return _stack.getLastPage().getTraceIndex();
+//        return _stack.getGlobalOffset();
     }
     protected int nowTrace(StackCall _stack) {
         return _stack.getLastPage().getTraceIndex();
@@ -494,7 +495,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         StackCallReturnValue stVal_ = goLoop(_res, _class, _meth, null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
-        return eval(ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), st_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), null), _res, page_);
+        return eval(ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), page_.getTraceIndex(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), null), _res, page_);
     }
 
     protected ResultContextLambda dynAna(String _dyn, String _class, int _caret, ResultContext _res) {
@@ -531,7 +532,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         StackCallReturnValue stVal_ = goLoop(_res, _class, _meth, null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
-        ResultContextLambda resLam_ = ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), st_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), null);
+        ResultContextLambda resLam_ = ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), page_.getTraceIndex(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), null);
         StackCall locSt_ = resLam_.eval(null,page_).getStack();
         return ((ErrorStruct)((CustomFoundExc)locSt_.getCallingState()).getStruct()).getStack();
     }
@@ -539,13 +540,13 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         StackCallReturnValue stVal_ = goLoop(_res, _class, _meth, null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
-        return ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), st_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(),null).getReportedMessages();
+        return ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), page_.getTraceIndex(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(),null).getReportedMessages();
     }
     private ReportedMessages endKoSt(String _dyn, String _class, String _meth, ResultContext _res) {
         StackCallReturnValue stVal_ = goLoop(_res, _class, _meth, null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
-        return ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), st_.getGlobalOffset(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), MethodAccessKind.STATIC).getReportedMessages();
+        return ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), page_.getTraceIndex(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), MethodAccessKind.STATIC).getReportedMessages();
     }
     protected AnalyzedPageEl scope(StringMap<String> _files, String _fileName, int _caret, String... _types) {
         ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files, _types);
