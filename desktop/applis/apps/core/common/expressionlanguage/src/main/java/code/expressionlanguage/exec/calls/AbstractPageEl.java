@@ -175,7 +175,9 @@ public abstract class AbstractPageEl {
     public boolean noBlock() {
         return blockStacks.isEmpty();
     }
-
+    public int nbBlock() {
+        return blockStacks.size();
+    }
     public LoopBlockStack getLastLoopIfPossible(ExecBlock _bl) {
         AbstractStask last_ = tryGetLastStack();
         if (last_ instanceof LoopBlockStack && ((LoopBlockStack)last_).getExecBlock() == _bl) {

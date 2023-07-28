@@ -32,6 +32,7 @@ public final class StackCall implements AbstractStackCall {
     private StepDbgActionEnum step;
     private boolean mute;
     private int previousNbPages;
+    private int previousNbBlocks;
     private final StackState stackState = new StackState();
     private final AbsStackStopper stopper;
     private CoreCheckedExecOperationNodeInfos operElt;
@@ -239,6 +240,14 @@ public final class StackCall implements AbstractStackCall {
 
     public void setPreviousNbPages(int _p) {
         this.previousNbPages = _p;
+    }
+
+    public int getPreviousNbBlocks() {
+        return previousNbBlocks;
+    }
+
+    public void setPreviousNbBlocks(int _p) {
+        this.previousNbBlocks = _p;
     }
 
     public StackState getStackState() {

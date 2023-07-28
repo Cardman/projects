@@ -38,6 +38,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsPlainButton selectEnter;
     private AbsPlainButton nextAction;
     private AbsPlainButton nextInstruction;
+    private AbsPlainButton nextBlock;
     private AbsPlainButton nextGoUp;
     private AbsPlainButton nextInMethod;
     private AbsPlainButton nextCursor;
@@ -110,6 +111,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nextInstruction = getCommonFrame().getFrames().getCompoFactory().newPlainButton(">");
         nextInstruction.setEnabled(false);
         nextInstruction.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.NEXT_INSTRUCTION));
+        nextBlock = getCommonFrame().getFrames().getCompoFactory().newPlainButton(".");
+        nextBlock.setEnabled(false);
+        nextBlock.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.NEXT_BLOCK));
         nextGoUp = getCommonFrame().getFrames().getCompoFactory().newPlainButton("^");
         nextGoUp.setEnabled(false);
         nextGoUp.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.RETURN_METHOD));
@@ -136,6 +140,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nav_.add(selectEnter);
         nav_.add(nextAction);
         nav_.add(nextInstruction);
+        nav_.add(nextBlock);
         nav_.add(nextGoUp);
         nav_.add(nextInMethod);
         nav_.add(nextCursor);
@@ -281,6 +286,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         PackingWindowAfter.pack(getCommonFrame());
         nextAction.setEnabled(true);
         nextInstruction.setEnabled(true);
+        nextBlock.setEnabled(true);
         nextGoUp.setEnabled(true);
         nextInMethod.setEnabled(true);
         nextCursor.setEnabled(true);
@@ -454,6 +460,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public AbsPlainButton getNextInstruction() {
         return nextInstruction;
+    }
+
+    public AbsPlainButton getNextBlock() {
+        return nextBlock;
     }
 
     public AbsPlainButton getNextGoUp() {

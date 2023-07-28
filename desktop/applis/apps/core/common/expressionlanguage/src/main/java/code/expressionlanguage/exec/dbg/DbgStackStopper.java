@@ -333,7 +333,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (_stackCall.getStep() == StepDbgActionEnum.RETURN_METHOD && _p.getReadWrite() == ReadWrite.EXIT && _stackCall.getPreviousNbPages() >= _stackCall.nbPages()) {
             return true;
         }
-        return beginInstrPart(_stackCall,_p, _ex) && (_stackCall.getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getPreviousNbPages() >= _stackCall.nbPages() || _stackCall.getStep() == StepDbgActionEnum.NEXT_INSTRUCTION || stopTmp(_context, _stackCall, _p));
+        return beginInstrPart(_stackCall,_p, _ex) && (_stackCall.getStep() == StepDbgActionEnum.NEXT_BLOCK && (_stackCall.getPreviousNbPages() == _stackCall.nbPages() && _stackCall.getPreviousNbBlocks() > _p.nbBlock() || _stackCall.getPreviousNbPages() > _stackCall.nbPages()) || _stackCall.getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getPreviousNbPages() >= _stackCall.nbPages() || _stackCall.getStep() == StepDbgActionEnum.NEXT_INSTRUCTION || stopTmp(_context, _stackCall, _p));
     }
 
     private static boolean beginInstrPart(StackCall _stackCall, AbstractPageEl _p, ExecOperationNode _ex) {

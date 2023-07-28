@@ -85,6 +85,7 @@ public class DefaultInitializer implements Initializer {
         if (_stackCall.getStopper().stopBreakPoint(_owner,_stackCall)) {
             _stackCall.setStoppedBreakPoint(true);
             _stackCall.setPreviousNbPages(_stackCall.nbPages());
+            _stackCall.setPreviousNbBlocks(_stackCall.getLastPage().nbBlock());
             _owner.getClasses().getDebugMapping().getBreakPointsBlock().getListTmp().clear();
             return true;
         }
