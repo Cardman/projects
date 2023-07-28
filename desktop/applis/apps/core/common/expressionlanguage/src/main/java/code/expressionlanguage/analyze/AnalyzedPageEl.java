@@ -544,7 +544,7 @@ public final class AnalyzedPageEl {
     }
 
     public void setGlobalType(AnaFormattedRootBlock _globalType) {
-        if (isDynamic() && _globalType.getFormatted().isEmpty()) {
+        if (isDynamic() && (_globalType.getFormatted().isEmpty() || _globalType.getRootBlock() == originalGlobalType.getRootBlock())) {
             globalType = originalGlobalType;
             return;
         }

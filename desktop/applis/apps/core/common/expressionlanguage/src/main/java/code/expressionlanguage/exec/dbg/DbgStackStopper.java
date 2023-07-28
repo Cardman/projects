@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
@@ -273,7 +274,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     @Override
     public boolean stopBreakPoint(ContextEl _context, StackCall _stackCall) {
         AbstractPageEl p_ = _stackCall.getLastPage();
-        if (p_.getReadWrite() == null && _stackCall.nbPages() > 1) {
+        if (p_.getReadWrite() == ReadWrite.EXIT && _stackCall.nbPages() > 1) {
             AbstractPageEl previous_ = _stackCall.getCall(_stackCall.nbPages() - 2);
             if (!previous_.isEmptyEl()) {
                 ExpressionLanguage el_ = previous_.getLastEl();
@@ -389,7 +390,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean stopStep(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
-        return _stackCall.getStep() == StepDbgActionEnum.RETURN_METHOD && _p.getReadWrite() == null || _stackCall.getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getPreviousNbPages() >= _stackCall.nbPages() || _stackCall.getStep() == StepDbgActionEnum.NEXT_INSTRUCTION || stopTmp(_context, _stackCall, _p);
+        return _stackCall.getStep() == StepDbgActionEnum.RETURN_METHOD && _p.getReadWrite() == ReadWrite.EXIT || _stackCall.getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getPreviousNbPages() >= _stackCall.nbPages() || _stackCall.getStep() == StepDbgActionEnum.NEXT_INSTRUCTION || stopTmp(_context, _stackCall, _p);
     }
 
     private static boolean stopTmp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
@@ -587,7 +588,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (_stackCall.isCheckingException() || _stackCall.getOperElt() != null) {
             return true;
         }
-        if (_p.getReadWrite() == null) {
+        if (_p.getReadWrite() == ReadWrite.EXIT) {
             return _stackCall.getStep() == StepDbgActionEnum.RETURN_METHOD && _stackCall.getPreviousNbPages() >= _stackCall.nbPages();
         }
         ExecBlock bl_ = _p.getBlock();

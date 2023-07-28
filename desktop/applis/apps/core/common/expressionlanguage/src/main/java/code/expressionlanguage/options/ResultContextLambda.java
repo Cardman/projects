@@ -68,11 +68,11 @@ public final class ResultContextLambda {
         return build(_exp, _result, _type, _gene, a_);
     }
 
-    public static ResultContextLambda dynamicAnalyzeExc(String _exp, String _id, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
+    public static ResultContextLambda dynamicAnalyzeExc(String _exp, String _id, boolean _exact, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
         if (_exp.trim().isEmpty()) {
             return new ResultContextLambda(null,null,new ReportedMessages());
         }
-        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareExc(_id, _result.getPageEl());
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareExc(_id, _exact, _result.getPageEl());
         return build(_exp, _result, _type, _gene, a_);
     }
 

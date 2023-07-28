@@ -56,15 +56,13 @@ public final class ExecutingUtil {
         page_.setFwd(_fwd);
         page_.setGlobalArgument(argGl_);
         page_.setReturnedArgument(argGl_);
-        ReadWrite rw_ = new ReadWrite();
         for (ExecStaticBlock i: _rootBlock.getAllStaticInits()) {
             page_.getProcessedBlocks().addEntry(i, BoolVal.FALSE);
         }
         if (!visit_.isEmpty()) {
-            rw_.setBlock(visit_.first());
+            page_.setBlock(visit_.first());
         }
 //        rw_.setBlock(firstChild_);
-        page_.setReadWrite(rw_);
         page_.blockRoot(_rootBlock);
 //        while (firstChild_ != null) {
 //            if (firstChild_ instanceof ExecStaticBlock) {
@@ -109,9 +107,7 @@ public final class ExecutingUtil {
         _context.getCoverage().passCalls(_page);
         _page.getRefParams().addAllEntries(_args.getRefParameters());
         _page.setCache(_args.getCache());
-        ReadWrite rwLoc_ = new ReadWrite();
-        rwLoc_.setBlock(fct_.getFirstChild());
-        _page.setReadWrite(rwLoc_);
+        _page.setBlock(fct_.getFirstChild());
         _page.setFile(fct_.getFile());
     }
     private static void setSwitchInfos(ContextEl _context, CommonSwitchMethodPageEl _page, ExecAbstractSwitchMethod _block, Cache _cache) {
@@ -119,9 +115,7 @@ public final class ExecutingUtil {
         _context.getCoverage().passCalls(_page);
         _page.setCache(_cache);
         _page.setFile(_block.getFile());
-        ReadWrite rwLoc_ = new ReadWrite();
-        rwLoc_.setBlock(_block);
-        _page.setReadWrite(rwLoc_);
+        _page.setBlock(_block);
     }
     public static AbstractPageEl createRecordInstancing(ContextEl _context, CustomFoundRecordConstructor _e) {
         ExecFormattedRootBlock cl_ = _e.getClassName();
@@ -133,9 +127,7 @@ public final class ExecutingUtil {
         Argument argGl_ = new Argument(_context.getInit().processInit(_context, str_, cl_, fieldName_, ordinal_));
         page_.setGlobalArgument(argGl_);
         page_.setReturnedArgument(argGl_);
-        ReadWrite rw_ = new ReadWrite();
         page_.blockRootTypes(_e.getPair());
-        page_.setReadWrite(rw_);
         return page_;
     }
     public static AbstractPageEl createInstancing(ContextEl _context, CustomFoundConstructor _e) {
@@ -188,8 +180,6 @@ public final class ExecutingUtil {
         Argument argGl_ = new Argument(_context.getInit().processInitAnnot(_context, _class,_type));
         page_.setGlobalArgument(argGl_);
         page_.setReturnedArgument(argGl_);
-        ReadWrite rw_ = new ReadWrite();
-        page_.setReadWrite(rw_);
         page_.fileTypeOffset(_type);
         return page_;
     }
@@ -204,28 +194,25 @@ public final class ExecutingUtil {
     }
 
     private static void setInstanciationInfos(ContextEl _context, AbstractCallingInstancingPageEl _page, Parameters _args, ExecTypeFunction _pair) {
-        ReadWrite rw_ = new ReadWrite();
         _page.blockRootTypes(_pair);
         ExecMemberCallingsBlock ctor_ = _pair.getFct();
         if (ctor_ != null) {
             _context.getCoverage().passCalls(_page);
             _page.getRefParams().addAllEntries(_args.getRefParameters());
             ExecBlock firstChild_ = ctor_.getFirstChild();
-            rw_.setBlock(firstChild_);
+            _page.setBlock(firstChild_);
         }
-        _page.setReadWrite(rw_);
     }
     public static FieldInitPageEl createInitFields(ExecRootBlock _type, ExecFormattedRootBlock _class, Argument _current) {
         CustList<ExecBlock> visit_ = _type.getAllInstanceMembers();
         FieldInitPageEl page_ = new FieldInitPageEl(visit_,_class);
         page_.setGlobalArgument(_current);
         page_.setReturnedArgument(_current);
-        ReadWrite rw_ = new ReadWrite();
         for (ExecInstanceBlock i: _type.getAllInstanceInits()) {
             page_.getProcessedBlocks().addEntry(i, BoolVal.FALSE);
         }
         if (!visit_.isEmpty()) {
-            rw_.setBlock(visit_.first());
+            page_.setBlock(visit_.first());
         }
 //        ExecBlock firstChild_ = _type.getFirstChild();
 //        rw_.setBlock(firstChild_);
@@ -235,7 +222,6 @@ public final class ExecutingUtil {
 //            }
 //            firstChild_ = firstChild_.getNextSibling();
 //        }
-        page_.setReadWrite(rw_);
         page_.blockRoot(_type);
         page_.setFile(_type.getFile());
         return page_;
@@ -245,10 +231,8 @@ public final class ExecutingUtil {
         BlockPageEl page_ = new BlockPageEl(_class);
         page_.setGlobalArgument(_current);
         page_.setReturnedArgument(_current);
-        ReadWrite rw_ = new ReadWrite();
         ExecBlock firstChild_ = _block.getFirstChild();
-        rw_.setBlock(firstChild_);
-        page_.setReadWrite(rw_);
+        page_.setBlock(firstChild_);
         page_.setBlockRoot(_block);
         _context.getCoverage().passCalls(page_);
         page_.setFile(file_);
@@ -307,8 +291,6 @@ public final class ExecutingUtil {
             setFile(pageLoc_, c_.getGl());
             ((ReflectAnnotationPageEl)pageLoc_).setOnParameters(reflect_);
         }
-        ReadWrite rwLoc_ = new ReadWrite();
-        pageLoc_.setReadWrite(rwLoc_);
         return pageLoc_;
     }
 

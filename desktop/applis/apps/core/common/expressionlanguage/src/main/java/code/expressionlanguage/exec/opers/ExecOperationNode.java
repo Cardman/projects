@@ -22,17 +22,6 @@ import code.util.core.StringUtil;
 
 public abstract class ExecOperationNode {
 
-    protected static final String ARR = "[";
-
-    protected static final String MULT = "*";
-
-    protected static final String DIV = "/";
-
-    protected static final String PLUS = "+";
-
-    protected static final String DIFF = "!=";
-
-    protected static final String EMPTY_STRING = "";
     protected static final String RETURN_LINE = "\n";
 
     private ExecMethodOperation parent;

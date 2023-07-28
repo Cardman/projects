@@ -99,7 +99,7 @@ public class DefaultInitializer implements Initializer {
         }
         AbstractPageEl p_ = _stackCall.getLastPage();
         ReadWrite rw_ = p_.getReadWrite();
-        if (rw_ == null) {
+        if (rw_ == ReadWrite.EXIT) {
             if (p_ instanceof StaticInitPageEl) {
                 ((StaticInitPageEl)p_).sucessClass(_owner);
             }
@@ -112,9 +112,9 @@ public class DefaultInitializer implements Initializer {
             rw_ = b_.getReadWrite();
         }
         if (_owner.callsOrException(_stackCall)) {
-            rw_ = null;
+            rw_ = ReadWrite.EXIT;
         }
-        if (rw_ != null) {
+        if (rw_ != ReadWrite.EXIT) {
             _stackCall.getLastPage().processTagsBase(_owner, _stackCall);
         }
         checkStack(_owner, _stackCall);

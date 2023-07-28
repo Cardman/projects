@@ -23,7 +23,7 @@ public abstract class AbstractPageEl {
 
     private final ExecFormattedRootBlock globalClass;
 
-    private ReadWrite readWrite;
+    private ReadWrite readWrite = ReadWrite.ENTRY;
     private ExecBlock execBlock;
     private ExecBlock blockRoot;
 
@@ -266,12 +266,11 @@ public abstract class AbstractPageEl {
         return readWrite;
     }
     public void setNullReadWrite() {
-        readWrite = null;
+        setReadWrite(ReadWrite.EXIT);
     }
 
     public void setReadWrite(ReadWrite _readWrite) {
         readWrite = _readWrite;
-        execBlock = _readWrite.getBlock();
     }
 
     public ExecBlock getBlockRoot() {

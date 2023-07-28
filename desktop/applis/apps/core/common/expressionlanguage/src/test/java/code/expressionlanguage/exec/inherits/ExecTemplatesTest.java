@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.calls.ReflectGetFieldPageEl;
 import code.expressionlanguage.exec.calls.ReflectSetFieldPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
@@ -1049,7 +1050,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StackCall stackCall_ = getStackCall(cont_);
         addPage(instancingClass_, stackCall_);
         assertNull(ExecHelperBlocks.hasBlockBreak(stackCall_,instancingClass_,""));
-        assertNull(instancingClass_.getReadWrite());
+        assertSame(ReadWrite.EXIT,instancingClass_.getReadWrite());
     }
     @Test
     public void continueEmpty() {
@@ -1065,7 +1066,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StackCall stackCall_ = getStackCall(cont_);
         addPage(instancingClass_, stackCall_);
         assertNull(ExecHelperBlocks.hasBlockContinue(stackCall_,instancingClass_,""));
-        assertNull(instancingClass_.getReadWrite());
+        assertSame(ReadWrite.EXIT,instancingClass_.getReadWrite());
     }
     @Test
     public void setVisited() {
@@ -1081,7 +1082,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StackCall stackCall_ = getStackCall(cont_);
         addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.setVisitedDefault(cont_, stackCall_,null);
-        assertNull(instancingClass_.getReadWrite());
+        assertSame(ReadWrite.EXIT,instancingClass_.getReadWrite());
     }
     @Test
     public void setVisitedCase() {
@@ -1097,7 +1098,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StackCall stackCall_ = getStackCall(cont_);
         addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.setVisitedCase(cont_, stackCall_,null);
-        assertNull(instancingClass_.getReadWrite());
+        assertSame(ReadWrite.EXIT,instancingClass_.getReadWrite());
     }
     @Test
     public void setVisitedCatch() {
@@ -1113,7 +1114,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StackCall stackCall_ = getStackCall(cont_);
         addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.processCatch(cont_, stackCall_,null);
-        assertNull(instancingClass_.getReadWrite());
+        assertSame(ReadWrite.EXIT,instancingClass_.getReadWrite());
     }
     @Test
     public void processFinally() {
@@ -1129,7 +1130,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StackCall stackCall_ = getStackCall(cont_);
         addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.processElse(null, stackCall_);
-        assertNull(instancingClass_.getReadWrite());
+        assertSame(ReadWrite.EXIT,instancingClass_.getReadWrite());
     }
     @Test
     public void processElseIf() {
@@ -1145,7 +1146,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StackCall stackCall_ = getStackCall(cont_);
         addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.processElseIf(cont_,null, stackCall_, new ExecOperationNodeListOff(new CustList<ExecOperationNode>(),0));
-        assertNull(instancingClass_.getReadWrite());
+        assertSame(ReadWrite.EXIT,instancingClass_.getReadWrite());
     }
     @Test
     public void processElse() {
@@ -1162,7 +1163,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.processElse(null, stackCall_);
         ExecHelperBlocks.processElse(null, stackCall_);
-        assertNull(instancingClass_.getReadWrite());
+        assertSame(ReadWrite.EXIT,instancingClass_.getReadWrite());
     }
     @Test
     public void processDo() {
@@ -1178,7 +1179,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StackCall stackCall_ = getStackCall(cont_);
         addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.processDoWhile(cont_,null, stackCall_, new ExecOperationNodeListOff(new CustList<ExecOperationNode>(),0));
-        assertNull(instancingClass_.getReadWrite());
+        assertSame(ReadWrite.EXIT,instancingClass_.getReadWrite());
     }
     @Test
     public void processBlockAndRemove() {
@@ -1194,7 +1195,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StackCall stackCall_ = getStackCall(cont_);
         addPage(instancingClass_, stackCall_);
         ExecHelperBlocks.processBlockAndRemove(null, stackCall_);
-        assertNull(instancingClass_.getReadWrite());
+        assertSame(ReadWrite.EXIT,instancingClass_.getReadWrite());
     }
     @Test
     public void exportAnnotation1() {

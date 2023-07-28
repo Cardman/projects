@@ -76,13 +76,17 @@ public final class ResultExpressionOperationNode {
         return a_;
     }
 
-    public static AnalyzedPageEl prepareExc(String _id, AnalyzedPageEl _original) {
+    public static AnalyzedPageEl prepareExc(String _id, boolean _exact, AnalyzedPageEl _original) {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);
         a_.setCurrentPkg(a_.getDefaultPkg());
         RootBlock r_ = _original.getAnaClassBody(StringExpUtil.getIdFromAllTypes(_id));
         if (r_ != null) {
             field(a_,r_,false);
+            if (_exact) {
+                a_.setGlobalType(new AnaFormattedRootBlock(r_,_id));
+                a_.setOriginalGlobalType(new AnaFormattedRootBlock(r_,_id));
+            }
             a_.setCurrentFile(r_.getFile());
         } else {
             a_.setAccessStaticContext(MethodAccessKind.INSTANCE);
