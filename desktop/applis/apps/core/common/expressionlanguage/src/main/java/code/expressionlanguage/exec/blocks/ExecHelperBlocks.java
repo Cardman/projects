@@ -545,9 +545,8 @@ public final class ExecHelperBlocks {
         CustList<ExecOperationNode> list_ = exp_.getList();
         int offset_ = exp_.getOffset();
         lastPage_.globalOffset(offset_);
-        int size_ = lastPage_.sizeEl();
         Argument visit_ = ExecHelperBlocks.tryToCalculate(_cont, 1, _stack, list_, 0, _br);
-        if (_stack.getStopper().stopAt(lastPage_,_stack,size_)){
+        if (_stack.getStopper().stopAt(_stack)){
             return new ExecResultCase(ConditionReturn.CALL_EX, _br, index_);
         }
         if (_cont.callsOrException(_stack)) {

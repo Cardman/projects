@@ -6,6 +6,7 @@ import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.dbg.StackState;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.NullStruct;
@@ -27,14 +28,12 @@ public final class StackCall implements AbstractStackCall {
     private Struct seed;
     private final CustomSeedGene seedCust;
     private boolean stoppedBreakPoint;
-    private boolean checkingException;
 
     private int globalOffset;
     private StepDbgActionEnum step;
     private boolean mute;
     private int previousNbPages;
-    private boolean visited;
-    private boolean visitedExp;
+    private final StackState stackState = new StackState();
     private final AbsStackStopper stopper;
     private CoreCheckedExecOperationNodeInfos operElt;
     public StackCall(AbsStackStopper _s,InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
@@ -126,12 +125,7 @@ public final class StackCall implements AbstractStackCall {
     public void nullReadWrite() {
         AbstractPageEl l_ = getLastPage();
         l_.setNullReadWrite();
-        resetVisit();
-    }
-    public void resetVisit() {
-        setVisited(false);
-        setVisitedExp(false);
-        setOperElt(null);
+        getStackState().resetVisit(false);
     }
     public AbstractPageEl getLastPage() {
         return importing.last();
@@ -224,14 +218,6 @@ public final class StackCall implements AbstractStackCall {
         this.stoppedBreakPoint = _s;
     }
 
-    public boolean isCheckingException() {
-        return checkingException;
-    }
-
-    public void setCheckingException(boolean _c) {
-        this.checkingException = _c;
-    }
-
     public int getGlobalOffset() {
         return globalOffset;
     }
@@ -264,20 +250,8 @@ public final class StackCall implements AbstractStackCall {
         this.previousNbPages = _p;
     }
 
-    public boolean isVisited() {
-        return visited;
-    }
-
-    public void setVisited(boolean _v) {
-        this.visited = _v;
-    }
-
-    public boolean isVisitedExp() {
-        return visitedExp;
-    }
-
-    public void setVisitedExp(boolean _v) {
-        this.visitedExp = _v;
+    public StackState getStackState() {
+        return stackState;
     }
 
     public CoreCheckedExecOperationNodeInfos getOperElt() {

@@ -72,7 +72,6 @@ public class DefaultInitializer implements Initializer {
     @Override
     public final void loopCalling(ContextEl _owner, StackCall _stackCall) {
         _stackCall.setStoppedBreakPoint(false);
-        _stackCall.setOperElt(null);
         _stackCall.setCallingStateSub(null);
         while (true) {
             AbstractInterceptorStdCaller caller_ = _owner.getCaller();
@@ -94,7 +93,7 @@ public class DefaultInitializer implements Initializer {
 
     public boolean stopNormal(ContextEl _owner, StackCall _stackCall) {
         if (_stackCall.getStopper().isCheckingException(_stackCall)) {
-            _stackCall.setCheckingException(false);
+            _stackCall.getStackState().setCheckingBp(false);
             return false;
         }
         AbstractPageEl p_ = _stackCall.getLastPage();
@@ -119,8 +118,7 @@ public class DefaultInitializer implements Initializer {
         }
         checkStack(_owner, _stackCall);
         if (_stackCall.getStopper().hasFoundException(_stackCall)) {
-            _stackCall.setCheckingException(true);
-            _stackCall.resetVisit();
+            _stackCall.getStackState().resetVisit(true);
         }
         return false;
     }

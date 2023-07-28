@@ -159,7 +159,7 @@ public final class ExpressionLanguage {
         if (_context.callsOrException(_stackCall)) {
             return;
         }
-        _stackCall.resetVisit();
+        _stackCall.getStackState().resetVisit(false);
         index = getNextIndex(arguments, _currentOper, _least);
     }
 
@@ -168,7 +168,7 @@ public final class ExpressionLanguage {
             processCalling(_exp, _stackCall.getLastPage(), _oper, _stackCall);
             return _max;
         }
-        _stackCall.resetVisit();
+        _stackCall.getStackState().resetVisit(false);
         return getNextIndex(_args,_oper,_least);
     }
     private static int getNextIndex(IdMap<ExecOperationNode, ArgumentsPair> _args, ExecOperationNode _oper, int _least) {

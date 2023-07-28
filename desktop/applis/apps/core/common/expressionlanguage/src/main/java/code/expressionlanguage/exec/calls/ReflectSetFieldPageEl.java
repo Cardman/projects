@@ -2,10 +2,15 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.CheckedExecOperationNodeInfos;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.dbg.DbgStackStopper;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.FieldMetaInfo;
+import code.expressionlanguage.structs.Struct;
 
 public final class ReflectSetFieldPageEl extends AbstractLambdaVariable {
 
@@ -40,6 +45,18 @@ public final class ReflectSetFieldPageEl extends AbstractLambdaVariable {
 
     @Override
     boolean stopAt(ContextEl _context, StackCall _stack) {
-        return _stack.getStopper().isStopAtRefSetField(metaInfo, ArgumentListCall.toStr(first), ArgumentListCall.toStr(last),_context,_stack);
+        return _stack.getStopper().isStopAtRefField(metaInfo, _context,_stack);
+    }
+
+    @Override
+    public CheckedExecOperationNodeInfos infos(ContextEl _context, StackCall _stackCall) {
+        if (AbstractLambdaVariable.stopMetaField(metaInfo, _context, _stackCall)) {
+            _stackCall.getStackState().resetVisit(true);
+            Struct instance_ = ArgumentListCall.toStr(first);
+            Struct right_ = ArgumentListCall.toStr(last);
+            ClassField cf_ = new ClassField(StringExpUtil.getIdFromAllTypes(metaInfo.getFormatted().getFormatted()), metaInfo.getName());
+            return new CheckedExecOperationNodeInfos(cf_, DbgStackStopper.WRITE, formatted(_context, cf_, instance_), instance_, right_);
+        }
+        return null;
     }
 }
