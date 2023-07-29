@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.opers.ExecDotOperation;
 import code.expressionlanguage.exec.opers.ExecFctOperation;
 import code.expressionlanguage.exec.opers.ExecInternVariableOperation;
@@ -148,9 +149,9 @@ public final class ExecClassesUtil {
                 _context.getInit().loopCalling(_context, st_);
                 arg_ = new ArgumentWrapper(f_.getReturnedArgument(),f_.getWrapper());
             }
-            return new StackCallReturnValue(st_,arg_,vars(_context, st_));
+            return new StackCallReturnValue(st_,arg_,vars(_context, st_),st_.nbPages() > 0 && st_.getLastPage().getReadWrite() == ReadWrite.EXIT);
         }
-        return new StackCallReturnValue(st_,null,vars(_context, st_));
+        return new StackCallReturnValue(st_,null,vars(_context, st_), false);
     }
     private static CustList<ViewPage> vars(ContextEl _context, StackCall _st) {
         if (!_st.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
@@ -159,9 +160,12 @@ public final class ExecClassesUtil {
         CustList<ViewPage> ls_ = new CustList<ViewPage>();
         int pages_ = _st.nbPages();
         for (int i = 0; i < pages_; i++) {
-            CustList<ViewVariable> v_ = Cache.view(_st.getCall(i), _context);
-            Cache.sortByDeepThenName(v_);
-            ls_.add(new ViewPage(v_,new ViewInstance(_context,_st.getCall(i))));
+            AbstractPageEl call_ = _st.getCall(i);
+            if (i + 1 < pages_ || call_.getReadWrite() != ReadWrite.EXIT) {
+                CustList<ViewVariable> v_ = Cache.view(call_, _context);
+                Cache.sortByDeepThenName(v_);
+                ls_.add(new ViewPage(v_,new ViewInstance(_context, call_)));
+            }
         }
         return ls_;
     }

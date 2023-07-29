@@ -1,6 +1,6 @@
 package code.expressionlanguage.dbg;
 
-import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.StackCallReturnValue;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
 import code.util.StringMap;
@@ -14,10 +14,12 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",114,cont_);
         MethodId id_ = getMethodId("exmeth");
-        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
-        StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
-        assertEq(2,next_.nbPages());
-        assertEq(155,now(next_));
+        StackCallReturnValue stack_ = dbgNormalInit("pkg.Ex", id_, cont_);
+        assertFalse(stack_.isReturning());
+        StackCallReturnValue next_ = dbgContinueNormalValueStepRet(stack_.getStack(), cont_.getContext());
+        assertEq(1,next_.getVariables().size());
+        assertEq(155,now(next_.getStack()));
+        assertTrue(next_.isReturning());
     }
     @Test
     public void test2() {
@@ -26,11 +28,13 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",114,cont_);
         MethodId id_ = getMethodId("exmeth");
-        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
-        StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
-        StackCall prev_ = dbgContinueNormalValueStepRet(next_, cont_.getContext());
-        assertEq(1,prev_.nbPages());
-        assertEq(70,now(prev_));
+        StackCallReturnValue stack_ = dbgNormalInit("pkg.Ex", id_, cont_);
+        assertFalse(stack_.isReturning());
+        StackCallReturnValue next_ = dbgContinueNormalValueStepRet(stack_.getStack(), cont_.getContext());
+        StackCallReturnValue prev_ = dbgContinueNormalValueStepRet(next_.getStack(), cont_.getContext());
+        assertEq(0,prev_.getVariables().size());
+        assertEq(70,now(prev_.getStack()));
+        assertTrue(prev_.isReturning());
     }
     @Test
     public void test3() {
@@ -39,9 +43,54 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",114,cont_);
         MethodId id_ = getMethodId("exmeth");
-        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
-        StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
-        StackCall prev_ = dbgContinueNormalValueStepRet(next_, cont_.getContext());
-        assertEq(0,dbgContinueNormalValueStepRet(prev_, cont_.getContext()).nbPages());
+        StackCallReturnValue stack_ = dbgNormalInit("pkg.Ex", id_, cont_);
+        assertFalse(stack_.isReturning());
+        StackCallReturnValue next_ = dbgContinueNormalValueStepRet(stack_.getStack(), cont_.getContext());
+        StackCallReturnValue prev_ = dbgContinueNormalValueStepRet(next_.getStack(), cont_.getContext());
+        assertEq(0,dbgContinueNormalValueStepRet(prev_.getStack(), cont_.getContext()).getVariables().size());
+    }
+    @Test
+    public void test4() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle()+flash();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}public static int flash(){return 4;}}");
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",122,cont_);
+        MethodId id_ = getMethodId("exmeth");
+        StackCallReturnValue stack_ = dbgNormalInit("pkg.Ex", id_, cont_);
+        assertFalse(stack_.isReturning());
+        StackCallReturnValue next_ = dbgContinueNormalValueStepRet(stack_.getStack(), cont_.getContext());
+        assertEq(1,next_.getVariables().size());
+        assertEq(163,now(next_.getStack()));
+        assertEq(54,nowBefore(next_.getStack()));
+        assertTrue(next_.isReturning());
+    }
+    @Test
+    public void test5() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle()+flash();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}public static int flash(){return 4;}}");
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",114,cont_);
+        MethodId id_ = getMethodId("exmeth");
+        StackCallReturnValue stack_ = dbgNormalInit("pkg.Ex", id_, cont_);
+        assertFalse(stack_.isReturning());
+        StackCallReturnValue next_ = dbgContinueNormalValueStepRet(stack_.getStack(), cont_.getContext());
+        StackCallReturnValue prev_ = dbgContinueNormalValueStepRet(next_.getStack(), cont_.getContext());
+        assertEq(1,prev_.getVariables().size());
+        assertEq(63,nowBefore(prev_.getStack()));
+        assertTrue(prev_.isReturning());
+    }
+    @Test
+    public void test6() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle()+flash();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}public static int flash(){return 4;}}");
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",114,cont_);
+        MethodId id_ = getMethodId("exmeth");
+        StackCallReturnValue stack_ = dbgNormalInit("pkg.Ex", id_, cont_);
+        assertFalse(stack_.isReturning());
+        StackCallReturnValue next_ = dbgContinueNormalValueStepRet(stack_.getStack(), cont_.getContext());
+        StackCallReturnValue prev_ = dbgContinueNormalValueStepRet(next_.getStack(), cont_.getContext());
+        assertEq(0,dbgContinueNormalValueStepRet(prev_.getStack(), cont_.getContext()).getVariables().size());
+        assertTrue(prev_.isReturning());
     }
 }

@@ -312,7 +312,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (stopExc(_context, _stackCall, _p)) {
             return true;
         }
-        if (notBeginInstrPart(_stackCall, _p) || _p.getReadWrite() == ReadWrite.EXIT) {
+        if (_stackCall.trueException() != null || getCurrentOper(_p) != null || _p.getReadWrite() == ReadWrite.EXIT) {
             return false;
         }
         for (int i : list(_p)) {
@@ -325,7 +325,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean stopStep(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
-        if (notBeginInstrPart(_stackCall, _p)) {
+        if (stopExcValuRetThrowCatch(_stackCall, _p) != null || getCurrentOper(_p) != null) {
             return false;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && _p.getReadWrite() == ReadWrite.EXIT && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() >= _stackCall.nbPages()) {
@@ -338,10 +338,6 @@ public final class DbgStackStopper implements AbsStackStopper {
             return false;
         }
         return _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() >= _stackCall.nbPages() || _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_INSTRUCTION || stopTmp(_context, _stackCall, _p);
-    }
-
-    private static boolean notBeginInstrPart(StackCall _stackCall, AbstractPageEl _p) {
-        return _stackCall.trueException() != null || getCurrentOper(_p) != null;
     }
 
     private static boolean stopTmp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {

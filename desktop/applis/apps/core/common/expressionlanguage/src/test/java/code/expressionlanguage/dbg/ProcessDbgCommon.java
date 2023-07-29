@@ -44,6 +44,10 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return _stack.getLastPage().getTraceIndex();
 //        return _stack.getGlobalOffset();
     }
+    protected int nowBefore(StackCall _stack) {
+        return _stack.getCall(_stack.nbPages() - 2).getTraceIndex();
+//        return _stack.getGlobalOffset();
+    }
     protected int nowTrace(StackCall _stack) {
         return _stack.getLastPage().getTraceIndex();
     }
@@ -53,7 +57,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
 //    }
 //
 //    protected static StackCall dbgNormalAfterInitGene(String _class, MethodId _method, ResultContext _cont) {
-        return dbgNormalInit(_class, _method, _cont);
+        return dbgNormalInit(_class, _method, _cont).getStack();
 //        ExecRootBlock classBody_ = _cont.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
 //        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
 //        Argument argGlLoc_ = new Argument();
@@ -66,9 +70,9 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
 //    }
 //
 //    protected static StackCall dbgNormalAfterInitGene(String _class, MethodId _method, ResultContext _cont) {
-        StackCall st_ = dbgNormalInit(_class, _method, _cont);
-        assertNull(st_.getBreakPointInfo().getBreakPointOutputInfo().getCallingStateSub());
-        return st_;
+        StackCallReturnValue st_ = dbgNormalInit(_class, _method, _cont);
+        assertNull(st_.getStack().getBreakPointInfo().getBreakPointOutputInfo().getCallingStateSub());
+        return st_.getStack();
 //        ExecRootBlock classBody_ = _cont.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
 //        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
 //        Argument argGlLoc_ = new Argument();
@@ -83,13 +87,13 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
 //    protected static StackCall dbgNormalAfterInitGene(String _class, MethodId _method, ResultContext _cont) {
         return dbgNormalInfoKeep(_class, _method, _cont, _st).getStack();
     }
-    protected static StackCall dbgNormalInit(String _class, MethodId _method, ResultContext _cont) {
+    protected static StackCallReturnValue dbgNormalInit(String _class, MethodId _method, ResultContext _cont) {
 //        tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
 //        return dbgNormalAfterInit(_class, _method, _cont);
 //    }
 //
 //    protected static StackCall dbgNormalAfterInitGene(String _class, MethodId _method, ResultContext _cont) {
-        return dbgNormalInfoInit(_class, _method, _cont).getStack();
+        return dbgNormalInfoInit(_class, _method, _cont);
     }
     protected static StackCallReturnValue dbgNormalInfoKeep(String _class, MethodId _method, ResultContext _cont, StackCall _st) {
 //        tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
@@ -145,8 +149,8 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     protected static StackCall dbgContinueNormalValueNextInstMethod(StackCall _stack, ContextEl _cont) {
         return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.NEXT_IN_METHOD, false).getStack();
     }
-    protected static StackCall dbgContinueNormalValueStepRet(StackCall _stack, ContextEl _cont) {
-        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.RETURN_METHOD, false).getStack();
+    protected static StackCallReturnValue dbgContinueNormalValueStepRet(StackCall _stack, ContextEl _cont) {
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.RETURN_METHOD, false);
     }
 
     protected static StackCall dbgContinueNormalValueStepBlock(StackCall _stack, ContextEl _cont) {
