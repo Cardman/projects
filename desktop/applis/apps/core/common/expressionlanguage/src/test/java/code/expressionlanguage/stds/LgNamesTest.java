@@ -1666,42 +1666,6 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateStartsPrefixesDuplicates(kw_, s_);
         assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
-    private static void validateEscapingsContents(KeyWords _kw, AnalyzedPageEl _s, StringMap<String> _escapings) {
-        _kw.validateEscapingsContents(_escapings, _s);
-    }
-
-    private static void validateBinarySeparators(KeyWords _kw, AnalyzedPageEl _s) {
-        _kw.initSupplDigits();
-        _kw.validateBinarySeparators(_s);
-    }
-
-    private static void validateMethodsContents(AnalyzedPageEl _s, StringMap<String> _prims, StringMap<CustList<KeyValueMemberName>> _methods) {
-        ValidatorStandard.validateMethodsContents(_methods, _prims, _s);
-    }
-
-    private static void validateFieldsContents(AnalyzedPageEl _s, StringMap<String> _prims, StringMap<CustList<KeyValueMemberName>> _fields) {
-        ValidatorStandard.validateFieldsContents(_fields, _prims, _s);
-    }
-
-    private static void validateKeyWordDuplicates(KeyWords _kw, AnalyzedPageEl _s, StringMap<String> _keyWords) {
-        _kw.validateKeyWordDuplicates(_keyWords, _s);
-    }
-
-    private static void validateNbWordDuplicates(KeyWords _kw, AnalyzedPageEl _s, StringMap<String> _nbWordsBin) {
-        _kw.validateNbWordDuplicates(_nbWordsBin, _s);
-    }
-
-    private static void validatePrimitiveDuplicates(AnalyzedPageEl _s, StringMap<String> _prims) {
-        ValidatorStandard.validatePrimitiveDuplicates(_prims, _s);
-    }
-
-    private static void validateMethodsDuplicates(AnalyzedPageEl _s, StringMap<CustList<KeyValueMemberName>> _methods) {
-        ValidatorStandard.validateMethodsDuplicates(_methods, _s);
-    }
-
-    private static void validateVarTypesDuplicates(AnalyzedPageEl _s, StringMap<CustList<KeyValueMemberName>> _varTypes) {
-        ValidatorStandard.validateVarTypesDuplicates(_varTypes, _s);
-    }
 
     @Test
     public void fail69Test() {
@@ -2271,6 +2235,137 @@ public class LgNamesTest extends ProcessMethodCommon {
         existErrors(s_);
     }
 
+    @Test
+    public void success0Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return Resources.readNames().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+
+
+        KeyWords kw_ = new KeyWords();
+        CustLgNames lgName_ = getLgNames();
+
+        srcFiles_.put("src/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        Options options_ = new Options();
+        AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
+        AnalysisMessages mess_ = new AnalysisMessages();
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        page_.setAnalysisMessages(mess_);
+        page_.setKeyWords(kw_);
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        page_.setFileBuilder(fileBuilder_);
+        page_.setStandards(lgName_.getContent());
+        page_.setLogErr(new ListLoggableLgNames());
+        page_.setCalculator(calculator_);
+        page_.setMappingKeyWords(KeyWords.mapping());
+        page_.setMappingAliases(LgNamesContent.mapping());
+        AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
+        assertTrue(page_.isEmptyMessageError());
+        Forwards forwards_ = fwd(lgName_, fileBuilder_, options_);
+        assertTrue(ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_));
+    }
+    @Test
+    public void success1Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return Resources.readNames().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        
+        
+        KeyWords kw_ = new KeyWords();
+        CustLgNames lgName_ = getLgNames();
+        
+        srcFiles_.put("src/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        Options options_ = new Options();
+        AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
+        AnalysisMessages mess_ = new AnalysisMessages();
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        page_.setAnalysisMessages(mess_);
+        page_.setKeyWords(kw_);
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        page_.setFileBuilder(fileBuilder_);
+        page_.setStandards(lgName_.getContent());
+        page_.setLogErr(new ListLoggableLgNames());
+        page_.setCalculator(calculator_);
+//        page_.setMappingKeyWords(KeyWords.mapping());
+//        page_.setMappingAliases(LgNamesContent.mapping());
+        AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
+        assertTrue(page_.isEmptyMessageError());
+        ResultContext ctx_ = validate(options_,lgName_,kw_,all_);
+        assertTrue(isEmptyErrors(ctx_.getPageEl()));
+        MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
+        Argument argGlLoc_ = new Argument();
+        ExecRootBlock classBody_ = ctx_.getContext().getClasses().getClassBody("pkg.Ex");
+        ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_.getContext(), "pkg.Ex", fct_).first();
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_.getContext());
+        Argument ret_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()), ctx_.getContext(), stackCall_).getValue();
+        assertNull(stackCall_.getCallingState());
+        assertEq(2, getNumber(ret_));
+    }
+    @Test
+    public void success2Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return Resources.readNames().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        
+        
+        KeyWords kw_ = new KeyWords();
+        CustLgNames lgName_ = getLgNames();
+        
+        srcFiles_.put("src/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        Options options_ = new Options();
+        AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
+        AnalysisMessages mess_ = new AnalysisMessages();
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        page_.setAnalysisMessages(mess_);
+        page_.setKeyWords(kw_);
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        page_.setFileBuilder(fileBuilder_);
+        page_.setStandards(lgName_.getContent());
+        page_.setLogErr(new ListLoggableLgNames());
+        page_.setCalculator(calculator_);
+//        page_.setMappingKeyWords(KeyWords.mapping());
+//        page_.setMappingAliases(LgNamesContent.mapping());
+        AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
+        assertTrue(page_.isEmptyMessageError());
+        ResultContext ctx_ = validate(options_,lgName_,kw_,all_);
+        assertTrue(isEmptyErrors(ctx_.getPageEl()));
+        MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
+        Argument argGlLoc_ = new Argument();
+        ExecRootBlock classBody_ = ctx_.getContext().getClasses().getClassBody("pkg.Ex");
+        ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_.getContext(), "pkg.Ex", fct_).first();
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_.getContext());
+        Argument ret_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()), ctx_.getContext(), stackCall_).getValue();
+        assertNull(stackCall_.getCallingState());
+        assertEq(2, getNumber(ret_));
+    }
+
     private static void validateParamtersDuplicates(AnalyzedPageEl _s, CustList<CustList<KeyValueMemberName>> _params) {
         ValidatorStandard.validateParamtersDuplicates(_params, _s);
     }
@@ -2318,103 +2413,43 @@ public class LgNamesTest extends ProcessMethodCommon {
     private static void validateMergedDuplicates(AnalyzedPageEl _s, CustList<KeyValueMemberName> _merge) {
         ValidatorStandard.validateMergedDuplicates(_merge, _s);
     }
-    @Test
-    public void success1Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return Resources.readNames().length;\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> srcFiles_ = new StringMap<String>();
-        
-        
-        KeyWords kw_ = new KeyWords();
-        CustLgNames lgName_ = getLgNames();
-        
-        srcFiles_.put("src/Ex", xml_.toString());
-        StringMap<String> others_ = new StringMap<String>();
-        others_.put("pkg/hello_res.txt", "content");
-        StringMap<String> all_ = new StringMap<String>();
-        all_.putAllMap(srcFiles_);
-        all_.putAllMap(others_);
-        Options options_ = new Options();
-        AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
-        AnalysisMessages mess_ = new AnalysisMessages();
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        page_.setAnalysisMessages(mess_);
-        page_.setKeyWords(kw_);
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        page_.setFileBuilder(fileBuilder_);
-        page_.setStandards(lgName_.getContent());
-        page_.setLogErr(new ListLoggableLgNames());
-        page_.setCalculator(calculator_);
-        AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
-        assertTrue(page_.isEmptyMessageError());
-        Forwards forwards_ = fwd(lgName_, fileBuilder_, options_);
-        page_.setMappingKeyWords(KeyWords.mapping());
-        page_.setMappingAliases(LgNamesContent.mapping());
-        assertTrue(ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_));
-        ResultContext ctx_ = validate(options_,lgName_,kw_,all_);
-        assertTrue(isEmptyErrors(ctx_.getPageEl()));
-        MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
-        Argument argGlLoc_ = new Argument();
-        ExecRootBlock classBody_ = ctx_.getContext().getClasses().getClassBody("pkg.Ex");
-        ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_.getContext(), "pkg.Ex", fct_).first();
-        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_.getContext());
-        Argument ret_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()), ctx_.getContext(), stackCall_).getValue();
-        assertNull(stackCall_.getCallingState());
-        assertEq(2, getNumber(ret_));
-    }
-    @Test
-    public void success2Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return Resources.readNames().length;\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> srcFiles_ = new StringMap<String>();
-        
-        
-        KeyWords kw_ = new KeyWords();
-        CustLgNames lgName_ = getLgNames();
-        
-        srcFiles_.put("src/Ex", xml_.toString());
-        StringMap<String> others_ = new StringMap<String>();
-        others_.put("pkg/hello_res.txt", "content");
-        StringMap<String> all_ = new StringMap<String>();
-        all_.putAllMap(srcFiles_);
-        all_.putAllMap(others_);
-        Options options_ = new Options();
-        AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
-        AnalysisMessages mess_ = new AnalysisMessages();
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        page_.setAnalysisMessages(mess_);
-        page_.setKeyWords(kw_);
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        page_.setFileBuilder(fileBuilder_);
-        page_.setStandards(lgName_.getContent());
-        page_.setLogErr(new ListLoggableLgNames());
-        page_.setCalculator(calculator_);
-        AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
-        assertTrue(page_.isEmptyMessageError());
-        Forwards forwards_ = fwd(lgName_, fileBuilder_, options_);
-        page_.setMappingKeyWords(KeyWords.mapping());
-        page_.setMappingAliases(LgNamesContent.mapping());
-        assertTrue(ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_));
-        ResultContext ctx_ = validate(options_,lgName_,kw_,all_);
-        assertTrue(isEmptyErrors(ctx_.getPageEl()));
-        MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
-        Argument argGlLoc_ = new Argument();
-        ExecRootBlock classBody_ = ctx_.getContext().getClasses().getClassBody("pkg.Ex");
-        ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_.getContext(), "pkg.Ex", fct_).first();
-        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_.getContext());
-        Argument ret_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()), ctx_.getContext(), stackCall_).getValue();
-        assertNull(stackCall_.getCallingState());
-        assertEq(2, getNumber(ret_));
+
+    private static void validateEscapingsContents(KeyWords _kw, AnalyzedPageEl _s, StringMap<String> _escapings) {
+        _kw.validateEscapingsContents(_escapings, _s);
     }
 
+    private static void validateBinarySeparators(KeyWords _kw, AnalyzedPageEl _s) {
+        _kw.initSupplDigits();
+        _kw.validateBinarySeparators(_s);
+    }
+
+    private static void validateMethodsContents(AnalyzedPageEl _s, StringMap<String> _prims, StringMap<CustList<KeyValueMemberName>> _methods) {
+        ValidatorStandard.validateMethodsContents(_methods, _prims, _s);
+    }
+
+    private static void validateFieldsContents(AnalyzedPageEl _s, StringMap<String> _prims, StringMap<CustList<KeyValueMemberName>> _fields) {
+        ValidatorStandard.validateFieldsContents(_fields, _prims, _s);
+    }
+
+    private static void validateKeyWordDuplicates(KeyWords _kw, AnalyzedPageEl _s, StringMap<String> _keyWords) {
+        _kw.validateKeyWordDuplicates(_keyWords, _s);
+    }
+
+    private static void validateNbWordDuplicates(KeyWords _kw, AnalyzedPageEl _s, StringMap<String> _nbWordsBin) {
+        _kw.validateNbWordDuplicates(_nbWordsBin, _s);
+    }
+
+    private static void validatePrimitiveDuplicates(AnalyzedPageEl _s, StringMap<String> _prims) {
+        ValidatorStandard.validatePrimitiveDuplicates(_prims, _s);
+    }
+
+    private static void validateMethodsDuplicates(AnalyzedPageEl _s, StringMap<CustList<KeyValueMemberName>> _methods) {
+        ValidatorStandard.validateMethodsDuplicates(_methods, _s);
+    }
+
+    private static void validateVarTypesDuplicates(AnalyzedPageEl _s, StringMap<CustList<KeyValueMemberName>> _varTypes) {
+        ValidatorStandard.validateVarTypesDuplicates(_varTypes, _s);
+    }
     private static StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(AnalyzedPageEl _lgName) {
         return _lgName.getFileBuilder().getDefaultAliasGroups().allTableTypeMethodNames(LgNamesContent.mapping());
     }
