@@ -223,32 +223,37 @@ public final class DbgStackStopper implements AbsStackStopper {
     public boolean stopBreakPoint(ContextEl _context, StackCall _stackCall) {
         AbstractPageEl p_ = _stackCall.getLastPage();
         CheckedExecOperationNodeInfos infos_;
-        ExecOperationNode ex_;
         if (p_ instanceof AbstractLambdaVariable) {
             infos_ = ((AbstractLambdaVariable) p_).infosVisited(_context, _stackCall);
-            ex_ = null;
         } else if (p_.getReadWrite() == ReadWrite.EXIT && _stackCall.nbPages() > 1) {
             AbstractPageEl previous_ = _stackCall.getCall(_stackCall.nbPages() - 2);
             if (!previous_.isEmptyEl()) {
                 ExpressionLanguage el_ = previous_.getLastEl();
-                ex_ = el_.getCurrentOper();
                 infos_ = end(_context, _stackCall, el_);
             } else {
                 infos_ = null;
-                ex_ = null;
             }
         } else if (!p_.isEmptyEl()){
             ExpressionLanguage el_ = p_.getLastEl();
-            ex_ = el_.getCurrentOper();
             infos_ = expOper(el_, el_.getCurrentOper(), _context, _stackCall);
         } else {
-            ex_ = null;
             infos_ = null;
         }
         if (checkBreakPoint(_stackCall,p_,infos_)) {
-            return stopAtCheckedBp(_context, _stackCall, p_, ex_, infos_);
+            return stopAtCheckedBp(_context, _stackCall, p_, infos_);
         }
         return false;
+    }
+
+    private static ExecOperationNode getCurrentOper(AbstractPageEl _p) {
+        ExecOperationNode ex_;
+        if (!_p.isEmptyEl()){
+            ExpressionLanguage el_ = _p.getLastEl();
+            ex_ = el_.getCurrentOper();
+        } else {
+            ex_ = null;
+        }
+        return ex_;
     }
 
     private static CheckedExecOperationNodeInfos end(ContextEl _context, StackCall _stackCall, ExpressionLanguage _el) {
@@ -293,16 +298,16 @@ public final class DbgStackStopper implements AbsStackStopper {
         return ExecHelperBlocks.checkBpWithoutClear(_stack, _index, _ip, _list, _bl);
     }
 
-    private static boolean stopAtCheckedBp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, ExecOperationNode _ex, CheckedExecOperationNodeInfos _infos) {
+    private static boolean stopAtCheckedBp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CheckedExecOperationNodeInfos _infos) {
         if (_stackCall.getStackState().visitedInst()) {
             return false;
         }
         _stackCall.getStackState().visitInst();
         _stackCall.setOperElt(_infos);
-        if (stopStep(_context, _stackCall, _p, _ex)) {
+        if (stopStep(_context, _stackCall, _p)) {
             return true;
         }
-        if (_ex == null && _context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().get()) {
+        if (getCurrentOper(_p) == null && _context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().get()) {
             _context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().set(false);
             return true;
         }
@@ -317,7 +322,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (stopExc(_context, _stackCall, _p)) {
             return true;
         }
-        if (!beginInstrPart(_stackCall, _p, _ex)) {
+        if (notBeginInstrPart(_stackCall, _p) || _p.getReadWrite() == ReadWrite.EXIT) {
             return false;
         }
         for (int i : list(_p)) {
@@ -329,15 +334,24 @@ public final class DbgStackStopper implements AbsStackStopper {
         return false;
     }
 
-    private static boolean stopStep(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, ExecOperationNode _ex) {
+    private static boolean stopStep(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
+        if (notBeginInstrPart(_stackCall, _p)) {
+            return false;
+        }
         if (_stackCall.getStep() == StepDbgActionEnum.RETURN_METHOD && _p.getReadWrite() == ReadWrite.EXIT && _stackCall.getPreviousNbPages() >= _stackCall.nbPages()) {
             return true;
         }
-        return beginInstrPart(_stackCall,_p, _ex) && (_stackCall.getStep() == StepDbgActionEnum.NEXT_BLOCK && (_stackCall.getPreviousNbPages() == _stackCall.nbPages() && _stackCall.getPreviousNbBlocks() > _p.nbBlock() || _stackCall.getPreviousNbPages() > _stackCall.nbPages()) || _stackCall.getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getPreviousNbPages() >= _stackCall.nbPages() || _stackCall.getStep() == StepDbgActionEnum.NEXT_INSTRUCTION || stopTmp(_context, _stackCall, _p));
+        if (_stackCall.getStep() == StepDbgActionEnum.NEXT_BLOCK && (_stackCall.getPreviousNbPages() == _stackCall.nbPages() && _stackCall.getPreviousNbBlocks() > _p.nbBlock() || _stackCall.getPreviousNbPages() > _stackCall.nbPages())) {
+            return true;
+        }
+        if (_p.getReadWrite() == ReadWrite.EXIT) {
+            return false;
+        }
+        return _stackCall.getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getPreviousNbPages() >= _stackCall.nbPages() || _stackCall.getStep() == StepDbgActionEnum.NEXT_INSTRUCTION || stopTmp(_context, _stackCall, _p);
     }
 
-    private static boolean beginInstrPart(StackCall _stackCall, AbstractPageEl _p, ExecOperationNode _ex) {
-        return _stackCall.trueException() == null && _ex == null && _p.getReadWrite() != ReadWrite.EXIT;
+    private static boolean notBeginInstrPart(StackCall _stackCall, AbstractPageEl _p) {
+        return _stackCall.trueException() != null || getCurrentOper(_p) != null;
     }
 
     private static boolean stopTmp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
