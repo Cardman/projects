@@ -325,6 +325,10 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean stopStep(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
+        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && _stackCall.getBreakPointInfo().getStackState().isRemoved() && !_stackCall.getBreakPointInfo().getStackState().isEntered()) {
+            _stackCall.getBreakPointInfo().getStackState().setRemoved(false);
+            return true;
+        }
         if (stopExcValuRetThrowCatch(_stackCall, _p) != null || getCurrentOper(_p) != null) {
             return false;
         }
@@ -528,7 +532,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean checkBreakPoint(StackCall _stackCall, AbstractPageEl _p, CheckedExecOperationNodeInfos _infos) {
-        if (_stackCall.trueException() != null || _infos != null) {
+        if (_stackCall.getBreakPointInfo().getStackState().isRemoved() || _stackCall.trueException() != null || _infos != null) {
             return true;
         }
         if (_p.getReadWrite() == ReadWrite.EXIT) {

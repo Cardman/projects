@@ -72,6 +72,7 @@ public class DefaultInitializer implements Initializer {
     @Override
     public final void loopCalling(ContextEl _owner, StackCall _stackCall) {
         _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(false);
+        _stackCall.getBreakPointInfo().getStackState().setEntered(false);
         _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCallingStateSub(null);
         while (true) {
             AbstractInterceptorStdCaller caller_ = _owner.getCaller();
@@ -97,6 +98,7 @@ public class DefaultInitializer implements Initializer {
             _stackCall.getBreakPointInfo().getStackState().setCheckingBp(false);
             return false;
         }
+        _stackCall.getBreakPointInfo().getStackState().setRemoved(false);
         AbstractPageEl p_ = _stackCall.getLastPage();
         ReadWrite rw_ = p_.getReadWrite();
         if (rw_ == ReadWrite.EXIT) {
@@ -104,6 +106,7 @@ public class DefaultInitializer implements Initializer {
                 ((StaticInitPageEl)p_).sucessClass(_owner);
             }
             _stackCall.removeLastPage();
+            _stackCall.getBreakPointInfo().getStackState().setRemoved(true);
             if (_stackCall.nbPages() == 0) {
                 return true;
             }
@@ -152,6 +155,7 @@ public class DefaultInitializer implements Initializer {
         if (_stack.getStopper().stopAt(_stack)) {
             return false;
         }
+        _stack.getBreakPointInfo().getStackState().setEntered(true);
         AbstractPageEl abs_ = ExecutingUtil.processAfterOperation(_owner, _stack);
         if (abs_ != null) {
             ExecutingUtil.addPage(abs_, _stack);
