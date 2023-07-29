@@ -59,9 +59,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 for (int j = indexAnnotation; j < lenLoc_; j++) {
                     ExecAnnotContent ops_ = annotationsParams.get(i).get(j);
                     globalOffset(ops_.getOffset());
-                    int size_ = sizeEl();
                     Argument ret_ = ExecHelperBlocks.tryToCalculate(_context,0,_stack,ops_.getOperations(),0,null);
-                    if (_stack.getStopper().stopAt(_context,_stack,size_)) {
+                    if (_stack.getStopper().stopAt(_context,_stack)) {
                         return false;
                     }
                     clearCurrentEls();
@@ -79,9 +78,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         for (int i = indexAnnotation; i < len_; i++) {
             ExecAnnotContent ops_ = annotations.get(i);
             globalOffset(ops_.getOffset());
-            int size_ = sizeEl();
             Argument ret_ = ExecHelperBlocks.tryToCalculate(_context,0,_stack,ops_.getOperations(),0, null);
-            if (_stack.getStopper().stopAt(_context,_stack,size_)) {
+            if (_stack.getStopper().stopAt(_context,_stack)) {
                 return false;
             }
             clearCurrentEls();

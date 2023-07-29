@@ -135,13 +135,13 @@ public final class ExecClassesUtil {
     }
     public static StackCallReturnValue tryInitStaticlyTypes(ContextEl _context, Options _options, StackCall _st, CallingState _callee, StepDbgActionEnum _step, boolean _mute) {
         if (_st != null) {
-            _st.setStep(_step);
-            _st.setMute(_mute);
+            _st.getBreakPointInfo().getBreakPointInputInfo().setStep(_step);
+            _st.getBreakPointInfo().getBreakPointInputInfo().setMute(_mute);
         }
         StackCall st_ = tryInitStaticlyTypes(_context, _options, _st, _mute);
         if (st_.getInitializingTypeInfos().getInitEnums() == InitPhase.NOTHING) {
             ArgumentWrapper arg_;
-            if (!st_.isStoppedBreakPoint()) {
+            if (!st_.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
                 arg_ = ProcessMethod.calculate(_callee, _context, st_);
             } else {
                 AbstractPageEl f_ = st_.getCall(0);
@@ -153,7 +153,7 @@ public final class ExecClassesUtil {
         return new StackCallReturnValue(st_,null,vars(_context, st_));
     }
     private static CustList<ViewPage> vars(ContextEl _context, StackCall _st) {
-        if (!_st.isStoppedBreakPoint()) {
+        if (!_st.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
             _context.getClasses().getDebugMapping().getBreakPointsBlock().resetList();
         }
         CustList<ViewPage> ls_ = new CustList<ViewPage>();
@@ -183,7 +183,7 @@ public final class ExecClassesUtil {
         if (_st.getInitializingTypeInfos().getInitEnums() == InitPhase.READ_ONLY_OTHERS) {
             s_ = endOrder(_context, _st);
         } else {
-            if (!_st.isStoppedBreakPoint()) {
+            if (!_st.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
                 StringUtil.removeObj(_context.getClasses().getDebugMapping().getTypesInit(), _context.getClasses().getDebugMapping().getInitClass());
             }
             s_ = _st;
@@ -192,7 +192,7 @@ public final class ExecClassesUtil {
     }
 
     private static StackCall check(ContextEl _context, StackCall _st) {
-        if (_st.isStoppedBreakPoint()) {
+        if (_st.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
             return _st;
         }
         return afterInit(_context,_st);
@@ -220,13 +220,13 @@ public final class ExecClassesUtil {
         dl_.init(_context);
         _context.setExiting(new DefaultExiting(_context));
         StackCall st_ = StackCall.newInstance(InitPhase.READ_ONLY_OTHERS,_context);
-        st_.setMute(_mute);
+        st_.getBreakPointInfo().getBreakPointInputInfo().setMute(_mute);
         st_.getInitializingTypeInfos().setInitEnums(InitPhase.READ_ONLY_OTHERS);
         return st_;
     }
 
     private static StackCall endOrder(ContextEl _context, StackCall _st) {
-        if (_st.isStoppedBreakPoint()) {
+        if (_st.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
             return _st;
         }
         CustList<String> f_ = notInit(_context);
@@ -243,7 +243,7 @@ public final class ExecClassesUtil {
                 if (_st.isFailInit()) {
                     cl_.getCommon().setStaticFields(bk_);
                 } else {
-                    if (_st.isStoppedBreakPoint()) {
+                    if (_st.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
                         return _st;
                     }
                     new_.add(c);
@@ -259,7 +259,7 @@ public final class ExecClassesUtil {
     }
 
     private static StackCall tryList(StackCall _orig, ContextEl _context, Options _options) {
-        if (_orig.isStoppedBreakPoint()) {
+        if (_orig.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
             return endList(_context, _context.getClasses().getDebugMapping().getTypesInit(), _orig);
         }
         if (_orig.getInitializingTypeInfos().getInitEnums() == InitPhase.LIST) {
@@ -276,7 +276,7 @@ public final class ExecClassesUtil {
     }
 
     private static StackCall endList(ContextEl _context, CustList<String> _options, StackCall _st) {
-        if (_st.isStoppedBreakPoint()) {
+        if (_st.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
             return check(_context, _st);
         }
         CustList<String> ts_ = _context.getClasses().getDebugMapping().getTypesInit();
@@ -290,7 +290,7 @@ public final class ExecClassesUtil {
             _st.getInitializingTypeInfos().resetInitEnums(_st);
             _context.getClasses().getDebugMapping().setInitClass(res_);
             ProcessMethod.initializeClass(res_,classBody_, _context, _st);
-            if (_st.isStoppedBreakPoint()) {
+            if (_st.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
                 StringUtil.removeAllElements(ts_,init_);
                 return _st;
             }

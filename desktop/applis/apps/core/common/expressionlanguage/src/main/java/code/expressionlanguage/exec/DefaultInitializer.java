@@ -71,8 +71,8 @@ public class DefaultInitializer implements Initializer {
     }
     @Override
     public final void loopCalling(ContextEl _owner, StackCall _stackCall) {
-        _stackCall.setStoppedBreakPoint(false);
-        _stackCall.setCallingStateSub(null);
+        _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(false);
+        _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCallingStateSub(null);
         while (true) {
             AbstractInterceptorStdCaller caller_ = _owner.getCaller();
             if (caller_.stop(this,_owner, _stackCall) || caller_.exitAfterCallInt(this,_owner, _stackCall)) {
@@ -83,9 +83,9 @@ public class DefaultInitializer implements Initializer {
 
     public boolean stop(ContextEl _owner, StackCall _stackCall) {
         if (_stackCall.getStopper().stopBreakPoint(_owner,_stackCall)) {
-            _stackCall.setStoppedBreakPoint(true);
-            _stackCall.setPreviousNbPages(_stackCall.nbPages());
-            _stackCall.setPreviousNbBlocks(_stackCall.getLastPage().nbBlock());
+            _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(true);
+            _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setPreviousNbPages(_stackCall.nbPages());
+            _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setPreviousNbBlocks(_stackCall.getLastPage().nbBlock());
             _owner.getClasses().getDebugMapping().getBreakPointsBlock().getListTmp().clear();
             return true;
         }
@@ -93,8 +93,8 @@ public class DefaultInitializer implements Initializer {
     }
 
     public boolean stopNormal(ContextEl _owner, StackCall _stackCall) {
-        if (_stackCall.getStopper().isCheckingException(_stackCall)) {
-            _stackCall.getStackState().setCheckingBp(false);
+        if (_stackCall.getStopper().stopAt(_stackCall)) {
+            _stackCall.getBreakPointInfo().getStackState().setCheckingBp(false);
             return false;
         }
         AbstractPageEl p_ = _stackCall.getLastPage();
@@ -119,7 +119,7 @@ public class DefaultInitializer implements Initializer {
         }
         checkStack(_owner, _stackCall);
         if (_stackCall.getStopper().hasFoundException(_stackCall)) {
-            _stackCall.getStackState().resetVisit(true);
+            _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
         }
         return false;
     }
@@ -149,7 +149,7 @@ public class DefaultInitializer implements Initializer {
         return exitAfterCall(_owner, _stack);
     }
     protected boolean exitAfterCall(ContextEl _owner, StackCall _stack) {
-        if (_stack.getStopper().isCheckingException(_stack)) {
+        if (_stack.getStopper().stopAt(_stack)) {
             return false;
         }
         AbstractPageEl abs_ = ExecutingUtil.processAfterOperation(_owner, _stack);

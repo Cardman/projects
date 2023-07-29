@@ -19,11 +19,11 @@ public final class ExecRefReturnMethod extends ExecAbstractExpressionReturnMetho
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.globalOffset(getExpressionOffset());
         ArgumentsPair argumentsPair_ = ExecHelperBlocks.tryToCalculatePair(_cont, IndexConstants.FIRST_INDEX, _stack, getExp(), 0, this);
-        if (_stack.getStopper().stopAt(_stack) || argumentsPair_ == null) {
+        if (_stack.getStopper().stopAt(_cont,_stack)) {
             return;
         }
         ip_.clearCurrentEls();
-        if (!getExp().isEmpty()) {
+        if (argumentsPair_ != null) {
             ip_.setWrapper(argumentsPair_.getWrapper());
             ip_.setReturnedArgument(argumentsPair_.getArgument());
         }

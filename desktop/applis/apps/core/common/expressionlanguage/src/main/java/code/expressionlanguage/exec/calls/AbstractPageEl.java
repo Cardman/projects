@@ -159,9 +159,9 @@ public abstract class AbstractPageEl {
         if (el_ == null) {
             el_ = new ExpressionLanguage(_e, _coveredBlock);
             currentEls.add(el_);
-            _stack.getStackState().resetVisit(true);
+            _stack.getBreakPointInfo().getStackState().resetVisit(true);
         } else {
-            _stack.getStackState().setCheckingBp(false);
+            _stack.getBreakPointInfo().getStackState().setCheckingBp(false);
         }
         return el_;
     }

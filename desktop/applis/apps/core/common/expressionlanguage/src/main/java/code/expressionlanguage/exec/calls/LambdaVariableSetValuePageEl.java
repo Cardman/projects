@@ -42,7 +42,7 @@ public final class LambdaVariableSetValuePageEl extends AbstractLambdaVariable {
         ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(argumentWrappers_);
         AbstractWrapper w_ = firstArgumentWrapper_.getWrapper();
         if (w_ instanceof FieldWrapper) {
-            _stackCall.getStackState().resetVisit(true);
+            _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
             ClassField cf_ = ((FieldWrapper) w_).getId();
             Struct right_ = ArgumentListCall.toStr(ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)));
             Struct instance_ = value(w_);

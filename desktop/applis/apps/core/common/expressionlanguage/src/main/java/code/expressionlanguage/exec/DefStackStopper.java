@@ -24,7 +24,7 @@ public final class DefStackStopper implements AbsStackStopper {
     }
 
     @Override
-    public boolean stopAt(ContextEl _context, StackCall _stack, int _size) {
+    public boolean stopAt(ContextEl _context, StackCall _stack) {
         return _context.callsOrException(_stack);
     }
 
@@ -41,16 +41,6 @@ public final class DefStackStopper implements AbsStackStopper {
     @Override
     public boolean isStopAt(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, StackCall _stackCall) {
         return false;
-    }
-
-    @Override
-    public boolean isCheckingException(StackCall _stack) {
-        return false;
-    }
-
-    @Override
-    public boolean isChecking(ExpressionLanguage _o, ContextEl _context, StackCall _stackCall) {
-        return _context.callsOrException(_stackCall);
     }
 
     @Override

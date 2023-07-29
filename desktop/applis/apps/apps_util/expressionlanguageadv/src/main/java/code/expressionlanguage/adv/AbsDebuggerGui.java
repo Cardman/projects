@@ -246,7 +246,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         }
         setStackCallView(view_);
         stackCall = getStackCallView().getStack();
-        if (!stackCall.isStoppedBreakPoint()) {
+        if (!stackCall.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
             callStack.removeAll();
             callButtons.clear();
             root = new DbgRootStruct(currentResult);

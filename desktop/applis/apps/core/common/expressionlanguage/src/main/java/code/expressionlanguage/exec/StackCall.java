@@ -6,7 +6,6 @@ import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.dbg.StackState;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.NullStruct;
@@ -17,7 +16,6 @@ import code.util.CustList;
 public final class StackCall implements AbstractStackCall {
 
     private CallingState callingState;
-    private CallingState callingStateSub;
 
     private final CustList<AbstractPageEl> importing = new CustList<AbstractPageEl>();
 
@@ -27,18 +25,12 @@ public final class StackCall implements AbstractStackCall {
     private Struct seedSpecDoubleGenerator;
     private Struct seed;
     private final CustomSeedGene seedCust;
-    private boolean stoppedBreakPoint;
 
-    private StepDbgActionEnum step;
-    private boolean mute;
-    private int previousNbPages;
-    private int previousNbBlocks;
-    private final StackState stackState = new StackState();
+    private final BreakPointInfo breakPointInfo = new BreakPointInfo();
     private final AbsStackStopper stopper;
-    private CoreCheckedExecOperationNodeInfos operElt;
     public StackCall(AbsStackStopper _s,InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
         stopper = _s;
-        step = _s.firstStep();
+        breakPointInfo.getBreakPointInputInfo().setStep(_s.firstStep());
         initializingTypeInfos = new InitializingTypeInfos();
         initializingTypeInfos.setInitEnums(_readOnlyOthers);
         seedSpecGenerator = NullStruct.NULL_VALUE;
@@ -125,7 +117,7 @@ public final class StackCall implements AbstractStackCall {
     public void nullReadWrite() {
         AbstractPageEl l_ = getLastPage();
         l_.setNullReadWrite();
-        getStackState().resetVisit(false);
+        getBreakPointInfo().getStackState().resetVisit(false);
     }
     public AbstractPageEl getLastPage() {
         return importing.last();
@@ -194,14 +186,6 @@ public final class StackCall implements AbstractStackCall {
         this.callingState = _callingState;
     }
 
-    public CallingState getCallingStateSub() {
-        return callingStateSub;
-    }
-
-    public void setCallingStateSub(CallingState _c) {
-        this.callingStateSub = _c;
-    }
-
     public AbstractFullStack getFullStack() {
         return fullStack;
     }
@@ -210,55 +194,8 @@ public final class StackCall implements AbstractStackCall {
         this.fullStack = _fullStack;
     }
 
-    public boolean isStoppedBreakPoint() {
-        return stoppedBreakPoint;
+    public BreakPointInfo getBreakPointInfo() {
+        return breakPointInfo;
     }
 
-    public void setStoppedBreakPoint(boolean _s) {
-        this.stoppedBreakPoint = _s;
-    }
-
-    public StepDbgActionEnum getStep() {
-        return step;
-    }
-
-    public void setStep(StepDbgActionEnum _s) {
-        this.step = _s;
-    }
-
-    public boolean isMute() {
-        return mute;
-    }
-
-    public void setMute(boolean _m) {
-        this.mute = _m;
-    }
-
-    public int getPreviousNbPages() {
-        return previousNbPages;
-    }
-
-    public void setPreviousNbPages(int _p) {
-        this.previousNbPages = _p;
-    }
-
-    public int getPreviousNbBlocks() {
-        return previousNbBlocks;
-    }
-
-    public void setPreviousNbBlocks(int _p) {
-        this.previousNbBlocks = _p;
-    }
-
-    public StackState getStackState() {
-        return stackState;
-    }
-
-    public CoreCheckedExecOperationNodeInfos getOperElt() {
-        return operElt;
-    }
-
-    public void setOperElt(CoreCheckedExecOperationNodeInfos _o) {
-        this.operElt = _o;
-    }
 }

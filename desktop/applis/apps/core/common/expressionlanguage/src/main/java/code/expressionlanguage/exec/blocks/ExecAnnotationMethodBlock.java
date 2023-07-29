@@ -50,13 +50,10 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock {
     public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last) {
         _last.globalOffset(defaultValueOffset);
         Argument arg_ = ExecHelperBlocks.tryToCalculate(_cont,0,_stack,getOpValue(),0, this);
-        if (_stack.getStopper().stopAt(_stack)) {
+        if (_stack.getStopper().stopAt(_cont,_stack)) {
             return;
         }
         setValue(_cont,arg_, _last.getBlockRootType(), _stack);
-        if (_cont.callsOrException(_stack)) {
-            return;
-        }
         _last.clearCurrentEls();
         ExecHelperBlocks.processMemberBlock(_stack,_last);
     }
@@ -68,9 +65,6 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock {
         setValue(_type,idCl_,name_,ret_,_cont,_arg, _stackCall);
     }
     public static void setValue(ExecRootBlock _rootBlock, String _cl, String _name, String _returnType, ContextEl _cont, Argument _arg, StackCall _stackCall) {
-        if (_cont.callsOrException(_stackCall)) {
-            return;
-        }
         AbstractPageEl ip_ = _stackCall.getLastPage();
         Argument gl_ = ip_.getGlobalArgument();
         Argument arg_ = ExecAnnotationMethodOperation.swallowCopy(_arg.getStruct());

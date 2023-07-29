@@ -2,6 +2,7 @@ package code.expressionlanguage.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecForMutableIterativeLoop;
 import code.expressionlanguage.exec.blocks.ExecInnerElementBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -26,7 +27,7 @@ public final class ExpressionLanguage {
     public ExpressionLanguage(CustList<ExecOperationNode> _operations, ExecBlock _coveredBlock) {
         coveredBlock = _coveredBlock;
         arguments = buildArguments(_operations);
-        if (_operations.isEmpty()) {
+        if (_operations.isEmpty() && _coveredBlock instanceof ExecForMutableIterativeLoop) {
             argument = new ArgumentsPair();
             argument.setArgument(new Argument(BooleanStruct.of(true)));
         }
@@ -39,10 +40,13 @@ public final class ExpressionLanguage {
         }
         IdMap<ExecOperationNode, ArgumentsPair> allRight_ = _right.getArguments();
         calculate(allRight_, _right, _conf, _offset, _stackCall);
-        if (_stackCall.getStopper().isChecking(_right,_conf,_stackCall)) {
+        if (_stackCall.getStopper().stopAt(_conf,_stackCall)) {
             return null;
         }
-        _right.argument = ExecHelper.getArgumentPair(_right.arguments,_right.arguments.size()-1);
+        if (_right.arguments.isEmpty()) {
+            return null;
+        }
+        _right.argument = _right.arguments.lastValue();
         _stackCall.getLastPage().setTranslatedOffset(0);
         return _right.argument;
     }
@@ -159,7 +163,7 @@ public final class ExpressionLanguage {
         if (_context.callsOrException(_stackCall)) {
             return;
         }
-        _stackCall.getStackState().resetVisit(false);
+        _stackCall.getBreakPointInfo().getStackState().resetVisit(false);
         index = getNextIndex(arguments, _currentOper, _least);
     }
 
@@ -168,7 +172,7 @@ public final class ExpressionLanguage {
             processCalling(_exp, _stackCall.getLastPage(), _oper, _stackCall);
             return _max;
         }
-        _stackCall.getStackState().resetVisit(false);
+        _stackCall.getBreakPointInfo().getStackState().resetVisit(false);
         return getNextIndex(_args,_oper,_least);
     }
     private static int getNextIndex(IdMap<ExecOperationNode, ArgumentsPair> _args, ExecOperationNode _oper, int _least) {

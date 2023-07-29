@@ -12,16 +12,14 @@ public interface AbsStackStopper {
     StepDbgActionEnum firstStep();
     boolean firstEnter(AbstractPageEl _page);
     boolean stopAt(StackCall _stack);
-    boolean stopAt(ContextEl _context, StackCall _stack, int _size);
+    boolean stopAt(ContextEl _context, StackCall _stack);
     boolean stopBreakPoint(ContextEl _context, StackCall _stackCall);
 
     boolean hasFoundException(StackCall _stackCall);
     ExpressionLanguageBp checkBpWithoutClear(StackCall _stack, int _index, AbstractPageEl _ip, CustList<ExecOperationNode> _list, ExecBlock _bl);
 
     boolean isStopAt(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, StackCall _stackCall);
-    boolean isChecking(ExpressionLanguage _o,ContextEl _context, StackCall _stackCall);
     boolean isStopAtRefField(FieldMetaInfo _meta, ContextEl _context, StackCall _stackCall);
     boolean isStopAtRefVar(ArgumentListCall _meta, ContextEl _context, StackCall _stackCall);
 
-    boolean isCheckingException(StackCall _stack);
 }

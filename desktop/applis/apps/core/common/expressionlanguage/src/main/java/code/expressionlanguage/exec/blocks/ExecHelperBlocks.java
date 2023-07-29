@@ -437,9 +437,8 @@ public final class ExecHelperBlocks {
             return;
         }
         ip_.globalOffset(_value.getOffset());
-        int size_ = ip_.sizeEl();
         Argument arg_ = tryToCalculate(_cont, IndexConstants.FIRST_INDEX, _stack, _value.getList(), 0, _bl);
-        if (_stack.getStopper().stopAt(_cont,_stack,size_)) {
+        if (_stack.getStopper().stopAt(_cont,_stack)) {
             return;
         }
         _bl.processCase(_label,arg_, _stack);
@@ -449,9 +448,8 @@ public final class ExecHelperBlocks {
         AbstractPageEl ip_ = _stack.getLastPage();
         _l.getContent().setEvaluatingKeepLoop(true);
         ip_.globalOffset(_step.getOffset());
-        int size_ = ip_.sizeEl();
         tryToCalculate(_conf,IndexConstants.FIRST_INDEX,_stack,_step.getList(),0, _block);
-        if (_stack.getStopper().stopAt(_conf,_stack,size_)) {
+        if (_stack.getStopper().stopAt(_conf,_stack)) {
             return;
         }
         if (ip_.sizeEl() <= IndexConstants.SECOND_INDEX) {
@@ -481,9 +479,8 @@ public final class ExecHelperBlocks {
                 ip_.putValueVar(v, LocalVariable.newLocalVariable(struct_,formatted_));
             }
         }
-        int size_ = ip_.sizeEl();
         tryToCalculate(_cont,IndexConstants.FIRST_INDEX,_stack,_init.getList(),0, _bl);
-        if (_stack.getStopper().stopAt(_cont,_stack,size_)){
+        if (_stack.getStopper().stopAt(_cont,_stack)){
             return;
         }
         ConditionReturn res_ = evaluateCondition(_cont, _stack, _exp, _bl);
@@ -515,9 +512,8 @@ public final class ExecHelperBlocks {
     private static ConditionReturn evaluateConditionBas(ContextEl _context, int _index, StackCall _stackCall, ExecBlock _execCondition, ExecOperationNodeListOff _condition) {
         AbstractPageEl last_ = _stackCall.getLastPage();
         last_.globalOffset(_condition.getOffset());
-        int size_ = last_.sizeEl();
         Argument arg_ = tryToCalculate(_context, _index, _stackCall, _condition.getList(), 0, _execCondition);
-        if (_stackCall.getStopper().stopAt(_context,_stackCall,size_)) {
+        if (_stackCall.getStopper().stopAt(_context,_stackCall)) {
             return ConditionReturn.CALL_EX;
         }
         last_.clearCurrentEls();
@@ -546,10 +542,7 @@ public final class ExecHelperBlocks {
         int offset_ = exp_.getOffset();
         lastPage_.globalOffset(offset_);
         Argument visit_ = ExecHelperBlocks.tryToCalculate(_cont, 1, _stack, list_, 0, _br);
-        if (_stack.getStopper().stopAt(_stack)){
-            return new ExecResultCase(ConditionReturn.CALL_EX, _br, index_);
-        }
-        if (_cont.callsOrException(_stack)) {
+        if (_stack.getStopper().stopAt(_cont,_stack)) {
             String v_ = _in.getContent().getVariableName();
             if (!v_.isEmpty() && !_stack.calls()) {
                 _stack.getLastPage().removeRefVar(v_);
@@ -627,9 +620,8 @@ public final class ExecHelperBlocks {
             processVisitedLoop(c_, _bl, _bl, _cont, _stack, ip_);
             return;
         }
-        int size_ = ip_.sizeEl();
         Struct its_ = processLoopForEach(_cont, _stack, _expression, _bl);
-        if (_stack.getStopper().stopAt(_cont,_stack,size_)) {
+        if (_stack.getStopper().stopAt(_cont,_stack)) {
             return;
         }
         LoopBlockStack l_ = _bl.newLoopBlockStack(_cont, _label,its_, _stack);
@@ -650,9 +642,8 @@ public final class ExecHelperBlocks {
     private static Struct processLoopForEach(ContextEl _conf, StackCall _stackCall, ExecOperationNodeListOff _expression, ExecBlock _coveredBlock) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         ip_.globalOffset(_expression.getOffset());
-        int size_ = ip_.sizeEl();
         Argument arg_ = tryToCalculate(_conf, IndexConstants.FIRST_INDEX, _stackCall, _expression.getList(), 0, _coveredBlock);
-        if (_stackCall.getStopper().stopAt(_conf,_stackCall,size_)) {
+        if (_stackCall.getStopper().stopAt(_conf,_stackCall)) {
             return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();
@@ -689,9 +680,8 @@ public final class ExecHelperBlocks {
         AbstractPageEl abs_ = _stackCall.getLastPage();
 
         abs_.globalOffset(_bk.getVariable().getOffset());
-        int size_ = abs_.sizeEl();
         Argument arg_ = _bk.retrieveValue(_conf,_l, _stackCall);
-        if (_stackCall.getStopper().stopAt(_conf,_stackCall,size_)) {
+        if (_stackCall.getStopper().stopAt(_conf,_stackCall)) {
             return;
         }
         abs_.clearCurrentEls();
@@ -709,9 +699,8 @@ public final class ExecHelperBlocks {
 
     public static ConditionReturn hasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall, String _locName, CustList<ExecOperationNode> _el, ExecBlock _coveredBlock) {
         _stackCall.getLastPage().putInternVars(_locName, _l.getContent().getStructIterator(), _conf);
-        int size_ = _stackCall.getLastPage().sizeEl();
         Argument arg_ = tryToCalculate(_conf, IndexConstants.FIRST_INDEX, _stackCall, _el, 0, _coveredBlock);
-        if (_stackCall.getStopper().stopAt(_conf,_stackCall,size_)) {
+        if (_stackCall.getStopper().stopAt(_conf,_stackCall)) {
             return ConditionReturn.CALL_EX;
         }
         if (BooleanStruct.isTrue(arg_.getStruct())) {
@@ -729,9 +718,8 @@ public final class ExecHelperBlocks {
         String locName_ = _cont.getClasses().getIteratorVarCust();
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.putInternVars(locName_, _its, _cont);
-        int size_ = ip_.sizeEl();
         Argument arg_ = tryToCalculate(_cont, IndexConstants.SECOND_INDEX, _stack, _cont.getClasses().getExpsIteratorCust(), 0, _block);
-        if (_stack.getStopper().stopAt(_cont,_stack,size_)) {
+        if (_stack.getStopper().stopAt(_cont,_stack)) {
             return null;
         }
         long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -777,18 +765,16 @@ public final class ExecHelperBlocks {
             processVisitedLoop(c_, _block, _block, _cont, _stack, ip_);
             return;
         }
-        int size_ = ip_.sizeEl();
         Struct its_ = processLoop(_expression,_cont, _stack,_block);
-        if (_stack.getStopper().stopAt(_cont,_stack,size_)) {
+        if (_stack.getStopper().stopAt(_cont,_stack)) {
             return;
         }
         long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         Classes cls_ = _cont.getClasses();
         String locName_ = cls_.getIteratorTableVarCust();
         _stack.getLastPage().putInternVars(locName_, its_, _cont);
-        int sizeIt_ = ip_.sizeEl();
         Argument arg_ = tryToCalculate(_cont, IndexConstants.SECOND_INDEX, _stack, _cont.getClasses().getExpsIteratorTableCust(), 0, _block);
-        if (_stack.getStopper().stopAt(_cont,_stack,sizeIt_)) {
+        if (_stack.getStopper().stopAt(_cont,_stack)) {
             return;
         }
         Struct iterStr_ = arg_.getStruct();
@@ -824,9 +810,8 @@ public final class ExecHelperBlocks {
     private static Struct processLoop(ExecOperationNodeListOff _expression, ContextEl _conf, StackCall _stackCall, ExecBlock _coveredBlock) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         ip_.globalOffset(_expression.getOffset());
-        int size_ = ip_.sizeEl();
         Argument arg_ = tryToCalculate(_conf, IndexConstants.FIRST_INDEX, _stackCall, _expression.getList(), 0, _coveredBlock);
-        if (_stackCall.getStopper().stopAt(_conf,_stackCall,size_)) {
+        if (_stackCall.getStopper().stopAt(_conf,_stackCall)) {
             return NullStruct.NULL_VALUE;
         }
         Struct ito_ = arg_.getStruct();
@@ -846,9 +831,8 @@ public final class ExecHelperBlocks {
             _stackCall.getLastPage().putInternVars(locName_, _l.getContent().getStructIterator(), _conf);
             _stackCall.getLastPage().globalOffset(_block.getOffsets().getSeparatorNext());
         }
-        int sizeNext_ = call_.sizeEl();
         tryToCalculate(_conf,IndexConstants.SECOND_INDEX, _stackCall, _conf.getClasses().getExpsNextPairCust(),0, _block);
-        if (_stackCall.getStopper().stopAt(_conf,_stackCall,sizeNext_)) {
+        if (_stackCall.getStopper().stopAt(_conf,_stackCall)) {
             return;
         }
         if (call_.sizeEl() < 3) {
@@ -857,9 +841,8 @@ public final class ExecHelperBlocks {
             _stackCall.getLastPage().putInternVars(locName_, value_, _conf);
             _stackCall.getLastPage().globalOffset(_block.getVariableFirst().getOffset());
         }
-        int sizeFirst_ = call_.sizeEl();
         Argument arg_ = tryToCalculate(_conf, 2, _stackCall, _conf.getClasses().getExpsFirstCust(), 0, _block);
-        if (_stackCall.getStopper().stopAt(_conf,_stackCall,sizeFirst_)) {
+        if (_stackCall.getStopper().stopAt(_conf,_stackCall)) {
             return;
         }
         if (call_.sizeEl() < 4) {
@@ -875,9 +858,8 @@ public final class ExecHelperBlocks {
             _stackCall.getLastPage().putInternVars(locName_, value_, _conf);
             _stackCall.getLastPage().globalOffset(_block.getVariableSecond().getOffset());
         }
-        int sizeSecond_ = call_.sizeEl();
         arg_ = tryToCalculate(_conf,3,_stackCall,_conf.getClasses().getExpsSecondCust(),0, _block);
-        if (_stackCall.getStopper().stopAt(_conf,_stackCall,sizeSecond_)) {
+        if (_stackCall.getStopper().stopAt(_conf,_stackCall)) {
             return;
         }
         String className_ = _stackCall.formatVarType(_block.getVariableSecond().getType());
@@ -925,9 +907,8 @@ public final class ExecHelperBlocks {
         String var_ = _block.getVariableName();
 
         ip_.globalOffset(_init.getOffset());
-        int sizeInit_ = ip_.sizeEl();
         Argument argFrom_ = tryToCalculate(_conf, IndexConstants.FIRST_INDEX, _stackCall, _init.getList(), 0, _block);
-        if (_stackCall.getStopper().stopAt(_conf,_stackCall,sizeInit_)) {
+        if (_stackCall.getStopper().stopAt(_conf,_stackCall)) {
             return null;
         }
         if (argFrom_.isNull()) {
@@ -936,9 +917,8 @@ public final class ExecHelperBlocks {
             return null;
         }
         ip_.globalOffset(_exp.getOffset());
-        int sizeTo_ = ip_.sizeEl();
         Argument argTo_ = tryToCalculate(_conf, IndexConstants.SECOND_INDEX, _stackCall, _exp.getList(), 0, _block);
-        if (_stackCall.getStopper().stopAt(_conf,_stackCall,sizeTo_)) {
+        if (_stackCall.getStopper().stopAt(_conf,_stackCall)) {
             return null;
         }
         if (argTo_.isNull()) {
@@ -947,9 +927,8 @@ public final class ExecHelperBlocks {
             return null;
         }
         ip_.globalOffset(_step.getOffset());
-        int sizeStep_ = ip_.sizeEl();
         Argument argStep_ = tryToCalculate(_conf, IndexConstants.SECOND_INDEX + 1, _stackCall, _step.getList(), 0, _block);
-        if (_stackCall.getStopper().stopAt(_conf,_stackCall,sizeStep_)) {
+        if (_stackCall.getStopper().stopAt(_conf,_stackCall)) {
             return null;
         }
         if (argStep_.isNull()) {
@@ -1085,9 +1064,8 @@ public final class ExecHelperBlocks {
         AbstractPageEl ip_ = _stack.getLastPage();
 
         ip_.globalOffset(_exp.getOffset());
-        int size_ = ip_.sizeEl();
         tryToCalculate(_cont,IndexConstants.FIRST_INDEX,_stack,_exp.getList(),0, _block);
-        if (_stack.getStopper().stopAt(_cont,_stack,size_)) {
+        if (_stack.getStopper().stopAt(_cont,_stack)) {
             return;
         }
         if (ip_ instanceof AbstractCallingInstancingPageEl &&(_block.isCallSuper() || _block.isCallInts())) {

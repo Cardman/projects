@@ -45,26 +45,21 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
     @Override
     public boolean stopAt(StackCall _stack) {
-        return _stack.getStackState().isCheckingBp();
+        return _stack.getBreakPointInfo().getStackState().isCheckingBp();
     }
 
     @Override
-    public boolean isCheckingException(StackCall _stack) {
-        return _stack.trueException() != null && _stack.getStackState().isCheckingBp();
-    }
-
-    @Override
-    public boolean stopAt(ContextEl _context, StackCall _stack, int _size) {
-        return stopAt(_stack) || _context.callsOrException(_stack);
+    public boolean stopAt(ContextEl _context, StackCall _stack) {
+        return _stack.getBreakPointInfo().getStackState().isCheckingBp() || _context.callsOrException(_stack);
     }
 
     @Override
     public boolean isStopAt(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, StackCall _stackCall) {
-        if (_stackCall.getStackState().visitedExp()) {
+        if (_stackCall.getBreakPointInfo().getStackState().visitedExp()) {
             return false;
         }
-        _stackCall.getStackState().resetVisit(true);
-        _stackCall.getStackState().visitExp();
+        _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
+        _stackCall.getBreakPointInfo().getStackState().visitExp();
         _el.currentOper(_o);
         return true;
     }
@@ -202,7 +197,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     @Override
     public boolean isStopAtRefField(FieldMetaInfo _meta, ContextEl _context, StackCall _stackCall) {
         if (AbstractLambdaVariable.stopMetaField(_meta, _context, _stackCall)) {
-            _stackCall.getStackState().resetVisit(true);
+            _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
             return true;
         }
         return false;
@@ -210,13 +205,8 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     @Override
     public boolean isStopAtRefVar(ArgumentListCall _meta, ContextEl _context, StackCall _stackCall) {
-        _stackCall.getStackState().resetVisit(true);
+        _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
         return true;
-    }
-
-    @Override
-    public boolean isChecking(ExpressionLanguage _o, ContextEl _context, StackCall _stackCall) {
-        return _stackCall.getStackState().isCheckingBp() ||_context.callsOrException(_stackCall);
     }
 
     @Override
@@ -299,11 +289,11 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean stopAtCheckedBp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CheckedExecOperationNodeInfos _infos) {
-        if (_stackCall.getStackState().visitedInst()) {
+        if (_stackCall.getBreakPointInfo().getStackState().visitedInst()) {
             return false;
         }
-        _stackCall.getStackState().visitInst();
-        _stackCall.setOperElt(_infos);
+        _stackCall.getBreakPointInfo().getStackState().visitInst();
+        _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setOperElt(_infos);
         if (stopStep(_context, _stackCall, _p)) {
             return true;
         }
@@ -311,7 +301,7 @@ public final class DbgStackStopper implements AbsStackStopper {
             _context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().set(false);
             return true;
         }
-        if (_stackCall.isMute()) {
+        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().isMute()) {
             return false;
         }
         if (_infos != null) {
@@ -338,16 +328,16 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (notBeginInstrPart(_stackCall, _p)) {
             return false;
         }
-        if (_stackCall.getStep() == StepDbgActionEnum.RETURN_METHOD && _p.getReadWrite() == ReadWrite.EXIT && _stackCall.getPreviousNbPages() >= _stackCall.nbPages()) {
+        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && _p.getReadWrite() == ReadWrite.EXIT && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() >= _stackCall.nbPages()) {
             return true;
         }
-        if (_stackCall.getStep() == StepDbgActionEnum.NEXT_BLOCK && (_stackCall.getPreviousNbPages() == _stackCall.nbPages() && _stackCall.getPreviousNbBlocks() > _p.nbBlock() || _stackCall.getPreviousNbPages() > _stackCall.nbPages())) {
+        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_BLOCK && (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() == _stackCall.nbPages() && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbBlocks() > _p.nbBlock() || _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() > _stackCall.nbPages())) {
             return true;
         }
         if (_p.getReadWrite() == ReadWrite.EXIT) {
             return false;
         }
-        return _stackCall.getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getPreviousNbPages() >= _stackCall.nbPages() || _stackCall.getStep() == StepDbgActionEnum.NEXT_INSTRUCTION || stopTmp(_context, _stackCall, _p);
+        return _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() >= _stackCall.nbPages() || _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_INSTRUCTION || stopTmp(_context, _stackCall, _p);
     }
 
     private static boolean notBeginInstrPart(StackCall _stackCall, AbstractPageEl _p) {
@@ -355,7 +345,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean stopTmp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
-        if (_stackCall.getStep() == StepDbgActionEnum.CURSOR) {
+        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.CURSOR) {
             for (int i : list(_p)) {
                 if (_context.getClasses().getDebugMapping().getBreakPointsBlock().isTmp(_p.getFile(), i)) {
                     return true;
@@ -379,7 +369,7 @@ public final class DbgStackStopper implements AbsStackStopper {
             return false;
         }
         String clName_ = _str.getClassName(_context);
-        _stackCall.setOperElt(new CoreCheckedExecOperationNodeInfos(new ExecFormattedRootBlock(_context.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(clName_)), clName_), _str,null));
+        _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setOperElt(new CoreCheckedExecOperationNodeInfos(new ExecFormattedRootBlock(_context.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(clName_)), clName_), _str,null));
         return stopCurrent(_context, _stackCall, _p, _bp.getResult());
     }
 
@@ -504,9 +494,9 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (_result == null) {
             return true;
         }
-        StackCallReturnValue result_ = _result.eval(_context, _stackCall.getOperElt(), _p);
+        StackCallReturnValue result_ = _result.eval(_context, _stackCall.getBreakPointInfo().getBreakPointOutputInfo().getOperElt(), _p);
         if (result_.getStack().getCallingState() != null) {
-            _stackCall.setCallingStateSub(result_.getStack().getCallingState());
+            _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCallingStateSub(result_.getStack().getCallingState());
             return true;
         }
         return BooleanStruct.isTrue(ArgumentListCall.toStr(result_.getRetValue().getValue()));
