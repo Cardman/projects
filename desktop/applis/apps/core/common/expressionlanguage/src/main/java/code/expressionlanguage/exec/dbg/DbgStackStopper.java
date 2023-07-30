@@ -297,14 +297,14 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (stopStep(_context, _stackCall, _p)) {
             return true;
         }
-        if (_stackCall.trueException() == null && _context.callsOrException(_stackCall)) {
-            return false;
-        }
         if (getCurrentOper(_p) == null && _context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().get()) {
             _context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().set(false);
             return true;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().isMute()) {
+            return false;
+        }
+        if (_stackCall.trueException() == null && _context.callsOrException(_stackCall)) {
             return false;
         }
         if (stopExc(_context, _stackCall, _p)) {
