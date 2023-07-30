@@ -15,7 +15,7 @@ public interface AbsStackStopper {
     boolean stopAt(ContextEl _context, StackCall _stack);
     boolean stopBreakPoint(ContextEl _context, StackCall _stackCall);
 
-    boolean hasFoundException(StackCall _stackCall);
+    boolean callsOrException(ContextEl _owner, StackCall _stackCall);
     ExpressionLanguageBp checkBpWithoutClear(StackCall _stack, int _index, AbstractPageEl _ip, CustList<ExecOperationNode> _list, ExecBlock _bl);
 
     boolean isStopAt(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, StackCall _stackCall);

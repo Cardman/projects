@@ -5,8 +5,7 @@ import code.expressionlanguage.exec.VisitingState;
 public final class StackState {
     private VisitingState visitedState = VisitingState.NONE;
     private boolean checkingBp;
-    private boolean removed;
-    private boolean entered;
+    private boolean mustStop;
 
     public void resetVisit(boolean _checkingBp) {
         this.visitedState = VisitingState.NONE;
@@ -45,19 +44,11 @@ public final class StackState {
         this.checkingBp = _c;
     }
 
-    public boolean isRemoved() {
-        return removed;
+    public boolean isMustStop() {
+        return mustStop;
     }
 
-    public void setRemoved(boolean _r) {
-        this.removed = _r;
-    }
-
-    public boolean isEntered() {
-        return entered;
-    }
-
-    public void setEntered(boolean _e) {
-        this.entered = _e;
+    public void setMustStop(boolean _m) {
+        this.mustStop = _m;
     }
 }

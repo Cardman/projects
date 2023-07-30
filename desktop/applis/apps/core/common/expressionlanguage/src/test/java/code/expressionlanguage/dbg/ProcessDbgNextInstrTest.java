@@ -53,7 +53,7 @@ public final class ProcessDbgNextInstrTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().set(true);
-        StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext()).getStack();
+        StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
         assertEq(1,next_.nbPages());
         assertEq(62,now(next_));
     }

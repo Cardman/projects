@@ -44,10 +44,6 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return _stack.getLastPage().getTraceIndex();
 //        return _stack.getGlobalOffset();
     }
-    protected int nowBefore(StackCall _stack) {
-        return _stack.getCall(_stack.nbPages() - 2).getTraceIndex();
-//        return _stack.getGlobalOffset();
-    }
     protected int nowTrace(StackCall _stack) {
         return _stack.getLastPage().getTraceIndex();
     }
@@ -149,8 +145,8 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     protected static StackCall dbgContinueNormalValueNextInstMethod(StackCall _stack, ContextEl _cont) {
         return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.NEXT_IN_METHOD, false).getStack();
     }
-    protected static StackCallReturnValue dbgContinueNormalValueStepRet(StackCall _stack, ContextEl _cont) {
-        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.RETURN_METHOD, false);
+    protected static StackCall dbgContinueNormalValueStepRet(StackCall _stack, ContextEl _cont) {
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.RETURN_METHOD, false).getStack();
     }
 
     protected static StackCall dbgContinueNormalValueStepBlock(StackCall _stack, ContextEl _cont) {

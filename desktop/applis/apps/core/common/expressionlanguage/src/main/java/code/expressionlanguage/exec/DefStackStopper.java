@@ -49,7 +49,7 @@ public final class DefStackStopper implements AbsStackStopper {
     }
 
     @Override
-    public boolean hasFoundException(StackCall _stackCall) {
+    public boolean callsOrException(ContextEl _owner, StackCall _stackCall) {
         return false;
     }
 

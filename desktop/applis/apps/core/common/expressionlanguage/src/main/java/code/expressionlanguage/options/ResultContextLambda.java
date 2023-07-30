@@ -235,7 +235,7 @@ public final class ResultContextLambda {
         AbstractInterceptorStdCaller c_ = context.getCaller();
         while (true) {
             if (c_.stopNormal(i_, context, _stack) || c_.exitAfterCallInt(i_,context, _stack)) {
-                return new StackCallReturnValue(_stack, new ArgumentWrapper(ArgumentListCall.toStr(_page.getReturnedArgument())), new CustList<ViewPage>(),true);
+                return new StackCallReturnValue(_stack, new ArgumentWrapper(ArgumentListCall.toStr(_page.getReturnedArgument())), new CustList<ViewPage>());
             }
         }
     }

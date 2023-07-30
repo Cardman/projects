@@ -279,8 +279,8 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     @Override
-    public boolean hasFoundException(StackCall _stackCall) {
-        return _stackCall.trueException() != null;
+    public boolean callsOrException(ContextEl _owner, StackCall _stackCall) {
+        return _owner.callsOrException(_stackCall);
     }
 
     @Override
@@ -297,6 +297,9 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (stopStep(_context, _stackCall, _p)) {
             return true;
         }
+        if (_stackCall.trueException() == null && _context.callsOrException(_stackCall)) {
+            return false;
+        }
         if (getCurrentOper(_p) == null && _context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().get()) {
             _context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().set(false);
             return true;
@@ -304,13 +307,13 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().isMute()) {
             return false;
         }
-        if (_infos != null) {
+        if (stopExc(_context, _stackCall, _p)) {
+            return true;
+        }
+        if (stopExcValuRetThrowCatch(_stackCall, _p) == null && _infos != null) {
             ClassField clField_ = _infos.getIdClass();
             WatchPoint bp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNullWatch(clField_);
             return stopCurrentWp(bp_, _context, _p, _stackCall, _infos);
-        }
-        if (stopExc(_context, _stackCall, _p)) {
-            return true;
         }
         if (_stackCall.trueException() != null || getCurrentOper(_p) != null || _p.getReadWrite() == ReadWrite.EXIT) {
             return false;
@@ -325,15 +328,19 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean stopStep(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
-        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && _stackCall.getBreakPointInfo().getStackState().isRemoved() && !_stackCall.getBreakPointInfo().getStackState().isEntered()) {
-            _stackCall.getBreakPointInfo().getStackState().setRemoved(false);
+        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && _stackCall.getBreakPointInfo().getStackState().isMustStop()) {
+            _stackCall.getBreakPointInfo().getStackState().setMustStop(false);
             return true;
         }
         if (stopExcValuRetThrowCatch(_stackCall, _p) != null || getCurrentOper(_p) != null) {
             return false;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && _p.getReadWrite() == ReadWrite.EXIT && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() >= _stackCall.nbPages()) {
-            return true;
+            if (_stackCall.nbPages() == 1) {
+                return true;
+            }
+            _stackCall.getBreakPointInfo().getStackState().setMustStop(true);
+            return false;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_BLOCK && (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() == _stackCall.nbPages() && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbBlocks() > _p.nbBlock() || _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() > _stackCall.nbPages())) {
             return true;
@@ -532,7 +539,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean checkBreakPoint(StackCall _stackCall, AbstractPageEl _p, CheckedExecOperationNodeInfos _infos) {
-        if (_stackCall.getBreakPointInfo().getStackState().isRemoved() || _stackCall.trueException() != null || _infos != null) {
+        if (_stackCall.getBreakPointInfo().getStackState().isMustStop() || _stackCall.trueException() != null || _infos != null) {
             return true;
         }
         if (_p.getReadWrite() == ReadWrite.EXIT) {
