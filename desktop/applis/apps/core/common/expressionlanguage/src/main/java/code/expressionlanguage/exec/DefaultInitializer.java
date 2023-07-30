@@ -95,6 +95,9 @@ public class DefaultInitializer implements Initializer {
     public boolean stopNormal(ContextEl _owner, StackCall _stackCall) {
         if (_stackCall.getStopper().stopAt(_stackCall)) {
             _stackCall.getBreakPointInfo().getStackState().setCheckingBp(false);
+            if (_stackCall.getCallingState() instanceof CustomFoundExc && _stackCall.getLastPage().getReadWrite() == ReadWrite.EXIT) {
+                _stackCall.removeLastPage();
+            }
             ExecutingUtil.processException(_owner, _stackCall);
             return false;
         }

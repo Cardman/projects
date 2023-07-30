@@ -21,5 +21,6 @@ public interface AbsStackStopper {
     boolean isStopAt(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, StackCall _stackCall);
     boolean isStopAtRefField(FieldMetaInfo _meta, ContextEl _context, StackCall _stackCall);
     boolean isStopAtRefVar(ArgumentListCall _meta, ContextEl _context, StackCall _stackCall);
+    boolean isStopAtExcMethod();
 
 }

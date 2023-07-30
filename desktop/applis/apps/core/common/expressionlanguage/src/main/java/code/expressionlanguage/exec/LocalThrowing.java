@@ -30,6 +30,12 @@ public final class LocalThrowing {
                 bkIp_.removeLastBlock();
             }
             custCause_ = _conf.getLocks().processErrorClass(_conf, retrieve(_stackCall,custCause_), bkIp_, _stackCall);
+            if (_stackCall.getStopper().isStopAtExcMethod()) {
+                _stackCall.nullReadWrite();
+                _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
+                _stackCall.setCallingState(new CustomFoundExc(custCause_,_stackCall.isFailInit()));
+                return;
+            }
             _stackCall.removeLastPage();
         }
         _stackCall.setCallingState(new CustomFoundExc(custCause_,_stackCall.isFailInit()));

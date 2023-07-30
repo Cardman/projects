@@ -284,6 +284,11 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     @Override
+    public boolean isStopAtExcMethod() {
+        return true;
+    }
+
+    @Override
     public ExpressionLanguageBp checkBpWithoutClear(StackCall _stack, int _index, AbstractPageEl _ip, CustList<ExecOperationNode> _list, ExecBlock _bl) {
         return ExecHelperBlocks.checkBpWithoutClear(_stack, _index, _ip, _list, _bl);
     }
