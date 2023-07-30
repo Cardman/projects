@@ -33,13 +33,18 @@ public final class LocalThrowing {
             if (_stackCall.getStopper().isStopAtExcMethod()) {
                 _stackCall.nullReadWrite();
                 _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
-                _stackCall.setCallingState(new CustomFoundExc(custCause_,_stackCall.isFailInit()));
+                excState(_stackCall, custCause_);
                 return;
             }
             _stackCall.removeLastPage();
         }
-        _stackCall.setCallingState(new CustomFoundExc(custCause_,_stackCall.isFailInit()));
+        excState(_stackCall, custCause_);
     }
+
+    private static void excState(StackCall _stackCall, Struct _custCause) {
+        _stackCall.setCallingState(new CustomFoundExc(_custCause, _stackCall.isFailInit()));
+    }
+
     public static Struct retrieve(StackCall _stackCall, Struct _old) {
         CustomFoundExc c_ = _stackCall.trueException();
         if (c_ != null) {
