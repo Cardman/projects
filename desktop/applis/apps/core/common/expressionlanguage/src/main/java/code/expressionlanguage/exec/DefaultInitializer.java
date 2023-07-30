@@ -99,6 +99,7 @@ public class DefaultInitializer implements Initializer {
         }
         AbstractPageEl p_ = _stackCall.getLastPage();
         ReadWrite rw_ = p_.getReadWrite();
+        _stackCall.getBreakPointInfo().getStackState().setRemoved(false);
         if (rw_ == ReadWrite.EXIT) {
             if (p_ instanceof StaticInitPageEl) {
                 ((StaticInitPageEl)p_).sucessClass(_owner);
@@ -110,6 +111,8 @@ public class DefaultInitializer implements Initializer {
             AbstractPageEl b_ = _stackCall.getLastPage();
             tryForward(_owner, p_, b_, _stackCall);
             rw_ = b_.getReadWrite();
+            _stackCall.getBreakPointInfo().getStackState().setRemoved(true);
+            _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
         }
         if (_owner.callsOrException(_stackCall)) {
             rw_ = ReadWrite.EXIT;
