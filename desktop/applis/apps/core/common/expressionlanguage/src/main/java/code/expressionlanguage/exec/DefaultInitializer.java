@@ -95,6 +95,7 @@ public class DefaultInitializer implements Initializer {
     public boolean stopNormal(ContextEl _owner, StackCall _stackCall) {
         if (_stackCall.getStopper().stopAt(_stackCall)) {
             _stackCall.getBreakPointInfo().getStackState().setCheckingBp(false);
+            ExecutingUtil.processException(_owner, _stackCall);
             return false;
         }
         AbstractPageEl p_ = _stackCall.getLastPage();
@@ -123,6 +124,9 @@ public class DefaultInitializer implements Initializer {
         checkStack(_owner, _stackCall);
         if (_stackCall.getStopper().callsOrException(_owner,_stackCall)) {
             _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
+        }
+        if (!_stackCall.getStopper().stopAt(_stackCall)) {
+            ExecutingUtil.processException(_owner, _stackCall);
         }
         return false;
     }
@@ -159,7 +163,6 @@ public class DefaultInitializer implements Initializer {
         if (abs_ != null) {
             ExecutingUtil.addPage(abs_, _stack);
         }
-        ExecutingUtil.processException(_owner, _stack);
         return _owner.callsOrException(_stack);
     }
 
