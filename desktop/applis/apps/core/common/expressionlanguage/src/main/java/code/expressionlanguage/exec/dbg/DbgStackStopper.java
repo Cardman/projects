@@ -336,14 +336,11 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() > _stackCall.nbPages() || _p.getReadWrite() == ReadWrite.EXIT &&_stackCall.nbPages() == 1)) {
             return true;
         }
-        if (stopExcValuRetThrowCatch(_stackCall, _p) != null || getCurrentOper(_p) != null) {
+        if (stopExcValuRetThrowCatch(_stackCall, _p) != null || getCurrentOper(_p) != null || _p.getReadWrite() == ReadWrite.EXIT) {
             return false;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_BLOCK && (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() == _stackCall.nbPages() && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbBlocks() > _p.nbBlock() || _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() > _stackCall.nbPages())) {
             return true;
-        }
-        if (_p.getReadWrite() == ReadWrite.EXIT) {
-            return false;
         }
         return _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() >= _stackCall.nbPages() || _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_INSTRUCTION || stopTmp(_context, _stackCall, _p);
     }
