@@ -42,7 +42,7 @@ public final class SettableFieldOperation extends
         boolean baseAccess_ = interf.isBaseAccess();
         boolean superAccess_ = interf.isSuperAccess();
         boolean affect_ = aff();
-        ScopeFilter scope_ = new ScopeFilter(null, baseAccess_, superAccess_, false, _page.getGlobalClass());
+        ScopeFilter scope_ = new ScopeFilter(null, baseAccess_, superAccess_, false, _page.getGlobalType().getRootBlock());
         FieldResult r_ = resolveDeclaredCustField(isStaticAccess() != MethodAccessKind.INSTANCE, cl_, fieldName_, import_, affect_, _page, scope_);
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             FoundErrorInterpret access_ = new FoundErrorInterpret();

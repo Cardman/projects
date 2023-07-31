@@ -84,10 +84,10 @@ public final class AnaTypeUtil {
         Accessed subAcc_ = new Accessed(subId_.getBlock().getAccess(), _l.getSub().getPackageName(), _l.getSub());
         Accessed supAcc_ = new Accessed(supId_.getBlock().getAccess(), _l.getSup().getPackageName(), _l.getSup());
         if (subId_.eq(supId_)) {
-            if (ContextUtil.canAccess(_type.getFullName(), subAcc_, _page)) {
+            if (ContextUtil.canAccess(_type, subAcc_)) {
                 addDtoClass(_type.getAllOverridingMethods(), _key, subId_);
             }
-        } else if (ContextUtil.canAccess(subId_.getGeneString(), supAcc_, _page)) {
+        } else if (ContextUtil.canAccess(subId_.getType(), supAcc_)) {
             String formattedRetDer_ = quickFormat(subId_);
             String formattedRetBase_ = quickFormat(supId_);
             if (supId_.getBlock().isFinalMethod()) {

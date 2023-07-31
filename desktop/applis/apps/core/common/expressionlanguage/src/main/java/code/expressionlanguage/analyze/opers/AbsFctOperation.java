@@ -70,7 +70,7 @@ public abstract class AbsFctOperation extends InvokingOperation implements PreAn
             return;
         }
         setMethodFound(trimMeth_);
-        setMethodInfos(getDeclaredCustMethodByType(isStaticAccess(), getBounds(clName(_page), _page), trimMeth_, isImportType(), _page, new ScopeFilter(null, true, _superClass, isLvalue(), true, _page.getGlobalClass()), getFormattedFilter(_page, this)));
+        setMethodInfos(getDeclaredCustMethodByType(isStaticAccess(), getBounds(clName(_page), _page), trimMeth_, isImportType(), _page, new ScopeFilter(null, true, _superClass, isLvalue(), true, _page.getGlobalType().getRootBlock()), getFormattedFilter(_page, this)));
         filterByNameReturnType(_page, trimMeth_, getMethodInfos());
     }
 
@@ -162,7 +162,7 @@ public abstract class AbsFctOperation extends InvokingOperation implements PreAn
             trueFalse(_page,trimMeth_,true,feed_, _bounds,name_);
             return;
         }
-        std(_page,trimMeth_, _bounds,name_, new ScopeFilter(feed_, true, _superClass, isLvalue(), true, _page.getGlobalClass()));
+        std(_page,trimMeth_, _bounds,name_, new ScopeFilter(feed_, true, _superClass, isLvalue(), true, _page.getGlobalType().getRootBlock()));
     }
 
     protected void trueFalse(AnalyzedPageEl _page, String _trMethod, boolean _staticChoiceMethod, ClassMethodIdAncestor _feedBase, StringList _bounds, NameParametersFilter _name) {

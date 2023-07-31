@@ -135,7 +135,7 @@ public final class ResultText {
                 StringList argCla_ = feedArgs(_res,_page);
                 _page.zeroOffset();
                 _page.setSumOffset(colsGrId_);
-                ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), lk_, argCla_, _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
+                ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), lk_, argCla_, _page, new ScopeFilter(null, true, true, false, _page.getGlobalType().getRootBlock()));
                 _res.resultAnc = classMethodIdReturn_;
                 check(_page,colsGrId_,classMethodIdReturn_);
                 _res.sgn = AnaRendBlock.toSgn(classMethodIdReturn_,_page);

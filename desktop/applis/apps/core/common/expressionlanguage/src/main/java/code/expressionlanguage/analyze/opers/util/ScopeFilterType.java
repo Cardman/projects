@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers.util;
 
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.TypeInfo;
@@ -15,15 +16,15 @@ public final class ScopeFilterType {
     private final MethodAccessKind kind;
     private final int anc;
     private final StringList superTypesBase;
-    private final StringMap<String> superTypesBaseAncBis;
+    private final StringMap<RootBlock> superTypesBaseAncBis;
     private final TypeInfo typeInfo;
     private final AnaFormattedRootBlock formatted;
     private final String fullName;
-    private final String glClass;
+    private final RootBlock glClass;
     private final FormattedFilter formattedFilter;
     private final boolean excAbs;
 
-    public ScopeFilterType(ScopeFilter _scope, TypeInfo _typeInfo, MethodAccessKind _kind, StringList _superTypesBase, StringMap<String> _superTypesBaseAncBis, FormattedFilter _formattedFilter) {
+    public ScopeFilterType(ScopeFilter _scope, TypeInfo _typeInfo, MethodAccessKind _kind, StringList _superTypesBase, StringMap<RootBlock> _superTypesBaseAncBis, FormattedFilter _formattedFilter) {
         baseClass = _scope.isBaseClass();
         superClass = _scope.isSuperClass();
         excAbs = _scope.isExcAbs();
@@ -56,7 +57,7 @@ public final class ScopeFilterType {
         return excAbs;
     }
 
-    public String getGlClass() {
+    public RootBlock getGlClass() {
         return glClass;
     }
 
@@ -76,7 +77,7 @@ public final class ScopeFilterType {
         return superTypesBase;
     }
 
-    public StringMap<String> getSuperTypesBaseAncBis() {
+    public StringMap<RootBlock> getSuperTypesBaseAncBis() {
         return superTypesBaseAncBis;
     }
 

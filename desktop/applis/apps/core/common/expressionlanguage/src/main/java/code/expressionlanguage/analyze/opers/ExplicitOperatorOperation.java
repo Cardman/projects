@@ -117,7 +117,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             CustList<MethodInfo> ops_ = getOperators(isLvalue(), null, _page);
             methodInfos.add(ops_);
         } else {
-            methodInfos = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(from), opSearch, false, _page, new ScopeFilter(null, true, false, isLvalue(), _page.getGlobalClass()), getFormattedFilter(_page, this));
+            methodInfos = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(from), opSearch, false, _page, new ScopeFilter(null, true, false, isLvalue(), _page.getGlobalType().getRootBlock()), getFormattedFilter(_page, this));
         }
         int len_ = methodInfos.size();
         for (int i = 0; i < len_; i++) {
@@ -471,7 +471,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         if (from.isEmpty()) {
             cust_ = getOperator(isLvalue(), possibleId(_id), _varargOnly, opSearch, _varargParam, _name, _page);
         } else {
-            cust_ = tryGet(_varargOnly, opSearch, _varargParam, _name, _page, getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(from), opSearch, false, _name, _page, new ScopeFilter(_id, true, false, isLvalue(), _page.getGlobalClass())));
+            cust_ = tryGet(_varargOnly, opSearch, _varargParam, _name, _page, getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(from), opSearch, false, _name, _page, new ScopeFilter(_id, true, false, isLvalue(), _page.getGlobalType().getRootBlock())));
         }
         return cust_;
     }

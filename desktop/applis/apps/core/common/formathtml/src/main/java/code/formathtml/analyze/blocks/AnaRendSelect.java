@@ -74,7 +74,7 @@ public final class AnaRendSelect extends AnaRendElement implements AnaRendBuildE
             int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvertValue());
             _page.setSumOffset(offConvValue_);
             _page.zeroOffset();
-            ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterValue_.trim(), new StringList(string_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
+            ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterValue_.trim(), new StringList(string_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalType().getRootBlock()));
             rootConverter = classMethodIdReturn_;
             checkMultiple(_anaDoc,_page, classMethodIdReturn_);
         } else if (rootRead != null){
@@ -101,7 +101,7 @@ public final class AnaRendSelect extends AnaRendElement implements AnaRendBuildE
             int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvertField());
             _page.setSumOffset(offConvValue_);
             _page.zeroOffset();
-            ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterField_.trim(), new StringList(object_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
+            ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterField_.trim(), new StringList(object_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalType().getRootBlock()));
             rootConverterField = classMethodIdReturn_;
             checkCharSeq(_anaDoc,_page,offConvValue_,classMethodIdReturn_);
         }
@@ -111,7 +111,7 @@ public final class AnaRendSelect extends AnaRendElement implements AnaRendBuildE
             int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvertFieldValue());
             _page.setSumOffset(offConvValue_);
             _page.zeroOffset();
-            ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterFieldValue_.trim(), new StringList(object_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
+            ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterFieldValue_.trim(), new StringList(object_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalType().getRootBlock()));
             rootConverterFieldValue = classMethodIdReturn_;
             checkCharSeq(_anaDoc,_page,offConvValue_,classMethodIdReturn_);
         }
@@ -206,7 +206,7 @@ public final class AnaRendSelect extends AnaRendElement implements AnaRendBuildE
         int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvertValue());
         _page.setSumOffset(offConvValue_);
         _page.zeroOffset();
-        ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), _conValue.trim(), new StringList(string_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
+        ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), _conValue.trim(), new StringList(string_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalType().getRootBlock()));
         rootConverter = classMethodIdReturn_;
         String check_ = ResultText.check(_page, offConvValue_, classMethodIdReturn_);
         _m.setArg(check_);

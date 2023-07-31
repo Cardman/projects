@@ -76,7 +76,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         fromArray = class_.isArray();
         StringList bounds_ = bounds(_page, fwd_, class_);
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, false, _page, new ScopeFilter(null, baseAccess_, accessSuperTypes_, false,excAbs_, _page.getGlobalClass()), getFormattedFilter(_page, this));
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, false, _page, new ScopeFilter(null, baseAccess_, accessSuperTypes_, false,excAbs_, _page.getGlobalType().getRootBlock()), getFormattedFilter(_page, this));
         int len_ = methodInfos.size();
         for (int i = 0; i < len_; i++) {
             int gr_ = methodInfos.get(i).size();
@@ -192,7 +192,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         if (parSet() instanceof AffectationOperation) {
             ClassMethodIdAncestor feedSet_ = getId(trimMethSet_);
-            ClassMethodIdReturn clMethSet_ = tryGet(varargOnly_, trimMethSet_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMethSet_, false, name_, _page, new ScopeFilter(feedSet_, baseAccess_, accessSuperTypes_, false, staticChoiceMethod_, _page.getGlobalClass())));
+            ClassMethodIdReturn clMethSet_ = tryGet(varargOnly_, trimMethSet_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMethSet_, false, name_, _page, new ScopeFilter(feedSet_, baseAccess_, accessSuperTypes_, false, staticChoiceMethod_, _page.getGlobalType().getRootBlock())));
             if (clMethSet_ != null) {
                 functionSet = clMethSet_.getParametrableContent().getPair();
                 returnSet = MethodInfo.retIndexSet(clMethSet_,_page);
@@ -202,24 +202,24 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 setResultClass(new AnaClassArgumentMatching(returnSet, _page.getPrimitiveTypes()));
                 return;
             }
-            resErrSet = tryGet(varargOnly_, trimMethSet_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMethSet_, false, name_, _page, new ScopeFilter(feedSet_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass())));
+            resErrSet = tryGet(varargOnly_, trimMethSet_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMethSet_, false, name_, _page, new ScopeFilter(feedSet_, baseAccess_, accessSuperTypes_, false, _page.getGlobalType().getRootBlock())));
             errIndexer(_page, resErrSet);
             return;
         }
         ClassMethodIdAncestor feed_ = getId(trimMeth_);
-        ClassMethodIdReturn clMeth_ = tryGet(varargOnly_, trimMeth_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, false, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, false, staticChoiceMethod_, _page.getGlobalClass())));
+        ClassMethodIdReturn clMeth_ = tryGet(varargOnly_, trimMeth_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, false, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, false, staticChoiceMethod_, _page.getGlobalType().getRootBlock())));
         if (clMeth_ != null) {
             resMemoGet = clMeth_;
             MethodId formattedId_ = clMeth_.getId().getConstraints();
             StringList clsFormatted_ = new StringList();
             IdentifiableUtil.appendLeftPart(0,clsFormatted_,formattedId_);
             ClassMethodIdAncestor feedGetSet_ = getSetId(trimMethSet_);
-            ClassMethodIdReturn clSet_ = tryGetDeclaredCustMethodSetIndexer(isStaticAccess(), new StringList(clMeth_.getFormattedType().getFormatted()), trimMethSet_, clsFormatted_, _page, new ScopeFilter(feedGetSet_, baseAccess_, accessSuperTypes_, false, staticChoiceMethod_, _page.getGlobalClass()));
+            ClassMethodIdReturn clSet_ = tryGetDeclaredCustMethodSetIndexer(isStaticAccess(), new StringList(clMeth_.getFormattedType().getFormatted()), trimMethSet_, clsFormatted_, _page, new ScopeFilter(feedGetSet_, baseAccess_, accessSuperTypes_, false, staticChoiceMethod_, _page.getGlobalType().getRootBlock()));
             if (clSet_ != null) {
                 resMemoSet = clSet_;
                 returnSet = MethodInfo.retIndexSet(clSet_,_page);
             }
-            resErrSet = tryGetDeclaredCustMethodSetIndexer(isStaticAccess(), new StringList(clMeth_.getFormattedType().getFormatted()), trimMethSet_, clsFormatted_, _page, new ScopeFilter(feedGetSet_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()));
+            resErrSet = tryGetDeclaredCustMethodSetIndexer(isStaticAccess(), new StringList(clMeth_.getFormattedType().getFormatted()), trimMethSet_, clsFormatted_, _page, new ScopeFilter(feedGetSet_, baseAccess_, accessSuperTypes_, false, _page.getGlobalType().getRootBlock()));
             anc = clMeth_.getAncestor();
             functionGet = clMeth_.getParametrableContent().getPair();
             memberIdGet = clMeth_.getParametrableContent().getMemberId();
@@ -227,7 +227,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             setResultClass(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()));
             return;
         }
-        ClassMethodIdReturn clMeth2_ = tryGet(varargOnly_, trimMeth_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, false, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass())));
+        ClassMethodIdReturn clMeth2_ = tryGet(varargOnly_, trimMeth_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, false, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, false, _page.getGlobalType().getRootBlock())));
         if (clMeth2_ != null) {
             functionGet = clMeth2_.getParametrableContent().getPair();
             memberIdGet = clMeth2_.getParametrableContent().getMemberId();

@@ -37,7 +37,7 @@ public abstract class LeafOperation extends OperationNode {
         } else {
             a_ = new Accessed(AccessEnum.PUBLIC,"", null);
         }
-        if (!ContextUtil.canAccessType(curClassBase_, a_, _page)) {
+        if (!ContextUtil.canAccessType(_page.getGlobalType().getRootBlock(), a_)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_page);
             badAccess_.setFile(_page.getCurrentFile());

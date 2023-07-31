@@ -144,9 +144,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String name_ = extract(_args);
         CustList<ClassMethodIdReturn> resList_ = new CustList<ClassMethodIdReturn>();
         CustList<CustList<MethodInfo>> methodsInst_;
-        methodsInst_ = getDeclaredCustMethodByType(MethodAccessKind.INSTANCE, _bounds, name_, false, _page, new ScopeFilter(null, true, true, false, !polymorph_, _page.getGlobalClass()), new FormattedFilter());
+        methodsInst_ = getDeclaredCustMethodByType(MethodAccessKind.INSTANCE, _bounds, name_, false, _page, new ScopeFilter(null, true, true, false, !polymorph_, _page.getGlobalType().getRootBlock()), new FormattedFilter());
         CustList<CustList<MethodInfo>> methodsSta_;
-        methodsSta_ = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, _bounds, name_, false, _page, new ScopeFilter(null, true, true, false, !polymorph_, _page.getGlobalClass()), new FormattedFilter());
+        methodsSta_ = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, _bounds, name_, false, _page, new ScopeFilter(null, true, true, false, !polymorph_, _page.getGlobalType().getRootBlock()), new FormattedFilter());
         //use types of previous operation
         for (String s : _candidates) {
             StringList allTypes_ = StringExpUtil.getAllTypes(s);
@@ -248,7 +248,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         boolean polymorph_ = poly(_page, _args);
         String name_ = extract(_args);
         CustList<ClassMethodIdReturn> resList_ = new CustList<ClassMethodIdReturn>();
-        CustList<CustList<MethodInfo>> methodsInst_ = getDeclaredCustMethodByType(MethodAccessKind.INSTANCE, _bounds, name_, false, _page, new ScopeFilter(null, true, true, false, !polymorph_, _page.getGlobalClass()), new FormattedFilter());
+        CustList<CustList<MethodInfo>> methodsInst_ = getDeclaredCustMethodByType(MethodAccessKind.INSTANCE, _bounds, name_, false, _page, new ScopeFilter(null, true, true, false, !polymorph_, _page.getGlobalType().getRootBlock()), new FormattedFilter());
         for (String s : _candidates) {
             StringList allTypes_ = StringExpUtil.getAllTypes(s);
             if (allTypes_.size() == 1) {
@@ -701,9 +701,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         boolean baseAccess_ = _incr.isBaseAccess();
         boolean accessSuper_ = _incr.isAccessSuper();
         String name_ = _incr.getName();
-        ClassMethodIdReturn id_ = getCustResultLambda(fetchVarargOnly(_vararg, _feed), getDeclaredCustMethodByType(_stCtx, _str, name_, false, _page, new ScopeFilter(_feed, baseAccess_, accessSuper_, false, staticChoiceMethod_, _page.getGlobalClass()), new FormattedFilter()), name_, _page, _methodTypes);
+        ClassMethodIdReturn id_ = getCustResultLambda(fetchVarargOnly(_vararg, _feed), getDeclaredCustMethodByType(_stCtx, _str, name_, false, _page, new ScopeFilter(_feed, baseAccess_, accessSuper_, false, staticChoiceMethod_, _page.getGlobalType().getRootBlock()), new FormattedFilter()), name_, _page, _methodTypes);
         if (id_ == null) {
-            ClassMethodIdReturn id2_ = getCustResultLambda(fetchVarargOnly(_vararg, _feed), getDeclaredCustMethodByType(_stCtx, _str, name_, false, _page, new ScopeFilter(_feed, baseAccess_, accessSuper_, false, _page.getGlobalClass()), new FormattedFilter()), name_, _page, _methodTypes);
+            ClassMethodIdReturn id2_ = getCustResultLambda(fetchVarargOnly(_vararg, _feed), getDeclaredCustMethodByType(_stCtx, _str, name_, false, _page, new ScopeFilter(_feed, baseAccess_, accessSuper_, false, _page.getGlobalType().getRootBlock()), new FormattedFilter()), name_, _page, _methodTypes);
             if (id2_ != null) {
                 initIdMethod(id2_);
                 String fct_ = formatReturnPrevious(_page, id2_);
@@ -805,7 +805,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             vararg_ = vararg(_len, vararg_, argsRes_, 2);
         }
         StringList methodTypes_ = params(argsResModif_);
-        ClassMethodIdReturn id_ = getCustResultLambda(fetchVarargOnly(vararg_, feed_), getDeclaredCustMethodByType(kind_, str_, name_, false, _page, new ScopeFilter(feed_, true, true, false, _page.getGlobalClass()), new FormattedFilter()), name_, _page, methodTypes_);
+        ClassMethodIdReturn id_ = getCustResultLambda(fetchVarargOnly(vararg_, feed_), getDeclaredCustMethodByType(kind_, str_, name_, false, _page, new ScopeFilter(feed_, true, true, false, _page.getGlobalType().getRootBlock()), new FormattedFilter()), name_, _page, methodTypes_);
         if (id_ == null) {
             buildErrNoRefMethod(kind_, name_, _page, methodTypes_);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -950,9 +950,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         boolean baseAccess_ = _incr.isBaseAccess();
         boolean accessSuper_ = _incr.isAccessSuper();
         String name_ = _incr.getName();
-        ClassMethodIdReturn id_ = getCustResultLambda(fetchVarargOnly(_vararg, _feed), getDeclaredCustMethodByType(MethodAccessKind.INSTANCE, _str, name_, false, _page, new ScopeFilter(_feed, baseAccess_, accessSuper_, false, staticChoiceMethod_, _page.getGlobalClass()), new FormattedFilter()), name_, _page, _methodTypes);
+        ClassMethodIdReturn id_ = getCustResultLambda(fetchVarargOnly(_vararg, _feed), getDeclaredCustMethodByType(MethodAccessKind.INSTANCE, _str, name_, false, _page, new ScopeFilter(_feed, baseAccess_, accessSuper_, false, staticChoiceMethod_, _page.getGlobalType().getRootBlock()), new FormattedFilter()), name_, _page, _methodTypes);
         if (id_ == null) {
-            ClassMethodIdReturn id2_ = getCustResultLambda(fetchVarargOnly(_vararg, _feed), getDeclaredCustMethodByType(MethodAccessKind.INSTANCE, _str, name_, false, _page, new ScopeFilter(_feed, baseAccess_, accessSuper_, false, _page.getGlobalClass()), new FormattedFilter()), name_, _page, _methodTypes);
+            ClassMethodIdReturn id2_ = getCustResultLambda(fetchVarargOnly(_vararg, _feed), getDeclaredCustMethodByType(MethodAccessKind.INSTANCE, _str, name_, false, _page, new ScopeFilter(_feed, baseAccess_, accessSuper_, false, _page.getGlobalType().getRootBlock()), new FormattedFilter()), name_, _page, _methodTypes);
             if (id2_ != null) {
                 initIdMethod(id2_);
                 String fct_ = formatReturn(_page, id2_);
@@ -1880,7 +1880,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         AnaClassArgumentMatching fromCl_ = new AnaClassArgumentMatching(str_);
         sum_ += StringExpUtil.getOffset(_args.get(2));
         memberOffset = sum_;
-        ScopeFilter scope_ = new ScopeFilter(null, true, true, false, _page.getGlobalClass());
+        ScopeFilter scope_ = new ScopeFilter(null, true, true, false, _page.getGlobalType().getRootBlock());
         FieldResult r_ = resolveDeclaredCustField(true, fromCl_, fieldName_, false, aff_, _page, scope_);
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             buildErrLambda(sum_,fromCl_,fieldName_, _page);
@@ -2038,7 +2038,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String fieldName_ = _ch.getFieldName();
         boolean aff_ = i_ < _len;
         AnaClassArgumentMatching fromCl_ = new AnaClassArgumentMatching(_str);
-        ScopeFilter scope_ = new ScopeFilter(null, accessBase_, accessSuper_, false, _page.getGlobalClass());
+        ScopeFilter scope_ = new ScopeFilter(null, accessBase_, accessSuper_, false, _page.getGlobalType().getRootBlock());
         FieldResult r_ = resolveDeclaredCustField(false, fromCl_, fieldName_, false, aff_, _page, scope_);
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             buildErrLambda(sum_,fromCl_,fieldName_,_page);
@@ -2363,10 +2363,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private ClassMethodIdReturn getOperator(String _from, StringList _methodTypes, String _operator, int _vararg, ClassMethodId _feed, AnalyzedPageEl _page) {
         if (!_from.isEmpty()) {
             if (_feed == null) {
-                return getCustResultLambda(fetchVarargOnly(-1, null), getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(_from), _operator, false, _page, new ScopeFilter(null, true, false, false, _page.getGlobalClass()), new FormattedFilter()), _operator, _page, _methodTypes);
+                return getCustResultLambda(fetchVarargOnly(-1, null), getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(_from), _operator, false, _page, new ScopeFilter(null, true, false, false, _page.getGlobalType().getRootBlock()), new FormattedFilter()), _operator, _page, _methodTypes);
             }
             ClassMethodIdAncestor uniqueId_ = new ClassMethodIdAncestor(staticAccess,_feed, 0);
-            return getCustResultLambda(fetchVarargOnly(-1, uniqueId_), getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(_from), _operator, false, _page, new ScopeFilter(uniqueId_, true, false, false, _page.getGlobalClass()), new FormattedFilter()), _operator, _page, _methodTypes);
+            return getCustResultLambda(fetchVarargOnly(-1, uniqueId_), getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(_from), _operator, false, _page, new ScopeFilter(uniqueId_, true, false, false, _page.getGlobalType().getRootBlock()), new FormattedFilter()), _operator, _page, _methodTypes);
         }
         return getOperatorLambda(_feed, _vararg, _operator, _page, _methodTypes);
     }

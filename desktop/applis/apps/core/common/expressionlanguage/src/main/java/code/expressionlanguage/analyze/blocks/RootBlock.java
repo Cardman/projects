@@ -1798,7 +1798,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
         for (ConstructorBlock c: ctors_) {
             Accessed a_ = new Accessed(c.getAccess(), clMeta_.getPackageName(), clMeta_);
-            if (!ContextUtil.canAccess(getFullName(), a_, _page)) {
+            if (!ContextUtil.canAccess(this, a_)) {
                 continue;
             }
             if (c.getId().getParametersTypesLength() == 0) {

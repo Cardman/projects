@@ -58,7 +58,7 @@ public final class FctOperation extends AbsFctOperation {
             return;
         }
         setMethodFound(trimMeth_);
-        setMethodInfos(getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, isImportType(), _page, new ScopeFilter(null, baseAccess_, accessSuperTypes_, isLvalue(), staticChoiceMethod_, _page.getGlobalClass()), getFormattedFilter(_page, this)));
+        setMethodInfos(getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, isImportType(), _page, new ScopeFilter(null, baseAccess_, accessSuperTypes_, isLvalue(), staticChoiceMethod_, _page.getGlobalType().getRootBlock()), getFormattedFilter(_page, this)));
         filterByNameReturnType(_page, trimMeth_, getMethodInfos());
     }
 
@@ -122,7 +122,7 @@ public final class FctOperation extends AbsFctOperation {
             trueFalse(_page, trimMeth_, staticChoiceMethod_, feed_, bounds_, name_);
             return;
         }
-        std(_page, trimMeth_, bounds_, name_, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, isLvalue(), staticChoiceMethod_, _page.getGlobalClass()));
+        std(_page, trimMeth_, bounds_, name_, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, isLvalue(), staticChoiceMethod_, _page.getGlobalType().getRootBlock()));
     }
     private boolean stChoice(AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();

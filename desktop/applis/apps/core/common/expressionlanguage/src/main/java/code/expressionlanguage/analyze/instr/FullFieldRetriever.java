@@ -285,7 +285,7 @@ public final class FullFieldRetriever implements FieldRetriever {
     private boolean isField(String _fromClass, String _word, AnalyzedPageEl _page) {
         boolean stCtx_ = _page.isStaticContext() || ctorCallFirst;
         AnaClassArgumentMatching clArg_ = new AnaClassArgumentMatching(_fromClass);
-        ScopeFilter scope_ = new ScopeFilter(null, true, true, false, _page.getGlobalClass());
+        ScopeFilter scope_ = new ScopeFilter(null, true, true, false, _page.getGlobalType().getRootBlock());
         FieldResult fr_ = OperationNode.resolveDeclaredCustField(stCtx_, clArg_, _word, true, false, _page, scope_);
         return fr_.getStatus() == SearchingMemberStatus.UNIQ;
     }

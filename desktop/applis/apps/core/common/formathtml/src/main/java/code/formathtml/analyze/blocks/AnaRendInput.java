@@ -49,7 +49,7 @@ public abstract class AnaRendInput extends AnaRendElement implements AnaRendInpu
                 int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertValue()));
                 _page.setSumOffset(attr_);
                 _page.zeroOffset();
-                ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterValue_.trim(), new StringList(string_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
+                ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterValue_.trim(), new StringList(string_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalType().getRootBlock()));
                 rootConverter = classMethodIdReturn_;
                 checkRead(_page,attr_,classMethodIdReturn_,resultInput);
             }
@@ -83,7 +83,7 @@ public abstract class AnaRendInput extends AnaRendElement implements AnaRendInpu
             int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertField()));
             _page.setSumOffset(attr_);
             _page.zeroOffset();
-            ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterField_.trim(), new StringList(object_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
+            ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterField_.trim(), new StringList(object_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalType().getRootBlock()));
             rootConverterField = classMethodIdReturn_;
             checkCharSeq(_anaDoc, _page, attr_, classMethodIdReturn_);
         }

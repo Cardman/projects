@@ -18,8 +18,8 @@ import code.util.core.StringUtil;
 public final class ContextUtil {
     private ContextUtil() {
     }
-    public static boolean canAccess(String _className, Accessed _block, AnalyzedPageEl _page) {
-        CodeAccess code_ = processBegin(_className, _block, _page);
+    public static boolean canAccess(RootBlock _className, Accessed _block) {
+        CodeAccess code_ = processBegin(_className, _block);
         RootBlock root_ = code_.getRoot();
         if (root_ == null) {
             return access(code_.getCode());
@@ -40,8 +40,8 @@ public final class ContextUtil {
         return StringUtil.quickEq(_belongPkg, _rootPkg);
     }
 
-    public static boolean canAccessType(String _className, Accessed _block, AnalyzedPageEl _analyzing) {
-        CodeAccess code_ = processBegin(_className, _block, _analyzing);
+    public static boolean canAccessType(RootBlock _className, Accessed _block) {
+        CodeAccess code_ = processBegin(_className, _block);
         RootBlock root_ = code_.getRoot();
         if (root_ == null) {
             return access(code_.getCode());
@@ -58,17 +58,15 @@ public final class ContextUtil {
         RootBlock outer_ = code_.getOuter();
         return processPackagePrivate(_block, root_, belongPkg_, rootPkg_, outer_);
     }
-    private static CodeAccess processBegin(String _className, Accessed _block, AnalyzedPageEl _analyzing) {
+    private static CodeAccess processBegin(RootBlock _className, Accessed _block) {
         if (_block == null || _block.getAccess() == AccessEnum.PUBLIC) {
             return new CodeAccess(2,null,null);
         }
-        String baseClass_ = StringExpUtil.getIdFromAllTypes(_className);
-        RootBlock root_ = _analyzing.getAnaClassBody(baseClass_);
         RootBlock outer_ = _block.outerParent();
-        if (root_ == null) {
+        if (_className == null) {
             return new CodeAccess(0,outer_,null);
         }
-        return new CodeAccess(1,outer_,root_);
+        return new CodeAccess(1,outer_,_className);
     }
     private static boolean access(int _code) {
         return _code == 2;

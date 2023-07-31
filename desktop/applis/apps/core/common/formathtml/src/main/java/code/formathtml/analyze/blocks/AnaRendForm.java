@@ -44,7 +44,7 @@ public final class AnaRendForm extends AnaRendElement implements AnaRendElementA
                 StringList argCla_ = ResultText.feedArgs(res,_page);
                 _page.zeroOffset();
                 _page.setSumOffset(rowsGrId_);
-                ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), lk_, argCla_, _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
+                ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), lk_, argCla_, _page, new ScopeFilter(null, true, true, false, _page.getGlobalType().getRootBlock()));
                 res.setResultAnc(classMethodIdReturn_);
                 ResultText.check(_page, rowsGrId_, classMethodIdReturn_);
                 sgn = AnaRendBlock.toSgn(classMethodIdReturn_,_page);
