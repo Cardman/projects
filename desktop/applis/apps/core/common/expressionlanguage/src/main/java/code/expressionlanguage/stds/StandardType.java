@@ -10,8 +10,6 @@ import code.util.core.StringUtil;
 
 public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedType {
 
-    private static final String PACKAGE_NAME = "";
-
     private final String name;
     private final String packageName;
 
@@ -19,11 +17,17 @@ public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedT
     private final CustList<StandardMethod> methods;
     private final DfInstancer instancer;
 
+    private final StringList directInterfaces = new StringList();
+
+    private final StringList allSuperTypes = new StringList();
+    private final CustList<StandardType> allSuperStdTypes = new CustList<StandardType>();
+
     protected StandardType(String _name,
                            CustList<StandardConstructor> _constructors,
                            CustList<StandardMethod> _methods, DfInstancer _caller) {
-        name = getNamePart(_name);
-        packageName = getPackagePart(_name);
+        int indexDot_ = _name.lastIndexOf('.');
+        name = _name.substring(indexDot_ + 1);
+        packageName = _name.substring(0, indexDot_);
         constructors = _constructors;
         methods = _methods;
         instancer = _caller;
@@ -43,21 +47,23 @@ public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedT
         return instancer;
     }
 
-    public static String getNamePart(String _fullName) {
-        int indexDot_ = _fullName.lastIndexOf('.');
-        return _fullName.substring(indexDot_+1);
-    }
-    public static String getPackagePart(String _fullName) {
-        int indexDot_ = _fullName.lastIndexOf('.');
-        if (indexDot_ < 0) {
-            return PACKAGE_NAME;
-        }
-        return _fullName.substring(0, indexDot_);
+    public StringList getDirectInterfaces() {
+        return directInterfaces;
     }
 
-    public abstract StringList getDirectSuperTypes();
+    @Override
+    public StringList getAllSuperTypes() {
+        return allSuperTypes;
+    }
 
-    public abstract StringList getDirectInterfaces();
+    public void addSuperStdTypes(StandardType _std) {
+        allSuperTypes.add(_std.getFullName());
+        getAllSuperStdTypes().add(_std);
+    }
+    public CustList<StandardType> getAllSuperStdTypes() {
+        return allSuperStdTypes;
+    }
+
     @Override
     public boolean withoutInstance() {
         return true;
@@ -95,7 +101,7 @@ public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedT
     public final String getFullName() {
         String pkg_ = getPackageName();
         String name_ = getName();
-        return StringUtil.spliceIfFirst('.', StringUtil.concat(pkg_,".",name_));
+        return pkg_+"."+name_;
     }
 
     @Override

@@ -4,15 +4,10 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.util.CustList;
-import code.util.StringList;
 
 public abstract class AbstractStandardClass extends StandardType implements GeneType {
 
-    private final StringList allSuperTypes = new StringList();
-
     private final String superClass;
-
-    private final StringList directInterfaces = new StringList();
 
     private final boolean finalType;
     private final boolean abstractType;
@@ -40,10 +35,6 @@ public abstract class AbstractStandardClass extends StandardType implements Gene
     public String getSuperClass() {
         return superClass;
     }
-    @Override
-    public StringList getDirectInterfaces() {
-        return directInterfaces;
-    }
 
     public boolean isFinalStdType() {
         return finalType;
@@ -55,21 +46,6 @@ public abstract class AbstractStandardClass extends StandardType implements Gene
 
     public boolean isAbstractStdType() {
         return abstractType;
-    }
-
-    @Override
-    public StringList getDirectSuperTypes() {
-        StringList superTypes_ = new StringList();
-        if (!superClass.isEmpty()) {
-            superTypes_.add(superClass);
-        }
-        superTypes_.addAllElts(directInterfaces);
-        return superTypes_;
-    }
-
-    @Override
-    public StringList getAllSuperTypes() {
-        return allSuperTypes;
     }
 
 }

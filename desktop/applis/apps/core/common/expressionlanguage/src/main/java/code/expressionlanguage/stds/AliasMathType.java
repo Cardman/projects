@@ -264,6 +264,7 @@ public final class AliasMathType {
         String aliasPrimDouble_ = _stds.getContent().getPrimTypes().getAliasPrimDouble();
         String aliasPrimBoolean_ = _stds.getContent().getPrimTypes().getAliasPrimBoolean();
         StandardClass std_ = new StandardClass(aliasMath, fields_, constructors_, methods_, aliasObject_, StdClassModifier.HYPER_ABSTRACT);
+        std_.addSuperStdTypes(_stds.getCoreNames().getObjType());
         StringList params_ = new StringList(aliasPrimInteger_);
         StandardMethod method_ = new StandardMethod(aliasAbs, params_, aliasPrimInteger_, false, MethodModifier.STATIC, new StringList(params.getAliasMath0Abs0()), new FctMathAbs0());
         methods_.add( method_);

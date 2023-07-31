@@ -415,29 +415,17 @@ public final class AliasCharSequenceType {
                 new KeyValueMemberName(_mapping.getVal(TRIM_TO_SIZE),getAliasTrimToSize())));
         return map_;
     }
-    public void build(LgNames _lgNames) {
+    private StandardType chTypeType(LgNames _lgNames) {
         StringMap<StandardType> standards_ = _lgNames.getStandards();
-        StringList params_;
         StringList noTypes_ = new StringList();
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
-        CustList<StandardConstructor> constructors_;
-        CustList<CstFieldInfo> fields_;
-        StandardMethod method_;
-        StandardConstructor ctor_;
-        StandardType std_;
-        std_ = new StandardInterface(aliasCharSequence, methods_, noTypes_);
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        StandardType std_ = new StandardInterface(aliasCharSequence, methods_);
+        std_.addSuperStdTypes(_lgNames.getCoreNames().getObjType());
         String aliasPrimBoolean_ = _lgNames.getContent().getPrimTypes().getAliasPrimBoolean();
-        String aliasPrimDouble_ = _lgNames.getContent().getPrimTypes().getAliasPrimDouble();
-        String aliasPrimFloat_ = _lgNames.getContent().getPrimTypes().getAliasPrimFloat();
-        String aliasPrimLong_ = _lgNames.getContent().getPrimTypes().getAliasPrimLong();
         String aliasPrimInteger_ = _lgNames.getContent().getPrimTypes().getAliasPrimInteger();
         String aliasPrimChar_ = _lgNames.getContent().getPrimTypes().getAliasPrimChar();
-        String aliasPrimShort_ = _lgNames.getContent().getPrimTypes().getAliasPrimShort();
-        String aliasPrimByte_ = _lgNames.getContent().getPrimTypes().getAliasPrimByte();
-        String aliasObject_ = _lgNames.getContent().getCoreNames().getAliasObject();
-        params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_);
-        method_ = new StandardMethod(aliasSubSequence, params_, aliasString, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0SubSequence0(),params.getAliasCharSequence0SubSequence1()),new FctCharSeqSubstring1());
+        StringList params_ = new StringList(aliasPrimInteger_, aliasPrimInteger_);
+        StandardMethod method_ = new StandardMethod(aliasSubSequence, params_, aliasString, false, MethodModifier.NORMAL, new StringList(params.getAliasCharSequence0SubSequence0(), params.getAliasCharSequence0SubSequence1()), new FctCharSeqSubstring1());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_);
         method_ = new StandardMethod(aliasCharAt, params_, aliasPrimChar_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0CharAt0()),new FctCharSeqCharAt());
@@ -496,7 +484,7 @@ public final class AliasCharSequenceType {
         method_ = new StandardMethod(aliasToCharArray, params_, StringExpUtil.getPrettyArrayType(aliasPrimChar_), false, MethodModifier.NORMAL,new FctCharSeqToCharArray());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetBytes, params_, StringExpUtil.getPrettyArrayType(aliasPrimByte_), false, MethodModifier.NORMAL,new FctCharSeqGetBytes());
+        method_ = new StandardMethod(aliasGetBytes, params_, StringExpUtil.getPrettyArrayType(_lgNames.getContent().getPrimTypes().getAliasPrimByte()), false, MethodModifier.NORMAL,new FctCharSeqGetBytes());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence);
         method_ = new StandardMethod(aliasFormat, params_, aliasString, true, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0Format0()),new FctCharSeqFormat());
@@ -535,12 +523,22 @@ public final class AliasCharSequenceType {
         method_ = new StandardMethod(aliasCharSequenceEquals, params_, _lgNames.getContent().getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(params.getAliasCharSequence0Equals0(),params.getAliasCharSequence0Equals1()),new FctCharSeqEquals());
         methods_.add( method_);
         standards_.addEntry(aliasCharSequence, std_);
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
-        std_ = new StandardClass(aliasString, fields_, constructors_, methods_, aliasObject_, MethodModifier.FINAL, new DfString());
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasEqualsIgnoreCase, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasString0EqualsIgnoreCase0()),new FctStringEqualsIgnoreCase());
+        return std_;
+    }
+    private void strType(LgNames _lgNames, StandardType _t) {
+        String aliasPrimBoolean_ = _lgNames.getContent().getPrimTypes().getAliasPrimBoolean();
+        String aliasPrimInteger_ = _lgNames.getContent().getPrimTypes().getAliasPrimInteger();
+        String aliasPrimChar_ = _lgNames.getContent().getPrimTypes().getAliasPrimChar();
+        String aliasObject_ = _lgNames.getContent().getCoreNames().getAliasObject();
+        StringMap<StandardType> standards_ = _lgNames.getStandards();
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass std_ = new StandardClass(aliasString, fields_, constructors_, methods_, aliasObject_, MethodModifier.FINAL, new DfString());
+        std_.addSuperStdTypes(_t);
+        std_.addSuperStdTypes(_lgNames.getCoreNames().getObjType());
+        StringList params_ = new StringList(aliasString);
+        StandardMethod method_ = new StandardMethod(aliasEqualsIgnoreCase, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasString0EqualsIgnoreCase0()),new FctStringEqualsIgnoreCase());
         methods_.add( method_);
         params_ = new StringList(aliasString, aliasString);
         method_ = new StandardMethod(aliasStringCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasString0Compare0(),params.getAliasString0Compare1()),new FctStringCompare());
@@ -569,10 +567,10 @@ public final class AliasCharSequenceType {
         params_ = new StringList(aliasPrimBoolean_);
         method_ = new StandardMethod(aliasStringValueOf, params_, aliasString, false, MethodModifier.STATIC,new StringList(params.getAliasString0ValueOfMethod0()),new FctNbToStr1());
         methods_.add( method_);
-        params_ = new StringList(aliasPrimByte_);
+        params_ = new StringList(_lgNames.getContent().getPrimTypes().getAliasPrimByte());
         method_ = new StandardMethod(aliasStringValueOf, params_, aliasString, false, MethodModifier.STATIC,new StringList(params.getAliasString1ValueOfMethod0()),new FctNbToStr1());
         methods_.add( method_);
-        params_ = new StringList(aliasPrimShort_);
+        params_ = new StringList(_lgNames.getContent().getPrimTypes().getAliasPrimShort());
         method_ = new StandardMethod(aliasStringValueOf, params_, aliasString, false, MethodModifier.STATIC,new StringList(params.getAliasString2ValueOfMethod0()),new FctNbToStr1());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
@@ -581,13 +579,13 @@ public final class AliasCharSequenceType {
         params_ = new StringList(aliasPrimInteger_);
         method_ = new StandardMethod(aliasStringValueOf, params_, aliasString, false, MethodModifier.STATIC,new StringList(params.getAliasString4ValueOfMethod0()),new FctNbToStr1());
         methods_.add( method_);
-        params_ = new StringList(aliasPrimLong_);
+        params_ = new StringList(_lgNames.getContent().getPrimTypes().getAliasPrimLong());
         method_ = new StandardMethod(aliasStringValueOf, params_, aliasString, false, MethodModifier.STATIC,new StringList(params.getAliasString5ValueOfMethod0()),new FctNbToStr1());
         methods_.add( method_);
-        params_ = new StringList(aliasPrimFloat_);
+        params_ = new StringList(_lgNames.getContent().getPrimTypes().getAliasPrimFloat());
         method_ = new StandardMethod(aliasStringValueOf, params_, aliasString, false, MethodModifier.STATIC,new StringList(params.getAliasString6ValueOfMethod0()),new FctNbToStr1());
         methods_.add( method_);
-        params_ = new StringList(aliasPrimDouble_);
+        params_ = new StringList(_lgNames.getContent().getPrimTypes().getAliasPrimDouble());
         method_ = new StandardMethod(aliasStringValueOf, params_, aliasString, false, MethodModifier.STATIC,new StringList(params.getAliasString7ValueOfMethod0()),new FctNbToStr1());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
@@ -597,12 +595,12 @@ public final class AliasCharSequenceType {
         method_ = new StandardMethod(aliasStringValueOf, params_, aliasString, true, MethodModifier.STATIC,new StringList(params.getAliasString9ValueOfMethod0(),params.getAliasString9ValueOfMethod1(),params.getAliasString9ValueOfMethod2()),new FctStringValueOf1());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_, false, new FctString0());
+        StandardConstructor ctor_ = new StandardConstructor(params_, false, new FctString0());
         constructors_.add(ctor_);
-        params_ = new StringList(aliasPrimByte_);
+        params_ = new StringList(_lgNames.getContent().getPrimTypes().getAliasPrimByte());
         ctor_ = new StandardConstructor(params_, true,new StringList(params.getAliasString0String0()),new FctString3());
         constructors_.add(ctor_);
-        params_ = new StringList(aliasPrimInteger_, aliasPrimInteger_, aliasPrimByte_);
+        params_ = new StringList(aliasPrimInteger_, aliasPrimInteger_, _lgNames.getContent().getPrimTypes().getAliasPrimByte());
         ctor_ = new StandardConstructor(params_, true,new StringList(params.getAliasString1String0(),params.getAliasString1String1(),params.getAliasString1String2()),new FctString5());
         constructors_.add(ctor_);
         params_ = new StringList(aliasPrimChar_);
@@ -616,17 +614,26 @@ public final class AliasCharSequenceType {
         constructors_.add(ctor_);
         std_.getDirectInterfaces().add(aliasCharSequence);
         standards_.addEntry(aliasString, std_);
-
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        std_ = new StandardClass(aliasStringBuilder, fields_, constructors_, methods_, aliasObject_, MethodModifier.FINAL, new DfStringBuilder());
-        params_ = new StringList(aliasPrimBoolean_);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0Append0()),new FctStringBuilderAppend0());
+    }
+    private void strBuildType(LgNames _lgNames, StandardType _t) {
+        String aliasPrimBoolean_ = _lgNames.getContent().getPrimTypes().getAliasPrimBoolean();
+        String aliasPrimInteger_ = _lgNames.getContent().getPrimTypes().getAliasPrimInteger();
+        String aliasPrimChar_ = _lgNames.getContent().getPrimTypes().getAliasPrimChar();
+        String aliasObject_ = _lgNames.getContent().getCoreNames().getAliasObject();
+        StringMap<StandardType> standards_ = _lgNames.getStandards();
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass std_ = new StandardClass(aliasStringBuilder, fields_, constructors_, methods_, aliasObject_, MethodModifier.FINAL, new DfStringBuilder());
+        std_.addSuperStdTypes(_t);
+        std_.addSuperStdTypes(_lgNames.getCoreNames().getObjType());
+        StringList params_ = new StringList(aliasPrimBoolean_);
+        StandardMethod method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
-        params_ = new StringList(aliasPrimByte_);
+        params_ = new StringList(_lgNames.getContent().getPrimTypes().getAliasPrimByte());
         method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder1Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
-        params_ = new StringList(aliasPrimShort_);
+        params_ = new StringList(_lgNames.getContent().getPrimTypes().getAliasPrimShort());
         method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder2Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
@@ -635,13 +642,13 @@ public final class AliasCharSequenceType {
         params_ = new StringList(aliasPrimInteger_);
         method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder4Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
-        params_ = new StringList(aliasPrimLong_);
+        params_ = new StringList(_lgNames.getContent().getPrimTypes().getAliasPrimLong());
         method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder5Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
-        params_ = new StringList(aliasPrimFloat_);
+        params_ = new StringList(_lgNames.getContent().getPrimTypes().getAliasPrimFloat());
         method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder6Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
-        params_ = new StringList(aliasPrimDouble_);
+        params_ = new StringList(_lgNames.getContent().getPrimTypes().getAliasPrimDouble());
         method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder7Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
         params_ = new StringList(aliasString);
@@ -677,10 +684,10 @@ public final class AliasCharSequenceType {
         params_ = new StringList(aliasPrimInteger_, aliasPrimBoolean_);
         method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0Insert0(),params.getAliasStringBuilder0Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
-        params_ = new StringList(aliasPrimInteger_, aliasPrimByte_);
+        params_ = new StringList(aliasPrimInteger_, _lgNames.getContent().getPrimTypes().getAliasPrimByte());
         method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder1Insert0(),params.getAliasStringBuilder1Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
-        params_ = new StringList(aliasPrimInteger_, aliasPrimShort_);
+        params_ = new StringList(aliasPrimInteger_, _lgNames.getContent().getPrimTypes().getAliasPrimShort());
         method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder2Insert0(),params.getAliasStringBuilder2Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimChar_);
@@ -689,13 +696,13 @@ public final class AliasCharSequenceType {
         params_ = new StringList(aliasPrimInteger_, aliasPrimInteger_);
         method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder4Insert0(),params.getAliasStringBuilder4Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
-        params_ = new StringList(aliasPrimInteger_, aliasPrimLong_);
+        params_ = new StringList(aliasPrimInteger_, _lgNames.getContent().getPrimTypes().getAliasPrimLong());
         method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder5Insert0(),params.getAliasStringBuilder5Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
-        params_ = new StringList(aliasPrimInteger_, aliasPrimFloat_);
+        params_ = new StringList(aliasPrimInteger_, _lgNames.getContent().getPrimTypes().getAliasPrimFloat());
         method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder6Insert0(),params.getAliasStringBuilder6Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
-        params_ = new StringList(aliasPrimInteger_, aliasPrimDouble_);
+        params_ = new StringList(aliasPrimInteger_, _lgNames.getContent().getPrimTypes().getAliasPrimDouble());
         method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder7Insert0(),params.getAliasStringBuilder7Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasString);
@@ -738,7 +745,7 @@ public final class AliasCharSequenceType {
         method_ = new StandardMethod(aliasSame, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasStringBuilder0Same0(),params.getAliasStringBuilder0Same1()),new FctStringBuilderSame());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_, false, new FctStringBuilder0());
+        StandardConstructor ctor_ = new StandardConstructor(params_, false, new FctStringBuilder0());
         constructors_.add(ctor_);
         params_ = new StringList(aliasStringBuilder);
         ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasStringBuilder0StringBuilder0()), new FctStringBuilder2());
@@ -751,10 +758,25 @@ public final class AliasCharSequenceType {
         constructors_.add(ctor_);
         std_.getDirectInterfaces().add(aliasCharSequence);
         standards_.addEntry(aliasStringBuilder, std_);
-
+    }
+    public void build(LgNames _lgNames) {
+        StringMap<StandardType> standards_ = _lgNames.getStandards();
+        StringList params_;
+        CustList<StandardMethod> methods_;
+        CustList<StandardConstructor> constructors_;
+        CustList<CstFieldInfo> fields_;
+        StandardMethod method_;
+        StandardConstructor ctor_;
+        StandardType std_;
+        std_ = chTypeType(_lgNames);
+        strType(_lgNames,std_);
+        strBuildType(_lgNames,std_);
+        String aliasObject_ = _lgNames.getContent().getCoreNames().getAliasObject();
+        fields_ = new CustList<CstFieldInfo>();
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         std_ = new StandardClass(aliasReplacement, fields_, constructors_, methods_, aliasObject_, MethodModifier.FINAL, new DfReplacement());
+        std_.addSuperStdTypes(_lgNames.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetOldString, params_, aliasString, false, MethodModifier.NORMAL, new FctReplOld());
         methods_.add( method_);

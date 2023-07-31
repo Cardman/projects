@@ -68,6 +68,7 @@ public final class AliasStackTraceElementType {
         String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
         String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
         StandardClass stdcl_ = new StandardClass(aliasStackTraceElement, fields_, constructors_, methods_, aliasObject_, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(_stds.getCoreNames().getObjType());
         String out_ = aliasStackTraceElement;
         out_ = StringExpUtil.getPrettyArrayType(out_);
         StringList params_ = new StringList();

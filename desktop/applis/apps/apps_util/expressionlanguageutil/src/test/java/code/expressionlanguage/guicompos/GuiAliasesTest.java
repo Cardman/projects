@@ -16,6 +16,7 @@ import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.guicompos.stds.*;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.utilcompo.AdvSymbolFactory;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.stds.*;
 import code.expressionlanguage.utilimpl.*;
@@ -318,5 +319,52 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoRepaint(stds_.getGuiExecutingBlocks(), ""),null,ctx_,i_,null,st_);
         assertFalse(st_.isFailInit());
+    }
+
+    @Test
+    public void success() {
+        AnalyzedPageEl a_ = buildTmp();
+        assertTrue(a_.isEmptyStdError());
+    }
+
+    public AnalyzedPageEl buildTmp() {
+        MockProgramInfos pr_ = prs();
+        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions();
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        KeyWords kw_ = new KeyWords();
+        AnalysisMessages mess_ = new AnalysisMessages();
+        stds_.getExecContent().updateTranslations(e_.getLightProgramInfos().getTranslations(),e_.getLightProgramInfos().getLanguage(),"en");
+        stds_.getExecContent().getCustAliases().messages(mess_, e_.getMessages());
+        stds_.getExecContent().getCustAliases().keyWord(kw_, e_.getKeyWords());
+        kw_.initSupplDigits();
+        stds_.getExecContent().getCustAliases().otherAlias(stds_.getContent(), e_.getAliases());
+        StringMap<String> keys_ = LgNamesGui.extractAliasesKeys(stds_.getExecContent().getCustAliases());
+        stds_.getGuiAliases().otherAliasGui(LgNamesGui.addon(stds_.getExecContent().getCustAliases()),e_.getAliases(),keys_);
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), e_.getLightProgramInfos(),e_.getListGenerator());
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        page_.setAbstractSymbolFactory(new AdvSymbolFactory(stds_.getExecContent().getCustAliases().getMathAdvAliases()));
+        StringMap<String> m_ = stds_.getExecContent().getCustAliases().extractAliasesKeys();
+        m_.addAllEntries(LgNamesGui.extractAliasesKeys(stds_.getExecContent().getCustAliases()));
+        page_.setMappingAliases(m_);
+        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(stds_.getContent(), stds_.getGuiAliases(), stds_.getExecContent().getCustAliases());
+        Forwards forwards_ = new Forwards(stds_, stds_.getExecContent(), fileBuilder_, opt_);
+        forwards_.getResources().addAllEntries(files_);
+        page_.setLogErr(forwards_);
+        AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
+        ContextFactory.beforeBuild(forwards_,mess_,kw_,stds_.getExecContent().getCustAliases().defComments(),opt_,stds_.getContent(),page_);
+        ContextFactory.build(forwards_,kw_,opt_,page_);
+        ContextFactory.validateStds(forwards_,mess_, kw_, stds_.getExecContent().getCustAliases().defComments(), opt_, stds_.getContent(), page_);
+        return page_;
+    }
+
+    private MockProgramInfos prs() {
+        MockProgramInfos prs_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        update(prs_);
+        return prs_;
     }
 }

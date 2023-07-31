@@ -1614,6 +1614,8 @@ public final class GuiAliases {
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
         StandardClass stdcl_ = new StandardClass(aliasWindowType, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        StandardClass windowType_ = stdcl_;
         StringList params_ = new StringList();
         StandardMethod method_ = new StandardMethod(aliasSetContent, params_, aliasPanel, false, MethodModifier.FINAL, new FctWindowGetContentPane());
         methods_.add( method_);
@@ -1660,6 +1662,7 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasConfirm, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.HYPER_ABSTRACT);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasConfirmField, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmField0(),guiAliasParameters.getAliasConfirm0ConfirmField1(),guiAliasParameters.getAliasConfirm0ConfirmField2(),guiAliasParameters.getAliasConfirm0ConfirmField3(),guiAliasParameters.getAliasConfirm0ConfirmField4(),guiAliasParameters.getAliasConfirm0ConfirmField5(),guiAliasParameters.getAliasConfirm0ConfirmField6()), new FctConfirmField1(_cust,_guiEx));
         methods_.add( method_);
@@ -1702,6 +1705,7 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasWindowSet, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfWindowSet(_cust));
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasWindowType);
         method_ = new StandardMethod(aliasWindowSetAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowSet0TabbedPaneAdd0()), new FctWindowSetAdd());
         methods_.add( method_);
@@ -1726,6 +1730,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasFrame, fields_, constructors_, methods_, aliasWindowType, MethodModifier.FINAL, new DfFrame(_cust,_guiEx));
+        stdcl_.addSuperStdTypes(windowType_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
 //        params_ = new StringList();
 //        method_ = new StandardMethod(aliasWindow, params_, aliasFrame, false, MethodModifier.STATIC, new FctFrameWindow(_cust,_guiEx));
 //        methods_.add( method_);
@@ -1741,6 +1747,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasDialog, fields_, constructors_, methods_, aliasWindowType, MethodModifier.FINAL, new DfDialog(_cust,_guiEx));
+        stdcl_.addSuperStdTypes(windowType_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasDialogIsModal, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctDialogIsModal());
         methods_.add( method_);
@@ -1756,6 +1764,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasComponent, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        StandardClass component_ = stdcl_;
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetParentCompo, params_, aliasComponent, false, MethodModifier.FINAL, new FctCompoGetParentCompo());
         methods_.add( method_);
@@ -1924,6 +1934,7 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasDimension, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasDimensionGetHeight, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctDimensionGetHeight());
         methods_.add( method_);
@@ -1943,6 +1954,7 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasTreeNode, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasTreeNode);
         method_ = new StandardMethod(aliasTreeNodeAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeAdd0()), new FctTreeNodeAdd());
         methods_.add( method_);
@@ -2007,6 +2019,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasTree, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(component_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasTreeListener);
         method_ = new StandardMethod(aliasTreeAddTreeListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTree0TreeAddTreeListener0()), new FctTreeAddTreeListener());
         methods_.add( method_);
@@ -2036,6 +2050,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasTableGui, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(component_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasMouseListener);
         method_ = new StandardMethod(aliasTableAddHeader, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableAddHeader0()), new FctTableAddHeader());
         methods_.add( method_);
@@ -2114,6 +2130,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasPanel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL, new DfPanel(_cust,_guiEx,aliasPanel));
+        stdcl_.addSuperStdTypes(component_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        StandardClass panel_ = stdcl_;
         params_ = new StringList(aliasComponent);
         method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel0TabbedPaneAdd0()),new FctPanelAddCompo0());
         methods_.add( method_);
@@ -2160,6 +2179,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasPanelBorder, fields_, constructors_, methods_, aliasPanel, MethodModifier.FINAL, new DfPanelBorder(_cust,_guiEx,aliasPanelBorder));
+        stdcl_.addSuperStdTypes(panel_);
+        stdcl_.addSuperStdTypes(component_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasComponent,_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanelBorder0TabbedPaneAdd0(),guiAliasParameters.getAliasPanelBorder0TabbedPaneAdd1()), new FctPanelBorder());
         methods_.add( method_);
@@ -2182,6 +2204,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasTabbedPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL, new DfTabbedPane(_cust,_guiEx,aliasTabbedPane));
+        stdcl_.addSuperStdTypes(component_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(_content.getCharSeq().getAliasString(),aliasComponent);
         method_ = new StandardMethod(aliasTabbedPaneAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneAdd0(),guiAliasParameters.getAliasTabbedPane0TabbedPaneAdd1()), new FctTabbedPaneAdd());
         methods_.add( method_);
@@ -2228,6 +2252,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasScrollPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL, new DfScrollPane(_cust,_guiEx,aliasScrollPane));
+        stdcl_.addSuperStdTypes(component_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasScrollPaneHorizontalValue, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctScrollPaneHorizontalValue0());
         methods_.add( method_);
@@ -2262,6 +2288,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasSplitPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(component_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasSplitPaneGetLeft, params_,aliasComponent, false, MethodModifier.FINAL, new FctSplitPaneGetLeft());
         methods_.add( method_);
@@ -2311,6 +2339,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasInput, fields_, constructors_, methods_, aliasComponent, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(component_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        StandardClass input_ = stdcl_;
         params_ = new StringList();
         method_ = new StandardMethod(aliasInputIsEnabled, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctInputIsEnabled());
         methods_.add( method_);
@@ -2325,6 +2356,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasButton, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL, new DfButton(_cust,_guiEx,aliasButton));
+        stdcl_.addSuperStdTypes(input_);
+        stdcl_.addSuperStdTypes(component_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasActionListener);
         method_ = new StandardMethod(aliasAddListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButton0AddListener0()), new FctButtonAddAction());
         methods_.add( method_);
@@ -2340,6 +2374,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasProgBar, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(component_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
         method_ = new StandardMethod(aliasProgBarMin, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasProgBar0ProgBarMin0()), new FctProgBarMin1());
         methods_.add( method_);
@@ -2373,6 +2409,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasTextLabel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL, new DfTextLabel(_cust,_guiEx,aliasTextLabel));
+        stdcl_.addSuperStdTypes(component_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasSetLabelText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextLabel0SetLabelText0()), new FctTextLabel());
         methods_.add( method_);
@@ -2389,6 +2427,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasImageLabel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL, new DfImageLabel(_cust,_guiEx,aliasImageLabel));
+        stdcl_.addSuperStdTypes(component_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasImage);
         method_ = new StandardMethod(aliasSetLabelImage, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImageLabel0SetLabelImage0()), new FctImageLabel(_guiEx));
         methods_.add( method_);
@@ -2405,6 +2445,7 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasFont, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfFont());
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasFontGetName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctFontGetName());
         methods_.add( method_);
@@ -2438,6 +2479,7 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasColor, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasColorAlpha, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctColorAlpha());
         methods_.add( method_);
@@ -2471,6 +2513,7 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasImage, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasImageIsWithAlpha, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctImageIsWithAlpha());
         methods_.add( method_);
@@ -2539,7 +2582,7 @@ public final class GuiAliases {
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasImage0Image0(),guiAliasParameters.getAliasImage0Image1(),guiAliasParameters.getAliasImage0Image2()), new FctImage(_guiEx));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasImage, stdcl_);
-        buildInputs(_content,_cust,_guiEx);
+        buildInputs(_content,_cust,_guiEx, component_, input_);
         buildMenus(_content,_cust,_guiEx);
     }
     private void buildEvents(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
@@ -2547,6 +2590,7 @@ public final class GuiAliases {
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
         StandardClass stdcl_ = new StandardClass(aliasActionEvent, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         StringList params_ = new StringList();
         StandardMethod method_ = new StandardMethod(aliasActionEventIsAlt, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctActionEventIsAlt());
         methods_.add( method_);
@@ -2568,6 +2612,7 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasAction, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasActionListener);
         method_ = new StandardMethod(aliasActionWrap, params_, aliasAction, false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasAction0Wrap0()), new FctActionWrap(aliasAction,_guiEx.getCompoFactory()));
         methods_.add( method_);
@@ -2586,6 +2631,7 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasCommand, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL,new DfCommand(aliasCommand));
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasCommandBinding, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctCommandBinding0());
         methods_.add( method_);
@@ -2607,6 +2653,7 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasWindowEvent, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false, new FctWindowEvent(_cust,_guiEx,aliasWindowEvent));
         constructors_.add(ctor_);
@@ -2616,6 +2663,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasMouseEvent, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.NORMAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        StandardClass mouseEvent_ = stdcl_;
         params_ = new StringList();
         method_ = new StandardMethod(aliasMouseEventIsAlt, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctMouseEventIsAlt());
         methods_.add( method_);
@@ -2655,6 +2704,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasWheelEvent, fields_, constructors_, methods_, aliasMouseEvent, MethodModifier.NORMAL);
+        stdcl_.addSuperStdTypes(mouseEvent_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasWheelRotatedClicks, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctWheelRotatedClicks());
         methods_.add( method_);
@@ -2670,6 +2721,7 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasKeyEvent, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasKeyEventIsAlt, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctKeyEventIsAlt());
         methods_.add( method_);
@@ -2699,6 +2751,7 @@ public final class GuiAliases {
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
         StandardClass stdcl_ = new StandardClass(aliasMenuBar, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         StringList params_ = new StringList(aliasMenu);
         StandardMethod method_ = new StandardMethod(aliasMenuBarAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new StringList(guiAliasParameters.getAliasMenuBar0TabbedPaneAdd0()), new FctMenuBarAdd());
         methods_.add( method_);
@@ -2719,6 +2772,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasAbsMenu, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        StandardClass absMenu_ = stdcl_;
         params_ = new StringList();
         method_ = new StandardMethod(aliasAbsMenuGetParent, params_, aliasMenu, false, MethodModifier.FINAL, new FctAbsMenuGetParentMenu());
         methods_.add( method_);
@@ -2742,6 +2797,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasMenu, fields_, constructors_, methods_, aliasAbsMenu, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(absMenu_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasAbsMenu);
         method_ = new StandardMethod(aliasMenuAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenu0TabbedPaneAdd0()), new FctMenuAdd());
         methods_.add( method_);
@@ -2768,6 +2825,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasAbsMenuItem, fields_, constructors_, methods_, aliasAbsMenu, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(absMenu_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        StandardClass menuItem_ = stdcl_;
         params_ = new StringList(aliasActionListener);
         method_ = new StandardMethod(aliasAbsMenuItemAddAction, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenuItem0TabbedPaneAdd0()), new FctAbsMenuItemAddActionListener());
         methods_.add( method_);
@@ -2776,6 +2836,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasMenuItem, fields_, constructors_, methods_, aliasAbsMenuItem, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(menuItem_);
+        stdcl_.addSuperStdTypes(absMenu_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false, new FctMenuItem0(_cust,_guiEx));
         constructors_.add(ctor_);
@@ -2787,6 +2850,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasMenuItemCheck, fields_, constructors_, methods_, aliasAbsMenuItem, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(menuItem_);
+        stdcl_.addSuperStdTypes(absMenu_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
         method_ = new StandardMethod(aliasMenuItemCheckSetSelected, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenuItemCheck0RadioSetSelected0()), new FctMenuItemCheckSetSelected());
         methods_.add( method_);
@@ -2802,11 +2868,12 @@ public final class GuiAliases {
         _content.getStandards().addEntry(aliasMenuItemCheck, stdcl_);
 
     }
-    private void buildInputs(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
+    private void buildInputs(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx, StandardType _component, StandardType _input) {
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
         StandardClass stdcl_ = new StandardClass(aliasRender, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfRender(_cust, _guiEx));
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         String typeHeight_ = StringUtil.concat(_content.getReflect().getAliasFct(),"<",aliasGrList,",",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),",",_content.getPrimTypes().getAliasPrimBoolean(),",",_content.getPrimTypes().getAliasPrimInteger(),","+_content.getPrimTypes().getAliasPrimInteger()+">");
         StringList params_ = new StringList();
         StandardMethod method_ = new StandardMethod(aliasRenderGetHeight, params_, typeHeight_, false, MethodModifier.FINAL, new FctRenderGetHeight());
@@ -2838,6 +2905,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasGrList, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL, new DfGrList(_cust,_guiEx,aliasGrList));
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasGrListGetRender, params_, aliasRender, false, MethodModifier.FINAL, new FctGrListGetRender());
         methods_.add( method_);
@@ -2904,6 +2974,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasCombo, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL, new DfCombo(_cust,_guiEx,aliasCombo));
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasComboGetListeners, params_, StringExpUtil.getPrettyArrayType(aliasListSelection), false, MethodModifier.FINAL, new FctComboGetListeners());
         methods_.add( method_);
@@ -2951,6 +3024,7 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasButtonGroup, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasRadio);
         method_ = new StandardMethod(aliasButtonGroupAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButtonGroup0TabbedPaneAdd0()), new FctButtonGroupAdd());
         methods_.add( method_);
@@ -2962,6 +3036,8 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasPopupMenu, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_component);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasComponent);
         method_ = new StandardMethod(aliasPopupMenuAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0TabbedPaneAdd0()), new FctPopupMenuAdd());
         methods_.add( method_);
@@ -2997,6 +3073,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasRadio, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasRadioIsSelected, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctRadioIsSelected());
         methods_.add( method_);
@@ -3026,6 +3105,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasCheckBox, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasCheckBoxIsSelected, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctCheckBoxIsSelected());
         methods_.add( method_);
@@ -3052,6 +3134,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasTextField, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasTextFieldGetText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctTextFieldGetText());
         methods_.add( method_);
@@ -3078,6 +3163,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasTextArea, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasTextAreaGetText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctTextAreaGetText());
         methods_.add( method_);
@@ -3134,6 +3222,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasSpinner, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasSpinnerGetMax, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSpinnerGetMax());
         methods_.add( method_);
@@ -3175,6 +3266,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasSlider, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasSliderGetMax, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSliderGetMax());
         methods_.add( method_);

@@ -504,6 +504,7 @@ public final class DefaultBeanAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         std_ = new StandardClass(aliasMessage, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
+        std_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC,new FctMessageNew0(aliasMessage));
         methods_.add( method_);
@@ -524,6 +525,8 @@ public final class DefaultBeanAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         std_ = new StandardClass(aliasDocument, fields_, constructors_, methods_, _content.getReflect().getAliasAnnotated(), StdClassModifier.ABSTRACT);
+        std_.addSuperStdTypes(_content.getReflect().getAnnotType());
+        std_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasDocumentAll, params_, StringExpUtil.getPrettyArrayType(aliasDocument), false, MethodModifier.STATIC,new FctDocumentAll(_rendExecutingBlocks,aliasDocument));
         methods_.add( method_);

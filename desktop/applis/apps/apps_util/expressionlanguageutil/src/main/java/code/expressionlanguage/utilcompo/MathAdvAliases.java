@@ -32,6 +32,7 @@ public final class MathAdvAliases {
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
         StandardClass stdcl_ = new StandardClass(aliasRate, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.NORMAL, new DfLgNumber());
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         StringList params_ = new StringList(_content.getCharSeq().getAliasString());
         StandardMethod method_ = new StandardMethod(aliasRateParse, params_, aliasRate, false, MethodModifier.STATIC,new StringList(mathAliasParameters.getAliasRate0RateParse0()),new FctNbRateSafeAbs(new FctRateParse()));
         methods_.add( method_);
@@ -56,6 +57,8 @@ public final class MathAdvAliases {
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
         StandardClass std_ = new StandardClass(aliasLgInt, fields_, constructors_, methods_, aliasRate, MethodModifier.FINAL, new DfLgNumber());
+        std_.addSuperStdTypes(stdcl_);
+        std_.addSuperStdTypes(_content.getCoreNames().getObjType());
         ctor_ = new StandardConstructor(params_,false,new FctRate0());
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString());

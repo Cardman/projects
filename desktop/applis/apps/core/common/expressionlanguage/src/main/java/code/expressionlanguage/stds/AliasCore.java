@@ -108,6 +108,8 @@ public final class AliasCore {
     private String aliasStringUtilValueOf;
     private String aliasArrayLength;
     private final AliasParamCore params = new AliasParamCore();
+    private StandardClass objType;
+    private StandardClass errType;
 
     public void build(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
         setAliasBadEncode(LgNamesContent.get(_util,_cust,_mapping.getVal(BAD_ENCODE)));
@@ -367,24 +369,30 @@ public final class AliasCore {
                 new KeyValueMemberName(_mapping.getVal(ORDINAL), getAliasOrdinal())));
         return map_;
     }
-    public void build(LgNames _lgNames) {
+    private void buildObj(LgNames _lgNames) {
         StringMap<StandardType> standards_ = _lgNames.getStandards();
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
-        StandardClass stdcl_ = new StandardClass(aliasObject, fields_, constructors_, methods_, EMPTY_STRING, MethodModifier.NORMAL, new DfObj());
+        setObjType(new StandardClass(aliasObject, fields_, constructors_, methods_, EMPTY_STRING, MethodModifier.NORMAL, new DfObj()));
+        StandardClass stdcl_ = getObjType();
         StringList params_ = new StringList();
         StandardConstructor ctor_ = new StandardConstructor(params_, false, new FctObj());
         constructors_.add(ctor_);
-        StandardType std_ = stdcl_;
-        standards_.addEntry(aliasObject, std_);
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasError, fields_, constructors_, methods_, aliasObject, StdClassModifier.ABSTRACT);
+        standards_.addEntry(aliasObject, stdcl_);
+    }
+    public void build(LgNames _lgNames) {
+        StringMap<StandardType> standards_ = _lgNames.getStandards();
+        buildObj(_lgNames);
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        errType = new StandardClass(aliasError, fields_, constructors_, methods_, aliasObject, StdClassModifier.ABSTRACT);
+        StandardClass stdcl_ = errType;
+        stdcl_.addSuperStdTypes(objType);
         String stackElt_ = _lgNames.getContent().getStackElt().getAliasStackTraceElement();
         stackElt_ = StringExpUtil.getPrettyArrayType(stackElt_);
-        params_ = new StringList();
+        StringList params_ = new StringList();
         StandardMethod method_ = new StandardMethod(aliasErrorCurrentStack, params_, stackElt_, false, MethodModifier.NORMAL, new FctErrorCurrentStack0());
         methods_.add( method_);
         params_ = new StringList();
@@ -402,102 +410,133 @@ public final class AliasCore {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetCause, params_, _lgNames.getContent().getCoreNames().getAliasObject(), false, MethodModifier.NORMAL,new FctErrorGetCause());
         methods_.add( method_);
-        std_ = stdcl_;
+        StandardType std_ = stdcl_;
         standards_.addEntry(aliasError, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasNullPe, fields_, constructors_, methods_, aliasError, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(errType);
+        stdcl_.addSuperStdTypes(objType);
         std_ = stdcl_;
         standards_.addEntry(aliasNullPe, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasDivisionZero, fields_, constructors_, methods_, aliasError, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(errType);
+        stdcl_.addSuperStdTypes(objType);
         std_ = stdcl_;
         standards_.addEntry(aliasDivisionZero, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasCastType, fields_, constructors_, methods_, aliasError, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(errType);
+        stdcl_.addSuperStdTypes(objType);
         std_ = stdcl_;
         standards_.addEntry(aliasCastType, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasStore, fields_, constructors_, methods_, aliasError, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(errType);
+        stdcl_.addSuperStdTypes(objType);
         std_ = stdcl_;
         standards_.addEntry(aliasStore, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasBadSize, fields_, constructors_, methods_, aliasError, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(errType);
+        stdcl_.addSuperStdTypes(objType);
         std_ = stdcl_;
         standards_.addEntry(aliasBadSize, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasNbFormat, fields_, constructors_, methods_, aliasError, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(errType);
+        stdcl_.addSuperStdTypes(objType);
         std_ = stdcl_;
         standards_.addEntry(aliasNbFormat, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasBadIndex, fields_, constructors_, methods_, aliasError, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(errType);
+        stdcl_.addSuperStdTypes(objType);
         std_ = stdcl_;
         standards_.addEntry(aliasBadIndex, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasBadArgNumber, fields_, constructors_, methods_, aliasError, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(errType);
+        stdcl_.addSuperStdTypes(objType);
         std_ = stdcl_;
         standards_.addEntry(aliasBadArgNumber, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasIllegalType, fields_, constructors_, methods_, aliasError, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(errType);
+        stdcl_.addSuperStdTypes(objType);
         std_ = stdcl_;
         standards_.addEntry(aliasIllegalType, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasAbstractTypeErr, fields_, constructors_, methods_, aliasError, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(errType);
+        stdcl_.addSuperStdTypes(objType);
         std_ = stdcl_;
         standards_.addEntry(aliasAbstractTypeErr, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasNonInvokable, fields_, constructors_, methods_, aliasError, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(errType);
+        stdcl_.addSuperStdTypes(objType);
         std_ = stdcl_;
         standards_.addEntry(aliasNonInvokable, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasIllegalArg, fields_, constructors_, methods_, aliasError, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(errType);
+        stdcl_.addSuperStdTypes(objType);
         std_ = stdcl_;
         standards_.addEntry(aliasIllegalArg, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasSof, fields_, constructors_, methods_, aliasError, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(errType);
+        stdcl_.addSuperStdTypes(objType);
         std_ = stdcl_;
         standards_.addEntry(aliasSof, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasErrorInitClass, fields_, constructors_, methods_, aliasError, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(errType);
+        stdcl_.addSuperStdTypes(objType);
         std_ = stdcl_;
         standards_.addEntry(aliasErrorInitClass, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasBadEncode, fields_, constructors_, methods_, aliasError, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(errType);
+        stdcl_.addSuperStdTypes(objType);
         std_ = stdcl_;
         standards_.addEntry(aliasBadEncode, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasEnums, fields_, constructors_, methods_, aliasObject, StdClassModifier.HYPER_ABSTRACT);
+        stdcl_.addSuperStdTypes(objType);
         params_ = new StringList(_lgNames.getContent().getPredefTypes().getAliasEnumType());
         method_ = new StandardMethod(aliasName, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasEnums0Name0()),new FctEnumsName());
         methods_.add( method_);
@@ -509,8 +548,9 @@ public final class AliasCore {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasRange, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(objType);
         params_ = new StringList(_lgNames.getPrimTypes().getAliasPrimInteger(),_lgNames.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_, false, new StringList(params.getAliasRange0Range0(),params.getAliasRange0Range1()),new FctRange1());
+        StandardConstructor ctor_ = new StandardConstructor(params_, false, new StringList(params.getAliasRange0Range0(),params.getAliasRange0Range1()),new FctRange1());
         constructors_.add( ctor_);
         params_ = new StringList(_lgNames.getPrimTypes().getAliasPrimInteger());
         ctor_ = new StandardConstructor(params_, false, new StringList(params.getAliasRange1Range0()),new FctRange0());
@@ -538,6 +578,7 @@ public final class AliasCore {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasObjectsUtil, fields_, constructors_, methods_, aliasObject, StdClassModifier.HYPER_ABSTRACT);
+        stdcl_.addSuperStdTypes(objType);
         params_ = new StringList(aliasObject,aliasObject);
         method_ = new StandardMethod(aliasSameRef, params_, _lgNames.getContent().getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(params.getAliasObjectsUtil0SameRef0(),params.getAliasObjectsUtil0SameRef1()), new FctObjEquals());
         methods_.add( method_);
@@ -555,6 +596,7 @@ public final class AliasCore {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasStringUtil, fields_, constructors_, methods_, aliasObject, StdClassModifier.HYPER_ABSTRACT);
+        stdcl_.addSuperStdTypes(objType);
         params_ = new StringList(aliasObject);
         method_ = new StandardMethod(aliasStringUtilValueOf, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasStringUtil0ValueOfMethod0()),new FctStringUtilValueOf());
         methods_.add( method_);
@@ -563,6 +605,7 @@ public final class AliasCore {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasResources, fields_, constructors_, methods_, aliasObject, StdClassModifier.HYPER_ABSTRACT);
+        stdcl_.addSuperStdTypes(objType);
         params_ = new StringList();
         method_ = new StandardMethod(aliasReadResourcesNames, params_, StringExpUtil.getPrettyArrayType(_lgNames.getContent().getCharSeq().getAliasString()), false, MethodModifier.STATIC, new FctResourcesNames());
         methods_.add( method_);
@@ -576,6 +619,18 @@ public final class AliasCore {
         method_ = new StandardMethod(aliasReadResourcesIndex, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasResources0ReadResourcesIndex0()),new FctResourcesReadIndex());
         methods_.add( method_);
         standards_.addEntry(aliasResources, stdcl_);
+    }
+
+    public StandardClass getObjType() {
+        return objType;
+    }
+
+    public void setObjType(StandardClass _o) {
+        this.objType = _o;
+    }
+
+    public StandardClass getErrType() {
+        return errType;
     }
 
     public String getAliasObject() {

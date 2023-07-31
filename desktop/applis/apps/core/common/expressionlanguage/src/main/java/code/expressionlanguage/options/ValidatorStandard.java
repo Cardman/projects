@@ -17,6 +17,8 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class ValidatorStandard {
+    private static final String PACKAGE_NAME = "";
+
     private ValidatorStandard() {
     }
 
@@ -138,7 +140,7 @@ public final class ValidatorStandard {
 
     private static void checkPkg(AnalyzedPageEl _page, StringList _allPkgs, String _key, String _value) {
         AnalysisMessages a_ = _page.getAnalysisMessages();
-        String pkg_ = StandardType.getPackagePart(_value);
+        String pkg_ = getPackagePart(_value);
         if (pkg_.isEmpty()) {
             StdWordError err_ = new StdWordError();
             err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyPkgRefType(), _key, _value));
@@ -395,37 +397,6 @@ public final class ValidatorStandard {
         pkgsBase_.removeDuplicates();
         _page.getHeaders().getPackagesFound().addAllElts(pkgs_);
         _page.getHeaders().getBasePackagesFound().addAllElts(pkgsBase_);
-        buildInherits(_page);
-    }
-
-    public static void buildInherits(AnalyzedPageEl _page){
-        for (EntryCust<String, StandardType> s: _page.getStandardsTypes().entryList()) {
-            buildInherits(s.getValue(), _page);
-        }
-    }
-
-    private static void buildInherits(StandardType _type, AnalyzedPageEl _page) {
-        feedSupers(_type, _type.getAllSuperTypes(), _page);
-    }
-
-    private static void feedSupers(StandardType _type, StringList _types, AnalyzedPageEl _page) {
-        StringList currentSuperTypes_ = new StringList(_type.getDirectSuperTypes());
-        _types.addAllElts(currentSuperTypes_);
-        while (true) {
-            StringList newSuperTypes_ = new StringList();
-            for (String c: currentSuperTypes_) {
-                StandardType st_ = _page.getStandardsTypes().getVal(c);
-                for (String s: st_.getDirectSuperTypes()) {
-                    newSuperTypes_.add(s);
-                    _types.add(s);
-                }
-            }
-            if (newSuperTypes_.isEmpty()) {
-                break;
-            }
-            currentSuperTypes_ = newSuperTypes_;
-        }
-        _types.removeDuplicates();
     }
 
     public static Struct getSimpleResultBase(ClassField _classField, AliasNumberType _nbAlias) {
@@ -523,5 +494,13 @@ public final class ValidatorStandard {
             index_++;
         }
         return candidate_;
+    }
+
+    public static String getPackagePart(String _fullName) {
+        int indexDot_ = _fullName.lastIndexOf('.');
+        if (indexDot_ < 0) {
+            return PACKAGE_NAME;
+        }
+        return _fullName.substring(0, indexDot_);
     }
 }

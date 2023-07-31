@@ -8,8 +8,10 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultAliasGroups;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.guicompos.GuiFileBuilder;
 import code.expressionlanguage.guicompos.LgNamesGui;
@@ -434,6 +436,7 @@ public abstract class EquallableElUtUtil {
         stds_.setAliasLgInt(a_.getAliasLgInt());
         stds_.setAliasRate(a_.getAliasRate());
         stds_.getContent().build(mapp_,new StringMap<String>(), keys_);
+        stds_.getContent().getCoreNames().setObjType(new StandardClass(stds_.getContent().getCoreNames().getAliasObject(),new CustList<CstFieldInfo>(),new CustList<StandardConstructor>(),new CustList<StandardMethod>(),"", MethodModifier.NORMAL));
         a_.buildOther(stds_.getContent());
         _files.addEntry("src/runnable.txt","public interface pkg.Runnable{public void run();}");
         return MockLightLgNames.resultContext(_options,stds_,DefaultFileBuilder.newInstance(stds_.getContent()),en_,_files,_exec.getSrcFolder(), new AdvSymbolFactory(a_));

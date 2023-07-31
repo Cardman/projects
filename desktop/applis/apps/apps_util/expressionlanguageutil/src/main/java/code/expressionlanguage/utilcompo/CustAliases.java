@@ -882,6 +882,7 @@ public final class CustAliases {
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
         StringList params_ = new StringList();
         StandardClass stdcl_ = new StandardClass(aliasThread, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         StandardMethod method_ = new StandardMethod(aliasStart, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctThreadStart(aliasIllegalThreadStateException));
         methods_.add( method_);
         method_ = new StandardMethod(aliasCurrentThread, params_, aliasThread, false, MethodModifier.STATIC,new FctThreadCurrent(this));
@@ -951,6 +952,7 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         constructors_ = new CustList<StandardConstructor>();
         stdcl_ = new StandardClass(aliasThreadSet, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfThreadSet(getInterceptor()));
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasThread);
         method_ = new StandardMethod(aliasThreadSetAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasThreadSet0ThreadSetAdd0()),new FctThreadSetAdd());
         methods_.add( method_);
@@ -975,6 +977,8 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         constructors_ = new CustList<StandardConstructor>();
         stdcl_ = new StandardClass(aliasExecutorServiceBase, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.ABSTRACT);
+        StandardClass service_ = stdcl_;
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasExecutorServiceShutdown, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new FctExecutorServiceShutdown());
         methods_.add( method_);
@@ -983,6 +987,8 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         constructors_ = new CustList<StandardConstructor>();
         stdcl_ = new StandardClass(aliasExecutorService, fields_, constructors_, methods_, aliasExecutorServiceBase, MethodModifier.FINAL, new DfExecutorService(infos.getThreadFactory()));
+        stdcl_.addSuperStdTypes(service_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasRunnable);
         method_ = new StandardMethod(aliasExecutorServiceExecute, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Execute0()),new FctExecutorServiceExecute0());
         methods_.add( method_);
@@ -1001,6 +1007,8 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         constructors_ = new CustList<StandardConstructor>();
         stdcl_ = new StandardClass(aliasScheduledExecutorService, fields_, constructors_, methods_, aliasExecutorServiceBase, MethodModifier.FINAL, new DfScheduledExecutorService(infos.getThreadFactory()));
+        stdcl_.addSuperStdTypes(service_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasRunnable,_content.getPrimTypes().getAliasPrimLong(),_content.getPrimTypes().getAliasPrimLong());
         method_ = new StandardMethod(aliasExecutorServiceScheduleMillis, params_, aliasFuture, false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0ScheduleMillis0(),custAliasParameters.getAliasExecutorService0ScheduleMillis1(),custAliasParameters.getAliasExecutorService0ScheduleMillis2()),new FctScheduledExecutorMillis0());
         methods_.add( method_);
@@ -1016,6 +1024,7 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         constructors_ = new CustList<StandardConstructor>();
         stdcl_ = new StandardClass(aliasFuture, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasFutureWait, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new FctFutureAttendre());
         methods_.add( method_);
@@ -1048,6 +1057,7 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasAtomicBoolean, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicBoolean(getInfos(),aliasAtomicBoolean));
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         method_ = new StandardMethod(aliasGetAtomic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctAtomicBooleanGet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
@@ -1075,6 +1085,7 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasAtomicInteger, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicInteger(getInfos(),aliasAtomicInteger));
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         method_ = new StandardMethod(aliasGetAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctAtomicIntegerGet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
@@ -1120,6 +1131,7 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasAtomicLong, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicLong(getInfos(),aliasAtomicLong));
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         method_ = new StandardMethod(aliasGetAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL, new FctAtomicLongGet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
@@ -1165,6 +1177,7 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasEntryStringObject, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         method_ = new StandardMethod(aliasTableEntryKey, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL,new FctTrenteKey());
         methods_.add( method_);
         params_ = new StringList();
@@ -1182,6 +1195,7 @@ public final class CustAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasTableStringObject, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
         method_ = new StandardMethod(aliasTableConcKeys, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.FINAL, new FctTastrKeys0());
         methods_.add( method_);
@@ -1239,6 +1253,7 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasEntryBinary, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         method_ = new StandardMethod(aliasEntryName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctEntryBinaryName());
         methods_.add( method_);
         params_ = new StringList();
@@ -1260,6 +1275,7 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasEntryText, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         method_ = new StandardMethod(aliasEntryName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctEntryTextName());
         methods_.add( method_);
         params_ = new StringList();
@@ -1281,6 +1297,7 @@ public final class CustAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasFile, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.HYPER_ABSTRACT);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasRead, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0Read0()), new FctFileRead(this));
         methods_.add( method_);
@@ -1368,11 +1385,15 @@ public final class CustAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasIllegalThreadStateException, fields_, constructors_, methods_, _content.getCoreNames().getAliasError(), StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getErrType());
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         _content.getStandards().addEntry(aliasIllegalThreadStateException, stdcl_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasConcurrentError, fields_, constructors_, methods_, _content.getCoreNames().getAliasError(), StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getErrType());
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         _content.getStandards().addEntry(aliasConcurrentError, stdcl_);
     }
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content) {

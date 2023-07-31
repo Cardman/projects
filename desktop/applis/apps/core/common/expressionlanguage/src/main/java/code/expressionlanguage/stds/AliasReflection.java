@@ -248,6 +248,7 @@ public final class AliasReflection {
     private StandardMethod fctTypeCallRef;
     private StandardMethod fctTypeCallRefAfter;
     private final AliasParamReflection params = new AliasParamReflection();
+    private StandardClass annotType;
 
     public void build(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
         setAliasGetType(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_TYPE)));
@@ -898,47 +899,81 @@ public final class AliasReflection {
                 new KeyValueMemberName(_mapping.getVal(GET_ANNOTATIONS), getAliasGetAnnotations()),
                 new KeyValueMemberName(_mapping.getVal(GET_ANNOTATIONS_PARAMETERS), getAliasGetAnnotationsParameters()));
     }
-    public void build(LgNames _stds) {
+    private void buildAnnotated(LgNames _stds) {
+        String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
+        String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
+        String aliasPrimBoolean_ = _stds.getContent().getPrimTypes().getAliasPrimBoolean();
+        String aliasBoolean_ = _stds.getContent().getNbAlias().getAliasBoolean();
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        annotType = new StandardClass(aliasAnnotated, fields_, constructors_, methods_, aliasObject_, StdClassModifier.ABSTRACT);
+        annotType.addSuperStdTypes(_stds.getCoreNames().getObjType());
+        StringList params_ = new StringList();
+        StandardMethod method_ = new StandardMethod(aliasGetAnnotations, params_, StringExpUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL,new FctAnnotatedGetAnnotations0());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetAnnotationsParameters, params_,
+                StringExpUtil.getPrettyArrayType(StringExpUtil.getPrettyArrayType(aliasAnnotationType)), false,
+                MethodModifier.FINAL,new FctAnnotatedGetAnnotationsParam0());
+        methods_.add( method_);
+        params_ = new StringList(aliasClassType);
+        method_ = new StandardMethod(aliasGetAnnotations, params_,
+                StringExpUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetAnnotations0()),new FctAnnotatedGetAnnotations1());
+        methods_.add( method_);
+        params_ = new StringList(aliasClassType);
+        method_ = new StandardMethod(aliasGetAnnotationsParameters, params_,
+                StringExpUtil.getPrettyArrayType(StringExpUtil.getPrettyArrayType(aliasAnnotationType)),
+                false, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetAnnotationsParameters0()),new FctAnnotatedGetAnnotationsParam1());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetFileName, params_, aliasString_, false, MethodModifier.FINAL,new FctAnnotatedGetFileName());
+        methods_.add( method_);
+        params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetDeclaredAnonymousLambda0(),params.getAliasAnnotated0GetDeclaredAnonymousLambda1(),params.getAliasAnnotated0GetDeclaredAnonymousLambda2(),params.getAliasAnnotated0GetDeclaredAnonymousLambda3()),new FctAnnotatedGetDeclaredAnonymousLambda1());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL,new FctAnnotatedGetDeclaredAnonymousLambda0());
+        methods_.add( method_);
+        params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
+        method_ = new StandardMethod(aliasGetDeclaredSwitchMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetDeclaredSwitchMethods0(),params.getAliasAnnotated0GetDeclaredSwitchMethods1(),params.getAliasAnnotated0GetDeclaredSwitchMethods2(),params.getAliasAnnotated0GetDeclaredSwitchMethods3()),new FctAnnotatedGetDeclaredSwitchMethods1());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredSwitchMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL,new FctAnnotatedGetDeclaredSwitchMethods0());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClassType, false, MethodModifier.FINAL,new FctAnnotatedGetDeclaring());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPackage());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsPrivate, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPrivate());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsProtected, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsProtected());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsPublic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPublic());
+        methods_.add( method_);
+        _stds.getStandards().addEntry(aliasAnnotated, annotType);
+    }
+    private void buildAnnotatedCl(LgNames _stds) {
         String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
         String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
         String aliasPrimBoolean_ = _stds.getContent().getPrimTypes().getAliasPrimBoolean();
         String aliasBoolean_ = _stds.getContent().getNbAlias().getAliasBoolean();
         String aliasPrimInt_ = _stds.getContent().getPrimTypes().getAliasPrimInteger();
         String aliasVoid_ = _stds.getContent().getCoreNames().getAliasVoid();
-        String aliasError_ = _stds.getContent().getCoreNames().getAliasError();
         String aliasEnum_ = _stds.getContent().getPredefTypes().getAliasEnumType();
-        StandardClass stdcl_ = new StandardClass(aliasFct, fields_, constructors_, methods_, aliasObject_, StdClassModifier.ABSTRACT);
-        StringList params_ = new StringList(aliasObject_);
-        StandardMethod method_ = new StandardMethod(aliasCall, params_, aliasObject_, true, MethodModifier.FINAL, new StringList(params.getAliasFct0Call0()), new FctLambdaCall(0));
-        methods_.add( method_);
-        fctTypeCall = method_;
-        params_ = new StringList(aliasObject_);
-        method_ = new StandardMethod(aliasCallRef, params_, aliasObject_, true, MethodModifier.FINAL, new StringList(params.getAliasFct0CallRef0()), new FctLambdaCall(1));
-        methods_.add( method_);
-        fctTypeCallRef = method_;
-        params_ = new StringList(aliasObject_);
-        method_ = new StandardMethod(aliasCallRefAfter, params_, aliasObject_, true, MethodModifier.FINAL, new StringList(params.getAliasFct0CallRefAfter0()), new FctLambdaCall(2));
-        methods_.add( method_);
-        fctTypeCallRefAfter = method_;
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasMetaInfo, params_, aliasAnnotated, false, MethodModifier.FINAL, new FctLambdaMetaInfo());
-        methods_.add( method_);
-        fctTypeMeta = method_;
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasInstance, params_, aliasObject_, false, MethodModifier.FINAL, new FctLambdaInstance());
-        methods_.add( method_);
-        fctTypeInstance = method_;
-        fctType = stdcl_;
-        _stds.getStandards().addEntry(aliasFct, stdcl_);
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasClassType, fields_, constructors_, methods_, aliasAnnotated , StdClassModifier.ABSTRACT, new DfClass());
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, new FctClassGetName());
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass stdcl_ = new StandardClass(aliasClassType, fields_, constructors_, methods_, aliasAnnotated , StdClassModifier.ABSTRACT, new DfClass());
+        stdcl_.addSuperStdTypes(getAnnotType());
+        stdcl_.addSuperStdTypes(_stds.getCoreNames().getObjType());
+        StringList params_ = new StringList();
+        StandardMethod method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, new FctClassGetName());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetPrettyName, params_, aliasString_, false, MethodModifier.FINAL, new FctClassGetPrettyName());
@@ -1154,12 +1189,19 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasTryWrap, params_, aliasObject_, false, MethodModifier.FINAL,new StringList(params.getAliasClassType0TryWrap0()),new FctClassTryWrap());
         methods_.add( method_);
         _stds.getStandards().addEntry(aliasClassType, stdcl_);
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasConstructor, fields_, constructors_, methods_, aliasAnnotated, StdClassModifier.ABSTRACT, new DfCtor());
-        params_ = new StringList(aliasObject_);
-        method_ = new StandardMethod(aliasNewInstance, params_, aliasObject_, true, MethodModifier.FINAL,new StringList(params.getAliasConstructor0NewInstance0()),new FctConstructorNewInstance(0));
+    }
+    private void buildAnnotatedCtor(LgNames _stds) {
+        String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
+        String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
+        String aliasPrimBoolean_ = _stds.getContent().getPrimTypes().getAliasPrimBoolean();
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass stdcl_ = new StandardClass(aliasConstructor, fields_, constructors_, methods_, aliasAnnotated, StdClassModifier.ABSTRACT, new DfCtor());
+        stdcl_.addSuperStdTypes(getAnnotType());
+        stdcl_.addSuperStdTypes(_stds.getCoreNames().getObjType());
+        StringList params_ = new StringList(aliasObject_);
+        StandardMethod method_ = new StandardMethod(aliasNewInstance, params_, aliasObject_, true, MethodModifier.FINAL,new StringList(params.getAliasConstructor0NewInstance0()),new FctConstructorNewInstance(0));
         methods_.add( method_);
         params_ = new StringList(StringExpUtil.getPrettyArrayType(aliasObject_));
         method_ = new StandardMethod(aliasNewInstanceRef, params_, aliasObject_, false, MethodModifier.FINAL,new StringList(params.getAliasConstructor0NewInstanceRef0()),new FctConstructorNewInstance(1));
@@ -1192,12 +1234,20 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetDeclaredLocalTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctConstructorGetDeclaredLocalTypes());
         methods_.add( method_);
         _stds.getStandards().addEntry(aliasConstructor, stdcl_);
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasField, fields_, constructors_, methods_, aliasAnnotated, StdClassModifier.ABSTRACT, new DfField());
-        params_ = new StringList(aliasObject_);
-        method_ = new StandardMethod(aliasGetField, params_, aliasObject_, false, MethodModifier.FINAL,new StringList(params.getAliasField0GetField0()),new FctFieldGetField());
+    }
+    private void buildAnnotatedField(LgNames _stds) {
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
+        String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
+        String aliasPrimBoolean_ = _stds.getContent().getPrimTypes().getAliasPrimBoolean();
+        String aliasVoid_ = _stds.getContent().getCoreNames().getAliasVoid();
+        StandardClass stdcl_ = new StandardClass(aliasField, fields_, constructors_, methods_, aliasAnnotated, StdClassModifier.ABSTRACT, new DfField());
+        stdcl_.addSuperStdTypes(getAnnotType());
+        stdcl_.addSuperStdTypes(_stds.getCoreNames().getObjType());
+        StringList params_ = new StringList(aliasObject_);
+        StandardMethod method_ = new StandardMethod(aliasGetField, params_, aliasObject_, false, MethodModifier.FINAL,new StringList(params.getAliasField0GetField0()),new FctFieldGetField());
         methods_.add( method_);
         params_ = new StringList(aliasObject_,aliasObject_);
         method_ = new StandardMethod(aliasSetField, params_, aliasVoid_, false, MethodModifier.FINAL,new StringList(params.getAliasField0SetField0(),params.getAliasField0SetField1()),new FctFieldSetField());
@@ -1221,12 +1271,20 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctFieldGetDeclaredAnonymousTypes());
         methods_.add( method_);
         _stds.getStandards().addEntry(aliasField, stdcl_);
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasMethod, fields_, constructors_, methods_, aliasAnnotated, StdClassModifier.ABSTRACT, new DfMethod());
-        params_ = new StringList(aliasObject_,aliasObject_);
-        method_ = new StandardMethod(aliasInvoke, params_, aliasObject_, true, MethodModifier.FINAL,new StringList(params.getAliasMethod0Invoke0(),params.getAliasMethod0Invoke1()),new FctMethodInvoke(false, 0));
+    }
+    private void buildAnnotatedMethod(LgNames _stds) {
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
+        String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
+        String aliasPrimBoolean_ = _stds.getContent().getPrimTypes().getAliasPrimBoolean();
+        String aliasVoid_ = _stds.getContent().getCoreNames().getAliasVoid();
+        StandardClass stdcl_ = new StandardClass(aliasMethod, fields_, constructors_, methods_, aliasAnnotated, StdClassModifier.ABSTRACT, new DfMethod());
+        stdcl_.addSuperStdTypes(getAnnotType());
+        stdcl_.addSuperStdTypes(_stds.getCoreNames().getObjType());
+        StringList params_ = new StringList(aliasObject_,aliasObject_);
+        StandardMethod method_ = new StandardMethod(aliasInvoke, params_, aliasObject_, true, MethodModifier.FINAL,new StringList(params.getAliasMethod0Invoke0(),params.getAliasMethod0Invoke1()),new FctMethodInvoke(false, 0));
         methods_.add( method_);
         params_ = new StringList(aliasObject_,aliasObject_);
         method_ = new StandardMethod(aliasInvokeDirect, params_, aliasObject_, true, MethodModifier.FINAL,new StringList(params.getAliasMethod0InvokeDirect0(),params.getAliasMethod0InvokeDirect1()),new FctMethodInvoke(true, 0));
@@ -1329,76 +1387,66 @@ public final class AliasReflection {
                 StringExpUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetAnnotationsSupp0()),new FctAnnotatedGetAnnotationsSupp1());
         methods_.add( method_);
         _stds.getStandards().addEntry(aliasMethod, stdcl_);
+    }
+    public void build(LgNames _stds) {
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
+        String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
+        String aliasError_ = _stds.getContent().getCoreNames().getAliasError();
+        StandardClass stdcl_ = new StandardClass(aliasFct, fields_, constructors_, methods_, aliasObject_, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(_stds.getCoreNames().getObjType());
+        StringList params_ = new StringList(aliasObject_);
+        StandardMethod method_ = new StandardMethod(aliasCall, params_, aliasObject_, true, MethodModifier.FINAL, new StringList(params.getAliasFct0Call0()), new FctLambdaCall(0));
+        methods_.add( method_);
+        fctTypeCall = method_;
+        params_ = new StringList(aliasObject_);
+        method_ = new StandardMethod(aliasCallRef, params_, aliasObject_, true, MethodModifier.FINAL, new StringList(params.getAliasFct0CallRef0()), new FctLambdaCall(1));
+        methods_.add( method_);
+        fctTypeCallRef = method_;
+        params_ = new StringList(aliasObject_);
+        method_ = new StandardMethod(aliasCallRefAfter, params_, aliasObject_, true, MethodModifier.FINAL, new StringList(params.getAliasFct0CallRefAfter0()), new FctLambdaCall(2));
+        methods_.add( method_);
+        fctTypeCallRefAfter = method_;
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMetaInfo, params_, aliasAnnotated, false, MethodModifier.FINAL, new FctLambdaMetaInfo());
+        methods_.add( method_);
+        fctTypeMeta = method_;
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasInstance, params_, aliasObject_, false, MethodModifier.FINAL, new FctLambdaInstance());
+        methods_.add( method_);
+        fctTypeInstance = method_;
+        fctType = stdcl_;
+        _stds.getStandards().addEntry(aliasFct, stdcl_);
+        buildAnnotated(_stds);
+        buildAnnotatedCl(_stds);
+        buildAnnotatedCtor(_stds);
+        buildAnnotatedField(_stds);
+        buildAnnotatedMethod(_stds);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasInvokeTarget, fields_, constructors_, methods_, aliasError_, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(_stds.getCoreNames().getErrType());
+        stdcl_.addSuperStdTypes(_stds.getCoreNames().getObjType());
         _stds.getStandards().addEntry(aliasInvokeTarget, stdcl_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasClassNotFoundError, fields_, constructors_, methods_, aliasError_, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(_stds.getCoreNames().getErrType());
+        stdcl_.addSuperStdTypes(_stds.getCoreNames().getObjType());
         _stds.getStandards().addEntry(aliasClassNotFoundError, stdcl_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasAnnotationType, fields_, constructors_, methods_, aliasObject_, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(_stds.getCoreNames().getObjType());
         params_ = new StringList(aliasAnnotationType);
         method_ = new StandardMethod(aliasGetString, params_, aliasString_, false, MethodModifier.STATIC,new StringList(params.getAliasAnnotationType0GetString0()),new FctAnnotationToStr());
         methods_.add( method_);
         _stds.getStandards().addEntry(aliasAnnotationType, stdcl_);
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasAnnotated, fields_, constructors_, methods_, aliasObject_, StdClassModifier.ABSTRACT);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetAnnotations, params_, StringExpUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL,new FctAnnotatedGetAnnotations0());
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetAnnotationsParameters, params_,
-                StringExpUtil.getPrettyArrayType(StringExpUtil.getPrettyArrayType(aliasAnnotationType)), false,
-                MethodModifier.FINAL,new FctAnnotatedGetAnnotationsParam0());
-        methods_.add( method_);
-        params_ = new StringList(aliasClassType);
-        method_ = new StandardMethod(aliasGetAnnotations, params_,
-                StringExpUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetAnnotations0()),new FctAnnotatedGetAnnotations1());
-        methods_.add( method_);
-        params_ = new StringList(aliasClassType);
-        method_ = new StandardMethod(aliasGetAnnotationsParameters, params_,
-                StringExpUtil.getPrettyArrayType(StringExpUtil.getPrettyArrayType(aliasAnnotationType)),
-                false, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetAnnotationsParameters0()),new FctAnnotatedGetAnnotationsParam1());
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetFileName, params_, aliasString_, false, MethodModifier.FINAL,new FctAnnotatedGetFileName());
-        methods_.add( method_);
-        params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
-        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetDeclaredAnonymousLambda0(),params.getAliasAnnotated0GetDeclaredAnonymousLambda1(),params.getAliasAnnotated0GetDeclaredAnonymousLambda2(),params.getAliasAnnotated0GetDeclaredAnonymousLambda3()),new FctAnnotatedGetDeclaredAnonymousLambda1());
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL,new FctAnnotatedGetDeclaredAnonymousLambda0());
-        methods_.add( method_);
-        params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
-        method_ = new StandardMethod(aliasGetDeclaredSwitchMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetDeclaredSwitchMethods0(),params.getAliasAnnotated0GetDeclaredSwitchMethods1(),params.getAliasAnnotated0GetDeclaredSwitchMethods2(),params.getAliasAnnotated0GetDeclaredSwitchMethods3()),new FctAnnotatedGetDeclaredSwitchMethods1());
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredSwitchMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL,new FctAnnotatedGetDeclaredSwitchMethods0());
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClassType, false, MethodModifier.FINAL,new FctAnnotatedGetDeclaring());
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPackage());
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPrivate, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPrivate());
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIsProtected, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsProtected());
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPublic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPublic());
-        methods_.add( method_);
-        _stds.getStandards().addEntry(aliasAnnotated, stdcl_);
     }
 
     public String getAliasClassType() {
@@ -2164,6 +2212,10 @@ public final class AliasReflection {
 
     public AliasParamReflection getParams() {
         return params;
+    }
+
+    public StandardClass getAnnotType() {
+        return annotType;
     }
 
     public StandardType getFctType() {
