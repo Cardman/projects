@@ -14,6 +14,8 @@ import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecReturnableWithSignature;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
+import code.expressionlanguage.exec.util.ClassMethodIdOverride;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.options.ResultContext;
@@ -236,32 +238,41 @@ public final class BreakPointBlockList {
         return null;
     }
 
-    public CustList<MethodPointBlockPair> getPairs(ExecBlock _id, ContextEl _context, Struct _instance) {
+    public CustList<MethodPointBlockPairRootBlock> getPairs(ExecBlock _id, ExecFormattedRootBlock _gl, ContextEl _context, Struct _instance) {
         String argClassName_ = _instance.getClassName(_context);
         String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);
-        CustList<MethodPointBlockPair> out_ = new CustList<MethodPointBlockPair>();
+        CustList<MethodPointBlockPairRootBlock> out_ = new CustList<MethodPointBlockPairRootBlock>();
         String id_ = id(_id);
         for (MethodPointBlockPair b: methPointList.elts()) {
             MemberCallingsBlock i_ = b.getId();
             if (StringUtil.quickEq(MemberCallingsBlock.clName(i_),id_)) {
-                out_.add(b);
+                out_.add(new MethodPointBlockPairRootBlock(b,_gl));
                 continue;
             }
-            int nb_;
-            if (i_.getParent() instanceof RootBlock){
-                nb_ = ((RootBlock)i_.getParent()).getNumberAll();
-            } else {
-                nb_ = -1;
-            }
+            int nb_ = nb(i_);
             if (_context.getClasses().getRedirections().isValidIndex(nb_)) {
-                ExecOverrideInfo v_ = _context.getClasses().getRedirections().get(nb_).getVal(MemberCallingsBlock.clName(i_), base_);
-                if (v_ != null && v_.getPair().getFct() == _id) {
-                    out_.add(b);
+                ClassMethodIdOverride v_ = _context.getClasses().getRedirections().get(nb_).getVal(MemberCallingsBlock.clName(i_));
+                if (v_ != null) {
+                    ExecOverrideInfo ov_ = v_.getVal(base_);
+                    if (ov_ != null && ov_.getPair().getFct() == _id) {
+                        out_.add(new MethodPointBlockPairRootBlock(b,ExecFormattedRootBlock.getFullObject(_gl.getFormatted(),new ExecFormattedRootBlock(v_.getRoot()),_context)));
+                    }
                 }
             }
         }
         return out_;
     }
+
+    private int nb(MemberCallingsBlock _i) {
+        int nb_;
+        if (_i.getParent() instanceof RootBlock){
+            nb_ = ((RootBlock) _i.getParent()).getNumberAll();
+        } else {
+            nb_ = -1;
+        }
+        return nb_;
+    }
+
     public static String id(ExecBlock _id) {
         if (_id instanceof ExecReturnableWithSignature) {
             return ((ExecReturnableWithSignature) _id).id();

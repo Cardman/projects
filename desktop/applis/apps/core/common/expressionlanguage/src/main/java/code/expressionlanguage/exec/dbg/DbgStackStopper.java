@@ -369,11 +369,11 @@ public final class DbgStackStopper implements AbsStackStopper {
         ExecFormattedRootBlock glClass_ = globalClass(_stackCall.getCallingState());
         Struct instance_ = instance(_stackCall.getCallingState());
         Parameters original_ = params(_stackCall.getCallingState());
-        CustList<MethodPointBlockPair> pairs_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getPairs(call_, _context, instance_);
-        for (MethodPointBlockPair m: pairs_) {
-            Parameters params_ = build(original_.getRefParameters(), original_.getCache(), _context, m);
-            _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(new CheckedMethodInfos(glClass_, instance_, params_));
-            MethodPoint mp_ = m.getValue();
+        CustList<MethodPointBlockPairRootBlock> pairs_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getPairs(call_, glClass_, _context, instance_);
+        for (MethodPointBlockPairRootBlock m: pairs_) {
+            Parameters params_ = build(original_.getRefParameters(), original_.getCache(), _context, m.getId());
+            _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(new CheckedMethodInfos(m.getValue(), instance_, params_));
+            MethodPoint mp_ = m.getId().getValue();
             if (stopCurrentMp(_context, _stackCall, _p, mp_, false)) {
                 return StopDbgEnum.METHOD_ENTRY;
             }
@@ -384,11 +384,11 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     private static boolean exitMethod(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
         if (_p.getReadWrite() == ReadWrite.EXIT) {
-            CustList<MethodPointBlockPair> pairs_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getPairs(_p.getBlockRoot(), _context, _p.getGlobalStruct());
-            for (MethodPointBlockPair m: pairs_) {
-                Parameters params_ = build(_p.getRefParams(), _p.getCache(), _context, m);
-                _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(new CheckedMethodInfos(_p.getGlobalClass(),_p.getGlobalStruct(), params_));
-                MethodPoint mp_ = m.getValue();
+            CustList<MethodPointBlockPairRootBlock> pairs_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getPairs(_p.getBlockRoot(), _p.getGlobalClass(),_context, _p.getGlobalStruct());
+            for (MethodPointBlockPairRootBlock m: pairs_) {
+                Parameters params_ = build(_p.getRefParams(), _p.getCache(), _context, m.getId());
+                _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(new CheckedMethodInfos(m.getValue(),_p.getGlobalStruct(), params_));
+                MethodPoint mp_ = m.getId().getValue();
                 if (stopCurrentMp(_context, _stackCall, _p, mp_, true)) {
                     return true;
                 }

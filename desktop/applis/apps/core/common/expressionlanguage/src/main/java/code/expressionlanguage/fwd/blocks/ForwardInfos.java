@@ -243,7 +243,7 @@ public final class ForwardInfos {
                 }
                 StringMap<GeneStringOverridable> map_ = OverridesTypeUtil.getConcreteMethodsToCall(root_, o, _page);
                 map_.putAllMap(o.getOverrides());
-                ClassMethodIdOverride override_ = new ClassMethodIdOverride(mem_.getOvNamed(o));
+                ClassMethodIdOverride override_ = new ClassMethodIdOverride(e.getMembers().getRootBlock(),mem_.getOvNamed(o));
                 for (EntryCust<String,GeneStringOverridable> g: map_.entryList()) {
                     GeneStringOverridable value_ = g.getValue();
                     Members memTarget_ = _forwards.getMember(value_.getType());

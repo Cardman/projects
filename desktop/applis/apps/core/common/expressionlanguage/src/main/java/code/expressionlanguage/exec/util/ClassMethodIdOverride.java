@@ -1,15 +1,22 @@
 package code.expressionlanguage.exec.util;
 
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.util.StringMap;
 
 public final class ClassMethodIdOverride {
+    private final ExecRootBlock root;
     private final ExecOverridableBlock analyzedMethod;
     private final StringMap<ExecOverrideInfo> redirections = new StringMap<ExecOverrideInfo>();
 
-    public ClassMethodIdOverride(ExecOverridableBlock _analyzedMethod) {
+    public ClassMethodIdOverride(ExecRootBlock _r, ExecOverridableBlock _analyzedMethod) {
+        this.root = _r;
         this.analyzedMethod = _analyzedMethod;
+    }
+
+    public ExecRootBlock getRoot() {
+        return root;
     }
 
     public ExecOverridableBlock getAnalyzedMethod() {

@@ -19,10 +19,10 @@ public final class ClassMethodIdOverrides {
         return null;
     }
 
-    public ExecOverrideInfo getVal(String _analyzed, String _type) {
+    public ClassMethodIdOverride getVal(String _analyzed) {
         for (ClassMethodIdOverride c: overrides) {
             if (StringUtil.quickEq(_analyzed,c.getAnalyzedMethod().id())) {
-                return c.getVal(_type);
+                return c;
             }
         }
         return null;
