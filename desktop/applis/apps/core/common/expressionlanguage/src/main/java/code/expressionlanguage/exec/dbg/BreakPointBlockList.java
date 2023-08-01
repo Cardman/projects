@@ -1,19 +1,26 @@
 package code.expressionlanguage.exec.dbg;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
+import code.expressionlanguage.exec.blocks.ExecReturnableWithSignature;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
+import code.util.core.StringUtil;
 
 public final class BreakPointBlockList {
     private final AbsCollection<BreakPointBlockPair> list;
@@ -227,6 +234,39 @@ public final class BreakPointBlockList {
             }
         }
         return null;
+    }
+
+    public CustList<MethodPointBlockPair> getPairs(ExecBlock _id, ContextEl _context, Struct _instance) {
+        String argClassName_ = _instance.getClassName(_context);
+        String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);
+        CustList<MethodPointBlockPair> out_ = new CustList<MethodPointBlockPair>();
+        String id_ = id(_id);
+        for (MethodPointBlockPair b: methPointList.elts()) {
+            MemberCallingsBlock i_ = b.getId();
+            if (StringUtil.quickEq(MemberCallingsBlock.clName(i_),id_)) {
+                out_.add(b);
+                continue;
+            }
+            int nb_;
+            if (i_.getParent() instanceof RootBlock){
+                nb_ = ((RootBlock)i_.getParent()).getNumberAll();
+            } else {
+                nb_ = -1;
+            }
+            if (_context.getClasses().getRedirections().isValidIndex(nb_)) {
+                ExecOverrideInfo v_ = _context.getClasses().getRedirections().get(nb_).getVal(MemberCallingsBlock.clName(i_), base_);
+                if (v_ != null && v_.getPair().getFct() == _id) {
+                    out_.add(b);
+                }
+            }
+        }
+        return out_;
+    }
+    public static String id(ExecBlock _id) {
+        if (_id instanceof ExecReturnableWithSignature) {
+            return ((ExecReturnableWithSignature) _id).id();
+        }
+        return "";
     }
     public CustList<BreakPointBlockPair> bp(ExecFileBlock _file, FileMetrics _ana, int _off) {
         int r_ = _ana.getRowFile(_off);

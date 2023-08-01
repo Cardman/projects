@@ -186,8 +186,7 @@ public final class ForwardInfos {
             }
             _coverage.putType(r);
             _forwards.addMember(r, v_);
-            v_.getRootBlock().setNumberType(_forwards.getCountTypes());
-            _forwards.setCountTypes(_forwards.getCountTypes()+1);
+            v_.getRootBlock().setNumberType(r.getNumberAll());
         }
     }
 

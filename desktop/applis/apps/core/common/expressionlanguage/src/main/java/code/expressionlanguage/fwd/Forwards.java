@@ -45,7 +45,6 @@ public final class Forwards {
     private final BuildableLgNames generator;
     private final LoggableLgNames loggable;
     private final Options options;
-    private int countTypes;
     private final AbstractInterceptorStdCaller interceptor;
 
     public Forwards(BuildableLgNames _generator, LoggableLgNames _loggable, AbstractFileBuilder _fileBuilder, Options _options) {
@@ -83,7 +82,6 @@ public final class Forwards {
         getAllMapMembers().addAllElts(_from.getAllMapMembers());
         getAllMapAnonLambda().addAllEntries(_from.getAllMapAnonLambda());
         getAllMapSwitchMethods().addAllEntries(_from.getAllMapSwitchMethods());
-        setCountTypes(_from.getCountTypes());
     }
 
     private static Coverage cov(Options _opt) {
@@ -265,14 +263,6 @@ public final class Forwards {
 
     public void setAliasPrimBoolean(String _aliasPrimBoolean) {
         this.aliasPrimBoolean = _aliasPrimBoolean;
-    }
-
-    public int getCountTypes() {
-        return countTypes;
-    }
-
-    public void setCountTypes(int _c) {
-        this.countTypes = _c;
     }
 
 }

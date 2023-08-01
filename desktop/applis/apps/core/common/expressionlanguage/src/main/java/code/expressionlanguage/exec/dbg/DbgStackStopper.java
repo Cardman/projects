@@ -21,7 +21,9 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
-import code.expressionlanguage.exec.variables.*;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.exec.variables.FieldWrapper;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.FieldMetaInfo;
@@ -30,7 +32,6 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
 
 public final class DbgStackStopper implements AbsStackStopper {
     public static final int READ = 0;
@@ -365,14 +366,14 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     private static StopDbgEnum enterCase(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
         ExecBlock call_ = call(_stackCall.getCallingState());
-        String id_ = id(call_);
         ExecFormattedRootBlock glClass_ = globalClass(_stackCall.getCallingState());
         Struct instance_ = instance(_stackCall.getCallingState());
         Parameters original_ = params(_stackCall.getCallingState());
-        if (!id_.isEmpty()) {
-            Parameters params_ = build(original_.getRefParameters(), original_.getCache(), _context, call_);
+        CustList<MethodPointBlockPair> pairs_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getPairs(call_, _context, instance_);
+        for (MethodPointBlockPair m: pairs_) {
+            Parameters params_ = build(original_.getRefParameters(), original_.getCache(), _context, m);
             _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(new CheckedMethodInfos(glClass_, instance_, params_));
-            MethodPoint mp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNull(id_);
+            MethodPoint mp_ = m.getValue();
             if (stopCurrentMp(_context, _stackCall, _p, mp_, false)) {
                 return StopDbgEnum.METHOD_ENTRY;
             }
@@ -383,11 +384,11 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     private static boolean exitMethod(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
         if (_p.getReadWrite() == ReadWrite.EXIT) {
-            String id_ = id(_p.getBlockRoot());
-            if (!id_.isEmpty()) {
-                Parameters params_ = build(_p.getRefParams(), _p.getCache(), _context, _p.getBlockRoot());
+            CustList<MethodPointBlockPair> pairs_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getPairs(_p.getBlockRoot(), _context, _p.getGlobalStruct());
+            for (MethodPointBlockPair m: pairs_) {
+                Parameters params_ = build(_p.getRefParams(), _p.getCache(), _context, m);
                 _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(new CheckedMethodInfos(_p.getGlobalClass(),_p.getGlobalStruct(), params_));
-                MethodPoint mp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNull(id_);
+                MethodPoint mp_ = m.getValue();
                 if (stopCurrentMp(_context, _stackCall, _p, mp_, true)) {
                     return true;
                 }
@@ -403,13 +404,6 @@ public final class DbgStackStopper implements AbsStackStopper {
             return StopDbgEnum.FIELD;
         }
         return StopDbgEnum.NONE;
-    }
-
-    private static String id(ExecBlock _id) {
-        if (_id instanceof ExecReturnableWithSignature) {
-            return ((ExecReturnableWithSignature) _id).id();
-        }
-        return "";
     }
 
     private static ExecBlock call(CallingState _c) {
@@ -466,8 +460,8 @@ public final class DbgStackStopper implements AbsStackStopper {
         return new Parameters();
     }
 
-    private static Parameters build(StringMap<AbstractWrapper> _params, Cache _cache, ContextEl _conf, ExecBlock _id) {
-        CustList<String> ls_ = names(_conf, _id);
+    private static Parameters build(StringMap<AbstractWrapper> _params, Cache _cache, ContextEl _conf, MethodPointBlockPair _id) {
+        CustList<String> ls_ = _id.names(_conf);
         int s_ = NumberUtil.min(_params.size(),ls_.size());
         Parameters params_ = new Parameters();
         for (int i = 0; i < s_; i++) {
@@ -477,17 +471,6 @@ public final class DbgStackStopper implements AbsStackStopper {
         return params_;
     }
 
-    private static CustList<String> names(ContextEl _conf, ExecBlock _id) {
-        if (_id instanceof ExecNamedFunctionBlock) {
-            if (StringUtil.quickEq(((ExecNamedFunctionBlock)_id).getName(),"[]=")){
-                CustList<String> ls_ = new CustList<String>(((ExecNamedFunctionBlock)_id).getParametersNames());
-                ls_.add(_conf.getClasses().getKeyWordValue());
-                return ls_;
-            }
-            return ((ExecNamedFunctionBlock)_id).getParametersNames();
-        }
-        return new CustList<String>();
-    }
     private static boolean stopStep(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() > _stackCall.nbPages() || _p.getReadWrite() == ReadWrite.EXIT &&_stackCall.nbPages() == 1)) {
             return true;
