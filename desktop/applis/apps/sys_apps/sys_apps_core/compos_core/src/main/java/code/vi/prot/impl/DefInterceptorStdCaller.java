@@ -113,6 +113,11 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     }
 
     @Override
+    public AbsCollection<MethodPointBlockPair> newMethodPointKeyStringCollection() {
+        return new ConcMap<MethodPointBlockPair>(new MethodKeyString(),this);
+    }
+
+    @Override
     public AbsAtBool newAtBool() {
         return new DefAtomicBoolean();
     }

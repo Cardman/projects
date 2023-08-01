@@ -8,7 +8,7 @@ import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
-public final class CustomFoundMethod implements CallingState {
+public final class CustomFoundMethod implements CallingState,GlobalClassCallingState {
 
     private final Argument gl;
 

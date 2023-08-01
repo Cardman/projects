@@ -61,6 +61,10 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         return content.getImportedParametersTypes();
     }
 
+    public final StringList getParametersNames() {
+        return content.getParametersNames();
+    }
+
     public String getImportedReturnType() {
         return importedReturnType;
     }

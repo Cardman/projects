@@ -52,6 +52,11 @@ public final class TestedRenderInterceptorStdCaller implements AbstractIntercept
     }
 
     @Override
+    public AbsCollection<MethodPointBlockPair> newMethodPointKeyStringCollection() {
+        return new ConcList<MethodPointBlockPair>(this);
+    }
+
+    @Override
     public AbsAtBool newAtBool() {
         return new ConcBool();
     }

@@ -71,7 +71,7 @@ public class DefaultInitializer implements Initializer {
     }
     @Override
     public final void loopCalling(ContextEl _owner, StackCall _stackCall) {
-        _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(false);
+        _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(StopDbgEnum.NONE);
         _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCallingStateSub(null);
         while (true) {
             AbstractInterceptorStdCaller caller_ = _owner.getCaller();
@@ -82,8 +82,9 @@ public class DefaultInitializer implements Initializer {
     }
 
     public boolean stop(ContextEl _owner, StackCall _stackCall) {
-        if (_stackCall.getStopper().stopBreakPoint(_owner,_stackCall)) {
-            _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(true);
+        StopDbgEnum status_ = _stackCall.getStopper().stopBreakPoint(_owner, _stackCall);
+        if (status_ != StopDbgEnum.NONE) {
+            _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(status_);
             _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setPreviousNbPages(_stackCall.nbPages());
             _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setPreviousNbBlocks(_stackCall.getLastPage().nbBlock());
             _owner.getClasses().getDebugMapping().getBreakPointsBlock().getListTmp().clear();

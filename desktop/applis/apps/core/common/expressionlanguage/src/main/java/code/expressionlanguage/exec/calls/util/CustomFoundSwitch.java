@@ -9,7 +9,7 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 
-public final class CustomFoundSwitch implements CallingState {
+public final class CustomFoundSwitch implements CallingState,GlobalClassCallingState {
 
     private final Argument gl;
 

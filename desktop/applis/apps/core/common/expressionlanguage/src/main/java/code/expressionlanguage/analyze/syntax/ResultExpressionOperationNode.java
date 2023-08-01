@@ -17,6 +17,7 @@ import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.*;
+import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
@@ -107,38 +108,49 @@ public final class ResultExpressionOperationNode {
         if (a_.isAnnotAnalysis()) {
             return annotationCase(file_, c_, a_);
         }
-        MemberCallingsBlock m_ = AbsBk.getOuterFuntionInType(c_.block);
+        return notAnnot(_flag, file_, a_, c_.block);
+    }
+    public static AnalyzedPageEl prepare(MethodPointBlockPair _instance, AnalyzedPageEl _original, MethodAccessKind _flag) {
+        AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
+        a_.setDynamic(true);
+        a_.setCurrentBlock(_instance.getId());
+        a_.setCurrentPkg(a_.getDefaultPkg());
+        return notAnnot(_flag, _instance.getId().getFile(), a_, _instance.getId());
+    }
+
+    private static AnalyzedPageEl notAnnot(MethodAccessKind _flag, FileBlock _file, AnalyzedPageEl _a, AbsBk _block) {
+        MemberCallingsBlock m_ = AbsBk.getOuterFuntionInType(_block);
         if (AbsBk.isAnonBlock(m_)) {
-            a_.setupFctChars((NamedCalledFunctionBlock) m_);
-            a_.getCache().getLocalVariables().addAllElts(((NamedCalledFunctionBlock) m_).getCache().getLocalVariables());
-            a_.getCache().getLoopVariables().addAllElts(((NamedCalledFunctionBlock) m_).getCache().getLoopVariables());
+            _a.setupFctChars((NamedCalledFunctionBlock) m_);
+            _a.getCache().getLocalVariables().addAllElts(((NamedCalledFunctionBlock) m_).getCache().getLocalVariables());
+            _a.getCache().getLoopVariables().addAllElts(((NamedCalledFunctionBlock) m_).getCache().getLoopVariables());
         } else if (m_ instanceof SwitchMethodBlock) {
-            a_.setupFctChars((SwitchMethodBlock) m_);
-            a_.getCache().getLocalVariables().addAllElts(((SwitchMethodBlock) m_).getCache().getLocalVariables());
-            a_.getCache().getLoopVariables().addAllElts(((SwitchMethodBlock) m_).getCache().getLoopVariables());
+            _a.setupFctChars((SwitchMethodBlock) m_);
+            _a.getCache().getLocalVariables().addAllElts(((SwitchMethodBlock) m_).getCache().getLocalVariables());
+            _a.getCache().getLoopVariables().addAllElts(((SwitchMethodBlock) m_).getCache().getLoopVariables());
         } else if (m_ instanceof OperatorBlock) {
-            a_.setImporting((OperatorBlock)m_);
-            a_.setImportingTypes((OperatorBlock)m_);
-            a_.setCurrentPkg(a_.getDefaultPkg());
+            _a.setImporting((OperatorBlock)m_);
+            _a.setImportingTypes((OperatorBlock)m_);
+            _a.setCurrentPkg(_a.getDefaultPkg());
         } else {
             RootBlock par_ = parent(m_);
             if (par_ != null) {
-                ClassesUtil.globalType(a_, par_);
-                a_.setCurrentPkg(par_.getPackageName());
+                ClassesUtil.globalType(_a, par_);
+                _a.setCurrentPkg(par_.getPackageName());
             }
         }
         if (m_ != null) {
-            a_.setCurrentFct(m_);
-            a_.setAccessStaticContext(m_.getStaticContext());
+            _a.setCurrentFct(m_);
+            _a.setAccessStaticContext(m_.getStaticContext());
         }
-        feedVars(c_, a_);
+        feedVars(_a, _block);
         if (m_ != null) {
-            ClassesUtil.prepare(m_, a_);
+            ClassesUtil.prepare(m_, _a);
         }
-        typeOrField(_flag, a_, c_.block);
-        a_.setCurrentFile(file_);
-        a_.setImportingAcces(new AllAccessedTypes());
-        return a_;
+        typeOrField(_flag, _a, _block);
+        _a.setCurrentFile(_file);
+        _a.setImportingAcces(new AllAccessedTypes());
+        return _a;
     }
 
     private static void typeOrField(MethodAccessKind _flag, AnalyzedPageEl _a, AbsBk _bl) {
@@ -205,8 +217,8 @@ public final class ResultExpressionOperationNode {
         return _a;
     }
 
-    private static void feedVars(ResultExpressionOperationNode _c, AnalyzedPageEl _a) {
-        AbsBk curr_ = _c.block;
+    private static void feedVars(AnalyzedPageEl _a, AbsBk _found) {
+        AbsBk curr_ = _found;
         while (curr_ != null) {
             if (curr_ instanceof MemberCallingsBlock) {
                 break;
@@ -215,14 +227,14 @@ public final class ResultExpressionOperationNode {
                 curr_ = null;
             } else {
                 localVarsLine(_a,curr_);
-                loopVars(_c, _a, curr_);
+                loopVars(_a, curr_, _found);
                 curr_ = curr_.getParent();
             }
         }
     }
 
-    private static void loopVars(ResultExpressionOperationNode _c, AnalyzedPageEl _a, AbsBk _curr) {
-        if (_c.block != _curr) {
+    private static void loopVars(AnalyzedPageEl _a, AbsBk _curr, AbsBk _found) {
+        if (_found != _curr) {
             if (_curr instanceof ForIterativeLoop) {
                 AnaLocalVariable vari_ = new AnaLocalVariable();
                 vari_.setConstType(ConstType.FIX_VAR);
@@ -409,6 +421,13 @@ public final class ResultExpressionOperationNode {
         return c_.resultExpression == null && c_.block instanceof RootBlock;
     }
 
+    public static MemberCallingsBlock keyMethodBp(int _caret, FileBlock _file) {
+        ResultExpressionOperationNode c_ = container(_caret, _file);
+        if (c_.resultExpression == null && c_.block instanceof MemberCallingsBlock) {
+            return (MemberCallingsBlock) c_.block;
+        }
+        return null;
+    }
     private int outExp(int _caret) {
         if (block instanceof ForIterativeLoop) {
             return ((ForIterativeLoop) block).getVariableNameOffset();
@@ -423,6 +442,9 @@ public final class ResultExpressionOperationNode {
             if (!((WithFilterContent)block).getFilterContent().getDeclaringType().isEmpty()){
                 return ((WithFilterContent)block).getFilterContent().getValueOffset();
             }
+            return block.getOffset();
+        }
+        if (block instanceof MemberCallingsBlock) {
             return block.getOffset();
         }
         return -1;

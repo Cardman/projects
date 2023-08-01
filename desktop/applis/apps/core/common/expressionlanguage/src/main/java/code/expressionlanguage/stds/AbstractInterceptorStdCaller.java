@@ -18,5 +18,6 @@ public interface AbstractInterceptorStdCaller {
     AbsCollection<WatchPointBlockPair> newWatchPointKeyStringCollection();
     AbsCollection<ExcPointBlockPair> newExcPointKeyStringCollection();
     AbsCollection<AbsCallContraints> newExecFileBlockTraceIndexCollection();
+    AbsCollection<MethodPointBlockPair> newMethodPointKeyStringCollection();
     AbsAtBool newAtBool();
 }

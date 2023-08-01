@@ -52,6 +52,11 @@ public final class MockInterceptorStdCaller implements AbstractInterceptorStdCal
     }
 
     @Override
+    public AbsCollection<MethodPointBlockPair> newMethodPointKeyStringCollection() {
+        return new ConcList<MethodPointBlockPair>(this);
+    }
+
+    @Override
     public AbsAtBool newAtBool() {
         return new ConcBool();
     }

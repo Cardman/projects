@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.dbg;
 
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.FileMetrics;
@@ -21,6 +22,7 @@ public final class BreakPointBlockList {
     private final AbsAtBool pausedLoop;
     private final AbsCollection<WatchPointBlockPair> watchList;
     private final AbsCollection<ExcPointBlockPair> excPointList;
+    private final AbsCollection<MethodPointBlockPair> methPointList;
 
     public BreakPointBlockList(AbstractInterceptorStdCaller _i) {
         interceptor = _i;
@@ -28,6 +30,7 @@ public final class BreakPointBlockList {
         list = _i.newBreakPointKeyStringCollection();
         watchList = _i.newWatchPointKeyStringCollection();
         excPointList = _i.newExcPointKeyStringCollection();
+        methPointList = _i.newMethodPointKeyStringCollection();
         pausedLoop = _i.newAtBool();
     }
 
@@ -39,8 +42,27 @@ public final class BreakPointBlockList {
         if (o_ < 0) {
             return;
         }
+        MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(_offset, _file);
+        if (id_ != null) {
+            toggle(id_);
+            return;
+        }
         ExecFileBlock f_ = _d.getFiles().getVal(_file);
         toggle(f_,o_, ResultExpressionOperationNode.enabledTypeBp(_offset, _file));
+    }
+    public void toggle(MemberCallingsBlock _id) {
+        MethodPoint v_ = new MethodPoint(interceptor);
+        v_.setEnabled(true);
+        MethodPointBlockPair pair_ = new MethodPointBlockPair(_id, v_);
+        int i_ = 0;
+        for (MethodPointBlockPair b: methPointList.elts()) {
+            if (b.match(pair_)) {
+                methPointList.remove(i_,b);
+                return;
+            }
+            i_++;
+        }
+        methPointList.add(pair_);
     }
     public void toggle(ExecFileBlock _file, int _offset, boolean _enType) {
         BreakPoint v_ = new BreakPoint(interceptor);
@@ -65,8 +87,26 @@ public final class BreakPointBlockList {
         if (o_ < 0) {
             return;
         }
+        MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(_offset, _file);
+        if (id_ != null) {
+            toggleEnabled(id_);
+            return;
+        }
         ExecFileBlock f_ = _d.getFiles().getVal(_file);
         toggleEnabled(f_,o_, ResultExpressionOperationNode.enabledTypeBp(_offset, _file));
+    }
+
+    public void toggleEnabled(MemberCallingsBlock _id) {
+        MethodPoint v_ = new MethodPoint(interceptor);
+        v_.setEnabled(true);
+        MethodPointBlockPair pair_ = new MethodPointBlockPair(_id, v_);
+        for (MethodPointBlockPair b: methPointList.elts()) {
+            if (b.match(pair_)) {
+                b.getValue().setEnabled(!b.getValue().isEnabled());
+                return;
+            }
+        }
+        methPointList.add(pair_);
     }
     public void toggleEnabled(ExecFileBlock _file, int _offset, boolean _enType) {
         BreakPoint v_ = new BreakPoint(interceptor);
@@ -148,6 +188,10 @@ public final class BreakPointBlockList {
     public boolean is(ExecFileBlock _file, int _offset) {
         return getNotNull(_file, _offset).isEnabled();
     }
+
+    public boolean is(String _id) {
+        return getNotNull(_id).isEnabled();
+    }
     public BreakPoint getNotNull(ExecFileBlock _file, int _offset) {
         BreakPointBlockPair b_ = getPair(_file, _offset);
         if (b_ == null) {
@@ -166,6 +210,24 @@ public final class BreakPointBlockList {
         }
         return null;
     }
+    public MethodPoint getNotNull(String _id) {
+        MethodPointBlockPair b_ = getPair(_id);
+        if (b_ == null) {
+            MethodPoint bp_ = new MethodPoint(interceptor);
+            bp_.setEnabled(false);
+            return bp_;
+        }
+        return b_.getValue();
+    }
+
+    public MethodPointBlockPair getPair(String _id) {
+        for (MethodPointBlockPair b: methPointList.elts()) {
+            if (b.match(_id)) {
+                return b;
+            }
+        }
+        return null;
+    }
     public CustList<BreakPointBlockPair> bp(ExecFileBlock _file, FileMetrics _ana, int _off) {
         int r_ = _ana.getRowFile(_off);
         CustList<BreakPointBlockPair> list_ = new CustList<BreakPointBlockPair>();
@@ -178,6 +240,15 @@ public final class BreakPointBlockList {
     }
     public void resetList() {
         for (BreakPointBlockPair b: list.elts()) {
+            b.getValue().resetCount();
+        }
+        for (MethodPointBlockPair b: methPointList.elts()) {
+            b.getValue().resetCount();
+        }
+        for (ExcPointBlockPair b: excPointList.elts()) {
+            b.getValue().resetCount();
+        }
+        for (WatchPointBlockPair b: watchList.elts()) {
             b.getValue().resetCount();
         }
     }

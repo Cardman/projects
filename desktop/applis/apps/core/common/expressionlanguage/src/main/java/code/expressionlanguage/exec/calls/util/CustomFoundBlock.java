@@ -9,7 +9,7 @@ import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 
-public final class CustomFoundBlock implements CallingState {
+public final class CustomFoundBlock implements CallingState,GlobalClassCallingState {
 
     private final ExecFormattedRootBlock className;
 

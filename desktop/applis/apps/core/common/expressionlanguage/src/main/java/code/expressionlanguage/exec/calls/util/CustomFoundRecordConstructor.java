@@ -11,7 +11,7 @@ import code.expressionlanguage.fwd.opers.ExecInstancingStdContent;
 import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
 import code.util.CustList;
 
-public final class CustomFoundRecordConstructor implements CallingState {
+public final class CustomFoundRecordConstructor implements CallingState,GlobalClassCallingState {
 
     private final Argument argument;
     private final ExecFormattedRootBlock className;

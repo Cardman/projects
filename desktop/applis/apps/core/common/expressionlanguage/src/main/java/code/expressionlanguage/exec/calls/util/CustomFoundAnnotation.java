@@ -11,7 +11,7 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.util.CustList;
 import code.util.StringMap;
 
-public final class CustomFoundAnnotation implements CallingState {
+public final class CustomFoundAnnotation implements CallingState,GlobalClassCallingState {
 
     private final ExecFormattedRootBlock className;
     private final ExecRootBlock type;

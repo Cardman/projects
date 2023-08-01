@@ -10,6 +10,11 @@ public final class ExcPoint {
     public ExcPoint(AbstractInterceptorStdCaller _i){
         result = new BreakPointCondition(_i);
     }
+
+    public void resetCount() {
+        result.getEnabled().set(true);
+        result.setCount(0);
+    }
     public boolean isEnabled() {
         return enabled;
     }

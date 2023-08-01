@@ -9,7 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 
-public final class NotInitializedClass implements CallingState {
+public final class NotInitializedClass implements CallingState,GlobalClassCallingState {
 
     private final ExecFormattedRootBlock className;
     private final ExecRootBlock rootBlock;

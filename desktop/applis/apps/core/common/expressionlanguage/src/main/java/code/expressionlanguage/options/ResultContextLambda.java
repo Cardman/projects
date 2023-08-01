@@ -22,6 +22,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
+import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -57,6 +58,14 @@ public final class ResultContextLambda {
             return new ResultContextLambda(null,null,new ReportedMessages());
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_fileName, _caret, _result.getPageEl(),_flag);
+        return build(_exp, _result, _type, _gene, a_);
+    }
+
+    public static ResultContextLambda dynamicAnalyze(String _exp, MethodPointBlockPair _instance, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
+        if (_exp.trim().isEmpty()) {
+            return new ResultContextLambda(null,null,new ReportedMessages());
+        }
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_instance, _result.getPageEl(),null);
         return build(_exp, _result, _type, _gene, a_);
     }
 
@@ -169,9 +178,9 @@ public final class ResultContextLambda {
 //        }
 //        return op_;
 //    }
-    public StackCallReturnValue eval(ContextEl _original, CoreCheckedExecOperationNodeInfos _addon,AbstractPageEl _page) {
+    public StackCallReturnValue eval(ContextEl _original, CheckedMethodInfos _m, CoreCheckedExecOperationNodeInfos _addon,AbstractPageEl _page) {
         prepare(_original);
-        return eval(_addon,_page);
+        return eval(_m,_addon,_page);
     }
 
     private void prepare(ContextEl _original) {
@@ -211,8 +220,12 @@ public final class ResultContextLambda {
         _st.getInitializingTypeInfos().resetInitEnums(_st);
     }
 
-    public StackCallReturnValue eval(CoreCheckedExecOperationNodeInfos _addon,AbstractPageEl _page) {
+    public StackCallReturnValue eval(CheckedMethodInfos _m,CoreCheckedExecOperationNodeInfos _addon,AbstractPageEl _page) {
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING, context);
+        if (_m != null) {
+            AbstractPageEl page_ = new CustomFoundMethod(new Argument(_m.getInstance()),_m.getDeclaring(),lambda, _m.getParameters()).processAfterOperation(context,stackCall_);
+            return loop(stackCall_, page_);
+        }
         Parameters p_ = new Parameters();
         if (_addon == null) {
             p_.getRefParameters().addAllEntries(_page.getRefParams());

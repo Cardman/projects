@@ -18,6 +18,17 @@ public final class WatchPoint {
         resultCompoundRead = new BreakPointCondition(_i);
         resultCompoundWrite = new BreakPointCondition(_i);
     }
+
+    public void resetCount() {
+        resultRead.getEnabled().set(true);
+        resultRead.setCount(0);
+        resultWrite.getEnabled().set(true);
+        resultWrite.setCount(0);
+        resultCompoundRead.getEnabled().set(true);
+        resultCompoundRead.setCount(0);
+        resultCompoundWrite.getEnabled().set(true);
+        resultCompoundWrite.setCount(0);
+    }
     public boolean isEnabled() {
         return enabled;
     }

@@ -44,8 +44,8 @@ public final class DefStackStopper implements AbsStackStopper {
     }
 
     @Override
-    public boolean stopBreakPoint(ContextEl _context, StackCall _stackCall) {
-        return false;
+    public StopDbgEnum stopBreakPoint(ContextEl _context, StackCall _stackCall) {
+        return StopDbgEnum.NONE;
     }
 
     @Override
