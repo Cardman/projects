@@ -255,7 +255,7 @@ public final class BreakPointBlockList {
                 if (v_ != null) {
                     ExecOverrideInfo ov_ = v_.getVal(base_);
                     if (ov_ != null && ov_.getPair().getFct() == _id) {
-                        out_.add(new MethodPointBlockPairRootBlock(b,ExecFormattedRootBlock.getFullObject(_gl.getFormatted(),new ExecFormattedRootBlock(v_.getRoot()),_context)));
+                        out_.add(new MethodPointBlockPairRootBlock(b,ExecFormattedRootBlock.getFullObject(argClassName_,new ExecFormattedRootBlock(v_.getRoot()),_context)));
                     }
                 }
             }
