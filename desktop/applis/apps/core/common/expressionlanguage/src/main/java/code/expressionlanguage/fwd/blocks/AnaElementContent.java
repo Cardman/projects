@@ -5,9 +5,11 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.util.CustList;
 import code.util.Ints;
+import code.util.core.StringUtil;
 
 public final class AnaElementContent {
-
+    private static final String PAR_LEFT = "(";
+    private static final String PAR_RIGHT = ")";
     private final String fieldName;
 
     private final int fieldNameOffest;
@@ -37,10 +39,13 @@ public final class AnaElementContent {
         value = _value.getInfo();
         valueOffest = _value.getOffset();
     }
-
-    public int diffTr(String _newKeyWord) {
-        return -getFieldName().length() - 1 - _newKeyWord.length() - 1;
+    public String buildVirtualCreate(String _newKeyWord) {
+        return StringUtil.concat(getFieldName(),"=", _newKeyWord, PAR_LEFT, getValue(), PAR_RIGHT);
     }
+    public int retrieveTr(String _newKeyWord) {
+        return getValueOffest() - getFieldNameOffest() -getFieldName().length() - 1 - _newKeyWord.length() - 1;
+    }
+
     public String getFieldName() {
         return fieldName;
     }

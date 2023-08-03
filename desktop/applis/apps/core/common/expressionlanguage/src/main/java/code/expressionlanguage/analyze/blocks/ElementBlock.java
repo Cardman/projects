@@ -148,18 +148,6 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         ReachOperationUtil.tryCalculate(res.getRoot(), _page);
     }
 
-    public String buildVirtualCreate(String _newKeyWord) {
-        return StringUtil.concat(elementContent.getFieldName(),"=", _newKeyWord, PAR_LEFT, elementContent.getValue(), PAR_RIGHT);
-    }
-
-    public int retrieveTr(String _newKeyWord) {
-        return elementContent.getValueOffest() - elementContent.getFieldNameOffest() + diffTr(_newKeyWord);
-    }
-
-    public int diffTr(String _newKeyWord) {
-        return elementContent.diffTr(_newKeyWord);
-    }
-
     public void buildAnnotations(AnalyzedPageEl _page) {
         annotations.buildAnnotations(_page);
     }

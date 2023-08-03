@@ -12,7 +12,6 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.util.IntMap;
 import code.util.StringList;
-import code.util.core.StringUtil;
 
 public final class InnerElementBlock extends RootBlock implements InnerTypeOrElement,UniqueRootedBlock {
 
@@ -86,18 +85,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         _page.setSumOffset(res.getSumOffset());
         res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, new Calculation(this, getNameErrors()), _page));
         ReachOperationUtil.tryCalculate(res.getRoot(), _page);
-    }
-
-    public String buildVirtualCreate(String _newKeyWord) {
-        return StringUtil.concat(elementContent.getFieldName(),"=", _newKeyWord, PAR_LEFT, elementContent.getValue(), PAR_RIGHT);
-    }
-
-    public int retrieveTr(String _newKeyWord) {
-        return elementContent.getValueOffest() - elementContent.getFieldNameOffest() + diffTr(_newKeyWord);
-    }
-
-    public int diffTr(String _newKeyWord) {
-        return elementContent.diffTr(_newKeyWord);
     }
 
 

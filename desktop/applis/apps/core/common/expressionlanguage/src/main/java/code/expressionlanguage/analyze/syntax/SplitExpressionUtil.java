@@ -221,11 +221,11 @@ public final class SplitExpressionUtil {
                 _page.setCurrentBlock(b);
                 _page.zeroOffset();
                 String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
-                String value_ = ((ElementBlock) b).buildVirtualCreate(keyWordNew_);
+                String value_ = ((ElementBlock) b).getElementContent().buildVirtualCreate(keyWordNew_);
                 ResultExpression resultExpression_ = ((ElementBlock) b).getRes();
                 resultExpression_.setAnalyzedString(value_);
-                ((ElementBlock) b).getElementContent().setTrOffset(((ElementBlock) b).retrieveTr(keyWordNew_));
-                resultExpression_.setSumOffset(((ElementBlock) b).getFieldNameOffset()+((ElementBlock) b).retrieveTr(keyWordNew_));
+                ((ElementBlock) b).getElementContent().setTrOffset(((ElementBlock) b).getElementContent().retrieveTr(keyWordNew_));
+                resultExpression_.setSumOffset(((ElementBlock) b).getFieldNameOffset()+((ElementBlock) b).getElementContent().retrieveTr(keyWordNew_));
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
                 extractAnon(_page, _int, null, _type, resultExpression_);
             }
@@ -233,11 +233,11 @@ public final class SplitExpressionUtil {
                 _page.setCurrentBlock(b);
                 _page.zeroOffset();
                 String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
-                String value_ = ((InnerElementBlock) b).buildVirtualCreate(keyWordNew_);
+                String value_ = ((InnerElementBlock) b).getElementContent().buildVirtualCreate(keyWordNew_);
                 ResultExpression resultExpression_ = ((InnerElementBlock) b).getRes();
                 resultExpression_.setAnalyzedString(value_);
-                ((InnerElementBlock) b).getElementContent().setTrOffset(((InnerElementBlock) b).retrieveTr(keyWordNew_));
-                resultExpression_.setSumOffset(((InnerElementBlock) b).getFieldNameOffset()+((InnerElementBlock) b).retrieveTr(keyWordNew_));
+                ((InnerElementBlock) b).getElementContent().setTrOffset(((InnerElementBlock) b).getElementContent().retrieveTr(keyWordNew_));
+                resultExpression_.setSumOffset(((InnerElementBlock) b).getFieldNameOffset()+((InnerElementBlock) b).getElementContent().retrieveTr(keyWordNew_));
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
                 extractAnon(_page, _int, null, _type, resultExpression_);
             }
