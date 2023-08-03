@@ -102,6 +102,6 @@ public final class ProcessDbgConditionalBpTest extends ProcessDbgCommon {
     }
     @Test
     public void test13() {
-        assertFalse(new AllAccessedTypes().isTypeHidden(null,null));
+        assertFalse(new AllAccessedTypes().isTypeHidden(null));
     }
 }

@@ -580,7 +580,7 @@ public final class AnalyzedPageEl {
     }
     public static AccessingImportingBlock acc(AccessedBlock _acc) {
         if (_acc instanceof RootBlock) {
-            return new TypeAccessor(((RootBlock)_acc).getFullName());
+            return new TypeAccessor((RootBlock)_acc);
         }
         return new OperatorAccessor();
     }

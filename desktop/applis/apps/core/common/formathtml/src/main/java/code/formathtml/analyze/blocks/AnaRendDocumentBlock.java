@@ -91,7 +91,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             _page.setGlobalType(declClass);
             _page.setImporting(rootBlock_);
             _page.setImportingTypes(this);
-            _page.setImportingAcces(new TypeAccessor(rootBlock_.getFullName()));
+            _page.setImportingAcces(new TypeAccessor(rootBlock_));
         } else {
             _page.setGlobalType(AnaFormattedRootBlock.defValue());
             _page.setImporting(this);

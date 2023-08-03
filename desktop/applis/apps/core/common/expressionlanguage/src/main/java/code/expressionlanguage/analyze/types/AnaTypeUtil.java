@@ -228,7 +228,7 @@ public final class AnaTypeUtil {
     }
 
     private static void staticInitType(AnalyzedPageEl _page, RootBlock _c) {
-        _page.setImportingAcces(new TypeAccessor(_c.getFullName()));
+        _page.setImportingAcces(new TypeAccessor(_c));
         ClassesUtil.globalType(_page, _c);
         StringList ints_ = _c.getStaticInitInterfaces();
         int len_ = ints_.size();
@@ -268,7 +268,7 @@ public final class AnaTypeUtil {
     }
 
     private static void recordType(AnalyzedPageEl _page, RootBlock _c) {
-        _page.setImportingAcces(new TypeAccessor(_c.getFullName()));
+        _page.setImportingAcces(new TypeAccessor(_c));
         ClassesUtil.globalType(_page, _c);
         StringList ints_ = _c.getInstInitInterfaces();
         int len_ = ints_.size();

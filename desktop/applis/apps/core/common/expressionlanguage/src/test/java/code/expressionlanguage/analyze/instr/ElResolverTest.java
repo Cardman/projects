@@ -2985,7 +2985,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         AbsBk b_ = r_.getFirstChild();
         conf_.setCurrentBlock(b_);
-        conf_.setImportingAcces(new TypeAccessor("pkg.ExTwo"));
+        conf_.setImportingAcces(new TypeAccessor(r_));
         conf_.setImporting(r_);
         conf_.setImportingTypes(r_);
         FieldBlock l_ = (FieldBlock) b_;
@@ -3032,7 +3032,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         AbsBk b_ = r_.getFirstChild();
         conf_.setCurrentBlock(b_);
-        conf_.setImportingAcces(new TypeAccessor("pkg.ExTwo"));
+        conf_.setImportingAcces(new TypeAccessor(r_));
         conf_.setImporting(r_);
         conf_.setImportingTypes(r_);
         FieldBlock l_ = (FieldBlock) b_;
@@ -3078,7 +3078,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         AbsBk b_ = r_.getFirstChild();
         conf_.setCurrentBlock(b_);
-        conf_.setImportingAcces(new TypeAccessor("pkg.ExTwo"));
+        conf_.setImportingAcces(new TypeAccessor(r_));
         conf_.setImporting(r_);
         conf_.setImportingTypes(r_);
         FieldBlock l_ = (FieldBlock) b_;
@@ -3126,7 +3126,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         AbsBk b_ = r_.getFirstChild();
         conf_.setCurrentBlock(b_);
-        conf_.setImportingAcces(new TypeAccessor("pkg.ExTwo"));
+        conf_.setImportingAcces(new TypeAccessor(r_));
         conf_.setImporting(r_);
         conf_.setImportingTypes(r_);
         FieldBlock l_ = (FieldBlock) b_;
@@ -3182,7 +3182,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         AbsBk b_ = r_.getFirstChild();
         conf_.setCurrentBlock(b_);
-        conf_.setImportingAcces(new TypeAccessor("pkg.ExTwo"));
+        conf_.setImportingAcces(new TypeAccessor(r_));
         conf_.setImporting(r_);
         conf_.setImportingTypes(r_);
         FieldBlock l_ = (FieldBlock) b_;
@@ -3230,7 +3230,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         AbsBk b_ = r_.getFirstChild();
         conf_.setCurrentBlock(b_);
-        conf_.setImportingAcces(new TypeAccessor("pkg.ExTwo"));
+        conf_.setImportingAcces(new TypeAccessor(r_));
         conf_.setImporting(r_);
         conf_.setImportingTypes(r_);
         FieldBlock l_ = (FieldBlock) b_;

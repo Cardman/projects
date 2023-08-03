@@ -60,7 +60,7 @@ public final class ResolvingSuperTypes {
         String gl_ = _ana.getGenericString();
         AccessedBlock scope_ = _ana.getAccessedBlock();
         _page.getCurrentBadIndexes().clear();
-        _page.setImportingAcces(new TypeAccessor(_ana.getFullName()));
+        _page.setImportingAcces(new TypeAccessor(_ana));
         _page.setImportingTypes(_ana);
         AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeHeader(_in, _rootName, gl_, scope_, _ana, _location, _page);
         for (InaccessibleType i : _page.getCurrentBadIndexes()) {

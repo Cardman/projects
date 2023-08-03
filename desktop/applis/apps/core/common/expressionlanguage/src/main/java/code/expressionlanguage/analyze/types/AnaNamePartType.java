@@ -23,7 +23,7 @@ import code.util.core.StringUtil;
 final class AnaNamePartType extends AnaLeafPartType {
 
     private boolean checkAccessLoop;
-    private String owner="";
+    private AnaGeneType ownerType;
     private String titleRef = "";
     private int value;
     private boolean buildRef;
@@ -63,7 +63,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             }
             setFoundType(foundOwners_.firstElt().getOwned());
             setAnalyzedType(foundOwners_.firstElt().getOwnedGeneName());
-            owner = owner_;
+            ownerType = _part.getFoundType();
             return;
         }
         OwnerListResultInfo foundOwners_ = AnaTypeUtil.getGenericOwners(owner_, _type, _page);
@@ -72,7 +72,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         }
         setFoundType(foundOwners_.firstElt().getOwned());
         setAnalyzedType(foundOwners_.firstElt().getOwnedGeneName());
-        owner = owner_;
+        ownerType = _part.getFoundType();
     }
 
     @Override
@@ -130,14 +130,14 @@ final class AnaNamePartType extends AnaLeafPartType {
             }
             setFoundType(foundOwners_.firstElt().getOwned());
             setAnalyzedType(foundOwners_.firstElt().getOwnedGeneName());
-            owner = id_;
+            ownerType = _part.getFoundType();
             return;
         }
         OwnerListResultInfo foundOwners_ = AnaTypeUtil.getOwners(id_, _type, _page);
         if (foundOwners_.onlyOneElt()) {
             setFoundType(foundOwners_.firstElt().getOwned());
             setAnalyzedType(foundOwners_.firstElt().getOwnedGeneName());
-            owner = id_;
+            ownerType = _part.getFoundType();
         }
     }
 
@@ -184,12 +184,12 @@ final class AnaNamePartType extends AnaLeafPartType {
         StringMap<ResultTypeAncestor> allAncestors_ = new StringMap<ResultTypeAncestor>();
         MappingLocalType resolved_ = _page.getMappingLocal().getVal(type_);
         if (resolved_ != null) {
-            ResultTypeAncestor res_ = new ResultTypeAncestor(true, resolved_.getSuffixedName());
+            ResultTypeAncestor res_ = new ResultTypeAncestor(true, resolved_.getSuffixedName(),resolved_.getParent());
             res_.setResolvedType(resolved_.getType());
             allAncestors_.addEntry(resolved_.getParentTypeGenericString(), res_);
         }
         while (p_ != null) {
-            allAncestors_.addEntry(p_.getGenericString(), new ResultTypeAncestor(false,type_));
+            allAncestors_.addEntry(p_.getGenericString(), new ResultTypeAncestor(false,type_, p_));
             p_ = p_.getParentType();
         }
         for (EntryCust<String,ResultTypeAncestor> e: allAncestors_.entryList()) {
@@ -216,26 +216,26 @@ final class AnaNamePartType extends AnaLeafPartType {
                 id_ = StringExpUtil.getIdFromAllTypes(genStr_);
                 resType_ = e.getValue().getSimpleName();
             }
-            endAnalyze(_page,inner_,genStr_,id_,resType_,a);
+            endAnalyze(_page,inner_,genStr_,id_,resType_, e.getValue().getOwner());
             return true;
         }
         return false;
     }
-    private void endAnalyze(AnalyzedPageEl _page,RootBlock _inner,String _genStr,String _id,String _resType, String _a) {
+    private void endAnalyze(AnalyzedPageEl _page, RootBlock _inner, String _genStr, String _id, String _resType, RootBlock _o) {
         if (_inner != null) {
             setFoundType(_inner);
             if (_inner.withoutInstance()) {
                 setAnalyzedType(StringUtil.concat(_id,"..",_resType));
-                owner = _a;
+                ownerType = _o;
                 return;
             }
             if (DefaultTokenValidation.isStaticAcc(_page)) {
                 setAnalyzedType(StringUtil.concat(_id,"..",_resType));
-                owner = _a;
+                ownerType = _o;
                 return;
             }
             setAnalyzedType(StringUtil.concat(_genStr,"..",_resType));
-            owner = _a;
+            ownerType = _o;
         }
     }
     private void tryAnalyzeInnerPartsLine(ReadyTypes _ready,
@@ -264,12 +264,12 @@ final class AnaNamePartType extends AnaLeafPartType {
         StringMap<ResultTypeAncestor> allAncestors_ = new StringMap<ResultTypeAncestor>();
         MappingLocalType resolved_ = _page.getMappingLocal().getVal(type_);
         if (resolved_ != null) {
-            ResultTypeAncestor res_ = new ResultTypeAncestor(true, resolved_.getSuffixedName());
+            ResultTypeAncestor res_ = new ResultTypeAncestor(true, resolved_.getSuffixedName(),resolved_.getParent());
             res_.setResolvedType(resolved_.getType());
             allAncestors_.addEntry(resolved_.getParentFullName(), res_);
         }
         while (p_ != null) {
-            allAncestors_.addEntry(p_.getFullName(), new ResultTypeAncestor(false,type_));
+            allAncestors_.addEntry(p_.getFullName(), new ResultTypeAncestor(false,type_,p_));
             p_ = p_.getParentType();
         }
         for (EntryCust<String,ResultTypeAncestor> e: allAncestors_.entryList()) {
@@ -285,13 +285,13 @@ final class AnaNamePartType extends AnaLeafPartType {
                 if (owners_.onlyOneElt()) {
                     setFoundType(owners_.firstElt().getOwned());
                     setAnalyzedType(owners_.firstElt().getOwnedGeneName());
-                    owner = a;
+                    ownerType = e.getValue().getOwner();
                 }
             } else {
                 String resType_ = e.getValue().getSimpleName();
                 setFoundType(e.getValue().getResolvedType());
                 setAnalyzedType(StringUtil.concat(a,"..",resType_));
-                owner = a;
+                ownerType = e.getValue().getOwner();
             }
             return true;
         }
@@ -313,7 +313,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         if (checkAccessLoop) {
             getInaccessibleTypes().addAllElts(checkAccess(analyzedType_, indexInType_, _page));
         } else {
-            getInaccessibleTypes().addAllElts(checkAccessIntern(analyzedType_, owner, indexInType_, _page));
+            getInaccessibleTypes().addAllElts(checkAccessIntern(analyzedType_, ownerType, indexInType_, _page, 0));
         }
     }
 
@@ -321,36 +321,43 @@ final class AnaNamePartType extends AnaLeafPartType {
         StringList parts_ = StringExpUtil.getAllPartInnerTypes(_analyzedType);
         String idFound_ = StringExpUtil.getIdFromAllTypes(parts_.first());
         StringBuilder id_ = new StringBuilder(idFound_);
-        StringBuilder idOwner_ = new StringBuilder(idFound_);
-        CustList<InaccessibleType> l_ = checkAccessIntern(idFound_, idFound_, _indexInType, _page);
+        CustList<InaccessibleType> l_ = checkAccessIntern(idFound_, null, _indexInType, _page, 1);
         int len_ = parts_.size();
         for (int i = 2; i < len_; i+=2) {
             idFound_ = StringExpUtil.getIdFromAllTypes(parts_.get(i));
             id_.append(parts_.get(i-1));
             id_.append(idFound_);
-            l_.addAllElts(checkAccessIntern(id_.toString(),idOwner_.toString(), _indexInType, _page));
-            idOwner_.append(parts_.get(i-1));
-            idOwner_.append(idFound_);
+            l_.addAllElts(checkAccessIntern(id_.toString(), null, _indexInType, _page, 2));
         }
         return l_;
     }
 
-    private static CustList<InaccessibleType> checkAccessIntern(String _found, String _owner, int _indexInType, AnalyzedPageEl _page) {
-        String idOwner_ = StringExpUtil.getIdFromAllTypes(_owner);
+    private static CustList<InaccessibleType> checkAccessIntern(String _found, AnaGeneType _o, int _indexInType, AnalyzedPageEl _page, int _i) {
         String idFound_ = StringExpUtil.getIdFromAllTypes(_found);
         RootBlock found_ = _page.getAnaClassBody(idFound_);
         if (found_ == null) {
             return new CustList<InaccessibleType>();
         }
+        AnaGeneType own_;
+        if (_i == 0) {
+            own_ = _o;
+        } else if (_i == 1) {
+            own_ = found_;
+        } else {
+            own_ = found_.getParentType();
+        }
+        if (!(own_ instanceof RootBlock)) {
+            return new CustList<InaccessibleType>();
+        }
         CustList<InaccessibleType> l_ = new CustList<InaccessibleType>();
         AccessingImportingBlock gl_ = _page.getImportingAcces();
         Accessed a_ = new Accessed(found_.getAccess(), found_.getPackageName(), found_.getParentType(), found_);
-        if (gl_.isTypeHidden(a_, _page)) {
+        if (gl_.isTypeHidden(a_)) {
             InaccessibleType i_ = new InaccessibleType(_indexInType, idFound_);
             _page.getCurrentBadIndexes().add(i_);
             l_.add(i_);
         }
-        if (new TypeAccessor(idOwner_).isTypeHidden(a_, _page)) {
+        if (new TypeAccessor((RootBlock) own_).isTypeHidden(a_)) {
             InaccessibleType i_ = new InaccessibleType(_indexInType, idFound_);
             _page.getCurrentBadIndexes().add(i_);
             l_.add(i_);

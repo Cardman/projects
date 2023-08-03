@@ -6,12 +6,14 @@ public final class MappingLocalType {
     private final String fullName;
     private final String suffixedName;
     private final RootBlock type;
+    private final RootBlock parent;
     private final String parentTypeFullName;
     private final String parentTypeGenericString;
 
     public MappingLocalType(String _fullName, String _suffixedName, RootBlock _type, String _parFullName, String _parGenericString) {
         this.fullName = _fullName;
         this.suffixedName = _suffixedName;
+        parent = _type.getParentType();
         parentTypeFullName = _parFullName;
         this.type = _type;
         parentTypeGenericString = _parGenericString;
@@ -27,6 +29,10 @@ public final class MappingLocalType {
 
     public String getParentTypeGenericString() {
         return parentTypeGenericString;
+    }
+
+    public RootBlock getParent() {
+        return parent;
     }
 
     public String getParentFullName() {

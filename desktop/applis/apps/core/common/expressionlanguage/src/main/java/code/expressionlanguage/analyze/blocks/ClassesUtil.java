@@ -58,7 +58,7 @@ public final class ClassesUtil {
     public static void checkEnd(AnalyzedPageEl _page) {
         for (RootBlock c: _page.getAllGroupFoundTypes()) {
             globalType(_page, c);
-            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingAcces(new TypeAccessor(c));
             _page.getMappingLocal().clear();
             _page.getMappingLocal().putAllMap(c.getRefMappings());
             for (AbsBk b: getDirectChildren(c)) {
@@ -88,7 +88,7 @@ public final class ClassesUtil {
     private static void customOverrides(AnalyzedPageEl _page) {
         for (RootBlock e: _page.getAllGroupFoundTypes()) {
             globalType(_page, e);
-            _page.setImportingAcces(new TypeAccessor(e.getFullName()));
+            _page.setImportingAcces(new TypeAccessor(e));
             _page.getMappingLocal().clear();
             _page.getMappingLocal().putAllMap(e.getRefMappings());
             for (AbsBk b: getDirectChildren(e)) {
@@ -1834,7 +1834,7 @@ public final class ClassesUtil {
             globalType(_page, c);
             _page.setCurrentPkg(c.getPackageName());
             _page.setCurrentFile(c.getFile());
-            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingAcces(new TypeAccessor(c));
             _page.getMappingLocal().clear();
             _page.getMappingLocal().putAllMap(c.getRefMappings());
             c.validateIds(_page);
@@ -1982,7 +1982,7 @@ public final class ClassesUtil {
         procBadIndexes(_page, brBl_);
         for (RootBlock c: _page.getFoundTypes()) {
             _page.setImporting(c);
-            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingAcces(new TypeAccessor(c));
             _page.setImportingTypes(c);
             _page.getInitFields().clear();
             _page.getAssignedDeclaredFields().clear();
@@ -2072,7 +2072,7 @@ public final class ClassesUtil {
 
     private static CustList<AbsBk> allInstanceFieldsByType(AnalyzedPageEl _page, RootBlock _c) {
         _page.setImporting(_c);
-        _page.setImportingAcces(new TypeAccessor(_c.getFullName()));
+        _page.setImportingAcces(new TypeAccessor(_c));
         _page.setImportingTypes(_c);
         _page.getInitFields().clear();
         _page.getAssignedDeclaredFields().clear();
@@ -2149,7 +2149,7 @@ public final class ClassesUtil {
     private static void loopOverrides(AnalyzedPageEl _page) {
         _page.setAssignedFields(true);
         for (RootBlock c: _page.getFoundTypes()) {
-            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingAcces(new TypeAccessor(c));
             CustList<AbsBk> bl_ = getDirectChildren(c);
             for (AbsBk b: bl_) {
                 if (!AbsBk.isOverBlock(b)) {
@@ -2191,7 +2191,7 @@ public final class ClassesUtil {
     }
 
     private static void loopAnnots(AnalyzedPageEl _page, RootBlock _c) {
-        _page.setImportingAcces(new TypeAccessor(_c.getFullName()));
+        _page.setImportingAcces(new TypeAccessor(_c));
         globalType(_page, _c);
         _page.setCurrentPkg(_c.getPackageName());
         _page.setCurrentFile(_c.getFile());
@@ -2282,7 +2282,7 @@ public final class ClassesUtil {
 
         for (RootBlock c: _page.getAllGroupFoundTypes()) {
             globalType(_page,c);
-            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingAcces(new TypeAccessor(c));
             CustList<AbsBk> bl_ = getDirectChildren(c);
             for (AbsBk b: bl_) {
                 AnalyzingEl anAss_ = tryGetAss(b, _page.getResultsAnaMethod());
@@ -2327,7 +2327,7 @@ public final class ClassesUtil {
 
     private static void checkFinalsInstanceFields(AnalyzedPageEl _page, AssignedVariablesBlock _assVars, RootBlock _c) {
         globalType(_page, _c);
-        _page.setImportingAcces(new TypeAccessor(_c.getFullName()));
+        _page.setImportingAcces(new TypeAccessor(_c));
         _page.getInitFields().clear();
         _page.getAssignedDeclaredFields().clear();
         _page.getAllDeclaredFields().clear();
@@ -2465,7 +2465,7 @@ public final class ClassesUtil {
     }
 
     private static void checkFinalsStaticFields(AnalyzedPageEl _page, AssignedVariablesBlock _assVars, RootBlock _c) {
-        _page.setImportingAcces(new TypeAccessor(_c.getFullName()));
+        _page.setImportingAcces(new TypeAccessor(_c));
         globalType(_page, _c);
         _page.getInitFields().clear();
         _page.getAssignedDeclaredFields().clear();
@@ -2585,7 +2585,7 @@ public final class ClassesUtil {
         _page.setAssignedStaticFields(true);
         for (RootBlock c: _page.getAllGroupFoundTypes()) {
             globalType(_page,c);
-            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingAcces(new TypeAccessor(c));
             _page.getInitFields().clear();
             _page.getAssignedDeclaredFields().clear();
             _page.getAllDeclaredFields().clear();
@@ -2603,7 +2603,7 @@ public final class ClassesUtil {
 
         for (RootBlock c: _page.getAllGroupFoundTypes()) {
             globalType(_page,c);
-            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingAcces(new TypeAccessor(c));
             CustList<AbsBk> bl_ = getDirectChildren(c);
             for (AbsBk b: bl_) {
                 AnalyzingEl anAss_ = tryGetAss(b, _page.getResultsAnaMethod());
@@ -2657,7 +2657,7 @@ public final class ClassesUtil {
     }
 
     private static void initAssignements(AnalyzedPageEl _page, RootBlock _c) {
-        _page.setImportingAcces(new TypeAccessor(_c.getFullName()));
+        _page.setImportingAcces(new TypeAccessor(_c));
         globalType(_page, _c);
         _page.getInitFields().clear();
         _page.getAssignedDeclaredFields().clear();
@@ -2778,7 +2778,7 @@ public final class ClassesUtil {
         IdMap<ClassField,ClassFieldBlock> cstFields_ = new IdMap<ClassField,ClassFieldBlock>();
         for (RootBlock c: _page.getFoundTypes()) {
             _page.setImporting(c);
-            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingAcces(new TypeAccessor(c));
             _page.setImportingTypes(c);
             CustList<AbsBk> bl_ = getDirectChildren(c);
             for (AbsBk b: bl_) {
