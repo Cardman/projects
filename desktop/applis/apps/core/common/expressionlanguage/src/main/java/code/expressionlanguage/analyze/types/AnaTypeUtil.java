@@ -517,6 +517,7 @@ public final class AnaTypeUtil {
                 if (g_ == null) {
                     continue;
                 }
+                owners_.owner(g_);
                 added(_innerName, _staticOnly, owners_, s, g_);
                 for (String t: g_.getImportedDirectBaseSuperTypes().values()) {
                     addIfNotFound(visited_, next_, t);
@@ -541,6 +542,7 @@ public final class AnaTypeUtil {
                 if (g_ == null) {
                     continue;
                 }
+                owners_.owner(g_);
                 added(_innerName, false, owners_, s, g_);
                 genericSuperTypes(_page, visited_, next_, s, g_);
             }
@@ -590,6 +592,7 @@ public final class AnaTypeUtil {
         String id_ = StringExpUtil.getIdFromAllTypes(_root);
         RootBlock g_ = _page.getAnaClassBody(id_);
         if (g_ != null) {
+            owners_.owner(g_);
             addedInnerElement(_innerName, owners_, _root, g_);
         }
         return owners_;

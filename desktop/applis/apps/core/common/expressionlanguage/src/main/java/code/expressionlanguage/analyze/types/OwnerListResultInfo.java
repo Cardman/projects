@@ -7,6 +7,7 @@ import code.util.CustList;
 public final class OwnerListResultInfo {
     private final CustList<OwnerResultInfo> list = new CustList<OwnerResultInfo>();
     private final IdTypeList<RootBlock> listOwners = new IdTypeList<RootBlock>();
+    private RootBlock owner;
     public void add(String _ownerName, RootBlock _owner, String _simpleName, RootBlock _owned) {
         if (_owned.withoutInstance()) {
             list.add(0,new OwnerResultInfo(_ownerName,_owner,"..", _simpleName,StringExpUtil.getIdFromAllTypes(_ownerName)+".."+_simpleName,_owned));
@@ -37,6 +38,7 @@ public final class OwnerListResultInfo {
             out_.list.add(i);
             out_.listOwners.add(i.getOwner());
         }
+        out_.owner = owner;
         return out_;
     }
     public boolean isEmpty() {
@@ -61,5 +63,16 @@ public final class OwnerListResultInfo {
             f_.add(new ResolvedIdTypeContent(o.getOwnedName(),o.getOwned()));
         }
         return f_;
+    }
+
+    public RootBlock getOwner() {
+        return owner;
+    }
+
+    public void owner(RootBlock _o) {
+        if (owner != null) {
+            return;
+        }
+        this.owner = _o;
     }
 }
