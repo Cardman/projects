@@ -40,8 +40,8 @@ public final class RunnableStruct extends LaunchableStruct {
         return invoke(new Argument(_global),_class,_cont,_pair,_stackCall,_argList);
     }
     public static Argument invoke(Argument _global, ExecFormattedRootBlock _class, RunnableContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
-        Parameters parameters_ = ExecTemplates.wrapAndCall(_pair, _class, _global, _cont, _stackCall, _argList);
-        Argument arg_ = ProcessMethod.calculate(new CustomFoundMethod(_global, _class, _pair, parameters_), _cont, _stackCall).getValue();
+        ExecTemplates.wrapAndCall(_pair, _class, _global, _cont, _stackCall, _argList);
+        Argument arg_ = ProcessMethod.calculate(_stackCall.getCallingState(), _cont, _stackCall).getValue();
         boolean err_ = _cont.getCustInit().prExc(_cont, _stackCall);
         if (err_) {
             return null;

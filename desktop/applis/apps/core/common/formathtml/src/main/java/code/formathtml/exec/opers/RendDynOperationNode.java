@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
-import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.opers.CompoundedOperator;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -246,15 +245,11 @@ public abstract class RendDynOperationNode {
         ExecTypeFunction c_ = _i.get(0);
         ExecFormattedRootBlock format_ = StackCall.formatVarType(_rend, _i.getOwnerClass());
         CustList<Argument> args_ = new CustList<Argument>(Argument.getNullableValue(_argument));
-        Parameters parameters_ = new Parameters();
-        if (!_context.callsOrException(_rend.getStackCall())) {
-            ArgumentListCall l_ = ArgumentListCall.wrapCall(args_);
-            parameters_ = ExecTemplates.okArgsSet(c_.getFct(), format_,null, l_, _context, _rend.getStackCall());
-        }
         if (_context.callsOrException(_rend.getStackCall())) {
             return null;
         }
-        Argument out_ = ProcessMethod.calculate(new CustomFoundMethod(Argument.createVoid(), format_, c_, parameters_), _context, _rend.getStackCall()).getValue();
+        ExecTemplates.wrapAndCall(c_,format_,Argument.createVoid(),_context,_rend.getStackCall(),ArgumentListCall.wrapCall(args_));
+        Argument out_ = ProcessMethod.calculate(_rend.getStackCall().getCallingState(), _context, _rend.getStackCall()).getValue();
         if (_context.callsOrException(_rend.getStackCall())) {
             return null;
         }

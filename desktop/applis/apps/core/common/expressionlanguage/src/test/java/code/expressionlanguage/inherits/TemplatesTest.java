@@ -16,12 +16,9 @@ import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.sample.CustLgNames;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 import org.junit.Test;
 
 
@@ -763,10 +760,6 @@ public final class TemplatesTest extends ProcessMethodCommon {
         assertEq("pkg.Ex", t_);
     }
 
-    private static String getFullTypeByBasesTmp(ContextEl _cont, String _sub, String _sup) {
-        return ExecInherits.getFullTypeByBases(_sub, _sup, _cont);
-    }
-
     @Test
     public void getGenericTypeByBases9Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -1250,7 +1243,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     }
 
     private static String getFullTypeByBases(ContextEl _context, String _s, String _s2) {
-        return getFullTypeByBasesTmp(_context, _s, _s2);
+        return ExecInherits.getFullTypeByBases(_s, _s2, _context);
     }
 
     private static String quickFormat(ContextEl _context, String _first, String _second) {

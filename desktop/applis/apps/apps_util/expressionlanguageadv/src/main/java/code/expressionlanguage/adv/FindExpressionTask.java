@@ -10,10 +10,8 @@ import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.ArrayRefState;
-import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.CustomReflectConstructor;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.structs.*;
@@ -48,8 +46,8 @@ public final class FindExpressionTask implements Runnable {
             ls_.add(new ArgumentWrapper(new StringStruct(text_)));
             ls_.add(new ArgumentWrapper(new IntStruct(currentIndex_)));
             StackCall stCall_ = StackCall.newInstance(InitPhase.NOTHING, rCont_);
-            Parameters parameters_ = ExecTemplates.wrapAndCall(targetMethod_.getPair(), targetMethod_.getClassName(), new Argument(infoStruct_), rCont_, stCall_, new ArgumentListCall(ls_));
-            Struct re_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundMethod(new Argument(infoStruct_), targetMethod_.getClassName(), targetMethod_.getPair(), parameters_),rCont_,stCall_).getValue());
+            ExecTemplates.wrapAndCall(targetMethod_.getPair(), targetMethod_.getClassName(), new Argument(infoStruct_), rCont_, stCall_, new ArgumentListCall(ls_));
+            Struct re_ = ArgumentListCall.toStr(ProcessMethod.calculate(stCall_.getCallingState(),rCont_,stCall_).getValue());
             if (rCont_.callsOrException(stCall_)) {
                 return;
             }
