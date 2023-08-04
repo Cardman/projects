@@ -131,26 +131,11 @@ public final class ExecutingUtil {
         return page_;
     }
     public static AbstractPageEl createInstancing(ContextEl _context, CustomFoundConstructor _e) {
-        InstancingStep in_ = _e.getInstanceStep();
-        if (in_ == InstancingStep.NEWING) {
-            return createNewInstancing(_context,_e);
-        }
-        return createForwardingInstancing(_context,_e);
-    }
-    public static AbstractPageEl createNewInstancing(ContextEl _context, CustomFoundConstructor _e) {
-        ExecFormattedRootBlock cl_ = _e.getClassName();
+        AbstractCallingInstancingPageEl page_ = buildCtor(_e);
         Parameters args_ = _e.getArguments();
         Argument global_ = _e.getCurrentObject();
-        AbstractCallingInstancingPageEl page_ = buildCtor(_e);
-        Struct str_ = NullStruct.NULL_VALUE;
-        if (global_ != null) {
-            str_ = global_.getStruct();
-        }
-        String fieldName_ = _e.getFieldName();
-        int ordinal_ = _e.getChildIndex();
-        Argument argGl_ = new Argument(_context.getInit().processInit(_context, str_, cl_, fieldName_, ordinal_));
-        page_.setGlobalArgument(argGl_);
-        page_.setReturnedArgument(argGl_);
+        page_.setGlobalArgument(global_);
+        page_.setReturnedArgument(global_);
         setInstanciationInfos(_context,page_, args_, _e.getPair());
         return page_;
     }
@@ -181,15 +166,6 @@ public final class ExecutingUtil {
         page_.setGlobalArgument(argGl_);
         page_.setReturnedArgument(argGl_);
         page_.fileTypeOffset(_type);
-        return page_;
-    }
-    private static AbstractPageEl createForwardingInstancing(ContextEl _context, CustomFoundConstructor _e) {
-        AbstractCallingInstancingPageEl page_ = buildCtor(_e);
-        Parameters args_ = _e.getArguments();
-        Argument global_ = _e.getCurrentObject();
-        page_.setGlobalArgument(global_);
-        page_.setReturnedArgument(global_);
-        setInstanciationInfos(_context,page_, args_, _e.getPair());
         return page_;
     }
 

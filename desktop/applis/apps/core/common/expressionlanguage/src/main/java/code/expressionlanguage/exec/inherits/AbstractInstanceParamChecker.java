@@ -70,7 +70,7 @@ public abstract class AbstractInstanceParamChecker extends AbstractParamChecker 
         } else {
             needed_ = new Argument(Argument.getNullableValue(_previous).getStruct());
         }
-        _stackCall.setCallingState(new CustomFoundConstructor(_classNameFound, pair, fieldName, blockIndex, needed_, _classFormat.getParameters()));
+        _stackCall.setCallingState(new CustomFoundConstructor(_conf,_classNameFound, pair, fieldName, blockIndex, needed_, _classFormat.getParameters()));
         return Argument.createVoid();
     }
 

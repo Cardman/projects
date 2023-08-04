@@ -2542,7 +2542,7 @@ public final class RateStructTest extends EquallableElUtUtil {
     }
     private Struct instance(ContextEl _rCtor, ExecRootBlock _ex, ContextEl _ctx) {
         StackCall resStCtor_ = StackCall.newInstance(InitPhase.NOTHING, _rCtor);
-        Argument result_ = ProcessMethod.calculate(new CustomFoundConstructor(new ExecFormattedRootBlock(_ex),_ex.getEmptyCtorPair(),new Argument(),new Parameters(),InstancingStep.NEWING), _ctx,resStCtor_).getValue();
+        Argument result_ = ProcessMethod.calculate(new CustomFoundConstructor(_ctx,new ExecFormattedRootBlock(_ex),new Argument()), _ctx,resStCtor_).getValue();
         return ArgumentListCall.toStr(result_);
     }
 

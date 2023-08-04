@@ -45,7 +45,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
         if (!calledImplicitConstructor && formattedSuperClass_ != null) {
             calledImplicitConstructor = true;
             Argument global_ = getGlobalArgument();
-            _stack.setCallingState(new CustomFoundConstructor(StackCall.formatVarType(_stack,formattedSuperClass_), formattedSuperClass_.getRootBlock().getEmptyCtorPair(), global_));
+            _stack.setCallingState(new CustomFoundConstructor(StackCall.formatVarType(_stack,formattedSuperClass_), global_));
             return false;
         }
         //the super constructor is called here
@@ -62,7 +62,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
             }
             visited.add(r_);
             Argument global_ = getGlobalArgument();
-            _stack.setCallingState(new CustomFoundConstructor(StackCall.formatVarType(_stack,f), r_.getEmptyCtorPair(), global_));
+            _stack.setCallingState(new CustomFoundConstructor(StackCall.formatVarType(_stack,f), global_));
             return false;
         }
         ExecBlock blockRoot_ = getBlockRoot();

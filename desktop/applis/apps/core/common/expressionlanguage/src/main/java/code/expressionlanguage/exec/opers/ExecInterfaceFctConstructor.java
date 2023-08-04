@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
@@ -70,7 +69,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
 
     public static void prep(ContextEl _conf, StackCall _stack, Argument _arg, ExecFormattedRootBlock _superClass, CustList<ExecOperationInfo> _infos, ExecInvokingConstructorContent _invokingConstructorContent, ExecTypeFunction _pair) {
         String lastType_ = ExecInherits.quickFormat(_superClass, _invokingConstructorContent.getLastType());
-        new DefaultParamChecker(_pair, fectchArgs(lastType_, _invokingConstructorContent.getNaturalVararg(), _conf, _stack, _infos), MethodAccessKind.INSTANCE, CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(_superClass, _arg, null, _conf, _stack);
+        new DefaultParamChecker(_pair, fectchArgs(lastType_, _invokingConstructorContent.getNaturalVararg(), _conf, _stack, _infos), MethodAccessKind.INSTANCE, CallPrepareState.CTOR).checkParams(_superClass, _arg, null, _conf, _stack);
     }
 
 }

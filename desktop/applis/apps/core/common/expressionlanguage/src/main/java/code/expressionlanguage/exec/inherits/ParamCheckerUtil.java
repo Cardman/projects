@@ -111,7 +111,7 @@ public final class ParamCheckerUtil {
         if (_exit.hasToExit(_stackCall, _classNameFound.getRootBlock())) {
             return;
         }
-        new DefaultParamChecker(_named, _firstArgs, _kind, CallPrepareState.OPERATOR, null).checkParams(_classNameFound, Argument.createVoid(), null, _conf, _stackCall);
+        new DefaultParamChecker(_named, _firstArgs, _kind, CallPrepareState.OPERATOR).checkParams(_classNameFound, Argument.createVoid(), null, _conf, _stackCall);
     }
 
     public static Argument processEnums(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall, ExecRootBlock _type) {

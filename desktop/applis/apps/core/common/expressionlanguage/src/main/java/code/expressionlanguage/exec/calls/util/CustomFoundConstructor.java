@@ -7,63 +7,52 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 
 public final class CustomFoundConstructor implements CallingState,GlobalClassCallingState {
 
     private final ExecFormattedRootBlock className;
     private final ExecTypeFunction pair;
 
-    private final String fieldName;
-    private final int childIndex;
-
     private final Argument currentObject;
 
     private final Parameters arguments;
 
-    private final InstancingStep instanceStep;
-
     public CustomFoundConstructor(ExecFormattedRootBlock _className,
-                                  ExecTypeFunction _pair,
                                   Argument _currentObject) {
-        this(_className,_pair,_currentObject,new Parameters(),InstancingStep.USING_SUPER_IMPL);
+        this(_className,_className.getRootBlock().getEmptyCtorPair(),_currentObject,new Parameters());
     }
 
-    public CustomFoundConstructor(ExecFormattedRootBlock _className,
-                                  ExecTypeFunction _pair,
-                                  Argument _currentObject, Parameters _arguments, InstancingStep _instance) {
-        this(_className,_pair,"",-1,_currentObject,_arguments,_instance);
+    public CustomFoundConstructor(ContextEl _context,ExecFormattedRootBlock _className,
+                                  Argument _currentObject) {
+        this(_context,_className,_className.getRootBlock().getEmptyCtorPair(), "",-1,_currentObject,new Parameters());
     }
-
-    public CustomFoundConstructor(ExecFormattedRootBlock _className,
+    public CustomFoundConstructor(ContextEl _context,ExecFormattedRootBlock _className,
                                   ExecTypeFunction _pair,
                                   String _fieldName, int _childIndex,
                                   Argument _currentObject, Parameters _arguments) {
-        this(_className,_pair,_fieldName,_childIndex,_currentObject,_arguments,InstancingStep.NEWING);
+        this(_className,_pair, new Argument(_context.getInit().processInit(_context, struct(_currentObject), _className, _fieldName, _childIndex)),_arguments);
     }
     public CustomFoundConstructor(ExecFormattedRootBlock _className,
                                   ExecTypeFunction _pair,
-                                  String _fieldName, int _childIndex,
-                                  Argument _currentObject, Parameters _arguments, InstancingStep _instance) {
+                                  Argument _currentObject, Parameters _arguments) {
         className = _className;
         pair = _pair;
-        fieldName = _fieldName;
-        childIndex = _childIndex;
         currentObject = _currentObject;
         arguments = _arguments;
-        instanceStep = _instance;
+    }
+    private static Struct struct(Argument _global) {
+        Struct str_ = NullStruct.NULL_VALUE;
+        if (_global != null) {
+            str_ = _global.getStruct();
+        }
+        return str_;
     }
 
     @Override
     public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
         return ExecutingUtil.createInstancing(_context,this);
-    }
-
-    public int getChildIndex() {
-        return childIndex;
-    }
-
-    public String getFieldName() {
-        return fieldName;
     }
 
     public ExecTypeFunction getPair() {
@@ -82,7 +71,4 @@ public final class CustomFoundConstructor implements CallingState,GlobalClassCal
         return arguments;
     }
 
-    public InstancingStep getInstanceStep() {
-        return instanceStep;
-    }
 }

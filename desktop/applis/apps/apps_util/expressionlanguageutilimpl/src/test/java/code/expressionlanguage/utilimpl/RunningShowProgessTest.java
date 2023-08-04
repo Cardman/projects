@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
-import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -62,7 +61,7 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         ContextEl rCont_ = res_.getContext();
         String infoTest_ = stds_.getExecContent().getCustAliases().getAliasInfoTest();
         ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(infoTest_, rCont_.getClasses());
-        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(className_, className_.getRootBlock().getEmptyCtorPair(), new Argument(), new Parameters(), InstancingStep.NEWING),rCont_, StackCall.newInstance(InitPhase.NOTHING,rCont_)).getValue());
+        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(rCont_,className_, new Argument()),rCont_, StackCall.newInstance(InitPhase.NOTHING,rCont_)).getValue());
         ShowUpdates sh_ = new ShowUpdates(infoStruct_,(RunnableContextEl) rCont_,progTest_,stds_);
         sh_.run();
         assertEq(0, bar_.getMin());

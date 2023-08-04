@@ -1096,6 +1096,38 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
+
+    @Test
+    public void test78() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T> {public class Inner<U>{public T a;public U b;public (T a,U b){this.a=a;this.b=b;}}public T c;public (T c){this.c=c;}public static int exmeth(){var o=new Ex<int>(2);var i=o.new Inner<int>(3,4);return i.c+i.a+i.b;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        enteringCondition("c==2&&a==3&&b==4&&class(U)==class(int)&&class(T)==class(int)&&this.a==0&&this.b==0",cont_,"pkg/Ex",68);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertSame(StopDbgEnum.METHOD_ENTRY, stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertNull(stack_.getBreakPointInfo().getBreakPointOutputInfo().getCallingStateSub());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test79() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T> {public class Inner<U>{public T a;public U b;public (T a,U b){this.a=a;this.b=b;}}public T c;public (T c){this.c=c;}public static int exmeth(){var o=new Ex<int>(2);var i=o.new Inner<int>(3,4);return i.c+i.a+i.b;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        exitingCondition("c==2&&a==3&&b==4&&class(U)==class(int)&&class(T)==class(int)&&this.a==3&&this.b==4",cont_,"pkg/Ex",68);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(2, stack_.nbPages());
+        assertSame(StopDbgEnum.METHOD_EXIT, stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertNull(stack_.getBreakPointInfo().getBreakPointOutputInfo().getCallingStateSub());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
     @Test
     public void test() {
         StringBuilder xml_ = new StringBuilder();
