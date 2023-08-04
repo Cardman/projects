@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.blocks.ExecSwitchInstanceMethod;
 import code.expressionlanguage.exec.calls.PageElContent;
 import code.expressionlanguage.exec.calls.util.ArrayRefState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.CustomFoundSwitch;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -288,13 +287,8 @@ public final class ExecTemplates {
         }
         return c_;
     }
-    public static Parameters wrapAndCall(ExecTypeFunction _pair, ExecFormattedRootBlock _formatted, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList) {
-        ExecNamedFunctionBlock fct_ = _pair.getFct();
-        Parameters p_ = okArgsSet(fct_,_formatted,null,_argList,_conf,_stackCall);
-        if (p_.getError() == null) {
-            _stackCall.setCallingState(new CustomFoundMethod(_previous,_formatted, _pair, p_));
-        }
-        return p_;
+    public static void wrapAndCall(ExecTypeFunction _pair, ExecFormattedRootBlock _formatted, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList) {
+        new WrapParamChecker(_pair,_argList).checkParams(_formatted,_previous,null,_conf,_stackCall);
     }
 
     public static AbstractWrapper getWrap(AbstractWrapper _w) {

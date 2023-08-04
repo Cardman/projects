@@ -8,8 +8,7 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
-import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -43,7 +42,7 @@ public final class FctMathRandom0 extends FctMath {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seedSpec_).getFunctional());
                 return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,new ArrayStruct(0,""),0,_cont, _stackCall).getStruct());
             }
-            _stackCall.setCallingState(new CustomFoundMethod(argSeedSpec_,cl_, p_, new Parameters()));
+            ExecTemplates.wrapAndCall(p_, cl_,argSeedSpec_, _cont, _stackCall, new ArgumentListCall());
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         Struct seed_ = _stackCall.getSeed();
@@ -61,7 +60,7 @@ public final class FctMathRandom0 extends FctMath {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
                 return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,new ArrayStruct(0,""),0,_cont, _stackCall).getStruct());
             }
-            _stackCall.setCallingState(new CustomFoundMethod(argSeed_,cl_, p_, new Parameters()));
+            ExecTemplates.wrapAndCall(p_, cl_,argSeed_, _cont, _stackCall, new ArgumentListCall());
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();

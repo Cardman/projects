@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -51,9 +50,8 @@ public final class IndirectCalledFctUtil {
         if (p_.getFct() == null) {
             return new Argument(_nat.compute(_argument, _conf));
         }
-        Parameters parameters_ = new Parameters();
         Argument out_ = new Argument(struct_);
-        _stackCall.setCallingState(new CustomFoundMethod(out_,clCall_, p_, parameters_));
+        ExecTemplates.wrapAndCall(p_, clCall_,out_, _conf, _stackCall, new ArgumentListCall());
         return out_;
     }
 

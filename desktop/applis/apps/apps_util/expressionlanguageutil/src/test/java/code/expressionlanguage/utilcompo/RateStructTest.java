@@ -2547,8 +2547,8 @@ public final class RateStructTest extends EquallableElUtUtil {
     }
 
     public static void invoke(Argument _global, ExecFormattedRootBlock _class, ContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
-        Parameters parameters_ = ExecTemplates.wrapAndCall(_pair, _class, _global, _cont, _stackCall, _argList);
-        ProcessMethod.calculate(new CustomFoundMethod(_global, _class, _pair, parameters_), _cont, _stackCall);
+        ExecTemplates.wrapAndCall(_pair, _class, _global, _cont, _stackCall, _argList);
+        ProcessMethod.calculate(_stackCall.getCallingState(), _cont, _stackCall);
     }
 
     private Struct lgInst(ContextEl _ctx) {
@@ -2568,8 +2568,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         ExecOverridableBlock a_ = ExecClassesUtil.getMethodBodiesById(cl_, new MethodId(MethodAccessKind.INSTANCE, "run", new CustList<String>())).first();
         ExecOverrideInfo mId_ = _ctx.getClasses().getRedirections().get(cl_.getNumberType()).getVal(a_,base_);
         Argument arg_ = new Argument(_inst);
-        Parameters parameters_ = ExecTemplates.wrapAndCall(mId_.getPair(), mId_.getClassName(), arg_, _ctx, _stack, new ArgumentListCall());
-        ProcessMethod.calculate(new CustomFoundMethod(arg_, mId_.getClassName(), mId_.getPair(), parameters_), _ctx, _stack);
+        ExecTemplates.wrapAndCall(mId_.getPair(), mId_.getClassName(), arg_, _ctx, _stack, new ArgumentListCall());
+        ProcessMethod.calculate(_stack.getCallingState(), _ctx, _stack);
     }
 
     private static Struct field(Struct _ev, ClassField _id) {
