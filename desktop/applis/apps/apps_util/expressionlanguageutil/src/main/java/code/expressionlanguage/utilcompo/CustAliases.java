@@ -5,15 +5,11 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.common.CstFieldInfo;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecEnumBlock;
-import code.expressionlanguage.exec.blocks.ExecInnerElementBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -851,19 +847,7 @@ public final class CustAliases {
         light = _l;
     }
 
-    public static boolean isEnumType(GeneType _type) {
-        return _type instanceof ExecEnumBlock || _type instanceof ExecInnerElementBlock;
-    }
-
     public static StringStruct getStringOfObjectUtil(ContextEl _cont, Struct _arg) {
-        if (_arg instanceof RunnableStruct) {
-            String className_ = _arg.getClassName(_cont);
-            String id_ = StringExpUtil.getIdFromAllTypes(className_);
-            ExecRootBlock clBody_ = _cont.getClasses().getClassBody(id_);
-            if (!isEnumType(clBody_)) {
-                return new StringStruct(_arg.getClassName(_cont));
-            }
-        }
         return ExecCatOperation.getStringOfObjectBase(_cont, _arg);
     }
 

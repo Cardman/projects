@@ -3,12 +3,10 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
@@ -64,14 +62,6 @@ public class LgNamesGui extends LgNamesUtils {
 
     @Override
     public StringStruct getStringOfObject(ContextEl _cont, Struct _arg) {
-        if (_arg instanceof EventStruct) {
-            String className_ = _arg.getClassName(_cont);
-            String id_ = StringExpUtil.getIdFromAllTypes(className_);
-            ExecRootBlock clBody_ = _cont.getClasses().getClassBody(id_);
-            if (!CustAliases.isEnumType(clBody_)) {
-                return new StringStruct(_arg.getClassName(_cont));
-            }
-        }
         return CustAliases.getStringOfObjectUtil(_cont, _arg);
     }
 

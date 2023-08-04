@@ -286,9 +286,6 @@ public abstract class RendBlock {
     }
 
     static String getStringKey(Struct _instance, ContextEl _ctx, RendStackCall _rendStack) {
-        if (_instance instanceof EnumerableStruct) {
-            return ((EnumerableStruct) _instance).getName();
-        }
         return BeanCustLgNames.processStr(new Argument(_instance), _ctx, _rendStack);
     }
 

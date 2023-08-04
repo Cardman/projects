@@ -36,7 +36,10 @@ public final class ExecCatOperation {
         if (_arg instanceof EnumerableStruct) {
             str_ = ((EnumerableStruct)_arg).getName();
         } else {
-            str_ =  Argument.getNull(_arg).getClassName(_cont);
+            str_ = "";
+        }
+        if (str_.isEmpty()) {
+            return new StringStruct(Argument.getNull(_arg).getClassName(_cont));
         }
         return new StringStruct(str_);
     }

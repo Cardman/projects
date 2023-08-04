@@ -10,7 +10,7 @@ import code.gui.*;
 import code.gui.events.*;
 import code.util.*;
 
-public final class EventStruct extends LaunchableStruct implements WithParentStruct,EnumerableStruct,
+public final class EventStruct extends LaunchableStruct implements
         AbsAdvActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
         AbsKeyListener,AbsChangeListener,AbsShortListTree,AbsListSelectionListener,
         AbsMouseMotionListener, AbsMouseWheelListener{

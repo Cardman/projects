@@ -1,65 +1,15 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.ClassField;
-
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.util.CustList;
 
-public final class InnerCustStruct implements WithParentStruct {
+public final class InnerCustStruct extends AbsFieldableStruct {
 
-    private final String className;
-
-    private final CustList<ClassFieldStruct> fields;
-
-    private Struct parent;
-
-    private final String parentClassName;
     public InnerCustStruct(String _className,
-                           CustList<ClassFieldStruct> _fields, Struct _parent, String _parentClassName) {
-        fields = _fields;
-        className = _className;
-        parent = _parent;
-        parentClassName = _parentClassName;
+                           CustList<ClassFieldStruct> _fields, Struct _parent, String _parentClassName,
+                           int _ordinal, String _name) {
+        super(_className, _fields, _parent, _parentClassName, _ordinal, _name);
     }
 
-    @Override
-    public String getParentClassName() {
-        return parentClassName;
-    }
-
-    @Override
-    public Struct getParent() {
-        return parent;
-    }
-
-    @Override
-    public void setParent(Struct _parent) {
-        parent = _parent;
-    }
-
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
-    }
-
-    @Override
-    public long randCode() {
-        return 1;
-    }
-    @Override
-    public ClassFieldStruct getEntryStruct(ClassField _classField) {
-        return ClassFieldStruct.getPair(fields,_classField);
-    }
-
-    @Override
-    public String getClassName(ContextEl _contextEl) {
-        return className;
-    }
-
-    @Override
-    public CustList<ClassFieldStruct> getFields() {
-        return fields;
-    }
 
 }

@@ -170,12 +170,6 @@ public class DefaultInitializer implements Initializer {
 
     protected Struct init(ContextEl _context, Struct _parent,
                           ExecFormattedRootBlock _className, String _fieldName, int _ordinal, CustList<ClassFieldStruct> _fields) {
-        if (_fieldName.isEmpty()) {
-            if (_parent != NullStruct.NULL_VALUE) {
-                return new InnerCustStruct(_className.getFormatted(), _fields, _parent, _parent.getClassName(_context));
-            }
-            return new CustStruct(_className.getFormatted(), _fields);
-        }
-        return new EnumStruct(_className.getFormatted(), _fields, _ordinal, _fieldName);
+        return new InnerCustStruct(_className.getFormatted(), _fields, _parent, _parent.getClassName(_context), _ordinal, _fieldName);
     }
 }
