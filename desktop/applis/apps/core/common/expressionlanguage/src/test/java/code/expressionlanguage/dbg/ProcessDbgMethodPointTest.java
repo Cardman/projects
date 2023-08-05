@@ -659,9 +659,9 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
         assertSame(StopDbgEnum.FIELD,next_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
-        assertEq(2, next_.nbPages());
-        assertEq(124, now(next_));
-        assertEq(77, next_.getCall(0).getTraceIndex());
+        assertEq(1, next_.nbPages());
+        assertEq(124, next_.getBreakPointInfo().getBreakPointMiddleInfo().getExiting().getTraceIndex());
+        assertEq(77, now(next_));
     }
 
     @Test

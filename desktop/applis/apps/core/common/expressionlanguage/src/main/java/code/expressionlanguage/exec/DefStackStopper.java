@@ -59,6 +59,11 @@ public final class DefStackStopper implements AbsStackStopper {
     }
 
     @Override
+    public boolean hasToCheckExit(StackCall _stack, AbstractPageEl _p) {
+        return false;
+    }
+
+    @Override
     public ExpressionLanguageBp checkBpWithoutClear(StackCall _stack, int _index, AbstractPageEl _ip, CustList<ExecOperationNode> _list, ExecBlock _bl) {
         return new ExpressionLanguageBp(_ip.getCurrentEl(_stack,_index, _list, _bl),0);
     }

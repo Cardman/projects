@@ -1,8 +1,19 @@
 package code.expressionlanguage.exec;
 
+import code.expressionlanguage.exec.calls.AbstractPageEl;
+
 public final class BreakPointMiddleInfo {
+    private AbstractPageEl exiting;
     private int previousNbPages;
     private int previousNbBlocks;
+
+    public AbstractPageEl getExiting() {
+        return exiting;
+    }
+
+    public void setExiting(AbstractPageEl _e) {
+        this.exiting = _e;
+    }
 
     public int getPreviousNbPages() {
         return previousNbPages;

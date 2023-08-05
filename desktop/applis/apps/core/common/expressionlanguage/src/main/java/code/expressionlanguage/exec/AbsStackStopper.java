@@ -23,4 +23,5 @@ public interface AbsStackStopper {
     boolean isStopAtRefVar(ArgumentListCall _meta, ContextEl _context, StackCall _stackCall);
     boolean isStopAtExcMethod();
 
+    boolean hasToCheckExit(StackCall _stack, AbstractPageEl _p);
 }

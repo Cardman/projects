@@ -96,11 +96,15 @@ public class DefaultInitializer implements Initializer {
     public boolean stopNormal(ContextEl _owner, StackCall _stackCall) {
         if (_stackCall.getStopper().stopAt(_stackCall)) {
             _stackCall.getBreakPointInfo().getStackState().setCheckingBp(false);
-            if (_stackCall.getCallingState() instanceof CustomFoundExc && _stackCall.getLastPage().getReadWrite() == ReadWrite.EXIT) {
-                _stackCall.removeLastPage();
+            removeIfExc(_stackCall);
+            AbstractPageEl ex_ = _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting();
+            if (ex_ == null) {
+                ExecutingUtil.processException(_owner, _stackCall);
+                return false;
             }
-            ExecutingUtil.processException(_owner, _stackCall);
-            return false;
+            _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setExiting(null);
+            tryForward(_owner, ex_, _stackCall.getLastPage(), _stackCall);
+            _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
         }
         AbstractPageEl p_ = _stackCall.getLastPage();
         ReadWrite rw_ = p_.getReadWrite();
@@ -111,6 +115,10 @@ public class DefaultInitializer implements Initializer {
             _stackCall.removeLastPage();
             if (_stackCall.nbPages() == 0) {
                 return true;
+            }
+            if (_stackCall.getStopper().hasToCheckExit(_stackCall,p_)) {
+                _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
+                return false;
             }
             AbstractPageEl b_ = _stackCall.getLastPage();
             tryForward(_owner, p_, b_, _stackCall);
@@ -131,6 +139,12 @@ public class DefaultInitializer implements Initializer {
             ExecutingUtil.processException(_owner, _stackCall);
         }
         return false;
+    }
+
+    private void removeIfExc(StackCall _stackCall) {
+        if (_stackCall.getCallingState() instanceof CustomFoundExc && _stackCall.getLastPage().getReadWrite() == ReadWrite.EXIT) {
+            _stackCall.removeLastPage();
+        }
     }
 
     public static void checkStack(ContextEl _owner, StackCall _stackCall) {

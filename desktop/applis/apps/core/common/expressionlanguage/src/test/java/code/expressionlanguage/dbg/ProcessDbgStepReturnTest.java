@@ -17,7 +17,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
         assertEq(1,next_.nbPages());
-        assertEq(53,now(next_));
+        assertEq(54,now(next_));
     }
     @Test
     public void test2() {
@@ -54,7 +54,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
         assertEq(1,next_.nbPages());
-        assertEq(63,now(next_));
+        assertEq(54,now(next_));
     }
     @Test
     public void test5() {
@@ -91,7 +91,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
         assertEq(1,next_.nbPages());
-        assertEq(63,now(next_));
+        assertEq(54,now(next_));
     }
     @Test
     public void test8() {
@@ -167,7 +167,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StackCall prev_ = dbgContinueNormalValueNextInst(next_, cont_.getContext());
         StackCall next2_ = dbgContinueNormalValueStepRet(prev_, cont_.getContext());
         assertEq(1,next2_.nbPages());
-        assertEq(128,now(next2_));
+        assertEq(129,now(next2_));
     }
     @Test
     public void test14() {

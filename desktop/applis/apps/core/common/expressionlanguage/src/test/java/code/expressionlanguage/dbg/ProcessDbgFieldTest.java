@@ -192,8 +192,8 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
-        assertEq(2, next_.nbPages());
-        assertEq(257, now(next_));
+        assertEq(1, next_.nbPages());
+        assertEq(257, next_.getBreakPointInfo().getBreakPointMiddleInfo().getExiting().getTraceIndex());
     }
 
     @Test
@@ -309,8 +309,8 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
-        assertEq(2, next_.nbPages());
-        assertEq(297, now(next_));
+        assertEq(1, next_.nbPages());
+        assertEq(297, next_.getBreakPointInfo().getBreakPointMiddleInfo().getExiting().getTraceIndex());
     }
 
     @Test
@@ -663,8 +663,8 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
-        assertEq(2, next_.nbPages());
-        assertEq(279, now(next_));
+        assertEq(1, next_.nbPages());
+        assertEq(279, next_.getBreakPointInfo().getBreakPointMiddleInfo().getExiting().getTraceIndex());
     }
 
     @Test
@@ -880,8 +880,8 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         compoundReadWrite(cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
-        assertEq(2, stack_.nbPages());
-        assertEq(124, now(stack_));
+        assertEq(1, stack_.nbPages());
+        assertEq(124, stack_.getBreakPointInfo().getBreakPointMiddleInfo().getExiting().getTraceIndex());
     }
     @Test
     public void test35() {
@@ -962,8 +962,8 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         compoundReadWrite(cont_, cf("pkg.Ex", "v"));
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
-        assertEq(2, stack_.nbPages());
-        assertEq(136, now(stack_));
+        assertEq(1, stack_.nbPages());
+        assertEq(136, stack_.getBreakPointInfo().getBreakPointMiddleInfo().getExiting().getTraceIndex());
     }
 
     @Test
@@ -998,8 +998,8 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
-        assertEq(2, next_.nbPages());
-        assertEq(302, now(next_));
+        assertEq(1, next_.nbPages());
+        assertEq(302, next_.getBreakPointInfo().getBreakPointMiddleInfo().getExiting().getTraceIndex());
     }
 
     @Test
@@ -1671,8 +1671,8 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
-        assertEq(2, next_.nbPages());
-        assertEq(121, now(stack_));
+        assertEq(1, next_.nbPages());
+        assertEq(121, next_.getBreakPointInfo().getBreakPointMiddleInfo().getExiting().getTraceIndex());
     }
     @Test
     public void test0() {
@@ -2411,7 +2411,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         compoundWriteCondition("class(Ex<U>)==class(Ex<int>)&&value.v==5",cont_, cf("pkg.Ex2", "v"));
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
-        assertEq(2, stack_.nbPages());
+        assertEq(1, stack_.nbPages());
     }
 
     @Test
@@ -3160,7 +3160,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         compoundWriteCondition("class(Ex<U>)==class(Ex<int>)&&value.v==5",cont_, cf("pkg.Ex2", "v"));
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
-        assertEq(2, stack_.nbPages());
+        assertEq(1, stack_.nbPages());
     }
 
     @Test

@@ -44,6 +44,14 @@ public final class ExecFieldTemplates {
         return Argument.getNull(arg_);
     }
 
+    public static Struct getParent(int _nbAncestors, Struct _current) {
+        Struct arg_ = _current;
+        for (int i = 0; i < _nbAncestors; i++) {
+            arg_= arg_.getParent();
+        }
+        return Argument.getNull(arg_);
+    }
+
     static String getBadCastMessage(String _classNameFound, String _className) {
         return StringUtil.concat(_className, RETURN_LINE, _classNameFound, RETURN_LINE);
     }
