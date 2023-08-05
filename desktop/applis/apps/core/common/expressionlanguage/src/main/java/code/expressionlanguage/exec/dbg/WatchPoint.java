@@ -8,15 +8,18 @@ public final class WatchPoint {
     private boolean write;
     private boolean compoundRead;
     private boolean compoundWrite;
+    private boolean compoundWriteErr;
     private final BreakPointCondition resultRead;
     private final BreakPointCondition resultWrite;
     private final BreakPointCondition resultCompoundRead;
     private final BreakPointCondition resultCompoundWrite;
+    private final BreakPointCondition resultCompoundWriteErr;
     public WatchPoint(AbstractInterceptorStdCaller _i){
         resultRead = new BreakPointCondition(_i);
         resultWrite = new BreakPointCondition(_i);
         resultCompoundRead = new BreakPointCondition(_i);
         resultCompoundWrite = new BreakPointCondition(_i);
+        resultCompoundWriteErr = new BreakPointCondition(_i);
     }
 
     public void resetCount() {
@@ -28,6 +31,8 @@ public final class WatchPoint {
         resultCompoundRead.setCount(0);
         resultCompoundWrite.getEnabled().set(true);
         resultCompoundWrite.setCount(0);
+        resultCompoundWriteErr.getEnabled().set(true);
+        resultCompoundWriteErr.setCount(0);
     }
     public boolean isEnabled() {
         return enabled;
@@ -69,6 +74,14 @@ public final class WatchPoint {
         this.compoundWrite = _e;
     }
 
+    public boolean isCompoundWriteErr() {
+        return compoundWriteErr;
+    }
+
+    public void setCompoundWriteErr(boolean _c) {
+        this.compoundWriteErr = _c;
+    }
+
     public BreakPointCondition getResultRead() {
         return resultRead;
     }
@@ -83,5 +96,9 @@ public final class WatchPoint {
 
     public BreakPointCondition getResultCompoundWrite() {
         return resultCompoundWrite;
+    }
+
+    public BreakPointCondition getResultCompoundWriteErr() {
+        return resultCompoundWriteErr;
     }
 }

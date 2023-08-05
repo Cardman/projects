@@ -3713,6 +3713,90 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
+
+    @Test
+    public void test153() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" int v=4;\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  Ex e = new();\n");
+        xml_.append("  that int f=that(e.v);\n");
+        xml_.append("  f/=0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",27,cont_);
+        compoundWriteConditionErr("value+1==5",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test154() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" int v=4;\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  Ex e = new();\n");
+        xml_.append("  e.v/=0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",27,cont_);
+        compoundWriteConditionErr("value+1==5",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test155() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" int v=4;\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  Ex e = new();\n");
+        xml_.append("  that int f=that(e.v);\n");
+        xml_.append("  f/=0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",27,cont_);
+        compoundWriteConditionErr("value+1==6",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+
+    @Test
+    public void test156() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" int v=4;\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  Ex e = new();\n");
+        xml_.append("  e.v/=0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",27,cont_);
+        compoundWriteConditionErr("value+1==6",cont_, cf("pkg.Ex", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
     private void readCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         read(_cont, _cf);
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
@@ -3749,11 +3833,21 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         wp_.getResultCompoundWrite().setResult(ResultContextLambda.okOrNull(res_));
         wp_.getResultCompoundWrite().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
     }
+    private void compoundWriteConditionErr(String _newValue,ResultContext _cont, ClassField _cf) {
+        compoundWriteErr(_cont, _cf);
+        String type_ = _cont.getPageEl().getAliasPrimBoolean();
+        WatchPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue();
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, _cf, _cont, type_, new DefContextGenerator(), true);
+        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+        wp_.getResultCompoundWriteErr().setResult(ResultContextLambda.okOrNull(res_));
+        wp_.getResultCompoundWriteErr().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
+    }
     private void compoundReadWrite(ResultContext _cont, ClassField _cf) {
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setRead(false);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(false);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(true);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(true);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(true);
     }
 
     private void read(ResultContext _cont, ClassField _cf) {
@@ -3761,6 +3855,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(false);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(false);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(false);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(false);
     }
 
     private void write(ResultContext _cont, ClassField _cf) {
@@ -3768,6 +3863,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(true);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(false);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(false);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(false);
     }
 
     private void compoundRead(ResultContext _cont, ClassField _cf) {
@@ -3775,6 +3871,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(false);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(true);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(false);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(false);
     }
 
     private void compoundWrite(ResultContext _cont, ClassField _cf) {
@@ -3782,6 +3879,15 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(false);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(false);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(true);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(false);
+    }
+
+    private void compoundWriteErr(ResultContext _cont, ClassField _cf) {
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setRead(false);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(false);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(false);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(false);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(true);
     }
 
     private void nothing(ResultContext _cont, ClassField _cf) {
@@ -3789,6 +3895,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(false);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(false);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(false);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(false);
     }
     private ClassField cf(String _cl, String _f) {
         return new ClassField(_cl,_f);

@@ -3,11 +3,13 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassArgumentMatching;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.symbols.ExecOperSymbol;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -56,6 +58,10 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
         Argument leftArg_ = getFirstArgument(_nodes,this);
         Argument rightArg_ = getLastArgument(_nodes,this);
         return symbol.calculateOperator(leftArg_.getStruct(), rightArg_.getStruct(), getResultClass().getUnwrapObjectNb(), _conf, _page);
+    }
+
+    public Struct leftArg(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+        return NumParsers.unwrapObject(getResultClass().getUnwrapObjectNb(),ArgumentListCall.toStr(getFirstArgument(_nodes,this)));
     }
 
 }

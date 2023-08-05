@@ -46,7 +46,7 @@ public final class LambdaVariableSetValuePageEl extends AbstractLambdaVariable {
             ClassField cf_ = ((FieldWrapper) w_).getId();
             Struct right_ = ArgumentListCall.toStr(ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)));
             Struct instance_ = value(w_);
-            return new CheckedExecOperationNodeInfos(cf_, DbgStackStopper.WRITE,formatted(_context, (FieldWrapper) w_,cf_),instance_,right_, false);
+            return new CheckedExecOperationNodeInfos(cf_, DbgStackStopper.WRITE,formatted(_context, (FieldWrapper) w_,cf_),instance_,right_);
         }
         return null;
     }

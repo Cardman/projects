@@ -1156,6 +1156,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(true);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(false);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(false);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(false);
     }
 
     private void compoundRead(ResultContext _cont, ClassField _cf) {
@@ -1163,6 +1164,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(false);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(true);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(false);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(false);
     }
     private void enteringCondition(String _newValue,ResultContext _cont, String _file, int _offset) {
         entering(_cont, _file, _offset);

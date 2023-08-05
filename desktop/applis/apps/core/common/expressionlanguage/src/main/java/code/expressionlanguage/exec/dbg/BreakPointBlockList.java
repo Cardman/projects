@@ -406,6 +406,7 @@ public final class BreakPointBlockList {
         v_.setWrite(true);
         v_.setCompoundRead(true);
         v_.setCompoundWrite(true);
+        v_.setCompoundWriteErr(true);
         WatchPointBlockPair pair_ = new WatchPointBlockPair(_field, v_);
         int i_ = 0;
         for (WatchPointBlockPair b: watchList.elts()) {
@@ -431,6 +432,7 @@ public final class BreakPointBlockList {
         v_.setWrite(true);
         v_.setCompoundRead(true);
         v_.setCompoundWrite(true);
+        v_.setCompoundWriteErr(true);
         WatchPointBlockPair pair_ = new WatchPointBlockPair(_field, v_);
         for (WatchPointBlockPair b: watchList.elts()) {
             if (b.match(pair_)) {
