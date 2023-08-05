@@ -52,7 +52,7 @@ public final class RendQuickOperation extends RendMethodOperation implements Ren
         Argument f_ = getArgument(_nodes, first_);
         Struct abs_ = f_.getStruct();
         Argument a_ = getArgument(_nodes,getLastNode(this));
-        Argument arg_ = new Argument(operSymbol.calculateOperator(abs_, a_.getStruct(), getResultClass().getUnwrapObjectNb(), _context, _rendStack));
+        Argument arg_ = new Argument(operSymbol.afterCalculateExc(operSymbol.calculateOperator(abs_, a_.getStruct(), getResultClass().getUnwrapObjectNb(), _context, _rendStack.getLastPage()),_context,_rendStack));
         endCalculate(this,_nodes,_context,_rendStack,arg_,conv);
     }
 

@@ -40,7 +40,7 @@ public final class LambdaVariableGetValuePageEl extends AbstractLambdaVariable {
             _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
             ClassField cf_ = ((FieldWrapper) w_).getId();
             Struct instance_ = value(w_);
-            return new CheckedExecOperationNodeInfos(cf_, DbgStackStopper.READ,formatted(_context, (FieldWrapper) w_,cf_),instance_,null);
+            return new CheckedExecOperationNodeInfos(cf_, DbgStackStopper.READ,formatted(_context, (FieldWrapper) w_,cf_),instance_,null, false);
         }
         return null;
     }

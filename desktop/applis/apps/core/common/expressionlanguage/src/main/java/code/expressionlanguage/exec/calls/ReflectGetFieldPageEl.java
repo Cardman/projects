@@ -61,7 +61,7 @@ public final class ReflectGetFieldPageEl extends AbstractLambdaVariable {
             _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
             Struct instance_ = ArgumentListCall.toStr(argument);
             ClassField cf_ = new ClassField(StringExpUtil.getIdFromAllTypes(metaInfo.getFormatted().getFormatted()), metaInfo.getName());
-            return new CheckedExecOperationNodeInfos(cf_, DbgStackStopper.READ, formatted(_context, cf_, instance_), instance_, null);
+            return new CheckedExecOperationNodeInfos(cf_, DbgStackStopper.READ, formatted(_context, cf_, instance_), instance_, null, false);
         }
         return null;
     }

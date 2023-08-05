@@ -36,7 +36,7 @@ public final class RendCompoundAffectationStringOperation extends RendCompoundAf
         } else {
             cast_ = getResultClass().getUnwrapObjectNb();
         }
-        Argument res_ = new Argument(symbol.calculateOperator(leftArg_.getStruct(), rightArg_.getStruct(), cast_, _context, _rendStack));
+        Argument res_ = new Argument(symbol.afterCalculateExc(symbol.calculateOperator(leftArg_.getStruct(), rightArg_.getStruct(), cast_, _context, _rendStack.getLastPage()),_context,_rendStack));
         process(this,_nodes, _context, _rendStack,res_);
     }
 

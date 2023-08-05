@@ -27,7 +27,7 @@ public final class ExecParentInstanceOperation extends ExecLeafOperation impleme
         setRelOffsetPossibleLastPage(parentInstanceContent.getOff(), _stack);
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
         Struct struct_ = previous_.getStruct();
-        Argument arg_ = new Argument(ExecClassArgumentMatching.convertFormatted(struct_.getParent(), _conf, names, _stack));
+        Argument arg_ = new Argument(ExecClassArgumentMatching.convertFormatted(struct_.getParent(), _conf, names, _stack.getLastPage()));
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 

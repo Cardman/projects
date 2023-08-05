@@ -16,13 +16,18 @@ public abstract class ExecNumericOperation {
     }
 
     public static Struct exc(Struct _res, StackCall _stackCall, ContextEl _an) {
-        if (_res == NullStruct.NULL_VALUE) {
-            LgNames stds_ = _an.getStandards();
-            String div_;
-            div_ = stds_.getContent().getCoreNames().getAliasDivisionZero();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, div_, _stackCall)));
+        if (_res == null) {
+            CustomFoundExc exc_ = exc(_stackCall, _an);
+            _stackCall.setCallingState(exc_);
+            return NullStruct.NULL_VALUE;
         }
         return _res;
+    }
+
+    public static CustomFoundExc exc(StackCall _stackCall, ContextEl _an) {
+        LgNames stds_ = _an.getStandards();
+        String div_ = stds_.getContent().getCoreNames().getAliasDivisionZero();
+        return new CustomFoundExc(new ErrorStruct(_an, div_, _stackCall));
     }
 
     public static NumberStruct addOne(NumberStruct _arg, byte _cast) {

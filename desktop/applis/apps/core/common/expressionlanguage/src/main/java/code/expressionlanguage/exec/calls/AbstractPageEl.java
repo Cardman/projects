@@ -17,7 +17,7 @@ import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public abstract class AbstractPageEl {
+public abstract class AbstractPageEl implements IntAbstractPageEl{
 
     protected static final String EMPTY_STRING = "";
 

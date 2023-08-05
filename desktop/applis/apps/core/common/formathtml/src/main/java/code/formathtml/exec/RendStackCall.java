@@ -5,7 +5,6 @@ import code.expressionlanguage.exec.AbstractStackCall;
 import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.Struct;
@@ -40,7 +39,7 @@ public final class RendStackCall extends AbsRendStackCall implements AbstractSta
     }
 
     public String formatVarType(String _varType) {
-        return ExecInherits.quickFormat(getLastPage().getGlobalClass(),_varType);
+        return getLastPage().formatVarType(_varType);
     }
 
     @Override

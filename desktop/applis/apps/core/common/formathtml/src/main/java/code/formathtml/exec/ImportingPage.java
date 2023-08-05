@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.PageElContent;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -36,6 +37,9 @@ public final class ImportingPage extends AbsImportingPage {
         initGlobal(null, null);
     }
 
+    public String formatVarType(String _varType) {
+        return ExecInherits.quickFormat(getGlobalClass(),_varType);
+    }
     public int getTrace() {
         return opOffset + offset;
     }

@@ -1,8 +1,9 @@
 package code.formathtml.exec;
 
+import code.expressionlanguage.exec.calls.IntAbstractPageEl;
 import code.expressionlanguage.structs.Struct;
 
-public abstract class AbsImportingPage {
+public abstract class AbsImportingPage implements IntAbstractPageEl {
     private Struct internGlobal;
 
     private String beanName;

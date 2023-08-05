@@ -39,7 +39,7 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
             pairBefore_.setEndCalculate(true);
             pairBefore_.setIndexImplicitConv(-1);
             pairBefore_.setCalledIndexer(true);
-            setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE, _conf, names, _stack)), _conf, _nodes, _stack);
+            setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE, _conf, names, _stack.getLastPage())), _conf, _nodes, _stack);
             return;
         }
         calculateAffect(_nodes, _conf, _stack);

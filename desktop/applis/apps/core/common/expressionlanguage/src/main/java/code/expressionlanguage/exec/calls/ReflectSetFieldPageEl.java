@@ -55,7 +55,7 @@ public final class ReflectSetFieldPageEl extends AbstractLambdaVariable {
             Struct instance_ = ArgumentListCall.toStr(first);
             Struct right_ = ArgumentListCall.toStr(last);
             ClassField cf_ = new ClassField(StringExpUtil.getIdFromAllTypes(metaInfo.getFormatted().getFormatted()), metaInfo.getName());
-            return new CheckedExecOperationNodeInfos(cf_, DbgStackStopper.WRITE, formatted(_context, cf_, instance_), instance_, right_);
+            return new CheckedExecOperationNodeInfos(cf_, DbgStackStopper.WRITE, formatted(_context, cf_, instance_), instance_, right_, false);
         }
         return null;
     }

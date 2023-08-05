@@ -26,7 +26,7 @@ public final class ExecSafeDotOperation extends ExecAbstractDotOperation {
         ExecOperationNode l_ = ExecHelper.getLastNode(this);
         Argument a_ = getArgument(_nodes,o_);
         if (a_.isNull()&&!(l_ instanceof ExecAbstractLambdaOperation)) {
-            a_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, names, _stack));
+            a_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, names, _stack.getLastPage()));
             setQuickConvertSimpleArgument(a_, _conf, _nodes,_stack);
             return;
         }

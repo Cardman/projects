@@ -7,11 +7,13 @@ import code.expressionlanguage.structs.Struct;
 public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperationNodeInfos {
     private final ClassField idClass;
     private final int modeField;
+    private final boolean nul;
 
-    public CheckedExecOperationNodeInfos(ClassField _id, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
+    public CheckedExecOperationNodeInfos(ClassField _id, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r, boolean _n) {
         super(_d, _i, _r);
         this.idClass = _id;
         this.modeField = _mode;
+        this.nul = _n;
     }
 
     public ClassField getIdClass() {
@@ -20,5 +22,9 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
 
     public int getModeField() {
         return modeField;
+    }
+
+    public boolean isNul() {
+        return nul;
     }
 }

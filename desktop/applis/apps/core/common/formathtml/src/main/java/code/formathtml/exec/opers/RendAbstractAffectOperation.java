@@ -25,7 +25,7 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         if (getSettableParent() instanceof RendSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
-            setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE, _context, names,_rendStack)), _nodes, _context, _rendStack);
+            setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE, _context, names,_rendStack.getLastPage())), _nodes, _context, _rendStack);
             return;
         }
         calculateAffect(_nodes, _context, _rendStack);

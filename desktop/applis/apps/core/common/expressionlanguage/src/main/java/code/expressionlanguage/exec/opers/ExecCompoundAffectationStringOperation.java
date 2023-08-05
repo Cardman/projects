@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.symbols.ExecOperSymbol;
 import code.expressionlanguage.exec.util.ImplicitMethods;
@@ -35,7 +36,7 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
             Argument leftArg_ = getFirstArgument(_nodes,this);
             Argument rightArg_ = getLastArgument(_nodes,this);
-            Argument res_ = new Argument(symbol.calculateOperator(leftArg_.getStruct(), rightArg_.getStruct(), cast_, _conf, _stack));
+            Argument res_ = new Argument(symbol.afterCalculateExc(symbol.calculateOperator(leftArg_.getStruct(), rightArg_.getStruct(), cast_, _conf, _stack.getLastPage()), _conf,_stack));
             pairBefore_.setIndexImplicitConv(ParamCheckerUtil.processConverter(_conf,res_,implicits_,indexImplicit_, _stack));
             return;
         }
@@ -47,9 +48,14 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
     }
 
     public Struct calculated(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
+        Struct res_ = calculated(_nodes, _conf, _stack.getLastPage());
+        return symbol.afterCalculateExc(res_,_conf,_stack);
+    }
+
+    public Struct calculated(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, AbstractPageEl _page) {
         Argument leftArg_ = getFirstArgument(_nodes,this);
         Argument rightArg_ = getLastArgument(_nodes,this);
-        return symbol.calculateOperator(leftArg_.getStruct(), rightArg_.getStruct(), getResultClass().getUnwrapObjectNb(), _conf, _stack);
+        return symbol.calculateOperator(leftArg_.getStruct(), rightArg_.getStruct(), getResultClass().getUnwrapObjectNb(), _conf, _page);
     }
 
 }

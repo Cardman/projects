@@ -27,7 +27,7 @@ public final class ExecDefaultOperation extends ExecMethodOperation implements A
                           ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         setRelOffsetPossibleLastPage(offset, _stack);
-        Argument argres_ = new Argument(ExecClassArgumentMatching.convertFormattedWide(ExecHelper.getFirstArgument(arguments_).getStruct(), _conf, names, _stack));
+        Argument argres_ = new Argument(ExecClassArgumentMatching.convertFormattedWide(ExecHelper.getFirstArgument(arguments_).getStruct(), _conf, names, _stack.getLastPage()));
         setSimpleArgument(argres_, _conf, _nodes, _stack);
     }
 
