@@ -42,6 +42,15 @@ public abstract class AbsReadOnlyTabEditor implements AbsLightTabEditor {
     public AbsScrollPane getScCenter() {
         return scCenter;
     }
+    public void centerSelect(int _selectionStart, int _selectionEnd) {
+        getCenter().select(_selectionStart, _selectionEnd);
+    }
+    public String centerText() {
+        return getCenter().getText();
+    }
+    public void centerText(String _t) {
+        getCenter().setText(_t);
+    }
 
     @Override
     public AbsTextPane getCenter() {

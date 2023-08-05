@@ -13,7 +13,7 @@ public final class SaveTextFileNode implements AbsActionListener {
 
     @Override
     public void action() {
-        byte[] enc_ = StringUtil.encode(editor.getCenter().getText());
+        byte[] enc_ = StringUtil.encode(editor.centerText());
         StreamBinaryFile.writeFile(editor.getFullPath(),enc_,editor.getFactories().getStreams());
     }
 }

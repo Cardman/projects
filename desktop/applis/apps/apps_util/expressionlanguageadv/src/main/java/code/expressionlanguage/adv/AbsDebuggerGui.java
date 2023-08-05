@@ -230,7 +230,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         String dec_ = StringUtil.nullToEmpty(StringUtil.decode(_content.getBytes()));
         String name_ = _path.substring(_path.lastIndexOf('/')+1);
         ReadOnlyTabEditor te_ = new ReadOnlyTabEditor(this,getCommonFrame().getFrames(), _path.substring(pathToSrc(_man).length()), WindowWithTreeImpl.lineSeparator(dec_),_opt);
-        te_.getCenter().setText(new DefaultUniformingString().apply(dec_));
+        te_.centerText(new DefaultUniformingString().apply(dec_));
         tabs.add(te_);
         tabbedPane.addIntTab(name_, te_.getPanel(), _path);
     }
@@ -314,7 +314,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     public void selectFocus(int _open, int _trace) {
         if (_open > -1) {
             tabbedPane.selectIndex(_open);
-            tabs.get(_open).getCenter().select(_trace, _trace);
+            tabs.get(_open).centerSelect(_trace, _trace);
             tabs.get(_open).getCenter().requestFocus();
             tabs.get(_open).getCenter().visibleCaret();
         }

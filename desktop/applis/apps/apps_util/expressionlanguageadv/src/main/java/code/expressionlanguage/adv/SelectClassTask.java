@@ -1,5 +1,7 @@
 package code.expressionlanguage.adv;
 
+import code.util.core.DefaultUniformingString;
+
 public final class SelectClassTask implements Runnable {
     private final TabEditor editor;
 
@@ -9,8 +11,8 @@ public final class SelectClassTask implements Runnable {
 
     @Override
     public void run() {
-        String text_ = editor.getCenter().getText();
-        editor.getPreview().setText(text_);
+        String text_ = editor.centerText();
+        editor.previewText(new DefaultUniformingString().apply(text_));
         editor.getFactories().getCompoFactory().invokeNow(new ClearCharacterAttributes(editor.getPreview()));
         FindAction.syntax(editor.getWindowSecEditor().getManageOptions(), editor.getFactories().getCompoFactory(), editor.getPreview());
         editor.usedType(editor.getFinderExpClasses().getText());

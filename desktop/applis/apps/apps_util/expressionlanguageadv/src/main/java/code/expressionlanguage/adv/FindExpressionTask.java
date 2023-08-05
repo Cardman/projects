@@ -29,7 +29,7 @@ public final class FindExpressionTask implements Runnable {
         editor.getFindingExpression().setEnabled(false);
         ResultContextViewReplacer vr_ = editor.getResultContext();
         ContextEl rCont_ = editor.getAction();
-        String text_ = editor.getPreview().getText();
+        String text_ = editor.previewText();
         ExecConstructorOverrideInfo info_ = editor.getTargetMethodView();
         ArrayStruct empty_ = new ArrayStruct(0, StringExpUtil.getPrettyArrayType(rCont_.getStandards().getCoreNames().getAliasObject()));
         StackCall first_ = StackCall.newInstance(InitPhase.NOTHING, rCont_);

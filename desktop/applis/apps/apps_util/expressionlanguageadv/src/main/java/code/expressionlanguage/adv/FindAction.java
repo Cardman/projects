@@ -43,7 +43,7 @@ public final class FindAction implements AbsActionListener {
     static void updateEditor(TabEditor _tab) {
         String find_ = StringUtil.nullToEmpty(_tab.getFinder().getText());
         updateEditorStyle(_tab);
-        String t_ = _tab.getCenter().getText();
+        String t_ = _tab.centerText();
         int index_ = 0;
         while (index_ >= 0) {
             index_ = segment(t_,find_,index_, _tab.getCaseSens().isSelected(), _tab.getWholeWord().isSelected(), _tab.getParts());

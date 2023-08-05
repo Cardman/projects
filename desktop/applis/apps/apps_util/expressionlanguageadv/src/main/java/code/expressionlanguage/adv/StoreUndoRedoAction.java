@@ -11,7 +11,7 @@ public final class StoreUndoRedoAction implements AbsActionListener {
 
     @Override
     public void action() {
-        current.getTexts().add(current.getCenter().getText());
+        current.getTexts().add(current.centerText());
         current.setCurrentText(current.getTexts().size()-1);
         UndoRedoAction.updateRedoUndo(current);
     }

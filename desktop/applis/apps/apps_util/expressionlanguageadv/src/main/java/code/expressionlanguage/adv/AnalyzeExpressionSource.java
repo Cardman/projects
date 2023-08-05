@@ -47,7 +47,7 @@ public final class AnalyzeExpressionSource implements Runnable {
     static StringMap<String> added(WindowWithTreeImpl _w) {
         StringMap<String> added_ = new StringMap<String>();
         for (TabEditor t: _w.getTabs()) {
-            added_.addEntry(t.getRelPath(),t.getCenter().getText());
+            added_.addEntry(t.getRelPath(),t.centerText());
         }
         return added_;
     }

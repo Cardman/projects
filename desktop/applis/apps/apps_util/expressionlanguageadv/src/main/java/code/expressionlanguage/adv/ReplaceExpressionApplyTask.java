@@ -1,6 +1,6 @@
 package code.expressionlanguage.adv;
 
-import code.gui.AbsTextPane;
+import code.util.core.DefaultUniformingString;
 
 public final class ReplaceExpressionApplyTask implements Runnable {
     private final TabEditor current;
@@ -11,9 +11,8 @@ public final class ReplaceExpressionApplyTask implements Runnable {
 
     @Override
     public void run() {
-        AbsTextPane editor_ = current.getCenter();
         current.setEnabledSyntax(false);
-        editor_.setText(current.getPreview().getText());
+        current.centerText(new DefaultUniformingString().apply(current.previewText()));
         current.setEnabledSyntax(true);
         FindAction.updateEditorStyle(current);
     }

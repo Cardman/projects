@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.gui.events.AbsActionListener;
+import code.util.core.DefaultUniformingString;
 
 public final class UndoRedoAction implements AbsActionListener {
     private final TabEditor editor;
@@ -15,7 +16,7 @@ public final class UndoRedoAction implements AbsActionListener {
     public void action() {
         int n_ = editor.getCurrentText()+diff;
         editor.setCurrentText(n_);
-        editor.getCenter().setText(editor.getTexts().get(n_));
+        editor.centerText(new DefaultUniformingString().apply(editor.getTexts().get(n_)));
         updateRedoUndo(editor);
         DocumentTextChange.updateEditorText(editor);
     }

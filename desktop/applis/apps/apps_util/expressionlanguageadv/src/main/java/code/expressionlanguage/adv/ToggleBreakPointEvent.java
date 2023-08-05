@@ -30,8 +30,8 @@ public final class ToggleBreakPointEvent implements AbsActionListener {
         ExecFileBlock f_ = _r.getForwards().dbg().getFiles().getVal(file_);
         int o_ = ResultExpressionOperationNode.beginPart(_tab.getCenter().getCaretPosition(), file_);
         FileMetrics m_ = file_.getMetrics(_tab.getTabWidth());
-        int min_ = _tab.getCenter().getText().lastIndexOf('\n',o_);
-        int max_ = _tab.getCenter().getText().indexOf('\n',o_);
+        int min_ = _tab.centerText().lastIndexOf('\n',o_);
+        int max_ = _tab.centerText().indexOf('\n',o_);
         if (!_r.getContext().getClasses().getDebugMapping().getBreakPointsBlock().bp(f_, m_, o_).isEmpty()) {
             colors(new SegmentFindPart(min_,max_), _tab.getCompoFactory(), _tab.getCenter(), GuiConstants.RED);
         } else {

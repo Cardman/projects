@@ -13,9 +13,9 @@ import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.gui.AbsTextPane;
 import code.util.CustList;
 import code.util.Ints;
+import code.util.core.DefaultUniformingString;
 import code.util.core.NumberUtil;
 
 public final class ReplaceExpressionTask implements Runnable {
@@ -34,9 +34,8 @@ public final class ReplaceExpressionTask implements Runnable {
         current.enableExp(false);
         current.getPrevOccExp().setEnabled(false);
         current.getNextOccExp().setEnabled(false);
-        AbsTextPane editor_ = current.getPreview();
         ExecOverrideInfo targetMethod_ = current.getTargetMethodReplace().getOverrideInfo();
-        String text_ = editor_.getText();
+        String text_ = current.previewText();
         StringBuilder copy_ = new StringBuilder(text_);
         Struct instance_ = current.getInstance();
         ContextEl act_ = current.getAction();
@@ -77,8 +76,8 @@ public final class ReplaceExpressionTask implements Runnable {
         for (int i = 0; i < d_; i++) {
             rev_.remove(toDelete_.get(i));
         }
-        current.getPreview().setText(copy_.toString());
-        current.getPreview().select(selAfter_.getBegin(),selAfter_.getEnd());
+        current.previewText(new DefaultUniformingString().apply(copy_.toString()));
+        current.previewSelect(selAfter_.getBegin(),selAfter_.getEnd());
         FindExpressionTask.updatedSegColorsAndNav(current);
         current.getApplyExp().setEnabled(true);
     }

@@ -14,7 +14,7 @@ public final class SelOpeningReadOnlyFile implements AbsOpeningReadOnlyFile {
         ReadOnlyFormTabEditor te_ = form.getReadOnlyFormTabEditor();
         te_.setFullPath(_str);
         te_.setUseFeed(WindowWithTreeImpl.lineSeparator(dec_));
-        te_.getCenter().setText(new DefaultUniformingString().apply(dec_));
+        te_.centerText(new DefaultUniformingString().apply(dec_));
     }
 
 }

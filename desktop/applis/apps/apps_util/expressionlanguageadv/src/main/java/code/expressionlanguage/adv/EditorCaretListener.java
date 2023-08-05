@@ -16,7 +16,7 @@ public final class EditorCaretListener implements AbsCaretListener {
     @Override
     public void caretUpdate(int _begin, int _end) {
         FileBlock fb_ = new FileBlock(0, false, "", new DefaultFileEscapedCalc());
-        fb_.metrics(tabEditor.getCenter().getText());
+        fb_.metrics(tabEditor.centerText());
         FileMetrics m_ = fb_.getMetrics(tabEditor.getTabWidth());
         int i_ = tabEditor.getCenter().getCaretPosition();
         String selected_ = StringUtil.nullToEmpty(tabEditor.getCenter().getSelectedText());

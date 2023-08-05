@@ -245,10 +245,6 @@ public final class BreakPointBlockList {
         String id_ = id(_id);
         for (MethodPointBlockPair b: methPointList.elts()) {
             MemberCallingsBlock i_ = b.getId();
-            if (StringUtil.quickEq(MemberCallingsBlock.clName(i_),id_)) {
-                out_.add(new MethodPointBlockPairRootBlock(b,_gl));
-                continue;
-            }
             int nb_ = nb(i_);
             if (_context.getClasses().getRedirections().isValidIndex(nb_)) {
                 ClassMethodIdOverride v_ = _context.getClasses().getRedirections().get(nb_).getVal(MemberCallingsBlock.clName(i_));
@@ -256,8 +252,12 @@ public final class BreakPointBlockList {
                     ExecOverrideInfo ov_ = v_.getVal(base_);
                     if (ov_ != null && ov_.getPair().getFct() == _id) {
                         out_.add(new MethodPointBlockPairRootBlock(b,ExecFormattedRootBlock.getFullObject(argClassName_,new ExecFormattedRootBlock(v_.getRoot()),_context)));
+                        continue;
                     }
                 }
+            }
+            if (StringUtil.quickEq(MemberCallingsBlock.clName(i_),id_)) {
+                out_.add(new MethodPointBlockPairRootBlock(b,_gl));
             }
         }
         return out_;

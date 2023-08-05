@@ -265,7 +265,7 @@ public final class TabEditor implements AbsTabEditor {
         index = _dest;
 //        center.setEditable(true);
         center.requestFocus();
-        center.select(dest, dest);
+        centerSelect(dest, dest);
         center.visibleCaret();
 //        center.setEditable(false);
         dest = 0;
@@ -297,7 +297,7 @@ public final class TabEditor implements AbsTabEditor {
         int adjRow_ = _row - 1;
         int adjCol_ = _col - 1;
         int tw_ = windowSecEditor.getTabWidth();
-        String txt_ = getCenter().getText();
+        String txt_ = centerText();
         int index_ = 0;
         int row_ = 0;
         while (index_ >= 0) {
@@ -356,7 +356,7 @@ public final class TabEditor implements AbsTabEditor {
     public void updateNavSelect() {
         if (getParts().isValidIndex(getCurrentPart())) {
             SegmentFindPart s_ = getParts().get(getCurrentPart());
-            getCenter().select(s_.getBegin(),s_.getEnd());
+            centerSelect(s_.getBegin(),s_.getEnd());
         }
         updateNav();
     }
@@ -364,7 +364,7 @@ public final class TabEditor implements AbsTabEditor {
     public void updateNavSelectExp() {
         if (getPartsExp().isValidIndex(getCurrentPartExp())) {
             SegmentFindPart s_ = getPartsExp().get(getCurrentPartExp());
-            getPreview().select(s_.getBegin(),s_.getEnd());
+            previewSelect(s_.getBegin(),s_.getEnd());
         }
         updateNavExp();
     }
@@ -441,7 +441,26 @@ public final class TabEditor implements AbsTabEditor {
     public StringMap<ExecConstructorOverrideInfo> getDicoRepl() {
         return findReplaceExpression.getDicoRepl();
     }
+    public void centerSelect(int _selectionStart, int _selectionEnd) {
+        getCenter().select(_selectionStart, _selectionEnd);
+    }
+    public void previewSelect(int _selectionStart, int _selectionEnd) {
+        getPreview().select(_selectionStart, _selectionEnd);
+    }
+    public String previewText() {
+        return getPreview().getText();
+    }
 
+    public void previewText(String _t) {
+        getPreview().setText(_t);
+    }
+
+    public String centerText() {
+        return getCenter().getText();
+    }
+    public void centerText(String _t) {
+        getCenter().setText(_t);
+    }
     @Override
     public int getTabWidth() {
         return getWindowSecEditor().getTabWidth();

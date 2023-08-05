@@ -158,7 +158,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         String dec_ = StringUtil.nullToEmpty(StringUtil.decode(_content.getBytes()));
         String name_ = _path.substring(_path.lastIndexOf('/')+1);
         TabEditor te_ = new TabEditor(_tr,_path,_path.substring(_tr.pathToSrc().length()),lineSeparator(dec_));
-        te_.getCenter().setText(new DefaultUniformingString().apply(dec_));
+        te_.centerText(new DefaultUniformingString().apply(dec_));
         _tr.getTabs().add(te_);
         _tr.getEditors().addIntTab(name_, te_.getPanel(), _path);
     }

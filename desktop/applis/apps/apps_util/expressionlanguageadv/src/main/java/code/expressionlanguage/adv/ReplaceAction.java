@@ -1,9 +1,9 @@
 package code.expressionlanguage.adv;
 
 import code.gui.AbsTextField;
-import code.gui.AbsTextPane;
 import code.gui.events.AbsActionListener;
 import code.util.CustList;
+import code.util.core.DefaultUniformingString;
 
 public final class ReplaceAction implements AbsActionListener {
     private final TabEditor current;
@@ -18,11 +18,10 @@ public final class ReplaceAction implements AbsActionListener {
 
     @Override
     public void action() {
-        AbsTextPane editor_ = current.getCenter();
         AbsTextField replacer_ = current.getReplacer();
         int cur_ = current.getCurrentPart();
         String s_ = replacer_.getText();
-        StringBuilder copy_ = new StringBuilder(editor_.getText());
+        StringBuilder copy_ = new StringBuilder(current.centerText());
         CustList<SegmentFindPart> rev_ = current.getParts();
         SegmentFindPart selAfter_ = new SegmentFindPart(0,0);
         int size_ = rev_.size() - 1;
@@ -35,9 +34,9 @@ public final class ReplaceAction implements AbsActionListener {
             }
         }
         current.setEnabledSyntax(false);
-        editor_.setText(copy_.toString());
+        current.centerText(new DefaultUniformingString().apply(copy_.toString()));
         current.setEnabledSyntax(true);
-        editor_.select(selAfter_.getBegin(),selAfter_.getEnd());
+        current.centerSelect(selAfter_.getBegin(),selAfter_.getEnd());
         new UpdatingEditorAndSelect(current).run();
     }
 
