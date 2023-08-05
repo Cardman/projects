@@ -11,6 +11,7 @@ import code.vi.prot.impl.DefImage;
 import code.vi.prot.impl.gui.events.WrAutoCompleteListener;
 import code.vi.prot.impl.gui.events.WrCaretListener;
 
+import javax.swing.text.AbstractDocument;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 
@@ -75,11 +76,21 @@ public abstract class TxtComponent extends CustComponent implements AbsTxtCompon
     }
 
     public void setText(String _t) {
-        getTextComponent().setText(_t);
+        try {
+            AbstractDocument doc_ = (AbstractDocument) getTextComponent().getDocument();
+            doc_.replace(0, doc_.getLength(), _t,null);
+        } catch (Exception e) {
+            getTextComponent().setText(_t);
+        }
     }
 
     public String getText() {
-        return getTextComponent().getText();
+        try {
+            AbstractDocument doc_ = (AbstractDocument) getTextComponent().getDocument();
+            return doc_.getText(0, doc_.getLength());
+        } catch (Exception e) {
+            return getTextComponent().getText();
+        }
     }
 
     public String getSelectedText() {
