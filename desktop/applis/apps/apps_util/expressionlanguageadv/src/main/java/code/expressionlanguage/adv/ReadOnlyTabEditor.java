@@ -14,6 +14,7 @@ public final class ReadOnlyTabEditor extends AbsReadOnlyTabEditor implements Abs
         getCenter().registerKeyboardAction(getCompoFactory().wrap(new ToggleBreakPointEvent(this)),GuiConstants.VK_F2,0);
         getCenter().registerKeyboardAction(getCompoFactory().wrap(new ToggleBreakPointEnabledEvent(this)),GuiConstants.VK_F3,0);
         getCenter().registerKeyboardAction(getCompoFactory().wrap(new BreakPointFormEvent(_dbg, this)),GuiConstants.VK_F4,0);
+        getCenter().registerKeyboardAction(getCompoFactory().wrap(new GoToDbgDefinitionEvent(_dbg, this)),GuiConstants.VK_F5,0);
         getCenter().registerKeyboardAction(getCompoFactory().wrap(new CloseReadOnlyTabEditorEvent(this)),GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK);
     }
 

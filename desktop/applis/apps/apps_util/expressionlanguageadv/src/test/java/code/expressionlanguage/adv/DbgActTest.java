@@ -616,6 +616,73 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
+    public void ref1() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int field;public static int exmeth(){return field;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return Ex0.field;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(80,80);
+        assertEq("src/file0.txt",b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getFullPath());
+        assertEq(80,b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getCenter().getCaretPosition());
+        refPartDbg(b_);
+        assertEq("src/file0.txt",b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getFullPath());
+        assertEq(40,b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getCenter().getCaretPosition());
+    }
+    @Test
+    public void ref2() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int field;public static int exmeth(){return field;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return Ex0.field;}}");
+        guiAna(r_,b_,o_,src_);
+        b_.getTabbedPane().selectIndex(1);
+        b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getCenter().select(60,60);
+        assertEq("src/file1.txt",b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getFullPath());
+        assertEq(60,b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getCenter().getCaretPosition());
+        refPartDbg(b_);
+        assertEq("src/file0.txt",b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getFullPath());
+        assertEq(40,b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getCenter().getCaretPosition());
+    }
+    @Test
+    public void ref3() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int field;public static int exmeth(){return field;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return Ex0.field_;}}");
+        guiAna(r_,b_,o_,src_);
+        b_.getTabbedPane().selectIndex(1);
+        b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getCenter().select(60,60);
+        assertEq("src/file1.txt",b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getFullPath());
+        assertEq(60,b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getCenter().getCaretPosition());
+        refPartDbg(b_);
+        assertEq("src/file1.txt",b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getFullPath());
+        assertEq(60,b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getCenter().getCaretPosition());
+    }
+    @Test
+    public void ref4() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int field;public static int exmeth(){return field;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return Integer.MAX_VALUE;}}");
+        guiAna(r_,b_,o_,src_);
+        b_.getTabbedPane().selectIndex(1);
+        b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getCenter().select(64,64);
+        assertEq("src/file1.txt",b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getFullPath());
+        assertEq(64,b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getCenter().getCaretPosition());
+        refPartDbg(b_);
+        assertEq("src/file1.txt",b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getFullPath());
+        assertEq(64,b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getCenter().getCaretPosition());
+    }
+    @Test
     public void m1() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);

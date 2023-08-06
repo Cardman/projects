@@ -49,6 +49,9 @@ public abstract class EquallableElAdvUtil {
     public static void assertSame(Struct _expected, Struct _result) {
         Assert.assertSame(_expected, _result);
     }
+    public static void assertSame(SyntaxRefEnum _expected, SyntaxRefEnum _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertSame(ThState _expected, ThState _result) {
         Assert.assertSame(_expected, _result);
     }
@@ -183,6 +186,9 @@ public abstract class EquallableElAdvUtil {
     }
     public static void bpForm(AbsDebuggerGui _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F4,0)).action();
+    }
+    public static void refPartDbg(AbsDebuggerGui _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabSelect(_w).getCenter(), GuiConstants.VK_F5,0)).action();
     }
     public static void bpFormStdAddInc(AbsDebuggerGui _w) {
         ((MockPlainButton)_w.getFrameBpForm().getGuiStdStackForm().getBpAddFile()).getActionListeners().get(0).action();
