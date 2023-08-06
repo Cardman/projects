@@ -215,16 +215,21 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     @Override
     public boolean isStopAtRefField(FieldMetaInfo _meta, ContextEl _context, StackCall _stackCall) {
-        if (AbstractLambdaVariable.stopMetaField(_meta, _context, _stackCall)) {
-            _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
-            return true;
+        if (_stackCall.getBreakPointInfo().getStackState().visitedExp()) {
+            return false;
         }
-        return false;
+        _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
+        _stackCall.getBreakPointInfo().getStackState().visitExp();
+        return AbstractLambdaVariable.stopMetaField(_meta, _context, _stackCall);
     }
 
     @Override
     public boolean isStopAtRefVar(ArgumentListCall _meta, ContextEl _context, StackCall _stackCall) {
+        if (_stackCall.getBreakPointInfo().getStackState().visitedExp()) {
+            return false;
+        }
         _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
+        _stackCall.getBreakPointInfo().getStackState().visitExp();
         return true;
     }
 

@@ -58,7 +58,6 @@ public final class ReflectGetFieldPageEl extends AbstractLambdaVariable {
     @Override
     public CheckedExecOperationNodeInfos infos(ContextEl _context, StackCall _stackCall) {
         if (AbstractLambdaVariable.stopMetaField(metaInfo, _context, _stackCall)) {
-            _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
             Struct instance_ = ArgumentListCall.toStr(argument);
             ClassField cf_ = new ClassField(StringExpUtil.getIdFromAllTypes(metaInfo.getFormatted().getFormatted()), metaInfo.getName());
             return new CheckedExecOperationNodeInfos(cf_, DbgStackStopper.READ, formatted(_context, cf_, instance_), instance_, null);

@@ -37,7 +37,6 @@ public final class LambdaVariableGetValuePageEl extends AbstractLambdaVariable {
         ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(arr.getArgumentWrappers());
         AbstractWrapper w_ = firstArgumentWrapper_.getWrapper();
         if (w_ instanceof FieldWrapper) {
-            _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
             ClassField cf_ = ((FieldWrapper) w_).getId();
             Struct instance_ = value(w_);
             return new CheckedExecOperationNodeInfos(cf_, DbgStackStopper.READ,formatted(_context, (FieldWrapper) w_,cf_),instance_,null);

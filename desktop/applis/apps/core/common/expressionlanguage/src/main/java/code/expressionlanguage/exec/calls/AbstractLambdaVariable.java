@@ -19,8 +19,6 @@ import code.expressionlanguage.structs.Struct;
 
 public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl {
 
-    private boolean visited;
-    private boolean infos;
     private boolean calledAfter;
 
     protected AbstractLambdaVariable(boolean _lambda) {
@@ -28,12 +26,10 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
     }
     @Override
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
-        if (!visited) {
-            visited = true;
-            if (stopAt(_context, _stack)) {
-                return false;
-            }
+        if (stopAt(_context, _stack)) {
+            return false;
         }
+        _stack.getBreakPointInfo().getStackState().resetVisit(false);
         if (!calledAfter) {
             setWrapException(false);
             Argument arg_ = prepare(_context, _stack);
@@ -56,10 +52,9 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
     abstract boolean stopAt(ContextEl _context, StackCall _stack);
 
     public CheckedExecOperationNodeInfos infosVisited(ContextEl _context, StackCall _stackCall){
-        if (infos) {
+        if (_stackCall.getBreakPointInfo().getStackState().visitedExp()) {
             return null;
         }
-        infos = true;
         return infos(_context, _stackCall);
     }
     public abstract CheckedExecOperationNodeInfos infos(ContextEl _context, StackCall _stackCall);
