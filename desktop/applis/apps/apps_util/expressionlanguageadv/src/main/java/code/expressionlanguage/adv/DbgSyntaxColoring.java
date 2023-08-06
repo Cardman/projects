@@ -1,15 +1,13 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
-import code.expressionlanguage.analyze.syntax.CallersRef;
-import code.expressionlanguage.analyze.syntax.ResultExpression;
-import code.expressionlanguage.analyze.syntax.ResultExpressionBlock;
-import code.expressionlanguage.analyze.syntax.ResultExpressionBlockOperation;
+import code.expressionlanguage.analyze.syntax.*;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.BreakPointBlockList;
 import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
+import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
 import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.util.CustList;
@@ -24,14 +22,18 @@ public final class DbgSyntaxColoring {
         for (ResultExpressionBlockOperation r: CallersRef.fetch(_res.getPageEl())) {
             CustList<SegmentReadOnlyPart> parts_ = parts(_res, r);
             FileBlock key_ = r.getRes().getBlock().getFile();
-            CustList<SegmentReadOnlyPart> ls_ = agg_.getVal(key_);
-            if (ls_ == null) {
-                CustList<SegmentReadOnlyPart> e_ = new CustList<SegmentReadOnlyPart>();
-                e_.addAllElts(parts_);
-                agg_.addEntry(key_, e_);
-            } else {
-                ls_.addAllElts(parts_);
+            elts(agg_, key_, parts_);
+        }
+        for (MemberCallingsBlock r: CallersRef.fetchFct(_res.getPageEl())) {
+            CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
+            BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
+            int offset_ = r.getOffset();
+            MethodPointBlockPair pair_ = lsBp_.getPair(MemberCallingsBlock.clName(r));
+            if (pair_ != null) {
+                parts_.add(new SegmentReadOnlyPart(offset_,r.getBegin(),SyntaxRefEnum.METHOD));
             }
+            FileBlock key_ = r.getFile();
+            elts(agg_, key_, parts_);
         }
         for (EntryCust<String, FileBlock> f: _res.getPageEl().getPreviousFilesBodies().entryList()) {
             FileBlock key_ = f.getValue();
@@ -41,6 +43,17 @@ public final class DbgSyntaxColoring {
             }
         }
         return agg_;
+    }
+
+    private static void elts(IdMap<FileBlock, CustList<SegmentReadOnlyPart>> _agg, FileBlock _key, CustList<SegmentReadOnlyPart> _parts) {
+        CustList<SegmentReadOnlyPart> ls_ = _agg.getVal(_key);
+        if (ls_ == null) {
+            CustList<SegmentReadOnlyPart> e_ = new CustList<SegmentReadOnlyPart>();
+            e_.addAllElts(_parts);
+            _agg.addEntry(_key, e_);
+        } else {
+            ls_.addAllElts(_parts);
+        }
     }
 
     private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, ResultExpressionBlockOperation _r) {

@@ -3865,6 +3865,7 @@ public final class CallersRefTest extends ProcessMethodCommon {
     @Test
     public void fetch() {
         assertTrue(CallersRef.fetch(AnalyzedPageEl.setInnerAnalyzing()).isEmpty());
+        assertTrue(CallersRef.fetchFct(AnalyzedPageEl.setInnerAnalyzing()).isEmpty());
     }
     private FileBlockIndex variablesParamsUseElt(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r, int _index) {
         return _r.getVal(CallerKind.VARIABLES).getValue(0).get(_index);

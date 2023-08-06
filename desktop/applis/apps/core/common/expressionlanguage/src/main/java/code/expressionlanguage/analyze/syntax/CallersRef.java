@@ -216,26 +216,38 @@ public final class CallersRef {
     public static CustList<ResultExpressionBlockOperation> fetch(AnalyzedPageEl _page) {
         return fetchBase(_page,new CallersRef());
     }
+
+    public static CustList<MemberCallingsBlock> fetchFct(AnalyzedPageEl _page) {
+        CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
+        CallersRef c_ = new CallersRef();
+        feed(_page, c_, ls_);
+        return c_.fcts;
+    }
     private static CustList<ResultExpressionBlockOperation> fetchBase(AnalyzedPageEl _page, CallersRef _c) {
         CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
-        for (RootBlock r : _page.getAllFoundTypes()){
-            _c.type(ls_, r);
-        }
-        for (OperatorBlock o: _page.getAllOperators()){
-            ls_.addAllElts(_c.loopFct(o));
-        }
-        for (AnonymousLambdaOperation e: _page.getAllAnonymousLambda()) {
-            ls_.addAllElts(_c.loopFct(e.getBlock()));
-        }
-        for (SwitchOperation e: _page.getAllSwitchMethods()) {
-            ls_.addAllElts(_c.loopFct(e.getSwitchMethod()));
-        }
+        feed(_page, _c, ls_);
         CustList<ResultExpressionBlockOperation> ops_ = new CustList<ResultExpressionBlockOperation>();
         for (ResultExpressionBlock r: ls_) {
             ops_.addAllElts(loopOperation(r));
         }
         return ops_;
     }
+
+    private static void feed(AnalyzedPageEl _page, CallersRef _c, CustList<ResultExpressionBlock> _ls) {
+        for (RootBlock r : _page.getAllFoundTypes()){
+            _c.type(_ls, r);
+        }
+        for (OperatorBlock o: _page.getAllOperators()){
+            _ls.addAllElts(_c.loopFct(o));
+        }
+        for (AnonymousLambdaOperation e: _page.getAllAnonymousLambda()) {
+            _ls.addAllElts(_c.loopFct(e.getBlock()));
+        }
+        for (SwitchOperation e: _page.getAllSwitchMethods()) {
+            _ls.addAllElts(_c.loopFct(e.getSwitchMethod()));
+        }
+    }
+
     private static void addIfNotEmpty(IdMap<CallerKind,IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _map, CallerKind _key, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _value) {
         if (_value.isEmpty()) {
             return;
