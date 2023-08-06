@@ -317,16 +317,23 @@ public final class DbgStackStopper implements AbsStackStopper {
         return ExecHelperBlocks.checkBpWithoutClear(_stack, _index, _ip, _list, _bl);
     }
     public static boolean stopAtWp(ContextEl _context,StackCall _stackCall) {
-        if (_stackCall.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint() != StopDbgEnum.METHOD_EXIT) {
-            return false;
-        }
-        AbstractPageEl p_ = _stackCall.getLastPage();
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().isMute()) {
             return false;
         }
-        if (stopExc(_context, _stackCall, p_)) {
-            _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(StopDbgEnum.EXCEPTION);
-            return true;
+        if (_stackCall.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint() == StopDbgEnum.METHOD_EXIT) {
+            AbstractPageEl p_ = _stackCall.getLastPage();
+            if (stopExc(_context, _stackCall, p_)) {
+                _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(StopDbgEnum.EXCEPTION);
+                return true;
+            }
+        } else if (_stackCall.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint() == StopDbgEnum.STEP_RETURN_METHOD) {
+            AbstractPageEl p_ = _stackCall.getLastPage();
+            CoreCheckedExecOperationNodeInfos infos_ = _stackCall.getBreakPointInfo().getBreakPointOutputInfo().getOperElt();
+            StopDbgEnum s_ = checkedWp(_context, _stackCall, p_, infos_);
+            if (s_ != null && s_ != StopDbgEnum.NONE) {
+                _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(s_);
+                return true;
+            }
         }
         return false;
     }
@@ -338,8 +345,9 @@ public final class DbgStackStopper implements AbsStackStopper {
         _stackCall.getBreakPointInfo().getStackState().visitInst();
         _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setOperElt(_infos);
         _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(null);
-        if (stopStep(_context, _stackCall, _p)) {
-            return StopDbgEnum.STEP;
+        StopDbgEnum step_ = stopStep(_context, _stackCall, _p);
+        if (step_ != StopDbgEnum.NONE) {
+            return step_;
         }
         if (getCurrentOper(_p) == null && _context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().get()) {
             _context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().set(false);
@@ -357,8 +365,9 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (stopExc(_context, _stackCall, _p)) {
             return StopDbgEnum.EXCEPTION;
         }
-        if (stopExcValuRetThrowCatch(_stackCall, _p) == null && _infos != null) {
-            return wp(_context, _stackCall, _p, _infos);
+        StopDbgEnum s_ = checkedWp(_context, _stackCall, _p, _infos);
+        if (s_ != null) {
+            return s_;
         }
         if (_stackCall.trueException() != null || getCurrentOper(_p) != null || _p.getReadWrite() == ReadWrite.EXIT) {
             return StopDbgEnum.NONE;
@@ -370,6 +379,12 @@ public final class DbgStackStopper implements AbsStackStopper {
             }
         }
         return StopDbgEnum.NONE;
+    }
+    private static StopDbgEnum checkedWp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos) {
+        if (stopExcValuRetThrowCatch(_stackCall, _p) == null && _infos instanceof CheckedExecOperationNodeInfos) {
+            return wp(_context, _stackCall, _p, (CheckedExecOperationNodeInfos) _infos);
+        }
+        return null;
     }
 
     private static boolean normalCall(ContextEl _context, StackCall _stackCall) {
@@ -483,17 +498,26 @@ public final class DbgStackStopper implements AbsStackStopper {
         return params_;
     }
 
-    private static boolean stopStep(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
+    private static StopDbgEnum stopStep(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() > _stackCall.nbPages() || _p.getReadWrite() == ReadWrite.EXIT &&_stackCall.nbPages() == 1)) {
-            return true;
+            return StopDbgEnum.STEP_RETURN_METHOD;
         }
         if (stopExcValuRetThrowCatch(_stackCall, _p) != null || getCurrentOper(_p) != null || _p.getReadWrite() == ReadWrite.EXIT) {
-            return false;
+            return StopDbgEnum.NONE;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_BLOCK && (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() == _stackCall.nbPages() && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbBlocks() > _p.nbBlock() || _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() > _stackCall.nbPages())) {
-            return true;
+            return StopDbgEnum.STEP_NEXT_BLOCK;
         }
-        return _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() >= _stackCall.nbPages() || _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_INSTRUCTION || stopTmp(_context, _stackCall, _p);
+        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() >= _stackCall.nbPages()) {
+            return StopDbgEnum.STEP_NEXT_IN_METHOD;
+        }
+        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_INSTRUCTION) {
+            return StopDbgEnum.STEP_NEXT_INSTRUCTION;
+        }
+        if (stopTmp(_context, _stackCall, _p)) {
+            return StopDbgEnum.STEP_CURSOR;
+        }
+        return StopDbgEnum.NONE;
     }
 
     private static boolean stopTmp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {

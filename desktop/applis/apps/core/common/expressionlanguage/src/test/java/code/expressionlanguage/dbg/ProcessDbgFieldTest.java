@@ -3,6 +3,7 @@ package code.expressionlanguage.dbg;
 import code.expressionlanguage.DefContextGenerator;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.StopDbgEnum;
 import code.expressionlanguage.exec.dbg.WatchPoint;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
@@ -3796,6 +3797,128 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, stack_.nbPages());
+    }
+
+    @Test
+    public void test157() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public int f;public static int exmeth(){return new Ex().exmeth2()+=2;}public that int exmeth2(){return that(f);}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",124,cont_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        compoundRead(cont_,cf("pkg.Ex","f"));
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertSame(StopDbgEnum.INSTRUCTION,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(2, stack_.nbPages());
+        assertEq(124, now(stack_));
+        assertEq(77, stack_.getCall(0).getTraceIndex());
+    }
+
+    @Test
+    public void test158() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public int f;public static int exmeth(){return new Ex().exmeth2()+=2;}public that int exmeth2(){return that(f);}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",124,cont_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        compoundRead(cont_,cf("pkg.Ex","f"));
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
+        assertSame(StopDbgEnum.STEP_RETURN_METHOD,next_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(1, next_.nbPages());
+        assertEq(77, now(next_));
+    }
+
+    @Test
+    public void test159() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public int f;public static int exmeth(){return new Ex().exmeth2()+=2;}public that int exmeth2(){return that(f);}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",124,cont_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        compoundRead(cont_,cf("pkg.Ex","f"));
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        StackCall next_ = dbgContinueNormal(dbgContinueNormalValueStepRet(stack_, cont_.getContext()), cont_.getContext());
+        assertSame(StopDbgEnum.FIELD,next_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(1, next_.nbPages());
+        assertEq(77, now(next_));
+    }
+
+    @Test
+    public void test160() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public int f;public static int exmeth(){return new Ex().exmeth2()+=2;}public that int exmeth2(){return that(f);}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",124,cont_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        compoundRead(cont_,cf("pkg.Ex","f"));
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormalValueStepRet(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext());
+        assertEq(0, next_.nbPages());
+    }
+
+    @Test
+    public void test161() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public int f;public static int exmeth(){return new Ex().exmeth2()+=2;}public that int exmeth2(){return that(f);}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",124,cont_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        compoundReadCondition("f==1",cont_,cf("pkg.Ex","f"));
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertSame(StopDbgEnum.INSTRUCTION,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(2, stack_.nbPages());
+        assertEq(124, now(stack_));
+        assertEq(77, stack_.getCall(0).getTraceIndex());
+    }
+
+    @Test
+    public void test162() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public int f;public static int exmeth(){return new Ex().exmeth2()+=2;}public that int exmeth2(){return that(f);}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",124,cont_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        compoundReadCondition("f==1",cont_,cf("pkg.Ex","f"));
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
+        assertSame(StopDbgEnum.STEP_RETURN_METHOD,next_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(1, next_.nbPages());
+        assertEq(77, now(next_));
+    }
+
+    @Test
+    public void test163() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public int f;public static int exmeth(){return new Ex().exmeth2()+=2;}public that int exmeth2(){return that(f);}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",124,cont_);
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        compoundReadCondition("f==1",cont_,cf("pkg.Ex","f"));
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        StackCall next_ = dbgContinueNormal(dbgContinueNormalValueStepRet(stack_, cont_.getContext()), cont_.getContext());
+        assertEq(0, next_.nbPages());
     }
     private void readCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         read(_cont, _cf);
