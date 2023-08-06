@@ -683,6 +683,29 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq(64,b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getCenter().getCaretPosition());
     }
     @Test
+    public void ref5() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int field;public static int exmeth(){return field;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return Ex0.field;}}");
+        guiAna(r_,b_,o_,src_);
+        b_.getTabbedPane().selectIndex(0);
+        closeReadOnlyTab(b_);
+        b_.getTabbedPane().selectIndex(0);
+        b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getCenter().select(60,60);
+        assertEq(1,b_.getTabs().size());
+        assertEq(1,b_.getTabbedPane().getComponentCount());
+        assertEq("src/file1.txt",b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getFullPath());
+        assertEq(60,b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getCenter().getCaretPosition());
+        refPartDbg(b_);
+        assertEq(2,b_.getTabs().size());
+        assertEq(2,b_.getTabbedPane().getComponentCount());
+        assertEq("src/file0.txt",b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getFullPath());
+        assertEq(40,b_.getTabs().get(b_.getTabbedPane().getSelectedIndex()).getCenter().getCaretPosition());
+    }
+    @Test
     public void m1() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);
