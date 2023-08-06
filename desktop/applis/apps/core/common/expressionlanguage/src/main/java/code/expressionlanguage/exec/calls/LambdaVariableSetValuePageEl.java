@@ -32,11 +32,6 @@ public final class LambdaVariableSetValuePageEl extends AbstractLambdaVariable {
     }
 
     @Override
-    boolean stopAt(ContextEl _context, StackCall _stack) {
-        return _stack.getStopper().isStopAtRefVar(arr,_context,_stack);
-    }
-
-    @Override
     public CheckedExecOperationNodeInfos infos(ContextEl _context, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = arr.getArgumentWrappers();
         ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(argumentWrappers_);

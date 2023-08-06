@@ -26,7 +26,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.FieldWrapper;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.FieldMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -214,17 +213,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     @Override
-    public boolean isStopAtRefField(FieldMetaInfo _meta, ContextEl _context, StackCall _stackCall) {
-        if (_stackCall.getBreakPointInfo().getStackState().visitedExp()) {
-            return false;
-        }
-        _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
-        _stackCall.getBreakPointInfo().getStackState().visitExp();
-        return AbstractLambdaVariable.stopMetaField(_meta, _context, _stackCall);
-    }
-
-    @Override
-    public boolean isStopAtRefVar(ArgumentListCall _meta, ContextEl _context, StackCall _stackCall) {
+    public boolean isStopAtRef(ContextEl _context, StackCall _stackCall) {
         if (_stackCall.getBreakPointInfo().getStackState().visitedExp()) {
             return false;
         }

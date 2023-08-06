@@ -51,11 +51,6 @@ public final class ReflectGetFieldPageEl extends AbstractLambdaVariable {
     }
 
     @Override
-    boolean stopAt(ContextEl _context, StackCall _stack) {
-        return _stack.getStopper().isStopAtRefField(metaInfo, _context,_stack);
-    }
-
-    @Override
     public CheckedExecOperationNodeInfos infos(ContextEl _context, StackCall _stackCall) {
         if (AbstractLambdaVariable.stopMetaField(metaInfo, _context, _stackCall)) {
             Struct instance_ = ArgumentListCall.toStr(argument);

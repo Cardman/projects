@@ -26,7 +26,7 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
     }
     @Override
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
-        if (stopAt(_context, _stack)) {
+        if (_stack.getStopper().isStopAtRef(_context, _stack)) {
             return false;
         }
         _stack.getBreakPointInfo().getStackState().resetVisit(false);
@@ -48,8 +48,6 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
     }
 
     abstract Argument prepare(ContextEl _context, StackCall _stack);
-
-    abstract boolean stopAt(ContextEl _context, StackCall _stack);
 
     public CheckedExecOperationNodeInfos infosVisited(ContextEl _context, StackCall _stackCall){
         if (_stackCall.getBreakPointInfo().getStackState().visitedExp()) {
