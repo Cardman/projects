@@ -345,13 +345,13 @@ public final class DbgStackStopper implements AbsStackStopper {
         _stackCall.getBreakPointInfo().getStackState().visitInst();
         _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setOperElt(_infos);
         _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(null);
+        if (_context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().get()) {
+            _context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().set(false);
+            return StopDbgEnum.PAUSE;
+        }
         StopDbgEnum step_ = stopStep(_context, _stackCall, _p);
         if (step_ != StopDbgEnum.NONE) {
             return step_;
-        }
-        if (getCurrentOper(_p) == null && _context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().get()) {
-            _context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().set(false);
-            return StopDbgEnum.PAUSE;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().isMute()) {
             return StopDbgEnum.NONE;
@@ -499,10 +499,19 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static StopDbgEnum stopStep(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
-        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() > _stackCall.nbPages() || _p.getReadWrite() == ReadWrite.EXIT &&_stackCall.nbPages() == 1)) {
+        if (stopExcValuRetThrowCatch(_stackCall, _p) != null || normalCall(_context, _stackCall)) {
+            return StopDbgEnum.NONE;
+        }
+        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && (_p.getReadWrite() == ReadWrite.EXIT &&_stackCall.nbPages() == 1)) {
             return StopDbgEnum.STEP_RETURN_METHOD;
         }
-        if (stopExcValuRetThrowCatch(_stackCall, _p) != null || getCurrentOper(_p) != null || _p.getReadWrite() == ReadWrite.EXIT) {
+        if (_p.getReadWrite() == ReadWrite.EXIT) {
+            return StopDbgEnum.NONE;
+        }
+        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() > _stackCall.nbPages()) {
+            return StopDbgEnum.STEP_RETURN_METHOD;
+        }
+        if (getCurrentOper(_p) != null) {
             return StopDbgEnum.NONE;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_BLOCK && (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() == _stackCall.nbPages() && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbBlocks() > _p.nbBlock() || _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() > _stackCall.nbPages())) {
@@ -724,7 +733,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean checkBreakPoint(ContextEl _context,StackCall _stackCall, AbstractPageEl _p, CheckedExecOperationNodeInfos _infos) {
-        if (_stackCall.trueException() != null || _infos != null) {
+        if (_stackCall.trueException() != null || (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null && _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD) || _infos != null) {
             return true;
         }
         if (normalCall(_context,_stackCall)) {

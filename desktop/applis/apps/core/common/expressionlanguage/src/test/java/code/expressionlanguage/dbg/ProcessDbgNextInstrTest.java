@@ -55,6 +55,6 @@ public final class ProcessDbgNextInstrTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().set(true);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
         assertEq(1,next_.nbPages());
-        assertEq(62,now(next_));
+        assertEq(52,now(next_));
     }
 }
