@@ -159,9 +159,7 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
         if (el_ == null) {
             el_ = new ExpressionLanguage(_e, _coveredBlock);
             currentEls.add(el_);
-            _stack.getBreakPointInfo().getStackState().resetVisit(true);
-        } else {
-            _stack.getBreakPointInfo().getStackState().setCheckingBp(false);
+            _stack.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
         }
         return el_;
     }

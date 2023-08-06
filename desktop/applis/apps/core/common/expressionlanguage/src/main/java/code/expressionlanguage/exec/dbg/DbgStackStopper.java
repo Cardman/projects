@@ -62,7 +62,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (_stackCall.getBreakPointInfo().getStackState().visitedExp()) {
             return false;
         }
-        _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
+        _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
         _stackCall.getBreakPointInfo().getStackState().visitExp();
         _el.currentOper(_o);
         return true;
@@ -217,7 +217,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (_stackCall.getBreakPointInfo().getStackState().visitedExp()) {
             return false;
         }
-        _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
+        _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
         _stackCall.getBreakPointInfo().getStackState().visitExp();
         return true;
     }

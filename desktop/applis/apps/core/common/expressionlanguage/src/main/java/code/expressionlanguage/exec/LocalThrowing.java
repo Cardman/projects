@@ -32,7 +32,7 @@ public final class LocalThrowing {
             custCause_ = _conf.getLocks().processErrorClass(_conf, retrieve(_stackCall,custCause_), bkIp_, _stackCall);
             if (_stackCall.getStopper().isStopAtExcMethod()) {
                 _stackCall.nullReadWrite();
-                _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
+                _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
                 excState(_stackCall, custCause_);
                 return;
             }

@@ -29,7 +29,7 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
         if (_stack.getStopper().isStopAtRef(_context, _stack)) {
             return false;
         }
-        _stack.getBreakPointInfo().getStackState().resetVisit(false);
+        _stack.getBreakPointInfo().getStackState().visitedNone();
         if (!calledAfter) {
             setWrapException(false);
             Argument arg_ = prepare(_context, _stack);

@@ -6,9 +6,13 @@ public final class StackState {
     private VisitingState visitedState = VisitingState.NONE;
     private boolean checkingBp;
 
-    public void resetVisit(boolean _checkingBp) {
+    public void resetVisitAndCheckBp() {
+        visitedNone();
+        setCheckingBp(true);
+    }
+
+    public void visitedNone() {
         this.visitedState = VisitingState.NONE;
-        setCheckingBp(_checkingBp);
     }
 
     public boolean visitedInst() {

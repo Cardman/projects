@@ -104,7 +104,7 @@ public class DefaultInitializer implements Initializer {
             }
             _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setExiting(null);
             tryForward(_owner, ex_, _stackCall.getLastPage(), _stackCall);
-            _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
+            _stackCall.getBreakPointInfo().getStackState().visitedNone();
         }
         AbstractPageEl p_ = _stackCall.getLastPage();
         ReadWrite rw_ = p_.getReadWrite();
@@ -117,13 +117,13 @@ public class DefaultInitializer implements Initializer {
                 return true;
             }
             if (_stackCall.getStopper().hasToCheckExit(_stackCall,p_)) {
-                _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
+                _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
                 return false;
             }
             AbstractPageEl b_ = _stackCall.getLastPage();
             tryForward(_owner, p_, b_, _stackCall);
             rw_ = b_.getReadWrite();
-            _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
+            _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
         }
         if (_owner.callsOrException(_stackCall)) {
             rw_ = ReadWrite.EXIT;
@@ -133,7 +133,7 @@ public class DefaultInitializer implements Initializer {
         }
         checkStack(_owner, _stackCall);
         if (_stackCall.getStopper().callsOrException(_owner,_stackCall)) {
-            _stackCall.getBreakPointInfo().getStackState().resetVisit(true);
+            _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
         }
         if (!_stackCall.getStopper().stopAt(_stackCall)) {
             ExecutingUtil.processException(_owner, _stackCall);
