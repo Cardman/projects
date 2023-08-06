@@ -25,13 +25,7 @@ public final class DbgSyntaxColoring {
             elts(agg_, key_, parts_);
         }
         for (MemberCallingsBlock r: CallersRef.fetchFct(_res.getPageEl())) {
-            CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
-            BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
-            int offset_ = r.getOffset();
-            MethodPointBlockPair pair_ = lsBp_.getPair(MemberCallingsBlock.clName(r));
-            if (pair_ != null) {
-                parts_.add(new SegmentReadOnlyPart(offset_,r.getBegin(),SyntaxRefEnum.METHOD));
-            }
+            CustList<SegmentReadOnlyPart> parts_ = partsMethod(_res, r);
             FileBlock key_ = r.getFile();
             elts(agg_, key_, parts_);
         }
@@ -43,6 +37,38 @@ public final class DbgSyntaxColoring {
             }
         }
         return agg_;
+    }
+
+    public static CustList<SegmentReadOnlyPart> partsBpMpWp(ResultContext _res, FileBlock _file) {
+        CustList<SegmentReadOnlyPart> agg_ = new CustList<SegmentReadOnlyPart>();
+        for (ResultExpressionBlockOperation r: CallersRef.fetch(_res.getPageEl())) {
+            CustList<SegmentReadOnlyPart> parts_ = parts(_res, r);
+            FileBlock key_ = r.getRes().getBlock().getFile();
+            possible(key_, _file, agg_, parts_);
+        }
+        for (MemberCallingsBlock r: CallersRef.fetchFct(_res.getPageEl())) {
+            CustList<SegmentReadOnlyPart> parts_ = partsMethod(_res, r);
+            FileBlock key_ = r.getFile();
+            possible(key_, _file, agg_, parts_);
+        }
+        return agg_;
+    }
+
+    private static CustList<SegmentReadOnlyPart> partsMethod(ResultContext _res, MemberCallingsBlock _r) {
+        CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
+        BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
+        int offset_ = _r.getOffset();
+        MethodPointBlockPair pair_ = lsBp_.getPair(MemberCallingsBlock.clName(_r));
+        if (pair_ != null) {
+            parts_.add(new SegmentReadOnlyPart(offset_, _r.getBegin(),SyntaxRefEnum.METHOD));
+        }
+        return parts_;
+    }
+
+    private static void possible(FileBlock _key, FileBlock _file, CustList<SegmentReadOnlyPart> _agg, CustList<SegmentReadOnlyPart> _parts) {
+        if (_key == _file) {
+            _agg.addAllElts(_parts);
+        }
     }
 
     private static void elts(IdMap<FileBlock, CustList<SegmentReadOnlyPart>> _agg, FileBlock _key, CustList<SegmentReadOnlyPart> _parts) {
