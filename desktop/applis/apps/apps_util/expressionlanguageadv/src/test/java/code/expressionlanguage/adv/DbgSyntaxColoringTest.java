@@ -1,8 +1,10 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.util.CustList;
+import code.util.IdMap;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -13,8 +15,8 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int field;public static int exmeth(){return 1;}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        StringMap<CustList<SegmentReadOnlyPart>> s_ = DbgSyntaxColoring.parts(res_);
-        CustList<SegmentReadOnlyPart> l_ = s_.getVal("src/file.txt");
+        IdMap<FileBlock,CustList<SegmentReadOnlyPart>> s_ = DbgSyntaxColoring.partsBpMpWp(res_);
+        CustList<SegmentReadOnlyPart> l_ = s_.getVal(res_.getPageEl().getPreviousFilesBodies().getVal("src/file.txt"));
         assertEq(0,l_.size());
     }
     @Test
@@ -23,8 +25,8 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int field;public static int exmeth(){return 1;}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
         res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("src/file.txt",39,res_);
-        StringMap<CustList<SegmentReadOnlyPart>> s_ = DbgSyntaxColoring.parts(res_);
-        CustList<SegmentReadOnlyPart> l_ = s_.getVal("src/file.txt");
+        IdMap<FileBlock,CustList<SegmentReadOnlyPart>> s_ = DbgSyntaxColoring.partsBpMpWp(res_);
+        CustList<SegmentReadOnlyPart> l_ = s_.getVal(res_.getPageEl().getPreviousFilesBodies().getVal("src/file.txt"));
         assertEq(1,l_.size());
         assertEq(39,l_.get(0).getBegin());
         assertEq(44,l_.get(0).getEnd());
@@ -37,8 +39,8 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int f,s;public static int exmeth(){return 1;}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
         res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("src/file.txt",41,res_);
-        StringMap<CustList<SegmentReadOnlyPart>> s_ = DbgSyntaxColoring.parts(res_);
-        CustList<SegmentReadOnlyPart> l_ = s_.getVal("src/file.txt");
+        IdMap<FileBlock,CustList<SegmentReadOnlyPart>> s_ = DbgSyntaxColoring.partsBpMpWp(res_);
+        CustList<SegmentReadOnlyPart> l_ = s_.getVal(res_.getPageEl().getPreviousFilesBodies().getVal("src/file.txt"));
         assertEq(1,l_.size());
         assertEq(41,l_.get(0).getBegin());
         assertEq(42,l_.get(0).getEnd());
@@ -50,8 +52,8 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        StringMap<CustList<SegmentReadOnlyPart>> s_ = DbgSyntaxColoring.parts(res_);
-        CustList<SegmentReadOnlyPart> l_ = s_.getVal("src/file.txt");
+        IdMap<FileBlock,CustList<SegmentReadOnlyPart>> s_ = DbgSyntaxColoring.partsBpMpWp(res_);
+        CustList<SegmentReadOnlyPart> l_ = s_.getVal(res_.getPageEl().getPreviousFilesBodies().getVal("src/file.txt"));
         assertEq(0,l_.size());
     }
     private static ResultContext ctxReadOnlyOk(StringMap<String> _src) {
