@@ -114,23 +114,11 @@ public final class CallersRef {
     private CallersRef() {
     }
     public static IdMap<CallerKind,IdMap<SrcFileLocation,CustList<FileBlockIndex>>> loop(AnalyzedPageEl _page, CustList<SrcFileLocation> _piano) {
-        CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
         IdMap<CallerKind,IdMap<SrcFileLocation,CustList<FileBlockIndex>>> out_ = new IdMap<CallerKind, IdMap<SrcFileLocation, CustList<FileBlockIndex>>>();
         CallersRef c_ = new CallersRef();
         c_.callNamedOverridden.addAllEntries(feedOverridden(_page, _piano));
         c_.callNamedOverriding.addAllEntries(feedOverriding(_page, _piano));
-        for (RootBlock r : _page.getAllFoundTypes()){
-            c_.type(ls_, r);
-        }
-        for (OperatorBlock o: _page.getAllOperators()){
-            ls_.addAllElts(c_.loopFct(o));
-        }
-        for (AnonymousLambdaOperation e: _page.getAllAnonymousLambda()) {
-            ls_.addAllElts(c_.loopFct(e.getBlock()));
-        }
-        for (SwitchOperation e: _page.getAllSwitchMethods()) {
-            ls_.addAllElts(c_.loopFct(e.getSwitchMethod()));
-        }
+        CustList<ResultExpressionBlockOperation> ops_ =fetchBase(_page,c_);
         intern(_page, _piano, c_);
         for (MemberCallingsBlock r: c_.fcts) {
             c_.callingsCustDirect(r,_piano);
@@ -145,10 +133,6 @@ public final class CallersRef {
 ////            }
 //            c_.def(b.getBlock(),_piano);
 //        }
-        CustList<ResultExpressionBlockOperation> ops_ = new CustList<ResultExpressionBlockOperation>();
-        for (ResultExpressionBlock r: ls_) {
-            ops_.addAllElts(c_.loopOperation(r));
-        }
         for (ResultExpressionBlockLabel r: c_.breakContinue) {
             AbsBk bl_ = r.getBlock();
             if (bl_ instanceof BreakBlock) {
@@ -228,6 +212,29 @@ public final class CallersRef {
         addIfNotEmpty(out_, CallerKind.INHERITS,c_.inherits);
         addIfNotEmpty(out_, CallerKind.CALL_DYN,c_.callDyn);
         return out_;
+    }
+    public static CustList<ResultExpressionBlockOperation> fetch(AnalyzedPageEl _page) {
+        return fetchBase(_page,new CallersRef());
+    }
+    private static CustList<ResultExpressionBlockOperation> fetchBase(AnalyzedPageEl _page, CallersRef _c) {
+        CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
+        for (RootBlock r : _page.getAllFoundTypes()){
+            _c.type(ls_, r);
+        }
+        for (OperatorBlock o: _page.getAllOperators()){
+            ls_.addAllElts(_c.loopFct(o));
+        }
+        for (AnonymousLambdaOperation e: _page.getAllAnonymousLambda()) {
+            ls_.addAllElts(_c.loopFct(e.getBlock()));
+        }
+        for (SwitchOperation e: _page.getAllSwitchMethods()) {
+            ls_.addAllElts(_c.loopFct(e.getSwitchMethod()));
+        }
+        CustList<ResultExpressionBlockOperation> ops_ = new CustList<ResultExpressionBlockOperation>();
+        for (ResultExpressionBlock r: ls_) {
+            ops_.addAllElts(loopOperation(r));
+        }
+        return ops_;
     }
     private static void addIfNotEmpty(IdMap<CallerKind,IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _map, CallerKind _key, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _value) {
         if (_value.isEmpty()) {
@@ -427,7 +434,7 @@ public final class CallersRef {
         }
         return ls_;
     }
-    private CustList<ResultExpressionBlockOperation> loopOperation(ResultExpressionBlock _mem) {
+    private static CustList<ResultExpressionBlockOperation> loopOperation(ResultExpressionBlock _mem) {
         CustList<ResultExpressionBlockOperation> ls_ = new CustList<ResultExpressionBlockOperation>();
         OperationNode en_ = _mem.getRes().getRoot();
         while (en_ != null) {
@@ -449,7 +456,7 @@ public final class CallersRef {
         return ls_;
     }
 
-    private void choux(ResultExpressionBlock _mem, CustList<ResultExpressionBlockOperation> _ls, OperationNode _en) {
+    private static void choux(ResultExpressionBlock _mem, CustList<ResultExpressionBlockOperation> _ls, OperationNode _en) {
         if (_mem.getBegin() == -1 || ResultExpressionOperationNode.begin(_mem.getRes(), _en) >= _mem.getBegin() && ResultExpressionOperationNode.end(_mem.getRes(), _en) <= _mem.getEnd()) {
             _ls.add(new ResultExpressionBlockOperation(_en, _mem));
         }
