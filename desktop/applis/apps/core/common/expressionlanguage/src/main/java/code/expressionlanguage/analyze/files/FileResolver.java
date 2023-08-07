@@ -784,6 +784,7 @@ public final class FileResolver {
             if (!ok_) {
                 currentParent_.getBadIndexesGlobal().add(_parsedInstruction.getIndex()+ _input.getOffset());
             }
+            currentParent_.setBegin(_parsedInstruction.getIndex()+ _input.getOffset());
             currentParent_.setEndAll(_parsedInstruction.getIndex()+ _input.getOffset()+1);
             after_.setParent(currentParent_);
             after_.setCreated(currentParent_);
