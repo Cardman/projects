@@ -172,9 +172,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         }
         delimiters.getDelKeyWordStatic().add(_from);
         delimiters.getDelKeyWordStatic().add(n_);
-        delimiters.getDelKeyWordStaticExtract().add(start_);
-        delimiters.getStaticAccessTypes().add(startType_);
-        delimiters.getStaticParts().add(new AnaResultPartTypeInnerDto(join_,partOffsets_,operators_,r_, loc_,_page.getAnalysisMessages()));
+        delimiters.getStaticInfos().add(new FoundStaticStringPartsInfo(start_,startType_,new AnaResultPartTypeInnerDto(join_,partOffsets_,operators_,r_, loc_,_page.getAnalysisMessages())));
         return n_;
     }
     private OwnerListResultInfo type(AnalyzedPageEl _page, String _curSep, String _start, String _p) {

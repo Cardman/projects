@@ -1082,9 +1082,7 @@ public final class ElResolver {
     }
     private static void stKey(Delimiters _d, boolean _isKeySt) {
         if (_isKeySt) {
-            _d.getDelKeyWordStaticExtract().add(EMPTY_STRING);
-            _d.getStaticAccessTypes().add(null);
-            _d.getStaticParts().add(new AnaResultPartTypeDirectDto());
+            _d.getStaticInfos().add(new FoundStaticStringPartsInfo(EMPTY_STRING,null,new AnaResultPartTypeDirectDto()));
         }
     }
 
@@ -1849,13 +1847,14 @@ public final class ElResolver {
         int begStat_ = delimiter(_d.getDelKeyWordStatic(), _offset, _firstPrintChar, strLen_);
         if (begStat_ >= 0) {
             int ext_ = begStat_ / 2;
-            String extracted_ = _d.getDelKeyWordStaticExtract().get(ext_);
-            AnaGeneType extractedType_ = _d.getStaticAccessTypes().get(ext_);
+            FoundStaticStringPartsInfo infos_ = _d.getStaticInfos().get(ext_);
+            String extracted_ = infos_.getPart();
+            AnaGeneType extractedType_ = infos_.getType();
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.STATIC_ACCESS);
             op_.setExtractType(extracted_);
             op_.setExtractStaticType(extractedType_);
-            op_.setPartOffsets(_d.getStaticParts().get(ext_));
+            op_.setPartOffsets(infos_.getParts());
             op_.setOperators(new StrTypes());
             op_.setValue(_string, _firstPrintChar);
             return op_;

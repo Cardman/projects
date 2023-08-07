@@ -3004,8 +3004,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(" pkg.Ex.exmeth(0i)", val(values_, 1));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
-        assertEq(1, d_.getDelKeyWordStaticExtract().size());
-        assertEq("pkg.Ex", d_.getDelKeyWordStaticExtract().first());
+        assertEq(1, d_.getStaticInfos().size());
+        assertEq("pkg.Ex", d_.getStaticInfos().first().getPart());
     }
 
     @Test
@@ -3051,8 +3051,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(" Ex.exmeth(0i)", val(values_, 1));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
-        assertEq(1, d_.getDelKeyWordStaticExtract().size());
-        assertEq("pkg.Ex", d_.getDelKeyWordStaticExtract().first());
+        assertEq(1, d_.getStaticInfos().size());
+        assertEq("pkg.Ex", d_.getStaticInfos().first().getPart());
     }
     @Test
     public void getOperationsSequence197Test() {
@@ -3097,8 +3097,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(" $Class.forName(\"\")", val(values_, 1));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
-        assertEq(1, d_.getDelKeyWordStaticExtract().size());
-        assertEq("java.lang.$Class", d_.getDelKeyWordStaticExtract().first());
+        assertEq(1, d_.getStaticInfos().size());
+        assertEq("java.lang.$Class", d_.getStaticInfos().first().getPart());
     }
     @Test
     public void getOperationsSequence198Test() {
@@ -3145,8 +3145,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(" Ex.exmeth(0i)", val(values_, 1));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
-        assertEq(1, d_.getDelKeyWordStaticExtract().size());
-        assertEq("pkg.ExTwo..Ex", d_.getDelKeyWordStaticExtract().first());
+        assertEq(1, d_.getStaticInfos().size());
+        assertEq("pkg.ExTwo..Ex", d_.getStaticInfos().first().getPart());
     }
     @Test
     public void getOperationsSequence199Test() {
@@ -3201,8 +3201,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(" pkg.ExThree.Ex.inst", val(values_, 1));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
-        assertEq(1, d_.getDelKeyWordStaticExtract().size());
-        assertEq("pkg.ExThree.Ex", d_.getDelKeyWordStaticExtract().first());
+        assertEq(1, d_.getStaticInfos().size());
+        assertEq("pkg.ExThree.Ex", d_.getStaticInfos().first().getPart());
     }
     @Test
     public void getOperationsSequence200Test() {
@@ -3249,8 +3249,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(" ExTwo.Ex.exmeth(0i)", val(values_, 1));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
-        assertEq(1, d_.getDelKeyWordStaticExtract().size());
-        assertEq("pkg.ExTwo..Ex", d_.getDelKeyWordStaticExtract().first());
+        assertEq(1, d_.getStaticInfos().size());
+        assertEq("pkg.ExTwo..Ex", d_.getStaticInfos().first().getPart());
     }
 
 

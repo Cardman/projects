@@ -17,12 +17,8 @@ public final class ReachTernaryOperation extends ReachMethodOperation implements
     @Override
     public void tryCalculateNode(AnalyzedPageEl _page) {
         CustList<ReachOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (ReachOperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
         checkDeadCode(chidren_.first(),getInfo(), _page);
-        Argument argBool_ = arguments_.first();
+        Argument argBool_ = chidren_.first().getArgument();
         if (argBool_ == null) {
             return;
         }
@@ -32,9 +28,9 @@ public final class ReachTernaryOperation extends ReachMethodOperation implements
         }
         Argument arg_;
         if (BooleanStruct.isTrue(str_)) {
-            arg_ = arguments_.get(IndexConstants.SECOND_INDEX);
+            arg_ = chidren_.get(IndexConstants.SECOND_INDEX).getArgument();
         } else {
-            arg_ = arguments_.last();
+            arg_ = chidren_.last().getArgument();
         }
         if (arg_ == null) {
             return;
