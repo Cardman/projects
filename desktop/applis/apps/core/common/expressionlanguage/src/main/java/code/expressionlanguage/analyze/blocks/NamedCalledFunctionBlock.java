@@ -304,7 +304,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
             allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_, null,  0, 0,resolved_.getInfo()));
             return sum_;
         }
-        if (!FormattedMethodId.eqPartial(new FormattedMethodId(getId().quickFormat(AnaInherits.getVarTypes(formInfo_))),new FormattedMethodId(methodIdDest_.quickFormat(AnaInherits.getVarTypes(formInfoDest_))))) {
+        if (FormattedMethodId.notEqPartial(new FormattedMethodId(getId().quickFormat(AnaInherits.getVarTypes(formInfo_))), new FormattedMethodId(methodIdDest_.quickFormat(AnaInherits.getVarTypes(formInfoDest_))))) {
             allPartSuperTypes_.addAllElts(superPartOffsets_);
             sum_ += _ov.length()+1;
             allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_, null,  0, 0));

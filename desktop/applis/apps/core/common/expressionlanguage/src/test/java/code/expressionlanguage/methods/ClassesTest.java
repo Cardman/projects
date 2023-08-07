@@ -73,7 +73,6 @@ public final class ClassesTest extends ProcessMethodCommon {
         ContextUtil.getParamTypesMapValues(null);
         ExecVariableTemplates.getValue(null, ctx_, null);
         ExecVariableTemplates.trySetArgument(ctx_,new Argument(),new ArgumentsPair(), null);
-        assertFalse(new ClassMethodId("",getMethodId("")).eq(new ClassMethodId(" ",getMethodId(""))));
         AnaInherits.getOverridingFullTypeByBases(null,null);
         AnalyzedPageEl.getLocationFile(0,null,0);
         AnalyzedPageEl.getFileName(null);

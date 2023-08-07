@@ -47,11 +47,6 @@ public final class ConstructorInfo extends Parametrable {
     }
 
     @Override
-    public boolean sameParamsVararg(Parametrable _id) {
-        return IdentifiableUtil.eqPartial(constraints,_id.getPartialId());
-    }
-
-    @Override
     public Identifiable getPartialId() {
         return getConstraints();
     }

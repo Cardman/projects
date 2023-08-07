@@ -1,4 +1,6 @@
 package code.expressionlanguage.functionid;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.stds.StandardMethod;
 import code.util.core.StringUtil;
 
 public final class ClassMethodId {
@@ -20,11 +22,8 @@ public final class ClassMethodId {
         return constraints;
     }
 
-    public boolean eq(ClassMethodId _g) {
-        if (!StringUtil.quickEq(className, _g.className)) {
-            return false;
-        }
-        return constraints.eq(_g.constraints);
+    public static boolean eq(NamedFunctionBlock _f1, StandardMethod _m1, NamedFunctionBlock _f2, StandardMethod _m2) {
+        return _f1 == _f2 && _m1 == _m2;
     }
 
 }

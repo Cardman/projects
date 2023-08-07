@@ -258,9 +258,8 @@ public final class ResolvingImportTypes {
         return !ContextUtil.canAccess(_typeLoc, a_) || !ContextUtil.canAccess(_glClass, a_);
     }
     private static void addImportMethod(CustList<ImportedMethod> _methods, ImportedMethod _value) {
-        ClassMethodId id_ = _value.getId();
         for (ImportedMethod e: _methods) {
-            if (e.getId().eq(id_)) {
+            if (ClassMethodId.eq(e.getCustMethod(),e.getStandardMethod(), _value.getCustMethod(), _value.getStandardMethod())) {
                 return;
             }
         }

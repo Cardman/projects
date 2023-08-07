@@ -128,20 +128,11 @@ public final class MethodId extends AbsractIdentifiableCommon {
         return false;
     }
     public boolean eq(MethodId _obj) {
-        if (!StringUtil.quickEq(_obj.getName(), getName())) {
-            return false;
-        }
-        return eqPartial(_obj);
+        return StringUtil.quickEq(_obj.getName(), getName()) && eqPartial(_obj);
     }
 
     public boolean eqPartial(MethodId _other) {
-        if (retRef != _other.retRef) {
-            return false;
-        }
-        if (kind != _other.kind) {
-            return false;
-        }
-        return IdentifiableUtil.eqPartial(this,_other);
+        return retRef == _other.retRef && kind == _other.kind && IdentifiableUtil.eqPartial(this, _other);
     }
 
     public MethodId reflectFormat(StringMap<String> _varTypes) {

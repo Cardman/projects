@@ -62,9 +62,8 @@ public final class AnaTemplates {
         return ls_;
     }
     public static boolean containsResMethod(CustList<ClassMethodIdReturn> _ls, ClassMethodIdReturn _res) {
-        ClassMethodId input_ = new ClassMethodId(_res.getRealClass(),_res.getRealId());
         for (ClassMethodIdReturn c: _ls) {
-            if (c.getAncestor() != _res.getAncestor() || !new ClassMethodId(c.getRealClass(), c.getRealId()).eq(input_)) {
+            if (c.getAncestor() != _res.getAncestor() || !ClassMethodId.eq(c.getPair().getFunction(), c.getStandardMethod(), _res.getPair().getFunction(), _res.getStandardMethod())) {
                 continue;
             }
             return true;

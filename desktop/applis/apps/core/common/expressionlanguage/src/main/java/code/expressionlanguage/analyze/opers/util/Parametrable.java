@@ -124,8 +124,6 @@ public abstract class Parametrable {
     public abstract boolean isVararg();
 
 
-    public abstract boolean sameParamsVararg(Parametrable _id);
-
     public abstract Identifiable getGeneFormatted();
     public abstract Identifiable getPartialId();
 

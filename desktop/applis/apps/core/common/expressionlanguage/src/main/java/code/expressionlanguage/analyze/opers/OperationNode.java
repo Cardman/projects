@@ -3378,7 +3378,7 @@ public abstract class OperationNode {
         }
         String baseTypeOne_ = StringExpUtil.getIdFromAllTypes(glClassOne_);
         String baseTypeTwo_ = StringExpUtil.getIdFromAllTypes(glClassTwo_);
-        if (StringUtil.quickEq(baseTypeOne_, baseTypeTwo_) && _o1.sameParamsVararg(_o2)) {
+        if (StringUtil.quickEq(baseTypeOne_, baseTypeTwo_) && IdentifiableUtil.eqPartial(_o1.getPartialId(),_o2.getPartialId())) {
             return SortConstants.NO_SWAP_SORT;
         }
         if (!StringUtil.quickEq(_o2.getReturnType(), _o1.getReturnType())) {

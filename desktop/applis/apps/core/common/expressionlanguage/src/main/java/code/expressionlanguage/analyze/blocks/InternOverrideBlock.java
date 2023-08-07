@@ -144,7 +144,7 @@ public final class InternOverrideBlock extends Leaf {
             _listPart.add(new PartOffsetsClassMethodId(new CustList<AnaResultPartTypeDtoInt>(),superPartOffsets_, null, 0, 0,resolvedSuper_.getInfo()));
             return localSum_;
         }
-        if (!FormattedMethodId.eqPartial(formattedMethodId_,new FormattedMethodId(superMethodId_.quickFormat(AnaInherits.getVarTypes(formInfoDest_))))) {
+        if (FormattedMethodId.notEqPartial(formattedMethodId_, new FormattedMethodId(superMethodId_.quickFormat(AnaInherits.getVarTypes(formInfoDest_))))) {
             localSum_ += _s.length()+1;
             _listPart.add(new PartOffsetsClassMethodId(new CustList<AnaResultPartTypeDtoInt>(),superPartOffsets_, null, 0, 0));
             return localSum_;
