@@ -1268,6 +1268,146 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         assertNull(stack_.getBreakPointInfo().getBreakPointOutputInfo().getCallingStateSub());
         assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
+
+    @Test
+    public void test90() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T>:ExSuper<T> {public static int exmeth(){return new Ex<int>().$lambda(Ex<int>,exmeth2,int).call(5);}public int exmeth2(int a){return f+a;}}public class pkg.ExSuper<S> {public int f=3;public int exmeth2(int b){return f+b;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        exitingCondition("class(S)==class(int)",cont_,"pkg/Ex",204);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(3, stack_.nbPages());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test91() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T>:ExSuper<T> {public static int exmeth(){return new Ex<int>().$lambda(Ex<int>,exmeth2,int).call(5);}public int exmeth2(int a){return f+a;}}public class pkg.ExSuper<S> {public int f=3;public int exmeth2(int b){return f+b;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        exitingCondition("class(S)==class(long)",cont_,"pkg/Ex",204);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+
+    @Test
+    public void test92() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T>:ExSuper<T> {public static int exmeth(){return new Ex<int>().$lambda(Ex<int>,exmeth2,int).call(5);}public int exmeth2(int a){return f+a;}}public class pkg.ExSuper<S> {public int f=3;public int exmeth2(int b){return f+b;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        enteringCondition("class(S)==class(int)",cont_,"pkg/Ex",204);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(2, stack_.nbPages());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test93() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T>:ExSuper<T> {public static int exmeth(){return new Ex<int>().$lambda(Ex<int>,exmeth2,int).call(5);}public int exmeth2(int a){return f+a;}}public class pkg.ExSuper<S> {public int f=3;public int exmeth2(int b){return f+b;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        enteringCondition("class(S)==class(long)",cont_,"pkg/Ex",204);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+
+    @Test
+    public void test94() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T>:ExSuper<T> {public static int exmeth(){return new Ex<int>().$lambda(Ex<int>,exmeth2,int).call(5);}public int exmeth2(int a){return f+a;}}public class pkg.ExSuper<S> {public int f=3;public int exmeth2(int b){return f+b;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        exitingCondition("class(T)==class(int)",cont_,"pkg/Ex",121);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(3, stack_.nbPages());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test95() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T>:ExSuper<T> {public static int exmeth(){return new Ex<int>().$lambda(Ex<int>,exmeth2,int).call(5);}public int exmeth2(int a){return f+a;}}public class pkg.ExSuper<S> {public int f=3;public int exmeth2(int b){return f+b;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        exitingCondition("class(T)==class(long)",cont_,"pkg/Ex",121);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+
+    @Test
+    public void test96() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T>:ExSuper<T> {public static int exmeth(){return new Ex<int>().$lambda(Ex<int>,exmeth2,int).call(5);}public int exmeth2(int a){return f+a;}}public class pkg.ExSuper<S> {public int f=3;public int exmeth2(int b){return f+b;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        enteringCondition("class(T)==class(int)",cont_,"pkg/Ex",121);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(2, stack_.nbPages());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test97() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T>:ExSuper<T> {public static int exmeth(){return new Ex<int>().$lambda(Ex<int>,exmeth2,int).call(5);}public int exmeth2(int a){return f+a;}}public class pkg.ExSuper<S> {public int f=3;public int exmeth2(int b){return f+b;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        enteringCondition("class(T)==class(long)",cont_,"pkg/Ex",121);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+
+    @Test
+    public void test98() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T> {public class Inner<U>{public T a;public U b;public (T a,U b){this.a=a;this.b=b;}}public T c;public (T c){this.c=c;}public static int exmeth(){var o=new Ex<int>(2);var i=o.$lambda(Inner<int>,new,int,int).call(3,4);return i.c+i.a+i.b;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        enteringCondition("c==2&&a==3&&b==4&&class(U)==class(int)&&class(T)==class(int)&&this.a==0&&this.b==0",cont_,"pkg/Ex",68);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(2, stack_.nbPages());
+        assertSame(StopDbgEnum.METHOD_ENTRY, stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertNull(stack_.getBreakPointInfo().getBreakPointOutputInfo().getCallingStateSub());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test99() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T> {public class Inner<U>{public T a;public U b;public (T a,U b){this.a=a;this.b=b;}}public T c;public (T c){this.c=c;}public static int exmeth(){var o=new Ex<int>(2);var i=o.$lambda(Inner<int>,new,int,int).call(3,4);return i.c+i.a+i.b;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        exitingCondition("c==2&&a==3&&b==4&&class(U)==class(int)&&class(T)==class(int)&&this.a==3&&this.b==4",cont_,"pkg/Ex",68);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(3, stack_.nbPages());
+        assertSame(StopDbgEnum.METHOD_EXIT, stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertNull(stack_.getBreakPointInfo().getBreakPointOutputInfo().getCallingStateSub());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
     @Test
     public void test() {
         StringBuilder xml_ = new StringBuilder();
