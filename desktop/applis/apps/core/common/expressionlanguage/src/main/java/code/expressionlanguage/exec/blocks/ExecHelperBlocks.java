@@ -1048,14 +1048,7 @@ public final class ExecHelperBlocks {
         _ip.clearCurrentEls();
         return false;
     }
-    public static ExpressionLanguageBp checkBpWithoutClear(StackCall _stack, int _index,AbstractPageEl _ip, CustList<ExecOperationNode> _list, ExecBlock _bl) {
-        int size_ = _ip.sizeEl();
-        ExpressionLanguage el_ = _ip.getCurrentEl(_stack,_index, _list, _bl);
-        if (size_ < _ip.sizeEl()) {
-            return new ExpressionLanguageBp(el_,1);
-        }
-        return new ExpressionLanguageBp(el_,0);
-    }
+
     public static void processEmpty(StackCall _stack, ExecEmptyInstruction _bl) {
         processBlock(_stack, _bl);
     }

@@ -298,7 +298,7 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     @Override
     public boolean callsOrException(ContextEl _owner, StackCall _stackCall) {
-        return _owner.callsOrException(_stackCall);
+        return _owner.callsOrException(_stackCall) || _stackCall.getLastPage().getReadWrite() == ReadWrite.EXIT;
     }
 
     @Override
@@ -308,7 +308,13 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     @Override
     public ExpressionLanguageBp checkBpWithoutClear(StackCall _stack, int _index, AbstractPageEl _ip, CustList<ExecOperationNode> _list, ExecBlock _bl) {
-        return ExecHelperBlocks.checkBpWithoutClear(_stack, _index, _ip, _list, _bl);
+        int size_ = _ip.sizeEl();
+        ExpressionLanguage el_ = _ip.getCurrentEl(_index, _list, _bl);
+        if (size_ < _ip.sizeEl()) {
+            _stack.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
+            return new ExpressionLanguageBp(el_,1);
+        }
+        return new ExpressionLanguageBp(el_,0);
     }
     public static boolean stopAtWp(ContextEl _context,StackCall _stackCall) {
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().isMute()) {

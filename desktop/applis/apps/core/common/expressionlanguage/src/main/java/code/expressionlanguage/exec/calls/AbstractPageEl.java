@@ -154,12 +154,11 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
 
     public abstract void processTagsBase(ContextEl _context, StackCall _stack);
 
-    public ExpressionLanguage getCurrentEl(StackCall _stack, int _index, CustList<ExecOperationNode> _e, ExecBlock _coveredBlock) {
+    public ExpressionLanguage getCurrentEl(int _index, CustList<ExecOperationNode> _e, ExecBlock _coveredBlock) {
         ExpressionLanguage el_ = getNullableExp(_index);
         if (el_ == null) {
             el_ = new ExpressionLanguage(_e, _coveredBlock);
             currentEls.add(el_);
-            _stack.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
         }
         return el_;
     }
