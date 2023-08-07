@@ -123,7 +123,6 @@ public class DefaultInitializer implements Initializer {
             AbstractPageEl b_ = _stackCall.getLastPage();
             tryForward(_owner, p_, b_, _stackCall);
             rw_ = b_.getReadWrite();
-            _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
         }
         if (_owner.callsOrException(_stackCall)) {
             rw_ = ReadWrite.EXIT;
