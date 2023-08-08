@@ -1,6 +1,8 @@
 package code.expressionlanguage.analyze.syntax;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.common.DefaultFileEscapedCalc;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -3864,8 +3866,9 @@ public final class CallersRefTest extends ProcessMethodCommon {
     }
     @Test
     public void fetch() {
-        assertTrue(CallersRef.fetch(AnalyzedPageEl.setInnerAnalyzing()).isEmpty());
-        assertTrue(CallersRef.fetchFct(AnalyzedPageEl.setInnerAnalyzing()).isEmpty());
+        assertTrue(CallersRef.fetch(new FileBlock(0,false,"",new DefaultFileEscapedCalc())).isEmpty());
+        assertTrue(CallersRef.fetchRes(new FileBlock(0,false,"",new DefaultFileEscapedCalc())).isEmpty());
+        assertTrue(CallersRef.fetchFct(new FileBlock(0,false,"",new DefaultFileEscapedCalc())).isEmpty());
     }
     private FileBlockIndex variablesParamsUseElt(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r, int _index) {
         return _r.getVal(CallerKind.VARIABLES).getValue(0).get(_index);

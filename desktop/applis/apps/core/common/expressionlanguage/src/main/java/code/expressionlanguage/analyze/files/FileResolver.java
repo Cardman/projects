@@ -705,6 +705,7 @@ public final class FileResolver {
         if (_input.getType() == OuterBlockEnum.ANON_FCT) {
             NamedCalledFunctionBlock typeBlock_ = new NamedCalledFunctionBlock(_input.getNextIndexBef() + _input.getOffset(),
                     instructionTrimLocation_ + _input.getOffset(), _input.getCont().getStat(), _input.getCont().getKeys());
+            typeBlock_.setPlace(_input.getBegin()+_input.getOffset());
             anonHeader(_input, instructionTrimLocation_, typeBlock_);
             typeBlock_.setAnnotations(_input.getAnnotations());
             typeBlock_.getAnnotationsParams().addAllElts(_input.getAnnotationsParams());
@@ -785,6 +786,7 @@ public final class FileResolver {
                 currentParent_.getBadIndexesGlobal().add(_parsedInstruction.getIndex()+ _input.getOffset());
             }
             currentParent_.setBegin(_parsedInstruction.getIndex()+ _input.getOffset());
+            currentParent_.setLengthHeader(1);
             currentParent_.setEndAll(_parsedInstruction.getIndex()+ _input.getOffset()+1);
             after_.setParent(currentParent_);
             after_.setCreated(currentParent_);
@@ -3272,6 +3274,7 @@ public final class FileResolver {
         int begAnon_ = _indBeforeArrow + instrLoc_;
         int begImplRet_ = _indAfterArrow + instrLoc_;
         NamedCalledFunctionBlock block_ = new NamedCalledFunctionBlock(begAnon_, begImplRet_, _curElts.getCont().getStat(), _curElts.getCont().getKeys());
+        block_.setPlace(_i+instrLoc_);
         block_.setAnnotations(_parse.getAnnotations());
         block_.getAnnotationsParams().addAllElts(_parse.getAnnotationsParams());
         block_.setBegin(begImplRet_);

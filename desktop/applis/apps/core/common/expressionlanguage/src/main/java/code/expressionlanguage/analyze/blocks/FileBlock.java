@@ -4,6 +4,8 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.files.SegmentStringPart;
 import code.expressionlanguage.analyze.files.StringComment;
+import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
+import code.expressionlanguage.analyze.opers.SwitchOperation;
 import code.expressionlanguage.common.AbstractFileEscapedCalc;
 import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -42,6 +44,10 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     private int length;
     private int numberFile;
     private final AbstractFileEscapedCalc fileEscapedCalc;
+    private final CustList<RootBlock> allFoundTypes = new CustList<RootBlock>();
+    private final CustList<OperatorBlock> allOperators = new CustList<OperatorBlock>();
+    private final CustList<AnonymousLambdaOperation> allAnonymousLambda = new CustList<AnonymousLambdaOperation>();
+    private final CustList<SwitchOperation> allSwitchMethods = new CustList<SwitchOperation>();
 
     public FileBlock(int _offset, boolean _predefined, String _fileName, AbstractFileEscapedCalc _fileEscapedCalc) {
         super(_offset);
@@ -231,5 +237,21 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
 
     public void setNumberFile(int _numberFile) {
         this.numberFile = _numberFile;
+    }
+
+    public CustList<RootBlock> getAllFoundTypes() {
+        return allFoundTypes;
+    }
+
+    public CustList<OperatorBlock> getAllOperators() {
+        return allOperators;
+    }
+
+    public CustList<AnonymousLambdaOperation> getAllAnonymousLambda() {
+        return allAnonymousLambda;
+    }
+
+    public CustList<SwitchOperation> getAllSwitchMethods() {
+        return allSwitchMethods;
     }
 }

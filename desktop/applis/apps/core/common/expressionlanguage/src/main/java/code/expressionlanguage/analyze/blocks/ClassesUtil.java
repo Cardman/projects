@@ -666,6 +666,7 @@ public final class ClassesUtil {
         _page.getFoundTypes().add(_root);
         _page.getAllGroupFoundTypes().add(_root);
         _page.getAllFoundTypes().add(_root);
+        _page.getCurrentFile().getAllFoundTypes().add(_root);
         _page.getSorted().put(_root.getFullName(), _root);
         if (ok_) {
             _page.addRefFoundType(_root);
@@ -903,6 +904,7 @@ public final class ClassesUtil {
             if (b instanceof OperatorBlock) {
                 OperatorBlock r_ = (OperatorBlock) b;
                 _page.getAllOperators().add(r_);
+                _value.getAllOperators().add(r_);
                 int c_ = _page.getCountOperators();
                 r_.setOperatorNumber(c_);
                 _page.setCountOperators(c_+1);

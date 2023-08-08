@@ -12,6 +12,7 @@ public final class InputTypeCreation {
     private int nextIndex;
     private int nextIndexBef;
     private int offset;
+    private int begin;
 
     private OuterBlockEnum type;
     private FileBlock file;
@@ -38,6 +39,14 @@ public final class InputTypeCreation {
 
     public void setNextIndexBef(int _nextIndexBef) {
         this.nextIndexBef = _nextIndexBef;
+    }
+
+    public int getBegin() {
+        return begin;
+    }
+
+    public void setBegin(int _b) {
+        this.begin = _b;
     }
 
     public OuterBlockEnum getType() {

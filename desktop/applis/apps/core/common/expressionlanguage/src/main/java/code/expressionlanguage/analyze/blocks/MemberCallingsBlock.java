@@ -14,8 +14,10 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Accesse
 
     private final StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
     private int accessedFctNb;
+    private int place;
     MemberCallingsBlock(int _offset) {
         super(_offset);
+        setPlace(_offset);
     }
 
     private static void removeLabel(AbsBk _en, StringList _labels) {
@@ -32,7 +34,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Accesse
         if (isAnonBlock(_m)) {
             return ((NamedFunctionBlock)_m).getNameOffset();
         }
-        return _m.getOffset();
+        return _m.getPlace();
     }
 
     public static AccessedBlock accessed(MemberCallingsBlock _m) {
@@ -156,5 +158,13 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Accesse
     @Override
     public void setAccessedFctNb(int _a) {
         this.accessedFctNb = _a;
+    }
+
+    public int getPlace() {
+        return place;
+    }
+
+    public void setPlace(int _p) {
+        this.place = _p;
     }
 }

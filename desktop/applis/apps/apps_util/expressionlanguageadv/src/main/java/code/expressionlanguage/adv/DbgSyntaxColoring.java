@@ -19,37 +19,26 @@ public final class DbgSyntaxColoring {
     }
     public static IdMap<FileBlock,CustList<SegmentReadOnlyPart>> partsBpMpWp(ResultContext _res) {
         IdMap<FileBlock,CustList<SegmentReadOnlyPart>> agg_ = new IdMap<FileBlock, CustList<SegmentReadOnlyPart>>();
-        for (ResultExpressionBlockOperation r: CallersRef.fetch(_res.getPageEl())) {
-            CustList<SegmentReadOnlyPart> parts_ = parts(_res, r);
-            FileBlock key_ = r.getRes().getBlock().getFile();
-            elts(agg_, key_, parts_);
-        }
-        for (MemberCallingsBlock r: CallersRef.fetchFct(_res.getPageEl())) {
-            CustList<SegmentReadOnlyPart> parts_ = partsMethod(_res, r);
-            FileBlock key_ = r.getFile();
-            elts(agg_, key_, parts_);
-        }
         for (EntryCust<String, FileBlock> f: _res.getPageEl().getPreviousFilesBodies().entryList()) {
             FileBlock key_ = f.getValue();
-            CustList<SegmentReadOnlyPart> ls_ = agg_.getVal(key_);
-            if (ls_ == null) {
-                agg_.addEntry(key_, new CustList<SegmentReadOnlyPart>());
-            }
+            agg_.addEntry(key_,partsBpMpWp(_res,key_));
         }
         return agg_;
     }
 
     public static CustList<SegmentReadOnlyPart> partsBpMpWp(ResultContext _res, FileBlock _file) {
         CustList<SegmentReadOnlyPart> agg_ = new CustList<SegmentReadOnlyPart>();
-        for (ResultExpressionBlockOperation r: CallersRef.fetch(_res.getPageEl())) {
+        for (ResultExpressionBlockOperation r: CallersRef.fetch(_file)) {
             CustList<SegmentReadOnlyPart> parts_ = parts(_res, r);
-            FileBlock key_ = r.getRes().getBlock().getFile();
-            possible(key_, _file, agg_, parts_);
+            possible(agg_, parts_);
         }
-        for (MemberCallingsBlock r: CallersRef.fetchFct(_res.getPageEl())) {
+        for (ResultExpressionBlock r: CallersRef.fetchRes(_file)) {
+            CustList<SegmentReadOnlyPart> parts_ = parts(_res, r,_file);
+            possible(agg_, parts_);
+        }
+        for (MemberCallingsBlock r: CallersRef.fetchFct(_file)) {
             CustList<SegmentReadOnlyPart> parts_ = partsMethod(_res, r);
-            FileBlock key_ = r.getFile();
-            possible(key_, _file, agg_, parts_);
+            possible(agg_, parts_);
         }
         return agg_;
     }
@@ -57,37 +46,29 @@ public final class DbgSyntaxColoring {
     private static CustList<SegmentReadOnlyPart> partsMethod(ResultContext _res, MemberCallingsBlock _r) {
         CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
         BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
-        int offset_ = _r.getOffset();
+        int offset_ = _r.getPlace();
         MethodPointBlockPair pair_ = lsBp_.getPair(MemberCallingsBlock.clName(_r));
         if (pair_ != null) {
-            parts_.add(new SegmentReadOnlyPart(offset_, _r.getBegin(),SyntaxRefEnum.METHOD));
+            if (AbsBk.isAnonBlock(_r)) {
+                parts_.add(new SegmentReadOnlyPart(offset_, ((NamedCalledFunctionBlock)_r).getNameOffset(),SyntaxRefEnum.METHOD));
+            } else if (_r instanceof SwitchMethodBlock) {
+                parts_.add(new SegmentReadOnlyPart(offset_, offset_ + 1,SyntaxRefEnum.METHOD));
+            } else{
+                parts_.add(new SegmentReadOnlyPart(offset_, _r.getBegin(),SyntaxRefEnum.METHOD));
+            }
         }
         return parts_;
     }
 
-    private static void possible(FileBlock _key, FileBlock _file, CustList<SegmentReadOnlyPart> _agg, CustList<SegmentReadOnlyPart> _parts) {
-        if (_key == _file) {
-            _agg.addAllElts(_parts);
-        }
-    }
-
-    private static void elts(IdMap<FileBlock, CustList<SegmentReadOnlyPart>> _agg, FileBlock _key, CustList<SegmentReadOnlyPart> _parts) {
-        CustList<SegmentReadOnlyPart> ls_ = _agg.getVal(_key);
-        if (ls_ == null) {
-            CustList<SegmentReadOnlyPart> e_ = new CustList<SegmentReadOnlyPart>();
-            e_.addAllElts(_parts);
-            _agg.addEntry(_key, e_);
-        } else {
-            ls_.addAllElts(_parts);
-        }
+    private static void possible(CustList<SegmentReadOnlyPart> _agg, CustList<SegmentReadOnlyPart> _parts) {
+        _agg.addAllElts(_parts);
     }
 
     private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, ResultExpressionBlockOperation _r) {
         CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
         BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
         OperationNode op_ = _r.getBlock();
-        ResultExpressionBlock rBlock_ = _r.getRes();
-        ResultExpression resStr_ = rBlock_.getRes();
+        ResultExpression resStr_ = _r.getRes().getRes();
         int offset_ = resStr_.getSumOffset();
         if (op_ instanceof SettableAbstractFieldOperation) {
             WatchPointBlockPair w_ = lsBp_.getPairWatch(((SettableAbstractFieldOperation) op_).getFieldIdReadOnly());
@@ -96,7 +77,15 @@ public final class DbgSyntaxColoring {
                 parts_.add(new SegmentReadOnlyPart(b_,b_+((SettableAbstractFieldOperation) op_).getFieldNameLength(),SyntaxRefEnum.FIELD));
             }
         }
-        ExecFileBlock fileEx_ = _res.getForwards().dbg().getFiles().getVal(rBlock_.getBlock().getFile());
+        return parts_;
+    }
+
+    private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, ResultExpressionBlock _r, FileBlock _file) {
+        CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
+        BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
+        ResultExpression resStr_ = _r.getRes();
+        int offset_ = resStr_.getSumOffset();
+        ExecFileBlock fileEx_ = _res.getForwards().dbg().getFiles().getVal(_file);
         BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, offset_);
         if (pair_ != null) {
             parts_.add(new SegmentReadOnlyPart(offset_,offset_+resStr_.getAnalyzedString().length(),SyntaxRefEnum.INSTRUCTION));

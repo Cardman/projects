@@ -213,11 +213,18 @@ public final class CallersRef {
         addIfNotEmpty(out_, CallerKind.CALL_DYN,c_.callDyn);
         return out_;
     }
-    public static CustList<ResultExpressionBlockOperation> fetch(AnalyzedPageEl _page) {
-        return fetchBase(_page,new CallersRef());
+
+    public static CustList<ResultExpressionBlockOperation> fetch(FileBlock _page) {
+        return fetchBase(new CallersRef(), _page);
     }
 
-    public static CustList<MemberCallingsBlock> fetchFct(AnalyzedPageEl _page) {
+    public static CustList<ResultExpressionBlock> fetchRes(FileBlock _page) {
+        CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
+        feed(_page,new CallersRef(),ls_);
+        return ls_;
+    }
+
+    public static CustList<MemberCallingsBlock> fetchFct(FileBlock _page) {
         CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
         CallersRef c_ = new CallersRef();
         feed(_page, c_, ls_);
@@ -225,15 +232,26 @@ public final class CallersRef {
     }
     private static CustList<ResultExpressionBlockOperation> fetchBase(AnalyzedPageEl _page, CallersRef _c) {
         CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
-        feed(_page, _c, ls_);
+        for (EntryCust<String, FileBlock> f: _page.getPreviousFilesBodies().entryList()) {
+            feed(f.getValue(),_c,ls_);
+        }
+        return opers(ls_);
+    }
+    private static CustList<ResultExpressionBlockOperation> fetchBase(CallersRef _c, FileBlock _file) {
+        CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
+        feed(_file,_c,ls_);
+        return opers(ls_);
+    }
+
+    private static CustList<ResultExpressionBlockOperation> opers(CustList<ResultExpressionBlock> _ls) {
         CustList<ResultExpressionBlockOperation> ops_ = new CustList<ResultExpressionBlockOperation>();
-        for (ResultExpressionBlock r: ls_) {
+        for (ResultExpressionBlock r: _ls) {
             ops_.addAllElts(loopOperation(r));
         }
         return ops_;
     }
 
-    private static void feed(AnalyzedPageEl _page, CallersRef _c, CustList<ResultExpressionBlock> _ls) {
+    private static void feed(FileBlock _page, CallersRef _c, CustList<ResultExpressionBlock> _ls) {
         for (RootBlock r : _page.getAllFoundTypes()){
             _c.type(_ls, r);
         }
@@ -247,7 +265,6 @@ public final class CallersRef {
             _ls.addAllElts(_c.loopFct(e.getSwitchMethod()));
         }
     }
-
     private static void addIfNotEmpty(IdMap<CallerKind,IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _map, CallerKind _key, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _value) {
         if (_value.isEmpty()) {
             return;

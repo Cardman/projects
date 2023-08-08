@@ -39,6 +39,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
         _page.getAllSwitchMethods().add(this);
+        _page.getCurrentFile().getAllSwitchMethods().add(this);
         _page.getSwitchMethods().add(this);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         fwdVarInfos(_page);
@@ -98,6 +99,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
         } else if (currentBlock_ instanceof RootBlock) {
             _page.getCountElts().getAnonTypesElts().get(((RootBlock)currentBlock_).getCreated()).getSwitches().add(switchMethod);
         }
+        switchMethod.setPlace(_page.getTraceIndex()+getMethodName().length());
     }
 
     private void emptyToObject(AnalyzedPageEl _page) {

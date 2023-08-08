@@ -721,7 +721,7 @@ public final class ElRetrieverAnonymous {
     }
 
     private static int anonBrace(int _i, String _string, CurrentExpElts _curElts, ParsedFctHeader _parse, int _indBeforeArrow, int _indAfterArrow) {
-        InputTypeCreation input_ = buildInputAnonFct(_curElts, _indAfterArrow, _indBeforeArrow, _parse);
+        InputTypeCreation input_ = buildInputAnonFct(_i,_curElts, _indAfterArrow, _indBeforeArrow, _parse);
         ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts, _string);
         if (res_.isOkType()) {
             return resAnonLambda(res_, _parse, _i, input_, _curElts);
@@ -763,9 +763,10 @@ public final class ElRetrieverAnonymous {
         return incrOpsStack(_parsBrackets, _i, _curChar, _string);
     }
 
-    private static InputTypeCreation buildInputAnonFct(CurrentExpElts _curElts, int _indAfterArrow, int _indBeforeArrow, ParsedFctHeader _parse) {
+    private static InputTypeCreation buildInputAnonFct(int _i, CurrentExpElts _curElts, int _indAfterArrow, int _indBeforeArrow, ParsedFctHeader _parse) {
         InputTypeCreation input_ = buildStdInput(OuterBlockEnum.ANON_FCT, _curElts, _indAfterArrow);
         input_.setNextIndexBef(_indBeforeArrow);
+        input_.setBegin(_i);
         input_.setAnnotations(_parse.getAnnotations());
         input_.setAnnotationsParams(_parse.getAnnotationsParams());
         return input_;

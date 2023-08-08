@@ -43,6 +43,7 @@ public final class AnonymousLambdaOperation extends
     @Override
     public void analyze(AnalyzedPageEl _page) {
         _page.getAllAnonymousLambda().add(this);
+        _page.getCurrentFile().getAllAnonymousLambda().add(this);
         _page.getAnonymousLambda().add(this);
         int relativeOff_ = getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
