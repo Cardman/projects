@@ -399,23 +399,31 @@ public final class ResultExpressionOperationNode {
     }
     public static int beginPart(int _caret, FileBlock _file) {
         ResultExpressionOperationNode c_ = container(_caret, _file);
-        if (c_.block instanceof TryEval || c_.block instanceof LabelAbruptBlock || c_.block instanceof FinallyEval || c_.block instanceof ElseCondition || c_.block instanceof DoBlock || c_.block instanceof DefaultCondition || c_.block instanceof UnclassedBracedBlock) {
+        if (withoutExp(c_.block)) {
             return c_.block.getOffset();
         }
         if (c_.block instanceof ReturnMethod && ((ReturnMethod)c_.block).isEmpty()) {
             return ((ReturnMethod)c_.block).getExpressionOffset();
         }
-        if ((c_.resultExpression == null || !c_.resultExpression.getAnalyzedString().trim().startsWith("@")) && c_.block instanceof InnerTypeOrElement) {
-            return ((InnerTypeOrElement)c_.block).getFieldNameOffset();
-        }
         if (c_.resultExpression != null) {
+            if (!c_.resultExpression.getAnalyzedString().trim().startsWith("@") && c_.block instanceof InnerTypeOrElement) {
+                return ((InnerTypeOrElement)c_.block).getFieldNameOffset();
+            }
             return c_.resultExpression.getSumOffset();
+        }
+        if (c_.block instanceof InnerTypeOrElement) {
+            return ((InnerTypeOrElement)c_.block).getFieldNameOffset();
         }
         if (c_.block instanceof RootBlock) {
             return ((RootBlock)c_.block).getIdRowCol();
         }
         return c_.outExp(_caret);
     }
+
+    public static boolean withoutExp(AbsBk _bl) {
+        return _bl instanceof TryEval || _bl instanceof LabelAbruptBlock || _bl instanceof FinallyEval || _bl instanceof ElseCondition || _bl instanceof DoBlock || _bl instanceof DefaultCondition || _bl instanceof UnclassedBracedBlock;
+    }
+
     public static boolean enabledTypeBp(int _caret, FileBlock _file) {
         ResultExpressionOperationNode c_ = container(_caret, _file);
         return c_.resultExpression == null && c_.block instanceof RootBlock;

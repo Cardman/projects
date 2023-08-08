@@ -3868,6 +3868,7 @@ public final class CallersRefTest extends ProcessMethodCommon {
     public void fetch() {
         assertTrue(CallersRef.fetch(new FileBlock(0,false,"",new DefaultFileEscapedCalc())).isEmpty());
         assertTrue(CallersRef.fetchRes(new FileBlock(0,false,"",new DefaultFileEscapedCalc())).isEmpty());
+        assertTrue(CallersRef.fetchBk(new FileBlock(0,false,"",new DefaultFileEscapedCalc())).isEmpty());
         assertTrue(CallersRef.fetchFct(new FileBlock(0,false,"",new DefaultFileEscapedCalc())).isEmpty());
     }
     private FileBlockIndex variablesParamsUseElt(IdMap<CallerKind, IdMap<SrcFileLocation,CustList<FileBlockIndex>>> _r, int _index) {

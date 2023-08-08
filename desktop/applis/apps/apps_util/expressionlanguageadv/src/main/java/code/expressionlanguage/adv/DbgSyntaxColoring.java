@@ -36,6 +36,10 @@ public final class DbgSyntaxColoring {
             CustList<SegmentReadOnlyPart> parts_ = parts(_res, r,_file);
             possible(agg_, parts_);
         }
+        for (AbsBkSrcFileLocation r: CallersRef.fetchBk(_file)) {
+            CustList<SegmentReadOnlyPart> parts_ = parts(_res, r,_file);
+            possible(agg_, parts_);
+        }
         for (RootBlock r: _file.getAllFoundTypes()) {
             CustList<SegmentReadOnlyPart> parts_ = parts(_res, r,_file);
             possible(agg_, parts_);
@@ -88,18 +92,33 @@ public final class DbgSyntaxColoring {
         CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
         BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
         ResultExpression resStr_ = _r.getRes();
-        int offset_ = resStr_.getSumOffset();
         ExecFileBlock fileEx_ = _res.getForwards().dbg().getFiles().getVal(_file);
         if (!resStr_.getAnalyzedString().trim().startsWith("@") && _r.getBlock() instanceof InnerTypeOrElement) {
-            BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, ((InnerTypeOrElement) _r.getBlock()).getFieldNameOffset());
+            int f_ = ((InnerTypeOrElement) _r.getBlock()).getFieldNameOffset();
+            BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, f_);
             if (pair_ != null) {
-                int f_ = ((InnerTypeOrElement) _r.getBlock()).getFieldNameOffset();
                 parts_.add(new SegmentReadOnlyPart(f_,f_+((InnerTypeOrElement) _r.getBlock()).getUniqueFieldName().length(),SyntaxRefEnum.INSTRUCTION));
             }
         } else {
+            int offset_ = resStr_.getSumOffset();
             BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, offset_);
             if (pair_ != null) {
                 parts_.add(new SegmentReadOnlyPart(offset_,offset_+resStr_.getAnalyzedString().length(),SyntaxRefEnum.INSTRUCTION));
+            }
+        }
+        return parts_;
+    }
+
+
+    private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, AbsBkSrcFileLocation _r, FileBlock _file) {
+        CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
+        if (ResultExpressionOperationNode.withoutExp(_r.getBlock())) {
+            BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
+            ExecFileBlock fileEx_ = _res.getForwards().dbg().getFiles().getVal(_file);
+            int offset_ = _r.getBlock().getOffset();
+            BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, offset_);
+            if (pair_ != null) {
+                parts_.add(new SegmentReadOnlyPart(offset_,offset_+_r.getBlock().getLengthHeader(),SyntaxRefEnum.INSTRUCTION));
             }
         }
         return parts_;

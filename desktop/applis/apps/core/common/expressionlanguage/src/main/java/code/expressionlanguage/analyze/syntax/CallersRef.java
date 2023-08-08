@@ -224,6 +224,12 @@ public final class CallersRef {
         return ls_;
     }
 
+    public static CustList<AbsBkSrcFileLocation> fetchBk(FileBlock _page) {
+        CallersRef c_ = new CallersRef();
+        feed(_page, c_,new CustList<ResultExpressionBlock>());
+        return c_.blocksLocations;
+    }
+
     public static CustList<MemberCallingsBlock> fetchFct(FileBlock _page) {
         CustList<ResultExpressionBlock> ls_ = new CustList<ResultExpressionBlock>();
         CallersRef c_ = new CallersRef();
