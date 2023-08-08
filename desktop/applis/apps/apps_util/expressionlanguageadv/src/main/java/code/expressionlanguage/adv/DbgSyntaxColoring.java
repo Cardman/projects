@@ -99,7 +99,7 @@ public final class DbgSyntaxColoring {
             if (pair_ != null) {
                 parts_.add(new SegmentReadOnlyPart(f_,f_+((InnerTypeOrElement) _r.getBlock()).getUniqueFieldName().length(),SyntaxRefEnum.INSTRUCTION));
             }
-        } else {
+        } else if (!resStr_.getAnalyzedString().isEmpty()){
             int offset_ = resStr_.getSumOffset();
             BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, offset_);
             if (pair_ != null) {
@@ -112,16 +112,24 @@ public final class DbgSyntaxColoring {
 
     private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, AbsBkSrcFileLocation _r, FileBlock _file) {
         CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
-        if (ResultExpressionOperationNode.withoutExp(_r.getBlock())) {
-            BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
-            ExecFileBlock fileEx_ = _res.getForwards().dbg().getFiles().getVal(_file);
-            int offset_ = _r.getBlock().getOffset();
-            BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, offset_);
-            if (pair_ != null) {
-                parts_.add(new SegmentReadOnlyPart(offset_,offset_+_r.getBlock().getLengthHeader(),SyntaxRefEnum.INSTRUCTION));
-            }
+        int o_ = offset(_r);
+        BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
+        ExecFileBlock fileEx_ = _res.getForwards().dbg().getFiles().getVal(_file);
+        BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, o_);
+        if (pair_ != null) {
+            int b_ = _r.getBlock().getBegin();
+            parts_.add(new SegmentReadOnlyPart(b_,b_+_r.getBlock().getLengthHeader(),SyntaxRefEnum.INSTRUCTION));
         }
         return parts_;
+    }
+    private static int offset(AbsBkSrcFileLocation _r) {
+        if (ResultExpressionOperationNode.withoutExp(_r.getBlock())) {
+            return _r.getBlock().getOffset();
+        }
+        if (_r.getBlock() instanceof ReturnMethod&& ((ReturnMethod)_r.getBlock()).isEmpty()){
+            return ((ReturnMethod)_r.getBlock()).getExpressionOffset();
+        }
+        return -1;
     }
 
     private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, RootBlock _r, FileBlock _file) {

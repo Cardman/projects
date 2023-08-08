@@ -167,6 +167,9 @@ public final class ReturnMethod extends AbruptBlock {
         return res.getRoot();
     }
 
+    public static boolean isImplicitReturn(AbsBk _ret) {
+        return _ret instanceof ReturnMethod && ((ReturnMethod) _ret).isImplicit();
+    }
     public boolean isImplicit() {
         return implicit;
     }

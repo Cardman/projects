@@ -402,7 +402,7 @@ public final class ResultExpressionOperationNode {
         if (withoutExp(c_.block)) {
             return c_.block.getOffset();
         }
-        if (c_.block instanceof ReturnMethod && ((ReturnMethod)c_.block).isEmpty()) {
+        if (!ReturnMethod.isImplicitReturn(c_.block) && c_.block instanceof ReturnMethod && ((ReturnMethod)c_.block).isEmpty()) {
             return ((ReturnMethod)c_.block).getExpressionOffset();
         }
         if (c_.resultExpression != null) {

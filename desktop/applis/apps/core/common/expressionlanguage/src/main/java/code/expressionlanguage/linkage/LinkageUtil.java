@@ -489,7 +489,7 @@ public final class LinkageUtil {
     private static boolean beginHeaderBlock(AbsBk _child) {
         return !(_child instanceof AnnotableParametersBlock) && !(_child instanceof InfoBlock)
                 && !(_child instanceof Line) && !(_child instanceof DeclareVariable)
-                && !(_child instanceof EmptyInstruction) && !(_child instanceof RootBlock) && !isImplicitReturn(_child);
+                && !(_child instanceof EmptyInstruction) && !(_child instanceof RootBlock) && !ReturnMethod.isImplicitReturn(_child);
     }
 
     private static void addErrBlock(VariablesOffsets _vars, AbsBk _child) {
@@ -1783,7 +1783,7 @@ public final class LinkageUtil {
         _vars.addParts(export(_cond.getPartOffsetsReturn()));
         StringList errs_ = new StringList(_cond.getErrorsBlock());
         AbsBk child_ = _cond.getFirstChild();
-        if (isImplicitReturn(child_)){
+        if (ReturnMethod.isImplicitReturn(child_)){
             errs_.addAllElts(child_.getErrorsBlock());
         }
         int begName_ = _cond.getNameOffset();
@@ -4194,12 +4194,6 @@ public final class LinkageUtil {
     }
 
 
-    private static boolean isImplicitReturn(AbsBk _ret) {
-        if (!(_ret instanceof ReturnMethod)) {
-            return false;
-        }
-        return ((ReturnMethod)_ret).isImplicit();
-    }
     private static CustList<PartOffset> convert(InfoErrorDto _info) {
         String message_ = _info.getMessage();
         if (message_.isEmpty()) {
