@@ -5980,4 +5980,30 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         files_.put("pkg/Ex3", xml_.toString());
         assertTrue(hasErrLg(files_,"en"));
     }
+    @Test
+    public void fail5() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  class Int{\n");
+        xml_.append("   int field = 1;\n");
+        xml_.append("  }\n");
+        xml_.append("  return m((int a:int)->{\n");
+        xml_.append("  class Intern{\n");
+        xml_.append("   Fct<int,int> fct = (b -> );\n");
+        xml_.append("   int field = fct.call(1);\n");
+        xml_.append("  }\n");
+        xml_.append("  return new Intern().field * a;\n");
+        xml_.append("  }\n");
+        xml_.append("  ,3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int> fct,int a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrLg(files_,"en"));
+    }
 }

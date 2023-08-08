@@ -1825,7 +1825,7 @@ public final class ElResolver {
         for (AnonymousResult a: _page.getCurrentAnonymousResults()) {
             if (a.getIndex() == i_ + _offset) {
                 int to_ = a.getUntil() - _offset;
-                if (to_ != lastPrintChar_) {
+                if (to_ < lastPrintChar_) {
                     break;
                 }
                 OperationsSequence op_ = new OperationsSequence();
