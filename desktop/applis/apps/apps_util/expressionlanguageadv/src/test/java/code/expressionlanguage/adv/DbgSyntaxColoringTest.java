@@ -295,6 +295,36 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertEq(54,l_.get(1).getEnd());
         assertSame(SyntaxRefEnum.FIELD,l_.get(1).getKind());
     }
+    @Test
+    public void parts26() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public enum pkg.Ex {THREE(OTHER);public static int OTHER=2;public final int i;(int i){this.i=i;}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("src/file.txt",51,res_);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(2,l_.size());
+        assertEq(26,l_.get(0).getBegin());
+        assertEq(31,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.FIELD,l_.get(0).getKind());
+        assertEq(51,l_.get(1).getBegin());
+        assertEq(56,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.FIELD,l_.get(1).getKind());
+    }
+    @Test
+    public void parts27() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public enum pkg.Ex {FOUR(OTHER);public static int OTHER=2;public final int i;(int i){this.i=i;}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("src/file.txt",50,res_);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(2,l_.size());
+        assertEq(25,l_.get(0).getBegin());
+        assertEq(30,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.FIELD,l_.get(0).getKind());
+        assertEq(50,l_.get(1).getBegin());
+        assertEq(55,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.FIELD,l_.get(1).getKind());
+    }
     private CustList<SegmentReadOnlyPart> list(ResultContext _res) {
         IdMap<FileBlock,CustList<SegmentReadOnlyPart>> s_ = DbgSyntaxColoring.partsBpMpWp(_res);
         return s_.getVal(_res.getPageEl().getPreviousFilesBodies().getVal("src/file.txt"));
