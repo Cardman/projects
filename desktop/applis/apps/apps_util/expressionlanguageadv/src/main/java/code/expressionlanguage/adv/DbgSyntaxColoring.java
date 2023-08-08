@@ -90,9 +90,17 @@ public final class DbgSyntaxColoring {
         ResultExpression resStr_ = _r.getRes();
         int offset_ = resStr_.getSumOffset();
         ExecFileBlock fileEx_ = _res.getForwards().dbg().getFiles().getVal(_file);
-        BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, offset_);
-        if (pair_ != null) {
-            parts_.add(new SegmentReadOnlyPart(offset_,offset_+resStr_.getAnalyzedString().length(),SyntaxRefEnum.INSTRUCTION));
+        if (!resStr_.getAnalyzedString().trim().startsWith("@") && _r.getBlock() instanceof InnerTypeOrElement) {
+            BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, ((InnerTypeOrElement) _r.getBlock()).getFieldNameOffset());
+            if (pair_ != null) {
+                int f_ = ((InnerTypeOrElement) _r.getBlock()).getFieldNameOffset();
+                parts_.add(new SegmentReadOnlyPart(f_,f_+((InnerTypeOrElement) _r.getBlock()).getUniqueFieldName().length(),SyntaxRefEnum.INSTRUCTION));
+            }
+        } else {
+            BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, offset_);
+            if (pair_ != null) {
+                parts_.add(new SegmentReadOnlyPart(offset_,offset_+resStr_.getAnalyzedString().length(),SyntaxRefEnum.INSTRUCTION));
+            }
         }
         return parts_;
     }
