@@ -616,6 +616,50 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq(0,b_.getFrameBpForm().getGuiStdStackForm().getMustNotBe().size());
     }
     @Test
+    public void bp31() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(21,21);
+        toggleBp(b_);
+        bpForm(b_);
+        assertTrue(b_.getFrameMpForm().getCommonFrame().isVisible());
+        b_.getFrameMpForm().getEnabledMp().setSelected(false);
+        mpFormCancel(b_);
+        assertFalse(b_.getFrameMpForm().getCommonFrame().isVisible());
+    }
+    @Test
+    public void bp32() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(21,21);
+        toggleBp(b_);
+        bpForm(b_);
+        assertTrue(b_.getFrameMpForm().getCommonFrame().isVisible());
+        b_.getFrameMpForm().getEnabledMp().setSelected(false);
+        mpFormOk(b_);
+        assertFalse(b_.getFrameMpForm().getCommonFrame().isVisible());
+    }
+    @Test
+    public void bp33() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(21,21);
+        bpForm(b_);
+        assertFalse(b_.getFrameMpForm().getCommonFrame().isVisible());
+    }
+    @Test
     public void ref1() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);

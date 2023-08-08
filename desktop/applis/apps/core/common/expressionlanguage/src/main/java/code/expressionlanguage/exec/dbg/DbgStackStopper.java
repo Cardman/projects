@@ -597,6 +597,9 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (!_bp.isEnabled()) {
             return false;
         }
+        if (!(_bp.isEntry() && !_exit || _bp.isExit() && _exit)) {
+            return false;
+        }
         BreakPointCondition condition_ = stopCurrentMpCondition(_bp,_exit);
         return stopCurrent(_context, _stackCall, _p, condition_);
     }

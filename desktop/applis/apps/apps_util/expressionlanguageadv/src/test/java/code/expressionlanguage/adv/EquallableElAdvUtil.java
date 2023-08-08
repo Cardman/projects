@@ -205,8 +205,16 @@ public abstract class EquallableElAdvUtil {
     public static void bpFormOk(AbsDebuggerGui _w) {
         ((MockPlainButton)_w.getFrameBpForm().getOk()).getActionListeners().get(0).action();
     }
+
+    public static void mpFormOk(AbsDebuggerGui _w) {
+        ((MockPlainButton)_w.getFrameMpForm().getOk()).getActionListeners().get(0).action();
+    }
     public static void bpFormCancel(AbsDebuggerGui _w) {
         _w.getFrameBpForm().getCommonFrame().getWindowListenersDef().get(0).windowClosing();
+    }
+
+    public static void mpFormCancel(AbsDebuggerGui _w) {
+        _w.getFrameMpForm().getCommonFrame().getWindowListenersDef().get(0).windowClosing();
     }
     protected static ReadOnlyTabEditor tabEditor(AbsDebuggerGui _w) {
         return tabEditor(_w,0);

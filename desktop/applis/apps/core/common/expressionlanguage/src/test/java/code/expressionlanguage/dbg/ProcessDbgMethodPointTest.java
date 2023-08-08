@@ -1469,14 +1469,14 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
     private void entering(ResultContext _cont, String _file, int _offset) {
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(_file,_offset,_cont);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().getResultEntry().getEnabled().set(true);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().getResultExit().getEnabled().set(false);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setEntry(true);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setExit(false);
     }
 
     private void exiting(ResultContext _cont, String _file, int _offset) {
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(_file,_offset,_cont);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().getResultEntry().getEnabled().set(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().getResultExit().getEnabled().set(true);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setEntry(false);
+        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setExit(true);
     }
 }

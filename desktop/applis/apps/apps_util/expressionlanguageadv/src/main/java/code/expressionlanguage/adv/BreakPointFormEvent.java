@@ -1,12 +1,10 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
-import code.expressionlanguage.exec.dbg.AbsCallContraints;
-import code.expressionlanguage.exec.dbg.AbsCollection;
-import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
-import code.expressionlanguage.exec.dbg.BreakPointCondition;
+import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.PackingWindowAfter;
 import code.gui.events.AbsActionListener;
@@ -26,7 +24,23 @@ public final class BreakPointFormEvent implements AbsActionListener {
         ResultContext r_ = tabEditor.getDebuggerGui().getCurrentResult();
         FileBlock af_ = r_.getPageEl().getPreviousFilesBodies().getVal(tabEditor.getFullPath());
         ExecFileBlock f_ = r_.getForwards().dbg().getFiles().getVal(af_);
-        int o_ = ResultExpressionOperationNode.beginPart(tabEditor.getCenter().getCaretPosition(), r_.getPageEl().getPreviousFilesBodies().getVal(tabEditor.getFullPath()));
+        int caret_ = tabEditor.getCenter().getCaretPosition();
+        int o_ = ResultExpressionOperationNode.beginPart(caret_, af_);
+        MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(caret_, af_);
+        if (id_ != null) {
+            MethodPointBlockPair mp_ = r_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(MemberCallingsBlock.clName(id_));
+            if (mp_ != null) {
+                window.getFrameMpForm().setSelectedMp(mp_);
+                window.getFrameMpForm().getEnabledMp().setSelected(mp_.getValue().isEnabled());
+                specific(window.getFrameMpForm().getGuiEnterStackForm(), true, mp_.getValue().getResultEntry());
+                specific(window.getFrameMpForm().getGuiExitStackForm(), true, mp_.getValue().getResultExit());
+                window.getFrameMpForm().getEnterFunction().setSelected(mp_.getValue().isEntry());
+                window.getFrameMpForm().getExitFunction().setSelected(mp_.getValue().isExit());
+                window.getFrameMpForm().getCommonFrame().setVisible(true);
+                PackingWindowAfter.pack(window.getFrameMpForm().getCommonFrame());
+                return;
+            }
+        }
         BreakPointBlockPair bp_ = r_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(f_, o_);
         if (bp_ == null) {
             return;
