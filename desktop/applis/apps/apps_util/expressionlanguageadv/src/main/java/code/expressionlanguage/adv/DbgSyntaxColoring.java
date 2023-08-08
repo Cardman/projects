@@ -36,6 +36,10 @@ public final class DbgSyntaxColoring {
             CustList<SegmentReadOnlyPart> parts_ = parts(_res, r,_file);
             possible(agg_, parts_);
         }
+        for (RootBlock r: _file.getAllFoundTypes()) {
+            CustList<SegmentReadOnlyPart> parts_ = parts(_res, r,_file);
+            possible(agg_, parts_);
+        }
         for (MemberCallingsBlock r: CallersRef.fetchFct(_file)) {
             CustList<SegmentReadOnlyPart> parts_ = partsMethod(_res, r);
             possible(agg_, parts_);
@@ -93,6 +97,17 @@ public final class DbgSyntaxColoring {
         return parts_;
     }
 
+    private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, RootBlock _r, FileBlock _file) {
+        CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
+        BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
+        int offset_ = _r.getIdRowCol();
+        ExecFileBlock fileEx_ = _res.getForwards().dbg().getFiles().getVal(_file);
+        BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, offset_);
+        if (pair_ != null) {
+            parts_.add(new SegmentReadOnlyPart(offset_,offset_+_r.getNameLength(),SyntaxRefEnum.INSTRUCTION));
+        }
+        return parts_;
+    }
     private static int beginOff(int _sum, SettableAbstractFieldOperation _val) {
         int delta_ = _val.getOffset();
         return _sum + delta_ + _val.getIndexInEl() + _val.getDelta();
