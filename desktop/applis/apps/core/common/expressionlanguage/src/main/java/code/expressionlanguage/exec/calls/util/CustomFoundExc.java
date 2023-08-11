@@ -14,6 +14,10 @@ public final class CustomFoundExc implements CallingState {
         this(_struct,false);
     }
 
+    public CustomFoundExc(Struct _struct, StackCall _stack) {
+        this(_struct,_stack.isFailInit());
+    }
+
     public CustomFoundExc(Struct _struct, boolean _fail) {
         struct = Argument.getNull(_struct);
         failInit = _fail;

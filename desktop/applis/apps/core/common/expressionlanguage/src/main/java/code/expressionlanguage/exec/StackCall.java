@@ -78,6 +78,10 @@ public final class StackCall implements AbstractStackCall {
     public void failInitEnums() {
         getInitializingTypeInfos().failInitEnums(this);
     }
+
+    public boolean normalCall(ContextEl _context) {
+        return trueException() == null && _context.callsOrException(this);
+    }
     public CustomFoundExc trueException() {
         CallingState c_ = getCallingState();
         if (c_ instanceof CustomFoundExc && !((CustomFoundExc)c_).isFailInit()) {
@@ -116,6 +120,10 @@ public final class StackCall implements AbstractStackCall {
 
     public void nullReadWrite() {
         getLastPage().setNullReadWrite();
+    }
+
+    public void nullReadWriteFail() {
+        getLastPage().setNullReadWriteFail();
     }
     public AbstractPageEl getLastPage() {
         return importing.last();

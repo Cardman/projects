@@ -298,7 +298,7 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     @Override
     public boolean callsOrException(ContextEl _owner, StackCall _stackCall) {
-        return _owner.callsOrException(_stackCall) || _stackCall.getLastPage().getReadWrite() == ReadWrite.EXIT;
+        return _stackCall.callsOrException() || _stackCall.getLastPage().getReadWrite() != ReadWrite.ENTRY;
     }
 
     @Override
@@ -320,13 +320,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().isMute()) {
             return false;
         }
-        if (_stackCall.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint() == StopDbgEnum.METHOD_EXIT) {
-            AbstractPageEl p_ = _stackCall.getLastPage();
-            if (stopExc(_context, _stackCall, p_)) {
-                _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(StopDbgEnum.EXCEPTION);
-                return true;
-            }
-        } else if (_stackCall.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint() == StopDbgEnum.STEP_RETURN_METHOD) {
+        if (_stackCall.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint() == StopDbgEnum.STEP_RETURN_METHOD) {
             AbstractPageEl p_ = _stackCall.getLastPage();
             CoreCheckedExecOperationNodeInfos infos_ = _stackCall.getBreakPointInfo().getBreakPointOutputInfo().getOperElt();
             StopDbgEnum s_ = checkedWp(_context, _stackCall, p_, infos_);
@@ -369,7 +363,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (s_ != null) {
             return s_;
         }
-        if (_stackCall.trueException() != null || getCurrentOper(_p) != null || _p.getReadWrite() == ReadWrite.EXIT) {
+        if (_stackCall.trueException() != null || getCurrentOper(_p) != null || _p.getReadWrite() != ReadWrite.ENTRY) {
             return StopDbgEnum.NONE;
         }
         for (int i : list(_p)) {
@@ -388,7 +382,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean normalCall(ContextEl _context, StackCall _stackCall) {
-        return _stackCall.trueException() == null && _context.callsOrException(_stackCall);
+        return _stackCall.normalCall(_context);
     }
 
     private static StopDbgEnum enterCase(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
@@ -410,7 +404,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean exitMethod(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
-        if (_p.getReadWrite() == ReadWrite.EXIT) {
+        if (_p.getReadWrite() != ReadWrite.ENTRY) {
             CustList<MethodPointBlockPairRootBlock> pairs_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getPairs(_p.getBlockRoot(), _p.getGlobalClass(),_context, _p.getGlobalStruct());
             for (MethodPointBlockPairRootBlock m: pairs_) {
                 Parameters params_ = build(_p.getRefParams(), _p.getCache(), _context, m.getId());
@@ -502,10 +496,10 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (stopExcValuRetThrowCatch(_stackCall, _p) != null || normalCall(_context, _stackCall)) {
             return StopDbgEnum.NONE;
         }
-        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && (_p.getReadWrite() == ReadWrite.EXIT &&_stackCall.nbPages() == 1)) {
+        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && (_p.getReadWrite() != ReadWrite.ENTRY &&_stackCall.nbPages() == 1)) {
             return StopDbgEnum.STEP_RETURN_METHOD;
         }
-        if (_p.getReadWrite() == ReadWrite.EXIT) {
+        if (_p.getReadWrite() != ReadWrite.ENTRY) {
             return StopDbgEnum.NONE;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() > _stackCall.nbPages()) {
@@ -742,7 +736,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (normalCall(_context,_stackCall)) {
             return true;
         }
-        if (_p.getReadWrite() == ReadWrite.EXIT) {
+        if (_p.getReadWrite() != ReadWrite.ENTRY) {
             return true;
         }
         ExecBlock bl_ = _p.getBlock();

@@ -29,20 +29,20 @@ public final class LocalThrowing {
                 }
                 bkIp_.removeLastBlock();
             }
-            custCause_ = _conf.getLocks().processErrorClass(_conf, retrieve(_stackCall,custCause_), bkIp_, _stackCall);
             if (_stackCall.getStopper().isStopAtExcMethod()) {
-                _stackCall.nullReadWrite();
+                bkIp_.setThrown(new CustomFoundExc(retrieve(_stackCall, custCause_), _stackCall));
+                _stackCall.nullReadWriteFail();
                 _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
-                excState(_stackCall, custCause_);
                 return;
             }
+            custCause_ = _conf.getLocks().processErrorClass(_conf, retrieve(_stackCall,custCause_), bkIp_, _stackCall);
             _stackCall.removeLastPage();
         }
         excState(_stackCall, custCause_);
     }
 
     private static void excState(StackCall _stackCall, Struct _custCause) {
-        _stackCall.setCallingState(new CustomFoundExc(_custCause, _stackCall.isFailInit()));
+        _stackCall.setCallingState(new CustomFoundExc(_custCause, _stackCall));
     }
 
     public static Struct retrieve(StackCall _stackCall, Struct _old) {

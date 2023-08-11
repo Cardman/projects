@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -41,6 +42,7 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
 
     private AbstractWrapper wrapper;
     private Argument returnedArgument = Argument.createVoid();
+    private CustomFoundExc thrown;
 
     private final PageElContent contentEx = new PageElContent();
 
@@ -270,6 +272,10 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
         setReadWrite(ReadWrite.EXIT);
     }
 
+    public void setNullReadWriteFail() {
+        setReadWrite(ReadWrite.EXIT_FAIL);
+    }
+
     public void setReadWrite(ReadWrite _readWrite) {
         readWrite = _readWrite;
     }
@@ -315,6 +321,14 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
 
     public void setWrapper(AbstractWrapper _wrapper) {
         wrapper = _wrapper;
+    }
+
+    public CustomFoundExc getThrown() {
+        return thrown;
+    }
+
+    public void setThrown(CustomFoundExc _t) {
+        this.thrown = _t;
     }
 
     public ExecFormattedRootBlock getGlobalClass() {

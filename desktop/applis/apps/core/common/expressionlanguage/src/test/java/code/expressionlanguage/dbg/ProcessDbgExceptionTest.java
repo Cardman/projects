@@ -1002,7 +1002,8 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
-        assertEq(2, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+        assertEq(1, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+        assertEq(154, stack_.getBreakPointInfo().getBreakPointMiddleInfo().getExiting().getTraceIndex());
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
     @Test
@@ -1049,7 +1050,8 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
-        assertEq(2, dbgContinueNormalValueStepRet(stack_, cont_.getContext()).nbPages());
+        assertEq(1, dbgContinueNormalValueStepRet(stack_, cont_.getContext()).nbPages());
+        assertEq(154, stack_.getBreakPointInfo().getBreakPointMiddleInfo().getExiting().getTraceIndex());
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
     private void npe(ResultContext _cont, ConditionReturn _cond) {
