@@ -9,7 +9,6 @@ import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecReturnableWithSignature;
@@ -336,7 +335,8 @@ public final class BreakPointBlockList {
     private ExcPointBlockPair build(boolean _exact, String _clName) {
         ExcPoint v_ = new ExcPoint(interceptor);
         v_.setEnabled(true);
-        v_.setConditionReturn(ConditionReturn.CALL_EX);
+        v_.setThrown(true);
+        v_.setCaught(true);
         if (_exact) {
             return new ExcPointBlockPair(true, _clName, v_);
         }
@@ -359,11 +359,6 @@ public final class BreakPointBlockList {
         ExcPointBlockPair pair_ = build(_exact, _field);
         for (ExcPointBlockPair b: excPointList.elts()) {
             if (b.match(pair_)) {
-                if (b.getValue().getConditionReturn() == null) {
-                    b.getValue().setConditionReturn(ConditionReturn.CALL_EX);
-                } else {
-                    b.getValue().setConditionReturn(null);
-                }
                 b.getValue().setEnabled(!b.getValue().isEnabled());
                 return;
             }

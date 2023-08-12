@@ -12,7 +12,6 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
@@ -244,7 +243,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",97);
-        div(cont_,ConditionReturn.NO);
+        div(cont_);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertSame(StopDbgEnum.EXCEPTION,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
@@ -260,7 +259,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",97);
-        div(cont_,ConditionReturn.NO);
+        div(cont_);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
@@ -278,7 +277,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",97);
-        div(cont_,ConditionReturn.NO);
+        div(cont_);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext());
@@ -296,7 +295,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",97);
-        div(cont_,ConditionReturn.NO);
+        div(cont_);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext());
@@ -1408,6 +1407,22 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         assertNull(stack_.getBreakPointInfo().getBreakPointOutputInfo().getCallingStateSub());
         assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
+
+    @Test
+    public void test100() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {Ex2 v = new Ex2();public static void catching(){Ex e = new();e.v+=new Ex3();}}public class pkg.Ex2 {public int v;public static Ex3 $(Ex2 f){Ex3 o = new Ex3();o.v=f.v;return o;}public static Ex2 $(Ex3 f){Ex2 o = new Ex2();o.v=f.v;return o;}}public class pkg.Ex3 {public int v;operator+ Ex3(Ex3 f, Ex3 s){Ex3 o = new Ex3();o.v=f.v+s.v;return o;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        entering(cont_,"pkg/Ex",197);
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(85, now(stack_));
+        assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
     @Test
     public void test() {
         StringBuilder xml_ = new StringBuilder();
@@ -1420,9 +1435,12 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         MethodPointBlockPair wp_ = cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_);
         assertFalse(new MethodKeyString().keyString(wp_).isEmpty());
     }
-    private void div(ResultContext _cont, ConditionReturn _cond) {
+    private void div(ResultContext _cont) {
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(),_cont,true);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(),true).getValue().setConditionReturn(_cond);
+        ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
+        val_.setThrown(true);
+        val_.setCaught(false);
+        val_.setPropagated(true);
     }
     private boolean is(ResultContext _cont, int _off) {
         return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(_cont.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex").getNumberFile()+"/"+_off);
