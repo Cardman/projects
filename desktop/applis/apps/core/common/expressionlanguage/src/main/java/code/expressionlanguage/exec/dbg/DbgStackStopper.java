@@ -350,7 +350,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().isMute()) {
             return StopDbgEnum.NONE;
         }
-        if (normalCall(_context, _stackCall)) {
+        if (_stackCall.normalCallNoExit(_context)) {
             return enterCase(_context, _stackCall, _p);
         }
         if (exitMethod(_context, _stackCall, _p)) {
@@ -379,10 +379,6 @@ public final class DbgStackStopper implements AbsStackStopper {
             return wp(_context, _stackCall, _p, (CheckedExecOperationNodeInfos) _infos);
         }
         return null;
-    }
-
-    private static boolean normalCall(ContextEl _context, StackCall _stackCall) {
-        return _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() == null && _stackCall.normalCall(_context);
     }
 
     private static StopDbgEnum enterCase(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
@@ -493,7 +489,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static StopDbgEnum stopStep(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
-        if (stopExcValuRetThrowCatch(_context,_stackCall, _p) != null || normalCall(_context, _stackCall)) {
+        if (stopExcValuRetThrowCatch(_context,_stackCall, _p) != null || _stackCall.normalCallNoExit(_context)) {
             return StopDbgEnum.NONE;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() == null && _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && (_p.getReadWrite() != ReadWrite.ENTRY &&_stackCall.nbPages() == 1)) {
@@ -783,6 +779,6 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean enterExit(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
-        return normalCall(_context, _stackCall) || _p.getReadWrite() != ReadWrite.ENTRY;
+        return _stackCall.normalCallNoExit(_context) || _p.getReadWrite() != ReadWrite.ENTRY;
     }
 }

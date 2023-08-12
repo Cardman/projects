@@ -79,6 +79,10 @@ public final class StackCall implements AbstractStackCall {
         getInitializingTypeInfos().failInitEnums(this);
     }
 
+    public boolean normalCallNoExit(ContextEl _context) {
+        return getBreakPointInfo().getBreakPointMiddleInfo().getExiting() == null && normalCall(_context);
+    }
+
     public boolean normalCall(ContextEl _context) {
         return trueException() == null && _context.callsOrException(this);
     }

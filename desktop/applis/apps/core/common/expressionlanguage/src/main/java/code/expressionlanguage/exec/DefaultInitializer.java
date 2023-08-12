@@ -96,12 +96,11 @@ public class DefaultInitializer implements Initializer {
     public boolean stopNormal(ContextEl _owner, StackCall _stackCall) {
         if (_stackCall.getStopper().stopAt(_stackCall)) {
             _stackCall.getBreakPointInfo().getStackState().setCheckingBp(false);
-            if (_stackCall.normalCall(_owner)) {
+            if (_stackCall.normalCallNoExit(_owner)) {
                 return false;
             }
             afterCheckExit(_owner, _stackCall);
         }
-        _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setExiting(null);
         AbstractPageEl p_ = _stackCall.getLastPage();
         ReadWrite rw_ = p_.getReadWrite();
         if (rw_ == ReadWrite.EXIT) {
@@ -149,6 +148,7 @@ public class DefaultInitializer implements Initializer {
             }
             _stackCall.getBreakPointInfo().getStackState().visitedNone();
         }
+        _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setExiting(null);
     }
 
     private void iterate(ContextEl _owner, StackCall _stackCall) {
