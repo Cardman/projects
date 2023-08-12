@@ -3,6 +3,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.opers.CompoundedOperator;
+import code.expressionlanguage.exec.opers.ExecCompoundAffectationStringOperation;
 import code.expressionlanguage.exec.symbols.ExecOperSymbol;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -52,7 +53,7 @@ public final class RendQuickOperation extends RendMethodOperation implements Ren
         Argument f_ = getArgument(_nodes, first_);
         Struct abs_ = f_.getStruct();
         Argument a_ = getArgument(_nodes,getLastNode(this));
-        Argument arg_ = new Argument(operSymbol.afterCalculateExc(operSymbol.calculateOperator(abs_, a_.getStruct(), getResultClass().getUnwrapObjectNb(), _context, _rendStack.getLastPage()),_context,_rendStack));
+        Argument arg_ = new Argument(ExecCompoundAffectationStringOperation.calculatedValue(operSymbol, abs_, a_.getStruct(), getResultClass().getUnwrapObjectNb(), _context, _rendStack, _rendStack.getLastPage()));
         endCalculate(this,_nodes,_context,_rendStack,arg_,conv);
     }
 

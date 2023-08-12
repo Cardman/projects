@@ -41,7 +41,7 @@ public final class ExecQuickOperation extends ExecMethodOperation implements Ato
         Argument f_ = getArgument(_nodes,first_);
         Struct abs_ = f_.getStruct();
         Argument a_ = getLastArgument(_nodes,this);
-        setSimpleArgument(new Argument(operSymbol.afterCalculateExc(operSymbol.calculateOperator(abs_,a_.getStruct(), getResultClass().getUnwrapObjectNb(), _conf,_stack.getLastPage()),_conf,_stack)), _conf, _nodes, _stack);
+        setSimpleArgument(new Argument(ExecCompoundAffectationStringOperation.calculatedValue(operSymbol,abs_,a_.getStruct(), getResultClass().getUnwrapObjectNb(), _conf, _stack,_stack.getLastPage())), _conf, _nodes, _stack);
     }
 
     @Override

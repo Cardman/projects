@@ -3,6 +3,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassArgumentMatching;
+import code.expressionlanguage.exec.opers.ExecCompoundAffectationStringOperation;
 import code.expressionlanguage.exec.symbols.ExecOperSymbol;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -36,7 +37,7 @@ public final class RendCompoundAffectationStringOperation extends RendCompoundAf
         } else {
             cast_ = getResultClass().getUnwrapObjectNb();
         }
-        Argument res_ = new Argument(symbol.afterCalculateExc(symbol.calculateOperator(leftArg_.getStruct(), rightArg_.getStruct(), cast_, _context, _rendStack.getLastPage()),_context,_rendStack));
+        Argument res_ = new Argument(ExecCompoundAffectationStringOperation.calculatedValue(symbol, leftArg_.getStruct(), rightArg_.getStruct(), cast_, _context, _rendStack, _rendStack.getLastPage()));
         process(this,_nodes, _context, _rendStack,res_);
     }
 
