@@ -111,7 +111,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
     @Test
     public void parts10() {
         StringMap<String> src_ = new StringMap<String>();
-        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){Fct<int,int> f=a->a+1;return a.call(2);}}");
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){Fct<int,int> f=a->a+1;return f.call(2);}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
         res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("src/file.txt",63,res_);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
@@ -123,7 +123,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
     @Test
     public void parts11() {
         StringMap<String> src_ = new StringMap<String>();
-        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){Fct<int,int> f=a->{return a+1;};return a.call(2);}}");
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){Fct<int,int> f=a->{return a+1;};return f.call(2);}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
         res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("src/file.txt",63,res_);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
@@ -171,7 +171,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
     @Test
     public void parts15() {
         StringMap<String> src_ = new StringMap<String>();
-        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){Fct<int,Fct<int,int>> f=a->b->a+b+1;return a.call(2).call(3);}}");
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){Fct<int,Fct<int,int>> f=a->b->a+b+1;return f.call(2).call(3);}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
         res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("src/file.txt",75,res_);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
@@ -183,7 +183,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
     @Test
     public void parts16() {
         StringMap<String> src_ = new StringMap<String>();
-        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){Fct<int,Fct<int,int>> f=a->b->{return a+b+1;};return a.call(2).call(3);}}");
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){Fct<int,Fct<int,int>> f=a->b->{return a+b+1;};return f.call(2).call(3);}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
         res_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("src/file.txt",75,res_);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
