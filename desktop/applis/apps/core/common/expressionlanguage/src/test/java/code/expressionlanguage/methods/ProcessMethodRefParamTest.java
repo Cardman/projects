@@ -4423,6 +4423,42 @@ public final class ProcessMethodRefParamTest extends ProcessMethodCommon {
         assertEq("code.expressionlanguage.exceptions.DivideZeroException", ret_.getStruct().getClassName(cont_));
     }
     @Test
+    public void calculateArgument157Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field = 10;\n");
+        xml_.append("  exmeth(that(e));\n");
+        xml_.append("  if (e.field == 11){\n");
+        xml_.append("   return e.field;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static void exmeth(that ExClass t){\n");
+        xml_.append("  t/=0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public static int $(ExClass i){\n");
+        xml_.append("  return i.field;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass $(int i){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field = i;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq("$core.DivideZero", ret_.getStruct().getClassName(cont_));
+    }
+    @Test
     public void calculateArgumentFailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
