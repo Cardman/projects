@@ -1613,7 +1613,7 @@ public final class GuiAliases {
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
-        StandardClass stdcl_ = new StandardClass(aliasWindowType, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        StandardClass stdcl_ = new StandardClass(aliasWindowType, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         StandardClass windowType_ = stdcl_;
         StringList params_ = new StringList();
@@ -2611,7 +2611,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasAction, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.ABSTRACT);
+        stdcl_ = new StandardClass(aliasAction, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasActionListener);
         method_ = new StandardMethod(aliasActionWrap, params_, aliasAction, false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasAction0Wrap0()), new FctActionWrap(aliasAction,_guiEx.getCompoFactory()));

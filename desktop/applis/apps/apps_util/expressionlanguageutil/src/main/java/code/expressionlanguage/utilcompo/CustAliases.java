@@ -960,7 +960,7 @@ public final class CustAliases {
         methods_ = new CustList<StandardMethod>();
         fields_ = new CustList<CstFieldInfo>();
         constructors_ = new CustList<StandardConstructor>();
-        stdcl_ = new StandardClass(aliasExecutorServiceBase, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.ABSTRACT);
+        stdcl_ = new StandardClass(aliasExecutorServiceBase, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
         StandardClass service_ = stdcl_;
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
@@ -1160,7 +1160,7 @@ public final class CustAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
-        stdcl_ = new StandardClass(aliasEntryStringObject, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.ABSTRACT);
+        stdcl_ = new StandardClass(aliasEntryStringObject, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         method_ = new StandardMethod(aliasTableEntryKey, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL,new FctTrenteKey());
         methods_.add( method_);

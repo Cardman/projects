@@ -155,18 +155,22 @@ public class DefaultInitializer implements Initializer {
 
     private void iterate(ContextEl _owner, StackCall _stackCall) {
         if (_stackCall.normalCallNoExit(_owner)) {
-            _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
+            checkCall(_owner, _stackCall);
             return;
         }
         if (!_owner.callsOrException(_stackCall)) {
             _stackCall.getLastPage().processTagsBase(_owner, _stackCall);
             checkStack(_owner, _stackCall);
-            if (_stackCall.getStopper().callsOrException(_owner, _stackCall)) {
-                _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
-            }
+            checkCall(_owner, _stackCall);
         }
         if (!_stackCall.getStopper().stopAt(_stackCall)) {
             visitException(_stackCall);
+        }
+    }
+
+    private void checkCall(ContextEl _owner, StackCall _stackCall) {
+        if (_stackCall.getStopper().callsOrException(_owner, _stackCall)) {
+            _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
         }
     }
 
