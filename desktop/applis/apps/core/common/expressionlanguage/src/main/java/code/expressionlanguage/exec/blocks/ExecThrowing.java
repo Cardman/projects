@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ExecThrowing extends ExecLeaf implements WithEl {
@@ -26,8 +25,7 @@ public final class ExecThrowing extends ExecLeaf implements WithEl {
             return;
         }
         ip_.clearCurrentEls();
-        Struct o_ = arg_.getStruct();
-        _stack.setCallingState(new CustomFoundExc(o_));
+        _stack.setCallingState(new CustomFoundExc(Argument.getNull(arg_.getStruct())));
     }
 
 }

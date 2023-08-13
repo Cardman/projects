@@ -3,7 +3,6 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -28,8 +27,7 @@ public final class RendThrowing extends RendLeaf implements RendWithEl {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        Struct o_ = argument_.getStruct();
-        _rendStack.getStackCall().setCallingState(new CustomFoundExc(o_));
+        _rendStack.getStackCall().setCallingState(new CustomFoundExc(Argument.getNull(argument_.getStruct())));
     }
 
 }

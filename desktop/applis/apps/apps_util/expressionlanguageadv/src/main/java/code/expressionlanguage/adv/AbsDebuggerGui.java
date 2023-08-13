@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
 import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
@@ -35,7 +36,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsTreeGui folderSystem;
     private AbsTabbedPane tabbedPane;
     private final CustList<ReadOnlyTabEditor> tabs = new CustList<ReadOnlyTabEditor>();
-    private CallingState selected = new CustomFoundExc(null);
+    private CallingState selected;
     private AbsPlainButton selectEnter;
     private AbsPlainButton nextAction;
     private AbsPlainButton nextInstruction;
@@ -240,7 +241,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     void next(StepDbgActionEnum _step){
         getPauseStack().setEnabled(true);
         getStopStack().setEnabled(true);
-        StackCallReturnValue view_ = ExecClassesUtil.tryInitStaticlyTypes(currentResult.getContext(), currentResult.getForwards().getOptions(), stackCall, selected,_step, mute.isSelected());
+        StackCallReturnValue view_ = ExecClassesUtil.tryInitStaticlyTypes(currentResult.getContext(), currentResult.getForwards().getOptions(), stackCall, state(selected),_step, mute.isSelected());
         getPauseStack().setEnabled(false);
         if (getStopDbg().get()) {
             getStopStack().setEnabled(false);
@@ -379,13 +380,17 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public void launchDebug() {
         CallingState l_ = look();
+        selected = state(l_);
         if (l_ != null) {
-            selected = l_;
             selectEnter.setEnabled(false);
             actions.submit(new DbgLaunchTask(this, StepDbgActionEnum.DEBUG));
-        } else {
-            selected = new CustomFoundExc(null);
         }
+    }
+    private static CallingState state(CallingState _f) {
+        if (_f != null) {
+            return _f;
+        }
+        return new CustomFoundExc(NullStruct.NULL_VALUE);
     }
     public AbsTreeGui getTree() {
         return getFolderSystem();

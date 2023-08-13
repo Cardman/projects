@@ -67,7 +67,7 @@ public final class LocalThrowing {
         ExecBlock n_ = nextBlock(currentBlock_);
         boolean thr_ = throwIfGuardError(currentBlock_);
         if (n_ instanceof ExecBracedBlock) {
-            curr_.setException(_custCause);
+            curr_.exception(_custCause);
             goBlock(_stackCall, _bkIp, curr_, (ExecBracedBlock) n_);
             return true;
         }
@@ -79,6 +79,7 @@ public final class LocalThrowing {
         }
         ExecBlock next_ = currentBlock_.getNextSibling();
         if (!curr_.isEnteredCatch() && next_ instanceof ExecAbstractCatchEval) {
+            curr_.exception(_custCause);
             goBlock(_stackCall, _bkIp, curr_, (ExecBracedBlock) next_);
             return true;
         }
@@ -87,7 +88,7 @@ public final class LocalThrowing {
             goBlock(_stackCall, _bkIp, curr_, l_);
             return true;
         }
-        _stackCall.setCallingState(new CustomFoundExc(curr_.getException()));
+        _stackCall.setCallingState(new CustomFoundExc(TryBlockStack.choice(curr_.getException(),_custCause)));
         return false;
     }
 

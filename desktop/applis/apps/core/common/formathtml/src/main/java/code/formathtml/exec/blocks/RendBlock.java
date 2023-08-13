@@ -627,8 +627,7 @@ public abstract class RendBlock {
                 if (callingFinally_ != null) {
                     callingFinally_.removeBlockFinally(_conf, _advStandards, _ctx, _rendStackCall);
                 } else {
-                    Struct exception_ = _lastStack.getException();
-                    _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(exception_));
+                    _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(Argument.getNull(_lastStack.getException())));
                     processGeneException(_ctx, _rendStackCall);
                 }
             }

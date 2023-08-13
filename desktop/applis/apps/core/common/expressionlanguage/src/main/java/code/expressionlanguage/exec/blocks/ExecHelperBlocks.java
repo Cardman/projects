@@ -394,15 +394,15 @@ public final class ExecHelperBlocks {
             processBlockAndRemove(_cond, _stackCall);
             return;
         }
-        ExecResultCase assert_ = procTypeVar(_cont, _stackCall, _cond, _cond, ((TryBlockStack) if_).getException(), _cond.isCatchAll());
+        Struct exc_ = Argument.getNull(((TryBlockStack) if_).getException());
+        ExecResultCase assert_ = procTypeVar(_cont, _stackCall, _cond, _cond, exc_, _cond.isCatchAll());
         if (assert_.getCondition() == ConditionReturn.CALL_EX) {
             return;
         }
         if (assert_.getCondition() == ConditionReturn.YES) {
             ((TryBlockStack) if_).setCalling(null);
             enterGuardCatchBlock(_cond, ip_, (TryBlockStack) if_);
-            Struct ex_ = ((TryBlockStack) if_).getException();
-            _cont.getCoverage().passCatches(ex_,assert_, _stackCall);
+            _cont.getCoverage().passCatches(exc_,assert_, _stackCall);
             return;
         }
         removeVar(_cond.getContent(), _stackCall);
@@ -411,7 +411,7 @@ public final class ExecHelperBlocks {
             ip_.setBlock(next_);
             return;
         }
-        _stackCall.setCallingState(new CustomFoundExc(((TryBlockStack) if_).getException()));
+        _stackCall.setCallingState(new CustomFoundExc(exc_));
     }
 
     private static void removeVar(ExecFilterContent _cond, StackCall _stackCall) {
@@ -1178,8 +1178,7 @@ public final class ExecHelperBlocks {
                 } else if (callingFinally_ != null){
                     _ip.setBlock(callingFinally_);
                 } else {
-                    Struct exception_ = _lastStack.getException();
-                    _stackCall.setCallingState(new CustomFoundExc(exception_));
+                    _stackCall.setCallingState(new CustomFoundExc(Argument.getNull(_lastStack.getException())));
                 }
             } else {
                 _ip.setBlock(_par);

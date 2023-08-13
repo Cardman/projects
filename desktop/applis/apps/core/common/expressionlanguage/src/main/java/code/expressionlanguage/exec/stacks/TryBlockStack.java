@@ -1,4 +1,5 @@
 package code.expressionlanguage.exec.stacks;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 import code.expressionlanguage.structs.Struct;
 
@@ -63,11 +64,20 @@ public final class TryBlockStack extends AbstractStask implements EnteredStack {
         calling = _calling;
     }
 
+    public void exception(Struct _exception) {
+        setException(choice(getException(),_exception));
+    }
     public Struct getException() {
         return exception;
     }
 
     public void setException(Struct _exception) {
         this.exception = _exception;
+    }
+    public static Struct choice(Struct _f,Struct _s) {
+        if (_f == null) {
+            return Argument.getNull(_s);
+        }
+        return _f;
     }
 }

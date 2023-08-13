@@ -1253,6 +1253,35 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         assertEq(2, getNumber(ret_));
     }
     @Test
+    public void calculateArgument77_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t;\n");
+        xml_.append("  t=0i;\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $try{\n");
+        xml_.append("    $throw $null;\n");
+        xml_.append("   }\n");
+        xml_.append("   $catch{\n");
+        xml_.append("    $throw $null;\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch{\n");
+        xml_.append("   $return 1i+t;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+    @Test
     public void calculateArgument78Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

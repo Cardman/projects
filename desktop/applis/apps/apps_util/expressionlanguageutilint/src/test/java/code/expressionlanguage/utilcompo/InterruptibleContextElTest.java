@@ -12,6 +12,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.DfInstancer;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.stds.StdCaller;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.stds.FctInterrupt;
 import code.maths.montecarlo.CustomSeedGene;
@@ -31,7 +32,7 @@ public  final class InterruptibleContextElTest extends EquallableElIntUtil {
     public void callsOrException2() {
         InterruptibleContextEl ctx_ = new InterruptibleContextEl(new MockAtomicBoolean(),null);
         StackCall st_ = stack(ctx_);
-        st_.setCallingState(new CustomFoundExc(null));
+        st_.setCallingState(new CustomFoundExc(NullStruct.NULL_VALUE));
         assertTrue(ctx_.callsOrException(st_));
     }
     @Test
