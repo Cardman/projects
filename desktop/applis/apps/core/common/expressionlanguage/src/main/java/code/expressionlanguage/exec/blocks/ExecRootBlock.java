@@ -49,6 +49,12 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         rootBlockContent = _rootBlockContent;
         access = _access;
     }
+    public static int numberType(ExecRootBlock _ex) {
+        if (_ex == null) {
+            return -1;
+        }
+        return _ex.getNumberType();
+    }
 
     public int getIdRowCol() {
         return rootBlockContent.getIdRowCol();

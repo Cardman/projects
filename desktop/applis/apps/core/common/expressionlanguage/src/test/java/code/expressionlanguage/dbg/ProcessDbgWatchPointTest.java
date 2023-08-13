@@ -21,7 +21,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(cf("pkg.Ex","f")));
+        assertFalse(isWatch(cont_, cf("pkg.Ex","f")));
     }
 
     @Test
@@ -39,7 +39,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(cf("pkg.Ex","f")));
+        assertTrue(isWatch(cont_, cf("pkg.Ex","f")));
     }
 
     @Test
@@ -58,7 +58,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(cf("pkg.Ex","f")));
+        assertFalse(isWatch(cont_, cf("pkg.Ex","f")));
     }
 
     @Test
@@ -76,8 +76,8 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",36,cont_);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(cf("pkg.Ex","f")));
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(cf("pkg.Ex","s")));
+        assertFalse(isWatch(cont_, cf("pkg.Ex","f")));
+        assertTrue(isWatch(cont_, cf("pkg.Ex", "s")));
     }
 
     @Test
@@ -94,7 +94,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",-1,cont_);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(cf("pkg.Ex","f")));
+        assertFalse(isWatch(cont_, cf("pkg.Ex","f")));
     }
 
     @Test
@@ -113,7 +113,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPointEnabled("pkg/Ex",34,cont_);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(cf("pkg.Ex","f")));
+        assertFalse(isWatch(cont_, cf("pkg.Ex","f")));
     }
 
     @Test
@@ -133,7 +133,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPointEnabled("pkg/Ex",34,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPointEnabled("pkg/Ex",34,cont_);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(cf("pkg.Ex","f")));
+        assertTrue(isWatch(cont_, cf("pkg.Ex","f")));
     }
 
     @Test
@@ -151,7 +151,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPointEnabled("pkg/Ex",34,cont_);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(cf("pkg.Ex","f")));
+        assertTrue(isWatch(cont_, cf("pkg.Ex","f")));
     }
 
     @Test
@@ -169,7 +169,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPointEnabled("pkg/Ex",-1,cont_);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(cf("pkg.Ex","f")));
+        assertFalse(isWatch(cont_, cf("pkg.Ex","f")));
     }
 
     @Test
@@ -188,8 +188,8 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",36,cont_);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(cf("pkg.Ex","f")));
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(cf("pkg.Ex","s")));
+        assertTrue(isWatch(cont_, cf("pkg.Ex","f")));
+        assertTrue(isWatch(cont_, cf("pkg.Ex", "s")));
     }
 
     @Test
@@ -209,7 +209,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",34,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",36,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPointEnabled("pkg/Ex",34,cont_);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(cf("pkg.Ex","s")));
+        assertTrue(isWatch(cont_, cf("pkg.Ex", "s")));
     }
 
     @Test
@@ -228,13 +228,18 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPointEnabled("pkg/Ex",34,cont_);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPointEnabled("pkg/Ex",36,cont_);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(cf("pkg.Ex","f")));
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(cf("pkg.Ex","s")));
+        assertTrue(isWatch(cont_, cf("pkg.Ex","f")));
+        assertTrue(isWatch(cont_, cf("pkg.Ex", "s")));
+    }
+
+    private boolean isWatch(ResultContext _cont, ClassField _cf) {
+        int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
+        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(n_,_cf.getFieldName());
     }
 
     @Test
     public void test() {
-        assertEq(".",new WatchPointBlockPairKeyString().keyString(new WatchPointBlockPair(new ClassField("",""),null)));
+        assertEq("-1.",new WatchPointBlockPairKeyString().keyString(new WatchPointBlockPair(null,-1,new ClassField("",""),null)));
     }
     private ClassField cf(String _cl, String _f) {
         return new ClassField(_cl,_f);

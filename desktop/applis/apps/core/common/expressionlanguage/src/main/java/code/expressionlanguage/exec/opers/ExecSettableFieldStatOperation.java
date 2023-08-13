@@ -49,6 +49,11 @@ public final class ExecSettableFieldStatOperation extends
         return ExecFieldTemplates.setStaticField(fieldType_, _right, _conf, _stack, fieldId_);
     }
 
+    @Override
+    public ExecRootBlock owner() {
+        return getRootBlock();
+    }
+
     public ExecRootBlock getRootBlock() {
         return rootBlock;
     }

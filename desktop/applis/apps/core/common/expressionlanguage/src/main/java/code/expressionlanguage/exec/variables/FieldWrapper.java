@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.variables;
 
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.structs.Struct;
 
 public abstract class FieldWrapper extends ValueWrapper {
@@ -17,6 +18,7 @@ public abstract class FieldWrapper extends ValueWrapper {
         return fieldType;
     }
 
+    public abstract ExecRootBlock owner();
     public ClassField getId() {
         return id;
     }

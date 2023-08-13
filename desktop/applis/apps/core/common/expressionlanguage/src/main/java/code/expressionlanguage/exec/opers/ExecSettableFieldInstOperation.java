@@ -59,6 +59,11 @@ public final class ExecSettableFieldInstOperation extends
         return ExecFieldTemplates.setSafeInstanceField(_right, _conf, _stack, fieldId_, pair, parent_);
     }
 
+    @Override
+    public ExecRootBlock owner() {
+        return getPair().getRootBlock();
+    }
+
     public ExecTypeReturn getPair() {
         return pair;
     }

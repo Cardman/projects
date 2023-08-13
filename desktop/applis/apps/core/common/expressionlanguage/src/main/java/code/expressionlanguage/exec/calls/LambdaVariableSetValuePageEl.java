@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.CheckedExecOperationNodeInfos;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.dbg.DbgStackStopper;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -40,7 +41,7 @@ public final class LambdaVariableSetValuePageEl extends AbstractLambdaVariable {
             ClassField cf_ = ((FieldWrapper) w_).getId();
             Struct right_ = ArgumentListCall.toStr(ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)));
             Struct instance_ = value(w_);
-            return new CheckedExecOperationNodeInfos(cf_, DbgStackStopper.WRITE,formatted(_context, (FieldWrapper) w_,cf_),instance_,right_);
+            return new CheckedExecOperationNodeInfos(ExecRootBlock.numberType(((FieldWrapper) w_).owner()),cf_, DbgStackStopper.WRITE,formatted(_context, (FieldWrapper) w_),instance_,right_);
         }
         return null;
     }

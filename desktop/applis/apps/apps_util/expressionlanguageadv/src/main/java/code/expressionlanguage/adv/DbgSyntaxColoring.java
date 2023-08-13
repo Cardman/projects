@@ -79,10 +79,13 @@ public final class DbgSyntaxColoring {
         ResultExpression resStr_ = _r.getRes().getRes();
         int offset_ = resStr_.getSumOffset();
         if (op_ instanceof SettableAbstractFieldOperation) {
-            WatchPointBlockPair w_ = lsBp_.getPairWatch(((SettableAbstractFieldOperation) op_).getFieldIdReadOnly());
-            if (w_ != null) {
-                int b_ = beginOff(offset_,((SettableAbstractFieldOperation) op_));
-                parts_.add(new SegmentReadOnlyPart(b_,b_+((SettableAbstractFieldOperation) op_).getFieldNameLength(),SyntaxRefEnum.FIELD));
+            RootBlock ft_ = ((SettableAbstractFieldOperation) op_).getFieldType();
+            if (ft_ != null) {
+                WatchPointBlockPair w_ = lsBp_.getPairWatch(ft_.getNumberAll(),((SettableAbstractFieldOperation) op_).getFieldIdReadOnly().getFieldName());
+                if (w_ != null) {
+                    int b_ = beginOff(offset_,((SettableAbstractFieldOperation) op_));
+                    parts_.add(new SegmentReadOnlyPart(b_,b_+((SettableAbstractFieldOperation) op_).getFieldNameLength(),SyntaxRefEnum.FIELD));
+                }
             }
         }
         return parts_;

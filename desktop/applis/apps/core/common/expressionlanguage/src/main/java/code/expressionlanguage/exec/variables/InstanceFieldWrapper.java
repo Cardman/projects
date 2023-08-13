@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -32,6 +33,11 @@ public final class InstanceFieldWrapper extends FieldWrapper {
     @Override
     public String getClassName(ContextEl _conf) {
         return ExecFieldTemplates.formatType(_conf,pair.getRootBlock(),getFieldType(),className);
+    }
+
+    @Override
+    public ExecRootBlock owner() {
+        return pair.getRootBlock();
     }
 
     public Struct getParent() {

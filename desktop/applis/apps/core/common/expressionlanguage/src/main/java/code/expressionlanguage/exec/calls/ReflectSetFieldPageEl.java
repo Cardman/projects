@@ -6,6 +6,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.CheckedExecOperationNodeInfos;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.dbg.DbgStackStopper;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -49,7 +50,7 @@ public final class ReflectSetFieldPageEl extends AbstractLambdaVariable {
             Struct instance_ = ArgumentListCall.toStr(first);
             Struct right_ = ArgumentListCall.toStr(last);
             ClassField cf_ = new ClassField(StringExpUtil.getIdFromAllTypes(metaInfo.getFormatted().getFormatted()), metaInfo.getName());
-            return new CheckedExecOperationNodeInfos(cf_, DbgStackStopper.WRITE, formatted(_context, cf_, instance_), instance_, right_);
+            return new CheckedExecOperationNodeInfos(ExecRootBlock.numberType( metaInfo.getFormatted().getRootBlock()),cf_, DbgStackStopper.WRITE, formatted(_context, metaInfo.getFormatted().getRootBlock(), instance_), instance_, right_);
         }
         return null;
     }

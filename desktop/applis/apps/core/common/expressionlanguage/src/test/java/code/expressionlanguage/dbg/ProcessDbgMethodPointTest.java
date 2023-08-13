@@ -2,7 +2,10 @@ package code.expressionlanguage.dbg;
 
 import code.expressionlanguage.DefContextGenerator;
 import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.StackCall;
@@ -364,7 +367,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         exiting(cont_,"pkg/Ex",91);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
         compoundRead(cont_,cf("pkg.Ex","f"));
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(cf("pkg.Ex","f")).getValue().setEnabled(false);
+        pair(cont_, cf("pkg.Ex", "f")).getValue().setEnabled(false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertSame(StopDbgEnum.METHOD_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
@@ -383,7 +386,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         exiting(cont_,"pkg/Ex",91);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
         compoundRead(cont_,cf("pkg.Ex","f"));
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(cf("pkg.Ex","f")).getValue().setEnabled(false);
+        pair(cont_, cf("pkg.Ex", "f")).getValue().setEnabled(false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
@@ -689,7 +692,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         exiting(cont_,"pkg/Ex",91);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
         compoundRead(cont_,cf("pkg.Ex","f"));
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(cf("pkg.Ex","f")).getValue().setEnabled(false);
+        pair(cont_, cf("pkg.Ex", "f")).getValue().setEnabled(false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertSame(StopDbgEnum.METHOD_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
@@ -708,7 +711,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         exiting(cont_,"pkg/Ex",91);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
         compoundRead(cont_,cf("pkg.Ex","f"));
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(cf("pkg.Ex","f")).getValue().setEnabled(false);
+        pair(cont_, cf("pkg.Ex", "f")).getValue().setEnabled(false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
@@ -1450,20 +1453,26 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         return new ClassField(_cl,_f);
     }
     private void write(ResultContext _cont, ClassField _cf) {
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setRead(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(true);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(false);
+        pair(_cont, _cf).getValue().setRead(false);
+        pair(_cont, _cf).getValue().setWrite(true);
+        pair(_cont, _cf).getValue().setCompoundRead(false);
+        pair(_cont, _cf).getValue().setCompoundWrite(false);
+        pair(_cont, _cf).getValue().setCompoundWriteErr(false);
     }
 
     private void compoundRead(ResultContext _cont, ClassField _cf) {
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setRead(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(true);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(false);
+        pair(_cont, _cf).getValue().setRead(false);
+        pair(_cont, _cf).getValue().setWrite(false);
+        pair(_cont, _cf).getValue().setCompoundRead(true);
+        pair(_cont, _cf).getValue().setCompoundWrite(false);
+        pair(_cont, _cf).getValue().setCompoundWriteErr(false);
     }
+
+    private WatchPointBlockPair pair(ResultContext _cont, ClassField _cf) {
+        int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
+        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(n_,_cf.getFieldName());
+    }
+
     private void enteringCondition(String _newValue,ResultContext _cont, String _file, int _offset) {
         entering(_cont, _file, _offset);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));

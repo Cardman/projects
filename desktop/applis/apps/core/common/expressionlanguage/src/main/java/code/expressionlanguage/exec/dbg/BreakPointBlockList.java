@@ -6,9 +6,9 @@ import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
-import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.SynthFieldInfo;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecReturnableWithSignature;
@@ -388,13 +388,13 @@ public final class BreakPointBlockList {
         return null;
     }
     public void toggleWatchPoint(String _file, int _offset, ResultContext _f) {
-        ClassField o_ = ResultExpressionOperationNode.vexerChamps(_f.getPageEl(), _file, _offset);
-        if (o_.getClassName().isEmpty()) {
+        SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(_f.getPageEl(), _file, _offset);
+        if (o_.getRootBlock() == null) {
             return;
         }
         toggleWatch(o_);
     }
-    public void toggleWatch(ClassField _field) {
+    public void toggleWatch(SynthFieldInfo _field) {
         WatchPoint v_ = new WatchPoint(interceptor);
         v_.setEnabled(true);
         v_.setRead(true);
@@ -402,7 +402,7 @@ public final class BreakPointBlockList {
         v_.setCompoundRead(true);
         v_.setCompoundWrite(true);
         v_.setCompoundWriteErr(true);
-        WatchPointBlockPair pair_ = new WatchPointBlockPair(_field, v_);
+        WatchPointBlockPair pair_ = new WatchPointBlockPair(_field.getRootBlock(),_field.getRootBlock().getNumberAll(),_field.getClassField(), v_);
         int i_ = 0;
         for (WatchPointBlockPair b: watchList.elts()) {
             if (b.match(pair_)) {
@@ -414,13 +414,13 @@ public final class BreakPointBlockList {
         watchList.add(pair_);
     }
     public void toggleWatchPointEnabled(String _file, int _offset, ResultContext _f) {
-        ClassField o_ = ResultExpressionOperationNode.vexerChamps(_f.getPageEl(), _file, _offset);
-        if (o_.getClassName().isEmpty()) {
+        SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(_f.getPageEl(), _file, _offset);
+        if (o_.getRootBlock() == null) {
             return;
         }
         toggleEnabledWatch(o_);
     }
-    public void toggleEnabledWatch(ClassField _field) {
+    public void toggleEnabledWatch(SynthFieldInfo _field) {
         WatchPoint v_ = new WatchPoint(interceptor);
         v_.setEnabled(true);
         v_.setRead(true);
@@ -428,7 +428,7 @@ public final class BreakPointBlockList {
         v_.setCompoundRead(true);
         v_.setCompoundWrite(true);
         v_.setCompoundWriteErr(true);
-        WatchPointBlockPair pair_ = new WatchPointBlockPair(_field, v_);
+        WatchPointBlockPair pair_ = new WatchPointBlockPair(_field.getRootBlock(),_field.getRootBlock().getNumberAll(),_field.getClassField(), v_);
         for (WatchPointBlockPair b: watchList.elts()) {
             if (b.match(pair_)) {
                 b.getValue().setEnabled(!b.getValue().isEnabled());
@@ -437,11 +437,12 @@ public final class BreakPointBlockList {
         }
         watchList.add(pair_);
     }
-    public boolean isWatch(ClassField _field) {
-        return getNotNullWatch(_field).isEnabled();
+    public boolean isWatch(int _root, String _field) {
+        return getNotNullWatch(_root, _field).isEnabled();
     }
-    public WatchPoint getNotNullWatch(ClassField _field) {
-        WatchPointBlockPair b_ = getPairWatch(_field);
+
+    public WatchPoint getNotNullWatch(int _root, String _field) {
+        WatchPointBlockPair b_ = getPairWatch(_root, _field);
         if (b_ == null) {
             WatchPoint bp_ = new WatchPoint(interceptor);
             bp_.setEnabled(false);
@@ -450,9 +451,9 @@ public final class BreakPointBlockList {
         return b_.getValue();
     }
 
-    public WatchPointBlockPair getPairWatch(ClassField _field) {
+    public WatchPointBlockPair getPairWatch(int _root, String _field) {
         for (WatchPointBlockPair b: watchList.elts()) {
-            if (b.match(_field)) {
+            if (b.match(_root, _field)) {
                 return b;
             }
         }

@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.CheckedExecOperationNodeInfos;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.dbg.DbgStackStopper;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -34,7 +35,7 @@ public final class LambdaVariableGetValuePageEl extends AbstractLambdaVariable {
         if (w_ instanceof FieldWrapper) {
             ClassField cf_ = ((FieldWrapper) w_).getId();
             Struct instance_ = value(w_);
-            return new CheckedExecOperationNodeInfos(cf_, DbgStackStopper.READ,formatted(_context, (FieldWrapper) w_,cf_),instance_,null);
+            return new CheckedExecOperationNodeInfos(ExecRootBlock.numberType(((FieldWrapper) w_).owner()),cf_, DbgStackStopper.READ,formatted(_context, (FieldWrapper) w_),instance_,null);
         }
         return null;
     }

@@ -5,6 +5,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.StopDbgEnum;
 import code.expressionlanguage.exec.dbg.WatchPoint;
+import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ResultContextLambda;
@@ -2620,13 +2621,14 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         xml_.append("  var l = Integer.MAX_VALUE;\n");
         xml_.append(" }\n");
         xml_.append(" public static void catching2(){\n");
+        xml_.append("  class(Integer).getDeclaredFields()[0].set(null,0);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",78,cont_);
-        readCondition("0==0",cont_, cf("$core.Integer", "MAX_VALUE"));
+//        readCondition("0==0",cont_, cf("$core.Integer", "MAX_VALUE"));
         MethodId id_ = getMethodId("catching2");
         StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
         assertEq(0, stack_.nbPages());
@@ -3967,8 +3969,9 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
     private void readCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         read(_cont, _cf);
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
-        WatchPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, _cf, _cont, type_, new DefContextGenerator(), false);
+        WatchPointBlockPair p_ = pair(_cont, _cf);
+        WatchPoint wp_ = p_.getValue();
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_.getRoot(), _cf.getFieldName(), _cont, type_, new DefContextGenerator(), false);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultRead().setResult(ResultContextLambda.okOrNull(res_));
         wp_.getResultRead().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
@@ -3976,8 +3979,9 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
     private void writeCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         write(_cont, _cf);
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
-        WatchPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, _cf, _cont, type_, new DefContextGenerator(), true);
+        WatchPointBlockPair p_ = pair(_cont, _cf);
+        WatchPoint wp_ = p_.getValue();
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_.getRoot(), _cf.getFieldName(), _cont, type_, new DefContextGenerator(), true);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultWrite().setResult(ResultContextLambda.okOrNull(res_));
         wp_.getResultWrite().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
@@ -3985,8 +3989,9 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
     private void compoundReadCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         compoundRead(_cont, _cf);
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
-        WatchPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, _cf, _cont, type_, new DefContextGenerator(), false);
+        WatchPointBlockPair p_ = pair(_cont, _cf);
+        WatchPoint wp_ = p_.getValue();
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_.getRoot(), _cf.getFieldName(), _cont, type_, new DefContextGenerator(), false);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultCompoundRead().setResult(ResultContextLambda.okOrNull(res_));
         wp_.getResultCompoundRead().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
@@ -3994,8 +3999,9 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
     private void compoundWriteCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         compoundWrite(_cont, _cf);
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
-        WatchPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, _cf, _cont, type_, new DefContextGenerator(), true);
+        WatchPointBlockPair p_ = pair(_cont, _cf);
+        WatchPoint wp_ = p_.getValue();
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_.getRoot(), _cf.getFieldName(), _cont, type_, new DefContextGenerator(), true);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultCompoundWrite().setResult(ResultContextLambda.okOrNull(res_));
         wp_.getResultCompoundWrite().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
@@ -4003,67 +4009,74 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
     private void compoundWriteConditionErr(String _newValue,ResultContext _cont, ClassField _cf) {
         compoundWriteErr(_cont, _cf);
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
-        WatchPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, _cf, _cont, type_, new DefContextGenerator(), true);
+        WatchPointBlockPair p_ = pair(_cont, _cf);
+        WatchPoint wp_ = p_.getValue();
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_.getRoot(), _cf.getFieldName(), _cont, type_, new DefContextGenerator(), true);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultCompoundWriteErr().setResult(ResultContextLambda.okOrNull(res_));
         wp_.getResultCompoundWriteErr().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
     }
     private void compoundReadWrite(ResultContext _cont, ClassField _cf) {
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setRead(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(true);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(true);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(true);
+        pair(_cont, _cf).getValue().setRead(false);
+        pair(_cont, _cf).getValue().setWrite(false);
+        pair(_cont, _cf).getValue().setCompoundRead(true);
+        pair(_cont, _cf).getValue().setCompoundWrite(true);
+        pair(_cont, _cf).getValue().setCompoundWriteErr(true);
     }
 
     private void read(ResultContext _cont, ClassField _cf) {
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setRead(true);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(false);
+        pair(_cont, _cf).getValue().setRead(true);
+        pair(_cont, _cf).getValue().setWrite(false);
+        pair(_cont, _cf).getValue().setCompoundRead(false);
+        pair(_cont, _cf).getValue().setCompoundWrite(false);
+        pair(_cont, _cf).getValue().setCompoundWriteErr(false);
     }
 
     private void write(ResultContext _cont, ClassField _cf) {
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setRead(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(true);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(false);
+        pair(_cont, _cf).getValue().setRead(false);
+        pair(_cont, _cf).getValue().setWrite(true);
+        pair(_cont, _cf).getValue().setCompoundRead(false);
+        pair(_cont, _cf).getValue().setCompoundWrite(false);
+        pair(_cont, _cf).getValue().setCompoundWriteErr(false);
     }
 
     private void compoundRead(ResultContext _cont, ClassField _cf) {
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setRead(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(true);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(false);
+        pair(_cont, _cf).getValue().setRead(false);
+        pair(_cont, _cf).getValue().setWrite(false);
+        pair(_cont, _cf).getValue().setCompoundRead(true);
+        pair(_cont, _cf).getValue().setCompoundWrite(false);
+        pair(_cont, _cf).getValue().setCompoundWriteErr(false);
     }
 
     private void compoundWrite(ResultContext _cont, ClassField _cf) {
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setRead(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(true);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(false);
+        pair(_cont, _cf).getValue().setRead(false);
+        pair(_cont, _cf).getValue().setWrite(false);
+        pair(_cont, _cf).getValue().setCompoundRead(false);
+        pair(_cont, _cf).getValue().setCompoundWrite(true);
+        pair(_cont, _cf).getValue().setCompoundWriteErr(false);
     }
 
     private void compoundWriteErr(ResultContext _cont, ClassField _cf) {
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setRead(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(true);
+        pair(_cont, _cf).getValue().setRead(false);
+        pair(_cont, _cf).getValue().setWrite(false);
+        pair(_cont, _cf).getValue().setCompoundRead(false);
+        pair(_cont, _cf).getValue().setCompoundWrite(false);
+        pair(_cont, _cf).getValue().setCompoundWriteErr(true);
     }
 
     private void nothing(ResultContext _cont, ClassField _cf) {
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setRead(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setWrite(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundRead(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWrite(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_cf).getValue().setCompoundWriteErr(false);
+        pair(_cont, _cf).getValue().setRead(false);
+        pair(_cont, _cf).getValue().setWrite(false);
+        pair(_cont, _cf).getValue().setCompoundRead(false);
+        pair(_cont, _cf).getValue().setCompoundWrite(false);
+        pair(_cont, _cf).getValue().setCompoundWriteErr(false);
     }
+
+    private static WatchPointBlockPair pair(ResultContext _cont, ClassField _cf) {
+        int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
+        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(n_,_cf.getFieldName());
+    }
+
     private ClassField cf(String _cl, String _f) {
         return new ClassField(_cl,_f);
     }

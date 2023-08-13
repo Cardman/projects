@@ -5243,7 +5243,7 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
     }
     private static ClassField vexerChamps(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
-        return ResultExpressionOperationNode.vexerChamps(a_,_fileName,_caret);
+        return ResultExpressionOperationNode.vexerChamps(a_,_fileName,_caret).getClassField();
     }
     private static AbsBk quickFindBlock(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);

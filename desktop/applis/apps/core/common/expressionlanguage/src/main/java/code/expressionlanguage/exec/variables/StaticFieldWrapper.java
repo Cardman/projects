@@ -29,6 +29,11 @@ public final class StaticFieldWrapper extends FieldWrapper {
         return getFieldType();
     }
 
+    @Override
+    public ExecRootBlock owner() {
+        return getRoot();
+    }
+
     public ExecRootBlock getRoot() {
         return root;
     }

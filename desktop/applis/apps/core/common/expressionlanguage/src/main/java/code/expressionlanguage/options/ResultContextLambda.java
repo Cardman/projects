@@ -15,7 +15,6 @@ import code.expressionlanguage.analyze.syntax.IntermediaryResults;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.analyze.syntax.SplitExpressionUtil;
-import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.DefaultFileEscapedCalc;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -69,11 +68,11 @@ public final class ResultContextLambda {
         return build(_exp, _result, _type, _gene, a_);
     }
 
-    public static ResultContextLambda dynamicAnalyzeField(String _exp, ClassField _id, ResultContext _result, String _type, AbsLightContextGenerator _gene, boolean _setting) {
+    public static ResultContextLambda dynamicAnalyzeField(String _exp, RootBlock _r, String _id, ResultContext _result, String _type, AbsLightContextGenerator _gene, boolean _setting) {
         if (_exp.trim().isEmpty()) {
             return new ResultContextLambda(null,null,new ReportedMessages());
         }
-        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareFields(_id, _result.getPageEl(),_setting);
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareFields(_r,_id, _result.getPageEl(),_setting);
         return build(_exp, _result, _type, _gene, a_);
     }
 

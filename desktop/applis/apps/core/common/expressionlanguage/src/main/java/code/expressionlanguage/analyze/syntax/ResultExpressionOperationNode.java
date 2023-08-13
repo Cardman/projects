@@ -37,28 +37,25 @@ public final class ResultExpressionOperationNode {
     private OperationNode found;
     private ResultExpressionOperationNode(){
     }
-    public static ClassField vexerChamps(AnalyzedPageEl _page, String _fileName, int _caret) {
+    public static SynthFieldInfo vexerChamps(AnalyzedPageEl _page, String _fileName, int _caret) {
         ResultExpressionOperationNode res_ = container(_caret, _page.getPreviousFilesBodies().getVal(_fileName));
         if (res_.getFound() instanceof SettableAbstractFieldOperation) {
-            return ((SettableAbstractFieldOperation)res_.getFound()).getFieldIdReadOnly();
+            RootBlock r_ = ((SettableAbstractFieldOperation) res_.getFound()).getFieldType();
+            if (r_ != null) {
+                return new SynthFieldInfo(((SettableAbstractFieldOperation)res_.getFound()).getFieldIdReadOnly(), r_);
+            }
         }
-        return new ClassField("","");
+        return new SynthFieldInfo(new ClassField("",""),null);
     }
 
-    public static AnalyzedPageEl prepareFields(ClassField _id, AnalyzedPageEl _original, boolean _setting) {
+    public static AnalyzedPageEl prepareFields(RootBlock _r, String _id, AnalyzedPageEl _original, boolean _setting) {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);
         a_.setCurrentPkg(a_.getDefaultPkg());
-        RootBlock r_ = _original.getAnaClassBody(_id.getClassName());
-        CustList<InfoBlock> ls_;
-        if (r_ != null) {
-            ls_ = r_.getFieldsBlocks();
-        } else {
-            ls_ = new CustList<InfoBlock>();
-        }
+        CustList<InfoBlock> ls_ = _r.getFieldsBlocks();
         for (InfoBlock i: ls_) {
-            if (StringUtil.contains(i.getElements().getFieldName(), _id.getFieldName())) {
-                field(a_, r_, i.isStaticField());
+            if (StringUtil.contains(i.getElements().getFieldName(), _id)) {
+                field(a_, _r, i.isStaticField());
                 if (_setting) {
                     String p_ = a_.getKeyWords().getKeyWordValue();
                     AnaLocalVariable lv_ = new AnaLocalVariable();
@@ -70,9 +67,7 @@ public final class ResultExpressionOperationNode {
                 }
             }
         }
-        if (r_ != null) {
-            a_.setCurrentFile(r_.getFile());
-        }
+        a_.setCurrentFile(_r.getFile());
         a_.setImportingAcces(new AllAccessedTypes());
         return a_;
     }

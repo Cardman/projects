@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -39,4 +40,5 @@ public abstract class ExecSettableFieldOperation extends
     public ExecSettableOperationContent getSettableFieldContent() {
         return settableFieldContent;
     }
+    public abstract ExecRootBlock owner();
 }
