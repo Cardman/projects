@@ -4,15 +4,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.CheckedExecOperationNodeInfos;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.dbg.DbgStackStopper;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.FieldMetaInfo;
-import code.expressionlanguage.structs.Struct;
 
 public final class ReflectGetFieldPageEl extends AbstractLambdaVariable {
 
@@ -51,13 +46,11 @@ public final class ReflectGetFieldPageEl extends AbstractLambdaVariable {
         return arg_;
     }
 
-    @Override
-    public CheckedExecOperationNodeInfos infos(ContextEl _context, StackCall _stackCall) {
-        if (AbstractLambdaVariable.stopMetaField(metaInfo, _context, _stackCall)) {
-            Struct instance_ = ArgumentListCall.toStr(argument);
-            ClassField cf_ = new ClassField(StringExpUtil.getIdFromAllTypes(metaInfo.getFormatted().getFormatted()), metaInfo.getName());
-            return new CheckedExecOperationNodeInfos(ExecRootBlock.numberType( metaInfo.getFormatted().getRootBlock()),cf_, DbgStackStopper.READ, formatted(_context, metaInfo.getFormatted().getRootBlock(), instance_), instance_, null);
-        }
-        return null;
+    public Argument getArgument() {
+        return argument;
+    }
+
+    public FieldMetaInfo getMetaInfo() {
+        return metaInfo;
     }
 }

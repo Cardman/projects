@@ -2,18 +2,11 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.CheckedExecOperationNodeInfos;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.dbg.DbgStackStopper;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.exec.variables.FieldWrapper;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class LambdaVariableSetValuePageEl extends AbstractLambdaVariable {
@@ -32,17 +25,7 @@ public final class LambdaVariableSetValuePageEl extends AbstractLambdaVariable {
         return right_;
     }
 
-    @Override
-    public CheckedExecOperationNodeInfos infos(ContextEl _context, StackCall _stackCall) {
-        CustList<ArgumentWrapper> argumentWrappers_ = arr.getArgumentWrappers();
-        ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(argumentWrappers_);
-        AbstractWrapper w_ = firstArgumentWrapper_.getWrapper();
-        if (w_ instanceof FieldWrapper) {
-            ClassField cf_ = ((FieldWrapper) w_).getId();
-            Struct right_ = ArgumentListCall.toStr(ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)));
-            Struct instance_ = value(w_);
-            return new CheckedExecOperationNodeInfos(ExecRootBlock.numberType(((FieldWrapper) w_).owner()),cf_, DbgStackStopper.WRITE,formatted(_context, (FieldWrapper) w_),instance_,right_);
-        }
-        return null;
+    public ArgumentListCall getArr() {
+        return arr;
     }
 }
