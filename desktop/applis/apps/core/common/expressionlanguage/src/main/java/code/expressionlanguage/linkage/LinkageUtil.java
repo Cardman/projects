@@ -2956,7 +2956,7 @@ public final class LinkageUtil {
         if (_val instanceof SettableAbstractFieldOperation) {
             if (_val instanceof DeclaredFieldOperation) {
                 int begin_ = beginOff(_sum, _val);
-                int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
+                int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getSettableFieldContent().getValueOffset();
                 _vars.addPart(new PartOffset(ExportCst.anchorName(idValueOffset_),begin_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
             }
@@ -2972,7 +2972,7 @@ public final class LinkageUtil {
         }
         if (_val instanceof DeclaredFieldOperation) {
             int begin_ = beginOff(_sum, _val);
-            int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
+            int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getSettableFieldContent().getValueOffset();
             StringList errs_ = ((DeclaredFieldOperation) _val).getErrsField();
             if (errs_.isEmpty()) {
                 _vars.addPart(new PartOffset(ExportCst.anchorName(idValueOffset_),begin_));
@@ -2994,7 +2994,7 @@ public final class LinkageUtil {
 
     private static void addFieldRefParts(VariablesOffsets _vars, OperationNode _val, int _sum) {
         int begin_ = beginOff(_sum, _val);
-        int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
+        int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getSettableFieldContent().getValueOffset();
         _vars.addParts(export(((SettableFieldOperation) _val).getPartOffsets()));
         updateFieldAnchor(_vars, ((SettableFieldOperation) _val).getFieldType(), _val.getErrs(), ((SettableFieldOperation) _val).getFieldIdReadOnly(), begin_, ((SettableAbstractFieldOperation) _val).getFieldNameLength(), idValueOffset_);
     }

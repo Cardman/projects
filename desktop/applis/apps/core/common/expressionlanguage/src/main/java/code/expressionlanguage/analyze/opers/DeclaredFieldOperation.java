@@ -47,10 +47,10 @@ public final class DeclaredFieldOperation extends
             return;
         }
         setFieldType(infoBlock.getDeclaringType());
-        setValueOffset(valOffset_);
         getSettableFieldContent().setFinalField(infoBlock.isFinalField());
         getSettableFieldContent().setStaticField(infoBlock.isStaticField());
         getSettableFieldContent().setClassField(new ClassField(infoBlock.getDeclaringType().getFullName(),fieldName_));
+        getSettableFieldContent().setValueOffset(valOffset_);
         getSettableFieldContent().setRealType(infoBlock.getImportedClassName());
         String c_ = infoBlock.getImportedClassName();
         setResultClass(new AnaClassArgumentMatching(c_, _page.getPrimitiveTypes()));

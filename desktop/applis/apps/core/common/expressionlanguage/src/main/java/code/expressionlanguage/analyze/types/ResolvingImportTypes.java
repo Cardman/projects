@@ -344,9 +344,8 @@ public final class ResolvingImportTypes {
                         continue;
                     }
                     int v_ = AnaTypeUtil.getIndex(e,_method);
-                    ImportedField value_ = new ImportedField(_import, e.getImportedClassName(), e.isFinalField(), v_,e.getFile().getFileName());
+                    ImportedField value_ = new ImportedField(s.getRootBlock(),null,_import, e.getImportedClassName(), e.isFinalField(), v_,e.getFile().getFileName());
                     value_.memberId(s.getRootBlock().getNumberAll(),e.getElements().getFieldNumber());
-                    value_.setFieldType(s.getRootBlock());
                     addImport(_methods,s.getRootBlock(), value_);
                 }
             }
@@ -365,7 +364,7 @@ public final class ResolvingImportTypes {
             if (!StringUtil.quickEq(m.getFieldName(), _method.trim())) {
                 continue;
             }
-            addImport(_methods, _std, new ImportedField(_import, m.getImportedClassName(),true,-1,""));
+            addImport(_methods, _std, new ImportedField(null,m,_import, m.getImportedClassName(),true,-1,""));
         }
     }
 

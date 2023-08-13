@@ -14,7 +14,6 @@ public abstract class SettableAbstractFieldOperation extends
 
     private final AnaSettableOperationContent settableFieldContent;
     private MethodAccessKind staticAccess;
-    private int valueOffset = -1;
     private int fieldNameLength;
 
     private RootBlock fieldType;
@@ -80,14 +79,6 @@ public abstract class SettableAbstractFieldOperation extends
 
     public AnaSettableOperationContent getSettableFieldContent() {
         return settableFieldContent;
-    }
-
-    public int getValueOffset() {
-        return valueOffset;
-    }
-
-    public void setValueOffset(int _valueOffset) {
-        this.valueOffset = _valueOffset;
     }
 
     public int getFieldNameLength() {

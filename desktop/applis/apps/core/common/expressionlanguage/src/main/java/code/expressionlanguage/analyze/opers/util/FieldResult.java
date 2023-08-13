@@ -14,18 +14,9 @@ public final class FieldResult {
     private String type;
     private AnaFormattedRootBlock formattedType;
     private RootBlock fieldType;
-    private int valOffset;
     private String fileName;
     private MemberId memberId = new MemberId();
     private CstFieldInfo cstFieldInfo;
-
-    public int getValOffset() {
-        return valOffset;
-    }
-
-    public void setValOffset(int _valOffset) {
-        valOffset = _valOffset;
-    }
 
     public AnaSettableOperationContent getContent() {
         return content;

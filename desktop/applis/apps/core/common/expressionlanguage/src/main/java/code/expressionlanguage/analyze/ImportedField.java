@@ -3,17 +3,21 @@ package code.expressionlanguage.analyze;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.common.CstFieldInfo;
 
 public final class ImportedField {
-    private int imported;
-    private String type;
-    private boolean finalField;
-    private int valueOffset;
+    private final RootBlock fieldType;
+    private final CstFieldInfo cstFieldInfo;
+    private final int imported;
+    private final String type;
+    private final boolean finalField;
+    private final int valueOffset;
     private final String fileName;
-    private RootBlock fieldType;
-    private MemberId memberId = new MemberId();
+    private final MemberId memberId = new MemberId();
 
-    public ImportedField(int _imported, String _type, boolean _finalField, int _valueOffset, String _fileName) {
+    public ImportedField(RootBlock _r,CstFieldInfo _c, int _imported, String _type, boolean _finalField, int _valueOffset, String _fileName) {
+        this.fieldType = _r;
+        this.cstFieldInfo = _c;
         this.imported = _imported;
         this.type = _type;
         this.finalField = _finalField;
@@ -24,6 +28,11 @@ public final class ImportedField {
     public AnaFormattedRootBlock buildFormatted(String _formatted) {
         return new AnaFormattedRootBlock(fieldType,_formatted);
     }
+
+    public CstFieldInfo getCstFieldInfo() {
+        return cstFieldInfo;
+    }
+
     public int getImported() {
         return imported;
     }
@@ -56,7 +65,4 @@ public final class ImportedField {
         return fieldType;
     }
 
-    public void setFieldType(RootBlock _fieldType) {
-        fieldType = _fieldType;
-    }
 }

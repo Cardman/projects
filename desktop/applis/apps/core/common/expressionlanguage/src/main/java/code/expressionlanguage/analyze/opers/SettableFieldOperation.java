@@ -58,11 +58,11 @@ public final class SettableFieldOperation extends
             return;
         }
         setFieldType(r_.getFieldType());
-        setValueOffset(r_.getValOffset());
         getSettableFieldContent().setAnc(r_.getContent().getAnc());
         getSettableFieldContent().setFinalField(r_.getContent().isFinalField());
         getSettableFieldContent().setStaticField(r_.getContent().isStaticField());
         getSettableFieldContent().setClassField(r_.getContent().getClassField());
+        getSettableFieldContent().setValueOffset(r_.getContent().getValueOffset());
         getSettableFieldContent().setRealType(r_.getContent().getRealType());
         getSettableFieldContent().setCstFieldInfo(r_.getCstFieldInfo());
         String c_ = r_.getType();

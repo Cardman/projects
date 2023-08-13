@@ -14,6 +14,8 @@ public final class AnaSettableOperationContent {
 
     private CstFieldInfo cstFieldInfo;
     private boolean declare;
+
+    private int valueOffset = -1;
     public boolean isVariable() {
         return variable;
     }
@@ -76,5 +78,13 @@ public final class AnaSettableOperationContent {
 
     public void setDeclare(boolean _d) {
         this.declare = _d;
+    }
+
+    public int getValueOffset() {
+        return valueOffset;
+    }
+
+    public void setValueOffset(int _v) {
+        this.valueOffset = _v;
     }
 }

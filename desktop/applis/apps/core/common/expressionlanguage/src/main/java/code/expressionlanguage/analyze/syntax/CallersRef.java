@@ -543,7 +543,7 @@ public final class CallersRef {
         OperationNode d_ = declaring(_o);
         if (d_ instanceof DeclaredFieldOperation) {
             ClassField cf_ = ((DeclaredFieldOperation) d_).getFieldIdReadOnly();
-            int o_ = ((DeclaredFieldOperation) d_).getValueOffset();
+            int o_ = ((DeclaredFieldOperation) d_).getSettableFieldContent().getValueOffset();
             int begin_ = ResultExpressionOperationNode.begin(_res, _o);
             int end_ = ResultExpressionOperationNode.end(_res, _o);
             _fields.add(new ResultExpressionBlock(SrcFileLocationField.fieldInit(cf_, _type,o_,null), _en, _res,begin_,end_));
@@ -1303,7 +1303,7 @@ public final class CallersRef {
 //        if (!ls_.isEmpty()) {
 //            return ls_;
 //        }
-        int i_ = _foundOp.getValueOffset();
+        int i_ = _foundOp.getSettableFieldContent().getValueOffset();
         RootBlock r_ = _foundOp.getFieldType();
         ClassField cf_ = _foundOp.getFieldIdReadOnly();
         int delta_ = _foundOp.getOffset();

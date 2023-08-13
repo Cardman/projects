@@ -2066,7 +2066,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private void updateFieldInfos(boolean _aff, FieldResult _r) {
         lambdaCommonContent.setFileName(_r.getFileName());
         lambdaMemberNumberContentId = _r.getMemberId();
-        valueOffset = _r.getValOffset();
+        valueOffset = _r.getContent().getValueOffset();
         lambdaFieldContent.setAffField(_aff);
         fieldId = _r.getContent().getClassField();
         fieldType = _r.getFieldType();

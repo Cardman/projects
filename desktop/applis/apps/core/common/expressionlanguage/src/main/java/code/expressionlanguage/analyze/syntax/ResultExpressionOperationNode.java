@@ -1027,7 +1027,7 @@ public final class ResultExpressionOperationNode {
         if (!ls_.isEmpty()) {
             return ls_;
         }
-        int i_ = ((SettableAbstractFieldOperation) _foundOp).getValueOffset();
+        int i_ = ((SettableAbstractFieldOperation) _foundOp).getSettableFieldContent().getValueOffset();
         RootBlock r_ = ((SettableAbstractFieldOperation) _foundOp).getFieldType();
         ClassField cf_ = ((SettableAbstractFieldOperation) _foundOp).getFieldIdReadOnly();
         CstFieldInfo c_ = ((SettableAbstractFieldOperation) _foundOp).getSettableFieldContent().getCstFieldInfo();
