@@ -864,7 +864,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean visitedLambda(StackCall _stackCall, AbstractPageEl _p) {
-        return _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() == null && _p instanceof AbstractLambdaVariable && _stackCall.getBreakPointInfo().getStackState().visitedExp();
+        return _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() == null && _p instanceof AbstractLambdaVariable && ((AbstractLambdaVariable)_p).isVisitedPage();
     }
 
     private static boolean possibleDeclared(CheckedExecOperationNodeInfos _infos) {

@@ -106,7 +106,7 @@ public class DefaultInitializer implements Initializer {
         if (rw_ == ReadWrite.EXIT) {
             success(_owner, p_);
             _stackCall.removeLastPage();
-            if (_stackCall.nbPages() == 0) {
+            if (!_stackCall.hasPages()) {
                 return true;
             }
             if (_stackCall.getStopper().hasToCheckExit(_stackCall,p_)) {
@@ -118,15 +118,17 @@ public class DefaultInitializer implements Initializer {
         } else if (rw_ == ReadWrite.EXIT_FAIL) {
             Struct custCause_ = _owner.getLocks().processErrorClass(_owner, p_.getThrown().getStruct(), p_, _stackCall);
             _stackCall.removeLastPage();
-            if (_stackCall.nbPages() == 0) {
+            if (!_stackCall.hasPages()) {
                 _stackCall.setCallingState(new CustomFoundExc(custCause_,_stackCall));
                 return false;
             }
-            _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setExiting(p_);
             p_.setThrown(new CustomFoundExc(custCause_,_stackCall));
+            if (_stackCall.getStopper().hasToCheckExit(_stackCall,p_)) {
+                _stackCall.setCallingState(p_.getThrown());
+                _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
+                return false;
+            }
             _stackCall.setCallingState(p_.getThrown());
-            _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
-            return false;
         }
         iterate(_owner, _stackCall);
         return false;
@@ -152,20 +154,26 @@ public class DefaultInitializer implements Initializer {
     }
 
     private void iterate(ContextEl _owner, StackCall _stackCall) {
-        if (_owner.callsOrException(_stackCall)) {
-            ExecutingUtil.processException(_owner, _stackCall);
-            if (_stackCall.getStopper().isStopAtExcMethod()) {
-                _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
-            }
-        } else {
+        if (_stackCall.normalCallNoExit(_owner)) {
+            _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
+            return;
+        }
+        if (!_owner.callsOrException(_stackCall)) {
             _stackCall.getLastPage().processTagsBase(_owner, _stackCall);
             checkStack(_owner, _stackCall);
             if (_stackCall.getStopper().callsOrException(_owner, _stackCall)) {
                 _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
             }
-            if (!_stackCall.getStopper().stopAt(_stackCall)) {
-                ExecutingUtil.processException(_owner,_stackCall);
-            }
+        }
+        if (!_stackCall.getStopper().stopAt(_stackCall)) {
+            visitException(_stackCall);
+        }
+    }
+
+    private void visitException(StackCall _stackCall) {
+        ExecutingUtil.processException(_stackCall);
+        if (_stackCall.getLastPage().getThrown() != null && _stackCall.getStopper().isStopAtExcMethod()) {
+            _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
         }
     }
 

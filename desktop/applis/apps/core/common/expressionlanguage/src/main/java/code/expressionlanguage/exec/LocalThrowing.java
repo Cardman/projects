@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -13,36 +12,22 @@ public final class LocalThrowing {
 
     private LocalThrowing() {
     }
-    public static void removeBlockFinally(ContextEl _conf, Struct _str, StackCall _stackCall) {
-        Struct custCause_ = _str;
-        while (_stackCall.hasPages()) {
-            AbstractPageEl bkIp_ = _stackCall.getLastPage();
-            bkIp_.clearCurrentEls();
-            _stackCall.setNullCallingState();
-            while (true) {
-                AbstractStask bl_ = bkIp_.tryGetLastStack();
-                if (bl_ == null) {
-                    break;
-                }
-                if (setRemovedCallingFinallyToProcess(_stackCall,custCause_, bkIp_, bl_)) {
-                    return;
-                }
-                bkIp_.removeLastBlock();
+    public static void removeBlockFinally(Struct _str, StackCall _stackCall) {
+        AbstractPageEl bkIp_ = _stackCall.getLastPage();
+        bkIp_.clearCurrentEls();
+        _stackCall.setNullCallingState();
+        while (true) {
+            AbstractStask bl_ = bkIp_.tryGetLastStack();
+            if (bl_ == null) {
+                break;
             }
-            if (_stackCall.getStopper().isStopAtExcMethod()) {
-                bkIp_.setThrown(new CustomFoundExc(retrieve(_stackCall, custCause_), _stackCall));
-                _stackCall.nullReadWriteFail();
-                _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
+            if (setRemovedCallingFinallyToProcess(_stackCall, _str, bkIp_, bl_)) {
                 return;
             }
-            custCause_ = _conf.getLocks().processErrorClass(_conf, retrieve(_stackCall,custCause_), bkIp_, _stackCall);
-            _stackCall.removeLastPage();
+            bkIp_.removeLastBlock();
         }
-        excState(_stackCall, custCause_);
-    }
-
-    private static void excState(StackCall _stackCall, Struct _custCause) {
-        _stackCall.setCallingState(new CustomFoundExc(_custCause, _stackCall));
+        bkIp_.setThrown(new CustomFoundExc(retrieve(_stackCall, _str), _stackCall));
+        _stackCall.nullReadWriteFail();
     }
 
     public static Struct retrieve(StackCall _stackCall, Struct _old) {

@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl {
 
     private boolean calledAfter;
+    private boolean visitedPage;
 
     protected AbstractLambdaVariable(boolean _lambda) {
         super(_lambda);
@@ -17,6 +18,7 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
         if (_stack.getStopper().isStopAtRef(_context, _stack)) {
             return false;
         }
+        visitedPage = true;
         _stack.getBreakPointInfo().getStackState().visitedNone();
         if (!calledAfter) {
             setWrapException(false);
@@ -33,6 +35,10 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
             setReturnedArgument(arg_);
         }
         return true;
+    }
+
+    public boolean isVisitedPage() {
+        return visitedPage;
     }
 
     abstract Argument prepare(ContextEl _context, StackCall _stack);

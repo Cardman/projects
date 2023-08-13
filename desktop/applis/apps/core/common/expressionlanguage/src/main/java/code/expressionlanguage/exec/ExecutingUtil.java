@@ -22,17 +22,17 @@ public final class ExecutingUtil {
     private ExecutingUtil() {
     }
 
-    static void processException(ContextEl _context, StackCall _stackCall) {
+    static void processException(StackCall _stackCall) {
         if (!_stackCall.isFailInit()) {
-            processGeneException(_context, _stackCall);
+            processGeneException(_stackCall);
         }
     }
 
-    public static void processGeneException(ContextEl _context, StackCall _stackCall) {
+    public static void processGeneException(StackCall _stackCall) {
         CustomFoundExc callingState_ = _stackCall.trueException();
         if (callingState_ != null) {
             Struct exc_ = callingState_.getStruct();
-            LocalThrowing.removeBlockFinally(_context, exc_, _stackCall);
+            LocalThrowing.removeBlockFinally(exc_, _stackCall);
         }
     }
 
