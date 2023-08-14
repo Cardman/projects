@@ -1,14 +1,13 @@
-package code.mock;
+package code.threads;
 
-import code.threads.AbstractAtomicLong;
-
-public final class MockAtomicLong implements AbstractAtomicLong {
+public final class ConcreteLong implements AbstractAtomicLong {
     private long lgValue;
-    public MockAtomicLong() {
+
+    public ConcreteLong() {
         this(0);
     }
 
-    public MockAtomicLong(long _i) {
+    public ConcreteLong(long _i) {
         lgValue = _i;
     }
 
@@ -41,13 +40,13 @@ public final class MockAtomicLong implements AbstractAtomicLong {
     @Override
     public long getAndAdd(long _value) {
         long old_ = lgValue;
-        lgValue +=_value;
+        lgValue += _value;
         return old_;
     }
 
     @Override
     public long addAndGet(long _value) {
-        lgValue +=_value;
+        lgValue += _value;
         return lgValue;
     }
 

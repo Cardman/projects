@@ -2,11 +2,12 @@ package code.mock;
 
 import code.stream.AbsPlayBack;
 import code.threads.AbstractAtomicBoolean;
+import code.threads.ConcreteBoolean;
 import code.util.Ints;
 
 public final class MockPlayBack implements AbsPlayBack {
-    private final AbstractAtomicBoolean state = new MockAtomicBoolean(false);
-    private final AbstractAtomicBoolean ok = new MockAtomicBoolean(true);
+    private final AbstractAtomicBoolean state = new ConcreteBoolean(false);
+    private final AbstractAtomicBoolean ok = new ConcreteBoolean(true);
     private int numBytesRead;
     private int numBytesRemaining;
     private int indexRead = -1;

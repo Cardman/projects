@@ -1,7 +1,7 @@
 package aiki.main;
-import aiki.db.PerCent;
 import aiki.gui.WindowAiki;
 import code.gui.ThreadInvoker;
+import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.threads.ThreadUtil;
 
 /**This class thread is independant from EDT,
@@ -11,17 +11,17 @@ public final class OpeningGame implements Runnable {
     private static final int WAIT_VIDEO = 1000;
 
     private WindowAiki window;
-    private PerCent perCent;
+    private AbstractAtomicIntegerCoreAdd perCent;
 
     /**This class thread is independant from EDT*/
-    public OpeningGame(WindowAiki _window, PerCent _p) {
+    public OpeningGame(WindowAiki _window, AbstractAtomicIntegerCoreAdd _p) {
         window = _window;
         perCent = _p;
     }
 
     @Override
     public void run() {
-        setProgress(perCent.getPercent());
+        setProgress(perCent.get());
     }
 
     public static void init(WindowAiki _window) {

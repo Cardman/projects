@@ -86,7 +86,7 @@ public class RunnableContextEl extends InterruptibleContextEl implements Locking
     }
 
     @Override
-    protected boolean stopped() {
+    public boolean stopped() {
         return super.stopped() || isCurrentThreadEnded();
     }
 

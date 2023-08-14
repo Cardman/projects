@@ -10,6 +10,8 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.Struct;
+import code.threads.AbstractAtomicBoolean;
+import code.threads.ConcreteBoolean;
 
 public final class MockInterceptorStdCaller implements AbstractInterceptorStdCaller {
     @Override
@@ -19,11 +21,6 @@ public final class MockInterceptorStdCaller implements AbstractInterceptorStdCal
     @Override
     public boolean stopNormal(Initializer _defaultInitializer, ContextEl _contextEl, StackCall _stackCall) {
         return _defaultInitializer.stopNormal(_contextEl,_stackCall);
-    }
-
-    @Override
-    public boolean exitAfterCallInt(Initializer _defaultInitializer, ContextEl _contextEl, StackCall _stackCall) {
-        return _defaultInitializer.exitAfterCallInt(_contextEl,_stackCall);
     }
 
     @Override
@@ -57,7 +54,7 @@ public final class MockInterceptorStdCaller implements AbstractInterceptorStdCal
     }
 
     @Override
-    public AbsAtBool newAtBool() {
-        return new ConcBool();
+    public AbstractAtomicBoolean newAtBool() {
+        return new ConcreteBoolean();
     }
 }

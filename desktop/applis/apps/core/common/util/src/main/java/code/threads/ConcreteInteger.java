@@ -1,14 +1,12 @@
-package code.mock;
+package code.threads;
 
-import code.threads.AbstractAtomicInteger;
-
-public final class MockAtomicInteger implements AbstractAtomicInteger {
+public final class ConcreteInteger implements AbstractAtomicInteger {
     private int integer;
-    public MockAtomicInteger() {
+    public ConcreteInteger() {
         this(0);
     }
 
-    public MockAtomicInteger(int _i) {
+    public ConcreteInteger(int _i) {
         integer = _i;
     }
 

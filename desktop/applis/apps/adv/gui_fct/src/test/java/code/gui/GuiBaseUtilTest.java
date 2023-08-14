@@ -4,6 +4,7 @@ import code.gui.events.*;
 import code.gui.initialize.*;
 import code.mock.*;
 import code.sml.util.ResourcesMessagesUtil;
+import code.threads.ConcreteInteger;
 import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -289,7 +290,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     @Test
     public void gr() {
         MockProgramInfosSecSample pr_ = init();
-        pr_.getCounts().addEntry("",new MockAtomicInteger());
+        pr_.getCounts().addEntry("",new ConcreteInteger());
         GroupFrame s_ = new SampleGroupFrame("",pr_,new StringMap<String>());
         s_.setImageIconFrame(null);
         s_.getFolderOpenDialogInt();

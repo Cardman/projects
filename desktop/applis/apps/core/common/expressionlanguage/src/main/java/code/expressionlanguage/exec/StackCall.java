@@ -6,6 +6,7 @@ import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.NullStruct;
@@ -16,6 +17,7 @@ import code.util.CustList;
 public final class StackCall implements AbstractStackCall {
 
     private CallingState callingState;
+    private ReadWrite readWrite = ReadWrite.ENTRY;
 
     private final CustList<AbstractPageEl> importing = new CustList<AbstractPageEl>();
 
@@ -122,12 +124,31 @@ public final class StackCall implements AbstractStackCall {
         return getLastPage().sizeEl();
     }
 
+    public ReadWrite getReadWrite() {
+        return readWrite;
+    }
+    public void setNullReadWrite() {
+        setReadWrite(ReadWrite.EXIT);
+    }
+
+    public void setNullReadWriteFail() {
+        setReadWrite(ReadWrite.EXIT_FAIL);
+    }
+
+    public void setReadWrite(ReadWrite _readWrite) {
+        readWrite = _readWrite;
+    }
+
+    public void entryReadWrite() {
+        setReadWrite(ReadWrite.ENTRY);
+    }
+
     public void nullReadWrite() {
-        getLastPage().setNullReadWrite();
+        setNullReadWrite();
     }
 
     public void nullReadWriteFail() {
-        getLastPage().setNullReadWriteFail();
+        setNullReadWriteFail();
     }
     public AbstractPageEl getLastPage() {
         return importing.last();

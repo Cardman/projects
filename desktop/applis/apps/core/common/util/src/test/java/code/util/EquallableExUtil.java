@@ -22,6 +22,9 @@ public abstract class EquallableExUtil {
     public static void assertNull(Integer _value) {
         Assert.assertNull(_value);
     }
+    public static void assertFalse(boolean _value) {
+        Assert.assertFalse(_value);
+    }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }

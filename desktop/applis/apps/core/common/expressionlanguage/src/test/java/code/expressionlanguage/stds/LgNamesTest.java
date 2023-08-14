@@ -1,6 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.SingleInterruptedContextEl;
 import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
@@ -9,11 +10,13 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.common.ParseLinesArgUtil;
+import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -24,6 +27,8 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.sample.CustLgNames;
+import code.expressionlanguage.structs.NullStruct;
+import code.threads.ConcreteBoolean;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -2366,6 +2371,49 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertEq(2, getNumber(ret_));
     }
 
+    @Test
+    public void stoppingTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+
+
+        KeyWords kw_ = new KeyWords();
+        CustLgNames lgName_ = getLgNames();
+
+        srcFiles_.put("src/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        Options options_ = new Options();
+        AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
+        AnalysisMessages mess_ = new AnalysisMessages();
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        page_.setAnalysisMessages(mess_);
+        page_.setKeyWords(kw_);
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        page_.setFileBuilder(fileBuilder_);
+        page_.setStandards(lgName_.getContent());
+        page_.setLogErr(new ListLoggableLgNames());
+        page_.setCalculator(calculator_);
+//        page_.setMappingKeyWords(KeyWords.mapping());
+//        page_.setMappingAliases(LgNamesContent.mapping());
+        AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
+        assertTrue(page_.isEmptyMessageError());
+        ResultContext ctx_ = validate(options_,lgName_,kw_,all_);
+        ConcreteBoolean stop_ = new ConcreteBoolean();
+        SingleInterruptedContextEl s_ = new SingleInterruptedContextEl(ctx_.getContext().getExecutionInfos(), stop_);
+        StackCall st_ = StackCall.newInstance(InitPhase.NOTHING, s_);
+        assertFalse(s_.callsOrException(st_));
+        st_.setCallingState(new CustomFoundExc(NullStruct.NULL_VALUE));
+        assertTrue(s_.callsOrException(st_));
+        stop_.set(true);
+        assertTrue(s_.callsOrException(st_));
+        assertTrue(((DefaultInitializer)s_.getInit()).exitAfterCallInt(s_,st_));
+    }
     private static void validateParamtersDuplicates(AnalyzedPageEl _s, CustList<CustList<KeyValueMemberName>> _params) {
         ValidatorStandard.validateParamtersDuplicates(_params, _s);
     }

@@ -22,6 +22,7 @@ import code.expressionlanguage.stds.ListLoggableLgNames;
 import code.expressionlanguage.utilcompo.AbsPairRateLgIntType;
 import code.maths.montecarlo.DefaultGenerator;
 import code.sml.util.TranslationsFile;
+import code.threads.ConcreteBoolean;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -75,7 +76,7 @@ public final class MockLightLgNames extends LgNames implements BuildableLgNames,
     public static ResultContext fwd(ResultContext _user) {
         Forwards f_ = _user.getForwards();
         ForwardInfos.generalForward(_user);
-        ContextEl ctx_ = new MockContextGenerator(new MockAtomicBoolean()).geneWith(f_);
+        ContextEl ctx_ = new MockContextGenerator(new ConcreteBoolean()).geneWith(f_);
         Classes.forwardAndClear(ctx_);
         _user.setContext(ctx_);
         return _user;

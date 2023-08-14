@@ -2,10 +2,11 @@ package code.expressionlanguage.exec.dbg;
 
 import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
+import code.threads.AbstractAtomicBoolean;
 
 public final class BreakPointCondition {
-    private final AbsAtBool disableWhenHit;
-    private final AbsAtBool enabled;
+    private final AbstractAtomicBoolean disableWhenHit;
+    private final AbstractAtomicBoolean enabled;
     private ResultContextLambda result;
     private String resultStr = "";
     private int countModulo;
@@ -60,11 +61,11 @@ public final class BreakPointCondition {
         this.count = _p;
     }
 
-    public AbsAtBool getDisableWhenHit() {
+    public AbstractAtomicBoolean getDisableWhenHit() {
         return disableWhenHit;
     }
 
-    public AbsAtBool getEnabled() {
+    public AbstractAtomicBoolean getEnabled() {
         return enabled;
     }
 }

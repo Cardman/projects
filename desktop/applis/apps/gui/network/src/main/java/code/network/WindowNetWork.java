@@ -46,6 +46,8 @@ import code.scripts.messages.gui.*;
 import code.sml.*;
 import code.sml.util.*;
 import code.stream.*;
+import code.threads.AbstractAtomicBooleanCore;
+import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.util.*;
 import code.util.consts.*;
 import code.util.core.*;
@@ -346,7 +348,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    private final CustList<FrameGeneralHelp> helpFrames = new CustList<FrameGeneralHelp>();
 
 //    private ContainerGame containerGame;
-    private final LoadFlag loadFlag;
+    private final AbstractAtomicBooleanCore loadFlag;
 //    private final Clock clock;
 
     private final AbsPlainLabel lastSavedGameDate;
@@ -475,7 +477,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                        CardFactories _cardFactories, AikiFactory _aikiFactory) {
         super(_lg, _list);
         netg = new WindowCardsCore(_lg, _list, _belote, _president, _tarot, _cardFactories);
-        loadFlag = new LoadFlagImpl(_list.getThreadFactory().newAtomicBoolean());
+        loadFlag = _list.getThreadFactory().newAtomicBoolean();
         facade = new FacadeGame();
         StringList lgs_ = Constants.getAvailableLanguages();
         facade.setLanguages(lgs_);
@@ -2267,7 +2269,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         if (fileName_.isEmpty()) {
             return;
         }
-        PerCent p_ = new PerCentIncr(getThreadFactory().newAtomicInteger());
+        AbstractAtomicIntegerCoreAdd p_ = getThreadFactory().newAtomicInteger();
         loadFlag.set(true);
         LoadingThreadMulti load_ = new LoadingThreadMulti(this, fileName_,p_, new DefLoadingData(facade.getLanguages(), facade.getDisplayLanguages(), facade.getSexList()));
         getThreadFactory().newStartedThread(load_);
@@ -2736,7 +2738,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         preparedPkNetTask = _preparedPkTask;
     }
 
-    public void processLoad(String _fileName, PerCent _p, LoadingData _load) {
+    public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p, LoadingData _load) {
         StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
         DocumentReaderAikiCoreUtil.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
         if (!facade.isLoadedData()) {
@@ -2809,7 +2811,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return aiki.getGameLoad();
     }
 
-    public LoadFlag getLoadFlag() {
+    public AbstractAtomicBooleanCore getLoadFlag() {
         return loadFlag;
     }
 

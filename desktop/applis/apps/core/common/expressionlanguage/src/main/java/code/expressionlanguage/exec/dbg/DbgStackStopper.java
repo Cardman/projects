@@ -376,7 +376,7 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     @Override
     public boolean callsOrException(ContextEl _owner, StackCall _stackCall) {
-        return _stackCall.callsOrException() || _stackCall.getLastPage().getReadWrite() != ReadWrite.ENTRY;
+        return _stackCall.callsOrException() || _stackCall.getReadWrite() != ReadWrite.ENTRY;
     }
 
     @Override
@@ -441,7 +441,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (s_ != null) {
             return s_;
         }
-        if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null || _stackCall.trueException() != null || getCurrentOper(_p) != null || _p.getReadWrite() != ReadWrite.ENTRY) {
+        if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null || _stackCall.trueException() != null || getCurrentOper(_p) != null || _stackCall.getReadWrite() != ReadWrite.ENTRY) {
             return StopDbgEnum.NONE;
         }
         for (int i : list(_p)) {
@@ -478,7 +478,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean exitMethod(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
-        if (exiting(_stackCall, _p)) {
+        if (exiting(_stackCall)) {
             CustList<MethodPointBlockPairRootBlock> pairs_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getPairs(_p.getBlockRoot(), _p.getGlobalClass(),_context, _p.getGlobalStruct());
             for (MethodPointBlockPairRootBlock m: pairs_) {
                 Parameters params_ = build(_p.getRefParams(), _p.getCache(), _context, m.getId());
@@ -570,10 +570,10 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (stopExcValuRetThrowCatch(_context,_stackCall, _p) != null || _stackCall.normalCallNoExit(_context)) {
             return StopDbgEnum.NONE;
         }
-        if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() == null && _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && _p.getReadWrite() != ReadWrite.ENTRY && _stackCall.nbPages() == 1) {
+        if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() == null && _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && _stackCall.getReadWrite() != ReadWrite.ENTRY && _stackCall.nbPages() == 1) {
             return StopDbgEnum.STEP_RETURN_METHOD;
         }
-        if (exiting(_stackCall, _p)) {
+        if (exiting(_stackCall)) {
             return StopDbgEnum.NONE;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() > _stackCall.nbPages()) {
@@ -597,8 +597,8 @@ public final class DbgStackStopper implements AbsStackStopper {
         return StopDbgEnum.NONE;
     }
 
-    private static boolean exiting(StackCall _stackCall, AbstractPageEl _p) {
-        return _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() == null && _p.getReadWrite() != ReadWrite.ENTRY;
+    private static boolean exiting(StackCall _stackCall) {
+        return _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() == null && _stackCall.getReadWrite() != ReadWrite.ENTRY;
     }
 
     private static boolean skipStepNotReturn(StackCall _stackCall, AbstractPageEl _p) {
@@ -837,7 +837,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean checkBreakPointCurrent(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
-        if (enterExit(_context, _stackCall, _p)) {
+        if (enterExit(_context, _stackCall)) {
             return true;
         }
         ExecBlock bl_ = _p.getBlock();
@@ -871,7 +871,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         return _infos == null || _infos.getDeclaring() != null;
     }
 
-    private static boolean enterExit(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
-        return _stackCall.normalCallNoExit(_context) || _p.getReadWrite() != ReadWrite.ENTRY;
+    private static boolean enterExit(ContextEl _context, StackCall _stackCall) {
+        return _stackCall.normalCallNoExit(_context) || _stackCall.getReadWrite() != ReadWrite.ENTRY;
     }
 }

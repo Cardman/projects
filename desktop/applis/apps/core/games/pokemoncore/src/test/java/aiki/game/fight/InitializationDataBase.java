@@ -2,7 +2,6 @@ package aiki.game.fight;
 
 import aiki.db.DataBase;
 import aiki.db.EquallablePkUtil;
-import aiki.db.PerCent;
 import aiki.facade.SexListImpl;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
@@ -21,13 +20,14 @@ import aiki.map.places.Place;
 import aiki.map.pokemon.PkTrainer;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoordsList;
-import aiki.tsts.TstsPerCentImpl;
 import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.EvolvedMathFactory;
 import code.maths.montecarlo.DefaultGenerator;
 import code.maths.montecarlo.MonteCarloNumber;
+import code.threads.AbstractAtomicIntegerCoreAdd;
+import code.threads.ConcreteInteger;
 import code.util.IdMap;
 import code.util.*;
 
@@ -888,7 +888,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         data_.initTypesByTable();
         initTranslations(data_);
         //OK data, no homonyms
-        PerCent ai_ = new TstsPerCentImpl();
+        AbstractAtomicIntegerCoreAdd ai_ = new ConcreteInteger();
         data_.validateCore(ai_);
         data_.validateConstants();
         data_.setCheckTranslation(false);

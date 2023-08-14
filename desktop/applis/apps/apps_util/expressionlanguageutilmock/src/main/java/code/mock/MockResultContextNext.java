@@ -14,6 +14,7 @@ import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.expressionlanguage.utilcompo.StringViewReplaceAliases;
 import code.sml.util.TranslationsFile;
 import code.threads.AbstractAtomicBoolean;
+import code.threads.ConcreteBoolean;
 import code.util.StringMap;
 
 public final class MockResultContextNext implements AbsResultContextNext {
@@ -69,7 +70,7 @@ public final class MockResultContextNext implements AbsResultContextNext {
 
     @Override
     public AbsAdvContextGenerator generate() {
-        return generateAdv(new MockAtomicBoolean());
+        return generateAdv(new ConcreteBoolean());
     }
 
     @Override

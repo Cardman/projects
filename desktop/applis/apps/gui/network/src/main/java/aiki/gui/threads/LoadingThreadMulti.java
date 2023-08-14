@@ -1,8 +1,8 @@
 package aiki.gui.threads;
 
-import aiki.db.PerCent;
 import aiki.sml.LoadingData;
 import code.network.WindowNetWork;
+import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.threads.AbstractScheduledExecutorService;
 
 /**This class thread is independant from EDT,
@@ -13,10 +13,10 @@ public final class LoadingThreadMulti implements Runnable {
 
     private final String fileName;
 
-    private final PerCent perCent;
+    private final AbstractAtomicIntegerCoreAdd perCent;
     private final LoadingData loadingData;
     /**This class thread is independant from EDT*/
-    public LoadingThreadMulti(WindowNetWork _window, String _fileName, PerCent _p, LoadingData _load) {
+    public LoadingThreadMulti(WindowNetWork _window, String _fileName, AbstractAtomicIntegerCoreAdd _p, LoadingData _load) {
         window = _window;
         fileName = _fileName;
         perCent = _p;

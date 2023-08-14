@@ -21,6 +21,7 @@ import code.expressionlanguage.utilimpl.LgNamesUtils;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.sml.util.TranslationsFile;
+import code.threads.ConcreteBoolean;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -333,7 +334,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
         stds_.getExecContent().getCustAliases().buildFiles(null,null);
         stds_.getGuiAliases().buildFiles(null,null);
         Options opt_ = new Options();
-        ContextEl c_ = new AdvContextGenerator(new MockAtomicBoolean()).geneWith(getForwards(stds_, opt_));
+        ContextEl c_ = new AdvContextGenerator(new ConcreteBoolean()).geneWith(getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);
         assertFalse(StringUtil.nullToEmpty(stds_.getStrAlias().getAliasStringSegment()+"_").isEmpty());
         assertFalse(StringUtil.nullToEmpty(stds_.getAliasLgInt()+"_").isEmpty());

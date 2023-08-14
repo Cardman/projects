@@ -7,8 +7,8 @@ import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.InterruptibleContextEl;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
-import code.mock.MockAtomicBoolean;
 import code.mock.MockMenuItem;
+import code.threads.ConcreteBoolean;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -452,7 +452,7 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         tabEditor(w_).getCompleteClasses().enterEvent();
         selectClass(w_);
         assertTrue(tabEditor(w_).getFindingExpression().isEnabled());
-        MockAtomicBoolean v_ = new MockAtomicBoolean();
+        ConcreteBoolean v_ = new ConcreteBoolean();
         InterruptibleContextEl c_ = (InterruptibleContextEl) w_.getResultContextNext().generateAdv(v_).gene(w_.getBaseResult().getForwards());
         tabEditor(w_).setAction(c_);
         findStop(w_);

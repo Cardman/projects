@@ -8,7 +8,7 @@ public final class MockThreadFactory implements AbstractThreadFactory {
     private final AbstractDateFactory mockDateFactory = new MockDateFactory();
     private final AbstractScheduledExecutorService scheduledExecutorService = new MockScheduledExecutorService();
     private final AbstractBaseExecutorService baseExecutorService = new MockBaseExecutorService();
-    private final AbstractAtomicLong ids = new MockAtomicLong();
+    private final AbstractAtomicLong ids = new ConcreteLong();
     private final MockFileSet fileSet;
 
     public MockThreadFactory(AbstractGenerator _gen, MockFileSet _mfs) {
@@ -82,31 +82,31 @@ public final class MockThreadFactory implements AbstractThreadFactory {
 
     @Override
     public AbstractAtomicBoolean newAtomicBoolean() {
-        return new MockAtomicBoolean();
+        return new ConcreteBoolean();
     }
 
     @Override
     public AbstractAtomicBoolean newAtomicBoolean(boolean _value) {
-        return new MockAtomicBoolean(_value);
+        return new ConcreteBoolean(_value);
     }
 
     @Override
     public AbstractAtomicInteger newAtomicInteger() {
-        return new MockAtomicInteger();
+        return new ConcreteInteger();
     }
 
     @Override
     public AbstractAtomicInteger newAtomicInteger(int _value) {
-        return new MockAtomicInteger(_value);
+        return new ConcreteInteger(_value);
     }
 
     @Override
     public AbstractAtomicLong newAtomicLong() {
-        return new MockAtomicLong();
+        return new ConcreteLong();
     }
 
     @Override
     public AbstractAtomicLong newAtomicLong(long _value) {
-        return new MockAtomicLong(_value);
+        return new ConcreteLong(_value);
     }
 }

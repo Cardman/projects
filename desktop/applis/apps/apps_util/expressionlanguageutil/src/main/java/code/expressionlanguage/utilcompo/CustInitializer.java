@@ -30,14 +30,6 @@ public class CustInitializer extends DefaultInitializer {
         return new RunnableStruct((RunnableContextEl) _context, _className.getFormatted(), _fieldName, _ordinal, _fields, _parent, _parent.getClassName(_context));
     }
 
-    @Override
-    protected boolean exitAfterCall(ContextEl _owner, StackCall _stack) {
-        if (((RunnableContextEl)_owner).stopped()) {
-            return true;
-        }
-        return super.exitAfterCall(_owner, _stack);
-    }
-
     String getCurrentTreadIdDate(RunnableContextEl _ctx) {
     	return _ctx.getIdDate();
 	}

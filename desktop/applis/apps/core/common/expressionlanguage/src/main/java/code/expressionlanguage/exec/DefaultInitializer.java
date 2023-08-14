@@ -75,7 +75,7 @@ public class DefaultInitializer implements Initializer {
         _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCallingStateSub(null);
         while (true) {
             AbstractInterceptorStdCaller caller_ = _owner.getCaller();
-            if (caller_.stop(this,_owner, _stackCall) || caller_.exitAfterCallInt(this,_owner, _stackCall)) {
+            if (caller_.stop(this,_owner, _stackCall)) {
                 return;
             }
         }
@@ -97,12 +97,12 @@ public class DefaultInitializer implements Initializer {
         if (_stackCall.getStopper().stopAt(_stackCall)) {
             _stackCall.getBreakPointInfo().getStackState().setCheckingBp(false);
             if (_stackCall.normalCallNoExit(_owner)) {
-                return false;
+                return exitAfterCallInt(_owner, _stackCall);
             }
             afterCheckExit(_owner, _stackCall);
         }
         AbstractPageEl p_ = _stackCall.getLastPage();
-        ReadWrite rw_ = p_.getReadWrite();
+        ReadWrite rw_ = _stackCall.getReadWrite();
         if (rw_ == ReadWrite.EXIT) {
             success(_owner, p_);
             _stackCall.removeLastPage();
@@ -115,12 +115,13 @@ public class DefaultInitializer implements Initializer {
             }
             AbstractPageEl b_ = _stackCall.getLastPage();
             tryForward(_owner, p_, b_, _stackCall);
+            _stackCall.entryReadWrite();
         } else if (rw_ == ReadWrite.EXIT_FAIL) {
             Struct custCause_ = _owner.getLocks().processErrorClass(_owner, p_.getThrown().getStruct(), p_, _stackCall);
             _stackCall.removeLastPage();
             if (!_stackCall.hasPages()) {
                 _stackCall.setCallingState(new CustomFoundExc(custCause_,_stackCall));
-                return false;
+                return true;
             }
             p_.setThrown(new CustomFoundExc(custCause_,_stackCall));
             if (_stackCall.getStopper().hasToCheckExit(_stackCall,p_)) {
@@ -129,9 +130,10 @@ public class DefaultInitializer implements Initializer {
                 return false;
             }
             _stackCall.setCallingState(p_.getThrown());
+            _stackCall.entryReadWrite();
         }
         iterate(_owner, _stackCall);
-        return false;
+        return exitAfterCallInt(_owner, _stackCall);
     }
 
     private void success(ContextEl _owner, AbstractPageEl _p) {
@@ -143,12 +145,13 @@ public class DefaultInitializer implements Initializer {
     private void afterCheckExit(ContextEl _owner, StackCall _stackCall) {
         AbstractPageEl ex_ = _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting();
         if (ex_ != null) {
-            if (ex_.getReadWrite() == ReadWrite.EXIT) {
+            if (_stackCall.getReadWrite() == ReadWrite.EXIT) {
                 tryForward(_owner, ex_, _stackCall.getLastPage(), _stackCall);
             } else {
                 _stackCall.setCallingState(ex_.getThrown());
             }
             _stackCall.getBreakPointInfo().getStackState().visitedNone();
+            _stackCall.entryReadWrite();
         }
         _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setExiting(null);
     }
@@ -203,7 +206,7 @@ public class DefaultInitializer implements Initializer {
     }
 
     public boolean exitAfterCallInt(ContextEl _owner, StackCall _stack) {
-        return exitAfterCall(_owner, _stack);
+        return _owner.stopped() || exitAfterCall(_owner, _stack);
     }
     protected boolean exitAfterCall(ContextEl _owner, StackCall _stack) {
         if (_stack.getStopper().stopAt(_stack)) {

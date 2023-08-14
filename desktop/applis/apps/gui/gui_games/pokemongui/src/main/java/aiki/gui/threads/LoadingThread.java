@@ -3,9 +3,9 @@ package aiki.gui.threads;
 import aiki.main.LoadGame;
 import aiki.main.OpeningGame;
 import aiki.sml.LoadingData;
-import aiki.db.PerCent;
 import aiki.gui.WindowAiki;
 import code.gui.GuiBaseUtil;
+import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
 
@@ -17,10 +17,10 @@ public final class LoadingThread implements Runnable {
 
     private final String fileName;
 
-    private final PerCent perCent;
+    private final AbstractAtomicIntegerCoreAdd perCent;
     private final LoadingData loadingData;
     /**This class thread is independant from EDT*/
-    public LoadingThread(WindowAiki _window, String _fileName, PerCent _p, LoadingData _load) {
+    public LoadingThread(WindowAiki _window, String _fileName, AbstractAtomicIntegerCoreAdd _p, LoadingData _load) {
         window = _window;
         fileName = _fileName;
         perCent = _p;
@@ -29,7 +29,7 @@ public final class LoadingThread implements Runnable {
 
     @Override
     public void run() {
-        PerCent p_ = new PerCentIncr(window.getThreadFactory().newAtomicInteger());
+        AbstractAtomicIntegerCoreAdd p_ = window.getThreadFactory().newAtomicInteger();
         AbstractScheduledExecutorService sch_ = window.getThreadFactory().newScheduledExecutorService();
         LoadGame opening_ = new LoadGame(window,p_);
         LoadGame.init(window);

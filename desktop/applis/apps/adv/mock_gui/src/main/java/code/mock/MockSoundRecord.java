@@ -2,13 +2,15 @@ package code.mock;
 
 import code.stream.AbsPlayBack;
 import code.stream.AbsSoundRecord;
+import code.threads.AbstractAtomicBoolean;
+import code.threads.ConcreteBoolean;
 import code.util.Ints;
 
 public final class MockSoundRecord implements AbsSoundRecord {
     private final Ints bytes = new Ints();
     private final Ints out = new Ints();
     private int indexRead = -1;
-    private final MockAtomicBoolean state = new MockAtomicBoolean(false);
+    private final ConcreteBoolean state = new ConcreteBoolean(false);
     private boolean active;
     private int readValue;
 
@@ -77,7 +79,7 @@ public final class MockSoundRecord implements AbsSoundRecord {
     }
 
     @Override
-    public MockAtomicBoolean getState() {
+    public AbstractAtomicBoolean getState() {
         return state;
     }
 

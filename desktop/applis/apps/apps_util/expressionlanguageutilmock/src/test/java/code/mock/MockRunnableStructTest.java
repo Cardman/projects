@@ -26,6 +26,7 @@ import code.gui.AbsGraphicListStr;
 import code.sml.util.TranslationsFile;
 import code.threads.AbstractConcurrentMap;
 import code.threads.AbstractThread;
+import code.threads.ConcreteLong;
 import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -34,15 +35,15 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
     @Test
     public void c14() {
         AbstractInterceptorStdCaller int_ = new MockInterceptor().newInterceptorStdCaller("");
-        assertTrue(int_.exitAfterCallInt(new MockInitializer(),null,null));
         assertTrue(int_.stop(new MockInitializer(),null,null));
         assertTrue(int_.stopNormal(new MockInitializer(),null,null));
         assertTrue(int_.invoke(new MockStdCaller(),null,null,null,null,null).getValue().getStruct().sameReference(NullStruct.NULL_VALUE));
+        assertTrue(new MockInitializer().exitAfterCallInt(null,null));
     }
     @Test
     public void t17() {
         MockRunnableStruct r_ = new MockRunnableStruct("");
-        MockThread th_ = new MockThread(r_, true, new MockAtomicLong());
+        MockThread th_ = new MockThread(r_, true, new ConcreteLong());
         th_.start();
         assertTrue(r_.isStarted());
     }

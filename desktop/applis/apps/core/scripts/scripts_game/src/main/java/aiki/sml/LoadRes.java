@@ -13,6 +13,8 @@ import aiki.fight.util.*;
 import code.images.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
+import code.threads.AbstractAtomicBooleanCore;
+import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.util.*;
 import aiki.facade.enums.*;
 import code.util.consts.Constants;
@@ -48,11 +50,11 @@ public final class LoadRes{
         return Constants.getDisplayLanguages();
     }
 
-    public static void loadResources(AbstractGenerator _gene, FacadeGame _f, PerCent _p, LoadFlag _l, LoadingData _loading) {
+    public static void loadResources(AbstractGenerator _gene, FacadeGame _f, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l, LoadingData _loading) {
         DataBase data_ = _loading.loadResource(_gene, _p, _l);
         LoadRes.postLoad(_f, data_);
     }
-    public static DataBase loadResource(AbstractGenerator _gene, PerCent _p, LoadFlag _l, StringList _languages, StringMap<String> _displayLanguages, SexListInt _sexList) {
+    public static DataBase loadResource(AbstractGenerator _gene, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l, StringList _languages, StringMap<String> _displayLanguages, SexListInt _sexList) {
         DataBase data_ = new DataBase(_gene);
         data_.setLanguages(_languages);
         data_.setDisplayLanguages(_displayLanguages);
@@ -71,8 +73,8 @@ public final class LoadRes{
         _f.setZipName(DataBase.EMPTY_STRING);
     }
 
-    public static void loadResources(DataBase _d, PerCent _perCentLoading, SexListInt _sexList) {
-        int delta_ = (100 - _perCentLoading.getPercent()) / 6;
+    public static void loadResources(DataBase _d, AbstractAtomicIntegerCoreAdd _perCentLoading, SexListInt _sexList) {
+//        int delta_ = (100 - _perCentLoading.get()) / 6;
 
         _d.initializeMembers();
 		for (EntryCust<String,String> c: Cst.cs().entryList()) {
@@ -125,7 +127,7 @@ public final class LoadRes{
         _d.setCombos(CoInit.co());
         _d.completeMembersCombos();
         _d.setMap(Dm.map());
-        _perCentLoading.addPercent(delta_);
+//        _perCentLoading.addPercent(delta_);
         _d.setConstNum(new StringMap<Rate>());
 //        StringList lines_;
         //= StringUtil.splitChars(cts_.getVal(CONST_NUM),
@@ -300,7 +302,7 @@ public final class LoadRes{
             StringMap<String> litteral_ = trLitt(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_LITTERAL));
             _d.getLitterals().addEntry(l, litteral_);
         }
-        _perCentLoading.addPercent(delta_);
+//        _perCentLoading.addPercent(delta_);
         feedImgs(AnStatis.im(), _d.getAnimStatis());
         feedImgs(AnStatus.im(), _d.getAnimStatus());
         _d.setAnimAbsorb(BaseSixtyFourUtil.getImageByString(AnAbs.im().firstValue()));
@@ -323,7 +325,7 @@ public final class LoadRes{
         }
         _d.completeVariables();
         _d.sortEndRound();
-        _perCentLoading.addPercent(delta_);
+//        _perCentLoading.addPercent(delta_);
         _d.completeMoveTutors();
 //        for (PokemonData pk_ : _d.getPokedex().values()) {
 //            for (short hm_ : pk_.getHiddenMoves()) {
@@ -349,7 +351,7 @@ public final class LoadRes{
         feedImgs(ItIm.im(), _d.getMiniItems());
         _d.setTypesImages(new StringMap<int[][]>());
         feedImgs(TypeImg.im(), _d.getTypesImages());
-        _perCentLoading.addPercent(delta_);
+//        _perCentLoading.addPercent(delta_);
         _d.getMap().initializeLinks();
         _d.getMap().initInteractiveElements();
         _d.getMap().initializeTree();
@@ -372,9 +374,9 @@ public final class LoadRes{
         }
         _d.getMiniMap().addEntry(_d.getMap().getUnlockedCity(), BaseSixtyFourUtil
                 .getImageByString(imMiMap_.getVal(_d.getMap().getUnlockedCity())));
-        _perCentLoading.addPercent(delta_);
+//        _perCentLoading.addPercent(delta_);
         _d.initializeWildPokemon();
-        _perCentLoading.addPercent(delta_);
+//        _perCentLoading.addPercent(delta_);
 
         _d.getFamilies().addAllEntries(PkInit.fs());
 //        _d.initFamilies();
@@ -407,7 +409,7 @@ public final class LoadRes{
 //        }
         _d.setupPseudoImages();
         _d.getConstNum().addEntry(DataBase.DEF_BASE_MOVE,new Rate("1"));
-        _perCentLoading.setPercent(100);
+        _perCentLoading.set(100);
     }
 
     private static void patch(DataBase _d) {

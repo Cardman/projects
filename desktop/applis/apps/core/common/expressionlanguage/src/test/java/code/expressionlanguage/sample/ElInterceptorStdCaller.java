@@ -10,6 +10,8 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.Struct;
+import code.threads.AbstractAtomicBoolean;
+import code.threads.ConcreteBoolean;
 
 public final class ElInterceptorStdCaller implements AbstractInterceptorStdCaller {
     @Override
@@ -19,11 +21,6 @@ public final class ElInterceptorStdCaller implements AbstractInterceptorStdCalle
     @Override
     public boolean stopNormal(Initializer _init, ContextEl _owner, StackCall _stackCall) {
         return _init.stopNormal(_owner, _stackCall);
-    }
-
-    @Override
-    public boolean exitAfterCallInt(Initializer _init, ContextEl _owner, StackCall _stack) {
-        return _init.exitAfterCallInt(_owner, _stack);
     }
 
     @Override
@@ -57,7 +54,7 @@ public final class ElInterceptorStdCaller implements AbstractInterceptorStdCalle
     }
 
     @Override
-    public AbsAtBool newAtBool() {
-        return new ConcBool();
+    public AbstractAtomicBoolean newAtBool() {
+        return new ConcreteBoolean();
     }
 }

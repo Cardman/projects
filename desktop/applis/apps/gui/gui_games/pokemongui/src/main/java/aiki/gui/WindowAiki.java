@@ -52,6 +52,8 @@ import code.scripts.messages.gui.MessGuiPkGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.*;
 import code.stream.core.TechStreams;
+import code.threads.AbstractAtomicBooleanCore;
+import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractThread;
 //import code.util.CustList;
@@ -210,7 +212,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private AbstractThread fightIntroThreadLau;
 
     private final VideoLoading videoLoading = new VideoLoading();
-    private final LoadFlag loadFlag;
+    private final AbstractAtomicBooleanCore loadFlag;
     private PreparedRenderedPages preparedDataWebTask;
     private PreparedRenderedPages preparedFightTask;
     private PreparedRenderedPages preparedPkTask;
@@ -267,7 +269,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         dialogHtmlData = new DialogHtmlData(_list);
         softParams = new DialogSoftParams(_list);
 //        dialogServer = new DialogServerAiki(_list);
-        loadFlag = new LoadFlagImpl(_list.getThreadFactory().newAtomicBoolean());
+        loadFlag = _list.getThreadFactory().newAtomicBoolean();
         aikiFactory = _aikiFactory;
         setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
@@ -570,7 +572,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     /**thread safe method*/
-    public void loadOnlyRom(String _file, PerCent _p, LoadingData _loadingData) {
+    public void loadOnlyRom(String _file, AbstractAtomicIntegerCoreAdd _p, LoadingData _loadingData) {
         if (!_file.isEmpty()) {
             //startThread = true;
             StringMap<String> files_ = StreamFolderFile.getFiles(_file,getFileCoreStream(),getStreams());
@@ -592,7 +594,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     /**thread safe method*/
-    public void loadRomGame(LoadingGame _configuration, String _path, StringList _files, boolean _param, PerCent _p, LoadingData _loadingData) {
+    public void loadRomGame(LoadingGame _configuration, String _path, StringList _files, boolean _param, AbstractAtomicIntegerCoreAdd _p, LoadingData _loadingData) {
         String path_;
         if (!_configuration.getLastRom().isEmpty()) {
             String lastRom_ = StringUtil.replaceBackSlash(_configuration.getLastRom());
@@ -845,7 +847,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         if (fileName_.isEmpty()) {
             return;
         }
-        PerCent p_ = new PerCentIncr(getThreadFactory().newAtomicInteger());
+        AbstractAtomicIntegerCoreAdd p_ = getThreadFactory().newAtomicInteger();
         loadFlag.set(true);
         LoadingThread load_ = new LoadingThread(this, fileName_,p_, new DefLoadingData(facade.getLanguages(), facade.getDisplayLanguages(), facade.getSexList()));
         getThreadFactory().newStartedThread(load_);
@@ -1078,7 +1080,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         SoftApplicationCore.saveCoords(LaunchingPokemon.getTempFolder(getFrames()),Resources.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
     }
 
-    public void processLoad(String _fileName, PerCent _p, LoadingData _load) {
+    public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p, LoadingData _load) {
         StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
         DocumentReaderAikiCoreUtil.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
         if (!facade.isLoadedData()) {
@@ -1624,7 +1626,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         return DocumentReaderAikiMultiUtil.getExiting(_doc);
     }*/
 
-    public LoadFlag getLoadFlag() {
+    public AbstractAtomicBooleanCore getLoadFlag() {
         return loadFlag;
     }
 

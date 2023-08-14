@@ -1,9 +1,6 @@
 package code.threads;
 
-public interface AbstractAtomicBoolean {
-    boolean get();
-
-    void set(boolean _value);
+public interface AbstractAtomicBoolean extends AbstractAtomicBooleanCore {
 
     boolean compareAndSet(boolean _one, boolean _two);
 

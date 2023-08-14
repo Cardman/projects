@@ -7,7 +7,6 @@ import code.expressionlanguage.utilcompo.MemoryLogger;
 import code.expressionlanguage.utilcompo.MemoryReporter;
 import code.expressionlanguage.utilcompo.TechInfos;
 import code.maths.montecarlo.CustomSeedGene;
-import code.mock.MockAtomicBoolean;
 import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
 import code.stream.BytesInfo;

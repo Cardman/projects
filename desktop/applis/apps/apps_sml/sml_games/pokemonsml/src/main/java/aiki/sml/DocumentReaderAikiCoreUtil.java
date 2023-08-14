@@ -193,6 +193,8 @@ import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
 import code.sml.util.ResourcesMessagesUtil;
+import code.threads.AbstractAtomicBooleanCore;
+import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.util.*;
 import aiki.facade.enums.SelectedBoolean;
 import code.util.core.BoolVal;
@@ -900,7 +902,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
     // Load rom option
     public static void loadRomAndCheck(AbstractGenerator _gene, FacadeGame _f, String _fileName,
-                                       StringMap<String> _files, PerCent _p, LoadFlag _l) {
+                                       StringMap<String> _files, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l) {
         DataBase data_ = loadedRom(_gene,_f,_files,_p,_l);
         if (data_ == null) {
             _f.setLoadedData(false);
@@ -918,7 +920,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         data_.initializeWildPokemon();
-        _p.setPercent(99);
+        _p.set(99);
         if (!_l.get()) {
             return;
         }
@@ -927,11 +929,11 @@ public final class DocumentReaderAikiCoreUtil {
             data_.setMessages(_f.getData());
         }
         _f.setData(data_);
-        _p.setPercent(100);
+        _p.set(100);
         _f.setLoadedData(true);
     }
     // Load rom first
-    private static DataBase loadedRom(AbstractGenerator _gene, FacadeGame _f, StringMap<String> _files, PerCent _p, LoadFlag _l) {
+    private static DataBase loadedRom(AbstractGenerator _gene, FacadeGame _f, StringMap<String> _files, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l) {
         DataBase data_ = new DataBase(_gene);
         data_.setLanguages(_f.getLanguages());
         data_.setDisplayLanguages(_f.getDisplayLanguages());
@@ -964,12 +966,12 @@ public final class DocumentReaderAikiCoreUtil {
         String loadedResourcesMessages_ = _map.getVal(fileName_);
         return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
-    public static void loadRom(DataBase _d, StringMap<String> _files, PerCent _perCentLoading, SexListInt _sexList) {
+    public static void loadRom(DataBase _d, StringMap<String> _files, AbstractAtomicIntegerCoreAdd _perCentLoading, SexListInt _sexList) {
         if (_files == null) {
             _d.setError(true);
             return;
         }
-        _perCentLoading.setPercent(0);
+        _perCentLoading.set(0);
         _d.initializeMembers();
         StringMap<String> files_;
         CustList<String> listRelativePaths_;
@@ -1042,7 +1044,7 @@ public final class DocumentReaderAikiCoreUtil {
 //            }
 
         }
-        _perCentLoading.setPercent(5);
+        _perCentLoading.set(5);
         StringList filesNames_;
         filesNames_ = new StringList();
 
@@ -1079,7 +1081,7 @@ public final class DocumentReaderAikiCoreUtil {
             MoveData move_ = DocumentReaderAikiCoreUtil.getMoveData(notNull(files_, StringUtil.concat(common_, f)));
             _d.completeMembers(DataBase.toUpperCase(n_), move_);
         }
-        _perCentLoading.setPercent(10);
+        _perCentLoading.set(10);
         String fileHmTm_ = notNull(files_, StringUtil.concat(common_, CT_CS_FILE));
         StringList tmHm_;
         tmHm_ = StringUtil.splitChars(
@@ -1156,7 +1158,7 @@ public final class DocumentReaderAikiCoreUtil {
             Status st_ = DocumentReaderAikiCoreUtil.getStatus(notNull(files_, StringUtil.concat(common_, f)));
             _d.completeMembers(DataBase.toUpperCase(n_), st_);
         }
-        _perCentLoading.setPercent(15);
+        _perCentLoading.set(15);
         _d.completeVariables();
         filesNames_.clear();
         _d.setImages(new StringMap<int[][]>());
@@ -1315,7 +1317,7 @@ public final class DocumentReaderAikiCoreUtil {
                     .getImageByString(notNull(files_, StringUtil.concat(common_,
                             s))));
         }
-        _perCentLoading.setPercent(25);
+        _perCentLoading.set(25);
         filesNames_.clear();
         _d.setMiniItems(new StringMap<int[][]>());
 
@@ -1485,7 +1487,7 @@ public final class DocumentReaderAikiCoreUtil {
                 DataBase.IMG_FILES_RES_EXT_TXT));
         _d.setEndGameImage(BaseSixtyFourUtil.getImageByString(endGame_));
         _d.initTranslations();
-        _perCentLoading.setPercent(30);
+        _perCentLoading.set(30);
         for (String l : _d.getLanguages()) {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
@@ -1749,7 +1751,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             _d.getLitterals().put(l, litteral_);
         }
-        _perCentLoading.setPercent(35);
+        _perCentLoading.set(35);
 
         for (String f : filterBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(DataBase.ANIM_STATIS, DataBase.SEPARATOR_FILES))) {
@@ -1778,7 +1780,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         String anAbs_ = notNull(files_, StringUtil.concat(common_, DataBase.ANIM_ABSORB));
         _d.setAnimAbsorb(BaseSixtyFourUtil.getImageByString(anAbs_));
-        _perCentLoading.setPercent(40);
+        _perCentLoading.set(40);
     }
 
 

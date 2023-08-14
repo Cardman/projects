@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.*;
@@ -24,7 +23,6 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
 
     private final ExecFormattedRootBlock globalClass;
 
-    private ReadWrite readWrite = ReadWrite.ENTRY;
     private ExecBlock execBlock;
     private ExecBlock blockRoot;
 
@@ -263,21 +261,6 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
 
     public void setBlock(ExecBlock _block) {
         execBlock = _block;
-    }
-
-    public ReadWrite getReadWrite() {
-        return readWrite;
-    }
-    public void setNullReadWrite() {
-        setReadWrite(ReadWrite.EXIT);
-    }
-
-    public void setNullReadWriteFail() {
-        setReadWrite(ReadWrite.EXIT_FAIL);
-    }
-
-    public void setReadWrite(ReadWrite _readWrite) {
-        readWrite = _readWrite;
     }
 
     public ExecBlock getBlockRoot() {

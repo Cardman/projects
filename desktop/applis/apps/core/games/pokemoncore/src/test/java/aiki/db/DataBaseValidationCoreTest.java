@@ -27,10 +27,10 @@ import aiki.map.places.Place;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoordsList;
-import aiki.tsts.TstsPerCentImpl;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.DefaultGenerator;
+import code.threads.ConcreteInteger;
 import code.util.*;
 import code.util.core.BoolVal;
 import org.junit.Test;
@@ -134,7 +134,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.initCombosTest();
-        data_.validateCore(new TstsPerCentImpl());
+        data_.validateCore(new ConcreteInteger());
         assertTrue(data_.isError());
     }
 
@@ -172,7 +172,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.initCombosTest();
-        data_.validateCore(new TstsPerCentImpl());
+        data_.validateCore(new ConcreteInteger());
         assertTrue(data_.isError());
     }
 
@@ -370,7 +370,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.initCombosTest();
-        data_.validateCore(new TstsPerCentImpl());
+        data_.validateCore(new ConcreteInteger());
         assertTrue(data_.isError());
     }
 
@@ -415,7 +415,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.initCombosTest();
-        data_.validateCore(new TstsPerCentImpl());
+        data_.validateCore(new ConcreteInteger());
         assertTrue(data_.isError());
     }
 
@@ -450,7 +450,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.initCombosTest();
-        data_.validateCore(new TstsPerCentImpl());
+        data_.validateCore(new ConcreteInteger());
         assertTrue(data_.isError());
     }
 
@@ -503,7 +503,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.initCombosTest();
-        data_.validateCore(new TstsPerCentImpl());
+        data_.validateCore(new ConcreteInteger());
         assertTrue(data_.isError());
     }
 
@@ -540,7 +540,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.initCombosTest();
-        data_.validateCore(new TstsPerCentImpl());
+        data_.validateCore(new ConcreteInteger());
         assertTrue(data_.isError());
     }
 
@@ -697,7 +697,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         effectCombo_.getTeamMove().add(Instances.newEffectTeam());
         effectCombo_.getTeamMove().add(Instances.newEffectTeam());
         data_.getCombos().getEffects().add(new ListEffectCombo(new StringList(TREMPETTE), effectCombo_));
-        data_.validateCore(new TstsPerCentImpl());
+        data_.validateCore(new ConcreteInteger());
         assertTrue(data_.isError());
     }
 
@@ -793,7 +793,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.initCombosTest();
-        data_.validateCore(new TstsPerCentImpl());
+        data_.validateCore(new ConcreteInteger());
         assertTrue(data_.isError());
     }
 
@@ -831,7 +831,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         data_.sortEndRound();
         data_.completeVariables();
         data_.initCombosTest();
-        data_.validateCore(new TstsPerCentImpl());
+        data_.validateCore(new ConcreteInteger());
         assertTrue(data_.isError());
     }
 
@@ -910,7 +910,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         data_.sortEndRound();
         data_.completeVariables();
         data_.initCombosTest();
-        data_.validateCore(new TstsPerCentImpl());
+        data_.validateCore(new ConcreteInteger());
         assertTrue(data_.isError());
         assertTrue(!new StatisticPokemon(Statistic.HP,ELECTRICK).eq(new StatisticPokemon(Statistic.HP,CHARGE4)));
     }
@@ -945,7 +945,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         data_.sortEndRound();
         data_.completeVariables();
         data_.initCombosTest();
-        data_.validateCore(new TstsPerCentImpl());
+        data_.validateCore(new ConcreteInteger());
         assertTrue(data_.isError());
     }
 
@@ -976,7 +976,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         data_.sortEndRound();
         data_.completeVariables();
         data_.initCombosTest();
-        data_.validateCore(new TstsPerCentImpl());
+        data_.validateCore(new ConcreteInteger());
         assertTrue(data_.isError());
     }
 }

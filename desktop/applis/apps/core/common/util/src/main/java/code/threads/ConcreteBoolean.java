@@ -1,13 +1,11 @@
-package code.mock;
+package code.threads;
 
-import code.threads.AbstractAtomicBoolean;
-
-public final class MockAtomicBoolean implements AbstractAtomicBoolean {
+public final class ConcreteBoolean implements AbstractAtomicBoolean{
     private boolean value;
-    public MockAtomicBoolean() {
+    public ConcreteBoolean() {
         this(false);
     }
-    public MockAtomicBoolean(boolean _v) {
+    public ConcreteBoolean(boolean _v) {
         value = _v;
     }
     @Override

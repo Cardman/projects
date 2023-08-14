@@ -2,14 +2,13 @@ package aiki.gui.dialogs;
 
 
 
-import aiki.db.LoadFlag;
 import aiki.gui.dialogs.events.ClosingProgressingDialog;
-import aiki.gui.threads.LoadFlagImpl;
 import code.gui.*;
 import code.gui.animations.AnimatedImage;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
+import code.threads.AbstractAtomicBooleanCore;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
 import code.util.CustList;
@@ -39,12 +38,12 @@ public final class ProgressingDialog implements ProgressDialog {
 
     private AnimatedImage animation;
     private GroupFrame window;
-    private LoadFlag loadFlag;
+    private AbstractAtomicBooleanCore loadFlag;
     private AbsPlainLabel comp;
 
     public ProgressingDialog(AbstractProgramInfos _frameFactory) {
         absDialog = _frameFactory.getFrameFactory().newDialog(new ClosingProgressingDialog(this));
-        loadFlag = new LoadFlagImpl(_frameFactory.getThreadFactory().newAtomicBoolean());
+        loadFlag =_frameFactory.getThreadFactory().newAtomicBoolean();
         comp = _frameFactory.getCompoFactory().newPlainLabel("");
     }
 
@@ -62,7 +61,7 @@ public final class ProgressingDialog implements ProgressDialog {
         return absDialog.getTitle();
     }
 
-    public void init(LoadFlag _load, GroupFrame _window, CustList<AbstractImage> _images, boolean _setVisibility) {
+    public void init(AbstractAtomicBooleanCore _load, GroupFrame _window, CustList<AbstractImage> _images, boolean _setVisibility) {
         loadFlag = _load;
         absDialog.setDialogIcon(_window.getImageFactory(),_window.getCommonFrame());
         window = _window;

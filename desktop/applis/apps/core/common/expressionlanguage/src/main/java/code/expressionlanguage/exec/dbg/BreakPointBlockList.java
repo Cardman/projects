@@ -20,6 +20,7 @@ import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.structs.Struct;
+import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -27,7 +28,7 @@ public final class BreakPointBlockList {
     private final AbsCollection<BreakPointBlockPair> list;
     private final AbsCollection<BreakPointBlockPair> listTmp;
     private final AbstractInterceptorStdCaller interceptor;
-    private final AbsAtBool pausedLoop;
+    private final AbstractAtomicBoolean pausedLoop;
     private final AbsCollection<WatchPointBlockPair> watchList;
     private final AbsCollection<ExcPointBlockPair> excPointList;
     private final AbsCollection<MethodPointBlockPair> methPointList;
@@ -464,7 +465,7 @@ public final class BreakPointBlockList {
         return listTmp;
     }
 
-    public AbsAtBool getPausedLoop() {
+    public AbstractAtomicBoolean getPausedLoop() {
         return pausedLoop;
     }
 }

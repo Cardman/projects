@@ -1,14 +1,13 @@
 package aiki.main;
 
 import aiki.db.DataBase;
-import aiki.db.PerCent;
 import aiki.gui.WindowAiki;
-import aiki.gui.threads.PerCentIncr;
 import aiki.sml.LoadingData;
 import aiki.sml.LoadingGame;
 import code.gui.GuiBaseUtil;
 import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
+import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
 import code.util.StringList;
@@ -54,7 +53,7 @@ public final class CreateMainWindowParam implements Runnable {
             path_ = DataBase.EMPTY_STRING;
         }
         loadRom_ = path_;
-        PerCent p_ = new PerCentIncr(window.getThreadFactory().newAtomicInteger());
+        AbstractAtomicIntegerCoreAdd p_ = window.getThreadFactory().newAtomicInteger();
         AbstractScheduledExecutorService sch_ = window.getThreadFactory().newScheduledExecutorService();
         window.getLoadFlag().set(true);
         OpeningGame opening_ = new OpeningGame(window,p_);

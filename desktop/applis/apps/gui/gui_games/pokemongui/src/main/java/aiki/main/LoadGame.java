@@ -1,7 +1,7 @@
 package aiki.main;
-import aiki.db.PerCent;
 import aiki.gui.WindowAiki;
 import code.gui.ThreadInvoker;
+import code.threads.AbstractAtomicIntegerCoreAdd;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -9,9 +9,9 @@ public final class LoadGame implements Runnable {
 
     private WindowAiki frame;
 
-    private PerCent perCent;
+    private AbstractAtomicIntegerCoreAdd perCent;
     /**This class thread is independant from EDT*/
-    public LoadGame(WindowAiki _frame, PerCent _p) {
+    public LoadGame(WindowAiki _frame, AbstractAtomicIntegerCoreAdd _p) {
         frame = _frame;
         VideoLoading video_ = frame.getVideoLoading();
         frame.getDialog().init(frame.getLoadFlag(),frame, video_.getVideo(frame.getGenerator(),frame.getFileCoreStream(), frame.getFrames()), false);
@@ -20,7 +20,7 @@ public final class LoadGame implements Runnable {
 
     @Override
     public void run() {
-        setProgress(perCent.getPercent());
+        setProgress(perCent.get());
     }
 
     public static void init(WindowAiki _frame) {

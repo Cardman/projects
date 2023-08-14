@@ -15,5 +15,4 @@ public interface Initializer {
     void loopCalling(ContextEl _owner, StackCall _stackCall);
     boolean stop(ContextEl _owner, StackCall _stackCall);
     boolean stopNormal(ContextEl _owner, StackCall _stackCall);
-    boolean exitAfterCallInt(ContextEl _owner, StackCall _stack);
 }

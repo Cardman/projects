@@ -52,6 +52,8 @@ import code.maths.litteral.EvolvedMathFactory;
 import code.maths.litteral.EvolvedNumString;
 import code.maths.litteralcom.MathExpUtil;
 import code.maths.montecarlo.AbstractGenerator;
+import code.threads.AbstractAtomicBooleanCore;
+import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdList;
@@ -617,7 +619,16 @@ public class DataBase {
         trainers.put(_fileName, _img);
     }
 
-    public void validate(PerCent _perCentLoading, LoadFlag _loading,SexListInt _sexListInt) {
+    public void validate(AbstractAtomicIntegerCoreAdd _perCentLoading, AbstractAtomicBooleanCore _loading, SexListInt _sexListInt) {
+        validateOne(_perCentLoading);
+        validateTwo(_loading,_perCentLoading);
+        validateThree(_loading,_perCentLoading);
+        validateFour(_loading,_perCentLoading);
+        validateFive(_loading,_perCentLoading,_sexListInt);
+        validateSix(_loading,_perCentLoading);
+
+    }
+    public void validateOne(AbstractAtomicIntegerCoreAdd _perCentLoading) {
         for (LawNumber v : lawsDamageRate.values()) {
             if (v.getLaw().events().isEmpty()) {
                 setError(true);
@@ -625,20 +636,24 @@ public class DataBase {
         }
         completeMoveTutors();
         validateCore(_perCentLoading);
+    }
+    public void validateTwo(AbstractAtomicBooleanCore _loading, AbstractAtomicIntegerCoreAdd _perCentLoading) {
         if (!_loading.get()) {
             return;
         }
-        _perCentLoading.setPercent(60);
+        _perCentLoading.set(60);
         setCheckTranslation(true);
         if (!getPokedex().isEmpty() && !getAbilities().isEmpty() && moves.getVal(defMove) != null) {
             CheckNumericStringsFight.validateNumericBooleanStrings(this);
         } else {
             setError(true);
         }
+    }
+    public void validateThree(AbstractAtomicBooleanCore _loading, AbstractAtomicIntegerCoreAdd _perCentLoading) {
         if (!_loading.get()) {
             return;
         }
-        _perCentLoading.setPercent(70);
+        _perCentLoading.set(70);
         Rate power_ = getStrongMovePower();
         if (Rate.strLower(power_, new Rate(90))) {
             setError(true);
@@ -651,23 +666,27 @@ public class DataBase {
             }
             setError(true);
         }
-
+    }
+    public void validateFour(AbstractAtomicBooleanCore _loading, AbstractAtomicIntegerCoreAdd _perCentLoading) {
         if (!_loading.get()) {
             return;
         }
         map.validate(this);
-        _perCentLoading.setPercent(85);
+        _perCentLoading.set(85);
+    }
+    public void validateFive(AbstractAtomicBooleanCore _loading, AbstractAtomicIntegerCoreAdd _perCentLoading, SexListInt _sexListInt) {
         if (!_loading.get()) {
             return;
         }
         validateImages(_sexListInt);
-        _perCentLoading.setPercent(90);
+        _perCentLoading.set(90);
+    }
+    public void validateSix(AbstractAtomicBooleanCore _loading, AbstractAtomicIntegerCoreAdd _perCentLoading) {
         if (!_loading.get()) {
             return;
         }
         validateTranslations();
-        _perCentLoading.setPercent(95);
-
+        _perCentLoading.set(95);
     }
 
     public void completeMoveTutors() {
@@ -834,9 +853,9 @@ public class DataBase {
         return _sec.getTargetChoice() == TargetChoice.LANCEUR || _sec.getTargetChoice() == TargetChoice.ALLIE || _sec.getTargetChoice() == TargetChoice.ALLIES || _move.getTargetChoice() == TargetChoice.ADJ_MULT || _move.getTargetChoice() == TargetChoice.PSEUDO_GLOBALE || _move.getTargetChoice() == TargetChoice.GLOBALE;
     }
 
-    public void validateCore(PerCent _perCentLoading) {
+    public void validateCore(AbstractAtomicIntegerCoreAdd _perCentLoading) {
         initTypesByTable();
-        _perCentLoading.setPercent(55);
+        _perCentLoading.set(55);
         validateConstants();
         checkTypesWithTable();
         if (StringUtil.contains(getCategories(), getDefCategory())) {

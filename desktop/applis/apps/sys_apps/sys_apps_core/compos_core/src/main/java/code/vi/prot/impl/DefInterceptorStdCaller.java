@@ -12,6 +12,7 @@ import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
+import code.threads.AbstractAtomicBoolean;
 
 public final class DefInterceptorStdCaller implements AbstractInterceptorStdCaller {
     private final String cl;
@@ -66,23 +67,6 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     }
 
     @Override
-    public boolean exitAfterCallInt(Initializer _init, ContextEl _owner, StackCall _stack) {
-        try {
-            return tryExit(_init, _owner, _stack);
-        } catch (OutOfMemoryError e) {
-            return true;
-        }
-    }
-
-    private static boolean tryExit(Initializer _init, ContextEl _owner, StackCall _stack) {
-        try {
-            return _init.exitAfterCallInt(_owner, _stack);
-        } catch (Exception e) {
-            return true;
-        }
-    }
-
-    @Override
     public ArgumentWrapper invoke(StdCaller _caller, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         try {
             return _caller.call(_exit, _cont, _instance, _firstArgs, _stackCall);
@@ -118,7 +102,7 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     }
 
     @Override
-    public AbsAtBool newAtBool() {
+    public AbstractAtomicBoolean newAtBool() {
         return new DefAtomicBoolean();
     }
 }

@@ -372,6 +372,7 @@ public final class ExecutingUtil {
     }
 
     public static void addPage(AbstractPageEl _page, StackCall _stackCall) {
+        _stackCall.entryReadWrite();
         _stackCall.addInternPage(_page);
     }
 

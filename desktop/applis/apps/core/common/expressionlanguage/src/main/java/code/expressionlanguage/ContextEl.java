@@ -6,14 +6,21 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.stds.*;
+import code.threads.AbstractAtomicBoolean;
 
 public abstract class ContextEl {
 
     private final CommonExecutionInfos executionInfos;
     private AbstractExiting exiting = new AfterInitExiting(this);
+    private final AbstractAtomicBoolean interrupt;
 
-    protected ContextEl(CommonExecutionInfos _executionInfos) {
+    protected ContextEl(AbstractAtomicBoolean _i,CommonExecutionInfos _executionInfos) {
+        interrupt = _i;
         executionInfos = _executionInfos;
+    }
+
+    public AbstractAtomicBoolean getInterrupt() {
+        return interrupt;
     }
 
     public AbstractTypePairHash getChecker() {
@@ -73,8 +80,11 @@ public abstract class ContextEl {
         ExecClassesUtil.buildIterable(getClasses(), this);
     }
 
+    public boolean stopped() {
+        return getInterrupt().get();
+    }
     public boolean callsOrException(StackCall _stack) {
-        return _stack.callsOrException();
+        return stopped() || _stack.callsOrException();
     }
 
 
