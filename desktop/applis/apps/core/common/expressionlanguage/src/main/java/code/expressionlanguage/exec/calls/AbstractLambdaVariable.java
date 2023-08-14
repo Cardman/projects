@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 
 public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl {
 
@@ -15,6 +14,16 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
     }
     @Override
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
+        if (!calledAfter) {
+            setWrapException(false);
+            if (hasToExit(_context, _stack)) {
+                possibleWrap(_stack);
+                if (_stack.trueException() != null) {
+                    visitedPage = true;
+                }
+                return false;
+            }
+        }
         if (_stack.getStopper().isStopAtRef(_context, _stack)) {
             return false;
         }
@@ -22,14 +31,10 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
         _stack.getBreakPointInfo().getStackState().visitedNone();
         if (!calledAfter) {
             setWrapException(false);
-            Argument arg_ = prepare(_context, _stack);
-            if (_stack.getCallingState() instanceof NotInitializedClass) {
-                setWrapException(true);
-                return false;
-            }
+            Argument arg_ = calculate(_context, _stack);
             calledAfter = true;
             if (_context.callsOrException(_stack)) {
-                setWrapException(_stack.calls());
+                possibleWrap(_stack);
                 return false;
             }
             setReturnedArgument(arg_);
@@ -37,10 +42,15 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
         return true;
     }
 
+    private void possibleWrap(StackCall _stack) {
+        setWrapException(_stack.calls());
+    }
+
     public boolean isVisitedPage() {
         return visitedPage;
     }
 
-    abstract Argument prepare(ContextEl _context, StackCall _stack);
+    abstract boolean hasToExit(ContextEl _context, StackCall _stack);
+    abstract Argument calculate(ContextEl _context, StackCall _stack);
 
 }

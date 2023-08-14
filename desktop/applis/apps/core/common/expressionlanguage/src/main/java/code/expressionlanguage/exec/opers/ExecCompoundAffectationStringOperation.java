@@ -41,7 +41,7 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
             Argument leftArg_ = getFirstArgument(_nodes,this);
             Argument rightArg_ = getLastArgument(_nodes,this);
             Argument res_ = new Argument(calculatedValue(symbol,leftArg_.getStruct(), rightArg_.getStruct(), cast_, _conf, _stack, _stack.getLastPage()));
-            if (_stack.trueException() != null) {
+            if (_conf.callsOrException(_stack)) {
                 return;
             }
             pairBefore_.setIndexImplicitConv(ParamCheckerUtil.processConverter(_conf,res_,implicits_,indexImplicit_, _stack));

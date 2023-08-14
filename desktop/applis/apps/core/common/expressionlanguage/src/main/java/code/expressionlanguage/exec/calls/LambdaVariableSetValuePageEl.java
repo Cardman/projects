@@ -17,7 +17,12 @@ public final class LambdaVariableSetValuePageEl extends AbstractLambdaVariable {
         arr = _array;
     }
 
-    Argument prepare(ContextEl _context, StackCall _stack) {
+    @Override
+    boolean hasToExit(ContextEl _context, StackCall _stack) {
+        return false;
+    }
+
+    Argument calculate(ContextEl _context, StackCall _stack) {
         CustList<ArgumentWrapper> argumentWrappers_ = arr.getArgumentWrappers();
         ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(argumentWrappers_);
         Argument right_ = ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_));

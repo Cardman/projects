@@ -26,8 +26,12 @@ public final class OkMpFormEvent implements AbsActionListener {
     private static void update(MethodPointBlockPair _mp,BreakPointCondition _condition,AbsDebuggerGui _window, GuiStackForm _form) {
         String type_ = _window.getCurrentResult().getPageEl().getAliasPrimBoolean();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), _mp, _window.getCurrentResult(), type_, _window.getResultContextNext().generateAdv(_window.getStopDbg()));
-        _condition.setResult(ResultContextLambda.okOrNull(res_));
-        _condition.setResultStr(ResultContextLambda.okOrEmpty(res_,_form.getConditional().getText()));
+        update(_condition, _form, res_);
+    }
+
+    static void update(BreakPointCondition _condition, GuiStackForm _form, ResultContextLambda _res) {
+        _condition.setResult(ResultContextLambda.okOrNull(_res));
+        _condition.setResultStr(ResultContextLambda.okOrEmpty(_res, _form.getConditional().getText()));
         _condition.setCountModulo(_form.getCount().getValue());
         ExecFileBlockTraceIndex.setAll(_condition.getExclude(),_form.getMustNotBe());
         ExecFileBlockTraceIndex.setAll(_condition.getInclude(),_form.getMustBe());

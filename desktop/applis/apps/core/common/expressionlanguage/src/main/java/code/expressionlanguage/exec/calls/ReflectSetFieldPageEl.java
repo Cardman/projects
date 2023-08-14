@@ -23,13 +23,16 @@ public final class ReflectSetFieldPageEl extends AbstractLambdaVariable {
     }
 
     @Override
-    Argument prepare(ContextEl _context, StackCall _stack) {
+    boolean hasToExit(ContextEl _context, StackCall _stack) {
         if (!initClass) {
             initClass = true;
-            if (metaInfo.isStaticField() && _context.getExiting().hasToExit(_stack, metaInfo.getFormatted().getRootBlock())) {
-                return Argument.createVoid();
-            }
+            return metaInfo.isStaticField() && _context.getExiting().hasToExit(_stack, metaInfo.getFormatted().getRootBlock());
         }
+        return false;
+    }
+
+    @Override
+    Argument calculate(ContextEl _context, StackCall _stack) {
         Argument arg_ = ExecFieldTemplates.setField(metaInfo, first, last, _context, _stack);
         if (_context.callsOrException(_stack)) {
             return Argument.createVoid();

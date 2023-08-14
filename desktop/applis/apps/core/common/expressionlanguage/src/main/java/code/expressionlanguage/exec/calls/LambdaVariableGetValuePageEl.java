@@ -16,7 +16,12 @@ public final class LambdaVariableGetValuePageEl extends AbstractLambdaVariable {
         arr = _array;
     }
 
-    Argument prepare(ContextEl _context, StackCall _stack) {
+    @Override
+    boolean hasToExit(ContextEl _context, StackCall _stack) {
+        return false;
+    }
+
+    Argument calculate(ContextEl _context, StackCall _stack) {
         ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(arr.getArgumentWrappers());
         return new Argument(ExecTemplates.getWrap(firstArgumentWrapper_.getWrapper()).getValue(_stack,_context));
     }

@@ -1,6 +1,10 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.exec.dbg.BreakPointBlockList;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
+import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
+import code.expressionlanguage.exec.dbg.BreakPointCondition;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.options.ResultContextLambda;
 import code.gui.events.AbsActionListener;
 
 public final class OkBpFormEvent implements AbsActionListener {
@@ -17,26 +21,16 @@ public final class OkBpFormEvent implements AbsActionListener {
         window.getFrameBpForm().getSelectedPb().getValue().setInstanceType(window.getFrameBpForm().getInstanceType().isSelected());
         window.getFrameBpForm().getSelectedPb().getValue().setStaticType(window.getFrameBpForm().getStaticType().isSelected());
         if (window.getFrameBpForm().getSelectedPb().getValue().isEnabledChgtType()) {
-            BreakPointBlockList.breakPointCtxInstance(window.getFrameBpForm().getSelectedPb(),window.getCurrentResult(), window.getResultContextNext().generateAdv(window.getStopDbg()),window.getFrameBpForm().getGuiInsStackForm().getConditional().getText());
-            BreakPointBlockList.breakPointCtxStatic(window.getFrameBpForm().getSelectedPb(),window.getCurrentResult(), window.getResultContextNext().generateAdv(window.getStopDbg()),window.getFrameBpForm().getGuiStaStackForm().getConditional().getText());
-            BreakPointBlockList.breakPointCountInstance(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getGuiInsStackForm().getCount().getValue());
-            BreakPointBlockList.breakPointCountStatic(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getGuiStaStackForm().getCount().getValue());
-            BreakPointBlockList.breakPointFileIndexUpdaterExcludeInstance(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getGuiInsStackForm().getMustNotBe());
-            BreakPointBlockList.breakPointFileIndexUpdaterExcludeStatic(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getGuiStaStackForm().getMustNotBe());
-            BreakPointBlockList.breakPointFileIndexUpdaterIncludeInstance(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getGuiInsStackForm().getMustBe());
-            BreakPointBlockList.breakPointFileIndexUpdaterIncludeStatic(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getGuiStaStackForm().getMustBe());
-            window.getFrameBpForm().getSelectedPb().getValue().getResultInstance().getEnabled().set(window.getFrameBpForm().getGuiInsStackForm().getEnabledSub().isSelected());
-            window.getFrameBpForm().getSelectedPb().getValue().getResultStatic().getEnabled().set(window.getFrameBpForm().getGuiStaStackForm().getEnabledSub().isSelected());
-            window.getFrameBpForm().getSelectedPb().getValue().getResultInstance().getDisableWhenHit().set(window.getFrameBpForm().getGuiInsStackForm().getDisabledWhenHit().isSelected());
-            window.getFrameBpForm().getSelectedPb().getValue().getResultStatic().getDisableWhenHit().set(window.getFrameBpForm().getGuiStaStackForm().getDisabledWhenHit().isSelected());
+            update(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getSelectedPb().getValue().getResultInstance(),window,window.getFrameBpForm().getGuiInsStackForm(),MethodAccessKind.INSTANCE);
+            update(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getSelectedPb().getValue().getResultStatic(),window,window.getFrameBpForm().getGuiStaStackForm(),MethodAccessKind.STATIC);
         } else {
-            BreakPointBlockList.breakPointCtxStd(window.getFrameBpForm().getSelectedPb(),window.getCurrentResult(), window.getResultContextNext().generateAdv(window.getStopDbg()),window.getFrameBpForm().getGuiStdStackForm().getConditional().getText());
-            BreakPointBlockList.breakPointCountStd(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getGuiStdStackForm().getCount().getValue());
-            BreakPointBlockList.breakPointFileIndexUpdaterExcludeStd(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getGuiStdStackForm().getMustNotBe());
-            BreakPointBlockList.breakPointFileIndexUpdaterIncludeStd(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getGuiStdStackForm().getMustBe());
-            window.getFrameBpForm().getSelectedPb().getValue().getResultStd().getEnabled().set(window.getFrameBpForm().getGuiStdStackForm().getEnabledSub().isSelected());
-            window.getFrameBpForm().getSelectedPb().getValue().getResultStd().getDisableWhenHit().set(window.getFrameBpForm().getGuiStdStackForm().getDisabledWhenHit().isSelected());
+            update(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getSelectedPb().getValue().getResultStd(),window,window.getFrameBpForm().getGuiStdStackForm(),null);
         }
         window.getFrameBpForm().setSelectedPb(null);
+    }
+    private static void update(BreakPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, MethodAccessKind _flag) {
+        String type_ = _window.getCurrentResult().getPageEl().getAliasPrimBoolean();
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), ExecFileBlock.name(_mp.getFile()), _mp.getOffset(),  _window.getCurrentResult(), type_, _window.getResultContextNext().generateAdv(_window.getStopDbg()), _flag);
+        OkMpFormEvent.update(_condition,_form,res_);
     }
 }

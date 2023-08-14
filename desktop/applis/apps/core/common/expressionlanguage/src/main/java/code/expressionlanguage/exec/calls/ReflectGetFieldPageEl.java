@@ -24,16 +24,19 @@ public final class ReflectGetFieldPageEl extends AbstractLambdaVariable {
     }
 
     @Override
-    Argument prepare(ContextEl _context, StackCall _stack) {
-        LgNames stds_ = _context.getStandards();
+    boolean hasToExit(ContextEl _context, StackCall _stack) {
         if (!initClass) {
             initClass = true;
-            if (metaInfo.isStaticField() && _context.getExiting().hasToExit(_stack, metaInfo.getFormatted().getRootBlock())) {
-                return Argument.createVoid();
-            }
+            return metaInfo.isStaticField() && _context.getExiting().hasToExit(_stack, metaInfo.getFormatted().getRootBlock());
         }
+        return false;
+    }
+
+    @Override
+    Argument calculate(ContextEl _context, StackCall _stack) {
         String baseClass_ = metaInfo.getFormatted().getFormatted();
         baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
+        LgNames stds_ = _context.getStandards();
         if (stds_.getStandards().contains(baseClass_)) {
             String name_ =metaInfo.getName();
             ClassField id_ = new ClassField(baseClass_, name_);

@@ -337,6 +337,7 @@ public final class BreakPointBlockList {
         v_.setEnabled(true);
         v_.setThrown(true);
         v_.setCaught(true);
+        v_.setPropagated(true);
         if (_exact) {
             return new ExcPointBlockPair(true, _clName, v_);
         }
