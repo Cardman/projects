@@ -13,6 +13,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
+import code.util.Ints;
 
 public final class DbgSyntaxColoring {
     private DbgSyntaxColoring() {
@@ -123,6 +124,13 @@ public final class DbgSyntaxColoring {
             int b_ = _r.getBlock().getBegin();
             parts_.add(new SegmentReadOnlyPart(b_,b_+_r.getBlock().getLengthHeader(),SyntaxRefEnum.INSTRUCTION));
         }
+        for (Ints i: outExp(_r.getBlock())){
+            BreakPointBlockPair pairSec_ = lsBp_.getPair(fileEx_, i.get(0));
+            if (pairSec_ != null) {
+                int b_ = i.get(0);
+                parts_.add(new SegmentReadOnlyPart(b_,b_+i.get(1),SyntaxRefEnum.INSTRUCTION));
+            }
+        }
         return parts_;
     }
     private static int offset(AbsBkSrcFileLocation _r) {
@@ -134,7 +142,55 @@ public final class DbgSyntaxColoring {
         }
         return -1;
     }
+    private static CustList<Ints> outExp(AbsBk _bl) {
+        if (_bl instanceof ForIterativeLoop) {
+            CustList<Ints> ls_ = new CustList<Ints>();
+            ls_.add(Ints.newList(((ForIterativeLoop) _bl).getVariableNameOffset(), ((ForIterativeLoop) _bl).getVariableName().length()));
+            return ls_;
+        }
+        if (_bl instanceof ForEachLoop) {
+            return forEachIterable((ForEachLoop) _bl);
+        }
+        if (_bl instanceof ForEachTable) {
+            return forEachTable((ForEachTable) _bl);
+        }
+        if (_bl instanceof WithFilterContent) {
+            CustList<Ints> ls_ = new CustList<Ints>();
+            if (!((WithFilterContent)_bl).getFilterContent().getDeclaringType().isEmpty()){
+                ls_.add(Ints.newList(((WithFilterContent) _bl).getFilterContent().getValueOffset(), ((WithFilterContent) _bl).getFilterContent().getDeclaringType().length()));
+            }
+            ls_.add(Ints.newList(_bl.getOffset(),_bl.getLengthHeader()));
+            return ls_;
+        }
+        return new CustList<Ints>();
+    }
 
+    private static CustList<Ints> forEachTable(ForEachTable _loop) {
+        int s_ = _loop.getSepOffset();
+        int sn_ = _loop.getSepNext();
+        int vf_ = _loop.getVariableNameOffsetFirst();
+        int nf_ = _loop.getVariableNameFirst().length();
+        int vs_ = _loop.getVariableNameOffsetSecond();
+        int ns_ = _loop.getVariableNameSecond().length();
+        CustList<Ints> ls_ = new CustList<Ints>();
+        ls_.add(Ints.newList(sn_,1));
+        ls_.add(Ints.newList(s_,1));
+        ls_.add(Ints.newList(vf_,nf_));
+        ls_.add(Ints.newList(vs_,ns_));
+        ls_.add(Ints.newList(_loop.getOffset(),_loop.getLengthHeader()));
+        return ls_;
+    }
+
+    private static CustList<Ints> forEachIterable(ForEachLoop _loop) {
+        int s_ = _loop.getSepOffset();
+        int v_ = _loop.getVariableNameOffset();
+        int n_ = _loop.getVariableName().length();
+        CustList<Ints> ls_ = new CustList<Ints>();
+        ls_.add(Ints.newList(s_, 1));
+        ls_.add(Ints.newList(v_, n_));
+        ls_.add(Ints.newList(_loop.getOffset(), _loop.getLengthHeader()));
+        return ls_;
+    }
     private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, RootBlock _r, FileBlock _file) {
         CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
         BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
