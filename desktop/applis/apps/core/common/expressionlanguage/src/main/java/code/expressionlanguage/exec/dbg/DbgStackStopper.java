@@ -872,6 +872,9 @@ public final class DbgStackStopper implements AbsStackStopper {
             String arg_ = _check.getInstance().getClassName(_context);
             ret_ = ExecFieldTemplates.formatType(_context, _check.getFieldType().getRootBlock(), _check.getFieldType().getReturnType(), arg_);
         } else {
+            if (_check.isCheckFinalField()) {
+                return false;
+            }
             ret_ = _check.getFieldType().getReturnType();
         }
         return ExecInheritsAdv.checkObjectEx(ret_, right_.getClassName(_context), _context, _stackCall) == null;

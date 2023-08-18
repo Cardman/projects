@@ -16,6 +16,7 @@ import code.expressionlanguage.structs.Struct;
 
 public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperationNodeInfos {
     private final boolean staticField;
+    private final boolean checkFinalField;
     private final int nbType;
     private final ClassField idClass;
     private final int modeField;
@@ -24,6 +25,7 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
     public CheckedExecOperationNodeInfos(ExecSettableFieldOperation _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
         super(_d, _i, _r);
         this.staticField = _s instanceof ExecSettableFieldStatOperation;
+        this.checkFinalField = false;
         this.nbType = numberType(_s);
         this.idClass = _s.getSettableFieldContent().getClassField();
         this.modeField = _mode;
@@ -37,6 +39,7 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
     public CheckedExecOperationNodeInfos(FieldWrapper _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
         super(_d, _i, _r);
         this.staticField = _s instanceof StaticFieldWrapper;
+        this.checkFinalField = false;
         this.nbType = numberType(_s);
         this.idClass = _s.getId();
         this.modeField = _mode;
@@ -50,10 +53,15 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
     public CheckedExecOperationNodeInfos(FieldMetaInfo _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
         super(_d, _i, _r);
         this.staticField = _s.isStaticField();
+        this.checkFinalField = _s.isFinalField();
         this.nbType = ExecRootBlock.numberType(_s.getFormatted().getRootBlock());
         this.idClass = new ClassField(StringExpUtil.getIdFromAllTypes(_s.getFormatted().getFormatted()), _s.getName());
         this.modeField = _mode;
         this.fieldType = new ExecTypeReturn(_s.getDeclaring(), _s.getType());
+    }
+
+    public boolean isCheckFinalField() {
+        return checkFinalField;
     }
 
     public ExecTypeReturn getFieldType() {

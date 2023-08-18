@@ -4069,6 +4069,29 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
+
+    @Test
+    public void test171() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" static int v;\n");
+        xml_.append(" public static void catching(){\n");
+        xml_.append("  class(Ex2).getDeclaredFields(\"v\")[0].set(null,0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex2 {\n");
+        xml_.append(" static final int v = 1;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",168,cont_);
+        write(cont_, cf("pkg.Ex2", "v"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+
     private void readCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         read(_cont, _cf);
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
