@@ -18,9 +18,6 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
             setWrapException(false);
             if (hasToExit(_context, _stack)) {
                 possibleWrap(_stack);
-                if (_stack.trueException() != null) {
-                    visitedPage = true;
-                }
                 return false;
             }
         }

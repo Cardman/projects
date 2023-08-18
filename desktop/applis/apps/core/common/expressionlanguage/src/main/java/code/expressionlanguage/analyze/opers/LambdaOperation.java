@@ -48,7 +48,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private final Ints refs = new Ints();
     private int recordType = -1;
     private int memberOffset;
-    private RootBlock fieldType;
     private AnaTypeFct function;
     private ClassField fieldId;
     private final AnaLambdaFieldContent lambdaFieldContent;
@@ -1663,7 +1662,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         lambdaMemberNumberContentId.setRootNumber(recordType);
         lambdaCommonContent.setFoundFormatted(_form);
         types_.add(clFrom_);
-        fieldType = h_;
         lambdaCommonContent.setFileName(h_.getFile().getFileName());
         StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
         fct_.append(StringExpUtil.TEMPLATE_BEGIN);
@@ -2069,7 +2067,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         valueOffset = _r.getContent().getValueOffset();
         lambdaFieldContent.setAffField(_aff);
         fieldId = _r.getContent().getClassField();
-        fieldType = _r.getFieldType();
         cstFieldInfo = _r.getCstFieldInfo();
         lambdaFieldContent.setStaticField(_r.getContent().isStaticField());
         lambdaFieldContent.setFinalField(_r.getContent().isFinalField());
@@ -2526,7 +2523,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return result_;
     }
     private static String formatFieldReturn(boolean _static, StringList _params, FieldResult _field, boolean _demand, AnalyzedPageEl _page) {
-        return formatFieldReturn(_static,_params,_field.getType(),_demand,_page,_field.getDeclaringClass());
+        return formatFieldReturn(_static,_params,_field.getType(),_demand,_page,_field.getFormattedType().getFormatted());
     }
     private static String formatFieldReturn(boolean _static, StringList _params, String _returnType, boolean _demand, AnalyzedPageEl _page, String _foundClass) {
         String fctBase_ = _page.getAliasFct();
@@ -2578,10 +2575,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public ConstructorId getRealId() {
         return realId;
-    }
-
-    public RootBlock getFieldType() {
-        return fieldType;
     }
 
     public ClassField getFieldId() {

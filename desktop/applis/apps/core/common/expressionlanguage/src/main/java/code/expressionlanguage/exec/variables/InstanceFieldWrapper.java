@@ -40,6 +40,10 @@ public final class InstanceFieldWrapper extends FieldWrapper {
         return pair.getRootBlock();
     }
 
+    public ExecTypeReturn getPair() {
+        return pair;
+    }
+
     public Struct getParent() {
         return parent;
     }

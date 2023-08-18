@@ -1247,7 +1247,6 @@ public final class CallersRef {
 //    }
     private void lambda(ResultExpressionBlockOperation _c, LambdaOperation _lda, CustList<SrcFileLocation> _piano) {
         FileBlock f_ = _c.getRes().getBlock().getFile();
-        RootBlock fieldType_ = _lda.getFieldType();
         IdMap<SrcFileLocation,CustList<FileBlockIndex>> added_ = new IdMap<SrcFileLocation,CustList<FileBlockIndex>>();
         instanceNewTypes(_c, _lda.getMemberOffset(), _piano, ResultExpressionOperationNode.root(_lda),added_);
         instanceNewTypesRef.addAllEntries(added_);
@@ -1280,6 +1279,7 @@ public final class CallersRef {
         }
         ClassField fieldId_ = _lda.getFieldId();
         if (fieldId_ != null) {
+            RootBlock fieldType_ = _lda.getLambdaCommonContent().getFoundFormatted().getRootBlock();
             addIfMatch(SrcFileLocationField.field(fieldId_,fieldType_, _lda.getValueOffset(),_lda.getCstFieldInfo()),_c.getRes().getCaller(), f_,_lda.getMemberOffset()+begin(_c),added_,_piano);
             fieldsRefUse.addAllEntries(added_);
         }

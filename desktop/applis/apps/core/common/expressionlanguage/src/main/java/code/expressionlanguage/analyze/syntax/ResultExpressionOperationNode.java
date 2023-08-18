@@ -978,7 +978,6 @@ public final class ResultExpressionOperationNode {
             return types_;
         }
         AnaTypeFct function_ = _lda.getFunction();
-        RootBlock fieldType_ = _lda.getFieldType();
         CustList<SrcFileLocation> def_ = new CustList<SrcFileLocation>();
         ctStd(_lda.getStandardConstructor(), _lda.getStandardType(), def_);
         callStd(_lda.getStandardMethod(), _lda.getStandardType(), def_);
@@ -989,6 +988,7 @@ public final class ResultExpressionOperationNode {
         }
         ClassField fieldId_ = _lda.getFieldId();
         if (fieldId_ != null) {
+            RootBlock fieldType_ = _lda.getLambdaCommonContent().getFoundFormatted().getRootBlock();
             CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
             SrcFileLocationField.addField(fieldId_,fieldType_, _lda.getValueOffset(), _lda.getCstFieldInfo(),ls_);
             return ls_;

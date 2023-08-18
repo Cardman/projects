@@ -61,8 +61,4 @@ public final class ImportedField {
         memberId.setMemberNumber(_memberNumber);
     }
 
-    public RootBlock getFieldType() {
-        return fieldType;
-    }
-
 }

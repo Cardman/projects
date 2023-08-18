@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.dbg;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
@@ -11,22 +12,17 @@ import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.calls.util.*;
-import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
-import code.expressionlanguage.exec.inherits.ExecInherits;
-import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
-import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.inherits.*;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
-import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.exec.variables.FieldWrapper;
-import code.expressionlanguage.exec.variables.InstanceFieldWrapper;
+import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -103,9 +99,9 @@ public final class DbgStackStopper implements AbsStackStopper {
             int anc_ = _o.getSettableFieldContent().getAnc();
             Struct instance_ = instance(anc_,_el, _o, _last);
             if (sub(_o)) {
-                return new CheckedExecOperationNodeInfos(numberType(_o),_o.getSettableFieldContent().getClassField(), COMPOUND_READ, formatted(_context, _o, instance_), instance_, null);
+                return new CheckedExecOperationNodeInfos(_o, COMPOUND_READ, formatted(_context, _o, instance_), instance_, null);
             }
-            return new CheckedExecOperationNodeInfos(numberType(_o),_o.getSettableFieldContent().getClassField(), READ, formatted(_context, _o, instance_), instance_, null);
+            return new CheckedExecOperationNodeInfos(_o, READ, formatted(_context, _o, instance_), instance_, null);
         }
         return null;
     }
@@ -125,7 +121,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         AbstractWrapper w_ = ExecVariableTemplates.getWrapper(v_, _o.getVariableContent().getDeep(), _last.getCache(), _last.getRefParams());
         if (w_ instanceof FieldWrapper) {
             Struct instance_ = value(w_);
-            return new CheckedExecOperationNodeInfos(numberType((FieldWrapper)w_),((FieldWrapper)w_).getId(), _mode, formatted(_context, (FieldWrapper) w_), instance_, null);
+            return new CheckedExecOperationNodeInfos((FieldWrapper) w_, _mode, formatted(_context, (FieldWrapper) w_), instance_, null);
         }
         return null;
     }
@@ -154,14 +150,14 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (isField(set_)) {
             int anc_ = ((ExecSettableFieldOperation) set_).getSettableFieldContent().getAnc();
             Struct instance_ = instanceSet(_el, anc_, set_,  ((ExecSettableFieldOperation) set_).resultCanBeSet(), _last);
-            return new CheckedExecOperationNodeInfos(numberType((ExecSettableFieldOperation) set_),((ExecSettableFieldOperation) set_).getSettableFieldContent().getClassField(), altMode(_mode,_right), formatted(_ctx, (ExecSettableFieldOperation) set_, instance_), instance_, altRight(_mode,_right,_other));
+            return new CheckedExecOperationNodeInfos((ExecSettableFieldOperation) set_, altMode(_mode,_right), formatted(_ctx, (ExecSettableFieldOperation) set_, instance_), instance_, altRight(_mode,_right,_other));
         }
         if (set_ instanceof ExecStdRefVariableOperation || set_ instanceof ExecSettableCallFctOperation) {
             ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), set_);
             AbstractWrapper w_ = argumentPair_.getWrapper();
             if (w_ instanceof FieldWrapper) {
                 Struct instance_ = value(w_);
-                return new CheckedExecOperationNodeInfos(numberType((FieldWrapper)w_),((FieldWrapper)w_).getId(),altMode(_mode,_right), formatted(_ctx, (FieldWrapper) w_), instance_, altRight(_mode,_right,_other));
+                return new CheckedExecOperationNodeInfos((FieldWrapper) w_, altMode(_mode,_right), formatted(_ctx, (FieldWrapper) w_), instance_, altRight(_mode,_right,_other));
             }
         }
         return null;
@@ -264,9 +260,8 @@ public final class DbgStackStopper implements AbsStackStopper {
         ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(_p.getArr().getArgumentWrappers());
         AbstractWrapper w_ = firstArgumentWrapper_.getWrapper();
         if (w_ instanceof FieldWrapper) {
-            ClassField cf_ = ((FieldWrapper) w_).getId();
             Struct instance_ = value(w_);
-            return new CheckedExecOperationNodeInfos(numberType((FieldWrapper) w_),cf_, DbgStackStopper.READ, formatted(_context, (FieldWrapper) w_),instance_,null);
+            return new CheckedExecOperationNodeInfos((FieldWrapper) w_, DbgStackStopper.READ, formatted(_context, (FieldWrapper) w_),instance_,null);
         }
         return null;
     }
@@ -276,25 +271,22 @@ public final class DbgStackStopper implements AbsStackStopper {
         ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(argumentWrappers_);
         AbstractWrapper w_ = firstArgumentWrapper_.getWrapper();
         if (w_ instanceof FieldWrapper) {
-            ClassField cf_ = ((FieldWrapper) w_).getId();
             Struct right_ = ArgumentListCall.toStr(ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)));
             Struct instance_ = value(w_);
-            return new CheckedExecOperationNodeInfos(numberType((FieldWrapper) w_),cf_, DbgStackStopper.WRITE, formatted(_context, (FieldWrapper) w_),instance_,right_);
+            return new CheckedExecOperationNodeInfos((FieldWrapper) w_, DbgStackStopper.WRITE, formatted(_context, (FieldWrapper) w_),instance_,right_);
         }
         return null;
     }
 
     private static CheckedExecOperationNodeInfos reflectGet(ContextEl _context, ReflectGetFieldPageEl _p) {
         Struct instance_ = ArgumentListCall.toStr(_p.getArgument());
-        ClassField cf_ = new ClassField(StringExpUtil.getIdFromAllTypes(_p.getMetaInfo().getFormatted().getFormatted()), _p.getMetaInfo().getName());
-        return new CheckedExecOperationNodeInfos(ExecRootBlock.numberType( _p.getMetaInfo().getFormatted().getRootBlock()),cf_, DbgStackStopper.READ, formatted(_context, _p.getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, null);
+        return new CheckedExecOperationNodeInfos(_p.getMetaInfo(), DbgStackStopper.READ, formatted(_context, _p.getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, null);
     }
 
     private static CheckedExecOperationNodeInfos reflectSet(ContextEl _context, ReflectSetFieldPageEl _p) {
         Struct instance_ = ArgumentListCall.toStr(_p.getFirst());
         Struct right_ = ArgumentListCall.toStr(_p.getLast());
-        ClassField cf_ = new ClassField(StringExpUtil.getIdFromAllTypes(_p.getMetaInfo().getFormatted().getFormatted()), _p.getMetaInfo().getName());
-        return new CheckedExecOperationNodeInfos(ExecRootBlock.numberType( _p.getMetaInfo().getFormatted().getRootBlock()),cf_, DbgStackStopper.WRITE, formatted(_context, _p.getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, right_);
+        return new CheckedExecOperationNodeInfos(_p.getMetaInfo(), DbgStackStopper.WRITE, formatted(_context, _p.getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, right_);
     }
 
     private static ExecFormattedRootBlock formatted(ContextEl _ctx, FieldWrapper _w) {
@@ -361,17 +353,9 @@ public final class DbgStackStopper implements AbsStackStopper {
             Struct instance_ = value(_w);
             String formatted_ = ExecInherits.getQuickFullTypeByBases(instance_.getClassName(_context), ((FieldWrapper) _w).getId().getClassName(), _context);
             ExecRootBlock ex_ = _context.getClasses().getClassBody(((FieldWrapper) _w).getId().getClassName());
-            return new CheckedExecOperationNodeInfos(numberType((FieldWrapper) _w),((FieldWrapper) _w).getId(),_m,new ExecFormattedRootBlock(ex_,formatted_),instance_,null);
+            return new CheckedExecOperationNodeInfos((FieldWrapper) _w, _m,new ExecFormattedRootBlock(ex_,formatted_),instance_,null);
         }
         return null;
-    }
-
-    private static int numberType(ExecSettableFieldOperation _set) {
-        return ExecRootBlock.numberType(_set.owner());
-    }
-
-    private static int numberType(FieldWrapper _w) {
-        return ExecRootBlock.numberType(_w.owner());
     }
 
     @Override
@@ -713,8 +697,48 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (!(_bp.isRead() && _check.getModeField() == READ || _bp.isWrite() && _check.getModeField() == WRITE || _bp.isCompoundRead() && _check.getModeField() == COMPOUND_READ || _bp.isCompoundWrite() && _check.getModeField() == COMPOUND_WRITE || _bp.isCompoundWriteErr() && _check.getModeField() == COMPOUND_WRITE_ERR)) {
             return false;
         }
+        if (!okField(_context, _stackCall, _check)) {
+            return false;
+        }
         BreakPointCondition condition_ = stopCurrentWpCondition(_bp, _check);
         return stopCurrent(_context, _stackCall, _p, condition_);
+    }
+
+    private static boolean okField(ContextEl _context, StackCall _stackCall, CheckedExecOperationNodeInfos _check) {
+        Struct v_ = strValue(_context, _stackCall, _check);
+        if (v_ == null) {
+            return false;
+        }
+        Struct right_ = _check.getRight();
+        if (right_ == null) {
+            return true;
+        }
+        String ret_;
+        if (!_check.isStaticField()) {
+            String arg_ = _check.getInstance().getClassName(_context);
+            ret_ = ExecFieldTemplates.formatType(_context, _check.getFieldType().getRootBlock(), _check.getFieldType().getReturnType(), arg_);
+        } else {
+            ret_ = _check.getFieldType().getReturnType();
+        }
+        return ExecInheritsAdv.checkObjectEx(ret_, right_.getClassName(_context), _context, _stackCall) == null;
+    }
+
+    private static Struct strValue(ContextEl _context, StackCall _stackCall, CheckedExecOperationNodeInfos _check) {
+        if (_check.isStaticField()) {
+            if (_context.getExiting().state(_stackCall,_check.getFieldType().getRootBlock(),null) != null) {
+                return null;
+            }
+            return NumParsers.getStaticField(_check.getIdClass(), _context.getClasses().getStaticFields());
+        }
+        Struct ins_ = _check.getInstance();
+        if (!(ins_ instanceof FieldableStruct)) {
+            return null;
+        }
+        ClassFieldStruct found_ = ((FieldableStruct) ins_).getEntryStruct(_check.getIdClass());
+        if (found_ == null) {
+            return null;
+        }
+        return found_.getStruct();
     }
 
     private static BreakPointCondition stopCurrentWpCondition(WatchPoint _bp, CheckedExecOperationNodeInfos _check) {

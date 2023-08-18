@@ -3175,7 +3175,6 @@ public final class LinkageUtil {
         }
         ClassField fieldId_ = ((LambdaOperation) _val).getFieldId();
         AnaTypeFct function_ = ((LambdaOperation) _val).getFunction();
-        RootBlock fieldType_ = ((LambdaOperation) _val).getFieldType();
         int off_ = ((LambdaOperation)_val).getOffset();
         int beginLambda_ = off_ + _sum + _val.getIndexInEl();
         int lambdaLen_ = _vars.getKeyWords().getKeyWordLambda().length();
@@ -3185,6 +3184,7 @@ public final class LinkageUtil {
                     _val.getErrs(),_val.getErrs());
         } else {
             if (fieldId_ != null) {
+                RootBlock fieldType_ = ((LambdaOperation) _val).getLambdaCommonContent().getFoundFormatted().getRootBlock();
                 updateFieldAnchor(_vars,fieldType_, _val.getErrs(), fieldId_, beginLambda_, lambdaLen_, ((LambdaOperation) _val).getValueOffset());
             } else if (!_val.getErrs().isEmpty()) {
                 _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)), beginLambda_));

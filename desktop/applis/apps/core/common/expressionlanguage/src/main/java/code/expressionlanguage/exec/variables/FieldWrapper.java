@@ -14,7 +14,7 @@ public abstract class FieldWrapper extends ValueWrapper {
         id = _id;
     }
 
-    protected String getFieldType() {
+    public String getFieldType() {
         return fieldType;
     }
 

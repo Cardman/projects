@@ -629,12 +629,10 @@ public abstract class OperationNode {
             res_.setFormattedType(v_.buildFormatted(formatted_));
             res_.setFileName(v_.getFileName());
             res_.setMemberId(v_.getMemberId());
-            res_.setFieldType(v_.getFieldType());
             res_.setCstFieldInfo(v_.getCstFieldInfo());
             ClassField classField_ = new ClassField(formatted_, _name);
             res_.getContent().setValueOffset(v_.getValueOffset());
             res_.getContent().setClassField(classField_);
-            res_.setDeclaringClass(formatted_);
             res_.getContent().setStaticField(true);
             res_.getContent().setFinalField(finalField_);
             res_.setType(realType_);
@@ -738,10 +736,8 @@ public abstract class OperationNode {
         res_.setFileName(_fi.getFileName());
         res_.setMemberId(_fi.getMemberId());
         res_.setCstFieldInfo(_fi.cst());
-        res_.setFieldType(_formatted.getRootBlock());
         res_.getContent().setClassField(_fi.getClassField());
         res_.getContent().setValueOffset(_fi.getValOffset());
-        res_.setDeclaringClass(_formatted.getFormatted());
         res_.getContent().setStaticField(_fi.isStaticField());
         res_.getContent().setFinalField(_fi.isFinalField());
         res_.setType(_type);
