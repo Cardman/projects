@@ -10,7 +10,7 @@ public final class FrameBpForm {
     private final GuiStackForm guiStdStackForm = new GuiStackForm();
     private final GuiStackForm guiInsStackForm = new GuiStackForm();
     private final GuiStackForm guiStaStackForm = new GuiStackForm();
-    private BreakPointBlockPair selectedPb;
+    private BreakPointBlockPair selectedBp;
     private AbsCustCheckBox instanceType;
     private AbsCustCheckBox staticType;
     private AbsCustCheckBox enabledBp;
@@ -46,12 +46,12 @@ public final class FrameBpForm {
         return commonFrame;
     }
 
-    public BreakPointBlockPair getSelectedPb() {
-        return selectedPb;
+    public BreakPointBlockPair getSelectedBp() {
+        return selectedBp;
     }
 
-    public void setSelectedPb(BreakPointBlockPair _s) {
-        this.selectedPb = _s;
+    public void setSelectedBp(BreakPointBlockPair _s) {
+        this.selectedBp = _s;
     }
 
     public AbsCustCheckBox getInstanceType() {

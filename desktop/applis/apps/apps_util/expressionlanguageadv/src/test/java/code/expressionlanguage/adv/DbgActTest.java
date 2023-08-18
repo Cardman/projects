@@ -4,7 +4,6 @@ import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.dbg.AbsCallContraints;
-import code.expressionlanguage.exec.dbg.ExecFileBlockTraceIndex;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -658,6 +657,68 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(21,21);
         bpForm(b_);
         assertFalse(b_.getFrameMpForm().getCommonFrame().isVisible());
+    }
+    @Test
+    public void bp34() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int v;public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(39,39);
+        toggleWp(b_);
+        wpForm(b_);
+        assertTrue(b_.getFrameWpForm().getCommonFrame().isVisible());
+        b_.getFrameWpForm().getEnabledWp().setSelected(false);
+        wpFormOk(b_);
+        assertFalse(b_.getFrameWpForm().getCommonFrame().isVisible());
+    }
+    @Test
+    public void bp35() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int v;public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(75,75);
+        toggleWp(b_);
+        assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(b_.getCurrentResult()),75));
+        wpForm(b_);
+        assertFalse(b_.getFrameWpForm().getCommonFrame().isVisible());
+    }
+    @Test
+    public void bp36() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int v;public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(39,39);
+        toggleWpEn(b_);
+        wpForm(b_);
+        assertTrue(b_.getFrameWpForm().getCommonFrame().isVisible());
+        b_.getFrameWpForm().getEnabledWp().setSelected(false);
+        wpFormOk(b_);
+        assertFalse(b_.getFrameWpForm().getCommonFrame().isVisible());
+    }
+    @Test
+    public void bp37() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int v;public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(39,39);
+        toggleWp(b_);
+        wpForm(b_);
+        assertTrue(b_.getFrameWpForm().getCommonFrame().isVisible());
+        b_.getFrameWpForm().getEnabledWp().setSelected(false);
+        wpFormCancel(b_);
+        assertFalse(b_.getFrameWpForm().getCommonFrame().isVisible());
     }
     @Test
     public void ref1() {

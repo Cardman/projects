@@ -187,6 +187,15 @@ public abstract class EquallableElAdvUtil {
     public static void bpForm(AbsDebuggerGui _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F4,0)).action();
     }
+    public static void toggleWp(AbsDebuggerGui _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F2,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
+    public static void toggleWpEn(AbsDebuggerGui _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F3,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
+    public static void wpForm(AbsDebuggerGui _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F4,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
     public static void refPartDbg(AbsDebuggerGui _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabSelect(_w).getCenter(), GuiConstants.VK_F5,0)).action();
     }
@@ -209,12 +218,20 @@ public abstract class EquallableElAdvUtil {
     public static void mpFormOk(AbsDebuggerGui _w) {
         ((MockPlainButton)_w.getFrameMpForm().getOk()).getActionListeners().get(0).action();
     }
+
+    public static void wpFormOk(AbsDebuggerGui _w) {
+        ((MockPlainButton)_w.getFrameWpForm().getOk()).getActionListeners().get(0).action();
+    }
     public static void bpFormCancel(AbsDebuggerGui _w) {
         _w.getFrameBpForm().getCommonFrame().getWindowListenersDef().get(0).windowClosing();
     }
 
     public static void mpFormCancel(AbsDebuggerGui _w) {
         _w.getFrameMpForm().getCommonFrame().getWindowListenersDef().get(0).windowClosing();
+    }
+
+    public static void wpFormCancel(AbsDebuggerGui _w) {
+        _w.getFrameWpForm().getCommonFrame().getWindowListenersDef().get(0).windowClosing();
     }
     protected static ReadOnlyTabEditor tabEditor(AbsDebuggerGui _w) {
         return tabEditor(_w,0);

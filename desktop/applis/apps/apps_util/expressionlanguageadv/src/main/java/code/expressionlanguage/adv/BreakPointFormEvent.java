@@ -32,8 +32,8 @@ public final class BreakPointFormEvent implements AbsActionListener {
             if (mp_ != null) {
                 window.getFrameMpForm().setSelectedMp(mp_);
                 window.getFrameMpForm().getEnabledMp().setSelected(mp_.getValue().isEnabled());
-                specific(window.getFrameMpForm().getGuiEnterStackForm(), true, mp_.getValue().getResultEntry());
-                specific(window.getFrameMpForm().getGuiExitStackForm(), true, mp_.getValue().getResultExit());
+                specific(window.getFrameMpForm().getGuiEnterStackForm(), true, mp_.getValue().getResultEntry(), window);
+                specific(window.getFrameMpForm().getGuiExitStackForm(), true, mp_.getValue().getResultExit(), window);
                 window.getFrameMpForm().getEnterFunction().setSelected(mp_.getValue().isEntry());
                 window.getFrameMpForm().getExitFunction().setSelected(mp_.getValue().isExit());
                 window.getFrameMpForm().getCommonFrame().setVisible(true);
@@ -45,11 +45,11 @@ public final class BreakPointFormEvent implements AbsActionListener {
         if (bp_ == null) {
             return;
         }
-        window.getFrameBpForm().setSelectedPb(bp_);
+        window.getFrameBpForm().setSelectedBp(bp_);
         window.getFrameBpForm().getEnabledBp().setSelected(bp_.getValue().isEnabled());
-        specific(window.getFrameBpForm().getGuiStdStackForm(), !bp_.getValue().isEnabledChgtType(), bp_.getValue().getResultStd());
-        specific(window.getFrameBpForm().getGuiStaStackForm(), bp_.getValue().isEnabledChgtType(), bp_.getValue().getResultStatic());
-        specific(window.getFrameBpForm().getGuiInsStackForm(), bp_.getValue().isEnabledChgtType(), bp_.getValue().getResultInstance());
+        specific(window.getFrameBpForm().getGuiStdStackForm(), !bp_.getValue().isEnabledChgtType(), bp_.getValue().getResultStd(), window);
+        specific(window.getFrameBpForm().getGuiStaStackForm(), bp_.getValue().isEnabledChgtType(), bp_.getValue().getResultStatic(), window);
+        specific(window.getFrameBpForm().getGuiInsStackForm(), bp_.getValue().isEnabledChgtType(), bp_.getValue().getResultInstance(), window);
         window.getFrameBpForm().getInstanceType().setEnabled(bp_.getValue().isEnabledChgtType());
         window.getFrameBpForm().getInstanceType().setSelected(bp_.getValue().isInstanceType());
         window.getFrameBpForm().getStaticType().setEnabled(bp_.getValue().isEnabledChgtType());
@@ -58,7 +58,7 @@ public final class BreakPointFormEvent implements AbsActionListener {
         PackingWindowAfter.pack(window.getFrameBpForm().getCommonFrame());
     }
 
-    private void specific(GuiStackForm _specForm, boolean _visible, BreakPointCondition _model) {
+    static void specific(GuiStackForm _specForm, boolean _visible, BreakPointCondition _model, AbsDebuggerGui _win) {
         _specForm.getConditional().setVisible(_visible);
         _specForm.getConditional().setText(_model.getResultStr());
         _specForm.getEnabledSub().setVisible(_visible);
@@ -70,7 +70,7 @@ public final class BreakPointFormEvent implements AbsActionListener {
         _specForm.getStaScIncExc().setVisible(_visible);
         feed(_specForm.getMustBe(), _model.getInclude());
         feed(_specForm.getMustNotBe(), _model.getExclude());
-        _specForm.actualiseLists(window);
+        _specForm.actualiseLists(_win);
     }
 
     static void feed(CustList<AbsCallContraints> _specForm, AbsCollection<AbsCallContraints> _model) {

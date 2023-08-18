@@ -2,10 +2,10 @@ package code.expressionlanguage.adv;
 
 import code.gui.events.AbsWindowListenerClosing;
 
-public final class CancelBpFormEvent implements AbsWindowListenerClosing {
+public final class CancelWpFormEvent implements AbsWindowListenerClosing {
     private final AbsDebuggerGui window;
 
-    public CancelBpFormEvent(AbsDebuggerGui _w) {
+    public CancelWpFormEvent(AbsDebuggerGui _w) {
         this.window = _w;
     }
 
@@ -15,7 +15,7 @@ public final class CancelBpFormEvent implements AbsWindowListenerClosing {
     }
 
     static void act(AbsDebuggerGui _w) {
-        _w.getFrameBpForm().getCommonFrame().setVisible(false);
-        _w.getFrameBpForm().setSelectedBp(null);
+        _w.getFrameWpForm().getCommonFrame().setVisible(false);
+        _w.getFrameWpForm().setSelectedWp(null);
     }
 }

@@ -17,16 +17,16 @@ public final class OkBpFormEvent implements AbsActionListener {
     @Override
     public void action() {
         window.getFrameBpForm().getCommonFrame().setVisible(false);
-        window.getFrameBpForm().getSelectedPb().getValue().setEnabled(window.getFrameBpForm().getEnabledBp().isSelected());
-        window.getFrameBpForm().getSelectedPb().getValue().setInstanceType(window.getFrameBpForm().getInstanceType().isSelected());
-        window.getFrameBpForm().getSelectedPb().getValue().setStaticType(window.getFrameBpForm().getStaticType().isSelected());
-        if (window.getFrameBpForm().getSelectedPb().getValue().isEnabledChgtType()) {
-            update(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getSelectedPb().getValue().getResultInstance(),window,window.getFrameBpForm().getGuiInsStackForm(),MethodAccessKind.INSTANCE);
-            update(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getSelectedPb().getValue().getResultStatic(),window,window.getFrameBpForm().getGuiStaStackForm(),MethodAccessKind.STATIC);
+        window.getFrameBpForm().getSelectedBp().getValue().setEnabled(window.getFrameBpForm().getEnabledBp().isSelected());
+        window.getFrameBpForm().getSelectedBp().getValue().setInstanceType(window.getFrameBpForm().getInstanceType().isSelected());
+        window.getFrameBpForm().getSelectedBp().getValue().setStaticType(window.getFrameBpForm().getStaticType().isSelected());
+        if (window.getFrameBpForm().getSelectedBp().getValue().isEnabledChgtType()) {
+            update(window.getFrameBpForm().getSelectedBp(),window.getFrameBpForm().getSelectedBp().getValue().getResultInstance(),window,window.getFrameBpForm().getGuiInsStackForm(),MethodAccessKind.INSTANCE);
+            update(window.getFrameBpForm().getSelectedBp(),window.getFrameBpForm().getSelectedBp().getValue().getResultStatic(),window,window.getFrameBpForm().getGuiStaStackForm(),MethodAccessKind.STATIC);
         } else {
-            update(window.getFrameBpForm().getSelectedPb(),window.getFrameBpForm().getSelectedPb().getValue().getResultStd(),window,window.getFrameBpForm().getGuiStdStackForm(),null);
+            update(window.getFrameBpForm().getSelectedBp(),window.getFrameBpForm().getSelectedBp().getValue().getResultStd(),window,window.getFrameBpForm().getGuiStdStackForm(),null);
         }
-        window.getFrameBpForm().setSelectedPb(null);
+        window.getFrameBpForm().setSelectedBp(null);
     }
     private static void update(BreakPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, MethodAccessKind _flag) {
         String type_ = _window.getCurrentResult().getPageEl().getAliasPrimBoolean();

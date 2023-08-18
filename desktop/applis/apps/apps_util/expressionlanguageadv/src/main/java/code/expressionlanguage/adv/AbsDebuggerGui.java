@@ -33,6 +33,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsMenuItem analyzeMenu;
     private final FrameBpForm frameBpForm;
     private final FrameMpForm frameMpForm;
+    private final FrameWpForm frameWpForm;
     private AbsTreeGui folderSystem;
     private AbsTabbedPane tabbedPane;
     private final CustList<ReadOnlyTabEditor> tabs = new CustList<ReadOnlyTabEditor>();
@@ -74,6 +75,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         factory = _fact;
         frameBpForm = new FrameBpForm(this,_lg, _list);
         frameMpForm = new FrameMpForm(this,_lg, _list);
+        frameWpForm = new FrameWpForm(this,_lg, _list);
         stopDbg = _list.getThreadFactory().newAtomicBoolean();
     }
 
@@ -96,6 +98,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         manageOptions = getEvent().manageOpt();
         frameBpForm.guiBuild(this);
         frameMpForm.guiBuild(this);
+        frameWpForm.guiBuild(this);
         actions = getCommonFrame().getFrames().getThreadFactory().newExecutorService();
         AbsPanel page_ = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         folderSystem = getCommonFrame().getFrames().getCompoFactory().newTreeGui(getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(""));
@@ -358,6 +361,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         refreshList(folderSystem.selectEvt(),viewable, "");
         frameBpForm.refresh(viewable);
         frameMpForm.refresh(viewable);
+        frameWpForm.refresh(viewable);
 
         int len_ = _src.size();
         for (int i = 0; i < len_; i++) {
@@ -461,6 +465,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public FrameMpForm getFrameMpForm() {
         return frameMpForm;
+    }
+
+    public FrameWpForm getFrameWpForm() {
+        return frameWpForm;
     }
 
     public ResultContext getCurrentResult() {
