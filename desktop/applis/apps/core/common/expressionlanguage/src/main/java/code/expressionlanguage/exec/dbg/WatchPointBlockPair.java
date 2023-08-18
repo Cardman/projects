@@ -24,7 +24,11 @@ public final class WatchPointBlockPair {
     }
 
     public String keyStr() {
-        return nbType+"."+ field.getFieldName();
+        return nbType+"."+fieldName();
+    }
+
+    public String fieldName() {
+        return field.getFieldName();
     }
 
     public RootBlock getRoot() {
