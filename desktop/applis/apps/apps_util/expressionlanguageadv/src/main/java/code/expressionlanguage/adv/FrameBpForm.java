@@ -7,39 +7,23 @@ import code.util.StringMap;
 
 public final class FrameBpForm {
     private final AbsCommonFrame commonFrame;
-    private final GuiStackForm guiStdStackForm = new GuiStackForm();
-    private final GuiStackForm guiInsStackForm = new GuiStackForm();
-    private final GuiStackForm guiStaStackForm = new GuiStackForm();
-    private BreakPointBlockPair selectedBp;
-    private AbsCustCheckBox instanceType;
-    private AbsCustCheckBox staticType;
-    private AbsCustCheckBox enabledBp;
-    private AbsPlainButton ok;
+    private final FrameBpFormContent frameBpFormContent;
     public FrameBpForm(AbsDebuggerGui _d,String _lg, AbstractProgramInfos _list) {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         commonFrame.addWindowListener(new CancelBpFormEvent(_d));
+        frameBpFormContent = new FrameBpFormContent();
     }
     public void guiBuild(AbsDebuggerGui _d) {
-        instanceType = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("instance");
-        staticType = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("static");
-        enabledBp = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
-        ok = getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
-        AbsPanel bpForm_ = getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        bpForm_.add(enabledBp);
-        bpForm_.add(instanceType);
-        bpForm_.add(staticType);
-        bpForm_.add(guiStdStackForm.guiBuild(_d));
-        bpForm_.add(guiInsStackForm.guiBuild(_d));
-        bpForm_.add(guiStaStackForm.guiBuild(_d));
-        ok.addActionListener(new OkBpFormEvent(_d));
-        bpForm_.add(ok);
-        commonFrame.setContentPane(bpForm_);
+        frameBpFormContent.guiBuild(_d);
+        commonFrame.setContentPane(frameBpFormContent.getContentPane());
     }
 
     public void refresh(StringMap<String> _v) {
-        getGuiStdStackForm().refresh(_v, "");
-        getGuiInsStackForm().refresh(_v, "");
-        getGuiStaStackForm().refresh(_v, "");
+        getFrameBpFormContent().refresh(_v);
+    }
+
+    public FrameBpFormContent getFrameBpFormContent() {
+        return frameBpFormContent;
     }
 
     public AbsCommonFrame getCommonFrame() {
@@ -47,38 +31,38 @@ public final class FrameBpForm {
     }
 
     public BreakPointBlockPair getSelectedBp() {
-        return selectedBp;
+        return getFrameBpFormContent().getSelectedBp();
     }
 
     public void setSelectedBp(BreakPointBlockPair _s) {
-        this.selectedBp = _s;
+        this.getFrameBpFormContent().setSelectedBp(_s);
     }
 
     public AbsCustCheckBox getInstanceType() {
-        return instanceType;
+        return getFrameBpFormContent().getInstanceType();
     }
 
     public AbsCustCheckBox getStaticType() {
-        return staticType;
+        return getFrameBpFormContent().getStaticType();
     }
 
     public AbsCustCheckBox getEnabledBp() {
-        return enabledBp;
+        return getFrameBpFormContent().getEnabledBp();
     }
 
     public AbsPlainButton getOk() {
-        return ok;
+        return getFrameBpFormContent().getOk();
     }
 
     public GuiStackForm getGuiInsStackForm() {
-        return guiInsStackForm;
+        return getFrameBpFormContent().getGuiInsStackForm();
     }
 
     public GuiStackForm getGuiStdStackForm() {
-        return guiStdStackForm;
+        return getFrameBpFormContent().getGuiStdStackForm();
     }
 
     public GuiStackForm getGuiStaStackForm() {
-        return guiStaStackForm;
+        return getFrameBpFormContent().getGuiStaStackForm();
     }
 }

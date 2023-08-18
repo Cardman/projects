@@ -3,78 +3,64 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
 import code.gui.AbsCommonFrame;
 import code.gui.AbsCustCheckBox;
-import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
 public final class FrameMpForm {
     private final AbsCommonFrame commonFrame;
-    private final GuiStackForm guiEnterStackForm = new GuiStackForm();
-    private final GuiStackForm guiExitStackForm = new GuiStackForm();
-    private MethodPointBlockPair selectedMp;
-    private AbsCustCheckBox enterFunction;
-    private AbsCustCheckBox exitFunction;
-    private AbsCustCheckBox enabledMp;
-    private AbsPlainButton ok;
+    private final FrameMpFormContent frameMpFormContent;
     public FrameMpForm(AbsDebuggerGui _d, String _lg, AbstractProgramInfos _list) {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         commonFrame.addWindowListener(new CancelMpFormEvent(_d));
+        frameMpFormContent = new FrameMpFormContent();
     }
     public void guiBuild(AbsDebuggerGui _d) {
-        enterFunction = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enter");
-        exitFunction = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("exit");
-        enabledMp = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
-        ok = getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
-        AbsPanel bpForm_ = getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        bpForm_.add(enabledMp);
-        bpForm_.add(enterFunction);
-        bpForm_.add(exitFunction);
-        bpForm_.add(guiEnterStackForm.guiBuild(_d));
-        bpForm_.add(guiExitStackForm.guiBuild(_d));
-        ok.addActionListener(new OkMpFormEvent(_d));
-        bpForm_.add(ok);
-        commonFrame.setContentPane(bpForm_);
+        frameMpFormContent.guiBuild(_d);
+        commonFrame.setContentPane(frameMpFormContent.getContentPane());
     }
 
     public void refresh(StringMap<String> _v) {
-        getGuiEnterStackForm().refresh(_v, "");
-        getGuiExitStackForm().refresh(_v, "");
+        getFrameMpFormContent().refresh(_v);
     }
 
     public AbsCommonFrame getCommonFrame() {
         return commonFrame;
     }
 
+    public FrameMpFormContent getFrameMpFormContent() {
+        return frameMpFormContent;
+    }
+
     public MethodPointBlockPair getSelectedMp() {
-        return selectedMp;
+        return getFrameMpFormContent().getSelectedMp();
     }
 
     public void setSelectedMp(MethodPointBlockPair _s) {
-        this.selectedMp = _s;
+        this.getFrameMpFormContent().setSelectedMp(_s);
     }
 
     public AbsCustCheckBox getEnterFunction() {
-        return enterFunction;
+        return getFrameMpFormContent().getEnterFunction();
     }
 
     public AbsCustCheckBox getExitFunction() {
-        return exitFunction;
+        return getFrameMpFormContent().getExitFunction();
     }
 
     public AbsCustCheckBox getEnabledMp() {
-        return enabledMp;
+        return getFrameMpFormContent().getEnabledMp();
     }
 
     public AbsPlainButton getOk() {
-        return ok;
+        return getFrameMpFormContent().getOk();
     }
 
     public GuiStackForm getGuiEnterStackForm() {
-        return guiEnterStackForm;
+        return getFrameMpFormContent().getGuiEnterStackForm();
     }
 
     public GuiStackForm getGuiExitStackForm() {
-        return guiExitStackForm;
+        return getFrameMpFormContent().getGuiExitStackForm();
     }
 }

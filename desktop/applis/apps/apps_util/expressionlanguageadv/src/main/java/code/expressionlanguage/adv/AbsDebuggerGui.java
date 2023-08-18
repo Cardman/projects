@@ -31,6 +31,8 @@ import code.util.core.StringUtil;
 public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private final CdmFactory factory;
     private AbsMenuItem analyzeMenu;
+    private AbsMenuItem openPoints;
+    private final FramePoints framePoints;
     private final FrameBpForm frameBpForm;
     private final FrameMpForm frameMpForm;
     private final FrameWpForm frameWpForm;
@@ -73,6 +75,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         super(_a,_lg,_list);
         menuManage = _m;
         factory = _fact;
+        framePoints = new FramePoints(this,_lg, _list);
         frameBpForm = new FrameBpForm(this,_lg, _list);
         frameMpForm = new FrameMpForm(this,_lg, _list);
         frameWpForm = new FrameWpForm(this,_lg, _list);
@@ -96,6 +99,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         dbgMenu = getEvent().act();
         getDbgMenu().open();
         manageOptions = getEvent().manageOpt();
+        framePoints.guiBuild(this);
         frameBpForm.guiBuild(this);
         frameMpForm.guiBuild(this);
         frameWpForm.guiBuild(this);
@@ -165,6 +169,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         analyzeMenu = getCommonFrame().getFrames().getCompoFactory().newMenuItem("analyze");
         analyzeMenu.addActionListener(getEvent());
         session_.addMenuItem(analyzeMenu);
+        openPoints = getCommonFrame().getFrames().getCompoFactory().newMenuItem("open points");
+        openPoints.setEnabled(false);
+        openPoints.setAccelerator(GuiConstants.VK_F6,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK);
+        openPoints.addActionListener(new OpenFramePointsEvent(this,framePoints));
+        session_.addMenuItem(openPoints);
         bar_.add(session_);
         getCommonFrame().setJMenuBar(bar_);
         PackingWindowAfter.pack(getCommonFrame());
@@ -358,11 +367,13 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             navigation.setVisible(true);
         }
         currentResult = _res;
+        openPoints.setEnabled(true);
         refreshList(folderSystem.selectEvt(),viewable, "");
+        framePoints.refresh(viewable);
         frameBpForm.refresh(viewable);
         frameMpForm.refresh(viewable);
         frameWpForm.refresh(viewable);
-
+        closeCompos();
         int len_ = _src.size();
         for (int i = 0; i < len_; i++) {
             String fullPath_ = pathToSrc(manageOptions)+ _src.getKey(i);
@@ -459,6 +470,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return factory;
     }
 
+    public FramePoints getFramePoints() {
+        return framePoints;
+    }
+
     public FrameBpForm getFrameBpForm() {
         return frameBpForm;
     }
@@ -513,6 +528,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public AbsMenuItem getAnalyzeMenu() {
         return analyzeMenu;
+    }
+
+    public AbsMenuItem getOpenPoints() {
+        return openPoints;
     }
 
     public AbstractAtomicBoolean getStopDbg() {

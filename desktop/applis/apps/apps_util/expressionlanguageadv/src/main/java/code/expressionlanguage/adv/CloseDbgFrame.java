@@ -14,6 +14,9 @@ public final class CloseDbgFrame implements AbsWindowListenerClosing {
         gui.getMenuManage().close();
         gui.closeAll();
         CancelBpFormEvent.act(gui);
+        CancelMpFormEvent.act(gui);
+        CancelWpFormEvent.act(gui);
+        CancelFramePointsEvent.act(gui);
         gui.getStopDbg().set(true);
     }
 }

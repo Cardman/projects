@@ -171,6 +171,22 @@ public abstract class EquallableElAdvUtil {
         ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();
     }
 
+    public static void openPoints(AbsDebuggerGui _g) {
+        ((MockMenuItem)_g.getOpenPoints()).getActionListeners().get(0).action();
+    }
+    public static void addExc(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getAddExc()).getActionListeners().get(0).action();
+    }
+    public static void addExcOk(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getFrameExcFormContent().getOk()).getActionListeners().get(0).action();
+    }
+
+    public static void editExc(AbsDebuggerGui _g, int _v) {
+        ((MockPlainButton)_g.getFramePoints().getExcFrom().getComponent(_v)).getActionListeners().get(0).action();
+    }
+    public static void addExcRemove(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getFrameExcFormContent().getRemove()).getActionListeners().get(0).action();
+    }
     public static void menuSingleMain(WindowExpressionEditor _w, AbsDebuggerGui _g) {
         ((MockMenuItem)_w.getSessionMenuSingleMain()).getActionListeners().get(0).action();
         ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();

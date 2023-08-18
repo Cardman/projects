@@ -3,61 +3,29 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
 import code.gui.AbsCommonFrame;
 import code.gui.AbsCustCheckBox;
-import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
 public final class FrameWpForm {
     private final AbsCommonFrame commonFrame;
-    private final GuiStackForm guiReadStackForm = new GuiStackForm();
-    private final GuiStackForm guiWriteStackForm = new GuiStackForm();
-    private final GuiStackForm guiCompoundReadStackForm = new GuiStackForm();
-    private final GuiStackForm guiCompoundWriteStackForm = new GuiStackForm();
-    private final GuiStackForm guiCompoundWriteErrStackForm = new GuiStackForm();
-    private WatchPointBlockPair selectedWp;
-    private AbsCustCheckBox read;
-    private AbsCustCheckBox write;
-    private AbsCustCheckBox compoundRead;
-    private AbsCustCheckBox compoundWrite;
-    private AbsCustCheckBox compoundWriteErr;
-    private AbsCustCheckBox enabledWp;
-    private AbsPlainButton ok;
+    private final FrameWpFormContent frameWpFormContent;
     public FrameWpForm(AbsDebuggerGui _d, String _lg, AbstractProgramInfos _list) {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         commonFrame.addWindowListener(new CancelWpFormEvent(_d));
+        frameWpFormContent = new FrameWpFormContent();
     }
     public void guiBuild(AbsDebuggerGui _d) {
-        read = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("read");
-        write = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("write");
-        compoundRead = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("compound read");
-        compoundWrite = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("compound write");
-        compoundWriteErr = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("compound write error");
-        enabledWp = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
-        ok = getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
-        AbsPanel bpForm_ = getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        bpForm_.add(enabledWp);
-        bpForm_.add(read);
-        bpForm_.add(write);
-        bpForm_.add(compoundRead);
-        bpForm_.add(compoundWrite);
-        bpForm_.add(compoundWriteErr);
-        bpForm_.add(guiReadStackForm.guiBuild(_d));
-        bpForm_.add(guiWriteStackForm.guiBuild(_d));
-        bpForm_.add(guiCompoundReadStackForm.guiBuild(_d));
-        bpForm_.add(guiCompoundWriteStackForm.guiBuild(_d));
-        bpForm_.add(guiCompoundWriteErrStackForm.guiBuild(_d));
-        ok.addActionListener(new OkWpFormEvent(_d));
-        bpForm_.add(ok);
-        commonFrame.setContentPane(bpForm_);
+        frameWpFormContent.guiBuild(_d);
+        commonFrame.setContentPane(frameWpFormContent.getContentPane());
     }
 
     public void refresh(StringMap<String> _v) {
-        getGuiCompoundReadStackForm().refresh(_v, "");
-        getGuiCompoundWriteErrStackForm().refresh(_v, "");
-        getGuiCompoundWriteStackForm().refresh(_v, "");
-        getGuiReadStackForm().refresh(_v, "");
-        getGuiWriteStackForm().refresh(_v, "");
+        getFrameWpFormContent().refresh(_v);
+    }
+
+    public FrameWpFormContent getFrameWpFormContent() {
+        return frameWpFormContent;
     }
 
     public AbsCommonFrame getCommonFrame() {
@@ -65,60 +33,60 @@ public final class FrameWpForm {
     }
 
     public WatchPointBlockPair getSelectedWp() {
-        return selectedWp;
+        return getFrameWpFormContent().getSelectedWp();
     }
 
     public void setSelectedWp(WatchPointBlockPair _s) {
-        this.selectedWp = _s;
+        this.getFrameWpFormContent().setSelectedWp(_s);
     }
 
     public AbsCustCheckBox getRead() {
-        return read;
+        return getFrameWpFormContent().getRead();
     }
 
     public AbsCustCheckBox getWrite() {
-        return write;
+        return getFrameWpFormContent().getWrite();
     }
 
     public AbsCustCheckBox getCompoundRead() {
-        return compoundRead;
+        return getFrameWpFormContent().getCompoundRead();
     }
 
     public AbsCustCheckBox getCompoundWrite() {
-        return compoundWrite;
+        return getFrameWpFormContent().getCompoundWrite();
     }
 
     public AbsCustCheckBox getCompoundWriteErr() {
-        return compoundWriteErr;
+        return getFrameWpFormContent().getCompoundWriteErr();
     }
 
 
     public AbsCustCheckBox getEnabledWp() {
-        return enabledWp;
+        return getFrameWpFormContent().getEnabledWp();
     }
 
     public AbsPlainButton getOk() {
-        return ok;
+        return getFrameWpFormContent().getOk();
     }
 
     public GuiStackForm getGuiCompoundReadStackForm() {
-        return guiCompoundReadStackForm;
+        return getFrameWpFormContent().getGuiCompoundReadStackForm();
     }
 
     public GuiStackForm getGuiCompoundWriteErrStackForm() {
-        return guiCompoundWriteErrStackForm;
+        return getFrameWpFormContent().getGuiCompoundWriteErrStackForm();
     }
 
     public GuiStackForm getGuiCompoundWriteStackForm() {
-        return guiCompoundWriteStackForm;
+        return getFrameWpFormContent().getGuiCompoundWriteStackForm();
     }
 
     public GuiStackForm getGuiReadStackForm() {
-        return guiReadStackForm;
+        return getFrameWpFormContent().getGuiReadStackForm();
     }
 
     public GuiStackForm getGuiWriteStackForm() {
-        return guiWriteStackForm;
+        return getFrameWpFormContent().getGuiWriteStackForm();
     }
 
 }
