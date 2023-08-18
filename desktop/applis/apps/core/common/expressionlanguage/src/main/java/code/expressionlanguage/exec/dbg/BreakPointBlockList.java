@@ -404,7 +404,7 @@ public final class BreakPointBlockList {
         v_.setCompoundRead(true);
         v_.setCompoundWrite(true);
         v_.setCompoundWriteErr(true);
-        WatchPointBlockPair pair_ = new WatchPointBlockPair(_field.getRootBlock(),_field.getRootBlock().getNumberAll(),_field.getClassField(), v_);
+        WatchPointBlockPair pair_ = new WatchPointBlockPair(_field.getRootBlock(),_field.getRootBlockNb(),_field.getClassField(), v_);
         int i_ = 0;
         for (WatchPointBlockPair b: watchList.elts()) {
             if (b.match(pair_)) {
@@ -430,7 +430,7 @@ public final class BreakPointBlockList {
         v_.setCompoundRead(true);
         v_.setCompoundWrite(true);
         v_.setCompoundWriteErr(true);
-        WatchPointBlockPair pair_ = new WatchPointBlockPair(_field.getRootBlock(),_field.getRootBlock().getNumberAll(),_field.getClassField(), v_);
+        WatchPointBlockPair pair_ = new WatchPointBlockPair(_field.getRootBlock(),_field.getRootBlockNb(),_field.getClassField(), v_);
         for (WatchPointBlockPair b: watchList.elts()) {
             if (b.match(pair_)) {
                 b.getValue().setEnabled(!b.getValue().isEnabled());
