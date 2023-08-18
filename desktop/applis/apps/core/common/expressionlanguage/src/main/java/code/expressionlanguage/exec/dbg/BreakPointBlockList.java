@@ -290,16 +290,16 @@ public final class BreakPointBlockList {
         return list_;
     }
     public void resetList() {
-        for (BreakPointBlockPair b: list.elts()) {
+        for (BreakPointBlockPair b: getList().elts()) {
             b.getValue().resetCount();
         }
-        for (MethodPointBlockPair b: methPointList.elts()) {
+        for (MethodPointBlockPair b: getMethPointList().elts()) {
             b.getValue().resetCount();
         }
-        for (ExcPointBlockPair b: excPointList.elts()) {
+        for (ExcPointBlockPair b: getExcPointList().elts()) {
             b.getValue().resetCount();
         }
-        for (WatchPointBlockPair b: watchList.elts()) {
+        for (WatchPointBlockPair b: getWatchList().elts()) {
             b.getValue().resetCount();
         }
     }
@@ -461,6 +461,23 @@ public final class BreakPointBlockList {
         }
         return null;
     }
+
+    public AbsCollection<ExcPointBlockPair> getExcPointList() {
+        return excPointList;
+    }
+
+    public AbsCollection<BreakPointBlockPair> getList() {
+        return list;
+    }
+
+    public AbsCollection<MethodPointBlockPair> getMethPointList() {
+        return methPointList;
+    }
+
+    public AbsCollection<WatchPointBlockPair> getWatchList() {
+        return watchList;
+    }
+
     public AbsCollection<BreakPointBlockPair> getListTmp() {
         return listTmp;
     }
