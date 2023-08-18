@@ -813,7 +813,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean checkBreakPoint(ContextEl _context,StackCall _stackCall, AbstractPageEl _p, CheckedExecOperationNodeInfos _infos) {
-        if (visitedLambda(_stackCall,_p)) {
+        if (visitedOrNotVisitableLambda(_stackCall,_p)) {
             return false;
         }
         if (_stackCall.trueException() != null || (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null && _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD) || _infos != null) {
@@ -852,8 +852,8 @@ public final class DbgStackStopper implements AbsStackStopper {
         return true;
     }
 
-    private static boolean visitedLambda(StackCall _stackCall, AbstractPageEl _p) {
-        return _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() == null && _p instanceof AbstractLambdaVariable && ((AbstractLambdaVariable)_p).isVisitedPage();
+    private static boolean visitedOrNotVisitableLambda(StackCall _stackCall, AbstractPageEl _p) {
+        return _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() == null && _p instanceof AbstractLambdaVariable && (!((AbstractLambdaVariable)_p).isVisitablePage() || ((AbstractLambdaVariable)_p).isVisitedPage());
     }
 
     private static boolean possibleDeclared(ContextEl _context, StackCall _stackCall, CheckedExecOperationNodeInfos _infos) {
@@ -864,7 +864,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (_check.getDeclaring() == null) {
             return false;
         }
-        Struct v_ = strValue(_context, _stackCall, _check);
+        Struct v_ = strValue(_context, _check);
         if (v_ == null) {
             return false;
         }
@@ -885,11 +885,8 @@ public final class DbgStackStopper implements AbsStackStopper {
         return ExecInheritsAdv.checkObjectEx(ret_, right_.getClassName(_context), _context, _stackCall) == null;
     }
 
-    private static Struct strValue(ContextEl _context, StackCall _stackCall, CheckedExecOperationNodeInfos _check) {
+    private static Struct strValue(ContextEl _context, CheckedExecOperationNodeInfos _check) {
         if (_check.isStaticField()) {
-            if (_context.getExiting().state(_stackCall,_check.getFieldType().getRootBlock(),null) != null) {
-                return null;
-            }
             return NumParsers.getStaticField(_check.getIdClass(), _context.getClasses().getStaticFields());
         }
         Struct ins_ = _check.getInstance();
