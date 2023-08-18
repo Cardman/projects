@@ -697,49 +697,10 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (!(_bp.isRead() && _check.getModeField() == READ || _bp.isWrite() && _check.getModeField() == WRITE || _bp.isCompoundRead() && _check.getModeField() == COMPOUND_READ || _bp.isCompoundWrite() && _check.getModeField() == COMPOUND_WRITE || _bp.isCompoundWriteErr() && _check.getModeField() == COMPOUND_WRITE_ERR)) {
             return false;
         }
-        if (!okField(_context, _stackCall, _check)) {
-            return false;
-        }
         BreakPointCondition condition_ = stopCurrentWpCondition(_bp, _check);
         return stopCurrent(_context, _stackCall, _p, condition_);
     }
 
-    private static boolean okField(ContextEl _context, StackCall _stackCall, CheckedExecOperationNodeInfos _check) {
-        Struct v_ = strValue(_context, _stackCall, _check);
-        if (v_ == null) {
-            return false;
-        }
-        Struct right_ = _check.getRight();
-        if (right_ == null) {
-            return true;
-        }
-        String ret_;
-        if (!_check.isStaticField()) {
-            String arg_ = _check.getInstance().getClassName(_context);
-            ret_ = ExecFieldTemplates.formatType(_context, _check.getFieldType().getRootBlock(), _check.getFieldType().getReturnType(), arg_);
-        } else {
-            ret_ = _check.getFieldType().getReturnType();
-        }
-        return ExecInheritsAdv.checkObjectEx(ret_, right_.getClassName(_context), _context, _stackCall) == null;
-    }
-
-    private static Struct strValue(ContextEl _context, StackCall _stackCall, CheckedExecOperationNodeInfos _check) {
-        if (_check.isStaticField()) {
-            if (_context.getExiting().state(_stackCall,_check.getFieldType().getRootBlock(),null) != null) {
-                return null;
-            }
-            return NumParsers.getStaticField(_check.getIdClass(), _context.getClasses().getStaticFields());
-        }
-        Struct ins_ = _check.getInstance();
-        if (!(ins_ instanceof FieldableStruct)) {
-            return null;
-        }
-        ClassFieldStruct found_ = ((FieldableStruct) ins_).getEntryStruct(_check.getIdClass());
-        if (found_ == null) {
-            return null;
-        }
-        return found_.getStruct();
-    }
 
     private static BreakPointCondition stopCurrentWpCondition(WatchPoint _bp, CheckedExecOperationNodeInfos _check) {
         if (_check.getModeField() == READ) {
@@ -851,7 +812,7 @@ public final class DbgStackStopper implements AbsStackStopper {
             return false;
         }
         if (_stackCall.trueException() != null || (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null && _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD) || _infos != null) {
-            return possibleDeclared(_infos);
+            return possibleDeclared(_context, _stackCall, _infos);
         }
         if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null) {
             return false;
@@ -890,10 +851,49 @@ public final class DbgStackStopper implements AbsStackStopper {
         return _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() == null && _p instanceof AbstractLambdaVariable && ((AbstractLambdaVariable)_p).isVisitedPage();
     }
 
-    private static boolean possibleDeclared(CheckedExecOperationNodeInfos _infos) {
-        return _infos == null || _infos.getDeclaring() != null;
+    private static boolean possibleDeclared(ContextEl _context, StackCall _stackCall, CheckedExecOperationNodeInfos _infos) {
+        return _infos == null || okField(_context,_stackCall,_infos);
     }
 
+    private static boolean okField(ContextEl _context, StackCall _stackCall, CheckedExecOperationNodeInfos _check) {
+        if (_check.getDeclaring() == null) {
+            return false;
+        }
+        Struct v_ = strValue(_context, _stackCall, _check);
+        if (v_ == null) {
+            return false;
+        }
+        Struct right_ = _check.getRight();
+        if (right_ == null) {
+            return true;
+        }
+        String ret_;
+        if (!_check.isStaticField()) {
+            String arg_ = _check.getInstance().getClassName(_context);
+            ret_ = ExecFieldTemplates.formatType(_context, _check.getFieldType().getRootBlock(), _check.getFieldType().getReturnType(), arg_);
+        } else {
+            ret_ = _check.getFieldType().getReturnType();
+        }
+        return ExecInheritsAdv.checkObjectEx(ret_, right_.getClassName(_context), _context, _stackCall) == null;
+    }
+
+    private static Struct strValue(ContextEl _context, StackCall _stackCall, CheckedExecOperationNodeInfos _check) {
+        if (_check.isStaticField()) {
+            if (_context.getExiting().state(_stackCall,_check.getFieldType().getRootBlock(),null) != null) {
+                return null;
+            }
+            return NumParsers.getStaticField(_check.getIdClass(), _context.getClasses().getStaticFields());
+        }
+        Struct ins_ = _check.getInstance();
+        if (!(ins_ instanceof FieldableStruct)) {
+            return null;
+        }
+        ClassFieldStruct found_ = ((FieldableStruct) ins_).getEntryStruct(_check.getIdClass());
+        if (found_ == null) {
+            return null;
+        }
+        return found_.getStruct();
+    }
     private static boolean enterExit(ContextEl _context, StackCall _stackCall) {
         return _stackCall.normalCallNoExit(_context) || _stackCall.getReadWrite() != ReadWrite.ENTRY;
     }
