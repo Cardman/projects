@@ -414,7 +414,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         }
         StopDbgEnum step_ = stopStep(_context, _stackCall, p_);
         if (step_ != StopDbgEnum.NONE) {
-            if (step_ == StopDbgEnum.STEP_RETURN_METHOD) {
+            if (step_ == StopDbgEnum.STEP_RETURN_METHOD && infos_ != null) {
                 _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setOperElt(infos_);
                 _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(null);
             }
