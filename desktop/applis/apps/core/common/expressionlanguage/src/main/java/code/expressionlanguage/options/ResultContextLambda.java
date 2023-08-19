@@ -177,6 +177,12 @@ public final class ResultContextLambda {
 //        }
 //        return op_;
 //    }
+    public StackCallReturnValue eval(BreakPointOutputInfo _bp, AbstractPageEl _page) {
+        return eval(_bp.getCheckedMethodInfos(),_bp.getOperElt(),_page);
+    }
+    public StackCallReturnValue eval(ContextEl _original, BreakPointOutputInfo _bp, AbstractPageEl _page) {
+        return eval(_original,_bp.getCheckedMethodInfos(),_bp.getOperElt(),_page);
+    }
     public StackCallReturnValue eval(ContextEl _original, CheckedMethodInfos _m, CoreCheckedExecOperationNodeInfos _addon,AbstractPageEl _page) {
         prepare(_original);
         return eval(_m,_addon,_page);
