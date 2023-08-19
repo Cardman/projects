@@ -11,16 +11,8 @@ public abstract class AbstractBasicReflectPageEl extends AbstractReflectPageEl {
     }
 
     @Override
-    public void processTagsBase(ContextEl _context, StackCall _stack) {
-        if (!checkCondition(_context, _stack)) {
-            return;
-        }
-        _stack.nullReadWrite();
-    }
-    @Override
     public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
         setWrapper(_wrap);
         setReturnedArgument(_argument);
     }
-    public abstract boolean checkCondition(ContextEl _context, StackCall _stack);
 }

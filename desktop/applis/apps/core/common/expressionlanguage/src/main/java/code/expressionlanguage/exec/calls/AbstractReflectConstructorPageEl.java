@@ -24,13 +24,6 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
         setWrapper(_wrap);
         setReturnedArgument(_argument);
     }
-    @Override
-    public void processTagsBase(ContextEl _context, StackCall _stack) {
-        if (!checkCondition(_context, _stack)) {
-            return;
-        }
-        _stack.nullReadWrite();
-    }
     protected boolean keep(GeneType _gene,ContextEl _context, StackCall _stackCall) {
         LgNames stds_ = _context.getStandards();
         GeneType type_ = getFormatted().getRootBlock();
@@ -58,7 +51,6 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
         }
         return true;
     }
-    public abstract boolean checkCondition(ContextEl _context, StackCall _stack);
 
     protected boolean end(ContextEl _context, StackCall _stack, Argument _arg) {
         if (_context.callsOrException(_stack)) {

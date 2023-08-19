@@ -41,13 +41,6 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         annotated = _annotated;
         setGlobalArgumentStruct(_annotated);
     }
-    @Override
-    public void processTagsBase(ContextEl _context, StackCall _stack) {
-        if (!checkCondition(_context, _stack)) {
-            return;
-        }
-        _stack.nullReadWrite();
-    }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         retrAllAnnot(_context);

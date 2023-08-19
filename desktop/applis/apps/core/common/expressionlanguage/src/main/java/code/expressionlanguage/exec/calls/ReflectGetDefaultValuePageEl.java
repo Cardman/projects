@@ -25,13 +25,6 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
         setGlobalArgumentStruct(_metaInfo);
         metaInfo = _metaInfo;
     }
-    @Override
-    public void processTagsBase(ContextEl _context, StackCall _stack) {
-        if (!checkCondition(_context, _stack)) {
-            return;
-        }
-        _stack.nullReadWrite();
-    }
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         ExecMemberCallingsBlock annotableBlock_ = metaInfo.getCallee();
         if (!(annotableBlock_ instanceof ExecAnnotationMethodBlock)) {

@@ -32,15 +32,8 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
     ExecMemberCallingsBlock getCallee() {
         return callee;
     }
-    @Override
-    public void processTagsBase(ContextEl _context, StackCall _stack) {
-        if (!checkCondition(_context, _stack)) {
-            return;
-        }
-        _stack.nullReadWrite();
-    }
 
-    private boolean checkCondition(ContextEl _context, StackCall _stack) {
+    public boolean checkCondition(ContextEl _context, StackCall _stack) {
         if (!keep(_context, _stack)) {
             return false;
         }
