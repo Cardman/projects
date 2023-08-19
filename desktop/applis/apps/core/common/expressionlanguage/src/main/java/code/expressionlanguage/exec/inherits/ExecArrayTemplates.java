@@ -435,9 +435,13 @@ public final class ExecArrayTemplates {
     }
 
     public static void checkElt(ArrayStruct _arr, ContextEl _context, StackCall _stackCall, Struct _v) {
-        ErrorType errorType_ = safeObjectArr(_v.getClassName(_context), _context, _arr);
+        ErrorType errorType_ = checkElt(_arr, _context, _v);
         if (errorType_ != ErrorType.NOTHING) {
             errContent(_arr, _v,errorType_, _context, _stackCall);
         }
+    }
+
+    public static ErrorType checkElt(ArrayStruct _arr, ContextEl _context, Struct _v) {
+        return safeObjectArr(_v.getClassName(_context), _context, _arr);
     }
 }
