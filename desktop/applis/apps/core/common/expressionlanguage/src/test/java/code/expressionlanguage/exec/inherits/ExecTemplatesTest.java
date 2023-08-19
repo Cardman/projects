@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
@@ -10,8 +9,6 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.ReflectGetFieldPageEl;
-import code.expressionlanguage.exec.calls.ReflectSetFieldPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
@@ -23,7 +20,6 @@ import code.expressionlanguage.exec.util.HiddenCache;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.AnaAnonFctContent;
 import code.expressionlanguage.fwd.blocks.ExecAnonFctContent;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -494,12 +490,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     public void setCheckedElements1Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = validated(files_);
-        ArrayStruct arr_ = new ArrayStruct(1,"[$int");
-        arr_.set(0,new IntStruct(0));
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
         StackCall stackCall_ = getStackCall(cont_);
-        ExecArrayTemplates.setCheckedElements(args_,arr_,cont_, stackCall_);
+        ExecArrayTemplates.checkedElements(ArrayStruct.instance("[$int", args_), cont_, stackCall_);
         assertNotNull(getTrueException(stackCall_));
     }
     @Test

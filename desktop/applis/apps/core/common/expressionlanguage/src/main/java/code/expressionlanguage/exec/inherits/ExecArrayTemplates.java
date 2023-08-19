@@ -12,7 +12,6 @@ import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
-import code.util.CustList;
 import code.util.EntryCust;
 import code.util.Ints;
 import code.util.core.IndexConstants;
@@ -367,15 +366,8 @@ public final class ExecArrayTemplates {
         }
         Struct value_ = Argument.getNull(_value);
         ErrorType errorType_ = safeObjectArr(value_.getClassName(_conf), _conf, arr_);
-        if (errorType_ == ErrorType.NPE) {
-            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
-            return;
-        }
         if (errorType_ != ErrorType.NOTHING) {
-            String cast_ = stds_.getContent().getCoreNames().getAliasStore();
-            StringBuilder mess_ = buildStoreError(value_, _conf, arr_);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
+            errContent(arr_, _value, errorType_, _conf, _stackCall);
             return;
         }
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(arr_)) {
@@ -383,6 +375,17 @@ public final class ExecArrayTemplates {
             return;
         }
         arr_.set(index_, value_);
+    }
+    private static void errContent(ArrayStruct _arr, Struct _value, ErrorType _err, ContextEl _conf, StackCall _stackCall) {
+        LgNames stds_ = _conf.getStandards();
+        if (_err == ErrorType.NPE) {
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
+            return;
+        }
+        String cast_ = stds_.getContent().getCoreNames().getAliasStore();
+        StringBuilder mess_ = buildStoreError(_value, _conf, _arr);
+        _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
     }
 
     private static ErrorType safeObjectArr(String _value, ContextEl _context, ArrayStruct _arr) {
@@ -420,15 +423,21 @@ public final class ExecArrayTemplates {
         return mess_;
     }
 
-    public static void setCheckedElements(CustList<Argument> _args, Struct _arr, ContextEl _context, StackCall _stackCall) {
-        int len_ = _args.size();
+    public static void checkedElements(ArrayStruct _arr, ContextEl _context, StackCall _stackCall) {
+        int len_ = _arr.getLength();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            Argument chArg_ = _args.get(i);
-            IntStruct ind_ = new IntStruct(i);
-            setElement(_arr, ind_, chArg_.getStruct(), _context, _stackCall);
+            Struct value_ = Argument.getNull(_arr.get(i));
+            checkElt(_arr, _context, _stackCall, value_);
             if (_context.callsOrException(_stackCall)) {
                 return;
             }
+        }
+    }
+
+    public static void checkElt(ArrayStruct _arr, ContextEl _context, StackCall _stackCall, Struct _v) {
+        ErrorType errorType_ = safeObjectArr(_v.getClassName(_context), _context, _arr);
+        if (errorType_ != ErrorType.NOTHING) {
+            errContent(_arr, _v,errorType_, _context, _stackCall);
         }
     }
 }

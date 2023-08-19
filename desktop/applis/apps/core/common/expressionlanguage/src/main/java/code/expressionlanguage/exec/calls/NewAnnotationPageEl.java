@@ -37,9 +37,9 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
             AnnotationTypeInfo i_ = names.getValue(i);
             String t_ = i_.getType();
             if (i_.isWrap()) {
-                ArrayStruct a_ = new ArrayStruct(1, t_);
-                ExecArrayTemplates.setCheckedElements(new CustList<Argument>(value_),a_,_context, _stack);
-                ExecAnnotationMethodBlock.setValue(getBlockRootType(),className_,name_,t_,_context,new Argument(a_), _stack);
+                ArrayStruct arr_ = ArrayStruct.instance(t_, new CustList<Argument>(value_));
+                ExecArrayTemplates.checkedElements(arr_, _context, _stack);
+                ExecAnnotationMethodBlock.setValue(getBlockRootType(),className_,name_,t_,_context,new Argument(arr_), _stack);
                 if (_context.callsOrException(_stack)) {
                     return;
                 }

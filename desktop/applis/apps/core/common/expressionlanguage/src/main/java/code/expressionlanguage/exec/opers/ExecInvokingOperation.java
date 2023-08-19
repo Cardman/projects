@@ -56,10 +56,19 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
     public static ArgumentListCall fectchArgs(String _lastType, int _naturalVararg, ContextEl _conf, StackCall _stack, CustList<ExecOperationInfo> _infos) {
+        ArgumentList argumentList_ = fectchArgs(_lastType, _naturalVararg, _infos);
+        if (argumentList_.getNaturalVararg() <= -1) {
+            return argumentList_.getArguments();
+        }
+        ExecArrayTemplates.checkedElements(ExecArrayFieldOperation.getArray(ArgumentListCall.toStr(argumentList_.getArguments().getArgumentWrappers().last().getValue()),_conf),_conf,_stack);
+        return argumentList_.getArguments();
+    }
+
+    public static ArgumentList fectchArgs(String _lastType, int _naturalVararg, CustList<ExecOperationInfo> _infos) {
         ArgumentList argumentList_ = listNamedArguments(_naturalVararg, _infos);
         CustList<ArgumentWrapper> first_ = argumentList_.getArguments().getArgumentWrappers();
-        listArguments(argumentList_.getNaturalVararg(), _lastType, first_,_conf,_stack);
-        return argumentList_.getArguments();
+        listArguments(argumentList_.getNaturalVararg(), _lastType, first_);
+        return argumentList_;
     }
     public static ArgumentList listNamedArguments(int _naturalVararg, CustList<ExecOperationInfo> _infos) {
         ArgumentList out_ = listNamedArguments(_infos);
@@ -67,7 +76,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return out_;
     }
 
-    public static void listArguments(int _natVararg, String _lastType, CustList<ArgumentWrapper> _nodes, ContextEl _conf, StackCall _stack) {
+    public static void listArguments(int _natVararg, String _lastType, CustList<ArgumentWrapper> _nodes) {
         if (_natVararg <= -1) {
             return;
         }
@@ -88,8 +97,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
         }
         String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
-        ArrayStruct str_ = new ArrayStruct(optArgs_.size(),clArr_);
-        ExecArrayTemplates.setCheckedElements(optArgs_,str_,_conf,_stack);
+        ArrayStruct str_ = ArrayStruct.instance(clArr_, optArgs_);
         reord_.add(new ArgumentWrapper(new Argument(str_),null));
         _nodes.clear();
         _nodes.addAllElts(reord_);
