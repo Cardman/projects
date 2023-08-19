@@ -15,6 +15,7 @@ public final class LocalThrowing {
     public static void removeBlockFinally(Struct _str, StackCall _stackCall) {
         AbstractPageEl bkIp_ = _stackCall.getLastPage();
         bkIp_.clearCurrentEls();
+        bkIp_.setTranslatedOffset(0);
         _stackCall.setNullCallingState();
         while (true) {
             AbstractStask bl_ = bkIp_.tryGetLastStack();
