@@ -83,7 +83,7 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     @Override
     public StopDbgEnum stopBreakPoint(ContextEl _context, StackCall _stackCall) {
-        return interceptAction(stopAtCheckedBp(_context, _stackCall), _context, _stackCall);
+        return interceptAction(stopAtCheckedBp(_context, _stackCall), _context);
     }
 
     @Override
@@ -278,12 +278,11 @@ public final class DbgStackStopper implements AbsStackStopper {
         return infos_;
     }
 
-    private static StopDbgEnum interceptAction(StopDbgEnum _val, ContextEl _context, StackCall _stackCall) {
+    private static StopDbgEnum interceptAction(StopDbgEnum _val, ContextEl _context) {
         if (_val != StopDbgEnum.NONE) {
             return _val;
         }
         if (_context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().getAndSet(false)) {
-            _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(null);
             return StopDbgEnum.PAUSE;
         }
         return _val;
@@ -410,12 +409,15 @@ public final class DbgStackStopper implements AbsStackStopper {
     private static StopDbgEnum stopAtCheckedBp(ContextEl _context, StackCall _stackCall) {
         AbstractPageEl p_ = _stackCall.getLastPage();
         CheckedExecOperationNodeInfos infos_ = infos(_context, _stackCall);
-        _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setOperElt(infos_);
         if (!checkBreakPoint(_context,_stackCall,p_,infos_)) {
             return StopDbgEnum.NONE;
         }
         StopDbgEnum step_ = stopStep(_context, _stackCall, p_);
         if (step_ != StopDbgEnum.NONE) {
+            if (step_ == StopDbgEnum.STEP_RETURN_METHOD) {
+                _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setOperElt(infos_);
+                _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(null);
+            }
             return step_;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().isMute()) {
@@ -465,7 +467,6 @@ public final class DbgStackStopper implements AbsStackStopper {
             if (stopCurrentMp(_context, _stackCall, _p, mp_, false)) {
                 return StopDbgEnum.METHOD_ENTRY;
             }
-            _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(null);
         }
         return StopDbgEnum.NONE;
     }
@@ -480,7 +481,6 @@ public final class DbgStackStopper implements AbsStackStopper {
                 if (stopCurrentMp(_context, _stackCall, _p, mp_, true)) {
                     return true;
                 }
-                _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(null);
             }
         }
         return false;
@@ -629,6 +629,7 @@ public final class DbgStackStopper implements AbsStackStopper {
             return false;
         }
         String clName_ = _str.getClassName(_context);
+        _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(null);
         _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setOperElt(new CoreCheckedExecOperationNodeInfos(new ExecFormattedRootBlock(_context.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(clName_)), clName_), _str,null));
         return stopCurrent(_context, _stackCall, _p, bpc_);
     }
@@ -675,6 +676,8 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (!(_bp.isEnabled() && (!_bp.isEnabledChgtType() || _bp.isInstanceType() && _p instanceof AbstractCallingInstancingPageEl || _bp.isStaticType() && _p instanceof StaticInitPageEl))) {
             return false;
         }
+        _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(null);
+        _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setOperElt(null);
         BreakPointCondition condition_ = stopCurrentBpCondition(_bp);
         return stopCurrent(_context, _stackCall, _p, condition_);
     }
@@ -712,6 +715,8 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (!(_bp.isRead() && _check.getModeField() == READ || _bp.isWrite() && _check.getModeField() == WRITE || _bp.isCompoundRead() && _check.getModeField() == COMPOUND_READ || _bp.isCompoundWrite() && _check.getModeField() == COMPOUND_WRITE || _bp.isCompoundWriteErr() && _check.getModeField() == COMPOUND_WRITE_ERR)) {
             return false;
         }
+        _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCheckedMethodInfos(null);
+        _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setOperElt(_check);
         BreakPointCondition condition_ = stopCurrentWpCondition(_bp, _check);
         return stopCurrent(_context, _stackCall, _p, condition_);
     }
