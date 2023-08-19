@@ -1,6 +1,8 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefContextGenerator;
 import code.expressionlanguage.SingleInterruptedContextEl;
 import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
@@ -10,10 +12,7 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.common.ParseLinesArgUtil;
-import code.expressionlanguage.exec.DefaultInitializer;
-import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.ProcessMethod;
-import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -24,6 +23,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.sample.CustLgNames;
@@ -2370,7 +2370,39 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertNull(stackCall_.getCallingState());
         assertEq(2, getNumber(ret_));
     }
-
+    @Test
+    public void success3Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return Resources.readNames().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        KeyWords kw_ = new KeyWords();
+        CustLgNames lgName_ = getLgNames();
+        srcFiles_.put("src/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        Options options_ = new Options();
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        Forwards forwards_ = getForwards(options_, lgName_, kw_,page_, all_);
+        ResultContext r_ = new ResultContext(page_, forwards_);
+        ResultContext res_ = ResultContext.def(r_, all_, "src");
+        ResultContext.fwd(res_, new DefContextGenerator());
+        assertTrue(isEmptyErrors(res_.getPageEl()));
+        MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
+        Argument argGlLoc_ = new Argument();
+        ExecRootBlock classBody_ = res_.getContext().getClasses().getClassBody("pkg.Ex");
+        ExecOverridableBlock method_ = getDeepMethodBodiesById(res_.getContext(), "pkg.Ex", fct_).first();
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,res_.getContext());
+        Argument ret_ = ExecClassesUtil.tryInitStaticlyTypes(res_.getContext(), res_.getForwards().getOptions(),stackCall_,new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()),StepDbgActionEnum.RUN,true).getRetValue().getValue();
+        assertNull(stackCall_.getCallingState());
+        assertEq(2, getNumber(ret_));
+    }
     @Test
     public void stoppingTest() {
         StringBuilder xml_ = new StringBuilder();
@@ -2413,6 +2445,28 @@ public class LgNamesTest extends ProcessMethodCommon {
         stop_.set(true);
         assertTrue(s_.callsOrException(st_));
         assertTrue(((DefaultInitializer)s_.getInit()).exitAfterCallInt(s_,st_));
+    }
+
+    @Test
+    public void stoppingInitTest() {
+        KeyWords kw_ = new KeyWords();
+        CustLgNames lgName_ = getLgNames();
+        StringMap<String> all_ = new StringMap<String>();
+        Options options_ = new Options();
+        AnalyzedPageEl sec_ = AnalyzedPageEl.setInnerAnalyzing();
+        Forwards forwards_ = getForwards(options_, lgName_, kw_, sec_, all_);
+        ResultContext r_ = new ResultContext(sec_, forwards_);
+        ResultContext res_ = ResultContext.def(r_, all_, "src");
+        ForwardInfos.generalForward(res_);
+        Forwards f_ = res_.getForwards();
+        CommonExecutionInfos ctxInfos_ = f_.getGenerator().newContextCommon(f_.getOptions(), f_);
+        ConcreteBoolean stop_ = new ConcreteBoolean();
+        stop_.set(true);
+        ContextEl ctx_ = new SingleInterruptedContextEl(ctxInfos_, stop_);
+        Classes.forwardAndClear(ctx_);
+        res_.setContext(ctx_);
+        StackCall st_ = Classes.tryInit(res_);
+        assertTrue(ctx_.callsOrException(st_));
     }
     private static void validateParamtersDuplicates(AnalyzedPageEl _s, CustList<CustList<KeyValueMemberName>> _params) {
         ValidatorStandard.validateParamtersDuplicates(_params, _s);

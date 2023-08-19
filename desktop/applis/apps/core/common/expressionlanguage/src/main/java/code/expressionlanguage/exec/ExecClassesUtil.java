@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
-import code.expressionlanguage.exec.dbg.DbgStackStopper;
 import code.expressionlanguage.exec.opers.ExecDotOperation;
 import code.expressionlanguage.exec.opers.ExecFctOperation;
 import code.expressionlanguage.exec.opers.ExecInternVariableOperation;
@@ -141,17 +140,16 @@ public final class ExecClassesUtil {
         }
         StackCall st_ = tryInitStaticlyTypes(_context, _options, _st, _mute);
         if (st_.getInitializingTypeInfos().getInitEnums() == InitPhase.NOTHING) {
-            ArgumentWrapper arg_;
-            if (!st_.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
-                arg_ = ProcessMethod.calculate(_callee, _context, st_);
-            } else {
-                AbstractPageEl f_ = st_.getCall(0);
-                if (!DbgStackStopper.stopAtWp(_context,st_)) {
-                    _context.getInit().loopCalling(_context, st_);
-                }
-                arg_ = new ArgumentWrapper(f_.getReturnedArgument(),f_.getWrapper());
+            int res_ = st_.getStopper().checkNext(_context,st_);
+            if (res_ == 0) {
+                ArgumentWrapper arg_ = ProcessMethod.calculate(_callee, _context, st_);
+                return new StackCallReturnValue(st_,arg_,vars(_context, st_));
             }
-            return new StackCallReturnValue(st_,arg_,vars(_context, st_));
+            if (res_ == 1) {
+                return new StackCallReturnValue(st_,null,vars(_context, st_));
+            }
+            _context.getInit().loopCalling(_context, st_);
+            return new StackCallReturnValue(st_,st_.aw(),vars(_context, st_));
         }
         return new StackCallReturnValue(st_,null,vars(_context, st_));
     }

@@ -21,7 +21,7 @@ public final class ExecThrowing extends ExecLeaf implements WithEl {
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.globalOffset(exp.getOffset());
         Argument arg_ = ExecHelperBlocks.tryToCalculate(_cont,0,_stack,exp.getList(),0, this);
-        if (_stack.getStopper().stopAt(_cont,_stack)) {
+        if (_stack.stopAt(_cont)) {
             return;
         }
         ip_.clearCurrentEls();

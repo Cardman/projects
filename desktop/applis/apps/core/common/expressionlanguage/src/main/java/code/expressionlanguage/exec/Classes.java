@@ -70,11 +70,12 @@ public final class Classes {
 		return getCommon().getResources();
 	}
 
-    public static void tryInit(ResultContext _res) {
+    public static StackCall tryInit(ResultContext _res) {
         ContextEl ctx_ = _res.getContext();
         if (ctx_ != null) {
-            ExecClassesUtil.tryInitStaticlyTypes(ctx_, _res.getForwards().getOptions());
+            return ExecClassesUtil.tryInitStaticlyTypes(ctx_, _res.getForwards().getOptions());
         }
+        return null;
     }
 
     public static void forwardAndClear(ContextEl _context) {

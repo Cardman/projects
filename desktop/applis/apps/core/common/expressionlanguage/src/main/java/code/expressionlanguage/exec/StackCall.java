@@ -7,7 +7,9 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -30,6 +32,8 @@ public final class StackCall implements AbstractStackCall {
 
     private final BreakPointInfo breakPointInfo = new BreakPointInfo();
     private final AbsStackStopper stopper;
+    private AbstractWrapper wrapper;
+    private Struct returnedArgument = NullStruct.NULL_VALUE;
     public StackCall(AbsStackStopper _s,InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
         stopper = _s;
         breakPointInfo.getBreakPointInputInfo().setStep(_s.firstStep());
@@ -49,6 +53,10 @@ public final class StackCall implements AbstractStackCall {
         StackCall st_ = new StackCall(_s,_readOnlyOthers,CustomSeedGene.copy(_seed));
         st_.setFullStack(new DefaultFullStack(_ctx));
         return st_;
+    }
+
+    public boolean stopAt(ContextEl _context){
+        return getStopper().stopAt(this) || _context.callsOrException(this);
     }
 
     public AbsStackStopper getStopper() {
@@ -124,6 +132,9 @@ public final class StackCall implements AbstractStackCall {
         return getLastPage().sizeEl();
     }
 
+    public ArgumentWrapper aw() {
+        return new ArgumentWrapper(ArgumentListCall.toStr(getReturnedArgument()),getWrapper());
+    }
     public ReadWrite getReadWrite() {
         return readWrite;
     }
@@ -229,4 +240,19 @@ public final class StackCall implements AbstractStackCall {
         return breakPointInfo;
     }
 
+    public Struct getReturnedArgument() {
+        return returnedArgument;
+    }
+
+    public void setReturnedArgument(Struct _r) {
+        this.returnedArgument = _r;
+    }
+
+    public AbstractWrapper getWrapper() {
+        return wrapper;
+    }
+
+    public void setWrapper(AbstractWrapper _w) {
+        this.wrapper = _w;
+    }
 }

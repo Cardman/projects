@@ -46,7 +46,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
         }
         globalOffset(ann_.getDefaultValueOffset());
         Argument ret_ = ExecHelperBlocks.tryToCalculate(_context,0, _stack,ops,0, null);
-        if (_stack.getStopper().stopAt(_context,_stack)) {
+        if (_stack.stopAt(_context)) {
             return false;
         }
         clearCurrentEls();

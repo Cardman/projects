@@ -10,7 +10,7 @@ public interface AbsStackStopper {
     StepDbgActionEnum firstStep();
     boolean firstEnter(AbstractPageEl _page);
     boolean stopAt(StackCall _stack);
-    boolean stopAt(ContextEl _context, StackCall _stack);
+
     StopDbgEnum stopBreakPoint(ContextEl _context, StackCall _stackCall);
 
     boolean callsOrException(ContextEl _owner, StackCall _stackCall);
@@ -21,5 +21,5 @@ public interface AbsStackStopper {
 
     boolean isStopAtExcMethod();
 
-    boolean hasToCheckExit(StackCall _stack, AbstractPageEl _p);
+    int checkNext(ContextEl _context, StackCall _stackCall);
 }

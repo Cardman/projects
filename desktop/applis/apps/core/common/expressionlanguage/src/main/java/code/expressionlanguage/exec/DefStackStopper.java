@@ -8,6 +8,11 @@ import code.util.CustList;
 
 public final class DefStackStopper implements AbsStackStopper {
     @Override
+    public int checkNext(ContextEl _context, StackCall _stackCall) {
+        return 0;
+    }
+
+    @Override
     public StepDbgActionEnum firstStep() {
         return StepDbgActionEnum.RUN;
     }
@@ -19,11 +24,6 @@ public final class DefStackStopper implements AbsStackStopper {
     @Override
     public boolean stopAt(StackCall _stack) {
         return false;
-    }
-
-    @Override
-    public boolean stopAt(ContextEl _context, StackCall _stack) {
-        return _context.callsOrException(_stack);
     }
 
     @Override
@@ -48,11 +48,6 @@ public final class DefStackStopper implements AbsStackStopper {
 
     @Override
     public boolean isStopAtExcMethod() {
-        return false;
-    }
-
-    @Override
-    public boolean hasToCheckExit(StackCall _stack, AbstractPageEl _p) {
         return false;
     }
 

@@ -23,7 +23,7 @@ public abstract class ExecMemberContainer {
     public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last, ExecBlock _coveredBlock) {
         firstEnter(_stack,_last);
         ExecHelperBlocks.tryToCalculate(_cont,0,_stack, opValue, trOffset, _coveredBlock);
-        if (_stack.getStopper().stopAt(_cont,_stack)) {
+        if (_stack.stopAt(_cont)) {
             return;
         }
         _last.clearCurrentEls();

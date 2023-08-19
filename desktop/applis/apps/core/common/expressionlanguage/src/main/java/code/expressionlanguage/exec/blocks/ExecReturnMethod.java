@@ -22,7 +22,7 @@ public final class ExecReturnMethod extends ExecAbstractExpressionReturnMethod {
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.globalOffset(getExpressionOffset());
         Argument arg_ = ExecHelperBlocks.tryToCalculate(_cont,0, _stack,getExp(),0, this);
-        if (_stack.getStopper().stopAt(_cont,_stack)) {
+        if (_stack.stopAt(_cont)) {
             return;
         }
         ip_.clearCurrentEls();

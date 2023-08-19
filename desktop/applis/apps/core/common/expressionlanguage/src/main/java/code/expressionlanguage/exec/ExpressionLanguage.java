@@ -40,7 +40,7 @@ public final class ExpressionLanguage {
         }
         IdMap<ExecOperationNode, ArgumentsPair> allRight_ = _right.getArguments();
         calculate(allRight_, _right, _conf, _offset, _stackCall);
-        if (_stackCall.getStopper().stopAt(_conf,_stackCall)) {
+        if (_stackCall.stopAt(_conf)) {
             return null;
         }
         if (_right.arguments.isEmpty()) {

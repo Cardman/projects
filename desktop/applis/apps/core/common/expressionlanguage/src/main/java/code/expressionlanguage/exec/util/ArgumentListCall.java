@@ -42,6 +42,9 @@ public final class ArgumentListCall {
     public static Struct toStr(Argument _arg) {
         return _arg.getStruct();
     }
+    public static Argument toStr(Struct _arg) {
+        return new Argument(_arg);
+    }
     public CustList<ArgumentWrapper> getArgumentWrappers() {
         return argumentWrappers;
     }

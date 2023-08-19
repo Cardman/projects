@@ -1,9 +1,7 @@
 package code.expressionlanguage.exec.dbg;
 
-import code.expressionlanguage.exec.VisitingState;
-
 public final class StackState {
-    private VisitingState visitedState = VisitingState.NONE;
+    private boolean visitedState;
     private boolean checkingBp;
 
     public void resetVisitAndCheckBp() {
@@ -12,31 +10,15 @@ public final class StackState {
     }
 
     public void visitedNone() {
-        this.visitedState = VisitingState.NONE;
-    }
-
-    public boolean visitedInst() {
-        return getVisitedState().isVisited();
-    }
-
-    public void visitInst() {
-        if (visitedState == VisitingState.EXPR) {
-            visitedState = VisitingState.INSTR_EXPR;
-        } else {
-            visitedState = VisitingState.INSTR;
-        }
+        this.visitedState = false;
     }
 
     public boolean visitedExp() {
-        return getVisitedState().isVisitedExp();
+        return visitedState;
     }
 
     public void visitExp() {
-        visitedState = VisitingState.EXPR;
-    }
-
-    public VisitingState getVisitedState() {
-        return visitedState;
+        visitedState = true;
     }
 
     public boolean isCheckingBp() {

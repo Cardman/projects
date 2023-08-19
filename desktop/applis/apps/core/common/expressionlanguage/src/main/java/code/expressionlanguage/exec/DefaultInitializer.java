@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.LgNames;
@@ -71,13 +72,29 @@ public class DefaultInitializer implements Initializer {
     }
     @Override
     public final void loopCalling(ContextEl _owner, StackCall _stackCall) {
+        AbstractPageEl first_ = _stackCall.getCall(0);
+        AbstractInterceptorStdCaller caller_ = _owner.getCaller();
+        if (caller_.stopNormal(this,_owner, _stackCall)) {
+            notVisit(_stackCall);
+            _stackCall.setReturnedArgument(ArgumentListCall.toStr(first_.getReturnedArgument()));
+            _stackCall.setWrapper(first_.getWrapper());
+            return;
+        }
         _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(StopDbgEnum.NONE);
         _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCallingStateSub(null);
         while (true) {
-            AbstractInterceptorStdCaller caller_ = _owner.getCaller();
             if (caller_.stop(this,_owner, _stackCall)) {
+                notVisit(_stackCall);
+                _stackCall.setReturnedArgument(ArgumentListCall.toStr(first_.getReturnedArgument()));
+                _stackCall.setWrapper(first_.getWrapper());
                 return;
             }
+        }
+    }
+
+    private void notVisit(StackCall _stackCall) {
+        if (!_stackCall.hasPages()) {
+            _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(StopDbgEnum.NONE);
         }
     }
 
@@ -109,7 +126,8 @@ public class DefaultInitializer implements Initializer {
             if (!_stackCall.hasPages()) {
                 return true;
             }
-            if (_stackCall.getStopper().hasToCheckExit(_stackCall,p_)) {
+            if (_stackCall.getStopper().isStopAtExcMethod()) {
+                _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setExiting(p_);
                 _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
                 return false;
             }
@@ -124,7 +142,8 @@ public class DefaultInitializer implements Initializer {
                 return true;
             }
             p_.setThrown(new CustomFoundExc(custCause_,_stackCall));
-            if (_stackCall.getStopper().hasToCheckExit(_stackCall,p_)) {
+            if (_stackCall.getStopper().isStopAtExcMethod()) {
+                _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setExiting(p_);
                 _stackCall.setCallingState(p_.getThrown());
                 _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
                 return false;
