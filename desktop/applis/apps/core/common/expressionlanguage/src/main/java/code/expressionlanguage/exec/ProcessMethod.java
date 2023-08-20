@@ -82,6 +82,8 @@ public final class ProcessMethod {
     public static ArgumentWrapper calculate(CallingState _custom, ContextEl _cont, StackCall _stackCall) {
         AbstractPageEl page_ = _custom.processAfterOperation(_cont,_stackCall);
         if (page_ == null) {
+            _stackCall.setReturnedArgument(NullStruct.NULL_VALUE);
+            _stackCall.setWrapper(null);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         return loopAndReturn(_cont, _stackCall, page_);

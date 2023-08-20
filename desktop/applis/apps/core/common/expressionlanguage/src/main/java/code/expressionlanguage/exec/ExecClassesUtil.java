@@ -4,10 +4,7 @@ import code.expressionlanguage.AfterInitExiting;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.opers.ExecDotOperation;
@@ -142,16 +139,16 @@ public final class ExecClassesUtil {
         if (st_.getInitializingTypeInfos().getInitEnums() == InitPhase.NOTHING) {
             int res_ = st_.getStopper().checkNext(_context,st_);
             if (res_ == 0) {
-                ArgumentWrapper arg_ = ProcessMethod.calculate(_callee, _context, st_);
-                return new StackCallReturnValue(st_,arg_,vars(_context, st_));
+                ProcessMethod.calculate(_callee, _context, st_);
+                return new StackCallReturnValue(st_, vars(_context, st_));
             }
             if (res_ == 1) {
-                return new StackCallReturnValue(st_,null,vars(_context, st_));
+                return new StackCallReturnValue(st_, vars(_context, st_));
             }
             _context.getInit().loopCalling(_context, st_);
-            return new StackCallReturnValue(st_,st_.aw(),vars(_context, st_));
+            return new StackCallReturnValue(st_, vars(_context, st_));
         }
-        return new StackCallReturnValue(st_,null,vars(_context, st_));
+        return new StackCallReturnValue(st_, vars(_context, st_));
     }
     private static CustList<ViewPage> vars(ContextEl _context, StackCall _st) {
         if (!_st.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
@@ -163,7 +160,7 @@ public final class ExecClassesUtil {
             AbstractPageEl call_ = _st.getCall(i);
             CustList<ViewVariable> v_ = Cache.view(call_, _context);
             Cache.sortByDeepThenName(v_);
-            ls_.add(new ViewPage(v_,new ViewInstance(_context, call_)));
+            ls_.add(new ViewPage(MetaInfoUtil.newStackTraceElement(_context, call_), v_,new ViewInstance(_context, call_), ExecFileBlock.name(call_.getFile()),call_.getTraceIndex()));
         }
         return ls_;
     }

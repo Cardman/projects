@@ -2399,7 +2399,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = res_.getContext().getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(res_.getContext(), "pkg.Ex", fct_).first();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,res_.getContext());
-        Argument ret_ = ExecClassesUtil.tryInitStaticlyTypes(res_.getContext(), res_.getForwards().getOptions(),stackCall_,new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()),StepDbgActionEnum.RUN,true).getRetValue().getValue();
+        Argument ret_ = ExecClassesUtil.tryInitStaticlyTypes(res_.getContext(), res_.getForwards().getOptions(),stackCall_,new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()),StepDbgActionEnum.RUN,true).getStack().aw().getValue();
         assertNull(stackCall_.getCallingState());
         assertEq(2, getNumber(ret_));
     }

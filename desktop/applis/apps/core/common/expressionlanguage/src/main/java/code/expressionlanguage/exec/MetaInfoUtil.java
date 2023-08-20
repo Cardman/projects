@@ -45,18 +45,21 @@ public final class MetaInfoUtil {
     }
 
     public static StackTraceElementStruct newStackTraceElement(ContextEl _cont, int _index, StackCall _stackCall) {
-        AbstractPageEl call_ = _stackCall.getCall(_index);
-        ExecFileBlock f_ = call_.getFile();
+        return newStackTraceElement(_cont, _stackCall.getCall(_index));
+    }
+
+    public static StackTraceElementStruct newStackTraceElement(ContextEl _cont, AbstractPageEl _call) {
+        ExecFileBlock f_ = _call.getFile();
         RowColumnIndex rci_;
         String fileName_ = ExecFileBlock.name(f_);
         if (f_ != null) {
-            int trace_ = call_.getTraceIndex();
+            int trace_ = _call.getTraceIndex();
             rci_ = RowColumnIndex.calculate(f_, trace_, _cont.getTabWidth());
         } else {
             rci_ = RowColumnIndex.def();
         }
-        String currentClassName_ = call_.getGlobalClass().getFormatted();
-        ExecBlock bl_ = call_.getBlockRoot();
+        String currentClassName_ = _call.getGlobalClass().getFormatted();
+        ExecBlock bl_ = _call.getBlockRoot();
         if (bl_ instanceof ExecReturnableWithSignature) {
             String signature_ =((ExecReturnableWithSignature)bl_).getSignature(_cont);
             return new StackTraceElementStruct(fileName_,rci_,currentClassName_,signature_);

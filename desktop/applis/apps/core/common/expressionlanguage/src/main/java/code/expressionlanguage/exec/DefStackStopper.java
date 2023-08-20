@@ -1,10 +1,8 @@
 package code.expressionlanguage.exec;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.util.CustList;
 
 public final class DefStackStopper implements AbsStackStopper {
     @Override
@@ -52,7 +50,7 @@ public final class DefStackStopper implements AbsStackStopper {
     }
 
     @Override
-    public ExpressionLanguageBp checkBpWithoutClear(StackCall _stack, int _index, AbstractPageEl _ip, CustList<ExecOperationNode> _list, ExecBlock _bl) {
-        return new ExpressionLanguageBp(_ip.getCurrentEl(_index, _list, _bl),0);
+    public int checkBpWithoutClearCount(StackCall _stack, AbstractPageEl _ip, int _old) {
+        return 0;
     }
 }

@@ -1,17 +1,24 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.exec.variables.ViewPage;
+import code.gui.AbsTreeGui;
 import code.gui.events.AbsActionListener;
 
 public final class SelectCallStackEvent implements AbsActionListener {
-    private AbsDebuggerGui window;
-    private int index;
-    public SelectCallStackEvent(AbsDebuggerGui _d, int _i) {
+    private final AbsDebuggerGui window;
+    private final ViewPage viewPage;
+    private final AbsTreeGui treeDetailEvt;
+    private final DbgRootStruct treeRoot;
+
+    public SelectCallStackEvent(AbsDebuggerGui _d, ViewPage _v, AbsTreeGui _b, DbgRootStruct _r) {
         window = _d;
-        index = _i;
+        viewPage = _v;
+        treeDetailEvt = _b;
+        treeRoot = _r;
     }
 
     @Override
     public void action() {
-        window.updateGui(index);
+        window.updateGui(viewPage, treeDetailEvt, treeRoot);
     }
 }

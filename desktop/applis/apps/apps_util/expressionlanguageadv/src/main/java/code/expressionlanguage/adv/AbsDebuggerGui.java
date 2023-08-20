@@ -266,7 +266,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             callStack.removeAll();
             callButtons.clear();
             root = new DbgRootStruct(currentResult);
-            treeDetail = root.buildReturn(getCommonFrame().getFrames().getCompoFactory(), view_.getRetValue());
+            treeDetail = root.buildReturn(getCommonFrame().getFrames().getCompoFactory(), view_.getStack().aw());
             detail.setViewportView(treeDetail);
             detailAll.setVisible(true);
             selectEnter.setEnabled(true);
@@ -282,7 +282,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         int nbPages_ = view_.getVariables().size();
         for (int i = 0; i< nbPages_; i++) {
             ViewPage p_ = view_.getVariables().get(i);
-            String dis_ = MetaInfoUtil.newStackTraceElement(currentResult.getContext(), i, stackCall).getDisplayedString(currentResult.getContext()).getInstance();
+            String dis_ = p_.getStackElt().getDisplayedString(currentResult.getContext()).getInstance();
             DbgRootStruct r_ = new DbgRootStruct(currentResult);
             root = r_;
             AbsTreeGui b_ = r_.build(getCommonFrame().getFrames().getCompoFactory(), p_);
@@ -291,11 +291,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             treesRoot.add(r_);
             AbsPlainButton but_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton(dis_);
             callButtons.add(but_);
-            but_.addActionListener(new SelectCallStackEvent(this,i));
+            but_.addActionListener(new SelectCallStackEvent(this,p_,b_,r_));
             callStack.add(but_);
         }
-        AbstractPageEl last_ = stackCall.getLastPage();
-        int opened_ = indexOpened(last_.getFile().getFileName());
+        AbstractPageEl last_ = getStackCall().getLastPage();
+        int opened_ = indexOpened(ExecFileBlock.name(last_.getFile()));
         selectFocus(opened_, last_.getTraceIndex());
         detail.setViewportView(treeDetail);
         detailAll.setVisible(true);
@@ -317,13 +317,12 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         }
     }
 
-    public void updateGui(int _index) {
-        AbstractPageEl last_ = getStackCall().getCall(_index);
-        int opened_ = indexOpened(last_.getFile().getFileName());
-        selectFocus(opened_, last_.getTraceIndex());
+    public void updateGui(ViewPage _view, AbsTreeGui _treeDetailEvt, DbgRootStruct _treeRoot) {
+        int opened_ = indexOpened(_view.getFileName());
+        selectFocus(opened_, _view.getTrace());
         detail.setNullViewportView();
-        treeDetail = trees.get(_index);
-        root = treesRoot.get(_index);
+        treeDetail = _treeDetailEvt;
+        root = _treeRoot;
         detail.setViewportView(treeDetail);
         getCommonFrame().pack();
     }

@@ -87,7 +87,10 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     @Override
     public StopDbgEnum stopBreakPoint(ContextEl _context, StackCall _stackCall) {
-        return interceptAction(stopAtCheckedBp(_context, _stackCall), _context);
+        if (_context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().getAndSet(false)) {
+            return StopDbgEnum.PAUSE;
+        }
+        return stopAtCheckedBp(_context, _stackCall);
     }
 
     @Override
@@ -101,14 +104,12 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     @Override
-    public ExpressionLanguageBp checkBpWithoutClear(StackCall _stack, int _index, AbstractPageEl _ip, CustList<ExecOperationNode> _list, ExecBlock _bl) {
-        int size_ = _ip.sizeEl();
-        ExpressionLanguage el_ = _ip.getCurrentEl(_index, _list, _bl);
-        if (size_ < _ip.sizeEl()) {
+    public int checkBpWithoutClearCount(StackCall _stack, AbstractPageEl _ip, int _old) {
+        if (_old < _ip.sizeEl()) {
             _stack.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
-            return new ExpressionLanguageBp(el_,1);
+            return 1;
         }
-        return new ExpressionLanguageBp(el_,0);
+        return 0;
     }
 
     private static CheckedExecOperationNodeInfos expOper(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, AbstractPageEl _last) {
@@ -280,16 +281,6 @@ public final class DbgStackStopper implements AbsStackStopper {
             infos_ = null;
         }
         return infos_;
-    }
-
-    private static StopDbgEnum interceptAction(StopDbgEnum _val, ContextEl _context) {
-        if (_val != StopDbgEnum.NONE) {
-            return _val;
-        }
-        if (_context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().getAndSet(false)) {
-            return StopDbgEnum.PAUSE;
-        }
-        return _val;
     }
 
     private static CheckedExecOperationNodeInfos lambdaGet(ContextEl _context, LambdaVariableGetValuePageEl _p) {
@@ -815,7 +806,7 @@ public final class DbgStackStopper implements AbsStackStopper {
             _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCallingStateSub(result_.getStack().getCallingState());
             return true;
         }
-        return BooleanStruct.isTrue(ArgumentListCall.toStr(result_.getRetValue().getValue()));
+        return BooleanStruct.isTrue(ArgumentListCall.toStr(result_.getStack().aw().getValue()));
     }
     private static CurrentStopPt conditionGrand(ContextEl _context, StackCall _stackCall, BreakPointCondition _result) {
         if (!okStack(_context, _stackCall, _result)) {

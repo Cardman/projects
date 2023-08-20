@@ -153,12 +153,12 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
     @Override
     protected void endCall() {
         if (instance == NullStruct.NULL_VALUE) {
-            instance = ArgumentListCall.toStr(getStackCallView().getRetValue().getValue());
+            instance = ArgumentListCall.toStr(getStackCallView().getStack().aw().getValue());
             currentIndex = 0;
             super.endCall();
             return;
         }
-        Struct re_= ArgumentListCall.toStr(getStackCallView().getRetValue().getValue());
+        Struct re_= ArgumentListCall.toStr(getStackCallView().getStack().aw().getValue());
         if (toIndex == -1) {
             finding(re_);
         }

@@ -75,21 +75,23 @@ public class DefaultInitializer implements Initializer {
         AbstractPageEl first_ = _stackCall.getCall(0);
         AbstractInterceptorStdCaller caller_ = _owner.getCaller();
         if (caller_.stopNormal(this,_owner, _stackCall)) {
-            notVisit(_stackCall);
-            _stackCall.setReturnedArgument(ArgumentListCall.toStr(first_.getReturnedArgument()));
-            _stackCall.setWrapper(first_.getWrapper());
+            endLoop(_stackCall, first_);
             return;
         }
         _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(StopDbgEnum.NONE);
         _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCallingStateSub(null);
         while (true) {
             if (caller_.stop(this,_owner, _stackCall)) {
-                notVisit(_stackCall);
-                _stackCall.setReturnedArgument(ArgumentListCall.toStr(first_.getReturnedArgument()));
-                _stackCall.setWrapper(first_.getWrapper());
+                endLoop(_stackCall, first_);
                 return;
             }
         }
+    }
+
+    private void endLoop(StackCall _stackCall, AbstractPageEl _first) {
+        notVisit(_stackCall);
+        _stackCall.setReturnedArgument(ArgumentListCall.toStr(_first.getReturnedArgument()));
+        _stackCall.setWrapper(_first.getWrapper());
     }
 
     private void notVisit(StackCall _stackCall) {

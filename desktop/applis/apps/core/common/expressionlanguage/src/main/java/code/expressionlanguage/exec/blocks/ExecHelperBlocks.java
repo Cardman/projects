@@ -498,7 +498,7 @@ public final class ExecHelperBlocks {
 
     public static ArgumentsPair tryToCalculatePair(ContextEl _context, int _index, StackCall _stackCall, CustList<ExecOperationNode> _list, int _offset, ExecBlock _coveredBlock) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
-        ExpressionLanguageBp o_ = _stackCall.getStopper().checkBpWithoutClear(_stackCall,_index, ip_, _list, _coveredBlock);
+        ExpressionLanguageBp o_ = ip_.eltBp(_stackCall,_index,_list,_coveredBlock);
         ExpressionLanguage exp_ = o_.getExpressionLanguage();
         if (o_.getDiff() == 1){
             return null;
@@ -529,7 +529,7 @@ public final class ExecHelperBlocks {
     private static ExecResultCase procTypeVar(ContextEl _cont, StackCall _stack, ExecBracedBlock _br, ExecWithFilterContent _in, Struct _arg, boolean _all) {
         AbstractPageEl lastPage_ = _stack.getLastPage();
         lastPage_.globalOffset(_in.getContent().getOffset());
-        if (_stack.getStopper().checkBpWithoutClear(_stack,0,lastPage_,new CustList<ExecOperationNode>(),_br).getDiff() == 1) {
+        if (lastPage_.eltBp(_stack,0,new CustList<ExecOperationNode>(),_br).getDiff() == 1) {
             return new ExecResultCase(ConditionReturn.CALL_EX, _br, -1);
         }
         int index_ = first(1, _cont, _stack, _in.getContent(), _arg, _all);
@@ -1041,7 +1041,7 @@ public final class ExecHelperBlocks {
         return checkBp(_stack,0, _ip, _bl);
     }
     public static boolean checkBp(StackCall _stack, int _index,AbstractPageEl _ip, ExecBlock _bl) {
-        ExpressionLanguageBp el_ = _stack.getStopper().checkBpWithoutClear(_stack,_index, _ip, new CustList<ExecOperationNode>(), _bl);
+        ExpressionLanguageBp el_ = _ip.eltBp(_stack,_index,new CustList<ExecOperationNode>(), _bl);
         if (el_.getDiff() != 0) {
             return true;
         }

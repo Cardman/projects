@@ -1,10 +1,8 @@
 package code.expressionlanguage.exec;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.util.CustList;
 
 public interface AbsStackStopper {
     StepDbgActionEnum firstStep();
@@ -14,7 +12,8 @@ public interface AbsStackStopper {
     StopDbgEnum stopBreakPoint(ContextEl _context, StackCall _stackCall);
 
     boolean callsOrException(ContextEl _owner, StackCall _stackCall);
-    ExpressionLanguageBp checkBpWithoutClear(StackCall _stack, int _index, AbstractPageEl _ip, CustList<ExecOperationNode> _list, ExecBlock _bl);
+
+    int checkBpWithoutClearCount(StackCall _stack, AbstractPageEl _ip, int _old);
 
     boolean isStopAt(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, StackCall _stackCall);
     boolean isStopAtRef(ContextEl _context, StackCall _stackCall);

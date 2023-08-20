@@ -521,7 +521,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
 
     protected Struct eval(ResultContextLambda _dyn, ResultContext _res, AbstractPageEl _page) {
-        return _dyn.eval(_res.getContext(), new BreakPointOutputInfo(), _page).getRetValue().getValue().getStruct();
+        return _dyn.eval(_res.getContext(), new BreakPointOutputInfo(), _page).getStack().aw().getValue().getStruct();
     }
 
     protected AbstractPageEl goToBp(ResultContext _res, String _class, String _meth, StackCall _stack) {

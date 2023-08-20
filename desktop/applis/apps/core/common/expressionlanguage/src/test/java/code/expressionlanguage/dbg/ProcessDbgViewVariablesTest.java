@@ -30,6 +30,10 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         StackCall stack_ = i_.getStack();
         assertEq(1, stack_.nbPages());
         assertEq(1, i_.getVariables().size());
+        assertEq("pkg/Ex",i_.getVariables().get(0).getFileName());
+        assertEq(86,i_.getVariables().get(0).getTrace());
+        assertEq("pkg/Ex:5,10:86\n" +
+                "pkg.Ex.static exmeth()",i_.getVariables().get(0).getStackElt().getDisplayedString(cont_.getContext()).getInstance());
         CustList<ViewVariable> v_ = i_.getVariables().get(0).getVars();
         assertEq(2, v_.size());
         assertEq("t", v_.get(0).getName());

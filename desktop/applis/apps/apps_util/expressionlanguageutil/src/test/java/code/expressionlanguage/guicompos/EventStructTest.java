@@ -134,8 +134,6 @@ public final class EventStructTest extends EquallableElUtUtil {
         ev_.randCode();
         assertFalse(ev_.sameReference(NullStruct.NULL_VALUE));
         assertTrue(ev_.sameReference(ev_));
-        ((FieldableStruct)ev_).getFields();
-        ((FieldableStruct)ev_).getEntryStruct(new ClassField("",""));
     }
     @Test
     public void run6() {
@@ -176,8 +174,6 @@ public final class EventStructTest extends EquallableElUtUtil {
         ev_.randCode();
         assertFalse(ev_.sameReference(NullStruct.NULL_VALUE));
         assertTrue(ev_.sameReference(ev_));
-        ((FieldableStruct)ev_).getFields();
-        ((WithParentStruct)ev_).setParent(NullStruct.NULL_VALUE);
     }
     @Test
     public void run8() {
@@ -289,10 +285,6 @@ public final class EventStructTest extends EquallableElUtUtil {
         assertFalse(ev_.sameReference(NullStruct.NULL_VALUE));
         assertTrue(ev_.sameReference(ev_));
         ev_.randCode();
-        ((FieldableStruct)ev_).getEntryStruct(new ClassField("",""));
-        ((FieldableStruct)ev_).getFields();
-        ((FieldableStruct)ev_).getParent();
-        ((WithParentStruct)ev_).setParent(NullStruct.NULL_VALUE);
     }
     @Test
     public void evt3() {
@@ -412,8 +404,6 @@ public final class EventStructTest extends EquallableElUtUtil {
         ev_.randCode();
         assertFalse(ev_.sameReference(NullStruct.NULL_VALUE));
         assertTrue(ev_.sameReference(ev_));
-        ((FieldableStruct)ev_).getFields();
-        ((FieldableStruct)ev_).getEntryStruct(new ClassField("",""));
         assertFalse(st_.isFailInit());
         stds_.getGuiExecutingBlocks().getPairPaintRefresh();
         stds_.getGuiExecutingBlocks().getPairPaintMethod();
