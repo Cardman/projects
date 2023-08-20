@@ -1,13 +1,14 @@
 package code.expressionlanguage.exec.dbg;
 
 import code.expressionlanguage.options.ResultContextLambda;
+import code.util.core.BoolVal;
 
 public final class CurrentStopPt {
     private final BreakPointCondition breakPointCondition;
     private final ResultContextLambda result;
-    private final int number;
+    private final BoolVal number;
 
-    public CurrentStopPt(BreakPointCondition _bpc, ResultContextLambda _r, int _n) {
+    public CurrentStopPt(BreakPointCondition _bpc, ResultContextLambda _r, BoolVal _n) {
         this.breakPointCondition = _bpc;
         this.result = _r;
         this.number = _n;
@@ -21,7 +22,7 @@ public final class CurrentStopPt {
         return result;
     }
 
-    public int getNumber() {
+    public BoolVal getNumber() {
         return number;
     }
 }

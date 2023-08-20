@@ -27,13 +27,10 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.NumberUtil;
 
 public final class DbgStackStopper implements AbsStackStopper {
-    public static final int FALSE_FAST = 0;
-    public static final int TRUE_FAST = 1;
-    public static final int FALSE_SLOW = 2;
-    public static final int TRUE_SLOW = 3;
     public static final int READ = 0;
     public static final int WRITE = 1;
     public static final int COMPOUND_READ = 2;
@@ -454,7 +451,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean fieldPot(CurrentStopPt _g) {
-        return _g != null && _g.getNumber() >= FALSE_SLOW;
+        return _g != null && _g.getResult() != null;
     }
 
     private static StopDbgEnum checkedWp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos, CurrentStopPt _g) {
@@ -706,7 +703,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     private static boolean stCurr(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, BreakPointOutputInfo _info, CurrentStopPt _g) {
         ResultContextLambda resLda_ = _g.getResult();
         if (resLda_ == null) {
-            if (_g.getNumber() == FALSE_FAST) {
+            if (_g.getNumber() == BoolVal.FALSE) {
                 return false;
             }
         } else {
@@ -810,12 +807,12 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
     private static CurrentStopPt conditionGrand(ContextEl _context, StackCall _stackCall, BreakPointCondition _result) {
         if (!okStack(_context, _stackCall, _result)) {
-            return new CurrentStopPt(_result,null,FALSE_FAST);
+            return new CurrentStopPt(_result,null, BoolVal.FALSE);
         }
         if (_result.getResult() == null) {
-            return new CurrentStopPt(_result, null,TRUE_FAST);
+            return new CurrentStopPt(_result, null,BoolVal.TRUE);
         }
-        return new CurrentStopPt(_result, _result.getResult(),TRUE_SLOW);
+        return new CurrentStopPt(_result, _result.getResult(),null);
     }
 
     private static BreakPointCondition stopCurrentBpCondition(AbstractPageEl _p, BreakPoint _bp) {
