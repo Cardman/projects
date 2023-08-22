@@ -6,6 +6,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.symbol.SymbolConstants;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
@@ -63,12 +64,12 @@ public abstract class ExecOperationNode {
         return ExecHelper.getNextNode(this);
     }
 
-    protected Argument getPreviousArg(ExecPossibleIntermediateDotted _possible, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
+    protected Argument getPreviousArg(ExecPossibleIntermediateDotted _possible, IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _lastPage) {
         Argument previous_;
         if (_possible.isIntermediateDottedOperation()) {
             previous_ = getPreviousArgument(_nodes, this);
         } else {
-            previous_ = _stackCall.getLastPage().getGlobalArgument();
+            previous_ = _lastPage.getGlobalArgument();
         }
         return previous_;
     }
@@ -154,11 +155,17 @@ public abstract class ExecOperationNode {
         return content.getArgument();
     }
 
+//    public final void setSimpleArgument(Argument _argument, ContextEl _conf, ExpressionLanguage _nodes, StackCall _stackCall) {
+//        setSimpleArgument(_argument, _conf, _nodes.getArguments(), _stackCall);
+//    }
     public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
         setQuickConvertSimpleArgument(_argument, _conf, _nodes, _stackCall);
         setNextSiblingsArg(_conf, _nodes, _stackCall);
     }
 
+//    public final void setConstantSimpleArgument(Argument _argument, ContextEl _conf, ExpressionLanguage _nodes, StackCall _stackCall) {
+//        setConstantSimpleArgument(_argument, _conf, _nodes.getArguments(), _stackCall);
+//    }
     public final void setConstantSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
         setQuickSimpleArgument(false,_argument, _conf, _nodes, _stackCall);
         setNextSiblingsArg(_conf, _nodes, _stackCall);

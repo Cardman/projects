@@ -2,7 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.opers.ExecCloneOperation;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
@@ -23,7 +23,7 @@ public final class RendCloneOperation extends RendInvokingOperation implements R
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setRelOffsetPossibleLastPage(off_, _rendStack);
-        Argument argres_ = ExecCloneOperation.cloneArray(previous_, _context, _rendStack.getStackCall());
+        Argument argres_ = ExecInvokingOperation.cloneArray(previous_, _context, _rendStack.getStackCall());
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 

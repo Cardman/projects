@@ -49,7 +49,7 @@ public final class DefaultLockingClass {
             }
             return _cause;
         }
-        ExecRootBlock curClass_ = _lastPage.getGlobalClass().getRootBlock();
+        ExecRootBlock curClass_ = _lastPage.getBlockRootType();
         errorClass(curClass_, _stackCall);
         return new CausingErrorStruct(_cause,_context, _stackCall);
     }

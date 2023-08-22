@@ -4,6 +4,7 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 
 public final class BreakPointMiddleInfo {
     private AbstractPageEl exiting;
+    private ArgumentWrapper calculated;
     private int previousNbPages;
     private int previousNbBlocks;
 
@@ -13,6 +14,14 @@ public final class BreakPointMiddleInfo {
 
     public void setExiting(AbstractPageEl _e) {
         this.exiting = _e;
+    }
+
+    public ArgumentWrapper getCalculated() {
+        return calculated;
+    }
+
+    public void setCalculated(ArgumentWrapper _c) {
+        this.calculated = _c;
     }
 
     public int getPreviousNbPages() {

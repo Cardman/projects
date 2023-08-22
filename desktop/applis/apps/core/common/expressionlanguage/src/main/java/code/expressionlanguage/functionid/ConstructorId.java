@@ -1,5 +1,8 @@
 package code.expressionlanguage.functionid;
 import code.expressionlanguage.common.*;
+import code.expressionlanguage.stds.StandardConstructor;
+import code.expressionlanguage.stds.StandardNamedFunction;
+import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -47,6 +50,15 @@ public final class ConstructorId extends AbsractIdentifiableCommon {
         return new ConstructorId(_class, getClassNames(), getRefParams(), isVararg());
     }
 
+    public CustList<StandardNamedFunction> look(StandardType _t) {
+        CustList<StandardNamedFunction> l_ = new CustList<StandardNamedFunction>();
+        for (StandardConstructor s: _t.getConstructors()) {
+            if (eq(s.getId())) {
+                l_.add(s);
+            }
+        }
+        return l_;
+    }
     @Override
     public String getSignature(DisplayedStrings _ana) {
         String suf_ = EMPTY;

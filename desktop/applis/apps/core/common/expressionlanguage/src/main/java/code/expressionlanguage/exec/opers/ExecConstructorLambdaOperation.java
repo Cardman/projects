@@ -20,7 +20,7 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _stack);
+        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
         ExecFormattedRootBlock ownerType_ = formatVarType(_stack);
         String clArg_ = formatVarTypeRes(_stack);
         Argument res_ = new Argument(newLambda(getLambdaCommonContent(),previous_, ownerType_, clArg_));

@@ -69,7 +69,7 @@ public final class MetaInfoUtil {
     }
 
     public static CallingState state(ContextEl _cont, GeneType _className, Argument _arg, StackCall _stackCall) {
-        if (_stackCall.getLastPage().getGlobalClass().getRootBlock() == _className) {
+        if (_stackCall.getLastPage().getBlockRootType() == _className) {
             return null;
         }
         if (_className instanceof ExecRootBlock) {

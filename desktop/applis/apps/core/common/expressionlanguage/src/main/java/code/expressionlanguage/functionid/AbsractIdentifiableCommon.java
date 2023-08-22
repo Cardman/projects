@@ -1,5 +1,7 @@
 package code.expressionlanguage.functionid;
 
+import code.expressionlanguage.stds.StandardNamedFunction;
+import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.core.BoolVal;
 import code.util.core.NumberUtil;
@@ -35,6 +37,8 @@ public abstract class AbsractIdentifiableCommon implements Identifiable {
             refParams.add(s);
         }
     }
+
+    public abstract CustList<StandardNamedFunction> look(StandardType _t);
     protected CustList<BoolVal> getRefParams() {
         return refParams;
     }

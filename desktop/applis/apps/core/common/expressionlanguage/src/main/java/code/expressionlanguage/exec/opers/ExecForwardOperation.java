@@ -17,7 +17,7 @@ public final class ExecForwardOperation extends ExecLeafOperation implements Ato
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        Argument arg_ = getPreviousArg(this,_nodes, _stack);
+        Argument arg_ = getPreviousArg(this,_nodes, _stack.getLastPage());
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 

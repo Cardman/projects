@@ -21,4 +21,6 @@ public interface AbsStackStopper {
     boolean isStopAtExcMethod();
 
     int checkNext(ContextEl _context, StackCall _stackCall);
+
+    boolean hasValueStd(StackCall _stack);
 }

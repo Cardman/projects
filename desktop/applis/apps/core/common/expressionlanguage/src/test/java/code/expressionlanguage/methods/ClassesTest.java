@@ -17,14 +17,12 @@ import code.expressionlanguage.analyze.types.ResolvedIdType;
 import code.expressionlanguage.analyze.types.ResolvedIdTypeContent;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
-import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
@@ -34,6 +32,8 @@ import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.stds.ListLoggableLgNames;
+import code.expressionlanguage.stds.StandardConstructor;
+import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.*;
 import code.sml.util.TranslationsFile;
 import code.util.CustList;
@@ -88,6 +88,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         LgNamesContent.en(tr_);
         LgNamesContent.fr(tr_);
         assertFalse(tr_.getMapping().isEmpty());
+//        assertEq(1, StandardMethod.look(lgName_.getCoreNames().getErrType(),getMethodId(MethodAccessKind.INSTANCE,lgName_.getCoreNames().getAliasGetMessage(), false)).size());
+        assertEq(0, getMethodId("").look(lgName_.getCoreNames().getErrType()).size());
+//        assertEq(1, StandardConstructor.look(lgName_.getCoreNames().getObjType(),getConstructorId("")).size());
+        assertEq(0, getConstructorId(false,"").look(lgName_.getCoreNames().getObjType()).size());
     }
 
     @Test

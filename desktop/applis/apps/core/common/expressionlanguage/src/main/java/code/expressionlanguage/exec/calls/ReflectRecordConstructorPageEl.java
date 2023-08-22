@@ -13,7 +13,6 @@ import code.util.CustList;
 public final class ReflectRecordConstructorPageEl extends AbstractReflectConstructorPageEl {
 
     private final CustList<ExecFormattedRootBlock> listSup;
-    private boolean calledMethod;
     private final ExecRootBlock root;
     private final Argument instance;
     private final CustList<ExecNamedFieldContent> namedFields;
@@ -38,8 +37,8 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
             return false;
         }
         setWrapException(false);
-        if (!calledMethod) {
-            calledMethod = true;
+        if (!isCalledMethod()) {
+            setCalledMethod(true);
             _stack.setCallingState(new CustomFoundRecordConstructor(ParamCheckerUtil.instance(root,instance),className, className.getRootBlock().getEmptyCtorPair(), namedFields, arguments, listSup));
             return false;
         }

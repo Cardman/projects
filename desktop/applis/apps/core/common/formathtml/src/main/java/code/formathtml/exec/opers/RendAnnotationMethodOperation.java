@@ -2,7 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.opers.ExecAnnotationMethodOperation;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecCallFctAnnotContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -29,6 +29,6 @@ public final class RendAnnotationMethodOperation extends RendInvokingOperation  
     Argument getArgument(Argument _previous, ContextEl _context, RendStackCall _rendStackCall) {
         int off_ = StringUtil.getFirstPrintableCharIndex(callFctAnnotContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _rendStackCall);
-        return ExecAnnotationMethodOperation.getAnnotation(_previous, callFctAnnotContent.getClassMethodId(), _context, _rendStackCall.getStackCall());
+        return ExecInvokingOperation.getAnnotation(_previous, callFctAnnotContent.getClassMethodId(), _context, _rendStackCall.getStackCall());
     }
 }

@@ -14,13 +14,20 @@ public abstract class StandardNamedFunction {
 
     private final boolean varargs;
 
+    private final StdCaller caller;
+
     protected StandardNamedFunction(String _name, StringList _parametersTypes,
-                                    String _returnType, boolean _varargs, StringList _parametersNames) {
+                                    String _returnType, boolean _varargs, StringList _parametersNames, StdCaller _caller) {
         name = _name;
         parametersTypes = _parametersTypes;
         returnType = _returnType;
         varargs = _varargs;
         parametersNames = _parametersNames;
+        caller = _caller;
+    }
+
+    public StdCaller getCaller() {
+        return caller;
     }
 
     public String getName() {
@@ -28,7 +35,7 @@ public abstract class StandardNamedFunction {
     }
 
     public StringList getImportedParametersTypes() {
-        return new StringList(parametersTypes);
+        return parametersTypes;
     }
 
     public StringList getParametersNames() {

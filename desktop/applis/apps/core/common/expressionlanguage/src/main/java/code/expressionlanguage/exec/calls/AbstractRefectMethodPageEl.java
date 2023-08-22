@@ -79,6 +79,16 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
         return true;
     }
 
+    @Override
+    protected boolean checkParams(ContextEl _context, StackCall _stack) {
+        return false;
+    }
+
+    @Override
+    protected boolean postArg(StackCall _stack) {
+        return true;
+    }
+
     Argument prepareCall(ContextEl _context, StackCall _stack) {
         return prepare(_context, arrRef, rightArg, _stack);
     }

@@ -602,7 +602,7 @@ public final class RendForwardInfos {
     private static RendDynOperationNode procOperands5(OperationNode _anaNode, Forwards _forwards) {
         if (_anaNode instanceof CallDynMethodOperation) {
             CallDynMethodOperation c_ = (CallDynMethodOperation) _anaNode;
-            return new RendCallDynMethodOperation(new ExecOperationContent(c_.getContent()), c_.isIntermediateDottedOperation(), c_.getFctName(), new ExecArrContent(c_.getArrContent()));
+            return new RendCallDynMethodOperation(new ExecOperationContent(c_.getContent()), c_.isIntermediateDottedOperation(), new ExecArrContent(c_.getArrContent()), c_.getStdMethod());
         }
         if (_anaNode instanceof ArgumentListInstancing) {
             ArgumentListInstancing i_ = (ArgumentListInstancing) _anaNode;

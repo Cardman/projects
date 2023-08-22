@@ -35,7 +35,7 @@ public final class ExecFctOperation extends ExecSettableCallFctOperation {
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _stack);
+        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
         setRelOffsetPossibleLastPage(inst.getInst().getMethodName(), _stack);
         Argument parent_ = new Argument(ExecFieldTemplates.getParent(inst.getInst().getAnc(), previous_.getStruct(), _conf, _stack));
         Argument res_ = prep(_conf, _stack, inst, parent_, fetchFormattedArgs(_conf, _stack, parent_.getStruct(), inst, buildInfos(_nodes)));

@@ -18,13 +18,16 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
+import code.expressionlanguage.exec.dbg.StdMethodPointBlockPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.Ints;
@@ -104,6 +107,23 @@ public final class ResultExpressionOperationNode {
             return annotationCase(file_, c_, a_);
         }
         return notAnnot(_flag, file_, a_, c_.block);
+    }
+    public static AnalyzedPageEl prepare(StdMethodPointBlockPair _instance, AnalyzedPageEl _original) {
+        AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
+        a_.setDynamic(true);
+        a_.setCurrentPkg(a_.getDefaultPkg());
+        StandardType std_ = _instance.getType();
+        StandardNamedFunction id_ = _instance.getId();
+        if (id_ instanceof StandardMethod && ((StandardMethod)id_).getModifier() != MethodModifier.STATIC) {
+            a_.setAccessStaticContext(MethodAccessKind.INSTANCE);
+        } else {
+            a_.setAccessStaticContext(MethodAccessKind.STATIC);
+        }
+        a_.setGlobalType(new AnaFormattedRootBlock((RootBlock)null,std_.getFullName()));
+        a_.setOriginalGlobalType(new AnaFormattedRootBlock((RootBlock)null,std_.getFullName()));
+        a_.setImportingAcces(new AllAccessedTypes());
+        ClassesUtil.prepare(id_, a_);
+        return a_;
     }
     public static AnalyzedPageEl prepare(MethodPointBlockPair _instance, AnalyzedPageEl _original, MethodAccessKind _flag) {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);

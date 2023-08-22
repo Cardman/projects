@@ -38,8 +38,7 @@ public final class ExpressionLanguage {
         if (argument_ != null) {
             return argument_;
         }
-        IdMap<ExecOperationNode, ArgumentsPair> allRight_ = _right.getArguments();
-        calculate(allRight_, _right, _conf, _offset, _stackCall);
+        _right.calculate(_conf, _offset, _stackCall);
         if (_stackCall.stopAt(_conf)) {
             return null;
         }
@@ -51,29 +50,32 @@ public final class ExpressionLanguage {
         return _right.argument;
     }
 
-    private static void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, int _offset, StackCall _stackCall) {
+    private void calculate(ContextEl _context, int _offset, StackCall _stackCall) {
         AbstractPageEl pageEl_ = _stackCall.getLastPage();
         pageEl_.setTranslatedOffset(_offset);
-        int fr_ = _el.getIndex();
-        int len_ = _nodes.size();
+        int fr_ = getIndex();
+        int len_ = arguments.size();
         while (fr_ < len_) {
-            ExecOperationNode o = _nodes.getKey(fr_);
+            ExecOperationNode o = arguments.getKey(fr_);
             o.setRelativeOffsetPossibleLastPage(_stackCall);
-            if (hasToExit(o, _el, _context, _stackCall) || _stackCall.getStopper().isStopAt(_el, o, _context, _stackCall)) {
+            if (hasToExit(o, this, _context, _stackCall) || _stackCall.getStopper().isStopAt(this, o, _context, _stackCall)) {
                 return;
             }
-            ArgumentsPair pair_ = _nodes.getValue(fr_);
+            ArgumentsPair pair_ = arguments.getValue(fr_);
             if (!(o instanceof AtomicExecCalculableOperation)) {
                 Argument a_ = Argument.getNullableValue(o.getArgument());
-                o.setConstantSimpleArgument(a_,_context,_nodes, _stackCall);
-                fr_ = getNextIndex(len_,_nodes,o, fr_ + 1,_context,_stackCall,_el);
+                o.setConstantSimpleArgument(a_,_context,arguments, _stackCall);
+                fr_ = getNextIndex(len_,arguments,o, fr_ + 1,_context,_stackCall,this);
             } else if (pair_.getArgument() != null) {
-                o.setConstantSimpleArgument(pair_.getArgument(),_context,_nodes, _stackCall);
-                fr_ = getNextIndex(len_,_nodes,o, fr_ + 1,_context,_stackCall,_el);
+                o.setConstantSimpleArgument(pair_.getArgument(),_context,arguments, _stackCall);
+                fr_ = getNextIndex(len_,arguments,o, fr_ + 1,_context,_stackCall,this);
             } else {
                 AtomicExecCalculableOperation a_ = (AtomicExecCalculableOperation)o;
-                a_.calculate(_nodes, _context, _stackCall);
-                fr_ = getNextIndex(len_,_nodes,o, fr_ + 1,_context,_stackCall,_el);
+                a_.calculate(arguments, _context, _stackCall);
+                if (_stackCall.getStopper().stopAt(_stackCall)) {
+                    return;
+                }
+                fr_ = getNextIndex(len_,arguments,o, fr_ + 1,_context,_stackCall,this);
             }
         }
     }

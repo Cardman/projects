@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
@@ -23,7 +24,15 @@ public abstract class ExecSettableCallFctOperation extends ExecInvokingOperation
         arrContent = _execArr;
     }
 
-    protected void setResult(Argument _res, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stack) {
+    protected void setCheckedResult(Argument _res, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stack) {
+        if (_stack.getStopper().hasValueStd(_stack)) {
+            _stack.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
+            _stack.getBreakPointInfo().getBreakPointMiddleInfo().setCalculated(new ArgumentWrapper(_res,null));
+            return;
+        }
+        setResult(_res, _conf, _nodes, _stack);
+    }
+    public void setResult(Argument _res, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stack) {
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(_res, _conf, _nodes, _stack);
             return;

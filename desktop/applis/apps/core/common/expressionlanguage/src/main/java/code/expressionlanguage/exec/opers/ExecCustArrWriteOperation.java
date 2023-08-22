@@ -33,7 +33,7 @@ public final class ExecCustArrWriteOperation extends ExecInvokingOperation imple
     @Override
     public Argument calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack) {
         CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
-        Argument previous_ = getPreviousArg(this, _nodes, _stack);
+        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
         Struct parent_ = ExecFieldTemplates.getParent(instWrite.getInst().getAnc(), previous_.getStruct(), _conf, _stack);
         ArgumentListCall argumentListCall_ = fetchFormattedArgs(_conf, _stack, parent_,instWrite, infos_);
         return ExecCustArrOperation.getArgument(this,_conf, _stack,instWrite, ArgumentListCall.wrapCall(argumentListCall_.getArgumentWrappers(),_right), parent_);

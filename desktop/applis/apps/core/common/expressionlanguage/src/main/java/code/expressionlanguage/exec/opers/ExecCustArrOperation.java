@@ -34,7 +34,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
-        Argument previous_ = getPreviousArg(this, _nodes, _stack);
+        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
         Struct parent_ = ExecFieldTemplates.getParent(readWrite.getInstRead().getInst().getAnc(), previous_.getStruct(), _conf, _stack);
         ArgumentListCall argumentListCall_ = fetchFormattedArgs(_conf, _stack, parent_, readWrite.getInstRead(), infos_);
         ExecHelper.getArgumentPair(_nodes,this).setArgumentList(argumentListCall_.getArgumentWrappers());

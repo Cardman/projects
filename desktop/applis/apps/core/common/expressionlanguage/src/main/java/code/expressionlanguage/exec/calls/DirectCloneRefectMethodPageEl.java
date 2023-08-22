@@ -4,8 +4,9 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.ArrayRefState;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.opers.ExecCloneOperation;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
@@ -18,9 +19,11 @@ public final class DirectCloneRefectMethodPageEl extends AbstractRefectMethodPag
     @Override
     Argument prepare(ContextEl _context, ArrayRefState _args, Argument _right, StackCall _stack) {
         MethodId mid_ = getMetaInfo().getRealId();
-        if (ExecTemplates.checkParams(_context,getClassName().getFormatted(),mid_,getInstance(),_args.getArray().listArgs(), _stack).isEmpty()) {
+        CustomFoundExc ex_ = ExecTemplates.checkParams(_context, getClassName().getFormatted(), mid_, getInstance(), _args.getArray().listArgs(), _stack);
+        if (ex_ != null) {
+            _stack.setCallingState(ex_);
             return Argument.createVoid();
         }
-        return ExecCloneOperation.cloneArray(getInstance(),_context, _stack);
+        return ExecInvokingOperation.cloneArray(getInstance(),_context, _stack);
     }
 }

@@ -1,5 +1,8 @@
 package code.expressionlanguage.functionid;
 import code.expressionlanguage.common.*;
+import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardNamedFunction;
+import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -85,6 +88,16 @@ public final class MethodId extends AbsractIdentifiableCommon {
             return MethodAccessKind.STATIC;
         }
         return MethodAccessKind.INSTANCE;
+    }
+
+    public CustList<StandardNamedFunction> look(StandardType _t) {
+        CustList<StandardNamedFunction> l_ = new CustList<StandardNamedFunction>();
+        for (StandardMethod s: _t.getMethods()) {
+            if (eq(s.getId())) {
+                l_.add(s);
+            }
+        }
+        return l_;
     }
     @Override
     public String getSignature(DisplayedStrings _ana) {

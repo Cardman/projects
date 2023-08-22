@@ -19,6 +19,8 @@ import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
+import code.expressionlanguage.stds.StandardNamedFunction;
+import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.Struct;
 import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
@@ -32,6 +34,7 @@ public final class BreakPointBlockList {
     private final AbsCollection<WatchPointBlockPair> watchList;
     private final AbsCollection<ExcPointBlockPair> excPointList;
     private final AbsCollection<MethodPointBlockPair> methPointList;
+    private final AbsCollection<StdMethodPointBlockPair> stdMethPointList;
 
     public BreakPointBlockList(AbstractInterceptorStdCaller _i) {
         interceptor = _i;
@@ -40,9 +43,38 @@ public final class BreakPointBlockList {
         watchList = _i.newWatchPointKeyStringCollection();
         excPointList = _i.newExcPointKeyStringCollection();
         methPointList = _i.newMethodPointKeyStringCollection();
+        stdMethPointList = _i.newStdMethodPointKeyStringCollection();
         pausedLoop = _i.newAtBool();
     }
 
+    public void toggleBreakPoint(StandardType _t, StandardNamedFunction _i, ResultContext _f) {
+        String k_ = _t.getFullName()+"."+_i.getSignature(_f.getPageEl().getDisplayedStrings());
+        MethodPoint v_ = new MethodPoint(interceptor);
+        v_.setEnabled(true);
+        StdMethodPointBlockPair pair_ = new StdMethodPointBlockPair(_i, _t, k_, v_);
+        int i_ = 0;
+        for (StdMethodPointBlockPair b: stdMethPointList.elts()) {
+            if (b.match(pair_)) {
+                stdMethPointList.remove(i_,b);
+                return;
+            }
+            i_++;
+        }
+        stdMethPointList.add(pair_);
+    }
+    public void toggleBreakPointEnabled(StandardType _t, StandardNamedFunction _i, ResultContext _f) {
+        String k_ = _t.getFullName()+"."+_i.getSignature(_f.getPageEl().getDisplayedStrings());
+        MethodPoint v_ = new MethodPoint(interceptor);
+        v_.setEnabled(true);
+        StdMethodPointBlockPair pair_ = new StdMethodPointBlockPair(_i, _t, k_, v_);
+        for (StdMethodPointBlockPair b: stdMethPointList.elts()) {
+            if (b.match(pair_)) {
+                b.getValue().setEnabled(!b.getValue().isEnabled());
+                return;
+            }
+        }
+        stdMethPointList.add(pair_);
+    }
     public void toggleBreakPoint(String _file, int _offset, ResultContext _f) {
         toggleBreakPoint(_f.getPageEl().getPreviousFilesBodies().getVal(_file),_offset,_f.getForwards().dbg());
     }
@@ -198,6 +230,9 @@ public final class BreakPointBlockList {
         return getNotNull(_file, _offset).isEnabled();
     }
 
+    public boolean is(StandardNamedFunction _id) {
+        return getNotNull(_id).isEnabled();
+    }
     public boolean is(String _id) {
         return getNotNull(_id).isEnabled();
     }
@@ -214,6 +249,24 @@ public final class BreakPointBlockList {
     public BreakPointBlockPair getPair(ExecFileBlock _file, int _offset) {
         for (BreakPointBlockPair b: list.elts()) {
             if (b.match(_file, _offset)) {
+                return b;
+            }
+        }
+        return null;
+    }
+    public MethodPoint getNotNull(StandardNamedFunction _id) {
+        StdMethodPointBlockPair b_ = getPair(_id);
+        if (b_ == null) {
+            MethodPoint bp_ = new MethodPoint(interceptor);
+            bp_.setEnabled(false);
+            return bp_;
+        }
+        return b_.getValue();
+    }
+
+    public StdMethodPointBlockPair getPair(StandardNamedFunction _id) {
+        for (StdMethodPointBlockPair b: stdMethPointList.elts()) {
+            if (b.match(_id)) {
                 return b;
             }
         }
@@ -238,6 +291,16 @@ public final class BreakPointBlockList {
         return null;
     }
 
+    public CustList<StdMethodPointBlockPair> getStdPairs(StandardNamedFunction _id) {
+        CustList<StdMethodPointBlockPair> out_ = new CustList<StdMethodPointBlockPair>();
+        for (StdMethodPointBlockPair b: stdMethPointList.elts()) {
+            StandardNamedFunction i_ = b.getId();
+            if (i_ == _id) {
+                out_.add(b);
+            }
+        }
+        return out_;
+    }
     public CustList<MethodPointBlockPairRootBlock> getPairs(ExecBlock _id, ExecFormattedRootBlock _gl, ContextEl _context, Struct _instance) {
         String argClassName_ = _instance.getClassName(_context);
         String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);
@@ -294,6 +357,9 @@ public final class BreakPointBlockList {
             b.getValue().resetCount();
         }
         for (MethodPointBlockPair b: getMethPointList().elts()) {
+            b.getValue().resetCount();
+        }
+        for (StdMethodPointBlockPair b: getStdMethPointList().elts()) {
             b.getValue().resetCount();
         }
         for (ExcPointBlockPair b: getExcPointList().elts()) {
@@ -468,6 +534,10 @@ public final class BreakPointBlockList {
 
     public AbsCollection<BreakPointBlockPair> getList() {
         return list;
+    }
+
+    public AbsCollection<StdMethodPointBlockPair> getStdMethPointList() {
+        return stdMethPointList;
     }
 
     public AbsCollection<MethodPointBlockPair> getMethPointList() {

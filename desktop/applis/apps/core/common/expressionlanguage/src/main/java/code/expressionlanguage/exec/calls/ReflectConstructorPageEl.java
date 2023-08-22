@@ -22,7 +22,6 @@ import code.util.CustList;
 
 public final class ReflectConstructorPageEl extends AbstractReflectConstructorPageEl {
 
-    private boolean calledMethod;
     private final ConstructorMetaInfo metaInfo;
 
     private final ArrayRefState arrRef;
@@ -41,8 +40,17 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         GeneType type_ = metaInfo.getDeclType();
         boolean static_ = type_.withoutInstance();
         setWrapException(false);
-        if (!calledMethod) {
-            calledMethod = true;
+        if (!arrRef.isFalseArr()) {
+            ArrayStruct struct_ = arrRef.getArray();
+            ArgumentListCall l_ = ArgumentListCall.wrapCall(struct_.listArgs());
+            setCheckingEntryExit(true);
+            if (checkParams(_context,_stack,metaInfo,l_)) {
+                return false;
+            }
+            setCheckingEntryExit(false);
+        }
+        if (!isCalledMethod()) {
+            setCalledMethod(true);
             ConstructorId mid_ = metaInfo.getRealId();
             ArrayStruct struct_ = arrRef.getArray();
             if (arrRef.isFalseArr()) {
@@ -70,7 +78,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
             previous_ = args_.first();
             return callPhase(_context, _stack, struct_, previous_,1);
         }
-        return true;
+        return postArg(metaInfo,_stack);
     }
 
     private boolean callPhase(ContextEl _context, StackCall _stack, ArrayStruct _args, Argument _previous, int _delta) {
@@ -86,8 +94,13 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
             ArgumentListCall l_ = ArgumentListCall.wrapCall(_args.listArgs());
             arg_ = ParamCheckerUtil.instancePrepareStd(_context, metaInfo.getStandardConstructor(), mid_, l_, _stack).getValue();
         }
-        return end(_context, _stack, arg_);
+        return end(_context, _stack, metaInfo, arg_);
     }
+
+    public ConstructorMetaInfo getMetaInfo() {
+        return metaInfo;
+    }
+
     @Override
     protected ExecFormattedRootBlock getFormatted() {
         return metaInfo.getFormatted();

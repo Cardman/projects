@@ -9,7 +9,7 @@ import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
-import code.expressionlanguage.exec.opers.ExecAnnotationMethodOperation;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -67,7 +67,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock {
     public static void setValue(ExecRootBlock _rootBlock, String _cl, String _name, String _returnType, ContextEl _cont, Argument _arg, StackCall _stackCall) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         Argument gl_ = ip_.getGlobalArgument();
-        Argument arg_ = ExecAnnotationMethodOperation.swallowCopy(_arg.getStruct());
+        Argument arg_ = ExecInvokingOperation.swallowCopy(_arg.getStruct());
         ExecFieldTemplates.setInstanceField(gl_, arg_, _cont, _stackCall, new ClassField(_cl, _name), new ExecTypeReturn(_rootBlock, _returnType));
     }
 

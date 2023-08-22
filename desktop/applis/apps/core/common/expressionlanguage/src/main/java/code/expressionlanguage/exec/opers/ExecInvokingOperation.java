@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
@@ -20,10 +21,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunctionInst;
 import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.LambdaStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -102,6 +100,44 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         _nodes.clear();
         _nodes.addAllElts(reord_);
     }
+
+    public static Argument getAnnotation(Argument _previous, String _name, ContextEl _conf, StackCall _stackCall) {
+        Struct argPrev_ = _previous.getStruct();
+        String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
+        if (!(argPrev_ instanceof AnnotationStruct)) {
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
+            return new Argument();
+        }
+        String clName_ = argPrev_.getClassName(_conf);
+        Struct ret_ = ExecFieldTemplates.getInstanceField(_previous,_conf, _stackCall, new ClassField(clName_, _name)).getStruct();
+        return swallowCopy(ret_);
+    }
+
+    public static Argument swallowCopy(Struct _ret) {
+        Argument a_;
+        if (_ret instanceof ArrayStruct) {
+            ArrayStruct orig_ = (ArrayStruct) _ret;
+            a_ = new Argument(orig_.swallowCopy());
+        } else {
+            a_ = new Argument(_ret);
+        }
+        return a_;
+    }
+
+    public static Argument cloneArray(Argument _previous, ContextEl _conf, StackCall _stackCall) {
+        Struct argPrev_ = _previous.getStruct();
+        String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
+        if (!(argPrev_ instanceof ArrayStruct)) {
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
+            return new Argument();
+        }
+        //clone object
+        ArrayStruct arr_ = (ArrayStruct) argPrev_;
+        ArrayStruct copy_ = arr_.swallowCopy();
+        _stackCall.getInitializingTypeInfos().addSensibleElementsFromClonedArray(arr_, copy_);
+        return new Argument(copy_);
+    }
+
     @Override
     public final boolean isIntermediateDottedOperation() {
         return intermediate;

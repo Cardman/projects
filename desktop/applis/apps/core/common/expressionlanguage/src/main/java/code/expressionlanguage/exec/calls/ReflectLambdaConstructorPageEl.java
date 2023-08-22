@@ -14,7 +14,6 @@ import code.expressionlanguage.structs.ConstructorMetaInfo;
 
 public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstructorPageEl {
 
-    private boolean calledMethod;
     private final ConstructorMetaInfo metaInfo;
 
     private final Argument argument;
@@ -36,10 +35,15 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
         }
         ExecFormattedRootBlock res_ = metaInfo.getFormatted();
         setWrapException(false);
-        if (calledMethod) {
-            return true;
+        setCheckingEntryExit(true);
+        if (checkParams(_context,_stack,metaInfo,array)) {
+            return false;
         }
-        calledMethod = true;
+        setCheckingEntryExit(false);
+        if (isCalledMethod()) {
+            return postArg(metaInfo,_stack);
+        }
+        setCalledMethod(true);
         ConstructorId mid_ = metaInfo.getRealId();
         Argument argCtor_ = Argument.createVoid();
         ExecTypeFunction pair_ = metaInfo.getPair();
@@ -50,8 +54,17 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
         if (metaInfo.getStandardType() != null) {
             argCtor_ = ParamCheckerUtil.instancePrepareStd(_context, metaInfo.getStandardConstructor(), mid_, array, _stack).getValue();
         }
-        return end(_context,_stack,argCtor_);
+        return end(_context,_stack,metaInfo,argCtor_);
     }
+
+    public ArgumentListCall getArray() {
+        return array;
+    }
+
+    public ConstructorMetaInfo getMetaInfo() {
+        return metaInfo;
+    }
+
     @Override
     protected ExecFormattedRootBlock getFormatted() {
         return metaInfo.getFormatted();

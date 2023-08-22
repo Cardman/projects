@@ -31,6 +31,7 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.linkage.ExportCst;
+import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.*;
@@ -2185,6 +2186,10 @@ public final class ClassesUtil {
         _page.getMappingLocal().addAllEntries(_name.getRefMappings());
     }
 
+    public static void prepare(StandardNamedFunction _name, AnalyzedPageEl _page) {
+        prepareParams(_page, _name.getParametersNames(), _name.getImportedParametersTypes(), _name.isVarargs());
+    }
+
     private static void loopAnnots(AnalyzedPageEl _page) {
         _page.setAnnotAnalysis(true);
         for (RootBlock c: _page.getFoundTypes()) {
@@ -2737,33 +2742,43 @@ public final class ClassesUtil {
         }
     }
 
+    private static void prepareParams(AnalyzedPageEl _page, StringList _params, StringList _types, boolean _varargs) {
+        int len_ = _params.size();
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
+            _page.getInfosVars().put(_params.get(i), param(_types, i, 0, BoolVal.FALSE, _varargs, len_));
+        }
+    }
+
     private static void prepareParams(AnalyzedPageEl _page, Ints _offs, CustList<StringList> _paramErrors, StringList _params, CustList<BoolVal> _refParams, StringList _types, boolean _varargs) {
         int len_ = _params.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (!_paramErrors.get(i).isEmpty()) {
                 continue;
             }
-            String c_ = _types.get(i);
-            if (_varargs && i + 1 == len_) {
-                c_ = StringExpUtil.getPrettyArrayType(c_);
-            }
-            String p_ = _params.get(i);
-            buildParam(_page, _offs, _refParams, i, p_, c_);
+            prepareParamOk(_page, _offs, _params, _refParams, _types, _varargs, i);
         }
     }
 
-    private static void buildParam(AnalyzedPageEl _page, Ints _offs, CustList<BoolVal> _refParams, int _i, String _p, String _c) {
+    private static void prepareParamOk(AnalyzedPageEl _page, Ints _offs, StringList _params, CustList<BoolVal> _refParams, StringList _types, boolean _varargs, int _i) {
+        _page.getInfosVars().put(_params.get(_i), param(_types, _i, _offs.get(_i), _refParams.get(_i),_varargs, _params.size()));
+    }
+
+    private static AnaLocalVariable param(StringList _types, int _i, int _off, BoolVal _ref, boolean _varargs, int _len) {
+        String c_ = _types.get(_i);
+        if (_varargs && _i + 1 == _len) {
+            c_ = StringExpUtil.getPrettyArrayType(c_);
+        }
         AnaLocalVariable lv_ = new AnaLocalVariable();
-        lv_.setClassName(_c);
-        lv_.setRef(_offs.get(_i));
+        lv_.setClassName(c_);
+        lv_.setRef(_off);
         lv_.setIndexParam(_i);
-        if (_refParams.get(_i) == BoolVal.TRUE) {
+        if (_ref == BoolVal.TRUE) {
             lv_.setConstType(ConstType.REF_LOC_VAR);
         } else {
             lv_.setConstType(ConstType.PARAM);
             lv_.setFinalVariable(true);
         }
-        _page.getInfosVars().put(_p, lv_);
+        return lv_;
     }
 
     private static void initStaticFields(AnalyzedPageEl _page) {

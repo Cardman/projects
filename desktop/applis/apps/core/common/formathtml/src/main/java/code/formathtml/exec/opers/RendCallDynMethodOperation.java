@@ -9,28 +9,28 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.stds.StandardNamedFunction;
 import code.formathtml.exec.RendStackCall;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.core.StringUtil;
 
 public final class RendCallDynMethodOperation extends RendSettableCallFctOperation implements RendCalculableOperation {
 
-    private final String fctName;
-    public RendCallDynMethodOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, String _fctName, ExecArrContent _arrContent) {
+    private final StandardNamedFunction stdMethod;
+    public RendCallDynMethodOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecArrContent _arrContent, StandardNamedFunction _std) {
         super(_content, _intermediateDottedOperation, _arrContent);
-        fctName = _fctName;
+        stdMethod = _std;
     }
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
-        if (StringUtil.quickEq(fctName, _context.getStandards().getContent().getReflect().getAliasMetaInfo())) {
+        if (stdMethod == _context.getStandards().getContent().getReflect().getFctTypeMeta()) {
             Argument res_ = ExecInvokingOperation.getMetaInfo(previous_, _context, _rendStack.getStackCall());
             setSimpleArgument(res_, _nodes, _context, _rendStack);
             return;
         }
-        if (StringUtil.quickEq(fctName, _context.getStandards().getContent().getReflect().getAliasInstance())) {
+        if (stdMethod == _context.getStandards().getContent().getReflect().getFctTypeInstance()) {
             Argument res_ = ExecInvokingOperation.getInstanceCall(previous_, _context, _rendStack.getStackCall());
             setSimpleArgument(res_, _nodes, _context, _rendStack);
             return;

@@ -554,7 +554,6 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         args_.add(new Argument(arr_));
         StackCall stackCall_ = getStackCall(cont_);
         assertNotNull(ExecTemplates.okArgsSet(id_, args_, cont_, stackCall_));
-        assertNotNull(getTrueException(stackCall_));
     }
     @Test
     public void okArgs4Test() {
@@ -566,7 +565,6 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         args_.add(new Argument(arr_));
         StackCall stackCall_ = getStackCall(cont_);
         assertNotNull(ExecTemplates.okArgsSet(id_, args_, cont_, stackCall_));
-        assertNotNull(getTrueException(stackCall_));
     }
     @Test
     public void okArgs5Test() {
@@ -583,7 +581,6 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         args_.add(new Argument(atr_));
         StackCall stackCall_ = getStackCall(cont_);
         assertNotNull(ExecTemplates.okArgsSet(id_, args_, cont_, stackCall_));
-        assertNotNull(getTrueException(stackCall_));
     }
     @Test
     public void okArgs6Test() {
@@ -600,7 +597,6 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         args_.add(new Argument(atr_));
         StackCall stackCall_ = getStackCall(cont_);
         assertNotNull(ExecTemplates.okArgsSet(id_, args_, cont_, stackCall_));
-        assertNotNull(getTrueException(stackCall_));
     }
     @Test
     public void okArgs7Test() {
@@ -611,7 +607,6 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         args_.add(new Argument(NullStruct.NULL_VALUE));
         StackCall stackCall_ = getStackCall(cont_);
         assertNotNull(ExecTemplates.okArgsSet(id_, args_, cont_, stackCall_));
-        assertNotNull(getTrueException(stackCall_));
     }
     @Test
     public void okArgs8Test() {

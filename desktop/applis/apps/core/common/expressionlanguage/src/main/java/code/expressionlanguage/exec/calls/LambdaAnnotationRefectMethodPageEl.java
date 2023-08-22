@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.opers.ExecAnnotationMethodOperation;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
@@ -17,6 +17,6 @@ public final class LambdaAnnotationRefectMethodPageEl extends AbstractRefectLamb
 
     @Override
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
-        return ExecAnnotationMethodOperation.getAnnotation(getInstance(),name,_context, _stack);
+        return ExecInvokingOperation.getAnnotation(getInstance(),name,_context, _stack);
     }
 }

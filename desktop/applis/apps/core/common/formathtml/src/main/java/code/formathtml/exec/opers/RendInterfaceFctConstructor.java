@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
-import code.expressionlanguage.exec.opers.ExecInterfaceFctConstructor;
+import code.expressionlanguage.exec.opers.ExecAbstractInvokingConstructor;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
@@ -61,7 +61,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
     }
     private void prepareArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, ContextEl _context, RendStackCall _rendStackCall) {
         ExecFormattedRootBlock superClass_ = StackCall.formatVarType(_rendStackCall,invokingConstructorContent.getFormattedType());
-        ExecInterfaceFctConstructor.prep(_context,_rendStackCall.getStackCall(),_arguments,superClass_,buildInfos(_all),invokingConstructorContent,pair);
+        ExecAbstractInvokingConstructor.prep(_context,_rendStackCall.getStackCall(),_arguments,superClass_,buildInfos(_all),invokingConstructorContent,pair);
     }
 
 }

@@ -8,7 +8,6 @@ import code.util.StringList;
 public final class StandardMethod extends StandardNamedFunction {
 
     private final MethodModifier modifier;
-    private final StdCaller caller;
 
     public StandardMethod(String _name, StringList _parametersTypes,
                           String _returnType, boolean _varargs, MethodModifier _modifier ,StdCaller _caller) {
@@ -17,9 +16,8 @@ public final class StandardMethod extends StandardNamedFunction {
 
     public StandardMethod(String _name, StringList _parametersTypes,
                           String _returnType, boolean _varargs, MethodModifier _modifier, StringList _paramNames ,StdCaller _caller) {
-        super(_name, _parametersTypes, _returnType, _varargs,_paramNames);
+        super(_name, _parametersTypes, _returnType, _varargs,_paramNames, _caller);
         modifier = _modifier;
-        caller = _caller;
     }
 
     @Override
@@ -34,9 +32,5 @@ public final class StandardMethod extends StandardNamedFunction {
 
     public MethodModifier getModifier() {
         return modifier;
-    }
-
-    public StdCaller getCaller() {
-        return caller;
     }
 }

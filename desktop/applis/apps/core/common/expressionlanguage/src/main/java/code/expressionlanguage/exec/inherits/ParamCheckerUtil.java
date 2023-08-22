@@ -35,8 +35,9 @@ public final class ParamCheckerUtil {
     public static ArgumentWrapper instancePrepareStd(ContextEl _conf, StandardConstructor _ctor, ConstructorId _constId,
                                                      ArgumentListCall _arguments, StackCall _stackCall) {
         CustList<Argument> args_ = _arguments.getArguments();
-        ExecTemplates.checkParams(_conf, "", _constId, null, args_, _stackCall);
-        if (_conf.callsOrException(_stackCall)) {
+        CustomFoundExc ex_ = ExecTemplates.checkParams(_conf, "", _constId, null, args_, _stackCall);
+        if (ex_ != null) {
+            _stackCall.setCallingState(ex_);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         StdCaller caller_ = StandardType.caller(_ctor, null);
@@ -46,8 +47,9 @@ public final class ParamCheckerUtil {
 
     public static Argument callStd(AbstractExiting _exit, ContextEl _cont, ClassMethodId _classNameFound, Argument _previous, ArgumentListCall _firstArgs, StackCall _stackCall, StandardMethod _stdMeth) {
         CustList<Argument> args_ = _firstArgs.getArguments();
-        ExecTemplates.checkParams(_cont, _classNameFound.getClassName(), _classNameFound.getConstraints(), _previous, args_, _stackCall);
-        if (_cont.callsOrException(_stackCall)) {
+        CustomFoundExc ex_ = ExecTemplates.checkParams(_cont, _classNameFound.getClassName(), _classNameFound.getConstraints(), _previous, args_, _stackCall);
+        if (ex_ != null) {
+            _stackCall.setCallingState(ex_);
             return Argument.createVoid();
         }
         StdCaller caller_ = _stdMeth.getCaller();

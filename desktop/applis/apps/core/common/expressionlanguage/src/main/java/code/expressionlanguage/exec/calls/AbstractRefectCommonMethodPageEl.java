@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
@@ -19,6 +20,7 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
+import code.util.CustList;
 
 public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPageEl {
 
@@ -32,6 +34,8 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     private final MethodMetaInfo metaInfo;
     private final AbstractPreparer preparer;
     private boolean calledAf;
+    private boolean checkingEntryExit;
+    private int checkedParams;
 
     protected AbstractRefectCommonMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, boolean _lda) {
         super(_lda);
@@ -90,7 +94,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         return metaInfo;
     }
 
-    StandardMethod getStdCallee() {
+    public StandardMethod getStdCallee() {
         return metaInfo.getStdCallee();
     }
 
@@ -102,7 +106,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         return pair;
     }
 
-    Argument getInstance() {
+    public Argument getInstance() {
         return instance;
     }
 
@@ -122,6 +126,11 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     boolean callPhase(ContextEl _context, StackCall _stack) {
         if (!calledAf) {
             setWrapException(false);
+            checkingEntryExit = true;
+            if (checkParams(_context, _stack)) {
+                return false;
+            }
+            checkingEntryExit = false;
             Argument arg_ = prepareCall(_context, _stack);
             if (_stack.getCallingState() instanceof NotInitializedClass) {
                 setWrapException(true);
@@ -134,9 +143,34 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
             }
             setReturnedArgument(arg_);
         }
+        return postArg(_stack);
+    }
+    protected abstract boolean checkParams(ContextEl _context, StackCall _stack);
+    protected boolean checkParamsBase(ContextEl _context, StackCall _stack, Identifiable _id, CustList<Argument> _args){
+        return checkParamsBase(_context,_stack,_id,_args,getClassName().getFormatted(),getInstance());
+    }
+    protected abstract boolean postArg(StackCall _stack);
+    protected boolean postArgBase(StackCall _stack) {
+        if (getCheckedParams() == 1) {
+            checkingEntryExit = true;
+            setCheckedParams(2);
+            return !_stack.getStopper().isStopAtExcMethod();
+        }
+        checkingEntryExit = false;
         return true;
     }
     abstract Argument prepareCall(ContextEl _context, StackCall _stack);
     public abstract int getRef();
 
+    public boolean isCheckingEntryExit() {
+        return checkingEntryExit;
+    }
+
+    public int getCheckedParams() {
+        return checkedParams;
+    }
+
+    public void setCheckedParams(int _c) {
+        this.checkedParams = _c;
+    }
 }

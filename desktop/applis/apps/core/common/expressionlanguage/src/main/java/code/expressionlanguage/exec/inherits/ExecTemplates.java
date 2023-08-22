@@ -43,7 +43,7 @@ public final class ExecTemplates {
     private ExecTemplates(){
     }
 
-    public static String checkParams(ContextEl _conf, String _classNameFound, Identifiable _methodId,
+    public static CustomFoundExc checkParams(ContextEl _conf, String _classNameFound, Identifiable _methodId,
                                      Argument _previous, CustList<Argument> _firstArgs, StackCall _stackCall) {
         LgNames stds_ = _conf.getStandards();
         String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
@@ -52,22 +52,18 @@ public final class ExecTemplates {
             String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
             classFormat_ = ExecInherits.getQuickFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_.isEmpty()) {
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, ExecFieldTemplates.getBadCastMessage(_classNameFound, className_), cast_, _stackCall)));
-                return "";
+                return new CustomFoundExc(new ErrorStruct(_conf, ExecFieldTemplates.getBadCastMessage(_classNameFound, className_), cast_, _stackCall));
             }
         }
-        if (okArgsSet(_methodId, _firstArgs, _conf, _stackCall) != null) {
-            return "";
-        }
-        return classFormat_;
+        return okArgsSet(_methodId, _firstArgs, _conf, _stackCall);
     }
 
-    public static Struct okArgsSet(Identifiable _id, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
+    public static CustomFoundExc okArgsSet(Identifiable _id, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
         Struct ex_ = okArgsEx(_id, _firstArgs, _conf, _stackCall);
         if (ex_ != null) {
-            _stackCall.setCallingState(new CustomFoundExc(ex_));
+            return new CustomFoundExc(ex_);
         }
-        return ex_;
+        return null;
     }
 
     public static Parameters okArgsSet(ExecNamedFunctionBlock _id, ExecFormattedRootBlock _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, StackCall _stackCall) {

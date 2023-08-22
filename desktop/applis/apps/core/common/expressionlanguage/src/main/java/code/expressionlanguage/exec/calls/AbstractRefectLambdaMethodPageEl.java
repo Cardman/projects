@@ -23,8 +23,23 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
         }
         return callPhase(_context, _stack);
     }
+
+    @Override
+    protected boolean checkParams(ContextEl _context, StackCall _stack) {
+        return false;
+    }
+
+    @Override
+    protected boolean postArg(StackCall _stack) {
+        return true;
+    }
+
     Argument prepareCall(ContextEl _context, StackCall _stack) {
         return prepare(_context, array, _stack);
+    }
+
+    public ArgumentListCall getArray() {
+        return array;
     }
 
     abstract Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack);

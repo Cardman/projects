@@ -404,10 +404,6 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
         return noNeed;
     }
 
-    public String getFctName() {
-        return fctName;
-    }
-
     public StandardMethod getStdMethod() {
         return stdMethod;
     }

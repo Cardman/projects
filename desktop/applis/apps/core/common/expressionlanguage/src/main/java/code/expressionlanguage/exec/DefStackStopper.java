@@ -45,6 +45,11 @@ public final class DefStackStopper implements AbsStackStopper {
     }
 
     @Override
+    public boolean hasValueStd(StackCall _stack) {
+        return false;
+    }
+
+    @Override
     public boolean isStopAtExcMethod() {
         return false;
     }

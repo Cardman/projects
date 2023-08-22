@@ -119,6 +119,7 @@ public class DefaultInitializer implements Initializer {
                 return exitAfterCallInt(_owner, _stackCall);
             }
             afterCheckExit(_owner, _stackCall);
+            afterCheckCalculate(_owner, _stackCall);
         }
         AbstractPageEl p_ = _stackCall.getLastPage();
         ReadWrite rw_ = _stackCall.getReadWrite();
@@ -175,6 +176,18 @@ public class DefaultInitializer implements Initializer {
             _stackCall.entryReadWrite();
         }
         _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setExiting(null);
+    }
+
+    private void afterCheckCalculate(ContextEl _owner, StackCall _stackCall) {
+        ArgumentWrapper ex_ = _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getCalculated();
+        if (ex_ != null) {
+            AbstractPageEl p_ = _stackCall.getLastPage();
+            ExpressionLanguage el_ = p_.getLastEl();
+            el_.setArgument(ex_.getWrapper(),ex_.getValue(),_owner,_stackCall);
+            _stackCall.getBreakPointInfo().getStackState().visitedNone();
+            _stackCall.entryReadWrite();
+        }
+        _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setCalculated(null);
     }
 
     private void iterate(ContextEl _owner, StackCall _stackCall) {

@@ -53,7 +53,7 @@ public final class StaticInitPageEl extends AbstractInitPageEl {
     }
 
     public void sucessClass(ContextEl _context) {
-        ExecRootBlock curClass_ = getGlobalClass().getRootBlock();
+        ExecRootBlock curClass_ = getBlockRootType();
         _context.getLocks().successClass(curClass_);
     }
 

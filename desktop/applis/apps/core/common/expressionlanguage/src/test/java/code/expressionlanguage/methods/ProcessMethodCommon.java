@@ -116,8 +116,12 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     protected static MethodId getMethodId(String _name, String..._classNames) {
+        return getMethodId(MethodAccessKind.STATIC, _name, false, _classNames);
+    }
+
+    protected static MethodId getMethodId(MethodAccessKind _k,String _name, boolean _vararg, String..._classNames) {
         StringList cl_ = new StringList(_classNames);
-        return new MethodId(MethodAccessKind.STATIC, _name, cl_);
+        return new MethodId(_k, _name, cl_, _vararg);
     }
 
     protected static Argument instanceError(String _class, Argument _global, ConstructorId _id, ContextEl _cont) {
@@ -177,6 +181,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ConstructorId getConstructorId(String _name, String..._classNames) {
         StringList cl_ = new StringList(_classNames);
         return new ConstructorId(_name, cl_, false);
+    }
+
+    protected static ConstructorId getConstructorId(boolean _vararg, String..._classNames) {
+        StringList cl_ = new StringList(_classNames);
+        return new ConstructorId("", cl_, _vararg);
     }
 
     private static StringMap<String> getErrors(ResultContext _report) {

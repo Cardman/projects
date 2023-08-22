@@ -30,7 +30,7 @@ public final class ExecSettableFieldInstOperation extends
             setter(_nodes, _conf, _stack);
         } else {
             offset(_stack);
-            Argument previous_ = getPreviousArg(this, _nodes, _stack);
+            Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
             ClassField fieldId_ = getSettableFieldContent().getClassField();
             Argument parent_ = new Argument(ExecFieldTemplates.getParent(getSettableFieldContent().getAnc(), previous_.getStruct(), _conf, _stack));
             ExecHelper.getArgumentPair(_nodes,this).setArgumentParent(parent_);
@@ -51,7 +51,7 @@ public final class ExecSettableFieldInstOperation extends
         ClassField fieldId_ = getSettableFieldContent().getClassField();
         Argument parent_;
         if (resultCanBeSet()) {
-            Argument prev_ = getPreviousArg(this, _nodes, _stack);
+            Argument prev_ = getPreviousArg(this, _nodes, _stack.getLastPage());
             parent_ = new Argument(ExecFieldTemplates.getParent(getSettableFieldContent().getAnc(), prev_.getStruct(), _conf, _stack));
         } else {
             parent_ = Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes,this).getArgumentParent());

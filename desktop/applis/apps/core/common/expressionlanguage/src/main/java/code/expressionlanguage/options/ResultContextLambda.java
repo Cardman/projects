@@ -22,6 +22,7 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
+import code.expressionlanguage.exec.dbg.StdMethodPointBlockPair;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -57,6 +58,14 @@ public final class ResultContextLambda {
             return new ResultContextLambda(null,null,new ReportedMessages());
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_fileName, _caret, _result.getPageEl(),_flag);
+        return build(_exp, _result, _type, _gene, a_);
+    }
+
+    public static ResultContextLambda dynamicAnalyze(String _exp, StdMethodPointBlockPair _instance, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
+        if (_exp.trim().isEmpty()) {
+            return new ResultContextLambda(null,null,new ReportedMessages());
+        }
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_instance, _result.getPageEl());
         return build(_exp, _result, _type, _gene, a_);
     }
 

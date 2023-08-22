@@ -25,7 +25,7 @@ public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOpera
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _stack);
+        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
         String clArg_ = formatVarTypeRes(_stack);
         Argument res_ = new Argument(newLambda(format(lambdaMethodContent,_stack),getLambdaCommonContent(),lambdaMethodContent,previous_, clArg_));
         setSimpleArgument(res_, _conf, _nodes, _stack);

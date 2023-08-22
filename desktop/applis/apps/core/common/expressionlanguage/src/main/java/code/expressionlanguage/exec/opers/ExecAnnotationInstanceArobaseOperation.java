@@ -5,19 +5,20 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstancingAnnotContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
-public final class ExecAnnotationInstanceArobaseOperation extends ExecInvokingOperation {
+public final class ExecAnnotationInstanceArobaseOperation extends ExecSettableCallFctOperation {
 
     private final ExecInstancingAnnotContent instancingAnnotContent;
 
     public ExecAnnotationInstanceArobaseOperation(
             ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstancingAnnotContent _instancingAnnotContent) {
-        super(_opCont, _intermediateDottedOperation);
+        super(_opCont, _intermediateDottedOperation,new ExecArrContent(false));
         instancingAnnotContent = _instancingAnnotContent;
     }
 
@@ -28,7 +29,7 @@ public final class ExecAnnotationInstanceArobaseOperation extends ExecInvokingOp
         setRelOffsetPossibleLastPage(off_, _stack);
         ParamCheckerUtil.redirectAnnotation(_conf, _stack, arguments_, instancingAnnotContent);
         Argument res_ = Argument.createVoid();
-        setSimpleArgument(res_, _conf, _nodes, _stack);
+        setResult(res_, _conf, _nodes, _stack);
     }
 
 }

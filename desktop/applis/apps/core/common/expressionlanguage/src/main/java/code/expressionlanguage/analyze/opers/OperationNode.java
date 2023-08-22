@@ -1860,7 +1860,7 @@ public abstract class OperationNode {
                 if (filter(_refRet, id_.isRetRef(), k_)) {
                     continue;
                 }
-                MethodInfo stMeth_ = fetchedParamMethod(e, _refRet, genericString_, (StandardType) g_, _page, e.getId());
+                MethodInfo stMeth_ = fetchedParamMethod(e, _refRet, genericString_, (StandardType) g_, _page, id_);
                 if (stMeth_ != null) {
                     stMeth_.setStandardType((StandardType)g_);
                     _methods.add(stMeth_);

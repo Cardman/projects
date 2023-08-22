@@ -37,7 +37,7 @@ public final class ExecAnonymousLambdaOperation extends ExecAbstractLambdaOperat
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _stack);
+        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
         Argument res_ = new Argument(newAnonymousLambda(format(lambdaAnoContent,_stack),getLambdaCommonContent(),lambdaAnoContent,previous_,
                 _stack.getLastPage(), _stack));
         setSimpleArgument(res_, _conf, _nodes, _stack);

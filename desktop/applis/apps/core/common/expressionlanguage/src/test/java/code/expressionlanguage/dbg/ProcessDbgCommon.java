@@ -129,6 +129,12 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return dbgContinueNormalValue(_stack, _cont).getStack();
     }
 
+    protected static StackCall dbgContinueNormalCheck(StackCall _stack, ContextEl _cont) {
+        StackCallReturnValue st_ = dbgContinueNormalValue(_stack, _cont);
+        assertNull(st_.getStack().getBreakPointInfo().getBreakPointOutputInfo().getCallingStateSub());
+        return st_.getStack();
+    }
+
     protected static StackCall dbgContinueNormalMute(StackCall _stack, ContextEl _cont) {
         return dbgContinueNormalValueMute(_stack, _cont).getStack();
     }
