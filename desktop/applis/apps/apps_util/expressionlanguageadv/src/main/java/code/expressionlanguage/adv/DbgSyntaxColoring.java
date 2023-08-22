@@ -123,7 +123,7 @@ public final class DbgSyntaxColoring {
             int offset_ = ((NamedCalledFunctionBlock)bk_).getPlace();
             WatchPointBlockPair w_ = lsBp_.getPairWatch(false,((RootBlock)rPar_).getNumberAll(),((NamedCalledFunctionBlock)bk_).getName());
             if (w_ != null) {
-                parts_.add(new SegmentReadOnlyPart(offset_, bk_.getBegin(),SyntaxRefEnum.FIELD));
+                parts_.add(new SegmentReadOnlyPart(offset_, ((NamedCalledFunctionBlock)bk_).getDefaultValueOffset(),SyntaxRefEnum.FIELD));
             }
             return parts_;
         }
