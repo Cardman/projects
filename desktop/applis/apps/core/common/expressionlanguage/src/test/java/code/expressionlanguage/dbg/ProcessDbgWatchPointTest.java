@@ -234,12 +234,13 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
 
     private boolean isWatch(ResultContext _cont, ClassField _cf) {
         int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
-        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(n_,_cf.getFieldName());
+        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(true,n_,_cf.getFieldName());
     }
 
     @Test
     public void test() {
-        assertEq("-1.",new WatchPointBlockPairKeyString().keyString(new WatchPointBlockPair(null,-1,new ClassField("",""),null)));
+        assertEq("0-1.",new WatchPointBlockPairKeyString().keyString(new WatchPointBlockPair(false,null,-1,"",null)));
+        assertEq("1-1.",new WatchPointBlockPairKeyString().keyString(new WatchPointBlockPair(true,null,-1,"",null)));
     }
     private ClassField cf(String _cl, String _f) {
         return new ClassField(_cl,_f);

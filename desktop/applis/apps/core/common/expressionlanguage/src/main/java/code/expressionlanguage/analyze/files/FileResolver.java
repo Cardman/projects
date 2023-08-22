@@ -651,7 +651,7 @@ public final class FileResolver {
             return intern(_input, currentParent_, trimmedInstruction_, keyWords_, instructionTrimLocation_, _pkgName);
         }
         if (currentParent_ instanceof AnnotationBlock) {
-            return annotation(_input, _pkgName, _parsedInstruction, currentParent_, trimmedInstruction_, _pkgName, _input.getCont().getDef());
+            return annotation(_input, _pkgName, _parsedInstruction, (AnnotationBlock) currentParent_, trimmedInstruction_, _pkgName, _input.getCont().getDef());
         }
         if (canHaveElements(currentParent_)) {
             return element(_input, _pkgName, _parsedInstruction, currentParent_, _pkgName);
@@ -1058,17 +1058,17 @@ public final class FileResolver {
         return after_;
     }
 
-    private static AfterBuiltInstruction annotation(InputTypeCreation _input, String _pkgName, ParsedInstruction _parsedInstruction, BracedBlock _currentParent, String _trimmedInstruction, String _packageName, DefaultAccess _defaultAccess) {
+    private static AfterBuiltInstruction annotation(InputTypeCreation _input, String _pkgName, ParsedInstruction _parsedInstruction, AnnotationBlock _currentParent, String _trimmedInstruction, String _packageName, DefaultAccess _defaultAccess) {
         String keyWordFinal_ = _input.getCont().getKeys().getKeyWordFinal();
         AbsBk br_ = null;
         if (_parsedInstruction.getFirstPrIndex() < 0) {
             //implicit static block
             if (_parsedInstruction.getCurChar() != END_BLOCK) {
                 br_ = new StaticBlock(_parsedInstruction.instLocAfter() + _input.getOffset());
-                int initNb_ = ((RootBlock) _currentParent).getCountInit();
+                int initNb_ = _currentParent.getCountInit();
                 ((InitBlock) br_).setNumber(initNb_);
-                ((StaticBlock) br_).setStaticNb(((RootBlock) _currentParent).getStaticBlocks().size());
-                ((RootBlock) _currentParent).getStaticBlocks().add((StaticBlock) br_);
+                ((StaticBlock) br_).setStaticNb(_currentParent.getStaticBlocks().size());
+                _currentParent.getStaticBlocks().add((StaticBlock) br_);
                 br_.setBegin(_parsedInstruction.getIndex()+ _input.getOffset());
                 br_.setLengthHeader(1);
                 _currentParent.appendChild(br_);
@@ -1080,8 +1080,8 @@ public final class FileResolver {
                     _parsedInstruction,
                     _defaultAccess.getAccessInner(_currentParent).getAccInners());
             _currentParent.appendChild(built_);
-            built_.setParentType((AnnotationBlock) _currentParent);
-            ((AnnotationBlock) _currentParent).getChildrenRootBlocks().add(built_);
+            built_.setParentType(_currentParent);
+            _currentParent.getChildrenRootBlocks().add(built_);
             br_ = built_;
             return endAnnot(_input, _parsedInstruction, _trimmedInstruction, _packageName, _currentParent, br_);
         }
@@ -1114,7 +1114,7 @@ public final class FileResolver {
         int fieldNameOffest_ = typeOffset_+declaringType_.length() + offAfterType_;
         int instructionTrimLocation_ = _parsedInstruction.instLoc();
         if (!meth_) {
-            FieldBlock field_ = new FieldBlock((RootBlock) _currentParent,
+            FieldBlock field_ = new FieldBlock(_currentParent,
                     new OffsetAccessInfo(-1, AccessEnum.PUBLIC),
                     new OffsetBooleanInfo(-1, true),
                     new OffsetBooleanInfo(finalOff_+ _input.getOffset(), final_),
@@ -1122,10 +1122,10 @@ public final class FileResolver {
                     new OffsetStringInfo(fieldNameOffest_+ _input.getOffset(), found_),
                      instructionTrimLocation_ + _input.getOffset());
             field_.setAnnotations(annotations_);
-            field_.getElements().setFieldNumber(((RootBlock) _currentParent).getFieldsBlocks().size());
+            field_.getElements().setFieldNumber(_currentParent.getFieldsBlocks().size());
             field_.getRes().partsAbsol(_parsedInstruction.getStringParts());
             field_.setEndAll(_parsedInstruction.getIndex() + _input.getOffset()+1);
-            ((RootBlock) _currentParent).getFieldsBlocks().add(field_);
+            _currentParent.getFieldsBlocks().add(field_);
             br_ = field_;
             br_.setBegin(_parsedInstruction.getIndex()+ _input.getOffset());
             br_.setLengthHeader(1);
@@ -1157,10 +1157,10 @@ public final class FileResolver {
                 new OffsetStringInfo(fieldNameOffest_ + _input.getOffset(), fieldName_.trim()),
                 instructionTrimLocation_ + _input.getOffset(), rightPar_ - offAfterType_);
         annMeth_.setRealLength(annMeth_.getName().length()+1);
-        annMeth_.setNameNumber(((RootBlock) _currentParent).getAnnotationsMethodsBlocks().size());
+        annMeth_.setNameNumber(_currentParent.getAnnotationsMethodsBlocks().size());
         annMeth_.getRes().partsAbsol(_parsedInstruction.getStringParts());
         annMeth_.setEndAll(_parsedInstruction.getIndex() + _input.getOffset()+1);
-        ((RootBlock) _currentParent).getAnnotationsMethodsBlocks().add(annMeth_);
+        _currentParent.getAnnotationsMethodsBlocks().add(annMeth_);
         if (rightPar_ < indexBeginCalling_ || !found_.substring(indexBeginCalling_ + 1, rightPar_).trim().isEmpty()) {
             annMeth_.setKo();
         }

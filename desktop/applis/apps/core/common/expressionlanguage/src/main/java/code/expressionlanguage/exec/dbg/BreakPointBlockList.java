@@ -2,10 +2,9 @@ package code.expressionlanguage.exec.dbg;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.analyze.blocks.FileBlock;
-import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
-import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.common.SynthFieldInfo;
@@ -85,6 +84,11 @@ public final class BreakPointBlockList {
         }
         MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(_offset, _file);
         if (id_ != null) {
+            BracedBlock r_ = rootOfAnnot(id_);
+            if (r_ instanceof RootBlock) {
+                toggleWatch(false,new SynthFieldInfo(new ClassField("",((NamedCalledFunctionBlock)id_).getName()),(RootBlock)r_,((RootBlock)r_).getNumberAll()));
+                return;
+            }
             toggle(id_);
             return;
         }
@@ -130,11 +134,22 @@ public final class BreakPointBlockList {
         }
         MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(_offset, _file);
         if (id_ != null) {
+            BracedBlock r_ = rootOfAnnot(id_);
+            if (r_ instanceof RootBlock) {
+                toggleEnabledWatch(false,new SynthFieldInfo(new ClassField("",((NamedCalledFunctionBlock)id_).getName()),(RootBlock)r_,((RootBlock)r_).getNumberAll()));
+                return;
+            }
             toggleEnabled(id_);
             return;
         }
         ExecFileBlock f_ = _d.getFiles().getVal(_file);
         toggleEnabled(f_,o_, ResultExpressionOperationNode.enabledTypeBp(_offset, _file));
+    }
+    public static BracedBlock rootOfAnnot(AbsBk _id) {
+        if (AbsBk.isAnnotBlock(_id)) {
+            return _id.getParent();
+        }
+        return null;
     }
 
     public void toggleEnabled(MemberCallingsBlock _id) {
@@ -460,9 +475,9 @@ public final class BreakPointBlockList {
         if (o_.getRootBlock() == null) {
             return;
         }
-        toggleWatch(o_);
+        toggleWatch(true,o_);
     }
-    public void toggleWatch(SynthFieldInfo _field) {
+    public void toggleWatch(boolean _trField,SynthFieldInfo _field) {
         WatchPoint v_ = new WatchPoint(interceptor);
         v_.setEnabled(true);
         v_.setRead(true);
@@ -470,7 +485,7 @@ public final class BreakPointBlockList {
         v_.setCompoundRead(true);
         v_.setCompoundWrite(true);
         v_.setCompoundWriteErr(true);
-        WatchPointBlockPair pair_ = new WatchPointBlockPair(_field.getRootBlock(),_field.getRootBlockNb(),_field.getClassField(), v_);
+        WatchPointBlockPair pair_ = new WatchPointBlockPair(_trField,_field.getRootBlock(),_field.getRootBlockNb(),_field.getClassField().getFieldName(), v_);
         int i_ = 0;
         for (WatchPointBlockPair b: watchList.elts()) {
             if (b.match(pair_)) {
@@ -486,9 +501,9 @@ public final class BreakPointBlockList {
         if (o_.getRootBlock() == null) {
             return;
         }
-        toggleEnabledWatch(o_);
+        toggleEnabledWatch(true,o_);
     }
-    public void toggleEnabledWatch(SynthFieldInfo _field) {
+    public void toggleEnabledWatch(boolean _trField,SynthFieldInfo _field) {
         WatchPoint v_ = new WatchPoint(interceptor);
         v_.setEnabled(true);
         v_.setRead(true);
@@ -496,7 +511,7 @@ public final class BreakPointBlockList {
         v_.setCompoundRead(true);
         v_.setCompoundWrite(true);
         v_.setCompoundWriteErr(true);
-        WatchPointBlockPair pair_ = new WatchPointBlockPair(_field.getRootBlock(),_field.getRootBlockNb(),_field.getClassField(), v_);
+        WatchPointBlockPair pair_ = new WatchPointBlockPair(_trField,_field.getRootBlock(),_field.getRootBlockNb(),_field.getClassField().getFieldName(), v_);
         for (WatchPointBlockPair b: watchList.elts()) {
             if (b.match(pair_)) {
                 b.getValue().setEnabled(!b.getValue().isEnabled());
@@ -505,12 +520,12 @@ public final class BreakPointBlockList {
         }
         watchList.add(pair_);
     }
-    public boolean isWatch(int _root, String _field) {
-        return getNotNullWatch(_root, _field).isEnabled();
+    public boolean isWatch(boolean _trField,int _root, String _field) {
+        return getNotNullWatch(_trField,_root, _field).isEnabled();
     }
 
-    public WatchPoint getNotNullWatch(int _root, String _field) {
-        WatchPointBlockPair b_ = getPairWatch(_root, _field);
+    public WatchPoint getNotNullWatch(boolean _trField,int _root, String _field) {
+        WatchPointBlockPair b_ = getPairWatch(_trField,_root, _field);
         if (b_ == null) {
             WatchPoint bp_ = new WatchPoint(interceptor);
             bp_.setEnabled(false);
@@ -519,9 +534,9 @@ public final class BreakPointBlockList {
         return b_.getValue();
     }
 
-    public WatchPointBlockPair getPairWatch(int _root, String _field) {
+    public WatchPointBlockPair getPairWatch(boolean _trField,int _root, String _field) {
         for (WatchPointBlockPair b: watchList.elts()) {
-            if (b.match(_root, _field)) {
+            if (b.match(_trField,_root, _field)) {
                 return b;
             }
         }

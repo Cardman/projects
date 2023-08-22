@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.MethodMetaInfo;
+import code.util.CustList;
 
 public final class LambdaAnnotationRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
@@ -15,6 +16,10 @@ public final class LambdaAnnotationRefectMethodPageEl extends AbstractRefectLamb
         name = _metaInfo.getRealId().getName();
     }
 
+    @Override
+    protected boolean checkParams(ContextEl _context, StackCall _stack) {
+        return checkParamsAnnot(_context,_stack, new CustList<Argument>());
+    }
     @Override
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
         return ExecInvokingOperation.getAnnotation(getInstance(),name,_context, _stack);

@@ -826,6 +826,22 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertFalse(b_.getFramePoints().getCommonFrame().isVisible());
     }
     @Test
+    public void bp44() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public annotation pkg.Ex {int exmeth();}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(26,26);
+        toggleBp(b_);
+        bpForm(b_);
+        assertTrue(b_.getFrameWpForm().getCommonFrame().isVisible());
+        b_.getFrameWpForm().getEnabledWp().setSelected(false);
+        wpFormOk(b_);
+        assertFalse(b_.getFrameWpForm().getCommonFrame().isVisible());
+    }
+    @Test
     public void ref1() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);

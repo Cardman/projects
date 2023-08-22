@@ -27,4 +27,7 @@ public final class ExecAnnotationMethodOperation extends ExecSettableCallFctOper
         setResult(res_, _conf, _nodes, _stack);
     }
 
+    public String getFieldName() {
+        return callFctAnnotContent.getClassMethodId();
+    }
 }

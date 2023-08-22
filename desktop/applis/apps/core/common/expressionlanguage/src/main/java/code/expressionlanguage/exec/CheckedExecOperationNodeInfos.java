@@ -1,9 +1,11 @@
 package code.expressionlanguage.exec;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
+import code.expressionlanguage.exec.opers.ExecAnnotationMethodOperation;
 import code.expressionlanguage.exec.opers.ExecSettableFieldInstOperation;
 import code.expressionlanguage.exec.opers.ExecSettableFieldOperation;
 import code.expressionlanguage.exec.opers.ExecSettableFieldStatOperation;
@@ -17,6 +19,7 @@ import code.expressionlanguage.structs.Struct;
 public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperationNodeInfos {
     private final boolean staticField;
     private final boolean checkFinalField;
+    private final boolean trueField;
     private final int nbType;
     private final ClassField idClass;
     private final int modeField;
@@ -34,6 +37,24 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
         } else{
             fieldType = new ExecTypeReturn(_s.owner(), _s.getSettableFieldContent().getRealType());
         }
+        trueField = true;
+    }
+
+    public CheckedExecOperationNodeInfos(ExecAnnotationMethodOperation _s, ContextEl _ctx, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
+        this(_s.getFieldName(),_ctx,_mode,_d,_i,_r);
+    }
+
+    public CheckedExecOperationNodeInfos(String _s, ContextEl _ctx, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
+        super(_d, _i, _r);
+        this.staticField = false;
+        this.checkFinalField = false;
+        String cl_ = _i.getClassName(_ctx);
+        ExecRootBlock root_ = _ctx.getClasses().getClassBody(cl_);
+        this.nbType = ExecRootBlock.numberType(root_);
+        this.idClass = new ClassField(cl_,_s);
+        this.modeField = _mode;
+        fieldType = new ExecTypeReturn(root_, "");
+        trueField = false;
     }
 
     public CheckedExecOperationNodeInfos(FieldWrapper _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
@@ -48,6 +69,7 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
         } else {
             fieldType = new ExecTypeReturn(_s.owner(), _s.getFieldType());
         }
+        trueField = true;
     }
 
     public CheckedExecOperationNodeInfos(FieldMetaInfo _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
@@ -58,6 +80,7 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
         this.idClass = new ClassField(StringExpUtil.getIdFromAllTypes(_s.getFormatted().getFormatted()), _s.getName());
         this.modeField = _mode;
         this.fieldType = new ExecTypeReturn(_s.getDeclaring(), _s.getType());
+        trueField = true;
     }
 
     public boolean isCheckFinalField() {
@@ -91,4 +114,7 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
         return modeField;
     }
 
+    public boolean isTrueField() {
+        return trueField;
+    }
 }

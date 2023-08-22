@@ -23,6 +23,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
 import code.expressionlanguage.exec.dbg.StdMethodPointBlockPair;
+import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -77,11 +78,11 @@ public final class ResultContextLambda {
         return build(_exp, _result, _type, _gene, a_);
     }
 
-    public static ResultContextLambda dynamicAnalyzeField(String _exp, RootBlock _r, String _id, ResultContext _result, String _type, AbsLightContextGenerator _gene, boolean _setting) {
+    public static ResultContextLambda dynamicAnalyzeField(String _exp, WatchPointBlockPair _trField, ResultContext _result, String _type, AbsLightContextGenerator _gene, boolean _setting) {
         if (_exp.trim().isEmpty()) {
             return new ResultContextLambda(null,null,new ReportedMessages());
         }
-        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareFields(_r,_id, _result.getPageEl(),_setting);
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareFields(_trField, _result.getPageEl(),_setting);
         return build(_exp, _result, _type, _gene, a_);
     }
 

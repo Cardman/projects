@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardMethod;
@@ -90,7 +91,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         return className;
     }
 
-    MethodMetaInfo getMetaInfo() {
+    public MethodMetaInfo getMetaInfo() {
         return metaInfo;
     }
 
@@ -146,6 +147,15 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         return postArg(_stack);
     }
     protected abstract boolean checkParams(ContextEl _context, StackCall _stack);
+
+    protected boolean checkParamsAnnot(ContextEl _context, StackCall _stack, CustList<Argument> _ls) {
+        if (getCheckedParams() == 0) {
+            setCheckedParams(1);
+            MethodId mid_ = getMetaInfo().getRealId();
+            return checkParamsBase(_context,_stack,mid_,_ls,getClassName().getFormatted(),getInstance());
+        }
+        return false;
+    }
     protected boolean checkParamsBase(ContextEl _context, StackCall _stack, Identifiable _id, CustList<Argument> _args){
         return checkParamsBase(_context,_stack,_id,_args,getClassName().getFormatted(),getInstance());
     }

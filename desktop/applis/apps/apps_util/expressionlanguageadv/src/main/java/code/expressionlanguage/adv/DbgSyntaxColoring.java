@@ -82,7 +82,7 @@ public final class DbgSyntaxColoring {
         if (op_ instanceof SettableAbstractFieldOperation) {
             RootBlock ft_ = ((SettableAbstractFieldOperation) op_).getFieldType();
             if (ft_ != null) {
-                WatchPointBlockPair w_ = lsBp_.getPairWatch(ft_.getNumberAll(),((SettableAbstractFieldOperation) op_).getFieldIdReadOnly().getFieldName());
+                WatchPointBlockPair w_ = lsBp_.getPairWatch(true,ft_.getNumberAll(),((SettableAbstractFieldOperation) op_).getFieldIdReadOnly().getFieldName());
                 if (w_ != null) {
                     int b_ = beginOff(offset_,((SettableAbstractFieldOperation) op_));
                     parts_.add(new SegmentReadOnlyPart(b_,b_+((SettableAbstractFieldOperation) op_).getFieldNameLength(),SyntaxRefEnum.FIELD));
@@ -116,15 +116,25 @@ public final class DbgSyntaxColoring {
 
     private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, AbsBkSrcFileLocation _r, FileBlock _file) {
         CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
-        int o_ = offset(_r);
         BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
+        AbsBk bk_ = _r.getBlock();
+        BracedBlock rPar_ = BreakPointBlockList.rootOfAnnot(bk_);
+        if (rPar_ instanceof RootBlock) {
+            int offset_ = ((NamedCalledFunctionBlock)bk_).getPlace();
+            WatchPointBlockPair w_ = lsBp_.getPairWatch(false,((RootBlock)rPar_).getNumberAll(),((NamedCalledFunctionBlock)bk_).getName());
+            if (w_ != null) {
+                parts_.add(new SegmentReadOnlyPart(offset_, bk_.getBegin(),SyntaxRefEnum.FIELD));
+            }
+            return parts_;
+        }
+        int o_ = offset(_r);
         ExecFileBlock fileEx_ = _res.getForwards().dbg().getFiles().getVal(_file);
         BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, o_);
         if (pair_ != null) {
-            int b_ = _r.getBlock().getBegin();
-            parts_.add(new SegmentReadOnlyPart(b_,b_+_r.getBlock().getLengthHeader(),SyntaxRefEnum.INSTRUCTION));
+            int b_ = bk_.getBegin();
+            parts_.add(new SegmentReadOnlyPart(b_,b_+ bk_.getLengthHeader(),SyntaxRefEnum.INSTRUCTION));
         }
-        for (Ints i: outExp(_r.getBlock())){
+        for (Ints i: outExp(bk_)){
             BreakPointBlockPair pairSec_ = lsBp_.getPair(fileEx_, i.get(0));
             if (pairSec_ != null) {
                 int b_ = i.get(0);

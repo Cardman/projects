@@ -4097,7 +4097,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_.getRoot(), _cf.getFieldName(), _cont, type_, new DefContextGenerator(), false);
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), false);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultRead().setResult(ResultContextLambda.okOrNull(res_));
         wp_.getResultRead().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
@@ -4107,7 +4107,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_.getRoot(), _cf.getFieldName(), _cont, type_, new DefContextGenerator(), true);
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultWrite().setResult(ResultContextLambda.okOrNull(res_));
         wp_.getResultWrite().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
@@ -4117,7 +4117,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_.getRoot(), _cf.getFieldName(), _cont, type_, new DefContextGenerator(), false);
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), false);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultCompoundRead().setResult(ResultContextLambda.okOrNull(res_));
         wp_.getResultCompoundRead().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
@@ -4127,7 +4127,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_.getRoot(), _cf.getFieldName(), _cont, type_, new DefContextGenerator(), true);
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultCompoundWrite().setResult(ResultContextLambda.okOrNull(res_));
         wp_.getResultCompoundWrite().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
@@ -4137,7 +4137,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_.getRoot(), _cf.getFieldName(), _cont, type_, new DefContextGenerator(), true);
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultCompoundWriteErr().setResult(ResultContextLambda.okOrNull(res_));
         wp_.getResultCompoundWriteErr().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
@@ -4200,7 +4200,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
 
     private static WatchPointBlockPair pair(ResultContext _cont, ClassField _cf) {
         int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
-        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(n_,_cf.getFieldName());
+        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(true,n_,_cf.getFieldName());
     }
 
     private ClassField cf(String _cl, String _f) {

@@ -17,6 +17,11 @@ public final class DirectAnnotationRefectMethodPageEl extends AbstractRefectMeth
     }
 
     @Override
+    protected boolean checkParams(ContextEl _context, StackCall _stack) {
+        return checkParamsAnnot(_context,_stack, getArrRef().getArray().listArgs());
+    }
+
+    @Override
     Argument prepare(ContextEl _context, ArrayRefState _args, Argument _right, StackCall _stack) {
         MethodId mid_ = getMetaInfo().getRealId();
         CustomFoundExc ex_ = ExecTemplates.checkParams(_context, getClassName().getFormatted(), mid_, getInstance(), _args.getArray().listArgs(), _stack);

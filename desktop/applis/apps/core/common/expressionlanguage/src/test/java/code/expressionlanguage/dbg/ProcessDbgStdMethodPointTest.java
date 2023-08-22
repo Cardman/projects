@@ -1041,7 +1041,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
 
     private WatchPointBlockPair pair(ResultContext _cont, ClassField _cf) {
         int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
-        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(n_,_cf.getFieldName());
+        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(true,n_,_cf.getFieldName());
     }
 
     private void enteringCondition(String _newValue,ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {

@@ -19,6 +19,7 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
 import code.expressionlanguage.exec.dbg.StdMethodPointBlockPair;
+import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
@@ -51,28 +52,40 @@ public final class ResultExpressionOperationNode {
         return new SynthFieldInfo(new ClassField("",""),null, -1);
     }
 
-    public static AnalyzedPageEl prepareFields(RootBlock _r, String _id, AnalyzedPageEl _original, boolean _setting) {
+    public static AnalyzedPageEl prepareFields(WatchPointBlockPair _trField, AnalyzedPageEl _original, boolean _setting) {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);
         a_.setCurrentPkg(a_.getDefaultPkg());
-        CustList<InfoBlock> ls_ = _r.getFieldsBlocks();
+        if (_trField.isTrueField()) {
+            trField(_trField, _setting, a_);
+        } else {
+            for (NamedCalledFunctionBlock i: _trField.getRoot().getAnnotationsMethodsBlocks()) {
+                if (StringUtil.quickEq(i.getName(), _trField.fieldName())) {
+                    field(a_, _trField.getRoot(), false);
+                }
+            }
+        }
+        a_.setCurrentFile(_trField.getRoot().getFile());
+        a_.setImportingAcces(new AllAccessedTypes());
+        return a_;
+    }
+
+    private static void trField(WatchPointBlockPair _trField, boolean _setting, AnalyzedPageEl _a) {
+        CustList<InfoBlock> ls_ = _trField.getRoot().getFieldsBlocks();
         for (InfoBlock i: ls_) {
-            if (StringUtil.contains(i.getElements().getFieldName(), _id)) {
-                field(a_, _r, i.isStaticField());
+            if (StringUtil.contains(i.getElements().getFieldName(), _trField.fieldName())) {
+                field(_a, _trField.getRoot(), i.isStaticField());
                 if (_setting) {
-                    String p_ = a_.getKeyWords().getKeyWordValue();
+                    String p_ = _a.getKeyWords().getKeyWordValue();
                     AnaLocalVariable lv_ = new AnaLocalVariable();
                     lv_.setClassName(i.getImportedClassName());
                     lv_.setConstType(ConstType.PARAM);
                     lv_.setFinalVariable(true);
                     lv_.setKeyWord(true);
-                    a_.getInfosVars().addEntry(p_, lv_);
+                    _a.getInfosVars().addEntry(p_, lv_);
                 }
             }
         }
-        a_.setCurrentFile(_r.getFile());
-        a_.setImportingAcces(new AllAccessedTypes());
-        return a_;
     }
 
     public static AnalyzedPageEl prepareExc(String _id, boolean _exact, AnalyzedPageEl _original) {

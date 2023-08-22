@@ -21,24 +21,28 @@ public final class WatchPointFormEvent implements AbsActionListener {
         ResultContext r_ = tabEditor.getDebuggerGui().getCurrentResult();
         int caret_ = tabEditor.getCenter().getCaretPosition();
         SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(r_.getPageEl(), tabEditor.getFullPath(),caret_);
-        WatchPointBlockPair bp_ = r_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(o_.getRootBlockNb(),o_.getClassField().getFieldName());
+        watchAction(r_, window, true,o_.getRootBlockNb(), o_.getClassField().getFieldName());
+    }
+
+    static void watchAction(ResultContext _r, AbsDebuggerGui _window, boolean _trField, int _nb, String _field) {
+        WatchPointBlockPair bp_ = _r.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_trField,_nb, _field);
         if (bp_ == null) {
             return;
         }
-        window.getFrameWpForm().setSelectedWp(bp_);
-        window.getFrameWpForm().getEnabledWp().setSelected(bp_.getValue().isEnabled());
-        BreakPointFormEvent.specific(window.getFrameWpForm().getGuiReadStackForm(), true, bp_.getValue().getResultRead(),window);
-        BreakPointFormEvent.specific(window.getFrameWpForm().getGuiWriteStackForm(), true, bp_.getValue().getResultWrite(),window);
-        BreakPointFormEvent.specific(window.getFrameWpForm().getGuiCompoundReadStackForm(), true, bp_.getValue().getResultCompoundRead(),window);
-        BreakPointFormEvent.specific(window.getFrameWpForm().getGuiCompoundWriteStackForm(), true, bp_.getValue().getResultCompoundWrite(),window);
-        BreakPointFormEvent.specific(window.getFrameWpForm().getGuiCompoundWriteErrStackForm(), true, bp_.getValue().getResultCompoundWriteErr(),window);
-        window.getFrameWpForm().getRead().setSelected(bp_.getValue().isRead());
-        window.getFrameWpForm().getWrite().setSelected(bp_.getValue().isWrite());
-        window.getFrameWpForm().getCompoundRead().setSelected(bp_.getValue().isCompoundRead());
-        window.getFrameWpForm().getCompoundWrite().setSelected(bp_.getValue().isCompoundWrite());
-        window.getFrameWpForm().getCompoundWriteErr().setSelected(bp_.getValue().isCompoundWriteErr());
-        window.getFrameWpForm().getCommonFrame().setVisible(true);
-        PackingWindowAfter.pack(window.getFrameWpForm().getCommonFrame());
+        _window.getFrameWpForm().setSelectedWp(bp_);
+        _window.getFrameWpForm().getEnabledWp().setSelected(bp_.getValue().isEnabled());
+        BreakPointFormEvent.specific(_window.getFrameWpForm().getGuiReadStackForm(), true, bp_.getValue().getResultRead(), _window);
+        BreakPointFormEvent.specific(_window.getFrameWpForm().getGuiWriteStackForm(), true, bp_.getValue().getResultWrite(), _window);
+        BreakPointFormEvent.specific(_window.getFrameWpForm().getGuiCompoundReadStackForm(), true, bp_.getValue().getResultCompoundRead(), _window);
+        BreakPointFormEvent.specific(_window.getFrameWpForm().getGuiCompoundWriteStackForm(), true, bp_.getValue().getResultCompoundWrite(), _window);
+        BreakPointFormEvent.specific(_window.getFrameWpForm().getGuiCompoundWriteErrStackForm(), true, bp_.getValue().getResultCompoundWriteErr(), _window);
+        _window.getFrameWpForm().getRead().setSelected(bp_.getValue().isRead());
+        _window.getFrameWpForm().getWrite().setSelected(bp_.getValue().isWrite());
+        _window.getFrameWpForm().getCompoundRead().setSelected(bp_.getValue().isCompoundRead());
+        _window.getFrameWpForm().getCompoundWrite().setSelected(bp_.getValue().isCompoundWrite());
+        _window.getFrameWpForm().getCompoundWriteErr().setSelected(bp_.getValue().isCompoundWriteErr());
+        _window.getFrameWpForm().getCommonFrame().setVisible(true);
+        PackingWindowAfter.pack(_window.getFrameWpForm().getCommonFrame());
     }
 
 

@@ -1,7 +1,6 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.analyze.blocks.FileBlock;
-import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.*;
@@ -28,6 +27,11 @@ public final class BreakPointFormEvent implements AbsActionListener {
         int o_ = ResultExpressionOperationNode.beginPart(caret_, af_);
         MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(caret_, af_);
         if (id_ != null) {
+            BracedBlock rPar_ = BreakPointBlockList.rootOfAnnot(id_);
+            if (rPar_ instanceof RootBlock) {
+                WatchPointFormEvent.watchAction(r_,window,false,((RootBlock)rPar_).getNumberAll(),((NamedCalledFunctionBlock)id_).getName());
+                return;
+            }
             MethodPointBlockPair mp_ = r_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(MemberCallingsBlock.clName(id_));
             if (mp_ != null) {
                 window.getFrameMpForm().setSelectedMp(mp_);
