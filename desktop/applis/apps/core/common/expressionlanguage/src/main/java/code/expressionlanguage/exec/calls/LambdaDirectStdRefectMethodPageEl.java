@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.MethodMetaInfo;
-import code.util.CustList;
 
 public final class LambdaDirectStdRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
@@ -22,8 +21,7 @@ public final class LambdaDirectStdRefectMethodPageEl extends AbstractRefectLambd
     protected boolean checkParams(ContextEl _context, StackCall _stack) {
         if (getCheckedParams() == 0) {
             setCheckedParams(1);
-            CustList<Argument> args_ = getArray().getArguments();
-            return checkParamsBase(_context,_stack,methodId,args_);
+            return _stack.getStopper().isStopAtExcMethod();
         }
         return false;
     }

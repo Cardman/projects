@@ -18,7 +18,7 @@ public final class DirectAnnotationRefectMethodPageEl extends AbstractRefectMeth
 
     @Override
     protected boolean checkParams(ContextEl _context, StackCall _stack) {
-        return checkParamsAnnot(_context,_stack, getArrRef().getArray().listArgs());
+        return checkParamsAnnot(_stack);
     }
 
     @Override

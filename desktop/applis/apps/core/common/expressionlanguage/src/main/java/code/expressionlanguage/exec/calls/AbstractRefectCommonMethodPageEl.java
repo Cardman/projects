@@ -12,16 +12,13 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 
 public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPageEl {
 
@@ -87,7 +84,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         return true;
     }
 
-    ExecFormattedRootBlock getClassName() {
+    public ExecFormattedRootBlock getClassName() {
         return className;
     }
 
@@ -148,17 +145,14 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     }
     protected abstract boolean checkParams(ContextEl _context, StackCall _stack);
 
-    protected boolean checkParamsAnnot(ContextEl _context, StackCall _stack, CustList<Argument> _ls) {
+    protected boolean checkParamsAnnot(StackCall _stack) {
         if (getCheckedParams() == 0) {
             setCheckedParams(1);
-            MethodId mid_ = getMetaInfo().getRealId();
-            return checkParamsBase(_context,_stack,mid_,_ls,getClassName().getFormatted(),getInstance());
+            return _stack.getStopper().isStopAtExcMethod();
         }
         return false;
     }
-    protected boolean checkParamsBase(ContextEl _context, StackCall _stack, Identifiable _id, CustList<Argument> _args){
-        return checkParamsBase(_context,_stack,_id,_args,getClassName().getFormatted(),getInstance());
-    }
+
     protected abstract boolean postArg(StackCall _stack);
     protected boolean postArgBase(StackCall _stack) {
         if (getCheckedParams() == 1) {

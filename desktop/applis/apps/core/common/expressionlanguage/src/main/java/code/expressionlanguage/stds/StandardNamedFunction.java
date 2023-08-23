@@ -1,6 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.common.DisplayedStrings;
+import code.expressionlanguage.functionid.Identifiable;
 import code.util.StringList;
 
 public abstract class StandardNamedFunction {
@@ -50,5 +51,6 @@ public abstract class StandardNamedFunction {
         return varargs;
     }
 
+    public abstract Identifiable id();
     public abstract String getSignature(DisplayedStrings _dis);
 }

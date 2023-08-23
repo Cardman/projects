@@ -41,10 +41,8 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         boolean static_ = type_.withoutInstance();
         setWrapException(false);
         if (!arrRef.isFalseArr()) {
-            ArrayStruct struct_ = arrRef.getArray();
-            ArgumentListCall l_ = ArgumentListCall.wrapCall(struct_.listArgs());
             setCheckingEntryExit(true);
-            if (checkParams(_context,_stack,metaInfo,l_)) {
+            if (checkParams(_stack,metaInfo)) {
                 return false;
             }
             setCheckingEntryExit(false);

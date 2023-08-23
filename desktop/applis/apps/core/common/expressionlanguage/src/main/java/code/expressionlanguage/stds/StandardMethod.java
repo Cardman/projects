@@ -1,6 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.common.DisplayedStrings;
+import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.StringList;
@@ -18,6 +19,11 @@ public final class StandardMethod extends StandardNamedFunction {
                           String _returnType, boolean _varargs, MethodModifier _modifier, StringList _paramNames ,StdCaller _caller) {
         super(_name, _parametersTypes, _returnType, _varargs,_paramNames, _caller);
         modifier = _modifier;
+    }
+
+    @Override
+    public Identifiable id() {
+        return getId();
     }
 
     @Override

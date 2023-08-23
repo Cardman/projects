@@ -36,7 +36,7 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
         ExecFormattedRootBlock res_ = metaInfo.getFormatted();
         setWrapException(false);
         setCheckingEntryExit(true);
-        if (checkParams(_context,_stack,metaInfo,array)) {
+        if (checkParams(_stack,metaInfo)) {
             return false;
         }
         setCheckingEntryExit(false);

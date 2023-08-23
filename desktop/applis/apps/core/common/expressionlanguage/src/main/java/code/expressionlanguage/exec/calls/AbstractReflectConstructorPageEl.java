@@ -7,14 +7,11 @@ import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
 import code.expressionlanguage.structs.ErrorStruct;
-import code.util.CustList;
 
 public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPageEl {
     private boolean initClass;
@@ -58,13 +55,11 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
         }
         return true;
     }
-    protected boolean checkParams(ContextEl _context, StackCall _stack, ConstructorMetaInfo _meta, ArgumentListCall _args) {
+    protected boolean checkParams(StackCall _stack, ConstructorMetaInfo _meta) {
         if (getCheckedParams() == 0) {
             setCheckedParams(1);
             if (_meta.getStandardType() != null) {
-                CustList<Argument> args_ = _args.getArguments();
-                ConstructorId mid_ = _meta.getRealId();
-                return checkParamsBase(_context,_stack,mid_,args_,"",null);
+                return _stack.getStopper().isStopAtExcMethod();
             }
         }
         return false;

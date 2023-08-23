@@ -2,6 +2,7 @@ package code.expressionlanguage.stds;
 
 import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.Identifiable;
 import code.util.StringList;
 
 public final class StandardConstructor extends StandardNamedFunction {
@@ -13,6 +14,11 @@ public final class StandardConstructor extends StandardNamedFunction {
     }
     public StandardConstructor(StringList _parametersTypes, boolean _varargs, StringList _paramNames, StdCaller _caller) {
         super(DEFAULT_NAME, _parametersTypes, DEFAULT_NAME, _varargs,_paramNames, _caller);
+    }
+
+    @Override
+    public Identifiable id() {
+        return getId();
     }
 
     @Override

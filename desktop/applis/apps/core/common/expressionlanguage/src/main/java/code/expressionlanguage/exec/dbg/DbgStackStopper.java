@@ -122,7 +122,7 @@ public final class DbgStackStopper implements AbsStackStopper {
             return variable((ExecStdRefVariableOperation)_o,  _context, _last);
         }
         if (_o instanceof StdParamsOperable) {
-            return new StdMethodCheckedExecOperationNodeInfos(_context.getStandards().getCoreNames().getAliasObject(),(StdParamsOperable)_o, _el.getArguments(), ((StdParamsOperable)_o).instance(_el.getArguments(), _last), _ex);
+            return new StdMethodCheckedExecOperationNodeInfos(_context.getStandards().getCoreNames().getAliasObject(),(StdParamsOperable)_o,cl((StdParamsOperable) _o,_context), _el.getArguments(), ((StdParamsOperable)_o).instance(_el.getArguments(), _last), _ex);
         }
         if (_o instanceof ExecAnnotationMethodOperation) {
             Struct instance_ = instance(0,_el, _o, _last);
@@ -434,7 +434,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         }
         if (ex_ instanceof ExecSettableCallFctOperation) {
             if (ex_ instanceof StdParamsOperable) {
-                return new StdMethodCheckedExecOperationNodeInfos(_context.getStandards().getCoreNames().getAliasObject(),(StdParamsOperable)ex_, _el.getArguments(), ((StdParamsOperable)ex_).instance(_el.getArguments(), _last), true);
+                return new StdMethodCheckedExecOperationNodeInfos(_context.getStandards().getCoreNames().getAliasObject(),(StdParamsOperable)ex_,cl((StdParamsOperable) ex_,_context), _el.getArguments(), ((StdParamsOperable)ex_).instance(_el.getArguments(), _last), true);
             }
             if (sub(ex_)) {
                 AbstractWrapper w_ = _last.getWrapper();
@@ -445,6 +445,15 @@ public final class DbgStackStopper implements AbsStackStopper {
             }
         }
         return null;
+    }
+    private static String cl(StdParamsOperable _o, ContextEl _c) {
+        if (_o instanceof ExecCallDynMethodOperation) {
+            return _c.getStandards().getReflect().getAliasFct();
+        }
+        if (_o instanceof ExecStdFctOperation) {
+            return ((ExecStdFctOperation)_o).cl();
+        }
+        return "";
     }
 
     private static CheckedExecOperationNodeInfos wrapp(AbstractWrapper _w, ContextEl _context, int _m) {
@@ -522,8 +531,6 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (stopExcValuRetThrowCatch(_context,_stackCall, _p) == null && _infos instanceof CheckedExecOperationNodeInfos) {
             BreakPointOutputInfo i_ = new BreakPointOutputInfo();
             i_.setOperElt(_infos);
-            BreakPointOutputInfo info_ = new BreakPointOutputInfo();
-            info_.setOperElt(_infos);
             ClassField clField_ = ((CheckedExecOperationNodeInfos) _infos).getIdClass();
             WatchPoint bp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNullWatch(((CheckedExecOperationNodeInfos) _infos).isTrueField(),((CheckedExecOperationNodeInfos) _infos).getNbType(),clField_.getFieldName());
             BreakPointCondition condition_ = stopCurrentWpCondition(bp_, (CheckedExecOperationNodeInfos)_infos);
@@ -979,9 +986,15 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static boolean possibleDeclared(ContextEl _context, StackCall _stackCall, CoreCheckedExecOperationNodeInfos _infos) {
+        if (_infos instanceof StdMethodCheckedExecOperationNodeInfos) {
+            return okMethod(_context,_stackCall,(StdMethodCheckedExecOperationNodeInfos)_infos);
+        }
         return !(_infos instanceof CheckedExecOperationNodeInfos) || okField(_context,_stackCall, (CheckedExecOperationNodeInfos) _infos);
     }
 
+    private static boolean okMethod(ContextEl _context, StackCall _stackCall, StdMethodCheckedExecOperationNodeInfos _check) {
+        return ExecTemplates.checkParams(_context, _check.getOwn(),_check.getFct().id(), ArgumentListCall.toStr(_check.getInstance()), _check.getArgs().getArguments(), _stackCall) == null;
+    }
     private static boolean okField(ContextEl _context, StackCall _stackCall, CheckedExecOperationNodeInfos _check) {
         if (_check.getDeclaring() == null) {
             return false;

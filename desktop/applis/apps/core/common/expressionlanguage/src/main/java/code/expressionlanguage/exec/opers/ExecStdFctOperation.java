@@ -47,4 +47,8 @@ public final class ExecStdFctOperation extends ExecSettableCallFctOperation impl
     public Struct instance(IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _stack) {
         return ArgumentListCall.toStr(getPreviousArg(this, _nodes, _stack));
     }
+
+    public String cl() {
+        return stdFctContent.getClassMethodId().getClassName();
+    }
 }
