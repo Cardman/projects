@@ -502,7 +502,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (_stackCall.normalCallNoExit(_context)) {
             return enterCase(_context, _stackCall, p_);
         }
-        if (_stackCall.trueException() == null && _infos instanceof StdMethodCheckedExecOperationNodeInfos) {
+        if (stopExcValuRetThrowCatch(_context,_stackCall, p_) == null && _infos instanceof StdMethodCheckedExecOperationNodeInfos) {
             return enterCase(_context,(StdMethodCheckedExecOperationNodeInfos)_infos,_stackCall,p_);
         }
         if (exitMethod(_context, _stackCall, p_)) {
