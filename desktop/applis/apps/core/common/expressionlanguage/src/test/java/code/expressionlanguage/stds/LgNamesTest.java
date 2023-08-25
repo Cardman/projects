@@ -17,6 +17,7 @@ import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.dbg.DbgStackStopper;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -27,6 +28,7 @@ import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.sample.CustLgNames;
+import code.expressionlanguage.sample.ElInterceptorStdCaller;
 import code.expressionlanguage.structs.NullStruct;
 import code.threads.ConcreteBoolean;
 import code.util.CustList;
@@ -2407,6 +2409,46 @@ public class LgNamesTest extends ProcessMethodCommon {
         Argument ret_ = ExecClassesUtil.tryInitStaticlyTypes(res_.getContext(), res_.getForwards().getOptions(),stackCall_,new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()),StepDbgActionEnum.RUN,true).getStack().aw().getValue();
         assertNull(stackCall_.getCallingState());
         assertEq(2, getNumber(ret_));
+    }
+    @Test
+    public void success4Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return Resources.readNames().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        KeyWords kw_ = new KeyWords();
+        CustLgNames lgName_ = getLgNames();
+        srcFiles_.put("src/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        Options options_ = new Options();
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        Forwards forwards_ = getForwards(options_, lgName_, kw_,page_, all_);
+        ResultContext r_ = new ResultContext(page_, forwards_);
+        ResultContext res_ = ResultContext.def(r_, all_, "src", new DbgStackStopper());
+        ResultContext.fwd(res_, new DefContextGenerator());
+        assertTrue(isEmptyErrors(res_.getPageEl()));
+        MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
+        Argument argGlLoc_ = new Argument();
+        ExecRootBlock classBody_ = res_.getContext().getClasses().getClassBody("pkg.Ex");
+        ExecOverridableBlock method_ = getDeepMethodBodiesById(res_.getContext(), "pkg.Ex", fct_).first();
+        ConcreteBoolean stop_ = new ConcreteBoolean(true);
+        SingleInterruptedContextEl ctx_ = new SingleInterruptedContextEl(lgName_.commonExecutionInfos(new ElInterceptorStdCaller(),new Options(),res_.getForwards(),new DefaultInitializer()), stop_);
+        Classes.forwardAndClear(ctx_);
+        res_.setContext(ctx_);
+        StackCall st_ = StackCall.newInstance(InitPhase.NOTHING,res_.getContext());
+        CustomFoundMethod cf_ = new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters());
+        st_.addInternPage(cf_.processAfterOperation(res_.getContext(),st_));
+        st_.setCallingState(cf_);
+        st_.getBreakPointInfo().getStackState().setCheckingBp(true);
+        res_.getContext().getInit().loopCalling(res_.getContext(), st_);
+        assertTrue(stop_.get());
     }
     @Test
     public void stoppingTest() {
