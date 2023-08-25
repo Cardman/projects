@@ -1,6 +1,10 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.functionid.AbsractIdentifiableCommon;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
@@ -27,6 +31,24 @@ import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableElAdvUtil {
+
+    protected static MethodId getMethodId(String _name, String..._classNames) {
+        return getMethodId(MethodAccessKind.STATIC, _name, false, _classNames);
+    }
+
+    protected static MethodId getMethodId(MethodAccessKind _k,String _name, boolean _vararg, String..._classNames) {
+        StringList cl_ = new StringList(_classNames);
+        return new MethodId(_k, _name, cl_, _vararg);
+    }
+    protected static ConstructorId getConstructorId(String _name, String..._classNames) {
+        StringList cl_ = new StringList(_classNames);
+        return new ConstructorId(_name, cl_, false);
+    }
+
+    protected static ConstructorId getConstructorId(boolean _vararg, String..._classNames) {
+        StringList cl_ = new StringList(_classNames);
+        return new ConstructorId("", cl_, _vararg);
+    }
     public static void assertNull(AbsCustComponent _expected) {
         Assert.assertNull(_expected);
     }
@@ -177,6 +199,18 @@ public abstract class EquallableElAdvUtil {
     public static void addExc(AbsDebuggerGui _g) {
         ((MockPlainButton)_g.getFramePoints().getAddExc()).getActionListeners().get(0).action();
     }
+
+    public static void selectStd(AbsDebuggerGui _g, String _cl, AbsractIdentifiableCommon _id) {
+        ((MockPlainButton)_g.getFramePoints().getAddStd()).getActionListeners().get(0).action();
+        _g.getFramePoints().getFrameStdFormContent().selectTree(_g,_cl,_id);
+    }
+    public static void addStd(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getAddStd()).getActionListeners().get(0).action();
+    }
+
+    public static void addStdOk(AbsDebuggerGui _w) {
+        ((MockPlainButton)_w.getFramePoints().getFrameStdFormContent().getOk()).getActionListeners().get(0).action();
+    }
     public static void addExcOk(AbsDebuggerGui _g) {
         ((MockPlainButton)_g.getFramePoints().getFrameExcFormContent().getOk()).getActionListeners().get(0).action();
     }
@@ -184,8 +218,15 @@ public abstract class EquallableElAdvUtil {
     public static void editExc(AbsDebuggerGui _g, int _v) {
         ((MockPlainButton)_g.getFramePoints().getExcFrom().getComponent(_v)).getActionListeners().get(0).action();
     }
+
+    public static void editStd(AbsDebuggerGui _g, int _v) {
+        ((MockPlainButton)_g.getFramePoints().getExcStd().getComponent(_v)).getActionListeners().get(0).action();
+    }
     public static void addExcRemove(AbsDebuggerGui _g) {
         ((MockPlainButton)_g.getFramePoints().getFrameExcFormContent().getRemove()).getActionListeners().get(0).action();
+    }
+    public static void addStdRemove(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getFrameStdFormContent().getFrameMpFormContent().getRemove()).getActionListeners().get(0).action();
     }
     public static void menuSingleMain(WindowExpressionEditor _w, AbsDebuggerGui _g) {
         ((MockMenuItem)_w.getSessionMenuSingleMain()).getActionListeners().get(0).action();

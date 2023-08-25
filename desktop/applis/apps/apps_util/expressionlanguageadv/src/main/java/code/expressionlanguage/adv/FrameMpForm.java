@@ -2,12 +2,10 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
 import code.gui.AbsCommonFrame;
-import code.gui.AbsCustCheckBox;
-import code.gui.AbsPlainButton;
+import code.gui.AbsPanel;
 import code.gui.initialize.AbstractProgramInfos;
-import code.util.StringMap;
 
-public final class FrameMpForm {
+public final class FrameMpForm extends AdvFrameMpForm{
     private final AbsCommonFrame commonFrame;
     private final FrameMpFormContent frameMpFormContent;
     public FrameMpForm(AbsDebuggerGui _d, String _lg, AbstractProgramInfos _list) {
@@ -16,16 +14,21 @@ public final class FrameMpForm {
         frameMpFormContent = new FrameMpFormContent();
     }
     public void guiBuild(AbsDebuggerGui _d) {
-        frameMpFormContent.guiBuild(_d);
+        frameMpFormContent.guiBuildBase(_d);
+        AbsPanel f_ = frameMpFormContent.getContentPaneForm();
+        frameMpFormContent.getContentPane().removeAll();
+        frameMpFormContent.getContentPane().add(f_);
+        frameMpFormContent.getContentPane().add(frameMpFormContent.getOk());
         commonFrame.setContentPane(frameMpFormContent.getContentPane());
-    }
-
-    public void refresh(StringMap<String> _v) {
-        getFrameMpFormContent().refresh(_v);
     }
 
     public AbsCommonFrame getCommonFrame() {
         return commonFrame;
+    }
+
+    @Override
+    public AbsFrameMpFormContent form() {
+        return getFrameMpFormContent();
     }
 
     public FrameMpFormContent getFrameMpFormContent() {
@@ -40,27 +43,4 @@ public final class FrameMpForm {
         this.getFrameMpFormContent().setSelectedMp(_s);
     }
 
-    public AbsCustCheckBox getEnterFunction() {
-        return getFrameMpFormContent().getEnterFunction();
-    }
-
-    public AbsCustCheckBox getExitFunction() {
-        return getFrameMpFormContent().getExitFunction();
-    }
-
-    public AbsCustCheckBox getEnabledMp() {
-        return getFrameMpFormContent().getEnabledMp();
-    }
-
-    public AbsPlainButton getOk() {
-        return getFrameMpFormContent().getOk();
-    }
-
-    public GuiStackForm getGuiEnterStackForm() {
-        return getFrameMpFormContent().getGuiEnterStackForm();
-    }
-
-    public GuiStackForm getGuiExitStackForm() {
-        return getFrameMpFormContent().getGuiExitStackForm();
-    }
 }

@@ -842,6 +842,88 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertFalse(b_.getFrameWpForm().getCommonFrame().isVisible());
     }
     @Test
+    public void bp45() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public annotation pkg.Ex {int exmeth();}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        addStd(b_);
+        selectStd(b_,"",null);
+        assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getStdMethPointList().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp46() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public annotation pkg.Ex {int exmeth();}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        addStd(b_);
+        selectStd(b_,b_.getCurrentResult().getPageEl().getAliasBoolean(),null);
+        assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getStdMethPointList().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp47() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public annotation pkg.Ex {int exmeth();}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        addStd(b_);
+        selectStd(b_,b_.getCurrentResult().getPageEl().getAliasObject(),getConstructorId(true));
+        assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getStdMethPointList().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp48() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public annotation pkg.Ex {int exmeth();}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        addStd(b_);
+        selectStd(b_,b_.getCurrentResult().getPageEl().getAliasObject(),getConstructorId(false));
+        assertTrue(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getStdMethPointList().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp49() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public annotation pkg.Ex {int exmeth();}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        addStd(b_);
+        selectStd(b_,b_.getCurrentResult().getPageEl().getAliasObject(),getConstructorId(false));
+        editStd(b_,0);
+        addStdRemove(b_);
+        assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getStdMethPointList().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp50() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public annotation pkg.Ex {int exmeth();}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        addStd(b_);
+        selectStd(b_,b_.getCurrentResult().getPageEl().getAliasObject(),getConstructorId(false));
+        editStd(b_,0);
+        addStdOk(b_);
+        assertTrue(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getStdMethPointList().elts().iterator().hasNext());
+    }
+    @Test
     public void ref1() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);
