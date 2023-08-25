@@ -46,6 +46,11 @@ public final class AliasParamReflection {
     private static final String CLASS_TYPE_0_ARRAY_SET_0="__________2043";
     private static final String CLASS_TYPE_0_ARRAY_SET_1="__________2044";
     private static final String CLASS_TYPE_0_ARRAY_SET_2="__________2045";
+    private static final String CLASS_TYPE_1_ARRAY_GET_0="__________2041_";
+    private static final String CLASS_TYPE_1_ARRAY_GET_1="__________2042_";
+    private static final String CLASS_TYPE_1_ARRAY_SET_0="__________2043_";
+    private static final String CLASS_TYPE_1_ARRAY_SET_1="__________2044_";
+    private static final String CLASS_TYPE_1_ARRAY_SET_2="__________2045_";
     private static final String CONSTRUCTOR_0_NEW_INSTANCE_0="__________2046";
     private static final String CONSTRUCTOR_0_NEW_INSTANCE_REF_0="__________2046_";
     private static final String CONSTRUCTOR_0_NEW_INSTANCE_REF_AFTER_0="__________2046__";
@@ -134,6 +139,11 @@ public final class AliasParamReflection {
     private String aliasClassType0ArraySet0="a";
     private String aliasClassType0ArraySet1="b";
     private String aliasClassType0ArraySet2="c";
+    private String aliasClassType1ArrayGet0="a";
+    private String aliasClassType1ArrayGet1="b";
+    private String aliasClassType1ArraySet0="a";
+    private String aliasClassType1ArraySet1="b";
+    private String aliasClassType1ArraySet2="c";
     private String aliasConstructor0NewInstance0="a";
     private String aliasConstructor0NewInstanceRef0="a";
     private String aliasConstructor0NewInstanceRefAfter0="a";
@@ -223,6 +233,11 @@ public final class AliasParamReflection {
         setAliasClassType0ArraySet0(LgNamesContent.get(_util,_cust,_mapping.getVal(CLASS_TYPE_0_ARRAY_SET_0)));
         setAliasClassType0ArraySet1(LgNamesContent.get(_util,_cust,_mapping.getVal(CLASS_TYPE_0_ARRAY_SET_1)));
         setAliasClassType0ArraySet2(LgNamesContent.get(_util,_cust,_mapping.getVal(CLASS_TYPE_0_ARRAY_SET_2)));
+        setAliasClassType1ArrayGet0(LgNamesContent.get(_util,_cust,_mapping.getVal(CLASS_TYPE_1_ARRAY_GET_0)));
+        setAliasClassType1ArrayGet1(LgNamesContent.get(_util,_cust,_mapping.getVal(CLASS_TYPE_1_ARRAY_GET_1)));
+        setAliasClassType1ArraySet0(LgNamesContent.get(_util,_cust,_mapping.getVal(CLASS_TYPE_1_ARRAY_SET_0)));
+        setAliasClassType1ArraySet1(LgNamesContent.get(_util,_cust,_mapping.getVal(CLASS_TYPE_1_ARRAY_SET_1)));
+        setAliasClassType1ArraySet2(LgNamesContent.get(_util,_cust,_mapping.getVal(CLASS_TYPE_1_ARRAY_SET_2)));
         setAliasConstructor0NewInstance0(LgNamesContent.get(_util,_cust,_mapping.getVal(CONSTRUCTOR_0_NEW_INSTANCE_0)));
         setAliasConstructor0NewInstanceRef0(LgNamesContent.get(_util,_cust,_mapping.getVal(CONSTRUCTOR_0_NEW_INSTANCE_REF_0)));
         setAliasConstructor0NewInstanceRefAfter0(LgNamesContent.get(_util,_cust,_mapping.getVal(CONSTRUCTOR_0_NEW_INSTANCE_REF_AFTER_0)));
@@ -312,6 +327,11 @@ public final class AliasParamReflection {
         _en.add(CLASS_TYPE_0_ARRAY_SET_0,"ClassType0ArraySet0=a");
         _en.add(CLASS_TYPE_0_ARRAY_SET_1,"ClassType0ArraySet1=b");
         _en.add(CLASS_TYPE_0_ARRAY_SET_2,"ClassType0ArraySet2=c");
+        _en.add(CLASS_TYPE_1_ARRAY_GET_0,"ClassType1ArrayGet0=a");
+        _en.add(CLASS_TYPE_1_ARRAY_GET_1,"ClassType1ArrayGet1=b");
+        _en.add(CLASS_TYPE_1_ARRAY_SET_0,"ClassType1ArraySet0=a");
+        _en.add(CLASS_TYPE_1_ARRAY_SET_1,"ClassType1ArraySet1=b");
+        _en.add(CLASS_TYPE_1_ARRAY_SET_2,"ClassType1ArraySet2=c");
         _en.add(CONSTRUCTOR_0_NEW_INSTANCE_0,"Constructor0NewInstance0=a");
         _en.add(CONSTRUCTOR_0_NEW_INSTANCE_REF_0,"Constructor0NewInstanceRef0=a");
         _en.add(CONSTRUCTOR_0_NEW_INSTANCE_REF_AFTER_0,"Constructor0NewInstanceRefAfter0=a");
@@ -401,6 +421,11 @@ public final class AliasParamReflection {
         _fr.add(CLASS_TYPE_0_ARRAY_SET_0,"ClassType0ArraySet0=a");
         _fr.add(CLASS_TYPE_0_ARRAY_SET_1,"ClassType0ArraySet1=b");
         _fr.add(CLASS_TYPE_0_ARRAY_SET_2,"ClassType0ArraySet2=c");
+        _fr.add(CLASS_TYPE_1_ARRAY_GET_0,"ClassType1ArrayGet0=a");
+        _fr.add(CLASS_TYPE_1_ARRAY_GET_1,"ClassType1ArrayGet1=b");
+        _fr.add(CLASS_TYPE_1_ARRAY_SET_0,"ClassType1ArraySet0=a");
+        _fr.add(CLASS_TYPE_1_ARRAY_SET_1,"ClassType1ArraySet1=b");
+        _fr.add(CLASS_TYPE_1_ARRAY_SET_2,"ClassType1ArraySet2=c");
         _fr.add(CONSTRUCTOR_0_NEW_INSTANCE_0,"Constructor0NewInstance0=a");
         _fr.add(CONSTRUCTOR_0_NEW_INSTANCE_REF_0,"Constructor0NewInstanceRef0=a");
         _fr.add(CONSTRUCTOR_0_NEW_INSTANCE_REF_AFTER_0,"Constructor0NewInstanceRefAfter0=a");
@@ -490,6 +515,11 @@ public final class AliasParamReflection {
         _m.addEntry(CLASS_TYPE_0_ARRAY_SET_0,"ClassType0ArraySet0");
         _m.addEntry(CLASS_TYPE_0_ARRAY_SET_1,"ClassType0ArraySet1");
         _m.addEntry(CLASS_TYPE_0_ARRAY_SET_2,"ClassType0ArraySet2");
+        _m.addEntry(CLASS_TYPE_1_ARRAY_GET_0,"ClassType1ArrayGet0");
+        _m.addEntry(CLASS_TYPE_1_ARRAY_GET_1,"ClassType1ArrayGet1");
+        _m.addEntry(CLASS_TYPE_1_ARRAY_SET_0,"ClassType1ArraySet0");
+        _m.addEntry(CLASS_TYPE_1_ARRAY_SET_1,"ClassType1ArraySet1");
+        _m.addEntry(CLASS_TYPE_1_ARRAY_SET_2,"ClassType1ArraySet2");
         _m.addEntry(CONSTRUCTOR_0_NEW_INSTANCE_0,"Constructor0NewInstance0");
         _m.addEntry(CONSTRUCTOR_0_NEW_INSTANCE_REF_0,"Constructor0NewInstanceRef0");
         _m.addEntry(CONSTRUCTOR_0_NEW_INSTANCE_REF_AFTER_0,"Constructor0NewInstanceRefAfter0");
@@ -566,6 +596,8 @@ public final class AliasParamReflection {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_0_ARRAY_GET_LENGTH_0), getAliasClassType0ArrayGetLength0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_0_ARRAY_GET_0), getAliasClassType0ArrayGet0()),new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_0_ARRAY_GET_1), getAliasClassType0ArrayGet1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_0_ARRAY_SET_0), getAliasClassType0ArraySet0()),new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_0_ARRAY_SET_1), getAliasClassType0ArraySet1()),new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_0_ARRAY_SET_2), getAliasClassType0ArraySet2())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_1_ARRAY_GET_0), getAliasClassType1ArrayGet0()),new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_1_ARRAY_GET_1), getAliasClassType1ArrayGet1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_1_ARRAY_SET_0), getAliasClassType1ArraySet0()),new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_1_ARRAY_SET_1), getAliasClassType1ArraySet1()),new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_1_ARRAY_SET_2), getAliasClassType1ArraySet2())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CONSTRUCTOR_0_NEW_INSTANCE_0), getAliasConstructor0NewInstance0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CONSTRUCTOR_0_NEW_INSTANCE_REF_0), getAliasConstructor0NewInstanceRef0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CONSTRUCTOR_0_NEW_INSTANCE_REF_AFTER_0), getAliasConstructor0NewInstanceRefAfter0())));
@@ -912,6 +944,46 @@ public final class AliasParamReflection {
 
     public void setAliasClassType0ArraySet2(String _v) {
         this.aliasClassType0ArraySet2 =_v;
+    }
+
+    public String getAliasClassType1ArrayGet0() {
+        return aliasClassType1ArrayGet0;
+    }
+
+    public void setAliasClassType1ArrayGet0(String _v) {
+        this.aliasClassType1ArrayGet0 =_v;
+    }
+
+    public String getAliasClassType1ArrayGet1() {
+        return aliasClassType1ArrayGet1;
+    }
+
+    public void setAliasClassType1ArrayGet1(String _v) {
+        this.aliasClassType1ArrayGet1 =_v;
+    }
+
+    public String getAliasClassType1ArraySet0() {
+        return aliasClassType1ArraySet0;
+    }
+
+    public void setAliasClassType1ArraySet0(String _v) {
+        this.aliasClassType1ArraySet0 =_v;
+    }
+
+    public String getAliasClassType1ArraySet1() {
+        return aliasClassType1ArraySet1;
+    }
+
+    public void setAliasClassType1ArraySet1(String _v) {
+        this.aliasClassType1ArraySet1 =_v;
+    }
+
+    public String getAliasClassType1ArraySet2() {
+        return aliasClassType1ArraySet2;
+    }
+
+    public void setAliasClassType1ArraySet2(String _v) {
+        this.aliasClassType1ArraySet2 =_v;
     }
 
     public String getAliasConstructor0NewInstance0() {

@@ -84,7 +84,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
     public static void setParts(ContextEl _conf, Argument _right, StackCall _stack, Struct _array, Argument _index) {
         Struct o_ = _index.getStruct();
         if (o_ instanceof RangeStruct) {
-            ExecArrayTemplates.setRange(_array, (RangeStruct) o_, _right.getStruct(), _conf, _stack);
+            ExecArrayTemplates.setRange(_array, o_, _right.getStruct(), _conf, _stack);
         } else {
             ExecArrayTemplates.setElement(_array, o_, _right.getStruct(), _conf, _stack);
         }

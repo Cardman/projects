@@ -5202,6 +5202,24 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertEq("hello",getString(argument_));
     }
     @Test
+    public void processEl349_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return (String)$Class.get($new String[]{\"hello\"},0???1)[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument argument_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertEq("hello",getString(argument_));
+    }
+    @Test
     public void processEl350Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();
@@ -5319,6 +5337,45 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument argument_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("world",getString(argument_));
+    }
+    @Test
+    public void processEl354_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static $void exmeth(){\n");
+        xml_.append("  $Class.set($new String[]{},$null,1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),err_.getClassName(cont_));
+    }
+    @Test
+    public void processEl355_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $var a = $new String[]{\"hello\"};\n");
+        xml_.append("  $Class.set(a,0???1,$new String[]{\"world\"});\n");
+        xml_.append("  $return a[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertEq("world",getString(arg_));
     }
     @Test
     public void processEl355Test() {

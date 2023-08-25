@@ -137,16 +137,16 @@ public final class ExecArrayTemplates {
             return procNoArr(_struct, _conf, _stackCall);
         }
         if (!(_index instanceof RangeStruct)) {
-            return nullArg(_struct, _index, _conf, _stackCall);
+            return nullArg(_index, _conf, _stackCall);
         }
         RangeStruct ind_ = (RangeStruct) _index;
         ArrayStruct arr_ = (ArrayStruct) _struct;
         return getRange(_conf, _stackCall, ind_, arr_);
     }
 
-    private static Struct nullArg(Struct _struct, Struct _index, ContextEl _conf, StackCall _stackCall) {
+    private static Struct nullArg(Struct _struct, ContextEl _conf, StackCall _stackCall) {
         LgNames stds_ = _conf.getStandards();
-        if (_index == NullStruct.NULL_VALUE) {
+        if (_struct == NullStruct.NULL_VALUE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
             return NullStruct.NULL_VALUE;
@@ -158,7 +158,7 @@ public final class ExecArrayTemplates {
     }
 
     private static Struct procNoArr(Struct _struct, ContextEl _conf, StackCall _stackCall) {
-        return nullArg(Argument.getNull(_struct), _struct, _conf, _stackCall);
+        return nullArg(Argument.getNull(_struct), _conf, _stackCall);
     }
 
     private static WithoutParentIdStruct getRange(ContextEl _conf, StackCall _stackCall, RangeStruct _ind, ArrayStruct _arr) {
@@ -196,15 +196,18 @@ public final class ExecArrayTemplates {
         return sub_;
     }
 
-    public static Struct setRange(Struct _struct, RangeStruct _index, Struct _value, ContextEl _conf, StackCall _stackCall) {
+    public static Struct setRange(Struct _struct, Struct _index, Struct _value, ContextEl _conf, StackCall _stackCall) {
         if (!(_struct instanceof ArrayStruct)) {
             return procNoArr(_struct, _conf, _stackCall);
         }
+        if (!(_index instanceof RangeStruct)) {
+            return nullArg(_index, _conf, _stackCall);
+        }
         if (!(_value instanceof ArrayStruct)) {
-            return nullArg(_struct, _value, _conf, _stackCall);
+            return nullArg(_value, _conf, _stackCall);
         }
         ArrayStruct arr_ = (ArrayStruct) _struct;
-        return setRange(_conf, _stackCall, _index, arr_, (ArrayStruct)_value);
+        return setRange(_conf, _stackCall, (RangeStruct) _index, arr_, (ArrayStruct)_value);
     }
 
     private static WithoutParentIdStruct setRange(ContextEl _conf, StackCall _stackCall, RangeStruct _ind, ArrayStruct _arr, ArrayStruct _value) {

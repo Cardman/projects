@@ -1182,6 +1182,12 @@ public final class AliasReflection {
         params_ = new StringList(aliasObject_,aliasPrimInt_,aliasObject_);
         method_ = new StandardMethod(aliasArraySet, params_, aliasVoid_, false, MethodModifier.STATIC,new StringList(params.getAliasClassType0ArraySet0(),params.getAliasClassType0ArraySet1(),params.getAliasClassType0ArraySet2()),new FctClassArraySet());
         methods_.add( method_);
+        params_ = new StringList(aliasObject_,_stds.getContent().getCoreNames().getAliasRange());
+        method_ = new StandardMethod(aliasArrayGet, params_, StringExpUtil.getPrettyArrayType(aliasObject_), false, MethodModifier.STATIC,new StringList(params.getAliasClassType1ArrayGet0(),params.getAliasClassType1ArrayGet1()),new FctClassArrayGetRange());
+        methods_.add( method_);
+        params_ = new StringList(aliasObject_,_stds.getContent().getCoreNames().getAliasRange(),aliasObject_);
+        method_ = new StandardMethod(aliasArraySet, params_, aliasVoid_, false, MethodModifier.STATIC,new StringList(params.getAliasClassType1ArraySet0(),params.getAliasClassType1ArraySet1(),params.getAliasClassType1ArraySet2()),new FctClassArraySetRange());
+        methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctClassGetDeclaredAnonymousTypes());
         methods_.add( method_);

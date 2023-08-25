@@ -304,7 +304,7 @@ public abstract class AbstractParamChecker {
         if (range_ instanceof RangeStruct) {
             Argument right_ = _call.getRight();
             if (right_ != null) {
-                return new Argument(ExecArrayTemplates.setRange(arr_,(RangeStruct) range_, right_.getStruct(),_conf,_stackCall));
+                return new Argument(ExecArrayTemplates.setRange(arr_, range_, right_.getStruct(),_conf,_stackCall));
             }
             return new Argument(ExecArrayTemplates.getRange(arr_,range_, _conf, _stackCall));
         }
@@ -367,7 +367,7 @@ public abstract class AbstractParamChecker {
             if (_conf.callsOrException(_stackCall)) {
                 return new Argument();
             }
-            return new Argument(ExecArrayTemplates.setRange(_arr, (RangeStruct) range_.getStruct(),_right, _conf, _stackCall));
+            return new Argument(ExecArrayTemplates.setRange(_arr, range_.getStruct(),_right, _conf, _stackCall));
         }
         Struct lower_ = _arguments.last().getStruct();
         Struct upper_ = new IntStruct(ExecArrayFieldOperation.getLength(_arr, _conf));
@@ -375,7 +375,7 @@ public abstract class AbstractParamChecker {
         if (_conf.callsOrException(_stackCall)) {
             return new Argument();
         }
-        return new Argument(ExecArrayTemplates.setRange(_arr, (RangeStruct) range_.getStruct(),_right, _conf, _stackCall));
+        return new Argument(ExecArrayTemplates.setRange(_arr, range_.getStruct(),_right, _conf, _stackCall));
     }
 
     public Argument checkParams(ExecFormattedRootBlock _classNameFound, Argument _previous, Cache _cache, ContextEl _conf, StackCall _stackCall) {
