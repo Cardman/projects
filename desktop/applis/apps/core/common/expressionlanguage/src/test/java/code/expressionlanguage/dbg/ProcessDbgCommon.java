@@ -527,7 +527,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
 
     protected Struct eval(ResultContextLambda _dyn, ResultContext _res, AbstractPageEl _page) {
-        return _dyn.eval(_res.getContext(), new BreakPointOutputInfo(), _page).getStack().aw().getValue().getStruct();
+        return _dyn.eval(_res.getContext(), null, _page).getStack().aw().getValue().getStruct();
     }
 
     protected AbstractPageEl goToBp(ResultContext _res, String _class, String _meth, StackCall _stack) {
@@ -550,7 +550,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
         ResultContextLambda resLam_ = ResultContextLambda.dynamicAnalyze(_dyn, page_.getFile().getFileName(), page_.getTraceIndex(), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), null);
-        StackCall locSt_ = resLam_.eval(new BreakPointOutputInfo(),page_).getStack();
+        StackCall locSt_ = resLam_.eval(null,page_).getStack();
         return ((ErrorStruct)((CustomFoundExc)locSt_.getCallingState()).getStruct()).getStack();
     }
     private ReportedMessages endKo(String _dyn, String _class, String _meth, ResultContext _res) {

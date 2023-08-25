@@ -4,23 +4,12 @@ import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.structs.Struct;
 
-public final class CheckedMethodInfos {
-    private final ExecFormattedRootBlock declaring;
-    private final Struct instance;
+public final class CheckedMethodInfos extends CoreCheckedExecOperationNodeInfos{
     private final Parameters parameters;
 
     public CheckedMethodInfos(ExecFormattedRootBlock _d, Struct _i, Parameters _p) {
-        this.declaring = _d;
-        this.instance = _i;
+        super(_d,_i,null);
         this.parameters = _p;
-    }
-
-    public ExecFormattedRootBlock getDeclaring() {
-        return declaring;
-    }
-
-    public Struct getInstance() {
-        return instance;
     }
 
 

@@ -38,7 +38,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (!_stackCall.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
             return 0;
         }
-        if (stopAtWp(_context, _stackCall)) {
+        if (_stackCall.getInitializingTypeInfos().getInitEnums() != InitPhase.NOTHING || stopAtWp(_context, _stackCall)) {
             return 1;
         }
         return 2;
@@ -529,12 +529,10 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     private static StopDbgEnum checkedWp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos) {
         if (stopExcValuRetThrowCatch(_context,_stackCall, _p) == null && _infos instanceof CheckedExecOperationNodeInfos) {
-            BreakPointOutputInfo i_ = new BreakPointOutputInfo();
-            i_.setOperElt(_infos);
             ClassField clField_ = ((CheckedExecOperationNodeInfos) _infos).getIdClass();
             WatchPoint bp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNullWatch(((CheckedExecOperationNodeInfos) _infos).isTrueField(),((CheckedExecOperationNodeInfos) _infos).getNbType(),clField_.getFieldName());
             BreakPointCondition condition_ = stopCurrentWpCondition(bp_, (CheckedExecOperationNodeInfos)_infos);
-            if (stopCurrent(_context, _stackCall, _p, condition_, i_)) {
+            if (stopCurrent(_context, _stackCall, _p, condition_, _infos)) {
                 return StopDbgEnum.FIELD;
             }
             return StopDbgEnum.NONE;
@@ -550,10 +548,8 @@ public final class DbgStackStopper implements AbsStackStopper {
         CustList<StdMethodPointBlockPair> pairs_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getStdPairs(call_);
         for (StdMethodPointBlockPair m: pairs_) {
             Parameters params_ = build(_context, m, original_);
-            BreakPointOutputInfo info_ = new BreakPointOutputInfo();
-            info_.setCheckedMethodInfos(new CheckedMethodInfos(glClass_, instance_, params_));
             MethodPoint mp_ = m.getValue();
-            if (stopCurrentMp(_context, _stackCall, _p, mp_, _ex.isExiting(),info_)) {
+            if (stopCurrentMp(_context, _stackCall, _p, mp_, _ex.isExiting(),new CheckedMethodInfos(glClass_, instance_, params_))) {
                 if (_ex.isExiting()) {
                     return StopDbgEnum.METHOD_EXIT;
                 }
@@ -571,10 +567,8 @@ public final class DbgStackStopper implements AbsStackStopper {
         CustList<MethodPointBlockPairRootBlock> pairs_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getPairs(call_, glClass_, _context, instance_);
         for (MethodPointBlockPairRootBlock m: pairs_) {
             Parameters params_ = build(original_.getRefParameters(), original_.getCache(), _context, m.getId());
-            BreakPointOutputInfo info_ = new BreakPointOutputInfo();
-            info_.setCheckedMethodInfos(new CheckedMethodInfos(m.getValue(), instance_, params_));
             MethodPoint mp_ = m.getId().getValue();
-            if (stopCurrentMp(_context, _stackCall, _p, mp_, false,info_)) {
+            if (stopCurrentMp(_context, _stackCall, _p, mp_, false,new CheckedMethodInfos(m.getValue(), instance_, params_))) {
                 return StopDbgEnum.METHOD_ENTRY;
             }
         }
@@ -586,10 +580,8 @@ public final class DbgStackStopper implements AbsStackStopper {
             CustList<MethodPointBlockPairRootBlock> pairs_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getPairs(_p.getBlockRoot(), _p.getGlobalClass(),_context, _p.getGlobalStruct());
             for (MethodPointBlockPairRootBlock m: pairs_) {
                 Parameters params_ = build(_p.getRefParams(), _p.getCache(), _context, m.getId());
-                BreakPointOutputInfo info_ = new BreakPointOutputInfo();
-                info_.setCheckedMethodInfos(new CheckedMethodInfos(m.getValue(),_p.getGlobalStruct(), params_));
                 MethodPoint mp_ = m.getId().getValue();
-                if (stopCurrentMp(_context, _stackCall, _p, mp_, true, info_)) {
+                if (stopCurrentMp(_context, _stackCall, _p, mp_, true, new CheckedMethodInfos(m.getValue(),_p.getGlobalStruct(), params_))) {
                     return true;
                 }
             }
@@ -742,9 +734,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     private static boolean checkExc(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, Struct _str, ExcPoint _bp) {
         BreakPointCondition bpc_ = stopExcValue(_p, _bp, _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting());
         String clName_ = _str.getClassName(_context);
-        BreakPointOutputInfo info_ = new BreakPointOutputInfo();
-        info_.setOperElt(new CoreCheckedExecOperationNodeInfos(new ExecFormattedRootBlock(_context.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(clName_)), clName_), _str,null));
-        return stopCurrent(_context, _stackCall, _p, bpc_, info_);
+        return stopCurrent(_context, _stackCall, _p, bpc_, new CoreCheckedExecOperationNodeInfos(new ExecFormattedRootBlock(_context.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(clName_)), clName_), _str,null));
     }
 
     private static Struct stopExcValuRetThrowCatch(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
@@ -787,14 +777,14 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
     private static boolean stopCurrentBp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, BreakPoint _bp) {
         BreakPointCondition condition_ = stopCurrentBpCondition(_p,_bp);
-        return stopCurrent(_context, _stackCall, _p, condition_,new BreakPointOutputInfo());
+        return stopCurrent(_context, _stackCall, _p, condition_,null);
     }
 
-    private static boolean stopCurrentMp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, MethodPoint _bp, boolean _exit, BreakPointOutputInfo _info) {
+    private static boolean stopCurrentMp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, MethodPoint _bp, boolean _exit, CoreCheckedExecOperationNodeInfos _info) {
         BreakPointCondition condition_ = stopCurrentMpCondition(_bp,_exit);
         return stopCurrent(_context, _stackCall, _p, condition_, _info);
     }
-    private static boolean stopCurrent(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, BreakPointCondition _condition, BreakPointOutputInfo _info) {
+    private static boolean stopCurrent(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, BreakPointCondition _condition, CoreCheckedExecOperationNodeInfos _info) {
         if (!okStack(_context, _stackCall, _condition)) {
             return false;
         }
@@ -804,7 +794,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         }
         return postCondition(_stackCall, _condition, _info);
     }
-    private static boolean postCondition(StackCall _stackCall, BreakPointCondition _condition, BreakPointOutputInfo _info) {
+    private static boolean postCondition(StackCall _stackCall, BreakPointCondition _condition, CoreCheckedExecOperationNodeInfos _info) {
         if (!_condition.getEnabled().get()) {
             return false;
         }
@@ -812,7 +802,9 @@ public final class DbgStackStopper implements AbsStackStopper {
             if (_condition.getDisableWhenHit().get()) {
                 _condition.getEnabled().set(false);
             }
-            _stackCall.getBreakPointInfo().getBreakPointOutputInfo().aff(_info);
+            BreakPointOutputInfo b_ = new BreakPointOutputInfo();
+            b_.setOperElt(_info);
+            _stackCall.getBreakPointInfo().getBreakPointOutputInfo().aff(b_);
             return true;
         }
         return false;
@@ -887,7 +879,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         return false;
     }
 
-    private static boolean condition(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, ResultContextLambda _result, BreakPointOutputInfo _info) {
+    private static boolean condition(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, ResultContextLambda _result, CoreCheckedExecOperationNodeInfos _info) {
         StackCallReturnValue result_ = _result.eval(_context, _info, _p);
         if (result_.getStack().getCallingState() != null) {
             _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCallingStateSub(result_.getStack().getCallingState());

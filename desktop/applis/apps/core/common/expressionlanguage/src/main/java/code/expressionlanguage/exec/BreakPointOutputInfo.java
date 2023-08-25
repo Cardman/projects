@@ -5,11 +5,9 @@ import code.expressionlanguage.exec.calls.util.CallingState;
 public final class BreakPointOutputInfo {
     private CallingState callingStateSub;
     private CoreCheckedExecOperationNodeInfos operElt;
-    private CheckedMethodInfos checkedMethodInfos;
     private StopDbgEnum stoppedBreakPoint = StopDbgEnum.NONE;
 
     public void aff(BreakPointOutputInfo _info) {
-        setCheckedMethodInfos(_info.getCheckedMethodInfos());
         setOperElt(_info.getOperElt());
     }
     public CallingState getCallingStateSub() {
@@ -26,14 +24,6 @@ public final class BreakPointOutputInfo {
 
     public void setOperElt(CoreCheckedExecOperationNodeInfos _o) {
         this.operElt = _o;
-    }
-
-    public CheckedMethodInfos getCheckedMethodInfos() {
-        return checkedMethodInfos;
-    }
-
-    public void setCheckedMethodInfos(CheckedMethodInfos _c) {
-        this.checkedMethodInfos = _c;
     }
 
     public boolean isStoppedBreakPoint() {

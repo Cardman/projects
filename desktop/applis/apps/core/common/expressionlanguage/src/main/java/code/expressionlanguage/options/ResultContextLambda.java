@@ -187,15 +187,9 @@ public final class ResultContextLambda {
 //        }
 //        return op_;
 //    }
-    public StackCallReturnValue eval(BreakPointOutputInfo _bp, AbstractPageEl _page) {
-        return eval(_bp.getCheckedMethodInfos(),_bp.getOperElt(),_page);
-    }
-    public StackCallReturnValue eval(ContextEl _original, BreakPointOutputInfo _bp, AbstractPageEl _page) {
-        return eval(_original,_bp.getCheckedMethodInfos(),_bp.getOperElt(),_page);
-    }
-    public StackCallReturnValue eval(ContextEl _original, CheckedMethodInfos _m, CoreCheckedExecOperationNodeInfos _addon,AbstractPageEl _page) {
+    public StackCallReturnValue eval(ContextEl _original, CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
         prepare(_original);
-        return eval(_m,_addon,_page);
+        return eval(_addon,_page);
     }
 
     private void prepare(ContextEl _original) {
@@ -235,10 +229,10 @@ public final class ResultContextLambda {
         _st.getInitializingTypeInfos().resetInitEnums(_st);
     }
 
-    public StackCallReturnValue eval(CheckedMethodInfos _m,CoreCheckedExecOperationNodeInfos _addon,AbstractPageEl _page) {
+    public StackCallReturnValue eval(CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING, context);
-        if (_m != null) {
-            AbstractPageEl page_ = new CustomFoundMethod(new Argument(_m.getInstance()),_m.getDeclaring(),lambda, _m.getParameters()).processAfterOperation(context,stackCall_);
+        if (_addon instanceof CheckedMethodInfos) {
+            AbstractPageEl page_ = new CustomFoundMethod(new Argument(_addon.getInstance()),_addon.getDeclaring(),lambda, ((CheckedMethodInfos)_addon).getParameters()).processAfterOperation(context,stackCall_);
             return loop(stackCall_, page_);
         }
         Parameters p_ = new Parameters();

@@ -136,18 +136,15 @@ public final class ExecClassesUtil {
             _st.getBreakPointInfo().getBreakPointInputInfo().setMute(_mute);
         }
         StackCall st_ = tryInitStaticlyTypes(_context, _options, _st, _mute);
-        if (st_.getInitializingTypeInfos().getInitEnums() == InitPhase.NOTHING) {
-            int res_ = st_.getStopper().checkNext(_context,st_);
-            if (res_ == 0) {
-                ProcessMethod.calculate(_callee, _context, st_);
-                return new StackCallReturnValue(st_, vars(_context, st_));
-            }
-            if (res_ == 1) {
-                return new StackCallReturnValue(st_, vars(_context, st_));
-            }
-            _context.getInit().loopCalling(_context, st_);
+        int res_ = st_.getStopper().checkNext(_context,st_);
+        if (res_ == 0) {
+            ProcessMethod.calculate(_callee, _context, st_);
             return new StackCallReturnValue(st_, vars(_context, st_));
         }
+        if (res_ == 1) {
+            return new StackCallReturnValue(st_, vars(_context, st_));
+        }
+        _context.getInit().loopCalling(_context, st_);
         return new StackCallReturnValue(st_, vars(_context, st_));
     }
     private static CustList<ViewPage> vars(ContextEl _context, StackCall _st) {
