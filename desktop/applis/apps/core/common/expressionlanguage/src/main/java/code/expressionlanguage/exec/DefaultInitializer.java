@@ -113,10 +113,21 @@ public class DefaultInitializer implements Initializer {
     }
 
     public boolean stopNormal(ContextEl _owner, StackCall _stackCall) {
+        int code_ = stopIntern(_owner, _stackCall);
+        if (code_ == 1) {
+            return true;
+        }
+        if (code_ == 0) {
+            return exitAfterCallInt(_owner, _stackCall);
+        }
+        return false;
+    }
+
+    public int stopIntern(ContextEl _owner, StackCall _stackCall) {
         if (_stackCall.getStopper().stopAt(_stackCall)) {
             _stackCall.getBreakPointInfo().getStackState().setCheckingBp(false);
             if (_stackCall.normalCallNoExit(_owner)) {
-                return exitAfterCallInt(_owner, _stackCall);
+                return 0;
             }
             afterCheckExit(_owner, _stackCall);
             afterCheckCalculate(_owner, _stackCall);
@@ -127,12 +138,12 @@ public class DefaultInitializer implements Initializer {
             success(_owner, p_);
             _stackCall.removeLastPage();
             if (!_stackCall.hasPages()) {
-                return true;
+                return 1;
             }
             if (_stackCall.getStopper().isStopAtExcMethod()) {
                 _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setExiting(p_);
                 _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
-                return false;
+                return -1;
             }
             AbstractPageEl b_ = _stackCall.getLastPage();
             tryForward(_owner, p_, b_, _stackCall);
@@ -142,22 +153,21 @@ public class DefaultInitializer implements Initializer {
             _stackCall.removeLastPage();
             if (!_stackCall.hasPages()) {
                 _stackCall.setCallingState(new CustomFoundExc(custCause_,_stackCall));
-                return true;
+                return 1;
             }
             p_.setThrown(new CustomFoundExc(custCause_,_stackCall));
             if (_stackCall.getStopper().isStopAtExcMethod()) {
                 _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setExiting(p_);
                 _stackCall.setCallingState(p_.getThrown());
                 _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
-                return false;
+                return -1;
             }
             _stackCall.setCallingState(p_.getThrown());
             _stackCall.entryReadWrite();
         }
         iterate(_owner, _stackCall);
-        return exitAfterCallInt(_owner, _stackCall);
+        return 0;
     }
-
     private void success(ContextEl _owner, AbstractPageEl _p) {
         if (_p instanceof StaticInitPageEl) {
             ((StaticInitPageEl) _p).sucessClass(_owner);
