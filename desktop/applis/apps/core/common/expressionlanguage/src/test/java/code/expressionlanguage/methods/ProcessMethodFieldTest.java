@@ -459,6 +459,45 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void calculateArgument1033_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t;\n");
+        xml_.append("  t=0i;\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $try{\n");
+        xml_.append("    $return badMethod();\n");
+        xml_.append("   }\n");
+        xml_.append("   $catch(code.expressionlanguage.exceptions.BadIndexException e){\n");
+        xml_.append("    t=1i;\n");
+        xml_.append("    $throw e;\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Exception e){\n");
+        xml_.append("   $return 1i+t;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int badMethod(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $return 1i/0i;\n");
+        xml_.append("  }$catch{\n");
+        xml_.append("   $return 1;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+
+    @Test
     public void calculateArgument1034Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

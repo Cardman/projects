@@ -250,7 +250,7 @@ public class DefaultInitializer implements Initializer {
         if (abs_ != null) {
             ExecutingUtil.addPage(abs_, _stack);
         }
-        return _owner.callsOrException(_stack);
+        return _stack.isFailInit();
     }
 
     protected Struct init(ContextEl _context, Struct _parent,
