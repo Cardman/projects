@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.Struct;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractAtomicInteger;
+import code.threads.AbstractAtomicRef;
 
 public interface AbstractInterceptorStdCaller {
     boolean stop(Initializer _init, ContextEl _owner, StackCall _stackCall);
@@ -25,4 +26,5 @@ public interface AbstractInterceptorStdCaller {
     AbsCollection<StdMethodPointBlockPair> newStdMethodPointKeyStringCollection();
     AbstractAtomicBoolean newAtBool();
     AbstractAtomicInteger newAtInt();
+    AbstractAtomicRef<StrResultContextLambda> newAtLda();
 }

@@ -10,10 +10,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.Struct;
-import code.threads.AbstractAtomicBoolean;
-import code.threads.AbstractAtomicInteger;
-import code.threads.ConcreteBoolean;
-import code.threads.ConcreteInteger;
+import code.threads.*;
 
 public final class ElInterceptorStdCaller implements AbstractInterceptorStdCaller {
     @Override
@@ -75,5 +72,10 @@ public final class ElInterceptorStdCaller implements AbstractInterceptorStdCalle
     @Override
     public AbstractAtomicInteger newAtInt() {
         return new ConcreteInteger();
+    }
+
+    @Override
+    public AbstractAtomicRef<StrResultContextLambda> newAtLda() {
+        return new ConcreteRef<StrResultContextLambda>(new StrResultContextLambda());
     }
 }

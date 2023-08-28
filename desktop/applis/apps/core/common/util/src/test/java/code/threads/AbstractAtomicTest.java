@@ -1,6 +1,7 @@
 package code.threads;
 
 import code.util.EquallableExUtil;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class AbstractAtomicTest extends EquallableExUtil {
@@ -209,5 +210,28 @@ public final class AbstractAtomicTest extends EquallableExUtil {
         ConcreteLong at_ = new ConcreteLong(-2);
         assertEq(-3,at_.decrementAndGet());
         assertEq(-3,at_.get());
+    }
+    @Test
+    public void r1() {
+        assertTrue(StringUtil.nullToEmpty(new ConcreteRef<String>().get()).isEmpty());
+    }
+
+    @Test
+    public void r2() {
+        ConcreteRef<String> at_ = new ConcreteRef<String>();
+        at_.set("");
+        assertEq("",at_.get());
+    }
+    @Test
+    public void r3() {
+        ConcreteRef<String> at_ = new ConcreteRef<String>();
+        at_.lazySet("");
+        assertEq("",at_.get());
+    }
+    @Test
+    public void r4() {
+        ConcreteRef<String> at_ = new ConcreteRef<String>("");
+        assertTrue(at_.getAndSet("_").isEmpty());
+        assertFalse(at_.get().isEmpty());
     }
 }

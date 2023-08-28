@@ -14,6 +14,7 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractAtomicInteger;
+import code.threads.AbstractAtomicRef;
 
 public final class DefInterceptorStdCaller implements AbstractInterceptorStdCaller {
     private final String cl;
@@ -125,5 +126,10 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     @Override
     public AbstractAtomicInteger newAtInt() {
         return new DefAtomicInteger();
+    }
+
+    @Override
+    public AbstractAtomicRef<StrResultContextLambda> newAtLda() {
+        return new DefAtomicRef<StrResultContextLambda>(new StrResultContextLambda());
     }
 }

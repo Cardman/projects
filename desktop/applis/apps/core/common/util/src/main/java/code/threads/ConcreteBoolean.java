@@ -6,22 +6,22 @@ public final class ConcreteBoolean implements AbstractAtomicBoolean{
         this(false);
     }
     public ConcreteBoolean(boolean _v) {
-        value = _v;
+        this.value = _v;
     }
     @Override
     public boolean get() {
-        return value;
+        return this.value;
     }
 
     @Override
     public void set(boolean _value) {
-        value = _value;
+        this.value = _value;
     }
 
     @Override
     public boolean compareAndSet(boolean _one, boolean _two) {
-        if (value == _one) {
-            value = _two;
+        if (this.value == _one) {
+            this.value = _two;
             return true;
         }
         return false;
@@ -29,13 +29,13 @@ public final class ConcreteBoolean implements AbstractAtomicBoolean{
 
     @Override
     public boolean getAndSet(boolean _value) {
-        boolean old_ = value;
-        value = _value;
+        boolean old_ = this.value;
+        this.value = _value;
         return old_;
     }
 
     @Override
     public void lazySet(boolean _value) {
-        value = _value;
+        this.value = _value;
     }
 }

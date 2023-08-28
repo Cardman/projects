@@ -4,6 +4,7 @@ import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractAtomicInteger;
+import code.threads.AbstractAtomicRef;
 import code.util.CustList;
 
 public final class BreakPointCondition {
@@ -14,8 +15,7 @@ public final class BreakPointCondition {
     private final AbstractAtomicBoolean enabled;
     private final AbstractAtomicBoolean hit;
     private final AbsCollection<BreakPointCondition> others;
-    private ResultContextLambda result;
-    private String resultStr = "";
+    private final AbstractAtomicRef<StrResultContextLambda> lda;
     private final AbstractAtomicInteger countModulo;
     private final AbstractAtomicInteger count;
     private final AbsCollection<AbsCallContraints> exclude;
@@ -27,6 +27,7 @@ public final class BreakPointCondition {
         exclude = _i.newExecFileBlockTraceIndexCollection();
         include = _i.newExecFileBlockTraceIndexCollection();
         others = _i.newBreakPointConditionCollection();
+        lda = _i.newAtLda();
         disableWhenHit = _i.newAtBool();
         enabled = _i.newAtBool();
         enabled.set(true);
@@ -73,24 +74,17 @@ public final class BreakPointCondition {
         return include;
     }
     public void result(ResultContextLambda _p, String _str) {
-        setResult(ResultContextLambda.okOrNull(_p));
-        setResultStr(ResultContextLambda.okOrEmpty(_p,_str));
+        StrResultContextLambda s_ = new StrResultContextLambda();
+        s_.result(_p, _str);
+        lda.set(s_);
     }
 
     public ResultContextLambda getResult() {
-        return result;
-    }
-
-    public void setResult(ResultContextLambda _p) {
-        this.result = _p;
+        return lda.get().getResult();
     }
 
     public String getResultStr() {
-        return resultStr;
-    }
-
-    public void setResultStr(String _p) {
-        this.resultStr = _p;
+        return lda.get().getResultStr();
     }
 
     public AbstractAtomicInteger getCountModulo() {
