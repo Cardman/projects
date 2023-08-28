@@ -27,7 +27,7 @@ public final class ProcessDbgNativeBracedTest extends ProcessDbgCommon {
         String name_ = ((LgNames) fwd_.getGenerator()).getPredefTypes().getAliasEnumType();
         int metInd_ = cont_.getPageEl().getPreviousFilesBodies().getVal(name_).getContent().indexOf(ordEn_);
         int ret_ = cont_.getPageEl().getPreviousFilesBodies().getVal(name_).getContent().indexOf(enums_, metInd_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(name_,ret_,cont_);
+        cont_.toggleBreakPoint(name_,ret_);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
@@ -50,7 +50,7 @@ public final class ProcessDbgNativeBracedTest extends ProcessDbgCommon {
         String name_ = ((LgNames) fwd_.getGenerator()).getPredefTypes().getAliasEnumType();
         int metInd_ = cont_.getPageEl().getPreviousFilesBodies().getVal(name_).getContent().indexOf(ordEn_);
         int ret_ = cont_.getPageEl().getPreviousFilesBodies().getVal(name_).getContent().indexOf(enums_, metInd_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(name_,ret_,cont_);
+        cont_.toggleBreakPoint(name_,ret_);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());

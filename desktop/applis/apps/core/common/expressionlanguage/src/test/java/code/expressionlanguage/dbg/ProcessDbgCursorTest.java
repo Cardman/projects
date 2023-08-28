@@ -12,7 +12,7 @@ public final class ProcessDbgCursorTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int t = callee();int u = 3;return Math.mod(t,u);}public static int callee(){return 8;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",52,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",52);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueCursor(stack_, cont_.getContext(), 82);
@@ -24,7 +24,7 @@ public final class ProcessDbgCursorTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int t = callee();int u = 3;return Math.mod(t,u);}public static int callee(){return 8;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",52,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",52);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueCursor(stack_, cont_.getContext(), 82);

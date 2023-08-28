@@ -24,7 +24,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",87,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",87);
         MethodId id_ = getMethodId("exmeth");
         StackCallReturnValue i_ = dbgNormalInfoInit("pkg.Ex", id_, cont_);
         StackCall stack_ = i_.getStack();
@@ -68,7 +68,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",164,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",164);
         MethodId id_ = getMethodId("exmeth");
         StackCallReturnValue i_ = dbgNormalInfoInit("pkg.Ex", id_, cont_);
         StackCall stack_ = i_.getStack();
@@ -125,7 +125,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",184,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",184);
         MethodId id_ = getMethodId("exmeth");
         StackCallReturnValue i_ = dbgNormalInfoInit("pkg.Ex", id_, cont_);
         StackCall stack_ = i_.getStack();
@@ -193,7 +193,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",88,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",88);
         MethodId id_ = getMethodId("exmeth");
         StackCallReturnValue i_ = dbgNormalInfoInit("pkg.Ex", id_, cont_);
         StackCall stack_ = i_.getStack();
@@ -238,7 +238,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",155,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",155);
         MethodId id_ = getMethodId("exmeth");
         StackCallReturnValue i_ = dbgNormalInfoInit("pkg.Ex", id_, cont_);
         StackCall stack_ = i_.getStack();
@@ -307,7 +307,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",155,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",155);
         MethodId id_ = getMethodId("exmeth");
         StackCallReturnValue i_ = dbgContinueNormalValue(dbgNormal("pkg.Ex", id_, cont_), cont_.getContext());
         StackCall stack_ = i_.getStack();

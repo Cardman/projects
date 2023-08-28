@@ -56,11 +56,11 @@ public final class ResultExpressionOperationNode {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);
         a_.setCurrentPkg(a_.getDefaultPkg());
-        if (_trField.isTrueField()) {
+        if (_trField.getWp().isTrueField()) {
             trField(_trField, _setting, a_);
         } else {
             for (NamedCalledFunctionBlock i: _trField.getRoot().getAnnotationsMethodsBlocks()) {
-                if (StringUtil.quickEq(i.getName(), _trField.fieldName())) {
+                if (StringUtil.quickEq(i.getName(), _trField.getWp().fieldName())) {
                     field(a_, _trField.getRoot(), false);
                 }
             }
@@ -73,7 +73,7 @@ public final class ResultExpressionOperationNode {
     private static void trField(WatchPointBlockPair _trField, boolean _setting, AnalyzedPageEl _a) {
         CustList<InfoBlock> ls_ = _trField.getRoot().getFieldsBlocks();
         for (InfoBlock i: ls_) {
-            if (StringUtil.contains(i.getElements().getFieldName(), _trField.fieldName())) {
+            if (StringUtil.contains(i.getElements().getFieldName(), _trField.getWp().fieldName())) {
                 field(_a, _trField.getRoot(), i.isStaticField());
                 if (_setting) {
                     String p_ = _a.getKeyWords().getKeyWordValue();
@@ -125,8 +125,8 @@ public final class ResultExpressionOperationNode {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);
         a_.setCurrentPkg(a_.getDefaultPkg());
-        StandardType std_ = _instance.getType();
-        StandardNamedFunction id_ = _instance.getId();
+        StandardType std_ = _instance.getSm().getType();
+        StandardNamedFunction id_ = _instance.getSm().getId();
         if (id_ instanceof StandardMethod && ((StandardMethod)id_).getModifier() != MethodModifier.STATIC) {
             a_.setAccessStaticContext(MethodAccessKind.INSTANCE);
         } else {
@@ -141,9 +141,9 @@ public final class ResultExpressionOperationNode {
     public static AnalyzedPageEl prepare(MethodPointBlockPair _instance, AnalyzedPageEl _original, MethodAccessKind _flag) {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);
-        a_.setCurrentBlock(_instance.getId());
+        a_.setCurrentBlock(_instance.getMp().getId());
         a_.setCurrentPkg(a_.getDefaultPkg());
-        return notAnnot(_flag, _instance.getId().getFile(), a_, _instance.getId());
+        return notAnnot(_flag, _instance.getMp().getId().getFile(), a_, _instance.getMp().getId());
     }
 
     private static AnalyzedPageEl notAnnot(MethodAccessKind _flag, FileBlock _file, AnalyzedPageEl _a, AbsBk _block) {

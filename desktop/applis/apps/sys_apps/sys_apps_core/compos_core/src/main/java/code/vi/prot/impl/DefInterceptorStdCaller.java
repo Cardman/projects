@@ -13,6 +13,7 @@ import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
 import code.threads.AbstractAtomicBoolean;
+import code.threads.AbstractAtomicInteger;
 
 public final class DefInterceptorStdCaller implements AbstractInterceptorStdCaller {
     private final String cl;
@@ -77,6 +78,16 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     }
 
     @Override
+    public AbsCollection<BreakPointBlockKey> newBreakPointKeyIdStringCollection() {
+        return new ConcMap<BreakPointBlockKey>(new BreakPointBlockPairKeyIdString(),this);
+    }
+
+    @Override
+    public AbsCollection<BreakPointCondition> newBreakPointConditionCollection() {
+        return new ConcMap<BreakPointCondition>(new BpcKeyString(), this);
+    }
+
+    @Override
     public AbsCollection<BreakPointBlockPair> newBreakPointKeyStringCollection() {
         return new ConcMap<BreakPointBlockPair>(new BreakPointBlockPairKeyString(),this);
     }
@@ -109,5 +120,10 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     @Override
     public AbstractAtomicBoolean newAtBool() {
         return new DefAtomicBoolean();
+    }
+
+    @Override
+    public AbstractAtomicInteger newAtInt() {
+        return new DefAtomicInteger();
     }
 }

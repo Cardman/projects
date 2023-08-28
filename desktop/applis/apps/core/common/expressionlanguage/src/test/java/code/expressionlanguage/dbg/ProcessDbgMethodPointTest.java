@@ -2,12 +2,8 @@ package code.expressionlanguage.dbg;
 
 import code.expressionlanguage.DefContextGenerator;
 import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
-import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.StopDbgEnum;
 import code.expressionlanguage.exec.dbg.*;
@@ -35,7 +31,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",40,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",40);
         assertTrue(is(cont_, 21));
     }
 
@@ -46,8 +42,8 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",40,cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",40,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",40);
+        cont_.toggleBreakPoint("pkg/Ex",40);
         assertFalse(is(cont_, 21));
     }
 
@@ -58,7 +54,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",40,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",40);
         assertFalse(is(cont_, 58));
     }
 
@@ -69,7 +65,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",-1,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",-1);
         assertFalse(is(cont_, 21));
     }
 
@@ -80,8 +76,8 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",40,cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled("pkg/Ex",40,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",40);
+        cont_.toggleBreakPointEnabled("pkg/Ex",40);
         assertFalse(is(cont_, 21));
     }
 
@@ -92,9 +88,9 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",40,cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled("pkg/Ex",40,cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled("pkg/Ex",40,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",40);
+        cont_.toggleBreakPointEnabled("pkg/Ex",40);
+        cont_.toggleBreakPointEnabled("pkg/Ex",40);
         assertTrue(is(cont_, 21));
     }
 
@@ -105,7 +101,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled("pkg/Ex",40,cont_);
+        cont_.toggleBreakPointEnabled("pkg/Ex",40);
         assertTrue(is(cont_, 21));
     }
 
@@ -116,7 +112,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled("pkg/Ex",-1,cont_);
+        cont_.toggleBreakPointEnabled("pkg/Ex",-1);
         assertFalse(is(cont_, 21));
     }
 
@@ -127,8 +123,8 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",40,cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",77,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",40);
+        cont_.toggleBreakPoint("pkg/Ex",77);
         assertTrue(is(cont_, 58));
     }
 
@@ -139,9 +135,9 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",40,cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",77,cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled("pkg/Ex",40,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",40);
+        cont_.toggleBreakPoint("pkg/Ex",77);
+        cont_.toggleBreakPointEnabled("pkg/Ex",40);
         assertTrue(is(cont_, 58));
     }
 
@@ -152,8 +148,8 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled("pkg/Ex",40,cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled("pkg/Ex",77,cont_);
+        cont_.toggleBreakPointEnabled("pkg/Ex",40);
+        cont_.toggleBreakPointEnabled("pkg/Ex",77);
         assertTrue(is(cont_, 58));
     }
 
@@ -313,7 +309,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",90);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        cont_.toggleWatchPoint("pkg/Ex",32);
         write(cont_,cf("pkg.Ex","f"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -331,7 +327,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",90);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        cont_.toggleWatchPoint("pkg/Ex",32);
         write(cont_,cf("pkg.Ex","f"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -349,7 +345,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",90);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        cont_.toggleWatchPoint("pkg/Ex",32);
         write(cont_,cf("pkg.Ex","f"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -365,7 +361,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",91);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        cont_.toggleWatchPoint("pkg/Ex",32);
         compoundRead(cont_,cf("pkg.Ex","f"));
         pair(cont_, cf("pkg.Ex", "f")).getValue().setEnabled(false);
         MethodId id_ = getMethodId("exmeth");
@@ -384,7 +380,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",91);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        cont_.toggleWatchPoint("pkg/Ex",32);
         compoundRead(cont_,cf("pkg.Ex","f"));
         pair(cont_, cf("pkg.Ex", "f")).getValue().setEnabled(false);
         MethodId id_ = getMethodId("exmeth");
@@ -621,7 +617,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",90);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        cont_.toggleWatchPoint("pkg/Ex",32);
         write(cont_,cf("pkg.Ex","f"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -637,7 +633,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",91);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        cont_.toggleWatchPoint("pkg/Ex",32);
         compoundRead(cont_,cf("pkg.Ex","f"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -655,7 +651,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",91);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        cont_.toggleWatchPoint("pkg/Ex",32);
         compoundRead(cont_,cf("pkg.Ex","f"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -674,7 +670,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",91);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        cont_.toggleWatchPoint("pkg/Ex",32);
         compoundRead(cont_,cf("pkg.Ex","f"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -690,7 +686,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",91);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        cont_.toggleWatchPoint("pkg/Ex",32);
         compoundRead(cont_,cf("pkg.Ex","f"));
         pair(cont_, cf("pkg.Ex", "f")).getValue().setEnabled(false);
         MethodId id_ = getMethodId("exmeth");
@@ -709,7 +705,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",91);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",32,cont_);
+        cont_.toggleWatchPoint("pkg/Ex",32);
         compoundRead(cont_,cf("pkg.Ex","f"));
         pair(cont_, cf("pkg.Ex", "f")).getValue().setEnabled(false);
         MethodId id_ = getMethodId("exmeth");
@@ -1439,7 +1435,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         assertFalse(new MethodKeyString().keyString(wp_).isEmpty());
     }
     private void div(ResultContext _cont) {
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(),_cont,true);
+        _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true);
         ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
@@ -1494,14 +1490,14 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         wp_.getValue().getResultExit().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
     }
     private void entering(ResultContext _cont, String _file, int _offset) {
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(_file,_offset,_cont);
+        _cont.toggleBreakPoint(_file,_offset);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setEntry(true);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setExit(false);
     }
 
     private void exiting(ResultContext _cont, String _file, int _offset) {
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(_file,_offset,_cont);
+        _cont.toggleBreakPoint(_file,_offset);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setEntry(false);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setExit(true);

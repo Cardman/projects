@@ -4,7 +4,7 @@ public final class BreakPointCountUpdaterInstance implements BreakPointCountUpda
 
     @Override
     public void update(BreakPoint _bp, int _newValue) {
-        _bp.getResultInstance().setCountModulo(_newValue);
+        _bp.getResultInstance().getCountModulo().set(_newValue);
     }
 
 }

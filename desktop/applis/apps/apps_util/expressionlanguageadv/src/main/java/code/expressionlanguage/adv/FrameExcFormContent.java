@@ -51,9 +51,9 @@ public final class FrameExcFormContent {
         ExcPointBlockPair exc_ = getSelectedExc();
         if (exc_ != null) {
             exact.setEnabled(false);
-            exact.setSelected(exc_.isExact());
+            exact.setSelected(exc_.getEp().isExact());
             clName.setEnabled(false);
-            clName.setText(exc_.getClName());
+            clName.setText(exc_.getEp().getClName());
             remove.setEnabled(true);
         } else {
             exact.setEnabled(true);

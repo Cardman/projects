@@ -33,7 +33,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",187,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",187);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
@@ -65,7 +65,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",187,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",187);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
@@ -98,7 +98,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",187,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",187);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext());
@@ -131,7 +131,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",187,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",187);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext());
@@ -161,7 +161,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",197,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",197);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
@@ -193,7 +193,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",197,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",197);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
@@ -226,7 +226,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",197,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",197);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext());
@@ -259,7 +259,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",197,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",197);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext());
@@ -292,7 +292,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",197,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",197);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext()), cont_.getContext());
@@ -322,7 +322,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",185,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",185);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
@@ -354,7 +354,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",185,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",185);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
@@ -387,7 +387,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",185,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",185);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext());
@@ -420,7 +420,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",185,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",185);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext());
@@ -450,7 +450,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",196,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",196);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
@@ -482,7 +482,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",196,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",196);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
@@ -515,7 +515,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",196,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",196);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext());
@@ -548,7 +548,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",196,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",196);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext());
@@ -578,7 +578,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",199,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",199);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
@@ -611,7 +611,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",199,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",199);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
@@ -644,7 +644,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",174,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",174);
         MethodId id_ = getMethodId("n");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, stack_.nbPages());
@@ -673,7 +673,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",174,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",174);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
@@ -707,7 +707,7 @@ public final class ProcessDbgIterableTableTest extends ProcessDbgCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",174,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",174);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());

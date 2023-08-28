@@ -644,7 +644,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static Parameters build(ContextEl _conf, StdMethodPointBlockPair _id, ArgumentListCall _params) {
-        CustList<String> ls_ = _id.names();
+        CustList<String> ls_ = _id.getSm().names();
         StringMap<AbstractWrapper> pars_ = new StringMap<AbstractWrapper>();
         for (ArgumentWrapper a: _params.getArgumentWrappers()) {
             pars_.addEntry("",new VariableWrapper(LocalVariable.newLocalVariable(ArgumentListCall.toStr(a.getValue()),_conf)));
@@ -653,7 +653,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     }
 
     private static Parameters build(StringMap<AbstractWrapper> _params, Cache _cache, ContextEl _conf, MethodPointBlockPair _id) {
-        CustList<String> ls_ = _id.names(_conf);
+        CustList<String> ls_ = _id.getMp().names(_conf);
         return build(_params, _cache, ls_);
     }
 
@@ -798,10 +798,16 @@ public final class DbgStackStopper implements AbsStackStopper {
         return postCondition(_stackCall, _condition, _info);
     }
     private static boolean postCondition(StackCall _stackCall, BreakPointCondition _condition, CoreCheckedExecOperationNodeInfos _info) {
-        if (!_condition.getEnabled().get()) {
-            return false;
-        }
         if (countMatch(_condition)) {
+            if (!_condition.getEnabled().get()) {
+                return false;
+            }
+            for (BreakPointCondition o: _condition.getOthers().elts()) {
+                if (!o.getHit().get()) {
+                    return false;
+                }
+            }
+            _condition.getHit().set(true);
             if (_condition.getDisableWhenHit().get()) {
                 _condition.getEnabled().set(false);
             }
@@ -836,13 +842,11 @@ public final class DbgStackStopper implements AbsStackStopper {
         return _bp.getResultCompoundWriteErr();
     }
     private static boolean countMatch(BreakPointCondition _cond) {
-        int c_ = _cond.getCountModulo();
+        int c_ = _cond.getCountModulo().get();
         if (c_ <= 0) {
             return true;
         }
-        int p_ = _cond.getCount();
-        _cond.setCount(p_ + 1);
-        return NumberUtil.mod(_cond.getCount(),c_) == 0;
+        return NumberUtil.mod(_cond.incr(),c_) == 0;
     }
     private static boolean okStack(ContextEl _context, StackCall _stackCall, BreakPointCondition _bp) {
         if (_bp == null) {

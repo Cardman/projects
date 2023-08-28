@@ -13,7 +13,7 @@ public final class ToggleBreakPointEnabledEvent implements AbsActionListener {
     @Override
     public void action() {
         ResultContext r_ = tabEditor.getDebuggerGui().getCurrentResult();
-        r_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled(tabEditor.getFullPath(), tabEditor.getCenter().getCaretPosition(), r_);
+        r_.toggleBreakPointEnabled(tabEditor.getFullPath(), tabEditor.getCenter().getCaretPosition());
         ToggleBreakPointEvent.afterToggle(r_, tabEditor);
     }
 

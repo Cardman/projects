@@ -9,11 +9,14 @@ import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.Struct;
 import code.threads.AbstractAtomicBoolean;
+import code.threads.AbstractAtomicInteger;
 
 public interface AbstractInterceptorStdCaller {
     boolean stop(Initializer _init, ContextEl _owner, StackCall _stackCall);
     boolean stopNormal(Initializer _init, ContextEl _owner, StackCall _stackCall);
     ArgumentWrapper invoke(StdCaller _caller,AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall);
+    AbsCollection<BreakPointBlockKey> newBreakPointKeyIdStringCollection();
+    AbsCollection<BreakPointCondition> newBreakPointConditionCollection();
     AbsCollection<BreakPointBlockPair> newBreakPointKeyStringCollection();
     AbsCollection<WatchPointBlockPair> newWatchPointKeyStringCollection();
     AbsCollection<ExcPointBlockPair> newExcPointKeyStringCollection();
@@ -21,4 +24,5 @@ public interface AbstractInterceptorStdCaller {
     AbsCollection<MethodPointBlockPair> newMethodPointKeyStringCollection();
     AbsCollection<StdMethodPointBlockPair> newStdMethodPointKeyStringCollection();
     AbstractAtomicBoolean newAtBool();
+    AbstractAtomicInteger newAtInt();
 }

@@ -12,7 +12,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",114,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",114);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
@@ -24,7 +24,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",114,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",114);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
@@ -37,7 +37,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",114,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",114);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
@@ -49,7 +49,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle()+flash();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}public static int flash(){return 4;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",122,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",122);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
@@ -61,7 +61,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle()+flash();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}public static int flash(){return 4;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",114,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",114);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
@@ -74,7 +74,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle()+flash();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}public static int flash(){return 4;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",114,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",114);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
@@ -86,7 +86,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle()+flash();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}public static int flash(){return 4+enAttendant();}public static int enAttendant(){return 6;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",122,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",122);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
@@ -98,7 +98,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle()+flash();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}public static int flash(){return 4+enAttendant();}public static int enAttendant(){return 6;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",114,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",114);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
@@ -111,7 +111,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle()+flash();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}public static int flash(){return 4+enAttendant();}public static int enAttendant(){return 6;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",114,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",114);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
@@ -123,7 +123,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public int v;public(int v){this.v=v;}public static int $(Ex e){return e.v;}public static int exmeth(){int v=maelle();return v;}public static Ex maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return new Ex(Math.mod(t,u));}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",188,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",188);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
@@ -135,7 +135,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public int v;public(int v){this.v=v;}public static int $(Ex e){return e.v;}public static int exmeth(){int v=maelle();return v;}public static Ex maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return new Ex(Math.mod(t,u));}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",188,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",188);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
@@ -148,7 +148,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public int v;public(int v){this.v=v;}public static int $(Ex e){return e.v;}public static int exmeth(){int v=maelle();return v;}public static Ex maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return new Ex(Math.mod(t,u));}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",188,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",188);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
@@ -160,7 +160,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public int v;public(int v){this.v=v;}public static int $(Ex e){return e.v;}public static int exmeth(){int v=maelle();return v;}public static Ex maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return new Ex(Math.mod(t,u));}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",188,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",188);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
@@ -174,7 +174,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public int v;public(int v){this.v=v;}public static int $(Ex e){return e.v;}public static int exmeth(){int v=maelle();return v;}public static Ex maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return new Ex(Math.mod(t,u));}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",188,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",188);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());
@@ -188,7 +188,7 @@ public final class ProcessDbgStepReturnTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public int v;public(int v){this.v=v;}public static int $(Ex e){return e.v;}public static int exmeth(){int v=maelle();return v;}public static Ex maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return new Ex(Math.mod(t,u));}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",188,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",188);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepRet(stack_, cont_.getContext());

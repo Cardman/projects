@@ -25,7 +25,7 @@ public final class ProcessDbgStaticTypeTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",13,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",13);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType("pkg/Ex",13,cont_, true);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointInstanceType("pkg/Ex",13,cont_, false);
         StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
@@ -47,7 +47,7 @@ public final class ProcessDbgStaticTypeTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",13,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",13);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType("pkg/Ex",13,cont_, true);
         cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointInstanceType("pkg/Ex",13,cont_, false);
         MethodId id_ = getMethodId("exmeth");
@@ -73,7 +73,7 @@ public final class ProcessDbgStaticTypeTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",26,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",26);
         StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
         assertEq(1, stack_.nbPages());
         assertEq(22, now(stack_));
@@ -94,7 +94,7 @@ public final class ProcessDbgStaticTypeTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",26,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",26);
         StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
         MethodId id_ = getMethodId("exmeth");
         StackCall next_ = dbgNormal("pkg.Ex", id_,cont_, stack_);
@@ -116,7 +116,7 @@ public final class ProcessDbgStaticTypeTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",29,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",29);
         StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
         assertEq(1, stack_.nbPages());
         assertEq(25, now(stack_));
@@ -137,7 +137,7 @@ public final class ProcessDbgStaticTypeTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",26,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",26);
         StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
         MethodId id_ = getMethodId("exmeth");
         StackCall next_ = dbgNormal("pkg.Ex", id_,cont_, stack_);

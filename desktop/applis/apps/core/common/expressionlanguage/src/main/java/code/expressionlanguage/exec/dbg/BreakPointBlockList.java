@@ -27,7 +27,7 @@ import code.util.core.StringUtil;
 
 public final class BreakPointBlockList {
     private final AbsCollection<BreakPointBlockPair> list;
-    private final AbsCollection<BreakPointBlockPair> listTmp;
+    private final AbsCollection<BreakPointBlockKey> listTmp;
     private final AbstractInterceptorStdCaller interceptor;
     private final AbstractAtomicBoolean pausedLoop;
     private final AbsCollection<WatchPointBlockPair> watchList;
@@ -37,7 +37,7 @@ public final class BreakPointBlockList {
 
     public BreakPointBlockList(AbstractInterceptorStdCaller _i) {
         interceptor = _i;
-        listTmp = _i.newBreakPointKeyStringCollection();
+        listTmp = _i.newBreakPointKeyIdStringCollection();
         list = _i.newBreakPointKeyStringCollection();
         watchList = _i.newWatchPointKeyStringCollection();
         excPointList = _i.newExcPointKeyStringCollection();
@@ -48,12 +48,10 @@ public final class BreakPointBlockList {
 
     public void toggleBreakPoint(StandardType _t, StandardNamedFunction _i, ResultContext _f) {
         String k_ = _t.getFullName()+"."+_i.getSignature(_f.getPageEl().getDisplayedStrings());
-        MethodPoint v_ = new MethodPoint(interceptor);
-        v_.setEnabled(true);
-        StdMethodPointBlockPair pair_ = new StdMethodPointBlockPair(_i, _t, k_, v_);
+        StdMethodPointBlockPair pair_ = new StdMethodPointBlockPair(_i, _t, k_, interceptor, true);
         int i_ = 0;
         for (StdMethodPointBlockPair b: stdMethPointList.elts()) {
-            if (b.match(pair_)) {
+            if (b.getSm().match(pair_.getSm())) {
                 stdMethPointList.remove(i_,b);
                 return;
             }
@@ -63,11 +61,9 @@ public final class BreakPointBlockList {
     }
     public void toggleBreakPointEnabled(StandardType _t, StandardNamedFunction _i, ResultContext _f) {
         String k_ = _t.getFullName()+"."+_i.getSignature(_f.getPageEl().getDisplayedStrings());
-        MethodPoint v_ = new MethodPoint(interceptor);
-        v_.setEnabled(true);
-        StdMethodPointBlockPair pair_ = new StdMethodPointBlockPair(_i, _t, k_, v_);
+        StdMethodPointBlockPair pair_ = new StdMethodPointBlockPair(_i, _t, k_, interceptor, true);
         for (StdMethodPointBlockPair b: stdMethPointList.elts()) {
-            if (b.match(pair_)) {
+            if (b.getSm().match(pair_.getSm())) {
                 b.getValue().setEnabled(!b.getValue().isEnabled());
                 return;
             }
@@ -93,15 +89,13 @@ public final class BreakPointBlockList {
             return;
         }
         ExecFileBlock f_ = _d.getFiles().getVal(_file);
-        toggle(f_,o_, ResultExpressionOperationNode.enabledTypeBp(_offset, _file));
+        toggle(f_,FileBlock.number(_file),o_, ResultExpressionOperationNode.enabledTypeBp(_offset, _file));
     }
     public void toggle(MemberCallingsBlock _id) {
-        MethodPoint v_ = new MethodPoint(interceptor);
-        v_.setEnabled(true);
-        MethodPointBlockPair pair_ = new MethodPointBlockPair(_id, v_);
+        MethodPointBlockPair pair_ = new MethodPointBlockPair(_id,interceptor, true);
         int i_ = 0;
         for (MethodPointBlockPair b: methPointList.elts()) {
-            if (b.match(pair_)) {
+            if (b.getMp().match(pair_.getMp())) {
                 methPointList.remove(i_,b);
                 return;
             }
@@ -109,14 +103,12 @@ public final class BreakPointBlockList {
         }
         methPointList.add(pair_);
     }
-    public void toggle(ExecFileBlock _file, int _offset, boolean _enType) {
-        BreakPoint v_ = new BreakPoint(interceptor);
-        v_.setEnabled(true);
-        v_.setEnabledChgtType(_enType);
-        BreakPointBlockPair pair_ = new BreakPointBlockPair(_file, _offset, v_);
+    public void toggle(ExecFileBlock _file, int _nf, int _offset, boolean _enType) {
+        BreakPointBlockPair pair_ = new BreakPointBlockPair(_file,_nf, _offset, interceptor,true);
+        pair_.getValue().setEnabledChgtType(_enType);
         int i_ = 0;
         for (BreakPointBlockPair b: list.elts()) {
-            if (b.match(pair_)) {
+            if (b.getBp().match(pair_.getBp())) {
                 list.remove(i_,b);
                 return;
             }
@@ -143,7 +135,7 @@ public final class BreakPointBlockList {
             return;
         }
         ExecFileBlock f_ = _d.getFiles().getVal(_file);
-        toggleEnabled(f_,o_, ResultExpressionOperationNode.enabledTypeBp(_offset, _file));
+        toggleEnabled(f_,FileBlock.number(_file),o_, ResultExpressionOperationNode.enabledTypeBp(_offset, _file));
     }
     public static BracedBlock rootOfAnnot(AbsBk _id) {
         if (AbsBk.isAnnotBlock(_id)) {
@@ -153,24 +145,20 @@ public final class BreakPointBlockList {
     }
 
     public void toggleEnabled(MemberCallingsBlock _id) {
-        MethodPoint v_ = new MethodPoint(interceptor);
-        v_.setEnabled(true);
-        MethodPointBlockPair pair_ = new MethodPointBlockPair(_id, v_);
+        MethodPointBlockPair pair_ = new MethodPointBlockPair(_id, interceptor, true);
         for (MethodPointBlockPair b: methPointList.elts()) {
-            if (b.match(pair_)) {
+            if (b.getMp().match(pair_.getMp())) {
                 b.getValue().setEnabled(!b.getValue().isEnabled());
                 return;
             }
         }
         methPointList.add(pair_);
     }
-    public void toggleEnabled(ExecFileBlock _file, int _offset, boolean _enType) {
-        BreakPoint v_ = new BreakPoint(interceptor);
-        v_.setEnabled(true);
-        v_.setEnabledChgtType(_enType);
-        BreakPointBlockPair pair_ = new BreakPointBlockPair(_file, _offset, v_);
+    public void toggleEnabled(ExecFileBlock _file, int _nf, int _offset, boolean _enType) {
+        BreakPointBlockPair pair_ = new BreakPointBlockPair(_file,_nf, _offset, interceptor, true);
+        pair_.getValue().setEnabledChgtType(_enType);
         for (BreakPointBlockPair b: list.elts()) {
-            if (b.match(pair_)) {
+            if (b.getBp().match(pair_.getBp())) {
                 b.getValue().setEnabled(!b.getValue().isEnabled());
                 return;
             }
@@ -225,17 +213,17 @@ public final class BreakPointBlockList {
         new BreakPointCountUpdaterStatic().update(_bp.getValue(),_newValue);
     }
     public static ReportedMessages breakPointCtxStd(BreakPointBlockPair _bp, ResultContext _f, AbsLightContextGenerator _gene, String _newValue) {
-        return new BreakPointLambdaCtxUpdaterStd(_f,_gene).update(ExecFileBlock.name(_bp.getFile()),_bp.getOffset(),_bp.getValue(),_newValue);
+        return new BreakPointLambdaCtxUpdaterStd(_f,_gene).update(ExecFileBlock.name(_bp.getBp().getFile()),_bp.getBp().getOffset(),_bp.getValue(),_newValue);
     }
     public static ReportedMessages breakPointCtxInstance(BreakPointBlockPair _bp, ResultContext _f, AbsLightContextGenerator _gene, String _newValue) {
-        return new BreakPointLambdaCtxUpdaterInstance(_f,_gene).update(ExecFileBlock.name(_bp.getFile()),_bp.getOffset(),_bp.getValue(),_newValue);
+        return new BreakPointLambdaCtxUpdaterInstance(_f,_gene).update(ExecFileBlock.name(_bp.getBp().getFile()),_bp.getBp().getOffset(),_bp.getValue(),_newValue);
     }
     public static ReportedMessages breakPointCtxStatic(BreakPointBlockPair _bp, ResultContext _f, AbsLightContextGenerator _gene, String _newValue) {
-        return new BreakPointLambdaCtxUpdaterStatic(_f,_gene).update(ExecFileBlock.name(_bp.getFile()),_bp.getOffset(),_bp.getValue(),_newValue);
+        return new BreakPointLambdaCtxUpdaterStatic(_f,_gene).update(ExecFileBlock.name(_bp.getBp().getFile()),_bp.getBp().getOffset(),_bp.getValue(),_newValue);
     }
     public void update(ExecFileBlock _file, int _offset, BreakPointBooleanUpdater _updater, boolean _newValue) {
         for (BreakPointBlockPair b: list.elts()) {
-            if (b.match(_file, _offset)) {
+            if (b.getBp().match(_file, _offset)) {
                 _updater.update(b.getValue(), _newValue);
                 return;
             }
@@ -252,54 +240,57 @@ public final class BreakPointBlockList {
         return getNotNull(_id).isEnabled();
     }
     public BreakPoint getNotNull(ExecFileBlock _file, int _offset) {
-        BreakPointBlockPair b_ = getPair(_file, _offset);
-        if (b_ == null) {
-            BreakPoint bp_ = new BreakPoint(interceptor);
-            bp_.setEnabled(false);
-            return bp_;
-        }
-        return b_.getValue();
+        return getNotNullPair(_file, _offset).getValue();
     }
 
+    public BreakPointBlockPair getNotNullPair(ExecFileBlock _file, int _offset) {
+        BreakPointBlockPair b_ = getPair(_file, _offset);
+        if (b_ == null) {
+            return new BreakPointBlockPair(null,-1,-1,interceptor,false);
+        }
+        return b_;
+    }
     public BreakPointBlockPair getPair(ExecFileBlock _file, int _offset) {
         for (BreakPointBlockPair b: list.elts()) {
-            if (b.match(_file, _offset)) {
+            if (b.getBp().match(_file, _offset)) {
                 return b;
             }
         }
         return null;
     }
     public MethodPoint getNotNull(StandardNamedFunction _id) {
+        return getNotNullPair(_id).getValue();
+    }
+    public StdMethodPointBlockPair getNotNullPair(StandardNamedFunction _id) {
         StdMethodPointBlockPair b_ = getPair(_id);
         if (b_ == null) {
-            MethodPoint bp_ = new MethodPoint(interceptor);
-            bp_.setEnabled(false);
-            return bp_;
+            return new StdMethodPointBlockPair(null,null,"",interceptor,false);
         }
-        return b_.getValue();
+        return b_;
     }
 
     public StdMethodPointBlockPair getPair(StandardNamedFunction _id) {
         for (StdMethodPointBlockPair b: stdMethPointList.elts()) {
-            if (b.match(_id)) {
+            if (b.getSm().match(_id)) {
                 return b;
             }
         }
         return null;
     }
     public MethodPoint getNotNull(String _id) {
+        return getNotNullPair(_id).getValue();
+    }
+    public MethodPointBlockPair getNotNullPair(String _id) {
         MethodPointBlockPair b_ = getPair(_id);
         if (b_ == null) {
-            MethodPoint bp_ = new MethodPoint(interceptor);
-            bp_.setEnabled(false);
-            return bp_;
+            return new MethodPointBlockPair(null,interceptor,false);
         }
-        return b_.getValue();
+        return b_;
     }
 
     public MethodPointBlockPair getPair(String _id) {
         for (MethodPointBlockPair b: methPointList.elts()) {
-            if (b.match(_id)) {
+            if (b.getMp().match(_id)) {
                 return b;
             }
         }
@@ -309,7 +300,7 @@ public final class BreakPointBlockList {
     public CustList<StdMethodPointBlockPair> getStdPairs(StandardNamedFunction _id) {
         CustList<StdMethodPointBlockPair> out_ = new CustList<StdMethodPointBlockPair>();
         for (StdMethodPointBlockPair b: stdMethPointList.elts()) {
-            StandardNamedFunction i_ = b.getId();
+            StandardNamedFunction i_ = b.getSm().getId();
             if (i_ == _id) {
                 out_.add(b);
             }
@@ -322,7 +313,7 @@ public final class BreakPointBlockList {
         CustList<MethodPointBlockPairRootBlock> out_ = new CustList<MethodPointBlockPairRootBlock>();
         String id_ = id(_id);
         for (MethodPointBlockPair b: methPointList.elts()) {
-            MemberCallingsBlock i_ = b.getId();
+            MemberCallingsBlock i_ = b.getMp().getId();
             int nb_ = nb(i_);
             if (_context.getClasses().getRedirections().isValidIndex(nb_)) {
                 ClassMethodIdOverride v_ = _context.getClasses().getRedirections().get(nb_).getVal(MemberCallingsBlock.clName(i_));
@@ -361,7 +352,7 @@ public final class BreakPointBlockList {
         int r_ = _ana.getRowFile(_off);
         CustList<BreakPointBlockPair> list_ = new CustList<BreakPointBlockPair>();
         for (BreakPointBlockPair b: list.elts()) {
-            if (b.matchRow(_file, _ana, r_)) {
+            if (b.getBp().matchRow(_file, _ana, r_)) {
                 list_.add(b);
             }
         }
@@ -386,7 +377,7 @@ public final class BreakPointBlockList {
     }
 
     public boolean isTmp(ExecFileBlock _file, int _offset) {
-        for (BreakPointBlockPair l: listTmp.elts()) {
+        for (BreakPointBlockKey l: listTmp.elts()) {
             if (l.match(_file, _offset)) {
                 return true;
             }
@@ -405,7 +396,7 @@ public final class BreakPointBlockList {
         ExcPointBlockPair pair_ = build(_exact, _clName);
         int i_ = 0;
         for (ExcPointBlockPair b: excPointList.elts()) {
-            if (b.match(pair_)) {
+            if (b.getEp().match(pair_.getEp())) {
                 excPointList.remove(i_,b);
                 return;
             }
@@ -415,15 +406,10 @@ public final class BreakPointBlockList {
     }
 
     private ExcPointBlockPair build(boolean _exact, String _clName) {
-        ExcPoint v_ = new ExcPoint(interceptor);
-        v_.setEnabled(true);
-        v_.setThrown(true);
-        v_.setCaught(true);
-        v_.setPropagated(true);
         if (_exact) {
-            return new ExcPointBlockPair(true, _clName, v_);
+            return new ExcPointBlockPair(true, _clName, interceptor, true);
         }
-        return new ExcPointBlockPair(false, StringExpUtil.getIdFromAllTypes(_clName), v_);
+        return new ExcPointBlockPair(false, StringExpUtil.getIdFromAllTypes(_clName), interceptor, true);
     }
 
     public void toggleExcPointEnabled(String _clName, ResultContext _f, boolean _exact) {
@@ -441,7 +427,7 @@ public final class BreakPointBlockList {
     public void toggleEnabledExc(String _field, boolean _exact) {
         ExcPointBlockPair pair_ = build(_exact, _field);
         for (ExcPointBlockPair b: excPointList.elts()) {
-            if (b.match(pair_)) {
+            if (b.getEp().match(pair_.getEp())) {
                 b.getValue().setEnabled(!b.getValue().isEnabled());
                 return;
             }
@@ -453,18 +439,21 @@ public final class BreakPointBlockList {
         return getNotNullExc(_field,_exact).isEnabled();
     }
     public ExcPoint getNotNullExc(String _field, boolean _exact) {
-        ExcPointBlockPair b_ = getPairExc(_field,_exact);
-        if (b_ == null) {
-            ExcPoint bp_ = new ExcPoint(interceptor);
-            bp_.setEnabled(false);
-            return bp_;
-        }
+        ExcPointBlockPair b_ = getNotNullExcPair(_field,_exact);
         return b_.getValue();
     }
+    public ExcPointBlockPair getNotNullExcPair(String _field, boolean _exact) {
+        ExcPointBlockPair b_ = getPairExc(_field,_exact);
+        if (b_ == null) {
+            return new ExcPointBlockPair(false,"",interceptor,false);
+        }
+        return b_;
+    }
+
 
     public ExcPointBlockPair getPairExc(String _field, boolean _exact) {
         for (ExcPointBlockPair b: excPointList.elts()) {
-            if (b.match(_field,_exact)) {
+            if (b.getEp().match(_field, _exact)) {
                 return b;
             }
         }
@@ -478,17 +467,10 @@ public final class BreakPointBlockList {
         toggleWatch(true,o_);
     }
     public void toggleWatch(boolean _trField,SynthFieldInfo _field) {
-        WatchPoint v_ = new WatchPoint(interceptor);
-        v_.setEnabled(true);
-        v_.setRead(true);
-        v_.setWrite(true);
-        v_.setCompoundRead(true);
-        v_.setCompoundWrite(true);
-        v_.setCompoundWriteErr(true);
-        WatchPointBlockPair pair_ = new WatchPointBlockPair(_trField,_field.getRootBlock(),_field.getRootBlockNb(),_field.getClassField().getFieldName(), v_);
+        WatchPointBlockPair pair_ = new WatchPointBlockPair(_trField,_field.getRootBlock(),_field.getRootBlockNb(),_field.getClassField().getFieldName(), interceptor,true);
         int i_ = 0;
         for (WatchPointBlockPair b: watchList.elts()) {
-            if (b.match(pair_)) {
+            if (b.getWp().match(pair_.getWp())) {
                 watchList.remove(i_,b);
                 return;
             }
@@ -504,16 +486,9 @@ public final class BreakPointBlockList {
         toggleEnabledWatch(true,o_);
     }
     public void toggleEnabledWatch(boolean _trField,SynthFieldInfo _field) {
-        WatchPoint v_ = new WatchPoint(interceptor);
-        v_.setEnabled(true);
-        v_.setRead(true);
-        v_.setWrite(true);
-        v_.setCompoundRead(true);
-        v_.setCompoundWrite(true);
-        v_.setCompoundWriteErr(true);
-        WatchPointBlockPair pair_ = new WatchPointBlockPair(_trField,_field.getRootBlock(),_field.getRootBlockNb(),_field.getClassField().getFieldName(), v_);
+        WatchPointBlockPair pair_ = new WatchPointBlockPair(_trField,_field.getRootBlock(),_field.getRootBlockNb(),_field.getClassField().getFieldName(), interceptor,true);
         for (WatchPointBlockPair b: watchList.elts()) {
-            if (b.match(pair_)) {
+            if (b.getWp().match(pair_.getWp())) {
                 b.getValue().setEnabled(!b.getValue().isEnabled());
                 return;
             }
@@ -525,18 +500,19 @@ public final class BreakPointBlockList {
     }
 
     public WatchPoint getNotNullWatch(boolean _trField,int _root, String _field) {
-        WatchPointBlockPair b_ = getPairWatch(_trField,_root, _field);
-        if (b_ == null) {
-            WatchPoint bp_ = new WatchPoint(interceptor);
-            bp_.setEnabled(false);
-            return bp_;
-        }
-        return b_.getValue();
+        return getNotNullWatchPair(_trField, _root, _field).getValue();
     }
 
+    public WatchPointBlockPair getNotNullWatchPair(boolean _trField,int _root, String _field) {
+        WatchPointBlockPair b_ = getPairWatch(_trField,_root, _field);
+        if (b_ == null) {
+            return new WatchPointBlockPair(false,null,-1,"",interceptor,false);
+        }
+        return b_;
+    }
     public WatchPointBlockPair getPairWatch(boolean _trField,int _root, String _field) {
         for (WatchPointBlockPair b: watchList.elts()) {
-            if (b.match(_trField,_root, _field)) {
+            if (b.getWp().match(_trField, _root, _field)) {
                 return b;
             }
         }
@@ -563,7 +539,7 @@ public final class BreakPointBlockList {
         return watchList;
     }
 
-    public AbsCollection<BreakPointBlockPair> getListTmp() {
+    public AbsCollection<BreakPointBlockKey> getListTmp() {
         return listTmp;
     }
 

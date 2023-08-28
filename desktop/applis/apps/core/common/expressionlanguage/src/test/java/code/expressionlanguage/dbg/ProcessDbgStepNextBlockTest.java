@@ -12,7 +12,7 @@ public final class ProcessDbgStepNextBlockTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",114,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",114);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepBlock(stack_, cont_.getContext());
@@ -24,7 +24,7 @@ public final class ProcessDbgStepNextBlockTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",114,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",114);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepBlock(stack_, cont_.getContext());
@@ -36,7 +36,7 @@ public final class ProcessDbgStepNextBlockTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int maelle(){int u = 50;iter(int i=0;1;1){int t = 8;iter(int j=0;1;1){t += toutesLesMachinesOntUnCoeur();}u+=t;}return u;}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",105,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",105);
         MethodId id_ = getMethodId("maelle");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepBlock(stack_, cont_.getContext());
@@ -48,7 +48,7 @@ public final class ProcessDbgStepNextBlockTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int maelle(){int u = 50;iter(int i=0;1;1){int t = 8;iter(int j=0;1;1){t += toutesLesMachinesOntUnCoeur();}u+=t;}return u;}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",105,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",105);
         MethodId id_ = getMethodId("maelle");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepBlock(stack_, cont_.getContext());
@@ -61,7 +61,7 @@ public final class ProcessDbgStepNextBlockTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int maelle(){int u = 50;iter(int i=0;1;1){int t = 8;iter(int j=0;1;1){t += toutesLesMachinesOntUnCoeur();}u+=t;}return u;}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",105,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",105);
         MethodId id_ = getMethodId("maelle");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormalValueStepBlock(stack_, cont_.getContext());

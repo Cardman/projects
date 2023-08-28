@@ -11,7 +11,9 @@ import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.Struct;
 import code.threads.AbstractAtomicBoolean;
+import code.threads.AbstractAtomicInteger;
 import code.threads.ConcreteBoolean;
+import code.threads.ConcreteInteger;
 
 public final class TestedRenderInterceptorStdCaller implements AbstractInterceptorStdCaller {
     @Override
@@ -28,6 +30,14 @@ public final class TestedRenderInterceptorStdCaller implements AbstractIntercept
         return _caller.call(_exit, _cont, _instance, _firstArgs, _stackCall);
     }
 
+    @Override
+    public AbsCollection<BreakPointBlockKey> newBreakPointKeyIdStringCollection() {
+        return new ConcList<BreakPointBlockKey>(this);
+    }
+    @Override
+    public AbsCollection<BreakPointCondition> newBreakPointConditionCollection() {
+        return new ConcList<BreakPointCondition>(this);
+    }
     @Override
     public AbsCollection<BreakPointBlockPair> newBreakPointKeyStringCollection() {
         return new ConcList<BreakPointBlockPair>(this);
@@ -61,5 +71,9 @@ public final class TestedRenderInterceptorStdCaller implements AbstractIntercept
     @Override
     public AbstractAtomicBoolean newAtBool() {
         return new ConcreteBoolean();
+    }
+    @Override
+    public AbstractAtomicInteger newAtInt() {
+        return new ConcreteInteger();
     }
 }

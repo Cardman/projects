@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.dbg;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 
 public final class WatchPoint {
+    private static final int WP=2;
     private boolean enabled;
     private boolean read;
     private boolean write;
@@ -14,25 +15,25 @@ public final class WatchPoint {
     private final BreakPointCondition resultCompoundRead;
     private final BreakPointCondition resultCompoundWrite;
     private final BreakPointCondition resultCompoundWriteErr;
-    public WatchPoint(AbstractInterceptorStdCaller _i){
-        resultRead = new BreakPointCondition(_i);
-        resultWrite = new BreakPointCondition(_i);
-        resultCompoundRead = new BreakPointCondition(_i);
-        resultCompoundWrite = new BreakPointCondition(_i);
-        resultCompoundWriteErr = new BreakPointCondition(_i);
+    public WatchPoint(AbstractInterceptorStdCaller _i, AbsKeyPoint _key){
+        resultRead = new BreakPointCondition(_i,_key,WP,0);
+        resultWrite = new BreakPointCondition(_i,_key,WP,1);
+        resultCompoundRead = new BreakPointCondition(_i,_key,WP,2);
+        resultCompoundWrite = new BreakPointCondition(_i,_key,WP,3);
+        resultCompoundWriteErr = new BreakPointCondition(_i,_key,WP,4);
+        setRead(true);
+        setWrite(true);
+        setCompoundRead(true);
+        setCompoundWrite(true);
+        setCompoundWriteErr(true);
     }
 
     public void resetCount() {
-        resultRead.getEnabled().set(true);
-        resultRead.setCount(0);
-        resultWrite.getEnabled().set(true);
-        resultWrite.setCount(0);
-        resultCompoundRead.getEnabled().set(true);
-        resultCompoundRead.setCount(0);
-        resultCompoundWrite.getEnabled().set(true);
-        resultCompoundWrite.setCount(0);
-        resultCompoundWriteErr.getEnabled().set(true);
-        resultCompoundWriteErr.setCount(0);
+        resultRead.resetCount();
+        resultWrite.resetCount();
+        resultCompoundRead.resetCount();
+        resultCompoundWrite.resetCount();
+        resultCompoundWriteErr.resetCount();
     }
     public boolean isEnabled() {
         return enabled;

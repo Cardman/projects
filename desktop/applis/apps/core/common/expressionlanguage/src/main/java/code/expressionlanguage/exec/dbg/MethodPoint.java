@@ -8,16 +8,16 @@ public final class MethodPoint {
     private final BreakPointCondition resultExit;
     private boolean entry;
     private boolean exit;
-    public MethodPoint(AbstractInterceptorStdCaller _i){
-        resultEntry = new BreakPointCondition(_i);
-        resultExit = new BreakPointCondition(_i);
+    public MethodPoint(AbstractInterceptorStdCaller _i, AbsKeyPoint _key, int _c){
+        resultEntry = new BreakPointCondition(_i,_key,_c,0);
+        resultExit = new BreakPointCondition(_i,_key,_c,1);
+        setEntry(true);
+        setExit(true);
     }
 
     public void resetCount() {
-        resultEntry.getEnabled().set(true);
-        resultEntry.setCount(0);
-        resultExit.getEnabled().set(true);
-        resultExit.setCount(0);
+        resultEntry.resetCount();
+        resultExit.resetCount();
     }
     public boolean isEnabled() {
         return enabled;

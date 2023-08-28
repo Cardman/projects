@@ -7,10 +7,12 @@ import code.util.CustList;
 
 public final class ExecFileBlockTraceIndex implements AbsCallContraints {
     private final ExecFileBlock file;
+    private final int numberFile;
     private final int index;
 
-    public ExecFileBlockTraceIndex(ExecFileBlock _f, int _i) {
+    public ExecFileBlockTraceIndex(ExecFileBlock _f, int _nf, int _i) {
         this.file = _f;
+        this.numberFile = _nf;
         this.index = _i;
     }
 
@@ -46,7 +48,7 @@ public final class ExecFileBlockTraceIndex implements AbsCallContraints {
     }
 
     public String keyStr() {
-        return ExecFileBlock.name(file)+"/"+index;
+        return numberFile+"/"+index;
     }
 
     @Override

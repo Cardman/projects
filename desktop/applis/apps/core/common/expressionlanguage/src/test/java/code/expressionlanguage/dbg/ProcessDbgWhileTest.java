@@ -34,7 +34,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         files_.put(CUST_LIST_PATH, getCustomList());
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",185,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",185);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
@@ -66,7 +66,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         files_.put(CUST_LIST_PATH, getCustomList());
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",185,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",185);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
@@ -99,7 +99,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         files_.put(CUST_LIST_PATH, getCustomList());
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",185,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",185);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext());
@@ -132,7 +132,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         files_.put(CUST_LIST_PATH, getCustomList());
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",185,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",185);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext());
@@ -165,7 +165,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         files_.put(CUST_LIST_PATH, getCustomList());
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",185,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",185);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext()), cont_.getContext());
@@ -194,7 +194,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         files_.put(CUST_LIST_PATH, getCustomList());
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",185,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",185);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
@@ -226,7 +226,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         files_.put(CUST_LIST_PATH, getCustomList());
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",185,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",185);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
@@ -259,7 +259,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         files_.put(CUST_LIST_PATH, getCustomList());
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",185,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",185);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext());
@@ -292,7 +292,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         files_.put(CUST_LIST_PATH, getCustomList());
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",185,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",185);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext());
@@ -325,7 +325,7 @@ public final class ProcessDbgWhileTest extends ProcessDbgCommon {
         files_.put(CUST_LIST_PATH, getCustomList());
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",185,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",185);
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext()), cont_.getContext());

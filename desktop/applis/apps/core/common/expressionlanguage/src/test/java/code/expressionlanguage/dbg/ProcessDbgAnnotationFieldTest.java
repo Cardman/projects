@@ -20,7 +20,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",90,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",90);
         assertTrue(isWatch(cont_, cf("pkg.ExAnnot","method")));
     }
 
@@ -31,7 +31,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled("pkg/Ex",90,cont_);
+        cont_.toggleBreakPointEnabled("pkg/Ex",90);
         assertTrue(isWatch(cont_, cf("pkg.ExAnnot","method")));
     }
     @Test
@@ -41,7 +41,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",149,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",149);
         read(cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -56,7 +56,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",166,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",166);
         readCondition("method()==1",cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -71,7 +71,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",166,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",166);
         readCondition("method()==3",cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -84,8 +84,8 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",149,cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",162,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",149);
+        cont_.toggleWatchPoint("pkg/Ex",162);
         readCondition("method()==1",cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -100,8 +100,8 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",149,cont_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint("pkg/Ex",162,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",149);
+        cont_.toggleWatchPoint("pkg/Ex",162);
         readCondition("method()==3",cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -114,7 +114,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",192,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",192);
         read(cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -129,7 +129,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",180,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",180);
         read(cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -144,7 +144,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",156,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",156);
         read(cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -157,7 +157,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",236,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",236);
         readCondition("method()==1",cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);

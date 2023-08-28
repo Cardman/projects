@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.exec.dbg.BreakPointBlockList;
 import code.gui.events.AbsActionListener;
 
 public final class OkRemoveExcFormEvent implements AbsActionListener {
@@ -16,8 +15,7 @@ public final class OkRemoveExcFormEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        BreakPointBlockList ls_ = window.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock();
-        ls_.toggleExcPoint(frameExcFormContent.getClName().getText(),window.getCurrentResult(),frameExcFormContent.getExact().isSelected());
+        window.getCurrentResult().toggleExcPoint(frameExcFormContent.getClName().getText(), frameExcFormContent.getExact().isSelected());
         framePoints.guiContentBuildClear();
         framePoints.refreshExc(window);
         framePoints.getCommonFrame().pack();

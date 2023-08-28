@@ -22,7 +22,7 @@ public final class OkExcFormEvent implements AbsActionListener {
         ExcPointBlockPair exc_ = frameExcFormContent.getSelectedExc();
         if (exc_ == null) {
             BreakPointBlockList ls_ = window.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock();
-            ls_.toggleExcPoint(frameExcFormContent.getClName().getText(),window.getCurrentResult(),frameExcFormContent.getExact().isSelected());
+            window.getCurrentResult().toggleExcPoint(frameExcFormContent.getClName().getText(), frameExcFormContent.getExact().isSelected());
             ExcPointBlockPair added_ = ls_.getPairExc(frameExcFormContent.getClName().getText(), frameExcFormContent.getExact().isSelected());
             if (added_ == null) {
                 return;
@@ -43,7 +43,7 @@ public final class OkExcFormEvent implements AbsActionListener {
     }
     private static void update(ExcPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form) {
         String type_ = _window.getCurrentResult().getPageEl().getAliasPrimBoolean();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_form.getConditional().getText(), _mp.getClName(), _mp.isExact(), _window.getCurrentResult(), type_, _window.getResultContextNext().generateAdv(_window.getStopDbg()));
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_form.getConditional().getText(), _mp.getEp().getClName(), _mp.getEp().isExact(), _window.getCurrentResult(), type_, _window.getResultContextNext().generateAdv(_window.getStopDbg()));
         OkMpFormEvent.update(_condition, _form, res_);
     }
 

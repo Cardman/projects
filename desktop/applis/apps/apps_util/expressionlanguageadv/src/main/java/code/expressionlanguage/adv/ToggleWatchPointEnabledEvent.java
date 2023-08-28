@@ -13,7 +13,7 @@ public final class ToggleWatchPointEnabledEvent implements AbsActionListener {
     @Override
     public void action() {
         ResultContext r_ = tabEditor.getDebuggerGui().getCurrentResult();
-        r_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPointEnabled(tabEditor.getFullPath(), tabEditor.getCenter().getCaretPosition(), r_);
+        r_.toggleWatchPointEnabled(tabEditor.getFullPath(), tabEditor.getCenter().getCaretPosition());
         ToggleBreakPointEvent.afterToggle(r_, tabEditor);
     }
 

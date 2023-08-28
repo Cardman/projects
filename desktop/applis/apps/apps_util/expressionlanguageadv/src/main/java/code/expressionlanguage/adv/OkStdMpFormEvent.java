@@ -29,7 +29,7 @@ public final class OkStdMpFormEvent implements AbsActionListener {
         if (exc_ == null) {
             BreakPointBlockList ls_ = _w.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock();
             if (_type != null && _fct != null) {
-                ls_.toggleBreakPoint(_type,_fct,_w.getCurrentResult());
+                _w.getCurrentResult().toggleBreakPoint(_type,_fct);
             }
             StdMethodPointBlockPair added_ = ls_.getPair(_fct);
             if (added_ == null) {

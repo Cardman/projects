@@ -12,10 +12,12 @@ import code.util.CustList;
 import code.util.StringMap;
 
 public final class GuiStackForm {
+    private AbsCustCheckBox hit;
     private AbsCustCheckBox enabledSub;
     private AbsCustCheckBox disabledWhenHit;
     private AbsTextArea conditional;
     private AbsSpinner count;
+    private AbsSpinner countSub;
     private ReadOnlyFormTabEditor readOnlyFormTabEditor;
     private AbsPlainButton bpAddFile;
     private AbsPlainButton bpRemoveFile;
@@ -35,7 +37,7 @@ public final class GuiStackForm {
             return;
         }
         if (singleCaret.isSelected()) {
-            add(_list, new ExecFileBlockTraceIndex(f_,_e.getCenter().getCaretPosition()));
+            add(_list, new ExecFileBlockTraceIndex(f_,FileBlock.number(v_),_e.getCenter().getCaretPosition()));
         } else {
             add(_list, new ExecFileBlockFct(ResultExpressionOperationNode.beginPartFctKey(_e.getCenter().getCaretPosition(),v_),ResultExpressionOperationNode.beginPartFct(_e.getCenter().getCaretPosition(),v_,_res.getPageEl().getDisplayedStrings())));
         }
@@ -72,18 +74,22 @@ public final class GuiStackForm {
     public AbsScrollPane guiBuild(AbsDebuggerGui _d) {
         enabledSub = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("specific enabled");
         enabledSub.setSelected(true);
+        hit = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("hit");
         disabledWhenHit = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("disabled when hit");
         conditional = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
         count = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
+        countSub = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         bpFolderSystem = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui(_d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(""));
         bpFolderSystem.select(bpFolderSystem.getRoot());
         bpFolderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(_d,bpFolderSystem,new SelOpeningReadOnlyFile(this)));
         readOnlyFormTabEditor = new ReadOnlyFormTabEditor(_d,_d.getCommonFrame().getFrames(), _d.getManageOptions().getOptions());
         staIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         staIncExc.add(enabledSub);
+        staIncExc.add(hit);
         staIncExc.add(disabledWhenHit);
         staIncExc.add(conditional);
         staIncExc.add(count);
+        staIncExc.add(countSub);
         staIncExc.add(_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(bpFolderSystem),readOnlyFormTabEditor.getPanel()));
         singleCaret = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("single");
         singleCaret.setSelected(true);
@@ -178,6 +184,10 @@ public final class GuiStackForm {
         return enabledSub;
     }
 
+    public AbsCustCheckBox getHit() {
+        return hit;
+    }
+
     public AbsCustCheckBox getDisabledWhenHit() {
         return disabledWhenHit;
     }
@@ -188,5 +198,9 @@ public final class GuiStackForm {
 
     public AbsSpinner getCount() {
         return count;
+    }
+
+    public AbsSpinner getCountSub() {
+        return countSub;
     }
 }

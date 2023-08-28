@@ -13,6 +13,8 @@ import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.stds.StandardNamedFunction;
+import code.expressionlanguage.stds.StandardType;
 import code.util.EntryCust;
 import code.util.StringMap;
 
@@ -107,7 +109,39 @@ public final class ResultContext {
             messages_.setErrors(FileBlock.errors(_page));
         }
     }
-
+    public void toggleBreakPoint(StandardType _t, StandardNamedFunction _i) {
+        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(_t,_i,this);
+    }
+    public void toggleBreakPointEnabled(StandardType _t, StandardNamedFunction _i) {
+        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled(_t,_i,this);
+    }
+    public void toggleBreakPoint(String _file, int _offset) {
+        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(_file,_offset,this);
+    }
+    public void toggleBreakPointEnabled(String _file, int _offset) {
+        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled(_file,_offset,this);
+    }
+    public void toggleExcPoint(String _clName, boolean _exact) {
+        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint(_clName, this, _exact);
+    }
+    public void toggleExcPointEnabled(String _clName, boolean _exact) {
+        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled(_clName, this, _exact);
+    }
+    public void toggleWatchPoint(String _file, int _offset){
+        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint(_file,_offset,this);
+    }
+    public void toggleWatchPointEnabled(String _file, int _offset){
+        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPointEnabled(_file,_offset,this);
+    }
+    public void breakPointEnabled(String _file, int _offset, boolean _newValue) {
+        getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointEnabled(_file, _offset, this,_newValue);
+    }
+    public void breakPointInstanceType(String _file, int _offset, boolean _newValue) {
+        getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointInstanceType(_file, _offset, this, _newValue);
+    }
+    public void breakPointStaticType(String _file, int _offset, boolean _newValue) {
+        getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType(_file, _offset, this, _newValue);
+    }
     public void setContext(ContextEl _c) {
         this.context = _c;
     }

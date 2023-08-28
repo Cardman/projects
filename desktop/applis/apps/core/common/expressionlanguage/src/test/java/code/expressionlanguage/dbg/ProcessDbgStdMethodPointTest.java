@@ -803,7 +803,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exitingCondition("Class.getClass(a)==class(pkg.Ex)",cont_,cont_.getContext().getStandards().getCoreNames().getAliasStringUtil(),getMethodId(MethodAccessKind.STATIC,cont_.getContext().getStandards().getCoreNames().getAliasStringUtilValueOf(),false,cont_.getContext().getStandards().getCoreNames().getAliasObject()));
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex",121,cont_);
+        cont_.toggleBreakPoint("pkg/Ex",121);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
@@ -1010,7 +1010,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         assertFalse(new StdMethodKeyString().keyString(wp_).isEmpty());
     }
     private void div(ResultContext _cont) {
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(),_cont,true);
+        _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true);
         ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
@@ -1077,7 +1077,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
     }
 
     private void entering(ResultContext _cont, String _file, int _offset) {
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(_file,_offset,_cont);
+        _cont.toggleBreakPoint(_file,_offset);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setEntry(true);
         _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setExit(false);
@@ -1104,14 +1104,14 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
     private StandardNamedFunction toggled(ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {
         StandardType v_ = _cont.getContext().getStandards().getStandards().getVal(_clName);
         StandardNamedFunction s_ = _id.look(v_).first();
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(v_,s_, _cont);
+        _cont.toggleBreakPoint(v_,s_);
         return s_;
     }
 
     private StandardNamedFunction toggledEnabled(ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {
         StandardType v_ = _cont.getContext().getStandards().getStandards().getVal(_clName);
         StandardNamedFunction s_ = _id.look(v_).first();
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled(v_,s_, _cont);
+        _cont.toggleBreakPointEnabled(v_,s_);
         return s_;
     }
     private StandardNamedFunction fct(ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {

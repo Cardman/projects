@@ -30,7 +30,7 @@ public final class OkBpFormEvent implements AbsActionListener {
     }
     private static void update(BreakPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, MethodAccessKind _flag) {
         String type_ = _window.getCurrentResult().getPageEl().getAliasPrimBoolean();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), ExecFileBlock.name(_mp.getFile()), _mp.getOffset(),  _window.getCurrentResult(), type_, _window.getResultContextNext().generateAdv(_window.getStopDbg()), _flag);
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), ExecFileBlock.name(_mp.getBp().getFile()), _mp.getBp().getOffset(),  _window.getCurrentResult(), type_, _window.getResultContextNext().generateAdv(_window.getStopDbg()), _flag);
         OkMpFormEvent.update(_condition,_form,res_);
     }
 }

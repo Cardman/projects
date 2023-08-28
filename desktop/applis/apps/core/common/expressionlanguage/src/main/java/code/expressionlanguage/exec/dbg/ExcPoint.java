@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.dbg;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 
 public final class ExcPoint {
+    private static final int EP=1;
     private boolean enabled;
     private boolean thrown;
     private boolean caught;
@@ -10,19 +11,19 @@ public final class ExcPoint {
     private final BreakPointCondition resultThrown;
     private final BreakPointCondition resultCaught;
     private final BreakPointCondition resultPropagated;
-    public ExcPoint(AbstractInterceptorStdCaller _i){
-        resultThrown = new BreakPointCondition(_i);
-        resultCaught = new BreakPointCondition(_i);
-        resultPropagated = new BreakPointCondition(_i);
+    public ExcPoint(AbstractInterceptorStdCaller _i, AbsKeyPoint _key){
+        resultThrown = new BreakPointCondition(_i,_key,EP,0);
+        resultCaught = new BreakPointCondition(_i,_key,EP,1);
+        resultPropagated = new BreakPointCondition(_i,_key,EP,2);
+        setThrown(true);
+        setCaught(true);
+        setPropagated(true);
     }
 
     public void resetCount() {
-        resultThrown.getEnabled().set(true);
-        resultThrown.setCount(0);
-        resultCaught.getEnabled().set(true);
-        resultCaught.setCount(0);
-        resultPropagated.getEnabled().set(true);
-        resultPropagated.setCount(0);
+        resultThrown.resetCount();
+        resultCaught.resetCount();
+        resultPropagated.resetCount();
     }
     public boolean isEnabled() {
         return enabled;

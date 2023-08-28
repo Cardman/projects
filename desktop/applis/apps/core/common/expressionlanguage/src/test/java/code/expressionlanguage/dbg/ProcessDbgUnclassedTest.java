@@ -29,7 +29,7 @@ public final class ProcessDbgUnclassedTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en", files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex", 79, cont_);
+        cont_.toggleBreakPoint("pkg/Ex",79);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
@@ -52,7 +52,7 @@ public final class ProcessDbgUnclassedTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en", files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex", 79, cont_);
+        cont_.toggleBreakPoint("pkg/Ex",79);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCallReturnValue r_ = dbgContinueNormalValue(stack_, cont_.getContext());
@@ -76,7 +76,7 @@ public final class ProcessDbgUnclassedTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en", files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex", 84, cont_);
+        cont_.toggleBreakPoint("pkg/Ex",84);
         MethodId id_ = getMethodIdRetRef("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
@@ -99,7 +99,7 @@ public final class ProcessDbgUnclassedTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en", files_);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint("pkg/Ex", 84, cont_);
+        cont_.toggleBreakPoint("pkg/Ex",84);
         MethodId id_ = getMethodIdRetRef("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCallReturnValue r_ = dbgContinueNormalValue(stack_, cont_.getContext());

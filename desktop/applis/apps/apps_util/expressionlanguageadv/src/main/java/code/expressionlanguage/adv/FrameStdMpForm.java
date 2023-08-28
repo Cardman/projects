@@ -98,7 +98,7 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
         StdMethodPointBlockPair exc_ = frameMpFormContent.getSelectedMp();
         frameMpFormContent.getContentPane().removeAll();
         if (exc_ != null) {
-            label.setText(exc_.keyStr());
+            label.setText(exc_.getSm().keyStr());
             frameMpFormContent.getContentPane().add(label);
             frameMpFormContent.getContentPane().add(f_);
             frameMpFormContent.getContentPane().add(frameMpFormContent.getOk());

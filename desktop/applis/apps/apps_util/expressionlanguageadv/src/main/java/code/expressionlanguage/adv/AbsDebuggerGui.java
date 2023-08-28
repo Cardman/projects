@@ -7,8 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.dbg.BreakPoint;
-import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
+import code.expressionlanguage.exec.dbg.BreakPointBlockKey;
 import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
@@ -313,7 +312,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             FileBlock f_ = currentResult.getPageEl().getPreviousFilesBodies().getVal(tabs.get(_s).getFullPath());
             ExecFileBlock e_ = currentResult.getContext().getClasses().getDebugMapping().getFiles().getVal(f_);
             int caret_ = tabs.get(_s).getCenter().getCaretPosition();
-            currentResult.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getListTmp().add(new BreakPointBlockPair(e_, ResultExpressionOperationNode.beginPart(caret_,f_), new BreakPoint(currentResult.getContext().getCaller())));
+            currentResult.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getListTmp().add(new BreakPointBlockKey(e_, FileBlock.number(f_), ResultExpressionOperationNode.beginPart(caret_,f_)));
         }
     }
 

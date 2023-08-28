@@ -61,10 +61,10 @@ public final class FramePoints {
         excFrom.removeAll();
         for (ExcPointBlockPair p: _d.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getExcPointList().elts()) {
             AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton();
-            if (p.isExact()) {
-                but_.setText("exact "+p.getClName());
+            if (p.getEp().isExact()) {
+                but_.setText("exact "+p.getEp().getClName());
             } else {
-                but_.setText("inherit "+p.getClName());
+                but_.setText("inherit "+p.getEp().getClName());
             }
             but_.addActionListener(new ExcPointBlockPairEvent(this,p));
             excFrom.add(but_);
@@ -76,7 +76,7 @@ public final class FramePoints {
         excStd.removeAll();
         for (StdMethodPointBlockPair p: _d.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getStdMethPointList().elts()) {
             AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton();
-            but_.setText(p.keyStr());
+            but_.setText(p.getSm().keyStr());
             but_.addActionListener(new StdPointBlockPairEvent(this,p));
             excStd.add(but_);
         }
