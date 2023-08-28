@@ -1116,8 +1116,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
         ExcPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("pkg.Ex",true).getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, "pkg.Ex", true, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultThrown().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getResultThrown().setResultStr(ResultContextLambda.okOrEmpty(res_, _condition));
+        wp_.getResultThrown().result(res_, _condition);
     }
 
     private void conditionUnkThrown(ResultContext _cont) {
@@ -1125,8 +1124,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
         ExcPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("",true).getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc("0==0", "", true, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultThrown().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getResultThrown().setResultStr(ResultContextLambda.okOrEmpty(res_, "0==0"));
+        wp_.getResultThrown().result(res_, "0==0");
     }
 
     private void stdParamConditionThrown(ResultContext _cont, String _condition) {
@@ -1134,8 +1132,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
         ExcPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("pkg.Ex<int>",true).getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, "pkg.Ex<int>", true, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultThrown().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getResultThrown().setResultStr(ResultContextLambda.okOrEmpty(res_, _condition));
+        wp_.getResultThrown().result(res_, _condition);
     }
 
     private void nbeCaughtCondition(ResultContext _cont, String _condition) {
@@ -1144,8 +1141,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
         ExcPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(cf_,true).getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, cf_, true, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultCaught().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getResultCaught().setResultStr(ResultContextLambda.okOrEmpty(res_, _condition));
+        wp_.getResultCaught().result(res_, _condition);
     }
 
     private void nbeaCaughtCondition(ResultContext _cont, String _condition) {
@@ -1153,8 +1149,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
         ExcPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("[int",true).getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, "[int", true, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultCaught().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getResultCaught().setResultStr(ResultContextLambda.okOrEmpty(res_, _condition));
+        wp_.getResultCaught().result(res_, _condition);
     }
 
     private void stdIncThrownCondition(ResultContext _cont, String _condition) {
@@ -1162,8 +1157,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
         ExcPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("pkg.Ex",false).getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, "pkg.Ex", false, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultThrown().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getResultThrown().setResultStr(ResultContextLambda.okOrEmpty(res_, _condition));
+        wp_.getResultThrown().result(res_, _condition);
     }
 
     private void npeThrown(ResultContext _cont) {

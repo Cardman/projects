@@ -185,8 +185,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         WatchPoint wp_ = p_.getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), false);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultRead().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getResultRead().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
+        wp_.getResultRead().result(res_,_newValue);
     }
     private void read(ResultContext _cont, ClassField _cf) {
         pair(_cont, _cf).getValue().setRead(true);

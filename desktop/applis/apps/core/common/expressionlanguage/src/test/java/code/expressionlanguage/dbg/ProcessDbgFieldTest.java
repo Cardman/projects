@@ -4099,8 +4099,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         WatchPoint wp_ = p_.getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), false);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultRead().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getResultRead().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
+        wp_.getResultRead().result(res_,_newValue);
     }
     private void writeCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         write(_cont, _cf);
@@ -4109,8 +4108,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         WatchPoint wp_ = p_.getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultWrite().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getResultWrite().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
+        wp_.getResultWrite().result(res_,_newValue);
     }
     private void compoundReadCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         compoundRead(_cont, _cf);
@@ -4119,8 +4117,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         WatchPoint wp_ = p_.getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), false);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultCompoundRead().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getResultCompoundRead().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
+        wp_.getResultCompoundRead().result(res_,_newValue);
     }
     private void compoundWriteCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         compoundWrite(_cont, _cf);
@@ -4129,8 +4126,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         WatchPoint wp_ = p_.getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultCompoundWrite().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getResultCompoundWrite().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
+        wp_.getResultCompoundWrite().result(res_,_newValue);
     }
     private void compoundWriteConditionErr(String _newValue,ResultContext _cont, ClassField _cf) {
         compoundWriteErr(_cont, _cf);
@@ -4139,8 +4135,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         WatchPoint wp_ = p_.getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultCompoundWriteErr().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getResultCompoundWriteErr().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
+        wp_.getResultCompoundWriteErr().result(res_,_newValue);
     }
     private void compoundReadWrite(ResultContext _cont, ClassField _cf) {
         pair(_cont, _cf).getValue().setRead(false);

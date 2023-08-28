@@ -30,8 +30,7 @@ public final class OkMpFormEvent implements AbsActionListener {
     }
 
     static void update(BreakPointCondition _condition, GuiStackForm _form, ResultContextLambda _res) {
-        _condition.setResult(ResultContextLambda.okOrNull(_res));
-        _condition.setResultStr(ResultContextLambda.okOrEmpty(_res, _form.getConditional().getText()));
+        _condition.result(_res, _form.getConditional().getText());
         _condition.getCountModulo().set(_form.getCount().getValue());
         _condition.getCount().set(_form.getCountSub().getValue());
         ExecFileBlockTraceIndex.setAll(_condition.getExclude(),_form.getMustNotBe());

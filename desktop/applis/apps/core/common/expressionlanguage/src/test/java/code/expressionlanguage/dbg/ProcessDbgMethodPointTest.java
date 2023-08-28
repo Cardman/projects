@@ -1476,8 +1476,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         MethodPointBlockPair wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_);
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getValue().getResultEntry().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getValue().getResultEntry().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
+        wp_.getValue().getResultEntry().result(res_,_newValue);
     }
     private void exitingCondition(String _newValue,ResultContext _cont, String _file, int _offset) {
         exiting(_cont, _file, _offset);
@@ -1486,8 +1485,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         MethodPointBlockPair wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_);
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getValue().getResultExit().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getValue().getResultExit().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
+        wp_.getValue().getResultExit().result(res_,_newValue);
     }
     private void entering(ResultContext _cont, String _file, int _offset) {
         _cont.toggleBreakPoint(_file,_offset);

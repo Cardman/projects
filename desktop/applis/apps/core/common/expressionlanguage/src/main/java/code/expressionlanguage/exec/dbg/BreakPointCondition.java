@@ -72,6 +72,10 @@ public final class BreakPointCondition {
     public AbsCollection<AbsCallContraints> getInclude() {
         return include;
     }
+    public void result(ResultContextLambda _p, String _str) {
+        setResult(ResultContextLambda.okOrNull(_p));
+        setResultStr(ResultContextLambda.okOrEmpty(_p,_str));
+    }
 
     public ResultContextLambda getResult() {
         return result;

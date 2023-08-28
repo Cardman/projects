@@ -18,8 +18,7 @@ public final class BreakPointLambdaCtxUpdaterStatic implements BreakPointLambdaC
     public ReportedMessages update(String _fileName, int _caret, BreakPoint _bp, String _newValue) {
         String type_ = result.getPageEl().getAliasPrimBoolean();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, _fileName, _caret, result, type_, gene, MethodAccessKind.STATIC);
-        _bp.getResultStatic().setResult(ResultContextLambda.okOrNull(res_));
-        _bp.getResultStatic().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
+        _bp.getResultStatic().result(res_,_newValue);
         return ResultContextLambda.after(res_);
     }
 

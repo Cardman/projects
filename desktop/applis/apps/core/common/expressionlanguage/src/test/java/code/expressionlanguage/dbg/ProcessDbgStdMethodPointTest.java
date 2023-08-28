@@ -1050,8 +1050,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         StdMethodPointBlockPair wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(s_);
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getValue().getResultEntry().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getValue().getResultEntry().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
+        wp_.getValue().getResultEntry().result(res_,_newValue);
     }
     private void exitingCondition(String _newValue,ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {
         StandardNamedFunction s_ = exiting(_cont, _clName, _id);
@@ -1059,8 +1058,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         StdMethodPointBlockPair wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(s_);
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getValue().getResultExit().setResult(ResultContextLambda.okOrNull(res_));
-        wp_.getValue().getResultExit().setResultStr(ResultContextLambda.okOrEmpty(res_,_newValue));
+        wp_.getValue().getResultExit().result(res_,_newValue);
     }
     private void enteringExitingCondition(String _newValue, String _exit,ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {
         StandardNamedFunction s_ = enteringExiting(_cont, _clName, _id);
@@ -1070,10 +1068,8 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         ResultContextLambda resExit_ = ResultContextLambda.dynamicAnalyze(_exit, wp_, _cont, type_, new DefContextGenerator());
         assertTrue(resEnter_.getReportedMessages().isAllEmptyErrors());
         assertTrue(resExit_.getReportedMessages().isAllEmptyErrors());
-        wp_.getValue().getResultEntry().setResult(ResultContextLambda.okOrNull(resEnter_));
-        wp_.getValue().getResultEntry().setResultStr(ResultContextLambda.okOrEmpty(resEnter_,_newValue));
-        wp_.getValue().getResultExit().setResult(ResultContextLambda.okOrNull(resExit_));
-        wp_.getValue().getResultExit().setResultStr(ResultContextLambda.okOrEmpty(resExit_,_exit));
+        wp_.getValue().getResultEntry().result(resEnter_,_newValue);
+        wp_.getValue().getResultExit().result(resExit_,_exit);
     }
 
     private void entering(ResultContext _cont, String _file, int _offset) {
