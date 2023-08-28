@@ -21,6 +21,7 @@ public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedT
 
     private final StringList allSuperTypes = new StringList();
     private final CustList<StandardType> allSuperStdTypes = new CustList<StandardType>();
+    private int number;
 
     protected StandardType(String _name,
                            CustList<StandardConstructor> _constructors,
@@ -129,5 +130,17 @@ public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedT
     }
     public StringList getAllGenericSuperTypes() {
         return getAllSuperTypes();
+    }
+
+    public static void addType(StringMap<StandardType> _ls, String _key, StandardType _m) {
+        _m.setNumber(_ls.size());
+        _ls.addEntry(_key,_m);
+    }
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int _n) {
+        this.number = _n;
     }
 }

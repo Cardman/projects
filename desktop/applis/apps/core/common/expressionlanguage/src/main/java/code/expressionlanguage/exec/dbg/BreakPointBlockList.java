@@ -18,6 +18,7 @@ import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
+import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.Struct;
@@ -46,8 +47,8 @@ public final class BreakPointBlockList {
         pausedLoop = _i.newAtBool();
     }
 
-    public void toggleBreakPoint(StandardType _t, StandardNamedFunction _i, ResultContext _f) {
-        String k_ = _t.getFullName()+"."+_i.getSignature(_f.getPageEl().getDisplayedStrings());
+    public void toggleBreakPoint(StandardType _t, StandardNamedFunction _i) {
+        String k_ = build(_t, _i);
         StdMethodPointBlockPair pair_ = new StdMethodPointBlockPair(_i, _t, k_, interceptor, true);
         int i_ = 0;
         for (StdMethodPointBlockPair b: stdMethPointList.elts()) {
@@ -59,8 +60,8 @@ public final class BreakPointBlockList {
         }
         stdMethPointList.add(pair_);
     }
-    public void toggleBreakPointEnabled(StandardType _t, StandardNamedFunction _i, ResultContext _f) {
-        String k_ = _t.getFullName()+"."+_i.getSignature(_f.getPageEl().getDisplayedStrings());
+    public void toggleBreakPointEnabled(StandardType _t, StandardNamedFunction _i) {
+        String k_ = build(_t, _i);
         StdMethodPointBlockPair pair_ = new StdMethodPointBlockPair(_i, _t, k_, interceptor, true);
         for (StdMethodPointBlockPair b: stdMethPointList.elts()) {
             if (b.getSm().match(pair_.getSm())) {
@@ -70,6 +71,18 @@ public final class BreakPointBlockList {
         }
         stdMethPointList.add(pair_);
     }
+
+    private String build(StandardType _t, StandardNamedFunction _i) {
+        return _t.getNumber()+buildSep(_i)+_i.getNumber();
+    }
+
+    private static String buildSep(StandardNamedFunction _i) {
+        if (_i instanceof StandardMethod) {
+            return "_";
+        }
+        return ".";
+    }
+
     public void toggleBreakPoint(String _file, int _offset, ResultContext _f) {
         toggleBreakPoint(_f.getPageEl().getPreviousFilesBodies().getVal(_file),_offset,_f.getForwards().dbg());
     }

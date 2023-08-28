@@ -73,14 +73,14 @@ public final class AliasStackTraceElementType {
         out_ = StringExpUtil.getPrettyArrayType(out_);
         StringList params_ = new StringList();
         StandardMethod method_ = new StandardMethod(aliasCurrentStack, params_, out_, false, MethodModifier.STATIC, new FctStackTraceCurrent());
-        methods_.add( method_);
+        StandardNamedFunction.addFct(methods_,method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasCurrentFullStack, params_, out_, false, MethodModifier.STATIC,new FctStackTraceCurrentFull());
-        methods_.add( method_);
+        StandardNamedFunction.addFct(methods_,method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasStackTraceElementToString, params_, aliasString_, false, MethodModifier.NORMAL,new FctStackTraceToStr());
-        methods_.add( method_);
-        _stds.getStandards().put(aliasStackTraceElement, stdcl_);
+        StandardNamedFunction.addFct(methods_,method_);
+        StandardType.addType(_stds.getStandards(),aliasStackTraceElement, stdcl_);
     }
 
     public String getAliasStackTraceElement() {

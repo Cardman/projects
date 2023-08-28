@@ -34,9 +34,9 @@ public final class MockLgNames extends LgNames implements LightLgNamesWithNewAli
         CustList<StandardMethod> m_ = new CustList<StandardMethod>();
         StandardClass std_ = new StandardClass(THREAD, new CustList<CstFieldInfo>(), new CustList<StandardConstructor>(), m_, getCoreNames().getAliasObject(), StdClassModifier.HYPER_ABSTRACT);
         std_.addSuperStdTypes(getCoreNames().getObjType());
-        getStandards().addEntry(THREAD, std_);
-        m_.add(new StandardMethod("currentThread",new StringList(), THREAD,false, MethodModifier.STATIC,new FctInterrupt()));
-        m_.add(new StandardMethod("interrupt",new StringList(), THREAD,false, MethodModifier.STATIC,new FctInterrupt()));
+        StandardType.addType(getStandards(),THREAD, std_);
+        StandardNamedFunction.addFct(m_,new StandardMethod("currentThread",new StringList(), THREAD,false, MethodModifier.STATIC,new FctInterrupt()));
+        StandardNamedFunction.addFct(m_,new StandardMethod("interrupt",new StringList(), THREAD,false, MethodModifier.STATIC,new FctInterrupt()));
     }
 
     @Override

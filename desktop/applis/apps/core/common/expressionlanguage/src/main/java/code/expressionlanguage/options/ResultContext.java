@@ -110,10 +110,10 @@ public final class ResultContext {
         }
     }
     public void toggleBreakPoint(StandardType _t, StandardNamedFunction _i) {
-        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(_t,_i,this);
+        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(_t,_i);
     }
     public void toggleBreakPointEnabled(StandardType _t, StandardNamedFunction _i) {
-        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled(_t,_i,this);
+        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled(_t,_i);
     }
     public void toggleBreakPoint(String _file, int _offset) {
         getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(_file,_offset,this);

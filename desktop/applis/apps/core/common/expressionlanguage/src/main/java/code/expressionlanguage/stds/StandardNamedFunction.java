@@ -2,6 +2,7 @@ package code.expressionlanguage.stds;
 
 import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.functionid.Identifiable;
+import code.util.CustList;
 import code.util.StringList;
 
 public abstract class StandardNamedFunction {
@@ -16,6 +17,7 @@ public abstract class StandardNamedFunction {
     private final boolean varargs;
 
     private final StdCaller caller;
+    private int number;
 
     protected StandardNamedFunction(String _name, StringList _parametersTypes,
                                     String _returnType, boolean _varargs, StringList _parametersNames, StdCaller _caller) {
@@ -53,4 +55,21 @@ public abstract class StandardNamedFunction {
 
     public abstract Identifiable id();
     public abstract String getSignature(DisplayedStrings _dis);
+
+    public static void addFct(CustList<StandardMethod> _ls, StandardMethod _m) {
+        _m.setNumber(_ls.size());
+        _ls.add(_m);
+    }
+
+    public static void addFct(CustList<StandardConstructor> _ls, StandardConstructor _m) {
+        _m.setNumber(_ls.size());
+        _ls.add(_m);
+    }
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int _n) {
+        this.number = _n;
+    }
 }
