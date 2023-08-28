@@ -756,6 +756,9 @@ public final class DbgStackStopper implements AbsStackStopper {
         return null;
     }
     private static BreakPointCondition stopExcValue(AbstractPageEl _p, ExcPoint _ex, AbstractPageEl _exiting) {
+        if (!_ex.isEnabled()) {
+            return null;
+        }
         if (_exiting == null) {
             AbstractStask stLast_ = _p.tryGetLastStack();
             ExecBlock bl_ = _p.getBlock();
