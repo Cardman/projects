@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractAtomicInteger;
@@ -131,5 +132,15 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     @Override
     public AbstractAtomicRef<StrResultContextLambda> newAtLda() {
         return new DefAtomicRef<StrResultContextLambda>(new StrResultContextLambda());
+    }
+
+    @Override
+    public AbstractAtomicRef<Struct> newAtObj() {
+        return new DefAtomicRef<Struct>(NullStruct.NULL_VALUE);
+    }
+
+    @Override
+    public AbstractAtomicRef<Struct> newAtObj(Struct _v) {
+        return new DefAtomicRef<Struct>(_v);
     }
 }

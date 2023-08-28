@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.StdCaller;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.threads.*;
 
@@ -77,5 +78,15 @@ public final class ElInterceptorStdCaller implements AbstractInterceptorStdCalle
     @Override
     public AbstractAtomicRef<StrResultContextLambda> newAtLda() {
         return new ConcreteRef<StrResultContextLambda>(new StrResultContextLambda());
+    }
+
+    @Override
+    public AbstractAtomicRef<Struct> newAtObj() {
+        return new ConcreteRef<Struct>(NullStruct.NULL_VALUE);
+    }
+
+    @Override
+    public AbstractAtomicRef<Struct> newAtObj(Struct _v) {
+        return new ConcreteRef<Struct>(_v);
     }
 }

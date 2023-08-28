@@ -418,6 +418,7 @@ public final class CustAliases {
     private static final String ATOMIC_BOOLEAN="____1123";
     private static final String ATOMIC_INTEGER="____1124";
     private static final String ATOMIC_LONG="____1125";
+    private static final String ATOMIC_REF="____1125_";
     private static final String FILE="652";
     private static final String ILLEGAL_THREAD_STATE_EXCEPTION="__________1913";
     private static final String CUST_ITERATOR="731";
@@ -658,6 +659,7 @@ public final class CustAliases {
     private String aliasAtomicBoolean;
     private String aliasAtomicInteger;
     private String aliasAtomicLong;
+    private String aliasAtomicRef;
     private String aliasCompareAndSetAtomic;
     private String aliasLazySetAtomic;
     private String aliasSetAtomic;
@@ -1156,6 +1158,31 @@ public final class CustAliases {
         StandardNamedFunction.addFct(constructors_, ctor_);
         std_ = stdcl_;
         StandardType.addType(_content.getStandards(), aliasAtomicLong, std_);
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<CstFieldInfo>();
+        params_ = new StringList();
+        stdcl_ = new StandardClass(aliasAtomicRef, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicRef(aliasAtomicRef));
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        method_ = new StandardMethod(aliasGetAtomic, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new FctAtomicRefGet());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getCoreNames().getAliasObject());
+        method_ = new StandardMethod(aliasSetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicRef0SetAtomic0()),new FctAtomicRefSet());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getCoreNames().getAliasObject());
+        method_ = new StandardMethod(aliasGetAndSetAtomic, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicRef0GetAndSetAtomic0()),new FctAtomicRefGetSet());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getCoreNames().getAliasObject());
+        method_ = new StandardMethod(aliasLazySetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicRef0LazySetAtomic0()),new FctAtomicRefLazy());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,new FctAtomicRef0(aliasAtomicRef));
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        params_ = new StringList(_content.getCoreNames().getAliasObject());
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasAtomicRef0AtomicRef0()),new FctAtomicRef1(aliasAtomicRef));
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        std_ = stdcl_;
+        StandardType.addType(_content.getStandards(), aliasAtomicRef, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
@@ -2039,6 +2066,7 @@ public final class CustAliases {
         setAliasCurrentThread(LgNamesContent.get(_util,_cust,_mapping.getVal(CURRENT_THREAD)));
         setAliasFormatType(LgNamesContent.get(_util,_cust,_mapping.getVal(FORMAT_TYPE)));
         setAliasAtomicBoolean(LgNamesContent.get(_util,_cust,_mapping.getVal(ATOMIC_BOOLEAN)));
+        setAliasAtomicRef(LgNamesContent.get(_util,_cust,_mapping.getVal(ATOMIC_REF)));
         setAliasSetAtomic(LgNamesContent.get(_util,_cust,_mapping.getVal(SET_ATOMIC)));
         setAliasFileIsDirectory(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_IS_DIRECTORY)));
         setAliasFileGetParentPath(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_GET_PARENT_PATH)));
@@ -2261,6 +2289,7 @@ public final class CustAliases {
         _en.add(ATOMIC_BOOLEAN,"AtomicBoolean=$core.AtomicBoolean");
         _en.add(ATOMIC_INTEGER,"AtomicInteger=$core.AtomicInteger");
         _en.add(ATOMIC_LONG,"AtomicLong=$core.AtomicLong");
+        _en.add(ATOMIC_REF,"AtomicRef=$core.AtomicRef");
         _en.add(FILE,"File=$core.File");
         _en.add(ILLEGAL_THREAD_STATE_EXCEPTION,"IllegalThreadStateException=$core.IllegalThreadState");
         _en.add(CUST_ITERATOR,"CustIterator=$core.CustIterator");
@@ -2473,6 +2502,7 @@ public final class CustAliases {
         _fr.add(ATOMIC_BOOLEAN,"AtomicBoolean=$coeur.AtomicBooleen");
         _fr.add(ATOMIC_INTEGER,"AtomicInteger=$coeur.AtomicEntier4");
         _fr.add(ATOMIC_LONG,"AtomicLong=$coeur.AtomicEntier8");
+        _fr.add(ATOMIC_REF,"AtomicRef=$coeur.AtomicRef");
         _fr.add(FILE,"File=$coeur.Fichier");
         _fr.add(ILLEGAL_THREAD_STATE_EXCEPTION,"IllegalThreadStateException=$coeur.IllegalEtatTache");
         _fr.add(CUST_ITERATOR,"CustIterator=$coeur.CustIterateur");
@@ -2824,6 +2854,11 @@ public final class CustAliases {
                 new KeyValueMemberName(_mapping.getVal(COMPARE_AND_SET_ATOMIC),getAliasCompareAndSetAtomic()),
                 new KeyValueMemberName(_mapping.getVal(GET_AND_SET_ATOMIC),getAliasGetAndSetAtomic()),
                 new KeyValueMemberName(_mapping.getVal(LAZY_SET_ATOMIC),getAliasLazySetAtomic())));
+        m_.addEntry(getAliasAtomicRef(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(GET_ATOMIC),getAliasGetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(SET_ATOMIC),getAliasSetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(GET_AND_SET_ATOMIC),getAliasGetAndSetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(LAZY_SET_ATOMIC),getAliasLazySetAtomic())));
         m_.addEntry(getAliasAtomicInteger(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(GET_ATOMIC),getAliasGetAtomic()),
                 new KeyValueMemberName(_mapping.getVal(SET_ATOMIC),getAliasSetAtomic()),
@@ -2978,6 +3013,7 @@ public final class CustAliases {
         ref_.addEntry(_mapping.getVal(ATOMIC_BOOLEAN),getAliasAtomicBoolean());
         ref_.addEntry(_mapping.getVal(ATOMIC_INTEGER),getAliasAtomicInteger());
         ref_.addEntry(_mapping.getVal(ATOMIC_LONG),getAliasAtomicLong());
+        ref_.addEntry(_mapping.getVal(ATOMIC_REF),getAliasAtomicRef());
         ref_.addAllEntries(mathAdvAliases.allRefTypes(_mapping));
         ref_.addEntry(_mapping.getVal(FILE),getAliasFile());
         ref_.addEntry(_mapping.getVal(ILLEGAL_THREAD_STATE_EXCEPTION),getAliasIllegalThreadStateException());
@@ -3392,6 +3428,15 @@ public final class CustAliases {
     public void setAliasAtomicBoolean(String _aliasAtomicBoolean) {
         aliasAtomicBoolean = _aliasAtomicBoolean;
     }
+
+    public String getAliasAtomicRef() {
+        return aliasAtomicRef;
+    }
+
+    public void setAliasAtomicRef(String _aliasAtomicRef) {
+        this.aliasAtomicRef = _aliasAtomicRef;
+    }
+
     public String getAliasAtomicInteger() {
         return aliasAtomicInteger;
     }

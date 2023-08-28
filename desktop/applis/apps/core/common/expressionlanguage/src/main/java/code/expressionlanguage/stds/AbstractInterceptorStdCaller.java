@@ -27,4 +27,6 @@ public interface AbstractInterceptorStdCaller {
     AbstractAtomicBoolean newAtBool();
     AbstractAtomicInteger newAtInt();
     AbstractAtomicRef<StrResultContextLambda> newAtLda();
+    AbstractAtomicRef<Struct> newAtObj();
+    AbstractAtomicRef<Struct> newAtObj(Struct _v);
 }

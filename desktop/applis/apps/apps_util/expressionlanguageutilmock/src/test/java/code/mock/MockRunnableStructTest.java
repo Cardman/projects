@@ -175,6 +175,8 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         assertEq(0,ctx_.getCaller().newAtInt().get());
         assertFalse(ctx_.getCaller().newBreakPointConditionCollection().elts().iterator().hasNext());
         assertTrue(ctx_.getCaller().newAtLda().get().getResultStr().isEmpty());
+        assertTrue(ctx_.getCaller().newAtObj().get().getClassName(ctx_).isEmpty());
+        assertTrue(ctx_.getCaller().newAtObj(NullStruct.NULL_VALUE).get().getClassName(ctx_).isEmpty());
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ArgumentWrapper a_ = ProcessMethod.calculate(new CustomFoundMethod(new ExecFormattedRootBlock(ex_), new ExecTypeFunction(ex_, ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "exmeth", new CustList<String>())).first()), new Parameters()), ctx_, StackCall.newInstance(InitPhase.NOTHING, ctx_));
         assertEq(1,((NumberStruct) ArgumentListCall.toStr(a_.getValue())).intStruct());

@@ -30,6 +30,10 @@ public final class CustAliasParameters {
     private static final String ATOMIC_BOOLEAN_0_GET_AND_SET_ATOMIC_0="____1179";
     private static final String ATOMIC_BOOLEAN_0_LAZY_SET_ATOMIC_0="____1180";
     private static final String ATOMIC_BOOLEAN_0_ATOMIC_BOOLEAN_0="____1181";
+    private static final String ATOMIC_REF_0_SET_ATOMIC_0="____1181_";
+    private static final String ATOMIC_REF_0_GET_AND_SET_ATOMIC_0="____1181__";
+    private static final String ATOMIC_REF_0_LAZY_SET_ATOMIC_0="____1181___";
+    private static final String ATOMIC_REF_0_ATOMIC_REF_0 ="____1181____";
     private static final String ATOMIC_INTEGER_0_SET_ATOMIC_0="____1182";
     private static final String ATOMIC_INTEGER_0_COMPARE_AND_SET_ATOMIC_0="____1183";
     private static final String ATOMIC_INTEGER_0_COMPARE_AND_SET_ATOMIC_1="____1184";
@@ -252,6 +256,10 @@ public final class CustAliasParameters {
     private String aliasAtomicBoolean0GetAndSetAtomic0;
     private String aliasAtomicBoolean0LazySetAtomic0;
     private String aliasAtomicBoolean0AtomicBoolean0;
+    private String aliasAtomicRef0SetAtomic0;
+    private String aliasAtomicRef0GetAndSetAtomic0;
+    private String aliasAtomicRef0LazySetAtomic0;
+    private String aliasAtomicRef0AtomicRef0;
     private String aliasAtomicInteger0SetAtomic0;
     private String aliasAtomicInteger0CompareAndSetAtomic0;
     private String aliasAtomicInteger0CompareAndSetAtomic1;
@@ -476,6 +484,10 @@ public final class CustAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATOMIC_BOOLEAN_0_GET_AND_SET_ATOMIC_0),aliasAtomicBoolean0GetAndSetAtomic0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATOMIC_BOOLEAN_0_LAZY_SET_ATOMIC_0),aliasAtomicBoolean0LazySetAtomic0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATOMIC_BOOLEAN_0_ATOMIC_BOOLEAN_0),aliasAtomicBoolean0AtomicBoolean0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATOMIC_REF_0_SET_ATOMIC_0),aliasAtomicRef0SetAtomic0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATOMIC_REF_0_GET_AND_SET_ATOMIC_0),aliasAtomicRef0GetAndSetAtomic0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATOMIC_REF_0_LAZY_SET_ATOMIC_0),aliasAtomicRef0LazySetAtomic0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATOMIC_REF_0_ATOMIC_REF_0),aliasAtomicRef0AtomicRef0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATOMIC_INTEGER_0_SET_ATOMIC_0),aliasAtomicInteger0SetAtomic0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATOMIC_INTEGER_0_COMPARE_AND_SET_ATOMIC_0),aliasAtomicInteger0CompareAndSetAtomic0),new KeyValueMemberName(_mapping.getVal(ATOMIC_INTEGER_0_COMPARE_AND_SET_ATOMIC_1),aliasAtomicInteger0CompareAndSetAtomic1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATOMIC_INTEGER_0_GET_AND_SET_ATOMIC_0),aliasAtomicInteger0GetAndSetAtomic0)));
@@ -628,6 +640,10 @@ public final class CustAliasParameters {
         aliasAtomicBoolean0GetAndSetAtomic0= LgNamesContent.get(_util,_cust,_mapping.getVal(ATOMIC_BOOLEAN_0_GET_AND_SET_ATOMIC_0));
         aliasAtomicBoolean0LazySetAtomic0= LgNamesContent.get(_util,_cust,_mapping.getVal(ATOMIC_BOOLEAN_0_LAZY_SET_ATOMIC_0));
         aliasAtomicBoolean0AtomicBoolean0= LgNamesContent.get(_util,_cust,_mapping.getVal(ATOMIC_BOOLEAN_0_ATOMIC_BOOLEAN_0));
+        aliasAtomicRef0SetAtomic0= LgNamesContent.get(_util,_cust,_mapping.getVal(ATOMIC_REF_0_SET_ATOMIC_0));
+        aliasAtomicRef0GetAndSetAtomic0= LgNamesContent.get(_util,_cust,_mapping.getVal(ATOMIC_REF_0_GET_AND_SET_ATOMIC_0));
+        aliasAtomicRef0LazySetAtomic0= LgNamesContent.get(_util,_cust,_mapping.getVal(ATOMIC_REF_0_LAZY_SET_ATOMIC_0));
+        aliasAtomicRef0AtomicRef0= LgNamesContent.get(_util,_cust,_mapping.getVal(ATOMIC_REF_0_ATOMIC_REF_0));
         aliasAtomicInteger0SetAtomic0= LgNamesContent.get(_util,_cust,_mapping.getVal(ATOMIC_INTEGER_0_SET_ATOMIC_0));
         aliasAtomicInteger0CompareAndSetAtomic0= LgNamesContent.get(_util,_cust,_mapping.getVal(ATOMIC_INTEGER_0_COMPARE_AND_SET_ATOMIC_0));
         aliasAtomicInteger0CompareAndSetAtomic1= LgNamesContent.get(_util,_cust,_mapping.getVal(ATOMIC_INTEGER_0_COMPARE_AND_SET_ATOMIC_1));
@@ -852,6 +868,10 @@ public final class CustAliasParameters {
         _en.add(ATOMIC_BOOLEAN_0_GET_AND_SET_ATOMIC_0,"AtomicBoolean0GetAndSetAtomic0=a");
         _en.add(ATOMIC_BOOLEAN_0_LAZY_SET_ATOMIC_0,"AtomicBoolean0LazySetAtomic0=a");
         _en.add(ATOMIC_BOOLEAN_0_ATOMIC_BOOLEAN_0,"AtomicBoolean0AtomicBoolean0=a");
+        _en.add(ATOMIC_REF_0_SET_ATOMIC_0,"AtomicRef0SetAtomic0=a");
+        _en.add(ATOMIC_REF_0_GET_AND_SET_ATOMIC_0,"AtomicRef0GetAndSetAtomic0=a");
+        _en.add(ATOMIC_REF_0_LAZY_SET_ATOMIC_0,"AtomicRef0LazySetAtomic0=a");
+        _en.add(ATOMIC_REF_0_ATOMIC_REF_0,"AtomicRef0AtomicRef0=a");
         _en.add(ATOMIC_INTEGER_0_SET_ATOMIC_0,"AtomicInteger0SetAtomic0=a");
         _en.add(ATOMIC_INTEGER_0_COMPARE_AND_SET_ATOMIC_0,"AtomicInteger0CompareAndSetAtomic0=a");
         _en.add(ATOMIC_INTEGER_0_COMPARE_AND_SET_ATOMIC_1,"AtomicInteger0CompareAndSetAtomic1=b");
@@ -1075,6 +1095,10 @@ public final class CustAliasParameters {
         _fr.add(ATOMIC_BOOLEAN_0_GET_AND_SET_ATOMIC_0,"AtomicBoolean0GetAndSetAtomic0=a");
         _fr.add(ATOMIC_BOOLEAN_0_LAZY_SET_ATOMIC_0,"AtomicBoolean0LazySetAtomic0=a");
         _fr.add(ATOMIC_BOOLEAN_0_ATOMIC_BOOLEAN_0,"AtomicBoolean0AtomicBoolean0=a");
+        _fr.add(ATOMIC_REF_0_SET_ATOMIC_0,"AtomicRef0SetAtomic0=a");
+        _fr.add(ATOMIC_REF_0_GET_AND_SET_ATOMIC_0,"AtomicRef0GetAndSetAtomic0=a");
+        _fr.add(ATOMIC_REF_0_LAZY_SET_ATOMIC_0,"AtomicRef0LazySetAtomic0=a");
+        _fr.add(ATOMIC_REF_0_ATOMIC_REF_0,"AtomicRef0AtomicRef0=a");
         _fr.add(ATOMIC_INTEGER_0_SET_ATOMIC_0,"AtomicInteger0SetAtomic0=a");
         _fr.add(ATOMIC_INTEGER_0_COMPARE_AND_SET_ATOMIC_0,"AtomicInteger0CompareAndSetAtomic0=a");
         _fr.add(ATOMIC_INTEGER_0_COMPARE_AND_SET_ATOMIC_1,"AtomicInteger0CompareAndSetAtomic1=b");
@@ -1361,6 +1385,22 @@ public final class CustAliasParameters {
 
     public String getAliasAtomicBoolean0AtomicBoolean0() {
         return aliasAtomicBoolean0AtomicBoolean0;
+    }
+
+    public String getAliasAtomicRef0SetAtomic0() {
+        return aliasAtomicRef0SetAtomic0;
+    }
+
+    public String getAliasAtomicRef0GetAndSetAtomic0() {
+        return aliasAtomicRef0GetAndSetAtomic0;
+    }
+
+    public String getAliasAtomicRef0LazySetAtomic0() {
+        return aliasAtomicRef0LazySetAtomic0;
+    }
+
+    public String getAliasAtomicRef0AtomicRef0() {
+        return aliasAtomicRef0AtomicRef0;
     }
 
     public String getAliasAtomicInteger0SetAtomic0() {
