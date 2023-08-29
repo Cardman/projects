@@ -15,6 +15,6 @@ public final class AddIncludeEvent implements AbsActionListener {
     public void action() {
         ReadOnlyFormTabEditor e_ = form.getReadOnlyFormTabEditor();
         form.add(window.getCurrentResult(),form.getMustBe(), e_);
-        form.actualiseLists(window);
+        form.actualiseLists(window.getCommonFrame());
     }
 }

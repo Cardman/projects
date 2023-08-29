@@ -15,6 +15,6 @@ public final class AddExcludeEvent implements AbsActionListener {
     public void action() {
         ReadOnlyFormTabEditor e_ = form.getReadOnlyFormTabEditor();
         form.add(window.getCurrentResult(),form.getMustNotBe(), e_);
-        form.actualiseLists(window);
+        form.actualiseLists(window.getCommonFrame());
     }
 }

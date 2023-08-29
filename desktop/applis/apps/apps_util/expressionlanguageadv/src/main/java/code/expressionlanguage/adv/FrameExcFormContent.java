@@ -1,10 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.exec.dbg.ExcPointBlockPair;
-import code.gui.AbsCustCheckBox;
-import code.gui.AbsPanel;
-import code.gui.AbsPlainButton;
-import code.gui.AbsTextField;
+import code.gui.*;
 import code.util.StringMap;
 
 public final class FrameExcFormContent {
@@ -46,7 +43,7 @@ public final class FrameExcFormContent {
         bpForm_.add(remove);
         contentPane = bpForm_;
     }
-    public void initForm(ExcPointBlockPair _s) {
+    public void initForm(ExcPointBlockPair _s, AbsCommonFrame _f) {
         setSelectedExc(_s);
         ExcPointBlockPair exc_ = getSelectedExc();
         if (exc_ != null) {
@@ -55,6 +52,13 @@ public final class FrameExcFormContent {
             clName.setEnabled(false);
             clName.setText(exc_.getEp().getClName());
             remove.setEnabled(true);
+            getEnabledExc().setSelected(exc_.getValue().isEnabled());
+            BreakPointFormEvent.specific(getGuiThrownStackForm(), true, exc_.getValue().getResultThrown(), _f);
+            BreakPointFormEvent.specific(getGuiCaughtStackForm(), true, exc_.getValue().getResultCaught(), _f);
+            BreakPointFormEvent.specific(getGuiPropagatedStackForm(), true, exc_.getValue().getResultPropagated(), _f);
+            getThrown().setSelected(exc_.getValue().isThrown());
+            getCaught().setSelected(exc_.getValue().isCaught());
+            getPropagated().setSelected(exc_.getValue().isPropagated());
         } else {
             exact.setEnabled(true);
             clName.setEnabled(true);

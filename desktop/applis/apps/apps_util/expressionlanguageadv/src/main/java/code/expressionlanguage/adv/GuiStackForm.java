@@ -111,21 +111,21 @@ public final class GuiStackForm {
         AbsDebuggerGui.refreshList(bpFolderSystem.selectEvt(),_files, _folderToVisit);
     }
 
-    public void actualiseLists(AbsDebuggerGui _d) {
+    public void actualiseLists(AbsCommonFrame _c) {
         includedFileIndex.removeAll();
         excludedFileIndex.removeAll();
         for (AbsCallContraints l: getMustBe()) {
-            AbsPlainButton r_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("+ "+l.valueStr());
-            r_.addActionListener(new RemoveIncludeEvent(this,_d, l));
+            AbsPlainButton r_ = _c.getFrames().getCompoFactory().newPlainButton("+ "+l.valueStr());
+            r_.addActionListener(new RemoveIncludeEvent(this, l, _c));
             includedFileIndex.add(r_);
         }
         for (AbsCallContraints l: getMustNotBe()) {
-            AbsPlainButton r_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("- "+l.valueStr());
-            r_.addActionListener(new RemoveExcludeEvent(this,_d, l));
+            AbsPlainButton r_ = _c.getFrames().getCompoFactory().newPlainButton("- "+l.valueStr());
+            r_.addActionListener(new RemoveExcludeEvent(this, l, _c));
             excludedFileIndex.add(r_);
         }
         border();
-        _d.getCommonFrame().pack();
+        _c.pack();
     }
 
     private void border() {

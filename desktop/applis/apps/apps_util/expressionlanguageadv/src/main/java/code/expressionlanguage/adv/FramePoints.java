@@ -99,13 +99,13 @@ public final class FramePoints {
     }
 
     public void guiContentBuild(ExcPointBlockPair _exc) {
-        frameExcFormContent.initForm(_exc);
+        frameExcFormContent.initForm(_exc,commonFrame);
         view.setViewportView(frameExcFormContent.getContentPane());
         view.recalculateViewport();
     }
 
     public void guiContentBuild(StdMethodPointBlockPair _exc) {
-        frameStdFormContent.initForm(_exc);
+        frameStdFormContent.initForm(_exc,commonFrame);
         view.setViewportView(frameStdFormContent.getContentPane());
         view.recalculateViewport();
     }
