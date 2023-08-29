@@ -853,6 +853,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         addStd(b_);
         selectStd(b_,"",null);
         assertFalse(b_.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getStdMethPointList().elts().iterator().hasNext());
+        assertSame(b_.getFramePoints().getFrameStdFormContent().rootTree(),b_.getFramePoints().getFrameStdFormContent().node(null));
     }
     @Test
     public void bp46() {

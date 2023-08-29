@@ -68,6 +68,9 @@ public abstract class EquallableElAdvUtil {
     public static void assertSame(AbsCustComponent _expected, AbsCustComponent _result) {
         Assert.assertSame(_expected, _result);
     }
+    public static void assertSame(AbstractMutableTreeNodeCore _expected, AbstractMutableTreeNodeCore _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertSame(Struct _expected, Struct _result) {
         Assert.assertSame(_expected, _result);
     }

@@ -8,10 +8,7 @@ import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
 import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.IdList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class FrameStdMpForm  extends AdvFrameMpForm{
     private final FrameStdMpFormContent frameMpFormContent;
@@ -66,21 +63,55 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
         treeStdScroll = cf_.newAbsScrollPane(treeStd);
     }
     public void selectTree(AbsDebuggerGui _d, String _cl, AbsractIdentifiableCommon _id) {
-        int index_ = _d.getCurrentResult().getPageEl().getStandardsTypes().indexOfEntry(_cl);
-        IdList<StandardNamedFunction> lsType_ = listFct.getVal(_cl);
-        if (lsType_ == null) {
-            treeStd.select(treeStd.getRoot());
-        } else {
-            StandardType stType_ = _d.getCurrentResult().getPageEl().getStandardsTypes().getValue(index_);
-            CustList<StandardNamedFunction> stds_ = listFct(_id, stType_);
-            int in_ = index(stds_, lsType_);
-            if (in_ < 0) {
-                treeStd.select(treeStd.getRoot().getChildAt(index_));
-            } else {
-                treeStd.select(MutableTreeNodeCoreUtil.getChildAt(treeStd.getRoot().getChildAt(index_),in_));
-            }
-        }
+        treeStd.select(retrieve(_d, _cl, _id));
     }
+
+    public AbstractMutableTreeNodeCore retrieve(AbsDebuggerGui _d, String _cl, AbsractIdentifiableCommon _id) {
+        return node(MutableTreeNodeCoreUtil.getElt(treeStd.getRoot(), indexes(_d, _cl, _id, listFct.getVal(_cl))));
+    }
+
+    public AbstractMutableTreeNodeCore node(AbstractMutableTreeNodeCore _e) {
+        if (_e == null) {
+            return rootTree();
+        }
+        return _e;
+    }
+
+    public AbstractMutableTreeNode rootTree() {
+        return treeStd.getRoot();
+    }
+
+    private static Ints indexes(AbsDebuggerGui _d, String _cl, AbsractIdentifiableCommon _id, IdList<StandardNamedFunction> _ls) {
+        IdList<StandardNamedFunction> lsType_ = allFcts(_ls);
+        int index_ = _d.getCurrentResult().getPageEl().getStandardsTypes().indexOfEntry(_cl);
+        CustList<StandardNamedFunction> stds_ = stds(_d, _id, index_);
+        if (index_ < 0) {
+            return Ints.newList();
+        }
+        int in_ = index(stds_, lsType_);
+        if (in_ < 0) {
+            return Ints.newList(index_);
+        }
+        return Ints.newList(index_,in_);
+    }
+
+    private static CustList<StandardNamedFunction> stds(AbsDebuggerGui _d, AbsractIdentifiableCommon _id, int _index) {
+        CustList<StandardNamedFunction> stds_;
+        if (_d.getCurrentResult().getPageEl().getStandardsTypes().isValidIndex(_index)) {
+            stds_ = listFct(_id, _d.getCurrentResult().getPageEl().getStandardsTypes().getValue(_index));
+        } else {
+            stds_ = new CustList<StandardNamedFunction>();
+        }
+        return stds_;
+    }
+
+    private static IdList<StandardNamedFunction> allFcts(IdList<StandardNamedFunction> _ls) {
+        if (_ls == null) {
+            return new IdList<StandardNamedFunction>();
+        }
+        return _ls;
+    }
+
     private static CustList<StandardNamedFunction> listFct(AbsractIdentifiableCommon _id, StandardType _type) {
         if (_id == null){
             return new CustList<StandardNamedFunction>();
