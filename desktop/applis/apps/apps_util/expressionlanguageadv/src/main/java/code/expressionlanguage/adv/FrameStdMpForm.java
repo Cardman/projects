@@ -33,6 +33,7 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
         frameMpFormContent.getRemove().addActionListener(new OkRemoveStdFormEvent(_d, this, _p));
     }
     public void tree(AbsDebuggerGui _d, FramePoints _p) {
+        listFct.clear();
         root = new MutableTreeNodeNav();
         AbsCompoFactory cf_ = _d.getCommonFrame().getFrames().getCompoFactory();
         AbstractMutableTreeNode root_ = cf_.newMutableTreeNode("");
