@@ -4,10 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.FileMetrics;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.common.SynthFieldInfo;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecReturnableWithSignature;
@@ -24,6 +21,7 @@ import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.Struct;
 import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
+import code.util.Ints;
 import code.util.core.StringUtil;
 
 public final class BreakPointBlockList {
@@ -47,6 +45,22 @@ public final class BreakPointBlockList {
         pausedLoop = _i.newAtBool();
     }
 
+    public static int pref(AbsCollection<MethodPointBlockPair> _p) {
+        Ints values_ = new Ints();
+        for (MethodPointBlockPair m: _p.elts()) {
+            values_.add(m.getPref().get());
+        }
+        values_.sort();
+        int s_ = values_.size();
+        for (int i = 1; i < s_; i++) {
+            int one_ = values_.get(i - 1);
+            int two_ = values_.get(i);
+            if (two_ - one_ > 1) {
+                return one_ + 1;
+            }
+        }
+        return (int) (values_.getMaximum(-1)+1);
+    }
     public void toggleBreakPoint(StandardType _t, StandardNamedFunction _i) {
         String k_ = build(_t, _i);
         StdMethodPointBlockPair pair_ = new StdMethodPointBlockPair(_i, _t, k_, interceptor, true);
@@ -84,9 +98,9 @@ public final class BreakPointBlockList {
     }
 
     public void toggleBreakPoint(String _file, int _offset, ResultContext _f) {
-        toggleBreakPoint(_f.getPageEl().getPreviousFilesBodies().getVal(_file),_offset,_f.getForwards().dbg());
+        toggleBreakPoint(_f.getPageEl().getPreviousFilesBodies().getVal(_file),_offset,_f.getForwards().dbg(),_f.getPageEl().getDisplayedStrings());
     }
-    public void toggleBreakPoint(FileBlock _file, int _offset, DebugMapping _d) {
+    public void toggleBreakPoint(FileBlock _file, int _offset, DebugMapping _d, DisplayedStrings _s) {
         int o_ = ResultExpressionOperationNode.beginPart(_offset, _file);
         if (o_ < 0) {
             return;
@@ -98,14 +112,14 @@ public final class BreakPointBlockList {
                 toggleWatch(false,new SynthFieldInfo(new ClassField("",((NamedCalledFunctionBlock)id_).getName()),(RootBlock)r_,((RootBlock)r_).getNumberAll()));
                 return;
             }
-            toggle(id_);
+            toggle(_s,id_);
             return;
         }
         ExecFileBlock f_ = _d.getFiles().getVal(_file);
         toggle(f_,FileBlock.number(_file),o_, ResultExpressionOperationNode.enabledTypeBp(_offset, _file));
     }
-    public void toggle(MemberCallingsBlock _id) {
-        MethodPointBlockPair pair_ = new MethodPointBlockPair(_id,interceptor, true);
+    public void toggle(DisplayedStrings _d, MemberCallingsBlock _id) {
+        MethodPointBlockPair pair_ = new MethodPointBlockPair(_id,interceptor,ResultExpressionOperationNode.clName(_d, _id), pref(methPointList), true);
         int i_ = 0;
         for (MethodPointBlockPair b: methPointList.elts()) {
             if (b.getMp().match(pair_.getMp())) {
@@ -130,9 +144,9 @@ public final class BreakPointBlockList {
         list.add(pair_);
     }
     public void toggleBreakPointEnabled(String _file, int _offset, ResultContext _f) {
-        toggleBreakPointEnabled(_f.getPageEl().getPreviousFilesBodies().getVal(_file),_offset,_f.getForwards().dbg());
+        toggleBreakPointEnabled(_f.getPageEl().getPreviousFilesBodies().getVal(_file),_offset,_f.getForwards().dbg(),_f.getPageEl().getDisplayedStrings());
     }
-    public void toggleBreakPointEnabled(FileBlock _file, int _offset, DebugMapping _d) {
+    public void toggleBreakPointEnabled(FileBlock _file, int _offset, DebugMapping _d, DisplayedStrings _s) {
         int o_ = ResultExpressionOperationNode.beginPart(_offset, _file);
         if (o_ < 0) {
             return;
@@ -144,7 +158,7 @@ public final class BreakPointBlockList {
                 toggleEnabledWatch(false,new SynthFieldInfo(new ClassField("",((NamedCalledFunctionBlock)id_).getName()),(RootBlock)r_,((RootBlock)r_).getNumberAll()));
                 return;
             }
-            toggleEnabled(id_);
+            toggleEnabled(_s,id_);
             return;
         }
         ExecFileBlock f_ = _d.getFiles().getVal(_file);
@@ -157,8 +171,8 @@ public final class BreakPointBlockList {
         return null;
     }
 
-    public void toggleEnabled(MemberCallingsBlock _id) {
-        MethodPointBlockPair pair_ = new MethodPointBlockPair(_id, interceptor, true);
+    public void toggleEnabled(DisplayedStrings _d, MemberCallingsBlock _id) {
+        MethodPointBlockPair pair_ = new MethodPointBlockPair(_id, interceptor,ResultExpressionOperationNode.clName(_d, _id), pref(methPointList), true);
         for (MethodPointBlockPair b: methPointList.elts()) {
             if (b.getMp().match(pair_.getMp())) {
                 b.getValue().setEnabled(!b.getValue().isEnabled());
@@ -296,7 +310,7 @@ public final class BreakPointBlockList {
     public MethodPointBlockPair getNotNullPair(String _id) {
         MethodPointBlockPair b_ = getPair(_id);
         if (b_ == null) {
-            return new MethodPointBlockPair(null,interceptor,false);
+            return new MethodPointBlockPair(null,interceptor,"",-1,false);
         }
         return b_;
     }
@@ -342,6 +356,7 @@ public final class BreakPointBlockList {
                 out_.add(new MethodPointBlockPairRootBlock(b,_gl));
             }
         }
+        out_.sortElts(new CmpMethodPair());
         return out_;
     }
 

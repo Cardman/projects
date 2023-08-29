@@ -17,6 +17,7 @@ public final class OkMpFormEvent implements AbsActionListener {
     public void action() {
         window.getFrameMpForm().getCommonFrame().setVisible(false);
         window.getFrameMpForm().getSelectedMp().getValue().setEnabled(window.getFrameMpForm().getEnabledMp().isSelected());
+        window.getFrameMpForm().getSelectedMp().getPref().set(window.getFrameMpForm().getFrameMpFormContent().getPref().getValue());
         window.getFrameMpForm().getSelectedMp().getValue().setEntry(window.getFrameMpForm().getEnterFunction().isSelected());
         window.getFrameMpForm().getSelectedMp().getValue().setExit(window.getFrameMpForm().getExitFunction().isSelected());
         update(window.getFrameMpForm().getSelectedMp(),window.getFrameMpForm().getSelectedMp().getValue().getResultEntry(), window, window.getFrameMpForm().getGuiEnterStackForm());

@@ -18,6 +18,7 @@ public final class FrameMpForm extends AdvFrameMpForm{
         AbsPanel f_ = frameMpFormContent.getContentPaneForm();
         frameMpFormContent.getContentPane().removeAll();
         frameMpFormContent.getContentPane().add(f_);
+        frameMpFormContent.getContentPane().add(frameMpFormContent.getPref());
         frameMpFormContent.getContentPane().add(frameMpFormContent.getOk());
         commonFrame.setContentPane(frameMpFormContent.getContentPane());
     }

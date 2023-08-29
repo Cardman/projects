@@ -7,6 +7,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.sample.ElInterceptorStdCaller;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -696,7 +697,81 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         assertFalse(StringUtil.nullToEmpty(new ExecFileBlockTraceIndex(null,-1,0).valueStr()+"_").isEmpty());
         assertFalse(new BpcKeyString().keyString(new BreakPointCondition(new ElInterceptorStdCaller(),new BreakPointBlockKey(null,-1,0),0,0)).isEmpty());
         assertFalse(new BpcKeyString().keyString(new BreakPointCondition(new ElInterceptorStdCaller(),new BreakPointBlockKey(null,-1,0),10,0)).isEmpty());
+        assertEq(-1, NumberUtil.signum(new CmpMethodPair().compare(new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(),2, "0"),null),new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(),2, "1"),null))));
+        assertEq(1, NumberUtil.signum(new CmpMethodPair().compare(new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(),3, "0"),null),new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(),2, "1"),null))));
     }
+    @Test
+    public void pref1() {
+        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new ElInterceptorStdCaller());
+        assertEq(0,BreakPointBlockList.pref(ls_));
+    }
+    @Test
+    public void pref2() {
+        ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
+        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(i_);
+        MethodPointBlockPair e_ = add(i_, ls_);
+        assertEq(0,e_.getPref().get());
+    }
+
+    @Test
+    public void pref3() {
+        ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
+        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(i_);
+        MethodPointBlockPair e_ = add(i_, ls_);
+        MethodPointBlockPair f_ = add(i_, ls_);
+        assertEq(0,e_.getPref().get());
+        assertEq(1,f_.getPref().get());
+    }
+
+    @Test
+    public void pref4() {
+        ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
+        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(i_);
+        MethodPointBlockPair e_ = add(i_, ls_);
+        MethodPointBlockPair f_ = add(i_, ls_);
+        MethodPointBlockPair g_ = add(i_, ls_);
+        assertEq(0,e_.getPref().get());
+        assertEq(1,f_.getPref().get());
+        assertEq(2,g_.getPref().get());
+    }
+
+    @Test
+    public void pref5() {
+        ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
+        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(i_);
+        MethodPointBlockPair e_ = add(i_, ls_);
+        MethodPointBlockPair f_ = add(i_, ls_);
+        f_.getPref().set(2);
+        MethodPointBlockPair g_ = add(i_, ls_);
+        assertEq(0,e_.getPref().get());
+        assertEq(2,f_.getPref().get());
+        assertEq(1,g_.getPref().get());
+    }
+
+    @Test
+    public void pref6() {
+        ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
+        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(i_);
+        MethodPointBlockPair e_ = add(i_, ls_);
+        MethodPointBlockPair f_ = add(i_, ls_);
+        f_.getPref().set(3);
+        MethodPointBlockPair g_ = add(i_, ls_);
+        MethodPointBlockPair h_ = add(i_, ls_);
+        assertEq(0,e_.getPref().get());
+        assertEq(3,f_.getPref().get());
+        assertEq(1,g_.getPref().get());
+        assertEq(2,h_.getPref().get());
+    }
+    private static MethodPointBlockPair add(ElInterceptorStdCaller _i, ConcList<MethodPointBlockPair> _ls) {
+        MethodPointBlockPair e_ = pair(_i, BreakPointBlockList.pref(_ls), "");
+        _ls.add(e_);
+        return e_;
+    }
+
+    private static MethodPointBlockPair pair(ElInterceptorStdCaller _i, int _pref, String _sgn) {
+        return new MethodPointBlockPair(null, _i, _sgn, _pref, true);
+    }
+
     private ExecFileBlock file(ResultContext _cont) {
         return file(_cont,"pkg/Ex");
     }

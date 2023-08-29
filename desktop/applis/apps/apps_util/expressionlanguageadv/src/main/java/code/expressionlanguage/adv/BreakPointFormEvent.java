@@ -36,6 +36,7 @@ public final class BreakPointFormEvent implements AbsActionListener {
             if (mp_ != null) {
                 window.getFrameMpForm().setSelectedMp(mp_);
                 window.getFrameMpForm().getEnabledMp().setSelected(mp_.getValue().isEnabled());
+                window.getFrameMpForm().getFrameMpFormContent().getPref().setValue(mp_.getPref().get());
                 specific(window.getFrameMpForm().getGuiEnterStackForm(), true, mp_.getValue().getResultEntry(), window);
                 specific(window.getFrameMpForm().getGuiExitStackForm(), true, mp_.getValue().getResultExit(), window);
                 window.getFrameMpForm().getEnterFunction().setSelected(mp_.getValue().isEntry());
