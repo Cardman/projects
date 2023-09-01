@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.options.ResultContext;
 import code.gui.AbsCustCheckBox;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
@@ -42,9 +43,9 @@ public abstract class AbsFrameMpFormContent {
         return contentPaneForm;
     }
 
-    public void refresh(StringMap<String> _v) {
-        getGuiEnterStackForm().refresh(_v, "");
-        getGuiExitStackForm().refresh(_v, "");
+    public void refresh(StringMap<String> _v, ResultContext _r, AbsDebuggerGui _d) {
+        getGuiEnterStackForm().refresh(_v, "", _r, _d);
+        getGuiExitStackForm().refresh(_v, "", _r, _d);
     }
 
     public AbsPanel getContentPane() {

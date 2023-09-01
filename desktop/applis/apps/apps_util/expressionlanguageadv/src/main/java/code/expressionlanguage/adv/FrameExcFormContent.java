@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.exec.dbg.ExcPointBlockPair;
+import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 import code.util.StringMap;
 
@@ -18,14 +19,13 @@ public final class FrameExcFormContent {
     private AbsPlainButton ok;
     private AbsPlainButton remove;
     private AbsPanel contentPane;
-    public void guiBuild(AbsDebuggerGui _d, FramePoints _p) {
+    public void guiBuild(AbsDebuggerGui _d) {
         thrown = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("thrown");
         caught = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("caught");
         propagated = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("propagated");
         enabledExc = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
         ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
         remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
-        remove.addActionListener(new OkRemoveExcFormEvent(_d, this, _p));
         clName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         exact = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("exact");
         AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
@@ -38,7 +38,6 @@ public final class FrameExcFormContent {
         bpForm_.add(guiThrownStackForm.guiBuild(_d));
         bpForm_.add(guiCaughtStackForm.guiBuild(_d));
         bpForm_.add(guiPropagatedStackForm.guiBuild(_d));
-        ok.addActionListener(new OkExcFormEvent(_d,this, _p));
         bpForm_.add(ok);
         bpForm_.add(remove);
         contentPane = bpForm_;
@@ -66,10 +65,14 @@ public final class FrameExcFormContent {
         }
     }
 
-    public void refresh(StringMap<String> _v) {
-        getGuiThrownStackForm().refresh(_v, "");
-        getGuiCaughtStackForm().refresh(_v, "");
-        getGuiPropagatedStackForm().refresh(_v, "");
+    public void refresh(StringMap<String> _v, ResultContext _r, AbsDebuggerGui _d, FramePoints _p) {
+        GuiBaseUtil.removeActionListeners(ok);
+        ok.addActionListener(new OkExcFormEvent(_d,this, _p, _r));
+        GuiBaseUtil.removeActionListeners(remove);
+        remove.addActionListener(new OkRemoveExcFormEvent(_d, this, _p, _r));
+        getGuiThrownStackForm().refresh(_v, "", _r, _d);
+        getGuiCaughtStackForm().refresh(_v, "", _r, _d);
+        getGuiPropagatedStackForm().refresh(_v, "", _r, _d);
     }
 
     public AbsPanel getContentPane() {

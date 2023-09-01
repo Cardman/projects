@@ -8,14 +8,13 @@ public final class DbgLaunchTask implements Runnable {
     private final StepDbgActionEnum step;
     private final ResultContext currentResult;
 
-    public DbgLaunchTask(AbsDebuggerGui _w, StepDbgActionEnum _s) {
+    public DbgLaunchTask(AbsDebuggerGui _w, StepDbgActionEnum _s, ResultContext _curr) {
         this.window = _w;
         this.step = _s;
-        ResultContext curr_ = _w.getCurrentResult();
         if (_s == StepDbgActionEnum.CURSOR) {
-            window.possibleSelect(_w.getTabbedPane().getSelectedIndex(), curr_);
+            window.possibleSelect(_w.getTabbedPane().getSelectedIndex(), _curr);
         }
-        this.currentResult = curr_;
+        this.currentResult = _curr;
     }
 
     @Override

@@ -5,16 +5,17 @@ import code.gui.events.AbsActionListener;
 
 public final class ToggleWatchPointEnabledEvent implements AbsActionListener {
     private final ReadOnlyTabEditor tabEditor;
+    private final ResultContext currentResult;
 
-    public ToggleWatchPointEnabledEvent(ReadOnlyTabEditor _t) {
+    public ToggleWatchPointEnabledEvent(ReadOnlyTabEditor _t, ResultContext _res) {
         this.tabEditor = _t;
+        this.currentResult = _res;
     }
 
     @Override
     public void action() {
-        ResultContext r_ = tabEditor.getDebuggerGui().getCurrentResult();
-        r_.toggleWatchPointEnabled(tabEditor.getFullPath(), tabEditor.getCenter().getCaretPosition());
-        ToggleBreakPointEvent.afterToggle(r_, tabEditor);
+        currentResult.toggleWatchPointEnabled(tabEditor.getFullPath(), tabEditor.getCenter().getCaretPosition());
+        ToggleBreakPointEvent.afterToggle(currentResult, tabEditor);
     }
 
 }

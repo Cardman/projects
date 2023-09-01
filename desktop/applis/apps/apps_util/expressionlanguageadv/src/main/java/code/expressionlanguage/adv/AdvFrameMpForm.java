@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.options.ResultContext;
 import code.gui.AbsCustCheckBox;
 import code.gui.AbsPlainButton;
 import code.util.StringMap;
@@ -7,8 +8,8 @@ import code.util.StringMap;
 public abstract class AdvFrameMpForm {
     public abstract AbsFrameMpFormContent form();
 
-    public void refresh(StringMap<String> _v) {
-        form().refresh(_v);
+    public void refresh(StringMap<String> _v, ResultContext _r, AbsDebuggerGui _d) {
+        form().refresh(_v, _r, _d);
     }
 
     public AbsCustCheckBox getEnterFunction() {
@@ -25,6 +26,10 @@ public abstract class AdvFrameMpForm {
 
     public AbsPlainButton getOk() {
         return form().getOk();
+    }
+
+    public AbsPlainButton getRemove() {
+        return form().getRemove();
     }
 
     public GuiStackForm getGuiEnterStackForm() {

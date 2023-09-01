@@ -1,23 +1,27 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.options.ResultContext;
 import code.gui.events.AbsActionListener;
 
 public final class OkRemoveStdFormEvent implements AbsActionListener {
     private final AbsDebuggerGui window;
     private final FrameStdMpForm frameExcFormContent;
     private final FramePoints framePoints;
+    private final ResultContext currentResult;
 
-    public OkRemoveStdFormEvent(AbsDebuggerGui _w, FrameStdMpForm _f, FramePoints _p) {
+    public OkRemoveStdFormEvent(AbsDebuggerGui _w, FrameStdMpForm _f, FramePoints _p, ResultContext _res) {
         this.window = _w;
         this.frameExcFormContent = _f;
         this.framePoints = _p;
+        currentResult = _res;
     }
 
     @Override
     public void action() {
-        window.getCurrentResult().getContext().stdList().remove(window.getCurrentResult().getContext().std(frameExcFormContent.getSelectedMp().getSm().getType(), frameExcFormContent.getSelectedMp().getSm().getId()));
+        currentResult.getContext().stdList().remove(frameExcFormContent.getSelectedMp());
+        frameExcFormContent.setSelectedMp(null);
         framePoints.guiContentBuildClear();
-        framePoints.refreshStdMethod(window);
+        framePoints.refreshStdMethod(window, currentResult);
         framePoints.getCommonFrame().pack();
     }
 

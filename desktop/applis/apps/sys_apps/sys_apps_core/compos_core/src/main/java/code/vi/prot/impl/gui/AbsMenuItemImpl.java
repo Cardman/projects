@@ -4,6 +4,7 @@ import code.gui.AbsMenu;
 import code.gui.AbsMenuItem;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsAdvActionListener;
+import code.util.CustList;
 import code.util.IdMap;
 import code.vi.prot.impl.gui.events.WrActionListener;
 import code.vi.prot.impl.gui.events.WrAdvActionListener;
@@ -67,6 +68,18 @@ public abstract class AbsMenuItemImpl extends CustComponent implements AbsMenuIt
     }
     public void setSelected(boolean _selected) {
         menu.setSelected(_selected);
+    }
+
+    @Override
+    public CustList<AbsActionListener> getActionListeners() {
+        return mapAction.getKeys();
+    }
+
+    @Override
+    public void removeActionListener(AbsActionListener _list) {
+        WrActionListener wr_ = mapAction.getVal(_list);
+        menu.removeActionListener(wr_);
+        mapAction.removeKey(_list);
     }
 
     public void addActionListener(AbsActionListener _pauseEvent) {

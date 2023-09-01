@@ -353,6 +353,21 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     }
 
     @Test
+    public void removeTreeEvts() {
+        MockTreeGui m_ = new MockTreeGui(new MockMutableTreeNode(""));
+        m_.addTreeSelectionListener(new MockShortListTree(0,new MockCommonFrameTreeSample(init())));
+        GuiBaseUtil.removeTreeSelectionListeners(m_);
+        assertEq(0,m_.getTreeSelectionListeners().size());
+    }
+
+    @Test
+    public void removeButtonEvts() {
+        MockPlainButton m_ = new MockPlainButton();
+        m_.addActionListener(new MockAction(0,new MockWithActionSample()));
+        GuiBaseUtil.removeActionListeners(m_);
+        assertEq(0,m_.getActionListeners().size());
+    }
+    @Test
     public void quit() {
         SampleGroupFrame fr_ = new SampleGroupFrame("", init(), new StringMap<String>());
         new QuitEvent(fr_).action();

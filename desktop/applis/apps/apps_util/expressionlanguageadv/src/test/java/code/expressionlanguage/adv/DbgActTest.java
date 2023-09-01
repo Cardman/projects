@@ -29,7 +29,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
-        assertTrue(b_.getCurrentResult().is(file(b_.getCurrentResult()),55));
+        assertTrue(curRet(b_).is(file(curRet(b_)),55));
     }
     @Test
     public void bp2() {
@@ -42,7 +42,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(55,55);
         toggleBp(b_);
         toggleBp(b_);
-        assertFalse(b_.getCurrentResult().is(file(b_.getCurrentResult()),55));
+        assertFalse(curRet(b_).is(file(curRet(b_)),55));
     }
     @Test
     public void bp3() {
@@ -63,7 +63,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         tabEditor(b_).getCenter().select(55,55);
         toggleBpEn(b_);
-        assertTrue(b_.getCurrentResult().is(file(b_.getCurrentResult()),55));
+        assertTrue(curRet(b_).is(file(curRet(b_)),55));
     }
     @Test
     public void bp5() {
@@ -89,7 +89,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(false);
 //        bpFormCancel(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        assertTrue(b_.getCurrentResult().is(file(b_.getCurrentResult()),55));
+        assertTrue(curRet(b_).is(file(curRet(b_)),55));
     }
     @Test
     public void bp7() {
@@ -106,7 +106,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(false);
         bpFormOk(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        assertFalse(b_.getCurrentResult().is(file(b_.getCurrentResult()),55));
+        assertFalse(curRet(b_).is(file(curRet(b_)),55));
     }
     @Test
     public void bp8() {
@@ -124,8 +124,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameBpFormContent().getInstanceType().setSelected(false);
 //        bpFormCancel(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        assertTrue(b_.getCurrentResult().getPair(file(b_.getCurrentResult()),13).getValue().isInstanceType());
-        assertFalse(b_.getCurrentResult().getPair(file(b_.getCurrentResult()),13).getValue().isStaticType());
+        assertTrue(curRet(b_).getPair(file(curRet(b_)),13).getValue().isInstanceType());
+        assertFalse(curRet(b_).getPair(file(curRet(b_)),13).getValue().isStaticType());
     }
     @Test
     public void bp9() {
@@ -143,8 +143,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameBpFormContent().getInstanceType().setSelected(false);
         bpFormOk(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        assertFalse(b_.getCurrentResult().getPair(file(b_.getCurrentResult()),13).getValue().isInstanceType());
-        assertTrue(b_.getCurrentResult().getPair(file(b_.getCurrentResult()),13).getValue().isStaticType());
+        assertFalse(curRet(b_).getPair(file(curRet(b_)),13).getValue().isInstanceType());
+        assertTrue(curRet(b_).getPair(file(curRet(b_)),13).getValue().isStaticType());
     }
     @Test
     public void bp10() {
@@ -168,8 +168,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameBpFormContent().getInstanceType().setSelected(false);
 //        bpFormCancel(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        assertTrue(b_.getCurrentResult().getPair(file(b_.getCurrentResult()),13).getValue().isInstanceType());
-        assertFalse(b_.getCurrentResult().getPair(file(b_.getCurrentResult()),13).getValue().isStaticType());
+        assertTrue(curRet(b_).getPair(file(curRet(b_)),13).getValue().isInstanceType());
+        assertFalse(curRet(b_).getPair(file(curRet(b_)),13).getValue().isStaticType());
     }
     @Test
     public void bp11() {
@@ -193,8 +193,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameBpFormContent().getInstanceType().setSelected(false);
         bpFormOk(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        assertFalse(b_.getCurrentResult().getPair(file(b_.getCurrentResult()),13).getValue().isInstanceType());
-        assertTrue(b_.getCurrentResult().getPair(file(b_.getCurrentResult()),13).getValue().isStaticType());
+        assertFalse(curRet(b_).getPair(file(curRet(b_)),13).getValue().isInstanceType());
+        assertTrue(curRet(b_).getPair(file(curRet(b_)),13).getValue().isStaticType());
     }
     @Test
     public void bp12() {
@@ -685,7 +685,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         tabEditor(b_).getCenter().select(75,75);
         toggleWp(b_);
-        assertFalse(b_.getCurrentResult().is(file(b_.getCurrentResult()),75));
+        assertFalse(curRet(b_).is(file(curRet(b_)),75));
         wpForm(b_);
         assertFalse(b_.getFramePoints().getCommonFrame().isVisible());
     }
@@ -735,7 +735,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
         b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
         addExcOk(b_);
-        assertTrue(b_.getCurrentResult().getContext().excList().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getContext().excList().elts().iterator().hasNext());
     }
     @Test
     public void bp39() {
@@ -751,7 +751,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
         b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(false);
         addExcOk(b_);
-        assertTrue(b_.getCurrentResult().getContext().excList().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getContext().excList().elts().iterator().hasNext());
     }
     @Test
     public void bp40() {
@@ -767,7 +767,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Inex");
         b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
         addExcOk(b_);
-        assertFalse(b_.getCurrentResult().getContext().excList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().excList().elts().iterator().hasNext());
     }
     @Test
     public void bp41() {
@@ -784,11 +784,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
         b_.getFramePoints().getFrameExcFormContent().getPropagated().setSelected(true);
         addExcOk(b_);
-        assertTrue(b_.getCurrentResult().getContext().excList().elts().iterator().next().getValue().isPropagated());
+        assertTrue(curRet(b_).getContext().excList().elts().iterator().next().getValue().isPropagated());
         editExc(b_,0);
         b_.getFramePoints().getFrameExcFormContent().getPropagated().setSelected(false);
         addExcOk(b_);
-        assertFalse(b_.getCurrentResult().getContext().excList().elts().iterator().next().getValue().isPropagated());
+        assertFalse(curRet(b_).getContext().excList().elts().iterator().next().getValue().isPropagated());
     }
     @Test
     public void bp42() {
@@ -805,10 +805,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
         b_.getFramePoints().getFrameExcFormContent().getPropagated().setSelected(true);
         addExcOk(b_);
-        assertTrue(b_.getCurrentResult().getContext().excList().elts().iterator().next().getValue().isPropagated());
+        assertTrue(curRet(b_).getContext().excList().elts().iterator().next().getValue().isPropagated());
         editExc(b_,0);
         addExcRemove(b_);
-        assertFalse(b_.getCurrentResult().getContext().excList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().excList().elts().iterator().hasNext());
     }
     @Test
     public void bp43() {
@@ -853,7 +853,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         openPoints(b_);
         addStd(b_);
         selectStd(b_,"",null);
-        assertFalse(b_.getCurrentResult().getContext().stdList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().stdList().elts().iterator().hasNext());
         assertSame(b_.getFramePoints().getFrameStdFormContent().rootTree(),b_.getFramePoints().getFrameStdFormContent().node(null));
     }
     @Test
@@ -866,8 +866,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         openPoints(b_);
         addStd(b_);
-        selectStd(b_,b_.getCurrentResult().getPageEl().getAliasBoolean(),null);
-        assertFalse(b_.getCurrentResult().getContext().stdList().elts().iterator().hasNext());
+        selectStd(b_, curRet(b_).getPageEl().getAliasBoolean(),null);
+        assertFalse(curRet(b_).getContext().stdList().elts().iterator().hasNext());
     }
     @Test
     public void bp47() {
@@ -879,8 +879,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         openPoints(b_);
         addStd(b_);
-        selectStd(b_,b_.getCurrentResult().getPageEl().getAliasObject(),getConstructorId(true));
-        assertFalse(b_.getCurrentResult().getContext().stdList().elts().iterator().hasNext());
+        selectStd(b_, curRet(b_).getPageEl().getAliasObject(),getConstructorId(true));
+        assertFalse(curRet(b_).getContext().stdList().elts().iterator().hasNext());
     }
     @Test
     public void bp48() {
@@ -892,8 +892,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         openPoints(b_);
         addStd(b_);
-        selectStd(b_,b_.getCurrentResult().getPageEl().getAliasObject(),getConstructorId(false));
-        assertTrue(b_.getCurrentResult().getContext().stdList().elts().iterator().hasNext());
+        selectStd(b_, curRet(b_).getPageEl().getAliasObject(),getConstructorId(false));
+        assertTrue(curRet(b_).getContext().stdList().elts().iterator().hasNext());
     }
     @Test
     public void bp49() {
@@ -905,10 +905,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         openPoints(b_);
         addStd(b_);
-        selectStd(b_,b_.getCurrentResult().getPageEl().getAliasObject(),getConstructorId(false));
+        selectStd(b_, curRet(b_).getPageEl().getAliasObject(),getConstructorId(false));
         editStd(b_,0);
         addStdRemove(b_);
-        assertFalse(b_.getCurrentResult().getContext().stdList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().stdList().elts().iterator().hasNext());
     }
     @Test
     public void bp50() {
@@ -920,10 +920,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         openPoints(b_);
         addStd(b_);
-        selectStd(b_,b_.getCurrentResult().getPageEl().getAliasObject(),getConstructorId(false));
+        selectStd(b_, curRet(b_).getPageEl().getAliasObject(),getConstructorId(false));
         editStd(b_,0);
         addStdOk(b_);
-        assertTrue(b_.getCurrentResult().getContext().stdList().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getContext().stdList().elts().iterator().hasNext());
     }
     @Test
     public void bp51() {
@@ -940,8 +940,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(true);
         addWpOk(b_);
-        assertTrue(b_.getCurrentResult().getContext().watchList().elts().iterator().hasNext());
-        assertFalse(b_.getCurrentResult().getContext().metList().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getContext().watchList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().metList().elts().iterator().hasNext());
     }
     @Test
     public void bp52() {
@@ -958,8 +958,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(false);
         addWpOk(b_);
-        assertTrue(b_.getCurrentResult().getContext().watchList().elts().iterator().hasNext());
-        assertFalse(b_.getCurrentResult().getContext().metList().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getContext().watchList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().metList().elts().iterator().hasNext());
     }
     @Test
     public void bp53() {
@@ -976,8 +976,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(true);
         addWpOk(b_);
-        assertTrue(b_.getCurrentResult().getContext().watchList().elts().iterator().hasNext());
-        assertFalse(b_.getCurrentResult().getContext().metList().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getContext().watchList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().metList().elts().iterator().hasNext());
     }
     @Test
     public void bp54() {
@@ -994,8 +994,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(true);
         addWpOk(b_);
-        assertFalse(b_.getCurrentResult().getContext().watchList().elts().iterator().hasNext());
-        assertFalse(b_.getCurrentResult().getContext().metList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().watchList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().metList().elts().iterator().hasNext());
     }
     @Test
     public void bp55() {
@@ -1012,8 +1012,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(false);
         addWpOk(b_);
-        assertFalse(b_.getCurrentResult().getContext().watchList().elts().iterator().hasNext());
-        assertFalse(b_.getCurrentResult().getContext().metList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().watchList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().metList().elts().iterator().hasNext());
     }
     @Test
     public void bp56() {
@@ -1030,8 +1030,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(true);
         addWpOk(b_);
-        assertFalse(b_.getCurrentResult().getContext().watchList().elts().iterator().hasNext());
-        assertFalse(b_.getCurrentResult().getContext().metList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().watchList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().metList().elts().iterator().hasNext());
     }
     @Test
     public void bp57() {
@@ -1050,8 +1050,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         addWpOk(b_);
         editWatch(b_,0);
         addWatchRemove(b_);
-        assertFalse(b_.getCurrentResult().getContext().watchList().elts().iterator().hasNext());
-        assertFalse(b_.getCurrentResult().getContext().metList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().watchList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().metList().elts().iterator().hasNext());
     }
     @Test
     public void bp58() {
@@ -1070,8 +1070,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         addWpOk(b_);
         editWatch(b_,0);
         addWatchRemove(b_);
-        assertFalse(b_.getCurrentResult().getContext().watchList().elts().iterator().hasNext());
-        assertFalse(b_.getCurrentResult().getContext().metList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().watchList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().metList().elts().iterator().hasNext());
     }
     @Test
     public void bp59() {
@@ -1090,8 +1090,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         addWpOk(b_);
         editWatch(b_,0);
         addWatchRemove(b_);
-        assertFalse(b_.getCurrentResult().getContext().watchList().elts().iterator().hasNext());
-        assertFalse(b_.getCurrentResult().getContext().metList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().watchList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().metList().elts().iterator().hasNext());
     }
     @Test
     public void bp60() {
@@ -1107,7 +1107,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameFormContent().getFileName().setText("src/file.txt");
         b_.getFramePoints().getFrameFormContent().getCaret().setValue(41);
         addMpOk(b_);
-        assertTrue(b_.getCurrentResult().getContext().metList().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getContext().metList().elts().iterator().hasNext());
     }
     @Test
     public void bp61() {
@@ -1122,7 +1122,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         addMp(b_);
         b_.getFramePoints().getFrameFormContent().getFileName().setText("");
         addMpOk(b_);
-        assertFalse(b_.getCurrentResult().getContext().metList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().metList().elts().iterator().hasNext());
     }
     @Test
     public void bp62() {
@@ -1140,7 +1140,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         addMpOk(b_);
         editMethod(b_,0);
         addMethodRemove(b_);
-        assertFalse(b_.getCurrentResult().getContext().metList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().metList().elts().iterator().hasNext());
     }
     @Test
     public void bp63() {
@@ -1156,7 +1156,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
         b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(75);
         addBpOk(b_);
-        assertTrue(b_.getCurrentResult().bpList().elts().iterator().hasNext());
+        assertTrue(curRet(b_).bpList().elts().iterator().hasNext());
     }
     @Test
     public void bp64() {
@@ -1171,7 +1171,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         addBp(b_);
         b_.getFramePoints().getFrameBpFormContent().getFileName().setText("");
         addBpOk(b_);
-        assertFalse(b_.getCurrentResult().bpList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).bpList().elts().iterator().hasNext());
     }
     @Test
     public void bp65() {
@@ -1189,7 +1189,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         addBpOk(b_);
         editBp(b_,0);
         addBpRemove(b_);
-        assertFalse(b_.getCurrentResult().bpList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).bpList().elts().iterator().hasNext());
     }
     @Test
     public void ref1() {
@@ -1592,8 +1592,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         ((MockPlainButton)b_.getStopStack()).getActionListeners().get(0).action();
-        b_.next(StepDbgActionEnum.DEBUG,b_.getCurrentResult());
-        assertTrue(b_.stopDbg().get());
+        b_.next(StepDbgActionEnum.DEBUG, curRet(b_));
+        assertTrue(curRet(b_).getContext().getInterrupt().get());
     }
     @Test
     public void i1() {
@@ -1677,7 +1677,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         trDetail_.select(trDetail_.getRoot().getFirstChild().getFirstChild().getNextSibling());
         assertEq(1,root_.getChildren().size());
         assertEq("pkg.Ex",root_.getChildren().get(0).str());
-        assertEq("pkg.Ex",root_.getChildren().get(0).value().getClassName(b_.getCurrentResult().getContext()));
+        assertEq("pkg.Ex",root_.getChildren().get(0).value().getClassName(curRet(b_).getContext()));
         assertEq(2,root_.getChildren().get(0).getChildren().size());
         assertEq("pkg.Ex|a",root_.getChildren().get(0).getChildren().get(0).str());
         assertEq(2,((NumberStruct)root_.getChildren().get(0).getChildren().get(0).value()).intStruct());
@@ -1718,10 +1718,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
         trDetail_.select(trDetail_.getRoot().getFirstChild().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq("pkg.Ex..Inner",root_.getChildren().get(0).str());
-        assertEq("pkg.Ex..Inner",root_.getChildren().get(0).value().getClassName(b_.getCurrentResult().getContext()));
+        assertEq("pkg.Ex..Inner",root_.getChildren().get(0).value().getClassName(curRet(b_).getContext()));
         assertEq(2,root_.getChildren().get(0).getChildren().size());
         assertEq("|",root_.getChildren().get(0).getChildren().get(0).str());
-        assertEq("pkg.Ex",root_.getChildren().get(0).getChildren().get(0).value().getClassName(b_.getCurrentResult().getContext()));
+        assertEq("pkg.Ex",root_.getChildren().get(0).getChildren().get(0).value().getClassName(curRet(b_).getContext()));
         assertEq("pkg.Ex..Inner|b",root_.getChildren().get(0).getChildren().get(1).str());
         assertEq(2,((NumberStruct)root_.getChildren().get(0).getChildren().get(1).value()).intStruct());
         assertEq(1,root_.getChildren().get(0).getChildren().get(0).getChildren().size());
@@ -1810,7 +1810,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         trDetail_.select(trDetail_.getRoot().getFirstChild().getFirstChild().getNextSibling());
         assertEq(1,root_.getChildren().size());
         assertEq("pkg.Ex",root_.getChildren().get(0).str());
-        assertEq("pkg.Ex",root_.getChildren().get(0).value().getClassName(b_.getCurrentResult().getContext()));
+        assertEq("pkg.Ex",root_.getChildren().get(0).value().getClassName(curRet(b_).getContext()));
         assertEq(2,root_.getChildren().get(0).getChildren().size());
         assertEq("pkg.Ex|a",root_.getChildren().get(0).getChildren().get(0).str());
         assertEq(2,((NumberStruct)root_.getChildren().get(0).getChildren().get(0).value()).intStruct());
@@ -3093,4 +3093,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
     private ExecFileBlock file(ResultContext _cont, String _name) {
         return _cont.getFiles().getVal(_cont.getPageEl().getPreviousFilesBodies().getVal(_name));
     }
+
+    private ResultContext curRet(AbsDebuggerGui _b) {
+        return ((OpenFramePointsEvent)_b.getOpenPoints().getActionListeners().get(0)).getCurrentResult();
+    }
+
 }

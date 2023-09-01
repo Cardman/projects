@@ -556,6 +556,6 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
 
     private static ResultContext analyzed(AbsDebuggerGui _b, ManageOptions _o, ResultContext _r, StringMap<String> _src) {
         guiAna(_r, _b, _o, _src);
-        return _b.getCurrentResult();
+        return ((OpenFramePointsEvent)_b.getOpenPoints().getActionListeners().get(0)).getCurrentResult();
     }
 }

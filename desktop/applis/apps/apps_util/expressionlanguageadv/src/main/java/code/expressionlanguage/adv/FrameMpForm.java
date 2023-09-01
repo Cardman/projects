@@ -11,13 +11,11 @@ public final class FrameMpForm extends AdvFrameMpForm{
     public FrameMpForm() {
         frameMpFormContent = new FrameMpFormContent();
     }
-    public void guiBuild(AbsDebuggerGui _d, FramePoints _fp) {
+    public void guiBuild(AbsDebuggerGui _d) {
         edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel("");
         fileName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         frameMpFormContent.guiBuildBase(_d);
         caret = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
-        frameMpFormContent.getOk().addActionListener(new OkMpFormEvent(_d));
-        frameMpFormContent.getRemove().addActionListener(new OkRemoveMpFormEvent(_d,this,_fp));
         AbsPanel f_ = frameMpFormContent.getContentPaneForm();
         frameMpFormContent.getContentPane().removeAll();
         frameMpFormContent.getContentPane().add(f_);

@@ -2,10 +2,8 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.*;
-import code.gui.AbsCommonFrame;
-import code.gui.AbsPanel;
-import code.gui.AbsPlainButton;
-import code.gui.AbsScrollPane;
+import code.expressionlanguage.options.ResultContext;
+import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
@@ -62,45 +60,53 @@ public final class FramePoints {
         all_.add(stdForm);
         all_.add(view);
         commonFrame.setContentPane(all_);
-        frameExcFormContent.guiBuild(_d,this);
-        frameStdFormContent.guiBuild(_d,this);
-        frameFormContent.guiBuild(_d,this);
-        frameWpFormContent.guiBuild(_d,this);
-        frameBpFormContent.guiBuild(_d,this);
+        frameExcFormContent.guiBuild(_d);
+        frameStdFormContent.guiBuild(_d);
+        frameFormContent.guiBuild(_d);
+        frameWpFormContent.guiBuild(_d);
+        frameBpFormContent.guiBuild(_d);
     }
-    public void refresh(StringMap<String> _v) {
-        frameExcFormContent.refresh(_v);
-        frameStdFormContent.refresh(_v);
-        frameFormContent.refresh(_v);
-        frameWpFormContent.refresh(_v);
-        frameBpFormContent.refresh(_v);
+    public void refresh(StringMap<String> _v, AbsDebuggerGui _d, ResultContext _r) {
+        frameExcFormContent.refresh(_v, _r, _d, this);
+        GuiBaseUtil.removeActionListeners(frameStdFormContent.getOk());
+        GuiBaseUtil.removeActionListeners(frameStdFormContent.getRemove());
+        frameStdFormContent.getOk().addActionListener(new OkStdMpFormEvent(_d,frameStdFormContent, this, _r));
+        frameStdFormContent.getRemove().addActionListener(new OkRemoveStdFormEvent(_d, frameStdFormContent, this, _r));
+        GuiBaseUtil.removeActionListeners(frameFormContent.getOk());
+        GuiBaseUtil.removeActionListeners(frameFormContent.getRemove());
+        frameFormContent.getOk().addActionListener(new OkMpFormEvent(_d, _r));
+        frameFormContent.getRemove().addActionListener(new OkRemoveMpFormEvent(_d, frameFormContent, this, _r));
+        frameStdFormContent.refresh(_v, _r, _d);
+        frameFormContent.refresh(_v, _r, _d);
+        frameWpFormContent.refresh(_v, _r, _d, this);
+        frameBpFormContent.refresh(_v, _r, _d, this);
     }
-    public void init(AbsDebuggerGui _d) {
+    public void init(AbsDebuggerGui _d, ResultContext _res) {
         if (commonFrame.isVisible()) {
             return;
         }
         view.setNullViewportView();
-        refreshExc(_d);
-        frameStdFormContent.tree(_d,this);
-        refreshStdMethod(_d);
-        refreshWatch(_d);
-        refreshMethod(_d);
-        refreshBp(_d);
+        refreshExc(_d, _res);
+        frameStdFormContent.tree(_d,this, _res);
+        refreshStdMethod(_d, _res);
+        refreshWatch(_d, _res);
+        refreshMethod(_d, _res);
+        refreshBp(_d, _res);
         commonFrame.setVisible(true);
         commonFrame.pack();
     }
-    public void refreshBp(AbsDebuggerGui _d) {
+    public void refreshBp(AbsDebuggerGui _d, ResultContext _res) {
         bpForm.removeAll();
-        for (BreakPointBlockPair p: _d.getCurrentResult().bpList().elts()) {
+        for (BreakPointBlockPair p: _res.bpList().elts()) {
             AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(ExecFileBlock.name(p.getBp().getFile())+":"+p.getBp().getOffset());
             but_.addActionListener(new BreakPointBlockPairEvent(this,p));
             bpForm.add(but_);
         }
         bpForm.add(addBp);
     }
-    public void refreshExc(AbsDebuggerGui _d) {
+    public void refreshExc(AbsDebuggerGui _d, ResultContext _res) {
         excFrom.removeAll();
-        for (ExcPointBlockPair p: _d.getCurrentResult().getContext().excList().elts()) {
+        for (ExcPointBlockPair p: _res.getContext().excList().elts()) {
             AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton();
             if (p.getEp().isExact()) {
                 but_.setText("exact "+p.getEp().getClName());
@@ -113,9 +119,9 @@ public final class FramePoints {
         excFrom.add(addExc);
     }
 
-    public void refreshStdMethod(AbsDebuggerGui _d) {
+    public void refreshStdMethod(AbsDebuggerGui _d, ResultContext _res) {
         stdForm.removeAll();
-        for (StdMethodPointBlockPair p: _d.getCurrentResult().getContext().stdList().elts()) {
+        for (StdMethodPointBlockPair p: _res.getContext().stdList().elts()) {
             AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton();
             but_.setText(p.getSm().keyStr());
             but_.addActionListener(new StdPointBlockPairEvent(this,p));
@@ -124,9 +130,9 @@ public final class FramePoints {
         stdForm.add(addStd);
     }
 
-    public void refreshMethod(AbsDebuggerGui _d) {
+    public void refreshMethod(AbsDebuggerGui _d, ResultContext _res) {
         metForm.removeAll();
-        for (MethodPointBlockPair p: _d.getCurrentResult().getContext().metList().elts()) {
+        for (MethodPointBlockPair p: _res.getContext().metList().elts()) {
             AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton();
             but_.setText(p.getSgn());
             but_.addActionListener(new PointBlockPairEvent(this,p));
@@ -134,9 +140,9 @@ public final class FramePoints {
         }
         metForm.add(addMet);
     }
-    public void refreshWatch(AbsDebuggerGui _d) {
+    public void refreshWatch(AbsDebuggerGui _d, ResultContext _res) {
         wpForm.removeAll();
-        for (WatchPointBlockPair p: _d.getCurrentResult().getContext().watchList().elts()) {
+        for (WatchPointBlockPair p: _res.getContext().watchList().elts()) {
             AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(displayWatch(p));
             but_.addActionListener(new WpPointBlockPairEvent(this,p));
             wpForm.add(but_);

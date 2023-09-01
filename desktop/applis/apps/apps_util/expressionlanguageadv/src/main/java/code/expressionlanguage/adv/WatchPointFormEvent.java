@@ -11,18 +11,19 @@ import code.gui.events.AbsActionListener;
 public final class WatchPointFormEvent implements AbsActionListener {
     private final AbsDebuggerGui window;
     private final ReadOnlyTabEditor tabEditor;
+    private final ResultContext resultContext;
 
-    public WatchPointFormEvent(AbsDebuggerGui _dbg, ReadOnlyTabEditor _t) {
+    public WatchPointFormEvent(AbsDebuggerGui _dbg, ReadOnlyTabEditor _t, ResultContext _res) {
         window = _dbg;
         this.tabEditor = _t;
+        this.resultContext = _res;
     }
 
     @Override
     public void action() {
-        ResultContext r_ = tabEditor.getDebuggerGui().getCurrentResult();
         int caret_ = tabEditor.getCenter().getCaretPosition();
-        SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(r_.getPageEl(), tabEditor.getFullPath(),caret_);
-        watchAction(r_, true,o_.getRootBlockNb(), o_.getClassField().getFieldName(), window.getFramePoints().getFrameWpFormContent(), window, window.getFramePoints().getCommonFrame());
+        SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(resultContext.getPageEl(), tabEditor.getFullPath(),caret_);
+        watchAction(resultContext, true,o_.getRootBlockNb(), o_.getClassField().getFieldName(), window.getFramePoints().getFrameWpFormContent(), window, window.getFramePoints().getCommonFrame());
     }
 
     static void watchAction(ResultContext _r, boolean _trField, int _nb, String _field, FrameWpFormContent _content, AbsDebuggerGui _w, AbsCommonFrame _frame) {
@@ -30,7 +31,7 @@ public final class WatchPointFormEvent implements AbsActionListener {
         if (bp_ == null) {
             return;
         }
-        _w.getFramePoints().init(_w);
+        _w.getFramePoints().init(_w, _r);
         _w.getFramePoints().guiContentBuild(bp_);
         watchAction(_content, _frame, bp_);
     }

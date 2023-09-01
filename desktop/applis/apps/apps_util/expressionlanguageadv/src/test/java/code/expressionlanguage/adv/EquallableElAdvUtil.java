@@ -218,7 +218,7 @@ public abstract class EquallableElAdvUtil {
     }
     public static void selectStd(AbsDebuggerGui _g, String _cl, AbsractIdentifiableCommon _id) {
         ((MockPlainButton)_g.getFramePoints().getAddStd()).getActionListeners().get(0).action();
-        _g.getFramePoints().getFrameStdFormContent().selectTree(_g,_cl,_id);
+        _g.getFramePoints().getFrameStdFormContent().selectTree(_cl,_id);
     }
     public static void addStd(AbsDebuggerGui _g) {
         ((MockPlainButton)_g.getFramePoints().getAddStd()).getActionListeners().get(0).action();

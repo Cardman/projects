@@ -48,7 +48,6 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsSplitPane detailAll;
     private StackCall stackCall;
     private StackCallReturnValue stackCallView;
-    private ResultContext currentResult;
     private DbgRootStruct root;
     private AbsTreeGui treeDetail;
     private final CustList<AbsTreeGui> trees = new CustList<AbsTreeGui>();
@@ -102,38 +101,28 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         AbsPanel page_ = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         folderSystem = getCommonFrame().getFrames().getCompoFactory().newTreeGui(getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(""));
         folderSystem.select(folderSystem.getRoot());
-        folderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(this,folderSystem,new TabOpeningReadOnlyFile()));
         tabbedPane = getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
         tabbedPane.setPreferredSize(new MetaDimension(512,512));
         page_.add(getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(folderSystem),tabbedPane));
         page_.add(buildPart());
         mute = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("mute");
         selectEnter = getCommonFrame().getFrames().getCompoFactory().newPlainButton("|>");
-        selectEnter.addActionListener(new DbgLaunchEvent(this));
         selectEnter.setEnabled(false);
         nextAction = getCommonFrame().getFrames().getCompoFactory().newPlainButton(">>");
         nextAction.setEnabled(false);
-        nextAction.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.KEEP));
         nextInstruction = getCommonFrame().getFrames().getCompoFactory().newPlainButton(">");
         nextInstruction.setEnabled(false);
-        nextInstruction.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.NEXT_INSTRUCTION));
         nextBlock = getCommonFrame().getFrames().getCompoFactory().newPlainButton(".");
         nextBlock.setEnabled(false);
-        nextBlock.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.NEXT_BLOCK));
         nextGoUp = getCommonFrame().getFrames().getCompoFactory().newPlainButton("^");
         nextGoUp.setEnabled(false);
-        nextGoUp.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.RETURN_METHOD));
         nextInMethod = getCommonFrame().getFrames().getCompoFactory().newPlainButton("=");
         nextInMethod.setEnabled(false);
-        nextInMethod.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.NEXT_IN_METHOD));
         nextCursor = getCommonFrame().getFrames().getCompoFactory().newPlainButton("_");
         nextCursor.setEnabled(false);
-        nextCursor.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.CURSOR));
         pauseStack = getCommonFrame().getFrames().getCompoFactory().newPlainButton("||");
-        pauseStack.addActionListener(new PauseStackEvent(this));
         pauseStack.setEnabled(false);
         stopStack = getCommonFrame().getFrames().getCompoFactory().newPlainButton("stop");
-        stopStack.addActionListener(new StopStackEvent(this));
         stopStack.setEnabled(false);
         detail = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
         callStack = getCommonFrame().getFrames().getCompoFactory().newPageBox();
@@ -167,7 +156,6 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         openPoints = getCommonFrame().getFrames().getCompoFactory().newMenuItem("open points");
         openPoints.setEnabled(false);
         openPoints.setAccelerator(GuiConstants.VK_F6,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK);
-        openPoints.addActionListener(new OpenFramePointsEvent(this,framePoints));
         session_.addMenuItem(openPoints);
         bar_.add(session_);
         getCommonFrame().setJMenuBar(bar_);
@@ -178,25 +166,22 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         this.viewable = _v;
     }
 
-    public void applyTreeChangeSelected(AbsOpeningReadOnlyFile _a, AbsTreeGui _t) {
-        if (getCurrentResult() == null) {
-            return;
-        }
+    public void applyTreeChangeSelected(AbsOpeningReadOnlyFile _a, ResultContext _res, AbsTreeGui _t) {
         AbstractMutableTreeNode sel_ = _t.selectEvt();
         if (sel_ == null) {
             return;
         }
         String str_ = buildPath(sel_);
-        if (openFile(_a,str_)) {
+        if (openFile(_res,_a,str_)) {
             return;
         }
         refresh(sel_,str_, _t);
     }
 
-    boolean openFile(AbsOpeningReadOnlyFile _a, String _str) {
+    boolean openFile(ResultContext _res, AbsOpeningReadOnlyFile _a, String _str) {
         String res_ = viewable.getVal(_str);
         if (res_ != null) {
-            _a.openFile(this,_str,res_);
+            _a.openFile(this,_res,_str,res_);
             return true;
         }
         return false;
@@ -237,10 +222,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         }
     }
     protected abstract AbsPanel buildPart();
-    void addTab(ManageOptions _man,String _path, BytesInfo _content, Options _opt) {
+    void addTab(ResultContext _res, ManageOptions _man, String _path, BytesInfo _content, Options _opt) {
         String dec_ = StringUtil.nullToEmpty(StringUtil.decode(_content.getBytes()));
         String name_ = _path.substring(_path.lastIndexOf('/')+1);
-        ReadOnlyTabEditor te_ = new ReadOnlyTabEditor(this,getCommonFrame().getFrames(), _path.substring(pathToSrc(_man).length()), WindowWithTreeImpl.lineSeparator(dec_),_opt);
+        ReadOnlyTabEditor te_ = new ReadOnlyTabEditor(this,getCommonFrame().getFrames(), _path.substring(pathToSrc(_man).length()), WindowWithTreeImpl.lineSeparator(dec_),_opt,_res);
         te_.centerText(new DefaultUniformingString().apply(dec_));
         tabs.add(te_);
         tabbedPane.addIntTab(name_, te_.getPanel(), _path);
@@ -364,17 +349,38 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             selectEnter.setEnabled(true);
             navigation.setVisible(true);
         }
-        currentResult = _res;
         stopDbg = _res.getContext().getInterrupt();
         openPoints.setEnabled(true);
+        GuiBaseUtil.removeActionListeners(selectEnter);
+        selectEnter.addActionListener(new DbgLaunchEvent(this, _res));
+        GuiBaseUtil.removeActionListeners(nextAction);
+        nextAction.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.KEEP, _res));
+        GuiBaseUtil.removeActionListeners(nextInstruction);
+        nextInstruction.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.NEXT_INSTRUCTION, _res));
+        GuiBaseUtil.removeActionListeners(nextBlock);
+        nextBlock.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.NEXT_BLOCK, _res));
+        GuiBaseUtil.removeActionListeners(nextGoUp);
+        nextGoUp.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.RETURN_METHOD, _res));
+        GuiBaseUtil.removeActionListeners(nextInMethod);
+        nextInMethod.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.NEXT_IN_METHOD, _res));
+        GuiBaseUtil.removeActionListeners(nextCursor);
+        nextCursor.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.CURSOR, _res));
+        GuiBaseUtil.removeActionListeners(stopStack);
+        stopStack.addActionListener(new StopStackEvent(this, _res));
+        GuiBaseUtil.removeActionListeners(pauseStack);
+        pauseStack.addActionListener(new PauseStackEvent(this, _res));
+        GuiBaseUtil.removeActionListeners(openPoints);
+        openPoints.addActionListener(new OpenFramePointsEvent(this,framePoints, _res));
+        GuiBaseUtil.removeTreeSelectionListeners(folderSystem);
+        folderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(this,_res,folderSystem,new TabOpeningReadOnlyFile()));
         refreshList(folderSystem.selectEvt(),viewable, "");
-        framePoints.refresh(viewable);
+        framePoints.refresh(viewable,this, _res);
         closeCompos();
         int len_ = _src.size();
         for (int i = 0; i < len_; i++) {
             String fullPath_ = pathToSrc(manageOptions)+ _src.getKey(i);
             BytesInfo content_ = new BytesInfo(StringUtil.encode(_src.getValue(i)),false);
-            addTab(manageOptions,fullPath_,content_, manageOptions.getOptions());
+            addTab(_res,manageOptions,fullPath_,content_, manageOptions.getOptions());
         }
         PackingWindowAfter.pack(getCommonFrame());
     }
@@ -388,12 +394,12 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         tabs.clear();
     }
 
-    public void launchDebug() {
-        CallingState l_ = look();
+    public void launchDebug(ResultContext _curr) {
+        CallingState l_ = look(_curr);
         selected = state(l_);
         if (l_ != null) {
             selectEnter.setEnabled(false);
-            currentThreadActions(new DbgLaunchTask(this, StepDbgActionEnum.DEBUG));
+            currentThreadActions(new DbgLaunchTask(this, StepDbgActionEnum.DEBUG, _curr));
         }
     }
 
@@ -461,7 +467,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return mute;
     }
 
-    protected abstract CallingState look();
+    protected abstract CallingState look(ResultContext _res);
     public CustList<ReadOnlyTabEditor> getTabs() {
         return tabs;
     }
@@ -480,10 +486,6 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public FramePoints getFramePoints() {
         return framePoints;
-    }
-
-    public ResultContext getCurrentResult() {
-        return currentResult;
     }
 
     public AbsPlainButton getNextAction() {
@@ -536,10 +538,6 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public AbstractAtomicBoolean getStopDbg() {
         return stopDbg;
-    }
-
-    public AbstractAtomicBoolean stopDbg() {
-        return currentResult.getContext().getInterrupt();
     }
 
     public AbsPlainButton getStopStack() {

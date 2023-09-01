@@ -12,25 +12,27 @@ public final class OkStdMpFormEvent implements AbsActionListener {
     private final AbsDebuggerGui window;
     private final FrameStdMpForm frameExcFormContent;
     private final FramePoints framePoints;
+    private final ResultContext currentResult;
 
-    public OkStdMpFormEvent(AbsDebuggerGui _w, FrameStdMpForm _f, FramePoints _p) {
+    public OkStdMpFormEvent(AbsDebuggerGui _w, FrameStdMpForm _f, FramePoints _p, ResultContext _res) {
         this.window = _w;
         this.frameExcFormContent = _f;
         this.framePoints = _p;
+        currentResult = _res;
     }
 
     @Override
     public void action() {
-        act(frameExcFormContent,null,null, window, framePoints);
+        act(frameExcFormContent,null,null, window, framePoints, currentResult);
     }
 
-    static void act(FrameStdMpForm _frCont, StandardType _type, StandardNamedFunction _fct, AbsDebuggerGui _w, FramePoints _fp) {
+    static void act(FrameStdMpForm _frCont, StandardType _type, StandardNamedFunction _fct, AbsDebuggerGui _w, FramePoints _fp, ResultContext _curr) {
         StdMethodPointBlockPair exc_ = _frCont.getSelectedMp();
         if (exc_ == null) {
             StdMethodPointBlockPair added_;
             if (_type != null && _fct != null) {
-                added_ = _w.getCurrentResult().getContext().std(_type, _fct);
-                _w.getCurrentResult().getContext().stdList().add(added_);
+                added_ = _curr.getContext().std(_type, _fct);
+                _curr.getContext().stdList().add(added_);
             } else {
                 added_ = null;
             }
@@ -42,18 +44,17 @@ public final class OkStdMpFormEvent implements AbsActionListener {
         exc_.getValue().setEnabled(_frCont.getEnabledMp().isSelected());
         exc_.getValue().setEntry(_frCont.getEnterFunction().isSelected());
         exc_.getValue().setExit(_frCont.getExitFunction().isSelected());
-        update(exc_, exc_.getValue().getResultEntry(), _w, _frCont.getGuiEnterStackForm());
-        update(exc_, exc_.getValue().getResultExit(), _w, _frCont.getGuiExitStackForm());
+        update(exc_, exc_.getValue().getResultEntry(), _w, _frCont.getGuiEnterStackForm(), _curr);
+        update(exc_, exc_.getValue().getResultExit(), _w, _frCont.getGuiExitStackForm(), _curr);
         _frCont.setSelectedMp(null);
         _fp.guiContentBuildClear();
-        _fp.refreshStdMethod(_w);
+        _fp.refreshStdMethod(_w, _curr);
         _fp.getCommonFrame().pack();
     }
 
-    private static void update(StdMethodPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form) {
-        ResultContext curr_ = _window.getCurrentResult();
-        String type_ = curr_.getPageEl().getAliasPrimBoolean();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), _mp, curr_, type_, _window.getResultContextNext().generateAdv(curr_.getContext().getInterrupt()));
+    private static void update(StdMethodPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, ResultContext _cur) {
+        String type_ = _cur.getPageEl().getAliasPrimBoolean();
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), _mp, _cur, type_, _window.getResultContextNext().generateAdv(_cur.getContext().getInterrupt()));
         OkMpFormEvent.update(_condition, _form, res_);
     }
 

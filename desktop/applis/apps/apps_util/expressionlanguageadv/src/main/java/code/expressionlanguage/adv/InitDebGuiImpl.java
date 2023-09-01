@@ -79,18 +79,18 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
     }
 
     @Override
-    protected CallingState look() {
+    protected CallingState look(ResultContext _res) {
         String idCl_ = classesField.getText();
         ExecRootBlock type_ = selectedType(idCl_);
         CustList<ExecOverridableBlock> res_ = methods(type_);
         if (!res_.isEmpty()) {
             setStackCall(null);
-            getCurrentResult().getContext().getInterrupt().set(false);
+            _res.getContext().getInterrupt().set(false);
             getStoppedClick().set(false);
             Argument argGlLoc_ = new Argument();
             Parameters p_ = new Parameters();
             String name_ = res_.first().getParametersName(0);
-            String argType_ = StringExpUtil.getPrettyArrayType(getCurrentResult().getPageEl().getAliasString());
+            String argType_ = StringExpUtil.getPrettyArrayType(_res.getPageEl().getAliasString());
             int s_ = formInputDebugLines.getCommentsRows().size();
             ArrayStruct arr_ = new ArrayStruct(s_, argType_);
             for (int i = 0; i < s_; i++) {
@@ -119,7 +119,7 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
     }
 
     public ExecRootBlock selectedType(String _d) {
-        ResultContext r_ = getCurrentResult();
+        ResultContext r_ = methodFilter.getResult();
         if (r_ == null) {
             return null;
         }
@@ -127,7 +127,7 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
     }
 
     public CustList<ExecOverridableBlock> methods(ExecRootBlock _type) {
-        ResultContext r_ = getCurrentResult();
+        ResultContext r_ = methodFilter.getResult();
         if (r_ == null) {
             return new CustList<ExecOverridableBlock>();
         }

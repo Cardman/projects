@@ -11,16 +11,17 @@ import code.gui.initialize.AbsCompoFactory;
 
 public final class ToggleBreakPointEvent implements AbsActionListener {
     private final ReadOnlyTabEditor tabEditor;
+    private final ResultContext currentResult;
 
-    public ToggleBreakPointEvent(ReadOnlyTabEditor _t) {
+    public ToggleBreakPointEvent(ReadOnlyTabEditor _t, ResultContext _c) {
         this.tabEditor = _t;
+        currentResult = _c;
     }
 
     @Override
     public void action() {
-        ResultContext r_ = tabEditor.getDebuggerGui().getCurrentResult();
-        r_.toggleBreakPoint(tabEditor.getFullPath(), tabEditor.getCenter().getCaretPosition());
-        afterToggle(r_, tabEditor);
+        currentResult.toggleBreakPoint(tabEditor.getFullPath(), tabEditor.getCenter().getCaretPosition());
+        afterToggle(currentResult, tabEditor);
     }
 
     static void afterToggle(ResultContext _r, ReadOnlyTabEditor _tab) {

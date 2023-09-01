@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
+import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 import code.util.StringMap;
 
@@ -18,7 +19,7 @@ public final class FrameBpFormContent {
     private AbsPlainLabel edited;
     private AbsPlainButton remove;
     private AbsPanel contentPane;
-    public void guiBuild(AbsDebuggerGui _d, FramePoints _p) {
+    public void guiBuild(AbsDebuggerGui _d) {
         edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel("");
         instanceType = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("instance");
         staticType = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("static");
@@ -27,7 +28,6 @@ public final class FrameBpFormContent {
         caret = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
         remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
-        remove.addActionListener(new OkRemoveBpFormEvent(_d, this, _p));
         AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         bpForm_.add(enabledBp);
         bpForm_.add(instanceType);
@@ -35,7 +35,6 @@ public final class FrameBpFormContent {
         bpForm_.add(guiStdStackForm.guiBuild(_d));
         bpForm_.add(guiInsStackForm.guiBuild(_d));
         bpForm_.add(guiStaStackForm.guiBuild(_d));
-        ok.addActionListener(new OkBpFormEvent(_d));
         bpForm_.add(fileName);
         bpForm_.add(caret);
         bpForm_.add(ok);
@@ -74,10 +73,14 @@ public final class FrameBpFormContent {
         return caret;
     }
 
-    public void refresh(StringMap<String> _v) {
-        getGuiStdStackForm().refresh(_v, "");
-        getGuiInsStackForm().refresh(_v, "");
-        getGuiStaStackForm().refresh(_v, "");
+    public void refresh(StringMap<String> _v, ResultContext _r, AbsDebuggerGui _d, FramePoints _p) {
+        GuiBaseUtil.removeActionListeners(ok);
+        ok.addActionListener(new OkBpFormEvent(_d, _r));
+        GuiBaseUtil.removeActionListeners(remove);
+        remove.addActionListener(new OkRemoveBpFormEvent(_d, this, _p, _r));
+        getGuiStdStackForm().refresh(_v, "", _r, _d);
+        getGuiInsStackForm().refresh(_v, "", _r, _d);
+        getGuiStaStackForm().refresh(_v, "", _r, _d);
     }
 
     public BreakPointBlockPair getSelectedBp() {

@@ -82,17 +82,17 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
     }
 
     @Override
-    protected CallingState look() {
+    protected CallingState look(ResultContext _res) {
         ExecConstructorOverrideInfo info_ = findReplaceExpression.getTargetMethodView();
         if (info_ == null) {
             return null;
         }
         if (instance == NullStruct.NULL_VALUE) {
             setStackCall(null);
-            getCurrentResult().getContext().getInterrupt().set(false);
+            _res.getContext().getInterrupt().set(false);
             getStoppedClick().set(false);
             typed = text.getText();
-            ContextEl rCont_ = getCurrentResult().getContext();
+            ContextEl rCont_ = _res.getContext();
             ArrayStruct empty_ = new ArrayStruct(0, StringExpUtil.getPrettyArrayType(rCont_.getStandards().getCoreNames().getAliasObject()));
             ArrayRefState a_ = ArrayRefState.tryWrap(empty_,0);
             return new CustomReflectConstructor(info_.getMetaInfo(),a_);
@@ -103,8 +103,8 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
             String nameOne_ = fct_.getParametersName(0);
             String nameTwo_ = fct_.getParametersName(1);
             Parameters p_ = new Parameters();
-            p_.getRefParameters().addEntry(nameOne_,new VariableWrapper(LocalVariable.newLocalVariable(new StringStruct(typed), getCurrentResult().getContext())));
-            p_.getRefParameters().addEntry(nameTwo_,new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(currentIndex), getCurrentResult().getContext())));
+            p_.getRefParameters().addEntry(nameOne_,new VariableWrapper(LocalVariable.newLocalVariable(new StringStruct(typed), _res.getContext())));
+            p_.getRefParameters().addEntry(nameTwo_,new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(currentIndex), _res.getContext())));
             return new CustomFoundMethod(new Argument(instance),targetMethod_.getClassName(), targetMethod_.getPair(), p_);
         }
         if (fromIndex == -1) {
@@ -147,10 +147,10 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
         String nameFour_ = fct_.getParametersName(3);
         SegmentFindPart seg_ = found.get(occ);
         Parameters p_ = new Parameters();
-        p_.getRefParameters().addEntry(nameOne_,new VariableWrapper(LocalVariable.newLocalVariable(new StringStruct(copy.toString()), getCurrentResult().getContext())));
-        p_.getRefParameters().addEntry(nameTwo_,new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(occ), getCurrentResult().getContext())));
-        p_.getRefParameters().addEntry(nameThree_,new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(seg_.getBegin()), getCurrentResult().getContext())));
-        p_.getRefParameters().addEntry(nameFour_,new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(seg_.getEnd()), getCurrentResult().getContext())));
+        p_.getRefParameters().addEntry(nameOne_,new VariableWrapper(LocalVariable.newLocalVariable(new StringStruct(copy.toString()), _res.getContext())));
+        p_.getRefParameters().addEntry(nameTwo_,new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(occ), _res.getContext())));
+        p_.getRefParameters().addEntry(nameThree_,new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(seg_.getBegin()), _res.getContext())));
+        p_.getRefParameters().addEntry(nameFour_,new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(seg_.getEnd()), _res.getContext())));
         return new CustomFoundMethod(new Argument(instance),targetMethod_.getClassName(), targetMethod_.getPair(), p_);
     }
 

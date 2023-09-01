@@ -15,9 +15,11 @@ import code.util.core.StringUtil;
 
 public final class OkWpFormEvent implements AbsActionListener {
     private final AbsDebuggerGui window;
+    private final ResultContext currentResult;
 
-    public OkWpFormEvent(AbsDebuggerGui _w) {
+    public OkWpFormEvent(AbsDebuggerGui _w, ResultContext _res) {
         this.window = _w;
+        currentResult = _res;
     }
 
     @Override
@@ -25,13 +27,13 @@ public final class OkWpFormEvent implements AbsActionListener {
         WatchPointBlockPair wp_ = window.getFramePoints().getFrameWpFormContent().getSelectedWp();
         if (wp_ == null) {
             String clName_ = window.getFramePoints().getFrameWpFormContent().getClassName().getText();
-            RootBlock r_ = window.getCurrentResult().getPageEl().getAnaClassBody(clName_);
+            RootBlock r_ = currentResult.getPageEl().getAnaClassBody(clName_);
             String fieldName_ = window.getFramePoints().getFrameWpFormContent().getFieldName().getText();
             if (!valid(r_, window.getFramePoints().getFrameWpFormContent().getTrueField().isSelected(), fieldName_)) {
                 return;
             }
-            wp_ = window.getCurrentResult().watch(window.getFramePoints().getFrameWpFormContent().getTrueField().isSelected(),new SynthFieldInfo(new ClassField(clName_, fieldName_),r_));
-            window.getCurrentResult().getContext().watchList().add(wp_);
+            wp_ = currentResult.watch(window.getFramePoints().getFrameWpFormContent().getTrueField().isSelected(),new SynthFieldInfo(new ClassField(clName_, fieldName_),r_));
+            currentResult.getContext().watchList().add(wp_);
         }
         wp_.getValue().setEnabled(window.getFramePoints().getFrameWpFormContent().getEnabledWp().isSelected());
         wp_.getValue().setRead(window.getFramePoints().getFrameWpFormContent().getRead().isSelected());
@@ -39,14 +41,14 @@ public final class OkWpFormEvent implements AbsActionListener {
         wp_.getValue().setCompoundRead(window.getFramePoints().getFrameWpFormContent().getCompoundRead().isSelected());
         wp_.getValue().setCompoundWrite(window.getFramePoints().getFrameWpFormContent().getCompoundWrite().isSelected());
         wp_.getValue().setCompoundWriteErr(window.getFramePoints().getFrameWpFormContent().getCompoundWriteErr().isSelected());
-        update(wp_,wp_.getValue().getResultRead(),window,window.getFramePoints().getFrameWpFormContent().getGuiReadStackForm(),false);
-        update(wp_,wp_.getValue().getResultWrite(),window,window.getFramePoints().getFrameWpFormContent().getGuiWriteStackForm(),true);
-        update(wp_,wp_.getValue().getResultCompoundRead(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundReadStackForm(),false);
-        update(wp_,wp_.getValue().getResultCompoundWrite(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundWriteStackForm(),true);
-        update(wp_,wp_.getValue().getResultCompoundWriteErr(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundWriteErrStackForm(),true);
+        update(wp_,wp_.getValue().getResultRead(),window,window.getFramePoints().getFrameWpFormContent().getGuiReadStackForm(),false, currentResult);
+        update(wp_,wp_.getValue().getResultWrite(),window,window.getFramePoints().getFrameWpFormContent().getGuiWriteStackForm(),true, currentResult);
+        update(wp_,wp_.getValue().getResultCompoundRead(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundReadStackForm(),false, currentResult);
+        update(wp_,wp_.getValue().getResultCompoundWrite(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundWriteStackForm(),true, currentResult);
+        update(wp_,wp_.getValue().getResultCompoundWriteErr(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundWriteErrStackForm(),true, currentResult);
         window.getFramePoints().getFrameWpFormContent().setSelectedWp(null);
         window.getFramePoints().guiContentBuildClear();
-        window.getFramePoints().refreshWatch(window);
+        window.getFramePoints().refreshWatch(window, currentResult);
         window.getFramePoints().getCommonFrame().pack();
     }
     static boolean valid(RootBlock _r, boolean _selected, String _text) {
@@ -64,10 +66,9 @@ public final class OkWpFormEvent implements AbsActionListener {
         }
         return false;
     }
-    private static void update(WatchPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, boolean _setting) {
-        ResultContext curr_ = _window.getCurrentResult();
-        String type_ = curr_.getPageEl().getAliasPrimBoolean();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_form.getConditional().getText(), _mp, curr_, type_, _window.getResultContextNext().generateAdv(curr_.getContext().getInterrupt()), _setting);
+    private static void update(WatchPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, boolean _setting, ResultContext _res) {
+        String type_ = _res.getPageEl().getAliasPrimBoolean();
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_form.getConditional().getText(), _mp, _res, type_, _window.getResultContextNext().generateAdv(_res.getContext().getInterrupt()), _setting);
         OkMpFormEvent.update(_condition,_form,res_);
     }
 }

@@ -1,5 +1,6 @@
 package code.gui;
 
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsEnabledAction;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.events.SetterLanguage;
@@ -27,6 +28,21 @@ public final class GuiBaseUtil {
 
     }
 
+    public static void removeTreeSelectionListeners(AbsTreeGui _tr) {
+        CustList<AbsShortListTree> tr_ = _tr.getTreeSelectionListeners();
+        int s_ = tr_.size();
+        for (int i = 0; i < s_; i++) {
+            _tr.removeTreeSelectionListener(tr_.get(i));
+        }
+    }
+
+    public static void removeActionListeners(AbsPlainButton _tr) {
+        CustList<AbsActionListener> tr_ = _tr.getActionListeners();
+        int s_ = tr_.size();
+        for (int i = 0; i < s_; i++) {
+            _tr.removeActionListener(tr_.get(i));
+        }
+    }
     public static void recalculate(AbsCustComponent _compo) {
         _compo.setSize(_compo.getPreferredSizeValue());
         AbsCustComponent curr_ = _compo;

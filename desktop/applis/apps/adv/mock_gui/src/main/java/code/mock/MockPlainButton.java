@@ -3,6 +3,7 @@ package code.mock;
 import code.gui.AbsPlainButton;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsAdvActionListener;
+import code.util.CustList;
 import code.util.IdList;
 
 public final class MockPlainButton extends MockInput implements AbsPlainButton {
@@ -25,7 +26,10 @@ public final class MockPlainButton extends MockInput implements AbsPlainButton {
         advActionListeners.add(_l);
     }
 
-    public IdList<AbsActionListener> getActionListeners() {
+    public void removeActionListener(AbsActionListener _mouseListener) {
+        actionListeners.removeObj(_mouseListener);
+    }
+    public CustList<AbsActionListener> getActionListeners() {
         return actionListeners;
     }
 

@@ -3,6 +3,7 @@ package code.vi.prot.impl.gui;
 import code.gui.AbsPlainButton;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsAdvActionListener;
+import code.util.CustList;
 import code.vi.prot.impl.gui.events.WrActionListener;
 import code.util.IdMap;
 import code.vi.prot.impl.gui.events.WrAdvActionListener;
@@ -34,6 +35,16 @@ public final class PlainButton extends CustComponent implements AbsPlainButton {
 
     public void setText(String _text) {
         button.setText(_text);
+    }
+
+    public void removeActionListener(AbsActionListener _mouseListener) {
+        WrActionListener wr_ = mapAction.getVal(_mouseListener);
+        button.removeActionListener(wr_);
+        mapAction.removeKey(_mouseListener);
+    }
+    @Override
+    public CustList<AbsActionListener> getActionListeners() {
+        return mapAction.getKeys();
     }
 
     public void addActionListener(AbsActionListener _l) {

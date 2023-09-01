@@ -7,37 +7,38 @@ import code.gui.events.AbsActionListener;
 
 public final class OkMpFormEvent implements AbsActionListener {
     private final AbsDebuggerGui window;
+    private final ResultContext resultContext;
 
-    public OkMpFormEvent(AbsDebuggerGui _w) {
+    public OkMpFormEvent(AbsDebuggerGui _w, ResultContext _r) {
         this.window = _w;
+        this.resultContext = _r;
     }
 
     @Override
     public void action() {
         MethodPointBlockPair mp_ = window.getFramePoints().getFrameFormContent().getSelectedMp();
         if (mp_ == null) {
-            AbsPairPoint p_ = window.getCurrentResult().tryGetPair(window.getFramePoints().getFrameFormContent().getFileName().getText(), window.getFramePoints().getFrameFormContent().getCaret().getValue());
+            AbsPairPoint p_ = resultContext.tryGetPair(window.getFramePoints().getFrameFormContent().getFileName().getText(), window.getFramePoints().getFrameFormContent().getCaret().getValue());
             if (!(p_ instanceof MethodPointBlockPair)) {
                 return;
             }
             mp_ = (MethodPointBlockPair) p_;
-            window.getCurrentResult().getContext().metList().add(mp_);
+            resultContext.getContext().metList().add(mp_);
         }
         mp_.getValue().setEnabled(window.getFramePoints().getFrameFormContent().getEnabledMp().isSelected());
         mp_.getPref().set(window.getFramePoints().getFrameFormContent().getFrameMpFormContent().getPref().getValue());
         mp_.getValue().setEntry(window.getFramePoints().getFrameFormContent().getEnterFunction().isSelected());
         mp_.getValue().setExit(window.getFramePoints().getFrameFormContent().getExitFunction().isSelected());
-        update(mp_, mp_.getValue().getResultEntry(), window, window.getFramePoints().getFrameFormContent().getGuiEnterStackForm());
-        update(mp_, mp_.getValue().getResultExit(), window, window.getFramePoints().getFrameFormContent().getGuiExitStackForm());
+        update(mp_, mp_.getValue().getResultEntry(), window, window.getFramePoints().getFrameFormContent().getGuiEnterStackForm(), resultContext);
+        update(mp_, mp_.getValue().getResultExit(), window, window.getFramePoints().getFrameFormContent().getGuiExitStackForm(), resultContext);
         window.getFramePoints().getFrameFormContent().setSelectedMp(null);
         window.getFramePoints().guiContentBuildClear();
-        window.getFramePoints().refreshMethod(window);
+        window.getFramePoints().refreshMethod(window, resultContext);
         window.getFramePoints().getCommonFrame().pack();
     }
-    private static void update(MethodPointBlockPair _mp,BreakPointCondition _condition,AbsDebuggerGui _window, GuiStackForm _form) {
-        ResultContext curr_ = _window.getCurrentResult();
-        String type_ = curr_.getPageEl().getAliasPrimBoolean();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), _mp, curr_, type_, _window.getResultContextNext().generateAdv(curr_.getContext().getInterrupt()));
+    private static void update(MethodPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, ResultContext _res) {
+        String type_ = _res.getPageEl().getAliasPrimBoolean();
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), _mp, _res, type_, _window.getResultContextNext().generateAdv(_res.getContext().getInterrupt()));
         update(_condition, _form, res_);
     }
 

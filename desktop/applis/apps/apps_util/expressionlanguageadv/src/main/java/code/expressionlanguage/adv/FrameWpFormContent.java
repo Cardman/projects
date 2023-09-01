@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
+import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 import code.util.StringMap;
 
@@ -24,7 +25,7 @@ public final class FrameWpFormContent {
     private AbsPlainButton ok;
     private AbsPlainButton remove;
     private AbsPanel contentPane;
-    public void guiBuild(AbsDebuggerGui _d, FramePoints _p) {
+    public void guiBuild(AbsDebuggerGui _d) {
         edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel("");
         className = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         fieldName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
@@ -37,7 +38,6 @@ public final class FrameWpFormContent {
         enabledWp = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
         ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
         remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
-        remove.addActionListener(new OkRemoveWatchFormEvent(_d, this, _p));
         AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         bpForm_.add(edited);
         bpForm_.add(enabledWp);
@@ -51,7 +51,6 @@ public final class FrameWpFormContent {
         bpForm_.add(guiCompoundReadStackForm.guiBuild(_d));
         bpForm_.add(guiCompoundWriteStackForm.guiBuild(_d));
         bpForm_.add(guiCompoundWriteErrStackForm.guiBuild(_d));
-        ok.addActionListener(new OkWpFormEvent(_d));
         bpForm_.add(ok);
         bpForm_.add(remove);
         contentPane = bpForm_;
@@ -61,12 +60,16 @@ public final class FrameWpFormContent {
         return contentPane;
     }
 
-    public void refresh(StringMap<String> _v) {
-        getGuiCompoundReadStackForm().refresh(_v, "");
-        getGuiCompoundWriteErrStackForm().refresh(_v, "");
-        getGuiCompoundWriteStackForm().refresh(_v, "");
-        getGuiReadStackForm().refresh(_v, "");
-        getGuiWriteStackForm().refresh(_v, "");
+    public void refresh(StringMap<String> _v, ResultContext _r, AbsDebuggerGui _d, FramePoints _p) {
+        GuiBaseUtil.removeActionListeners(remove);
+        remove.addActionListener(new OkRemoveWatchFormEvent(_d, this, _p, _r));
+        GuiBaseUtil.removeActionListeners(ok);
+        ok.addActionListener(new OkWpFormEvent(_d, _r));
+        getGuiCompoundReadStackForm().refresh(_v, "", _r, _d);
+        getGuiCompoundWriteErrStackForm().refresh(_v, "", _r, _d);
+        getGuiCompoundWriteStackForm().refresh(_v, "", _r, _d);
+        getGuiReadStackForm().refresh(_v, "", _r, _d);
+        getGuiWriteStackForm().refresh(_v, "", _r, _d);
     }
 
     public void initForm(WatchPointBlockPair _wp, AbsCommonFrame _c) {

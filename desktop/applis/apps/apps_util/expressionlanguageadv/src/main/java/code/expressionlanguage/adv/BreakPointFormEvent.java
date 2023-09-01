@@ -13,33 +13,34 @@ import code.util.CustList;
 public final class BreakPointFormEvent implements AbsActionListener {
     private final AbsDebuggerGui window;
     private final ReadOnlyTabEditor tabEditor;
+    private final ResultContext currentResult;
 
-    public BreakPointFormEvent(AbsDebuggerGui _dbg,ReadOnlyTabEditor _t) {
+    public BreakPointFormEvent(AbsDebuggerGui _dbg, ReadOnlyTabEditor _t, ResultContext _r) {
         window = _dbg;
         this.tabEditor = _t;
+        currentResult = _r;
     }
 
     @Override
     public void action() {
-        ResultContext r_ = tabEditor.getDebuggerGui().getCurrentResult();
-        FileBlock af_ = r_.getPageEl().getPreviousFilesBodies().getVal(tabEditor.getFullPath());
-        ExecFileBlock f_ = r_.getFiles().getVal(af_);
+        FileBlock af_ = currentResult.getPageEl().getPreviousFilesBodies().getVal(tabEditor.getFullPath());
+        ExecFileBlock f_ = currentResult.getFiles().getVal(af_);
         int caret_ = tabEditor.getCenter().getCaretPosition();
         int o_ = ResultExpressionOperationNode.beginPart(caret_, af_);
         MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(caret_, af_);
         if (id_ != null) {
             BracedBlock rPar_ = BreakPointBlockList.rootOfAnnot(id_);
             if (rPar_ instanceof RootBlock) {
-                WatchPointFormEvent.watchAction(r_, false,((RootBlock)rPar_).getNumberAll(),((NamedCalledFunctionBlock)id_).getName(), window.getFramePoints().getFrameWpFormContent(),window, window.getFramePoints().getCommonFrame());
+                WatchPointFormEvent.watchAction(currentResult, false,((RootBlock)rPar_).getNumberAll(),((NamedCalledFunctionBlock)id_).getName(), window.getFramePoints().getFrameWpFormContent(),window, window.getFramePoints().getCommonFrame());
                 return;
             }
-            MethodPointBlockPair mp_ = r_.getPair(MemberCallingsBlock.clName(id_));
+            MethodPointBlockPair mp_ = currentResult.getPair(MemberCallingsBlock.clName(id_));
             if (mp_ != null) {
                 methodAction(mp_, window.getFramePoints().getFrameFormContent(), window.getFramePoints().getCommonFrame());
                 return;
             }
         }
-        BreakPointBlockPair bp_ = r_.getPair(f_, o_);
+        BreakPointBlockPair bp_ = currentResult.getPair(f_, o_);
         if (bp_ == null) {
             return;
         }

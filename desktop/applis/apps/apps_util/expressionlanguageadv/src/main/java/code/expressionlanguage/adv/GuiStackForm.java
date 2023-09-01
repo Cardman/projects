@@ -81,7 +81,6 @@ public final class GuiStackForm {
         countSub = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         bpFolderSystem = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui(_d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(""));
         bpFolderSystem.select(bpFolderSystem.getRoot());
-        bpFolderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(_d,bpFolderSystem,new SelOpeningReadOnlyFile(this)));
         readOnlyFormTabEditor = new ReadOnlyFormTabEditor(_d,_d.getCommonFrame().getFrames(), _d.getManageOptions().getOptions());
         staIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         staIncExc.add(enabledSub);
@@ -95,10 +94,8 @@ public final class GuiStackForm {
         singleCaret.setSelected(true);
         staIncExc.add(singleCaret);
         bpAddFile = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add include");
-        bpAddFile.addActionListener(new AddIncludeEvent(this,_d));
         staIncExc.add(bpAddFile);
         bpRemoveFile = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add exclude");
-        bpRemoveFile.addActionListener(new AddExcludeEvent(this,_d));
         staIncExc.add(bpRemoveFile);
         includedFileIndex = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         excludedFileIndex = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
@@ -107,7 +104,13 @@ public final class GuiStackForm {
         staScIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(staIncExc);
         return staScIncExc;
     }
-    public void refresh(StringMap<String> _files, String _folderToVisit) {
+    public void refresh(StringMap<String> _files, String _folderToVisit, ResultContext _r, AbsDebuggerGui _d) {
+        GuiBaseUtil.removeActionListeners(bpAddFile);
+        bpAddFile.addActionListener(new AddIncludeEvent(this,_d, _r));
+        GuiBaseUtil.removeActionListeners(bpRemoveFile);
+        bpRemoveFile.addActionListener(new AddExcludeEvent(this,_d, _r));
+        GuiBaseUtil.removeTreeSelectionListeners(bpFolderSystem);
+        bpFolderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(_d,_r,bpFolderSystem,new SelOpeningReadOnlyFile(this)));
         AbsDebuggerGui.refreshList(bpFolderSystem.selectEvt(),_files, _folderToVisit);
     }
 
