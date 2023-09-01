@@ -30,6 +30,7 @@ public final class AnalyzeDebugTask implements Runnable {
         }
         ResultContext ana_ = gen_.next(base, src, new DbgStackStopper());
         if (ana_ == null) {
+            gui.getAnalyzeMenu().setEnabled(true);
             return;
         }
         AbsAdvContextGenerator gn_ = gen_.generate();
@@ -42,6 +43,6 @@ public final class AnalyzeDebugTask implements Runnable {
 //        ana_.setContext(ctx_);
         gui.setViewable(all_);
         gui.update(ana_, src);
-        gui.setStopDbg(gn_.getStop());
+        gui.getAnalyzeMenu().setEnabled(true);
     }
 }

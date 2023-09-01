@@ -15,7 +15,7 @@ public final class OkRemoveStdFormEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        window.getCurrentResult().toggleBreakPoint(frameExcFormContent.getSelectedMp().getSm().getType(), frameExcFormContent.getSelectedMp().getSm().getId());
+        window.getCurrentResult().getContext().stdList().remove(window.getCurrentResult().getContext().std(frameExcFormContent.getSelectedMp().getSm().getType(), frameExcFormContent.getSelectedMp().getSm().getId()));
         framePoints.guiContentBuildClear();
         framePoints.refreshStdMethod(window);
         framePoints.getCommonFrame().pack();

@@ -149,7 +149,7 @@ public final class ExecClassesUtil {
     }
     private static CustList<ViewPage> vars(ContextEl _context, StackCall _st) {
         if (!_st.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
-            _context.getClasses().getDebugMapping().getBreakPointsBlock().resetList();
+            _context.resetList();
         }
         CustList<ViewPage> ls_ = new CustList<ViewPage>();
         int pages_ = _st.nbPages();

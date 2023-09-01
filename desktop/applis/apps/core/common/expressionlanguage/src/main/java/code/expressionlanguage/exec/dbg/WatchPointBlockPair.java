@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.dbg;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 
-public final class WatchPointBlockPair {
+public final class WatchPointBlockPair implements AbsPairPoint {
     private final WatchPointBlockKey wp;
     private final RootBlock root;
     private final WatchPoint value;
@@ -13,6 +13,11 @@ public final class WatchPointBlockPair {
         this.root = _rBlock;
         this.value = new WatchPoint(_v,wp);
         this.value.setEnabled(_enabled);
+    }
+
+    @Override
+    public String keyStr() {
+        return getWp().keyStr();
     }
 
     public WatchPointBlockKey getWp() {

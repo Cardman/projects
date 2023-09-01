@@ -106,7 +106,7 @@ public class DefaultInitializer implements Initializer {
             _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(status_);
             _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setPreviousNbPages(_stackCall.nbPages());
             _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setPreviousNbBlocks(_stackCall.getLastPage().nbBlock());
-            _owner.getClasses().getDebugMapping().getBreakPointsBlock().getListTmp().clear();
+            _owner.tmpList().clear();
             return true;
         }
         return stopNormal(_owner, _stackCall);

@@ -46,7 +46,7 @@ public final class ResultExpressionOperationNode {
         if (res_.getFound() instanceof SettableAbstractFieldOperation) {
             RootBlock r_ = ((SettableAbstractFieldOperation) res_.getFound()).getFieldType();
             if (r_ != null) {
-                return new SynthFieldInfo(((SettableAbstractFieldOperation)res_.getFound()).getFieldIdReadOnly(), r_, r_.getNumberAll());
+                return new SynthFieldInfo(((SettableAbstractFieldOperation)res_.getFound()).getFieldIdReadOnly(), r_);
             }
         }
         return new SynthFieldInfo(new ClassField("",""),null, -1);

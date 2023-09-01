@@ -1,8 +1,8 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.exec.dbg.BreakPointBlockList;
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
 import code.expressionlanguage.exec.dbg.StdMethodPointBlockPair;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
@@ -27,11 +27,13 @@ public final class OkStdMpFormEvent implements AbsActionListener {
     static void act(FrameStdMpForm _frCont, StandardType _type, StandardNamedFunction _fct, AbsDebuggerGui _w, FramePoints _fp) {
         StdMethodPointBlockPair exc_ = _frCont.getSelectedMp();
         if (exc_ == null) {
-            BreakPointBlockList ls_ = _w.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock();
+            StdMethodPointBlockPair added_;
             if (_type != null && _fct != null) {
-                _w.getCurrentResult().toggleBreakPoint(_type,_fct);
+                added_ = _w.getCurrentResult().getContext().std(_type, _fct);
+                _w.getCurrentResult().getContext().stdList().add(added_);
+            } else {
+                added_ = null;
             }
-            StdMethodPointBlockPair added_ = ls_.getPair(_fct);
             if (added_ == null) {
                 return;
             }
@@ -49,8 +51,9 @@ public final class OkStdMpFormEvent implements AbsActionListener {
     }
 
     private static void update(StdMethodPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form) {
-        String type_ = _window.getCurrentResult().getPageEl().getAliasPrimBoolean();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), _mp, _window.getCurrentResult(), type_, _window.getResultContextNext().generateAdv(_window.getStopDbg()));
+        ResultContext curr_ = _window.getCurrentResult();
+        String type_ = curr_.getPageEl().getAliasPrimBoolean();
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), _mp, curr_, type_, _window.getResultContextNext().generateAdv(curr_.getContext().getInterrupt()));
         OkMpFormEvent.update(_condition, _form, res_);
     }
 

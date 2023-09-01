@@ -10,7 +10,7 @@ public final class PauseStackEvent implements AbsActionListener {
     }
     @Override
     public void action() {
-        window.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().set(true);
+        window.getCurrentResult().getContext().pausedLoop().set(true);
         window.getPauseStack().setEnabled(false);
     }
 }

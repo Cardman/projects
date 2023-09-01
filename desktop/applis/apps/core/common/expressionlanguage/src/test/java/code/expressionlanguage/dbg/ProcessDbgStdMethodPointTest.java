@@ -1006,18 +1006,18 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         StandardNamedFunction e_ = exiting(cont_, cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false));
-        StdMethodPointBlockPair wp_ = cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(e_);
+        StdMethodPointBlockPair wp_ = cont_.getPair(e_);
         assertFalse(new StdMethodKeyString().keyString(wp_).isEmpty());
     }
     private void div(ResultContext _cont) {
         _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true);
-        ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
+        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(true);
     }
     private boolean is(ResultContext _cont, StandardNamedFunction _off) {
-        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(_off);
+        return _cont.is(_off);
     }
 
     private ClassField cf(String _cl, String _f) {
@@ -1041,13 +1041,13 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
 
     private WatchPointBlockPair pair(ResultContext _cont, ClassField _cf) {
         int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
-        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(true,n_,_cf.getFieldName());
+        return _cont.getPairWatch(true,n_,_cf.getFieldName());
     }
 
     private void enteringCondition(String _newValue,ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {
         StandardNamedFunction s_ = entering(_cont, _clName, _id);
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
-        StdMethodPointBlockPair wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(s_);
+        StdMethodPointBlockPair wp_ = _cont.getPair(s_);
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getValue().getResultEntry().result(res_,_newValue);
@@ -1055,7 +1055,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
     private void exitingCondition(String _newValue,ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {
         StandardNamedFunction s_ = exiting(_cont, _clName, _id);
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
-        StdMethodPointBlockPair wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(s_);
+        StdMethodPointBlockPair wp_ = _cont.getPair(s_);
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getValue().getResultExit().result(res_,_newValue);
@@ -1063,7 +1063,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
     private void enteringExitingCondition(String _newValue, String _exit,ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {
         StandardNamedFunction s_ = enteringExiting(_cont, _clName, _id);
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
-        StdMethodPointBlockPair wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(s_);
+        StdMethodPointBlockPair wp_ = _cont.getPair(s_);
         ResultContextLambda resEnter_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
         ResultContextLambda resExit_ = ResultContextLambda.dynamicAnalyze(_exit, wp_, _cont, type_, new DefContextGenerator());
         assertTrue(resEnter_.getReportedMessages().isAllEmptyErrors());
@@ -1075,26 +1075,26 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
     private void entering(ResultContext _cont, String _file, int _offset) {
         _cont.toggleBreakPoint(_file,_offset);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setEntry(true);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setExit(false);
+        _cont.getPair(id_).getValue().setEntry(true);
+        _cont.getPair(id_).getValue().setExit(false);
     }
     private StandardNamedFunction entering(ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {
         StandardNamedFunction s_ = toggled(_cont, _clName, _id);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(s_).getValue().setEntry(true);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(s_).getValue().setExit(false);
+        _cont.getPair(s_).getValue().setEntry(true);
+        _cont.getPair(s_).getValue().setExit(false);
         return s_;
     }
 
     private StandardNamedFunction exiting(ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {
         StandardNamedFunction s_ = toggled(_cont, _clName, _id);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(s_).getValue().setEntry(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(s_).getValue().setExit(true);
+        _cont.getPair(s_).getValue().setEntry(false);
+        _cont.getPair(s_).getValue().setExit(true);
         return s_;
     }
     private StandardNamedFunction enteringExiting(ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {
         StandardNamedFunction s_ = toggled(_cont, _clName, _id);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(s_).getValue().setEntry(true);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(s_).getValue().setExit(true);
+        _cont.getPair(s_).getValue().setEntry(true);
+        _cont.getPair(s_).getValue().setExit(true);
         return s_;
     }
     private StandardNamedFunction toggled(ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {

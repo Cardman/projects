@@ -26,8 +26,8 @@ public final class ProcessDbgStaticTypeTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType("pkg/Ex",13,cont_, true);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointInstanceType("pkg/Ex",13,cont_, false);
+        cont_.breakPointStaticType("pkg/Ex",13, true);
+        cont_.breakPointInstanceType("pkg/Ex",13, false);
         StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
         assertEq(1, stack_.nbPages());
         assertEq(13, now(stack_));
@@ -48,8 +48,8 @@ public final class ProcessDbgStaticTypeTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType("pkg/Ex",13,cont_, true);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointInstanceType("pkg/Ex",13,cont_, false);
+        cont_.breakPointStaticType("pkg/Ex",13, true);
+        cont_.breakPointInstanceType("pkg/Ex",13, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalInit("pkg.Ex", id_,cont_).getStack();
         StackCall next_ = dbgNormal("pkg.Ex", id_,cont_, stack_);
@@ -147,6 +147,6 @@ public final class ProcessDbgStaticTypeTest extends ProcessDbgCommon {
         return file(_cont,"pkg/Ex");
     }
     private ExecFileBlock file(ResultContext _cont, String _name) {
-        return _cont.getContext().getClasses().getDebugMapping().getFiles().getVal(_cont.getPageEl().getPreviousFilesBodies().getVal(_name));
+        return _cont.getFiles().getVal(_cont.getPageEl().getPreviousFilesBodies().getVal(_name));
     }
 }

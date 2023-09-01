@@ -32,7 +32,7 @@ public final class GuiStackForm {
 
     public void add(ResultContext _res, CustList<AbsCallContraints> _list, ReadOnlyFormTabEditor _e) {
         FileBlock v_ = _res.getPageEl().getPreviousFilesBodies().getVal(_e.getFullPath());
-        ExecFileBlock f_ = _res.getForwards().dbg().getFiles().getVal(v_);
+        ExecFileBlock f_ = _res.getFiles().getVal(v_);
         if (f_ == null) {
             return;
         }

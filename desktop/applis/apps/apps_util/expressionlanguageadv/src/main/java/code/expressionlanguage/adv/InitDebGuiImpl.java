@@ -84,6 +84,9 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
         ExecRootBlock type_ = selectedType(idCl_);
         CustList<ExecOverridableBlock> res_ = methods(type_);
         if (!res_.isEmpty()) {
+            setStackCall(null);
+            getCurrentResult().getContext().getInterrupt().set(false);
+            getStoppedClick().set(false);
             Argument argGlLoc_ = new Argument();
             Parameters p_ = new Parameters();
             String name_ = res_.first().getParametersName(0);
@@ -103,7 +106,6 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
 
     @Override
     protected void endCall() {
-        setStackCall(null);
         getStopStack().setEnabled(false);
         super.endCall();
     }

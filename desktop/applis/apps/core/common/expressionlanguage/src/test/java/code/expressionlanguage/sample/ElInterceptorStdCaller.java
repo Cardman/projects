@@ -30,40 +30,40 @@ public final class ElInterceptorStdCaller implements AbstractInterceptorStdCalle
 
     @Override
     public AbsCollection<BreakPointBlockKey> newBreakPointKeyIdStringCollection() {
-        return new ConcList<BreakPointBlockKey>(this);
+        return new ConcList<BreakPointBlockKey>(new BreakPointBlockPairKeyIdString(),this);
     }
     @Override
     public AbsCollection<BreakPointCondition> newBreakPointConditionCollection() {
-        return new ConcList<BreakPointCondition>(this);
+        return new ConcList<BreakPointCondition>(new BpcKeyString(),this);
     }
     @Override
     public AbsCollection<BreakPointBlockPair> newBreakPointKeyStringCollection() {
-        return new ConcList<BreakPointBlockPair>(this);
+        return new ConcList<BreakPointBlockPair>(new BreakPointBlockPairKeyString(),this);
     }
 
     @Override
     public AbsCollection<WatchPointBlockPair> newWatchPointKeyStringCollection() {
-        return new ConcList<WatchPointBlockPair>(this);
+        return new ConcList<WatchPointBlockPair>(new WatchPointBlockPairKeyString(),this);
     }
 
     @Override
     public AbsCollection<AbsCallContraints> newExecFileBlockTraceIndexCollection() {
-        return new ConcList<AbsCallContraints>(this);
+        return new ConcList<AbsCallContraints>(new ExecFileBlockTraceIndexKeyString(),this);
     }
 
     @Override
     public AbsCollection<ExcPointBlockPair> newExcPointKeyStringCollection() {
-        return new ConcList<ExcPointBlockPair>(this);
+        return new ConcList<ExcPointBlockPair>(new ExcKeyString(),this);
     }
 
     @Override
     public AbsCollection<MethodPointBlockPair> newMethodPointKeyStringCollection() {
-        return new ConcList<MethodPointBlockPair>(this);
+        return new ConcList<MethodPointBlockPair>(new MethodKeyString(),this);
     }
 
     @Override
     public AbsCollection<StdMethodPointBlockPair> newStdMethodPointKeyStringCollection() {
-        return new ConcList<StdMethodPointBlockPair>(this);
+        return new ConcList<StdMethodPointBlockPair>(new StdMethodKeyString(),this);
     }
 
     @Override

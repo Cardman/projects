@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.SynthFieldInfo;
 import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
+import code.gui.AbsCommonFrame;
 import code.gui.PackingWindowAfter;
 import code.gui.events.AbsActionListener;
 
@@ -21,28 +22,34 @@ public final class WatchPointFormEvent implements AbsActionListener {
         ResultContext r_ = tabEditor.getDebuggerGui().getCurrentResult();
         int caret_ = tabEditor.getCenter().getCaretPosition();
         SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(r_.getPageEl(), tabEditor.getFullPath(),caret_);
-        watchAction(r_, true,o_.getRootBlockNb(), o_.getClassField().getFieldName(), window.getFrameWpForm());
+        watchAction(r_, true,o_.getRootBlockNb(), o_.getClassField().getFieldName(), window.getFramePoints().getFrameWpFormContent(), window, window.getFramePoints().getCommonFrame());
     }
 
-    static void watchAction(ResultContext _r, boolean _trField, int _nb, String _field, FrameWpForm _frame) {
-        WatchPointBlockPair bp_ = _r.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(_trField,_nb, _field);
+    static void watchAction(ResultContext _r, boolean _trField, int _nb, String _field, FrameWpFormContent _content, AbsDebuggerGui _w, AbsCommonFrame _frame) {
+        WatchPointBlockPair bp_ = _r.getPairWatch(_trField,_nb, _field);
         if (bp_ == null) {
             return;
         }
-        _frame.setSelectedWp(bp_);
-        _frame.getEnabledWp().setSelected(bp_.getValue().isEnabled());
-        BreakPointFormEvent.specific(_frame.getGuiReadStackForm(), true, bp_.getValue().getResultRead(), _frame.getCommonFrame());
-        BreakPointFormEvent.specific(_frame.getGuiWriteStackForm(), true, bp_.getValue().getResultWrite(), _frame.getCommonFrame());
-        BreakPointFormEvent.specific(_frame.getGuiCompoundReadStackForm(), true, bp_.getValue().getResultCompoundRead(), _frame.getCommonFrame());
-        BreakPointFormEvent.specific(_frame.getGuiCompoundWriteStackForm(), true, bp_.getValue().getResultCompoundWrite(), _frame.getCommonFrame());
-        BreakPointFormEvent.specific(_frame.getGuiCompoundWriteErrStackForm(), true, bp_.getValue().getResultCompoundWriteErr(), _frame.getCommonFrame());
-        _frame.getRead().setSelected(bp_.getValue().isRead());
-        _frame.getWrite().setSelected(bp_.getValue().isWrite());
-        _frame.getCompoundRead().setSelected(bp_.getValue().isCompoundRead());
-        _frame.getCompoundWrite().setSelected(bp_.getValue().isCompoundWrite());
-        _frame.getCompoundWriteErr().setSelected(bp_.getValue().isCompoundWriteErr());
-        _frame.getCommonFrame().setVisible(true);
-        PackingWindowAfter.pack(_frame.getCommonFrame());
+        _w.getFramePoints().init(_w);
+        _w.getFramePoints().guiContentBuild(bp_);
+        watchAction(_content, _frame, bp_);
+    }
+
+    static void watchAction(FrameWpFormContent _content, AbsCommonFrame _frame, WatchPointBlockPair _bp) {
+        _content.getEdited().setText(FramePoints.displayWatch(_bp));
+        _content.getEnabledWp().setSelected(_bp.getValue().isEnabled());
+        BreakPointFormEvent.specific(_content.getGuiReadStackForm(), true, _bp.getValue().getResultRead(), _frame);
+        BreakPointFormEvent.specific(_content.getGuiWriteStackForm(), true, _bp.getValue().getResultWrite(), _frame);
+        BreakPointFormEvent.specific(_content.getGuiCompoundReadStackForm(), true, _bp.getValue().getResultCompoundRead(), _frame);
+        BreakPointFormEvent.specific(_content.getGuiCompoundWriteStackForm(), true, _bp.getValue().getResultCompoundWrite(), _frame);
+        BreakPointFormEvent.specific(_content.getGuiCompoundWriteErrStackForm(), true, _bp.getValue().getResultCompoundWriteErr(), _frame);
+        _content.getRead().setSelected(_bp.getValue().isRead());
+        _content.getWrite().setSelected(_bp.getValue().isWrite());
+        _content.getCompoundRead().setSelected(_bp.getValue().isCompoundRead());
+        _content.getCompoundWrite().setSelected(_bp.getValue().isCompoundWrite());
+        _content.getCompoundWriteErr().setSelected(_bp.getValue().isCompoundWriteErr());
+        _frame.setVisible(true);
+        PackingWindowAfter.pack(_frame);
     }
 
 

@@ -1,22 +1,24 @@
 package code.expressionlanguage.exec.dbg;
 
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
-import code.util.CustList;
+import code.util.StringMap;
 
 public final class ConcList<T> implements AbsCollection<T> {
-    private final CustList<T> listTmp = new CustList<T>();
+    private final StringMap<T> listTmp = new StringMap<T>();
+    private final AbsKeyString<T> id;
     private final AbstractInterceptorStdCaller interceptor;
-    public ConcList(AbstractInterceptorStdCaller _i) {
+    public ConcList(AbsKeyString<T> _id, AbstractInterceptorStdCaller _i) {
+        this.id = _id;
         interceptor = _i;
     }
     @Override
     public Iterable<T> elts() {
-        return listTmp.getList();
+        return listTmp.values();
     }
 
     @Override
     public void add(T _b) {
-        listTmp.add(_b);
+        listTmp.put(id.keyString(_b),_b);
     }
 
     @Override
@@ -25,8 +27,8 @@ public final class ConcList<T> implements AbsCollection<T> {
     }
 
     @Override
-    public void remove(int _i, T _b) {
-        listTmp.remove(_i);
+    public void remove(T _b) {
+        listTmp.removeKey(id.keyString(_b));
     }
 
     @Override

@@ -10,8 +10,7 @@ public final class FrameMpFormContent extends AbsFrameMpFormContent {
     @Override
     public void guiBuildBase(AbsDebuggerGui _d) {
         guiBuild(_d);
-        pref = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
-        getOk().addActionListener(new OkMpFormEvent(_d));
+        pref = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, Integer.MIN_VALUE, Integer.MAX_VALUE, 1);
     }
 
     public MethodPointBlockPair getSelectedMp() {

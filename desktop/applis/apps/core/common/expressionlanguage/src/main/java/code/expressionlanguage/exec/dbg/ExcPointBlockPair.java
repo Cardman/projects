@@ -2,7 +2,7 @@ package code.expressionlanguage.exec.dbg;
 
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 
-public final class ExcPointBlockPair {
+public final class ExcPointBlockPair implements AbsPairPoint {
     private final ExcPointBlockKey ep;
     private final ExcPoint value;
 
@@ -10,6 +10,11 @@ public final class ExcPointBlockPair {
         this.ep = new ExcPointBlockKey(_ex, _cl);
         this.value = new ExcPoint(_v, ep);
         this.value.setEnabled(_enabled);
+    }
+
+    @Override
+    public String keyStr() {
+        return getEp().keyStr();
     }
 
     public ExcPointBlockKey getEp() {

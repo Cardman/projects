@@ -54,9 +54,8 @@ public final class DbgSyntaxColoring {
 
     private static CustList<SegmentReadOnlyPart> partsMethod(ResultContext _res, MemberCallingsBlock _r) {
         CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
-        BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
         int offset_ = _r.getPlace();
-        MethodPointBlockPair pair_ = lsBp_.getPair(MemberCallingsBlock.clName(_r));
+        MethodPointBlockPair pair_ = _res.getPair(MemberCallingsBlock.clName(_r));
         if (pair_ != null) {
             if (AbsBk.isAnonBlock(_r)) {
                 parts_.add(new SegmentReadOnlyPart(offset_, ((NamedCalledFunctionBlock)_r).getNameOffset(),SyntaxRefEnum.METHOD));
@@ -75,14 +74,13 @@ public final class DbgSyntaxColoring {
 
     private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, ResultExpressionBlockOperation _r) {
         CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
-        BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
         OperationNode op_ = _r.getBlock();
         ResultExpression resStr_ = _r.getRes().getRes();
         int offset_ = resStr_.getSumOffset();
         if (op_ instanceof SettableAbstractFieldOperation) {
             RootBlock ft_ = ((SettableAbstractFieldOperation) op_).getFieldType();
             if (ft_ != null) {
-                WatchPointBlockPair w_ = lsBp_.getPairWatch(true,ft_.getNumberAll(),((SettableAbstractFieldOperation) op_).getFieldIdReadOnly().getFieldName());
+                WatchPointBlockPair w_ = _res.getPairWatch(true,ft_.getNumberAll(),((SettableAbstractFieldOperation) op_).getFieldIdReadOnly().getFieldName());
                 if (w_ != null) {
                     int b_ = beginOff(offset_,((SettableAbstractFieldOperation) op_));
                     parts_.add(new SegmentReadOnlyPart(b_,b_+((SettableAbstractFieldOperation) op_).getFieldNameLength(),SyntaxRefEnum.FIELD));
@@ -94,18 +92,17 @@ public final class DbgSyntaxColoring {
 
     private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, ResultExpressionBlock _r, FileBlock _file) {
         CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
-        BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
         ResultExpression resStr_ = _r.getRes();
-        ExecFileBlock fileEx_ = _res.getForwards().dbg().getFiles().getVal(_file);
+        ExecFileBlock fileEx_ = _res.getFiles().getVal(_file);
         if (!resStr_.getAnalyzedString().trim().startsWith("@") && _r.getBlock() instanceof InnerTypeOrElement) {
             int f_ = ((InnerTypeOrElement) _r.getBlock()).getFieldNameOffset();
-            BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, f_);
+            BreakPointBlockPair pair_ = _res.getPair(fileEx_, f_);
             if (pair_ != null) {
                 parts_.add(new SegmentReadOnlyPart(f_,f_+((InnerTypeOrElement) _r.getBlock()).getUniqueFieldName().length(),SyntaxRefEnum.INSTRUCTION));
             }
         } else if (!resStr_.getAnalyzedString().isEmpty()){
             int offset_ = resStr_.getSumOffset();
-            BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, offset_);
+            BreakPointBlockPair pair_ = _res.getPair(fileEx_, offset_);
             if (pair_ != null) {
                 parts_.add(new SegmentReadOnlyPart(offset_,offset_+resStr_.getAnalyzedString().length(),SyntaxRefEnum.INSTRUCTION));
             }
@@ -116,26 +113,25 @@ public final class DbgSyntaxColoring {
 
     private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, AbsBkSrcFileLocation _r, FileBlock _file) {
         CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
-        BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
         AbsBk bk_ = _r.getBlock();
         BracedBlock rPar_ = BreakPointBlockList.rootOfAnnot(bk_);
         if (rPar_ instanceof RootBlock) {
             int offset_ = ((NamedCalledFunctionBlock)bk_).getPlace();
-            WatchPointBlockPair w_ = lsBp_.getPairWatch(false,((RootBlock)rPar_).getNumberAll(),((NamedCalledFunctionBlock)bk_).getName());
+            WatchPointBlockPair w_ = _res.getPairWatch(false,((RootBlock)rPar_).getNumberAll(),((NamedCalledFunctionBlock)bk_).getName());
             if (w_ != null) {
                 parts_.add(new SegmentReadOnlyPart(offset_, ((NamedCalledFunctionBlock)bk_).getDefaultValueOffset(),SyntaxRefEnum.FIELD));
             }
             return parts_;
         }
         int o_ = offset(_r);
-        ExecFileBlock fileEx_ = _res.getForwards().dbg().getFiles().getVal(_file);
-        BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, o_);
+        ExecFileBlock fileEx_ = _res.getFiles().getVal(_file);
+        BreakPointBlockPair pair_ = _res.getPair(fileEx_, o_);
         if (pair_ != null) {
             int b_ = bk_.getBegin();
             parts_.add(new SegmentReadOnlyPart(b_,b_+ bk_.getLengthHeader(),SyntaxRefEnum.INSTRUCTION));
         }
         for (Ints i: outExp(bk_)){
-            BreakPointBlockPair pairSec_ = lsBp_.getPair(fileEx_, i.get(0));
+            BreakPointBlockPair pairSec_ = _res.getPair(fileEx_, i.get(0));
             if (pairSec_ != null) {
                 int b_ = i.get(0);
                 parts_.add(new SegmentReadOnlyPart(b_,b_+i.get(1),SyntaxRefEnum.INSTRUCTION));
@@ -203,10 +199,9 @@ public final class DbgSyntaxColoring {
     }
     private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, RootBlock _r, FileBlock _file) {
         CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
-        BreakPointBlockList lsBp_ = _res.getForwards().dbg().getBreakPointsBlock();
         int offset_ = _r.getIdRowCol();
-        ExecFileBlock fileEx_ = _res.getForwards().dbg().getFiles().getVal(_file);
-        BreakPointBlockPair pair_ = lsBp_.getPair(fileEx_, offset_);
+        ExecFileBlock fileEx_ = _res.getFiles().getVal(_file);
+        BreakPointBlockPair pair_ = _res.getPair(fileEx_, offset_);
         if (pair_ != null) {
             parts_.add(new SegmentReadOnlyPart(offset_,offset_+_r.getNameLength(),SyntaxRefEnum.INSTRUCTION));
         }

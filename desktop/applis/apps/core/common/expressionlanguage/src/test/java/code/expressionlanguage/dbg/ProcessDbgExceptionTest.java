@@ -1113,7 +1113,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
     }
     private void stdThrownCondition(ResultContext _cont, String _condition) {
         std(_cont);
-        ExcPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("pkg.Ex",true).getValue();
+        ExcPoint wp_ = _cont.getPairExc("pkg.Ex",true).getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, "pkg.Ex", true, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultThrown().result(res_, _condition);
@@ -1121,7 +1121,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void conditionUnkThrown(ResultContext _cont) {
         unkThrown(_cont);
-        ExcPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("",true).getValue();
+        ExcPoint wp_ = _cont.getPairExc("",true).getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc("0==0", "", true, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultThrown().result(res_, "0==0");
@@ -1129,7 +1129,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void stdParamConditionThrown(ResultContext _cont, String _condition) {
         stdParam(_cont);
-        ExcPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("pkg.Ex<int>",true).getValue();
+        ExcPoint wp_ = _cont.getPairExc("pkg.Ex<int>",true).getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, "pkg.Ex<int>", true, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultThrown().result(res_, _condition);
@@ -1138,7 +1138,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
     private void nbeCaughtCondition(ResultContext _cont, String _condition) {
         nbe(_cont);
         String cf_ = _cont.getContext().getStandards().getNbAlias().getAliasInteger();
-        ExcPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(cf_,true).getValue();
+        ExcPoint wp_ = _cont.getPairExc(cf_,true).getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, cf_, true, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultCaught().result(res_, _condition);
@@ -1146,7 +1146,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void nbeaCaughtCondition(ResultContext _cont, String _condition) {
         nbea(_cont);
-        ExcPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("[int",true).getValue();
+        ExcPoint wp_ = _cont.getPairExc("[int",true).getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, "[int", true, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultCaught().result(res_, _condition);
@@ -1154,7 +1154,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void stdIncThrownCondition(ResultContext _cont, String _condition) {
         stdInc(_cont);
-        ExcPoint wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("pkg.Ex",false).getValue();
+        ExcPoint wp_ = _cont.getPairExc("pkg.Ex",false).getValue();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, "pkg.Ex", false, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getResultThrown().result(res_, _condition);
@@ -1162,7 +1162,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void npeThrown(ResultContext _cont) {
         _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(),true);
-        ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(), true).getValue();
+        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(), true).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(false);
@@ -1170,7 +1170,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void npe(ResultContext _cont) {
         _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(),true);
-        ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(), true).getValue();
+        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(), true).getValue();
         val_.setThrown(false);
         val_.setCaught(true);
         val_.setPropagated(false);
@@ -1178,7 +1178,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void divThrown(ResultContext _cond) {
         _cond.toggleExcPoint(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(),true);
-        ExcPoint val_ = _cond.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
+        ExcPoint val_ = _cond.getPairExc(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(false);
@@ -1186,7 +1186,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void divThrownProp(ResultContext _cond) {
         _cond.toggleExcPoint(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(),true);
-        ExcPoint val_ = _cond.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
+        ExcPoint val_ = _cond.getPairExc(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(true);
@@ -1194,7 +1194,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void divCaught(ResultContext _cont) {
         _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(),true);
-        ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
+        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
         val_.setThrown(false);
         val_.setCaught(true);
         val_.setPropagated(false);
@@ -1203,7 +1203,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void div(ResultContext _cont) {
         _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(),true);
-        ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
+        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
         val_.setThrown(true);
         val_.setCaught(true);
         val_.setPropagated(false);
@@ -1211,7 +1211,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void nbe(ResultContext _cont) {
         _cont.toggleExcPoint(_cont.getContext().getStandards().getNbAlias().getAliasInteger(),true);
-        ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getNbAlias().getAliasInteger(), true).getValue();
+        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getNbAlias().getAliasInteger(), true).getValue();
         val_.setThrown(false);
         val_.setCaught(true);
         val_.setPropagated(false);
@@ -1219,28 +1219,28 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void nbea(ResultContext _cont) {
         _cont.toggleExcPoint("[int",true);
-        ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("[int", true).getValue();
+        ExcPoint val_ = _cont.getPairExc("[int", true).getValue();
         val_.setThrown(false);
         val_.setCaught(true);
         val_.setPropagated(false);
     }
     private void unkCaught(ResultContext _cont) {
         _cont.toggleExcPoint("",true);
-        ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("", true).getValue();
+        ExcPoint val_ = _cont.getPairExc("", true).getValue();
         val_.setThrown(false);
         val_.setCaught(true);
         val_.setPropagated(false);
     }
     private void unkThrown(ResultContext _cont) {
         _cont.toggleExcPoint("",true);
-        ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("", true).getValue();
+        ExcPoint val_ = _cont.getPairExc("", true).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(false);
     }
     private void std(ResultContext _cont) {
         _cont.toggleExcPoint("pkg.Ex",true);
-        ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("pkg.Ex", true).getValue();
+        ExcPoint val_ = _cont.getPairExc("pkg.Ex", true).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(false);
@@ -1248,21 +1248,21 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void stdParam(ResultContext _cont) {
         _cont.toggleExcPoint("pkg.Ex<int>",true);
-        ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("pkg.Ex<int>", true).getValue();
+        ExcPoint val_ = _cont.getPairExc("pkg.Ex<int>", true).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(false);
     }
     private void stdInc(ResultContext _cont) {
         _cont.toggleExcPoint("pkg.Ex<?>",false);
-        ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("pkg.Ex", false).getValue();
+        ExcPoint val_ = _cont.getPairExc("pkg.Ex", false).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(false);
     }
     private void any(ResultContext _cont) {
         _cont.toggleExcPoint("",false);
-        ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc("", false).getValue();
+        ExcPoint val_ = _cont.getPairExc("", false).getValue();
         val_.setThrown(false);
         val_.setCaught(true);
         val_.setPropagated(false);

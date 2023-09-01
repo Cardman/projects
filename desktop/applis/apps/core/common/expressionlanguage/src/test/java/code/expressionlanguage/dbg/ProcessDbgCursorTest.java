@@ -15,7 +15,7 @@ public final class ProcessDbgCursorTest extends ProcessDbgCommon {
         cont_.toggleBreakPoint("pkg/Ex",52);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
-        StackCall next_ = dbgContinueNormalValueCursor(stack_, cont_.getContext(), 82);
+        StackCall next_ = dbgContinueNormalValueCursor(stack_, cont_, 82);
         assertEq(1,next_.nbPages());
         assertEq(82,now(next_));
     }
@@ -27,7 +27,7 @@ public final class ProcessDbgCursorTest extends ProcessDbgCommon {
         cont_.toggleBreakPoint("pkg/Ex",52);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
-        StackCall next_ = dbgContinueNormalValueCursor(stack_, cont_.getContext(), 82);
+        StackCall next_ = dbgContinueNormalValueCursor(stack_, cont_, 82);
         assertEq(0, dbgContinueNormalValueNextInstMethod(next_, cont_.getContext()).nbPages());
     }
 }

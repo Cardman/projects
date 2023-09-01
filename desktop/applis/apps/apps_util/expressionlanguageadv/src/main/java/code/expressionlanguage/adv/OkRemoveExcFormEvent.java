@@ -15,7 +15,7 @@ public final class OkRemoveExcFormEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        window.getCurrentResult().toggleExcPoint(frameExcFormContent.getClName().getText(), frameExcFormContent.getExact().isSelected());
+        window.getCurrentResult().getContext().excList().remove(window.getCurrentResult().getContext().build(frameExcFormContent.getExact().isSelected(), frameExcFormContent.getClName().getText()));
         framePoints.guiContentBuildClear();
         framePoints.refreshExc(window);
         framePoints.getCommonFrame().pack();

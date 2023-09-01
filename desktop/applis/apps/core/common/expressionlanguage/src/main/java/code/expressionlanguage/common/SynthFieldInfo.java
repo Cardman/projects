@@ -7,6 +7,10 @@ public final class SynthFieldInfo {
     private final RootBlock rootBlock;
     private final int rootBlockNb;
 
+    public SynthFieldInfo(ClassField _c, RootBlock _r) {
+        this(_c,_r,_r.getNumberAll());
+    }
+
     public SynthFieldInfo(ClassField _c, RootBlock _r, int _nb) {
         this.classField = _c;
         this.rootBlock = _r;

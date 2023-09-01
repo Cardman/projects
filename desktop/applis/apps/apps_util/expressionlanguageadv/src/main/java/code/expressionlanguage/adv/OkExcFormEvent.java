@@ -1,8 +1,8 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.exec.dbg.BreakPointBlockList;
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
 import code.expressionlanguage.exec.dbg.ExcPointBlockPair;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.gui.events.AbsActionListener;
 
@@ -21,12 +21,11 @@ public final class OkExcFormEvent implements AbsActionListener {
     public void action() {
         ExcPointBlockPair exc_ = frameExcFormContent.getSelectedExc();
         if (exc_ == null) {
-            BreakPointBlockList ls_ = window.getCurrentResult().getContext().getClasses().getDebugMapping().getBreakPointsBlock();
-            window.getCurrentResult().toggleExcPoint(frameExcFormContent.getClName().getText(), frameExcFormContent.getExact().isSelected());
-            ExcPointBlockPair added_ = ls_.getPairExc(frameExcFormContent.getClName().getText(), frameExcFormContent.getExact().isSelected());
+            ExcPointBlockPair added_ = window.getCurrentResult().getContext().build(frameExcFormContent.getExact().isSelected(), frameExcFormContent.getClName().getText());
             if (added_ == null) {
                 return;
             }
+            window.getCurrentResult().getContext().excList().add(added_);
             exc_ = added_;
         }
         exc_.getValue().setEnabled(frameExcFormContent.getEnabledExc().isSelected());
@@ -42,8 +41,9 @@ public final class OkExcFormEvent implements AbsActionListener {
         framePoints.getCommonFrame().pack();
     }
     private static void update(ExcPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form) {
-        String type_ = _window.getCurrentResult().getPageEl().getAliasPrimBoolean();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_form.getConditional().getText(), _mp.getEp().getClName(), _mp.getEp().isExact(), _window.getCurrentResult(), type_, _window.getResultContextNext().generateAdv(_window.getStopDbg()));
+        ResultContext curr_ = _window.getCurrentResult();
+        String type_ = curr_.getPageEl().getAliasPrimBoolean();
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_form.getConditional().getText(), _mp.getEp().getClName(), _mp.getEp().isExact(), curr_, type_, _window.getResultContextNext().generateAdv(curr_.getContext().getInterrupt()));
         OkMpFormEvent.update(_condition, _form, res_);
     }
 

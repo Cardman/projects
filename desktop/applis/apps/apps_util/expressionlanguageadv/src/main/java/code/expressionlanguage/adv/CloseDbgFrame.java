@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.gui.events.AbsWindowListenerClosing;
+import code.threads.AbstractAtomicBoolean;
 
 public final class CloseDbgFrame implements AbsWindowListenerClosing {
     private final AbsDebuggerGui gui;
@@ -13,10 +14,8 @@ public final class CloseDbgFrame implements AbsWindowListenerClosing {
     public void windowClosing() {
         gui.getMenuManage().close();
         gui.closeAll();
-        CancelBpFormEvent.act(gui);
-        CancelMpFormEvent.act(gui);
-        CancelWpFormEvent.act(gui);
         CancelFramePointsEvent.act(gui);
-        gui.getStopDbg().set(true);
+        AbstractAtomicBoolean s_ = gui.getStopDbg();
+        s_.set(true);
     }
 }

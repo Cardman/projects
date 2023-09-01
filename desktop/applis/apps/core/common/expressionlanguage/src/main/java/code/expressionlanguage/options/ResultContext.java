@@ -3,19 +3,26 @@ package code.expressionlanguage.options;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
-import code.expressionlanguage.analyze.blocks.FileBlock;
-import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.DisplayedStrings;
+import code.expressionlanguage.common.FileMetrics;
+import code.expressionlanguage.common.SynthFieldInfo;
 import code.expressionlanguage.exec.AbsStackStopper;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.DefStackStopper;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
+import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
+import code.util.CustList;
 import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.StringMap;
 
 public final class ResultContext {
@@ -110,37 +117,161 @@ public final class ResultContext {
         }
     }
     public void toggleBreakPoint(StandardType _t, StandardNamedFunction _i) {
-        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(_t,_i);
+        getContext().toggleBreakPoint(_t, _i);
     }
+
     public void toggleBreakPointEnabled(StandardType _t, StandardNamedFunction _i) {
-        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled(_t,_i);
+        getContext().toggleBreakPointEnabled(_t, _i);
     }
     public void toggleBreakPoint(String _file, int _offset) {
-        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPoint(_file,_offset,this);
+        AbsPairPoint p_ = tryGetPair(_file, _offset);
+        getContext().toggleBreakPoint(p_);
+    }
+    public AbsPairPoint tryGetPair(String _file, int _offset) {
+        FileBlock fb_ = getPageEl().getPreviousFilesBodies().getVal(_file);
+        int o_ = ResultExpressionOperationNode.beginPart(_offset, fb_);
+        if (o_ < 0) {
+            return null;
+        }
+        MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(_offset, fb_);
+        if (id_ != null) {
+            BracedBlock r_ = BreakPointBlockList.rootOfAnnot(id_);
+            if (r_ instanceof RootBlock) {
+                return watch(false, build(((NamedCalledFunctionBlock)id_),(RootBlock)r_));
+            }
+            return method(getPageEl().getDisplayedStrings(), id_);
+        }
+        ExecFileBlock f_ = getFiles().getVal(fb_);
+        return bp(f_, FileBlock.number(fb_), o_, ResultExpressionOperationNode.enabledTypeBp(_offset, fb_));
+    }
+    public static SynthFieldInfo build(NamedCalledFunctionBlock _id,RootBlock _r) {
+        return new SynthFieldInfo(new ClassField("",_id.getName()),_r);
+    }
+
+    public void toggleWatch(boolean _trField, SynthFieldInfo _field) {
+        getContext().toggleWatch(_trField, _field);
+    }
+
+    public MethodPointBlockPair method(DisplayedStrings _d, MemberCallingsBlock _id) {
+        return getContext().method(_d, _id);
+    }
+
+    public WatchPointBlockPair watch(boolean _trField, SynthFieldInfo _field) {
+        return getContext().watch(_trField, _field);
+    }
+    public BreakPointBlockPair bp(ExecFileBlock _file, int _nf, int _offset, boolean _enType) {
+        return getContext().bp(_file, _nf, _offset, _enType);
+    }
+
+    public AbsCollection<BreakPointBlockPair> bpList() {
+        return getContext().bpList();
     }
     public void toggleBreakPointEnabled(String _file, int _offset) {
-        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleBreakPointEnabled(_file,_offset,this);
+        FileBlock fb_ = getPageEl().getPreviousFilesBodies().getVal(_file);
+        int o_ = ResultExpressionOperationNode.beginPart(_offset, fb_);
+        if (o_ < 0) {
+            return;
+        }
+        MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(_offset, fb_);
+        if (id_ != null) {
+            BracedBlock r_ = BreakPointBlockList.rootOfAnnot(id_);
+            if (r_ instanceof RootBlock) {
+                toggleEnabledWatch(false,build(((NamedCalledFunctionBlock)id_),(RootBlock)r_));
+                return;
+            }
+            toggleEnabled(getPageEl().getDisplayedStrings(),id_);
+            return;
+        }
+        ExecFileBlock f_ = getFiles().getVal(fb_);
+        toggleEnabled(f_,FileBlock.number(fb_),o_, ResultExpressionOperationNode.enabledTypeBp(_offset, fb_));
+    }
+
+    public void toggleEnabled(ExecFileBlock _file, int _nf, int _offset, boolean _enType) {
+        getContext().toggleEnabled(_file, _nf, _offset, _enType);
     }
     public void toggleExcPoint(String _clName, boolean _exact) {
-        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPoint(_clName, this, _exact);
+        getContext().toggleExcPoint(_clName, _exact);
     }
+
     public void toggleExcPointEnabled(String _clName, boolean _exact) {
-        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleExcPointEnabled(_clName, this, _exact);
+        getContext().toggleExcPointEnabled(_clName, _exact);
     }
+
     public void toggleWatchPoint(String _file, int _offset){
-        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPoint(_file,_offset,this);
+        SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(getPageEl(), _file, _offset);
+        if (o_.getRootBlock() == null) {
+            return;
+        }
+        toggleWatch(true,o_);
     }
     public void toggleWatchPointEnabled(String _file, int _offset){
-        getContext().getClasses().getDebugMapping().getBreakPointsBlock().toggleWatchPointEnabled(_file,_offset,this);
+        SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(getPageEl(), _file, _offset);
+        if (o_.getRootBlock() == null) {
+            return;
+        }
+        toggleEnabledWatch(true,o_);
+    }
+
+    public void toggleEnabled(DisplayedStrings _d, MemberCallingsBlock _id) {
+        getContext().toggleEnabled(_d, _id);
+    }
+    public void toggleEnabledWatch(boolean _trField,SynthFieldInfo _field) {
+        getContext().toggleEnabledWatch(_trField, _field);
+    }
+    public IdMap<FileBlock, ExecFileBlock> getFiles() {
+        return getContext().getFiles();
+    }
+
+    public boolean isWatch(boolean _trField,int _root, String _field) {
+        return getContext().isWatch(_trField, _root, _field);
+    }
+    public WatchPointBlockPair getPairWatch(boolean _trField, int _root, String _field) {
+        return getContext().getPairWatch(_trField, _root, _field);
+    }
+    public boolean is(ExecFileBlock _file, int _offset) {
+        return getContext().is(_file, _offset);
+    }
+    public BreakPointBlockPair getPair(ExecFileBlock _file, int _offset) {
+        return getContext().getPair(_file, _offset);
+    }
+    public boolean is(String _id) {
+        return getContext().is(_id);
+    }
+
+    public boolean is(StandardNamedFunction _id) {
+        return getContext().is(_id);
+    }
+    public StdMethodPointBlockPair getPair(StandardNamedFunction _id) {
+        return getContext().getPair(_id);
+    }
+    public MethodPointBlockPair getPair(String _id) {
+        return getContext().getPair(_id);
+    }
+    public boolean isExc(String _field, boolean _exact) {
+        return getContext().isExc(_field, _exact);
+    }
+    public ExcPointBlockPair getPairExc(String _field, boolean _exact) {
+        return getContext().getPairExc(_field, _exact);
     }
     public void breakPointEnabled(String _file, int _offset, boolean _newValue) {
-        getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointEnabled(_file, _offset, this,_newValue);
+        BreakPointBlockList.breakPointEnabled(_file, _offset, this,_newValue);
     }
     public void breakPointInstanceType(String _file, int _offset, boolean _newValue) {
-        getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointInstanceType(_file, _offset, this, _newValue);
+        BreakPointBlockList.breakPointInstanceType(_file, _offset, this, _newValue);
     }
     public void breakPointStaticType(String _file, int _offset, boolean _newValue) {
-        getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType(_file, _offset, this, _newValue);
+        BreakPointBlockList.breakPointStaticType(_file, _offset, this, _newValue);
+    }
+
+    public CustList<BreakPointBlockPair> bp(ExecFileBlock _file, FileMetrics _ana, int _off) {
+        int r_ = _ana.getRowFile(_off);
+        CustList<BreakPointBlockPair> list_ = new CustList<BreakPointBlockPair>();
+        for (BreakPointBlockPair b: bpList().elts()) {
+            if (b.getBp().matchRow(_file, _ana, r_)) {
+                list_.add(b);
+            }
+        }
+        return list_;
     }
     public void setContext(ContextEl _c) {
         this.context = _c;

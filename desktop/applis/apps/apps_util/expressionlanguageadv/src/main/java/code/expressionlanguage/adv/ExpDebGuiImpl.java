@@ -88,6 +88,9 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
             return null;
         }
         if (instance == NullStruct.NULL_VALUE) {
+            setStackCall(null);
+            getCurrentResult().getContext().getInterrupt().set(false);
+            getStoppedClick().set(false);
             typed = text.getText();
             ContextEl rCont_ = getCurrentResult().getContext();
             ArrayStruct empty_ = new ArrayStruct(0, StringExpUtil.getPrettyArrayType(rCont_.getStandards().getCoreNames().getAliasObject()));
@@ -129,6 +132,7 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
         if (targetMethod_ == null) {
             getStopStack().setEnabled(false);
             setStackCall(null);
+            getAnalyzeMenu().setEnabled(true);
             instance = NullStruct.NULL_VALUE;
             found.clear();
             fromIndex = -1;
@@ -156,6 +160,7 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
             instance = ArgumentListCall.toStr(getStackCallView().getStack().aw().getValue());
             currentIndex = 0;
             super.endCall();
+            getStopStack().setEnabled(true);
             return;
         }
         Struct re_= ArgumentListCall.toStr(getStackCallView().getStack().aw().getValue());
@@ -171,14 +176,16 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
                 occ--;
                 if (occ < fromIndex) {
                     getStopStack().setEnabled(false);
-                    setStackCall(null);
                     instance = NullStruct.NULL_VALUE;
                     found.clear();
                     fromIndex = -1;
                     toIndex = -1;
                     copy = new StringBuilder();
+                } else {
+                    getStopStack().setEnabled(true);
                 }
             } else if (findReplaceExpression.getTargetMethodReplace() != null && !found.isEmpty()) {
+                getStopStack().setEnabled(true);
                 minValue.setMax(found.size()-1);
                 maxValue.setMax(found.size()-1);
                 copy = new StringBuilder(typed);
@@ -186,11 +193,12 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
                 occ = -1;
             } else {
                 getStopStack().setEnabled(false);
-                setStackCall(null);
                 instance = NullStruct.NULL_VALUE;
                 found.clear();
                 copy = new StringBuilder();
             }
+        } else {
+            getStopStack().setEnabled(true);
         }
         super.endCall();
     }

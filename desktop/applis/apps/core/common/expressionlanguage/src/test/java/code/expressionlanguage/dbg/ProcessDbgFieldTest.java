@@ -4195,7 +4195,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
 
     private static WatchPointBlockPair pair(ResultContext _cont, ClassField _cf) {
         int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
-        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(true,n_,_cf.getFieldName());
+        return _cont.getPairWatch(true,n_,_cf.getFieldName());
     }
 
     private ClassField cf(String _cl, String _f) {

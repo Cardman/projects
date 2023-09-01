@@ -1,9 +1,17 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.analyze.blocks.NamedCalledFunctionBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.SynthFieldInfo;
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
 import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.gui.events.AbsActionListener;
+import code.util.core.StringUtil;
 
 public final class OkWpFormEvent implements AbsActionListener {
     private final AbsDebuggerGui window;
@@ -14,23 +22,52 @@ public final class OkWpFormEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        window.getFrameWpForm().getCommonFrame().setVisible(false);
-        window.getFrameWpForm().getSelectedWp().getValue().setEnabled(window.getFrameWpForm().getEnabledWp().isSelected());
-        window.getFrameWpForm().getSelectedWp().getValue().setRead(window.getFrameWpForm().getRead().isSelected());
-        window.getFrameWpForm().getSelectedWp().getValue().setWrite(window.getFrameWpForm().getWrite().isSelected());
-        window.getFrameWpForm().getSelectedWp().getValue().setCompoundRead(window.getFrameWpForm().getCompoundRead().isSelected());
-        window.getFrameWpForm().getSelectedWp().getValue().setCompoundWrite(window.getFrameWpForm().getCompoundWrite().isSelected());
-        window.getFrameWpForm().getSelectedWp().getValue().setCompoundWriteErr(window.getFrameWpForm().getCompoundWriteErr().isSelected());
-        update(window.getFrameWpForm().getSelectedWp(),window.getFrameWpForm().getSelectedWp().getValue().getResultRead(),window,window.getFrameWpForm().getGuiReadStackForm(),false);
-        update(window.getFrameWpForm().getSelectedWp(),window.getFrameWpForm().getSelectedWp().getValue().getResultWrite(),window,window.getFrameWpForm().getGuiWriteStackForm(),true);
-        update(window.getFrameWpForm().getSelectedWp(),window.getFrameWpForm().getSelectedWp().getValue().getResultCompoundRead(),window,window.getFrameWpForm().getGuiCompoundReadStackForm(),false);
-        update(window.getFrameWpForm().getSelectedWp(),window.getFrameWpForm().getSelectedWp().getValue().getResultCompoundWrite(),window,window.getFrameWpForm().getGuiCompoundWriteStackForm(),true);
-        update(window.getFrameWpForm().getSelectedWp(),window.getFrameWpForm().getSelectedWp().getValue().getResultCompoundWriteErr(),window,window.getFrameWpForm().getGuiCompoundWriteErrStackForm(),true);
-        window.getFrameWpForm().setSelectedWp(null);
+        WatchPointBlockPair wp_ = window.getFramePoints().getFrameWpFormContent().getSelectedWp();
+        if (wp_ == null) {
+            String clName_ = window.getFramePoints().getFrameWpFormContent().getClassName().getText();
+            RootBlock r_ = window.getCurrentResult().getPageEl().getAnaClassBody(clName_);
+            String fieldName_ = window.getFramePoints().getFrameWpFormContent().getFieldName().getText();
+            if (!valid(r_, window.getFramePoints().getFrameWpFormContent().getTrueField().isSelected(), fieldName_)) {
+                return;
+            }
+            wp_ = window.getCurrentResult().watch(window.getFramePoints().getFrameWpFormContent().getTrueField().isSelected(),new SynthFieldInfo(new ClassField(clName_, fieldName_),r_));
+            window.getCurrentResult().getContext().watchList().add(wp_);
+        }
+        wp_.getValue().setEnabled(window.getFramePoints().getFrameWpFormContent().getEnabledWp().isSelected());
+        wp_.getValue().setRead(window.getFramePoints().getFrameWpFormContent().getRead().isSelected());
+        wp_.getValue().setWrite(window.getFramePoints().getFrameWpFormContent().getWrite().isSelected());
+        wp_.getValue().setCompoundRead(window.getFramePoints().getFrameWpFormContent().getCompoundRead().isSelected());
+        wp_.getValue().setCompoundWrite(window.getFramePoints().getFrameWpFormContent().getCompoundWrite().isSelected());
+        wp_.getValue().setCompoundWriteErr(window.getFramePoints().getFrameWpFormContent().getCompoundWriteErr().isSelected());
+        update(wp_,wp_.getValue().getResultRead(),window,window.getFramePoints().getFrameWpFormContent().getGuiReadStackForm(),false);
+        update(wp_,wp_.getValue().getResultWrite(),window,window.getFramePoints().getFrameWpFormContent().getGuiWriteStackForm(),true);
+        update(wp_,wp_.getValue().getResultCompoundRead(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundReadStackForm(),false);
+        update(wp_,wp_.getValue().getResultCompoundWrite(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundWriteStackForm(),true);
+        update(wp_,wp_.getValue().getResultCompoundWriteErr(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundWriteErrStackForm(),true);
+        window.getFramePoints().getFrameWpFormContent().setSelectedWp(null);
+        window.getFramePoints().guiContentBuildClear();
+        window.getFramePoints().refreshWatch(window);
+        window.getFramePoints().getCommonFrame().pack();
+    }
+    static boolean valid(RootBlock _r, boolean _selected, String _text) {
+        if (_r == null) {
+            return false;
+        }
+        if (_selected) {
+            FieldInfo fi_ = ContextUtil.getFieldInfo(_r, _r.getFullName(), _text);
+            return fi_ != null;
+        }
+        for (NamedCalledFunctionBlock b: _r.getAnnotationsMethodsBlocks()) {
+            if (StringUtil.quickEq(b.getName(), _text)) {
+                return true;
+            }
+        }
+        return false;
     }
     private static void update(WatchPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, boolean _setting) {
-        String type_ = _window.getCurrentResult().getPageEl().getAliasPrimBoolean();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_form.getConditional().getText(), _mp, _window.getCurrentResult(), type_, _window.getResultContextNext().generateAdv(_window.getStopDbg()), _setting);
+        ResultContext curr_ = _window.getCurrentResult();
+        String type_ = curr_.getPageEl().getAliasPrimBoolean();
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_form.getConditional().getText(), _mp, curr_, type_, _window.getResultContextNext().generateAdv(curr_.getContext().getInterrupt()), _setting);
         OkMpFormEvent.update(_condition,_form,res_);
     }
 }

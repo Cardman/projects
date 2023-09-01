@@ -25,7 +25,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),71));
+        assertFalse(cont_.is(file(cont_),71));
     }
 
     @Test
@@ -42,7 +42,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),70));
+        assertTrue(cont_.is(file(cont_),70));
     }
 
     @Test
@@ -60,7 +60,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPoint("pkg/Ex",71);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),70));
+        assertFalse(cont_.is(file(cont_),70));
     }
 
     @Test
@@ -77,7 +77,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),80));
+        assertFalse(cont_.is(file(cont_),80));
     }
 
     @Test
@@ -94,7 +94,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",-1);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),80));
+        assertFalse(cont_.is(file(cont_),80));
     }
 
     @Test
@@ -112,7 +112,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),70));
+        assertFalse(cont_.is(file(cont_),70));
     }
 
     @Test
@@ -131,7 +131,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),70));
+        assertTrue(cont_.is(file(cont_),70));
     }
 
     @Test
@@ -148,7 +148,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),70));
+        assertTrue(cont_.is(file(cont_),70));
     }
 
     @Test
@@ -165,7 +165,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPointEnabled("pkg/Ex",-1);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),70));
+        assertFalse(cont_.is(file(cont_),70));
     }
 
     @Test
@@ -183,7 +183,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPoint("pkg/Ex",58);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),57));
+        assertTrue(cont_.is(file(cont_),57));
     }
 
     @Test
@@ -202,7 +202,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPoint("pkg/Ex",58);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),57));
+        assertTrue(cont_.is(file(cont_),57));
     }
 
     @Test
@@ -220,7 +220,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",58);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),57));
+        assertTrue(cont_.is(file(cont_),57));
     }
 
     @Test
@@ -247,7 +247,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPoint("pkg/Ex2",58);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),70));
+        assertTrue(cont_.is(file(cont_),70));
     }
     @Test
     public void test14() {
@@ -263,7 +263,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",62);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),71));
+        assertFalse(cont_.is(file(cont_),71));
     }
 
     @Test
@@ -281,7 +281,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.breakPointEnabled("pkg/Ex",71, false);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),70));
+        assertFalse(cont_.is(file(cont_),70));
     }
 
     @Test
@@ -300,7 +300,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.breakPointEnabled("pkg/Ex",71, false);
         cont_.breakPointEnabled("pkg/Ex",71, true);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),70));
+        assertTrue(cont_.is(file(cont_),70));
     }
 
     @Test
@@ -319,7 +319,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.breakPointEnabled("pkg/Ex",71, false);
         cont_.breakPointEnabled("pkg/Ex",58, true);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),70));
+        assertFalse(cont_.is(file(cont_),70));
     }
 
     @Test
@@ -338,7 +338,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.breakPointEnabled("pkg/Ex",71, false);
         cont_.breakPointEnabled("pkg/Ex",-1, true);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(file(cont_),70));
+        assertFalse(cont_.is(file(cont_),70));
     }
 
     @Test
@@ -460,10 +460,10 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         cont_.toggleBreakPoint("pkg/Ex2",13);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointInstanceType("pkg/Ex",13,cont_, true);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointInstanceType("pkg/Ex2",13,cont_, false);
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(cont_,"pkg/Ex"),13).getValue().isInstanceType());
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(cont_,"pkg/Ex2"),13).getValue().isInstanceType());
+        cont_.breakPointInstanceType("pkg/Ex",13, true);
+        cont_.breakPointInstanceType("pkg/Ex2",13, false);
+        assertTrue(cont_.getPair(file(cont_,"pkg/Ex"),13).getValue().isInstanceType());
+        assertFalse(cont_.getPair(file(cont_,"pkg/Ex2"),13).getValue().isInstanceType());
     }
 
     @Test
@@ -490,10 +490,10 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         cont_.toggleBreakPoint("pkg/Ex2",13);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType("pkg/Ex",13,cont_, false);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().breakPointStaticType("pkg/Ex2",13,cont_, true);
-        assertFalse(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(cont_,"pkg/Ex"),13).getValue().isStaticType());
-        assertTrue(cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(file(cont_,"pkg/Ex2"),13).getValue().isStaticType());
+        cont_.breakPointStaticType("pkg/Ex",13, false);
+        cont_.breakPointStaticType("pkg/Ex2",13, true);
+        assertFalse(cont_.getPair(file(cont_,"pkg/Ex"),13).getValue().isStaticType());
+        assertTrue(cont_.getPair(file(cont_,"pkg/Ex2"),13).getValue().isStaticType());
     }
     @Test
     public void test24() {
@@ -521,7 +521,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPoint("pkg/Ex2",59);
         cont_.toggleBreakPoint("pkg/Ex2",71);
-        CustList<BreakPointBlockPair> ls_ = cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().bp(file(cont_), cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex").getMetrics(4), 70);
+        CustList<BreakPointBlockPair> ls_ = cont_.bp(file(cont_), cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex").getMetrics(4), 70);
         assertEq(1,ls_.size());
     }
     @Test
@@ -697,28 +697,28 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         assertFalse(StringUtil.nullToEmpty(new ExecFileBlockTraceIndex(null,-1,0).valueStr()+"_").isEmpty());
         assertFalse(new BpcKeyString().keyString(new BreakPointCondition(new ElInterceptorStdCaller(),new BreakPointBlockKey(null,-1,0),0,0)).isEmpty());
         assertFalse(new BpcKeyString().keyString(new BreakPointCondition(new ElInterceptorStdCaller(),new BreakPointBlockKey(null,-1,0),10,0)).isEmpty());
-        assertEq(-1, NumberUtil.signum(new CmpMethodPair().compare(new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(),2, "0"),null),new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(),2, "1"),null))));
-        assertEq(1, NumberUtil.signum(new CmpMethodPair().compare(new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(),3, "0"),null),new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(),2, "1"),null))));
+        assertEq(-1, NumberUtil.signum(new CmpMethodPair().compare(new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(),2, "0", ""),null),new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(),2, "1", ""),null))));
+        assertEq(1, NumberUtil.signum(new CmpMethodPair().compare(new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(),3, "0", ""),null),new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(),2, "1", ""),null))));
     }
     @Test
     public void pref1() {
-        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new ElInterceptorStdCaller());
+        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),new ElInterceptorStdCaller());
         assertEq(0,BreakPointBlockList.pref(ls_));
     }
     @Test
     public void pref2() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
-        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(i_);
-        MethodPointBlockPair e_ = add(i_, ls_);
+        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
+        MethodPointBlockPair e_ = add(i_, ls_, "0");
         assertEq(0,e_.getPref().get());
     }
 
     @Test
     public void pref3() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
-        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(i_);
-        MethodPointBlockPair e_ = add(i_, ls_);
-        MethodPointBlockPair f_ = add(i_, ls_);
+        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
+        MethodPointBlockPair e_ = add(i_, ls_, "0");
+        MethodPointBlockPair f_ = add(i_, ls_, "1");
         assertEq(0,e_.getPref().get());
         assertEq(1,f_.getPref().get());
     }
@@ -726,10 +726,10 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
     @Test
     public void pref4() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
-        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(i_);
-        MethodPointBlockPair e_ = add(i_, ls_);
-        MethodPointBlockPair f_ = add(i_, ls_);
-        MethodPointBlockPair g_ = add(i_, ls_);
+        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
+        MethodPointBlockPair e_ = add(i_, ls_, "0");
+        MethodPointBlockPair f_ = add(i_, ls_, "1");
+        MethodPointBlockPair g_ = add(i_, ls_, "2");
         assertEq(0,e_.getPref().get());
         assertEq(1,f_.getPref().get());
         assertEq(2,g_.getPref().get());
@@ -738,11 +738,11 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
     @Test
     public void pref5() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
-        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(i_);
-        MethodPointBlockPair e_ = add(i_, ls_);
-        MethodPointBlockPair f_ = add(i_, ls_);
+        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
+        MethodPointBlockPair e_ = add(i_, ls_, "0");
+        MethodPointBlockPair f_ = add(i_, ls_, "1");
         f_.getPref().set(2);
-        MethodPointBlockPair g_ = add(i_, ls_);
+        MethodPointBlockPair g_ = add(i_, ls_, "2");
         assertEq(0,e_.getPref().get());
         assertEq(2,f_.getPref().get());
         assertEq(1,g_.getPref().get());
@@ -751,31 +751,42 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
     @Test
     public void pref6() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
-        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(i_);
-        MethodPointBlockPair e_ = add(i_, ls_);
-        MethodPointBlockPair f_ = add(i_, ls_);
+        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
+        MethodPointBlockPair e_ = add(i_, ls_, "0");
+        MethodPointBlockPair f_ = add(i_, ls_, "1");
         f_.getPref().set(3);
-        MethodPointBlockPair g_ = add(i_, ls_);
-        MethodPointBlockPair h_ = add(i_, ls_);
+        MethodPointBlockPair g_ = add(i_, ls_, "2");
+        MethodPointBlockPair h_ = add(i_, ls_, "3");
         assertEq(0,e_.getPref().get());
         assertEq(3,f_.getPref().get());
         assertEq(1,g_.getPref().get());
         assertEq(2,h_.getPref().get());
     }
-    private static MethodPointBlockPair add(ElInterceptorStdCaller _i, ConcList<MethodPointBlockPair> _ls) {
-        MethodPointBlockPair e_ = pair(_i, BreakPointBlockList.pref(_ls), "");
+
+    @Test
+    public void pref7() {
+        ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
+        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
+        MethodPointBlockPair e_ = add(i_, ls_, "0");
+        e_.getPref().set(1);
+        MethodPointBlockPair f_ = add(i_, ls_, "1");
+        assertEq(1,e_.getPref().get());
+        assertEq(0,f_.getPref().get());
+    }
+    private static MethodPointBlockPair add(ElInterceptorStdCaller _i, ConcList<MethodPointBlockPair> _ls, String _k) {
+        MethodPointBlockPair e_ = pair(_i, BreakPointBlockList.pref(_ls), "", _k);
         _ls.add(e_);
         return e_;
     }
 
-    private static MethodPointBlockPair pair(ElInterceptorStdCaller _i, int _pref, String _sgn) {
-        return new MethodPointBlockPair(null, _i, _sgn, _pref, true);
+    private static MethodPointBlockPair pair(ElInterceptorStdCaller _i, int _pref, String _sgn, String _k) {
+        return new MethodPointBlockPair(null, _i, _sgn, _pref, true, _k);
     }
 
     private ExecFileBlock file(ResultContext _cont) {
         return file(_cont,"pkg/Ex");
     }
     private ExecFileBlock file(ResultContext _cont, String _name) {
-        return _cont.getContext().getClasses().getDebugMapping().getFiles().getVal(_cont.getPageEl().getPreviousFilesBodies().getVal(_name));
+        return _cont.getFiles().getVal(_cont.getPageEl().getPreviousFilesBodies().getVal(_name));
     }
 }

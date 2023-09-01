@@ -181,6 +181,7 @@ public abstract class EquallableElAdvUtil {
         ExpMenuFrameInteract exp_ = new ExpMenuFrameInteract(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem());
         _g.build(new AnalyzingDebugEvent(exp_,_b,_g,_man,_s));
         ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();
+        _g.getCurrentThreadActions().join();
     }
     public static void guiAna(WindowExpressionEditor _w, AbsDebuggerGui _g) {
         _g.setResultContextNext(_w.getResultContextNext());
@@ -194,6 +195,7 @@ public abstract class EquallableElAdvUtil {
     public static void menuExp(WindowExpressionEditor _w, AbsDebuggerGui _g) {
         ((MockMenuItem)_w.getSessionMenuExp()).getActionListeners().get(0).action();
         ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();
+        _g.getCurrentThreadActions().join();
     }
 
     public static void openPoints(AbsDebuggerGui _g) {
@@ -203,6 +205,17 @@ public abstract class EquallableElAdvUtil {
         ((MockPlainButton)_g.getFramePoints().getAddExc()).getActionListeners().get(0).action();
     }
 
+    public static void addWp(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getAddWp()).getActionListeners().get(0).action();
+    }
+
+    public static void addMp(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getAddMet()).getActionListeners().get(0).action();
+    }
+
+    public static void addBp(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getAddBp()).getActionListeners().get(0).action();
+    }
     public static void selectStd(AbsDebuggerGui _g, String _cl, AbsractIdentifiableCommon _id) {
         ((MockPlainButton)_g.getFramePoints().getAddStd()).getActionListeners().get(0).action();
         _g.getFramePoints().getFrameStdFormContent().selectTree(_g,_cl,_id);
@@ -218,12 +231,35 @@ public abstract class EquallableElAdvUtil {
         ((MockPlainButton)_g.getFramePoints().getFrameExcFormContent().getOk()).getActionListeners().get(0).action();
     }
 
+    public static void addWpOk(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getFrameWpFormContent().getOk()).getActionListeners().get(0).action();
+    }
+
+    public static void addMpOk(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getFrameFormContent().getOk()).getActionListeners().get(0).action();
+    }
+
+    public static void addBpOk(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getFrameBpFormContent().getOk()).getActionListeners().get(0).action();
+    }
     public static void editExc(AbsDebuggerGui _g, int _v) {
         ((MockPlainButton)_g.getFramePoints().getExcFrom().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editStd(AbsDebuggerGui _g, int _v) {
-        ((MockPlainButton)_g.getFramePoints().getExcStd().getComponent(_v)).getActionListeners().get(0).action();
+        ((MockPlainButton)_g.getFramePoints().getStdForm().getComponent(_v)).getActionListeners().get(0).action();
+    }
+
+    public static void editWatch(AbsDebuggerGui _g, int _v) {
+        ((MockPlainButton)_g.getFramePoints().getWpForm().getComponent(_v)).getActionListeners().get(0).action();
+    }
+
+    public static void editMethod(AbsDebuggerGui _g, int _v) {
+        ((MockPlainButton)_g.getFramePoints().getMetForm().getComponent(_v)).getActionListeners().get(0).action();
+    }
+
+    public static void editBp(AbsDebuggerGui _g, int _v) {
+        ((MockPlainButton)_g.getFramePoints().getBpForm().getComponent(_v)).getActionListeners().get(0).action();
     }
     public static void addExcRemove(AbsDebuggerGui _g) {
         ((MockPlainButton)_g.getFramePoints().getFrameExcFormContent().getRemove()).getActionListeners().get(0).action();
@@ -231,9 +267,21 @@ public abstract class EquallableElAdvUtil {
     public static void addStdRemove(AbsDebuggerGui _g) {
         ((MockPlainButton)_g.getFramePoints().getFrameStdFormContent().getFrameMpFormContent().getRemove()).getActionListeners().get(0).action();
     }
+    public static void addWatchRemove(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getFrameWpFormContent().getRemove()).getActionListeners().get(0).action();
+    }
+
+    public static void addMethodRemove(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getFrameFormContent().getFrameMpFormContent().getRemove()).getActionListeners().get(0).action();
+    }
+
+    public static void addBpRemove(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getFrameBpFormContent().getRemove()).getActionListeners().get(0).action();
+    }
     public static void menuSingleMain(WindowExpressionEditor _w, AbsDebuggerGui _g) {
         ((MockMenuItem)_w.getSessionMenuSingleMain()).getActionListeners().get(0).action();
         ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();
+        _g.getCurrentThreadActions().join();
     }
     public static void guiNoAna(AbsDebuggerGui _g, ManageOptions _m) {
         _g.build(new AnalyzingDebugEvent(new ExpMenuFrameInteract(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem()),null,_g,_m,new StringMap<String>()));
@@ -260,39 +308,39 @@ public abstract class EquallableElAdvUtil {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabSelect(_w).getCenter(), GuiConstants.VK_F5,0)).action();
     }
     public static void bpFormStdAddInc(AbsDebuggerGui _w) {
-        ((MockPlainButton)_w.getFrameBpForm().getGuiStdStackForm().getBpAddFile()).getActionListeners().get(0).action();
+        ((MockPlainButton)_w.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getBpAddFile()).getActionListeners().get(0).action();
     }
     public static void bpFormStdAddExc(AbsDebuggerGui _w) {
-        ((MockPlainButton)_w.getFrameBpForm().getGuiStdStackForm().getBpRemoveFile()).getActionListeners().get(0).action();
+        ((MockPlainButton)_w.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getBpRemoveFile()).getActionListeners().get(0).action();
     }
     public static void bpFormStdRemInc(AbsDebuggerGui _w, int _index) {
-        ((MockPlainButton) _w.getFrameBpForm().getGuiStdStackForm().getIncludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
+        ((MockPlainButton) _w.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getIncludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
     }
     public static void bpFormStdRemExc(AbsDebuggerGui _w, int _index) {
-        ((MockPlainButton) _w.getFrameBpForm().getGuiStdStackForm().getExcludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
+        ((MockPlainButton) _w.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getExcludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
     }
     public static void bpFormOk(AbsDebuggerGui _w) {
-        ((MockPlainButton)_w.getFrameBpForm().getOk()).getActionListeners().get(0).action();
+        ((MockPlainButton)_w.getFramePoints().getFrameBpFormContent().getOk()).getActionListeners().get(0).action();
     }
 
     public static void mpFormOk(AbsDebuggerGui _w) {
-        ((MockPlainButton)_w.getFrameMpForm().getOk()).getActionListeners().get(0).action();
+        ((MockPlainButton)_w.getFramePoints().getFrameFormContent().getOk()).getActionListeners().get(0).action();
     }
 
     public static void wpFormOk(AbsDebuggerGui _w) {
-        ((MockPlainButton)_w.getFrameWpForm().getOk()).getActionListeners().get(0).action();
+        ((MockPlainButton)_w.getFramePoints().getFrameWpFormContent().getOk()).getActionListeners().get(0).action();
     }
-    public static void bpFormCancel(AbsDebuggerGui _w) {
-        _w.getFrameBpForm().getCommonFrame().getWindowListenersDef().get(0).windowClosing();
-    }
+//    public static void bpFormCancel(AbsDebuggerGui _w) {
+//        _w.getFrameBpForm().getCommonFrame().getWindowListenersDef().get(0).windowClosing();
+//    }
 
-    public static void mpFormCancel(AbsDebuggerGui _w) {
-        _w.getFrameMpForm().getCommonFrame().getWindowListenersDef().get(0).windowClosing();
-    }
+//    public static void mpFormCancel(AbsDebuggerGui _w) {
+//        _w.getFrameMpForm().getCommonFrame().getWindowListenersDef().get(0).windowClosing();
+//    }
 
-    public static void wpFormCancel(AbsDebuggerGui _w) {
-        _w.getFrameWpForm().getCommonFrame().getWindowListenersDef().get(0).windowClosing();
-    }
+//    public static void wpFormCancel(AbsDebuggerGui _w) {
+//        _w.getFrameWpForm().getCommonFrame().getWindowListenersDef().get(0).windowClosing();
+//    }
     protected static ReadOnlyTabEditor tabEditor(AbsDebuggerGui _w) {
         return tabEditor(_w,0);
     }

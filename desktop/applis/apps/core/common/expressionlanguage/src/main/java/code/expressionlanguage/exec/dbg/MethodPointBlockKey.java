@@ -8,9 +8,11 @@ import code.util.core.StringUtil;
 
 public final class MethodPointBlockKey implements AbsKeyPoint{
     private final MemberCallingsBlock id;
+    private final String key;
 
-    public MethodPointBlockKey(MemberCallingsBlock _i) {
+    public MethodPointBlockKey(MemberCallingsBlock _i, String _k) {
         this.id = _i;
+        this.key = _k;
     }
 
     public CustList<String> names(ContextEl _conf) {
@@ -25,10 +27,10 @@ public final class MethodPointBlockKey implements AbsKeyPoint{
         return new CustList<String>();
     }
     public boolean match(MethodPointBlockKey _b) {
-        return match(MemberCallingsBlock.clName(_b.id));
+        return match(_b.key);
     }
     public boolean match(String _i) {
-        return StringUtil.quickEq(MemberCallingsBlock.clName(id),_i);
+        return StringUtil.quickEq(key,_i);
     }
 
     public MemberCallingsBlock getId() {
@@ -37,7 +39,7 @@ public final class MethodPointBlockKey implements AbsKeyPoint{
 
     @Override
     public String keyStr() {
-        return MemberCallingsBlock.clName(id);
+        return key;
     }
 
 }

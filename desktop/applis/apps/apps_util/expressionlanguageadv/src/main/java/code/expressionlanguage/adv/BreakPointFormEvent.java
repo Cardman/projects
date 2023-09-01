@@ -23,45 +23,54 @@ public final class BreakPointFormEvent implements AbsActionListener {
     public void action() {
         ResultContext r_ = tabEditor.getDebuggerGui().getCurrentResult();
         FileBlock af_ = r_.getPageEl().getPreviousFilesBodies().getVal(tabEditor.getFullPath());
-        ExecFileBlock f_ = r_.getForwards().dbg().getFiles().getVal(af_);
+        ExecFileBlock f_ = r_.getFiles().getVal(af_);
         int caret_ = tabEditor.getCenter().getCaretPosition();
         int o_ = ResultExpressionOperationNode.beginPart(caret_, af_);
         MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(caret_, af_);
         if (id_ != null) {
             BracedBlock rPar_ = BreakPointBlockList.rootOfAnnot(id_);
             if (rPar_ instanceof RootBlock) {
-                WatchPointFormEvent.watchAction(r_, false,((RootBlock)rPar_).getNumberAll(),((NamedCalledFunctionBlock)id_).getName(), window.getFrameWpForm());
+                WatchPointFormEvent.watchAction(r_, false,((RootBlock)rPar_).getNumberAll(),((NamedCalledFunctionBlock)id_).getName(), window.getFramePoints().getFrameWpFormContent(),window, window.getFramePoints().getCommonFrame());
                 return;
             }
-            MethodPointBlockPair mp_ = r_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(MemberCallingsBlock.clName(id_));
+            MethodPointBlockPair mp_ = r_.getPair(MemberCallingsBlock.clName(id_));
             if (mp_ != null) {
-                window.getFrameMpForm().setSelectedMp(mp_);
-                window.getFrameMpForm().getEnabledMp().setSelected(mp_.getValue().isEnabled());
-                window.getFrameMpForm().getFrameMpFormContent().getPref().setValue(mp_.getPref().get());
-                specific(window.getFrameMpForm().getGuiEnterStackForm(), true, mp_.getValue().getResultEntry(), window.getFrameMpForm().getCommonFrame());
-                specific(window.getFrameMpForm().getGuiExitStackForm(), true, mp_.getValue().getResultExit(), window.getFrameMpForm().getCommonFrame());
-                window.getFrameMpForm().getEnterFunction().setSelected(mp_.getValue().isEntry());
-                window.getFrameMpForm().getExitFunction().setSelected(mp_.getValue().isExit());
-                window.getFrameMpForm().getCommonFrame().setVisible(true);
-                PackingWindowAfter.pack(window.getFrameMpForm().getCommonFrame());
+                methodAction(mp_, window.getFramePoints().getFrameFormContent(), window.getFramePoints().getCommonFrame());
                 return;
             }
         }
-        BreakPointBlockPair bp_ = r_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(f_, o_);
+        BreakPointBlockPair bp_ = r_.getPair(f_, o_);
         if (bp_ == null) {
             return;
         }
-        window.getFrameBpForm().setSelectedBp(bp_);
-        window.getFrameBpForm().getEnabledBp().setSelected(bp_.getValue().isEnabled());
-        specific(window.getFrameBpForm().getGuiStdStackForm(), !bp_.getValue().isEnabledChgtType(), bp_.getValue().getResultStd(), window.getFrameBpForm().getCommonFrame());
-        specific(window.getFrameBpForm().getGuiStaStackForm(), bp_.getValue().isEnabledChgtType(), bp_.getValue().getResultStatic(), window.getFrameBpForm().getCommonFrame());
-        specific(window.getFrameBpForm().getGuiInsStackForm(), bp_.getValue().isEnabledChgtType(), bp_.getValue().getResultInstance(), window.getFrameBpForm().getCommonFrame());
-        window.getFrameBpForm().getInstanceType().setEnabled(bp_.getValue().isEnabledChgtType());
-        window.getFrameBpForm().getInstanceType().setSelected(bp_.getValue().isInstanceType());
-        window.getFrameBpForm().getStaticType().setEnabled(bp_.getValue().isEnabledChgtType());
-        window.getFrameBpForm().getStaticType().setSelected(bp_.getValue().isStaticType());
-        window.getFrameBpForm().getCommonFrame().setVisible(true);
-        PackingWindowAfter.pack(window.getFrameBpForm().getCommonFrame());
+        bpAction(bp_, window.getFramePoints().getCommonFrame(), window.getFramePoints().getFrameBpFormContent());
+    }
+
+    static void bpAction(BreakPointBlockPair _pair, AbsCommonFrame _f, FrameBpFormContent _bp) {
+        _bp.setSelectedBp(_pair);
+        _bp.getEnabledBp().setSelected(_pair.getValue().isEnabled());
+        specific(_bp.getGuiStdStackForm(), !_pair.getValue().isEnabledChgtType(), _pair.getValue().getResultStd(), _f);
+        specific(_bp.getGuiStaStackForm(), _pair.getValue().isEnabledChgtType(), _pair.getValue().getResultStatic(), _f);
+        specific(_bp.getGuiInsStackForm(), _pair.getValue().isEnabledChgtType(), _pair.getValue().getResultInstance(), _f);
+        _bp.getInstanceType().setEnabled(_pair.getValue().isEnabledChgtType());
+        _bp.getInstanceType().setSelected(_pair.getValue().isInstanceType());
+        _bp.getStaticType().setEnabled(_pair.getValue().isEnabledChgtType());
+        _bp.getStaticType().setSelected(_pair.getValue().isStaticType());
+        _f.setVisible(true);
+        PackingWindowAfter.pack(_f);
+    }
+
+    static void methodAction(MethodPointBlockPair _mp, FrameMpForm _mePoint, AbsCommonFrame _frame) {
+        _mePoint.getEdited().setText(_mp.getSgn());
+        _mePoint.setSelectedMp(_mp);
+        _mePoint.getEnabledMp().setSelected(_mp.getValue().isEnabled());
+        _mePoint.getFrameMpFormContent().getPref().setValue(_mp.getPref().get());
+        specific(_mePoint.getGuiEnterStackForm(), true, _mp.getValue().getResultEntry(), _frame);
+        specific(_mePoint.getGuiExitStackForm(), true, _mp.getValue().getResultExit(), _frame);
+        _mePoint.getEnterFunction().setSelected(_mp.getValue().isEntry());
+        _mePoint.getExitFunction().setSelected(_mp.getValue().isExit());
+        _frame.setVisible(true);
+        PackingWindowAfter.pack(_frame);
     }
 
     static void specific(GuiStackForm _specForm, boolean _visible, BreakPointCondition _model, AbsCommonFrame _frame) {

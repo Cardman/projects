@@ -235,7 +235,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
 
     private boolean isWatch(ResultContext _cont, ClassField _cf) {
         int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
-        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(true,n_,_cf.getFieldName());
+        return _cont.isWatch(true,n_,_cf.getFieldName());
     }
 
     @Test

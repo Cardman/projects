@@ -6,7 +6,7 @@ public interface AbsCollection<T> {
     Iterable<T> elts();
     void add(T _b);
     void clear();
-    void remove(int _i, T _b);
+    void remove(T _b);
     void setAll(AbsCollection<T> _t);
     AbstractInterceptorStdCaller intercept();
 }

@@ -33,7 +33,7 @@ public final class ConcMap<T> implements AbsCollection<T> {
     }
 
     @Override
-    public void remove(int _i, T _b) {
+    public void remove(T _b) {
         elements.remove(id.keyString(_b));
     }
 

@@ -980,8 +980,8 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         entering(cont_,"pkg/Ex",66);
         String idm_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(66, cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex")));
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(idm_).getValue().setEnabled(true);
-        cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(idm_).getValue().setEnabled(false);
+        cont_.getPair(idm_).getValue().setEnabled(true);
+        cont_.getPair(idm_).getValue().setEnabled(false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, stack_.nbPages());
@@ -1431,18 +1431,18 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         exiting(cont_,"pkg/Ex",91);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(91, cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex")));
-        MethodPointBlockPair wp_ = cont_.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_);
+        MethodPointBlockPair wp_ = cont_.getPair(id_);
         assertFalse(new MethodKeyString().keyString(wp_).isEmpty());
     }
     private void div(ResultContext _cont) {
         _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true);
-        ExcPoint val_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
+        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(true);
     }
     private boolean is(ResultContext _cont, int _off) {
-        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(_cont.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex").getNumberFile()+"/"+_off);
+        return _cont.is(_cont.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex").getNumberFile()+"/"+_off);
     }
 
     private ClassField cf(String _cl, String _f) {
@@ -1466,14 +1466,14 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
 
     private WatchPointBlockPair pair(ResultContext _cont, ClassField _cf) {
         int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
-        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(true,n_,_cf.getFieldName());
+        return _cont.getPairWatch(true,n_,_cf.getFieldName());
     }
 
     private void enteringCondition(String _newValue,ResultContext _cont, String _file, int _offset) {
         entering(_cont, _file, _offset);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
-        MethodPointBlockPair wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_);
+        MethodPointBlockPair wp_ = _cont.getPair(id_);
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getValue().getResultEntry().result(res_,_newValue);
@@ -1482,7 +1482,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         exiting(_cont, _file, _offset);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
         String type_ = _cont.getPageEl().getAliasPrimBoolean();
-        MethodPointBlockPair wp_ = _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_);
+        MethodPointBlockPair wp_ = _cont.getPair(id_);
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
         assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         wp_.getValue().getResultExit().result(res_,_newValue);
@@ -1490,14 +1490,14 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
     private void entering(ResultContext _cont, String _file, int _offset) {
         _cont.toggleBreakPoint(_file,_offset);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setEntry(true);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setExit(false);
+        _cont.getPair(id_).getValue().setEntry(true);
+        _cont.getPair(id_).getValue().setExit(false);
     }
 
     private void exiting(ResultContext _cont, String _file, int _offset) {
         _cont.toggleBreakPoint(_file,_offset);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setEntry(false);
-        _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPair(id_).getValue().setExit(true);
+        _cont.getPair(id_).getValue().setEntry(false);
+        _cont.getPair(id_).getValue().setExit(true);
     }
 }

@@ -167,11 +167,11 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
     }
     private boolean isWatch(ResultContext _cont, ClassField _cf) {
         int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
-        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().isWatch(false,n_,_cf.getFieldName());
+        return _cont.isWatch(false,n_,_cf.getFieldName());
     }
 
     private boolean is(ResultContext _cont, int _off) {
-        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().is(_cont.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex").getNumberFile()+"/"+_off);
+        return _cont.is(_cont.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex").getNumberFile()+"/"+_off);
     }
 
     private ClassField cf(String _cl, String _f) {
@@ -197,6 +197,6 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
 
     private WatchPointBlockPair pair(ResultContext _cont, ClassField _cf) {
         int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
-        return _cont.getContext().getClasses().getDebugMapping().getBreakPointsBlock().getPairWatch(false,n_,_cf.getFieldName());
+        return _cont.getPairWatch(false,n_,_cf.getFieldName());
     }
 }

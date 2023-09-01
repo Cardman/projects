@@ -12,6 +12,7 @@ public abstract class AbsFrameMpFormContent {
     private AbsCustCheckBox exitFunction;
     private AbsCustCheckBox enabledMp;
     private AbsPlainButton ok;
+    private AbsPlainButton remove;
     private AbsPanel contentPaneForm;
     private AbsPanel contentPane;
     protected AbsFrameMpFormContent() {
@@ -22,6 +23,7 @@ public abstract class AbsFrameMpFormContent {
         exitFunction = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("exit");
         enabledMp = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
         ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
+        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
         AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         bpForm_.add(enabledMp);
         bpForm_.add(enterFunction);
@@ -30,6 +32,10 @@ public abstract class AbsFrameMpFormContent {
         bpForm_.add(guiExitStackForm.guiBuild(_d));
         contentPaneForm = bpForm_;
         contentPane = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+    }
+
+    public AbsPlainButton getRemove() {
+        return remove;
     }
 
     public AbsPanel getContentPaneForm() {

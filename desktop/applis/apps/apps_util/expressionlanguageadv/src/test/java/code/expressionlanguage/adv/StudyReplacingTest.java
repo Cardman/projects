@@ -407,9 +407,7 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
 
     private void launch(AbsDebuggerGui _d) {
         ((MockPlainButton)_d.getSelectEnter()).getActionListeners().get(0).action();
+        _d.getCurrentThreadActions().join();
     }
 
-    private void next(AbsDebuggerGui _d) {
-        ((MockPlainButton)_d.getNextAction()).getActionListeners().get(0).action();
-    }
 }

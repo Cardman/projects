@@ -81,7 +81,7 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     @Override
     public StopDbgEnum stopBreakPoint(ContextEl _context, StackCall _stackCall) {
-        if (_context.getClasses().getDebugMapping().getBreakPointsBlock().getPausedLoop().getAndSet(false)) {
+        if (_context.pausedLoop().getAndSet(false)) {
             return StopDbgEnum.PAUSE;
         }
         return stopAtCheckedBp(_context, _stackCall);
@@ -519,7 +519,7 @@ public final class DbgStackStopper implements AbsStackStopper {
             return StopDbgEnum.NONE;
         }
         for (int i : list(p_)) {
-            BreakPoint bp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNull(p_.getFile(), i);
+            BreakPoint bp_ = _context.getNotNull(p_.getFile(), i);
             if (stopCurrentBp(_context, _stackCall,p_,bp_)) {
                 return StopDbgEnum.INSTRUCTION;
             }
@@ -530,7 +530,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     private static StopDbgEnum checkedWp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos) {
         if (stopExcValuRetThrowCatch(_context,_stackCall, _p) == null && _infos instanceof CheckedExecOperationNodeInfos) {
             ClassField clField_ = ((CheckedExecOperationNodeInfos) _infos).getIdClass();
-            WatchPoint bp_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNullWatch(((CheckedExecOperationNodeInfos) _infos).isTrueField(),((CheckedExecOperationNodeInfos) _infos).getNbType(),clField_.getFieldName());
+            WatchPoint bp_ = _context.getNotNullWatch(((CheckedExecOperationNodeInfos) _infos).isTrueField(),((CheckedExecOperationNodeInfos) _infos).getNbType(),clField_.getFieldName());
             BreakPointCondition condition_ = stopCurrentWpCondition(bp_, (CheckedExecOperationNodeInfos)_infos);
             if (stopCurrent(_context, _stackCall, _p, condition_, _infos)) {
                 return StopDbgEnum.FIELD;
@@ -545,10 +545,10 @@ public final class DbgStackStopper implements AbsStackStopper {
         ExecFormattedRootBlock glClass_ = _ex.getDeclaring();
         Struct instance_ = _ex.getInstance();
         ArgumentListCall original_ = _ex.getArgs();
-        CustList<StdMethodPointBlockPair> pairs_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getStdPairs(call_);
-        for (StdMethodPointBlockPair m: pairs_) {
-            Parameters params_ = build(_context, m, original_);
-            MethodPoint mp_ = m.getValue();
+        StdMethodPointBlockPair pairs_ = _context.getPair(call_);
+        if (pairs_ != null) {
+            Parameters params_ = build(_context, pairs_, original_);
+            MethodPoint mp_ = pairs_.getValue();
             if (stopCurrentMp(_context, _stackCall, _p, mp_, _ex.isExiting(),new CheckedMethodInfos(glClass_, instance_, params_))) {
                 if (_ex.isExiting()) {
                     return StopDbgEnum.METHOD_EXIT;
@@ -564,7 +564,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         ExecFormattedRootBlock glClass_ = globalClass(_stackCall.getCallingState());
         Struct instance_ = instance(_stackCall.getCallingState());
         Parameters original_ = params(_stackCall.getCallingState());
-        CustList<MethodPointBlockPairRootBlock> pairs_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getPairs(call_, glClass_, _context, instance_);
+        CustList<MethodPointBlockPairRootBlock> pairs_ = _context.getPairs(call_, glClass_, _context, instance_);
         for (MethodPointBlockPairRootBlock m: pairs_) {
             Parameters params_ = build(original_.getRefParameters(), original_.getCache(), _context, m.getId());
             MethodPoint mp_ = m.getId().getValue();
@@ -577,7 +577,7 @@ public final class DbgStackStopper implements AbsStackStopper {
 
     private static boolean exitMethod(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
         if (exiting(_stackCall)) {
-            CustList<MethodPointBlockPairRootBlock> pairs_ = _context.getClasses().getDebugMapping().getBreakPointsBlock().getPairs(_p.getBlockRoot(), _p.getGlobalClass(),_context, _p.getGlobalStruct());
+            CustList<MethodPointBlockPairRootBlock> pairs_ = _context.getPairs(_p.getBlockRoot(), _p.getGlobalClass(),_context, _p.getGlobalStruct());
             for (MethodPointBlockPairRootBlock m: pairs_) {
                 Parameters params_ = build(_p.getRefParams(), _p.getCache(), _context, m.getId());
                 MethodPoint mp_ = m.getId().getValue();
@@ -709,7 +709,7 @@ public final class DbgStackStopper implements AbsStackStopper {
     private static boolean stopTmp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.CURSOR) {
             for (int i : list(_p)) {
-                if (_context.getClasses().getDebugMapping().getBreakPointsBlock().isTmp(_p.getFile(), i)) {
+                if (_context.isTmp(_p.getFile(), i)) {
                     return true;
                 }
             }
@@ -722,13 +722,13 @@ public final class DbgStackStopper implements AbsStackStopper {
             return false;
         }
         String clName_ = str_.getClassName(_context);
-        if (checkExc(_context, _stackCall, _p, str_, _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNullExc(clName_,true))) {
+        if (checkExc(_context, _stackCall, _p, str_, _context.getNotNullExc(clName_,true))) {
             return true;
         }
-        if (!clName_.isEmpty() && checkExc(_context, _stackCall, _p, str_, _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNullExc(StringExpUtil.getIdFromAllTypes(clName_), false))) {
+        if (!clName_.isEmpty() && checkExc(_context, _stackCall, _p, str_, _context.getNotNullExc(StringExpUtil.getIdFromAllTypes(clName_), false))) {
             return true;
         }
-        return checkExc(_context, _stackCall, _p, str_, _context.getClasses().getDebugMapping().getBreakPointsBlock().getNotNullExc("",false));
+        return checkExc(_context, _stackCall, _p, str_, _context.getNotNullExc("",false));
     }
 
     private static boolean checkExc(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, Struct _str, ExcPoint _bp) {
