@@ -198,6 +198,10 @@ public abstract class ContextEl {
         if (koExc(solved_, _clName)) {
             return null;
         }
+        return notNullBuild(_exact, _clName);
+    }
+
+    public ExcPointBlockPair notNullBuild(boolean _exact, String _clName) {
         return getClasses().getDebugMapping().getBreakPointsBlock().build(_exact, _clName);
     }
 
