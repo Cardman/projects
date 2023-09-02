@@ -35,6 +35,7 @@ public final class OkMpFormEvent implements AbsActionListener {
         window.getFramePoints().guiContentBuildClear();
         window.getFramePoints().refreshMethod(window, resultContext);
         window.getFramePoints().getCommonFrame().pack();
+        ToggleBreakPointEvent.afterToggle(resultContext,window.selectedTab());
     }
     private static void update(MethodPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, ResultContext _res) {
         String type_ = _res.getPageEl().getAliasPrimBoolean();

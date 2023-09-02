@@ -227,6 +227,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         String name_ = _path.substring(_path.lastIndexOf('/')+1);
         ReadOnlyTabEditor te_ = new ReadOnlyTabEditor(this,getCommonFrame().getFrames(), _path.substring(pathToSrc(_man).length()), WindowWithTreeImpl.lineSeparator(dec_),_opt,_res);
         te_.centerText(new DefaultUniformingString().apply(dec_));
+        ToggleBreakPointEvent.afterToggle(_res,te_);
         tabs.add(te_);
         tabbedPane.addIntTab(name_, te_.getPanel(), _path);
     }
@@ -424,6 +425,13 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             return _f;
         }
         return new CustomFoundExc(NullStruct.NULL_VALUE);
+    }
+    public ReadOnlyTabEditor selectedTab() {
+        int ind_ = tabbedPane.getSelectedIndex();
+        if (!getTabs().isValidIndex(ind_)) {
+            return null;
+        }
+        return getTabs().get(ind_);
     }
     public AbsTreeGui getTree() {
         return getFolderSystem();

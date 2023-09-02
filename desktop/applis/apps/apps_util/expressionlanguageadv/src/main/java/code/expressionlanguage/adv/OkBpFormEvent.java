@@ -33,6 +33,7 @@ public final class OkBpFormEvent implements AbsActionListener {
         window.getFramePoints().guiContentBuildClear();
         window.getFramePoints().refreshBp(window, currentResult);
         window.getFramePoints().getCommonFrame().pack();
+        ToggleBreakPointEvent.afterToggle(currentResult,window.selectedTab());
     }
 
     static void bpAction(AbsDebuggerGui _win, FrameBpFormContent _bp, BreakPointBlockPair _selected, ResultContext _res) {

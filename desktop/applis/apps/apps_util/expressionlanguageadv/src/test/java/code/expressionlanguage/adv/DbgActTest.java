@@ -1192,6 +1192,266 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertFalse(curRet(b_).bpList().elts().iterator().hasNext());
     }
     @Test
+    public void bp66() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int v;public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        closeReadOnlyTab(b_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addWp(b_);
+        b_.getFramePoints().getFrameWpFormContent().getClassName().setText("pkg.Ex");
+        b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
+        b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(true);
+        addWpOk(b_);
+        assertTrue(curRet(b_).getContext().watchList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().metList().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp67() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public annotation pkg.Ex {int v();}");
+        guiAna(r_,b_,o_,src_);
+        closeReadOnlyTab(b_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addWp(b_);
+        b_.getFramePoints().getFrameWpFormContent().getClassName().setText("pkg.Ex");
+        b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
+        b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(false);
+        addWpOk(b_);
+        assertTrue(curRet(b_).getContext().watchList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().metList().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp68() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        tabEditor(b_).getCenter().select(63,63);
+        toggleBpEn(b_);
+        assertTrue(curRet(b_).is(file(curRet(b_)),63));
+    }
+    @Test
+    public void bp69() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        addBp(b_);
+        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(63);
+        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(false);
+        addBpOk(b_);
+        editBp(b_,0);
+        tabEditor(b_).getCenter().select(63,63);
+        toggleBpEn(b_);
+        assertTrue(curRet(b_).is(file(curRet(b_)),63));
+        assertTrue(b_.getFramePoints().getFrameBpFormContent().getEnabledBp().isSelected());
+    }
+    @Test
+    public void bp70() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        addBp(b_);
+        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(63);
+        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
+        addBpOk(b_);
+        editBp(b_,0);
+        tabEditor(b_).getCenter().select(63,63);
+        toggleBpEn(b_);
+        assertFalse(curRet(b_).is(file(curRet(b_)),63));
+        assertFalse(b_.getFramePoints().getFrameBpFormContent().getEnabledBp().isSelected());
+    }
+    @Test
+    public void bp71() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        addBp(b_);
+        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(52);
+        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
+        addBpOk(b_);
+        editBp(b_,0);
+        tabEditor(b_).getCenter().select(63,63);
+        toggleBpEn(b_);
+        assertTrue(curRet(b_).is(file(curRet(b_)),63));
+        assertTrue(b_.getFramePoints().getFrameBpFormContent().getEnabledBp().isSelected());
+    }
+    @Test
+    public void bp72() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}public static int exmeth2(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        tabEditor(b_).getCenter().select(21,21);
+        toggleBpEn(b_);
+        assertTrue(curRet(b_).getContext().metList().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp73() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}public static int exmeth2(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        addMp(b_);
+        b_.getFramePoints().getFrameFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameFormContent().getCaret().setValue(21);
+        b_.getFramePoints().getFrameFormContent().getEnabledMp().setSelected(false);
+        addMpOk(b_);
+        editMethod(b_,0);
+        tabEditor(b_).getCenter().select(21,21);
+        toggleBpEn(b_);
+        assertTrue(b_.getFramePoints().getFrameFormContent().getEnabledMp().isSelected());
+    }
+    @Test
+    public void bp74() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}public static int exmeth2(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        addMp(b_);
+        b_.getFramePoints().getFrameFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameFormContent().getCaret().setValue(21);
+        b_.getFramePoints().getFrameFormContent().getEnabledMp().setSelected(true);
+        addMpOk(b_);
+        editMethod(b_,0);
+        tabEditor(b_).getCenter().select(21,21);
+        toggleBpEn(b_);
+        assertFalse(b_.getFramePoints().getFrameFormContent().getEnabledMp().isSelected());
+    }
+    @Test
+    public void bp75() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}public static int exmeth2(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        addMp(b_);
+        b_.getFramePoints().getFrameFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameFormContent().getCaret().setValue(21);
+        b_.getFramePoints().getFrameFormContent().getEnabledMp().setSelected(true);
+        addMpOk(b_);
+        editMethod(b_,0);
+        tabEditor(b_).getCenter().select(58,58);
+        toggleBpEn(b_);
+        assertTrue(b_.getFramePoints().getFrameFormContent().getEnabledMp().isSelected());
+    }
+    @Test
+    public void bp76() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int v,w;}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        tabEditor(b_).getCenter().select(39,39);
+        toggleWpEn(b_);
+        assertTrue(curRet(b_).getContext().watchList().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp77() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int v,w;}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addWp(b_);
+        b_.getFramePoints().getFrameWpFormContent().getClassName().setText("pkg.Ex");
+        b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
+        b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(true);
+        b_.getFramePoints().getFrameWpFormContent().getEnabledWp().setSelected(false);
+        addWpOk(b_);
+        editWatch(b_,0);
+        tabEditor(b_).getCenter().select(39,39);
+        toggleWpEn(b_);
+        assertTrue(curRet(b_).getContext().watchList().elts().iterator().hasNext());
+        assertTrue(b_.getFramePoints().getFrameWpFormContent().getEnabledWp().isSelected());
+    }
+    @Test
+    public void bp78() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int v,w;}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addWp(b_);
+        b_.getFramePoints().getFrameWpFormContent().getClassName().setText("pkg.Ex");
+        b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
+        b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(true);
+        b_.getFramePoints().getFrameWpFormContent().getEnabledWp().setSelected(true);
+        addWpOk(b_);
+        editWatch(b_,0);
+        tabEditor(b_).getCenter().select(39,39);
+        toggleWpEn(b_);
+        assertTrue(curRet(b_).getContext().watchList().elts().iterator().hasNext());
+        assertFalse(b_.getFramePoints().getFrameWpFormContent().getEnabledWp().isSelected());
+    }
+    @Test
+    public void bp79() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int v,w;}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addWp(b_);
+        b_.getFramePoints().getFrameWpFormContent().getClassName().setText("pkg.Ex");
+        b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
+        b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(true);
+        b_.getFramePoints().getFrameWpFormContent().getEnabledWp().setSelected(true);
+        addWpOk(b_);
+        editWatch(b_,0);
+        tabEditor(b_).getCenter().select(41,41);
+        toggleWpEn(b_);
+        assertTrue(curRet(b_).getContext().watchList().elts().iterator().hasNext());
+        assertTrue(b_.getFramePoints().getFrameWpFormContent().getEnabledWp().isSelected());
+    }
+    @Test
     public void ref1() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);

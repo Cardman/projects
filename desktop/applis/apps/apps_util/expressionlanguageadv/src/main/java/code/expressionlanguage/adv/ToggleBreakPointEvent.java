@@ -10,10 +10,12 @@ import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class ToggleBreakPointEvent implements AbsActionListener {
+    private final AbsDebuggerGui window;
     private final ReadOnlyTabEditor tabEditor;
     private final ResultContext currentResult;
 
-    public ToggleBreakPointEvent(ReadOnlyTabEditor _t, ResultContext _c) {
+    public ToggleBreakPointEvent(AbsDebuggerGui _dbg, ReadOnlyTabEditor _t, ResultContext _c) {
+        this.window = _dbg;
         this.tabEditor = _t;
         currentResult = _c;
     }
@@ -21,10 +23,19 @@ public final class ToggleBreakPointEvent implements AbsActionListener {
     @Override
     public void action() {
         currentResult.toggleBreakPoint(tabEditor.getFullPath(), tabEditor.getCenter().getCaretPosition());
+        FramePoints fp_ = window.getFramePoints();
+        fp_.guiContentBuildClear();
+        fp_.refreshBp(window, currentResult);
+        fp_.refreshMethod(window, currentResult);
+        fp_.refreshWatch(window, currentResult);
+        fp_.getCommonFrame().pack();
         afterToggle(currentResult, tabEditor);
     }
 
     static void afterToggle(ResultContext _r, ReadOnlyTabEditor _tab) {
+        if (_tab == null) {
+            return;
+        }
         FileBlock file_ = _r.getPageEl().getPreviousFilesBodies().getVal(_tab.getFullPath());
         String cont_ = file_.getContent();
         colors(new SegmentFindPart(0,cont_.length()), _tab.getCompoFactory(), _tab.getCenter(), GuiConstants.BLACK);

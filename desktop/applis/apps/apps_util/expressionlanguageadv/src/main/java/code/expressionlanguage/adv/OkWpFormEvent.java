@@ -50,6 +50,7 @@ public final class OkWpFormEvent implements AbsActionListener {
         window.getFramePoints().guiContentBuildClear();
         window.getFramePoints().refreshWatch(window, currentResult);
         window.getFramePoints().getCommonFrame().pack();
+        ToggleBreakPointEvent.afterToggle(currentResult,window.selectedTab());
     }
     static boolean valid(RootBlock _r, boolean _selected, String _text) {
         if (_r == null) {
