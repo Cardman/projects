@@ -1,7 +1,9 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.files.AbsSegmentColorPart;
+import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.AbsAttrSet;
 import code.gui.AbsTextPane;
@@ -22,14 +24,37 @@ public final class ToggleBreakPointEvent implements AbsActionListener {
 
     @Override
     public void action() {
+        AbsPairPoint pair_ = currentResult.tryGetPair(tabEditor.getFullPath(), tabEditor.getCenter().getCaretPosition());
+        AbsPairPoint before_ = state(currentResult,pair_);
         currentResult.toggleBreakPoint(tabEditor.getFullPath(), tabEditor.getCenter().getCaretPosition());
+        AbsPairPoint after_ = state(currentResult,pair_);
         FramePoints fp_ = window.getFramePoints();
-        fp_.guiContentBuildClear();
+        ToggleBreakPointEnabledEvent.removeIfUsed(before_, after_, fp_);
         fp_.refreshBp(window, currentResult);
         fp_.refreshMethod(window, currentResult);
         fp_.refreshWatch(window, currentResult);
         fp_.getCommonFrame().pack();
         afterToggle(currentResult, tabEditor);
+    }
+
+    static AbsPairPoint state(ResultContext _r, AbsPairPoint _pair) {
+        if (_pair instanceof BreakPointBlockPair) {
+            BreakPointBlockKey k_ = ((BreakPointBlockPair) _pair).getBp();
+            return _r.getPair(k_.getFile(),k_.getOffset());
+        }
+        if (_pair instanceof MethodPointBlockPair) {
+            MethodPointBlockKey k_ = ((MethodPointBlockPair) _pair).getMp();
+            return _r.getPair(k_.keyStr());
+        }
+        if (_pair instanceof WatchPointBlockPair) {
+            WatchPointBlockKey k_ = ((WatchPointBlockPair) _pair).getWp();
+            RootBlock r_ = ((WatchPointBlockPair) _pair).getRoot();
+            if (r_ == null) {
+                return null;
+            }
+            return _r.getPairWatch(k_.isTrueField(), r_.getNumberAll(),k_.fieldName());
+        }
+        return null;
     }
 
     static void afterToggle(ResultContext _r, ReadOnlyTabEditor _tab) {

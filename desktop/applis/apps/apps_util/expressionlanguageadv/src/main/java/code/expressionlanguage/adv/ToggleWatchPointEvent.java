@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.exec.dbg.AbsPairPoint;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.events.AbsActionListener;
 
@@ -16,9 +17,12 @@ public final class ToggleWatchPointEvent implements AbsActionListener {
 
     @Override
     public void action() {
+        AbsPairPoint pair_ = ToggleWatchPointEnabledEvent.keyCle(currentResult,tabEditor);
+        AbsPairPoint before_ = ToggleBreakPointEvent.state(currentResult,pair_);
         currentResult.toggleWatchPoint(tabEditor.getFullPath(), tabEditor.getCenter().getCaretPosition());
+        AbsPairPoint after_ = ToggleBreakPointEvent.state(currentResult,pair_);
         FramePoints fp_ = window.getFramePoints();
-        fp_.guiContentBuildClear();
+        ToggleBreakPointEnabledEvent.removeIfUsed(before_,after_,fp_);
         fp_.refreshWatch(window, currentResult);
         fp_.getCommonFrame().pack();
         ToggleBreakPointEvent.afterToggle(currentResult, tabEditor);

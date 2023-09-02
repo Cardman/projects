@@ -237,6 +237,10 @@ public final class FramePoints {
         return frameStdFormContent;
     }
 
+    public AbsScrollPane getView() {
+        return view;
+    }
+
     public FrameWpFormContent getFrameWpFormContent() {
         return frameWpFormContent;
     }
