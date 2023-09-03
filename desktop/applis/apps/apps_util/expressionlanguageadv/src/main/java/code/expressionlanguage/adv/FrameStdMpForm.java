@@ -123,7 +123,7 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
         }
         return _ls.indexOfObj(_id.get(0));
     }
-    public void initForm(StdMethodPointBlockPair _s, AbsCommonFrame _f) {
+    public void initForm(StdMethodPointBlockPair _s, AbsCommonFrame _f, ResultContext _r) {
         AbsPanel f_ = frameMpFormContent.getContentPaneForm();
         frameMpFormContent.setSelectedMp(_s);
         StdMethodPointBlockPair exc_ = frameMpFormContent.getSelectedMp();
@@ -131,8 +131,8 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
         if (exc_ != null) {
             label.setText(exc_.getSm().keyStr());
             getEnabledMp().setSelected(exc_.getValue().isEnabled());
-            BreakPointFormEvent.specific(getFrameMpFormContent().getGuiEnterStackForm(), true, exc_.getValue().getResultEntry(), _f);
-            BreakPointFormEvent.specific(getFrameMpFormContent().getGuiExitStackForm(), true, exc_.getValue().getResultExit(), _f);
+            BreakPointFormEvent.specific(getFrameMpFormContent().getGuiEnterStackForm(), true, exc_.getValue().getResultEntry(), _f,_r);
+            BreakPointFormEvent.specific(getFrameMpFormContent().getGuiExitStackForm(), true, exc_.getValue().getResultExit(), _f,_r);
             getFrameMpFormContent().getEnterFunction().setSelected(exc_.getValue().isEntry());
             getFrameMpFormContent().getExitFunction().setSelected(exc_.getValue().isExit());
             frameMpFormContent.getContentPane().add(label);
@@ -140,6 +140,8 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
             frameMpFormContent.getContentPane().add(frameMpFormContent.getOk());
             frameMpFormContent.getContentPane().add(frameMpFormContent.getRemove());
         } else {
+            getGuiEnterStackForm().getDependantPointsForm().init(_r);
+            getGuiExitStackForm().getDependantPointsForm().init(_r);
             frameMpFormContent.getContentPane().add(f_);
             frameMpFormContent.getContentPane().add(treeStdScroll);
         }

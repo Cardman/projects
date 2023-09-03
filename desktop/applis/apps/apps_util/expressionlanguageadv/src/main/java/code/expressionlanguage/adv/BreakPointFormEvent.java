@@ -36,7 +36,7 @@ public final class BreakPointFormEvent implements AbsActionListener {
             }
             MethodPointBlockPair mp_ = currentResult.getPair(MemberCallingsBlock.clName(id_));
             if (mp_ != null) {
-                methodAction(mp_, window.getFramePoints().getFrameFormContent(), window.getFramePoints().getCommonFrame());
+                methodAction(mp_, window.getFramePoints().getFrameFormContent(), window.getFramePoints().getCommonFrame(),currentResult);
                 return;
             }
         }
@@ -44,15 +44,15 @@ public final class BreakPointFormEvent implements AbsActionListener {
         if (bp_ == null) {
             return;
         }
-        bpAction(bp_, window.getFramePoints().getCommonFrame(), window.getFramePoints().getFrameBpFormContent());
+        bpAction(bp_, window.getFramePoints().getCommonFrame(), window.getFramePoints().getFrameBpFormContent(), currentResult);
     }
 
-    static void bpAction(BreakPointBlockPair _pair, AbsCommonFrame _f, FrameBpFormContent _bp) {
+    static void bpAction(BreakPointBlockPair _pair, AbsCommonFrame _f, FrameBpFormContent _bp, ResultContext _r) {
         _bp.setSelectedBp(_pair);
         _bp.getEnabledBp().setSelected(_pair.getValue().isEnabled());
-        specific(_bp.getGuiStdStackForm(), !_pair.getValue().isEnabledChgtType(), _pair.getValue().getResultStd(), _f);
-        specific(_bp.getGuiStaStackForm(), _pair.getValue().isEnabledChgtType(), _pair.getValue().getResultStatic(), _f);
-        specific(_bp.getGuiInsStackForm(), _pair.getValue().isEnabledChgtType(), _pair.getValue().getResultInstance(), _f);
+        specific(_bp.getGuiStdStackForm(), !_pair.getValue().isEnabledChgtType(), _pair.getValue().getResultStd(), _f, _r);
+        specific(_bp.getGuiStaStackForm(), _pair.getValue().isEnabledChgtType(), _pair.getValue().getResultStatic(), _f, _r);
+        specific(_bp.getGuiInsStackForm(), _pair.getValue().isEnabledChgtType(), _pair.getValue().getResultInstance(), _f, _r);
         _bp.getInstanceType().setEnabled(_pair.getValue().isEnabledChgtType());
         _bp.getInstanceType().setSelected(_pair.getValue().isInstanceType());
         _bp.getStaticType().setEnabled(_pair.getValue().isEnabledChgtType());
@@ -61,20 +61,20 @@ public final class BreakPointFormEvent implements AbsActionListener {
         PackingWindowAfter.pack(_f);
     }
 
-    static void methodAction(MethodPointBlockPair _mp, FrameMpForm _mePoint, AbsCommonFrame _frame) {
+    static void methodAction(MethodPointBlockPair _mp, FrameMpForm _mePoint, AbsCommonFrame _frame, ResultContext _r) {
         _mePoint.getEdited().setText(_mp.getSgn());
         _mePoint.setSelectedMp(_mp);
         _mePoint.getEnabledMp().setSelected(_mp.getValue().isEnabled());
         _mePoint.getFrameMpFormContent().getPref().setValue(_mp.getPref().get());
-        specific(_mePoint.getGuiEnterStackForm(), true, _mp.getValue().getResultEntry(), _frame);
-        specific(_mePoint.getGuiExitStackForm(), true, _mp.getValue().getResultExit(), _frame);
+        specific(_mePoint.getGuiEnterStackForm(), true, _mp.getValue().getResultEntry(), _frame,_r);
+        specific(_mePoint.getGuiExitStackForm(), true, _mp.getValue().getResultExit(), _frame,_r);
         _mePoint.getEnterFunction().setSelected(_mp.getValue().isEntry());
         _mePoint.getExitFunction().setSelected(_mp.getValue().isExit());
         _frame.setVisible(true);
         PackingWindowAfter.pack(_frame);
     }
 
-    static void specific(GuiStackForm _specForm, boolean _visible, BreakPointCondition _model, AbsCommonFrame _frame) {
+    static void specific(GuiStackForm _specForm, boolean _visible, BreakPointCondition _model, AbsCommonFrame _frame, ResultContext _r) {
         _specForm.getConditional().setVisible(_visible);
         _specForm.getConditional().setText(_model.getResultStr());
         _specForm.getEnabledSub().setVisible(_visible);
@@ -91,6 +91,7 @@ public final class BreakPointFormEvent implements AbsActionListener {
         feed(_specForm.getMustBe(), _model.getInclude());
         feed(_specForm.getMustNotBe(), _model.getExclude());
         _specForm.actualiseLists(_frame);
+        _specForm.getDependantPointsForm().init(_r,_model);
     }
 
     static void feed(CustList<AbsCallContraints> _specForm, AbsCollection<AbsCallContraints> _model) {

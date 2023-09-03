@@ -44,15 +44,10 @@ public final class FramePoints {
         metForm = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         bpForm = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         addExc = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add exc");
-        addExc.addActionListener(new ExcPointBlockPairEvent(this,null));
         addStd = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add std");
-        addStd.addActionListener(new StdPointBlockPairEvent(this,null));
         addWp = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add watch");
-        addWp.addActionListener(new WpPointBlockPairEvent(this,null));
         addMet = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add method");
-        addMet.addActionListener(new PointBlockPairEvent(this,null));
         addBp = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add method");
-        addBp.addActionListener(new BreakPointBlockPairEvent(this,null));
         all_.add(bpForm);
         all_.add(wpForm);
         all_.add(excFrom);
@@ -68,6 +63,16 @@ public final class FramePoints {
     }
     public void refresh(StringMap<String> _v, AbsDebuggerGui _d, ResultContext _r) {
         frameExcFormContent.refresh(_v, _r, _d, this);
+        GuiBaseUtil.removeActionListeners(addExc);
+        addExc.addActionListener(new ExcPointBlockPairEvent(this,null,_r));
+        GuiBaseUtil.removeActionListeners(addStd);
+        addStd.addActionListener(new StdPointBlockPairEvent(this,null,_r));
+        GuiBaseUtil.removeActionListeners(addWp);
+        addWp.addActionListener(new WpPointBlockPairEvent(this,null,_r));
+        GuiBaseUtil.removeActionListeners(addMet);
+        addMet.addActionListener(new PointBlockPairEvent(this,null,_r));
+        GuiBaseUtil.removeActionListeners(addBp);
+        addBp.addActionListener(new BreakPointBlockPairEvent(this,null,_r));
         GuiBaseUtil.removeActionListeners(frameStdFormContent.getOk());
         GuiBaseUtil.removeActionListeners(frameStdFormContent.getRemove());
         frameStdFormContent.getOk().addActionListener(new OkStdMpFormEvent(_d,frameStdFormContent, this, _r));
@@ -99,7 +104,7 @@ public final class FramePoints {
         bpForm.removeAll();
         for (BreakPointBlockPair p: _res.bpList().elts()) {
             AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(ExecFileBlock.name(p.getBp().getFile())+":"+p.getBp().getOffset());
-            but_.addActionListener(new BreakPointBlockPairEvent(this,p));
+            but_.addActionListener(new BreakPointBlockPairEvent(this,p,_res));
             bpForm.add(but_);
         }
         bpForm.add(addBp);
@@ -113,7 +118,7 @@ public final class FramePoints {
             } else {
                 but_.setText("inherit "+p.getEp().getClName());
             }
-            but_.addActionListener(new ExcPointBlockPairEvent(this,p));
+            but_.addActionListener(new ExcPointBlockPairEvent(this,p,_res));
             excFrom.add(but_);
         }
         excFrom.add(addExc);
@@ -124,7 +129,7 @@ public final class FramePoints {
         for (StdMethodPointBlockPair p: _res.getContext().stdList().elts()) {
             AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton();
             but_.setText(p.getSm().keyStr());
-            but_.addActionListener(new StdPointBlockPairEvent(this,p));
+            but_.addActionListener(new StdPointBlockPairEvent(this,p,_res));
             stdForm.add(but_);
         }
         stdForm.add(addStd);
@@ -135,7 +140,7 @@ public final class FramePoints {
         for (MethodPointBlockPair p: _res.getContext().metList().elts()) {
             AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton();
             but_.setText(p.getSgn());
-            but_.addActionListener(new PointBlockPairEvent(this,p));
+            but_.addActionListener(new PointBlockPairEvent(this,p,_res));
             metForm.add(but_);
         }
         metForm.add(addMet);
@@ -144,7 +149,7 @@ public final class FramePoints {
         wpForm.removeAll();
         for (WatchPointBlockPair p: _res.getContext().watchList().elts()) {
             AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(displayWatch(p));
-            but_.addActionListener(new WpPointBlockPairEvent(this,p));
+            but_.addActionListener(new WpPointBlockPairEvent(this,p,_res));
             wpForm.add(but_);
         }
         wpForm.add(addWp);
@@ -195,32 +200,32 @@ public final class FramePoints {
         return addStd;
     }
 
-    public void guiContentBuild(ExcPointBlockPair _exc) {
-        frameExcFormContent.initForm(_exc,commonFrame);
+    public void guiContentBuild(ExcPointBlockPair _exc, ResultContext _r) {
+        frameExcFormContent.initForm(_exc,commonFrame,_r);
         view.setViewportView(frameExcFormContent.getContentPane());
         view.recalculateViewport();
     }
 
-    public void guiContentBuild(StdMethodPointBlockPair _exc) {
-        frameStdFormContent.initForm(_exc,commonFrame);
+    public void guiContentBuild(StdMethodPointBlockPair _exc, ResultContext _r) {
+        frameStdFormContent.initForm(_exc,commonFrame,_r);
         view.setViewportView(frameStdFormContent.getContentPane());
         view.recalculateViewport();
     }
 
-    public void guiContentBuild(WatchPointBlockPair _exc) {
-        frameWpFormContent.initForm(_exc,commonFrame);
+    public void guiContentBuild(WatchPointBlockPair _exc, ResultContext _r) {
+        frameWpFormContent.initForm(_exc,commonFrame,_r);
         view.setViewportView(frameWpFormContent.getContentPane());
         view.recalculateViewport();
     }
 
-    public void guiContentBuild(MethodPointBlockPair _exc) {
-        frameFormContent.initForm(_exc,commonFrame);
+    public void guiContentBuild(MethodPointBlockPair _exc, ResultContext _r) {
+        frameFormContent.initForm(_exc,commonFrame,_r);
         view.setViewportView(frameFormContent.getContentPane());
         view.recalculateViewport();
     }
 
-    public void guiContentBuild(BreakPointBlockPair _exc) {
-        frameBpFormContent.initForm(_exc,commonFrame);
+    public void guiContentBuild(BreakPointBlockPair _exc, ResultContext _r) {
+        frameBpFormContent.initForm(_exc,commonFrame,_r);
         view.setViewportView(frameBpFormContent.getContentPane());
         view.recalculateViewport();
     }

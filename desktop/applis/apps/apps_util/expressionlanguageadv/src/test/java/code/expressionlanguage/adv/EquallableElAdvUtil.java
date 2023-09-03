@@ -278,6 +278,26 @@ public abstract class EquallableElAdvUtil {
     public static void addBpRemove(AbsDebuggerGui _g) {
         ((MockPlainButton)_g.getFramePoints().getFrameBpFormContent().getRemove()).getActionListeners().get(0).action();
     }
+
+    public static void editOthExc(DependantPointsForm _g, int _v) {
+        ((MockPlainButton)_g.getExcFrom().getComponent(_v)).getActionListeners().get(0).action();
+    }
+
+    public static void editOthStd(DependantPointsForm _g, int _v) {
+        ((MockPlainButton)_g.getStdForm().getComponent(_v)).getActionListeners().get(0).action();
+    }
+
+    public static void editOthWatch(DependantPointsForm _g, int _v) {
+        ((MockPlainButton)_g.getWpForm().getComponent(_v)).getActionListeners().get(0).action();
+    }
+
+    public static void editOthMethod(DependantPointsForm _g, int _v) {
+        ((MockPlainButton)_g.getMetForm().getComponent(_v)).getActionListeners().get(0).action();
+    }
+
+    public static void editOthBp(DependantPointsForm _g, int _v) {
+        ((MockPlainButton)_g.getBpForm().getComponent(_v)).getActionListeners().get(0).action();
+    }
     public static void menuSingleMain(WindowExpressionEditor _w, AbsDebuggerGui _g) {
         ((MockMenuItem)_w.getSessionMenuSingleMain()).getActionListeners().get(0).action();
         ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();

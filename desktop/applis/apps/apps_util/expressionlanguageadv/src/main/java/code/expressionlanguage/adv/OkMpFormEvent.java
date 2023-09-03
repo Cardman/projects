@@ -52,6 +52,6 @@ public final class OkMpFormEvent implements AbsActionListener {
         _condition.getEnabled().set(_form.getEnabledSub().isSelected());
         _condition.getHit().set(_form.getHit().isSelected());
         _condition.getDisableWhenHit().set(_form.getDisabledWhenHit().isSelected());
-
+        _condition.setAll(_form.getDependantPointsForm().getSelected());
     }
 }

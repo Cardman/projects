@@ -1693,6 +1693,159 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq(1,b_.getFramePoints().getView().getChildren().size());
     }
     @Test
+    public void bp92() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(52,52);
+        toggleBp(b_);
+        openPoints(b_);
+        addBp(b_);
+        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
+        editOthBp(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
+        addBpOk(b_);
+        assertEq(0,b_.getFramePoints().getView().getChildren().size());
+    }
+    @Test
+    public void bp93() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(52,52);
+        toggleBp(b_);
+        openPoints(b_);
+        addBp(b_);
+        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(63);
+        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
+        editOthBp(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
+        b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().get(0).setSelected(true);
+        addBpOk(b_);
+        assertTrue(curRet(b_).getPair(file(curRet(b_)),63).getValue().getResultStd().getOthers().elts().iterator().hasNext());
+        editBp(b_,1);
+        editOthBp(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
+        b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().get(0).setSelected(false);
+        addBpOk(b_);
+        assertFalse(curRet(b_).getPair(file(curRet(b_)),63).getValue().getResultStd().getOthers().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp94() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(52,52);
+        toggleBp(b_);
+        openPoints(b_);
+        addExc(b_);
+        b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
+        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(false);
+        addExcOk(b_);
+        addBp(b_);
+        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
+        editOthExc(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
+        assertEq(3,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+    }
+    @Test
+    public void bp95() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(52,52);
+        toggleBp(b_);
+        openPoints(b_);
+        addExc(b_);
+        b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
+        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        addExcOk(b_);
+        addBp(b_);
+        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
+        editOthExc(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
+        assertEq(3,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+    }
+    @Test
+    public void bp96() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(52,52);
+        toggleBp(b_);
+        openPoints(b_);
+        addMp(b_);
+        b_.getFramePoints().getFrameFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameFormContent().getCaret().setValue(21);
+        addMpOk(b_);
+        addBp(b_);
+        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
+        editOthMethod(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
+        assertEq(2,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+    }
+    @Test
+    public void bp97() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {int v;public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(52,52);
+        toggleBp(b_);
+        openPoints(b_);
+        addWp(b_);
+        b_.getFramePoints().getFrameWpFormContent().getClassName().setText("pkg.Ex");
+        b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
+        b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(true);
+        addWpOk(b_);
+        addBp(b_);
+        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
+        editOthWatch(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
+        assertEq(5,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+    }
+    @Test
+    public void bp98() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(52,52);
+        toggleBp(b_);
+        openPoints(b_);
+        addStd(b_);
+        selectStd(b_, curRet(b_).getPageEl().getAliasObject(),getConstructorId(false));
+        addBp(b_);
+        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
+        editOthStd(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
+        assertEq(2,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+    }
+    @Test
     public void ref1() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);

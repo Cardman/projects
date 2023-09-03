@@ -32,18 +32,18 @@ public final class WatchPointFormEvent implements AbsActionListener {
             return;
         }
         _w.getFramePoints().init(_w, _r);
-        _w.getFramePoints().guiContentBuild(bp_);
-        watchAction(_content, _frame, bp_);
+        _w.getFramePoints().guiContentBuild(bp_,_r);
+        watchAction(_content, _frame, bp_, _r);
     }
 
-    static void watchAction(FrameWpFormContent _content, AbsCommonFrame _frame, WatchPointBlockPair _bp) {
+    static void watchAction(FrameWpFormContent _content, AbsCommonFrame _frame, WatchPointBlockPair _bp, ResultContext _r) {
         _content.getEdited().setText(FramePoints.displayWatch(_bp));
         _content.getEnabledWp().setSelected(_bp.getValue().isEnabled());
-        BreakPointFormEvent.specific(_content.getGuiReadStackForm(), true, _bp.getValue().getResultRead(), _frame);
-        BreakPointFormEvent.specific(_content.getGuiWriteStackForm(), true, _bp.getValue().getResultWrite(), _frame);
-        BreakPointFormEvent.specific(_content.getGuiCompoundReadStackForm(), true, _bp.getValue().getResultCompoundRead(), _frame);
-        BreakPointFormEvent.specific(_content.getGuiCompoundWriteStackForm(), true, _bp.getValue().getResultCompoundWrite(), _frame);
-        BreakPointFormEvent.specific(_content.getGuiCompoundWriteErrStackForm(), true, _bp.getValue().getResultCompoundWriteErr(), _frame);
+        BreakPointFormEvent.specific(_content.getGuiReadStackForm(), true, _bp.getValue().getResultRead(), _frame,_r);
+        BreakPointFormEvent.specific(_content.getGuiWriteStackForm(), true, _bp.getValue().getResultWrite(), _frame,_r);
+        BreakPointFormEvent.specific(_content.getGuiCompoundReadStackForm(), true, _bp.getValue().getResultCompoundRead(), _frame,_r);
+        BreakPointFormEvent.specific(_content.getGuiCompoundWriteStackForm(), true, _bp.getValue().getResultCompoundWrite(), _frame,_r);
+        BreakPointFormEvent.specific(_content.getGuiCompoundWriteErrStackForm(), true, _bp.getValue().getResultCompoundWriteErr(), _frame,_r);
         _content.getRead().setSelected(_bp.getValue().isRead());
         _content.getWrite().setSelected(_bp.getValue().isWrite());
         _content.getCompoundRead().setSelected(_bp.getValue().isCompoundRead());

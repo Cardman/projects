@@ -36,6 +36,9 @@ public final class ToggleBreakPointEnabledEvent implements AbsActionListener {
         if (_after == null) {
             AbsPairPoint sec_ = matchesSec(_fp, _before);
             if (matches(_fp, _before, sec_) != null) {
+                _fp.getFrameBpFormContent().setSelectedBp(null);
+                _fp.getFrameFormContent().setSelectedMp(null);
+                _fp.getFrameWpFormContent().setSelectedWp(null);
                 _fp.guiContentBuildClear();
             }
         }

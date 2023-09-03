@@ -27,6 +27,7 @@ public final class GuiStackForm {
     private AbsPanel excludedFileIndex;
     private AbsPanel staIncExc;
     private AbsScrollPane staScIncExc;
+    private final DependantPointsForm dependantPointsForm = new DependantPointsForm();
     private final CustList<AbsCallContraints> mustBe = new CustList<AbsCallContraints>();
     private final CustList<AbsCallContraints> mustNotBe = new CustList<AbsCallContraints>();
 
@@ -101,6 +102,7 @@ public final class GuiStackForm {
         excludedFileIndex = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         staIncExc.add(includedFileIndex);
         staIncExc.add(excludedFileIndex);
+        staIncExc.add(dependantPointsForm.guiBuild(_d));
         staScIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(staIncExc);
         return staScIncExc;
     }
@@ -205,5 +207,9 @@ public final class GuiStackForm {
 
     public AbsSpinner getCountSub() {
         return countSub;
+    }
+
+    public DependantPointsForm getDependantPointsForm() {
+        return dependantPointsForm;
     }
 }

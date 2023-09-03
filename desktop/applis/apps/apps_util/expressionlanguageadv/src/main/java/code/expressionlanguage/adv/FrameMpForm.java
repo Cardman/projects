@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
+import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 
 public final class FrameMpForm extends AdvFrameMpForm{
@@ -25,13 +26,15 @@ public final class FrameMpForm extends AdvFrameMpForm{
         frameMpFormContent.getContentPane().add(frameMpFormContent.getOk());
         frameMpFormContent.getContentPane().add(frameMpFormContent.getRemove());
     }
-    public void initForm(MethodPointBlockPair _wp, AbsCommonFrame _c) {
+    public void initForm(MethodPointBlockPair _wp, AbsCommonFrame _c, ResultContext _r) {
         setSelectedMp(_wp);
         MethodPointBlockPair exc_ = getSelectedMp();
         if (exc_ != null) {
-            BreakPointFormEvent.methodAction(exc_,this,_c);
+            BreakPointFormEvent.methodAction(exc_,this,_c,_r);
             frameMpFormContent.getRemove().setEnabled(true);
         } else {
+            getGuiEnterStackForm().getDependantPointsForm().init(_r);
+            getGuiExitStackForm().getDependantPointsForm().init(_r);
             getEdited().setText("");
             frameMpFormContent.getRemove().setEnabled(false);
         }

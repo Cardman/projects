@@ -72,16 +72,21 @@ public final class FrameWpFormContent {
         getGuiWriteStackForm().refresh(_v, "", _r, _d);
     }
 
-    public void initForm(WatchPointBlockPair _wp, AbsCommonFrame _c) {
+    public void initForm(WatchPointBlockPair _wp, AbsCommonFrame _c, ResultContext _r) {
         setSelectedWp(_wp);
         WatchPointBlockPair exc_ = getSelectedWp();
         if (exc_ != null) {
-            WatchPointFormEvent.watchAction(this, _c,exc_);
+            WatchPointFormEvent.watchAction(this, _c,exc_,_r);
             remove.setEnabled(true);
             className.setEnabled(false);
             fieldName.setEnabled(false);
             trueField.setEnabled(false);
         } else {
+            getGuiReadStackForm().getDependantPointsForm().init(_r);
+            getGuiWriteStackForm().getDependantPointsForm().init(_r);
+            getGuiCompoundReadStackForm().getDependantPointsForm().init(_r);
+            getGuiCompoundWriteStackForm().getDependantPointsForm().init(_r);
+            getGuiCompoundWriteErrStackForm().getDependantPointsForm().init(_r);
             getEdited().setText("");
             remove.setEnabled(false);
             className.setEnabled(true);

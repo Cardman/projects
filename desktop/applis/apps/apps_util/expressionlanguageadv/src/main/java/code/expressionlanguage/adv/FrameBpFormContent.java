@@ -45,13 +45,16 @@ public final class FrameBpFormContent {
     public AbsPanel getContentPane() {
         return contentPane;
     }
-    public void initForm(BreakPointBlockPair _wp, AbsCommonFrame _c) {
+    public void initForm(BreakPointBlockPair _wp, AbsCommonFrame _c, ResultContext _r) {
         setSelectedBp(_wp);
         BreakPointBlockPair exc_ = getSelectedBp();
         if (exc_ != null) {
-            BreakPointFormEvent.bpAction(exc_, _c, this);
+            BreakPointFormEvent.bpAction(exc_, _c, this, _r);
             remove.setEnabled(true);
         } else {
+            getGuiStdStackForm().getDependantPointsForm().init(_r);
+            getGuiInsStackForm().getDependantPointsForm().init(_r);
+            getGuiStaStackForm().getDependantPointsForm().init(_r);
             getEdited().setText("");
             remove.setEnabled(false);
         }
