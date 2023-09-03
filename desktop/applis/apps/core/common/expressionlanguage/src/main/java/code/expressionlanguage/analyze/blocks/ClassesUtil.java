@@ -376,25 +376,21 @@ public final class ClassesUtil {
     private static void nbTypesOpers(AnalyzedPageEl _page, OperatorBlock _o) {
         for (RootBlock c: _page.getCountElts().getAnonTypes().get(_o.getAccessMemNb())) {
             StringMap<Integer> countsAnon_ = _page.getCountsAnon();
-            Integer val_ = countsAnon_.getVal(c.getName());
-            if (val_ == null) {
-                countsAnon_.put(c.getName(),1);
-                c.setSuffix("*1");
-            } else {
-                countsAnon_.put(c.getName(),val_+1);
-                c.setSuffix("*"+(val_+1));
-            }
+            incre(c, countsAnon_, c.getName(), "*");
         }
         for (RootBlock c: _page.getCountElts().getLocalTypes().get(_o.getAccessMemNb())) {
-            StringMap<Integer> counts_ = _page.getCounts();
-            Integer val_ = counts_.getVal(c.getName());
-            if (val_ == null) {
-                counts_.put(c.getName(),1);
-                c.setSuffix("+1");
-            } else {
-                counts_.put(c.getName(),val_+1);
-                c.setSuffix("+"+(val_+1));
-            }
+            incre(c, _page.getCounts(), c.getName(), "+");
+        }
+    }
+
+    public static void incre(RootBlock _r, StringMap<Integer> _map, String _name, String _pref) {
+        Integer val_ = _map.getVal(_name);
+        if (val_ == null) {
+            _map.put(_name,1);
+            _r.setSuffix(_pref +1);
+        } else {
+            _map.put(_name,val_+1);
+            _r.setSuffix(_pref +(val_+1));
         }
     }
 

@@ -1058,6 +1058,66 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         assertEq(60, now(stack_));
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
+
+    @Test
+    public void test75() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().length();}public static String exmeth2(){return \"1\";}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        enteringCondition("{static class Ex2{public int condition=-1;public int cond(){return 1;}}return ((Ex2)new Ex2(){public int cond(){return 1;}}).cond()==length();}",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(65, now(stack_));
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test76() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().length();}public static String exmeth2(){return \"1\";}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        exitingCondition("{static class Ex2{public int condition=-1;public int cond(){return condition;}}return ((Ex2)new Ex2(){public int cond(){return 1;}}).cond()==length();}",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(65, now(stack_));
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test77() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){return Math.abs(exmeth2());}public static int exmeth2(){return 1;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        enteringCondition("{static class Ex2{public int condition=-1;public int cond(){return condition;}}return ((Ex2)new Ex2(){public int cond(){return 1;}}).cond()==1;}",cont_,cont_.getContext().getStandards().getMathRef().getAliasMath(),getMethodId(MethodAccessKind.STATIC,cont_.getContext().getStandards().getMathRef().getAliasAbs(),false,cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(60, now(stack_));
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test78() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){return Math.abs(exmeth2());}public static int exmeth2(){return 1;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        exitingCondition("{static class Ex2{public int condition=-1;public int cond(){return condition;}}return ((Ex2)new Ex2(){public int cond(){return 1;}}).cond()==1;}",cont_,cont_.getContext().getStandards().getMathRef().getAliasMath(),getMethodId(MethodAccessKind.STATIC,cont_.getContext().getStandards().getMathRef().getAliasAbs(),false,cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(60, now(stack_));
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
     @Test
     public void test() {
         StringBuilder xml_ = new StringBuilder();

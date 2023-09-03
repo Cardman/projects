@@ -107,14 +107,13 @@ public final class SplitExpressionUtil {
             RootBlock parentType_ = c.getParentType();
             if (parentType_ != null) {
                 StringMap<Integer> countsAnon_ = map_.get(parentType_.getCreated());
-                Integer val_ = countsAnon_.getVal(c.getName());
-                if (val_ == null) {
-                    countsAnon_.put(c.getName(),1);
-                    c.setSuffix("*1");
-                } else {
-                    countsAnon_.put(c.getName(),val_+1);
-                    c.setSuffix("*"+(val_+1));
-                }
+                ClassesUtil.incre(c,countsAnon_,c.getName(),"*");
+            }
+        }
+        for (AnonymousTypeBlock c: _anonymousTypes) {
+            if (c.getAccessedBlock() == null) {
+                StringMap<Integer> countsAnon_ = _countElts.getCountAnonType();
+                ClassesUtil.incre(c,countsAnon_,c.getName(),"*");
             }
         }
     }
@@ -174,14 +173,7 @@ public final class SplitExpressionUtil {
             if (possibleParent_ != null) {
                 String s_ = _current.getName();
                 StringMap<Integer> counts_ = _page.getCountElts().getCounts().get(possibleParent_.getCreated());
-                Integer val_ = counts_.getVal(s_);
-                if (val_ == null) {
-                    counts_.put(s_,1);
-                    _current.setSuffix("+1");
-                } else {
-                    counts_.put(s_,val_+1);
-                    _current.setSuffix("+"+(val_+1));
-                }
+                ClassesUtil.incre(_current,counts_,s_,"+");
             } else {
                 if (_a instanceof AccessedBlockMembers) {
                     _current.setAccessedBlock(_a);

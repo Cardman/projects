@@ -7,6 +7,7 @@ import code.util.*;
 public final class AnaBlockCounts {
     private final Ints countAnon = new Ints();
     private int countOut;
+    private final StringMap<Integer> countAnonType = new StringMap<Integer>();
     private final CustList<CustList<RootBlock>> localTypes = new CustList<CustList<RootBlock>>();
     private final CustList<CustList<AnonymousTypeBlock>> anonTypes = new CustList<CustList<AnonymousTypeBlock>>();
     private final CustList<AnonymousElementsFct> anonElts = new CustList<AnonymousElementsFct>();
@@ -17,6 +18,7 @@ public final class AnaBlockCounts {
 
     public static void completeFromTo(AnaBlockCounts _from, AnaBlockCounts _dest) {
         _dest.countOut = _from.countOut;
+        _dest.countAnonType.addAllEntries(_from.countAnonType);
         feedCountAnon(_from, _dest, _dest.countAnon.size(), _from.countAnon.size());
         feedCount(_from.countsAnon, _dest.countsAnon, _dest.countsAnon.size(), _from.countsAnon.size());
         feedCount(_from.counts, _dest.counts, _dest.counts.size(), _from.counts.size());
@@ -94,6 +96,10 @@ public final class AnaBlockCounts {
 
     public void setCountOut(int _c) {
         this.countOut = _c;
+    }
+
+    public StringMap<Integer> getCountAnonType() {
+        return countAnonType;
     }
 
     public Ints getCountAnon() {
