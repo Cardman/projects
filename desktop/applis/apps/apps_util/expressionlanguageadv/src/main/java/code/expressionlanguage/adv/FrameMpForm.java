@@ -33,8 +33,8 @@ public final class FrameMpForm extends AdvFrameMpForm{
             BreakPointFormEvent.methodAction(exc_,this,_c,_r);
             frameMpFormContent.getRemove().setEnabled(true);
         } else {
-            getGuiEnterStackForm().getDependantPointsForm().init(_r);
-            getGuiExitStackForm().getDependantPointsForm().init(_r);
+            getGuiEnterStackForm().getDependantPointsForm().init(_r,3);
+            getGuiExitStackForm().getDependantPointsForm().init(_r,3);
             getEdited().setText("");
             frameMpFormContent.getRemove().setEnabled(false);
         }

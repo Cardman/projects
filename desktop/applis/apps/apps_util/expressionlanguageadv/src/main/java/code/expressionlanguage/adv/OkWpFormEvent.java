@@ -71,5 +71,20 @@ public final class OkWpFormEvent implements AbsActionListener {
         String type_ = _res.getPageEl().getAliasPrimBoolean();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_form.getConditional().getText(), _mp, _res, type_, _window.getResultContextNext().generateAdv(_res.getContext().getInterrupt()), _setting);
         OkMpFormEvent.update(_condition,_form,res_);
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(0)) {
+            _condition.getOthers().add(_mp.getValue().getResultRead());
+        }
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(1)) {
+            _condition.getOthers().add(_mp.getValue().getResultWrite());
+        }
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(2)) {
+            _condition.getOthers().add(_mp.getValue().getResultCompoundRead());
+        }
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(3)) {
+            _condition.getOthers().add(_mp.getValue().getResultCompoundWrite());
+        }
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(4)) {
+            _condition.getOthers().add(_mp.getValue().getResultCompoundWriteErr());
+        }
     }
 }

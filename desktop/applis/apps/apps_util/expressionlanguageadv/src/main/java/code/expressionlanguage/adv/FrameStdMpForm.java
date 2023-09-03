@@ -140,8 +140,8 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
             frameMpFormContent.getContentPane().add(frameMpFormContent.getOk());
             frameMpFormContent.getContentPane().add(frameMpFormContent.getRemove());
         } else {
-            getGuiEnterStackForm().getDependantPointsForm().init(_r);
-            getGuiExitStackForm().getDependantPointsForm().init(_r);
+            getGuiEnterStackForm().getDependantPointsForm().init(_r,4);
+            getGuiExitStackForm().getDependantPointsForm().init(_r,4);
             frameMpFormContent.getContentPane().add(f_);
             frameMpFormContent.getContentPane().add(treeStdScroll);
         }

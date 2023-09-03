@@ -59,9 +59,9 @@ public final class FrameExcFormContent {
             getCaught().setSelected(exc_.getValue().isCaught());
             getPropagated().setSelected(exc_.getValue().isPropagated());
         } else {
-            getGuiThrownStackForm().getDependantPointsForm().init(_r);
-            getGuiCaughtStackForm().getDependantPointsForm().init(_r);
-            getGuiPropagatedStackForm().getDependantPointsForm().init(_r);
+            getGuiThrownStackForm().getDependantPointsForm().init(_r,1);
+            getGuiCaughtStackForm().getDependantPointsForm().init(_r,1);
+            getGuiPropagatedStackForm().getDependantPointsForm().init(_r,1);
             exact.setEnabled(true);
             clName.setEnabled(true);
             remove.setEnabled(false);

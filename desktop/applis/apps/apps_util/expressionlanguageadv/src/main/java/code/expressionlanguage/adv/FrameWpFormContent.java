@@ -82,11 +82,11 @@ public final class FrameWpFormContent {
             fieldName.setEnabled(false);
             trueField.setEnabled(false);
         } else {
-            getGuiReadStackForm().getDependantPointsForm().init(_r);
-            getGuiWriteStackForm().getDependantPointsForm().init(_r);
-            getGuiCompoundReadStackForm().getDependantPointsForm().init(_r);
-            getGuiCompoundWriteStackForm().getDependantPointsForm().init(_r);
-            getGuiCompoundWriteErrStackForm().getDependantPointsForm().init(_r);
+            getGuiReadStackForm().getDependantPointsForm().init(_r,2);
+            getGuiWriteStackForm().getDependantPointsForm().init(_r,2);
+            getGuiCompoundReadStackForm().getDependantPointsForm().init(_r,2);
+            getGuiCompoundWriteStackForm().getDependantPointsForm().init(_r,2);
+            getGuiCompoundWriteErrStackForm().getDependantPointsForm().init(_r,2);
             getEdited().setText("");
             remove.setEnabled(false);
             className.setEnabled(true);

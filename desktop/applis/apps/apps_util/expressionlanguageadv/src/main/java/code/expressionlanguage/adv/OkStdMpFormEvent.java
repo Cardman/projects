@@ -56,6 +56,12 @@ public final class OkStdMpFormEvent implements AbsActionListener {
         String type_ = _cur.getPageEl().getAliasPrimBoolean();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), _mp, _cur, type_, _window.getResultContextNext().generateAdv(_cur.getContext().getInterrupt()));
         OkMpFormEvent.update(_condition, _form, res_);
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(0)) {
+            _condition.getOthers().add(_mp.getValue().getResultEntry());
+        }
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(1)) {
+            _condition.getOthers().add(_mp.getValue().getResultExit());
+        }
     }
 
 }

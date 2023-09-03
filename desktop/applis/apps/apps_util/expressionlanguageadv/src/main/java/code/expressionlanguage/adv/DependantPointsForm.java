@@ -10,8 +10,22 @@ import code.gui.AbsScrollPane;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 import code.util.IdList;
+import code.util.Ints;
 
 public final class DependantPointsForm {
+    public static final String ENTRY = "entry";
+    public static final String EXIT = "exit";
+    public static final String STD = "std";
+    public static final String STATIC = "static";
+    public static final String INSTANCE = "instance";
+    public static final String THROWN = "thrown";
+    public static final String CAUGHT = "caught";
+    public static final String PROPAGATED = "propagated";
+    public static final String READ = "read";
+    public static final String WRITE = "write";
+    public static final String COMPOUND_READ = "compound read";
+    public static final String COMPOUND_WRITE = "compound write";
+    public static final String COMPOUND_WRITE_ERR = "compound write err";
     private AbsPanel excFrom;
     private AbsPanel stdForm;
     private AbsPanel wpForm;
@@ -20,7 +34,9 @@ public final class DependantPointsForm {
     private AbsScrollPane view;
     private AbsCompoFactory compoFactory;
     private final IdList<BreakPointCondition> selected = new IdList<BreakPointCondition>();
+    private final Ints selectedCurrent = new Ints();
     private final CustList<AbsCustCheckBox> checks = new IdList<AbsCustCheckBox>();
+    private final CustList<AbsCustCheckBox> checksCurrent = new IdList<AbsCustCheckBox>();
 
     public AbsPanel guiBuild(AbsDebuggerGui _d) {
         compoFactory = _d.getCommonFrame().getFrames().getCompoFactory();
@@ -40,20 +56,43 @@ public final class DependantPointsForm {
         return all_;
     }
     public void init(ResultContext _res, BreakPointCondition _current) {
-        init(_res);
+        init(_res,-1);
         selected.clear();
         for (BreakPointCondition b: _current.getOthers().elts()) {
             selected.add(b);
         }
     }
 
-    public void init(ResultContext _res) {
+    public void init(ResultContext _res, int _add) {
+        selected.clear();
+        checksCurrent.clear();
         view.setNullViewportView();
         refreshExc(_res);
         refreshStdMethod(_res);
         refreshWatch(_res);
         refreshMethod(_res);
         refreshBp(_res);
+        if (_add == 0) {
+            bpForm.add(check(STD,0));
+            bpForm.add(check(STATIC,1));
+            bpForm.add(check(INSTANCE,2));
+        } else if (_add == 1) {
+            excFrom.add(check(THROWN,0));
+            excFrom.add(check(CAUGHT,1));
+            excFrom.add(check(PROPAGATED,2));
+        } else if (_add == 2) {
+            wpForm.add(check(READ,0));
+            wpForm.add(check(WRITE,1));
+            wpForm.add(check(COMPOUND_READ,2));
+            wpForm.add(check(COMPOUND_WRITE,3));
+            wpForm.add(check(COMPOUND_WRITE_ERR,4));
+        } else if (_add == 3) {
+            metForm.add(check(ENTRY,0));
+            metForm.add(check(EXIT,1));
+        } else if (_add == 4) {
+            stdForm.add(check(ENTRY,0));
+            stdForm.add(check(EXIT,1));
+        }
     }
 
     public void refreshBp(ResultContext _res) {
@@ -109,45 +148,48 @@ public final class DependantPointsForm {
     public void guiContentBuild(BreakPointBlockPair _p) {
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
-        page_.add(check("std",_p.getValue().getResultStd()));
-        page_.add(check("instance",_p.getValue().getResultInstance()));
-        page_.add(check("static",_p.getValue().getResultStatic()));
+        if (_p.getValue().isEnabledChgtType()) {
+            page_.add(check(INSTANCE,_p.getValue().getResultInstance()));
+            page_.add(check(STATIC,_p.getValue().getResultStatic()));
+        } else {
+            page_.add(check(STD,_p.getValue().getResultStd()));
+        }
         view.setViewportView(page_);
     }
 
     public void guiContentBuild(ExcPointBlockPair _p) {
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
-        page_.add(check("thrown",_p.getValue().getResultThrown()));
-        page_.add(check("caught",_p.getValue().getResultCaught()));
-        page_.add(check("propagated",_p.getValue().getResultPropagated()));
+        page_.add(check(THROWN,_p.getValue().getResultThrown()));
+        page_.add(check(CAUGHT,_p.getValue().getResultCaught()));
+        page_.add(check(PROPAGATED,_p.getValue().getResultPropagated()));
         view.setViewportView(page_);
     }
 
     public void guiContentBuild(MethodPointBlockPair _p) {
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
-        page_.add(check("entry",_p.getValue().getResultEntry()));
-        page_.add(check("exit",_p.getValue().getResultExit()));
+        page_.add(check(ENTRY,_p.getValue().getResultEntry()));
+        page_.add(check(EXIT,_p.getValue().getResultExit()));
         view.setViewportView(page_);
     }
 
     public void guiContentBuild(StdMethodPointBlockPair _p) {
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
-        page_.add(check("entry",_p.getValue().getResultEntry()));
-        page_.add(check("exit",_p.getValue().getResultExit()));
+        page_.add(check(ENTRY,_p.getValue().getResultEntry()));
+        page_.add(check(EXIT,_p.getValue().getResultExit()));
         view.setViewportView(page_);
     }
 
     public void guiContentBuild(WatchPointBlockPair _p) {
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
-        page_.add(check("read",_p.getValue().getResultRead()));
-        page_.add(check("write",_p.getValue().getResultWrite()));
-        page_.add(check("compound read",_p.getValue().getResultCompoundRead()));
-        page_.add(check("compound write",_p.getValue().getResultCompoundWrite()));
-        page_.add(check("compound wrtie err",_p.getValue().getResultCompoundWriteErr()));
+        page_.add(check(READ,_p.getValue().getResultRead()));
+        page_.add(check(WRITE,_p.getValue().getResultWrite()));
+        page_.add(check(COMPOUND_READ,_p.getValue().getResultCompoundRead()));
+        page_.add(check(COMPOUND_WRITE,_p.getValue().getResultCompoundWrite()));
+        page_.add(check(COMPOUND_WRITE_ERR,_p.getValue().getResultCompoundWriteErr()));
         view.setViewportView(page_);
     }
 
@@ -158,12 +200,27 @@ public final class DependantPointsForm {
         return ch_;
     }
 
+    private AbsCustCheckBox check(String _title, int _cond) {
+        AbsCustCheckBox ch_ = compoFactory.newCustCheckBox(_title);
+        checksCurrent.add(ch_);
+        ch_.addActionListener(new AddRemoveBpcFirstEvent(ch_,this,_cond));
+        return ch_;
+    }
+
     public IdList<BreakPointCondition> getSelected() {
         return selected;
     }
 
+    public Ints getSelectedCurrent() {
+        return selectedCurrent;
+    }
+
     public CustList<AbsCustCheckBox> getChecks() {
         return checks;
+    }
+
+    public CustList<AbsCustCheckBox> getChecksCurrent() {
+        return checksCurrent;
     }
 
     public AbsPanel getBpForm() {

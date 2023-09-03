@@ -41,6 +41,12 @@ public final class OkMpFormEvent implements AbsActionListener {
         String type_ = _res.getPageEl().getAliasPrimBoolean();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), _mp, _res, type_, _window.getResultContextNext().generateAdv(_res.getContext().getInterrupt()));
         update(_condition, _form, res_);
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(0)) {
+            _condition.getOthers().add(_mp.getValue().getResultEntry());
+        }
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(1)) {
+            _condition.getOthers().add(_mp.getValue().getResultExit());
+        }
     }
 
     static void update(BreakPointCondition _condition, GuiStackForm _form, ResultContextLambda _res) {

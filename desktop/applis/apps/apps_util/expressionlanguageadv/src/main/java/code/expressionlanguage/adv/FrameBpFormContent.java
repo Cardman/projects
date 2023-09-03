@@ -52,9 +52,9 @@ public final class FrameBpFormContent {
             BreakPointFormEvent.bpAction(exc_, _c, this, _r);
             remove.setEnabled(true);
         } else {
-            getGuiStdStackForm().getDependantPointsForm().init(_r);
-            getGuiInsStackForm().getDependantPointsForm().init(_r);
-            getGuiStaStackForm().getDependantPointsForm().init(_r);
+            getGuiStdStackForm().getDependantPointsForm().init(_r,0);
+            getGuiInsStackForm().getDependantPointsForm().init(_r,0);
+            getGuiStaStackForm().getDependantPointsForm().init(_r,0);
             getEdited().setText("");
             remove.setEnabled(false);
         }
