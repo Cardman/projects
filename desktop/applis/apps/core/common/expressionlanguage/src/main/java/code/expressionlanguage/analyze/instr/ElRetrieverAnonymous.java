@@ -19,10 +19,10 @@ public final class ElRetrieverAnonymous {
     private ElRetrieverAnonymous() {
     }
 
-    public static int commonCheckQuick(int _minIndex, AnalyzedPageEl _page, ResultExpression _res) {
+    public static int commonCheckQuick(int _minIndex, AnalyzedPageEl _page, ResultExpression _res, RootBlock _type) {
         String currentPkg_ = _page.getCurrentPkg();
         FileBlock currentFile_ = _page.getCurrentFile();
-        return stackBegin(_res.getAnalyzedString(), _minIndex, new CurrentExpElts(new FileResolverContext(_page.getCountElts(),_page.getKeyWords(),_page.getStaticContext(), _page.getDefaultAccess(),_page.fileAliases()), currentPkg_, currentFile_, _page.getIndex(), _res), _page.getCurrentBlock());
+        return stackBegin(_res.getAnalyzedString(), _minIndex, new CurrentExpElts(new FileResolverContext(_page.getCountElts(),_page.getKeyWords(),_page.getStaticContext(), _page.getDefaultAccess(),_page.fileAliases()), currentPkg_, currentFile_, _page.getIndex(), _res, _type), _page.getCurrentBlock());
     }
 
     private static int stackBegin(String _string, int _from, CurrentExpElts _curElts, AbsBk _currentBlock) {

@@ -255,14 +255,14 @@ public final class FileResolver {
 
     private static ResultCreation createType(String _file, InputTypeCreation _input, String _defaultPkg, AnaBlockCounts _countAnon, FileAliases _fa) {
         _input.setOffset(0);
-        return processOuterTypeBody(_input, _defaultPkg, _file, _fa,_countAnon);
+        return processOuterTypeBody(_input, _defaultPkg, _file, _fa,_countAnon, null);
     }
     public static ResultCreation processOuterTypeBody(InputTypeCreation _input, CurrentExpElts _pkgName,
                                                       String _file) {
-        return processOuterTypeBody(_input,_pkgName.getPackageName(),_file,_pkgName.getFileAliases(),_pkgName.getCounts());
+        return processOuterTypeBody(_input,_pkgName.getPackageName(),_file,_pkgName.getFileAliases(),_pkgName.getCounts(),_pkgName.getRootBlock());
     }
     public static ResultCreation processOuterTypeBody(InputTypeCreation _input, String _pkgName,
-                                                      String _file, FileAliases _fa, AnaBlockCounts _countAnon) {
+                                                      String _file, FileAliases _fa, AnaBlockCounts _countAnon, RootBlock _rb) {
         ResultCreation out_ = new ResultCreation();
         int len_ = _file.length();
         int instructionLocation_ = _input.getNextIndex();
@@ -273,6 +273,7 @@ public final class FileResolver {
         parsedInstruction_.setInstructionLocation(instructionLocation_);
         parsedInstruction_.setIndex(_input.getNextIndex());
         parsedInstruction_.setPackageName(_pkgName);
+        parsedInstruction_.setParentType(_rb);
         ParseDelimitersState parsPars_ = new ParseDelimitersState(braces_,parentheses_);
         AnaBlockCounts bk_ = new AnaBlockCounts();
         AnaBlockCounts.completeFromTo(_countAnon,bk_);
@@ -1080,7 +1081,7 @@ public final class FileResolver {
                     _parsedInstruction,
                     _defaultAccess.getAccessInner(_currentParent).getAccInners());
             _currentParent.appendChild(built_);
-            built_.setParentType(_currentParent);
+            parentType(built_, _currentParent, _parsedInstruction);
             _currentParent.getChildrenRootBlocks().add(built_);
             br_ = built_;
             return endAnnot(_input, _parsedInstruction, _trimmedInstruction, _packageName, _currentParent, br_);
@@ -1343,7 +1344,7 @@ public final class FileResolver {
                 _parsedInstruction,
                 defAcc_);
         RootBlock retrieve_ = currentParent_.retrieveParentType();
-        built_.setParentType(retrieve_);
+        parentType(built_, retrieve_, _parsedInstruction);
         if (currentParent_ instanceof RootBlock) {
             ((RootBlock) currentParent_).getChildrenRootBlocks().add(built_);
         }
@@ -1354,6 +1355,13 @@ public final class FileResolver {
         after_.setCreated(br_);
         after_.setPackageName(_packageName);
         return after_;
+    }
+
+    private static void parentType(RootBlock _build, RootBlock _retrieve, ParsedInstruction _parsedInstruction) {
+        _build.setParentType(_retrieve);
+        if (_build.getParentType() == null) {
+            _build.setParentType(_parsedInstruction.getParentType());
+        }
     }
 
     private static AfterBuiltInstruction line(InputTypeCreation _input, ParsedInstruction _parsedInstruction, BracedBlock _currentParent, String _trimmedInstruction, KeyWords _keyWords, String _packageName) {

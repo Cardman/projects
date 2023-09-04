@@ -146,7 +146,7 @@ public final class ResultContextLambda {
 
     private static void extractAnon(AnalyzedPageEl _page, IntermediaryResults _int, RootBlock _type, ResultExpression _resultExpression) {
         _page.setSumOffset(_resultExpression.getSumOffset());
-        ElRetrieverAnonymous.commonCheckQuick(0, _page, _resultExpression);
+        ElRetrieverAnonymous.commonCheckQuick(0, _page, _resultExpression, _type);
         feedResult(_page, _resultExpression, _int, _type);
     }
 

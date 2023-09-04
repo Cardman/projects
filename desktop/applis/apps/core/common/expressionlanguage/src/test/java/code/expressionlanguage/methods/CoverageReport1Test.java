@@ -13974,15 +13974,15 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  <span class=\"f\"><a title=\"pkg.Ext.static m($core.Fct&lt;pkg.Ext,pkg.Ext&gt;,pkg.Ext)\" href=\"#m334\">m</a>(<span class=\"f\"><span class=\"t\">(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a> <a name=\"m42\">a</a>:<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>)<a name=\"m48\">-&gt;</a>{\n" +
                 "  enum <a name=\"m59\">Intern</a>{\n" +
-                "   <span class=\"g\"><a name=\"m70\" title=\"pkg.Intern-PLUS_ONE.pkg.Intern-PLUS_ONE($core.Fct&lt;pkg.Ext,pkg.Ext&gt;)\" href=\"#m112\">PLUS_ONE</a>(<span class=\"g\"><span class=\"t\">(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a> <a name=\"m84\">b</a>:<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>) <a name=\"m91\">-&gt;</a> {return <span class=\"n\"><a href=\"#m84\">b</a></span>;}</span></span>)</span>{\n" +
+                "   <span class=\"g\"><a name=\"m70\" title=\"pkg.Ext..Intern+1-PLUS_ONE.pkg.Ext..Intern+1-PLUS_ONE($core.Fct&lt;pkg.Ext,pkg.Ext&gt;)\" href=\"#m112\">PLUS_ONE</a>(<span class=\"g\"><span class=\"t\">(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a> <a name=\"m84\">b</a>:<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>) <a name=\"m91\">-&gt;</a> {return <span class=\"n\"><a href=\"#m84\">b</a></span>;}</span></span>)</span>{\n" +
                 "    <a name=\"m112\">PLUS_ONE(</a>Fct&lt;<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>,<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&gt; <a name=\"m134\">p</a>){\n" +
-                "     <span class=\"g\"><a title=\"pkg.Intern.pkg.Intern($core.Fct&lt;pkg.Ext,pkg.Ext&gt;)\" href=\"#m230\">super</a>(<span class=\"g\"><a href=\"#m134\">p</a></span>)</span>;\n" +
+                "     <span class=\"g\"><a title=\"pkg.Ext..Intern+1.pkg.Ext..Intern+1($core.Fct&lt;pkg.Ext,pkg.Ext&gt;)\" href=\"#m230\">super</a>(<span class=\"g\"><a href=\"#m134\">p</a></span>)</span>;\n" +
                 "    }\n" +
                 "   },\n" +
-                "   <span class=\"g\"><a name=\"m168\" title=\"pkg.Intern.pkg.Intern($core.Fct&lt;pkg.Ext,pkg.Ext&gt;)\" href=\"#m230\">MULT_TWO</a>(<span class=\"g\"><span class=\"t\">(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a> <a name=\"m182\">b</a>:<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>) <a name=\"m189\">-&gt;</a> {return <span class=\"n\"><a href=\"#m182\">b</a></span>;}</span></span>)</span>;\n" +
+                "   <span class=\"g\"><a name=\"m168\" title=\"pkg.Ext..Intern+1.pkg.Ext..Intern+1($core.Fct&lt;pkg.Ext,pkg.Ext&gt;)\" href=\"#m230\">MULT_TWO</a>(<span class=\"g\"><span class=\"t\">(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a> <a name=\"m182\">b</a>:<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>) <a name=\"m189\">-&gt;</a> {return <span class=\"n\"><a href=\"#m182\">b</a></span>;}</span></span>)</span>;\n" +
                 "   Fct&lt;<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>,<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&gt; <span class=\"g\"><a name=\"m222\">fct</a></span>;\n" +
                 "   <a name=\"m230\">Intern(</a>Fct&lt;<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>,<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&gt; <a name=\"m250\">p</a>){\n" +
-                "    <span class=\"g\"><span class=\"g\"><a title=\"pkg.Intern.fct\" href=\"#m222\">fct</a> </span>=<span class=\"g\"> <a href=\"#m250\">p</a></span></span>;\n" +
+                "    <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ext..Intern+1.fct\" href=\"#m222\">fct</a> </span>=<span class=\"g\"> <a href=\"#m250\">p</a></span></span>;\n" +
                 "   }\n" +
                 "  }\n" +
                 "  return <span class=\"f\"><a href=\"#m42\">a</a></span>;\n" +

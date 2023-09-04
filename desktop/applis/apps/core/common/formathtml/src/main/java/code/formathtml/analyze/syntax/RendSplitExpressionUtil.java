@@ -417,7 +417,7 @@ public final class RendSplitExpressionUtil {
 
     private static void extractAnon(AnalyzedPageEl _page, IntermediaryResults _int, AnaRendDocumentBlock _method, RootBlock _type, ResultExpression _resultExpression) {
         _page.setSumOffset(_resultExpression.getSumOffset());
-        ElRetrieverAnonymous.commonCheckQuick(0, _page, _resultExpression);
+        ElRetrieverAnonymous.commonCheckQuick(0, _page, _resultExpression,_type);
         SplitExpressionUtil.feed(_page,_resultExpression,_int, _type, _method);
     }
     public static StringCommentIteration itText(int _offset,String _expression, AnalyzedPageEl _page) {
@@ -499,7 +499,7 @@ public final class RendSplitExpressionUtil {
                 if (ResultText.isRightBoundOrFar(_expression,i_)) {
                     return;
                 }
-                int next_ = ElRetrieverAnonymous.commonCheckQuick(i_, _page, _exp.getResultExpression());
+                int next_ = ElRetrieverAnonymous.commonCheckQuick(i_, _page, _exp.getResultExpression(),_type);
                 SplitExpressionUtil.feed(_page,_exp.getResultExpression(),_int, _type, _method);
                 i_ = next_+1;
             } else if (cur_ == ResultText.RIGHT_EL){

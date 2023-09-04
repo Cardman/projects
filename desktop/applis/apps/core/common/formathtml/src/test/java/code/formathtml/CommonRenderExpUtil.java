@@ -108,7 +108,7 @@ public abstract class CommonRenderExpUtil extends CommonRender {
         res_.setAnalyzedString(_elr);
         analyzing_.setSumOffset(0);
         analyzing_.zeroOffset();
-        ElRetrieverAnonymous.commonCheckQuick(0,analyzing_,res_);
+        ElRetrieverAnonymous.commonCheckQuick(0,analyzing_,res_, null);
         analyzing_.setCurrentParts(res_.getParts());
         analyzing_.setCurrentNumbers(res_.getNumbers());
         return ElResolver.checkSyntax(res_, 0, analyzing_);

@@ -4828,7 +4828,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         res_.setAnalyzedString(_el);
         _conf.setSumOffset(0);
         _conf.zeroOffset();
-        ElRetrieverAnonymous.commonCheckQuick(0, _conf,res_);
+        ElRetrieverAnonymous.commonCheckQuick(0, _conf,res_,null);
         _conf.setCurrentParts(res_.getParts());
         _conf.setCurrentNumbers(res_.getNumbers());
         return ElResolver.checkSyntax(res_, 0, _conf);
@@ -4841,7 +4841,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         res_.setAnalyzedString(_el);
         _conf.setSumOffset(0);
         _conf.zeroOffset();
-        ElRetrieverAnonymous.commonCheckQuick(_minIndex, _conf,res_);
+        ElRetrieverAnonymous.commonCheckQuick(_minIndex, _conf,res_,null);
         _conf.setCurrentParts(res_.getParts());
         _conf.setCurrentNumbers(res_.getNumbers());
         return ElResolver.checkSyntaxDelimiters(res_, _minIndex, _conf);

@@ -5949,7 +5949,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         _res.setAnalyzedString(_s);
         analyzing_.setSumOffset(0);
         analyzing_.zeroOffset();
-        ElRetrieverAnonymous.commonCheckQuick(_i,analyzing_,_res);
+        ElRetrieverAnonymous.commonCheckQuick(_i,analyzing_,_res,null);
         analyzing_.setCurrentParts(_res.getParts());
         analyzing_.setCurrentNumbers(_res.getNumbers());
         return ElResolver.checkSyntaxDelimiters(_res, _i, analyzing_);

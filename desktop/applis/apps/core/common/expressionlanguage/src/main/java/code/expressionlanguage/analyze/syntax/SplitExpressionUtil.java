@@ -488,7 +488,7 @@ public final class SplitExpressionUtil {
 
     private static void extractAnon(AnalyzedPageEl _page, IntermediaryResults _int, AccessedBlock _method, RootBlock _type, ResultExpression _resultExpression) {
         _page.setSumOffset(_resultExpression.getSumOffset());
-        ElRetrieverAnonymous.commonCheckQuick(0, _page, _resultExpression);
+        ElRetrieverAnonymous.commonCheckQuick(0, _page, _resultExpression, _type);
         feedResult(_page,_method, _resultExpression, _int, _type);
     }
 
