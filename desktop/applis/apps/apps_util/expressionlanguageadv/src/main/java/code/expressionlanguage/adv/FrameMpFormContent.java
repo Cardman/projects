@@ -1,15 +1,21 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
+import code.gui.initialize.AbstractProgramInfos;
 
 public final class FrameMpFormContent extends AbsFrameMpFormContent {
     private MethodPointBlockPair selectedMp;
+    public FrameMpFormContent(AbstractProgramInfos _c) {
+        super(_c);
+    }
 
     @Override
     public void guiBuildBase(AbsDebuggerGui _d) {
         guiBuild(_d);
         getGuiEnterStackForm().getPref().setVisible(true);
         getGuiExitStackForm().getPref().setVisible(true);
+        getGuiEnterStackForm().getPrefs().getGroup().setVisible(true);
+        getGuiExitStackForm().getPrefs().getGroup().setVisible(true);
     }
 
     public MethodPointBlockPair getSelectedMp() {

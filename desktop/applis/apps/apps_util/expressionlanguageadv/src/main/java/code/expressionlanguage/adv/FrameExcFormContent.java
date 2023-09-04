@@ -4,12 +4,13 @@ import code.expressionlanguage.exec.dbg.ExcPoint;
 import code.expressionlanguage.exec.dbg.ExcPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
 public final class FrameExcFormContent {
-    private final GuiStackForm guiThrownStackForm = new GuiStackForm();
-    private final GuiStackForm guiCaughtStackForm = new GuiStackForm();
-    private final GuiStackForm guiPropagatedStackForm = new GuiStackForm();
+    private final GuiStackForm guiThrownStackForm;
+    private final GuiStackForm guiCaughtStackForm;
+    private final GuiStackForm guiPropagatedStackForm;
     private ExcPointBlockPair selectedExc;
     private AbsTextField clName;
     private AbsCustCheckBox exact;
@@ -20,6 +21,13 @@ public final class FrameExcFormContent {
     private AbsPlainButton ok;
     private AbsPlainButton remove;
     private AbsPanel contentPane;
+
+    public FrameExcFormContent(AbstractProgramInfos _c) {
+        guiThrownStackForm = new GuiStackForm(_c);
+        guiCaughtStackForm = new GuiStackForm(_c);
+        guiPropagatedStackForm = new GuiStackForm(_c);
+    }
+
     public void guiBuild(AbsDebuggerGui _d) {
         thrown = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("thrown");
         caught = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("caught");

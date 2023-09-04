@@ -29,11 +29,11 @@ public final class FramePoints {
     public FramePoints(AbsDebuggerGui _d, String _lg, AbstractProgramInfos _list) {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         commonFrame.addWindowListener(new CancelFramePointsEvent(_d));
-        frameExcFormContent = new FrameExcFormContent();
-        frameStdFormContent = new FrameStdMpForm();
-        frameFormContent = new FrameMpForm();
-        frameWpFormContent = new FrameWpFormContent();
-        frameBpFormContent = new FrameBpFormContent();
+        frameExcFormContent = new FrameExcFormContent(_list);
+        frameStdFormContent = new FrameStdMpForm(_list);
+        frameFormContent = new FrameMpForm(_list);
+        frameWpFormContent = new FrameWpFormContent(_list);
+        frameBpFormContent = new FrameBpFormContent(_list);
     }
     public void guiBuild(AbsDebuggerGui _d) {
         view = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();

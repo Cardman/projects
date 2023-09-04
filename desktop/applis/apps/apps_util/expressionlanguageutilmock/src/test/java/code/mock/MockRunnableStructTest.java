@@ -174,6 +174,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         assertFalse(ctx_.getCaller().newAtBool().get());
         assertEq(0,ctx_.getCaller().newAtInt().get());
         assertFalse(ctx_.getCaller().newBreakPointConditionCollection().elts().iterator().hasNext());
+        assertFalse(ctx_.getCaller().newStringNumberCollection().elts().iterator().hasNext());
         assertTrue(ctx_.getCaller().newAtLda().get().getResultStr().isEmpty());
         assertTrue(ctx_.getCaller().newAtObj().get().getClassName(ctx_).isEmpty());
         assertTrue(ctx_.getCaller().newAtObj(NullStruct.NULL_VALUE).get().getClassName(ctx_).isEmpty());

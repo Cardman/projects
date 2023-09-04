@@ -16,6 +16,7 @@ import code.mock.MockPlainButton;
 import code.mock.MockProgramInfos;
 import code.util.CustList;
 import code.util.IdList;
+import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -1989,6 +1990,60 @@ public final class DbgActTest extends EquallableElAdvUtil {
         selectStd(b_, curRet(b_).getPageEl().getAliasObject(),getConstructorId(false));
         assertEq(0,b_.getFramePoints().getView().getChildren().size());
         assertTrue(curRet(b_).getPair(getConstructorId(false).look(curRet(b_).getPageEl().getStandardsTypes().getVal(curRet(b_).getPageEl().getAliasObject())).get(0)).getValue().getResultEntry().getOthers().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp106() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(52,52);
+        toggleBp(b_);
+        openPoints(b_);
+        addMp(b_);
+        b_.getFramePoints().getFrameFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameFormContent().getCaret().setValue(21);
+        AbsPanel bs_ = b_.getFramePoints().getFrameFormContent().getGuiEnterStackForm().getPrefs().getButtons();
+        AbsPlainButton last_ = (AbsPlainButton) bs_.getComponent(bs_.getComponentCount()-1);
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameFormContent().getGuiEnterStackForm().getPrefs().getAdd().getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameFormContent().getGuiEnterStackForm().getPrefs().getGeneKey().value("_");
+        b_.getFramePoints().getFrameFormContent().getGuiEnterStackForm().getPrefs().getGeneKey().value("pkg.Ex");
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameFormContent().getGuiEnterStackForm().getPrefs().getGeneValue().value(1);
+        b_.getFramePoints().getFrameFormContent().getGuiEnterStackForm().getPrefs().getValidAddEdit().getActionListeners().get(0).action();
+        addMpOk(b_);
+        assertEq(0,b_.getFramePoints().getView().getChildren().size());
+        assertTrue(curRet(b_).getPair(MemberCallingsBlock.clName(curRet(b_).getPageEl().getAnaClassBody("pkg.Ex").getOverridableBlocks().get(0))).getValue().getResultEntry().getPrefs().elts().iterator().hasNext());
+    }
+    @Test
+    public void syntheFilter1() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        StrictTypeFromFilter s_ = new StrictTypeFromFilter(curRet(b_));
+        StringList f_ = s_.filter("", curRet(b_).getContext().getClasses().getClassesBodies().getKeys());
+        assertEq(0,f_.size());
+    }
+    @Test
+    public void syntheFilter2() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        StrictTypeFromFilter s_ = new StrictTypeFromFilter(curRet(b_));
+        StringList f_ = s_.filter("pkg.Ex", curRet(b_).getContext().getClasses().getClassesBodies().getKeys());
+        assertEq(1,f_.size());
+        AbsTextField t_ = b_.getFrames().getCompoFactory().newTextField();
+        s_.act(t_,f_.get(0));
+        assertEq("pkg.Ex",t_.getText());
     }
     @Test
     public void ref1() {

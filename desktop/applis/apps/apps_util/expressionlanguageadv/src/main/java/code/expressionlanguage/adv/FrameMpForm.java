@@ -4,14 +4,17 @@ import code.expressionlanguage.exec.dbg.BreakPointBlockList;
 import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
+import code.gui.initialize.AbstractProgramInfos;
+import code.util.StringList;
+import code.util.StringMap;
 
 public final class FrameMpForm extends AdvFrameMpForm{
     private final FrameMpFormContent frameMpFormContent;
     private AbsPlainLabel edited;
     private AbsTextField fileName;
     private AbsSpinner caret;
-    public FrameMpForm() {
-        frameMpFormContent = new FrameMpFormContent();
+    public FrameMpForm(AbstractProgramInfos _c) {
+        frameMpFormContent = new FrameMpFormContent(_c);
     }
     public void guiBuild(AbsDebuggerGui _d) {
         edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel("");
@@ -37,6 +40,10 @@ public final class FrameMpForm extends AdvFrameMpForm{
             getGuiExitStackForm().getDependantPointsForm().init(_r,MethodPointBlockPair.CMP);
             getGuiEnterStackForm().getPref().setValue(BreakPointBlockList.pref(_r.getContext().metList(), false));
             getGuiExitStackForm().getPref().setValue(BreakPointBlockList.pref(_r.getContext().metList(),true));
+            GuiBaseUtil.initStringMapInt(_c,getGuiEnterStackForm().getPrefs(),new StringMap<Integer>(),new StringList(_r.getContext().getClasses().getClassesBodies().getKeys()),new StrictTypeFromFilter(_r));
+            GuiBaseUtil.initStringMapInt(_c,getGuiExitStackForm().getPrefs(),new StringMap<Integer>(),new StringList(_r.getContext().getClasses().getClassesBodies().getKeys()),new StrictTypeFromFilter(_r));
+            GuiStackForm.initPrefs(getGuiEnterStackForm().getPrefs(),_r,false);
+            GuiStackForm.initPrefs(getGuiExitStackForm().getPrefs(),_r,true);
             getEdited().setText("");
             frameMpFormContent.getRemove().setEnabled(false);
         }

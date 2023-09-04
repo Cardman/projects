@@ -4,14 +4,15 @@ import code.expressionlanguage.exec.dbg.WatchPoint;
 import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
 public final class FrameWpFormContent {
-    private final GuiStackForm guiReadStackForm = new GuiStackForm();
-    private final GuiStackForm guiWriteStackForm = new GuiStackForm();
-    private final GuiStackForm guiCompoundReadStackForm = new GuiStackForm();
-    private final GuiStackForm guiCompoundWriteStackForm = new GuiStackForm();
-    private final GuiStackForm guiCompoundWriteErrStackForm = new GuiStackForm();
+    private final GuiStackForm guiReadStackForm;
+    private final GuiStackForm guiWriteStackForm;
+    private final GuiStackForm guiCompoundReadStackForm;
+    private final GuiStackForm guiCompoundWriteStackForm;
+    private final GuiStackForm guiCompoundWriteErrStackForm;
     private WatchPointBlockPair selectedWp;
     private AbsTextField className;
     private AbsTextField fieldName;
@@ -26,6 +27,15 @@ public final class FrameWpFormContent {
     private AbsPlainButton ok;
     private AbsPlainButton remove;
     private AbsPanel contentPane;
+
+    public FrameWpFormContent(AbstractProgramInfos _c) {
+        guiReadStackForm = new GuiStackForm(_c);
+        guiWriteStackForm = new GuiStackForm(_c);
+        guiCompoundReadStackForm = new GuiStackForm(_c);
+        guiCompoundWriteStackForm = new GuiStackForm(_c);
+        guiCompoundWriteErrStackForm = new GuiStackForm(_c);
+    }
+
     public void guiBuild(AbsDebuggerGui _d) {
         edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel("");
         className = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();

@@ -1,9 +1,6 @@
 package code.gui;
 
-import code.gui.events.AbsActionListener;
-import code.gui.events.AbsEnabledAction;
-import code.gui.events.AbsWindowListenerClosing;
-import code.gui.events.SetterLanguage;
+import code.gui.events.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractLightProgramInfos;
@@ -15,7 +12,9 @@ import code.threads.AbstractDate;
 import code.threads.AbstractDateFactory;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.StringMap;
+import code.util.comparators.NaturalComparator;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -298,5 +297,9 @@ public final class GuiBaseUtil {
 
     public static String getStaticLanguage(SetterLanguage _dialog) {
         return _dialog.getLanguage();
+    }
+
+    public static void initStringMapInt(AbsCommonFrame _c,CrudGeneForm<String,Integer> _f, StringMap<Integer> _m, StringList _aDictionary, AfterValidateText _after) {
+        _f.initForm(_c,new StringIntDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),new GeneComponentModelInt(_f.getFactory()),new NaturalComparator(),_m);
     }
 }

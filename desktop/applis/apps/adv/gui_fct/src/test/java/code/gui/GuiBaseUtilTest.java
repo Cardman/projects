@@ -6,6 +6,7 @@ import code.mock.*;
 import code.sml.util.ResourcesMessagesUtil;
 import code.threads.ConcreteInteger;
 import code.util.*;
+import code.util.comparators.NaturalComparator;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -368,12 +369,99 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq(0,m_.getActionListeners().size());
     }
     @Test
+    public void crud1() {
+        StringMap<Integer> m_ = new StringMap<Integer>();
+        m_.addEntry("ONE",15);
+        CrudGeneForm<String, Integer> c_ = crud(m_, new StringList("ONE"));
+        assertEq(1,c_.getList().size());
+        assertEq("ONE",c_.getList().getKey(0));
+        assertEq(15,c_.getList().getValue(0));
+        assertFalse(c_.isVisibleSingle());
+        assertEq(4,c_.getButtons().getComponentCount());
+    }
+    @Test
+    public void crud2() {
+        StringMap<Integer> m_ = new StringMap<Integer>();
+        m_.addEntry("ONE",15);
+        CrudGeneForm<String, Integer> c_ = crud(m_, new StringList("ONE","TWO"));
+        c_.getAdd().getActionListeners().get(0).action();
+        assertTrue(c_.isVisibleSingle());
+        c_.getGeneKey().value("TWO");
+        c_.getGeneValue().value(20);
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        assertEq(2,c_.getList().size());
+        assertEq("ONE",c_.getList().getKey(0));
+        assertEq(15,c_.getList().getValue(0));
+        assertEq("TWO",c_.getList().getKey(1));
+        assertEq(20,c_.getList().getValue(1));
+    }
+    @Test
+    public void crud3() {
+        StringMap<Integer> m_ = new StringMap<Integer>();
+        m_.addEntry("ONE",15);
+        CrudGeneForm<String, Integer> c_ = crud(m_, new StringList("ONE","TWO"));
+        c_.getAdd().getActionListeners().get(0).action();
+        c_.getGeneKey().value("TWO");
+        c_.getGeneValue().value(20);
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        ((AbsPlainButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        c_.getGeneKey().value("ONE");
+        c_.getGeneValue().value(16);
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        assertEq(2,c_.getList().size());
+        assertEq("ONE",c_.getList().getKey(0));
+        assertEq(16,c_.getList().getValue(0));
+        assertEq("TWO",c_.getList().getKey(1));
+        assertEq(20,c_.getList().getValue(1));
+    }
+    @Test
+    public void crud4() {
+        StringMap<Integer> m_ = new StringMap<Integer>();
+        m_.addEntry("ONE",15);
+        CrudGeneForm<String, Integer> c_ = crud(m_, new StringList("ONE","TWO"));
+        c_.getAdd().getActionListeners().get(0).action();
+        c_.getGeneKey().value("TWO");
+        c_.getGeneValue().value(20);
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        ((AbsPlainButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        c_.getValidRemove().getActionListeners().get(0).action();
+        assertEq(1,c_.getList().size());
+        assertEq("TWO",c_.getList().getKey(0));
+        assertEq(20,c_.getList().getValue(0));
+    }
+    @Test
+    public void crud5() {
+        StringMap<Integer> m_ = new StringMap<Integer>();
+        m_.addEntry("ONE",15);
+        CrudGeneForm<String, Integer> c_ = crud(m_, new StringList("ONE","TWO"));
+        c_.getAdd().getActionListeners().get(0).action();
+        c_.getGeneKey().value("TWO");
+        c_.getGeneValue().value(20);
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        ((AbsPlainButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        c_.getGeneKey().value("ONE");
+        c_.getGeneValue().value(16);
+        c_.getCancel().getActionListeners().get(0).action();
+        assertEq(2,c_.getList().size());
+        assertEq("ONE",c_.getList().getKey(0));
+        assertEq(15,c_.getList().getValue(0));
+        assertEq("TWO",c_.getList().getKey(1));
+        assertEq(20,c_.getList().getValue(1));
+    }
+    @Test
     public void quit() {
         SampleGroupFrame fr_ = new SampleGroupFrame("", init(), new StringMap<String>());
         new QuitEvent(fr_).action();
         assertEq(0,fr_.getCommonFrame().getWindowListenersDef().size());
         new ClosingChildFrameEvent(fr_).windowClosing();
         assertFalse(fr_.getCommonFrame().isVisible());
+    }
+    private CrudGeneForm<String, Integer> crud(StringMap<Integer> _map, StringList _dico) {
+        MockProgramInfosSecSample pr_ = init();
+        AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame("",pr_,null);
+        CrudGeneForm<String, Integer> c_ = new CrudGeneForm<String, Integer>(pr_, new NaturalComparator());
+        GuiBaseUtil.initStringMapInt(f_, c_, _map, _dico,new DefValidateText());
+        return c_;
     }
 
     private boolean launch(MockSoundRecord _pl) {

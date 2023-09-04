@@ -11,6 +11,7 @@ import code.expressionlanguage.structs.Struct;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractAtomicRef;
+import code.util.EntryCust;
 
 public interface AbstractInterceptorStdCaller {
     boolean stop(Initializer _init, ContextEl _owner, StackCall _stackCall);
@@ -18,6 +19,7 @@ public interface AbstractInterceptorStdCaller {
     ArgumentWrapper invoke(StdCaller _caller,AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall);
     AbsCollection<BreakPointBlockKey> newBreakPointKeyIdStringCollection();
     AbsCollection<BreakPointCondition> newBreakPointConditionCollection();
+    AbsCollection<EntryCust<String,Integer>> newStringNumberCollection();
     AbsCollection<BreakPointBlockPair> newBreakPointKeyStringCollection();
     AbsCollection<WatchPointBlockPair> newWatchPointKeyStringCollection();
     AbsCollection<ExcPointBlockPair> newExcPointKeyStringCollection();

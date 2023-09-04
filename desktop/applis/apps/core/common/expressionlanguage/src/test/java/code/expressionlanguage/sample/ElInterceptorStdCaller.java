@@ -12,6 +12,7 @@ import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.threads.*;
+import code.util.EntryCust;
 
 public final class ElInterceptorStdCaller implements AbstractInterceptorStdCaller {
     @Override
@@ -64,6 +65,11 @@ public final class ElInterceptorStdCaller implements AbstractInterceptorStdCalle
     @Override
     public AbsCollection<StdMethodPointBlockPair> newStdMethodPointKeyStringCollection() {
         return new ConcList<StdMethodPointBlockPair>(new StdMethodKeyString(),this);
+    }
+
+    @Override
+    public AbsCollection<EntryCust<String, Integer>> newStringNumberCollection() {
+        return new ConcList<EntryCust<String, Integer>>(new EntryCustKeyString(), this);
     }
 
     @Override

@@ -12,6 +12,7 @@ import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.threads.*;
+import code.util.EntryCust;
 
 public final class MockInterceptorStdCaller implements AbstractInterceptorStdCaller {
     @Override
@@ -66,6 +67,10 @@ public final class MockInterceptorStdCaller implements AbstractInterceptorStdCal
         return new ConcList<StdMethodPointBlockPair>(new StdMethodKeyString(),this);
     }
 
+    @Override
+    public AbsCollection<EntryCust<String, Integer>> newStringNumberCollection() {
+        return new ConcList<EntryCust<String, Integer>>(new EntryCustKeyString(), this);
+    }
     @Override
     public AbstractAtomicBoolean newAtBool() {
         return new ConcreteBoolean();

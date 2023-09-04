@@ -4,11 +4,12 @@ import code.expressionlanguage.options.ResultContext;
 import code.gui.AbsCustCheckBox;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
 public abstract class AbsFrameMpFormContent {
-    private final GuiStackForm guiEnterStackForm = new GuiStackForm();
-    private final GuiStackForm guiExitStackForm = new GuiStackForm();
+    private final GuiStackForm guiEnterStackForm;
+    private final GuiStackForm guiExitStackForm;
     private AbsCustCheckBox enterFunction;
     private AbsCustCheckBox exitFunction;
     private AbsCustCheckBox enabledMp;
@@ -16,7 +17,9 @@ public abstract class AbsFrameMpFormContent {
     private AbsPlainButton remove;
     private AbsPanel contentPaneForm;
     private AbsPanel contentPane;
-    protected AbsFrameMpFormContent() {
+    protected AbsFrameMpFormContent(AbstractProgramInfos _c) {
+        guiEnterStackForm = new GuiStackForm(_c);
+        guiExitStackForm = new GuiStackForm(_c);
     }
     public abstract void guiBuildBase(AbsDebuggerGui _d);
     public void guiBuild(AbsDebuggerGui _d) {

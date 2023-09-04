@@ -6,9 +6,11 @@ import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.AbsCommonFrame;
+import code.gui.GuiBaseUtil;
 import code.gui.PackingWindowAfter;
 import code.gui.events.AbsActionListener;
 import code.util.CustList;
+import code.util.StringList;
 
 public final class BreakPointFormEvent implements AbsActionListener {
     private final AbsDebuggerGui window;
@@ -69,6 +71,8 @@ public final class BreakPointFormEvent implements AbsActionListener {
         specific(_mePoint.getGuiExitStackForm(), true, _mp.getValue().getResultExit(), _frame,_r);
         _mePoint.getEnterFunction().setSelected(_mp.getValue().isEntry());
         _mePoint.getExitFunction().setSelected(_mp.getValue().isExit());
+        GuiStackForm.initPrefs(_mePoint.getGuiEnterStackForm().getPrefs(),_r,false);
+        GuiStackForm.initPrefs(_mePoint.getGuiExitStackForm().getPrefs(),_r,true);
         _frame.setVisible(true);
         PackingWindowAfter.pack(_frame);
     }
@@ -92,6 +96,7 @@ public final class BreakPointFormEvent implements AbsActionListener {
         _specForm.actualiseLists(_frame);
         _specForm.getDependantPointsForm().init(_r,_model);
         _specForm.getPref().setValue(_model.getPref().get());
+        GuiBaseUtil.initStringMapInt(_frame,_specForm.getPrefs(),_model.mapPrefs(),new StringList(_r.getContext().getClasses().getClassesBodies().getKeys()),new StrictTypeFromFilter(_r));
     }
 
     static void feed(CustList<AbsCallContraints> _specForm, AbsCollection<AbsCallContraints> _model) {

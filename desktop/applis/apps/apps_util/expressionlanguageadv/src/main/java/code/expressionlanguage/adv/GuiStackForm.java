@@ -8,8 +8,10 @@ import code.expressionlanguage.exec.dbg.ExecFileBlockFct;
 import code.expressionlanguage.exec.dbg.ExecFileBlockTraceIndex;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.comparators.NaturalComparator;
 
 public final class GuiStackForm {
     private AbsCustCheckBox hit;
@@ -28,9 +30,13 @@ public final class GuiStackForm {
     private AbsPanel staIncExc;
     private AbsScrollPane staScIncExc;
     private AbsSpinner pref;
+    private final CrudGeneForm<String,Integer> prefs;
     private final DependantPointsForm dependantPointsForm = new DependantPointsForm();
     private final CustList<AbsCallContraints> mustBe = new CustList<AbsCallContraints>();
     private final CustList<AbsCallContraints> mustNotBe = new CustList<AbsCallContraints>();
+    public GuiStackForm(AbstractProgramInfos _c) {
+        prefs = new CrudGeneForm<String,Integer>(_c,new NaturalComparator());
+    }
 
     public void add(ResultContext _res, CustList<AbsCallContraints> _list, ReadOnlyFormTabEditor _e) {
         FileBlock v_ = _res.getPageEl().getPreviousFilesBodies().getVal(_e.getFullPath());
@@ -88,6 +94,9 @@ public final class GuiStackForm {
         readOnlyFormTabEditor = new ReadOnlyFormTabEditor(_d,_d.getCommonFrame().getFrames(), _d.getManageOptions().getOptions());
         staIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         staIncExc.add(pref);
+        AbsPanel g_ = prefs.getGroup();
+        g_.setVisible(false);
+        staIncExc.add(g_);
         staIncExc.add(enabledSub);
         staIncExc.add(hit);
         staIncExc.add(disabledWhenHit);
@@ -110,6 +119,13 @@ public final class GuiStackForm {
         staScIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(staIncExc);
         return staScIncExc;
     }
+
+    public static void initPrefs(CrudGeneForm<String, Integer> _f, ResultContext _res, boolean _exit) {
+        AbsPlainButton pref_ = _f.getFactory().getCompoFactory().newPlainButton("pref");
+        pref_.addActionListener(new ValuePrefEvent(_f, _res, _exit));
+        _f.getButtons().add(pref_);
+    }
+
     public void refresh(StringMap<String> _files, String _folderToVisit, ResultContext _r, AbsDebuggerGui _d) {
         GuiBaseUtil.removeActionListeners(bpAddFile);
         bpAddFile.addActionListener(new AddIncludeEvent(this,_d, _r));
@@ -151,6 +167,10 @@ public final class GuiStackForm {
 
     public AbsSpinner getPref() {
         return pref;
+    }
+
+    public CrudGeneForm<String, Integer> getPrefs() {
+        return prefs;
     }
 
     public AbsScrollPane getStaScIncExc() {

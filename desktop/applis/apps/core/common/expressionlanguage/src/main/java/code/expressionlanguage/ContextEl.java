@@ -50,7 +50,7 @@ public abstract class ContextEl {
         for (MethodPointBlockPair b: metList().elts()) {
             MemberCallingsBlock i_ = b.getMp().getId();
             int nb_ = nb(i_);
-            int pr_ = b.getValue().result(_exit).getPref().get();
+            int pr_ = b.getValue().result(_exit).pref(base_);
             if (_context.getClasses().getRedirections().isValidIndex(nb_)) {
                 ClassMethodIdOverride v_ = _context.getClasses().getRedirections().get(nb_).getVal(MemberCallingsBlock.clName(i_));
                 if (v_ != null) {

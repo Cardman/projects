@@ -20,8 +20,10 @@ import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
 import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.Ints;
+import code.util.core.StringUtil;
 
 public final class BreakPointBlockList {
     private final AbsCollection<BreakPointBlockPair> list;
@@ -49,19 +51,35 @@ public final class BreakPointBlockList {
         for (MethodPointBlockPair m: _p.elts()) {
             values_.add(m.getValue().result(_exit).getPref().get());
         }
-        values_.sort();
-        int s_ = values_.size();
-        if (s_ > 0 && values_.get(0) > 0) {
-            return values_.get(0) - 1;
+        return pref(values_);
+    }
+
+    public static int pref(AbsCollection<MethodPointBlockPair> _p, boolean _exit, String _cl) {
+        Ints values_ = new Ints();
+        for (MethodPointBlockPair m: _p.elts()) {
+            for (EntryCust<String,Integer> e: m.getValue().result(_exit).getPrefs().elts()) {
+                if (StringUtil.quickEq(e.getKey(),_cl)) {
+                    values_.add(e.getValue());
+                }
+            }
+        }
+        return pref(values_);
+    }
+
+    private static int pref(Ints _values) {
+        _values.sort();
+        int s_ = _values.size();
+        if (s_ > 0 && _values.get(0) > 0) {
+            return _values.get(0) - 1;
         }
         for (int i = 1; i < s_; i++) {
-            int one_ = values_.get(i - 1);
-            int two_ = values_.get(i);
+            int one_ = _values.get(i - 1);
+            int two_ = _values.get(i);
             if (two_ - one_ > 1) {
                 return one_ + 1;
             }
         }
-        return (int) (values_.getMaximum(-1)+1);
+        return (int) (_values.getMaximum(-1) + 1);
     }
 
     public StdMethodPointBlockPair std(StandardType _t, StandardNamedFunction _i) {

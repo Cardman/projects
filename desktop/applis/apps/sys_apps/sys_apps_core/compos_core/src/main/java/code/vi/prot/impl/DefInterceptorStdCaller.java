@@ -16,6 +16,7 @@ import code.expressionlanguage.structs.Struct;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractAtomicRef;
+import code.util.EntryCust;
 
 public final class DefInterceptorStdCaller implements AbstractInterceptorStdCaller {
     private final String cl;
@@ -117,6 +118,11 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     @Override
     public AbsCollection<StdMethodPointBlockPair> newStdMethodPointKeyStringCollection() {
         return new ConcMap<StdMethodPointBlockPair>(new StdMethodKeyString(),this);
+    }
+
+    @Override
+    public AbsCollection<EntryCust<String, Integer>> newStringNumberCollection() {
+        return new ConcList<EntryCust<String, Integer>>(new EntryCustKeyString(),this);
     }
 
     @Override

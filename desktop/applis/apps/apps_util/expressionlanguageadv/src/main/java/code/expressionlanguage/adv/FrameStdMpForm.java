@@ -9,6 +9,7 @@ import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
 import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 
 public final class FrameStdMpForm  extends AdvFrameMpForm{
@@ -19,8 +20,8 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
     private final StringMap<IdList<StandardNamedFunction>> listFct = new StringMap<IdList<StandardNamedFunction>>();
     private AbsPlainLabel label;
 
-    public FrameStdMpForm() {
-        frameMpFormContent = new FrameStdMpFormContent();
+    public FrameStdMpForm(AbstractProgramInfos _c) {
+        frameMpFormContent = new FrameStdMpFormContent(_c);
     }
     public void guiBuild(AbsDebuggerGui _d) {
         treeStd = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui( _d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(""));

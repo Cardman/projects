@@ -4,14 +4,15 @@ import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
 public final class FrameBpFormContent {
     private AbsTextField fileName;
     private AbsSpinner caret;
-    private final GuiStackForm guiStdStackForm = new GuiStackForm();
-    private final GuiStackForm guiInsStackForm = new GuiStackForm();
-    private final GuiStackForm guiStaStackForm = new GuiStackForm();
+    private final GuiStackForm guiStdStackForm;
+    private final GuiStackForm guiInsStackForm;
+    private final GuiStackForm guiStaStackForm;
     private BreakPointBlockPair selectedBp;
     private AbsCustCheckBox instanceType;
     private AbsCustCheckBox staticType;
@@ -20,6 +21,11 @@ public final class FrameBpFormContent {
     private AbsPlainLabel edited;
     private AbsPlainButton remove;
     private AbsPanel contentPane;
+    public FrameBpFormContent(AbstractProgramInfos _c) {
+        guiStdStackForm = new GuiStackForm(_c);
+        guiInsStackForm = new GuiStackForm(_c);
+        guiStaStackForm = new GuiStackForm(_c);
+    }
     public void guiBuild(AbsDebuggerGui _d) {
         edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel("");
         instanceType = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("instance");

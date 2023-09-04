@@ -5,7 +5,11 @@ import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractAtomicRef;
+import code.util.AbsMap;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class BreakPointCondition {
     private final AbsKeyPoint keyPoint;
@@ -21,6 +25,7 @@ public final class BreakPointCondition {
     private final AbstractAtomicInteger pref;
     private final AbsCollection<AbsCallContraints> exclude;
     private final AbsCollection<AbsCallContraints> include;
+    private final AbsCollection<EntryCust<String,Integer>> prefs;
     public BreakPointCondition(AbstractInterceptorStdCaller _i, AbsKeyPoint _key, int _kind, int _phase) {
         this.keyPoint = _key;
         this.kindPoint = _kind;
@@ -36,15 +41,48 @@ public final class BreakPointCondition {
         countModulo = _i.newAtInt();
         count = _i.newAtInt();
         pref = _i.newAtInt();
+        prefs = _i.newStringNumberCollection();
     }
 
+    public int pref(String _cl) {
+        for (EntryCust<String, Integer> e: prefs.elts()) {
+            if (StringUtil.quickEq(_cl,e.getKey())) {
+                return e.getValue();
+            }
+        }
+        return pref.get();
+    }
     public AbstractAtomicInteger getPref() {
         return pref;
+    }
+
+    public AbsCollection<EntryCust<String, Integer>> getPrefs() {
+        return prefs;
+    }
+    public StringMap<Integer> mapPrefs() {
+        StringMap<Integer> sm_ = new StringMap<Integer>();
+        for (EntryCust<String,Integer> e: prefs.elts()) {
+            sm_.addEntry(e.getKey(),e.getValue());
+        }
+        return sm_;
+    }
+
+    public void prefsMap(AbsMap<String,Integer> _elts) {
+        prefsMap(prefs,_elts);
     }
 
     public void setAll(CustList<BreakPointCondition> _elts) {
         setAll(others,_elts);
     }
+    public static void prefsMap(AbsCollection<EntryCust<String,Integer>> _collection, AbsMap<String,Integer> _elts) {
+        AbsCollection<EntryCust<String,Integer>> conv_ = _collection.intercept().newStringNumberCollection();
+        int s_ = _elts.size();
+        for (int i = 0; i < s_; i++) {
+            conv_.add(_elts.getEntry(i));
+        }
+        _collection.setAll(conv_);
+    }
+
     public static void setAll(AbsCollection<BreakPointCondition> _collection, CustList<BreakPointCondition> _elts) {
         AbsCollection<BreakPointCondition> conv_ = _collection.intercept().newBreakPointConditionCollection();
         int s_ = _elts.size();
