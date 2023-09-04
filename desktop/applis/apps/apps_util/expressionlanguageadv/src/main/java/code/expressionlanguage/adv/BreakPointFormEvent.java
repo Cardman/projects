@@ -65,7 +65,6 @@ public final class BreakPointFormEvent implements AbsActionListener {
         _mePoint.getEdited().setText(_mp.getSgn());
         _mePoint.setSelectedMp(_mp);
         _mePoint.getEnabledMp().setSelected(_mp.getValue().isEnabled());
-        _mePoint.getFrameMpFormContent().getPref().setValue(_mp.getPref().get());
         specific(_mePoint.getGuiEnterStackForm(), true, _mp.getValue().getResultEntry(), _frame,_r);
         specific(_mePoint.getGuiExitStackForm(), true, _mp.getValue().getResultExit(), _frame,_r);
         _mePoint.getEnterFunction().setSelected(_mp.getValue().isEntry());
@@ -92,6 +91,7 @@ public final class BreakPointFormEvent implements AbsActionListener {
         feed(_specForm.getMustNotBe(), _model.getExclude());
         _specForm.actualiseLists(_frame);
         _specForm.getDependantPointsForm().init(_r,_model);
+        _specForm.getPref().setValue(_model.getPref().get());
     }
 
     static void feed(CustList<AbsCallContraints> _specForm, AbsCollection<AbsCallContraints> _model) {

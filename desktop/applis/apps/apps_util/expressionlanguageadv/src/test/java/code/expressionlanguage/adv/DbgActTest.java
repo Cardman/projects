@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
 import code.expressionlanguage.exec.StepDbgActionEnum;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
@@ -1946,6 +1947,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameFormContent().getGuiEnterStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
         addMpOk(b_);
         assertEq(0,b_.getFramePoints().getView().getChildren().size());
+        assertTrue(curRet(b_).getPair(MemberCallingsBlock.clName(curRet(b_).getPageEl().getAnaClassBody("pkg.Ex").getOverridableBlocks().get(0))).getValue().getResultEntry().getOthers().elts().iterator().hasNext());
     }
     @Test
     public void bp104() {
@@ -1986,6 +1988,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameStdFormContent().getGuiEnterStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
         selectStd(b_, curRet(b_).getPageEl().getAliasObject(),getConstructorId(false));
         assertEq(0,b_.getFramePoints().getView().getChildren().size());
+        assertTrue(curRet(b_).getPair(getConstructorId(false).look(curRet(b_).getPageEl().getStandardsTypes().getVal(curRet(b_).getPageEl().getAliasObject())).get(0)).getValue().getResultEntry().getOthers().elts().iterator().hasNext());
     }
     @Test
     public void ref1() {

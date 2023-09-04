@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.exec.dbg.ExcPoint;
 import code.expressionlanguage.exec.dbg.ExcPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
@@ -59,9 +60,9 @@ public final class FrameExcFormContent {
             getCaught().setSelected(exc_.getValue().isCaught());
             getPropagated().setSelected(exc_.getValue().isPropagated());
         } else {
-            getGuiThrownStackForm().getDependantPointsForm().init(_r,1);
-            getGuiCaughtStackForm().getDependantPointsForm().init(_r,1);
-            getGuiPropagatedStackForm().getDependantPointsForm().init(_r,1);
+            getGuiThrownStackForm().getDependantPointsForm().init(_r, ExcPoint.EP);
+            getGuiCaughtStackForm().getDependantPointsForm().init(_r,ExcPoint.EP);
+            getGuiPropagatedStackForm().getDependantPointsForm().init(_r,ExcPoint.EP);
             exact.setEnabled(true);
             clName.setEnabled(true);
             remove.setEnabled(false);

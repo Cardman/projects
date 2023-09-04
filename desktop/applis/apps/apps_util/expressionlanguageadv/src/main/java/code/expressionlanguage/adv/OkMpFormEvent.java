@@ -26,7 +26,6 @@ public final class OkMpFormEvent implements AbsActionListener {
             resultContext.getContext().metList().add(mp_);
         }
         mp_.getValue().setEnabled(window.getFramePoints().getFrameFormContent().getEnabledMp().isSelected());
-        mp_.getPref().set(window.getFramePoints().getFrameFormContent().getFrameMpFormContent().getPref().getValue());
         mp_.getValue().setEntry(window.getFramePoints().getFrameFormContent().getEnterFunction().isSelected());
         mp_.getValue().setExit(window.getFramePoints().getFrameFormContent().getExitFunction().isSelected());
         update(mp_, mp_.getValue().getResultEntry(), window, window.getFramePoints().getFrameFormContent().getGuiEnterStackForm(), resultContext);
@@ -41,10 +40,10 @@ public final class OkMpFormEvent implements AbsActionListener {
         String type_ = _res.getPageEl().getAliasPrimBoolean();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), _mp, _res, type_, _window.getResultContextNext().generateAdv(_res.getContext().getInterrupt()));
         update(_condition, _form, res_);
-        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(0)) {
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(MethodPoint.BPC_ENTRY)) {
             _condition.getOthers().add(_mp.getValue().getResultEntry());
         }
-        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(1)) {
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(MethodPoint.BPC_EXIT)) {
             _condition.getOthers().add(_mp.getValue().getResultExit());
         }
     }
@@ -59,5 +58,6 @@ public final class OkMpFormEvent implements AbsActionListener {
         _condition.getHit().set(_form.getHit().isSelected());
         _condition.getDisableWhenHit().set(_form.getDisabledWhenHit().isSelected());
         _condition.setAll(_form.getDependantPointsForm().getSelected());
+        _condition.getPref().set(_form.getPref().getValue());
     }
 }

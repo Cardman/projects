@@ -8,7 +8,7 @@ import code.util.ints.Comparing;
 public final class CmpMethodPair implements Comparing<MethodPointBlockPairRootBlock> {
     @Override
     public int compare(MethodPointBlockPairRootBlock _one, MethodPointBlockPairRootBlock _two) {
-        int res_ = NumberUtil.compareLg(_one.getId().getPref().get(), _two.getId().getPref().get());
+        int res_ = NumberUtil.compareLg(_one.getPreference(), _two.getPreference());
         if (res_ != SortConstants.EQ_CMP) {
             return res_;
         }

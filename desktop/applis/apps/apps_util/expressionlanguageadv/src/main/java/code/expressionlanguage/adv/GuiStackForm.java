@@ -27,6 +27,7 @@ public final class GuiStackForm {
     private AbsPanel excludedFileIndex;
     private AbsPanel staIncExc;
     private AbsScrollPane staScIncExc;
+    private AbsSpinner pref;
     private final DependantPointsForm dependantPointsForm = new DependantPointsForm();
     private final CustList<AbsCallContraints> mustBe = new CustList<AbsCallContraints>();
     private final CustList<AbsCallContraints> mustNotBe = new CustList<AbsCallContraints>();
@@ -73,6 +74,8 @@ public final class GuiStackForm {
     }
 
     public AbsScrollPane guiBuild(AbsDebuggerGui _d) {
+        pref = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, Integer.MIN_VALUE, Integer.MAX_VALUE, 1);
+        pref.setVisible(false);
         enabledSub = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("specific enabled");
         enabledSub.setSelected(true);
         hit = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("hit");
@@ -84,6 +87,7 @@ public final class GuiStackForm {
         bpFolderSystem.select(bpFolderSystem.getRoot());
         readOnlyFormTabEditor = new ReadOnlyFormTabEditor(_d,_d.getCommonFrame().getFrames(), _d.getManageOptions().getOptions());
         staIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        staIncExc.add(pref);
         staIncExc.add(enabledSub);
         staIncExc.add(hit);
         staIncExc.add(disabledWhenHit);
@@ -143,6 +147,10 @@ public final class GuiStackForm {
             }
         }
         staIncExc.setLineBorder(GuiConstants.GREEN);
+    }
+
+    public AbsSpinner getPref() {
+        return pref;
     }
 
     public AbsScrollPane getStaScIncExc() {

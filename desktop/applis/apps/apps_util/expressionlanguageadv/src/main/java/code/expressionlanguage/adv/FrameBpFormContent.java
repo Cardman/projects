@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
@@ -52,9 +53,9 @@ public final class FrameBpFormContent {
             BreakPointFormEvent.bpAction(exc_, _c, this, _r);
             remove.setEnabled(true);
         } else {
-            getGuiStdStackForm().getDependantPointsForm().init(_r,0);
-            getGuiInsStackForm().getDependantPointsForm().init(_r,0);
-            getGuiStaStackForm().getDependantPointsForm().init(_r,0);
+            getGuiStdStackForm().getDependantPointsForm().init(_r, BreakPoint.BP);
+            getGuiInsStackForm().getDependantPointsForm().init(_r, BreakPoint.BP);
+            getGuiStaStackForm().getDependantPointsForm().init(_r, BreakPoint.BP);
             getEdited().setText("");
             remove.setEnabled(false);
         }

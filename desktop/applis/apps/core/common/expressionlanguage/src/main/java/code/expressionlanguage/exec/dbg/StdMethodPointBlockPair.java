@@ -5,7 +5,7 @@ import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
 
 public final class StdMethodPointBlockPair implements AbsPairPoint {
-    private static final int SMP=4;
+    public static final int SMP=4;
     private final StdMethodPointBlockKey sm;
     private final MethodPoint value;
 

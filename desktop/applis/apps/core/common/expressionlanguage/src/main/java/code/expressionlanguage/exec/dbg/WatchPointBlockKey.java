@@ -22,9 +22,13 @@ public final class WatchPointBlockKey implements AbsKeyPoint{
     @Override
     public String keyStr() {
         if (isTrueField()) {
-            return "1"+nbType+"."+fieldName();
+            return "1"+getNbType()+"."+fieldName();
         }
-        return "0"+nbType+"."+fieldName();
+        return "0"+getNbType()+"."+fieldName();
+    }
+
+    public int getNbType() {
+        return nbType;
     }
 
     public boolean isTrueField() {

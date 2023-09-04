@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.exec.dbg.BreakPointBlockList;
 import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
@@ -22,7 +23,6 @@ public final class FrameMpForm extends AdvFrameMpForm{
         frameMpFormContent.getContentPane().add(f_);
         frameMpFormContent.getContentPane().add(fileName);
         frameMpFormContent.getContentPane().add(caret);
-        frameMpFormContent.getContentPane().add(frameMpFormContent.getPref());
         frameMpFormContent.getContentPane().add(frameMpFormContent.getOk());
         frameMpFormContent.getContentPane().add(frameMpFormContent.getRemove());
     }
@@ -33,8 +33,10 @@ public final class FrameMpForm extends AdvFrameMpForm{
             BreakPointFormEvent.methodAction(exc_,this,_c,_r);
             frameMpFormContent.getRemove().setEnabled(true);
         } else {
-            getGuiEnterStackForm().getDependantPointsForm().init(_r,3);
-            getGuiExitStackForm().getDependantPointsForm().init(_r,3);
+            getGuiEnterStackForm().getDependantPointsForm().init(_r,MethodPointBlockPair.CMP);
+            getGuiExitStackForm().getDependantPointsForm().init(_r,MethodPointBlockPair.CMP);
+            getGuiEnterStackForm().getPref().setValue(BreakPointBlockList.pref(_r.getContext().metList(), false));
+            getGuiExitStackForm().getPref().setValue(BreakPointBlockList.pref(_r.getContext().metList(),true));
             getEdited().setText("");
             frameMpFormContent.getRemove().setEnabled(false);
         }

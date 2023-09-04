@@ -3,7 +3,10 @@ package code.expressionlanguage.exec.dbg;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 
 public final class ExcPoint {
-    private static final int EP=1;
+    public static final int EP=1;
+    public static final int BPC_THROWN = 0;
+    public static final int BPC_CAUGHT = 1;
+    public static final int BPC_PROPAGATED = 2;
     private boolean enabled;
     private boolean thrown;
     private boolean caught;
@@ -12,9 +15,9 @@ public final class ExcPoint {
     private final BreakPointCondition resultCaught;
     private final BreakPointCondition resultPropagated;
     public ExcPoint(AbstractInterceptorStdCaller _i, AbsKeyPoint _key){
-        resultThrown = new BreakPointCondition(_i,_key,EP,0);
-        resultCaught = new BreakPointCondition(_i,_key,EP,1);
-        resultPropagated = new BreakPointCondition(_i,_key,EP,2);
+        resultThrown = new BreakPointCondition(_i,_key,EP, BPC_THROWN);
+        resultCaught = new BreakPointCondition(_i,_key,EP, BPC_CAUGHT);
+        resultPropagated = new BreakPointCondition(_i,_key,EP, BPC_PROPAGATED);
         setThrown(true);
         setCaught(true);
         setPropagated(true);

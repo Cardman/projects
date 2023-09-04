@@ -44,10 +44,10 @@ public final class BreakPointBlockList {
         pausedLoop = _i.newAtBool();
     }
 
-    public static int pref(AbsCollection<MethodPointBlockPair> _p) {
+    public static int pref(AbsCollection<MethodPointBlockPair> _p, boolean _exit) {
         Ints values_ = new Ints();
         for (MethodPointBlockPair m: _p.elts()) {
-            values_.add(m.getPref().get());
+            values_.add(m.getValue().result(_exit).getPref().get());
         }
         values_.sort();
         int s_ = values_.size();
@@ -81,7 +81,7 @@ public final class BreakPointBlockList {
     }
 
     public MethodPointBlockPair method(DisplayedStrings _d, MemberCallingsBlock _id) {
-        return new MethodPointBlockPair(_id, interceptor,ResultExpressionOperationNode.clName(_d, _id), pref(methPointList), true, MemberCallingsBlock.clName(_id));
+        return new MethodPointBlockPair(_id, interceptor,ResultExpressionOperationNode.clName(_d, _id),true, MemberCallingsBlock.clName(_id));
     }
 
     public BreakPointBlockPair bp(ExecFileBlock _file, int _nf, int _offset, boolean _enType) {
@@ -178,7 +178,7 @@ public final class BreakPointBlockList {
 
     public MethodPointBlockPair notNull(MethodPointBlockPair _b) {
         if (_b == null) {
-            return new MethodPointBlockPair(null, interceptor, "", -1, false, "");
+            return new MethodPointBlockPair(null, interceptor, "", false, "");
         }
         return _b;
     }

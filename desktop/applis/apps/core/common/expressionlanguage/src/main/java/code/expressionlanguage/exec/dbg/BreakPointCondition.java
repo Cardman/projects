@@ -18,6 +18,7 @@ public final class BreakPointCondition {
     private final AbstractAtomicRef<StrResultContextLambda> lda;
     private final AbstractAtomicInteger countModulo;
     private final AbstractAtomicInteger count;
+    private final AbstractAtomicInteger pref;
     private final AbsCollection<AbsCallContraints> exclude;
     private final AbsCollection<AbsCallContraints> include;
     public BreakPointCondition(AbstractInterceptorStdCaller _i, AbsKeyPoint _key, int _kind, int _phase) {
@@ -34,6 +35,11 @@ public final class BreakPointCondition {
         hit = _i.newAtBool();
         countModulo = _i.newAtInt();
         count = _i.newAtInt();
+        pref = _i.newAtInt();
+    }
+
+    public AbstractAtomicInteger getPref() {
+        return pref;
     }
 
     public void setAll(CustList<BreakPointCondition> _elts) {

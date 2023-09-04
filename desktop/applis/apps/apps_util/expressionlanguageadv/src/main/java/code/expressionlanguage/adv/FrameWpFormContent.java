@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.exec.dbg.WatchPoint;
 import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
@@ -82,11 +83,11 @@ public final class FrameWpFormContent {
             fieldName.setEnabled(false);
             trueField.setEnabled(false);
         } else {
-            getGuiReadStackForm().getDependantPointsForm().init(_r,2);
-            getGuiWriteStackForm().getDependantPointsForm().init(_r,2);
-            getGuiCompoundReadStackForm().getDependantPointsForm().init(_r,2);
-            getGuiCompoundWriteStackForm().getDependantPointsForm().init(_r,2);
-            getGuiCompoundWriteErrStackForm().getDependantPointsForm().init(_r,2);
+            getGuiReadStackForm().getDependantPointsForm().init(_r, WatchPoint.WP);
+            getGuiWriteStackForm().getDependantPointsForm().init(_r,WatchPoint.WP);
+            getGuiCompoundReadStackForm().getDependantPointsForm().init(_r,WatchPoint.WP);
+            getGuiCompoundWriteStackForm().getDependantPointsForm().init(_r,WatchPoint.WP);
+            getGuiCompoundWriteErrStackForm().getDependantPointsForm().init(_r,WatchPoint.WP);
             getEdited().setText("");
             remove.setEnabled(false);
             className.setEnabled(true);

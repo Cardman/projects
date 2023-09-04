@@ -72,26 +72,26 @@ public final class DependantPointsForm {
         refreshWatch(_res);
         refreshMethod(_res);
         refreshBp(_res);
-        if (_add == 0) {
-            bpForm.add(check(STD,0));
-            bpForm.add(check(STATIC,1));
-            bpForm.add(check(INSTANCE,2));
-        } else if (_add == 1) {
-            excFrom.add(check(THROWN,0));
-            excFrom.add(check(CAUGHT,1));
-            excFrom.add(check(PROPAGATED,2));
-        } else if (_add == 2) {
-            wpForm.add(check(READ,0));
-            wpForm.add(check(WRITE,1));
-            wpForm.add(check(COMPOUND_READ,2));
-            wpForm.add(check(COMPOUND_WRITE,3));
-            wpForm.add(check(COMPOUND_WRITE_ERR,4));
-        } else if (_add == 3) {
-            metForm.add(check(ENTRY,0));
-            metForm.add(check(EXIT,1));
-        } else if (_add == 4) {
-            stdForm.add(check(ENTRY,0));
-            stdForm.add(check(EXIT,1));
+        if (_add == BreakPoint.BP) {
+            bpForm.add(check(STD,BreakPoint.BPC_STD));
+            bpForm.add(check(STATIC,BreakPoint.BPC_STATIC));
+            bpForm.add(check(INSTANCE,BreakPoint.BPC_INSTANCE));
+        } else if (_add == ExcPoint.EP) {
+            excFrom.add(check(THROWN,ExcPoint.BPC_THROWN));
+            excFrom.add(check(CAUGHT,ExcPoint.BPC_CAUGHT));
+            excFrom.add(check(PROPAGATED,ExcPoint.BPC_PROPAGATED));
+        } else if (_add == WatchPoint.WP) {
+            wpForm.add(check(READ,WatchPoint.BPC_READ));
+            wpForm.add(check(WRITE,WatchPoint.BPC_WRITE));
+            wpForm.add(check(COMPOUND_READ,WatchPoint.BPC_COMPOUND_READ));
+            wpForm.add(check(COMPOUND_WRITE,WatchPoint.BPC_COMPOUND_WRITE));
+            wpForm.add(check(COMPOUND_WRITE_ERR,WatchPoint.BPC_COMPOUND_WRITE_ERR));
+        } else if (_add == MethodPointBlockPair.CMP) {
+            metForm.add(check(ENTRY,MethodPoint.BPC_ENTRY));
+            metForm.add(check(EXIT,MethodPoint.BPC_EXIT));
+        } else if (_add == StdMethodPointBlockPair.SMP) {
+            stdForm.add(check(ENTRY,MethodPoint.BPC_ENTRY));
+            stdForm.add(check(EXIT,MethodPoint.BPC_EXIT));
         }
     }
 

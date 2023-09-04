@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
+import code.expressionlanguage.exec.dbg.MethodPoint;
 import code.expressionlanguage.exec.dbg.StdMethodPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ResultContextLambda;
@@ -56,10 +57,10 @@ public final class OkStdMpFormEvent implements AbsActionListener {
         String type_ = _cur.getPageEl().getAliasPrimBoolean();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), _mp, _cur, type_, _window.getResultContextNext().generateAdv(_cur.getContext().getInterrupt()));
         OkMpFormEvent.update(_condition, _form, res_);
-        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(0)) {
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(MethodPoint.BPC_ENTRY)) {
             _condition.getOthers().add(_mp.getValue().getResultEntry());
         }
-        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(1)) {
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(MethodPoint.BPC_EXIT)) {
             _condition.getOthers().add(_mp.getValue().getResultExit());
         }
     }

@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.SynthFieldInfo;
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
+import code.expressionlanguage.exec.dbg.WatchPoint;
 import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ResultContextLambda;
@@ -71,19 +72,19 @@ public final class OkWpFormEvent implements AbsActionListener {
         String type_ = _res.getPageEl().getAliasPrimBoolean();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_form.getConditional().getText(), _mp, _res, type_, _window.getResultContextNext().generateAdv(_res.getContext().getInterrupt()), _setting);
         OkMpFormEvent.update(_condition,_form,res_);
-        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(0)) {
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(WatchPoint.BPC_READ)) {
             _condition.getOthers().add(_mp.getValue().getResultRead());
         }
-        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(1)) {
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(WatchPoint.BPC_WRITE)) {
             _condition.getOthers().add(_mp.getValue().getResultWrite());
         }
-        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(2)) {
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(WatchPoint.BPC_COMPOUND_READ)) {
             _condition.getOthers().add(_mp.getValue().getResultCompoundRead());
         }
-        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(3)) {
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(WatchPoint.BPC_COMPOUND_WRITE)) {
             _condition.getOthers().add(_mp.getValue().getResultCompoundWrite());
         }
-        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(4)) {
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(WatchPoint.BPC_COMPOUND_WRITE_ERR)) {
             _condition.getOthers().add(_mp.getValue().getResultCompoundWriteErr());
         }
     }

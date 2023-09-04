@@ -3,7 +3,12 @@ package code.expressionlanguage.exec.dbg;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 
 public final class WatchPoint {
-    private static final int WP=2;
+    public static final int WP=2;
+    public static final int BPC_READ = 0;
+    public static final int BPC_WRITE = 1;
+    public static final int BPC_COMPOUND_READ = 2;
+    public static final int BPC_COMPOUND_WRITE = 3;
+    public static final int BPC_COMPOUND_WRITE_ERR = 4;
     private boolean enabled;
     private boolean read;
     private boolean write;
@@ -16,11 +21,11 @@ public final class WatchPoint {
     private final BreakPointCondition resultCompoundWrite;
     private final BreakPointCondition resultCompoundWriteErr;
     public WatchPoint(AbstractInterceptorStdCaller _i, AbsKeyPoint _key){
-        resultRead = new BreakPointCondition(_i,_key,WP,0);
-        resultWrite = new BreakPointCondition(_i,_key,WP,1);
-        resultCompoundRead = new BreakPointCondition(_i,_key,WP,2);
-        resultCompoundWrite = new BreakPointCondition(_i,_key,WP,3);
-        resultCompoundWriteErr = new BreakPointCondition(_i,_key,WP,4);
+        resultRead = new BreakPointCondition(_i,_key,WP, BPC_READ);
+        resultWrite = new BreakPointCondition(_i,_key,WP, BPC_WRITE);
+        resultCompoundRead = new BreakPointCondition(_i,_key,WP, BPC_COMPOUND_READ);
+        resultCompoundWrite = new BreakPointCondition(_i,_key,WP, BPC_COMPOUND_WRITE);
+        resultCompoundWriteErr = new BreakPointCondition(_i,_key,WP, BPC_COMPOUND_WRITE_ERR);
         setRead(true);
         setWrite(true);
         setCompoundRead(true);

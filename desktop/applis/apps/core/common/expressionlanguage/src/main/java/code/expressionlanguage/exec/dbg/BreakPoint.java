@@ -3,7 +3,10 @@ package code.expressionlanguage.exec.dbg;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 
 public final class BreakPoint {
-    private static final int BP=0;
+    public static final int BP= 0;
+    public static final int BPC_STD = 0;
+    public static final int BPC_STATIC = 1;
+    public static final int BPC_INSTANCE = 2;
     private boolean enabled;
     private boolean enabledChgtType;
     private boolean instanceType = true;
@@ -12,9 +15,9 @@ public final class BreakPoint {
     private final BreakPointCondition resultStatic;
     private final BreakPointCondition resultInstance;
     public BreakPoint(AbstractInterceptorStdCaller _i, AbsKeyPoint _key){
-        resultStd = new BreakPointCondition(_i,_key,BP,0);
-        resultStatic = new BreakPointCondition(_i,_key,BP,1);
-        resultInstance = new BreakPointCondition(_i,_key,BP,2);
+        resultStd = new BreakPointCondition(_i,_key,BP, BPC_STD);
+        resultStatic = new BreakPointCondition(_i,_key,BP, BPC_STATIC);
+        resultInstance = new BreakPointCondition(_i,_key,BP, BPC_INSTANCE);
     }
 
     public void resetCount() {

@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
+import code.expressionlanguage.exec.dbg.ExcPoint;
 import code.expressionlanguage.exec.dbg.ExcPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ResultContextLambda;
@@ -46,13 +47,13 @@ public final class OkExcFormEvent implements AbsActionListener {
         String type_ = _curr.getPageEl().getAliasPrimBoolean();
         ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_form.getConditional().getText(), _mp.getEp().getClName(), _mp.getEp().isExact(), _curr, type_, _window.getResultContextNext().generateAdv(_curr.getContext().getInterrupt()));
         OkMpFormEvent.update(_condition, _form, res_);
-        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(0)) {
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(ExcPoint.BPC_THROWN)) {
             _condition.getOthers().add(_mp.getValue().getResultThrown());
         }
-        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(1)) {
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(ExcPoint.BPC_CAUGHT)) {
             _condition.getOthers().add(_mp.getValue().getResultCaught());
         }
-        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(2)) {
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(ExcPoint.BPC_PROPAGATED)) {
             _condition.getOthers().add(_mp.getValue().getResultPropagated());
         }
     }

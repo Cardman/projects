@@ -49,7 +49,7 @@ public final class ResultExpressionOperationNode {
                 return new SynthFieldInfo(((SettableAbstractFieldOperation)res_.getFound()).getFieldIdReadOnly(), r_);
             }
         }
-        return new SynthFieldInfo(new ClassField("",""),null, -1);
+        return new SynthFieldInfo(new ClassField("",""),null);
     }
 
     public static AnalyzedPageEl prepareFields(WatchPointBlockPair _trField, AnalyzedPageEl _original, boolean _setting) {

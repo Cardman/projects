@@ -42,7 +42,7 @@ public abstract class ContextEl {
     public AbstractTypePairHash getChecker() {
         return executionInfos.getClasses().getChecker();
     }
-    public CustList<MethodPointBlockPairRootBlock> getPairs(ExecBlock _id, ExecFormattedRootBlock _gl, ContextEl _context, Struct _instance) {
+    public CustList<MethodPointBlockPairRootBlock> getPairs(ExecBlock _id, ExecFormattedRootBlock _gl, ContextEl _context, Struct _instance, boolean _exit) {
         String argClassName_ = _instance.getClassName(_context);
         String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);
         CustList<MethodPointBlockPairRootBlock> out_ = new CustList<MethodPointBlockPairRootBlock>();
@@ -50,18 +50,19 @@ public abstract class ContextEl {
         for (MethodPointBlockPair b: metList().elts()) {
             MemberCallingsBlock i_ = b.getMp().getId();
             int nb_ = nb(i_);
+            int pr_ = b.getValue().result(_exit).getPref().get();
             if (_context.getClasses().getRedirections().isValidIndex(nb_)) {
                 ClassMethodIdOverride v_ = _context.getClasses().getRedirections().get(nb_).getVal(MemberCallingsBlock.clName(i_));
                 if (v_ != null) {
                     ExecOverrideInfo ov_ = v_.getVal(base_);
                     if (ov_ != null && ov_.getPair().getFct() == _id) {
-                        out_.add(new MethodPointBlockPairRootBlock(b,ExecFormattedRootBlock.getFullObject(argClassName_,new ExecFormattedRootBlock(v_.getRoot()),_context)));
+                        out_.add(new MethodPointBlockPairRootBlock(b, pr_,ExecFormattedRootBlock.getFullObject(argClassName_,new ExecFormattedRootBlock(v_.getRoot()),_context)));
                         continue;
                     }
                 }
             }
             if (StringUtil.quickEq(MemberCallingsBlock.clName(i_),id_)) {
-                out_.add(new MethodPointBlockPairRootBlock(b,_gl));
+                out_.add(new MethodPointBlockPairRootBlock(b, pr_,_gl));
             }
         }
         out_.sortElts(new CmpMethodPair());
