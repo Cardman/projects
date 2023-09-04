@@ -66,17 +66,21 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
 
     @Override
     public K getKey(int _i) {
-        return list.get(_i).getKey();
+        return getEntry(_i).getKey();
     }
 
     @Override
     public V getValue(int _i) {
-        return list.get(_i).getValue();
+        return getEntry(_i).getValue();
     }
 
     @Override
     public void setValue(int _i, V _object) {
-        list.get(_i).setValue(_object);
+        getEntry(_i).setValue(_object);
+    }
+
+    public EntryCust<K,V> getEntry(int _i) {
+        return list.get(_i);
     }
 
     public void tryAdd(K _key, V _v) {
