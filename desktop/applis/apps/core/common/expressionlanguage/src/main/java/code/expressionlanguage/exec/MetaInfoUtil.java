@@ -45,15 +45,18 @@ public final class MetaInfoUtil {
     }
 
     public static StackTraceElementStruct newStackTraceElement(ContextEl _cont, int _index, StackCall _stackCall) {
-        return newStackTraceElement(_cont, _stackCall.getCall(_index));
+        return newStackTraceElement(_cont, _stackCall.getCall(_index), _stackCall.getCallCondition());
     }
 
-    public static StackTraceElementStruct newStackTraceElement(ContextEl _cont, AbstractPageEl _call) {
+    public static StackTraceElementStruct newStackTraceElement(ContextEl _cont, AbstractPageEl _call, int _d) {
         ExecFileBlock f_ = _call.getFile();
         RowColumnIndex rci_;
         String fileName_ = ExecFileBlock.name(f_);
         if (f_ != null) {
             int trace_ = _call.getTraceIndex();
+            if (fileName_.isEmpty()) {
+                trace_ -= _d;
+            }
             rci_ = RowColumnIndex.calculate(f_, trace_, _cont.getTabWidth());
         } else {
             rci_ = RowColumnIndex.def();

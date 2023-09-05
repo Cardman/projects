@@ -51,16 +51,18 @@ public final class ResultContextLambda {
     private final ContextEl context;
     private final ReportedMessages reportedMessages;
     private boolean initTypes;
+    private final int delta;
 
-    public ResultContextLambda(ContextEl _c, ExecTypeFunction _l, ReportedMessages _r) {
+    public ResultContextLambda(ContextEl _c, ExecTypeFunction _l, ReportedMessages _r, int _d) {
         this.lambda = _l;
         this.context = _c;
         this.reportedMessages = _r;
+        this.delta = _d;
     }
 
     public static ResultContextLambda dynamicAnalyze(String _exp, BreakPointBlockPair _mp, ResultContext _result, String _type, AbsLightContextGenerator _gene, MethodAccessKind _flag) {
         if (_exp.trim().isEmpty()) {
-            return new ResultContextLambda(null,null,new ReportedMessages());
+            return new ResultContextLambda(null,null,new ReportedMessages(), 0);
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(ExecFileBlock.name(_mp.getBp().getFile()), _mp.getBp().getOffset(), _result.getPageEl(),_flag);
         return build(_exp, _result, _type, _gene, a_);
@@ -68,7 +70,7 @@ public final class ResultContextLambda {
 
     public static ResultContextLambda dynamicAnalyze(String _exp, StdMethodPointBlockPair _instance, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
         if (_exp.trim().isEmpty()) {
-            return new ResultContextLambda(null,null,new ReportedMessages());
+            return new ResultContextLambda(null,null,new ReportedMessages(), 0);
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_instance, _result.getPageEl());
         return build(_exp, _result, _type, _gene, a_);
@@ -76,7 +78,7 @@ public final class ResultContextLambda {
 
     public static ResultContextLambda dynamicAnalyze(String _exp, MethodPointBlockPair _instance, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
         if (_exp.trim().isEmpty()) {
-            return new ResultContextLambda(null,null,new ReportedMessages());
+            return new ResultContextLambda(null,null,new ReportedMessages(), 0);
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_instance, _result.getPageEl(),null);
         return build(_exp, _result, _type, _gene, a_);
@@ -84,7 +86,7 @@ public final class ResultContextLambda {
 
     public static ResultContextLambda dynamicAnalyzeField(String _exp, WatchPointBlockPair _trField, ResultContext _result, String _type, AbsLightContextGenerator _gene, boolean _setting) {
         if (_exp.trim().isEmpty()) {
-            return new ResultContextLambda(null,null,new ReportedMessages());
+            return new ResultContextLambda(null,null,new ReportedMessages(), 0);
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareFields(_trField, _result.getPageEl(),_setting);
         return build(_exp, _result, _type, _gene, a_);
@@ -92,24 +94,23 @@ public final class ResultContextLambda {
 
     public static ResultContextLambda dynamicAnalyzeExc(String _exp, ExcPointBlockPair _ex, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
         if (_exp.trim().isEmpty()) {
-            return new ResultContextLambda(null,null,new ReportedMessages());
+            return new ResultContextLambda(null,null,new ReportedMessages(), 0);
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareExc(_ex.getEp().getClName(), _ex.getEp().isExact(), _result.getPageEl());
         return build(_exp, _result, _type, _gene, a_);
     }
 
     private static ResultContextLambda build(String _exp, ResultContext _result, String _type, AbsLightContextGenerator _gene, AnalyzedPageEl _a) {
+        String pref_ = "(:" + _type + ")->";
+        String dynLda_ = pref_ + _exp;
+        int d_ = pref_.length();
+        FileBlock anonFile_ = new FileBlock(0, false, "", new DefaultFileEscapedCalc());
+        _a.setCurrentFile(anonFile_);
+        anonFile_.metrics(dynLda_);
+        anonFile_.setNumberFile(_a.getFilesBodies().size()+_a.getPreviousFilesBodies().size());
+        _a.putFileBlock("", anonFile_);
+        _a.getPreviousFilesBodies().addEntry("",anonFile_);
         FileBlock file_ = _a.getCurrentFile();
-        String dynLda_ = "(:" + _type + ")->" + _exp;
-        if (file_ == null) {
-            FileBlock anon_ = new FileBlock(0, false, "", new DefaultFileEscapedCalc());
-            _a.setCurrentFile(anon_);
-            anon_.metrics(dynLda_);
-            anon_.setNumberFile(_a.getFilesBodies().size()+_a.getPreviousFilesBodies().size());
-            _a.putFileBlock("", anon_);
-            _a.getPreviousFilesBodies().addEntry("",anon_);
-            file_ = _a.getCurrentFile();
-        }
         MethodAccessKind stCtx_ = _a.getStaticContext();
         MemberCallingsBlock memb_ = _a.getCurrentFct();
         Line l_ = new Line(new OffsetStringInfo(0, dynLda_),0);
@@ -132,7 +133,7 @@ public final class ResultContextLambda {
         l_.buildExpressionLanguageReadOnly(_a);
         CustList<AnonymousLambdaOperation> al_ = _a.getAnonymousLambda();
         if (al_.isEmpty()) {
-            return new ResultContextLambda(null, null, _a.getMessages());
+            return new ResultContextLambda(null, null, _a.getMessages(), 0);
         }
         AnonymousLambdaOperation mainLambda_ = al_.first();
         ClassesUtil.processAnonymous(_a);
@@ -140,12 +141,12 @@ public final class ResultContextLambda {
         ClassesUtil.validateSimFinals(_a);
         ClassesUtil.checkEnd(_a);
         if (_a.notAllEmptyErrors()) {
-            return new ResultContextLambda(null, null, _a.getMessages());
+            return new ResultContextLambda(null, null, _a.getMessages(), 0);
         }
         Forwards forwards_ = ForwardInfos.generalForward(_a, _result);
         ContextEl ctx_ = _gene.gene(forwards_);
         Classes.forwardAndClear(ctx_);
-        return new ResultContextLambda(ctx_, ForwardInfos.buildAnonFctPair(forwards_, mainLambda_), _a.getMessages());
+        return new ResultContextLambda(ctx_, ForwardInfos.buildAnonFctPair(forwards_, mainLambda_), _a.getMessages(), d_);
     }
 
     private static void extractAnon(AnalyzedPageEl _page, IntermediaryResults _int, RootBlock _type, ResultExpression _resultExpression) {
@@ -301,6 +302,7 @@ public final class ResultContextLambda {
     }
 
     private StackCallReturnValue loop(StackCall _stack, AbstractPageEl _page) {
+        _stack.setCallCondition(delta);
         ExecutingUtil.addPage(_page, _stack);
         Initializer i_ = context.getInit();
         AbstractInterceptorStdCaller c_ = context.getCaller();

@@ -36,6 +36,7 @@ public final class StackCall implements AbstractStackCall {
     private AbstractWrapper wrapper;
     private Struct returnedArgument = NullStruct.NULL_VALUE;
     private ArrayStruct stackView = new ArrayStruct(0,"");
+    private int callCondition;
     public StackCall(AbsStackStopper _s,InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
         stopper = _s;
         breakPointInfo.getBreakPointInputInfo().setStep(_s.firstStep());
@@ -264,5 +265,13 @@ public final class StackCall implements AbstractStackCall {
 
     public void setWrapper(AbstractWrapper _w) {
         this.wrapper = _w;
+    }
+
+    public int getCallCondition() {
+        return callCondition;
+    }
+
+    public void setCallCondition(int _c) {
+        this.callCondition = _c;
     }
 }

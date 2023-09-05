@@ -28,6 +28,8 @@ public final class ProcessDbgLogsTest extends ProcessDbgCommon {
         files_.addEntry("src/file.txt","public class pkg.Ex{public static int me(){return 0;}}");
         CustList<String> logs_ = conditionalStdViewLogs("", "1/0", "src/file.txt", 50, "pkg.Ex", "me", files_, false, 0, false, true);
         assertEq(1,logs_.size());
+        assertEq(":1,2:1\n" +
+                "pkg.Ex.static .1()", logs_.get(0));
     }
     @Test
     public void logs4() {
@@ -43,6 +45,8 @@ public final class ProcessDbgLogsTest extends ProcessDbgCommon {
         files_.addEntry("src/file.txt","public class pkg.Ex{public static int me(){return 0;}}");
         CustList<String> logs_ = conditionalStdViewLogs("", "{static class Sec{public String $toString(){return \"\"+(1/0);}}return new Sec();}", "src/file.txt", 50, "pkg.Ex", "me", files_, false, 0, false, true);
         assertEq(1,logs_.size());
+        assertEq(":1,57:56\n" +
+                "pkg.Ex..Sec+1.$toString()", logs_.get(0));
     }
     @Test
     public void logs6() {
