@@ -1166,30 +1166,38 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
 
     private void enteringCondition(String _newValue,ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {
         StandardNamedFunction s_ = entering(_cont, _clName, _id);
-        String type_ = _cont.getPageEl().getAliasPrimBoolean();
+//        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         StdMethodPointBlockPair wp_ = _cont.getPair(s_);
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
-        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getValue().getResultEntry().result(res_,_newValue);
+        wp_.getValue().getResultEntry().analyze(wp_,_newValue,"",_cont,new DefContextGenerator());
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+        assertEq(_newValue,wp_.getValue().getResultEntry().getResultStr());
+//        wp_.getValue().getResultEntry().result(res_,_newValue);
     }
     private void exitingCondition(String _newValue,ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {
         StandardNamedFunction s_ = exiting(_cont, _clName, _id);
-        String type_ = _cont.getPageEl().getAliasPrimBoolean();
+//        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         StdMethodPointBlockPair wp_ = _cont.getPair(s_);
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
-        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getValue().getResultExit().result(res_,_newValue);
+        wp_.getValue().getResultExit().analyze(wp_,_newValue,"",_cont,new DefContextGenerator());
+        assertEq(_newValue,wp_.getValue().getResultExit().getResultStr());
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getValue().getResultExit().result(res_,_newValue);
     }
     private void enteringExitingCondition(String _newValue, String _exit,ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {
         StandardNamedFunction s_ = enteringExiting(_cont, _clName, _id);
-        String type_ = _cont.getPageEl().getAliasPrimBoolean();
+//        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         StdMethodPointBlockPair wp_ = _cont.getPair(s_);
-        ResultContextLambda resEnter_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
-        ResultContextLambda resExit_ = ResultContextLambda.dynamicAnalyze(_exit, wp_, _cont, type_, new DefContextGenerator());
-        assertTrue(resEnter_.getReportedMessages().isAllEmptyErrors());
-        assertTrue(resExit_.getReportedMessages().isAllEmptyErrors());
-        wp_.getValue().getResultEntry().result(resEnter_,_newValue);
-        wp_.getValue().getResultExit().result(resExit_,_exit);
+        wp_.getValue().getResultEntry().analyze(wp_,_newValue,"",_cont,new DefContextGenerator());
+        wp_.getValue().getResultExit().analyze(wp_,_exit,"",_cont,new DefContextGenerator());
+        assertEq(_newValue,wp_.getValue().getResultEntry().getResultStr());
+        assertEq(_exit,wp_.getValue().getResultExit().getResultStr());
+//        ResultContextLambda resEnter_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
+//        ResultContextLambda resExit_ = ResultContextLambda.dynamicAnalyze(_exit, wp_, _cont, type_, new DefContextGenerator());
+//        assertTrue(resEnter_.getReportedMessages().isAllEmptyErrors());
+//        assertTrue(resExit_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getValue().getResultEntry().result(resEnter_,_newValue);
+//        wp_.getValue().getResultExit().result(resExit_,_exit);
     }
 
     private void entering(ResultContext _cont, String _file, int _offset) {

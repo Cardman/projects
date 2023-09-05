@@ -16,15 +16,18 @@ import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.analyze.syntax.SplitExpressionUtil;
 import code.expressionlanguage.common.DefaultFileEscapedCalc;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
-import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
-import code.expressionlanguage.exec.dbg.StdMethodPointBlockPair;
-import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
+import code.expressionlanguage.exec.dbg.*;
+import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -36,6 +39,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -54,11 +58,11 @@ public final class ResultContextLambda {
         this.reportedMessages = _r;
     }
 
-    public static ResultContextLambda dynamicAnalyze(String _exp, String _fileName, int _caret, ResultContext _result, String _type, AbsLightContextGenerator _gene, MethodAccessKind _flag) {
+    public static ResultContextLambda dynamicAnalyze(String _exp, BreakPointBlockPair _mp, ResultContext _result, String _type, AbsLightContextGenerator _gene, MethodAccessKind _flag) {
         if (_exp.trim().isEmpty()) {
             return new ResultContextLambda(null,null,new ReportedMessages());
         }
-        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_fileName, _caret, _result.getPageEl(),_flag);
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(ExecFileBlock.name(_mp.getBp().getFile()), _mp.getBp().getOffset(), _result.getPageEl(),_flag);
         return build(_exp, _result, _type, _gene, a_);
     }
 
@@ -86,11 +90,11 @@ public final class ResultContextLambda {
         return build(_exp, _result, _type, _gene, a_);
     }
 
-    public static ResultContextLambda dynamicAnalyzeExc(String _exp, String _id, boolean _exact, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
+    public static ResultContextLambda dynamicAnalyzeExc(String _exp, ExcPointBlockPair _ex, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
         if (_exp.trim().isEmpty()) {
             return new ResultContextLambda(null,null,new ReportedMessages());
         }
-        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareExc(_id, _exact, _result.getPageEl());
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareExc(_ex.getEp().getClName(), _ex.getEp().isExact(), _result.getPageEl());
         return build(_exp, _result, _type, _gene, a_);
     }
 
@@ -190,6 +194,51 @@ public final class ResultContextLambda {
     public StackCallReturnValue eval(ContextEl _original, CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
         prepare(_original);
         return eval(_addon,_page);
+    }
+    public CustList<String> evalLog(ContextEl _original, CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
+        prepare(_original);
+        return evalStr(eval(_addon, _page));
+    }
+    public CustList<String> evalStr(StackCallReturnValue _pre) {
+        StackCall st_ = _pre.getStack();
+        CallingState stateOld_ = st_.getCallingState();
+        if (stateOld_ != null) {
+            return traceView(st_, context);
+        }
+        Argument arg_ = IndirectCalledFctUtil.processString(st_.aw().getValue(), context, st_);
+        AbstractPageEl page_ = ExecutingUtil.processAfterOperation(context,st_);
+        if (page_ == null) {
+            CustList<String> e_ = new CustList<String>();
+            e_.add(ExecCatOperation.getString(arg_,context));
+            return e_;
+        }
+        StackCallReturnValue ret_ = loop(st_, page_);
+        CallingState state_ = ret_.getStack().getCallingState();
+        if (state_ != null) {
+            return traceView(ret_.getStack(), context);
+        }
+        CustList<String> e_ = new CustList<String>();
+        e_.add(ExecCatOperation.getString(ret_.getStack().aw().getValue(), context));
+        return e_;
+    }
+
+    public static CustList<String> traceView(StackCall _st, ContextEl _ctx) {
+        ArrayStruct v_ = _st.getStackView();
+        int count_ = v_.getLength();
+        CustList<String> e_ = new CustList<String>();
+        for (int i = 0; i < count_; i++) {
+            e_.add(NumParsers.getStack(v_.get(i)).getDisplayedString(_ctx).getInstance());
+        }
+        return e_;
+    }
+
+    public static CustList<String> trace(StackCall _st, ContextEl _ctx) {
+        int count_ = _st.nbPages();
+        CustList<String> e_ = new CustList<String>();
+        for (int i = 0; i < count_; i++) {
+            e_.add(MetaInfoUtil.newStackTraceElement(_ctx,i, _st).getDisplayedString(_ctx).getInstance());
+        }
+        return e_;
     }
 
     private void prepare(ContextEl _original) {

@@ -4,7 +4,6 @@ import code.expressionlanguage.exec.dbg.BreakPointCondition;
 import code.expressionlanguage.exec.dbg.ExcPoint;
 import code.expressionlanguage.exec.dbg.ExcPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.options.ResultContextLambda;
 import code.gui.events.AbsActionListener;
 
 public final class OkExcFormEvent implements AbsActionListener {
@@ -44,9 +43,8 @@ public final class OkExcFormEvent implements AbsActionListener {
         framePoints.getCommonFrame().pack();
     }
     private static void update(ExcPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, ResultContext _curr) {
-        String type_ = _curr.getPageEl().getAliasPrimBoolean();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_form.getConditional().getText(), _mp.getEp().getClName(), _mp.getEp().isExact(), _curr, type_, _window.getResultContextNext().generateAdv(_curr.getContext().getInterrupt()));
-        OkMpFormEvent.update(_condition, _form, res_);
+        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(),_curr, _window.getResultContextNext().generateAdv(_curr.getContext().getInterrupt()));
+        OkMpFormEvent.update(_condition, _form);
         if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(ExcPoint.BPC_THROWN)) {
             _condition.getOthers().add(_mp.getValue().getResultThrown());
         }

@@ -4,7 +4,6 @@ import code.expressionlanguage.exec.dbg.BreakPointCondition;
 import code.expressionlanguage.exec.dbg.MethodPoint;
 import code.expressionlanguage.exec.dbg.StdMethodPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
 import code.gui.events.AbsActionListener;
@@ -54,9 +53,8 @@ public final class OkStdMpFormEvent implements AbsActionListener {
     }
 
     private static void update(StdMethodPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, ResultContext _cur) {
-        String type_ = _cur.getPageEl().getAliasPrimBoolean();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), _mp, _cur, type_, _window.getResultContextNext().generateAdv(_cur.getContext().getInterrupt()));
-        OkMpFormEvent.update(_condition, _form, res_);
+        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(),_cur, _window.getResultContextNext().generateAdv(_cur.getContext().getInterrupt()));
+        OkMpFormEvent.update(_condition, _form);
         if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(MethodPoint.BPC_ENTRY)) {
             _condition.getOthers().add(_mp.getValue().getResultEntry());
         }

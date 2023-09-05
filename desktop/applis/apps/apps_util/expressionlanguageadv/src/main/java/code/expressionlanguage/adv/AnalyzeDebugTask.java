@@ -28,7 +28,7 @@ public final class AnalyzeDebugTask implements Runnable {
                 all_.addEntry(m.getKey(),m.getValue().getContent());
             }
         }
-        ResultContext ana_ = gen_.next(base, src, new DbgStackStopper());
+        ResultContext ana_ = gen_.next(base, src, new DbgStackStopper(new AdvLogDbg(gui.getStatusDbgArea())));
         if (ana_ == null) {
             gui.getAnalyzeMenu().setEnabled(true);
             return;

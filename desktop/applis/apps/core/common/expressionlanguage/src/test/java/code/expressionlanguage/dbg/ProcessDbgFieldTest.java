@@ -4094,48 +4094,59 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
 
     private void readCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         read(_cont, _cf);
-        String type_ = _cont.getPageEl().getAliasPrimBoolean();
+//        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), false);
-        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultRead().result(res_,_newValue);
+        wp_.getResultRead().analyze(p_,_newValue,"",_cont, new DefContextGenerator(), false);
+        assertEq(_newValue,wp_.getResultRead().getResultStr());
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), false);
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getResultRead().result(res_,_newValue);
     }
     private void writeCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         write(_cont, _cf);
-        String type_ = _cont.getPageEl().getAliasPrimBoolean();
+//        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
-        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultWrite().result(res_,_newValue);
+        wp_.getResultWrite().analyze(p_,_newValue,"",_cont, new DefContextGenerator(), true);
+        assertEq(_newValue,wp_.getResultWrite().getResultStr());
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getResultWrite().result(res_,_newValue);
     }
     private void compoundReadCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         compoundRead(_cont, _cf);
-        String type_ = _cont.getPageEl().getAliasPrimBoolean();
+//        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), false);
-        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultCompoundRead().result(res_,_newValue);
+        wp_.getResultCompoundRead().analyze(p_,_newValue,"",_cont, new DefContextGenerator(), false);
+        assertEq(_newValue,wp_.getResultCompoundRead().getResultStr());
+
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), false);
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getResultCompoundRead().result(res_,_newValue);
     }
     private void compoundWriteCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         compoundWrite(_cont, _cf);
-        String type_ = _cont.getPageEl().getAliasPrimBoolean();
+//        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
-        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultCompoundWrite().result(res_,_newValue);
+        wp_.getResultCompoundWrite().analyze(p_,_newValue,"",_cont, new DefContextGenerator(), true);
+        assertEq(_newValue,wp_.getResultCompoundWrite().getResultStr());
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getResultCompoundWrite().result(res_,_newValue);
     }
     private void compoundWriteConditionErr(String _newValue,ResultContext _cont, ClassField _cf) {
         compoundWriteErr(_cont, _cf);
-        String type_ = _cont.getPageEl().getAliasPrimBoolean();
+//        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
-        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultCompoundWriteErr().result(res_,_newValue);
+        wp_.getResultCompoundWriteErr().analyze(p_,_newValue,"",_cont, new DefContextGenerator(), true);
+        assertEq(_newValue,wp_.getResultCompoundWriteErr().getResultStr());
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getResultCompoundWriteErr().result(res_,_newValue);
     }
     private void compoundReadWrite(ResultContext _cont, ClassField _cf) {
         pair(_cont, _cf).getValue().setRead(false);

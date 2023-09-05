@@ -1,5 +1,8 @@
 package code.expressionlanguage.exec.dbg;
 
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.AbsLightContextGenerator;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.threads.AbstractAtomicBoolean;
@@ -18,8 +21,11 @@ public final class BreakPointCondition {
     private final AbstractAtomicBoolean disableWhenHit;
     private final AbstractAtomicBoolean enabled;
     private final AbstractAtomicBoolean hit;
+    private final AbstractAtomicBoolean suspend;
+    private final AbstractAtomicBoolean stackLog;
     private final AbsCollection<BreakPointCondition> others;
     private final AbstractAtomicRef<StrResultContextLambda> lda;
+    private final AbstractAtomicRef<StrResultContextLambda> logs;
     private final AbstractAtomicInteger countModulo;
     private final AbstractAtomicInteger count;
     private final AbstractAtomicInteger pref;
@@ -34,14 +40,43 @@ public final class BreakPointCondition {
         include = _i.newExecFileBlockTraceIndexCollection();
         others = _i.newBreakPointConditionCollection();
         lda = _i.newAtLda();
+        logs = _i.newAtLda();
         disableWhenHit = _i.newAtBool();
         enabled = _i.newAtBool();
         enabled.set(true);
         hit = _i.newAtBool();
+        suspend = _i.newAtBool();
+        suspend.set(true);
+        stackLog = _i.newAtBool();
         countModulo = _i.newAtInt();
         count = _i.newAtInt();
         pref = _i.newAtInt();
         prefs = _i.newStringNumberCollection();
+    }
+
+    public void analyze(BreakPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene, MethodAccessKind _flag) {
+        result(ResultContextLambda.dynamicAnalyze(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene, _flag), _exp);
+        resultLogs(ResultContextLambda.dynamicAnalyze(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, _flag), _log);
+    }
+
+    public void analyze(StdMethodPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
+        result(ResultContextLambda.dynamicAnalyze(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene), _exp);
+        resultLogs(ResultContextLambda.dynamicAnalyze(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _log);
+    }
+
+    public void analyze(MethodPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
+        result(ResultContextLambda.dynamicAnalyze(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene), _exp);
+        resultLogs(ResultContextLambda.dynamicAnalyze(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _log);
+    }
+
+    public void analyze(WatchPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene, boolean _setting) {
+        result(ResultContextLambda.dynamicAnalyzeField(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene, _setting), _exp);
+        resultLogs(ResultContextLambda.dynamicAnalyzeField(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, _setting), _log);
+    }
+
+    public void analyze(ExcPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
+        result(ResultContextLambda.dynamicAnalyzeExc(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene), _exp);
+        resultLogs(ResultContextLambda.dynamicAnalyzeExc(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _log);
     }
 
     public int pref(String _cl) {
@@ -122,6 +157,11 @@ public final class BreakPointCondition {
         s_.result(_p, _str);
         lda.set(s_);
     }
+    public void resultLogs(ResultContextLambda _p, String _str) {
+        StrResultContextLambda s_ = new StrResultContextLambda();
+        s_.result(_p, _str);
+        logs.set(s_);
+    }
 
     public ResultContextLambda getResult() {
         return lda.get().getResult();
@@ -129,6 +169,14 @@ public final class BreakPointCondition {
 
     public String getResultStr() {
         return lda.get().getResultStr();
+    }
+
+    public ResultContextLambda getLogs() {
+        return logs.get().getResult();
+    }
+
+    public String getLogsStr() {
+        return logs.get().getResultStr();
     }
 
     public AbstractAtomicInteger getCountModulo() {
@@ -153,5 +201,13 @@ public final class BreakPointCondition {
 
     public AbstractAtomicBoolean getHit() {
         return hit;
+    }
+
+    public AbstractAtomicBoolean getSuspend() {
+        return suspend;
+    }
+
+    public AbstractAtomicBoolean getStackLog() {
+        return stackLog;
     }
 }

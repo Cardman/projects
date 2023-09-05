@@ -36,7 +36,7 @@ public final class ExecutingUtil {
         }
     }
 
-    static AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stackCall) {
+    public static AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stackCall) {
         CallingState callingState_ = _stackCall.getCallingState();
         if (callingState_ != null) {
             return callingState_.processAfterOperation(_context, _stackCall);

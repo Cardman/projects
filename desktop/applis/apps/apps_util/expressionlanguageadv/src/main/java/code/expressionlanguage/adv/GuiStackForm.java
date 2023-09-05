@@ -17,7 +17,10 @@ public final class GuiStackForm {
     private AbsCustCheckBox hit;
     private AbsCustCheckBox enabledSub;
     private AbsCustCheckBox disabledWhenHit;
+    private AbsCustCheckBox suspend;
+    private AbsCustCheckBox stackLog;
     private AbsTextArea conditional;
+    private AbsTextArea logs;
     private AbsSpinner count;
     private AbsSpinner countSub;
     private ReadOnlyFormTabEditor readOnlyFormTabEditor;
@@ -86,7 +89,10 @@ public final class GuiStackForm {
         enabledSub.setSelected(true);
         hit = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("hit");
         disabledWhenHit = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("disabled when hit");
+        suspend = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("suspend");
+        stackLog = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("log stack trace");
         conditional = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
+        logs = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
         count = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         countSub = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         bpFolderSystem = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui(_d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(""));
@@ -100,7 +106,10 @@ public final class GuiStackForm {
         staIncExc.add(enabledSub);
         staIncExc.add(hit);
         staIncExc.add(disabledWhenHit);
+        staIncExc.add(suspend);
+        staIncExc.add(stackLog);
         staIncExc.add(conditional);
+        staIncExc.add(logs);
         staIncExc.add(count);
         staIncExc.add(countSub);
         staIncExc.add(_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(bpFolderSystem),readOnlyFormTabEditor.getPanel()));
@@ -225,8 +234,20 @@ public final class GuiStackForm {
         return disabledWhenHit;
     }
 
+    public AbsCustCheckBox getSuspend() {
+        return suspend;
+    }
+
+    public AbsCustCheckBox getStackLog() {
+        return stackLog;
+    }
+
     public AbsTextArea getConditional() {
         return conditional;
+    }
+
+    public AbsTextArea getLogs() {
+        return logs;
     }
 
     public AbsSpinner getCount() {

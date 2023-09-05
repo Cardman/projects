@@ -219,6 +219,9 @@ public class DefaultInitializer implements Initializer {
         if (_stackCall.getStopper().callsOrException(_owner, _stackCall)) {
             _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
         }
+        if (_stackCall.trueException() != null) {
+            _stackCall.stackView(_owner);
+        }
     }
 
     private void visitException(StackCall _stackCall) {

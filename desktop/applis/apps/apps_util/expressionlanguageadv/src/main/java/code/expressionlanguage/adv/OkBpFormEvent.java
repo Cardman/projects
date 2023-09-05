@@ -1,13 +1,11 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.AbsPairPoint;
 import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.options.ResultContextLambda;
 import code.gui.events.AbsActionListener;
 
 public final class OkBpFormEvent implements AbsActionListener {
@@ -51,9 +49,8 @@ public final class OkBpFormEvent implements AbsActionListener {
     }
 
     private static void update(BreakPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, MethodAccessKind _flag, ResultContext _curr) {
-        String type_ = _curr.getPageEl().getAliasPrimBoolean();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_form.getConditional().getText(), ExecFileBlock.name(_mp.getBp().getFile()), _mp.getBp().getOffset(), _curr, type_, _window.getResultContextNext().generateAdv(_curr.getContext().getInterrupt()), _flag);
-        OkMpFormEvent.update(_condition,_form,res_);
+        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(),_curr, _window.getResultContextNext().generateAdv(_curr.getContext().getInterrupt()), _flag);
+        OkMpFormEvent.update(_condition,_form);
         if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(BreakPoint.BPC_STD)) {
             _condition.getOthers().add(_mp.getValue().getResultStd());
         }

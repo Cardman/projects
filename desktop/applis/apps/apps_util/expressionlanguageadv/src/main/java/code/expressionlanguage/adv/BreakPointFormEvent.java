@@ -80,12 +80,18 @@ public final class BreakPointFormEvent implements AbsActionListener {
     static void specific(GuiStackForm _specForm, boolean _visible, BreakPointCondition _model, AbsCommonFrame _frame, ResultContext _r) {
         _specForm.getConditional().setVisible(_visible);
         _specForm.getConditional().setText(_model.getResultStr());
+        _specForm.getLogs().setVisible(_visible);
+        _specForm.getLogs().setText(_model.getLogsStr());
         _specForm.getEnabledSub().setVisible(_visible);
         _specForm.getEnabledSub().setSelected(_model.getEnabled().get());
         _specForm.getHit().setVisible(_visible);
         _specForm.getHit().setSelected(_model.getHit().get());
         _specForm.getDisabledWhenHit().setVisible(_visible);
         _specForm.getDisabledWhenHit().setSelected(_model.getDisableWhenHit().get());
+        _specForm.getSuspend().setVisible(_visible);
+        _specForm.getSuspend().setSelected(_model.getSuspend().get());
+        _specForm.getStackLog().setVisible(_visible);
+        _specForm.getStackLog().setSelected(_model.getStackLog().get());
         _specForm.getCount().setVisible(_visible);
         _specForm.getCount().setValue(_model.getCountModulo().get());
         _specForm.getCountSub().setVisible(_visible);

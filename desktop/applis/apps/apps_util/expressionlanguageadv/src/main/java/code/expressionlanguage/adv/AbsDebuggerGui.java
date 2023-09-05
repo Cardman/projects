@@ -64,6 +64,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsPlainButton pauseStack;
     private AbsPlainButton stopStack;
     private AbsTextArea statusAnalyzeArea;
+    private AbsTextArea statusDbgArea;
     private AbsPanel navigation;
     private AbstractThread currentThreadActions;
     private final AbsOpenFrameInteract menuManage;
@@ -146,6 +147,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         statusAnalyzeArea = getCommonFrame().getFrames().getCompoFactory().newTextArea();
         statusAnalyzeArea.setEditable(false);
         page_.add(getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(statusAnalyzeArea));
+        statusDbgArea = getCommonFrame().getFrames().getCompoFactory().newTextArea();
+        statusDbgArea.setEditable(false);
+        page_.add(getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(statusDbgArea));
         getCommonFrame().setContentPane(page_);
         getCommonFrame().setVisible(true);
         AbsMenuBar bar_ = getCommonFrame().getFrames().getCompoFactory().newMenuBar();
@@ -570,5 +574,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public void setCurrentThreadActions(AbstractThread _t) {
         this.currentThreadActions = _t;
+    }
+
+    public AbsTextArea getStatusDbgArea() {
+        return statusDbgArea;
     }
 }

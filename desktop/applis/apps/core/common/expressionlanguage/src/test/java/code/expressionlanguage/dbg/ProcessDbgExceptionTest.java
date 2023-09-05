@@ -4,6 +4,7 @@ import code.expressionlanguage.DefContextGenerator;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.StopDbgEnum;
 import code.expressionlanguage.exec.dbg.ExcPoint;
+import code.expressionlanguage.exec.dbg.ExcPointBlockPair;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ResultContextLambda;
@@ -1113,51 +1114,70 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
     }
     private void stdThrownCondition(ResultContext _cont, String _condition) {
         std(_cont);
-        ExcPoint wp_ = _cont.getPairExc("pkg.Ex",true).getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, "pkg.Ex", true, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
-        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultThrown().result(res_, _condition);
+        ExcPointBlockPair p_ = _cont.getPairExc("pkg.Ex", true);
+        ExcPoint wp_ = p_.getValue();
+        wp_.getResultThrown().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        assertEq(_condition,wp_.getResultThrown().getResultStr());
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getResultThrown().result(res_, _condition);
     }
 
     private void conditionUnkThrown(ResultContext _cont) {
         unkThrown(_cont);
-        ExcPoint wp_ = _cont.getPairExc("",true).getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc("0==0", "", true, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
-        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultThrown().result(res_, "0==0");
+        ExcPointBlockPair p_ = _cont.getPairExc("", true);
+        ExcPoint wp_ = p_.getValue();
+        wp_.getResultThrown().analyze(p_,"0==0","",_cont,new DefContextGenerator());
+        assertEq("0==0",wp_.getResultThrown().getResultStr());
+
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc("0==0", p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getResultThrown().result(res_, "0==0");
     }
 
     private void stdParamConditionThrown(ResultContext _cont, String _condition) {
         stdParam(_cont);
-        ExcPoint wp_ = _cont.getPairExc("pkg.Ex<int>",true).getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, "pkg.Ex<int>", true, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
-        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultThrown().result(res_, _condition);
+        ExcPointBlockPair p_ = _cont.getPairExc("pkg.Ex<int>", true);
+        ExcPoint wp_ = p_.getValue();
+        wp_.getResultThrown().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        assertEq(_condition,wp_.getResultThrown().getResultStr());
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getResultThrown().result(res_, _condition);
     }
 
     private void nbeCaughtCondition(ResultContext _cont, String _condition) {
         nbe(_cont);
         String cf_ = _cont.getContext().getStandards().getNbAlias().getAliasInteger();
-        ExcPoint wp_ = _cont.getPairExc(cf_,true).getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, cf_, true, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
-        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultCaught().result(res_, _condition);
+        ExcPointBlockPair p_ = _cont.getPairExc(cf_, true);
+        ExcPoint wp_ = p_.getValue();
+        wp_.getResultCaught().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        assertEq(_condition,wp_.getResultCaught().getResultStr());
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getResultCaught().result(res_, _condition);
     }
 
     private void nbeaCaughtCondition(ResultContext _cont, String _condition) {
         nbea(_cont);
-        ExcPoint wp_ = _cont.getPairExc("[int",true).getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, "[int", true, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
-        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultCaught().result(res_, _condition);
+        ExcPointBlockPair p_ = _cont.getPairExc("[int", true);
+        ExcPoint wp_ = p_.getValue();
+        wp_.getResultCaught().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        assertEq(_condition,wp_.getResultCaught().getResultStr());
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getResultCaught().result(res_, _condition);
     }
 
     private void stdIncThrownCondition(ResultContext _cont, String _condition) {
         stdInc(_cont);
-        ExcPoint wp_ = _cont.getPairExc("pkg.Ex",false).getValue();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, "pkg.Ex", false, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
-        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getResultThrown().result(res_, _condition);
+        ExcPointBlockPair p_ = _cont.getPairExc("pkg.Ex", false);
+        ExcPoint wp_ = p_.getValue();
+        wp_.getResultThrown().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        assertEq(_condition,wp_.getResultThrown().getResultStr());
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getResultThrown().result(res_, _condition);
     }
 
     private void npeThrown(ResultContext _cont) {

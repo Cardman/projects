@@ -163,13 +163,13 @@ public final class BreakPointBlockList {
         new BreakPointCountUpdaterStatic().update(_bp.getValue(),_newValue);
     }
     public static ReportedMessages breakPointCtxStd(BreakPointBlockPair _bp, ResultContext _f, AbsLightContextGenerator _gene, String _newValue) {
-        return new BreakPointLambdaCtxUpdaterStd(_f,_gene).update(ExecFileBlock.name(_bp.getBp().getFile()),_bp.getBp().getOffset(),_bp.getValue(),_newValue);
+        return new BreakPointLambdaCtxUpdaterStd(_f,_gene).update(_bp,_newValue);
     }
     public static ReportedMessages breakPointCtxInstance(BreakPointBlockPair _bp, ResultContext _f, AbsLightContextGenerator _gene, String _newValue) {
-        return new BreakPointLambdaCtxUpdaterInstance(_f,_gene).update(ExecFileBlock.name(_bp.getBp().getFile()),_bp.getBp().getOffset(),_bp.getValue(),_newValue);
+        return new BreakPointLambdaCtxUpdaterInstance(_f,_gene).update(_bp,_newValue);
     }
     public static ReportedMessages breakPointCtxStatic(BreakPointBlockPair _bp, ResultContext _f, AbsLightContextGenerator _gene, String _newValue) {
-        return new BreakPointLambdaCtxUpdaterStatic(_f,_gene).update(ExecFileBlock.name(_bp.getBp().getFile()),_bp.getBp().getOffset(),_bp.getValue(),_newValue);
+        return new BreakPointLambdaCtxUpdaterStatic(_f,_gene).update(_bp,_newValue);
     }
     public static void update(ExecFileBlock _file, int _offset, BreakPointBooleanUpdater _updater, boolean _newValue, AbsCollection<BreakPointBlockPair> _ls) {
         for (BreakPointBlockPair b: _ls.elts()) {

@@ -18,6 +18,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.dbg.DbgStackStopper;
+import code.expressionlanguage.exec.dbg.DefLogDbg;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -2431,7 +2432,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         Forwards forwards_ = getForwards(options_, lgName_, kw_,page_, all_);
         ResultContext r_ = new ResultContext(page_, forwards_);
-        ResultContext res_ = ResultContext.def(r_, all_, "src", new DbgStackStopper());
+        ResultContext res_ = ResultContext.def(r_, all_, "src", new DbgStackStopper(new DefLogDbg()));
         ResultContext.fwd(res_, new DefContextGenerator());
         assertTrue(isEmptyErrors(res_.getPageEl()));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());

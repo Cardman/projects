@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.maths.montecarlo.CustomSeedGene;
@@ -34,6 +35,7 @@ public final class StackCall implements AbstractStackCall {
     private final AbsStackStopper stopper;
     private AbstractWrapper wrapper;
     private Struct returnedArgument = NullStruct.NULL_VALUE;
+    private ArrayStruct stackView = new ArrayStruct(0,"");
     public StackCall(AbsStackStopper _s,InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
         stopper = _s;
         breakPointInfo.getBreakPointInputInfo().setStep(_s.firstStep());
@@ -96,6 +98,14 @@ public final class StackCall implements AbstractStackCall {
     public boolean normalCall(ContextEl _context) {
         return trueException() == null && _context.callsOrException(this);
     }
+    public void stackView(ContextEl _cont) {
+        stackView = MetaInfoUtil.newStackTraceElementArray(_cont,this);
+    }
+
+    public ArrayStruct getStackView() {
+        return stackView;
+    }
+
     public CustomFoundExc trueException() {
         CallingState c_ = getCallingState();
         if (c_ instanceof CustomFoundExc && !((CustomFoundExc)c_).isFailInit()) {

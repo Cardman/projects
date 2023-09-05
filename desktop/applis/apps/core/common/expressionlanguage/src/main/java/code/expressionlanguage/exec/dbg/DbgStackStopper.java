@@ -33,12 +33,16 @@ public final class DbgStackStopper implements AbsStackStopper {
     public static final int COMPOUND_READ = 2;
     public static final int COMPOUND_WRITE = 3;
     public static final int COMPOUND_WRITE_ERR = 4;
+    private final AbsLogDbg logger;
+    public DbgStackStopper(AbsLogDbg _log) {
+        logger = _log;
+    }
     @Override
     public int checkNext(ContextEl _context, StackCall _stackCall) {
         if (!_stackCall.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
             return 0;
         }
-        if (_stackCall.getInitializingTypeInfos().getInitEnums() != InitPhase.NOTHING || stopAtWp(_context, _stackCall)) {
+        if (_stackCall.getInitializingTypeInfos().getInitEnums() != InitPhase.NOTHING || stopAtWp(logger,_context, _stackCall)) {
             return 1;
         }
         return 2;
@@ -84,7 +88,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (_context.pausedLoop().getAndSet(false)) {
             return StopDbgEnum.PAUSE;
         }
-        return stopAtCheckedBp(_context, _stackCall);
+        return stopAtCheckedBp(logger,_context, _stackCall);
     }
 
     @Override
@@ -111,6 +115,9 @@ public final class DbgStackStopper implements AbsStackStopper {
         return 0;
     }
 
+    public AbsLogDbg getLogger() {
+        return logger;
+    }
     private static CoreCheckedExecOperationNodeInfos expOper(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, AbstractPageEl _last, boolean _ex) {
         if (_o instanceof ExecAbstractAffectOperation) {
             return affectationOrCompound(_el, (ExecAbstractAffectOperation)_o, _context, _last);
@@ -466,13 +473,13 @@ public final class DbgStackStopper implements AbsStackStopper {
         return null;
     }
 
-    private static boolean stopAtWp(ContextEl _context,StackCall _stackCall) {
+    private static boolean stopAtWp(AbsLogDbg _l,ContextEl _context,StackCall _stackCall) {
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().isMute()) {
             return false;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint() == StopDbgEnum.STEP_RETURN_METHOD) {
             CoreCheckedExecOperationNodeInfos infos_ = infos(_context, _stackCall);
-            StopDbgEnum s_ = current(_context, _stackCall, infos_);
+            StopDbgEnum s_ = logs(_l,current(_context, _stackCall, infos_),_context,_stackCall);
             if (s_ != StopDbgEnum.NONE) {
                 _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(s_);
                 return true;
@@ -481,7 +488,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         return false;
     }
 
-    private static StopDbgEnum stopAtCheckedBp(ContextEl _context, StackCall _stackCall) {
+    private static StopDbgEnum stopAtCheckedBp(AbsLogDbg _l,ContextEl _context, StackCall _stackCall) {
         AbstractPageEl p_ = _stackCall.getLastPage();
         CoreCheckedExecOperationNodeInfos infos_ = infos(_context, _stackCall);
         if (!checkBreakPoint(_context,_stackCall,p_,infos_)) {
@@ -494,7 +501,33 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().isMute()) {
             return StopDbgEnum.NONE;
         }
-        return current(_context, _stackCall, infos_);
+        return logs(_l,current(_context, _stackCall, infos_),_context,_stackCall);
+    }
+    private static StopDbgEnum logs(AbsLogDbg _l, StopDbgEnum _s, ContextEl _context, StackCall _stackCall) {
+        if (_s == StopDbgEnum.NONE) {
+            return _s;
+        }
+        AbstractPageEl p_ = _stackCall.getLastPage();
+        BreakPointOutputInfo out_ = _stackCall.getBreakPointInfo().getBreakPointOutputInfo();
+        BreakPointCondition bp_ = out_.getBpc();
+        if (bp_.getStackLog().get()) {
+            for (String s: ResultContextLambda.trace(_stackCall,_context)) {
+                _l.log(s);
+            }
+        }
+        CoreCheckedExecOperationNodeInfos o_ = out_.getOperElt();
+        ResultContextLambda logs_ = bp_.getLogs();
+        if (logs_ != null) {
+            for (String s: logs_.evalLog(_context, o_, p_)) {
+                _l.log(s);
+            }
+        }
+        if (bp_.getSuspend().get()) {
+            return _s;
+        }
+        out_.setBpc(null);
+        out_.setOperElt(null);
+        return StopDbgEnum.NONE;
     }
 
     private static StopDbgEnum current(ContextEl _context, StackCall _stackCall, CoreCheckedExecOperationNodeInfos _infos) {
@@ -811,9 +844,9 @@ public final class DbgStackStopper implements AbsStackStopper {
             if (_condition.getDisableWhenHit().get()) {
                 _condition.getEnabled().set(false);
             }
-            BreakPointOutputInfo b_ = new BreakPointOutputInfo();
-            b_.setOperElt(_info);
-            _stackCall.getBreakPointInfo().getBreakPointOutputInfo().aff(b_);
+            BreakPointOutputInfo out_ = _stackCall.getBreakPointInfo().getBreakPointOutputInfo();
+            out_.setOperElt(_info);
+            out_.setBpc(_condition);
             return true;
         }
         return false;

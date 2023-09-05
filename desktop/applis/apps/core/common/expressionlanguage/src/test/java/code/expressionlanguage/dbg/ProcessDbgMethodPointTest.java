@@ -1472,20 +1472,27 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
     private void enteringCondition(String _newValue,ResultContext _cont, String _file, int _offset) {
         entering(_cont, _file, _offset);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        String type_ = _cont.getPageEl().getAliasPrimBoolean();
+//        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         MethodPointBlockPair wp_ = _cont.getPair(id_);
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
-        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getValue().getResultEntry().result(res_,_newValue);
+        wp_.getValue().getResultEntry().analyze(wp_,_newValue,"",_cont,new DefContextGenerator());
+        assertEq(_newValue,wp_.getValue().getResultEntry().getResultStr());
+
+
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getValue().getResultEntry().result(res_,_newValue);
     }
     private void exitingCondition(String _newValue,ResultContext _cont, String _file, int _offset) {
         exiting(_cont, _file, _offset);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        String type_ = _cont.getPageEl().getAliasPrimBoolean();
+//        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         MethodPointBlockPair wp_ = _cont.getPair(id_);
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
-        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
-        wp_.getValue().getResultExit().result(res_,_newValue);
+        wp_.getValue().getResultExit().analyze(wp_,_newValue,"",_cont,new DefContextGenerator());
+        assertEq(_newValue,wp_.getValue().getResultExit().getResultStr());
+
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getValue().getResultExit().result(res_,_newValue);
     }
     private void entering(ResultContext _cont, String _file, int _offset) {
         _cont.toggleBreakPoint(_file,_offset);

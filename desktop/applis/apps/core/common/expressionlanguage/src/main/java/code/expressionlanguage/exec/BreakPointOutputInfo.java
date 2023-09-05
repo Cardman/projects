@@ -1,15 +1,14 @@
 package code.expressionlanguage.exec;
 
 import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.dbg.BreakPointCondition;
 
 public final class BreakPointOutputInfo {
     private CallingState callingStateSub;
     private CoreCheckedExecOperationNodeInfos operElt;
+    private BreakPointCondition bpc;
     private StopDbgEnum stoppedBreakPoint = StopDbgEnum.NONE;
 
-    public void aff(BreakPointOutputInfo _info) {
-        setOperElt(_info.getOperElt());
-    }
     public CallingState getCallingStateSub() {
         return callingStateSub;
     }
@@ -24,6 +23,14 @@ public final class BreakPointOutputInfo {
 
     public void setOperElt(CoreCheckedExecOperationNodeInfos _o) {
         this.operElt = _o;
+    }
+
+    public BreakPointCondition getBpc() {
+        return bpc;
+    }
+
+    public void setBpc(BreakPointCondition _b) {
+        this.bpc = _b;
     }
 
     public boolean isStoppedBreakPoint() {

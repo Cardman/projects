@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.dbg.BreakPointCondition;
 import code.expressionlanguage.exec.dbg.WatchPoint;
 import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.options.ResultContextLambda;
 import code.gui.events.AbsActionListener;
 import code.util.core.StringUtil;
 
@@ -69,9 +68,8 @@ public final class OkWpFormEvent implements AbsActionListener {
         return false;
     }
     private static void update(WatchPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, boolean _setting, ResultContext _res) {
-        String type_ = _res.getPageEl().getAliasPrimBoolean();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_form.getConditional().getText(), _mp, _res, type_, _window.getResultContextNext().generateAdv(_res.getContext().getInterrupt()), _setting);
-        OkMpFormEvent.update(_condition,_form,res_);
+        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(),_res, _window.getResultContextNext().generateAdv(_res.getContext().getInterrupt()), _setting);
+        OkMpFormEvent.update(_condition,_form);
         if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(WatchPoint.BPC_READ)) {
             _condition.getOthers().add(_mp.getValue().getResultRead());
         }

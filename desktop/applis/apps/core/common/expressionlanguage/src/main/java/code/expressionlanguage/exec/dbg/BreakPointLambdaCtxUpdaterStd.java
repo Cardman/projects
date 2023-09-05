@@ -14,10 +14,10 @@ public final class BreakPointLambdaCtxUpdaterStd implements BreakPointLambdaCtxU
     }
 
     @Override
-    public ReportedMessages update(String _fileName, int _caret, BreakPoint _bp, String _newValue) {
+    public ReportedMessages update(BreakPointBlockPair _bp, String _newValue) {
         String type_ = result.getPageEl().getAliasPrimBoolean();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, _fileName, _caret, result, type_, gene, null);
-        _bp.getResultStd().result(res_,_newValue);
+        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, _bp, result, type_, gene, null);
+        _bp.getValue().getResultStd().result(res_,_newValue);
         return ResultContextLambda.after(res_);
     }
 
