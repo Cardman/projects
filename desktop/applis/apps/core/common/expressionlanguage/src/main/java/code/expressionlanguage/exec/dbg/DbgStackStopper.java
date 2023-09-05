@@ -821,7 +821,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             return false;
         }
         ResultContextLambda resLda_ = _condition.getResult();
-        if (resLda_ != null && !condition(_context, _stackCall, _p, resLda_, _info)) {
+        if (resLda_ != null && !condition(_context, _stackCall, _p, resLda_, _info, _condition.getStackErrLog().get(), _condition.getStackResErrLog().get())) {
             return false;
         }
         return postCondition(_stackCall, _condition, _info);
@@ -915,14 +915,18 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return false;
     }
 
-    private static boolean condition(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, ResultContextLambda _result, CoreCheckedExecOperationNodeInfos _info) {
+    private static boolean condition(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, ResultContextLambda _result, CoreCheckedExecOperationNodeInfos _info, boolean _errStack, boolean _errLogs) {
         StackCallReturnValue result_ = _result.eval(_context, _info, _p);
         if (result_.getStack().getCallingState() != null) {
-            for (String s: ResultContextLambda.trace(_stackCall,_context)) {
-                _stackCall.getStopper().getLogger().log(s);
+            if (_errStack) {
+                for (String s: ResultContextLambda.trace(_stackCall,_context)) {
+                    _stackCall.getStopper().getLogger().log(s);
+                }
             }
-            for (String l: ResultContextLambda.traceView(result_.getStack(),_context)) {
-                _stackCall.getStopper().getLogger().log(l);
+            if (_errLogs) {
+                for (String l: ResultContextLambda.traceView(result_.getStack(),_context)) {
+                    _stackCall.getStopper().getLogger().log(l);
+                }
             }
             _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCallingStateSub(result_.getStack().getCallingState());
             return true;

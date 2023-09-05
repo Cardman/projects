@@ -101,6 +101,14 @@ public final class ProcessDbgConditionalBpTest extends ProcessDbgCommon {
         assertEq(1,cont_.nbPages());
     }
     @Test
+    public void test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){return exmeth(8,3);}public static int exmeth(int t, int u){int v = Math.mod(t,u);return v;}}");
+        StackCall cont_ = conditionalStdLogsErr("1/0==1/0","pkg.Ex","exmeth",111,files_);
+        assertEq(2,cont_.nbPages());
+        assertEq(1, ((ErrorStruct)((CustomFoundExc)cont_.getBreakPointInfo().getBreakPointOutputInfo().getCallingStateSub()).getStruct()).getStack().getLength());
+    }
+    @Test
     public void test13() {
         assertFalse(new AllAccessedTypes().isTypeHidden(null));
     }

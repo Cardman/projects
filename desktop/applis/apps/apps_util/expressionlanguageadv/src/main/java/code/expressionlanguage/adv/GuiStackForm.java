@@ -19,6 +19,8 @@ public final class GuiStackForm {
     private AbsCustCheckBox disabledWhenHit;
     private AbsCustCheckBox suspend;
     private AbsCustCheckBox stackLog;
+    private AbsCustCheckBox stackErrLog;
+    private AbsCustCheckBox stackResErrLog;
     private AbsTextArea conditional;
     private AbsTextArea logs;
     private AbsSpinner count;
@@ -91,6 +93,8 @@ public final class GuiStackForm {
         disabledWhenHit = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("disabled when hit");
         suspend = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("suspend");
         stackLog = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("log stack trace");
+        stackErrLog = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("log stack trace if conditional err");
+        stackResErrLog = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("log stack trace result if conditional err");
         conditional = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
         logs = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
         count = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
@@ -240,6 +244,14 @@ public final class GuiStackForm {
 
     public AbsCustCheckBox getStackLog() {
         return stackLog;
+    }
+
+    public AbsCustCheckBox getStackErrLog() {
+        return stackErrLog;
+    }
+
+    public AbsCustCheckBox getStackResErrLog() {
+        return stackResErrLog;
     }
 
     public AbsTextArea getConditional() {

@@ -385,6 +385,18 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return conditionalStdView(_dyn, _class, _meth, _caret, _files).getStack();
     }
 
+    protected StackCall conditionalStdLogsErr(String _dyn, String _class, String _meth, int _caret, StringMap<String> _files) {
+        ResultContext res_ = ctxStd(_class, _caret, _files);
+        ExecRootBlock classBody_ = res_.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        BreakPointBlockPair pair_ = res_.getPair(classBody_.getFile(), _caret);
+        pair_.getValue().getResultStd().getStackErrLog().set(true);
+        pair_.getValue().getResultStd().getStackResErrLog().set(true);
+        assertTrue(BreakPointBlockList.breakPointCtxStd(pair_, res_,new DefContextGenerator(), _dyn).isAllEmptyErrors());
+        assertEq(_dyn,pair_.getValue().getResultStd().getResultStr());
+        CustomFoundMethod state_ = state(res_, _class, _meth);
+        return ExecClassesUtil.tryInitStaticlyTypes(res_.getContext(), res_.getPageEl().getOptions(), null, state_, null, false).getStack();
+    }
+
     protected StackCall countStd(int _dyn, String _class, String _meth, int _caret, StringMap<String> _files) {
         return countStdView(_dyn, _class, _meth, _caret, _files).getStack();
     }

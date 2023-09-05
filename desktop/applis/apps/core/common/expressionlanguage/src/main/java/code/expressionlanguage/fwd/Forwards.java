@@ -47,7 +47,7 @@ public final class Forwards {
     private final LoggableLgNames loggable;
     private final Options options;
     private final AbstractInterceptorStdCaller interceptor;
-    private AbsLogDbg logger;
+    private final AbsLogDbg logger;
 
     public Forwards(BuildableLgNames _generator, LoggableLgNames _loggable, AbstractFileBuilder _fileBuilder, Options _options) {
         this(_generator,_loggable,_fileBuilder,_options,new DefStackStopper());
@@ -77,7 +77,8 @@ public final class Forwards {
         options = new Options();
         constantsCalculator = _from.constantsCalculator;
         coverage = new Coverage(false);
-        classes = new Classes(_page.getChecker(),new DebugMapping(new DefStackStopper(_from.logger), interceptor));
+        logger = _from.logger;
+        classes = new Classes(_page.getChecker(),new DebugMapping(new DefStackStopper(logger), interceptor));
         fileBuilder = _page.getFileBuilder();
         getAllMapOperators().addAllEntries(_from.getAllMapOperators());
         getAllMapInnerEltTypes().addAllEntries(_from.getAllMapInnerEltTypes());

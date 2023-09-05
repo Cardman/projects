@@ -92,6 +92,10 @@ public final class BreakPointFormEvent implements AbsActionListener {
         _specForm.getSuspend().setSelected(_model.getSuspend().get());
         _specForm.getStackLog().setVisible(_visible);
         _specForm.getStackLog().setSelected(_model.getStackLog().get());
+        _specForm.getStackErrLog().setVisible(_visible);
+        _specForm.getStackErrLog().setSelected(_model.getStackErrLog().get());
+        _specForm.getStackResErrLog().setVisible(_visible);
+        _specForm.getStackResErrLog().setSelected(_model.getStackResErrLog().get());
         _specForm.getCount().setVisible(_visible);
         _specForm.getCount().setValue(_model.getCountModulo().get());
         _specForm.getCountSub().setVisible(_visible);

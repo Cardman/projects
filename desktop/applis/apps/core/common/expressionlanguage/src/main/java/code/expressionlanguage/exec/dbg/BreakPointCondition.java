@@ -23,6 +23,8 @@ public final class BreakPointCondition {
     private final AbstractAtomicBoolean hit;
     private final AbstractAtomicBoolean suspend;
     private final AbstractAtomicBoolean stackLog;
+    private final AbstractAtomicBoolean stackErrLog;
+    private final AbstractAtomicBoolean stackResErrLog;
     private final AbsCollection<BreakPointCondition> others;
     private final AbstractAtomicRef<StrResultContextLambda> lda;
     private final AbstractAtomicRef<StrResultContextLambda> logs;
@@ -47,6 +49,8 @@ public final class BreakPointCondition {
         hit = _i.newAtBool();
         suspend = _i.newAtBool();
         suspend.set(true);
+        stackErrLog = _i.newAtBool();
+        stackResErrLog = _i.newAtBool();
         stackLog = _i.newAtBool();
         countModulo = _i.newAtInt();
         count = _i.newAtInt();
@@ -165,6 +169,14 @@ public final class BreakPointCondition {
 
     public ResultContextLambda getResult() {
         return lda.get().getResult();
+    }
+
+    public AbstractAtomicBoolean getStackErrLog() {
+        return stackErrLog;
+    }
+
+    public AbstractAtomicBoolean getStackResErrLog() {
+        return stackResErrLog;
     }
 
     public String getResultStr() {
