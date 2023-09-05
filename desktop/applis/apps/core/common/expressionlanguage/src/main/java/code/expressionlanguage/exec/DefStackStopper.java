@@ -2,9 +2,16 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.dbg.AbsLogDbg;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 
-public final class DefStackStopper implements AbsStackStopper {
+public final class DefStackStopper extends AbsStackStopperImpl {
+    public DefStackStopper(){
+        this(null);
+    }
+    public DefStackStopper(AbsLogDbg _log){
+        super(_log);
+    }
     @Override
     public int checkNext(ContextEl _context, StackCall _stackCall) {
         return 0;

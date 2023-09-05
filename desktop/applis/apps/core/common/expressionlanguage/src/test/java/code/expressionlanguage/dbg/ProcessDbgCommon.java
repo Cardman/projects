@@ -418,7 +418,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         assertEq(_log, std_.getLogsStr());
         CustomFoundMethod state_ = state(res_,_class, _meth);
         StackCallReturnValue v_ = ExecClassesUtil.tryInitStaticlyTypes(res_.getContext(), res_.getPageEl().getOptions(), null, state_, null, false);
-        return ((DefLogDbg)((DbgStackStopper)v_.getStack().getStopper()).getLogger()).getList();
+        return ((DefLogDbg) v_.getStack().getStopper().getLogger()).getList();
     }
 
     protected StackCallReturnValue conditionalStdView(String _dyn, String _class, String _meth, int _caret, StringMap<String> _files,ResultContext _res) {

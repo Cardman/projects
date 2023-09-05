@@ -27,22 +27,21 @@ import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.NumberUtil;
 
-public final class DbgStackStopper implements AbsStackStopper {
+public final class DbgStackStopper extends AbsStackStopperImpl {
     public static final int READ = 0;
     public static final int WRITE = 1;
     public static final int COMPOUND_READ = 2;
     public static final int COMPOUND_WRITE = 3;
     public static final int COMPOUND_WRITE_ERR = 4;
-    private final AbsLogDbg logger;
     public DbgStackStopper(AbsLogDbg _log) {
-        logger = _log;
+        super(_log);
     }
     @Override
     public int checkNext(ContextEl _context, StackCall _stackCall) {
         if (!_stackCall.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
             return 0;
         }
-        if (_stackCall.getInitializingTypeInfos().getInitEnums() != InitPhase.NOTHING || stopAtWp(logger,_context, _stackCall)) {
+        if (_stackCall.getInitializingTypeInfos().getInitEnums() != InitPhase.NOTHING || stopAtWp(getLogger(),_context, _stackCall)) {
             return 1;
         }
         return 2;
@@ -88,7 +87,7 @@ public final class DbgStackStopper implements AbsStackStopper {
         if (_context.pausedLoop().getAndSet(false)) {
             return StopDbgEnum.PAUSE;
         }
-        return stopAtCheckedBp(logger,_context, _stackCall);
+        return stopAtCheckedBp(getLogger(),_context, _stackCall);
     }
 
     @Override
@@ -115,9 +114,6 @@ public final class DbgStackStopper implements AbsStackStopper {
         return 0;
     }
 
-    public AbsLogDbg getLogger() {
-        return logger;
-    }
     private static CoreCheckedExecOperationNodeInfos expOper(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, AbstractPageEl _last, boolean _ex) {
         if (_o instanceof ExecAbstractAffectOperation) {
             return affectationOrCompound(_el, (ExecAbstractAffectOperation)_o, _context, _last);
@@ -922,6 +918,12 @@ public final class DbgStackStopper implements AbsStackStopper {
     private static boolean condition(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, ResultContextLambda _result, CoreCheckedExecOperationNodeInfos _info) {
         StackCallReturnValue result_ = _result.eval(_context, _info, _p);
         if (result_.getStack().getCallingState() != null) {
+            for (String s: ResultContextLambda.trace(_stackCall,_context)) {
+                _stackCall.getStopper().getLogger().log(s);
+            }
+            for (String l: ResultContextLambda.traceView(result_.getStack(),_context)) {
+                _stackCall.getStopper().getLogger().log(l);
+            }
             _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCallingStateSub(result_.getStack().getCallingState());
             return true;
         }

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.dbg.AbsLogDbg;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 
 public interface AbsStackStopper {
@@ -23,4 +24,5 @@ public interface AbsStackStopper {
     int checkNext(ContextEl _context, StackCall _stackCall);
 
     boolean hasValueStd(StackCall _stack);
+    AbsLogDbg getLogger();
 }
