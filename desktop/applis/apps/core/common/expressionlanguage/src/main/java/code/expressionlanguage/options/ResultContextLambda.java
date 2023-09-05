@@ -310,7 +310,7 @@ public final class ResultContextLambda {
     private StackCallReturnValue loop(StackCall _stack, AbstractPageEl _page) {
         ExecLambdaMethodContent m_ = new ExecLambdaMethodContent(lda.getMethod(), lambda);
         ExecFormattedRootBlock f_ = _page.getGlobalClass();
-        MethodMetaInfo meth_ = new MethodMetaInfo(ExecAbstractLambdaOperation.build(m_, f_), null, new ExecLambdaCommonContent(lda.getLambdaCommonContent(), f_), m_);
+        MethodMetaInfo meth_ = new MethodMetaInfo(ExecAbstractLambdaOperation.build(m_, f_), _page.getCache(), new ExecLambdaCommonContent(lda.getLambdaCommonContent(), f_), m_);
         _stack.setGlobalLda(meth_);
         _stack.setCallCondition(delta);
         ExecutingUtil.addPage(_page, _stack);
