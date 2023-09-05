@@ -15,13 +15,17 @@ public final class ExecLambdaCommonContent {
     private final String result;
 
     public ExecLambdaCommonContent(AnaLambdaCommonContent _cont, Forwards _fwd) {
+        this(_cont,ExecStaticEltContent.build(_fwd,_cont.getFoundFormatted()));
+    }
+
+    public ExecLambdaCommonContent(AnaLambdaCommonContent _cont, ExecFormattedRootBlock _fwd) {
         intermediate = _cont.isIntermediate();
         safeInstance = _cont.isSafeInstance();
         returnFieldType = _cont.getReturnFieldType();
         fileName = _cont.getFileName();
         shiftArgument = _cont.isShiftArgument();
         ancestor = _cont.getAncestor();
-        formattedType = ExecStaticEltContent.build(_fwd,_cont.getFoundFormatted());
+        formattedType = _fwd;
         result = _cont.getResult();
     }
 

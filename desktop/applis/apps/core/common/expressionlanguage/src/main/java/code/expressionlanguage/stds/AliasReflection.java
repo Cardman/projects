@@ -126,6 +126,7 @@ public final class AliasReflection {
     private static final String IS_NORMAL="__________2006";
     private static final String IS_STATIC_CALL="__________2007";
     private static final String IS_INSTANCE_METHOD="__________2008";
+    private static final String GLOBAL="__________2008_";
     private String aliasAnnotationType;
     private String aliasAnnotated;
     private String aliasGetDefaultValue;
@@ -241,6 +242,7 @@ public final class AliasReflection {
     private String aliasGetVariableOwner;
     private String aliasGetGenericVariableOwner;
     private String aliasGetString;
+    private String aliasGlobal;
     private StandardType fctType;
     private StandardMethod fctTypeInstance;
     private StandardMethod fctTypeMeta;
@@ -365,6 +367,7 @@ public final class AliasReflection {
         setAliasIsAssignableFrom(LgNamesContent.get(_util,_cust,_mapping.getVal(IS_ASSIGNABLE_FROM)));
         setAliasIsVariable(LgNamesContent.get(_util,_cust,_mapping.getVal(IS_VARIABLE)));
         setAliasIsPackage(LgNamesContent.get(_util,_cust,_mapping.getVal(IS_PACKAGE)));
+        setAliasGlobal(LgNamesContent.get(_util,_cust,_mapping.getVal(GLOBAL)));
     }
     public static void en(TranslationsFile _en){
         _en.add(ANNOTATED,"Annotated=$core.Annotated");
@@ -481,6 +484,7 @@ public final class AliasReflection {
         _en.add(IS_NORMAL,"IsNormal=isNormal");
         _en.add(IS_STATIC_CALL,"IsStaticCall=isStaticCall");
         _en.add(IS_INSTANCE_METHOD,"IsInstanceMethod=isInstanceMethod");
+        _en.add(GLOBAL,"Global=global");
     }
     public static void fr(TranslationsFile _fr){
         _fr.add(ANNOTATED,"Annotated=$coeur.Annote");
@@ -597,6 +601,7 @@ public final class AliasReflection {
         _fr.add(IS_NORMAL,"IsNormal=estNormal");
         _fr.add(IS_STATIC_CALL,"IsStaticCall=estStaticAppel");
         _fr.add(IS_INSTANCE_METHOD,"IsInstanceMethod=estMethInstance");
+        _fr.add(GLOBAL,"Global=global");
     }
     public static void mapping(StringMap<String> _m){
         _m.addEntry(ANNOTATED,"Annotated");
@@ -713,6 +718,7 @@ public final class AliasReflection {
         _m.addEntry(IS_NORMAL,"IsNormal");
         _m.addEntry(IS_STATIC_CALL,"IsStaticCall");
         _m.addEntry(IS_INSTANCE_METHOD,"IsInstanceMethod");
+        _m.addEntry(GLOBAL,"Global");
     }
     public StringMap<String> allRefTypes(StringMap<String> _mapping) {
         StringMap<String> list_ = new StringMap<String>();
@@ -897,7 +903,8 @@ public final class AliasReflection {
                 new KeyValueMemberName(_mapping.getVal(GET_DECLARED_ANONYMOUS_LAMBDA), getAliasGetDeclaredAnonymousLambda()),
                 new KeyValueMemberName(_mapping.getVal(GET_DECLARED_SWITCH_METHODS), getAliasGetDeclaredSwitchMethods()),
                 new KeyValueMemberName(_mapping.getVal(GET_ANNOTATIONS), getAliasGetAnnotations()),
-                new KeyValueMemberName(_mapping.getVal(GET_ANNOTATIONS_PARAMETERS), getAliasGetAnnotationsParameters()));
+                new KeyValueMemberName(_mapping.getVal(GET_ANNOTATIONS_PARAMETERS), getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName(_mapping.getVal(GLOBAL), getAliasGlobal()));
     }
     private void buildAnnotated(LgNames _stds) {
         String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
@@ -955,6 +962,9 @@ public final class AliasReflection {
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsPublic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPublic());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGlobal, params_, aliasMethod, false, MethodModifier.STATIC, new FctGlobalLambda());
         StandardNamedFunction.addFct(methods_, method_);
         StandardType.addType(_stds.getStandards(), aliasAnnotated, annotType);
     }
@@ -2214,6 +2224,14 @@ public final class AliasReflection {
 
     public void setAliasNewInstanceRefAfter(String _v) {
         this.aliasNewInstanceRefAfter = _v;
+    }
+
+    public String getAliasGlobal() {
+        return aliasGlobal;
+    }
+
+    public void setAliasGlobal(String _v) {
+        this.aliasGlobal = _v;
     }
 
     public AliasParamReflection getParams() {

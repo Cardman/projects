@@ -366,6 +366,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasInstance("instance");
         _lgNames.getContent().getReflect().setAliasAnnotationType("$core.Annotation");
         _lgNames.getContent().getReflect().setAliasAnnotated("$core.Annotated");
+        _lgNames.getContent().getReflect().setAliasGlobal("global");
         _lgNames.getContent().getReflect().setAliasGetDefaultValue("getDefaultValue");
         _lgNames.getContent().getReflect().setAliasGetAnnotations("getAnnotations");
         _lgNames.getContent().getReflect().setAliasGetAnnotationsSupp("getAnnotationsSupp");
@@ -724,6 +725,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasInstance("instance");
         _lgNames.getContent().getReflect().setAliasAnnotationType("$coeur.Annotation");
         _lgNames.getContent().getReflect().setAliasAnnotated("$coeur.Annote");
+        _lgNames.getContent().getReflect().setAliasGlobal("global");
         _lgNames.getContent().getReflect().setAliasGetDefaultValue("valDefValeur");
         _lgNames.getContent().getReflect().setAliasGetAnnotations("valAnnotations");
         _lgNames.getContent().getReflect().setAliasGetAnnotationsSupp("valAnnotationsSuppl");

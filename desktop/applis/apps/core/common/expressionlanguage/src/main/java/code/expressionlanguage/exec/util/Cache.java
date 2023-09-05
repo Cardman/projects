@@ -41,7 +41,7 @@ public abstract class Cache {
                 } else {
                     current_ = 0;
                 }
-                v_.add(new ViewVariable(n.getName(),n.getWrapper(), _page,current_,_ctx));
+                v_.add(new ViewVariable(n.getName(),n.getWrapper(), current_,_ctx, c_));
                 counts_.put(n.getName(),current_);
             }
         }

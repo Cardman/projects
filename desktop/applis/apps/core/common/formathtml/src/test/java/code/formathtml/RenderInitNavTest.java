@@ -1305,6 +1305,7 @@ public final class RenderInitNavTest extends CommonRender {
         _lgNames.getContent().getReflect().setAliasInstance("instance");
         _lgNames.getContent().getReflect().setAliasAnnotationType("java.lang.$Annotation");
         _lgNames.getContent().getReflect().setAliasAnnotated("java.lang.$Annotated");
+        _lgNames.getContent().getReflect().setAliasGlobal("global");
         _lgNames.getContent().getReflect().setAliasGetAnnotations("getAnnotations");
         _lgNames.getContent().getReflect().setAliasGetAnnotationsSupp("getAnnotationsSupp");
         _lgNames.getContent().getReflect().setAliasGetDefaultValue("getDefaultValue");

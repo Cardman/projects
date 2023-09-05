@@ -10,6 +10,23 @@ import org.junit.Test;
 
 public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
     @Test
+    public void processEl0000000Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $boolean exmeth(){\n");
+        xml_.append("  $return $Method.global() == $null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
+    @Test
     public void processEl220Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");

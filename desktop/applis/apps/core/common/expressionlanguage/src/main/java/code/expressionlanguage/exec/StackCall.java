@@ -11,9 +11,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.maths.montecarlo.CustomSeedGene;
 import code.util.CustList;
 
@@ -37,6 +35,7 @@ public final class StackCall implements AbstractStackCall {
     private Struct returnedArgument = NullStruct.NULL_VALUE;
     private ArrayStruct stackView = new ArrayStruct(0,"");
     private int callCondition;
+    private Struct globalLda = NullStruct.NULL_VALUE;
     public StackCall(AbsStackStopper _s,InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
         stopper = _s;
         breakPointInfo.getBreakPointInputInfo().setStep(_s.firstStep());
@@ -273,5 +272,13 @@ public final class StackCall implements AbstractStackCall {
 
     public void setCallCondition(int _c) {
         this.callCondition = _c;
+    }
+
+    public Struct getGlobalLda() {
+        return globalLda;
+    }
+
+    public void setGlobalLda(Struct _g) {
+        this.globalLda = _g;
     }
 }
