@@ -125,8 +125,8 @@ public final class AnalyzedPageEl {
     private final Errors errors = new Errors();
     private final MethodHeaders headers = new MethodHeaders();
     private final ReportedMessages messages = new ReportedMessages();
-    private final StringMap<Integer> counts = new StringMap<Integer>();
-    private final StringMap<Integer> countsAnon = new StringMap<Integer>();
+    private final StringMap<Long> counts = new StringMap<Long>();
+    private final StringMap<Long> countsAnon = new StringMap<Long>();
 
     private final StringMap<MappingLocalType> mappingLocal = new StringMap<MappingLocalType>();
     private DefaultCurrentConstraints currentConstraints;
@@ -228,16 +228,16 @@ public final class AnalyzedPageEl {
         }
         return types_;
     }
-
-    public static CustList<FileBlock> customFiles(CustList<FileBlock> _files) {
-        CustList<FileBlock> files_ = new CustList<FileBlock>();
-        for (FileBlock r: _files) {
-            if (!r.isPredefined()) {
-                files_.add(r);
-            }
-        }
-        return files_;
-    }
+//
+//    public static CustList<FileBlock> customFiles(CustList<FileBlock> _files) {
+//        CustList<FileBlock> files_ = new CustList<FileBlock>();
+//        for (FileBlock r: _files) {
+//            if (!r.isPredefined()) {
+//                files_.add(r);
+//            }
+//        }
+//        return files_;
+//    }
 
     public AbstractTypePairHash getChecker() {
         return options.getChecker();
@@ -1147,9 +1147,14 @@ public final class AnalyzedPageEl {
         messages.addWarning(_warning);
         logErr.logIssue(_warning.display(),messages);
     }
+    public void backupFiles() {
+        previousFilesBodies.addAllEntries(filesBodies);
+        filesBodies.clear();
+    }
 
-    public void putFileBlock(String _fileName, FileBlock _fileBlock) {
-        filesBodies.put(_fileName, _fileBlock);
+    public void putFileBlock(FileBlock _fileBlock) {
+        _fileBlock.setNumberFile(previousFilesBodies.size() + filesBodies.size());
+        filesBodies.put(_fileBlock.getFileName(), _fileBlock);
     }
 
     public StringMap<FileBlock> getFilesBodies() {
@@ -1172,11 +1177,11 @@ public final class AnalyzedPageEl {
         return randCodeMethods;
     }
 
-    public StringMap<Integer> getCounts() {
+    public StringMap<Long> getCounts() {
         return counts;
     }
 
-    public StringMap<Integer> getCountsAnon() {
+    public StringMap<Long> getCountsAnon() {
         return countsAnon;
     }
 

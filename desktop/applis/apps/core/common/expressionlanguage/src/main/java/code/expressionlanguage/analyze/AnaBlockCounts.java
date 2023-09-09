@@ -5,16 +5,16 @@ import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.util.*;
 
 public final class AnaBlockCounts {
-    private final Ints countAnon = new Ints();
-    private int countOut;
-    private final StringMap<Integer> countAnonType = new StringMap<Integer>();
+    private final Longs countAnon = new Longs();
+    private long countOut;
+    private final StringMap<Long> countAnonType = new StringMap<Long>();
     private final CustList<CustList<RootBlock>> localTypes = new CustList<CustList<RootBlock>>();
     private final CustList<CustList<AnonymousTypeBlock>> anonTypes = new CustList<CustList<AnonymousTypeBlock>>();
     private final CustList<AnonymousElementsFct> anonElts = new CustList<AnonymousElementsFct>();
     private final CustList<AnonymousElements> anonFieldsElts = new CustList<AnonymousElements>();
     private final CustList<AnonymousElements> anonTypesElts = new CustList<AnonymousElements>();
-    private final CustList<StringMap<Integer>> countsAnon = new CustList<StringMap<Integer>>();
-    private final CustList<StringMap<Integer>> counts = new CustList<StringMap<Integer>>();
+    private final CustList<StringMap<Long>> countsAnon = new CustList<StringMap<Long>>();
+    private final CustList<StringMap<Long>> counts = new CustList<StringMap<Long>>();
 
     public static void completeFromTo(AnaBlockCounts _from, AnaBlockCounts _dest) {
         _dest.countOut = _from.countOut;
@@ -57,9 +57,9 @@ public final class AnaBlockCounts {
         }
     }
 
-    private static void feedCount(CustList<StringMap<Integer>> _from, CustList<StringMap<Integer>> _dest, int _begin, int _end) {
+    private static void feedCount(CustList<StringMap<Long>> _from, CustList<StringMap<Long>> _dest, int _begin, int _end) {
         for (int i = _begin; i < _end; i++) {
-            _dest.add(new StringMap<Integer>(_from.get(i)));
+            _dest.add(new StringMap<Long>(_from.get(i)));
         }
     }
 
@@ -90,27 +90,27 @@ public final class AnaBlockCounts {
         }
         return new StringMap<MappingLocalType>();
     }
-    public int getCountOut() {
+    public long getCountOut() {
         return countOut;
     }
 
-    public void setCountOut(int _c) {
+    public void setCountOut(long _c) {
         this.countOut = _c;
     }
 
-    public StringMap<Integer> getCountAnonType() {
+    public StringMap<Long> getCountAnonType() {
         return countAnonType;
     }
 
-    public Ints getCountAnon() {
+    public Longs getCountAnon() {
         return countAnon;
     }
 
-    public CustList<StringMap<Integer>> getCountsAnon() {
+    public CustList<StringMap<Long>> getCountsAnon() {
         return countsAnon;
     }
 
-    public CustList<StringMap<Integer>> getCounts() {
+    public CustList<StringMap<Long>> getCounts() {
         return counts;
     }
 

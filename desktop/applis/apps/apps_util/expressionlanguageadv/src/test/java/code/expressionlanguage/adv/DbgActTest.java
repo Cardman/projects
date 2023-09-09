@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.dbg.AbsCallContraints;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -955,7 +956,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         openPoints(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        addWp(b_);
+        addWpAnnot(b_);
         b_.getFramePoints().getFrameWpFormContent().getClassName().setText("pkg.Ex");
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(false);
@@ -1009,7 +1010,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         openPoints(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        addWp(b_);
+        addWpAnnot(b_);
         b_.getFramePoints().getFrameWpFormContent().getClassName().setText("");
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(false);
@@ -1065,12 +1066,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         openPoints(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        addWp(b_);
+        addWpAnnot(b_);
         b_.getFramePoints().getFrameWpFormContent().getClassName().setText("pkg.Ex");
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(false);
         addWpOk(b_);
-        editWatch(b_,0);
+        editWatchAnnot(b_,0);
         addWatchRemove(b_);
         assertFalse(curRet(b_).getContext().watchList().elts().iterator().hasNext());
         assertFalse(curRet(b_).getContext().metList().elts().iterator().hasNext());
@@ -1223,7 +1224,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         closeReadOnlyTab(b_);
         openPoints(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        addWp(b_);
+        addWpAnnot(b_);
         b_.getFramePoints().getFrameWpFormContent().getClassName().setText("pkg.Ex");
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(false);
@@ -1476,13 +1477,13 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         openPoints(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        addWp(b_);
+        addWpAnnot(b_);
         b_.getFramePoints().getFrameWpFormContent().getClassName().setText("pkg.Ex");
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(false);
         b_.getFramePoints().getFrameWpFormContent().getEnabledWp().setSelected(false);
         addWpOk(b_);
-        editWatch(b_,0);
+        editWatchAnnot(b_,0);
         tabEditor(b_).getCenter().select(30,30);
         toggleBpEn(b_);
         assertTrue(curRet(b_).getContext().watchList().elts().iterator().hasNext());
@@ -1498,13 +1499,13 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         openPoints(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        addWp(b_);
+        addWpAnnot(b_);
         b_.getFramePoints().getFrameWpFormContent().getClassName().setText("pkg.Ex");
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(false);
         b_.getFramePoints().getFrameWpFormContent().getEnabledWp().setSelected(true);
         addWpOk(b_);
-        editWatch(b_,0);
+        editWatchAnnot(b_,0);
         tabEditor(b_).getCenter().select(30,30);
         toggleBpEn(b_);
         assertTrue(curRet(b_).getContext().watchList().elts().iterator().hasNext());
@@ -1520,13 +1521,13 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         openPoints(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        addWp(b_);
+        addWpAnnot(b_);
         b_.getFramePoints().getFrameWpFormContent().getClassName().setText("pkg.Ex");
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(false);
         b_.getFramePoints().getFrameWpFormContent().getEnabledWp().setSelected(true);
         addWpOk(b_);
-        editWatch(b_,0);
+        editWatchAnnot(b_,0);
         tabEditor(b_).getCenter().select(38,38);
         toggleBpEn(b_);
         assertTrue(curRet(b_).getContext().watchList().elts().iterator().hasNext());
@@ -1662,13 +1663,13 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         openPoints(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        addWp(b_);
+        addWpAnnot(b_);
         b_.getFramePoints().getFrameWpFormContent().getClassName().setText("pkg.Ex");
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(false);
         b_.getFramePoints().getFrameWpFormContent().getEnabledWp().setSelected(true);
         addWpOk(b_);
-        editWatch(b_,0);
+        editWatchAnnot(b_,0);
         tabEditor(b_).getCenter().select(30,30);
         toggleBp(b_);
         assertEq(0,b_.getFramePoints().getView().getChildren().size());
@@ -1683,13 +1684,13 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         openPoints(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        addWp(b_);
+        addWpAnnot(b_);
         b_.getFramePoints().getFrameWpFormContent().getClassName().setText("pkg.Ex");
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(false);
         b_.getFramePoints().getFrameWpFormContent().getEnabledWp().setSelected(true);
         addWpOk(b_);
-        editWatch(b_,0);
+        editWatchAnnot(b_,0);
         tabEditor(b_).getCenter().select(38,38);
         toggleBp(b_);
         assertEq(1,b_.getFramePoints().getView().getChildren().size());
@@ -2017,6 +2018,104 @@ public final class DbgActTest extends EquallableElAdvUtil {
         addMpOk(b_);
         assertEq(0,b_.getFramePoints().getView().getChildren().size());
         assertTrue(curRet(b_).getPair(MemberCallingsBlock.clName(curRet(b_).getPageEl().getAnaClassBody("pkg.Ex").getOverridableBlocks().get(0))).getValue().getResultEntry().getPrefs().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp107() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {int v;public static int exmeth(){int v=1;return v;}}public annotation pkg.Annot {int v();}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(52,52);
+        toggleBp(b_);
+        openPoints(b_);
+        addWpAnnot(b_);
+        b_.getFramePoints().getFrameWpFormContent().getClassName().setText("pkg.Annot");
+        b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
+        b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(false);
+        addWpOk(b_);
+        addBp(b_);
+        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
+        editOthWatchAnnot(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
+        assertEq(5,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+    }
+    @Test
+    public void bp108() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int v;public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addExc(b_);
+        b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
+        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        addExcOk(b_);
+        addExc(b_);
+        b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
+        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(false);
+        addExcOk(b_);
+        assertTrue(curRet(b_).getContext().excList().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp109() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public annotation pkg.Ex {int exmeth();}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        addStd(b_);
+        selectStd(b_, curRet(b_).getPageEl().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,curRet(b_).getPageEl().getCharSeq().getAliasSubstring(),false,curRet(b_).getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
+        addStd(b_);
+        selectStd(b_, curRet(b_).getPageEl().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,curRet(b_).getPageEl().getCharSeq().getAliasSubstring(),false,curRet(b_).getContext().getStandards().getPrimTypes().getAliasPrimInteger(),curRet(b_).getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
+        assertTrue(curRet(b_).getContext().stdList().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp110() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int v;public static int exmeth(){return 1;}}public class pkg.Ex2 {public static int v;public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addExc(b_);
+        b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
+        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        addExcOk(b_);
+        addExc(b_);
+        b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex2");
+        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        addExcOk(b_);
+        assertTrue(curRet(b_).getContext().excList().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp111() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex<T> {public static int v;public static int exmeth(){return 1;}}public class pkg.Ex2 {public static int v;public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addExc(b_);
+        b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex<int>");
+        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        addExcOk(b_);
+        addExc(b_);
+        b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex<long>");
+        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        addExcOk(b_);
+        assertTrue(curRet(b_).getContext().excList().elts().iterator().hasNext());
     }
     @Test
     public void syntheFilter1() {

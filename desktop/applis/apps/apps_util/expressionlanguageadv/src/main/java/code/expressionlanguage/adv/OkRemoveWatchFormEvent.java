@@ -21,7 +21,7 @@ public final class OkRemoveWatchFormEvent implements AbsActionListener {
         currentResult.getContext().watchList().remove(frameExcFormContent.getSelectedWp());
         frameExcFormContent.setSelectedWp(null);
         framePoints.guiContentBuildClear();
-        framePoints.refreshWatch(window, currentResult);
+        framePoints.refreshWatch(currentResult);
         framePoints.getCommonFrame().pack();
         ToggleBreakPointEvent.afterToggle(currentResult,window.selectedTab());
     }

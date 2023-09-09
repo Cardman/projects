@@ -12,7 +12,7 @@ public final class AnaRendStdElement extends AnaRendElement {
     }
 
     @Override
-    public StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public StringList processListAttributes(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         AnaRendBlock par_ = this;
         while (par_ != null) {
             if (par_ instanceof AnaRendMessage || par_ instanceof AnaRendImport) {

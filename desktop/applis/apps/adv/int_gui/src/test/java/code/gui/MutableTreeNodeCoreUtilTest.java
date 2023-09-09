@@ -8,6 +8,8 @@ public final class MutableTreeNodeCoreUtilTest extends EquallableIntGuiUtil {
     public void t1() {
         MutableTreeNodeCore t_ = new MutableTreeNodeCore();
         assertEq(-1,MutableTreeNodeCoreUtil.getIndex(t_));
+        assertEq(-1,MutableTreeNodeCoreUtil.getNullableIndex(t_));
+        assertEq(-1,MutableTreeNodeCoreUtil.getNullableIndex(null));
         assertNull(MutableTreeNodeCoreUtil.getParent(t_));
         assertNull(MutableTreeNodeCoreUtil.getChildAt(t_,0));
     }

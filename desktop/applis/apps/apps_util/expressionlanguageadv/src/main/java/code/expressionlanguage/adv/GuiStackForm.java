@@ -36,11 +36,12 @@ public final class GuiStackForm {
     private AbsScrollPane staScIncExc;
     private AbsSpinner pref;
     private final CrudGeneForm<String,Integer> prefs;
-    private final DependantPointsForm dependantPointsForm = new DependantPointsForm();
+    private final DependantPointsForm dependantPointsForm;
     private final CustList<AbsCallContraints> mustBe = new CustList<AbsCallContraints>();
     private final CustList<AbsCallContraints> mustNotBe = new CustList<AbsCallContraints>();
     public GuiStackForm(AbstractProgramInfos _c) {
         prefs = new CrudGeneForm<String,Integer>(_c,new NaturalComparator());
+        dependantPointsForm = new DependantPointsForm(_c.getCompoFactory());
     }
 
     public void add(ResultContext _res, CustList<AbsCallContraints> _list, ReadOnlyFormTabEditor _e) {

@@ -24,7 +24,7 @@ public final class AnaRendImg extends AnaRendElement implements AnaRendElementAt
         rootSrc = getRootAnalyzedOperations(0, _anaDoc, _page, resultExpressionSrc);
     }
     @Override
-    public StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public StringList processListAttributes(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         StringList list_ = attrList(_anaDoc);
         list_.removeAllString(_anaDoc.getRendKeyWords().getAttrSrc());
         return list_;

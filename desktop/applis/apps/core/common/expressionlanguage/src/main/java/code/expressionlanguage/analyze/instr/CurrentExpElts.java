@@ -1,9 +1,9 @@
 package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnaBlockCounts;
+import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.FileResolverContext;
-import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.files.FileAliases;
 import code.expressionlanguage.analyze.files.SegmentStringPart;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
@@ -15,9 +15,9 @@ public final class CurrentExpElts {
     private final FileBlock file;
     private final int instrLoc;
     private final ResultExpression res;
-    private final RootBlock rootBlock;
+    private final AccessedBlock rootBlock;
 
-    public CurrentExpElts(FileResolverContext _ctx, String _packageName, FileBlock _file, int _instrLoc, ResultExpression _rs, RootBlock _r) {
+    public CurrentExpElts(FileResolverContext _ctx, String _packageName, FileBlock _file, int _instrLoc, ResultExpression _rs, AccessedBlock _r) {
         cont = _ctx;
         this.packageName = _packageName;
         this.file = _file;
@@ -26,7 +26,7 @@ public final class CurrentExpElts {
         rootBlock = _r;
     }
 
-    public RootBlock getRootBlock() {
+    public AccessedBlock getRootBlock() {
         return rootBlock;
     }
 

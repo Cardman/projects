@@ -25,9 +25,9 @@ public final class ToggleBreakPointEnabledEvent implements AbsActionListener {
         AbsPairPoint pair_ = currentResult.tryGetPair(tabEditor.getFullPath(), tabEditor.getCenter().getCaretPosition());
         FramePoints fp_ = window.getFramePoints();
         updateSelectedChecked(pair_, fp_);
-        fp_.refreshBp(window, currentResult);
-        fp_.refreshMethod(window, currentResult);
-        fp_.refreshWatch(window, currentResult);
+        fp_.refreshBp(currentResult);
+        fp_.refreshMethod(currentResult);
+        fp_.refreshWatch(currentResult);
         fp_.getCommonFrame().pack();
         ToggleBreakPointEvent.afterToggle(currentResult, tabEditor);
     }

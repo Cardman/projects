@@ -56,7 +56,6 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
     private int nameOverrideNumber;
     private String returnTypeGet = "";
     private AccessedBlock accessedBlock;
-    private RootBlock parentType;
     private int indexEnd;
     private final StringList allReservedInners = new StringList();
     private int numberLambda;
@@ -501,13 +500,6 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
             return;
         }
         this.returnTypeGet = _returnType;
-    }
-    public RootBlock getParentType() {
-        return parentType;
-    }
-
-    public void setParentType(RootBlock _parentType) {
-        this.parentType = _parentType;
     }
 
     public AccessedBlock getAccessedBlock() {

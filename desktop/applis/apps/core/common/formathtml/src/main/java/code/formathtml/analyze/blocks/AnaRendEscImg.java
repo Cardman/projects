@@ -13,7 +13,7 @@ public final class AnaRendEscImg extends AnaRendElement {
     }
 
     @Override
-    public StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public StringList processListAttributes(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         return attrList(_anaDoc);
     }
 }

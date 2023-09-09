@@ -50,7 +50,7 @@ public final class AnaRendLink extends AnaRendElement implements AnaRendElementA
     }
 
     @Override
-    public StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public StringList processListAttributes(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         StringList list_ = attrList(_anaDoc);
         list_.removeAllString(_anaDoc.getRendKeyWords().getAttrHref());
         list_.removeAllString(_anaDoc.getRendKeyWords().getAttrRel());

@@ -77,7 +77,7 @@ public final class AnaRendTextArea extends AnaRendElement implements AnaRendBuil
     }
 
     @Override
-    public StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public StringList processListAttributes(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         StringList list_ = attrList(_anaDoc);
         list_.removeAllString(_anaDoc.getRendKeyWords().getAttrName());
         list_.removeAllString(_anaDoc.getRendKeyWords().getAttrNi());

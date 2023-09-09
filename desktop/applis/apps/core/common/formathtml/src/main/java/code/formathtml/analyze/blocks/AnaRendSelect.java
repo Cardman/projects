@@ -239,7 +239,7 @@ public final class AnaRendSelect extends AnaRendElement implements AnaRendBuildE
     }
 
     @Override
-    public StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public StringList processListAttributes(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         StringList list_ = attrList(_anaDoc);
         list_.removeAllString(_anaDoc.getRendKeyWords().getAttrMap());
         list_.removeAllString(_anaDoc.getRendKeyWords().getAttrDefault());

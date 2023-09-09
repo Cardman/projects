@@ -81,7 +81,7 @@ public final class FrameExcFormContent {
         GuiBaseUtil.removeActionListeners(ok);
         ok.addActionListener(new OkExcFormEvent(_d,this, _p, _r));
         GuiBaseUtil.removeActionListeners(remove);
-        remove.addActionListener(new OkRemoveExcFormEvent(_d, this, _p, _r));
+        remove.addActionListener(new OkRemoveExcFormEvent(this, _p, _r));
         getGuiThrownStackForm().refresh(_v, "", _r, _d);
         getGuiCaughtStackForm().refresh(_v, "", _r, _d);
         getGuiPropagatedStackForm().refresh(_v, "", _r, _d);

@@ -21,7 +21,7 @@ public final class OkRemoveMpFormEvent implements AbsActionListener {
         currentResult.getContext().metList().remove(frameExcFormContent.getSelectedMp());
         frameExcFormContent.setSelectedMp(null);
         framePoints.guiContentBuildClear();
-        framePoints.refreshWatch(window, currentResult);
+        framePoints.refreshMethod(currentResult);
         framePoints.getCommonFrame().pack();
         ToggleBreakPointEvent.afterToggle(currentResult,window.selectedTab());
     }

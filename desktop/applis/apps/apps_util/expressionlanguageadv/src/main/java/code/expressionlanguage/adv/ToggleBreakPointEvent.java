@@ -30,9 +30,9 @@ public final class ToggleBreakPointEvent implements AbsActionListener {
         AbsPairPoint after_ = state(currentResult,pair_);
         FramePoints fp_ = window.getFramePoints();
         ToggleBreakPointEnabledEvent.removeIfUsed(before_, after_, fp_);
-        fp_.refreshBp(window, currentResult);
-        fp_.refreshMethod(window, currentResult);
-        fp_.refreshWatch(window, currentResult);
+        fp_.refreshBp(currentResult);
+        fp_.refreshMethod(currentResult);
+        fp_.refreshWatch(currentResult);
         fp_.getCommonFrame().pack();
         afterToggle(currentResult, tabEditor);
     }

@@ -39,7 +39,7 @@ public final class OkExcFormEvent implements AbsActionListener {
         update(exc_, exc_.getValue().getResultPropagated(), window, frameExcFormContent.getGuiPropagatedStackForm(), currentResult);
         frameExcFormContent.setSelectedExc(null);
         framePoints.guiContentBuildClear();
-        framePoints.refreshExc(window, currentResult);
+        framePoints.refreshExc(currentResult);
         framePoints.getCommonFrame().pack();
     }
     private static void update(ExcPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, ResultContext _curr) {

@@ -22,7 +22,7 @@ public final class ToggleWatchPointEnabledEvent implements AbsActionListener {
         currentResult.toggleWatchPointEnabled(tabEditor.getFullPath(), tabEditor.getCenter().getCaretPosition());
         FramePoints fp_ = window.getFramePoints();
         ToggleBreakPointEnabledEvent.updateSelectedChecked(keyCle(currentResult,tabEditor),fp_);
-        fp_.refreshWatch(window, currentResult);
+        fp_.refreshWatch(currentResult);
         fp_.getCommonFrame().pack();
         ToggleBreakPointEvent.afterToggle(currentResult, tabEditor);
     }

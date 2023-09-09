@@ -65,7 +65,6 @@ public final class ResultExpressionOperationNode {
                 }
             }
         }
-        a_.setCurrentFile(_trField.getRoot().getFile());
         a_.setImportingAcces(new AllAccessedTypes());
         return a_;
     }
@@ -96,13 +95,10 @@ public final class ResultExpressionOperationNode {
         if (r_ != null) {
             field(a_,r_,false);
             if (_exact) {
-                a_.setGlobalType(new AnaFormattedRootBlock(r_,_id));
                 a_.setOriginalGlobalType(new AnaFormattedRootBlock(r_,_id));
             }
-            a_.setCurrentFile(r_.getFile());
         } else {
             a_.setAccessStaticContext(MethodAccessKind.INSTANCE);
-            a_.setGlobalType(new AnaFormattedRootBlock((RootBlock)null,_id));
             a_.setOriginalGlobalType(new AnaFormattedRootBlock((RootBlock)null,_id));
         }
         a_.setImportingAcces(new AllAccessedTypes());
@@ -117,9 +113,9 @@ public final class ResultExpressionOperationNode {
         a_.setCurrentPkg(a_.getDefaultPkg());
         setAnnot(c_, a_);
         if (a_.isAnnotAnalysis()) {
-            return annotationCase(file_, c_, a_);
+            return annotationCase(c_, a_);
         }
-        return notAnnot(_flag, file_, a_, c_.block);
+        return notAnnot(_flag, a_, c_.block);
     }
     public static AnalyzedPageEl prepare(StdMethodPointBlockPair _instance, AnalyzedPageEl _original) {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
@@ -132,7 +128,6 @@ public final class ResultExpressionOperationNode {
         } else {
             a_.setAccessStaticContext(MethodAccessKind.STATIC);
         }
-        a_.setGlobalType(new AnaFormattedRootBlock((RootBlock)null,std_.getFullName()));
         a_.setOriginalGlobalType(new AnaFormattedRootBlock((RootBlock)null,std_.getFullName()));
         a_.setImportingAcces(new AllAccessedTypes());
         ClassesUtil.prepare(id_, a_);
@@ -143,10 +138,10 @@ public final class ResultExpressionOperationNode {
         a_.setDynamic(true);
         a_.setCurrentBlock(_instance.getMp().getId());
         a_.setCurrentPkg(a_.getDefaultPkg());
-        return notAnnot(_flag, _instance.getMp().getId().getFile(), a_, _instance.getMp().getId());
+        return notAnnot(_flag, a_, _instance.getMp().getId());
     }
 
-    private static AnalyzedPageEl notAnnot(MethodAccessKind _flag, FileBlock _file, AnalyzedPageEl _a, AbsBk _block) {
+    private static AnalyzedPageEl notAnnot(MethodAccessKind _flag, AnalyzedPageEl _a, AbsBk _block) {
         MemberCallingsBlock m_ = AbsBk.getOuterFuntionInType(_block);
         if (AbsBk.isAnonBlock(m_)) {
             _a.setupFctChars((NamedCalledFunctionBlock) m_);
@@ -163,7 +158,7 @@ public final class ResultExpressionOperationNode {
         } else {
             RootBlock par_ = parent(m_);
             if (par_ != null) {
-                ClassesUtil.globalType(_a, par_);
+                _a.setImporting(par_);
                 _a.setCurrentPkg(par_.getPackageName());
             }
         }
@@ -176,7 +171,6 @@ public final class ResultExpressionOperationNode {
             ClassesUtil.prepare(m_, _a);
         }
         typeOrField(_flag, _a, _block);
-        _a.setCurrentFile(_file);
         _a.setImportingAcces(new AllAccessedTypes());
         return _a;
     }
@@ -186,7 +180,7 @@ public final class ResultExpressionOperationNode {
             field(_a, ((InfoBlock) _bl).getDeclaringType(), ((InfoBlock) _bl).isStaticField());
         } else if (_bl instanceof RootBlock) {
             _a.setAccessStaticContext(_flag);
-            ClassesUtil.globalType(_a, (AccessedBlock) _bl);
+            _a.setImporting((AccessedBlock) _bl);
             _a.setCurrentPkg(((RootBlock) _bl).getPackageName());
             _a.setCurrentFct(null);
             _a.getMappingLocal().addAllEntries(((RootBlock) _bl).getRefMappings());
@@ -194,7 +188,7 @@ public final class ResultExpressionOperationNode {
     }
 
     private static void field(AnalyzedPageEl _a, RootBlock _decl, boolean _stat) {
-        ClassesUtil.globalType(_a, _decl);
+        _a.setImporting(_decl);
         if (_stat) {
             _a.setAccessStaticContext(MethodAccessKind.STATIC);
         } else {
@@ -211,7 +205,7 @@ public final class ResultExpressionOperationNode {
         }
     }
 
-    private static AnalyzedPageEl annotationCase(FileBlock _file, ResultExpressionOperationNode _c, AnalyzedPageEl _a) {
+    private static AnalyzedPageEl annotationCase(ResultExpressionOperationNode _c, AnalyzedPageEl _a) {
         AbsBk m_ = _c.block;
         if (AbsBk.isAnonBlock(m_)) {
             _a.setupFctChars((NamedCalledFunctionBlock) m_);
@@ -231,7 +225,7 @@ public final class ResultExpressionOperationNode {
                 par_ = null;
             }
             if (par_ != null) {
-                ClassesUtil.globalType(_a, par_);
+                _a.setImporting(par_);
                 _a.setCurrentPkg(par_.getPackageName());
                 _a.getMappingLocal().addAllEntries(par_.getRefMappings());
             } else {
@@ -239,7 +233,6 @@ public final class ResultExpressionOperationNode {
             }
         }
         _a.setCurrentFct(null);
-        _a.setCurrentFile(_file);
         _a.setAccessStaticContext(MethodAccessKind.STATIC);
         _a.setImportingAcces(new AllAccessedTypes());
         return _a;

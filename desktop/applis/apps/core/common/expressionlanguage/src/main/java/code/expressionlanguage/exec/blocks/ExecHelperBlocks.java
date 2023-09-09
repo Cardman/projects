@@ -441,6 +441,7 @@ public final class ExecHelperBlocks {
         if (_stack.stopAt(_cont)) {
             return;
         }
+        ip_.clearCurrentEls();
         _bl.processCase(_label,arg_, _stack);
     }
 
@@ -913,7 +914,6 @@ public final class ExecHelperBlocks {
         }
         if (argFrom_.isNull()) {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_, _stackCall)));
-            ip_.clearCurrentEls();
             return null;
         }
         ip_.globalOffset(_exp.getOffset());
@@ -923,7 +923,6 @@ public final class ExecHelperBlocks {
         }
         if (argTo_.isNull()) {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_, _stackCall)));
-            ip_.clearCurrentEls();
             return null;
         }
         ip_.globalOffset(_step.getOffset());
@@ -933,7 +932,6 @@ public final class ExecHelperBlocks {
         }
         if (argStep_.isNull()) {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_, _stackCall)));
-            ip_.clearCurrentEls();
             return null;
         }
         ip_.globalOffset(_block.getVariable().getOffset());

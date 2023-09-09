@@ -75,7 +75,6 @@ public final class ResultContext {
 
     public static AnalyzedPageEl defFilterUser(AnalyzedPageEl _base, StringMap<String> _files, StringMap<String> _src) {
         AnalyzedPageEl copy_ = AnalyzedPageEl.copy(_base);
-        copy_.getFoundTypes().addAllElts(_base.getFoundTypes());
         copy_.setResources(_files);
         return ClassesUtil.buildUserCode(_src, copy_);
     }

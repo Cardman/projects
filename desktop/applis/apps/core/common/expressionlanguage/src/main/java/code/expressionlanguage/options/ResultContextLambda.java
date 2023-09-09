@@ -113,9 +113,8 @@ public final class ResultContextLambda {
         FileBlock anonFile_ = new FileBlock(0, false, "", new DefaultFileEscapedCalc());
         _a.setCurrentFile(anonFile_);
         anonFile_.metrics(dynLda_);
-        anonFile_.setNumberFile(_a.getFilesBodies().size()+_a.getPreviousFilesBodies().size());
-        _a.putFileBlock("", anonFile_);
-        _a.getPreviousFilesBodies().addEntry("",anonFile_);
+        _a.putFileBlock(anonFile_);
+        _a.backupFiles();
         FileBlock file_ = _a.getCurrentFile();
         MethodAccessKind stCtx_ = _a.getStaticContext();
         MemberCallingsBlock memb_ = _a.getCurrentFct();
@@ -128,7 +127,7 @@ public final class ResultContextLambda {
         resultExpression_.setAnalyzedString(value_);
         resultExpression_.setSumOffset(l_.getExpressionOffset());
         IntermediaryResults anon_ = new IntermediaryResults();
-        extractAnon(_a, anon_, _a.getGlobalType().getRootBlock(), resultExpression_);
+        extractAnon(_a, anon_, resultExpression_);
 
         _a.setNextResults(SplitExpressionUtil.anonymous(anon_, _a));
         _a.setCurrentFct(memb_);
@@ -155,14 +154,14 @@ public final class ResultContextLambda {
         return new ResultContextLambda(ctx_, ForwardInfos.buildAnonFctPair(forwards_, mainLambda_), _a.getMessages(), d_, mainLambda_);
     }
 
-    private static void extractAnon(AnalyzedPageEl _page, IntermediaryResults _int, RootBlock _type, ResultExpression _resultExpression) {
+    private static void extractAnon(AnalyzedPageEl _page, IntermediaryResults _int, ResultExpression _resultExpression) {
         _page.setSumOffset(_resultExpression.getSumOffset());
-        ElRetrieverAnonymous.commonCheckQuick(0, _page, _resultExpression, _type);
-        feedResult(_page, _resultExpression, _int, _type);
+        ElRetrieverAnonymous.commonCheckQuick(0, _page, _resultExpression, _page.getImporting());
+        feedResult(_page, _resultExpression, _int);
     }
 
-    private static void feedResult(AnalyzedPageEl _page, ResultExpression _resultExpression, IntermediaryResults _int, RootBlock _type) {
-        SplitExpressionUtil.feed(_page,_resultExpression, _int, _type, _page.getImporting());
+    private static void feedResult(AnalyzedPageEl _page, ResultExpression _resultExpression, IntermediaryResults _int) {
+        SplitExpressionUtil.feed(_page,_resultExpression, _int, _page.getImporting());
     }
 
     public static ReportedMessages after(ResultContextLambda _res) {
@@ -185,19 +184,6 @@ public final class ResultContextLambda {
         }
         return StringUtil.nullToEmpty(_str);
     }
-//    private static AccessedBlock tryGetOperator(BracedBlock _mem) {
-//        AccessedBlock op_ = null;
-//        if (AbsBk.isAnonBlock(_mem)) {
-//            op_ = ((NamedCalledFunctionBlock) _mem).getAccessedBlock();
-//        }
-//        if (_mem instanceof OperatorBlock) {
-//            op_ = (OperatorBlock) _mem;
-//        }
-//        if (_mem instanceof SwitchMethodBlock) {
-//            op_ = ((SwitchMethodBlock) _mem).getAccessedBlock();
-//        }
-//        return op_;
-//    }
     public StackCallReturnValue eval(ContextEl _original, CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
         prepare(_original);
         return eval(_addon,_page);

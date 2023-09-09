@@ -29,7 +29,7 @@ public final class AnaRendAnchor extends AnaRendElement implements AnaRendElemen
     }
 
     @Override
-    public StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public StringList processListAttributes(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         StringList list_ = attrList(_anaDoc);
         list_.removeAllString(_anaDoc.getRendKeyWords().getAttrHref());
         list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));

@@ -21,7 +21,7 @@ public final class OkRemoveBpFormEvent implements AbsActionListener {
         currentResult.bpList().remove(frameExcFormContent.getSelectedBp());
         frameExcFormContent.setSelectedBp(null);
         framePoints.guiContentBuildClear();
-        framePoints.refreshWatch(window, currentResult);
+        framePoints.refreshBp(currentResult);
         framePoints.getCommonFrame().pack();
         ToggleBreakPointEvent.afterToggle(currentResult,window.selectedTab());
     }

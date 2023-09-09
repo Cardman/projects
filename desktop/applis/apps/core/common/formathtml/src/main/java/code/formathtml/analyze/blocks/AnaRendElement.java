@@ -69,7 +69,7 @@ public abstract class AnaRendElement extends AnaRendParentBlock implements AnaRe
         return attributesNames_;
     }
 
-    public abstract StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page);
+    public abstract StringList processListAttributes(AnalyzingDoc _anaDoc, AnalyzedPageEl _page);
 
     public final Element getRead() {
         return read;

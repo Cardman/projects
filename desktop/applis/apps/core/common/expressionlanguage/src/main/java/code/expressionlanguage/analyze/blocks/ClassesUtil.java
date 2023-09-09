@@ -293,8 +293,7 @@ public final class ClassesUtil {
         validateEl(_page);
         processAnonymous(_page);
         postValidation(_page);
-        _page.getPreviousFilesBodies().addAllEntries(_page.getFilesBodies());
-        _page.getFilesBodies().clear();
+        _page.backupFiles();
     }
     public static AnalyzedPageEl buildAllBracesBodies(StringMap<String> _files, AnalyzedPageEl _page) {
         buildCoreBracesBodies(_page);
@@ -304,12 +303,11 @@ public final class ClassesUtil {
     public static AnalyzedPageEl buildUserCode(StringMap<String> _files, AnalyzedPageEl _page) {
         AnalyzedPageEl copy_ = AnalyzedPageEl.copy(_page);
         copy_.setCustomAna(false);
-        copy_.getPrevFoundTypes().addAllElts(_page.getFoundTypes());
-        copy_.getPreviousFilesBodies().addAllEntries(_page.getFilesBodies());
+//        copy_.getPrevFoundTypes().addAllElts(_page.getFoundTypes());
+//        copy_.getPreviousFilesBodies().addAllEntries(_page.getFilesBodies());
         buildFilesBodies(_files,false, copy_);
         parseFiles(copy_);
-        copy_.getPreviousFilesBodies().addAllEntries(copy_.getFilesBodies());
-        copy_.getFilesBodies().clear();
+        copy_.backupFiles();
         validateInheritingClasses(copy_);
         validateIdsOperators(copy_);
         validateIds(copy_);
@@ -375,18 +373,17 @@ public final class ClassesUtil {
 
     private static void nbTypesOpers(AnalyzedPageEl _page, OperatorBlock _o) {
         for (RootBlock c: _page.getCountElts().getAnonTypes().get(_o.getAccessMemNb())) {
-            StringMap<Integer> countsAnon_ = _page.getCountsAnon();
-            incre(c, countsAnon_, c.getName(), "*");
+            incre(c, _page.getCountsAnon(), c.getName(), "*");
         }
         for (RootBlock c: _page.getCountElts().getLocalTypes().get(_o.getAccessMemNb())) {
             incre(c, _page.getCounts(), c.getName(), "+");
         }
     }
 
-    public static void incre(RootBlock _r, StringMap<Integer> _map, String _name, String _pref) {
-        Integer val_ = _map.getVal(_name);
+    public static void incre(RootBlock _r, StringMap<Long> _map, String _name, String _pref) {
+        Long val_ = _map.getVal(_name);
         if (val_ == null) {
-            _map.put(_name,1);
+            _map.put(_name,1L);
             _r.setSuffix(_pref +1);
         } else {
             _map.put(_name,val_+1);
@@ -408,6 +405,8 @@ public final class ClassesUtil {
         for (IntermediaryResults s:_page.getNextResults()) {
             intermediateResult(_page, s);
         }
+        _page.getPrevFoundTypes().addAllElts(_page.getFoundTypes());
+        _page.getFoundTypes().clear();
     }
 
     private static void intermediateResult(AnalyzedPageEl _page, IntermediaryResults _s) {
@@ -527,7 +526,7 @@ public final class ClassesUtil {
         buildFilesBodies(files_,true, _page);
         buildFilesBodies(_files,false, _page);
         parseFiles(_page);
-        _page.getPreviousFilesBodies().addAllEntries(_page.getFilesBodies());
+        _page.backupFiles();
     }
 
     private static void processBracedClass(boolean _add, RootBlock _root, AnalyzedPageEl _page) {
@@ -811,8 +810,7 @@ public final class ClassesUtil {
             String content_ = f.getValue();
             FileBlock fileBlock_ = new FileBlock(0,_predefined, file_, new DefaultFileEscapedCalc());
             _page.setCurrentFile(fileBlock_);
-            fileBlock_.setNumberFile(_page.getFilesBodies().size()+_page.getPreviousFilesBodies().size());
-            _page.putFileBlock(file_, fileBlock_);
+            _page.putFileBlock(fileBlock_);
             fileBlock_.processLinesTabsWithError(content_, _page);
         }
     }
@@ -1702,10 +1700,8 @@ public final class ClassesUtil {
     private static void ok(AnalyzedPageEl _page, RootBlock _s, StringMap<StringList> _cts, TypeVar _t){
         String objectClassName_ = _page.getAliasObject();
         StringList upper_ = Mapping.getAllUpperBounds(_cts, _t.getName(), objectClassName_);
-        StringList upperNotObj_ = new StringList();
         for (String b: upper_) {
             checkBoundsTypes(_page, _s, b);
-            upperNotObj_.add(b);
         }
         checkDuplicatesFct(_page, _s, upper_);
     }

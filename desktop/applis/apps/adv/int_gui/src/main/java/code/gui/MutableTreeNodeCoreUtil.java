@@ -26,6 +26,12 @@ public final class MutableTreeNodeCoreUtil {
         return children(par_).indexOfObj(_c);
     }
 
+    public static int getNullableIndex(AbstractMutableTreeNodeCore _c) {
+        if (_c == null) {
+            return -1;
+        }
+        return getIndex(_c);
+    }
     public static int getAntiIndex(AbstractMutableTreeNodeCore _c,AbstractMutableTreeNodeCore _m) {
         return children(_c).indexOfObj(_m);
     }

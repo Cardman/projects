@@ -48,7 +48,7 @@ public final class OkWpFormEvent implements AbsActionListener {
         update(wp_,wp_.getValue().getResultCompoundWriteErr(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundWriteErrStackForm(),true, currentResult);
         window.getFramePoints().getFrameWpFormContent().setSelectedWp(null);
         window.getFramePoints().guiContentBuildClear();
-        window.getFramePoints().refreshWatch(window, currentResult);
+        window.getFramePoints().refreshWatch(currentResult);
         window.getFramePoints().getCommonFrame().pack();
         ToggleBreakPointEvent.afterToggle(currentResult,window.selectedTab());
     }

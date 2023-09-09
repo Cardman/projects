@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
@@ -14,19 +13,11 @@ public final class FramePoints {
     private final FrameMpForm frameFormContent;
     private final FrameWpFormContent frameWpFormContent;
     private final FrameBpFormContent frameBpFormContent;
-    private AbsPanel excFrom;
-    private AbsPanel stdForm;
-    private AbsPanel wpForm;
-    private AbsPanel metForm;
-    private AbsPanel bpForm;
+    private final FramePointsTree framePointsTree;
     private AbsScrollPane view;
-    private AbsPlainButton addExc;
-    private AbsPlainButton addStd;
-    private AbsPlainButton addWp;
-    private AbsPlainButton addMet;
-    private AbsPlainButton addBp;
 
     public FramePoints(AbsDebuggerGui _d, String _lg, AbstractProgramInfos _list) {
+        framePointsTree = new FramePointsTree(_d.getCompoFactory());
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         commonFrame.addWindowListener(new CancelFramePointsEvent(_d));
         frameExcFormContent = new FrameExcFormContent(_list);
@@ -38,21 +29,9 @@ public final class FramePoints {
     public void guiBuild(AbsDebuggerGui _d) {
         view = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
         AbsPanel all_ = _d.getCommonFrame().getFrames().getCompoFactory().newLineBox();
-        excFrom = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        stdForm = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        wpForm = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        metForm = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        bpForm = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        addExc = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add exc");
-        addStd = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add std");
-        addWp = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add watch");
-        addMet = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add method");
-        addBp = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add method");
-        all_.add(bpForm);
-        all_.add(wpForm);
-        all_.add(excFrom);
-        all_.add(metForm);
-        all_.add(stdForm);
+        framePointsTree.guiBuild();
+        all_.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(framePointsTree.getTree()));
+        all_.add(framePointsTree.getCreate());
         all_.add(view);
         commonFrame.setContentPane(all_);
         frameExcFormContent.guiBuild(_d);
@@ -63,20 +42,10 @@ public final class FramePoints {
     }
     public void refresh(StringMap<String> _v, AbsDebuggerGui _d, ResultContext _r) {
         frameExcFormContent.refresh(_v, _r, _d, this);
-        GuiBaseUtil.removeActionListeners(addExc);
-        addExc.addActionListener(new ExcPointBlockPairEvent(this,null,_r));
-        GuiBaseUtil.removeActionListeners(addStd);
-        addStd.addActionListener(new StdPointBlockPairEvent(this,null,_r));
-        GuiBaseUtil.removeActionListeners(addWp);
-        addWp.addActionListener(new WpPointBlockPairEvent(this,null,_r));
-        GuiBaseUtil.removeActionListeners(addMet);
-        addMet.addActionListener(new PointBlockPairEvent(this,null,_r));
-        GuiBaseUtil.removeActionListeners(addBp);
-        addBp.addActionListener(new BreakPointBlockPairEvent(this,null,_r));
         GuiBaseUtil.removeActionListeners(frameStdFormContent.getOk());
         GuiBaseUtil.removeActionListeners(frameStdFormContent.getRemove());
         frameStdFormContent.getOk().addActionListener(new OkStdMpFormEvent(_d,frameStdFormContent, this, _r));
-        frameStdFormContent.getRemove().addActionListener(new OkRemoveStdFormEvent(_d, frameStdFormContent, this, _r));
+        frameStdFormContent.getRemove().addActionListener(new OkRemoveStdFormEvent(frameStdFormContent, this, _r));
         GuiBaseUtil.removeActionListeners(frameFormContent.getOk());
         GuiBaseUtil.removeActionListeners(frameFormContent.getRemove());
         frameFormContent.getOk().addActionListener(new OkMpFormEvent(_d, _r));
@@ -91,68 +60,28 @@ public final class FramePoints {
             return;
         }
         view.setNullViewportView();
-        refreshExc(_d, _res);
+        framePointsTree.init(this,_res);
         frameStdFormContent.tree(_d,this, _res);
-        refreshStdMethod(_d, _res);
-        refreshWatch(_d, _res);
-        refreshMethod(_d, _res);
-        refreshBp(_d, _res);
         commonFrame.setVisible(true);
         commonFrame.pack();
     }
-    public void refreshBp(AbsDebuggerGui _d, ResultContext _res) {
-        bpForm.removeAll();
-        for (BreakPointBlockPair p: _res.bpList().elts()) {
-            AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(ExecFileBlock.name(p.getBp().getFile())+":"+p.getBp().getOffset());
-            but_.addActionListener(new BreakPointBlockPairEvent(this,p,_res));
-            bpForm.add(but_);
-        }
-        bpForm.add(addBp);
+    public void refreshBp(ResultContext _res) {
+        framePointsTree.refreshBp(_res);
     }
-    public void refreshExc(AbsDebuggerGui _d, ResultContext _res) {
-        excFrom.removeAll();
-        for (ExcPointBlockPair p: _res.getContext().excList().elts()) {
-            AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton();
-            if (p.getEp().isExact()) {
-                but_.setText("exact "+p.getEp().getClName());
-            } else {
-                but_.setText("inherit "+p.getEp().getClName());
-            }
-            but_.addActionListener(new ExcPointBlockPairEvent(this,p,_res));
-            excFrom.add(but_);
-        }
-        excFrom.add(addExc);
+    public void refreshExc(ResultContext _res) {
+        framePointsTree.refreshException(_res);
     }
 
-    public void refreshStdMethod(AbsDebuggerGui _d, ResultContext _res) {
-        stdForm.removeAll();
-        for (StdMethodPointBlockPair p: _res.getContext().stdList().elts()) {
-            AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton();
-            but_.setText(p.getSm().keyStr());
-            but_.addActionListener(new StdPointBlockPairEvent(this,p,_res));
-            stdForm.add(but_);
-        }
-        stdForm.add(addStd);
+    public void refreshStdMethod(ResultContext _res) {
+        framePointsTree.refreshStdMethod(_res);
     }
 
-    public void refreshMethod(AbsDebuggerGui _d, ResultContext _res) {
-        metForm.removeAll();
-        for (MethodPointBlockPair p: _res.getContext().metList().elts()) {
-            AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton();
-            but_.setText(p.getSgn());
-            but_.addActionListener(new PointBlockPairEvent(this,p,_res));
-            metForm.add(but_);
-        }
-        metForm.add(addMet);
+    public void refreshMethod(ResultContext _res) {
+        framePointsTree.refreshMethod(_res);
     }
-    public void refreshWatch(AbsDebuggerGui _d, ResultContext _res) {
-        wpForm.removeAll();
-        for (WatchPointBlockPair p: _res.getContext().watchList().elts()) {
-            AbsPlainButton but_ = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(displayWatch(p));
-            but_.addActionListener(new WpPointBlockPairEvent(this,p,_res));
-            wpForm.add(but_);
-        }
-        wpForm.add(addWp);
+    public void refreshWatch(ResultContext _res) {
+        framePointsTree.refreshWp(_res);
+        framePointsTree.refreshWpAnnot(_res);
     }
     public static String displayWatch(WatchPointBlockPair _p) {
         if (_p.getWp().isTrueField()) {
@@ -160,44 +89,8 @@ public final class FramePoints {
         }
         return "annot "+_p.getRoot().getFullName()+":"+_p.getWp().fieldName();
     }
-    public AbsPanel getExcFrom() {
-        return excFrom;
-    }
-
-    public AbsPanel getStdForm() {
-        return stdForm;
-    }
-
-    public AbsPanel getMetForm() {
-        return metForm;
-    }
-
-    public AbsPanel getBpForm() {
-        return bpForm;
-    }
-
-    public AbsPanel getWpForm() {
-        return wpForm;
-    }
-
-    public AbsPlainButton getAddExc() {
-        return addExc;
-    }
-
-    public AbsPlainButton getAddBp() {
-        return addBp;
-    }
-
-    public AbsPlainButton getAddMet() {
-        return addMet;
-    }
-
-    public AbsPlainButton getAddWp() {
-        return addWp;
-    }
-
-    public AbsPlainButton getAddStd() {
-        return addStd;
+    public FramePointsTree getFramePointsTree() {
+        return framePointsTree;
     }
 
     public void guiContentBuild(ExcPointBlockPair _exc, ResultContext _r) {

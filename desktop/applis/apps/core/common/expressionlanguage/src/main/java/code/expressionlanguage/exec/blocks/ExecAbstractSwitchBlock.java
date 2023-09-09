@@ -37,7 +37,6 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
 
     protected void addStack(SwitchBlockStack _if, StackCall _stack) {
         AbstractPageEl ip_ = _stack.getLastPage();
-        ip_.clearCurrentEls();
         ExecBlock f_ = visit(_if, ip_, this);
         if (f_ != null) {
             ip_.setBlock(f_);

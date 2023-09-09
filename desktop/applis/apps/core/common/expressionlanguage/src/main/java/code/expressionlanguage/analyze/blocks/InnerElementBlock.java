@@ -27,7 +27,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         super(new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntMap< String>(), _offset, contentRoot(_fieldName.getOffset(), _pkgName, _fieldName.getInfo()));
         elementContent = new AnaElementContent(_m, _fieldName, _type, _value);
         setupOffsets(_fieldName.getInfo().trim(),_pkgName);
-        setParentType(_m);
+        parentType(_m);
     }
 
     @Override

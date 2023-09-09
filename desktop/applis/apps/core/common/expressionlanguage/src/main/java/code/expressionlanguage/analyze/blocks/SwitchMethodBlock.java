@@ -18,7 +18,6 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
 
     private final CustList<ResultParsedAnnots> annotationsParams = new CustList<ResultParsedAnnots>();
 
-    private RootBlock parentType;
     private AccessedBlock accessedBlock;
     private int indexEnd;
     private final StringList allReservedInners = new StringList();
@@ -111,14 +110,6 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
 
     public void setConditionNb(int _conditionNb) {
         conditionNb = _conditionNb;
-    }
-
-    public RootBlock getParentType() {
-        return parentType;
-    }
-
-    public void setParentType(RootBlock _parentType) {
-        this.parentType = _parentType;
     }
 
     public AccessedBlock getAccessedBlock() {

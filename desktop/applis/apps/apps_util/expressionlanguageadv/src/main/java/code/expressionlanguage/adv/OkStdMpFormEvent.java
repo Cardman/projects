@@ -48,7 +48,7 @@ public final class OkStdMpFormEvent implements AbsActionListener {
         update(exc_, exc_.getValue().getResultExit(), _w, _frCont.getGuiExitStackForm(), _curr);
         _frCont.setSelectedMp(null);
         _fp.guiContentBuildClear();
-        _fp.refreshStdMethod(_w, _curr);
+        _fp.refreshStdMethod(_curr);
         _fp.getCommonFrame().pack();
     }
 

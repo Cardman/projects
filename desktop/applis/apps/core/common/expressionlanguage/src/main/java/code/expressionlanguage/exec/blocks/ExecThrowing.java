@@ -24,7 +24,6 @@ public final class ExecThrowing extends ExecLeaf implements WithEl {
         if (_stack.stopAt(_cont)) {
             return;
         }
-        ip_.clearCurrentEls();
         _stack.setCallingState(new CustomFoundExc(Argument.getNull(arg_.getStruct())));
     }
 

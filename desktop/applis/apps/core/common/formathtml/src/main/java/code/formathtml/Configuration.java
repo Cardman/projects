@@ -133,7 +133,7 @@ public final class Configuration {
             }
             AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(document_, file_, _page, _analyzingDoc, es_, fileBl_);
             anaDoc_.setAccessNb(_page.getCountElts().getCountAnon().size());
-            _page.getCountElts().getCountAnon().add(0);
+            _page.getCountElts().getCountAnon().add(0L);
             anaDoc_.setAccessMemNb(_page.getCountElts().getAnonTypes().size());
             _page.getCountElts().getAnonTypes().add(new CustList<AnonymousTypeBlock>());
             _page.getCountElts().getLocalTypes().add(new CustList<RootBlock>());
@@ -158,8 +158,7 @@ public final class Configuration {
         for (AnaRendDocumentBlock v : _d.values()) {
             v.initMetrics(_analyzingDoc,_page,_beansInfosBefore);
         }
-        _page.getPreviousFilesBodies().addAllEntries(_page.getFilesBodies());
-        _page.getFilesBodies().clear();
+        _page.backupFiles();
         _page.setNextResults(RendSplitExpressionUtil.getNextResults(_analyzingDoc,_page,_d.values()));
         for (AnaRendDocumentBlock v : _d.values()) {
             v.buildFctInstructions(_analyzingDoc, _page);

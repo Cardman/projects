@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.files;
 
+import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.blocks.BracedBlock;
-import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -19,7 +19,7 @@ public final class ParsedInstruction {
     private ResultParsedAnnots annotationsTypes;
     private EndInstruction endInstruction = EndInstruction.NONE;
     private BracedBlock currentParent;
-    private RootBlock parentType;
+    private AccessedBlock parentType;
     private String packageName = "";
     private boolean parsed;
     private boolean emptyInstr;
@@ -178,11 +178,11 @@ public final class ParsedInstruction {
         this.emptyInstr = _e;
     }
 
-    public RootBlock getParentType() {
+    public AccessedBlock getParentType() {
         return parentType;
     }
 
-    public void setParentType(RootBlock _p) {
+    public void setParentType(AccessedBlock _p) {
         this.parentType = _p;
     }
 }

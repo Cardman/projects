@@ -1,11 +1,9 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.AbsCustCheckBox;
 import code.gui.AbsPanel;
-import code.gui.AbsPlainButton;
 import code.gui.AbsScrollPane;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
@@ -26,6 +24,7 @@ public final class DependantPointsForm {
     public static final String COMPOUND_READ = "compound read";
     public static final String COMPOUND_WRITE = "compound write";
     public static final String COMPOUND_WRITE_ERR = "compound write err";
+    private final FramePointsTree framePointsTree;
     private AbsPanel excFrom;
     private AbsPanel stdForm;
     private AbsPanel wpForm;
@@ -37,10 +36,14 @@ public final class DependantPointsForm {
     private final Ints selectedCurrent = new Ints();
     private final CustList<AbsCustCheckBox> checks = new IdList<AbsCustCheckBox>();
     private final CustList<AbsCustCheckBox> checksCurrent = new IdList<AbsCustCheckBox>();
+    public DependantPointsForm(AbsCompoFactory _c) {
+        framePointsTree = new FramePointsTree(_c);
+    }
 
     public AbsPanel guiBuild(AbsDebuggerGui _d) {
         compoFactory = _d.getCommonFrame().getFrames().getCompoFactory();
         view = compoFactory.newAbsScrollPane();
+        framePointsTree.guiBuild();
         AbsPanel all_ = compoFactory.newLineBox();
         excFrom = compoFactory.newPageBox();
         stdForm = compoFactory.newPageBox();
@@ -52,6 +55,8 @@ public final class DependantPointsForm {
         all_.add(excFrom);
         all_.add(metForm);
         all_.add(stdForm);
+        all_.add(compoFactory.newAbsScrollPane(framePointsTree.getTree()));
+        all_.add(framePointsTree.getCreate());
         all_.add(view);
         return all_;
     }
@@ -67,11 +72,13 @@ public final class DependantPointsForm {
         selected.clear();
         checksCurrent.clear();
         view.setNullViewportView();
-        refreshExc(_res);
-        refreshStdMethod(_res);
-        refreshWatch(_res);
-        refreshMethod(_res);
-        refreshBp(_res);
+        framePointsTree.refreshList(_res);
+        framePointsTree.listenerSelect(this);
+//        refreshExc(_res);
+//        refreshStdMethod(_res);
+//        refreshWatch(_res);
+//        refreshMethod(_res);
+//        refreshBp(_res);
         if (_add == BreakPoint.BP) {
             bpForm.add(check(STD,BreakPoint.BPC_STD));
             bpForm.add(check(STATIC,BreakPoint.BPC_STATIC));
@@ -92,56 +99,6 @@ public final class DependantPointsForm {
         } else if (_add == StdMethodPointBlockPair.SMP) {
             stdForm.add(check(ENTRY,MethodPoint.BPC_ENTRY));
             stdForm.add(check(EXIT,MethodPoint.BPC_EXIT));
-        }
-    }
-
-    public void refreshBp(ResultContext _res) {
-        bpForm.removeAll();
-        for (BreakPointBlockPair p: _res.bpList().elts()) {
-            AbsPlainButton but_ = compoFactory.newPlainButton(ExecFileBlock.name(p.getBp().getFile())+":"+p.getBp().getOffset());
-            but_.addActionListener(new BreakPointBlockPairChecksEvent(this,p));
-            bpForm.add(but_);
-        }
-    }
-    public void refreshExc(ResultContext _res) {
-        excFrom.removeAll();
-        for (ExcPointBlockPair p: _res.getContext().excList().elts()) {
-            AbsPlainButton but_ = compoFactory.newPlainButton();
-            if (p.getEp().isExact()) {
-                but_.setText("exact "+p.getEp().getClName());
-            } else {
-                but_.setText("inherit "+p.getEp().getClName());
-            }
-            but_.addActionListener(new ExcPointBlockPairChecksEvent(this,p));
-            excFrom.add(but_);
-        }
-    }
-
-    public void refreshStdMethod(ResultContext _res) {
-        stdForm.removeAll();
-        for (StdMethodPointBlockPair p: _res.getContext().stdList().elts()) {
-            AbsPlainButton but_ = compoFactory.newPlainButton();
-            but_.setText(p.getSm().keyStr());
-            but_.addActionListener(new StdPointBlockPairChecksEvent(this,p));
-            stdForm.add(but_);
-        }
-    }
-
-    public void refreshMethod(ResultContext _res) {
-        metForm.removeAll();
-        for (MethodPointBlockPair p: _res.getContext().metList().elts()) {
-            AbsPlainButton but_ = compoFactory.newPlainButton();
-            but_.setText(p.getSgn());
-            but_.addActionListener(new PointBlockPairChecksEvent(this,p));
-            metForm.add(but_);
-        }
-    }
-    public void refreshWatch(ResultContext _res) {
-        wpForm.removeAll();
-        for (WatchPointBlockPair p: _res.getContext().watchList().elts()) {
-            AbsPlainButton but_ = compoFactory.newPlainButton(FramePoints.displayWatch(p));
-            but_.addActionListener(new WpPointBlockPairChecksEvent(this,p));
-            wpForm.add(but_);
         }
     }
 
@@ -223,23 +180,27 @@ public final class DependantPointsForm {
         return checksCurrent;
     }
 
-    public AbsPanel getBpForm() {
-        return bpForm;
+    public FramePointsTree getFramePointsTree() {
+        return framePointsTree;
     }
 
-    public AbsPanel getMetForm() {
-        return metForm;
-    }
-
-    public AbsPanel getWpForm() {
-        return wpForm;
-    }
-
-    public AbsPanel getExcFrom() {
-        return excFrom;
-    }
-
-    public AbsPanel getStdForm() {
-        return stdForm;
-    }
+//    public AbsPanel getBpForm() {
+//        return bpForm;
+//    }
+//
+//    public AbsPanel getMetForm() {
+//        return metForm;
+//    }
+//
+//    public AbsPanel getWpForm() {
+//        return wpForm;
+//    }
+//
+//    public AbsPanel getExcFrom() {
+//        return excFrom;
+//    }
+//
+//    public AbsPanel getStdForm() {
+//        return stdForm;
+//    }
 }

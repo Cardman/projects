@@ -335,7 +335,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return rootBlockContent.getParentType();
     }
 
-    public final void setParentType(RootBlock _parentType) {
+    public final void parentType(RootBlock _parentType) {
         rootBlockContent.setParentType(_parentType);
         setAccessedBlock(_parentType);
     }

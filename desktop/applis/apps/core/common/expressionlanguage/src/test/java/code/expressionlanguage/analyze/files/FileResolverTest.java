@@ -10057,7 +10057,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
 
     protected static void parseFile(AnalyzedPageEl _context, String _fileName, boolean _predefined, String _file, AnalyzedPageEl _page) {
         FileBlock fileBlock_ = new FileBlock(0,_predefined, _fileName, new DefaultFileEscapedCalc());
-        _page.putFileBlock(_fileName, fileBlock_);
+        _page.putFileBlock(fileBlock_);
         _page.setCurrentFile(fileBlock_);
         fileBlock_.processLinesTabsWithError(_file, _context);
         StringComment stringComment_ = fileBlock_.stringComment(_page.getComments());
@@ -10089,7 +10089,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
 //                count_++;
 //            }
 //        }
-        return AnalyzedPageEl.customFiles(_cont.getFilesBodies().values()).size();
+        return _cont.getFilesBodies().size();
+//        return AnalyzedPageEl.customFiles(_cont.getFilesBodies().values()).size();
     }
 
     private static RootBlock getClassBody(AnalyzedPageEl _cont, String _className) {

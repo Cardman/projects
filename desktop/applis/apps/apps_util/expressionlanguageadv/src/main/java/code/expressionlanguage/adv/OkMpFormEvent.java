@@ -31,7 +31,7 @@ public final class OkMpFormEvent implements AbsActionListener {
         update(mp_, mp_.getValue().getResultExit(), window, window.getFramePoints().getFrameFormContent().getGuiExitStackForm(), resultContext);
         window.getFramePoints().getFrameFormContent().setSelectedMp(null);
         window.getFramePoints().guiContentBuildClear();
-        window.getFramePoints().refreshMethod(window, resultContext);
+        window.getFramePoints().refreshMethod(resultContext);
         window.getFramePoints().getCommonFrame().pack();
         ToggleBreakPointEvent.afterToggle(resultContext,window.selectedTab());
     }
