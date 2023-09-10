@@ -7,26 +7,23 @@ import code.expressionlanguage.exec.StackCall;
 public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl {
 
     private boolean calledAfter;
-    private boolean visitablePage;
-    private boolean visitedPage;
+    private boolean checkField;
 
     protected AbstractLambdaVariable(boolean _lambda) {
         super(_lambda);
     }
     @Override
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
-        if (!visitablePage) {
-            setWrapException(false);
-            if (hasToExit(_context, _stack)) {
-                possibleWrap(_stack);
-                return false;
-            }
+        setWrapException(false);
+        if (hasToExit(_context, _stack)) {
+            possibleWrap(_stack);
+            return false;
         }
-        visitablePage = true;
+        checkField = true;
         if (_stack.getStopper().isStopAtRef(_context, _stack)) {
             return false;
         }
-        visitedPage = true;
+        checkField = false;
         _stack.getBreakPointInfo().getStackState().visitedNone();
         if (!calledAfter) {
             setWrapException(false);
@@ -45,12 +42,8 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
         setWrapException(_stack.calls());
     }
 
-    public boolean isVisitablePage() {
-        return visitablePage;
-    }
-
-    public boolean isVisitedPage() {
-        return visitedPage;
+    public boolean isCheckField() {
+        return checkField;
     }
 
     abstract boolean hasToExit(ContextEl _context, StackCall _stack);
