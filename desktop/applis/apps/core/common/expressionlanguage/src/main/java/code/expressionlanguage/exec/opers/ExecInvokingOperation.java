@@ -186,26 +186,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
     public static Argument prepareCallDynReflect(Argument _previous, ArrayStruct _values, int _ref, ContextEl _conf, StackCall _stackCall) {
-        Struct ls_ = Argument.getNullableValue(_previous).getStruct();
-        String typeFct_ = ls_.getClassName(_conf);
-        StringList parts_ = StringExpUtil.getAllTypes(typeFct_);
-        CustList<String> paramsFct_ = parts_.leftMinusOne(parts_.size() - 2);
-        int valuesSize_ = _values.getLength();
-        if (valuesSize_ != paramsFct_.size()) {
-            LgNames lgNames_ = _conf.getStandards();
-            String null_ = lgNames_.getContent().getCoreNames().getAliasBadArgNumber();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, ExecTemplates.countDiff(valuesSize_, paramsFct_.size()).toString(), null_, _stackCall)));
+        CustList<String> paramsFct_ = paramsFct(_previous, _conf);
+        CustomFoundExc c_ = foundExc(_values, _conf, _stackCall, paramsFct_);
+        if (c_ != null) {
+            _stackCall.setCallingState(c_);
             return new Argument();
-        }
-        for (int i = 0; i < valuesSize_; i++) {
-            Struct arg_ = _values.get(i);
-            String param_ = paramsFct_.get(i);
-            if (param_.startsWith("~")) {
-                param_ = param_.substring(1);
-            }
-            if (!ExecInheritsAdv.checkQuick(param_, arg_.getClassName(_conf), _conf, _stackCall)) {
-                return new Argument();
-            }
         }
         ArgumentListCall argumentListCall_ = new ArgumentListCall();
         int i_ = 0;
@@ -219,6 +204,31 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             i_++;
         }
         return AbstractParamChecker.prepareCallDyn(_previous,argumentListCall_,_ref,_conf, _stackCall);
+    }
+    public static CustomFoundExc foundExc(ArrayStruct _values, ContextEl _conf, StackCall _stackCall, CustList<String> _params) {
+        int valuesSize_ = _values.getLength();
+        if (valuesSize_ != _params.size()) {
+            LgNames lgNames_ = _conf.getStandards();
+            String null_ = lgNames_.getContent().getCoreNames().getAliasBadArgNumber();
+            return new CustomFoundExc(new ErrorStruct(_conf, ExecTemplates.countDiff(valuesSize_, _params.size()).toString(), null_, _stackCall));
+        }
+        for (int i = 0; i < valuesSize_; i++) {
+            Struct arg_ = _values.get(i);
+            String param_ = _params.get(i);
+            if (param_.startsWith("~")) {
+                param_ = param_.substring(1);
+            }
+            Struct err_ = ExecInheritsAdv.checkObjectEx(param_, arg_.getClassName(_conf), _conf, _stackCall);
+            if (err_ != null) {
+                return new CustomFoundExc(err_);
+            }
+        }
+        return null;
+    }
+
+    public static CustList<String> paramsFct(Argument _previous, ContextEl _conf) {
+        StringList parts_ = StringExpUtil.getAllTypes(Argument.getNullableValue(_previous).getStruct().getClassName(_conf));
+        return parts_.leftMinusOne(parts_.size() - 2);
     }
 
     public static ArgumentWrapper wrapper(ArrayStruct _values, int _ref, int _i, String _type) {
@@ -252,7 +262,17 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
     private static Argument prepareCallDynNormalDefault(Argument _previous, CustList<ArgumentWrapper> _values, ContextEl _conf, StackCall _stackCall) {
+        CustomFoundExc ex_ = foundExc(_previous, _values, _conf, _stackCall);
+        if (ex_ != null) {
+            _stackCall.setCallingState(ex_);
+            return Argument.createVoid();
+        }
         ArgumentListCall call_ = new ArgumentListCall();
+        call_.getArgumentWrappers().addAllElts(_values);
+        return AbstractParamChecker.prepareCallDyn(_previous, call_,0, _conf, _stackCall);
+    }
+
+    public static CustomFoundExc foundExc(Argument _previous, CustList<ArgumentWrapper> _values, ContextEl _conf, StackCall _stackCall) {
         Struct ls_ = Argument.getNullableValue(_previous).getStruct();
         String typeFct_ = ls_.getClassName(_conf);
         StringList parts_ = StringExpUtil.getAllTypes(typeFct_);
@@ -268,8 +288,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             LgNames stds_ = _conf.getStandards();
             String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
             StringBuilder mess_ = ExecTemplates.countDiff(_values.size(), parNb_);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall)));
-            return new Argument();
+            return new CustomFoundExc(new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall));
         }
         for (Sizes s: new CustList<Sizes>(
                 new Sizes(values_, types_.size()),
@@ -279,8 +298,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 LgNames stds_ = _conf.getStandards();
                 String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
                 StringBuilder mess_ = ExecTemplates.countDiff(s.getArg(), s.getParam());
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall)));
-                return new Argument();
+                return new CustomFoundExc(new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall));
             }
 
         }
@@ -291,37 +309,31 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 if (a.getWrapper() == null) {
                     LgNames stds_ = _conf.getStandards();
                     String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(param_, a.getValue().getStruct().getClassName(_conf)),cast_, _stackCall)));
-                    return new Argument();
+                    return new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(param_, a.getValue().getStruct().getClassName(_conf)),cast_, _stackCall));
                 }
             } else {
                 if (a.getWrapper() != null) {
                     LgNames stds_ = _conf.getStandards();
                     String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(param_, a.getWrapper().getClassName(_conf)),cast_, _stackCall)));
-                    return new Argument();
+                    return new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(param_, a.getWrapper().getClassName(_conf)),cast_, _stackCall));
                 }
             }
             i_++;
         }
-        if (koArgs(typesAll_, _values, _conf, _stackCall)) {
-            return new Argument();
-        }
-        call_.getArgumentWrappers().addAllElts(_values);
-        return AbstractParamChecker.prepareCallDyn(_previous, call_,0, _conf, _stackCall);
+        return koArgs(typesAll_, _values, _conf, _stackCall);
     }
-
-    private static boolean koArgs(StringList _typesAll,CustList<ArgumentWrapper> _values, ContextEl _conf, StackCall _stackCall) {
+    private static CustomFoundExc koArgs(StringList _typesAll,CustList<ArgumentWrapper> _values, ContextEl _conf, StackCall _stackCall) {
         int i_ = IndexConstants.FIRST_INDEX;
         for (ArgumentWrapper a:_values) {
             String param_ = _typesAll.get(i_);
             String arg_ = getClName(_conf, a);
-            if (!ExecInheritsAdv.checkQuick(param_, arg_, _conf, _stackCall)) {
-                return true;
+            Struct err_ = ExecInheritsAdv.checkObjectEx(param_, arg_, _conf, _stackCall);
+            if (err_ != null) {
+                return new CustomFoundExc(err_);
             }
             i_++;
         }
-        return false;
+        return null;
     }
     private static String getClName(ContextEl _conf, ArgumentWrapper _a) {
         AbstractWrapper wr_ = _a.getWrapper();

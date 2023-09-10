@@ -69,7 +69,7 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
         return merge_;
     }
 
-    private ArgumentList list(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+    public ArgumentList list(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode last_ = getLast(chidren_);
         if (last_ instanceof ExecNamedArgumentOperation) {

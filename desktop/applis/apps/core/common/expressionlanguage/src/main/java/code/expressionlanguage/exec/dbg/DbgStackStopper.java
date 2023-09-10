@@ -19,20 +19,13 @@ import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.stds.StandardNamedFunction;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.FieldableStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class DbgStackStopper extends AbsStackStopperImpl {
-    public static final int READ = 0;
-    public static final int WRITE = 1;
-    public static final int COMPOUND_READ = 2;
-    public static final int COMPOUND_WRITE = 3;
-    public static final int COMPOUND_WRITE_ERR = 4;
     public DbgStackStopper(AbsLogDbg _log) {
         super(_log);
     }
@@ -129,7 +122,11 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         }
         if (_o instanceof ExecAnnotationMethodOperation) {
             Struct instance_ = instance(0,_el, _o, _last);
-            return new CheckedExecOperationNodeInfos((ExecAnnotationMethodOperation)_o, _context,READ, formatted(_context, instance_), instance_, null);
+            return new CheckedExecOperationNodeInfos((ExecAnnotationMethodOperation)_o, _context,WatchPoint.BPC_READ, formatted(_context, instance_), instance_, null);
+        }
+        if (_o instanceof ExecArrayFieldOperation) {
+            Struct instance_ = instance(0,_el, _o, _last);
+            return new ArrCheckedExecOperationNodeInfos(_context,instance_);
         }
         return null;
     }
@@ -147,7 +144,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         }
         CustList<ExecOperationNode> childrenNodes_ = _o.getChildrenNodes();
         Struct right_ = ArgumentListCall.toStr(ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(childrenNodes_, childrenNodes_.size() - 1)).getArgument());
-        return settable(_el, _o, _context, WRITE, right_, NullStruct.NULL_VALUE, _last);
+        return settable(_el, _o, _context, WatchPoint.BPC_WRITE, right_, NullStruct.NULL_VALUE, _last);
     }
 
     private static CheckedExecOperationNodeInfos field(ExpressionLanguage _el, ExecSettableFieldOperation _o, ContextEl _context, AbstractPageEl _last) {
@@ -155,9 +152,9 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             int anc_ = _o.getSettableFieldContent().getAnc();
             Struct instance_ = instance(anc_,_el, _o, _last);
             if (sub(_o)) {
-                return new CheckedExecOperationNodeInfos(_o, COMPOUND_READ, formatted(_context, _o, instance_), instance_, null);
+                return new CheckedExecOperationNodeInfos(_o, WatchPoint.BPC_COMPOUND_READ, formatted(_context, _o, instance_), instance_, null);
             }
-            return new CheckedExecOperationNodeInfos(_o, READ, formatted(_context, _o, instance_), instance_, null);
+            return new CheckedExecOperationNodeInfos(_o, WatchPoint.BPC_READ, formatted(_context, _o, instance_), instance_, null);
         }
         return null;
     }
@@ -165,9 +162,9 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     private static CheckedExecOperationNodeInfos variable(ExecStdRefVariableOperation _o, ContextEl _context, AbstractPageEl _last) {
         if (!_o.resultCanBeSet()) {
             if (sub(_o)) {
-                return prVar(_o, _context, COMPOUND_READ, _last);
+                return prVar(_o, _context, WatchPoint.BPC_COMPOUND_READ, _last);
             }
-            return prVar(_o, _context, READ, _last);
+            return prVar(_o, _context, WatchPoint.BPC_READ, _last);
         }
         return null;
     }
@@ -185,7 +182,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableAnc());
         if (argumentPair_.isArgumentTest()) {
             if (!ExecCompoundAffectationOperation.sh(_o.getOperatorContent())) {
-                return settable(_el, _o, _context, COMPOUND_WRITE,ArgumentListCall.toStr(argumentPair_.getArgument()),NullStruct.NULL_VALUE, _last);
+                return settable(_el, _o, _context, WatchPoint.BPC_COMPOUND_WRITE,ArgumentListCall.toStr(argumentPair_.getArgument()),NullStruct.NULL_VALUE, _last);
             }
             return null;
         }
@@ -196,7 +193,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             if (ImplicitMethods.isValidIndex(implicits_,indexImplicit_)) {
                 return null;
             }
-            return settable(_el, _o, _context, COMPOUND_WRITE, ((ExecCompoundAffectationStringOperation)_o).calculated(_el.getArguments(), _context, _last),((ExecCompoundAffectationStringOperation)_o).leftArg(_el.getArguments()), _last);
+            return settable(_el, _o, _context, WatchPoint.BPC_COMPOUND_WRITE, ((ExecCompoundAffectationStringOperation)_o).calculated(_el.getArguments(), _context, _last),((ExecCompoundAffectationStringOperation)_o).leftArg(_el.getArguments()), _last);
         }
         return null;
     }
@@ -220,14 +217,14 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     }
 
     private static int altMode(int _mode, Struct _right) {
-        if (_mode == COMPOUND_WRITE && _right == null) {
-            return COMPOUND_WRITE_ERR;
+        if (_mode == WatchPoint.BPC_COMPOUND_WRITE && _right == null) {
+            return WatchPoint.BPC_COMPOUND_WRITE_ERR;
         }
         return _mode;
     }
 
     private static Struct altRight(int _mode, Struct _right, Struct _other) {
-        if (_mode == COMPOUND_WRITE && _right == null) {
+        if (_mode == WatchPoint.BPC_COMPOUND_WRITE && _right == null) {
             return _other;
         }
         return _right;
@@ -326,14 +323,14 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     private static CheckedExecOperationNodeInfos refMethod(ContextEl _context, DirectAnnotationRefectMethodPageEl _p) {
         if (_p.isCheckingEntryExit()) {
             Struct instance_ = ArgumentListCall.toStr(_p.getInstance());
-            return new CheckedExecOperationNodeInfos(_p.getMetaInfo().getRealId().getName(), _context,READ, formatted(_context, instance_), instance_, null);
+            return new CheckedExecOperationNodeInfos(_p.getMetaInfo().getRealId().getName(), _context,WatchPoint.BPC_READ, formatted(_context, instance_), instance_, null);
         }
         return null;
     }
     private static CheckedExecOperationNodeInfos refMethod(ContextEl _context, LambdaAnnotationRefectMethodPageEl _p) {
         if (_p.isCheckingEntryExit()) {
             Struct instance_ = ArgumentListCall.toStr(_p.getInstance());
-            return new CheckedExecOperationNodeInfos(_p.getMetaInfo().getRealId().getName(), _context,READ, formatted(_context, instance_), instance_, null);
+            return new CheckedExecOperationNodeInfos(_p.getMetaInfo().getRealId().getName(), _context,WatchPoint.BPC_READ, formatted(_context, instance_), instance_, null);
         }
         return null;
     }
@@ -358,7 +355,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         AbstractWrapper w_ = firstArgumentWrapper_.getWrapper();
         if (w_ instanceof FieldWrapper) {
             Struct instance_ = value(w_);
-            return new CheckedExecOperationNodeInfos((FieldWrapper) w_, DbgStackStopper.READ, formatted(_context, (FieldWrapper) w_),instance_,null);
+            return new CheckedExecOperationNodeInfos((FieldWrapper) w_, WatchPoint.BPC_READ, formatted(_context, (FieldWrapper) w_),instance_,null);
         }
         return null;
     }
@@ -373,7 +370,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         if (w_ instanceof FieldWrapper) {
             Struct right_ = ArgumentListCall.toStr(ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)));
             Struct instance_ = value(w_);
-            return new CheckedExecOperationNodeInfos((FieldWrapper) w_, DbgStackStopper.WRITE, formatted(_context, (FieldWrapper) w_),instance_,right_);
+            return new CheckedExecOperationNodeInfos((FieldWrapper) w_, WatchPoint.BPC_WRITE, formatted(_context, (FieldWrapper) w_),instance_,right_);
         }
         return null;
     }
@@ -383,7 +380,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             return null;
         }
         Struct instance_ = ArgumentListCall.toStr(_p.getArgument());
-        return new CheckedExecOperationNodeInfos(_p.getMetaInfo(), DbgStackStopper.READ, formatted(_context, _p.getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, null);
+        return new CheckedExecOperationNodeInfos(_p.getMetaInfo(), WatchPoint.BPC_READ, formatted(_context, _p.getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, null);
     }
 
     private static CheckedExecOperationNodeInfos reflectSet(ContextEl _context, ReflectSetFieldPageEl _p) {
@@ -392,7 +389,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         }
         Struct instance_ = ArgumentListCall.toStr(_p.getFirst());
         Struct right_ = ArgumentListCall.toStr(_p.getLast());
-        return new CheckedExecOperationNodeInfos(_p.getMetaInfo(), DbgStackStopper.WRITE, formatted(_context, _p.getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, right_);
+        return new CheckedExecOperationNodeInfos(_p.getMetaInfo(), WatchPoint.BPC_WRITE, formatted(_context, _p.getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, right_);
     }
 
     private static ExecFormattedRootBlock formatted(ContextEl _ctx, FieldWrapper _w) {
@@ -444,7 +441,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_el.getArguments(),ex_);
             int indexImplicit_ = pairBefore_.getIndexImplicitConv();
             if (!ImplicitMethods.isValidIndex(implicits_,indexImplicit_)&&!pairBefore_.isEndCalculate()) {
-                return settable(_el,(ExecCompoundAffectationOperation) ex_,_context, COMPOUND_WRITE,ArgumentListCall.toStr(_last.getReturnedArgument()),NullStruct.NULL_VALUE, _last);
+                return settable(_el,(ExecCompoundAffectationOperation) ex_,_context, WatchPoint.BPC_COMPOUND_WRITE,ArgumentListCall.toStr(_last.getReturnedArgument()),NullStruct.NULL_VALUE, _last);
             }
         }
         if (ex_ instanceof ExecSettableCallFctOperation) {
@@ -453,10 +450,10 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             }
             if (sub(ex_)) {
                 AbstractWrapper w_ = _last.getWrapper();
-                return wrapp(w_, _context, COMPOUND_READ);
+                return wrapp(w_, _context, WatchPoint.BPC_COMPOUND_READ);
             } else if (!((ExecSettableCallFctOperation) ex_).resultCanBeSet()) {
                 AbstractWrapper w_ = _last.getWrapper();
-                return wrapp(w_, _context, READ);
+                return wrapp(w_, _context, WatchPoint.BPC_READ);
             }
         }
         return null;
@@ -475,8 +472,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         if (_w instanceof FieldWrapper) {
             Struct instance_ = value(_w);
             String formatted_ = ExecInherits.getQuickFullTypeByBases(instance_.getClassName(_context), ((FieldWrapper) _w).getId().getClassName(), _context);
-            ExecRootBlock ex_ = _context.getClasses().getClassBody(((FieldWrapper) _w).getId().getClassName());
-            return new CheckedExecOperationNodeInfos((FieldWrapper) _w, _m,new ExecFormattedRootBlock(ex_,formatted_),instance_,null);
+            return new CheckedExecOperationNodeInfos((FieldWrapper) _w, _m,ExecFormattedRootBlock.build(formatted_, _context.getClasses()),instance_,null);
         }
         return null;
     }
@@ -487,6 +483,15 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             AbstractPageEl p_ = _stackCall.getLastPage();
             Struct str_ = stopExcValuRetThrowCatch(_context, _stackCall, p_);
             StopDbgEnum s_ = logs(_l,current(_context, _stackCall, infos_, str_),_context,_stackCall);
+            if (s_ != StopDbgEnum.NONE) {
+                _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(s_);
+                return true;
+            }
+        }
+        if (_stackCall.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint() == StopDbgEnum.METHOD_STD_ENTRY) {
+            CoreCheckedExecOperationNodeInfos infos_ = infos(_context, _stackCall);
+            AbstractPageEl p_ = _stackCall.getLastPage();
+            StopDbgEnum s_ = logs(_l,otherStopAndBp(_context, _stackCall, infos_, p_),_context,_stackCall);
             if (s_ != StopDbgEnum.NONE) {
                 _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setStoppedBreakPoint(s_);
                 return true;
@@ -552,13 +557,85 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             }
             return defBp(_context, _stackCall);
         }
-        if (_infos instanceof StdMethodCheckedExecOperationNodeInfos) {
+        if (_infos instanceof StdMethodCheckedExecOperationNodeInfos && !((StdMethodCheckedExecOperationNodeInfos)_infos).isExiting()) {
             return enterCase(_context,(StdMethodCheckedExecOperationNodeInfos)_infos,_stackCall,p_);
         }
         if (_infos instanceof CheckedExecOperationNodeInfos) {
             return checkedWp(_context, _stackCall, p_, (CheckedExecOperationNodeInfos) _infos);
         }
+        return otherStopAndBp(_context, _stackCall, _infos, p_);
+    }
+
+    private static StopDbgEnum otherStopAndBp(ContextEl _context, StackCall _stackCall, CoreCheckedExecOperationNodeInfos _infos, AbstractPageEl _p) {
+        CoreCheckedExecOperationNodeInfos arr_ = arr(_context, _stackCall, _infos);
+        if (arr_ != null) {
+            return arr(_context, _stackCall, _p, arr_);
+        }
+        return afterArr(_context, _stackCall, _infos, _p);
+    }
+
+    private static StopDbgEnum afterArr(ContextEl _context, StackCall _stackCall, CoreCheckedExecOperationNodeInfos _infos, AbstractPageEl _p) {
+        if (_infos instanceof StdMethodCheckedExecOperationNodeInfos && ((StdMethodCheckedExecOperationNodeInfos) _infos).isExiting()) {
+            return enterCase(_context, (StdMethodCheckedExecOperationNodeInfos) _infos, _stackCall, _p);
+        }
         return defBp(_context, _stackCall);
+    }
+
+    private static StopDbgEnum arr(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _arr) {
+        if (stopArr(_context, _stackCall, _p, _arr)){
+            return StopDbgEnum.ARRAY;
+        }
+        return StopDbgEnum.NONE;
+    }
+
+    private static CoreCheckedExecOperationNodeInfos arr(ContextEl _context, StackCall _stackCall, CoreCheckedExecOperationNodeInfos _infos) {
+        if (_infos instanceof ArrCheckedExecOperationNodeInfos) {
+            return _infos;
+        }
+        if (_infos instanceof StdMethodCheckedExecOperationNodeInfos && ((StdMethodCheckedExecOperationNodeInfos) _infos).isExiting()) {
+            return null;
+        }
+        if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null) {
+            return null;
+        }
+        AbstractPageEl p_ = _stackCall.getLastPage();
+        if (p_.isEmptyEl()) {
+            return null;
+        }
+        ExpressionLanguage el_ = p_.getLastEl();
+        ExecOperationNode o_ = el_.getCurrentOper();
+        if (!(o_ instanceof ExecCallDynMethodOperation)) {
+            return null;
+        }
+        if (!((ExecCallDynMethodOperation) o_).args(el_.getArguments(), _context.getStandards().getCoreNames().getAliasObject()).getArguments().getArgumentWrappers().isEmpty()) {
+            return callDyn(_context, _stackCall, ((ExecCallDynMethodOperation) o_).list(el_.getArguments()).getArguments(), ((ExecCallDynMethodOperation) o_).instance(el_.getArguments(), p_));
+        }
+        return null;
+    }
+
+    private static ArrCheckedExecOperationNodeInfos callDyn(ContextEl _context, StackCall _stackCall, ArgumentListCall _ls, Struct _ins) {
+        CustList<ArgumentWrapper> ret_ = _ls.getArgumentWrappers();
+        CustomFoundExc fe_ = ExecInvokingOperation.foundExc(ArgumentListCall.toStr(_ins), ret_, _context, _stackCall);
+        if (fe_ == null && _ins instanceof LambdaMethodStruct && !((LambdaMethodStruct) _ins).isSafeInstance()) {
+            String meth_ = ((LambdaMethodStruct) _ins).getMethodName();
+            if (vars(meth_)) {
+                return null;
+            }
+            CustList<ArgumentWrapper> formal_ = AbstractParamChecker.formal(ret_, ((LambdaMethodStruct) _ins).getMethodName());
+            ArgumentListCall call_ = AbstractParamChecker.adjusted(_stackCall, (LambdaMethodStruct) _ins, formal_, ret_);
+            if (call_ != null) {
+                Struct metaInfo_ = ((LambdaMethodStruct) _ins).getMetaInfo();
+                if (!(metaInfo_ instanceof MethodMetaInfo) && call_.getArgumentWrappers().isEmpty()) {
+                    Struct ins_ = AbstractParamChecker.adjustedInstance(_stackCall, (LambdaMethodStruct) _ins, ret_);
+                    return new ArrCheckedExecOperationNodeInfos(_context, ins_);
+                }
+            }
+        }
+        return null;
+    }
+
+    private static boolean vars(String _meth) {
+        return StringUtil.quickEq(_meth, ":") || StringUtil.quickEq(_meth, "=");
     }
 
     private static StopDbgEnum defBp(ContextEl _context, StackCall _stackCall) {
@@ -602,10 +679,14 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             MethodPoint mp_ = pairs_.getValue();
             if (stopCurrentMp(_context, _stackCall, _p, mp_, _ex.isExiting(),new CheckedMethodInfos(glClass_, instance_, params_))) {
                 if (_ex.isExiting()) {
-                    return StopDbgEnum.METHOD_EXIT;
+                    return StopDbgEnum.METHOD_STD_EXIT;
                 }
-                return StopDbgEnum.METHOD_ENTRY;
+                return StopDbgEnum.METHOD_STD_ENTRY;
             }
+        }
+        CoreCheckedExecOperationNodeInfos arr_ = arr(_context, _stackCall, _ex);
+        if (arr_ != null) {
+            return arr(_context, _stackCall, _p, arr_);
         }
         return StopDbgEnum.NONE;
     }
@@ -767,6 +848,22 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         }
         return false;
     }
+
+    private static boolean stopArr(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _arr) {
+        String clName_ = _arr.getInstance().getClassName(_context);
+        if (checkArr(_context, _stackCall, _p, _context.getNotNullArr(clName_,true),_arr)) {
+            return true;
+        }
+        if (!clName_.isEmpty() && checkArr(_context, _stackCall, _p, _context.getNotNullArr(StringExpUtil.getIdFromAllTypes(clName_), false),_arr)) {
+            return true;
+        }
+        return checkArr(_context, _stackCall, _p, _context.getNotNullArr("",false),_arr);
+    }
+    private static boolean checkArr(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, ArrPoint _bp, CoreCheckedExecOperationNodeInfos _arr) {
+        BreakPointCondition bpc_ = stopArrValue(_bp);
+        return stopCurrent(_context, _stackCall, _p, bpc_, _arr);
+    }
+
     private static boolean stopExc(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, Struct _str) {
         String clName_ = _str.getClassName(_context);
         if (checkExc(_context, _stackCall, _p, _str, _context.getNotNullExc(clName_,true))) {
@@ -781,7 +878,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     private static boolean checkExc(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, Struct _str, ExcPoint _bp) {
         BreakPointCondition bpc_ = stopExcValue(_p, _bp, _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting());
         String clName_ = _str.getClassName(_context);
-        return stopCurrent(_context, _stackCall, _p, bpc_, new CoreCheckedExecOperationNodeInfos(new ExecFormattedRootBlock(_context.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(clName_)), clName_), _str,null));
+        return stopCurrent(_context, _stackCall, _p, bpc_, new CoreCheckedExecOperationNodeInfos(ExecFormattedRootBlock.build(clName_, _context.getClasses()), _str,null));
     }
 
     private static Struct stopExcValuRetThrowCatch(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
@@ -822,6 +919,16 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         }
         if (_ex.isPropagated()) {
             return _ex.getResultPropagated();
+        }
+        return null;
+    }
+
+    private static BreakPointCondition stopArrValue(ArrPoint _ex) {
+        if (!_ex.isEnabled()) {
+            return null;
+        }
+        if (_ex.isLength()) {
+            return _ex.getResultLength();
         }
         return null;
     }
@@ -875,19 +982,19 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         if (!_bp.isEnabled()) {
             return null;
         }
-        if (!(_bp.isRead() && _check.getModeField() == READ || _bp.isWrite() && _check.getModeField() == WRITE || _bp.isCompoundRead() && _check.getModeField() == COMPOUND_READ || _bp.isCompoundWrite() && _check.getModeField() == COMPOUND_WRITE || _bp.isCompoundWriteErr() && _check.getModeField() == COMPOUND_WRITE_ERR)) {
+        if (!(_bp.isRead() && _check.getModeField() == WatchPoint.BPC_READ || _bp.isWrite() && _check.getModeField() == WatchPoint.BPC_WRITE || _bp.isCompoundRead() && _check.getModeField() == WatchPoint.BPC_COMPOUND_READ || _bp.isCompoundWrite() && _check.getModeField() == WatchPoint.BPC_COMPOUND_WRITE || _bp.isCompoundWriteErr() && _check.getModeField() == WatchPoint.BPC_COMPOUND_WRITE_ERR)) {
             return null;
         }
-        if (_check.getModeField() == READ) {
+        if (_check.getModeField() == WatchPoint.BPC_READ) {
             return _bp.getResultRead();
         }
-        if (_check.getModeField() == WRITE) {
+        if (_check.getModeField() == WatchPoint.BPC_WRITE) {
             return _bp.getResultWrite();
         }
-        if (_check.getModeField() == COMPOUND_READ) {
+        if (_check.getModeField() == WatchPoint.BPC_COMPOUND_READ) {
             return _bp.getResultCompoundRead();
         }
-        if (_check.getModeField() == COMPOUND_WRITE) {
+        if (_check.getModeField() == WatchPoint.BPC_COMPOUND_WRITE) {
             return _bp.getResultCompoundWrite();
         }
         return _bp.getResultCompoundWriteErr();

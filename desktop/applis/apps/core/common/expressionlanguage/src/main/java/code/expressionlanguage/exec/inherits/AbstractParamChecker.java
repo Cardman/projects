@@ -62,8 +62,6 @@ public abstract class AbstractParamChecker {
     }
 
     private static Argument lambdaMethod(ArgumentListCall _values, ContextEl _conf, StackCall _stackCall, LambdaMethodStruct _ls, int _ref) {
-        int nbAncestors_ = _ls.getAncestor();
-        boolean static_ = _ls.getKind() != MethodAccessKind.INSTANCE;
         if (_ls.isSafeInstance()) {
             return defaultValueLambda(_conf, _ls);
         }
@@ -76,43 +74,94 @@ public abstract class AbstractParamChecker {
             _stackCall.setCallingState(new CustomReflectLambdaVarMethod(ReflectingType.VAR_SET, _values));
             return new Argument();
         }
-        CustList<ArgumentWrapper> formal_;
-        Argument right_;
-        if (StringUtil.quickEq(_ls.getMethodName(),"[]=")||StringUtil.quickEq(_ls.getMethodName(),"[:]=")) {
-            formal_ = argumentWrappers_.left(argumentWrappers_.size()-1);
-            right_ = ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_));
-        } else {
-            formal_ = argumentWrappers_;
-            right_ = null;
-        }
-        Struct instanceStruct_ = _ls.getInstanceCall().getStruct();
-        ArgumentListCall call_ = new ArgumentListCall();
-        if (!_ls.isShiftInstance()) {
-            Argument par_ = parent(static_, nbAncestors_, instanceStruct_, _conf, _stackCall);
-            if (_conf.callsOrException(_stackCall)) {
-                return new Argument();
-            }
-            call_.getArgumentWrappers().addAllElts(formal_);
-            call_.setRight(right_);
-            return redirect(_conf, _ls,par_, call_, _stackCall, _ref);
-        }
-        if (StringExpUtil.isOper(_ls.getMethodName())) {
-            formal_.add(0,new ArgumentWrapper(new Argument(instanceStruct_),null));
-            call_.getArgumentWrappers().addAllElts(formal_);
-            call_.setRight(right_);
-            return redirect(_conf, _ls, Argument.createVoid(), call_, _stackCall, _ref);
-        }
-        CustList<ArgumentWrapper> arr_ = formal_.mid(1);
-        Struct value_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(formal_)).getStruct();
-        Argument par_ = parent(static_, nbAncestors_, value_, _conf, _stackCall);
-        if (_conf.callsOrException(_stackCall)) {
+        CustList<ArgumentWrapper> formal_ = formal(argumentWrappers_, _ls.getMethodName());
+        ArgumentListCall ls_ = adjusted(_stackCall, _ls, formal_, argumentWrappers_);
+        if (ls_ == null) {
+            String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
             return new Argument();
         }
-        call_.getArgumentWrappers().addAllElts(arr_);
-        call_.setRight(right_);
-        return redirect(_conf, _ls, par_, call_, _stackCall, _ref);
+        return redirect(_conf, _ls,ArgumentListCall.toStr(adjustedInstance(_stackCall,_ls, formal_)), ls_, _stackCall, _ref);
     }
 
+    private static Argument right(LambdaMethodStruct _ls, CustList<ArgumentWrapper> _w) {
+        Argument right_;
+        if (StringUtil.quickEq(_ls.getMethodName(),"[]=")||StringUtil.quickEq(_ls.getMethodName(),"[:]=")) {
+            right_ = ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(_w));
+        } else {
+            right_ = null;
+        }
+        return right_;
+    }
+
+    public static ArgumentListCall adjusted(StackCall _stackCall, LambdaMethodStruct _lda, CustList<ArgumentWrapper> _formal, CustList<ArgumentWrapper> _w) {
+        Argument right_ = right(_lda, _w);
+        int nbAncestors_ = _lda.getAncestor();
+        boolean static_ = _lda.getKind() != MethodAccessKind.INSTANCE;
+        String meth_ = _lda.getMethodName();
+        Struct instanceStruct_ = _lda.getInstanceCall().getStruct();
+        ArgumentListCall call_ = new ArgumentListCall();
+        if (!_lda.isShiftInstance()) {
+            Struct par_ = parent(static_, nbAncestors_, instanceStruct_, _stackCall);
+            if (par_ == null) {
+                return null;
+            }
+            call_.getArgumentWrappers().addAllElts(_formal);
+            call_.setRight(right_);
+        } else if (StringExpUtil.isOper(meth_)) {
+            _formal.add(0,new ArgumentWrapper(new Argument(instanceStruct_),null));
+            call_.getArgumentWrappers().addAllElts(_formal);
+            call_.setRight(right_);
+        } else {
+            CustList<ArgumentWrapper> arr_ = _formal.mid(1);
+            Struct value_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_formal)).getStruct();
+            Struct par_ = parent(static_, nbAncestors_, value_, _stackCall);
+            if (par_ == null) {
+                return null;
+            }
+            call_.getArgumentWrappers().addAllElts(arr_);
+            call_.setRight(right_);
+        }
+        return call_;
+    }
+
+    public static Struct adjustedInstance(StackCall _stackCall, LambdaMethodStruct _lda, CustList<ArgumentWrapper> _formal) {
+        int nbAncestors_ = _lda.getAncestor();
+        boolean static_ = _lda.getKind() != MethodAccessKind.INSTANCE;
+        String meth_ = _lda.getMethodName();
+        Struct instanceStruct_ = _lda.getInstanceCall().getStruct();
+        if (!_lda.isShiftInstance()) {
+            Struct par_ = parent(static_, nbAncestors_, instanceStruct_, _stackCall);
+            return Argument.getNull(par_);
+        }
+        if (StringExpUtil.isOper(meth_)) {
+            return NullStruct.NULL_VALUE;
+        }
+        Struct value_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_formal)).getStruct();
+        Struct par_ = parent(static_, nbAncestors_, value_, _stackCall);
+        return Argument.getNull(par_);
+    }
+
+    public static CustList<ArgumentWrapper> formal(CustList<ArgumentWrapper> _argsCallList, String _meth) {
+        CustList<ArgumentWrapper> formal_;
+        if (StringUtil.quickEq(_meth,"[]=")||StringUtil.quickEq(_meth,"[:]=")) {
+            formal_ = _argsCallList.left(_argsCallList.size()-1);
+        } else {
+            formal_ = _argsCallList;
+        }
+        return formal_;
+    }
+
+    private static Struct parent(boolean _static, int _nbAnc, Struct _instanceStruct, StackCall _stackCall) {
+        if (!_static) {
+            Struct par_ = ExecFieldTemplates.getParent(_nbAnc, _instanceStruct, _stackCall);
+            if (par_ == NullStruct.NULL_VALUE) {
+                return null;
+            }
+            return par_;
+        }
+        return NullStruct.NULL_VALUE;
+    }
     private static Argument lambdaField(ArgumentListCall _values, ContextEl _conf, StackCall _stackCall, LambdaFieldStruct _ls) {
         Struct metaInfo_ = _ls.getMetaInfo();
         if (!(metaInfo_ instanceof FieldMetaInfo)) {
@@ -125,8 +174,10 @@ public abstract class AbstractParamChecker {
             return defaultValueLambda(_conf, _ls);
         }
         Struct value_ = retrInstance(_values, _ls);
-        Argument par_ = parent(static_, nbAncestors_, value_, _conf, _stackCall);
-        if (_conf.callsOrException(_stackCall)) {
+        Struct par_ = parent(static_, nbAncestors_, value_, _stackCall);
+        if (par_ == null) {
+            String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
             return new Argument();
         }
         ReflectingType type_;
@@ -134,11 +185,11 @@ public abstract class AbstractParamChecker {
         if (aff_) {
             type_ = ReflectingType.SET_FIELD;
             CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
-            _stackCall.setCallingState(new CustomReflectSetField(type_, method_, par_, ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)), true));
+            _stackCall.setCallingState(new CustomReflectSetField(type_, method_, ArgumentListCall.toStr(par_), ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)), true));
             return new Argument();
         }
         type_ = ReflectingType.GET_FIELD;
-        _stackCall.setCallingState(new CustomReflectGetField(type_, method_, par_, true));
+        _stackCall.setCallingState(new CustomReflectGetField(type_, method_, ArgumentListCall.toStr(par_), true));
         return new Argument();
     }
 
@@ -204,19 +255,6 @@ public abstract class AbstractParamChecker {
             return new Argument();
         }
         return new Argument(res_);
-    }
-
-    private static Argument parent(boolean _static, int _nbAnc, Struct _instanceStruct, ContextEl _conf, StackCall _stackCall) {
-        Argument instance_;
-        if (!_static) {
-            instance_ = new Argument(ExecFieldTemplates.getParent(_nbAnc, _instanceStruct, _conf, _stackCall));
-            if (_conf.callsOrException(_stackCall)) {
-                return new Argument();
-            }
-        } else {
-            instance_ = new Argument();
-        }
-        return instance_;
     }
 
     private static Struct retrInstance(ArgumentListCall _values, LambdaFieldStruct _ldaField) {

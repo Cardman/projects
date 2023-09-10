@@ -53,6 +53,11 @@ public final class ElInterceptorStdCaller implements AbstractInterceptorStdCalle
     }
 
     @Override
+    public AbsCollection<ArrPointBlockPair> newArrPointKeyStringCollection() {
+        return new ConcList<ArrPointBlockPair>(new ArrKeyString(),this);
+    }
+
+    @Override
     public AbsCollection<ExcPointBlockPair> newExcPointKeyStringCollection() {
         return new ConcList<ExcPointBlockPair>(new ExcKeyString(),this);
     }

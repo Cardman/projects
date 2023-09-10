@@ -19,7 +19,9 @@ public final class TreeBreakPointBlockPairDepsEvent implements AbsShortListTree 
         Ints is_ = new Ints();
         AbstractMutableTreeNodeCore ch_ = TreeBreakPointBlockPairEvent.indexes(frameKeys,_node, is_);
         int index_ = MutableTreeNodeCoreUtil.getNullableIndex(ch_);
-        if (FramePointsTree.SORT_WP == index_) {
+        if (FramePointsTree.SORT_BP == index_){
+            frame.guiContentBuild(frameKeys.getBpList().getValue(is_.get(0)).get(is_.get(1)));
+        } else if (FramePointsTree.SORT_WP == index_) {
             frame.guiContentBuild(frameKeys.getWpList().getValue(is_.get(0)).get(is_.get(1)));
         } else if (FramePointsTree.SORT_WP_ANNOT == index_) {
             frame.guiContentBuild(frameKeys.getWpListAnnot().getValue(is_.get(0)).get(is_.get(1)));
@@ -29,8 +31,6 @@ public final class TreeBreakPointBlockPairDepsEvent implements AbsShortListTree 
             frame.guiContentBuild(frameKeys.getMetList().getValue(is_.get(0)));
         } else if (FramePointsTree.SORT_SP == index_) {
             frame.guiContentBuild(frameKeys.getStdList().getValue(is_.get(0)).get(is_.get(1)));
-        } else if (FramePointsTree.SORT_BP == index_){
-            frame.guiContentBuild(frameKeys.getBpList().getValue(is_.get(0)).get(is_.get(1)));
         }
     }
 }

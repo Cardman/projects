@@ -31,6 +31,7 @@ public final class BreakPointBlockList {
     private final AbstractInterceptorStdCaller interceptor;
     private final AbstractAtomicBoolean pausedLoop;
     private final AbsCollection<WatchPointBlockPair> watchList;
+    private final AbsCollection<ArrPointBlockPair> arrPointList;
     private final AbsCollection<ExcPointBlockPair> excPointList;
     private final AbsCollection<MethodPointBlockPair> methPointList;
     private final AbsCollection<StdMethodPointBlockPair> stdMethPointList;
@@ -40,6 +41,7 @@ public final class BreakPointBlockList {
         listTmp = _i.newBreakPointKeyIdStringCollection();
         list = _i.newBreakPointKeyStringCollection();
         watchList = _i.newWatchPointKeyStringCollection();
+        arrPointList = _i.newArrPointKeyStringCollection();
         excPointList = _i.newExcPointKeyStringCollection();
         methPointList = _i.newMethodPointKeyStringCollection();
         stdMethPointList = _i.newStdMethodPointKeyStringCollection();
@@ -217,12 +219,29 @@ public final class BreakPointBlockList {
         for (StdMethodPointBlockPair b: getStdMethPointList().elts()) {
             b.getValue().resetCount();
         }
+        for (ArrPointBlockPair b: getArrPointList().elts()) {
+            b.getValue().resetCount();
+        }
         for (ExcPointBlockPair b: getExcPointList().elts()) {
             b.getValue().resetCount();
         }
         for (WatchPointBlockPair b: getWatchList().elts()) {
             b.getValue().resetCount();
         }
+    }
+
+    public ArrPointBlockPair buildArr(boolean _exact, String _clName) {
+        if (_exact) {
+            return new ArrPointBlockPair(true, _clName, interceptor, true);
+        }
+        return new ArrPointBlockPair(false, StringExpUtil.getIdFromAllTypes(_clName), interceptor, true);
+    }
+
+    public ArrPointBlockPair notNullExp(ArrPointBlockPair _b) {
+        if (_b == null) {
+            return new ArrPointBlockPair(false,"",interceptor,false);
+        }
+        return _b;
     }
 
     public ExcPointBlockPair build(boolean _exact, String _clName) {
@@ -249,6 +268,10 @@ public final class BreakPointBlockList {
             return new WatchPointBlockPair(false,null,-1,"",interceptor,false);
         }
         return _b;
+    }
+
+    public AbsCollection<ArrPointBlockPair> getArrPointList() {
+        return arrPointList;
     }
 
     public AbsCollection<ExcPointBlockPair> getExcPointList() {

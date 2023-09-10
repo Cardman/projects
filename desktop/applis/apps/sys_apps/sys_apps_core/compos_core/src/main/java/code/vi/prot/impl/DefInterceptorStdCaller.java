@@ -106,6 +106,11 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     }
 
     @Override
+    public AbsCollection<ArrPointBlockPair> newArrPointKeyStringCollection() {
+        return new ConcMap<ArrPointBlockPair>(new ArrKeyString(),this);
+    }
+
+    @Override
     public AbsCollection<ExcPointBlockPair> newExcPointKeyStringCollection() {
         return new ConcMap<ExcPointBlockPair>(new ExcKeyString(),this);
     }

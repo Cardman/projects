@@ -56,7 +56,9 @@ public abstract class ExecMethodOperation extends ExecOperationNode {
             _wrappers.add(new ArgumentWrapper(_pair.getArgument(),_pair.getWrapper()));
         }
     }
-
+    public ArgumentList args(String _lastType, int _varArg,IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+        return ExecInvokingOperation.fectchArgs(_lastType, _varArg, buildInfos(_nodes));
+    }
     protected CustList<ExecOperationInfo> buildInfos(IdMap<ExecOperationNode, ArgumentsPair> _all) {
         return buildInfos(_all,getChildrenNodes());
     }

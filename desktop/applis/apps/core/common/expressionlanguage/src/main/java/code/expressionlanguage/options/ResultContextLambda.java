@@ -98,6 +98,14 @@ public final class ResultContextLambda {
         return build(_exp, _result, _type, _gene, a_);
     }
 
+    public static ResultContextLambda dynamicAnalyzeArr(String _exp, ArrPointBlockPair _ex, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
+        if (_exp.trim().isEmpty()) {
+            return new ResultContextLambda(null,null,new ReportedMessages(), 0, null);
+        }
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareExc(_ex.getEp().getClName(), _ex.getEp().isExact(), _result.getPageEl());
+        return build(_exp, _result, _type, _gene, a_);
+    }
+
     public static ResultContextLambda dynamicAnalyzeExc(String _exp, ExcPointBlockPair _ex, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
         if (_exp.trim().isEmpty()) {
             return new ResultContextLambda(null,null,new ReportedMessages(), 0, null);

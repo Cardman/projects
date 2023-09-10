@@ -188,6 +188,13 @@ public final class ResultContext {
     public void toggleEnabled(ExecFileBlock _file, int _nf, int _offset, boolean _enType) {
         getContext().toggleEnabled(_file, _nf, _offset, _enType);
     }
+    public void toggleArrPoint(String _clName, boolean _exact) {
+        getContext().toggleArrPoint(_clName, _exact);
+    }
+
+    public void toggleArrPointEnabled(String _clName, boolean _exact) {
+        getContext().toggleArrPointEnabled(_clName, _exact);
+    }
     public void toggleExcPoint(String _clName, boolean _exact) {
         getContext().toggleExcPoint(_clName, _exact);
     }
@@ -245,6 +252,12 @@ public final class ResultContext {
     }
     public MethodPointBlockPair getPair(String _id) {
         return getContext().getPair(_id);
+    }
+    public boolean isArr(String _field, boolean _exact) {
+        return getContext().isArr(_field, _exact);
+    }
+    public ArrPointBlockPair getPairArr(String _field, boolean _exact) {
+        return getContext().getPairArr(_field, _exact);
     }
     public boolean isExc(String _field, boolean _exact) {
         return getContext().isExc(_field, _exact);

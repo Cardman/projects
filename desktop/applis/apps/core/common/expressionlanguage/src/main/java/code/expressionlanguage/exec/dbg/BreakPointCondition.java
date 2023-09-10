@@ -81,6 +81,11 @@ public final class BreakPointCondition {
         resultLogs(ResultContextLambda.dynamicAnalyzeField(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, _setting), _log);
     }
 
+    public void analyze(ArrPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
+        result(ResultContextLambda.dynamicAnalyzeArr(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene), _exp);
+        resultLogs(ResultContextLambda.dynamicAnalyzeArr(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _log);
+    }
+
     public void analyze(ExcPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
         result(ResultContextLambda.dynamicAnalyzeExc(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene), _exp);
         resultLogs(ResultContextLambda.dynamicAnalyzeExc(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _log);

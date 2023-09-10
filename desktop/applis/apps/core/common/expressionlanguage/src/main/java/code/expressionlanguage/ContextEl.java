@@ -183,6 +183,13 @@ public abstract class ContextEl {
         }
         bpList().add(pair_);
     }
+    public void toggleArrPoint(String _clName, boolean _exact) {
+        ArrPointBlockPair exc_ = buildArr(_exact, _clName);
+        if (exc_ == null) {
+            return;
+        }
+        toggleArr(exc_);
+    }
     public void toggleExcPoint(String _clName, boolean _exact) {
         ExcPointBlockPair exc_ = build(_exact, _clName);
         if (exc_ == null) {
@@ -191,23 +198,69 @@ public abstract class ContextEl {
         toggleExc(exc_);
     }
 
+    public AbsCollection<ArrPointBlockPair> arrList() {
+        return getClasses().getDebugMapping().getBreakPointsBlock().getArrPointList();
+    }
+
     public AbsCollection<ExcPointBlockPair> excList() {
         return getClasses().getDebugMapping().getBreakPointsBlock().getExcPointList();
+    }
+    public ArrPointBlockPair buildArr(boolean _exact, String _clName) {
+        String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, this);
+        if (koArr(solved_, _clName)) {
+            return null;
+        }
+        return notNullBuildArr(_exact, solved_);
+    }
+
+    public ArrPointBlockPair notNullBuildArr(boolean _exact, String _clName) {
+        return getClasses().getDebugMapping().getBreakPointsBlock().buildArr(_exact, _clName);
     }
     public ExcPointBlockPair build(boolean _exact, String _clName) {
         String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, this);
         if (koExc(solved_, _clName)) {
             return null;
         }
-        return notNullBuild(_exact, _clName);
+        return notNullBuild(_exact, solved_);
     }
 
     public ExcPointBlockPair notNullBuild(boolean _exact, String _clName) {
         return getClasses().getDebugMapping().getBreakPointsBlock().build(_exact, _clName);
     }
 
+    private static boolean koArr(String _solved, String _clName) {
+        return !_solved.startsWith(StringExpUtil.ARR_CLASS) && !_clName.trim().isEmpty();
+    }
+
     private static boolean koExc(String _solved, String _clName) {
         return _solved.isEmpty() && !_clName.trim().isEmpty();
+    }
+    public void toggleArrPointEnabled(String _clName, boolean _exact) {
+        ArrPointBlockPair e_ = buildArr(_exact, _clName);
+        if (e_ == null) {
+            return;
+        }
+        toggleEnabledArr(e_);
+    }
+
+    public void toggleEnabledArr(ArrPointBlockPair _b) {
+        for (ArrPointBlockPair b: arrList().elts()) {
+            if (b.getEp().match(_b.getEp())) {
+                b.getValue().setEnabled(!b.getValue().isEnabled());
+                return;
+            }
+        }
+        arrList().add(_b);
+    }
+
+    public void toggleArr(ArrPointBlockPair _b) {
+        for (ArrPointBlockPair b: arrList().elts()) {
+            if (b.getEp().match(_b.getEp())) {
+                arrList().remove(b);
+                return;
+            }
+        }
+        arrList().add(_b);
     }
     public void toggleExcPointEnabled(String _clName, boolean _exact) {
         ExcPointBlockPair e_ = build(_exact, _clName);
@@ -274,6 +327,9 @@ public abstract class ContextEl {
     public boolean is(StandardNamedFunction _id) {
         return getNotNull(_id).isEnabled();
     }
+    public boolean isArr(String _field, boolean _exact) {
+        return getNotNullArr(_field, _exact).isEnabled();
+    }
     public boolean isExc(String _field, boolean _exact) {
         return getNotNullExc(_field, _exact).isEnabled();
     }
@@ -291,6 +347,14 @@ public abstract class ContextEl {
     public StdMethodPointBlockPair getNotNullPair(StandardNamedFunction _id) {
         StdMethodPointBlockPair b_ = getPair(_id);
         return getClasses().getDebugMapping().getBreakPointsBlock().notNull(b_);
+    }
+    public ArrPoint getNotNullArr(String _field, boolean _exact) {
+        ArrPointBlockPair b_ = getNotNullArrPair(_field,_exact);
+        return b_.getValue();
+    }
+    public ArrPointBlockPair getNotNullArrPair(String _field, boolean _exact) {
+        ArrPointBlockPair b_ = getPairArr(_field,_exact);
+        return getClasses().getDebugMapping().getBreakPointsBlock().notNullExp(b_);
     }
     public ExcPoint getNotNullExc(String _field, boolean _exact) {
         ExcPointBlockPair b_ = getNotNullExcPair(_field,_exact);
@@ -335,6 +399,15 @@ public abstract class ContextEl {
     public MethodPointBlockPair getPair(String _id) {
         for (MethodPointBlockPair b: metList().elts()) {
             if (b.getMp().match(_id)) {
+                return b;
+            }
+        }
+        return null;
+    }
+
+    public ArrPointBlockPair getPairArr(String _field, boolean _exact) {
+        for (ArrPointBlockPair b: arrList().elts()) {
+            if (b.getEp().match(_field, _exact)) {
                 return b;
             }
         }

@@ -35,7 +35,7 @@ public final class ExecDirectStandardInstancingOperation extends
     }
     @Override
     public ArgumentList args(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _alias) {
-        return ExecInvokingOperation.fectchArgs(instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg(), buildInfos(_nodes));
+        return args(instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg(),_nodes);
     }
 
     @Override

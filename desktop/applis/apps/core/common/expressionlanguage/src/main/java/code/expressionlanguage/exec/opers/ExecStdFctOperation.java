@@ -35,7 +35,7 @@ public final class ExecStdFctOperation extends ExecSettableCallFctOperation impl
     }
     @Override
     public ArgumentList args(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _alias) {
-        return ExecInvokingOperation.fectchArgs(stdFctContent.getLastType(), stdFctContent.getNaturalVararg(), buildInfos(_nodes));
+        return args(stdFctContent.getLastType(), stdFctContent.getNaturalVararg(),_nodes);
     }
 
     @Override
