@@ -22,6 +22,7 @@ public final class BreakPointCondition {
     private final AbstractAtomicBoolean enabled;
     private final AbstractAtomicBoolean hit;
     private final AbstractAtomicBoolean suspend;
+    private final AbstractAtomicBoolean disableAgain;
     private final AbstractAtomicBoolean stackLog;
     private final AbstractAtomicBoolean stackErrLog;
     private final AbstractAtomicBoolean stackResErrLog;
@@ -49,6 +50,8 @@ public final class BreakPointCondition {
         hit = _i.newAtBool();
         suspend = _i.newAtBool();
         suspend.set(true);
+        disableAgain = _i.newAtBool();
+        disableAgain.set(true);
         stackErrLog = _i.newAtBool();
         stackResErrLog = _i.newAtBool();
         stackLog = _i.newAtBool();
@@ -209,6 +212,10 @@ public final class BreakPointCondition {
 
     public AbstractAtomicBoolean getEnabled() {
         return enabled;
+    }
+
+    public AbstractAtomicBoolean getDisableAgain() {
+        return disableAgain;
     }
 
     public AbstractAtomicBoolean getHit() {

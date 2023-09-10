@@ -364,6 +364,28 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         CustomFoundMethod state_ = state(_res,_class, _meth);
         return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_,null, false);
     }
+
+    protected CustList<String> disableHitUntilStdViewLog(String _class, String _meth, int _caret, int _depend, String _logDep, String _log, ResultContext _res, boolean _dis) {
+        RootBlock ana_ = _res.getPageEl().getAnaClassBody(_class);
+        ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        _res.toggleBreakPoint(ana_.getFile().getFileName(), _caret);
+        _res.toggleBreakPoint(ana_.getFile().getFileName(), _depend);
+        BreakPointBlockPair pairDep_ = _res.getPair(classBody_.getFile(), _depend);
+        BreakPointBlockPair pair_ = _res.getPair(classBody_.getFile(), _caret);
+        pairDep_.getValue().getResultStd().getSuspend().set(false);
+        pair_.getValue().getResultStd().getSuspend().set(false);
+        pairDep_.getValue().getResultStd().analyze(pairDep_,"",_logDep,_res,new DefContextGenerator(),null);
+        pair_.getValue().getResultStd().analyze(pair_,"",_log,_res,new DefContextGenerator(),null);
+        pair_.getValue().getResultStd().getHit().set(false);
+        pairDep_.getValue().getResultStd().getHit().set(false);
+        pair_.getValue().getResultStd().getDisableAgain().set(_dis);
+        CustList<BreakPointCondition> g_ = new CustList<BreakPointCondition>();
+        g_.add(pairDep_.getValue().getResultStd());
+        pair_.getValue().getResultStd().setAll(g_);
+        CustomFoundMethod state_ = state(_res,_class, _meth);
+        StackCallReturnValue st_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_, null, false);
+        return ((DefLogDbg)st_.getStack().getStopper().getLogger()).getList();
+    }
     protected CustomFoundMethod state(ResultContext _res, String _class, String _meth) {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();

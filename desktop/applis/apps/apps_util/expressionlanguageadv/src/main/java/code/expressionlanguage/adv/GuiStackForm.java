@@ -17,6 +17,7 @@ public final class GuiStackForm {
     private AbsCustCheckBox hit;
     private AbsCustCheckBox enabledSub;
     private AbsCustCheckBox disabledWhenHit;
+    private AbsCustCheckBox disableAgain;
     private AbsCustCheckBox suspend;
     private AbsCustCheckBox stackLog;
     private AbsCustCheckBox stackErrLog;
@@ -92,6 +93,7 @@ public final class GuiStackForm {
         enabledSub.setSelected(true);
         hit = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("hit");
         disabledWhenHit = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("disabled when hit");
+        disableAgain = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("disable again");
         suspend = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("suspend");
         stackLog = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("log stack trace");
         stackErrLog = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("log stack trace if conditional err");
@@ -111,6 +113,7 @@ public final class GuiStackForm {
         staIncExc.add(enabledSub);
         staIncExc.add(hit);
         staIncExc.add(disabledWhenHit);
+        staIncExc.add(disableAgain);
         staIncExc.add(suspend);
         staIncExc.add(stackLog);
         staIncExc.add(conditional);
@@ -237,6 +240,10 @@ public final class GuiStackForm {
 
     public AbsCustCheckBox getDisabledWhenHit() {
         return disabledWhenHit;
+    }
+
+    public AbsCustCheckBox getDisableAgain() {
+        return disableAgain;
     }
 
     public AbsCustCheckBox getSuspend() {

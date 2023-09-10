@@ -832,7 +832,11 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
                 return false;
             }
             for (BreakPointCondition o: _condition.getOthers().elts()) {
-                if (!o.getHit().get()) {
+                if (_condition.getDisableAgain().get()) {
+                    if (!o.getHit().getAndSet(false)) {
+                        return false;
+                    }
+                } else if (!o.getHit().get()) {
                     return false;
                 }
             }
