@@ -891,6 +891,63 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertSame(StopDbgEnum.METHOD_ABS_REF_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
+    @Test
+    public void text60() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" static int exmeth(){\n");
+        xml_.append("  that int l=that(((Int)new Ext().$lambda(Ext,curr,int[]))[new int[0]]);\n");
+        xml_.append("  Fct<int,int> fct = a -> a * l;\n");
+        xml_.append("  var v = (Method)fct.metaInfo();\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",(Object)3);\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" public int curr(int[] i){return i.length;}\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int{int this(int[] i);public normal void this(int[] i){}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        entering(cont_,"pkg/Ex",325);
+//        entering(cont_,"pkg/Ex",304);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ext", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(103, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(1, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertEq(189, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ABS_REF_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void text61() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" static int exmeth(){\n");
+        xml_.append("  that int l=that(((Int)new Ext().$lambda(Ext,curr,int[]))[new int[0]]);\n");
+        xml_.append("  Fct<int,int> fct = a -> a * l;\n");
+        xml_.append("  var v = (Method)fct.metaInfo();\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",(Object)3);\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" public int curr(int[] i){return i.length;}\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int{int this(int[] i);public normal void this(int[] i){}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        exiting(cont_,"pkg/Ex",325);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ext", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(103, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ABS_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(1, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertEq(189, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ABS_REF_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
     /*
     @Test
     public void calculate150() {

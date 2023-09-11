@@ -483,13 +483,13 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
                 return settable(_el,(ExecCompoundAffectationOperation) ex_,_context, true,WatchPoint.BPC_COMPOUND_WRITE,new Struct[]{ArgumentListCall.toStr(_last.getReturnedArgument()),NullStruct.NULL_VALUE}, _last);
             }
         }
+        CoreCheckedExecOperationNodeInfos c_ = core(_context, _el, _last, true, ex_);
+        if (c_ != null) {
+            return c_;
+        }
         if (ex_ instanceof ExecSettableCallFctOperation) {
             if (ex_ instanceof StdParamsOperable) {
                 return new StdMethodCheckedExecOperationNodeInfos(_context.getStandards().getCoreNames().getAliasObject(),(StdParamsOperable)ex_,cl((StdParamsOperable) ex_,_context), _el.getArguments(), ((StdParamsOperable)ex_).instance(_el.getArguments(), _last), true);
-            }
-            CoreCheckedExecOperationNodeInfos c_ = core(_context, _el, _last, true, ex_);
-            if (c_ != null) {
-                return c_;
             }
             if (sub(ex_)) {
                 AbstractWrapper w_ = _last.getWrapper();
