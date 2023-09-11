@@ -20,7 +20,7 @@ public final class FctMethodGetDeclaredAnonymousLambdaLoopVars2 extends FctRefle
         Struct index_ = argumentWrappers_.get(1).getValue().getStruct();
         Cache cache_ = ((MethodMetaInfo)_instance).getCache();
         if (cache_ != null) {
-            return new ArgumentWrapper(cache_.getLoopValue(NumParsers.getStringValue(name_), NumParsers.convertToNumber(index_).longStruct()));
+            return new ArgumentWrapper(cache_.getLoopValue(NumParsers.getString(name_).getInstance(), NumParsers.convertToNumber(index_).longStruct()));
         }
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

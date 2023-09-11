@@ -16,7 +16,7 @@ public final class FctMethodGetDeclaredAnonymousLambdaLocalVars1 extends FctRefl
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         Cache cache_ = ((MethodMetaInfo)_instance).getCache();
         if (cache_ != null) {
-            return new ArgumentWrapper(cache_.getLocalWrapperValue(NumParsers.getStringValue(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()),0, _cont, _stackCall));
+            return new ArgumentWrapper(cache_.getLocalWrapperValue(NumParsers.getString(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).getInstance(),0, _cont, _stackCall));
         }
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

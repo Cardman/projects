@@ -16,7 +16,7 @@ public final class FctMethodGetDeclaredAnonymousLambdaLoopVars1 extends FctRefle
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         Cache cache_ = ((MethodMetaInfo)_instance).getCache();
         if (cache_ != null) {
-            return new ArgumentWrapper(cache_.getLoopValue(NumParsers.getStringValue(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()),0));
+            return new ArgumentWrapper(cache_.getLoopValue(NumParsers.getString(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).getInstance(),0));
         }
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

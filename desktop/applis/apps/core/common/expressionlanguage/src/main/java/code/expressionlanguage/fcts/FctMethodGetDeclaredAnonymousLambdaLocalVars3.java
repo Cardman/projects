@@ -20,7 +20,7 @@ public final class FctMethodGetDeclaredAnonymousLambdaLocalVars3 extends FctRefl
         Struct index_ = argumentWrappers_.get(1).getValue().getStruct();
         Cache cache_ = ((MethodMetaInfo)_instance).getCache();
         if (cache_ != null) {
-            cache_.putLocalWrapperValue(NumParsers.getStringValue(name_), index_, _cont, _stackCall);
+            cache_.putLocalWrapperValue(NumParsers.getString(name_).getInstance(), index_, _cont, _stackCall);
         }
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

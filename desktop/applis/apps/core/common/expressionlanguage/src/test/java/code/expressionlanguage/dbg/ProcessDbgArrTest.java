@@ -269,7 +269,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
         assertEq(86, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -284,7 +284,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
         assertEq(91, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -311,7 +311,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
         assertEq(86, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -326,7 +326,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
         assertEq(91, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -354,13 +354,13 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
         assertEq(86, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(1, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
         assertEq(86, nowTrace(stack_));
         assertSame(StopDbgEnum.ARRAY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(1, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
         assertEq(86, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -375,10 +375,10 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
         assertEq(86, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(1, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
         assertEq(86, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -411,7 +411,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
         assertEq(100, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -426,7 +426,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
         assertEq(105, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -453,7 +453,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
         assertEq(100, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -468,7 +468,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
         assertEq(105, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -496,13 +496,13 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
         assertEq(100, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(3, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
         assertEq(207, nowTrace(stack_));
         assertSame(StopDbgEnum.ARRAY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(1, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
         assertEq(100, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -517,10 +517,10 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(1, stack_.nbPages());
         assertEq(100, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(1, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
         assertEq(100, nowTrace(stack_));
-        assertSame(StopDbgEnum.METHOD_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -568,7 +568,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
         assertEq(124, stack_.getCall(0).getTraceIndex());
-        assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -583,7 +583,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
         assertEq(134, stack_.getCall(0).getTraceIndex());
-        assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -610,7 +610,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
         assertEq(124, stack_.getCall(0).getTraceIndex());
-        assertSame(StopDbgEnum.METHOD_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -625,7 +625,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
         assertEq(129, stack_.getCall(0).getTraceIndex());
-        assertSame(StopDbgEnum.METHOD_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -652,7 +652,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
         assertEq(115, stack_.getCall(0).getTraceIndex());
-        assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -667,7 +667,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
         assertEq(125, stack_.getCall(0).getTraceIndex());
-        assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -694,7 +694,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
         assertEq(115, stack_.getCall(0).getTraceIndex());
-        assertSame(StopDbgEnum.METHOD_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -709,7 +709,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
         assertEq(125, stack_.getCall(0).getTraceIndex());
-        assertSame(StopDbgEnum.METHOD_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertSame(StopDbgEnum.METHOD_ABS_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     @Test
@@ -808,6 +808,176 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
+    @Test
+    public void text57() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int exmeth(){\n");
+        xml_.append("  that int l=that(new Ext()[0]);\n");
+        xml_.append("  Fct<int,int> fct = a -> a * l;\n");
+        xml_.append("  var v = (Method)fct.metaInfo();\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",(Object)3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\");\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",0,(Object)3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",0);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",0);\n");
+        xml_.append("  class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambdaLocVars(\"a\",0);\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" public int this(int i){return 0;}\n");
+        xml_.append(" public void this(int i){}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ext", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+    @Test
+    public void text58() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" static int exmeth(){\n");
+        xml_.append("  that int l=that(((Int)$lambda(int[],[]))[new int[0]]);\n");
+        xml_.append("  Fct<int,int> fct = a -> a * l;\n");
+        xml_.append("  var v = (Method)fct.metaInfo();\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",(Object)3);\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" public int curr(int[] i){return i.length;}\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int{int this(int[] i);public normal void this(int[] i){}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        entering(cont_,"pkg/Ex",309);
+//        entering(cont_,"pkg/Ex",304);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ext", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(87, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(1, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertEq(173, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ABS_REF_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void text59() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" static int exmeth(){\n");
+        xml_.append("  that int l=that(((Int)$lambda(int[],[]))[new int[0]]);\n");
+        xml_.append("  Fct<int,int> fct = a -> a * l;\n");
+        xml_.append("  var v = (Method)fct.metaInfo();\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",(Object)3);\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" public int curr(int[] i){return i.length;}\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int{int this(int[] i);public normal void this(int[] i){}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        exiting(cont_,"pkg/Ex",309);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ext", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(87, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ABS_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(1, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertEq(173, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ABS_REF_EXIT,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    /*
+    @Test
+    public void calculate150() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  Fct<int,Fct<int,int>> fct = a -> b -> a * b;\n");
+        xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",(Object)3);\n");
+        xml_.append("  return (int)v.invoke(null,2);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
+     @Test
+    public void calculate152() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  Fct<int,Fct<int,int>> fct = a -> b -> a * b;\n");
+        xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",(Object)3);\n");
+        xml_.append("  return (int)v.getDeclaredAnonymousLambdaLocVars(\"a\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(3, getNumber(ret_));
+    }
+    @Test
+    public void calculate168() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  Fct<int,Fct<int,int>> fct = a -> b -> a * b;\n");
+        xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",0,(Object)3);\n");
+        xml_.append("  return v.getDeclaredAnonymousLambdaLocVars(\"i\",0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE, ret_.getStruct());
+    }
+
+    @Test
+    public void calculate170() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  Fct<int,Fct<int,int>> fct = a -> b -> a * b;\n");
+        xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",1,(Object)3);\n");
+        xml_.append("  return v.getDeclaredAnonymousLambdaLocVars(\"a\",0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE, ret_.getStruct());
+    }
+*/
     private StandardNamedFunction enteringExiting(ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {
         StandardNamedFunction s_ = toggled(_cont, _clName, _id);
         _cont.getPair(s_).getValue().setEntry(true);
