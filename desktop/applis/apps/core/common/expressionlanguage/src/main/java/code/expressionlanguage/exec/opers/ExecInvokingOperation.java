@@ -12,10 +12,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.*;
-import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.ReflectVariableLaterWrapper;
-import code.expressionlanguage.exec.variables.ReflectVariableWrapper;
+import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunctionInst;
 import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
@@ -23,6 +20,7 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
+import code.util.IdMap;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -42,6 +40,21 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         intermediate = _intermediate;
     }
 
+    protected void setCheckedResult(Argument _res, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stack, boolean _set) {
+        if (_stack.getStopper().hasValueStd(_stack)) {
+            _stack.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
+            _stack.getBreakPointInfo().getBreakPointMiddleInfo().setCalculated(new ArgumentWrapper(_res,null));
+            return;
+        }
+        setResult(_res, _conf, _nodes, _stack, _set);
+    }
+    public void setResult(Argument _res, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stack, boolean _set) {
+        if (_set) {
+            setQuickNoConvertSimpleArgument(_res, _conf, _nodes, _stack);
+            return;
+        }
+        setSimpleArgument(_res, _conf, _nodes, _stack);
+    }
     public static ArgumentListCall fectchInstFormattedArgs(ExecFormattedRootBlock _formatted, ExecInstancingCommonContent _lastType, ContextEl _conf, StackCall _stack, CustList<ExecOperationInfo> _infos) {
         String lastType_ = ExecInherits.quickFormat(_formatted, _lastType.getLastType());
         return fectchArgs(lastType_, _lastType.getNaturalVararg(), _conf,_stack, _infos);

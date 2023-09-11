@@ -38,7 +38,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         ExecHelper.getArgumentPair(_nodes,this).setArgumentList(argumentListCall_.getArgumentWrappers());
         ExecHelper.getArgumentPair(_nodes,this).setArgumentParent(new Argument(parent_));
         Argument res_ = getArgument(this,_conf, _stack,readWrite.getInstRead(), ArgumentListCall.wrapCall(argumentListCall_.getArgumentWrappers(),null), parent_);
-        setSimpleArgument(res_, _conf, _nodes, _stack);
+        setCheckedResult(res_, _conf, _nodes, _stack,false);
     }
     @Override
     public Argument calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack) {

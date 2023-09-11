@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
@@ -25,19 +24,10 @@ public abstract class ExecSettableCallFctOperation extends ExecInvokingOperation
     }
 
     protected void setCheckedResult(Argument _res, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stack) {
-        if (_stack.getStopper().hasValueStd(_stack)) {
-            _stack.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
-            _stack.getBreakPointInfo().getBreakPointMiddleInfo().setCalculated(new ArgumentWrapper(_res,null));
-            return;
-        }
-        setResult(_res, _conf, _nodes, _stack);
+        setCheckedResult(_res, _conf, _nodes, _stack,resultCanBeSet());
     }
     public void setResult(Argument _res, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stack) {
-        if (resultCanBeSet()) {
-            setQuickNoConvertSimpleArgument(_res, _conf, _nodes, _stack);
-            return;
-        }
-        setSimpleArgument(_res, _conf, _nodes, _stack);
+        setResult(_res,_conf,_nodes,_stack,resultCanBeSet());
     }
     @Override
     public Argument calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack) {
