@@ -28,4 +28,25 @@ public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
         return ab_.checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, _stack);
     }
 
+    @Override
+    protected boolean checkParams(ContextEl _context, StackCall _stack) {
+        ExecMemberCallingsBlock callee_ = getCallee();
+        if (callee_ instanceof ExecAbstractSwitchMethod) {
+            return false;
+        }
+        if (getCheckedParams() == 0) {
+            setCheckedParams(1);
+            return _stack.getStopper().isStopAtExcMethod();
+        }
+        return false;
+    }
+
+    @Override
+    protected boolean postArg(StackCall _stack) {
+        ExecMemberCallingsBlock callee_ = getCallee();
+        if (callee_ instanceof ExecAbstractSwitchMethod) {
+            return true;
+        }
+        return postArgBase(_stack);
+    }
 }

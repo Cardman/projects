@@ -292,6 +292,10 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             infos_ = refMethod(_context, (DirectAnnotationRefectMethodPageEl) p_);
         } else if (p_ instanceof LambdaAnnotationRefectMethodPageEl) {
             infos_ = refMethod(_context, (LambdaAnnotationRefectMethodPageEl) p_);
+        } else if (p_ instanceof AbstractRefectMethodPageEl) {
+            infos_ = refMethod(_context,(AbstractRefectMethodPageEl) p_);
+        } else if (p_ instanceof AbstractRefectLambdaMethodPageEl) {
+            infos_ = refMethod(_context,(AbstractRefectLambdaMethodPageEl) p_);
         } else if (!p_.isEmptyEl()){
             ExpressionLanguage el_ = p_.getLastEl();
             infos_ = expOper(el_, el_.getCurrentOper(), _context, p_,_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getCalculated() != null);
@@ -319,6 +323,21 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         }
         return null;
     }
+
+    private static CallCheckedExecOperationNodeInfos refMethod(ContextEl _context, AbstractRefectMethodPageEl _p) {
+        if (_p.isCheckingEntryExit()) {
+            return checkLda(new CallCheckedExecOperationNodeInfos(_context,_p));
+        }
+        return null;
+    }
+
+    private static CallCheckedExecOperationNodeInfos refMethod(ContextEl _context, AbstractRefectLambdaMethodPageEl _p) {
+        if (_p.isCheckingEntryExit()) {
+            return checkLda(new CallCheckedExecOperationNodeInfos(_context,_p));
+        }
+        return null;
+    }
+
     private static StdMethodCheckedExecOperationNodeInfos refMethod(LambdaDirectStdRefectMethodPageEl _p) {
         if (_p.isCheckingEntryExit()) {
             return new StdMethodCheckedExecOperationNodeInfos(_p);

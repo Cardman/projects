@@ -17,4 +17,17 @@ public final class PolymorphRefectMethodPageEl extends AbstractRefectMethodPageE
         return new ReflectMethodParamChecker(getPair(), _args, _right, getAccessKind()).checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, _stack);
     }
 
+    @Override
+    protected boolean checkParams(ContextEl _context, StackCall _stack) {
+        if (getCheckedParams() == 0) {
+            setCheckedParams(1);
+            return _stack.getStopper().isStopAtExcMethod();
+        }
+        return false;
+    }
+
+    @Override
+    protected boolean postArg(StackCall _stack) {
+        return postArgBase(_stack);
+    }
 }

@@ -2,6 +2,8 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.AbstractRefectLambdaMethodPageEl;
+import code.expressionlanguage.exec.calls.AbstractRefectMethodPageEl;
 import code.expressionlanguage.exec.inherits.AbstractFormatParamChecker;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -84,6 +86,25 @@ public final class CallCheckedExecOperationNodeInfos extends CoreCheckedExecOper
         cache = null;
         this.exit = _exit;
     }
+
+    public CallCheckedExecOperationNodeInfos(ContextEl _context, AbstractRefectMethodPageEl _s) {
+        super(ExecFormattedRootBlock.defValue(), ArgumentListCall.toStr(_s.getInstance()), null);
+        this.exit = _s.getCheckedParams() == 2;
+        this.cache = _s.getCache();
+        this.args = ArgumentListCall.wrapCall(_s.getArrRef().getArray().listArgs());
+        this.poly = new ExecOverrideInfo(_s.getClassName(),_s.getPair());
+        formattedRootBlock = ExecFctOperation.glClass(_context, getInstance(), poly.getClassName());
+    }
+
+    public CallCheckedExecOperationNodeInfos(ContextEl _context, AbstractRefectLambdaMethodPageEl _s) {
+        super(ExecFormattedRootBlock.defValue(), ArgumentListCall.toStr(_s.getInstance()), null);
+        this.exit = _s.getCheckedParams() == 2;
+        this.cache = _s.getCache();
+        this.args = _s.getArray();
+        this.poly = new ExecOverrideInfo(_s.getClassName(),_s.getPair());
+        formattedRootBlock = ExecFctOperation.glClass(_context, getInstance(), poly.getClassName());
+    }
+
     public LambdaStruct lda() {
         return AbstractFormatParamChecker.matchAbstract(getInstance(),getPoly());
     }
