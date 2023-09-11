@@ -483,24 +483,31 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
                 return settable(_el,(ExecCompoundAffectationOperation) ex_,_context, true,WatchPoint.BPC_COMPOUND_WRITE,new Struct[]{ArgumentListCall.toStr(_last.getReturnedArgument()),NullStruct.NULL_VALUE}, _last);
             }
         }
-        CoreCheckedExecOperationNodeInfos c_ = core(_context, _el, _last, true, ex_);
-        if (c_ != null) {
-            return c_;
+        if (ex_ instanceof StdParamsOperable) {
+            return new StdMethodCheckedExecOperationNodeInfos(_context.getStandards().getCoreNames().getAliasObject(),(StdParamsOperable)ex_,cl((StdParamsOperable) ex_,_context), _el.getArguments(), ((StdParamsOperable)ex_).instance(_el.getArguments(), _last), true);
         }
-        if (ex_ instanceof ExecSettableCallFctOperation) {
-            if (ex_ instanceof StdParamsOperable) {
-                return new StdMethodCheckedExecOperationNodeInfos(_context.getStandards().getCoreNames().getAliasObject(),(StdParamsOperable)ex_,cl((StdParamsOperable) ex_,_context), _el.getArguments(), ((StdParamsOperable)ex_).instance(_el.getArguments(), _last), true);
-            }
-            if (sub(ex_)) {
-                AbstractWrapper w_ = _last.getWrapper();
-                return wrapp(w_, _context, WatchPoint.BPC_COMPOUND_READ);
-            } else if (!((ExecSettableCallFctOperation) ex_).resultCanBeSet()) {
-                AbstractWrapper w_ = _last.getWrapper();
-                return wrapp(w_, _context, WatchPoint.BPC_READ);
-            }
+        CoreCheckedExecOperationNodeInfos w_ = wrapp(_context, _last, ex_);
+        if (w_ != null) {
+            return w_;
+        }
+        return core(_context, _el, _last, true, ex_);
+    }
+
+    private static CoreCheckedExecOperationNodeInfos wrapp(ContextEl _context, AbstractPageEl _last, ExecOperationNode _ex) {
+        if (!(_ex instanceof ExecSettableCallFctOperation)) {
+            return null;
+        }
+        if (sub(_ex)) {
+            AbstractWrapper w_ = _last.getWrapper();
+            return wrapp(w_, _context, WatchPoint.BPC_COMPOUND_READ);
+        }
+        if (!((ExecSettableCallFctOperation)_ex).resultCanBeSet()) {
+            AbstractWrapper w_ = _last.getWrapper();
+            return wrapp(w_, _context, WatchPoint.BPC_READ);
         }
         return null;
     }
+
     private static CoreCheckedExecOperationNodeInfos core(ContextEl _context, ExpressionLanguage _el, AbstractPageEl _last, boolean _exit, ExecOperationNode _ex) {
         if (_ex instanceof ExecFctOperation) {
             return checkLda(new CallCheckedExecOperationNodeInfos(_context, _el.getArguments(), _last, _exit, (ExecFctOperation) _ex));
