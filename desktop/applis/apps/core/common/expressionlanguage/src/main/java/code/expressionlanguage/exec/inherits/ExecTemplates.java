@@ -67,6 +67,14 @@ public final class ExecTemplates {
     }
 
     public static Parameters okArgsSet(ExecNamedFunctionBlock _id, ExecFormattedRootBlock _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, StackCall _stackCall) {
+        Parameters p_ = quickArgsSet(_id, _classNameFound, _cache, _firstArgs, _conf, _stackCall);
+        if (p_.getError() != null) {
+            _stackCall.setCallingState(new CustomFoundExc(p_.getError()));
+        }
+        return p_;
+    }
+
+    public static Parameters quickArgsSet(ExecNamedFunctionBlock _id, ExecFormattedRootBlock _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, StackCall _stackCall) {
         Parameters p_ = new Parameters();
         possibleCheck(_classNameFound, _cache, _conf, _stackCall, p_);
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
@@ -74,12 +82,8 @@ public final class ExecTemplates {
         checkNb(_conf, _stackCall, p_, argumentWrappers_, params_);
         checkArgs(_conf, _stackCall, p_, argumentWrappers_, params_);
         procRight(_id, _classNameFound, _conf, _firstArgs.getRight(), _stackCall, p_);
-        if (p_.getError() != null) {
-            _stackCall.setCallingState(new CustomFoundExc(p_.getError()));
-        }
         return p_;
     }
-
     public static void okArgsSetSwCall(ExecAbstractSwitchMethod _id, ContextEl _conf, StackCall _stackCall, Argument _value, ExecFormattedRootBlock _globalClass, PageElContent _contentEx) {
         Argument instance_ = _contentEx.getGlobalArgument();
         if (_id instanceof ExecSwitchInstanceMethod) {

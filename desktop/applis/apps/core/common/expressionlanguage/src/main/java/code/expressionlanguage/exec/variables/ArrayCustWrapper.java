@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.opers.ExecCustArrOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunctionPair;
 import code.expressionlanguage.structs.Struct;
@@ -41,5 +42,22 @@ public final class ArrayCustWrapper extends ValueWrapper {
         ExecRootBlock type_ = fct_.getType();
         ExecNamedFunctionBlock named_ = fct_.getFct();
         return ExecFieldTemplates.formatType(_conf, type_, named_.getImportedReturnType(), previousClass);
+    }
+
+    public Struct getParent() {
+        return parent;
+    }
+
+    public ArgumentListCall args() {
+        return ArgumentListCall.wrapCall(ls,null);
+    }
+    public ArgumentListCall argsWrite(Struct _right) {
+        return ArgumentListCall.wrapCall(ls,ArgumentListCall.toStr(_right));
+    }
+    public ExecOverrideInfo poly(ContextEl _cont, Struct _pr) {
+        return ExecCustArrOperation.poly(readWrite.getInstRead(), _cont, _pr);
+    }
+    public ExecOverrideInfo polyWrite(ContextEl _cont, Struct _pr) {
+        return ExecCustArrOperation.poly(readWrite.getInstWrite(), _cont, _pr);
     }
 }

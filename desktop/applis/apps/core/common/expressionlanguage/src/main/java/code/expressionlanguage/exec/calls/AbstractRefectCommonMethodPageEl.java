@@ -100,7 +100,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         return accessKind;
     }
 
-    ExecTypeFunction getPair() {
+    public ExecTypeFunction getPair() {
         return pair;
     }
 

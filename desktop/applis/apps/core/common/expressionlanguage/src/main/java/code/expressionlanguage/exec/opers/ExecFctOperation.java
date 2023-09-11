@@ -3,7 +3,9 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.MethodParamChecker;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -39,7 +41,23 @@ public final class ExecFctOperation extends ExecSettableCallFctOperation {
         setRelOffsetPossibleLastPage(inst.getInst().getMethodName(), _stack);
         Argument parent_ = new Argument(ExecFieldTemplates.getParent(inst.getInst().getAnc(), previous_.getStruct(), _conf, _stack));
         Argument res_ = prep(_conf, _stack, inst, parent_, fetchFormattedArgs(_conf, _stack, parent_.getStruct(), inst, buildInfos(_nodes)));
-        setResult(res_, _conf, _nodes, _stack);
+        setCheckedResult(res_, _conf, _nodes, _stack);
+    }
+
+    public Struct instance(IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _last) {
+        return ExecOperationNode.instance(this,inst.getInst().getAnc(), _nodes, _last);
+    }
+    public ArgumentListCall args(ContextEl _cont, Struct _pr, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+        return args(_cont,inst.getPair().getType(),inst.getInst().getLastType(),inst.getInst().getNaturalVararg(),_pr,_nodes).getArguments();
+    }
+    public ExecOverrideInfo poly(ContextEl _cont, Struct _pr) {
+        ExecFormattedRootBlock formattedType_ = inst.getInst().getFormattedType();
+        return polymorphOrSuper(inst.getInst().isStaticChoiceMethod(), _cont, _pr, formattedType_, inst.getPair());
+    }
+    public static ExecFormattedRootBlock glClass(ContextEl _cont, Struct _pr, ExecFormattedRootBlock _classNameFound) {
+        String className_ = _pr.getClassName(_cont);
+        String sup_ = ExecInherits.getQuickFullTypeByBases(className_, _classNameFound.getFormatted(), _cont);
+        return new ExecFormattedRootBlock(_classNameFound, sup_);
     }
 
     public static Argument prep(ContextEl _conf, StackCall _stack, ExecTypeFunctionInst _inst, Argument _parent, ArgumentListCall _args) {

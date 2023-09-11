@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.inherits.AbstractFormatParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -46,8 +47,9 @@ public final class FctMathRandom1 extends FctMath {
         }
         if (p_.getFct() instanceof ExecOverridableBlock) {
             ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
-            if (seedSpec_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seedSpec_).getNamed() == meth_) {
-                Argument fct_ = new Argument(((AbstractFunctionalInstance)seedSpec_).getFunctional());
+            LambdaStruct lda_ = AbstractFormatParamChecker.matchAbstract(seedSpec_, meth_);
+            if (lda_ != null) {
+                Argument fct_ = new Argument(lda_);
                 return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,ArrayStruct.instance(StringExpUtil.getPrettyArrayType(numberStruct_.getClassName(_cont)),argsToPass_),0,_cont, _stackCall).getStruct());
             }
             ArgumentListCall argList_ = ArgumentListCall.wrapCall(argsToPass_);
@@ -67,8 +69,9 @@ public final class FctMathRandom1 extends FctMath {
         }
         if (p_.getFct() instanceof ExecOverridableBlock) {
             ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
-            if (seed_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seed_).getNamed() == meth_) {
-                Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
+            LambdaStruct lda_ = AbstractFormatParamChecker.matchAbstract(seed_, meth_);
+            if (lda_ != null) {
+                Argument fct_ = new Argument(lda_);
                 return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,ArrayStruct.instance(StringExpUtil.getPrettyArrayType(numberStruct_.getClassName(_cont)),argsToPass_),0,_cont, _stackCall).getStruct());
             }
             ArgumentListCall argList_ = ArgumentListCall.wrapCall(argsToPass_);

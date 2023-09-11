@@ -3,9 +3,11 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunctionInst;
@@ -37,6 +39,15 @@ public final class ExecCustArrWriteOperation extends ExecInvokingOperation imple
         Struct parent_ = ExecFieldTemplates.getParent(instWrite.getInst().getAnc(), previous_.getStruct(), _conf, _stack);
         ArgumentListCall argumentListCall_ = fetchFormattedArgs(_conf, _stack, parent_,instWrite, infos_);
         return ExecCustArrOperation.getArgument(this,_conf, _stack,instWrite, ArgumentListCall.wrapCall(argumentListCall_.getArgumentWrappers(),_right), parent_);
+    }
+    public Struct instanceWrite(IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _last) {
+        return ExecOperationNode.instance(this,instWrite.getInst().getAnc(), _nodes, _last);
+    }
+    public ArgumentListCall argsWrite(ContextEl _cont, Struct _pr, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Struct _right) {
+        return ArgumentListCall.wrapCall(args(_cont,instWrite.getPair().getType(),instWrite.getInst().getLastType(),instWrite.getInst().getNaturalVararg(),_pr,_nodes).getArguments().getArgumentWrappers(),ArgumentListCall.toStr(_right));
+    }
+    public ExecOverrideInfo polyWrite(ContextEl _cont, Struct _pr) {
+        return ExecCustArrOperation.poly(instWrite, _cont, _pr);
     }
 
     @Override

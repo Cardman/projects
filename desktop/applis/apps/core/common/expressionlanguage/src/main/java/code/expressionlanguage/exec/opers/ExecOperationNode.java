@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -17,6 +18,8 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
@@ -64,6 +67,16 @@ public abstract class ExecOperationNode {
         return ExecHelper.getNextNode(this);
     }
 
+    public static Struct instance(ExecOperationNode _n, int _anc, IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _last) {
+        Struct prev_ = ArgumentListCall.toStr(Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes, _n).getPreviousArgument()));
+        Struct instance_;
+        if (prev_ == NullStruct.NULL_VALUE) {
+            instance_ = _last.getGlobalStruct();
+        } else {
+            instance_ = prev_;
+        }
+        return ExecFieldTemplates.getParent(_anc,instance_);
+    }
     protected Argument getPreviousArg(ExecPossibleIntermediateDotted _possible, IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _lastPage) {
         Argument previous_;
         if (_possible.isIntermediateDottedOperation()) {

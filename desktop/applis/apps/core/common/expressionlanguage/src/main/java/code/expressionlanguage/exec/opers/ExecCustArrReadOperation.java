@@ -3,9 +3,11 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunctionInst;
@@ -32,7 +34,16 @@ public final class ExecCustArrReadOperation extends ExecSettableCallFctOperation
         Struct parent_ = ExecFieldTemplates.getParent(instRead.getInst().getAnc(), previous_.getStruct(), _conf, _stack);
         ArgumentListCall argumentListCall_ = fetchFormattedArgs(_conf, _stack, parent_, instRead, infos_);
         Argument res_ = ExecCustArrOperation.getArgument(this,_conf, _stack,instRead, ArgumentListCall.wrapCall(argumentListCall_.getArgumentWrappers(),null), parent_);
-        setResult(res_, _conf, _nodes, _stack);
+        setCheckedResult(res_, _conf, _nodes, _stack);
+    }
+    public Struct instance(IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _last) {
+        return ExecOperationNode.instance(this,instRead.getInst().getAnc(), _nodes, _last);
+    }
+    public ArgumentListCall args(ContextEl _cont, Struct _pr, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+        return args(_cont,instRead.getPair().getType(),instRead.getInst().getLastType(),instRead.getInst().getNaturalVararg(),_pr,_nodes).getArguments();
+    }
+    public ExecOverrideInfo poly(ContextEl _cont, Struct _pr) {
+        return ExecCustArrOperation.poly(instRead, _cont, _pr);
     }
 
 }

@@ -8,6 +8,7 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
 
     private boolean calledAfter;
     private boolean checkField;
+    private boolean exiting;
 
     protected AbstractLambdaVariable(boolean _lambda) {
         super(_lambda);
@@ -34,12 +35,32 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
                 return false;
             }
             setReturnedArgument(arg_);
+            checkField = true;
+            exiting = true;
+            if (_stack.getStopper().isStopAtRef(_context, _stack)) {
+                return false;
+            }
+            checkField = false;
+            exiting = false;
+            return true;
+        }
+        if (!exiting) {
+            checkField = true;
+            exiting = true;
+            if (_stack.getStopper().isStopAtRef(_context, _stack)) {
+                return false;
+            }
+            checkField = false;
         }
         return true;
     }
 
     private void possibleWrap(StackCall _stack) {
         setWrapException(_stack.calls());
+    }
+
+    public boolean isExiting() {
+        return exiting;
     }
 
     public boolean isCheckField() {
