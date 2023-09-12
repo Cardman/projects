@@ -34,6 +34,8 @@ public final class TreeBreakPointBlockPairEvent implements AbsShortListTree {
             frame.guiContentBuild(frameKeys.getMetList().getValue(is_.get(0)),resultContext);
         } else if (FramePointsTree.SORT_SP == index_) {
             frame.guiContentBuild(frameKeys.getStdList().getValue(is_.get(0)).get(is_.get(1)),resultContext);
+        } else if (FramePointsTree.SORT_AP == index_) {
+            frame.guiContentBuild(frameKeys.getArrList().getValue(is_.get(0)).get(is_.get(1)),resultContext);
         }
     }
     static AbstractMutableTreeNodeCore indexes(FramePointsTree _f, AbstractMutableTreeNodeCore _node, Ints _is) {

@@ -17,6 +17,7 @@ public final class DependantPointsForm {
     public static final String STATIC = "static";
     public static final String INSTANCE = "instance";
     public static final String THROWN = "thrown";
+    public static final String LENGTH = "length";
     public static final String CAUGHT = "caught";
     public static final String PROPAGATED = "propagated";
     public static final String READ = "read";
@@ -30,6 +31,7 @@ public final class DependantPointsForm {
     private AbsPanel wpForm;
     private AbsPanel metForm;
     private AbsPanel bpForm;
+    private AbsPanel arrForm;
     private AbsScrollPane view;
     private AbsCompoFactory compoFactory;
     private final IdList<BreakPointCondition> selected = new IdList<BreakPointCondition>();
@@ -50,11 +52,13 @@ public final class DependantPointsForm {
         wpForm = compoFactory.newPageBox();
         metForm = compoFactory.newPageBox();
         bpForm = compoFactory.newPageBox();
+        arrForm = compoFactory.newPageBox();
         all_.add(bpForm);
         all_.add(wpForm);
         all_.add(excFrom);
         all_.add(metForm);
         all_.add(stdForm);
+        all_.add(arrForm);
         all_.add(compoFactory.newAbsScrollPane(framePointsTree.getTree()));
         all_.add(framePointsTree.getCreate());
         all_.add(view);
@@ -69,6 +73,12 @@ public final class DependantPointsForm {
     }
 
     public void init(ResultContext _res, int _add) {
+        bpForm.removeAll();
+        excFrom.removeAll();
+        wpForm.removeAll();
+        metForm.removeAll();
+        stdForm.removeAll();
+        arrForm.removeAll();
         selected.clear();
         checksCurrent.clear();
         view.setNullViewportView();
@@ -99,6 +109,8 @@ public final class DependantPointsForm {
         } else if (_add == StdMethodPointBlockPair.SMP) {
             stdForm.add(check(ENTRY,MethodPoint.BPC_ENTRY));
             stdForm.add(check(EXIT,MethodPoint.BPC_EXIT));
+        } else if (_add == ArrPoint.AP) {
+            arrForm.add(check(LENGTH,ArrPoint.BPC_LENGTH));
         }
     }
 
@@ -120,6 +132,13 @@ public final class DependantPointsForm {
         page_.add(check(THROWN,_p.getValue().getResultThrown()));
         page_.add(check(CAUGHT,_p.getValue().getResultCaught()));
         page_.add(check(PROPAGATED,_p.getValue().getResultPropagated()));
+        view.setViewportView(page_);
+    }
+
+    public void guiContentBuild(ArrPointBlockPair _p) {
+        checks.clear();
+        AbsPanel page_ = compoFactory.newPageBox();
+        page_.add(check(LENGTH,_p.getValue().getResultLength()));
         view.setViewportView(page_);
     }
 
@@ -184,23 +203,4 @@ public final class DependantPointsForm {
         return framePointsTree;
     }
 
-//    public AbsPanel getBpForm() {
-//        return bpForm;
-//    }
-//
-//    public AbsPanel getMetForm() {
-//        return metForm;
-//    }
-//
-//    public AbsPanel getWpForm() {
-//        return wpForm;
-//    }
-//
-//    public AbsPanel getExcFrom() {
-//        return excFrom;
-//    }
-//
-//    public AbsPanel getStdForm() {
-//        return stdForm;
-//    }
 }

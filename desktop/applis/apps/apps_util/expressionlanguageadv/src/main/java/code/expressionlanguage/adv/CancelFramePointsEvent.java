@@ -17,6 +17,7 @@ public final class CancelFramePointsEvent implements AbsWindowListenerClosing {
     static void act(AbsDebuggerGui _w) {
         _w.getFramePoints().getCommonFrame().setVisible(false);
         _w.getFramePoints().getFrameExcFormContent().setSelectedExc(null);
+        _w.getFramePoints().getFrameArrFormContent().setSelectedArr(null);
         _w.getFramePoints().getFrameStdFormContent().setSelectedMp(null);
         _w.getFramePoints().getFrameWpFormContent().setSelectedWp(null);
         _w.getFramePoints().getFrameFormContent().setSelectedMp(null);

@@ -13,6 +13,7 @@ public final class FramePoints {
     private final FrameMpForm frameFormContent;
     private final FrameWpFormContent frameWpFormContent;
     private final FrameBpFormContent frameBpFormContent;
+    private final FrameArrFormContent frameArrFormContent;
     private final FramePointsTree framePointsTree;
     private AbsScrollPane view;
 
@@ -25,6 +26,7 @@ public final class FramePoints {
         frameFormContent = new FrameMpForm(_list);
         frameWpFormContent = new FrameWpFormContent(_list);
         frameBpFormContent = new FrameBpFormContent(_list);
+        frameArrFormContent = new FrameArrFormContent(_list);
     }
     public void guiBuild(AbsDebuggerGui _d) {
         view = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
@@ -39,6 +41,7 @@ public final class FramePoints {
         frameFormContent.guiBuild(_d);
         frameWpFormContent.guiBuild(_d);
         frameBpFormContent.guiBuild(_d);
+        frameArrFormContent.guiBuild(_d);
     }
     public void refresh(StringMap<String> _v, AbsDebuggerGui _d, ResultContext _r) {
         frameExcFormContent.refresh(_v, _r, _d, this);
@@ -54,6 +57,7 @@ public final class FramePoints {
         frameFormContent.refresh(_v, _r, _d);
         frameWpFormContent.refresh(_v, _r, _d, this);
         frameBpFormContent.refresh(_v, _r, _d, this);
+        frameArrFormContent.refresh(_v, _r, _d, this);
     }
     public void init(AbsDebuggerGui _d, ResultContext _res) {
         if (commonFrame.isVisible()) {
@@ -67,6 +71,9 @@ public final class FramePoints {
     }
     public void refreshBp(ResultContext _res) {
         framePointsTree.refreshBp(_res);
+    }
+    public void refreshArr(ResultContext _res) {
+        framePointsTree.refreshArray(_res);
     }
     public void refreshExc(ResultContext _res) {
         framePointsTree.refreshException(_res);
@@ -123,12 +130,22 @@ public final class FramePoints {
         view.recalculateViewport();
     }
 
+    public void guiContentBuild(ArrPointBlockPair _exc, ResultContext _r) {
+        frameArrFormContent.initForm(_exc,commonFrame,_r);
+        view.setViewportView(frameArrFormContent.getContentPane());
+        view.recalculateViewport();
+    }
+
     public void guiContentBuildClear() {
         view.setNullViewportView();
     }
 
     public FrameExcFormContent getFrameExcFormContent() {
         return frameExcFormContent;
+    }
+
+    public FrameArrFormContent getFrameArrFormContent() {
+        return frameArrFormContent;
     }
 
     public FrameStdMpForm getFrameStdFormContent() {

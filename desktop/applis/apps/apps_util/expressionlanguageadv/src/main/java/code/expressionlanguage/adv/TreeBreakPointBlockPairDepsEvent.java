@@ -31,6 +31,8 @@ public final class TreeBreakPointBlockPairDepsEvent implements AbsShortListTree 
             frame.guiContentBuild(frameKeys.getMetList().getValue(is_.get(0)));
         } else if (FramePointsTree.SORT_SP == index_) {
             frame.guiContentBuild(frameKeys.getStdList().getValue(is_.get(0)).get(is_.get(1)));
+        } else if (FramePointsTree.SORT_AP == index_) {
+            frame.guiContentBuild(frameKeys.getArrList().getValue(is_.get(0)).get(is_.get(1)));
         }
     }
 }

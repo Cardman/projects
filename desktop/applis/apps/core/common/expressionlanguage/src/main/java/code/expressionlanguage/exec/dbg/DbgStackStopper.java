@@ -706,7 +706,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             AbstractPageEl p_ = _stackCall.getLastPage();
             return arrayEnterCase(_context, _stackCall, p_, infosCall_);
         }
-        if (infos_ instanceof StdMethodCheckedExecOperationNodeInfos && _state == StopDbgEnum.METHOD_STD_ENTRY) {
+        if (infos_ instanceof StdMethodCheckedExecOperationNodeInfos && (_state == StopDbgEnum.METHOD_STD_ENTRY || _state == StopDbgEnum.METHOD_STD_EXIT)) {
             AbstractPageEl p_ = _stackCall.getLastPage();
             return nextEntry(_context, (StdMethodCheckedExecOperationNodeInfos) infos_, infosCall_, _stackCall, p_);
         }

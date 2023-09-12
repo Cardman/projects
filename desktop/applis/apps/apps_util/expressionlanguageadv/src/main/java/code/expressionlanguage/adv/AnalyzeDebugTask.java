@@ -5,6 +5,7 @@ import code.expressionlanguage.exec.dbg.DbgStackStopper;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.AbsAdvContextGenerator;
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
+import code.gui.AbsTextArea;
 import code.util.EntryCust;
 import code.util.StringMap;
 
@@ -28,7 +29,9 @@ public final class AnalyzeDebugTask implements Runnable {
                 all_.addEntry(m.getKey(),m.getValue().getContent());
             }
         }
-        ResultContext ana_ = gen_.next(base, src, new DbgStackStopper(new AdvLogDbg(gui.getStatusDbgArea())));
+        AbsTextArea ta_ = gui.getCommonFrame().getFrames().getCompoFactory().newTextArea();
+        ta_.setEditable(false);
+        ResultContext ana_ = gen_.next(base, src, new DbgStackStopper(new AdvLogDbg(ta_)));
         if (ana_ == null) {
             gui.getAnalyzeMenu().setEnabled(true);
             return;
@@ -42,6 +45,7 @@ public final class AnalyzeDebugTask implements Runnable {
 //        Classes.forwardAndClear(ctx_);
 //        ana_.setContext(ctx_);
         gui.setViewable(all_);
+        gui.getStatusDbgAreaScroll().setViewportView(ta_);
         gui.update(ana_, src);
         gui.getAnalyzeMenu().setEnabled(true);
     }
