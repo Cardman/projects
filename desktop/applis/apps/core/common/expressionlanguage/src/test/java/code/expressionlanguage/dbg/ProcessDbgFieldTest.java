@@ -4,6 +4,7 @@ import code.expressionlanguage.DefContextGenerator;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.StopDbgEnum;
+import code.expressionlanguage.exec.dbg.DefLogDbg;
 import code.expressionlanguage.exec.dbg.WatchPoint;
 import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
 import code.expressionlanguage.functionid.MethodId;
@@ -4092,6 +4093,26 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         assertEq(0, stack_.nbPages());
     }
 
+    @Test
+    public void test172() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public int f;public static int exmeth(){return new Ex().exmeth2()+=2;}public that int exmeth2(){return that(f);}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleBreakPoint("pkg/Ex",124);
+        cont_.toggleWatchPoint("pkg/Ex",32);
+        compoundRead(cont_,cf("pkg.Ex","f"));
+        WatchPointBlockPair wp_ = pair(cont_, cf("pkg.Ex", "f"));
+        wp_.getValue().getResultCompoundRead().analyze(wp_,"","f",cont_,new DefContextGenerator(),false);
+        wp_.getValue().getResultCompoundRead().getSuspend().set(false);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        StackCall next_ = dbgContinueNormal(dbgContinueNormalValueStepRet(stack_, cont_.getContext()), cont_.getContext());
+        assertEq(0, next_.nbPages());
+        assertEq(1, ((DefLogDbg)next_.getStopper().getLogger()).getList().size());
+        assertEq("0", ((DefLogDbg)next_.getStopper().getLogger()).getList().get(0));
+    }
     private void readCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         read(_cont, _cf);
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
