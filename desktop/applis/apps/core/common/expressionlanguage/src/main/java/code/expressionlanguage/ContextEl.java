@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.dbg.*;
+import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.exec.util.ClassMethodIdOverride;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -41,6 +42,12 @@ public abstract class ContextEl {
 
     public AbstractTypePairHash getChecker() {
         return executionInfos.getClasses().getChecker();
+    }
+    public CustList<MethodPointBlockPairRootBlock> getPairs(ExecBlock _id, ExecFormattedRootBlock _gl, ContextEl _context, Struct _instance, boolean _exit, Parameters _p) {
+        if (_p.getError() != null) {
+            return new CustList<MethodPointBlockPairRootBlock>();
+        }
+        return getPairs(_id, _gl, _context, _instance, _exit);
     }
     public CustList<MethodPointBlockPairRootBlock> getPairs(ExecBlock _id, ExecFormattedRootBlock _gl, ContextEl _context, Struct _instance, boolean _exit) {
         String argClassName_ = _instance.getClassName(_context);

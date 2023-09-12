@@ -1044,7 +1044,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         ExecFormattedRootBlock glClass_ = _c.getFormattedRootBlock();
         Struct instance_ = _c.getInstance();
         Parameters original_ = ExecTemplates.quickArgsSet(call_,glClass_, _c.getCache(), _c.getArgs(),_context,_stackCall);
-        CustList<MethodPointBlockPairRootBlock> pairs_ = _context.getPairs(call_, glClass_, _context, instance_,false);
+        CustList<MethodPointBlockPairRootBlock> pairs_ = _context.getPairs(call_, glClass_, _context, instance_,false, original_);
         for (MethodPointBlockPairRootBlock m: pairs_) {
             Parameters params_ = build(original_.getRefParameters(), original_.getCache(), _context, m.getId());
             MethodPoint mp_ = m.getId().getValue();
@@ -1083,7 +1083,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         ExecFormattedRootBlock glClass_ = _c.getFormattedRootBlock();
         Struct instance_ = _c.getInstance();
         Parameters original_ = ExecTemplates.quickArgsSet(call_,glClass_, _c.getCache(), _c.getArgs(), _context, _stackCall);
-        CustList<MethodPointBlockPairRootBlock> pairs_ = _context.getPairs(call_, glClass_, _context, instance_, true);
+        CustList<MethodPointBlockPairRootBlock> pairs_ = _context.getPairs(call_, glClass_, _context, instance_, true, original_);
         for (MethodPointBlockPairRootBlock m: pairs_) {
             Parameters params_ = build(original_.getRefParameters(), original_.getCache(), _context, m.getId());
             MethodPoint mp_ = m.getId().getValue();
