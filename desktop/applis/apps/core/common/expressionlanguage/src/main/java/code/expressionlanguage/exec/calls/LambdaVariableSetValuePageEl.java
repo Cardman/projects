@@ -30,6 +30,11 @@ public final class LambdaVariableSetValuePageEl extends AbstractLambdaVariable {
         return right_;
     }
 
+    @Override
+    protected boolean koParent(ContextEl _context, StackCall _stack) {
+        return false;
+    }
+
     public ArgumentListCall getArr() {
         return arr;
     }

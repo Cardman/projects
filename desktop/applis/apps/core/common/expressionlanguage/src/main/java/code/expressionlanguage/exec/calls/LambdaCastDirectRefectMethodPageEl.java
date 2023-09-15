@@ -4,12 +4,13 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class LambdaCastDirectRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
-    public LambdaCastDirectRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r) {
-        super(_instance,_array, _metaInfo, new DefPreparer(), _r);
+    public LambdaCastDirectRefectMethodPageEl(ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r, LambdaMethodStruct _lms) {
+        super(_array, _metaInfo, new DefPreparer(), _r, _lms);
     }
 
     @Override

@@ -34,7 +34,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
-        if (!keep(_context, _stack)) {
+        if (!keep(_context, _stack, getInstance())) {
             return false;
         }
         if (!calledMethod && !checkCallPhase(_context, _stack)) {

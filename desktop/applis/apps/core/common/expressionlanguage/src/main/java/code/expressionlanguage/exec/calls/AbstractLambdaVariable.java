@@ -20,6 +20,9 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
             possibleWrap(_stack);
             return false;
         }
+        if (koParent(_context, _stack)) {
+            return false;
+        }
         checkField = true;
         if (_stack.getStopper().isStopAtRef(_context, _stack)) {
             return false;
@@ -54,6 +57,8 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
         }
         return true;
     }
+
+    protected abstract boolean koParent(ContextEl _context, StackCall _stack);
 
     private void possibleWrap(StackCall _stack) {
         setWrapException(_stack.calls());

@@ -81,9 +81,9 @@ public final class BreakPointCondition {
         resultLogs(ResultContextLambda.dynamicAnalyzeField(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, _setting), _log);
     }
 
-    public void analyze(ArrPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
-        result(ResultContextLambda.dynamicAnalyzeArr(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene), _exp);
-        resultLogs(ResultContextLambda.dynamicAnalyzeArr(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _log);
+    public void analyze(ArrPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene, int _flag) {
+        result(ResultContextLambda.dynamicAnalyzeArr(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene, _flag), _exp);
+        resultLogs(ResultContextLambda.dynamicAnalyzeArr(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, _flag), _log);
     }
 
     public void analyze(ExcPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
@@ -140,8 +140,21 @@ public final class BreakPointCondition {
     }
 
     public String keyStr() {
-        return pad(kindPoint)+keyPoint.keyStr()+"\\"+phasePoint;
+        return pad(getKindPoint())+getKeyPoint().keyStr()+"\\"+getPhasePoint();
     }
+
+    public int getKindPoint() {
+        return kindPoint;
+    }
+
+    public AbsKeyPoint getKeyPoint() {
+        return keyPoint;
+    }
+
+    public int getPhasePoint() {
+        return phasePoint;
+    }
+
     public static String pad(int _i) {
         if (_i < 10) {
             return "0"+_i;

@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.calls.util;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
@@ -43,11 +42,6 @@ public final class CustomReflectRecordConstructor extends AbstractReflectElement
 
     public ExecFormattedRootBlock getClassName() {
         return className;
-    }
-
-    @Override
-    public ReflectingType getReflect() {
-        return ReflectingType.CONSTRUCTOR;
     }
 
     public CustList<Argument> getArguments() {

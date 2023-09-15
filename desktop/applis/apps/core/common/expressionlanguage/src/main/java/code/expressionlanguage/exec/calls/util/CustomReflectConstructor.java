@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls.util;
 
-import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
 
 public final class CustomReflectConstructor extends AbstractReflectElement {
@@ -17,11 +16,6 @@ public final class CustomReflectConstructor extends AbstractReflectElement {
 
     public ConstructorMetaInfo getGl() {
         return gl;
-    }
-
-    @Override
-    public ReflectingType getReflect() {
-        return ReflectingType.CONSTRUCTOR;
     }
 
     public ArrayRefState getArrRef() {

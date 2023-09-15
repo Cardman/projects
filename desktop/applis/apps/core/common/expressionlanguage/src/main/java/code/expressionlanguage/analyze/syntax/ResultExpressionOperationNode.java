@@ -16,7 +16,9 @@ import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
+import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
 import code.expressionlanguage.common.*;
+import code.expressionlanguage.exec.dbg.ArrPoint;
 import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
 import code.expressionlanguage.exec.dbg.StdMethodPointBlockPair;
 import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
@@ -81,7 +83,7 @@ public final class ResultExpressionOperationNode {
                     lv_.setConstType(ConstType.PARAM);
                     lv_.setFinalVariable(true);
                     lv_.setKeyWord(true);
-                    _a.getInfosVars().addEntry(p_, lv_);
+                    _a.getCache().getLocalVariables().add(new AnaNamedLocalVariable(p_, lv_));
                 }
             }
         }
@@ -102,6 +104,53 @@ public final class ResultExpressionOperationNode {
             a_.setOriginalGlobalType(new AnaFormattedRootBlock((RootBlock)null,_id));
         }
         a_.setImportingAcces(new AllAccessedTypes());
+        return a_;
+    }
+
+    public static AnalyzedPageEl prepareArr(String _id, AnalyzedPageEl _original, int _flag) {
+        AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
+        a_.setDynamic(true);
+        a_.setCurrentPkg(a_.getDefaultPkg());
+        a_.setAccessStaticContext(MethodAccessKind.INSTANCE);
+        if (_flag != ArrPoint.BPC_INIT) {
+            a_.setOriginalGlobalType(new AnaFormattedRootBlock((RootBlock)null,_id));
+        }
+        a_.setImportingAcces(new AllAccessedTypes());
+        if (_flag == ArrPoint.BPC_INIT || _flag == ArrPoint.BPC_INT_GET || _flag == ArrPoint.BPC_INT_SET || _flag == ArrPoint.BPC_INT_COMPOUND_GET || _flag == ArrPoint.BPC_INT_COMPOUND_SET || _flag == ArrPoint.BPC_INT_COMPOUND_SET_ERR || _flag == ArrPoint.BPC_INT_GET_SET) {
+            AnaLocalVariable lvIndex_ = new AnaLocalVariable();
+            lvIndex_.setClassName(StringExpUtil.getPrettyArrayType(a_.getAliasPrimInteger()));
+            lvIndex_.setConstType(ConstType.PARAM);
+            lvIndex_.setFinalVariable(true);
+            a_.getCache().getLocalVariables().add(new AnaNamedLocalVariable(a_.getKeyWords().getKeyWordValue(), lvIndex_));
+        } else if (_flag == ArrPoint.BPC_RANGE_GET || _flag == ArrPoint.BPC_RANGE_SET || _flag == ArrPoint.BPC_RANGE_COMPOUND_GET || _flag == ArrPoint.BPC_RANGE_COMPOUND_SET) {
+            AnaLocalVariable lvIndex_ = new AnaLocalVariable();
+            lvIndex_.setClassName(a_.getAliasRange());
+            lvIndex_.setConstType(ConstType.PARAM);
+            lvIndex_.setFinalVariable(true);
+            a_.getCache().getLocalVariables().add(new AnaNamedLocalVariable(a_.getKeyWords().getKeyWordValue(), lvIndex_));
+        }
+        if (_flag == ArrPoint.BPC_INT_SET || _flag == ArrPoint.BPC_INT_COMPOUND_SET || _flag == ArrPoint.BPC_INT_COMPOUND_SET_ERR) {
+            String p_ = a_.getKeyWords().getKeyWordValue();
+            AnaLocalVariable lv_ = new AnaLocalVariable();
+            lv_.setClassName(StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(_id)));
+            lv_.setConstType(ConstType.PARAM);
+            lv_.setFinalVariable(true);
+            a_.getCache().getLocalVariables().add(new AnaNamedLocalVariable(p_, lv_));
+        } else if (_flag == ArrPoint.BPC_RANGE_SET || _flag == ArrPoint.BPC_RANGE_COMPOUND_SET) {
+            String p_ = a_.getKeyWords().getKeyWordValue();
+            AnaLocalVariable lv_ = new AnaLocalVariable();
+            lv_.setClassName(_id);
+            lv_.setConstType(ConstType.PARAM);
+            lv_.setFinalVariable(true);
+            a_.getCache().getLocalVariables().add(new AnaNamedLocalVariable(p_, lv_));
+        } else if (_flag == ArrPoint.BPC_INT_GET_SET) {
+            String p_ = a_.getKeyWords().getKeyWordValue();
+            AnaLocalVariable lv_ = new AnaLocalVariable();
+            lv_.setClassName(_original.getAliasObject());
+            lv_.setConstType(ConstType.PARAM);
+            lv_.setFinalVariable(true);
+            a_.getCache().getLocalVariables().add(new AnaNamedLocalVariable(p_, lv_));
+        }
         return a_;
     }
     public static AnalyzedPageEl prepare(String _fileName, int _caret, AnalyzedPageEl _original, MethodAccessKind _flag) {

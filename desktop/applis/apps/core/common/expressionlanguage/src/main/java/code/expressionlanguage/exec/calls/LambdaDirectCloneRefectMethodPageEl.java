@@ -5,16 +5,17 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class LambdaDirectCloneRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
-    public LambdaDirectCloneRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r) {
-        super(_instance,_array, _metaInfo, new DefPreparer(), _r);
+    public LambdaDirectCloneRefectMethodPageEl(ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r, LambdaMethodStruct _lms) {
+        super(_array, _metaInfo, new DefPreparer(), _r, _lms);
     }
 
     @Override
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
-        return ExecInvokingOperation.cloneArray(getInstance(),_context, _stack);
+        return ExecInvokingOperation.cloneArray(ArgumentListCall.toStr(getParent()),_context, _stack);
     }
 }

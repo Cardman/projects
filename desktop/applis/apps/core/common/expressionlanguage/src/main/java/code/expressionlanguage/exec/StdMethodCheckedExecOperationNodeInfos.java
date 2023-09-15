@@ -21,7 +21,7 @@ public final class StdMethodCheckedExecOperationNodeInfos extends CoreCheckedExe
     private final StandardNamedFunction fct;
 
     public StdMethodCheckedExecOperationNodeInfos(String _aliasObject, StdParamsOperable _s, String _cl, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Struct _i, boolean _ex) {
-        super(ExecFormattedRootBlock.defValue(), _i, null);
+        super(ExecFormattedRootBlock.defValue(), _i);
         this.own = _cl;
         this.exiting = _ex;
         this.fct = _s.fct();
@@ -29,7 +29,7 @@ public final class StdMethodCheckedExecOperationNodeInfos extends CoreCheckedExe
     }
 
     public StdMethodCheckedExecOperationNodeInfos(ReflectConstructorPageEl _s) {
-        super(ExecFormattedRootBlock.defValue(), NullStruct.NULL_VALUE, null);
+        super(ExecFormattedRootBlock.defValue(), NullStruct.NULL_VALUE);
         this.own = "";
         this.exiting = _s.getCheckedParams() == 2;
         this.fct = _s.getMetaInfo().getStandardConstructor();
@@ -37,7 +37,7 @@ public final class StdMethodCheckedExecOperationNodeInfos extends CoreCheckedExe
     }
 
     public StdMethodCheckedExecOperationNodeInfos(ReflectLambdaConstructorPageEl _s) {
-        super(ExecFormattedRootBlock.defValue(), NullStruct.NULL_VALUE, null);
+        super(ExecFormattedRootBlock.defValue(), NullStruct.NULL_VALUE);
         this.own = "";
         this.exiting = _s.getCheckedParams() == 2;
         this.fct = _s.getMetaInfo().getStandardConstructor();
@@ -45,7 +45,7 @@ public final class StdMethodCheckedExecOperationNodeInfos extends CoreCheckedExe
     }
 
     public StdMethodCheckedExecOperationNodeInfos(DirectStdRefectMethodPageEl _s) {
-        super(ExecFormattedRootBlock.defValue(), ArgumentListCall.toStr(_s.getInstance()), null);
+        super(ExecFormattedRootBlock.defValue(), ArgumentListCall.toStr(_s.getInstance()));
         this.own = _s.getClassName().getFormatted();
         this.exiting = _s.getCheckedParams() == 2;
         this.fct = _s.getStdCallee();
@@ -53,7 +53,7 @@ public final class StdMethodCheckedExecOperationNodeInfos extends CoreCheckedExe
     }
 
     public StdMethodCheckedExecOperationNodeInfos(LambdaDirectStdRefectMethodPageEl _s) {
-        super(ExecFormattedRootBlock.defValue(), ArgumentListCall.toStr(_s.getInstance()), null);
+        super(ExecFormattedRootBlock.defValue(), ArgumentListCall.toStr(_s.getInstance()));
         this.own = _s.getClassName().getFormatted();
         this.exiting = _s.getCheckedParams() == 2;
         this.fct = _s.getStdCallee();

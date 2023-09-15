@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.calls.util;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
 import code.expressionlanguage.structs.Struct;
@@ -28,11 +27,6 @@ public final class CustomReflectLambdaConstructor extends AbstractReflectElement
 
     public int getRef() {
         return ref;
-    }
-
-    @Override
-    public ReflectingType getReflect() {
-        return ReflectingType.CONSTRUCTOR;
     }
 
     public Argument getArgument() {

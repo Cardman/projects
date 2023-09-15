@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.calls.util;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.exec.ReflectingType;
 
 public final class CustomReflectLambdaToStr extends AbstractReflectElement {
 
@@ -16,8 +15,4 @@ public final class CustomReflectLambdaToStr extends AbstractReflectElement {
         return argument;
     }
 
-    @Override
-    public ReflectingType getReflect() {
-        return ReflectingType.TO_STR;
-    }
 }

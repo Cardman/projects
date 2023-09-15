@@ -5,20 +5,21 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.calls.util.IntParentRetriever;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.FieldMetaInfo;
 
 public final class ReflectGetFieldPageEl extends AbstractLambdaVariable {
 
     private boolean initClass;
+    private final IntParentRetriever intParentRetriever;
     private final FieldMetaInfo metaInfo;
 
-    private final Argument argument;
-
-    public ReflectGetFieldPageEl(Argument _argument, FieldMetaInfo _metaInfo, boolean _lambda) {
+    public ReflectGetFieldPageEl(IntParentRetriever _i, FieldMetaInfo _metaInfo, boolean _lambda) {
         super(_lambda);
-        argument = _argument;
+        intParentRetriever = _i;
         setGlobalArgumentStruct(_metaInfo);
         metaInfo = _metaInfo;
     }
@@ -42,15 +43,20 @@ public final class ReflectGetFieldPageEl extends AbstractLambdaVariable {
             ClassField id_ = new ClassField(baseClass_, name_);
             return new Argument(stds_.getSimpleResult(id_));
         }
-        Argument arg_ = ExecFieldTemplates.getField(metaInfo, argument, _context, _stack);
+        Argument arg_ = ExecFieldTemplates.getField(metaInfo, ArgumentListCall.toStr(intParentRetriever.getParent()), _context, _stack);
         if (_context.callsOrException(_stack)) {
             return Argument.createVoid();
         }
         return arg_;
     }
 
+    @Override
+    protected boolean koParent(ContextEl _context, StackCall _stack) {
+        return !intParentRetriever.retrieve(_context, _stack);
+    }
+
     public Argument getArgument() {
-        return argument;
+        return ArgumentListCall.toStr(intParentRetriever.getParent());
     }
 
     public FieldMetaInfo getMetaInfo() {

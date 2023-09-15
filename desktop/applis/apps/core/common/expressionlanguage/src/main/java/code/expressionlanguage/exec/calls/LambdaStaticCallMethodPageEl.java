@@ -6,12 +6,13 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.StaticCallParamChecker;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class LambdaStaticCallMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
-    public LambdaStaticCallMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r) {
-        super(_instance,_array, _metaInfo, new DefInitPreparerDir(_metaInfo), _r);
+    public LambdaStaticCallMethodPageEl(ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r, LambdaMethodStruct _lms) {
+        super(_array, _metaInfo, new DefInitPreparerDir(_metaInfo), _r, _lms);
     }
 
     @Override

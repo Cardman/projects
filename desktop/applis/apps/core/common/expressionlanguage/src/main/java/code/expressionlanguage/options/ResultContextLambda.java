@@ -31,8 +31,6 @@ import code.expressionlanguage.exec.opers.ExecAbstractLambdaOperation;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
@@ -44,7 +42,6 @@ import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.comparators.NaturalComparator;
@@ -98,11 +95,11 @@ public final class ResultContextLambda {
         return build(_exp, _result, _type, _gene, a_);
     }
 
-    public static ResultContextLambda dynamicAnalyzeArr(String _exp, ArrPointBlockPair _ex, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
+    public static ResultContextLambda dynamicAnalyzeArr(String _exp, ArrPointBlockPair _ex, ResultContext _result, String _type, AbsLightContextGenerator _gene, int _flag) {
         if (_exp.trim().isEmpty()) {
             return new ResultContextLambda(null,null,new ReportedMessages(), 0, null);
         }
-        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareExc(_ex.getEp().getClName(), _ex.getEp().isExact(), _result.getPageEl());
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareArr(_ex.getEp().getClName(),_result.getPageEl(), _flag);
         return build(_exp, _result, _type, _gene, a_);
     }
 
@@ -293,10 +290,7 @@ public final class ResultContextLambda {
             page_.getVars().addAllEntries(_page.getVars());
             return loop(stackCall_, page_);
         }
-        Struct r_ = _addon.getRight();
-        if (r_ != null) {
-            p_.getRefParameters().addEntry(context.getClasses().getKeyWordValue(),new VariableWrapper(LocalVariable.newLocalVariable(r_,context)));
-        }
+        p_.setCache(_addon.getCache());
         AbstractPageEl page_ = new CustomFoundMethod(new Argument(_addon.getInstance()),_addon.getDeclaring(),lambda, p_).processAfterOperation(context,stackCall_);
         return loop(stackCall_, page_);
     }

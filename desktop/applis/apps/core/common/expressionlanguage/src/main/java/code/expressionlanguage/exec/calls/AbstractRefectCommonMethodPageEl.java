@@ -23,8 +23,7 @@ import code.expressionlanguage.structs.Struct;
 public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPageEl {
 
     private boolean initClass;
-    private ExecFormattedRootBlock className;
-    private ExecTypeFunction pair;
+    private ExecOverrideInfo overrideInfo;
 
     private final Argument instance;
 
@@ -48,7 +47,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         setReturnedArgument(_argument);
     }
 
-    boolean keep(ContextEl _context, StackCall _stackCall) {
+    boolean keep(ContextEl _context, StackCall _stackCall, Argument _instance) {
         LgNames stds_ = _context.getStandards();
         if (!initClass) {
             initClass = true;
@@ -58,8 +57,8 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
             }
         }
         setWrapException(false);
-        if (pair == null) {
-            if (metaInfo.isInstanceMethod() && instance.isNull()) {
+        if (overrideInfo == null) {
+            if (metaInfo.isInstanceMethod() && _instance.isNull()) {
                 String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_, _stackCall)));
                 return false;
@@ -71,13 +70,10 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
             }
             ExecFormattedRootBlock className_ = metaInfo.getFormatted();
             if (preparer.isPolymorph(_context, _stackCall)) {
-                Struct instance_ = instance.getStruct();
-                ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(_context, instance_, metaInfo.getPair());
-                className = polymorph_.getClassName();
-                pair = polymorph_.getPair();
+                Struct instance_ = _instance.getStruct();
+                overrideInfo = ExecInvokingOperation.polymorph(_context, instance_, metaInfo.getPair());
             } else {
-                className = className_;
-                pair = metaInfo.getPair();
+                overrideInfo = new ExecOverrideInfo(className_, metaInfo.getPair());
             }
             accessKind = metaInfo.getKind();
         }
@@ -85,7 +81,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     }
 
     public ExecFormattedRootBlock getClassName() {
-        return className;
+        return getOverrideInfo().getClassName();
     }
 
     public MethodMetaInfo getMetaInfo() {
@@ -101,7 +97,11 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     }
 
     public ExecTypeFunction getPair() {
-        return pair;
+        return getOverrideInfo().getPair();
+    }
+
+    public ExecOverrideInfo getOverrideInfo() {
+        return overrideInfo;
     }
 
     public Argument getInstance() {

@@ -25,8 +25,8 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
     private final int modeField;
     private final ExecTypeReturn fieldType;
 
-    public CheckedExecOperationNodeInfos(ExecSettableFieldOperation _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
-        super(_d, _i, _r);
+    public CheckedExecOperationNodeInfos(ContextEl _ctx,ExecSettableFieldOperation _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
+        super(_d, _i, ArrCheckedExecOperationNodeInfos.cacheRightValue(_ctx,_r));
         this.staticField = _s instanceof ExecSettableFieldStatOperation;
         this.checkFinalField = false;
         this.nbType = numberType(_s);
@@ -45,7 +45,7 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
     }
 
     public CheckedExecOperationNodeInfos(String _s, ContextEl _ctx, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
-        super(_d, _i, _r);
+        super(_d, _i, ArrCheckedExecOperationNodeInfos.cacheRightValue(_ctx,_r));
         this.staticField = false;
         this.checkFinalField = false;
         String cl_ = _i.getClassName(_ctx);
@@ -57,8 +57,8 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
         trueField = false;
     }
 
-    public CheckedExecOperationNodeInfos(FieldWrapper _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
-        super(_d, _i, _r);
+    public CheckedExecOperationNodeInfos(ContextEl _ctx, FieldWrapper _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
+        super(_d, _i, ArrCheckedExecOperationNodeInfos.cacheRightValue(_ctx,_r));
         this.staticField = _s instanceof StaticFieldWrapper;
         this.checkFinalField = false;
         this.nbType = numberType(_s);
@@ -72,8 +72,8 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
         trueField = true;
     }
 
-    public CheckedExecOperationNodeInfos(FieldMetaInfo _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
-        super(_d, _i, _r);
+    public CheckedExecOperationNodeInfos(ContextEl _ctx, FieldMetaInfo _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
+        super(_d, _i, ArrCheckedExecOperationNodeInfos.cacheRightValue(_ctx,_r));
         this.staticField = _s.isStaticField();
         this.checkFinalField = _s.isFinalField();
         this.nbType = ExecRootBlock.numberType(_s.getFormatted().getRootBlock());

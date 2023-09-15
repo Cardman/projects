@@ -5,13 +5,14 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class LambdaAnnotationRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
     private final String name;
-    public LambdaAnnotationRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r) {
-        super(_instance,_array, _metaInfo, new DefPreparer(), _r);
+    public LambdaAnnotationRefectMethodPageEl(ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r, LambdaMethodStruct _lms) {
+        super(_array, _metaInfo, new DefPreparer(), _r, _lms);
         name = _metaInfo.getRealId().getName();
     }
 
@@ -21,6 +22,6 @@ public final class LambdaAnnotationRefectMethodPageEl extends AbstractRefectLamb
     }
     @Override
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
-        return ExecInvokingOperation.getAnnotation(getInstance(),name,_context, _stack);
+        return ExecInvokingOperation.getAnnotation(ArgumentListCall.toStr(getParent()),name,_context, _stack);
     }
 }

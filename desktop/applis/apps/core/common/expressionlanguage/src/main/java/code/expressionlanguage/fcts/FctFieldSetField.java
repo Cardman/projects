@@ -4,10 +4,10 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomReflectSetField;
+import code.expressionlanguage.exec.calls.util.DirectParentRetriever;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.FieldMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
@@ -24,7 +24,7 @@ public final class FctFieldSetField extends FctReflection {
         if (!field_.isInvokable()) {
             _stackCall.setCallingState(new CustomFoundExc(getNonInvokableError(_cont,field_, _stackCall)));
         } else {
-            _stackCall.setCallingState(new CustomReflectSetField(ReflectingType.SET_FIELD, field_, new Argument(inst_),new Argument(val_), false));
+            _stackCall.setCallingState(new CustomReflectSetField(new DirectParentRetriever(inst_), field_, new Argument(val_), false));
         }
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

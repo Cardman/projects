@@ -7,13 +7,14 @@ import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class LambdaDirectStdRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
     private final MethodId methodId;
-    public LambdaDirectStdRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r) {
-        super(_instance,_array, _metaInfo, new DefPreparer(), _r);
+    public LambdaDirectStdRefectMethodPageEl(ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r, LambdaMethodStruct _lms) {
+        super(_array, _metaInfo, new DefPreparer(), _r, _lms);
         methodId = _metaInfo.getRealId();
     }
 
@@ -32,6 +33,6 @@ public final class LambdaDirectStdRefectMethodPageEl extends AbstractRefectLambd
     }
     @Override
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
-        return ParamCheckerUtil.callStd(_context.getExiting(), _context, new ClassMethodId(getClassName().getFormatted(),methodId), getInstance(), _list, _stack, getStdCallee());
+        return ParamCheckerUtil.callStd(_context.getExiting(), _context, new ClassMethodId(getClassName().getFormatted(),methodId), ArgumentListCall.toStr(getParent()), _list, _stack, getStdCallee());
     }
 }

@@ -33,4 +33,12 @@ public final class ArrayWrapper extends ValueWrapper {
         ArrayStruct arr_ = ExecArrayFieldOperation.getArray(container, _conf);
         return StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arr_.getClassName()));
     }
+
+    public Struct getContainer() {
+        return container;
+    }
+
+    public Struct getIndex() {
+        return index;
+    }
 }

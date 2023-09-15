@@ -33,4 +33,12 @@ public final class ArrPartWrapper extends ValueWrapper {
     public String getClassName(ContextEl _conf) {
         return array.getClassName(_conf);
     }
+
+    public Struct getArray() {
+        return array;
+    }
+
+    public RangeStruct getRange() {
+        return range;
+    }
 }
