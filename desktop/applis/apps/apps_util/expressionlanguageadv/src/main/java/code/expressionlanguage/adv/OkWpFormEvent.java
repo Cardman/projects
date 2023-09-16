@@ -41,11 +41,11 @@ public final class OkWpFormEvent implements AbsActionListener {
         wp_.getValue().setCompoundRead(window.getFramePoints().getFrameWpFormContent().getCompoundRead().isSelected());
         wp_.getValue().setCompoundWrite(window.getFramePoints().getFrameWpFormContent().getCompoundWrite().isSelected());
         wp_.getValue().setCompoundWriteErr(window.getFramePoints().getFrameWpFormContent().getCompoundWriteErr().isSelected());
-        update(wp_,wp_.getValue().getResultRead(),window,window.getFramePoints().getFrameWpFormContent().getGuiReadStackForm(),false, currentResult);
-        update(wp_,wp_.getValue().getResultWrite(),window,window.getFramePoints().getFrameWpFormContent().getGuiWriteStackForm(),true, currentResult);
-        update(wp_,wp_.getValue().getResultCompoundRead(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundReadStackForm(),false, currentResult);
-        update(wp_,wp_.getValue().getResultCompoundWrite(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundWriteStackForm(),true, currentResult);
-        update(wp_,wp_.getValue().getResultCompoundWriteErr(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundWriteErrStackForm(),true, currentResult);
+        update(wp_,wp_.getValue().getResultRead(),window,window.getFramePoints().getFrameWpFormContent().getGuiReadStackForm(), currentResult);
+        update(wp_,wp_.getValue().getResultWrite(),window,window.getFramePoints().getFrameWpFormContent().getGuiWriteStackForm(), currentResult);
+        update(wp_,wp_.getValue().getResultCompoundRead(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundReadStackForm(), currentResult);
+        update(wp_,wp_.getValue().getResultCompoundWrite(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundWriteStackForm(), currentResult);
+        update(wp_,wp_.getValue().getResultCompoundWriteErr(),window,window.getFramePoints().getFrameWpFormContent().getGuiCompoundWriteErrStackForm(), currentResult);
         window.getFramePoints().getFrameWpFormContent().setSelectedWp(null);
         window.getFramePoints().guiContentBuildClear();
         window.getFramePoints().refreshWatch(currentResult);
@@ -67,8 +67,8 @@ public final class OkWpFormEvent implements AbsActionListener {
         }
         return false;
     }
-    private static void update(WatchPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, boolean _setting, ResultContext _res) {
-        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(),_res, _window.getResultContextNext().generateAdv(_res.getContext().getInterrupt()), _setting);
+    private static void update(WatchPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, ResultContext _res) {
+        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(),_res, _window.getResultContextNext().generateAdv(_res.getContext().getInterrupt()));
         OkMpFormEvent.update(_condition,_form);
         if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(WatchPoint.BPC_READ)) {
             _condition.getOthers().add(_mp.getValue().getResultRead());

@@ -3,7 +3,9 @@ package code.expressionlanguage.analyze.syntax;
 import code.expressionlanguage.analyze.AllAccessedTypes;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.files.*;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
+import code.expressionlanguage.analyze.files.ResultParsedAnnot;
+import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodId;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodIdList;
 import code.expressionlanguage.analyze.opers.*;
@@ -18,10 +20,7 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.exec.dbg.ArrPoint;
-import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
-import code.expressionlanguage.exec.dbg.StdMethodPointBlockPair;
-import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
+import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
@@ -54,7 +53,7 @@ public final class ResultExpressionOperationNode {
         return new SynthFieldInfo(new ClassField("",""),null);
     }
 
-    public static AnalyzedPageEl prepareFields(WatchPointBlockPair _trField, AnalyzedPageEl _original, boolean _setting) {
+    public static AnalyzedPageEl prepareFields(WatchPointBlockPair _trField, AnalyzedPageEl _original, int _setting) {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);
         a_.setCurrentPkg(a_.getDefaultPkg());
@@ -71,12 +70,12 @@ public final class ResultExpressionOperationNode {
         return a_;
     }
 
-    private static void trField(WatchPointBlockPair _trField, boolean _setting, AnalyzedPageEl _a) {
+    private static void trField(WatchPointBlockPair _trField, int _setting, AnalyzedPageEl _a) {
         CustList<InfoBlock> ls_ = _trField.getRoot().getFieldsBlocks();
         for (InfoBlock i: ls_) {
             if (StringUtil.contains(i.getElements().getFieldName(), _trField.getWp().fieldName())) {
                 field(_a, _trField.getRoot(), i.isStaticField());
-                if (_setting) {
+                if (_setting == WatchPoint.BPC_WRITE || _setting == WatchPoint.BPC_COMPOUND_WRITE || _setting == WatchPoint.BPC_COMPOUND_WRITE_ERR) {
                     String p_ = _a.getKeyWords().getKeyWordValue();
                     AnaLocalVariable lv_ = new AnaLocalVariable();
                     lv_.setClassName(i.getImportedClassName());
@@ -153,7 +152,7 @@ public final class ResultExpressionOperationNode {
         }
         return a_;
     }
-    public static AnalyzedPageEl prepare(String _fileName, int _caret, AnalyzedPageEl _original, MethodAccessKind _flag) {
+    public static AnalyzedPageEl prepare(String _fileName, int _caret, AnalyzedPageEl _original, int _flag) {
         FileBlock file_ = _original.getPreviousFilesBodies().getVal(_fileName);
         ResultExpressionOperationNode c_ = container(_caret, file_);
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
@@ -164,8 +163,20 @@ public final class ResultExpressionOperationNode {
         if (a_.isAnnotAnalysis()) {
             return annotationCase(c_, a_);
         }
-        return notAnnot(_flag, a_, c_.block);
+        accessRoot(_flag, a_, c_.block);
+        return notAnnot(a_, c_.block);
     }
+
+    private static void accessRoot(int _flag, AnalyzedPageEl _a, AbsBk _bl) {
+        if (_bl instanceof RootBlock) {
+            if (_flag == BreakPoint.BPC_INSTANCE) {
+                _a.setAccessStaticContext(MethodAccessKind.INSTANCE);
+            } else {
+                _a.setAccessStaticContext(MethodAccessKind.STATIC);
+            }
+        }
+    }
+
     public static AnalyzedPageEl prepare(StdMethodPointBlockPair _instance, AnalyzedPageEl _original) {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);
@@ -182,15 +193,15 @@ public final class ResultExpressionOperationNode {
         ClassesUtil.prepare(id_, a_);
         return a_;
     }
-    public static AnalyzedPageEl prepare(MethodPointBlockPair _instance, AnalyzedPageEl _original, MethodAccessKind _flag) {
+    public static AnalyzedPageEl prepare(MethodPointBlockPair _instance, AnalyzedPageEl _original) {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);
         a_.setCurrentBlock(_instance.getMp().getId());
         a_.setCurrentPkg(a_.getDefaultPkg());
-        return notAnnot(_flag, a_, _instance.getMp().getId());
+        return notAnnot(a_, _instance.getMp().getId());
     }
 
-    private static AnalyzedPageEl notAnnot(MethodAccessKind _flag, AnalyzedPageEl _a, AbsBk _block) {
+    private static AnalyzedPageEl notAnnot(AnalyzedPageEl _a, AbsBk _block) {
         MemberCallingsBlock m_ = AbsBk.getOuterFuntionInType(_block);
         if (AbsBk.isAnonBlock(m_)) {
             _a.setupFctChars((NamedCalledFunctionBlock) m_);
@@ -219,16 +230,15 @@ public final class ResultExpressionOperationNode {
         if (m_ != null) {
             ClassesUtil.prepare(m_, _a);
         }
-        typeOrField(_flag, _a, _block);
+        typeOrField(_a, _block);
         _a.setImportingAcces(new AllAccessedTypes());
         return _a;
     }
 
-    private static void typeOrField(MethodAccessKind _flag, AnalyzedPageEl _a, AbsBk _bl) {
+    private static void typeOrField(AnalyzedPageEl _a, AbsBk _bl) {
         if (_bl instanceof InfoBlock) {
             field(_a, ((InfoBlock) _bl).getDeclaringType(), ((InfoBlock) _bl).isStaticField());
         } else if (_bl instanceof RootBlock) {
-            _a.setAccessStaticContext(_flag);
             _a.setImporting((AccessedBlock) _bl);
             _a.setCurrentPkg(((RootBlock) _bl).getPackageName());
             _a.setCurrentFct(null);
@@ -278,7 +288,8 @@ public final class ResultExpressionOperationNode {
                 _a.setCurrentPkg(par_.getPackageName());
                 _a.getMappingLocal().addAllEntries(par_.getRefMappings());
             } else {
-                typeOrField(MethodAccessKind.STATIC, _a, m_);
+                accessRoot(BreakPoint.BPC_STATIC, _a, m_);
+                typeOrField(_a, m_);
             }
         }
         _a.setCurrentFct(null);

@@ -10,7 +10,10 @@ import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.ExecClassesUtil;
+import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.StackCallReturnValue;
+import code.expressionlanguage.exec.StepDbgActionEnum;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -20,7 +23,6 @@ import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.methods.ProcessMethodCommon;
@@ -374,8 +376,8 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         BreakPointBlockPair pair_ = _res.getPair(classBody_.getFile(), _caret);
         pairDep_.getValue().getResultStd().getSuspend().set(false);
         pair_.getValue().getResultStd().getSuspend().set(false);
-        pairDep_.getValue().getResultStd().analyze(pairDep_,"",_logDep,_res,new DefContextGenerator(),null);
-        pair_.getValue().getResultStd().analyze(pair_,"",_log,_res,new DefContextGenerator(),null);
+        pairDep_.getValue().getResultStd().analyze(pairDep_,"",_logDep,_res,new DefContextGenerator());
+        pair_.getValue().getResultStd().analyze(pair_,"",_log,_res,new DefContextGenerator());
         pair_.getValue().getResultStd().getHit().set(false);
         pairDep_.getValue().getResultStd().getHit().set(false);
         pair_.getValue().getResultStd().getDisableAgain().set(_dis);
@@ -447,7 +449,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         std_.getStackLog().set(_st);
         std_.getCountModulo().set(_mod);
         std_.getDisableWhenHit().set(_d);
-        std_.analyze(pair_,_exp,_log,res_,new DefContextGenerator(),null);
+        std_.analyze(pair_,_exp,_log,res_,new DefContextGenerator());
         assertEq(_exp, std_.getResultStr());
         assertEq(_log, std_.getLogsStr());
         CustomFoundMethod state_ = state(res_,_class, _meth);
@@ -593,13 +595,13 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         StackCallReturnValue stVal_ = goLoop(_res, _class, _meth, null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
-        return eval(ResultContextLambda.dynamicAnalyze(_dyn, _res.getPair(page_.getFile(),page_.getTraceIndex()), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), null), _res, page_);
+        return eval(ResultContextLambda.dynamicAnalyze(_dyn, _res.getPair(page_.getFile(),page_.getTraceIndex()), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), BreakPoint.BPC_STD), _res, page_);
     }
 
     protected ResultContextLambda dynAna(String _dyn, String _class, int _caret, ResultContext _res) {
         RootBlock ana_ = _res.getPageEl().getAnaClassBody(_class);
         _res.toggleBreakPoint(ana_.getFile().getFileName(),_caret);
-        return ResultContextLambda.dynamicAnalyze(_dyn, _res.getPair(_res.getFiles().getVal(ana_.getFile()), _caret), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(),null);
+        return ResultContextLambda.dynamicAnalyze(_dyn, _res.getPair(_res.getFiles().getVal(ana_.getFile()), _caret), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(),BreakPoint.BPC_STD);
     }
 
     protected Struct dynEval(ResultContextLambda _dyn, String _class, String _meth, ResultContext _res, StackCall _stack) {
@@ -630,7 +632,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         StackCallReturnValue stVal_ = goLoop(_res, _class, _meth, null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
-        ResultContextLambda resLam_ = ResultContextLambda.dynamicAnalyze(_dyn, _res.getPair(page_.getFile(), page_.getTraceIndex()), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), null);
+        ResultContextLambda resLam_ = ResultContextLambda.dynamicAnalyze(_dyn, _res.getPair(page_.getFile(), page_.getTraceIndex()), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), BreakPoint.BPC_STD);
         StackCall locSt_ = resLam_.eval(null,page_).getStack();
         return ((ErrorStruct)((CustomFoundExc)locSt_.getCallingState()).getStruct()).getStack();
     }
@@ -638,17 +640,17 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         StackCallReturnValue stVal_ = goLoop(_res, _class, _meth, null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
-        return ResultContextLambda.dynamicAnalyze(_dyn, _res.getPair(page_.getFile(), page_.getTraceIndex()), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(),null).getReportedMessages();
+        return ResultContextLambda.dynamicAnalyze(_dyn, _res.getPair(page_.getFile(), page_.getTraceIndex()), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(),BreakPoint.BPC_STD).getReportedMessages();
     }
     private ReportedMessages endKoSt(String _dyn, String _class, String _meth, ResultContext _res) {
         StackCallReturnValue stVal_ = goLoop(_res, _class, _meth, null);
         StackCall st_ = stVal_.getStack();
         AbstractPageEl page_ = st_.getLastPage();
-        return ResultContextLambda.dynamicAnalyze(_dyn, _res.getPair(page_.getFile(), page_.getTraceIndex()), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), MethodAccessKind.STATIC).getReportedMessages();
+        return ResultContextLambda.dynamicAnalyze(_dyn, _res.getPair(page_.getFile(), page_.getTraceIndex()), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(), BreakPoint.BPC_STATIC).getReportedMessages();
     }
     protected AnalyzedPageEl scope(StringMap<String> _files, String _fileName, int _caret, String... _types) {
         ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files, _types);
-        return ResultExpressionOperationNode.prepare(_fileName,_caret,res_.getPageEl(),null);
+        return ResultExpressionOperationNode.prepare(_fileName,_caret,res_.getPageEl(),BreakPoint.BPC_STD);
     }
 
     protected ExecFileBlockFct execFileBlockFct(ResultContext _res, int _caret, String _name) {

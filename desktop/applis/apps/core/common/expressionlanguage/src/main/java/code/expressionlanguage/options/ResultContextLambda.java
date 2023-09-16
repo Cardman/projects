@@ -5,7 +5,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
+import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.blocks.Line;
+import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.StringComment;
@@ -63,11 +66,11 @@ public final class ResultContextLambda {
         this.lda = _ld;
     }
 
-    public static ResultContextLambda dynamicAnalyze(String _exp, BreakPointBlockPair _mp, ResultContext _result, String _type, AbsLightContextGenerator _gene, MethodAccessKind _flag) {
+    public static ResultContextLambda dynamicAnalyze(String _exp, BreakPointBlockPair _mp, ResultContext _result, String _type, AbsLightContextGenerator _gene, int _phasePoint) {
         if (_exp.trim().isEmpty()) {
             return new ResultContextLambda(null,null,new ReportedMessages(), 0, null);
         }
-        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(ExecFileBlock.name(_mp.getBp().getFile()), _mp.getBp().getOffset(), _result.getPageEl(),_flag);
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(ExecFileBlock.name(_mp.getBp().getFile()), _mp.getBp().getOffset(), _result.getPageEl(),_phasePoint);
         return build(_exp, _result, _type, _gene, a_);
     }
 
@@ -83,15 +86,15 @@ public final class ResultContextLambda {
         if (_exp.trim().isEmpty()) {
             return new ResultContextLambda(null,null,new ReportedMessages(), 0, null);
         }
-        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_instance, _result.getPageEl(),null);
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_instance, _result.getPageEl());
         return build(_exp, _result, _type, _gene, a_);
     }
 
-    public static ResultContextLambda dynamicAnalyzeField(String _exp, WatchPointBlockPair _trField, ResultContext _result, String _type, AbsLightContextGenerator _gene, boolean _setting) {
+    public static ResultContextLambda dynamicAnalyzeField(String _exp, WatchPointBlockPair _trField, ResultContext _result, String _type, AbsLightContextGenerator _gene, int _flag) {
         if (_exp.trim().isEmpty()) {
             return new ResultContextLambda(null,null,new ReportedMessages(), 0, null);
         }
-        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareFields(_trField, _result.getPageEl(),_setting);
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareFields(_trField, _result.getPageEl(),_flag);
         return build(_exp, _result, _type, _gene, a_);
     }
 
@@ -167,13 +170,6 @@ public final class ResultContextLambda {
 
     private static void feedResult(AnalyzedPageEl _page, ResultExpression _resultExpression, IntermediaryResults _int) {
         SplitExpressionUtil.feed(_page,_resultExpression, _int, _page.getImporting());
-    }
-
-    public static ReportedMessages after(ResultContextLambda _res) {
-        if (_res.getContext() == null) {
-            return _res.getReportedMessages();
-        }
-        return new ReportedMessages();
     }
 
     public static ResultContextLambda okOrNull(ResultContextLambda _res) {

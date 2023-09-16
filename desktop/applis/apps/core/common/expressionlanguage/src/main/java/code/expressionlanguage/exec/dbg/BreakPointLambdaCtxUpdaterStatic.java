@@ -1,10 +1,8 @@
 package code.expressionlanguage.exec.dbg;
 
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.options.ResultContextLambda;
 
 public final class BreakPointLambdaCtxUpdaterStatic implements BreakPointLambdaCtxUpdater {
     private final ResultContext result;
@@ -16,10 +14,8 @@ public final class BreakPointLambdaCtxUpdaterStatic implements BreakPointLambdaC
 
     @Override
     public ReportedMessages update(BreakPointBlockPair _bp, String _newValue) {
-        String type_ = result.getPageEl().getAliasPrimBoolean();
-        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, _bp, result, type_, gene, MethodAccessKind.STATIC);
-        _bp.getValue().getResultStatic().result(res_,_newValue);
-        return ResultContextLambda.after(res_);
+        _bp.getValue().getResultStatic().analyze(_bp,_newValue,"",result,gene);
+        return _bp.getValue().getResultStatic().lda().getReportedMessages();
     }
 
 }

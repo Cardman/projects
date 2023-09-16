@@ -4,7 +4,6 @@ import code.expressionlanguage.exec.dbg.AbsPairPoint;
 import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.events.AbsActionListener;
 
@@ -40,16 +39,16 @@ public final class OkBpFormEvent implements AbsActionListener {
         _selected.getValue().setInstanceType(_bp.getInstanceType().isSelected());
         _selected.getValue().setStaticType(_bp.getStaticType().isSelected());
         if (_selected.getValue().isEnabledChgtType()) {
-            update(_selected, _selected.getValue().getResultInstance(), _win, _bp.getGuiInsStackForm(),MethodAccessKind.INSTANCE, _res);
-            update(_selected, _selected.getValue().getResultStatic(), _win, _bp.getGuiStaStackForm(),MethodAccessKind.STATIC, _res);
+            update(_selected, _selected.getValue().getResultInstance(), _win, _bp.getGuiInsStackForm(), _res);
+            update(_selected, _selected.getValue().getResultStatic(), _win, _bp.getGuiStaStackForm(), _res);
         } else {
-            update(_selected, _selected.getValue().getResultStd(), _win, _bp.getGuiStdStackForm(),null, _res);
+            update(_selected, _selected.getValue().getResultStd(), _win, _bp.getGuiStdStackForm(), _res);
         }
         _bp.setSelectedBp(null);
     }
 
-    private static void update(BreakPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, MethodAccessKind _flag, ResultContext _curr) {
-        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(),_curr, _window.getResultContextNext().generateAdv(_curr.getContext().getInterrupt()), _flag);
+    private static void update(BreakPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, ResultContext _curr) {
+        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(),_curr, _window.getResultContextNext().generateAdv(_curr.getContext().getInterrupt()));
         OkMpFormEvent.update(_condition,_form);
         if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(BreakPoint.BPC_STD)) {
             _condition.getOthers().add(_mp.getValue().getResultStd());

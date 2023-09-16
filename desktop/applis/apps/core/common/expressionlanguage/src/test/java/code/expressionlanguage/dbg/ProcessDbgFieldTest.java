@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.dbg.WatchPoint;
 import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.options.ResultContextLambda;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -4104,7 +4103,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         cont_.toggleWatchPoint("pkg/Ex",32);
         compoundRead(cont_,cf("pkg.Ex","f"));
         WatchPointBlockPair wp_ = pair(cont_, cf("pkg.Ex", "f"));
-        wp_.getValue().getResultCompoundRead().analyze(wp_,"","f",cont_,new DefContextGenerator(),false);
+        wp_.getValue().getResultCompoundRead().analyze(wp_,"","f",cont_,new DefContextGenerator());
         wp_.getValue().getResultCompoundRead().getSuspend().set(false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -4118,7 +4117,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        wp_.getResultRead().analyze(p_,_newValue,"",_cont, new DefContextGenerator(), false);
+        wp_.getResultRead().analyze(p_,_newValue,"",_cont, new DefContextGenerator());
         assertEq(_newValue,wp_.getResultRead().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), false);
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -4129,7 +4128,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        wp_.getResultWrite().analyze(p_,_newValue,"",_cont, new DefContextGenerator(), true);
+        wp_.getResultWrite().analyze(p_,_newValue,"",_cont, new DefContextGenerator());
         assertEq(_newValue,wp_.getResultWrite().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -4140,7 +4139,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        wp_.getResultCompoundRead().analyze(p_,_newValue,"",_cont, new DefContextGenerator(), false);
+        wp_.getResultCompoundRead().analyze(p_,_newValue,"",_cont, new DefContextGenerator());
         assertEq(_newValue,wp_.getResultCompoundRead().getResultStr());
 
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), false);
@@ -4152,7 +4151,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        wp_.getResultCompoundWrite().analyze(p_,_newValue,"",_cont, new DefContextGenerator(), true);
+        wp_.getResultCompoundWrite().analyze(p_,_newValue,"",_cont, new DefContextGenerator());
         assertEq(_newValue,wp_.getResultCompoundWrite().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -4163,7 +4162,7 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        wp_.getResultCompoundWriteErr().analyze(p_,_newValue,"",_cont, new DefContextGenerator(), true);
+        wp_.getResultCompoundWriteErr().analyze(p_,_newValue,"",_cont, new DefContextGenerator());
         assertEq(_newValue,wp_.getResultCompoundWriteErr().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
