@@ -1,10 +1,7 @@
 package code.expressionlanguage.exec.dbg;
 
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.analyze.blocks.AbsBk;
-import code.expressionlanguage.analyze.blocks.BracedBlock;
-import code.expressionlanguage.analyze.blocks.FileBlock;
-import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.common.StringExpUtil;
@@ -35,6 +32,7 @@ public final class BreakPointBlockList {
     private final AbsCollection<ExcPointBlockPair> excPointList;
     private final AbsCollection<MethodPointBlockPair> methPointList;
     private final AbsCollection<StdMethodPointBlockPair> stdMethPointList;
+    private final AbsCollection<ParPointBlockPair> parPointList;
 
     public BreakPointBlockList(AbstractInterceptorStdCaller _i) {
         interceptor = _i;
@@ -43,6 +41,7 @@ public final class BreakPointBlockList {
         watchList = _i.newWatchPointKeyStringCollection();
         arrPointList = _i.newArrPointKeyStringCollection();
         excPointList = _i.newExcPointKeyStringCollection();
+        parPointList = _i.newParPointKeyStringCollection();
         methPointList = _i.newMethodPointKeyStringCollection();
         stdMethPointList = _i.newStdMethodPointKeyStringCollection();
         pausedLoop = _i.newAtBool();
@@ -225,6 +224,9 @@ public final class BreakPointBlockList {
         for (ExcPointBlockPair b: getExcPointList().elts()) {
             b.getValue().resetCount();
         }
+        for (ParPointBlockPair b: getParPointList().elts()) {
+            b.getValue().resetCount();
+        }
         for (WatchPointBlockPair b: getWatchList().elts()) {
             b.getValue().resetCount();
         }
@@ -259,6 +261,19 @@ public final class BreakPointBlockList {
     }
 
 
+    public ParPointBlockPair buildPar(boolean _exact, String _clName, RootBlock _de) {
+        if (_exact) {
+            return new ParPointBlockPair(true, _clName, interceptor, true,_de);
+        }
+        return new ParPointBlockPair(false, StringExpUtil.getIdFromAllTypes(_clName), interceptor, true,_de);
+    }
+
+    public ParPointBlockPair notNullExp(ParPointBlockPair _b) {
+        if (_b == null) {
+            return new ParPointBlockPair(false,"",interceptor,false, null);
+        }
+        return _b;
+    }
     public WatchPointBlockPair watch(boolean _trField, SynthFieldInfo _field) {
         return new WatchPointBlockPair(_trField, _field.getRootBlock(), _field.getRootBlockNb(), _field.getClassField().getFieldName(), interceptor, true);
     }
@@ -276,6 +291,10 @@ public final class BreakPointBlockList {
 
     public AbsCollection<ExcPointBlockPair> getExcPointList() {
         return excPointList;
+    }
+
+    public AbsCollection<ParPointBlockPair> getParPointList() {
+        return parPointList;
     }
 
     public AbsCollection<BreakPointBlockPair> getList() {

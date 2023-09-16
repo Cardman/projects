@@ -8,6 +8,7 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
 
     private boolean calledAfter;
     private boolean checkField;
+    private boolean checkingParent;
     private boolean exiting;
 
     protected AbstractLambdaVariable(boolean _lambda) {
@@ -20,9 +21,12 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
             possibleWrap(_stack);
             return false;
         }
+        checkingParent = true;
         if (koParent(_context, _stack)) {
+            checkingParent = _stack.trueException() == null;
             return false;
         }
+        checkingParent = false;
         checkField = true;
         if (_stack.getStopper().isStopAtRef(_context, _stack)) {
             return false;
@@ -70,6 +74,10 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
 
     public boolean isCheckField() {
         return checkField;
+    }
+
+    public boolean isCheckingParent() {
+        return checkingParent;
     }
 
     abstract boolean hasToExit(ContextEl _context, StackCall _stack);

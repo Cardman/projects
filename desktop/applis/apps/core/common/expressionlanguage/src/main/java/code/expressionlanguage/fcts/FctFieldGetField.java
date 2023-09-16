@@ -20,7 +20,7 @@ public final class FctFieldGetField extends FctReflection {
         if (!field_.isInvokable()) {
             _stackCall.setCallingState(new CustomFoundExc(getNonInvokableError(_cont,field_, _stackCall)));
         } else {
-            _stackCall.setCallingState(new CustomReflectGetField(new DirectParentRetriever(inst_), field_, false));
+            _stackCall.setCallingState(new CustomReflectGetField(new DirectParentRetriever(inst_), field_, false, 0));
         }
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

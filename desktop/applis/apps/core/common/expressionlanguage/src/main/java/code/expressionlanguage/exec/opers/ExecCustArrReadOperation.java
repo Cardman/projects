@@ -46,4 +46,7 @@ public final class ExecCustArrReadOperation extends ExecSettableCallFctOperation
         return ExecCustArrOperation.poly(instRead, _cont, _pr);
     }
 
+    public ExecTypeFunctionInst getInstRead() {
+        return instRead;
+    }
 }

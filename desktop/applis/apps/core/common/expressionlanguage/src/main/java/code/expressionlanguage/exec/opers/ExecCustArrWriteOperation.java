@@ -50,6 +50,10 @@ public final class ExecCustArrWriteOperation extends ExecInvokingOperation imple
         return ExecCustArrOperation.poly(instWrite, _cont, _pr);
     }
 
+    public ExecTypeFunctionInst getInstWrite() {
+        return instWrite;
+    }
+
     @Override
     public boolean resultCanBeSet() {
         return true;

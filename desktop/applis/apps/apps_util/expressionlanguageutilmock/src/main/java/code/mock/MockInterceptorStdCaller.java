@@ -63,6 +63,11 @@ public final class MockInterceptorStdCaller implements AbstractInterceptorStdCal
     }
 
     @Override
+    public AbsCollection<ParPointBlockPair> newParPointKeyStringCollection() {
+        return new ConcList<ParPointBlockPair>(new ParKeyString(), this);
+    }
+
+    @Override
     public AbsCollection<MethodPointBlockPair> newMethodPointKeyStringCollection() {
         return new ConcList<MethodPointBlockPair>(new MethodKeyString(),this);
     }

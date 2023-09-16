@@ -6,52 +6,40 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.calls.util.MethodLambdaParentRetriever;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.LambdaMethodStruct;
+import code.expressionlanguage.structs.MethodMetaInfo;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
 public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCommonMethodPageEl {
 
-    private final ArgumentListCall original;
-    private final ArgumentListCall array = new ArgumentListCall();
     private final int ref;
-    private Struct parent;
-    private final LambdaMethodStruct lambdaMethodStruct;
+    private final MethodLambdaParentRetriever methodLambdaParentRetriever;
+    private boolean entered;
 
     protected AbstractRefectLambdaMethodPageEl(ArgumentListCall _array, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, int _r, LambdaMethodStruct _lms) {
         super(_lms.getInstanceCall(), _metaInfo, _preparer,true);
-        original = _array;
+        methodLambdaParentRetriever = new MethodLambdaParentRetriever(_array,_lms);
         ref = _r;
-        lambdaMethodStruct = _lms;
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
-        if (!tryRetPar(_context, _stack)) {
+        entered = true;
+        if (!methodLambdaParentRetriever.retrieve(_context, _stack)) {
             return false;
         }
-        if (!keep(_context, _stack, ArgumentListCall.toStr(parent))) {
+        if (!keep(_context, _stack, ArgumentListCall.toStr(methodLambdaParentRetriever.getParent()))) {
             return false;
         }
         return callPhase(_context, _stack);
     }
-    private boolean tryRetPar(ContextEl _context, StackCall _stack) {
-        if (parent != null) {
-            return true;
-        }
-        Struct arj_ = AbstractRefectLambdaMethodPageEl.adjustedInstance(_stack, lambdaMethodStruct, original.getArgumentWrappers());
-        if (arj_ == null) {
-            String npe_ = _context.getStandards().getContent().getCoreNames().getAliasNullPe();
-            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stack)));
-            return false;
-        }
-        parent = arj_;
-        AbstractRefectLambdaMethodPageEl.trySetArgs(lambdaMethodStruct, original, array);
-        return true;
-    }
+
     public static void trySetArgs(LambdaMethodStruct _l,ArgumentListCall _array, ArgumentListCall _call) {
         CustList<ArgumentWrapper> merged_ = new CustList<ArgumentWrapper>();
         merged_.addAllElts(_array.getArgumentWrappers());
@@ -99,6 +87,18 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
         Struct value_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_formal)).getStruct();
         return parentRet(static_, nbAncestors_, value_, _stackCall);
     }
+
+    public static Struct originalInstance(LambdaMethodStruct _lda, CustList<ArgumentWrapper> _formal) {
+        String meth_ = _lda.getMethodName();
+        Struct instanceStruct_ = _lda.getInstanceCall().getStruct();
+        if (!_lda.isShiftInstance()) {
+            return instanceStruct_;
+        }
+        if (StringExpUtil.isOper(meth_)) {
+            return NullStruct.NULL_VALUE;
+        }
+        return ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_formal)).getStruct();
+    }
     public static Struct parentRet(boolean _static, int _nbAnc, Struct _instanceStruct, StackCall _stackCall) {
         if (!_static) {
             Struct par_ = ExecFieldTemplates.getParent(_nbAnc, _instanceStruct, _stackCall);
@@ -130,15 +130,28 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
     }
 
     Argument prepareCall(ContextEl _context, StackCall _stack) {
-        return prepare(_context, array, _stack);
+        return prepare(_context, methodLambdaParentRetriever.getArray(), _stack);
     }
 
+    public boolean isEntered() {
+        return entered;
+    }
+
+    public boolean isCheckedParent() {
+        return methodLambdaParentRetriever.getParent() == null;
+    }
     public Struct getParent() {
-        return parent;
+        return methodLambdaParentRetriever.getParent();
     }
 
+    public Struct getOriginalInstance() {
+        return methodLambdaParentRetriever.getOriginalInstance();
+    }
+    public int getAncestor(){
+        return methodLambdaParentRetriever.getAncestor();
+    }
     public ArgumentListCall getArray() {
-        return array;
+        return methodLambdaParentRetriever.getArray();
     }
 
     abstract Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack);

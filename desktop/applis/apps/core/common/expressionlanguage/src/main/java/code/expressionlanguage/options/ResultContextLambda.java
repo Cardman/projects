@@ -114,6 +114,15 @@ public final class ResultContextLambda {
         return build(_exp, _result, _type, _gene, a_);
     }
 
+
+    public static ResultContextLambda dynamicAnalyzePar(String _exp, ParPointBlockPair _ex, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
+        if (_exp.trim().isEmpty()) {
+            return new ResultContextLambda(null,null,new ReportedMessages(), 0, null);
+        }
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.preparePar(_ex.getPp().getClName(), _ex.getPp().isExact(), _ex.getRootBlock(), _result.getPageEl());
+        return build(_exp, _result, _type, _gene, a_);
+    }
+
     private static ResultContextLambda build(String _exp, ResultContext _result, String _type, AbsLightContextGenerator _gene, AnalyzedPageEl _a) {
         String pref_ = "(:" + _type + ")->";
         String dynLda_ = pref_ + _exp;

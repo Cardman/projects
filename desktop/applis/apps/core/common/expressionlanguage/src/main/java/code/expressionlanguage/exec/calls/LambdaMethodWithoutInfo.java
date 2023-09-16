@@ -3,45 +3,41 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.calls.util.MethodLambdaParentRetriever;
 import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.inherits.RangeChecker;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.LambdaMethodStruct;
+import code.expressionlanguage.structs.RangeStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
 public final class LambdaMethodWithoutInfo extends AbstractBasicReflectPageEl {
     private boolean checkElement;
     private final LambdaMethodStruct lambdaMethodStruct;
-    private Struct instance;
-    private final ArgumentListCall original;
-    private final ArgumentListCall arguments = new ArgumentListCall();
+    private final MethodLambdaParentRetriever methodLambdaParentRetriever;
+    private boolean entered;
     public LambdaMethodWithoutInfo(LambdaMethodStruct _lms, ArgumentListCall _l) {
         super(true);
         lambdaMethodStruct = _lms;
-        original = _l;
+        methodLambdaParentRetriever = new MethodLambdaParentRetriever(_l,_lms);
     }
 
     @Override
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
-        if (instance == null) {
-            Struct arj_ = AbstractRefectLambdaMethodPageEl.adjustedInstance(_stack, lambdaMethodStruct, original.getArgumentWrappers());
-            if (arj_ == null) {
-                String npe_ = _context.getStandards().getContent().getCoreNames().getAliasNullPe();
-                _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stack)));
-                return false;
-            }
-            AbstractRefectLambdaMethodPageEl.trySetArgs(lambdaMethodStruct, original, arguments);
-            this.instance = arj_;
+        entered = true;
+        if (!methodLambdaParentRetriever.retrieve(_context, _stack)){
+            return false;
         }
         checkElement = true;
         if (_stack.getStopper().isStopAtRef(_context, _stack)) {
             return false;
         }
         checkElement = false;
-        Argument arg_ = arrMethods(_context, lambdaMethodStruct.getMethodName(), instance, arguments, _stack);
+        Argument arg_ = arrMethods(_context, lambdaMethodStruct.getMethodName(), methodLambdaParentRetriever.getParent(), methodLambdaParentRetriever.getArray(), _stack);
         if (_context.callsOrException(_stack)) {
             return false;
         }
@@ -49,16 +45,30 @@ public final class LambdaMethodWithoutInfo extends AbstractBasicReflectPageEl {
         return true;
     }
 
+    public int getAncestor(){
+        return methodLambdaParentRetriever.getAncestor();
+    }
+
+    public boolean isEntered() {
+        return entered;
+    }
+
+    public boolean isCheckedParent() {
+        return methodLambdaParentRetriever.getParent() == null;
+    }
     public String getName() {
         return lambdaMethodStruct.getMethodName();
     }
 
     public Struct getInstance() {
-        return instance;
+        return methodLambdaParentRetriever.getParent();
     }
 
+    public Struct getOriginalInstance() {
+        return methodLambdaParentRetriever.getOriginalInstance();
+    }
     public ArgumentListCall getArguments() {
-        return arguments;
+        return methodLambdaParentRetriever.getArray();
     }
 
     public boolean isCheckElement() {

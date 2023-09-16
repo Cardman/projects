@@ -75,7 +75,7 @@ public abstract class AbstractParamChecker {
     private static Argument lambdaField(ArgumentListCall _values, ContextEl _conf, StackCall _stackCall, LambdaFieldStruct _ls) {
         Struct metaInfo_ = _ls.getMetaInfo();
         if (!(metaInfo_ instanceof FieldMetaInfo)) {
-            return virtualField(_values, _conf, _stackCall, _ls);
+            return virtualField(_values, _stackCall, _ls);
         }
         FieldMetaInfo method_ = (FieldMetaInfo)metaInfo_;
         if (_ls.isSafeInstance()) {
@@ -84,10 +84,10 @@ public abstract class AbstractParamChecker {
         boolean aff_ = _ls.isAffect();
         if (aff_) {
             CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
-            _stackCall.setCallingState(new CustomReflectSetField(new LambdaParentRetriever(_values,_ls), method_, ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)), true));
+            _stackCall.setCallingState(new CustomReflectSetField(new FieldLambdaParentRetriever(_values,_ls), method_, ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)), true, _ls.getAncestor()));
             return new Argument();
         }
-        _stackCall.setCallingState(new CustomReflectGetField(new LambdaParentRetriever(_values,_ls), method_, true));
+        _stackCall.setCallingState(new CustomReflectGetField(new FieldLambdaParentRetriever(_values,_ls), method_, true, _ls.getAncestor()));
         return new Argument();
     }
 
@@ -122,8 +122,8 @@ public abstract class AbstractParamChecker {
         return _type != null && !_type.withoutInstance();
     }
 
-    private static Argument virtualField(ArgumentListCall _values, ContextEl _conf, StackCall _stackCall, LambdaFieldStruct _l) {
-        Struct realInstance_ = LambdaParentRetriever.retrInstance(_values, _l);
+    private static Argument virtualField(ArgumentListCall _values, StackCall _stackCall, LambdaFieldStruct _l) {
+        Struct realInstance_ = FieldLambdaParentRetriever.retrInstance(_values, _l);
         if (_l.isToStrField()) {
             _stackCall.setCallingState(new CustomReflectLambdaToStr(new Argument(realInstance_)));
             return Argument.createVoid();
@@ -132,12 +132,8 @@ public abstract class AbstractParamChecker {
             _stackCall.setCallingState(new CustomReflectLambdaRdCod(new Argument(realInstance_)));
             return Argument.createVoid();
         }
-        if (_l.isInstanceField()) {
-            String ownerType_ = StringUtil.nullToEmpty(_l.getOwnerType());
-            boolean res_ = ExecInherits.safeObject(ownerType_, realInstance_.getClassName(_conf), _conf) == ErrorType.NOTHING;
-            return new Argument(BooleanStruct.of(res_));
-        }
-        return new Argument(realInstance_.getParent());
+        _stackCall.setCallingState(new CustomReflectLambdaFieldWithoutInfo(_l,_values));
+        return Argument.createVoid();
     }
 
     private static Argument defaultValueLambda(ContextEl _conf, LambdaStruct _l) {

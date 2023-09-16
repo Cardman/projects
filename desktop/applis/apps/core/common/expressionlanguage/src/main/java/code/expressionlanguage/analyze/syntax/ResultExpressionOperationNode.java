@@ -106,6 +106,27 @@ public final class ResultExpressionOperationNode {
         return a_;
     }
 
+    public static AnalyzedPageEl preparePar(String _id, boolean _exact, RootBlock _rootBlock, AnalyzedPageEl _original) {
+        AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
+        a_.setDynamic(true);
+        a_.setCurrentPkg(a_.getDefaultPkg());
+        if (_rootBlock != null) {
+            field(a_,_rootBlock,false);
+            if (_exact) {
+                a_.setOriginalGlobalType(new AnaFormattedRootBlock(_rootBlock,_id));
+            }
+        } else {
+            a_.setOriginalGlobalType(new AnaFormattedRootBlock((RootBlock)null,_original.getAliasObject()));
+        }
+        a_.setImportingAcces(new AllAccessedTypes());
+        AnaLocalVariable lvIndex_ = new AnaLocalVariable();
+        lvIndex_.setClassName(a_.getAliasPrimInteger());
+        lvIndex_.setConstType(ConstType.PARAM);
+        lvIndex_.setFinalVariable(true);
+        a_.getCache().getLocalVariables().add(new AnaNamedLocalVariable(a_.getKeyWords().getKeyWordValue(), lvIndex_));
+        return a_;
+    }
+
     public static AnalyzedPageEl prepareArr(String _id, AnalyzedPageEl _original, int _flag) {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);

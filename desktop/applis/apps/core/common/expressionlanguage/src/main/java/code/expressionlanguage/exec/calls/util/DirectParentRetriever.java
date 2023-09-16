@@ -17,7 +17,11 @@ public final class DirectParentRetriever implements IntParentRetriever {
     }
 
     public Struct getParent() {
-        return parent;
+        return getOriginalInstance();
     }
 
+    @Override
+    public Struct getOriginalInstance() {
+        return parent;
+    }
 }

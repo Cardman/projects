@@ -75,4 +75,7 @@ public final class ExecFctOperation extends ExecSettableCallFctOperation {
         return res_;
     }
 
+    public ExecTypeFunctionInst getInst() {
+        return inst;
+    }
 }

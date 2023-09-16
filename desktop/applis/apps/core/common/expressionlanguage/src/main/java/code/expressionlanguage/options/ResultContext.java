@@ -6,15 +6,13 @@ import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.DisplayedStrings;
-import code.expressionlanguage.common.FileMetrics;
-import code.expressionlanguage.common.SynthFieldInfo;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.AbsStackStopper;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.*;
+import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
@@ -202,7 +200,27 @@ public final class ResultContext {
     public void toggleExcPointEnabled(String _clName, boolean _exact) {
         getContext().toggleExcPointEnabled(_clName, _exact);
     }
+    public void toggleParPoint(String _clName, boolean _exact) {
+        String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, getContext());
+        RootBlock r_ = getPageEl().getAnaClassBody(StringExpUtil.getIdFromAllTypes(solved_));
+        if (koPar(r_, _clName)) {
+            return;
+        }
+        getContext().togglePar(getContext().notNullBuildPar(_exact,solved_,r_));
+    }
 
+    public void toggleParPointEnabled(String _clName, boolean _exact) {
+        String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, getContext());
+        RootBlock r_ = getPageEl().getAnaClassBody(StringExpUtil.getIdFromAllTypes(solved_));
+        if (koPar(r_, _clName)) {
+            return;
+        }
+        getContext().toggleEnabledPar(getContext().notNullBuildPar(_exact,solved_,r_));
+    }
+
+    private static boolean koPar(RootBlock _solved, String _clName) {
+        return _solved == null && !_clName.trim().isEmpty();
+    }
     public void toggleWatchPoint(String _file, int _offset){
         SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(getPageEl(), _file, _offset);
         if (o_.getRootBlock() == null) {
@@ -264,6 +282,12 @@ public final class ResultContext {
     }
     public ExcPointBlockPair getPairExc(String _field, boolean _exact) {
         return getContext().getPairExc(_field, _exact);
+    }
+    public boolean isPar(String _field, boolean _exact) {
+        return getContext().isPar(_field, _exact);
+    }
+    public ParPointBlockPair getPairPar(String _field, boolean _exact) {
+        return getContext().getPairPar(_field, _exact);
     }
     public void breakPointEnabled(String _file, int _offset, boolean _newValue) {
         BreakPointBlockList.breakPointEnabled(_file, _offset, this,_newValue);

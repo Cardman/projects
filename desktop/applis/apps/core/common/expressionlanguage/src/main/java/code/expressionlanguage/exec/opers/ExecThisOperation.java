@@ -39,4 +39,7 @@ public final class ExecThisOperation extends ExecLeafOperation implements Atomic
         return thisContent.isIntermediate();
     }
 
+    public ExecThisContent getThisContent() {
+        return thisContent;
+    }
 }

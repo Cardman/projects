@@ -10,15 +10,18 @@ import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.FieldMetaInfo;
+import code.expressionlanguage.structs.Struct;
 
 public final class ReflectGetFieldPageEl extends AbstractLambdaVariable {
 
     private boolean initClass;
     private final IntParentRetriever intParentRetriever;
     private final FieldMetaInfo metaInfo;
+    private final int ancestor;
 
-    public ReflectGetFieldPageEl(IntParentRetriever _i, FieldMetaInfo _metaInfo, boolean _lambda) {
+    public ReflectGetFieldPageEl(IntParentRetriever _i, int _anc, FieldMetaInfo _metaInfo, boolean _lambda) {
         super(_lambda);
+        ancestor = _anc;
         intParentRetriever = _i;
         setGlobalArgumentStruct(_metaInfo);
         metaInfo = _metaInfo;
@@ -57,6 +60,13 @@ public final class ReflectGetFieldPageEl extends AbstractLambdaVariable {
 
     public Argument getArgument() {
         return ArgumentListCall.toStr(intParentRetriever.getParent());
+    }
+
+    public Struct getOriginalInstance() {
+        return intParentRetriever.getOriginalInstance();
+    }
+    public int getAncestor(){
+        return ancestor;
     }
 
     public FieldMetaInfo getMetaInfo() {

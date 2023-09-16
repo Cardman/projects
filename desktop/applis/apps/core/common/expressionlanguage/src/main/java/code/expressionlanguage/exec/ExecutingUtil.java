@@ -236,12 +236,12 @@ public final class ExecutingUtil {
         } else if (_ref instanceof CustomReflectGetField) {
             CustomReflectGetField c_ = (CustomReflectGetField) _ref;
             FieldMetaInfo metaInfo_ = c_.getGl();
-            pageLoc_ = new ReflectGetFieldPageEl(((CustomReflectGetField) _ref).getIntParentRetriever(), metaInfo_, _ref.isLambda());
+            pageLoc_ = new ReflectGetFieldPageEl(((CustomReflectGetField) _ref).getIntParentRetriever(),((CustomReflectGetField) _ref).getParent(), metaInfo_, _ref.isLambda());
         } else if (_ref instanceof CustomReflectSetField) {
             CustomReflectSetField c_ = (CustomReflectSetField) _ref;
             FieldMetaInfo metaInfo_ = c_.getGl();
             Argument last_ = c_.getLast();
-            pageLoc_ = new ReflectSetFieldPageEl(((CustomReflectSetField) _ref).getIntParentRetriever(), last_, metaInfo_, _ref.isLambda());
+            pageLoc_ = new ReflectSetFieldPageEl(((CustomReflectSetField) _ref).getIntParentRetriever(),((CustomReflectSetField) _ref).getParent(), last_, metaInfo_, _ref.isLambda());
         } else if (_ref instanceof CustomReflectMethodDefVal) {
             CustomReflectMethodDefVal c_ = (CustomReflectMethodDefVal) _ref;
             MethodMetaInfo metaInfo_ = c_.getGl();
@@ -257,6 +257,8 @@ public final class ExecutingUtil {
             pageLoc_ = lambdaMethVar((CustomReflectLambdaVarMethod) _ref);
         } else if (_ref instanceof CustomReflectLambdaMethod) {
             pageLoc_ = lambdaMeth((CustomReflectLambdaMethod) _ref);
+        } else if (_ref instanceof CustomReflectLambdaFieldWithoutInfo) {
+            pageLoc_ = lambdaField((CustomReflectLambdaFieldWithoutInfo) _ref);
         } else if (_ref instanceof CustomReflectLambdaMethodWithoutInfo) {
             pageLoc_ = lambdaMeth((CustomReflectLambdaMethodWithoutInfo) _ref);
         } else if (_ref instanceof CustomReflectMethod) {
@@ -348,6 +350,10 @@ public final class ExecutingUtil {
     }
     private static AbstractPageEl lambdaMeth(CustomReflectLambdaMethodWithoutInfo _ref) {
         return new LambdaMethodWithoutInfo(_ref.getLambdaMethodStruct(), _ref.getArray());
+    }
+
+    private static AbstractPageEl lambdaField(CustomReflectLambdaFieldWithoutInfo _ref) {
+        return new LambdaFieldWithoutInfo(_ref.getLambdaFieldStruct(), _ref.getArray());
     }
     private static AbstractPageEl lambdaCtor(CustomReflectLambdaConstructorWithoutInfo _ref) {
         return new LambdaConstructorWithoutInfo(_ref.getLambdaConstructorStruct(), _ref.getArray());

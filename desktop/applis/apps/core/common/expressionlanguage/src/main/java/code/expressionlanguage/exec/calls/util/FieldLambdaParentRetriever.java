@@ -1,47 +1,41 @@
 package code.expressionlanguage.exec.calls.util;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractRefectLambdaMethodPageEl;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LambdaFieldStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
-public final class LambdaParentRetriever implements IntParentRetriever {
+public final class FieldLambdaParentRetriever extends AbsLambdaParentRetriever {
     private final ArgumentListCall array;
     private final LambdaFieldStruct lambdaFieldStruct;
-    private Struct parent;
+    private final Struct originalInstance;
 
-    public LambdaParentRetriever(ArgumentListCall _values,LambdaFieldStruct _l) {
+    public FieldLambdaParentRetriever(ArgumentListCall _values, LambdaFieldStruct _l) {
         this.array = _values;
         this.lambdaFieldStruct = _l;
+        originalInstance = retrInstance(array, lambdaFieldStruct);
     }
 
     @Override
-    public boolean retrieve(ContextEl _conf, StackCall _stackCall) {
-        if (parent != null) {
-            return true;
-        }
+    protected Struct getValue(StackCall _stackCall) {
         boolean static_ = lambdaFieldStruct.isStaticField();
-        int nbAncestors_ = lambdaFieldStruct.getAncestor();
-        Struct value_ = retrInstance(array, lambdaFieldStruct);
-        Struct par_ = AbstractRefectLambdaMethodPageEl.parentRet(static_, nbAncestors_, value_, _stackCall);
-        if (par_ == null) {
-            String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
-            return false;
-        }
-        parent = par_;
-        return true;
+        int nbAncestors_ = getAncestor();
+        return AbstractRefectLambdaMethodPageEl.parentRet(static_, nbAncestors_, retrInstance(array, lambdaFieldStruct), _stackCall);
     }
 
-    public Struct getParent() {
-        return parent;
+    @Override
+    public int getAncestor() {
+        return lambdaFieldStruct.getAncestor();
+    }
+
+    @Override
+    protected boolean afterSetParent() {
+        return true;
     }
 
     public static Struct retrInstance(ArgumentListCall _values, LambdaFieldStruct _ldaField) {
@@ -54,5 +48,9 @@ public final class LambdaParentRetriever implements IntParentRetriever {
             realInstance_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_)).getStruct();
         }
         return realInstance_;
+    }
+
+    public Struct getOriginalInstance() {
+        return originalInstance;
     }
 }

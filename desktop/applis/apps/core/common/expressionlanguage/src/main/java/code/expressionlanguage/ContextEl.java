@@ -212,6 +212,10 @@ public abstract class ContextEl {
     public AbsCollection<ExcPointBlockPair> excList() {
         return getClasses().getDebugMapping().getBreakPointsBlock().getExcPointList();
     }
+
+    public AbsCollection<ParPointBlockPair> parList() {
+        return getClasses().getDebugMapping().getBreakPointsBlock().getParPointList();
+    }
     public ArrPointBlockPair buildArr(boolean _exact, String _clName) {
         String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, this);
         if (koArr(solved_, _clName)) {
@@ -235,6 +239,10 @@ public abstract class ContextEl {
         return getClasses().getDebugMapping().getBreakPointsBlock().build(_exact, _clName);
     }
 
+    public ParPointBlockPair notNullBuildPar(boolean _exact, String _clName, RootBlock _de) {
+        return getClasses().getDebugMapping().getBreakPointsBlock().buildPar(_exact, _clName, _de);
+    }
+
     private static boolean koArr(String _solved, String _clName) {
         return !_solved.startsWith(StringExpUtil.ARR_CLASS) && !_clName.trim().isEmpty();
     }
@@ -242,6 +250,7 @@ public abstract class ContextEl {
     private static boolean koExc(String _solved, String _clName) {
         return _solved.isEmpty() && !_clName.trim().isEmpty();
     }
+
     public void toggleArrPointEnabled(String _clName, boolean _exact) {
         ArrPointBlockPair e_ = buildArr(_exact, _clName);
         if (e_ == null) {
@@ -297,6 +306,25 @@ public abstract class ContextEl {
         excList().add(_b);
     }
 
+    public void toggleEnabledPar(ParPointBlockPair _b) {
+        for (ParPointBlockPair b: parList().elts()) {
+            if (b.getPp().match(_b.getPp())) {
+                b.getValue().setEnabled(!b.getValue().isEnabled());
+                return;
+            }
+        }
+        parList().add(_b);
+    }
+
+    public void togglePar(ParPointBlockPair _b) {
+        for (ParPointBlockPair b: parList().elts()) {
+            if (b.getPp().match(_b.getPp())) {
+                parList().remove(b);
+                return;
+            }
+        }
+        parList().add(_b);
+    }
     public void toggleEnabled(DisplayedStrings _d, MemberCallingsBlock _id) {
         MethodPointBlockPair pair_ = method(_d, _id);
         for (MethodPointBlockPair b: metList().elts()) {
@@ -340,6 +368,9 @@ public abstract class ContextEl {
     public boolean isExc(String _field, boolean _exact) {
         return getNotNullExc(_field, _exact).isEnabled();
     }
+    public boolean isPar(String _field, boolean _exact) {
+        return getNotNullPar(_field, _exact).isEnabled();
+    }
     public BreakPoint getNotNull(ExecFileBlock _file, int _offset) {
         return getNotNullPair(_file, _offset).getValue();
     }
@@ -369,6 +400,14 @@ public abstract class ContextEl {
     }
     public ExcPointBlockPair getNotNullExcPair(String _field, boolean _exact) {
         ExcPointBlockPair b_ = getPairExc(_field,_exact);
+        return getClasses().getDebugMapping().getBreakPointsBlock().notNullExp(b_);
+    }
+    public ParPoint getNotNullPar(String _field, boolean _exact) {
+        ParPointBlockPair b_ = getNotNullPair(_field,_exact);
+        return b_.getValue();
+    }
+    public ParPointBlockPair getNotNullPair(String _field, boolean _exact) {
+        ParPointBlockPair b_ = getPairPar(_field,_exact);
         return getClasses().getDebugMapping().getBreakPointsBlock().notNullExp(b_);
     }
     public WatchPoint getNotNullWatch(boolean _trField, int _root, String _field) {
@@ -430,6 +469,14 @@ public abstract class ContextEl {
         return null;
     }
 
+    public ParPointBlockPair getPairPar(String _field, boolean _exact) {
+        for (ParPointBlockPair b: parList().elts()) {
+            if (b.getPp().match(_field, _exact)) {
+                return b;
+            }
+        }
+        return null;
+    }
     public WatchPointBlockPair getPairWatch(boolean _trField, int _root, String _field) {
         for (WatchPointBlockPair b: watchList().elts()) {
             if (b.getWp().match(_trField, _root, _field)) {

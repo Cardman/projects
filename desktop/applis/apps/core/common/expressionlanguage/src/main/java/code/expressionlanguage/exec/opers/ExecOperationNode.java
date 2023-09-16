@@ -68,6 +68,11 @@ public abstract class ExecOperationNode {
     }
 
     public static Struct instance(ExecOperationNode _n, int _anc, IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _last) {
+        Struct instance_ = instance(_n, _nodes, _last);
+        return ExecFieldTemplates.getParent(_anc,instance_);
+    }
+
+    public static Struct instance(ExecOperationNode _n, IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _last) {
         Struct prev_ = ArgumentListCall.toStr(Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes, _n).getPreviousArgument()));
         Struct instance_;
         if (prev_ == NullStruct.NULL_VALUE) {
@@ -75,8 +80,9 @@ public abstract class ExecOperationNode {
         } else {
             instance_ = prev_;
         }
-        return ExecFieldTemplates.getParent(_anc,instance_);
+        return instance_;
     }
+
     protected Argument getPreviousArg(ExecPossibleIntermediateDotted _possible, IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _lastPage) {
         Argument previous_;
         if (_possible.isIntermediateDottedOperation()) {

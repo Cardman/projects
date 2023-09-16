@@ -90,6 +90,10 @@ public final class BreakPointCondition {
         resultLogs(ResultContextLambda.dynamicAnalyzeExc(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _log);
     }
 
+    public void analyze(ParPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
+        result(ResultContextLambda.dynamicAnalyzePar(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene), _exp);
+        resultLogs(ResultContextLambda.dynamicAnalyzePar(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _log);
+    }
     public int pref(String _cl) {
         for (EntryCust<String, Integer> e: prefs.elts()) {
             if (StringUtil.quickEq(_cl,e.getKey())) {
