@@ -130,6 +130,16 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         if (_o instanceof ExecArrOperation) {
             return arr(_el,(ExecArrOperation) _o,_context, _last);
         }
+        if (_o instanceof ExecAbstractArrayInstancingOperation && ((ExecAbstractArrayInstancingOperation)_o).getCountArrayDims() >= 0) {
+            CustList<Argument> args_ = ((ExecAbstractArrayInstancingOperation)_o).getArguments(_el.getArguments());
+            int indexes_ = args_.size();
+            ArrayStruct arr_ = new ArrayStruct(indexes_,StringExpUtil.getPrettyArrayType(_context.getStandards().getPrimTypes().getAliasPrimInteger()));
+            for (int i = 0; i <indexes_; i++) {
+                arr_.set(i,ArgumentListCall.toStr(args_.get(i)));
+            }
+            String c_ = StringExpUtil.getPrettyArrayType(_last.formatVarType(((ExecAbstractArrayInstancingOperation)_o).getClassName()), indexes_ + ((ExecAbstractArrayInstancingOperation)_o).getCountArrayDims());
+            return new ArrCheckedExecOperationNodeInfos(_context, c_, arr_);
+        }
         return null;
     }
 
@@ -904,10 +914,26 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
                     ArgumentListCall args_ = _infos.getArgs();
                     AbstractWrapper lw_ = cache_.getLocalWrapper(NumParsers.getString(str(c_,args_, 0)).getInstance(), NumParsers.convertToNumber(str(c_,args_, 1)).longStruct());
                     if (lw_ instanceof ArrayCustWrapper) {
-                        return checkLda(new CallCheckedExecOperationNodeInfos(_context, _infos.isExiting(), (ArrayCustWrapper) lw_));
+                        return checkCallCheckedExecOperationNodeInfos(_context,_infos,c_,args_, (ArrayCustWrapper) lw_);
                     }
                 }
             }
+        }
+        return null;
+    }
+    private static CallCheckedExecOperationNodeInfos checkCallCheckedExecOperationNodeInfos(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _infos, StdCaller _c, ArgumentListCall _args, ArrayCustWrapper _lw) {
+        Struct r_ = right(_c, _args);
+        if (r_ != null) {
+            return checkLda(new CallCheckedExecOperationNodeInfos(_context, _infos.isExiting(), _lw, r_));
+        }
+        return checkLda(new CallCheckedExecOperationNodeInfos(_context, _infos.isExiting(), _lw));
+    }
+    private static Struct right(StdCaller _c,ArgumentListCall _a) {
+        if (_c instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars3){
+            return str(_a,1);
+        }
+        if (_c instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars4){
+            return str(_a,2);
         }
         return null;
     }
@@ -932,7 +958,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         for (int i = 0; i <indexes_; i++) {
             arr_.set(i,ArgumentListCall.toStr(args_.get(i).getValue()));
         }
-        String c_ = StringExpUtil.getPrettyArrayType(_lam.getFormClassName(), arr_.getLength());
+        String c_ = StringExpUtil.getPrettyArrayType(_lam.getFormClassName(), indexes_);
         return new ArrCheckedExecOperationNodeInfos(_context, c_, arr_);
     }
     private static ArrCheckedExecOperationNodeInfos callDynArr(ContextEl _context, String _name,Struct _instance, ArgumentListCall _ls) {

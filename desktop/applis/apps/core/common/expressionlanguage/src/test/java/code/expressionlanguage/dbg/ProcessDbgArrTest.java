@@ -842,7 +842,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         xml_.append("  that int l=that(((Int)$lambda(int[],[]))[new int[0]]);\n");
         xml_.append("  Fct<int,int> fct = a -> a * l;\n");
         xml_.append("  var v = (Method)fct.metaInfo();\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",(Object)3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",0);\n");
         xml_.append("  return 0;\n");
         xml_.append(" }\n");
         xml_.append(" public int curr(int[] i){return i.length;}\n");
@@ -851,7 +851,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        entering(cont_,"pkg/Ex",309);
+        entering(cont_,"pkg/Ex",301);
 //        entering(cont_,"pkg/Ex",304);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ext", id_, cont_);
@@ -871,7 +871,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         xml_.append("  that int l=that(((Int)$lambda(int[],[]))[new int[0]]);\n");
         xml_.append("  Fct<int,int> fct = a -> a * l;\n");
         xml_.append("  var v = (Method)fct.metaInfo();\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",(Object)3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",0);\n");
         xml_.append("  return 0;\n");
         xml_.append(" }\n");
         xml_.append(" public int curr(int[] i){return i.length;}\n");
@@ -880,7 +880,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        exiting(cont_,"pkg/Ex",309);
+        exiting(cont_,"pkg/Ex",301);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ext", id_, cont_);
         assertEq(1, stack_.nbPages());
@@ -899,7 +899,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         xml_.append("  that int l=that(((Int)new Ext().$lambda(Ext,curr,int[]))[new int[0]]);\n");
         xml_.append("  Fct<int,int> fct = a -> a * l;\n");
         xml_.append("  var v = (Method)fct.metaInfo();\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",(Object)3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",0);\n");
         xml_.append("  return 0;\n");
         xml_.append(" }\n");
         xml_.append(" public int curr(int[] i){return i.length;}\n");
@@ -908,7 +908,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        entering(cont_,"pkg/Ex",325);
+        entering(cont_,"pkg/Ex",317);
 //        entering(cont_,"pkg/Ex",304);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ext", id_, cont_);
@@ -928,7 +928,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         xml_.append("  that int l=that(((Int)new Ext().$lambda(Ext,curr,int[]))[new int[0]]);\n");
         xml_.append("  Fct<int,int> fct = a -> a * l;\n");
         xml_.append("  var v = (Method)fct.metaInfo();\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",(Object)3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",0);\n");
         xml_.append("  return 0;\n");
         xml_.append(" }\n");
         xml_.append(" public int curr(int[] i){return i.length;}\n");
@@ -937,7 +937,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        exiting(cont_,"pkg/Ex",325);
+        exiting(cont_,"pkg/Ex",317);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ext", id_, cont_);
         assertEq(1, stack_.nbPages());
@@ -1292,6 +1292,129 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
         assertEq(90, stack_.getCall(0).getTraceIndex());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test87() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T> {public static int exmeth(){return new Ex<int>().exmeth();}public T exmeth(){return (new T[1][2])[0][1];}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInitArraysThrownCondition(cont_,"value[0]==1&&value[1]==2");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(2, stack_.nbPages());
+        assertEq(72, stack_.getCall(0).getTraceIndex());
+        assertEq(108, nowTrace(stack_));
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test88() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" static int exmeth(){\n");
+        xml_.append("  that int l=that(((Int)new Ext().$lambda(Ext,curr,int[],int,int))[new int[1],0]);\n");
+        xml_.append("  Fct<int,int> fct = a -> a * l;\n");
+        xml_.append("  var v = (Method)fct.metaInfo();\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",0,(Object)3);\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" public int curr(int[] i,int j, int r){i[j]=r;return r;}\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int{public normal int this(int[] i,int j){return 0;}void this(int[] i,int j);}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        entering(cont_,"pkg/Ex",398);
+//        entering(cont_,"pkg/Ex",304);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ext", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(199, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ABS_REF_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        /*StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){var l=(Int)$lambda(int[],[]);return l.len(new int[1]);}}public interface pkg.Int{public int len(int[] a);}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        entering(cont_,"pkg/Ex",129);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(86, nowTrace(stack_));
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());*/
+    }
+    @Test
+    public void test89() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" static int exmeth(){\n");
+        xml_.append("  that int l=that(((Int)$lambda(int[],[]=,int))[new int[1],0]);\n");
+        xml_.append("  Fct<int,int> fct = a -> a * l;\n");
+        xml_.append("  var v = (Method)fct.metaInfo();\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"l\",0,(Object)3);\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" public void curr(int[] i, int r){i[0]=r;}\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int{public normal int this(int[] i,int j){return 0;}void this(int[] i,int j);}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        entering(cont_,"pkg/Ex",365);
+//        entering(cont_,"pkg/Ex",304);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ext", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(180, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ABS_REF_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        /*StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){var l=(Int)$lambda(int[],[]);return l.len(new int[1]);}}public interface pkg.Int{public int len(int[] a);}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        entering(cont_,"pkg/Ex",129);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(86, nowTrace(stack_));
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());*/
+    }
+    @Test
+    public void test90() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {static int exmeth(){((Int<int>)$lambda(int[],[]=,int))[new int[1],0]=2;return 0;}}public interface pkg.Int<T>{public normal T this(T[] i,int j){return i[j];}void this(T[] i,int j);}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        entering(cont_,"pkg/Ex",179);
+//        entering(cont_,"pkg/Ex",304);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ext", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(90, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test91() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {static int exmeth(){((IntSub<int>)$lambda(int[],[]=,int))[new int[1],0]=2;return 0;}}public interface pkg.IntSub<S>:Int<S>{}public interface pkg.Int<T>{public normal T this(T[] i,int j){return i[j];}void this(T[] i,int j);}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        entering(cont_,"pkg/Ex",221);
+//        entering(cont_,"pkg/Ex",304);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ext", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(93, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
     /*
@@ -1854,6 +1977,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         _cont.toggleArrPoint("[[int",true);
         ArrPoint val_ = _cont.getPairArr("[[int", true).getValue();
         disable(val_);
+        val_.setIntGetSet(true);
+        val_.setInitArray(true);
         val_.setIntSet(true);
     }
 
@@ -1875,8 +2000,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         _val.setRangeSet(false);
         _val.setRangeCompoundGet(false);
         _val.setRangeCompoundSet(false);
-        _val.setIntGetSet(true);
-        _val.setInitArray(true);
+        _val.setIntGetSet(false);
+        _val.setInitArray(false);
     }
 
     private void enteringCondition(String _newValue,ResultContext _cont, String _file, int _offset) {

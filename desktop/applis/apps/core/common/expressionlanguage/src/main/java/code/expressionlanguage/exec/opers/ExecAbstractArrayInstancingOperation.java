@@ -77,6 +77,11 @@ public final class ExecAbstractArrayInstancingOperation extends ExecSettableCall
         }
         setResult(res_, _conf, _nodes, _stack);
     }
+
+    public int getCountArrayDims() {
+        return countArrayDims;
+    }
+
     public int getMethodName() {
         return arrayInstancingContent.getMethodName();
     }

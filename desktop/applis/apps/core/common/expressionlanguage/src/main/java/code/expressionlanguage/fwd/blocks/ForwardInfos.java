@@ -297,7 +297,7 @@ public final class ForwardInfos {
                 ExecOverrideInfo val_ = _forwards.getClasses().getRedirections().get(ex_.getNumberType()).getVal(value_, _e.getRootBlock().getFullName());
                 if (val_ == null) {
                     String ret_ = b.getImportedReturnType();
-                    _e.getMembers().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(FetchMemberUtil.formatType(_s,value_.getId()),FetchMemberUtil.formatType(_s,ret_), value_, _aliasFct));
+                    _e.getMembers().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(FetchMemberUtil.formatType(_s,value_.getId()),FetchMemberUtil.formatType(_s,ret_), value_,FetchMemberUtil.formatType(_s,value_.getImportedReturnType()), _aliasFct));
                 }
             }
         }
