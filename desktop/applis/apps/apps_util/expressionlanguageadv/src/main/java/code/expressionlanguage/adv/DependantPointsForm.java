@@ -111,6 +111,17 @@ public final class DependantPointsForm {
             stdForm.add(check(EXIT,MethodPoint.BPC_EXIT));
         } else if (_add == ArrPoint.AP) {
             arrForm.add(check(LENGTH,ArrPoint.BPC_LENGTH));
+            arrForm.add(check(LENGTH,ArrPoint.BPC_INT_GET));
+            arrForm.add(check(LENGTH,ArrPoint.BPC_INT_SET));
+            arrForm.add(check(LENGTH,ArrPoint.BPC_INT_COMPOUND_GET));
+            arrForm.add(check(LENGTH,ArrPoint.BPC_INT_COMPOUND_SET));
+            arrForm.add(check(LENGTH,ArrPoint.BPC_INT_COMPOUND_SET_ERR));
+            arrForm.add(check(LENGTH,ArrPoint.BPC_RANGE_GET));
+            arrForm.add(check(LENGTH,ArrPoint.BPC_RANGE_SET));
+            arrForm.add(check(LENGTH,ArrPoint.BPC_RANGE_COMPOUND_GET));
+            arrForm.add(check(LENGTH,ArrPoint.BPC_RANGE_COMPOUND_SET));
+            arrForm.add(check(LENGTH,ArrPoint.BPC_INT_GET_SET));
+            arrForm.add(check(LENGTH,ArrPoint.BPC_INIT));
         }
     }
 

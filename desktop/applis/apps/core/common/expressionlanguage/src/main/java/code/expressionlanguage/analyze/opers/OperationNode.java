@@ -1992,7 +1992,12 @@ public abstract class OperationNode {
         MethodInfo mloc_ = new MethodInfo();
         mloc_.getParametrableContent().setFileName(_m.getFile().getFileName());
         mloc_.setParametersNames(_m.getParametersNames());
-        mloc_.pairMemberId(formattedClass_,_page,_m.getImportedReturnType(),r_,_m,_id);
+        String returnTypeGet_ = _m.getReturnTypeGet();
+        if (!returnTypeGet_.isEmpty()) {
+            mloc_.pairMemberId(formattedClass_,_page,returnTypeGet_,r_,_m,_id);
+        } else {
+            mloc_.pairMemberId(formattedClass_,_page,_m.getImportedReturnType(),r_,_m,_id);
+        }
         mloc_.setAncestor(_scType.getAnc());
         mloc_.setFormattedFilter(_scType.getFormattedFilter());
         mloc_.format(_id.getKind() == MethodAccessKind.STATIC, _page);

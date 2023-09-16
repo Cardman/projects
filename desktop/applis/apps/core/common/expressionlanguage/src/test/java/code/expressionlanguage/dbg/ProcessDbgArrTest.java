@@ -1334,6 +1334,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertEq(199, stack_.getCall(0).getTraceIndex());
         assertSame(StopDbgEnum.METHOD_ABS_REF_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertNull(stack_.getCallingState());
         /*StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {public static int exmeth(){var l=(Int)$lambda(int[],[]);return l.len(new int[1]);}}public interface pkg.Int{public int len(int[] a);}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1372,6 +1373,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertEq(180, stack_.getCall(0).getTraceIndex());
         assertSame(StopDbgEnum.METHOD_ABS_REF_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertNull(stack_.getCallingState());
         /*StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {public static int exmeth(){var l=(Int)$lambda(int[],[]);return l.len(new int[1]);}}public interface pkg.Int{public int len(int[] a);}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1400,6 +1402,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertEq(90, stack_.getCall(0).getTraceIndex());
         assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertNull(stack_.getCallingState());
     }
     @Test
     public void test91() {
@@ -1416,6 +1419,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertEq(93, stack_.getCall(0).getTraceIndex());
         assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertNull(stack_.getCallingState());
     }
     @Test
     public void test92() {
@@ -1433,6 +1437,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertEq(147, stack_.getCall(0).getTraceIndex());
         assertSame(StopDbgEnum.FIELD,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertNull(stack_.getCallingState());
     }
     @Test
     public void test93() {
@@ -1447,6 +1452,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ext", id_, cont_);
         assertEq(0, stack_.nbPages());
+        assertNull(stack_.getCallingState());
     }
     @Test
     public void test94() {
@@ -1467,6 +1473,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertEq(147, stack_.getCall(0).getTraceIndex());
         assertSame(StopDbgEnum.FIELD,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertNull(stack_.getCallingState());
     }
     @Test
     public void test95() {
@@ -1484,6 +1491,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertEq(147, stack_.getCall(0).getTraceIndex());
         assertSame(StopDbgEnum.FIELD,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertNull(stack_.getCallingState());
     }
     @Test
     public void test96() {
@@ -1504,6 +1512,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertEq(147, stack_.getCall(0).getTraceIndex());
         assertSame(StopDbgEnum.FIELD,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertNull(stack_.getCallingState());
     }
     @Test
     public void test97() {
@@ -1523,6 +1532,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertEq(112, stack_.getCall(0).getTraceIndex());
         assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertNull(stack_.getCallingState());
     }
     @Test
     public void test98() {

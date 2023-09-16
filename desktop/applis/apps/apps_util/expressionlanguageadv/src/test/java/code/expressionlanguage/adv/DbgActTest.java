@@ -2281,8 +2281,17 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex");
         b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(false);
         b_.getFramePoints().getFrameArrFormContent().getGuiLengthStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
-//        b_.getFramePoints().getFrameArrFormContent().getGuiThrownStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
-//        b_.getFramePoints().getFrameArrFormContent().getGuiThrownStackForm().getDependantPointsForm().getChecksCurrent().get(2).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiIntGetStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiIntSetStackForm().getDependantPointsForm().getChecksCurrent().get(2).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiIntCompoundGetStackForm().getDependantPointsForm().getChecksCurrent().get(3).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiIntCompoundSetStackForm().getDependantPointsForm().getChecksCurrent().get(4).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiIntCompoundSetErrStackForm().getDependantPointsForm().getChecksCurrent().get(5).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiRangeGetStackForm().getDependantPointsForm().getChecksCurrent().get(6).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiRangeSetStackForm().getDependantPointsForm().getChecksCurrent().get(7).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiRangeCompoundGetStackForm().getDependantPointsForm().getChecksCurrent().get(8).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiRangeCompoundSetStackForm().getDependantPointsForm().getChecksCurrent().get(9).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiIntGetSetStackForm().getDependantPointsForm().getChecksCurrent().get(10).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiInitArrayStackForm().getDependantPointsForm().getChecksCurrent().get(11).setSelected(true);
         addArrOk(b_);
         assertTrue(curRet(b_).getPairArr("[pkg.Ex",false).getValue().getResultLength().getOthers().elts().iterator().hasNext());
     }
@@ -2301,8 +2310,17 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex");
         b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(true);
         b_.getFramePoints().getFrameArrFormContent().getGuiLengthStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
-//        b_.getFramePoints().getFrameArrFormContent().getGuiThrownStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
-//        b_.getFramePoints().getFrameArrFormContent().getGuiThrownStackForm().getDependantPointsForm().getChecksCurrent().get(2).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiIntGetStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiIntSetStackForm().getDependantPointsForm().getChecksCurrent().get(2).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiIntCompoundGetStackForm().getDependantPointsForm().getChecksCurrent().get(3).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiIntCompoundSetStackForm().getDependantPointsForm().getChecksCurrent().get(4).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiIntCompoundSetErrStackForm().getDependantPointsForm().getChecksCurrent().get(5).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiRangeGetStackForm().getDependantPointsForm().getChecksCurrent().get(6).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiRangeSetStackForm().getDependantPointsForm().getChecksCurrent().get(7).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiRangeCompoundGetStackForm().getDependantPointsForm().getChecksCurrent().get(8).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiRangeCompoundSetStackForm().getDependantPointsForm().getChecksCurrent().get(9).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiIntGetSetStackForm().getDependantPointsForm().getChecksCurrent().get(10).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiInitArrayStackForm().getDependantPointsForm().getChecksCurrent().get(11).setSelected(true);
         addArrOk(b_);
         assertTrue(curRet(b_).getPairArr("[pkg.Ex",true).getValue().getResultLength().getOthers().elts().iterator().hasNext());
     }

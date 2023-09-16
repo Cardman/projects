@@ -1475,6 +1475,60 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         assertEq(5, getNumber(ret_));
     }
     @Test
+    public void calculate_29Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  $int[] e = $new $int[2];\n");
+        xml_.append("  $Method meth = $class(ExInt).getDeclaredMethods(\"[]=\",$false,$false,$null)[0];\n");
+        xml_.append("  meth.invoke((ExInt)$new Apply().$lambda(Apply,[]=,$int[],$int),e,0,5);\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int[] inst,$int p,$int $value)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExInt {\n");
+        xml_.append(" $public $void $this($int[] inst,$int p,$int $value);\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(5, getNumber(ret_));
+    }
+    @Test
+    public void calculate_29_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  $int[] e = $new $int[2];\n");
+        xml_.append("  $Method meth = $class(ExInt).getDeclaredMethods(\"method\",$false,$false,$null)[0];\n");
+        xml_.append("  meth.invoke((ExInt)$new Apply().$lambda(Apply,[]=,$int[],$int),e,0,5);\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int[] inst,$int p,$int $value)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExInt {\n");
+        xml_.append(" $public $int method($int[] inst,$int p,$int $value);\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(5, getNumber(ret_));
+    }
+    @Test
     public void calculate30Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
@@ -1582,7 +1636,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static $int test(){\n");
         xml_.append("  Ex e = $new Ex();\n");
-        xml_.append("  $Fct<Ex,$int,$int,$void> meth = $lambda(Ex,[]=,$int);\n");
+        xml_.append("  $Fct<Ex,$int,$int,$int> meth = $lambda(Ex,[]=,$int);\n");
         xml_.append("  meth.call(e,0,5);\n");
         xml_.append("  $return e[0];\n");
         xml_.append(" }\n");
@@ -1644,7 +1698,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static $int test(){\n");
         xml_.append("  Ex e = $new Ex();\n");
-        xml_.append("  $Fct<$int,$int,$void> meth = e.$lambda(Ex,[]=,$int);\n");
+        xml_.append("  $Fct<$int,$int,$int> meth = e.$lambda(Ex,[]=,$int);\n");
         xml_.append("  meth.call(0,5);\n");
         xml_.append("  $return e[0];\n");
         xml_.append(" }\n");
@@ -1706,7 +1760,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static $int test(){\n");
         xml_.append("  Ex<$int> e = $new Ex<$int>();\n");
-        xml_.append("  $Fct<Ex<$int>,$int,$int,$void> meth = $lambda(Ex<$int>,[]=,$int);\n");
+        xml_.append("  $Fct<Ex<$int>,$int,$int,$int> meth = $lambda(Ex<$int>,[]=,$int);\n");
         xml_.append("  meth.call(e,0,5);\n");
         xml_.append("  $return e[0];\n");
         xml_.append(" }\n");
@@ -1768,7 +1822,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static $int test(){\n");
         xml_.append("  Ex<$int> e = $new Ex<$int>();\n");
-        xml_.append("  $Fct<$int,$int,$void> meth = e.$lambda(Ex<$int>,[]=,$int);\n");
+        xml_.append("  $Fct<$int,$int,$int> meth = e.$lambda(Ex<$int>,[]=,$int);\n");
         xml_.append("  meth.call(0,5);\n");
         xml_.append("  $return e[0];\n");
         xml_.append(" }\n");
@@ -1830,7 +1884,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static $int test(){\n");
         xml_.append("  Ex e = $new Ex();\n");
-        xml_.append("  $Fct<Ex,$int,$int,$void> meth = $lambda(Ex,[]=,$int);\n");
+        xml_.append("  $Fct<Ex,$int,$int,$int> meth = $lambda(Ex,[]=,$int);\n");
         xml_.append("  meth.call(e,0,5);\n");
         xml_.append("  $return e[0];\n");
         xml_.append(" }\n");

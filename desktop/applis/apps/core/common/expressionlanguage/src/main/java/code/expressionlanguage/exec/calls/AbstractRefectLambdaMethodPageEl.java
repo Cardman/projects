@@ -53,9 +53,13 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
         return true;
     }
     public static void trySetArgs(LambdaMethodStruct _l,ArgumentListCall _array, ArgumentListCall _call) {
-        CustList<ArgumentWrapper> argumentWrappers_ = _array.getArgumentWrappers();
-        CustList<ArgumentWrapper> formal_ = formal(argumentWrappers_, _l.getMethodName());
-        Argument right_ = right(_l, argumentWrappers_);
+        CustList<ArgumentWrapper> merged_ = new CustList<ArgumentWrapper>();
+        merged_.addAllElts(_array.getArgumentWrappers());
+        if (_array.getRight() != null) {
+            merged_.add(new ArgumentWrapper(_array.getRight(),null));
+        }
+        CustList<ArgumentWrapper> formal_ = formal(merged_, _l.getMethodName());
+        Argument right_ = right(_l, merged_);
         String meth_ = _l.getMethodName();
         Struct instanceStruct_ = _l.getInstanceCall().getStruct();
         if (!_l.isShiftInstance()) {
@@ -69,9 +73,6 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
             CustList<ArgumentWrapper> arr_ = formal_.mid(1);
             _call.getArgumentWrappers().addAllElts(arr_);
             _call.setRight(right_);
-        }
-        if (right_ == null && _array.getRight() != null) {
-            _call.getArgumentWrappers().add(new ArgumentWrapper(_array.getRight(),null));
         }
     }
     private static Argument right(LambdaMethodStruct _ls, CustList<ArgumentWrapper> _w) {
