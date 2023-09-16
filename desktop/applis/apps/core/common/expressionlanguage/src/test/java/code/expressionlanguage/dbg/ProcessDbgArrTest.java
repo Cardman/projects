@@ -3,11 +3,10 @@ package code.expressionlanguage.dbg;
 import code.expressionlanguage.DefContextGenerator;
 import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.StopDbgEnum;
-import code.expressionlanguage.exec.dbg.ArrPoint;
-import code.expressionlanguage.exec.dbg.ArrPointBlockPair;
-import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
+import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.functionid.AbsractIdentifiableCommon;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -1416,6 +1415,128 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertEq(93, stack_.getCall(0).getTraceIndex());
         assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test92() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {public int v;static int exmeth(){that int w=that(new Ext().v);Fct<int,int> fct = a -> a * w;var v = (Method)fct.metaInfo();v.getDeclaredAnonymousLambdaLocVars(\"w\",0,(Object)3);return 0;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleWatchPoint("pkg/Ex",33);
+        writeCondition("value==3",cont_, cf("pkg.Ext", "v"));
+//        entering(cont_,"pkg/Ex",304);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ext", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(147, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.FIELD,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test93() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {public int v;static int exmeth(){that int w=that(new Ext().v);Fct<int,int> fct = a -> a * w;var v = (Method)fct.metaInfo();v.getDeclaredAnonymousLambdaLocVars(\"w\",0,(Object)3);return 0;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleWatchPoint("pkg/Ex",33);
+        writeCondition("value==2",cont_, cf("pkg.Ext", "v"));
+//        entering(cont_,"pkg/Ex",304);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ext", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+    @Test
+    public void test94() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {public int v;static int exmeth(){that int w=that(new Ext().v);Fct<int,int> fct = a -> a * w;var v = (Method)fct.metaInfo();v.getDeclaredAnonymousLambdaLocVars(\"w\",0);return 0;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleWatchPoint("pkg/Ex",33);
+        read(cont_, cf("pkg.Ext", "v"));
+//        entering(cont_,"pkg/Ex",304);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ext", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(81, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.FIELD,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(1, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertEq(147, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.FIELD,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test95() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {public int v;static int exmeth(){that int w=that(new Ext().v);Fct<int,int> fct = a -> a * w;var v = (Method)fct.metaInfo();v.getDeclaredAnonymousLambdaLocVars(\"w\",(Object)3);return 0;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleWatchPoint("pkg/Ex",33);
+        writeCondition("value==3",cont_, cf("pkg.Ext", "v"));
+//        entering(cont_,"pkg/Ex",304);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ext", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(147, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.FIELD,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test96() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {public int v;static int exmeth(){that int w=that(new Ext().v);Fct<int,int> fct = a -> a * w;var v = (Method)fct.metaInfo();v.getDeclaredAnonymousLambdaLocVars(\"w\");return 0;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleWatchPoint("pkg/Ex",33);
+        read(cont_, cf("pkg.Ext", "v"));
+//        entering(cont_,"pkg/Ex",304);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ext", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(81, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.FIELD,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(1, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertEq(147, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.FIELD,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    private void writeCondition(String _newValue,ResultContext _cont, ClassField _cf) {
+        write(_cont, _cf);
+//        String type_ = _cont.getPageEl().getAliasPrimBoolean();
+        WatchPointBlockPair p_ = pair(_cont, _cf);
+        WatchPoint wp_ = p_.getValue();
+        wp_.getResultWrite().analyze(p_,_newValue,"",_cont, new DefContextGenerator(), true);
+        assertEq(_newValue,wp_.getResultWrite().getResultStr());
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getResultWrite().result(res_,_newValue);
+    }
+    private void write(ResultContext _cont, ClassField _cf) {
+        pair(_cont, _cf).getValue().setRead(false);
+        pair(_cont, _cf).getValue().setWrite(true);
+        pair(_cont, _cf).getValue().setCompoundRead(false);
+        pair(_cont, _cf).getValue().setCompoundWrite(false);
+        pair(_cont, _cf).getValue().setCompoundWriteErr(false);
+    }
+    private void read(ResultContext _cont, ClassField _cf) {
+        pair(_cont, _cf).getValue().setRead(true);
+        pair(_cont, _cf).getValue().setWrite(false);
+        pair(_cont, _cf).getValue().setCompoundRead(false);
+        pair(_cont, _cf).getValue().setCompoundWrite(false);
+        pair(_cont, _cf).getValue().setCompoundWriteErr(false);
+    }
+
+    private static WatchPointBlockPair pair(ResultContext _cont, ClassField _cf) {
+        int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
+        return _cont.getPairWatch(true,n_,_cf.getFieldName());
+    }
+
+    private ClassField cf(String _cl, String _f) {
+        return new ClassField(_cl,_f);
     }
     /*
     @Test

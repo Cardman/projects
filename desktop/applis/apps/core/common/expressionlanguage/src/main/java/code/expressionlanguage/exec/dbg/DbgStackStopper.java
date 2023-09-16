@@ -377,11 +377,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return false;
     }
 
-    private static CallCheckedExecOperationNodeInfos infosCall(ContextEl _context, StackCall _stackCall, StdMethodCheckedExecOperationNodeInfos _infos) {
-        CallCheckedExecOperationNodeInfos r_ = checkRefl(_context, _infos);
-        if (r_ != null) {
-            return r_;
-        }
+    private static CallCheckedExecOperationNodeInfos infosCall(ContextEl _context, StackCall _stackCall) {
         AbstractPageEl p_ = _stackCall.getLastPage();
         CallCheckedExecOperationNodeInfos infos_;
         if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null) {
@@ -792,7 +788,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     private static StopDbgEnum calculateInterm(ContextEl _context, StackCall _stackCall, StopDbgEnum _state) {
         CoreCheckedExecOperationNodeInfos infos_ = infos(_context, _stackCall);
         StdMethodCheckedExecOperationNodeInfos infosStd_ = infosStd(_context, _stackCall);
-        CallCheckedExecOperationNodeInfos infosCall_ = infosCall(_context, _stackCall, infosStd_);
+        CallCheckedExecOperationNodeInfos infosCall_ = infosCall(_context, _stackCall);
         if (_state == StopDbgEnum.STEP_RETURN_METHOD) {
             AbstractPageEl p_ = _stackCall.getLastPage();
             Struct str_ = stopExcValuRetThrowCatch(_context, _stackCall, p_);
@@ -800,11 +796,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         }
         if (infosStd_ != null && (_state == StopDbgEnum.METHOD_STD_ENTRY || _state == StopDbgEnum.METHOD_STD_EXIT)) {
             AbstractPageEl p_ = _stackCall.getLastPage();
-            return nextEntry(_context, infosStd_, infosCall_, _stackCall, p_);
-        }
-        if (infosStd_ != null && _state == StopDbgEnum.METHOD_ABS_REF_EXIT) {
-            AbstractPageEl p_ = _stackCall.getLastPage();
-            return entryCaseTrue(_context, infosStd_, infosCall_, _stackCall, p_);
+            return nextEntry(_context, infosStd_, _stackCall, p_);
         }
         if (_state == StopDbgEnum.METHOD_ABS_EXIT) {
             AbstractPageEl p_ = _stackCall.getLastPage();
@@ -817,7 +809,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         AbstractPageEl p_ = _stackCall.getLastPage();
         CoreCheckedExecOperationNodeInfos infos_ = infos(_context, _stackCall);
         StdMethodCheckedExecOperationNodeInfos infosStd_ = infosStd(_context, _stackCall);
-        CallCheckedExecOperationNodeInfos infosCall_ = infosCall(_context, _stackCall, infosStd_);
+        CallCheckedExecOperationNodeInfos infosCall_ = infosCall(_context, _stackCall);
         if (!checkBreakPoint(_context,_stackCall,p_,infos_, infosCall_, infosStd_)) {
             return StopDbgEnum.NONE;
         }
@@ -873,7 +865,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             return defBp(_context, _stackCall);
         }
         if (_std != null && !_std.isExiting()) {
-            return enterCase(_context,_std,_call,_stackCall,p_);
+            return enterCase(_context,_std, _stackCall,p_);
         }
         if (_infos instanceof CheckedExecOperationNodeInfos || _infos instanceof ArrCheckedExecOperationNodeInfos) {
             return checkedAw(_context, _stackCall, p_, _infos);
@@ -886,7 +878,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
 
     private static StopDbgEnum otherStopAndBp(ContextEl _context, StackCall _stackCall, CoreCheckedExecOperationNodeInfos _infos, StdMethodCheckedExecOperationNodeInfos _std, CallCheckedExecOperationNodeInfos _call, AbstractPageEl _p) {
         if (_std != null) {
-            return enterCase(_context, _std, _call, _stackCall, _p);
+            return enterCase(_context, _std, _stackCall, _p);
         }
         if (_call != null && exitMethod(_context, _stackCall, _p, _call)) {
             return StopDbgEnum.METHOD_ABS_EXIT;
@@ -902,21 +894,37 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     }
 
     private static CallCheckedExecOperationNodeInfos checkRefl(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _infos) {
-        if (_infos != null) {
-            StdCaller c_ = _infos.getFct().getCaller();
-            if (c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars1
-                    ||c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars2
-                    ||c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars3
-                    ||c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars4) {
-                MethodMetaInfo m_ = NumParsers.getMethod(_infos.getInstance());
-                Cache cache_ = m_.getCache();
-                if (cache_ != null) {
-                    ArgumentListCall args_ = _infos.getArgs();
-                    AbstractWrapper lw_ = cache_.getLocalWrapper(NumParsers.getString(str(c_,args_, 0)).getInstance(), NumParsers.convertToNumber(str(c_,args_, 1)).longStruct());
-                    if (lw_ instanceof ArrayCustWrapper) {
-                        return checkCallCheckedExecOperationNodeInfos(_context,_infos,c_,args_, (ArrayCustWrapper) lw_);
-                    }
+        StdCaller c_ = _infos.getFct().getCaller();
+        if (c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars1
+                ||c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars2
+                ||c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars3
+                ||c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars4) {
+            MethodMetaInfo m_ = NumParsers.getMethod(_infos.getInstance());
+            Cache cache_ = m_.getCache();
+            if (cache_ != null) {
+                ArgumentListCall args_ = _infos.getArgs();
+                AbstractWrapper lw_ = cache_.getLocalWrapper(NumParsers.getString(str(c_,args_, 0)).getInstance(), NumParsers.convertToNumber(str(c_,args_, 1)).longStruct());
+                if (lw_ instanceof ArrayCustWrapper) {
+                    return checkCallCheckedExecOperationNodeInfos(_context,_infos,c_,args_, (ArrayCustWrapper) lw_);
                 }
+            }
+        }
+        return null;
+    }
+
+    private static CoreCheckedExecOperationNodeInfos checkReflAw(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _infos) {
+        StdCaller c_ = _infos.getFct().getCaller();
+        if (c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars1
+                ||c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars2
+                ||c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars3
+                ||c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars4) {
+            MethodMetaInfo m_ = NumParsers.getMethod(_infos.getInstance());
+            Cache cache_ = m_.getCache();
+            if (cache_ != null) {
+                ArgumentListCall args_ = _infos.getArgs();
+                AbstractWrapper lw_ = cache_.getLocalWrapper(NumParsers.getString(str(c_,args_, 0)).getInstance(), NumParsers.convertToNumber(str(c_,args_, 1)).longStruct());
+                Struct r_ = right(c_, args_);
+                return wrapperElt(_context,lw_,mode(c_),r_);
             }
         }
         return null;
@@ -927,6 +935,12 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             return checkLda(new CallCheckedExecOperationNodeInfos(_context, _infos.isExiting(), _lw, r_));
         }
         return checkLda(new CallCheckedExecOperationNodeInfos(_context, _infos.isExiting(), _lw));
+    }
+    private static int mode(StdCaller _c) {
+        if (_c instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars3 || _c instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars4) {
+            return WatchPoint.BPC_WRITE;
+        }
+        return WatchPoint.BPC_READ;
     }
     private static Struct right(StdCaller _c,ArgumentListCall _a) {
         if (_c instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars3){
@@ -1037,17 +1051,14 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return defBp(_context, _stackCall);
     }
 
-    private static StopDbgEnum enterCase(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _ex, CallCheckedExecOperationNodeInfos _call, StackCall _stackCall, AbstractPageEl _p) {
+    private static StopDbgEnum enterCase(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _ex, StackCall _stackCall, AbstractPageEl _p) {
         if (!okMethod(_context,_stackCall,_ex)) {
             return StopDbgEnum.NONE;
         }
-        if (_ex.isExiting() && _call != null &&exitMethod(_context, _stackCall, _p, _call)) {
-            return StopDbgEnum.METHOD_ABS_REF_EXIT;
-        }
-        return entryCaseTrue(_context, _ex, _call, _stackCall, _p);
+        return entryCaseTrue(_context, _ex, _stackCall, _p);
     }
 
-    private static StopDbgEnum entryCaseTrue(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _ex, CallCheckedExecOperationNodeInfos _call, StackCall _stackCall, AbstractPageEl _p) {
+    private static StopDbgEnum entryCaseTrue(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _ex, StackCall _stackCall, AbstractPageEl _p) {
         StandardNamedFunction call_ = _ex.getFct();
         ExecFormattedRootBlock glClass_ = _ex.getDeclaring();
         Struct instance_ = _ex.getInstance();
@@ -1063,12 +1074,27 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
                 return StopDbgEnum.METHOD_STD_ENTRY;
             }
         }
-        return nextEntry(_context, _ex, _call, _stackCall, _p);
+        return nextEntry(_context, _ex, _stackCall, _p);
     }
 
-    private static StopDbgEnum nextEntry(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _ex, CallCheckedExecOperationNodeInfos _call, StackCall _stackCall, AbstractPageEl _p) {
-        if (!_ex.isExiting() && _call != null) {
-            return enterCase(_context, _stackCall, _p, _call, StopDbgEnum.METHOD_ABS_REF_ENTRY);
+    private static StopDbgEnum nextEntry(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _ex, StackCall _stackCall, AbstractPageEl _p) {
+        CallCheckedExecOperationNodeInfos ref_ = checkRefl(_context, _ex);
+        if (!_ex.isExiting()) {
+            if (ref_ != null) {
+                return enterCase(_context, _stackCall, _p, ref_, StopDbgEnum.METHOD_ABS_REF_ENTRY);
+            }
+            return stdCallee(_context, _ex, _stackCall, _p);
+        }
+        if (ref_ != null &&exitMethod(_context, _stackCall, _p, ref_)) {
+            return StopDbgEnum.METHOD_ABS_REF_EXIT;
+        }
+        return StopDbgEnum.NONE;
+    }
+
+    private static StopDbgEnum stdCallee(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _ex, StackCall _stackCall, AbstractPageEl _p) {
+        CoreCheckedExecOperationNodeInfos c_ = checkReflAw(_context, _ex);
+        if (c_ != null) {
+            return checkedAw(_context, _stackCall, _p, c_);
         }
         return StopDbgEnum.NONE;
     }
