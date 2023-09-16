@@ -7,6 +7,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.StopDbgEnum;
 import code.expressionlanguage.exec.dbg.*;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.AbsractIdentifiableCommon;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -1503,6 +1504,46 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertEq(147, stack_.getCall(0).getTraceIndex());
         assertSame(StopDbgEnum.FIELD,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test97() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {static int exmeth(){((IntSub<int>)new Ext().$lambda(Ext,curr,int[],int,int))[new int[1],0]=2;return 0;}public int curr(int[] i,int j, int r){i[j]=r;return r;}}public interface pkg.IntSub<S>:Int<S>{}public interface pkg.Int<T>{void this(T[] i,int j,T value);}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        entering(cont_,"pkg/Ex",125);
+        entering(cont_,"pkg/Ex",248);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ext", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(112, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(2, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertEq(112, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test98() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {static int exmeth(){var a=new int[1];((IntSub<int>)new Ext().$lambda(Ext,curr,int[],int,int))[a,0]=2;return a[0];}public int curr(int[] i,int j, int r){i[j]=r;return r;}}public interface pkg.IntSub<S>:Int<S>{}public interface pkg.Int<T>{void this(T[] i,int j,T value);}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        entering(cont_,"pkg/Ex",136);
+        entering(cont_,"pkg/Ex",259);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ext", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(120, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ABS_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(2, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertEq(120, stack_.getCall(0).getTraceIndex());
+        assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+        assertEq(2, getNumber(ArgumentListCall.toStr(stack_.getReturnedArgument())));
+        assertNull(stack_.getCallingState());
     }
     private void writeCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         write(_cont, _cf);

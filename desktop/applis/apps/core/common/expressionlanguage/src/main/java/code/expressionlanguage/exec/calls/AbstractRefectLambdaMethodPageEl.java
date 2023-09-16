@@ -70,6 +70,9 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
             _call.getArgumentWrappers().addAllElts(arr_);
             _call.setRight(right_);
         }
+        if (right_ == null && _array.getRight() != null) {
+            _call.getArgumentWrappers().add(new ArgumentWrapper(_array.getRight(),null));
+        }
     }
     private static Argument right(LambdaMethodStruct _ls, CustList<ArgumentWrapper> _w) {
         Argument right_;
