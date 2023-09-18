@@ -36,6 +36,10 @@ public final class TreeBreakPointBlockPairEvent implements AbsShortListTree {
             frame.guiContentBuild(frameKeys.getStdList().getValue(is_.get(0)).get(is_.get(1)),resultContext);
         } else if (FramePointsTree.SORT_AP == index_) {
             frame.guiContentBuild(frameKeys.getArrList().getValue(is_.get(0)).get(is_.get(1)),resultContext);
+        } else if (FramePointsTree.SORT_PP == index_) {
+            frame.guiContentBuild(frameKeys.getParList().getValue(is_.get(0)).get(is_.get(1)),resultContext);
+        } else if (FramePointsTree.SORT_OP == index_) {
+            frame.guiContentBuild(frameKeys.getOperNatList().getValue(is_.get(0)),resultContext);
         }
     }
     static AbstractMutableTreeNodeCore indexes(FramePointsTree _f, AbstractMutableTreeNodeCore _node, Ints _is) {
@@ -54,7 +58,7 @@ public final class TreeBreakPointBlockPairEvent implements AbsShortListTree {
             return null;
         }
         int index_ = MutableTreeNodeCoreUtil.getNullableIndex(ch_);
-        if (FramePointsTree.SORT_MP != index_ && _is.size() < 2) {
+        if (FramePointsTree.SORT_MP != index_ && FramePointsTree.SORT_OP != index_ && _is.size() < 2) {
             return null;
         }
         return ch_;

@@ -32,6 +32,8 @@ public final class DependantPointsForm {
     private AbsPanel metForm;
     private AbsPanel bpForm;
     private AbsPanel arrForm;
+    private AbsPanel parForm;
+    private AbsPanel operNatForm;
     private AbsScrollPane view;
     private AbsCompoFactory compoFactory;
     private final IdList<BreakPointCondition> selected = new IdList<BreakPointCondition>();
@@ -53,12 +55,16 @@ public final class DependantPointsForm {
         metForm = compoFactory.newPageBox();
         bpForm = compoFactory.newPageBox();
         arrForm = compoFactory.newPageBox();
+        parForm = compoFactory.newPageBox();
+        operNatForm = compoFactory.newPageBox();
         all_.add(bpForm);
         all_.add(wpForm);
         all_.add(excFrom);
         all_.add(metForm);
         all_.add(stdForm);
         all_.add(arrForm);
+        all_.add(parForm);
+        all_.add(operNatForm);
         all_.add(compoFactory.newAbsScrollPane(framePointsTree.getTree()));
         all_.add(framePointsTree.getCreate());
         all_.add(view);
@@ -79,6 +85,8 @@ public final class DependantPointsForm {
         metForm.removeAll();
         stdForm.removeAll();
         arrForm.removeAll();
+        parForm.removeAll();
+        operNatForm.removeAll();
         selected.clear();
         checksCurrent.clear();
         view.setNullViewportView();
@@ -122,6 +130,11 @@ public final class DependantPointsForm {
             arrForm.add(check(LENGTH,ArrPoint.BPC_RANGE_COMPOUND_SET));
             arrForm.add(check(LENGTH,ArrPoint.BPC_INT_GET_SET));
             arrForm.add(check(LENGTH,ArrPoint.BPC_INIT));
+        } else if (_add == ParPoint.PP) {
+            parForm.add(check(THROWN,ParPoint.BPC_GET));
+        } else if (_add == OperNatPoint.OP) {
+            operNatForm.add(check(THROWN,OperNatPoint.BPC_SIMPLE));
+            operNatForm.add(check(THROWN,OperNatPoint.BPC_COMPOUND));
         }
     }
 
@@ -143,6 +156,23 @@ public final class DependantPointsForm {
         page_.add(check(THROWN,_p.getValue().getResultThrown()));
         page_.add(check(CAUGHT,_p.getValue().getResultCaught()));
         page_.add(check(PROPAGATED,_p.getValue().getResultPropagated()));
+        view.setViewportView(page_);
+    }
+
+    public void guiContentBuild(ParPointBlockPair _p) {
+        checks.clear();
+        AbsPanel page_ = compoFactory.newPageBox();
+        page_.add(check(THROWN,_p.getValue().getResultGet()));
+        view.setViewportView(page_);
+    }
+
+    public void guiContentBuild(OperNatPointBlockPair _p) {
+        checks.clear();
+        AbsPanel page_ = compoFactory.newPageBox();
+        page_.add(check(THROWN,_p.getValue().getResultSimple()));
+        if (_p.getValue().isEnabledAffect()) {
+            page_.add(check(THROWN,_p.getValue().getResultCompound()));
+        }
         view.setViewportView(page_);
     }
 

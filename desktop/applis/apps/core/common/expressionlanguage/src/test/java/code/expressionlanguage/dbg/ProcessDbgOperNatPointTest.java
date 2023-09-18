@@ -80,7 +80,9 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        assertTrue(cont_.toggleEnableOperNatPoint("%","int","int").getValue().isEnabled());
+        OperNatPointBlockPair o_ = cont_.toggleEnableOperNatPoint("%", "int", "int");
+        assertTrue(o_.getValue().isEnabled());
+        assertEq("%",o_.getSymbol());
     }
     @Test
     public void test8() {

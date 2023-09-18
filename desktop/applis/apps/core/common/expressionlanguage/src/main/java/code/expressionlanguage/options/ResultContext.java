@@ -191,9 +191,9 @@ public final class ResultContext {
         }
         OperNatPointBlockPair o_;
         if (_second.trim().isEmpty()) {
-            o_ = operNat(k_, res_.getFirst(), "");
+            o_ = operNat(k_, _symbol,res_.getFirst(), "");
         } else {
-            o_ = operNat(k_, res_.getFirst(), res_.getSecond());
+            o_ = operNat(k_, _symbol,res_.getFirst(), res_.getSecond());
         }
         if (!_second.trim().isEmpty()) {
             o_.getValue().setEnabledAffect(StringExpUtil.isLogical(_symbol) || StringExpUtil.isBinNum(_symbol) || StringExpUtil.isBitwise(_symbol) || StringExpUtil.isShiftOper(_symbol) || res_.getSymbol() instanceof CommonOperNullSafe);
@@ -205,8 +205,8 @@ public final class ResultContext {
         PrimitiveType secondPr_ = getPageEl().getPrimitiveTypes().getVal(_second);
         return secondMain_ == null && secondPr_ == null;
     }
-    public OperNatPointBlockPair operNat(String _k, String _f, String _s) {
-        return getContext().operNat(_k, _f, _s);
+    public OperNatPointBlockPair operNat(String _k, String _symbol,String _f, String _s) {
+        return getContext().operNat(_k, _symbol, _f, _s);
     }
 
     public MethodPointBlockPair method(DisplayedStrings _d, MemberCallingsBlock _id) {
@@ -261,21 +261,27 @@ public final class ResultContext {
         getContext().toggleExcPointEnabled(_clName, _exact);
     }
     public void toggleParPoint(String _clName, boolean _exact) {
-        String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, getContext());
-        RootBlock r_ = getPageEl().getAnaClassBody(StringExpUtil.getIdFromAllTypes(solved_));
-        if (koPar(r_, _clName)) {
+        ParPointBlockPair p_ = tryBuild(_clName, _exact);
+        if (p_ == null) {
             return;
         }
-        getContext().togglePar(getContext().notNullBuildPar(_exact,solved_,r_));
+        getContext().togglePar(p_);
     }
 
     public void toggleParPointEnabled(String _clName, boolean _exact) {
+        ParPointBlockPair p_ = tryBuild(_clName, _exact);
+        if (p_ == null) {
+            return;
+        }
+        getContext().toggleEnabledPar(p_);
+    }
+    public ParPointBlockPair tryBuild(String _clName, boolean _exact) {
         String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, getContext());
         RootBlock r_ = getPageEl().getAnaClassBody(StringExpUtil.getIdFromAllTypes(solved_));
         if (koPar(r_, _clName)) {
-            return;
+            return null;
         }
-        getContext().toggleEnabledPar(getContext().notNullBuildPar(_exact,solved_,r_));
+        return getContext().notNullBuildPar(_exact,solved_,r_);
     }
 
     private static boolean koPar(RootBlock _solved, String _clName) {

@@ -21,6 +21,8 @@ public final class FramePointsTree {
     public static final int SORT_MP = 4;
     public static final int SORT_SP = 5;
     public static final int SORT_AP = 6;
+    public static final int SORT_PP = 7;
+    public static final int SORT_OP = 8;
     private final AbsCompoFactory compoFactory;
     private AbsTreeGui tree;
     private AbsPlainButton create;
@@ -31,10 +33,14 @@ public final class FramePointsTree {
     private AbstractMutableTreeNode customMethod;
     private AbstractMutableTreeNode standardMethod;
     private AbstractMutableTreeNode arrayPoints;
+    private AbstractMutableTreeNode parentPoints;
+    private AbstractMutableTreeNode operNatPoints;
     private final NatStringTreeMap<CustList<BreakPointBlockPair>> bpList = new NatStringTreeMap<CustList<BreakPointBlockPair>>();
     private final NatStringTreeMap<CustList<WatchPointBlockPair>> wpList = new NatStringTreeMap<CustList<WatchPointBlockPair>>();
     private final NatStringTreeMap<CustList<WatchPointBlockPair>> wpListAnnot = new NatStringTreeMap<CustList<WatchPointBlockPair>>();
     private final NatStringTreeMap<CustList<ExcPointBlockPair>> excList = new NatStringTreeMap<CustList<ExcPointBlockPair>>();
+    private final NatStringTreeMap<CustList<ParPointBlockPair>> parList = new NatStringTreeMap<CustList<ParPointBlockPair>>();
+    private final NatStringTreeMap<OperNatPointBlockPair> operNatList = new NatStringTreeMap<OperNatPointBlockPair>();
     private final NatStringTreeMap<MethodPointBlockPair> metList = new NatStringTreeMap<MethodPointBlockPair>();
     private final NatStringTreeMap<CustList<StdMethodPointBlockPair>> stdList = new NatStringTreeMap<CustList<StdMethodPointBlockPair>>();
     private final NatStringTreeMap<CustList<ArrPointBlockPair>> arrList = new NatStringTreeMap<CustList<ArrPointBlockPair>>();
@@ -58,6 +64,10 @@ public final class FramePointsTree {
         root_.add(standardMethod);
         arrayPoints = compoFactory.newMutableTreeNode("array point");
         root_.add(arrayPoints);
+        parentPoints = compoFactory.newMutableTreeNode("parent point");
+        root_.add(parentPoints);
+        operNatPoints = compoFactory.newMutableTreeNode("native operator point");
+        root_.add(operNatPoints);
         tree = compoFactory.newTreeGui(root_);
         create = compoFactory.newPlainButton("+");
         create.setEnabled(false);
@@ -72,6 +82,8 @@ public final class FramePointsTree {
     public void refreshList(ResultContext _res) {
         refreshArray(_res);
         refreshException(_res);
+        refreshParent(_res);
+        refreshOperNat(_res);
         refreshStdMethod(_res);
         refreshWp(_res);
         refreshWpAnnot(_res);
@@ -168,6 +180,26 @@ public final class FramePointsTree {
         }
         tree.reload(exception);
     }
+    public void refreshParent(ResultContext _res) {
+        parentPoints.removeAllChildren();
+        for (EntryCust<String, CustList<ExcPointBlockKey>> p: sortedPar(_res).entryList()) {
+            AbstractMutableTreeNode file_ = node(p.getKey(), p.getValue());
+            parentPoints.add(file_);
+        }
+        tree.reload(parentPoints);
+    }
+
+    public void refreshOperNat(ResultContext _res) {
+        operNatPoints.removeAllChildren();
+        operNatList.clear();
+        for (OperNatPointBlockPair p: _res.getContext().operNatList().elts()) {
+            operNatList.put(p.getOn().keyStr(), p);
+        }
+        for (EntryCust<String, OperNatPointBlockPair> p: operNatList.entryList()) {
+            operNatPoints.add(compoFactory.newMutableTreeNode(p.getValue().getOn().getFirst()+" "+p.getValue().getSymbol()+" "+p.getValue().getOn().getSecond()));
+        }
+        tree.reload(operNatPoints);
+    }
     public void refreshArray(ResultContext _res) {
         arrayPoints.removeAllChildren();
         for (EntryCust<String, CustList<ExcPointBlockKey>> p: sortedArr(_res).entryList()) {
@@ -206,6 +238,30 @@ public final class FramePointsTree {
             CustList<ExcPointBlockKey> synth_ = new CustList<ExcPointBlockKey>();
             for (ExcPointBlockPair f: e.getValue()) {
                 synth_.add(f.getEp());
+            }
+            excList_.addEntry(e.getKey(), synth_);
+        }
+        return excList_;
+    }
+
+    private NatStringTreeMap<CustList<ExcPointBlockKey>> sortedPar(ResultContext _res) {
+        parList.clear();
+        for (ParPointBlockPair p: _res.getContext().parList().elts()) {
+            String className_ = StringExpUtil.getIdFromAllTypes(p.getPp().getClName());
+            CustList<ParPointBlockPair> alreadyExc_ = parList.getVal(className_);
+            if (alreadyExc_ == null) {
+                CustList<ParPointBlockPair> local_ = new CustList<ParPointBlockPair>();
+                local_.add(p);
+                parList.put(className_, local_);
+            } else {
+                alreadyExc_.add(p);
+            }
+        }
+        NatStringTreeMap<CustList<ExcPointBlockKey>> excList_ = new NatStringTreeMap<CustList<ExcPointBlockKey>>();
+        for (EntryCust<String, CustList<ParPointBlockPair>> e: parList.entryList()) {
+            CustList<ExcPointBlockKey> synth_ = new CustList<ExcPointBlockKey>();
+            for (ParPointBlockPair f: e.getValue()) {
+                synth_.add(f.getPp());
             }
             excList_.addEntry(e.getKey(), synth_);
         }
@@ -312,6 +368,14 @@ public final class FramePointsTree {
 
     public NatStringTreeMap<CustList<ArrPointBlockPair>> getArrList() {
         return arrList;
+    }
+
+    public NatStringTreeMap<CustList<ParPointBlockPair>> getParList() {
+        return parList;
+    }
+
+    public NatStringTreeMap<OperNatPointBlockPair> getOperNatList() {
+        return operNatList;
     }
 
     public NatStringTreeMap<MethodPointBlockPair> getMetList() {

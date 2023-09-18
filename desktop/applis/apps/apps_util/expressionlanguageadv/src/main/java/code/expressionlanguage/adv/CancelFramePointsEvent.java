@@ -22,5 +22,7 @@ public final class CancelFramePointsEvent implements AbsWindowListenerClosing {
         _w.getFramePoints().getFrameWpFormContent().setSelectedWp(null);
         _w.getFramePoints().getFrameFormContent().setSelectedMp(null);
         _w.getFramePoints().getFrameBpFormContent().setSelectedBp(null);
+        _w.getFramePoints().getFrameParFormContent().setSelectedPar(null);
+        _w.getFramePoints().getFrameOperNatFormContent().setSelectedOperNat(null);
     }
 }

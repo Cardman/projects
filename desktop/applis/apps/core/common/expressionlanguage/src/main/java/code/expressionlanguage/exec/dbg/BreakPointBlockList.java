@@ -101,12 +101,12 @@ public final class BreakPointBlockList {
         return ".";
     }
 
-    public OperNatPointBlockPair operNat(String _k, String _f, String _s) {
-        return new OperNatPointBlockPair(_k, interceptor,true, _f, _s);
+    public OperNatPointBlockPair operNat(String _k, String _symbol,String _f, String _s) {
+        return new OperNatPointBlockPair(_k, _symbol, interceptor,true, _f, _s);
     }
 
     public OperNatPointBlockPair operNatDisabled() {
-        return new OperNatPointBlockPair("", interceptor,false, "", "");
+        return new OperNatPointBlockPair("","", interceptor,false, "", "");
     }
 
     public MethodPointBlockPair method(DisplayedStrings _d, MemberCallingsBlock _id) {

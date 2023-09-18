@@ -14,6 +14,8 @@ public final class FramePoints {
     private final FrameWpFormContent frameWpFormContent;
     private final FrameBpFormContent frameBpFormContent;
     private final FrameArrFormContent frameArrFormContent;
+    private final FrameParFormContent frameParFormContent;
+    private final FrameOperNatFormContent frameOperNatFormContent;
     private final FramePointsTree framePointsTree;
     private AbsScrollPane view;
 
@@ -27,6 +29,8 @@ public final class FramePoints {
         frameWpFormContent = new FrameWpFormContent(_list);
         frameBpFormContent = new FrameBpFormContent(_list);
         frameArrFormContent = new FrameArrFormContent(_list);
+        frameParFormContent = new FrameParFormContent(_list);
+        frameOperNatFormContent = new FrameOperNatFormContent(_list);
     }
     public void guiBuild(AbsDebuggerGui _d) {
         view = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
@@ -42,6 +46,8 @@ public final class FramePoints {
         frameWpFormContent.guiBuild(_d);
         frameBpFormContent.guiBuild(_d);
         frameArrFormContent.guiBuild(_d);
+        frameParFormContent.guiBuild(_d);
+        frameOperNatFormContent.guiBuild(_d);
     }
     public void refresh(StringMap<String> _v, AbsDebuggerGui _d, ResultContext _r) {
         frameExcFormContent.refresh(_v, _r, _d, this);
@@ -58,6 +64,8 @@ public final class FramePoints {
         frameWpFormContent.refresh(_v, _r, _d, this);
         frameBpFormContent.refresh(_v, _r, _d, this);
         frameArrFormContent.refresh(_v, _r, _d, this);
+        frameParFormContent.refresh(_v, _r, _d, this);
+        frameOperNatFormContent.refresh(_v, _r, _d, this);
     }
     public void init(AbsDebuggerGui _d, ResultContext _res) {
         if (commonFrame.isVisible()) {
@@ -77,6 +85,12 @@ public final class FramePoints {
     }
     public void refreshExc(ResultContext _res) {
         framePointsTree.refreshException(_res);
+    }
+    public void refreshParent(ResultContext _res) {
+        framePointsTree.refreshParent(_res);
+    }
+    public void refreshOperNat(ResultContext _res) {
+        framePointsTree.refreshOperNat(_res);
     }
 
     public void refreshStdMethod(ResultContext _res) {
@@ -103,6 +117,18 @@ public final class FramePoints {
     public void guiContentBuild(ExcPointBlockPair _exc, ResultContext _r) {
         frameExcFormContent.initForm(_exc,commonFrame,_r);
         view.setViewportView(frameExcFormContent.getContentPane());
+        view.recalculateViewport();
+    }
+
+    public void guiContentBuild(ParPointBlockPair _exc, ResultContext _r) {
+        frameParFormContent.initForm(_exc,commonFrame,_r);
+        view.setViewportView(frameParFormContent.getContentPane());
+        view.recalculateViewport();
+    }
+
+    public void guiContentBuild(OperNatPointBlockPair _exc, ResultContext _r) {
+        frameOperNatFormContent.initForm(_exc,commonFrame,_r);
+        view.setViewportView(frameOperNatFormContent.getContentPane());
         view.recalculateViewport();
     }
 
@@ -166,6 +192,14 @@ public final class FramePoints {
 
     public FrameBpFormContent getFrameBpFormContent() {
         return frameBpFormContent;
+    }
+
+    public FrameOperNatFormContent getFrameOperNatFormContent() {
+        return frameOperNatFormContent;
+    }
+
+    public FrameParFormContent getFrameParFormContent() {
+        return frameParFormContent;
     }
 
     public AbsCommonFrame getCommonFrame() {

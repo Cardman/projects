@@ -165,8 +165,8 @@ public abstract class ContextEl {
         return getClasses().getDebugMapping().getBreakPointsBlock().operNatDisabled();
     }
 
-    public OperNatPointBlockPair operNat(String _k, String _f, String _s) {
-        return getClasses().getDebugMapping().getBreakPointsBlock().operNat(_k, _f, _s);
+    public OperNatPointBlockPair operNat(String _k, String _symbol,String _f, String _s) {
+        return getClasses().getDebugMapping().getBreakPointsBlock().operNat(_k,_symbol, _f, _s);
     }
 
     public MethodPointBlockPair method(DisplayedStrings _d, MemberCallingsBlock _id) {
