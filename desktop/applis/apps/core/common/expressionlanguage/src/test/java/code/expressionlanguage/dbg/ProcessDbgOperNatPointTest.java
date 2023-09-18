@@ -517,6 +517,84 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         assertEq(105, stack_.getCall(0).getTraceIndex());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
+    @Test
+    public void test42() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){var t = 8.$lambda(operator,int,-);return t.call();}}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdEmpty(cont_,"-","int",true,false);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(2, stack_.nbPages());
+        assertEq(91, stack_.getCall(0).getTraceIndex());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test43() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){var t = 8.$lambda(operator,int,%,int);int u = 3;return t.call(u);}}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdSimpleCondition(cont_,"value+0==8&&#value+0==3","%","int","int",true, false);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(2, stack_.nbPages());
+        assertEq(105, stack_.getCall(0).getTraceIndex());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test44() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){var t = 8.$lambda(operator,int,%,int);int u = 3;return t.call(u);}}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdSimpleCondition(cont_,"value+0==9","%","int","int",true, false);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+    @Test
+    public void test45() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){var t = 8.$lambda(operator,int,%,int);int u = 3;return t.call(u);}}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdSimpleCondition(cont_,"#value+0==4","%","int","int",true, false);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+    @Test
+    public void test46() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){var t = 8.$lambda(operator,int,-);return t.call();}}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdSimpleConditionEmpty(cont_,"value+0==8","-","int",true,false);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(2, stack_.nbPages());
+        assertEq(91, stack_.getCall(0).getTraceIndex());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test47() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){var t = 8.$lambda(operator,int,-);return t.call();}}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdSimpleConditionEmpty(cont_,"value+0==9","-","int",true,false);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
     private void stdSimpleConditionEmpty(ResultContext _cont, String _condition, String _symbol,String _first, boolean _simple, boolean _compound) {
         OperNatPointBlockPair p_ = stdEmpty(_cont, _symbol, _first, _simple, _compound);
         OperNatPoint wp_ = p_.getValue();

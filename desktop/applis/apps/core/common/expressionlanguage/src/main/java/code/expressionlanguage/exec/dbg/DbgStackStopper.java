@@ -813,6 +813,9 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         }
         CommonOperSymbol c_ = _p.current();
         if (c_ != null) {
+            if (_p.getArguments().getArgumentWrappers().size() < 2) {
+                return new OperNatCheckedExecOperationNodeInfos(_context,c_.getSgn(),OperNatPoint.BPC_SIMPLE,ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_p.getArguments().getArgumentWrappers())).getStruct(),null);
+            }
             return new OperNatCheckedExecOperationNodeInfos(_context,c_.getSgn(),OperNatPoint.BPC_SIMPLE,ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_p.getArguments().getArgumentWrappers())).getStruct(),ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(_p.getArguments().getArgumentWrappers())).getStruct());
         }
         return null;

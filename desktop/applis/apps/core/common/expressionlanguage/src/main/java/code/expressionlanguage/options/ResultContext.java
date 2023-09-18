@@ -167,7 +167,7 @@ public final class ResultContext {
         }
         return getContext().toggleEnableOperNat(o_);
     }
-    private OperNatPointBlockPair resolve(String _symbol,String _first, String _second) {
+    public OperNatPointBlockPair resolve(String _symbol,String _first, String _second) {
         if (koType(_first)) {
             return null;
         }
