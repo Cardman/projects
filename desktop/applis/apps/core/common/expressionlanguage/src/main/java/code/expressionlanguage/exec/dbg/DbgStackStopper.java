@@ -15,6 +15,7 @@ import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.*;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.stacks.*;
+import code.expressionlanguage.exec.symbols.ExecOperSymbol;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fcts.*;
@@ -142,6 +143,38 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         }
         return null;
     }
+
+    private static OperNatCheckedExecOperationNodeInfos expOperNat(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, AbstractPageEl _last) {
+        if (_o instanceof ExecAbstractAffectOperation) {
+            return affectationOrCompoundNat(_el, (ExecAbstractAffectOperation)_o, _context, _last);
+        }
+        if (_o instanceof ExecQuickOperation) {
+            _last.setOffset(_o.getIndexInEl()+ ((ExecQuickOperation) _o).getOperatorContent().getOpOffset());
+            Argument arg_ = ExecHelper.getArgumentPair(_el.getArguments(), _o).getArgument();
+            if (arg_ != null) {
+                return null;
+            }
+            ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), _o.getFirstChild());
+            if (argumentPair_.isArgumentTest()) {
+                return null;
+            }
+            CustList<ExecOperationNode> ls_ = ((ExecQuickOperation) _o).getChildrenNodes();
+            return operNat(_el, _context, ls_, ((ExecQuickOperation) _o).getOperSymbol(), OperNatPoint.BPC_SIMPLE);
+        }
+        return null;
+    }
+
+    private static OperNatCheckedExecOperationNodeInfos operNat(ExpressionLanguage _el, ContextEl _context, CustList<ExecOperationNode> _ls, ExecOperSymbol _symbol, int _mode) {
+        Struct left_ = ArgumentListCall.toStr(Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(_ls, 0)).getArgument()));
+        Struct right_;
+        if (_ls.size() > 1) {
+            right_ = ArgumentListCall.toStr(Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(_ls, _ls.size() - 1)).getArgument()));
+        } else {
+            right_ = null;
+        }
+        return new OperNatCheckedExecOperationNodeInfos(_context, _symbol.getSgn(), _mode, left_, right_);
+    }
+
     private static CoreCheckedExecOperationNodeInfos expOperPar(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, AbstractPageEl _last) {
         if (_o instanceof ExecThisOperation) {
             int anc_ = ((ExecThisOperation) _o).getThisContent().getNbAncestors();
@@ -208,6 +241,20 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         CustList<ExecOperationNode> childrenNodes_ = _o.getChildrenNodes();
         Struct right_ = ArgumentListCall.toStr(ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(childrenNodes_, childrenNodes_.size() - 1)).getArgument());
         return settable(_el, _o, _context, WatchPoint.BPC_WRITE, new Struct[]{right_, NullStruct.NULL_VALUE}, _last);
+    }
+    private static OperNatCheckedExecOperationNodeInfos affectationOrCompoundNat(ExpressionLanguage _el, ExecAbstractAffectOperation _o, ContextEl _context, AbstractPageEl _last) {
+        _last.setOffset(_o.getIndexInEl()+ _o.getOperatorContent().getOpOffset());
+        if (_o.getSettableParent() instanceof ExecSafeDotOperation && Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableParent().getFirstChild()).getArgument()).isNull()) {
+            return null;
+        }
+        if (_o instanceof ExecCompoundAffectationStringOperation) {
+            ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableAnc());
+            if (argumentPair_.isArgumentTest()) {
+                return null;
+            }
+            return operNat(_el, _context, _o.getChildrenNodes(), ((ExecCompoundAffectationStringOperation) _o).getSymbol(), OperNatPoint.BPC_COMPOUND);
+        }
+        return null;
     }
 
     private static CoreCheckedExecOperationNodeInfos affectationOrCompoundPar(ExpressionLanguage _el, ExecAffectationOperation _o, ContextEl _context, AbstractPageEl _last) {
@@ -479,6 +526,20 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         } else if (!p_.isEmptyEl()){
             ExpressionLanguage el_ = p_.getLastEl();
             infos_ = expOper(el_, el_.getCurrentOper(), _context, p_);
+        } else {
+            infos_ = null;
+        }
+        return infos_;
+    }
+
+    private static OperNatCheckedExecOperationNodeInfos infosOperNat(ContextEl _context, StackCall _stackCall) {
+        AbstractPageEl p_ = _stackCall.getLastPage();
+        OperNatCheckedExecOperationNodeInfos infos_;
+        if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null) {
+            infos_ = null;
+        } else if (!p_.isEmptyEl()){
+            ExpressionLanguage el_ = p_.getLastEl();
+            infos_ = expOperNat(el_, el_.getCurrentOper(), _context, p_);
         } else {
             infos_ = null;
         }
@@ -923,6 +984,10 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         }
         if (_state == StopDbgEnum.PARENT) {
             AbstractPageEl p_ = _stackCall.getLastPage();
+            return checkedNatAw(_context,_stackCall,p_,infos_);
+        }
+        if (_state == StopDbgEnum.OPER_NAT) {
+            AbstractPageEl p_ = _stackCall.getLastPage();
             return checkedAw(_context,_stackCall,p_,infos_);
         }
         return StopDbgEnum.NONE;
@@ -1019,6 +1084,20 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     private static StopDbgEnum par(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _arr) {
         if (stopPar(_context, _stackCall, _p, _arr.getInstance(), _arr)){
             return StopDbgEnum.PARENT;
+        }
+        return StopDbgEnum.NONE;
+    }
+
+    private static StopDbgEnum operNat(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
+        OperNatCheckedExecOperationNodeInfos opNat_ = infosOperNat(_context, _stackCall);
+        if (opNat_ == null) {
+            return StopDbgEnum.NONE;
+        }
+        String call_ = opNat_.getKey();
+        OperNatPointBlockPair pairs_ = _context.getPairOperNat(call_);
+        OperNatPoint mp_ = pairs_.getValue();
+        if (checkOperNat(_context, _stackCall, _p, mp_, opNat_)) {
+            return StopDbgEnum.OPER_NAT;
         }
         return StopDbgEnum.NONE;
     }
@@ -1165,6 +1244,14 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         StopDbgEnum res_ = checkedParent(_context, _stackCall, _p);
         if (res_ != StopDbgEnum.NONE) {
             return res_;
+        }
+        return checkedNatAw(_context, _stackCall, _p, _infos);
+    }
+
+    private static StopDbgEnum checkedNatAw(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos) {
+        StopDbgEnum nat_ = operNat(_context, _stackCall, _p);
+        if (nat_ != StopDbgEnum.NONE) {
+            return nat_;
         }
         return checkedAw(_context, _stackCall, _p, _infos);
     }
@@ -1480,6 +1567,11 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         BreakPointCondition bpc_ = stopParValue(_bp);
         return stopCurrent(_context, _stackCall, _p, bpc_, _arr);
     }
+
+    private static boolean checkOperNat(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, OperNatPoint _bp, OperNatCheckedExecOperationNodeInfos _arr) {
+        BreakPointCondition bpc_ = stopOperNatValue(_bp, _arr);
+        return stopCurrent(_context, _stackCall, _p, bpc_, _arr);
+    }
     private static Struct stopExcValuRetThrowCatch(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
         if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() == null) {
             AbstractStask stLast_ = _p.tryGetLastStack();
@@ -1558,6 +1650,16 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             return null;
         }
         return stopBpc(_ex.isGet(), _ex.getResultGet());
+    }
+
+    private static BreakPointCondition stopOperNatValue(OperNatPoint _ex, OperNatCheckedExecOperationNodeInfos _a) {
+        if (!_ex.isEnabled()) {
+            return null;
+        }
+        if (_a.getModeField() == OperNatPoint.BPC_SIMPLE) {
+            return stopBpc(_ex.isSimple(), _ex.getResultSimple());
+        }
+        return stopBpc(_ex.isCompound(), _ex.getResultCompound());
     }
 
     private static BreakPointCondition stopBpc(boolean _en, BreakPointCondition _res) {
@@ -1743,7 +1845,8 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     private static boolean checkBreakPoint(ContextEl _context, StackCall _stackCall, CoreCheckedExecOperationNodeInfos _infos, CallCheckedExecOperationNodeInfos _call, StdMethodCheckedExecOperationNodeInfos _std) {
         AbstractPageEl p_ = _stackCall.getLastPage();
         CoreCheckedExecOperationNodeInfos par_ = infosPar(_context, _stackCall);
-        if (_stackCall.trueException() != null || (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null && _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD) || _infos != null || _call != null || _std != null || par_ != null) {
+        CoreCheckedExecOperationNodeInfos opNat_ = infosOperNat(_context, _stackCall);
+        if (_stackCall.trueException() != null || (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null && _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD) || _infos != null || _call != null || _std != null || par_ != null || opNat_ != null) {
             return true;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null) {

@@ -13,6 +13,8 @@ public final class PrimitiveTypes {
     public static final byte FLOAT_WRAP = 6;
     public static final byte DOUBLE_WRAP = 7;
     public static final byte MAX_WRAP = 8;
+    public static final byte LG_INT = 8;
+    public static final byte RATE = 9;
     private static final String PRIM_BOOLEAN="7";
     private static final String PRIM_BYTE="8";
     private static final String PRIM_SHORT="9";

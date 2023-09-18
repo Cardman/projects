@@ -7,6 +7,7 @@ import code.expressionlanguage.structs.Struct;
 
 public interface ExecOperSymbol {
     Struct calculateOperator(
-            Struct _first, Struct _second, byte _cast, ContextEl _cont, IntAbstractPageEl _stackCall);
+            Struct _first, Struct _second, ContextEl _cont, IntAbstractPageEl _stackCall);
     Struct afterCalculateExc(Struct _str, ContextEl _cont, AbstractStackCall _stackCall);
+    String getSgn();
 }

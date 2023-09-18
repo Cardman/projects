@@ -1,6 +1,8 @@
 package code.expressionlanguage.utilcompo.common;
 
 import code.expressionlanguage.common.symbol.CommonOperSymbol;
+import code.expressionlanguage.common.symbol.SymbolConstants;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.RateStruct;
@@ -13,7 +15,7 @@ public final class CommonOperModRate implements CommonOperSymbol {
         all = _allints;
     }
     @Override
-    public Struct calculateOperator(Struct _first, Struct _second, byte _cast) {
+    public Struct calculateOperator(Struct _first, Struct _second) {
         if (((RateStruct)_second).getRate().isZero()) {
             return NullStruct.NULL_VALUE;
         }
@@ -24,4 +26,13 @@ public final class CommonOperModRate implements CommonOperSymbol {
         }
         return new RateStruct(Rate.minus(quot_,Rate.multiply(new Rate(Rate.divide(quot_,div_).intPart()),div_)));
     }
+
+    @Override
+    public String getSgn() {
+        if (all) {
+            return Long.toString(SymbolConstants.SYMBOL_MOD_PRIO)+"/"+ PrimitiveTypes.LG_INT;
+        }
+        return Long.toString(SymbolConstants.SYMBOL_MOD_PRIO)+"/"+PrimitiveTypes.RATE;
+    }
+
 }

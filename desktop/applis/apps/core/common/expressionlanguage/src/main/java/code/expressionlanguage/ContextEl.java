@@ -161,6 +161,14 @@ public abstract class ContextEl {
         bpList().add(_pair);
     }
 
+    public OperNatPointBlockPair operNatDisabled() {
+        return getClasses().getDebugMapping().getBreakPointsBlock().operNatDisabled();
+    }
+
+    public OperNatPointBlockPair operNat(String _k, String _f, String _s) {
+        return getClasses().getDebugMapping().getBreakPointsBlock().operNat(_k, _f, _s);
+    }
+
     public MethodPointBlockPair method(DisplayedStrings _d, MemberCallingsBlock _id) {
         return getClasses().getDebugMapping().getBreakPointsBlock().method(_d, _id);
     }
@@ -215,6 +223,10 @@ public abstract class ContextEl {
 
     public AbsCollection<ParPointBlockPair> parList() {
         return getClasses().getDebugMapping().getBreakPointsBlock().getParPointList();
+    }
+
+    public AbsCollection<OperNatPointBlockPair> operNatList() {
+        return getClasses().getDebugMapping().getBreakPointsBlock().getOperNatPointList();
     }
     public ArrPointBlockPair buildArr(boolean _exact, String _clName) {
         String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, this);
@@ -325,6 +337,28 @@ public abstract class ContextEl {
         }
         parList().add(_b);
     }
+
+    public OperNatPointBlockPair toggleOperNat(OperNatPointBlockPair _b) {
+        for (OperNatPointBlockPair b: operNatList().elts()) {
+            if (b.getOn().match(_b.getOn())) {
+                operNatList().remove(b);
+                return operNatDisabled();
+            }
+        }
+        operNatList().add(_b);
+        return _b;
+    }
+
+    public OperNatPointBlockPair toggleEnableOperNat(OperNatPointBlockPair _b) {
+        for (OperNatPointBlockPair b: operNatList().elts()) {
+            if (b.getOn().match(_b.getOn())) {
+                b.getValue().setEnabled(!b.getValue().isEnabled());
+                return b;
+            }
+        }
+        operNatList().add(_b);
+        return _b;
+    }
     public void toggleEnabled(DisplayedStrings _d, MemberCallingsBlock _id) {
         MethodPointBlockPair pair_ = method(_d, _id);
         for (MethodPointBlockPair b: metList().elts()) {
@@ -410,6 +444,7 @@ public abstract class ContextEl {
         ParPointBlockPair b_ = getPairPar(_field,_exact);
         return getClasses().getDebugMapping().getBreakPointsBlock().notNullExp(b_);
     }
+
     public WatchPoint getNotNullWatch(boolean _trField, int _root, String _field) {
         return getNotNullWatchPair(_trField, _root, _field).getValue();
     }
@@ -476,6 +511,15 @@ public abstract class ContextEl {
             }
         }
         return null;
+    }
+
+    public OperNatPointBlockPair getPairOperNat(String _str) {
+        for (OperNatPointBlockPair b: operNatList().elts()) {
+            if (b.getOn().match(_str)) {
+                return b;
+            }
+        }
+        return operNatDisabled();
     }
     public WatchPointBlockPair getPairWatch(boolean _trField, int _root, String _field) {
         for (WatchPointBlockPair b: watchList().elts()) {

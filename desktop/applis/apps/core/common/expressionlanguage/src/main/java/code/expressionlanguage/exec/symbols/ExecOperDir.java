@@ -16,8 +16,8 @@ public final class ExecOperDir implements ExecOperSymbol{
     }
 
     @Override
-    public Struct calculateOperator(Struct _first, Struct _second, byte _cast, ContextEl _cont, IntAbstractPageEl _stackCall) {
-        Struct res_ = symbol.calculateOperator(_first, _second, _cast);
+    public Struct calculateOperator(Struct _first, Struct _second, ContextEl _cont, IntAbstractPageEl _stackCall) {
+        Struct res_ = symbol.calculateOperator(_first, _second);
         if (res_ == NullStruct.NULL_VALUE) {
             return null;
         }
@@ -29,4 +29,8 @@ public final class ExecOperDir implements ExecOperSymbol{
         return ExecNumericOperation.exc(_str,_stackCall.stack(),_cont);
     }
 
+    @Override
+    public String getSgn() {
+        return symbol.getSgn();
+    }
 }

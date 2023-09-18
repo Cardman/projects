@@ -19,13 +19,6 @@ import code.util.core.SortConstants;
 import code.util.core.StringUtil;
 
 public final class AnaTypeUtil {
-    private static final byte DOUBLE_CASTING = 7;
-    private static final byte FLOAT_CASTING = 6;
-    private static final byte LONG_CASTING = 5;
-    private static final byte INT_CASTING = 4;
-    private static final byte CHAR_CASTING = 3;
-    private static final byte SHORT_CASTING = 2;
-    private static final byte BYTE_CASTING = 1;
 
     private AnaTypeUtil() {
     }
@@ -716,16 +709,12 @@ public final class AnaTypeUtil {
     public static int getFloatOrderClass(AnaClassArgumentMatching _class, AnalyzedPageEl _page) {
         AnaClassArgumentMatching class_ = toPrimitive(_class, _page.getPrimitiveTypes());
         if (class_.matchClass(_page.getAliasPrimDouble())) {
-            return DOUBLE_CASTING;
+            return PrimitiveTypes.DOUBLE_WRAP;
         }
         if (class_.matchClass(_page.getAliasPrimFloat())) {
-            return FLOAT_CASTING;
+            return PrimitiveTypes.FLOAT_WRAP;
         }
         return 0;
-    }
-
-    public static int getIntOrderClass(String _class, AnalyzedPageEl _page) {
-        return getIntOrderClass(new AnaClassArgumentMatching(_class), _page);
     }
 
     public static boolean isIntOrderClass(AnaClassArgumentMatching _class, AnaClassArgumentMatching _classTwo, AnalyzedPageEl _page) {
@@ -739,19 +728,19 @@ public final class AnaTypeUtil {
     public static int getIntOrderClass(AnaClassArgumentMatching _class, AnalyzedPageEl _page) {
         AnaClassArgumentMatching class_ = toPrimitive(_class, _page.getPrimitiveTypes());
         if (class_.matchClass(_page.getAliasPrimLong())) {
-            return LONG_CASTING;
+            return PrimitiveTypes.LONG_WRAP;
         }
         if (class_.matchClass(_page.getAliasPrimInteger())) {
-            return INT_CASTING;
+            return PrimitiveTypes.INT_WRAP;
         }
         if (class_.matchClass(_page.getAliasPrimChar())) {
-            return CHAR_CASTING;
+            return PrimitiveTypes.CHAR_WRAP;
         }
         if (class_.matchClass(_page.getAliasPrimShort())) {
-            return SHORT_CASTING;
+            return PrimitiveTypes.SHORT_WRAP;
         }
         if (class_.matchClass(_page.getAliasPrimByte())) {
-            return BYTE_CASTING;
+            return PrimitiveTypes.BYTE_WRAP;
         }
         return 0;
     }

@@ -9,7 +9,7 @@ import code.expressionlanguage.structs.Struct;
 
 public final class ExecOperCat implements ExecOperSymbol{
     @Override
-    public Struct calculateOperator(Struct _first, Struct _second, byte _cast, ContextEl _cont, IntAbstractPageEl _stackCall) {
+    public Struct calculateOperator(Struct _first, Struct _second, ContextEl _cont, IntAbstractPageEl _stackCall) {
         return ExecCatOperation.localSumDiff(new Argument(_first),new Argument(_second),_cont).getStruct();
     }
 
@@ -18,4 +18,8 @@ public final class ExecOperCat implements ExecOperSymbol{
         return _str;
     }
 
+    @Override
+    public String getSgn() {
+        return "+";
+    }
 }

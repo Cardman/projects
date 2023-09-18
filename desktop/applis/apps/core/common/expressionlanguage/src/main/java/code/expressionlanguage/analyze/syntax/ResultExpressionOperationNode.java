@@ -214,6 +214,29 @@ public final class ResultExpressionOperationNode {
         ClassesUtil.prepare(id_, a_);
         return a_;
     }
+
+    public static AnalyzedPageEl prepare(OperNatPointBlockPair _instance, AnalyzedPageEl _original) {
+        AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
+        a_.setDynamic(true);
+        a_.setCurrentPkg(a_.getDefaultPkg());
+        a_.setAccessStaticContext(MethodAccessKind.STATIC);
+        a_.setOriginalGlobalType(new AnaFormattedRootBlock((RootBlock)null,_original.getAliasObject()));
+        a_.setImportingAcces(new AllAccessedTypes());
+        String p_ = a_.getKeyWords().getKeyWordValue();
+        AnaLocalVariable lv_ = new AnaLocalVariable();
+        lv_.setClassName(_instance.getOn().getFirst());
+        lv_.setConstType(ConstType.PARAM);
+        lv_.setFinalVariable(true);
+        a_.getCache().getLocalVariables().add(new AnaNamedLocalVariable(p_, lv_));
+        if (!_instance.getOn().getSecond().isEmpty()) {
+            AnaLocalVariable slv_ = new AnaLocalVariable();
+            slv_.setClassName(_instance.getOn().getSecond());
+            slv_.setConstType(ConstType.PARAM);
+            slv_.setFinalVariable(true);
+            a_.getCache().getLocalVariables().add(new AnaNamedLocalVariable(p_, slv_));
+        }
+        return a_;
+    }
     public static AnalyzedPageEl prepare(MethodPointBlockPair _instance, AnalyzedPageEl _original) {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);

@@ -5,7 +5,13 @@ import code.expressionlanguage.structs.Struct;
 
 public final class CommonOperNbGe implements CommonOperSymbol {
     @Override
-    public Struct calculateOperator(Struct _first, Struct _second, byte _cast) {
+    public Struct calculateOperator(Struct _first, Struct _second) {
         return NumParsers.quickCalculateLowerNb(_first,_second).neg();
     }
+
+    @Override
+    public String getSgn() {
+        return Long.toString(SymbolConstants.SYMBOL_GE_PRIO)+"/0";
+    }
+
 }

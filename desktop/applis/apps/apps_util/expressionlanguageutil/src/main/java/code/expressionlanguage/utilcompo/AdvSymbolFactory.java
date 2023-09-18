@@ -25,6 +25,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _unary.setCheckOnlyNullPe(true);
             res_.setSymbol(new CommonOperOppositeRate());
             res_.setResult(new AnaClassArgumentMatching(alias(_unary)));
+            res_.setFirst(stds.getAliasRate());
             return res_;
         }
         if (StringUtil.quickEq("+", _symbol) && matchLg(_unary)) {
@@ -32,6 +33,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _unary.setCheckOnlyNullPe(true);
             res_.setSymbol(new CommonOperSameRate());
             res_.setResult(new AnaClassArgumentMatching(alias(_unary)));
+            res_.setFirst(stds.getAliasRate());
             return res_;
         }
         if (StringUtil.quickEq("--", _symbol) && matchLg(_unary)) {
@@ -39,6 +41,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _unary.setCheckOnlyNullPe(true);
             res_.setSymbol(new CommonOperMinusOneRate());
             res_.setResult(new AnaClassArgumentMatching(alias(_unary)));
+            res_.setFirst(stds.getAliasRate());
             return res_;
         }
         if (StringUtil.quickEq("++", _symbol) && matchLg(_unary)) {
@@ -46,6 +49,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _unary.setCheckOnlyNullPe(true);
             res_.setSymbol(new CommonOperPlusOneRate());
             res_.setResult(new AnaClassArgumentMatching(alias(_unary)));
+            res_.setFirst(stds.getAliasRate());
             return res_;
         }
         return DefSymbolFactory.defResult();
@@ -59,6 +63,8 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             ResultOperand res_ = new ResultOperand();
             res_.setSymbol(new CommonOperSumRate());
             res_.setResult(new AnaClassArgumentMatching(alias(_left, _right)));
+            res_.setFirst(stds.getAliasRate());
+            res_.setSecond(stds.getAliasRate());
             return res_;
         }
         if (StringUtil.quickEq("-", _symbol) && matchLg(_left, _right)) {
@@ -67,6 +73,8 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             ResultOperand res_ = new ResultOperand();
             res_.setSymbol(new CommonOperDiffRate());
             res_.setResult(new AnaClassArgumentMatching(alias(_left, _right)));
+            res_.setFirst(stds.getAliasRate());
+            res_.setSecond(stds.getAliasRate());
             return res_;
         }
         if (StringUtil.quickEq("*", _symbol) && matchLg(_left, _right)) {
@@ -75,6 +83,8 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             ResultOperand res_ = new ResultOperand();
             res_.setSymbol(new CommonOperMultRate());
             res_.setResult(new AnaClassArgumentMatching(alias(_left, _right)));
+            res_.setFirst(stds.getAliasRate());
+            res_.setSecond(stds.getAliasRate());
             return res_;
         }
         if (StringUtil.quickEq("/", _symbol) && matchLg(_left, _right)) {
@@ -83,6 +93,7 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             ResultOperand res_ = new ResultOperand();
             res_.setSymbol(new CommonOperDivRate(matchLgInt(_left, _right)));
             res_.setResult(new AnaClassArgumentMatching(alias(_left, _right)));
+            choose(_left, _right, res_);
             return res_;
         }
         if (StringUtil.quickEq("%", _symbol) && matchLg(_left, _right)) {
@@ -91,9 +102,20 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             ResultOperand res_ = new ResultOperand();
             res_.setSymbol(new CommonOperModRate(matchLgInt(_left, _right)));
             res_.setResult(new AnaClassArgumentMatching(alias(_left, _right)));
+            choose(_left, _right, res_);
             return res_;
         }
         return cmp(_symbol, _left, _right, _page);
+    }
+
+    private void choose(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, ResultOperand _res) {
+        if (matchLgInt(_left, _right)) {
+            _res.setFirst(stds.getAliasLgInt());
+            _res.setSecond(stds.getAliasLgInt());
+        } else {
+            _res.setFirst(stds.getAliasRate());
+            _res.setSecond(stds.getAliasRate());
+        }
     }
 
     private ResultOperand cmp(String _symbol, AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
@@ -106,6 +128,8 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _left.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
             _right.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
             res_.setResult(new AnaClassArgumentMatching(bool_,PrimitiveTypes.BOOL_WRAP));
+            res_.setFirst(stds.getAliasRate());
+            res_.setSecond(stds.getAliasRate());
             return res_;
         }
         if (StringUtil.quickEq("<=", _symbol) && matchLg(_left, _right)) {
@@ -117,6 +141,8 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _left.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
             _right.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
             res_.setResult(new AnaClassArgumentMatching(bool_,PrimitiveTypes.BOOL_WRAP));
+            res_.setFirst(stds.getAliasRate());
+            res_.setSecond(stds.getAliasRate());
             return res_;
         }
         if (StringUtil.quickEq(">", _symbol) && matchLg(_left, _right)) {
@@ -128,6 +154,8 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _left.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
             _right.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
             res_.setResult(new AnaClassArgumentMatching(bool_,PrimitiveTypes.BOOL_WRAP));
+            res_.setFirst(stds.getAliasRate());
+            res_.setSecond(stds.getAliasRate());
             return res_;
         }
         if (StringUtil.quickEq(">=", _symbol) && matchLg(_left, _right)) {
@@ -139,6 +167,8 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _left.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
             _right.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
             res_.setResult(new AnaClassArgumentMatching(bool_,PrimitiveTypes.BOOL_WRAP));
+            res_.setFirst(stds.getAliasRate());
+            res_.setSecond(stds.getAliasRate());
             return res_;
         }
         return DefSymbolFactory.defResult();

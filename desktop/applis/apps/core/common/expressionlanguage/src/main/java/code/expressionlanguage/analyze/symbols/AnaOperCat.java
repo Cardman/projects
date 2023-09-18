@@ -8,7 +8,7 @@ import code.expressionlanguage.structs.Struct;
 public final class AnaOperCat implements AnaOperSymbol {
 
     @Override
-    public Struct calculateOperator(Struct _first, Struct _second, byte _cast, AnalyzedPageEl _cont) {
+    public Struct calculateOperator(Struct _first, Struct _second, AnalyzedPageEl _cont) {
         return AnaApplyCoreMethodUtil.localSumDiff(new Argument(_first),new Argument(_second),_cont).getStruct();
     }
 

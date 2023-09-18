@@ -9,6 +9,9 @@ public final class ResultOperand {
     private AnaClassArgumentMatching result;
     private CommonOperSymbol symbol;
     private boolean defConcat;
+    private String first="";
+    private String second="";
+    private String sgn="";
 
     public AnaClassArgumentMatching getResult() {
         return result;
@@ -33,4 +36,27 @@ public final class ResultOperand {
         this.defConcat = _c;
     }
 
+    public String getFirst() {
+        return first;
+    }
+
+    public void setFirst(String _f) {
+        this.first = _f;
+    }
+
+    public String getSecond() {
+        return second;
+    }
+
+    public void setSecond(String _s) {
+        this.second = _s;
+    }
+
+    public String getSgn() {
+        return sgn;
+    }
+
+    public void setSgn(String _s) {
+        this.sgn = _s;
+    }
 }

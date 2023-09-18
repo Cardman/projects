@@ -2,7 +2,6 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.exec.opers.ExecCompoundAffectationStringOperation;
 import code.expressionlanguage.exec.symbols.ExecOperSymbol;
 import code.expressionlanguage.exec.util.ImplicitMethods;
@@ -29,15 +28,7 @@ public final class RendCompoundAffectationStringOperation extends RendCompoundAf
         RendDynOperationNode right_ = getLastNode(this);
         Argument leftArg_ = getArgument(_nodes,left_);
         Argument rightArg_ = getArgument(_nodes,right_);
-        ImplicitMethods converter_ = getConverter();
-        byte cast_;
-        if (converter_ != null) {
-            String tres_ = converter_.get(0).getFct().getImportedParametersTypes().get(0);
-            cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _context.getStandards().getPrimTypes());
-        } else {
-            cast_ = getResultClass().getUnwrapObjectNb();
-        }
-        Argument res_ = new Argument(ExecCompoundAffectationStringOperation.calculatedValue(symbol, leftArg_.getStruct(), rightArg_.getStruct(), cast_, _context, _rendStack, _rendStack.getLastPage()));
+        Argument res_ = new Argument(ExecCompoundAffectationStringOperation.calculatedValue(symbol, leftArg_.getStruct(), rightArg_.getStruct(), _context, _rendStack, _rendStack.getLastPage()));
         process(this,_nodes, _context, _rendStack,res_);
     }
 

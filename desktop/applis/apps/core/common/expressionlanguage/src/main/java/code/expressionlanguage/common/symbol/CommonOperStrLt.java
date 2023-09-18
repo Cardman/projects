@@ -5,7 +5,13 @@ import code.expressionlanguage.structs.Struct;
 
 public final class CommonOperStrLt implements CommonOperSymbol {
     @Override
-    public Struct calculateOperator(Struct _first, Struct _second, byte _cast) {
+    public Struct calculateOperator(Struct _first, Struct _second) {
         return NumParsers.quickCalculateLowerStr(_first,_second);
     }
+
+    @Override
+    public String getSgn() {
+        return Long.toString(SymbolConstants.SYMBOL_LT_PRIO)+"/1";
+    }
+
 }

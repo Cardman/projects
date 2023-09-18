@@ -14,6 +14,11 @@ public final class SymbolFactoryUtil {
     private SymbolFactoryUtil(){
     }
     public static ResultOperand generateOperand(String _symbol, AnaClassArgumentMatching _unary, AnalyzedPageEl _page){
+        ResultOperand g_ = generateOperandCore(_symbol, _unary, _page);
+        update(g_);
+        return g_;
+    }
+    public static ResultOperand generateOperandCore(String _symbol, AnaClassArgumentMatching _unary, AnalyzedPageEl _page){
         if (StringExpUtil.isUnNum(_symbol)) {
             if (AnaTypeUtil.isPureNumberClass(_unary, _page)) {
                 ResultOperand r_ = new ResultOperand();
@@ -24,12 +29,11 @@ public final class SymbolFactoryUtil {
                 }
                 _unary.setUnwrapObject(cl_, _page.getPrimitiveTypes());
                 r_.setResult(AnaClassArgumentMatching.copy(cl_, _page.getPrimitiveTypes()));
-                r_.setSymbol(unary(_symbol));
+                r_.setSymbol(unary(_symbol,r_.getResult().getUnwrapObjectNb()));
+                r_.setFirst(cl_.getSingleNameOrEmpty());
                 return r_;
             }
-            ResultOperand res_ = _page.getAbstractSymbolFactory().generateOperand(_symbol, _unary, _page);
-            update(res_,unary(_symbol));
-            return res_;
+            return _page.getAbstractSymbolFactory().generateOperand(_symbol, _unary, _page);
         }
         if (StringUtil.quickEq("!",_symbol)) {
             if (_unary.isBoolType(_page)) {
@@ -38,11 +42,10 @@ public final class SymbolFactoryUtil {
                 ResultOperand r_ = new ResultOperand();
                 r_.setResult(new AnaClassArgumentMatching(booleanPrimType_,PrimitiveTypes.BOOL_WRAP));
                 r_.setSymbol(new CommonOperNegBool());
+                r_.setFirst(_page.getAliasPrimBoolean());
                 return r_;
             }
-            ResultOperand res_ = _page.getAbstractSymbolFactory().generateOperand(_symbol, _unary, _page);
-            update(res_,new CommonOperNegBool());
-            return res_;
+            return _page.getAbstractSymbolFactory().generateOperand(_symbol, _unary, _page);
         }
         if (StringExpUtil.isIncr(_symbol)) {
             if (AnaTypeUtil.isPureNumberClass(_unary, _page)) {
@@ -50,12 +53,11 @@ public final class SymbolFactoryUtil {
                 AnaClassArgumentMatching cl_ = AnaTypeUtil.toPrimitive(_unary, _page);
                 _unary.setUnwrapObject(cl_, _page.getPrimitiveTypes());
                 r_.setResult(AnaClassArgumentMatching.copy(cl_, _page.getPrimitiveTypes()));
-                r_.setSymbol(semi(_symbol));
+                r_.setSymbol(semi(_symbol,r_.getResult().getUnwrapObjectNb()));
+                r_.setFirst(_unary.getSingleNameOrEmpty());
                 return r_;
             }
-            ResultOperand res_ = _page.getAbstractSymbolFactory().generateOperand(_symbol, _unary, _page);
-            update(res_,semi(_symbol));
-            return res_;
+            return _page.getAbstractSymbolFactory().generateOperand(_symbol, _unary, _page);
         }
         if (AnaTypeUtil.getIntOrderClass(_unary, _page) != 0) {
             ResultOperand r_ = new ResultOperand();
@@ -64,56 +66,59 @@ public final class SymbolFactoryUtil {
             cl_ = goToAtLeastInt(_page,cl_,order_);
             _unary.setUnwrapObject(cl_, _page.getPrimitiveTypes());
             r_.setResult(AnaClassArgumentMatching.copy(cl_, _page.getPrimitiveTypes()));
-            r_.setSymbol(new CommonOperNegNum());
+            r_.setSymbol(new CommonOperNegNum(r_.getResult().getUnwrapObjectNb()));
+            r_.setFirst(cl_.getSingleNameOrEmpty());
             return r_;
         }
-        ResultOperand res_ = _page.getAbstractSymbolFactory().generateOperand(_symbol, _unary, _page);
-        update(res_,new CommonOperNegNum());
-        return res_;
+        return _page.getAbstractSymbolFactory().generateOperand(_symbol, _unary, _page);
     }
     public static ResultOperand generateOperand(String _symbol, AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page){
+        ResultOperand g_ = generateOperandCore(_symbol, _left, _right, _page);
+        update(g_);
+        return g_;
+    }
+    public static ResultOperand generateOperandCore(String _symbol, AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page){
         if (StringUtil.quickEq("+",_symbol) && strConvert(_left, _right, _page)) {
             ResultOperand r_ = new ResultOperand();
             r_.setDefConcat(true);
             r_.setResult(new AnaClassArgumentMatching(_page.getAliasString()));
+            r_.setFirst(_page.getAliasObject());
+            r_.setSecond(_page.getAliasObject());
             return r_;
         }
         if (StringExpUtil.isLogical(_symbol)) {
-            ResultOperand res_ = logical(_symbol, _left, _right, _page);
-            update(res_,logOp(_symbol));
-            return res_;
+            return logical(_symbol, _left, _right, _page);
         }
         if (StringExpUtil.isBinNum(_symbol)) {
             ResultOperand res_ = binNum(_symbol, _left, _right, _page);
-            update(res_,operBin(_symbol));
             if (StringUtil.quickEq("+",_symbol)) {
                 res_.setDefConcat(strOrNull(_left,_page)||strOrNull(_right,_page));
             }
             return res_;
         }
         if (StringExpUtil.isBitwise(_symbol)) {
-            ResultOperand res_ = bitwise(_symbol, _left, _right, _page);
-            update(res_,operBit(_symbol));
-            return res_;
+            return bitwise(_symbol, _left, _right, _page);
         }
         if (StringExpUtil.isShiftOper(_symbol)) {
-            ResultOperand res_ = shiftRot(_symbol, _left, _right, _page);
-            update(res_,shiftRotate(_symbol));
-            return res_;
+            return shiftRot(_symbol, _left, _right, _page);
         }
         if (StringExpUtil.isCmp(_symbol)) {
-            ResultOperand res_ = cmpOp(_symbol, _left, _right, _page);
-            update(res_,cmpNb(_symbol));
-            return res_;
+            return cmpOp(_symbol, _left, _right, _page);
         }
         if (StringExpUtil.isEq(_symbol)) {
             ResultOperand res_ = eqCall(_symbol, _left, _right, _page);
-            update(res_,eq(_symbol));
+            if (res_.getSymbol() == null) {
+                res_.setSymbol(eq(_symbol));
+            }
+            res_.setFirst(_page.getAliasObject());
+            res_.setSecond(_page.getAliasObject());
             return res_;
         }
         ResultOperand r_ = new ResultOperand();
         r_.setSymbol(new CommonOperNullSafe());
         r_.setResult(new AnaClassArgumentMatching(""));
+        r_.setFirst(_page.getAliasObject());
+        r_.setSecond(_page.getAliasObject());
         return r_;
     }
 
@@ -168,42 +173,42 @@ public final class SymbolFactoryUtil {
     private static CustList<CustList<ParamReturn>> groupBinShift(AnalyzedPageEl _page) {
         CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
         CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-        group_.add(withBinShift(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
-        group_.add(withBinShift(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
+        group_.add(withBinShift(_page.getAliasPrimInteger(), _page.getAliasPrimInteger(), PrimitiveTypes.INT_WRAP));
+        group_.add(withBinShift(_page.getAliasPrimLong(), _page.getAliasPrimLong(), PrimitiveTypes.LONG_WRAP));
         groups_.add(group_);
         return groups_;
     }
-    private static ParamReturn withBinShift(String _in, String _out) {
-        return new ParamReturn(_in,_out).with("<<",new CommonOperShiftLeft()).with(">>",new CommonOperShiftRight()).with("<<<",new CommonOperBitShiftLeft()).with(">>>",new CommonOperBitShiftRight()).with("<<<<",new CommonOperRotateLeft()).with(">>>>",new CommonOperRotateRight());
+    private static ParamReturn withBinShift(String _in, String _out, byte _cast) {
+        return new ParamReturn(_in,_out).with("<<",new CommonOperShiftLeft(_cast)).with(">>",new CommonOperShiftRight(_cast)).with("<<<",new CommonOperBitShiftLeft(_cast)).with(">>>",new CommonOperBitShiftRight(_cast)).with("<<<<",new CommonOperRotateLeft(_cast)).with(">>>>",new CommonOperRotateRight(_cast));
     }
 
     private static CustList<CustList<ParamReturn>> groupBinBitwise(AnalyzedPageEl _page) {
         CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
         CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-        group_.add(withBinBitwise(_page.getAliasPrimBoolean(), _page.getAliasPrimBoolean()));
-        group_.add(withBinBitwise(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
-        group_.add(withBinBitwise(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
+        group_.add(withBinBitwise(_page.getAliasPrimBoolean(), _page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
+        group_.add(withBinBitwise(_page.getAliasPrimInteger(), _page.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP));
+        group_.add(withBinBitwise(_page.getAliasPrimLong(), _page.getAliasPrimLong(),PrimitiveTypes.LONG_WRAP));
         groups_.add(group_);
         return groups_;
     }
-    private static ParamReturn withBinBitwise(String _in, String _out) {
-        return new ParamReturn(_in,_out).with("&",new CommonOperBitAnd()).with("|",new CommonOperBitOr()).with("^",new CommonOperBitXor());
+    private static ParamReturn withBinBitwise(String _in, String _out, byte _cast) {
+        return new ParamReturn(_in,_out).with("&",new CommonOperBitAnd(_cast)).with("|",new CommonOperBitOr(_cast)).with("^",new CommonOperBitXor(_cast));
     }
 
     private static CustList<CustList<ParamReturn>> groupBinNum(AnalyzedPageEl _page) {
         CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
         CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-        group_.add(withBinNum(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
-        group_.add(withBinNum(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
+        group_.add(withBinNum(_page.getAliasPrimInteger(), _page.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP));
+        group_.add(withBinNum(_page.getAliasPrimLong(), _page.getAliasPrimLong(),PrimitiveTypes.LONG_WRAP));
         groups_.add(group_);
         group_ = new CustList<ParamReturn>();
-        group_.add(withBinNum(_page.getAliasPrimFloat(), _page.getAliasPrimFloat()));
-        group_.add(withBinNum(_page.getAliasPrimDouble(), _page.getAliasPrimDouble()));
+        group_.add(withBinNum(_page.getAliasPrimFloat(), _page.getAliasPrimFloat(),PrimitiveTypes.FLOAT_WRAP));
+        group_.add(withBinNum(_page.getAliasPrimDouble(), _page.getAliasPrimDouble(),PrimitiveTypes.DOUBLE_WRAP));
         groups_.add(group_);
         return groups_;
     }
-    private static ParamReturn withBinNum(String _in, String _out) {
-        return new ParamReturn(_in,_out).with("+",new CommonOperSum()).with("-",new CommonOperDiff()).with("*",new CommonOperMult()).with("/",new CommonOperDiv()).with("%",new CommonOperMod());
+    private static ParamReturn withBinNum(String _in, String _out, byte _cast) {
+        return new ParamReturn(_in,_out).with("+",new CommonOperSum(_cast)).with("-",new CommonOperDiff(_cast)).with("*",new CommonOperMult(_cast)).with("/",new CommonOperDiv(_cast)).with("%",new CommonOperMod(_cast));
     }
 
     private static CustList<CustList<ParamReturn>> groupBinLogical(AnalyzedPageEl _page) {
@@ -229,47 +234,42 @@ public final class SymbolFactoryUtil {
     private static CustList<CustList<ParamReturn>> groupUnBin(AnalyzedPageEl _page) {
         CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
         CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-        group_.add(withNegNum(_page.getAliasPrimInteger(),_page.getAliasPrimInteger()));
-        group_.add(withNegNum(_page.getAliasPrimLong(),_page.getAliasPrimLong()));
+        group_.add(withNegNum(_page.getAliasPrimInteger(),_page.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP));
+        group_.add(withNegNum(_page.getAliasPrimLong(),_page.getAliasPrimLong(),PrimitiveTypes.LONG_WRAP));
         groups_.add(group_);
         return groups_;
     }
-    private static ParamReturn withNegNum(String _in, String _out) {
-        return new ParamReturn(_in,_out).with("~",new CommonOperNegNum());
+    private static ParamReturn withNegNum(String _in, String _out, byte _cast) {
+        return new ParamReturn(_in,_out).with("~",new CommonOperNegNum(_cast));
     }
     private static CustList<CustList<ParamReturn>> groupUnNum(AnalyzedPageEl _page) {
         CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
         CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-        group_.add(withUnNum(_page.getAliasPrimInteger(),_page.getAliasPrimInteger()));
-        group_.add(withUnNum(_page.getAliasPrimLong(),_page.getAliasPrimLong()));
+        group_.add(withUnNum(_page.getAliasPrimInteger(),_page.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP));
+        group_.add(withUnNum(_page.getAliasPrimLong(),_page.getAliasPrimLong(),PrimitiveTypes.LONG_WRAP));
         groups_.add(group_);
         group_ = new CustList<ParamReturn>();
-        group_.add(withUnNum(_page.getAliasPrimFloat(),_page.getAliasPrimFloat()));
-        group_.add(withUnNum(_page.getAliasPrimDouble(),_page.getAliasPrimDouble()));
+        group_.add(withUnNum(_page.getAliasPrimFloat(),_page.getAliasPrimFloat(),PrimitiveTypes.FLOAT_WRAP));
+        group_.add(withUnNum(_page.getAliasPrimDouble(),_page.getAliasPrimDouble(),PrimitiveTypes.DOUBLE_WRAP));
         groups_.add(group_);
         return groups_;
     }
 
-    private static ParamReturn withUnNum(String _in, String _out) {
-        return new ParamReturn(_in,_out).with("+",new CommonOperIdOp()).with("-",new CommonOperOpposite()).with("++",new CommonOperPlusOne()).with("--",new CommonOperMinusOne());
+    private static ParamReturn withUnNum(String _in, String _out, byte _cast) {
+        return new ParamReturn(_in,_out).with("+",new CommonOperIdOp(_cast)).with("-",new CommonOperOpposite(_cast)).with("++",new CommonOperPlusOne(_cast)).with("--",new CommonOperMinusOne(_cast));
     }
-    private static void update(ResultOperand _res, CommonOperSymbol _common) {
-        if (_res.getSymbol() == null) {
-            _res.setSymbol(_common);
-        }
-    }
-    private static CommonOperSymbol semi(String _symbol) {
+    private static CommonOperSymbol semi(String _symbol, byte _cast) {
         if (StringUtil.quickEq("++",_symbol)) {
-            return new CommonOperPlusOne();
+            return new CommonOperPlusOne(_cast);
         }
-        return new CommonOperMinusOne();
+        return new CommonOperMinusOne(_cast);
     }
 
-    private static CommonOperSymbol unary(String _symbol) {
+    private static CommonOperSymbol unary(String _symbol, byte _cast) {
         if (StringUtil.quickEq("-",_symbol)) {
-            return new CommonOperOpposite();
+            return new CommonOperOpposite(_cast);
         }
-        return new CommonOperIdOp();
+        return new CommonOperIdOp(_cast);
     }
     private static ResultOperand eqCall(String _symbol, AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
         if (eq(_left, _right, _page)) {
@@ -290,6 +290,8 @@ public final class SymbolFactoryUtil {
             ResultOperand r_ = new ResultOperand();
             r_.setResult(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             r_.setSymbol(cmpNb(_symbol));
+            r_.setFirst(_page.getAliasNumber());
+            r_.setSecond(_page.getAliasNumber());
             return r_;
         }
         if (_left.matchClass(_page.getAliasString())
@@ -299,6 +301,8 @@ public final class SymbolFactoryUtil {
             ResultOperand r_ = new ResultOperand();
             r_.setResult(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             r_.setSymbol(cmpStr(_symbol));
+            r_.setFirst(_page.getAliasString());
+            r_.setSecond(_page.getAliasString());
             return r_;
         }
         return _page.getAbstractSymbolFactory().generateOperand(_symbol, _left, _right, _page);
@@ -308,9 +312,12 @@ public final class SymbolFactoryUtil {
         if (AnaTypeUtil.isIntOrderClass(_left, _right, _page)) {
             ResultOperand r_ = new ResultOperand();
             r_.setResult(getIntResultClass(_left, _right, _page));
-            r_.setSymbol(shiftRotate(_symbol));
+            r_.setSymbol(shiftRotate(_symbol, wrInt(_left,_left,_page)));
             _left.setUnwrapObject(r_.getResult(), _page.getPrimitiveTypes());
             _right.setUnwrapObject(r_.getResult(), _page.getPrimitiveTypes());
+            String res_ = r_.getResult().getSingleNameOrEmpty();
+            r_.setFirst(res_);
+            r_.setSecond(res_);
             return r_;
         }
         return _page.getAbstractSymbolFactory().generateOperand(_symbol, _left, _right, _page);
@@ -323,15 +330,21 @@ public final class SymbolFactoryUtil {
             _left.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
             _right.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
             r_.setResult(new AnaClassArgumentMatching(bool_,PrimitiveTypes.BOOL_WRAP));
-            r_.setSymbol(operBit(_symbol));
+            r_.setSymbol(operBit(_symbol,r_.getResult().getUnwrapObjectNb()));
+            String res_ = r_.getResult().getSingleNameOrEmpty();
+            r_.setFirst(res_);
+            r_.setSecond(res_);
             return r_;
         }
         if (AnaTypeUtil.isIntOrderClass(_left, _right, _page)) {
             ResultOperand r_ = new ResultOperand();
             r_.setResult(getIntResultClass(_left, _right, _page));
-            r_.setSymbol(operBit(_symbol));
+            r_.setSymbol(operBit(_symbol, wrInt(_left,_left,_page)));
             _left.setUnwrapObject(r_.getResult(), _page.getPrimitiveTypes());
             _right.setUnwrapObject(r_.getResult(), _page.getPrimitiveTypes());
+            String res_ = r_.getResult().getSingleNameOrEmpty();
+            r_.setFirst(res_);
+            r_.setSecond(res_);
             return r_;
         }
         return _page.getAbstractSymbolFactory().generateOperand(_symbol, _left, _right, _page);
@@ -341,17 +354,23 @@ public final class SymbolFactoryUtil {
         if (AnaTypeUtil.isIntOrderClass(_left, _right, _page)) {
             ResultOperand r_ = new ResultOperand();
             r_.setResult(getIntResultClass(_left, _right, _page));
-            r_.setSymbol(operBin(_symbol));
+            r_.setSymbol(operBin(_symbol, wrInt(_left,_left,_page)));
             _left.setUnwrapObject(r_.getResult(), _page.getPrimitiveTypes());
             _right.setUnwrapObject(r_.getResult(), _page.getPrimitiveTypes());
+            String res_ = r_.getResult().getSingleNameOrEmpty();
+            r_.setFirst(res_);
+            r_.setSecond(res_);
             return r_;
         }
         if (AnaTypeUtil.isFloatOrderClass(_left, _right, _page)){
             ResultOperand r_ = new ResultOperand();
             r_.setResult(getFloatResultClass(_left, _right, _page));
-            r_.setSymbol(operBin(_symbol));
+            r_.setSymbol(operBin(_symbol,wrFloat(_left,_right,_page)));
             _left.setUnwrapObject(r_.getResult(), _page.getPrimitiveTypes());
             _right.setUnwrapObject(r_.getResult(), _page.getPrimitiveTypes());
+            String res_ = r_.getResult().getSingleNameOrEmpty();
+            r_.setFirst(res_);
+            r_.setSecond(res_);
             return r_;
         }
         return _page.getAbstractSymbolFactory().generateOperand(_symbol, _left, _right, _page);
@@ -365,6 +384,8 @@ public final class SymbolFactoryUtil {
             _right.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
             r_.setResult(new AnaClassArgumentMatching(bool_,PrimitiveTypes.BOOL_WRAP));
             r_.setSymbol(logOp(_symbol));
+            r_.setFirst(bool_);
+            r_.setSecond(bool_);
             return r_;
         }
         return _page.getAbstractSymbolFactory().generateOperand(_symbol, _left, _right, _page);
@@ -411,48 +432,48 @@ public final class SymbolFactoryUtil {
         }
         return new CommonOperNbGe();
     }
-    private static CommonOperSymbol shiftRotate(String _symbol) {
+    private static CommonOperSymbol shiftRotate(String _symbol, byte _cast) {
         if (StringUtil.quickEq("<<",_symbol)) {
-            return new CommonOperShiftLeft();
+            return new CommonOperShiftLeft(_cast);
         }
         if (StringUtil.quickEq(">>",_symbol)) {
-            return new CommonOperShiftRight();
+            return new CommonOperShiftRight(_cast);
         }
         if (StringUtil.quickEq("<<<",_symbol)) {
-            return new CommonOperBitShiftLeft();
+            return new CommonOperBitShiftLeft(_cast);
         }
         if (StringUtil.quickEq(">>>",_symbol)) {
-            return new CommonOperBitShiftRight();
+            return new CommonOperBitShiftRight(_cast);
         }
         if (StringUtil.quickEq("<<<<",_symbol)) {
-            return new CommonOperRotateLeft();
+            return new CommonOperRotateLeft(_cast);
         }
-        return new CommonOperRotateRight();
+        return new CommonOperRotateRight(_cast);
     }
-    private static CommonOperSymbol operBin(String _symbol) {
+    private static CommonOperSymbol operBin(String _symbol, byte _cast) {
         if (StringUtil.quickEq("+",_symbol)) {
-            return new CommonOperSum();
+            return new CommonOperSum(_cast);
         }
         if (StringUtil.quickEq("-",_symbol)) {
-            return new CommonOperDiff();
+            return new CommonOperDiff(_cast);
         }
         if (StringUtil.quickEq("*",_symbol)) {
-            return new CommonOperMult();
+            return new CommonOperMult(_cast);
         }
         if (StringUtil.quickEq("/",_symbol)) {
-            return new CommonOperDiv();
+            return new CommonOperDiv(_cast);
         }
-        return new CommonOperMod();
+        return new CommonOperMod(_cast);
     }
 
-    private static CommonOperSymbol operBit(String _symbol) {
+    private static CommonOperSymbol operBit(String _symbol, byte _cast) {
         if (StringUtil.quickEq("&",_symbol)) {
-            return new CommonOperBitAnd();
+            return new CommonOperBitAnd(_cast);
         }
         if (StringUtil.quickEq("|",_symbol)) {
-            return new CommonOperBitOr();
+            return new CommonOperBitOr(_cast);
         }
-        return new CommonOperBitXor();
+        return new CommonOperBitXor(_cast);
     }
     private static AnaClassArgumentMatching getIntResultClass(AnaClassArgumentMatching _a, AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
         int oa_ = AnaTypeUtil.getIntOrderClass(_a, _page);
@@ -461,11 +482,25 @@ public final class SymbolFactoryUtil {
         AnaClassArgumentMatching arg_ = getMaxWrap(_a, oa_, _b, ob_);
         return AnaTypeUtil.toPrimitive(goToAtLeastInt(_page,arg_,max_), _page);
     }
+    private static byte wrInt(AnaClassArgumentMatching _a, AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
+        int oa_ = AnaTypeUtil.getIntOrderClass(_a, _page);
+        int ob_ = AnaTypeUtil.getIntOrderClass(_b, _page);
+        return (byte) goToAtLeastInt(NumberUtil.max(oa_, ob_));
+    }
     private static AnaClassArgumentMatching goToAtLeastInt(AnalyzedPageEl _page, AnaClassArgumentMatching _before, int _value) {
         AnaClassArgumentMatching after_ = _before;
-        int intOrder_ = AnaTypeUtil.getIntOrderClass(_page.getAliasPrimInteger(), _page);
+        int intOrder_ = PrimitiveTypes.INT_WRAP;
         if (_value < intOrder_) {
             after_ = new AnaClassArgumentMatching(_page.getAliasPrimInteger(), PrimitiveTypes.INT_WRAP);
+        }
+        return after_;
+    }
+
+    private static int goToAtLeastInt(int _before) {
+        int after_ = _before;
+        int intOrder_ = PrimitiveTypes.INT_WRAP;
+        if (_before < intOrder_) {
+            after_ = PrimitiveTypes.INT_WRAP;
         }
         return after_;
     }
@@ -476,6 +511,11 @@ public final class SymbolFactoryUtil {
         return AnaTypeUtil.toPrimitive(arg_, _page);
     }
 
+    private static byte wrFloat(AnaClassArgumentMatching _a, AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
+        int oa_ = AnaTypeUtil.getFloatOrderClass(_a, _page);
+        int ob_ = AnaTypeUtil.getFloatOrderClass(_b, _page);
+        return (byte) NumberUtil.max(oa_, ob_);
+    }
     private static AnaClassArgumentMatching getMaxWrap(AnaClassArgumentMatching _a, int _oa, AnaClassArgumentMatching _b, int _ob) {
         AnaClassArgumentMatching arg_;
         if (_oa > _ob) {
@@ -550,5 +590,11 @@ public final class SymbolFactoryUtil {
             return true;
         }
         return _right.matchClass(_page.getAliasObject());
+    }
+    private static void update(ResultOperand _res) {
+        CommonOperSymbol s_ = _res.getSymbol();
+        if (s_ != null) {
+            _res.setSgn(s_.getSgn());
+        }
     }
 }

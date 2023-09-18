@@ -33,6 +33,7 @@ public final class BreakPointBlockList {
     private final AbsCollection<MethodPointBlockPair> methPointList;
     private final AbsCollection<StdMethodPointBlockPair> stdMethPointList;
     private final AbsCollection<ParPointBlockPair> parPointList;
+    private final AbsCollection<OperNatPointBlockPair> operNatPointList;
 
     public BreakPointBlockList(AbstractInterceptorStdCaller _i) {
         interceptor = _i;
@@ -44,6 +45,7 @@ public final class BreakPointBlockList {
         parPointList = _i.newParPointKeyStringCollection();
         methPointList = _i.newMethodPointKeyStringCollection();
         stdMethPointList = _i.newStdMethodPointKeyStringCollection();
+        operNatPointList = _i.newOperNatPointKeyStringCollection();
         pausedLoop = _i.newAtBool();
     }
 
@@ -97,6 +99,14 @@ public final class BreakPointBlockList {
             return "_";
         }
         return ".";
+    }
+
+    public OperNatPointBlockPair operNat(String _k, String _f, String _s) {
+        return new OperNatPointBlockPair(_k, interceptor,true, _f, _s);
+    }
+
+    public OperNatPointBlockPair operNatDisabled() {
+        return new OperNatPointBlockPair("", interceptor,false, "", "");
     }
 
     public MethodPointBlockPair method(DisplayedStrings _d, MemberCallingsBlock _id) {
@@ -230,6 +240,9 @@ public final class BreakPointBlockList {
         for (WatchPointBlockPair b: getWatchList().elts()) {
             b.getValue().resetCount();
         }
+        for (OperNatPointBlockPair b: getOperNatPointList().elts()) {
+            b.getValue().resetCount();
+        }
     }
 
     public ArrPointBlockPair buildArr(boolean _exact, String _clName) {
@@ -311,6 +324,10 @@ public final class BreakPointBlockList {
 
     public AbsCollection<WatchPointBlockPair> getWatchList() {
         return watchList;
+    }
+
+    public AbsCollection<OperNatPointBlockPair> getOperNatPointList() {
+        return operNatPointList;
     }
 
     public AbsCollection<BreakPointBlockKey> getListTmp() {

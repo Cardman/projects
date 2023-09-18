@@ -14,8 +14,13 @@ public final class CommonOperOr implements CommonOperSymbol {
     }
 
     @Override
-    public Struct calculateOperator(Struct _first, Struct _second, byte _cast) {
+    public Struct calculateOperator(Struct _first, Struct _second) {
         return orLogic(_first, _second);
+    }
+
+    @Override
+    public String getSgn() {
+        return Long.toString(SymbolConstants.SYMBOL_OR_PRIO);
     }
 
 }

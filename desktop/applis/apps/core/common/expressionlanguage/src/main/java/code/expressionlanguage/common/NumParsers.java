@@ -1366,10 +1366,6 @@ public final class NumParsers {
         return convertStrictObject(_match, _obj);
     }
 
-    private static boolean isLessInt(byte _class) {
-        return _class < PrimitiveTypes.INT_WRAP;
-    }
-
     private static boolean isByte(byte _class) {
         return _class == PrimitiveTypes.BYTE_WRAP;
     }
@@ -1380,10 +1376,6 @@ public final class NumParsers {
 
     private static boolean isChar(byte _class) {
         return _class == PrimitiveTypes.CHAR_WRAP;
-    }
-
-    private static boolean isIntOrLess(byte _class) {
-        return isInt(_class) || isLessInt(_class);
     }
 
     private static boolean isInt(byte _class) {
@@ -1548,7 +1540,7 @@ public final class NumParsers {
     }
 
     public static NumberStruct calculateSum(NumberStruct _a, NumberStruct _b, byte _cast) {
-        if (isIntOrLess(_cast)) {
+        if (isInt(_cast)) {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             int nb_ = left_ + right_;
@@ -1571,7 +1563,7 @@ public final class NumParsers {
 
     public static NumberStruct opposite(NumberStruct _a, byte _cast) {
         NumberStruct tmp_;
-        if (isIntOrLess(_cast)) {
+        if (isInt(_cast)) {
             tmp_ = new IntStruct(-_a.intStruct());
         } else if (isLong(_cast)) {
             tmp_ = new LongStruct(-_a.longStruct());
@@ -1584,7 +1576,7 @@ public final class NumParsers {
     }
 
     public static NumberStruct calculateDiff(NumberStruct _a, NumberStruct _b, byte _cast) {
-        if (isIntOrLess(_cast)) {
+        if (isInt(_cast)) {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             int nb_ = left_ - right_;
@@ -1606,7 +1598,7 @@ public final class NumParsers {
     }
 
     public static NumberStruct calculateMult(NumberStruct _a, NumberStruct _b, byte _cast) {
-        if (isIntOrLess(_cast)) {
+        if (isInt(_cast)) {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             int nb_ = left_ * right_;
@@ -1628,7 +1620,7 @@ public final class NumParsers {
     }
 
     public static Struct calculateDiv(NumberStruct _a, NumberStruct _b, byte _cast) {
-        if (isIntOrLess(_cast)) {
+        if (isInt(_cast)) {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             if (right_ == 0) {
@@ -1656,7 +1648,7 @@ public final class NumParsers {
     }
 
     public static Struct calculateMod(NumberStruct _a, NumberStruct _b, byte _cast) {
-        if (isIntOrLess(_cast)) {
+        if (isInt(_cast)) {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             if (right_ == 0) {

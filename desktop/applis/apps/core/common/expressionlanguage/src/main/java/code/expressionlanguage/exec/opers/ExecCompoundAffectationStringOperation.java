@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.AbstractStackCall;
 import code.expressionlanguage.exec.ExecHelper;
@@ -36,11 +35,9 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
         ImplicitMethods implicits_ = getConverter();
         int indexImplicit_ = pairBefore_.getIndexImplicitConv();
         if (ImplicitMethods.isValidIndex(implicits_,indexImplicit_)) {
-            String tres_ = implicits_.get(indexImplicit_).getFct().getImportedParametersTypes().first();
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
             Argument leftArg_ = getFirstArgument(_nodes,this);
             Argument rightArg_ = getLastArgument(_nodes,this);
-            Argument res_ = new Argument(calculatedValue(symbol,leftArg_.getStruct(), rightArg_.getStruct(), cast_, _conf, _stack, _stack.getLastPage()));
+            Argument res_ = new Argument(calculatedValue(symbol,leftArg_.getStruct(), rightArg_.getStruct(), _conf, _stack, _stack.getLastPage()));
             if (_conf.callsOrException(_stack)) {
                 return;
             }
@@ -54,19 +51,22 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 
-    public static Struct calculatedValue(ExecOperSymbol _symbol, Struct _left, Struct _right, byte _dest, ContextEl _conf, AbstractStackCall _stackCall, IntAbstractPageEl _last) {
-        return _symbol.afterCalculateExc(_symbol.calculateOperator(_left, _right, _dest, _conf, _last), _conf,_stackCall);
+    public static Struct calculatedValue(ExecOperSymbol _symbol, Struct _left, Struct _right, ContextEl _conf, AbstractStackCall _stackCall, IntAbstractPageEl _last) {
+        return _symbol.afterCalculateExc(_symbol.calculateOperator(_left, _right, _conf, _last), _conf,_stackCall);
     }
     public Struct calculated(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        return calculatedValue(symbol,ArgumentListCall.toStr(getFirstArgument(_nodes,this)), ArgumentListCall.toStr(getLastArgument(_nodes,this)), getResultClass().getUnwrapObjectNb(),_conf,_stack, _stack.getLastPage());
+        return calculatedValue(symbol,ArgumentListCall.toStr(getFirstArgument(_nodes,this)), ArgumentListCall.toStr(getLastArgument(_nodes,this)), _conf,_stack, _stack.getLastPage());
     }
 
     public Struct calculated(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, AbstractPageEl _page) {
-        return symbol.calculateOperator(ArgumentListCall.toStr(getFirstArgument(_nodes,this)), ArgumentListCall.toStr(getLastArgument(_nodes,this)), getResultClass().getUnwrapObjectNb(), _conf, _page);
+        return symbol.calculateOperator(ArgumentListCall.toStr(getFirstArgument(_nodes,this)), ArgumentListCall.toStr(getLastArgument(_nodes,this)), _conf, _page);
     }
 
     public Struct leftArg(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         return NumParsers.unwrapObject(getResultClass().getUnwrapObjectNb(),ArgumentListCall.toStr(getFirstArgument(_nodes,this)));
     }
 
+    public ExecOperSymbol getSymbol() {
+        return symbol;
+    }
 }

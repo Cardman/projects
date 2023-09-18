@@ -22,7 +22,7 @@ public final class ReachNumericOperation extends ReachMethodOperation implements
         CustList<ReachOperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.first().getArgument();
         Argument c_ = chidren_.last().getArgument();
-        Argument r_ = new Argument(symbol.calculateOperator(a_.getStruct(),c_.getStruct(), getResultClass().getUnwrapObjectNb(), _page));
+        Argument r_ = new Argument(symbol.calculateOperator(a_.getStruct(),c_.getStruct(), _page));
         if (r_.isNull()) {
             return;
         }

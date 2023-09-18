@@ -3,10 +3,14 @@ package code.expressionlanguage.options;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.SymbolFactoryUtil;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.*;
+import code.expressionlanguage.common.symbol.CommonOperNullSafe;
 import code.expressionlanguage.exec.AbsStackStopper;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.DefStackStopper;
@@ -16,6 +20,7 @@ import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
@@ -147,6 +152,61 @@ public final class ResultContext {
 
     public void toggleWatch(boolean _trField, SynthFieldInfo _field) {
         getContext().toggleWatch(_trField, _field);
+    }
+    public OperNatPointBlockPair toggleOperNatPoint(String _symbol,String _first, String _second) {
+        OperNatPointBlockPair o_ = resolve(_symbol, _first, _second);
+        if (o_ == null) {
+            return getContext().operNatDisabled();
+        }
+        return getContext().toggleOperNat(o_);
+    }
+    public OperNatPointBlockPair toggleEnableOperNatPoint(String _symbol,String _first, String _second) {
+        OperNatPointBlockPair o_ = resolve(_symbol, _first, _second);
+        if (o_ == null) {
+            return getContext().operNatDisabled();
+        }
+        return getContext().toggleEnableOperNat(o_);
+    }
+    private OperNatPointBlockPair resolve(String _symbol,String _first, String _second) {
+        if (koType(_first)) {
+            return null;
+        }
+        ResultOperand res_;
+        if (_second.trim().isEmpty()) {
+            res_ = SymbolFactoryUtil.generateOperand(_symbol,new AnaClassArgumentMatching(_first),getPageEl());
+        } else {
+            if (koType(_second)) {
+                return null;
+            }
+            res_ = SymbolFactoryUtil.generateOperand(_symbol,new AnaClassArgumentMatching(_first),new AnaClassArgumentMatching(_second),getPageEl());
+        }
+        String k_;
+        if (res_.isDefConcat()) {
+            k_ = "+";
+        } else {
+            k_ = res_.getSgn();
+        }
+        if (k_.isEmpty()) {
+            return null;
+        }
+        OperNatPointBlockPair o_;
+        if (_second.trim().isEmpty()) {
+            o_ = operNat(k_, res_.getFirst(), "");
+        } else {
+            o_ = operNat(k_, res_.getFirst(), res_.getSecond());
+        }
+        if (!_second.trim().isEmpty()) {
+            o_.getValue().setEnabledAffect(StringExpUtil.isLogical(_symbol) || StringExpUtil.isBinNum(_symbol) || StringExpUtil.isBitwise(_symbol) || StringExpUtil.isShiftOper(_symbol) || res_.getSymbol() instanceof CommonOperNullSafe);
+        }
+        return o_;
+    }
+    private boolean koType(String _second) {
+        StandardType secondMain_ = getPageEl().getStandardsTypes().getVal(_second);
+        PrimitiveType secondPr_ = getPageEl().getPrimitiveTypes().getVal(_second);
+        return secondMain_ == null && secondPr_ == null;
+    }
+    public OperNatPointBlockPair operNat(String _k, String _f, String _s) {
+        return getContext().operNat(_k, _f, _s);
     }
 
     public MethodPointBlockPair method(DisplayedStrings _d, MemberCallingsBlock _id) {

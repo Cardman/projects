@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.CmpOperation;
 import code.expressionlanguage.common.symbol.CommonOperSymbol;
+import code.expressionlanguage.common.symbol.SymbolConstants;
 import code.util.CustList;
 
 public final class ReachCmpOperation extends ReachMethodOperation implements ReachCalculable {
@@ -33,7 +34,7 @@ public final class ReachCmpOperation extends ReachMethodOperation implements Rea
         }
         Argument first_ = ch_.first().getArgument();
         Argument second_ = ch_.last().getArgument();
-        Argument arg_ = new Argument(symbol.calculateOperator(first_.getStruct(), second_.getStruct(),(byte)0));
+        Argument arg_ = new Argument(SymbolConstants.calculateOperator(symbol, first_.getStruct(), second_.getStruct()));
         setSimpleArgumentAna(arg_);
     }
 }

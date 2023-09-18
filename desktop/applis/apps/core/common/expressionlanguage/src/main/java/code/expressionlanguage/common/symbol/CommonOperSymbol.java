@@ -4,5 +4,6 @@ import code.expressionlanguage.structs.Struct;
 
 public interface CommonOperSymbol {
     Struct calculateOperator(
-            Struct _first, Struct _second, byte _cast);
+            Struct _first, Struct _second);
+    String getSgn();
 }

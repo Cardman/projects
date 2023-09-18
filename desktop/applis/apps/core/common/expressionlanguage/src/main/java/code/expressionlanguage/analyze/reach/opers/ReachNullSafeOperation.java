@@ -23,7 +23,7 @@ public final class ReachNullSafeOperation extends ReachMethodOperation implement
         }
         Struct value_ = Argument.getNull(Argument.getNullable(s_));
         Struct v_ = f_.getStruct();
-        Struct res_ = new CommonOperNullSafe().calculateOperator(v_, value_, (byte) 0);
+        Struct res_ = new CommonOperNullSafe().calculateOperator(v_, value_);
         if (res_ != NullStruct.NULL_VALUE) {
             setSimpleArgumentAna(new Argument(res_));
         }

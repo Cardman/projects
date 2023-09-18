@@ -17,14 +17,19 @@ public final class ExecOperNull implements ExecOperSymbol{
         this.names = _n;
     }
     @Override
-    public Struct calculateOperator(Struct _first, Struct _second, byte _cast, ContextEl _cont, IntAbstractPageEl _stackCall) {
-        Struct res_ = symbol.calculateOperator(_first, _second, _cast);
+    public Struct calculateOperator(Struct _first, Struct _second, ContextEl _cont, IntAbstractPageEl _stackCall) {
+        Struct res_ = symbol.calculateOperator(_first, _second);
         return ExecClassArgumentMatching.convertFormatted(res_,_cont,names,_stackCall);
     }
 
     @Override
     public Struct afterCalculateExc(Struct _str, ContextEl _cont, AbstractStackCall _stackCall) {
         return _str;
+    }
+
+    @Override
+    public String getSgn() {
+        return symbol.getSgn();
     }
 
 }

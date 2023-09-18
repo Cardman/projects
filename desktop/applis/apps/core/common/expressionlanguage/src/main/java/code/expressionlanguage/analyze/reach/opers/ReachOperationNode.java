@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.symbols.AnaOperCat;
 import code.expressionlanguage.analyze.symbols.AnaOperDir;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.stds.StandardMethod;
 
@@ -251,9 +250,6 @@ public abstract class ReachOperationNode {
 
     public OperationNode getInfo() {
         return info;
-    }
-    public AnaClassArgumentMatching getResultClass() {
-        return info.getResultClass();
     }
 
     public int getIndexChild() {

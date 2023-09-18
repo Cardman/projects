@@ -13,7 +13,6 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
 import code.expressionlanguage.exec.opers.CompoundedOperator;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
@@ -343,9 +342,6 @@ public abstract class RendDynOperationNode {
             return _nodes.get(_index);
         }
         return null;
-    }
-    public final ExecClassArgumentMatching getResultClass() {
-        return content.getResultClass();
     }
 
     public final RendPossibleIntermediateDotted getSiblingSet() {

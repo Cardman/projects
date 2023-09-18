@@ -131,6 +131,11 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     }
 
     @Override
+    public AbsCollection<OperNatPointBlockPair> newOperNatPointKeyStringCollection() {
+        return new ConcMap<OperNatPointBlockPair>(new OperNatKeyString(), this);
+    }
+
+    @Override
     public AbsCollection<EntryCust<String, Integer>> newStringNumberCollection() {
         return new ConcList<EntryCust<String, Integer>>(new EntryCustKeyString(),this);
     }

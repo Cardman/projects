@@ -28,6 +28,7 @@ public interface AbstractInterceptorStdCaller {
     AbsCollection<AbsCallContraints> newExecFileBlockTraceIndexCollection();
     AbsCollection<MethodPointBlockPair> newMethodPointKeyStringCollection();
     AbsCollection<StdMethodPointBlockPair> newStdMethodPointKeyStringCollection();
+    AbsCollection<OperNatPointBlockPair> newOperNatPointKeyStringCollection();
     AbstractAtomicBoolean newAtBool();
     AbstractAtomicInteger newAtInt();
     AbstractAtomicRef<StrResultContextLambda> newAtLda();
