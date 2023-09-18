@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
@@ -537,6 +538,8 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         OperNatCheckedExecOperationNodeInfos infos_;
         if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null) {
             infos_ = null;
+        } else if (p_ instanceof LambdaMethodWithoutInfo) {
+            infos_ = reflectLambdaMethodWithoutInfoNat(_context, (LambdaMethodWithoutInfo) p_);
         } else if (!p_.isEmptyEl()){
             ExpressionLanguage el_ = p_.getLastEl();
             infos_ = expOperNat(el_, el_.getCurrentOper(), _context, p_);
@@ -802,6 +805,17 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             return null;
         }
         return callDynArr(_context,_p.getName(), _p.getInstance(), _p.getArguments());
+    }
+
+    private static OperNatCheckedExecOperationNodeInfos reflectLambdaMethodWithoutInfoNat(ContextEl _context, LambdaMethodWithoutInfo _p) {
+        if (!_p.isCheckElement()) {
+            return null;
+        }
+        CommonOperSymbol c_ = _p.current();
+        if (c_ != null) {
+            return new OperNatCheckedExecOperationNodeInfos(_context,c_.getSgn(),OperNatPoint.BPC_SIMPLE,ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_p.getArguments().getArgumentWrappers())).getStruct(),ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(_p.getArguments().getArgumentWrappers())).getStruct());
+        }
+        return null;
     }
 
     private static CoreCheckedExecOperationNodeInfos reflectLambdaMethodWithoutInfoPar(ContextEl _context, LambdaMethodWithoutInfo _p) {

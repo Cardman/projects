@@ -3625,6 +3625,14 @@ public final class RenderTextTest extends CommonRender {
         assertEq("<html><body>2</body></html>", getRes2(folder_, relative_, html_, files_));
     }
     @Test
+    public void process____Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className='$var' value='i=1.$lambda($operator,$int,+,$int).call(2)'/>{i}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        assertEq("<html><body>3</body></html>", getRes2(folder_, relative_, html_, files_));
+    }
+    @Test
     public void process150Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";

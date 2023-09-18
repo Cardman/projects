@@ -2,11 +2,16 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.symbol.CommonOperSymbol;
+import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.MethodLambdaParentRetriever;
 import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.inherits.RangeChecker;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
+import code.expressionlanguage.exec.opers.ExecCompoundAffectationStringOperation;
+import code.expressionlanguage.exec.symbols.ExecOperDir;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LambdaMethodStruct;
@@ -37,7 +42,7 @@ public final class LambdaMethodWithoutInfo extends AbstractBasicReflectPageEl {
             return false;
         }
         checkElement = false;
-        Argument arg_ = arrMethods(_context, lambdaMethodStruct.getMethodName(), methodLambdaParentRetriever.getParent(), methodLambdaParentRetriever.getArray(), _stack);
+        Argument arg_ = arrMethods(_context, lambdaMethodStruct.getOperSymbol(), lambdaMethodStruct.getMethodName(), methodLambdaParentRetriever.getParent(), methodLambdaParentRetriever.getArray(), _stack);
         if (_context.callsOrException(_stack)) {
             return false;
         }
@@ -75,7 +80,14 @@ public final class LambdaMethodWithoutInfo extends AbstractBasicReflectPageEl {
         return checkElement;
     }
 
-    private static Argument arrMethods(ContextEl _conf, String _l, Struct _instance, ArgumentListCall _call, StackCall _stackCall) {
+    public CommonOperSymbol current() {
+        return lambdaMethodStruct.getOperSymbol();
+    }
+    private static Argument arrMethods(ContextEl _conf, CommonOperSymbol _operSymbol, String _l, Struct _instance, ArgumentListCall _call, StackCall _stackCall) {
+        if (_operSymbol != null) {
+            ExecOperDir e_ = new ExecOperDir(_operSymbol);
+            return ArgumentListCall.toStr(ExecCompoundAffectationStringOperation.calculatedValue(e_,ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_call.getArgumentWrappers())).getStruct(), ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(_call.getArgumentWrappers())).getStruct(), _conf,_stackCall, _stackCall.getLastPage()));
+        }
         CustList<Argument> arguments_ = _call.getArguments();
         if (arguments_.isEmpty()) {
             return new Argument(new IntStruct(ExecArrayFieldOperation.getLength(_instance, _conf)));

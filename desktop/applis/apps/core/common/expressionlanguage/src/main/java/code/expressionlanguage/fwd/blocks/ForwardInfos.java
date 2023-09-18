@@ -1715,6 +1715,11 @@ public final class ForwardInfos {
 
     private static ExecAbstractLambdaOperation buildLambda(LambdaOperation _anaNode, Forwards _forwards) {
         ExecLambdaCommonContent lamCont_ = new ExecLambdaCommonContent(_anaNode.getLambdaCommonContent(), _forwards);
+        if (_anaNode.getVirtualCall() != null) {
+            ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(_anaNode.getLambdaMemberNumberContentId(), _forwards);
+            ExecLambdaMethodContent lambdaMethodContent_ = new ExecLambdaMethodContent(_anaNode.getMethod().getConstraints(), _anaNode.getLambdaMethodContent(), pair_);
+            return new ExecNativeOperatorLambdaOperation(new ExecOperationContent(_anaNode.getContent()),lamCont_,lambdaMethodContent_,_anaNode.getVirtualCall());
+        }
         if (_anaNode.getStandardMethod() != null) {
             return new ExecStdMethodLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, _anaNode.getMethod(), _anaNode.getStandardMethod());
         }

@@ -1610,6 +1610,37 @@ public abstract class OperationNode {
         return methods_;
     }
 
+    protected static CustList<CustList<MethodInfo>>
+    getDeclaredCustMethodByTypeNative(AnalyzedPageEl _page, String _operator, String _from, StringList _methodTypes) {
+        if (_methodTypes.isEmpty()) {
+            return new CustList<CustList<MethodInfo>>();
+        }
+        if (_methodTypes.size() == 1) {
+            ResultOperand res_ = SymbolFactoryUtil.generateOperand(_operator, new AnaClassArgumentMatching(_methodTypes.get(0)), _page);
+            if (skip(res_)) {
+                return new CustList<CustList<MethodInfo>>();
+            }
+            CustList<CustList<MethodInfo>> group_ = new CustList<CustList<MethodInfo>>();
+            CustList<MethodInfo> ls_ = new CustList<MethodInfo>();
+            addVirtual(_operator,_page,ls_,_from,res_.getResult().getSingleNameOrEmpty(),_methodTypes,res_.getSymbol());
+            group_.add(ls_);
+            return group_;
+        }
+        ResultOperand res_ = SymbolFactoryUtil.generateOperand(_operator,new AnaClassArgumentMatching(_methodTypes.get(0)),new AnaClassArgumentMatching(_methodTypes.get(1)),_page);
+        if (skip(res_)) {
+            return new CustList<CustList<MethodInfo>>();
+        }
+        CustList<CustList<MethodInfo>> group_ = new CustList<CustList<MethodInfo>>();
+        CustList<MethodInfo> ls_ = new CustList<MethodInfo>();
+        addVirtual(_operator,_page,ls_,_from,res_.getResult().getSingleNameOrEmpty(),_methodTypes,res_.getSymbol());
+        group_.add(ls_);
+        return group_;
+    }
+
+    private static boolean skip(ResultOperand _res) {
+        return _res.getResult().getSingleNameOrEmpty().isEmpty() || _res.isDefConcat();
+    }
+
     private static void addStaticCallImports(String _name, AnalyzedPageEl _page, ScopeFilter _sc, FormattedFilter _formattedFilter, CustList<CustList<MethodInfo>> _methods) {
         String stCall_ = _formattedFilter.getStCall();
         if (StringUtil.quickEq(stCall_,"<>")) {

@@ -15,6 +15,7 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.opers.AnaLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.AnaLambdaFieldContent;
@@ -66,6 +67,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private final CustList<AnaFormattedRootBlock> sups = new CustList<AnaFormattedRootBlock>();
     private final CustList<AnaResultPartTypeDtoInt> partsInstInitInterfaces = new CustList<AnaResultPartTypeDtoInt>();
     private CstFieldInfo cstFieldInfo;
+    private CommonOperSymbol virtualCall;
 
     public LambdaOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -2355,17 +2357,26 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         lambdaCommonContent.setFoundFormatted(_id.getFormattedType());
         lambdaCommonContent.setAncestor(_id.getAncestor());
         lambdaMethodContent.setAbstractMethod(_id.isAbstractMethod());
+        virtualCall = _id.getVirtualCall();
     }
 
     private ClassMethodIdReturn getOperator(String _from, StringList _methodTypes, String _operator, int _vararg, ClassMethodId _feed, AnalyzedPageEl _page) {
         if (!_from.isEmpty()) {
-            if (_feed == null) {
-                return getCustResultLambda(fetchVarargOnly(-1, null), getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(_from), _operator, false, _page, new ScopeFilter(null, true, false, false, _page.getGlobalType().getRootBlock()), new FormattedFilter()), _operator, _page, _methodTypes);
+            ClassMethodIdReturn fr_ = noFrom(_from, _methodTypes, _operator, _feed, _page);
+            if (fr_ == null) {
+                return getCustResultLambda(-1,getDeclaredCustMethodByTypeNative(_page,_operator,_from,_methodTypes),_operator,_page,_methodTypes);
             }
-            ClassMethodIdAncestor uniqueId_ = new ClassMethodIdAncestor(staticAccess,_feed, 0);
-            return getCustResultLambda(fetchVarargOnly(-1, uniqueId_), getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(_from), _operator, false, _page, new ScopeFilter(uniqueId_, true, false, false, _page.getGlobalType().getRootBlock()), new FormattedFilter()), _operator, _page, _methodTypes);
+            return fr_;
         }
         return getOperatorLambda(_feed, _vararg, _operator, _page, _methodTypes);
+    }
+
+    private ClassMethodIdReturn noFrom(String _from, StringList _methodTypes, String _operator, ClassMethodId _feed, AnalyzedPageEl _page) {
+        if (_feed == null) {
+            return getCustResultLambda(fetchVarargOnly(-1, null), getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(_from), _operator, false, _page, new ScopeFilter(null, true, false, false, _page.getGlobalType().getRootBlock()), new FormattedFilter()), _operator, _page, _methodTypes);
+        }
+        ClassMethodIdAncestor uniqueId_ = new ClassMethodIdAncestor(staticAccess, _feed, 0);
+        return getCustResultLambda(fetchVarargOnly(-1, uniqueId_), getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(_from), _operator, false, _page, new ScopeFilter(uniqueId_, true, false, false, _page.getGlobalType().getRootBlock()), new FormattedFilter()), _operator, _page, _methodTypes);
     }
 
     private void processArray(StringList _args, int _len,
@@ -2663,5 +2674,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public int getMemberOffset() {
         return memberOffset;
+    }
+
+    public CommonOperSymbol getVirtualCall() {
+        return virtualCall;
     }
 }

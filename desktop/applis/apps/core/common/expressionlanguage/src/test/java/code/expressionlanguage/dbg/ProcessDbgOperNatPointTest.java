@@ -503,6 +503,20 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         cont_.toggleEnableOperNatPoint("%","int","int");
         assertTrue(cont_.toggleEnableOperNatPoint("+","int","int").getValue().isEnabled());
     }
+    @Test
+    public void test41() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){var t = 8.$lambda(operator,int,%,int);int u = 3;return t.call(u);}}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        std(cont_,"%","int","int",true,false);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(2, stack_.nbPages());
+        assertEq(105, stack_.getCall(0).getTraceIndex());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
     private void stdSimpleConditionEmpty(ResultContext _cont, String _condition, String _symbol,String _first, boolean _simple, boolean _compound) {
         OperNatPointBlockPair p_ = stdEmpty(_cont, _symbol, _first, _simple, _compound);
         OperNatPoint wp_ = p_.getValue();
