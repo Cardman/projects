@@ -86,7 +86,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         ExecTypeFunction pair_ = metaInfo.getPair();
         ExecRootBlock execSuperClass_ = pair_.getType();
         if (execSuperClass_ != null) {
-            arg_ = new ReflectInstanceParamChecker(pair_, arrRef, "", -1,_delta).checkParams(res_, _previous, null, _context, _stack);
+            new ReflectInstanceParamChecker(pair_, arrRef, "", -1,_delta).checkParams(res_, _previous, null, _context, _stack);
         }
         if (metaInfo.getStandardType() != null) {
             ArgumentListCall l_ = ArgumentListCall.wrapCall(_args.listArgs());

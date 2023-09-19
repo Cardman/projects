@@ -11,6 +11,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
+import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 import code.util.core.StringUtil;
@@ -36,7 +37,8 @@ public final class RendStaticFctOperation extends RendSettableCallFctOperation i
 //        Argument prev_ = new Argument();
         ArgumentListCall args_ = ExecInvokingOperation.fectchArgs(lastType_, staticFctContent.getNaturalVararg(), _context, _rendStack.getStackCall(), buildInfos(_nodes));
         getArgumentPair(_nodes,this).setArgumentList(args_.getArgumentWrappers());
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecStaticFctOperation.prep(_context,_rendStack.getStackCall(),classNameFound_, staticFctContent,pair, args_), _context, _rendStack);
+        ExecStaticFctOperation.prep(_context,_rendStack.getStackCall(),classNameFound_, staticFctContent,pair, args_);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ArgumentListCall.toStr(NullStruct.NULL_VALUE), _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 

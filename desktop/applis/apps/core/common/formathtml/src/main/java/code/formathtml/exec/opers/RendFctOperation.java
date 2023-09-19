@@ -12,6 +12,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunctionInst;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 
@@ -32,8 +33,8 @@ public final class RendFctOperation extends RendSettableCallFctOperation impleme
         ArgumentListCall args_ = ExecInvokingOperation.fetchFormattedArgs(_context, _rendStack.getStackCall(), parent_.getStruct(), inst, buildInfos(_nodes));
         getArgumentPair(_nodes,this).setArgumentParent(parent_);
         getArgumentPair(_nodes,this).setArgumentList(args_.getArgumentWrappers());
-        Argument result_ = ExecFctOperation.prep(_context,_rendStack.getStackCall(), inst, parent_, args_);
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _rendStack);
+        ExecFctOperation.prep(_context,_rendStack.getStackCall(), inst, parent_, args_);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ArgumentListCall.toStr(NullStruct.NULL_VALUE), _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 

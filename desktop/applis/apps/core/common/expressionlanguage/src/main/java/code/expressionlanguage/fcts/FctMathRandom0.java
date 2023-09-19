@@ -42,7 +42,8 @@ public final class FctMathRandom0 extends FctMath {
             LambdaStruct lda_ = AbstractFormatParamChecker.matchAbstract(seedSpec_, meth_);
             if (lda_ != null) {
                 Argument fct_ = new Argument(lda_);
-                return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,new ArrayStruct(0,""),0,_cont, _stackCall).getStruct());
+                ExecInvokingOperation.prepareCallDynReflect(fct_,new ArrayStruct(0,""),0,_cont, _stackCall);
+                return new ArgumentWrapper(NullStruct.NULL_VALUE);
             }
             ExecTemplates.wrapAndCall(p_, cl_,argSeedSpec_, _cont, _stackCall, new ArgumentListCall());
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
@@ -61,7 +62,8 @@ public final class FctMathRandom0 extends FctMath {
             LambdaStruct lda_ = AbstractFormatParamChecker.matchAbstract(seed_, meth_);
             if (lda_ != null) {
                 Argument fct_ = new Argument(lda_);
-                return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,new ArrayStruct(0,""),0,_cont, _stackCall).getStruct());
+                ExecInvokingOperation.prepareCallDynReflect(fct_,new ArrayStruct(0,""),0,_cont, _stackCall);
+                return new ArgumentWrapper(NullStruct.NULL_VALUE);
             }
             ExecTemplates.wrapAndCall(p_, cl_,argSeed_, _cont, _stackCall, new ArgumentListCall());
             return new ArgumentWrapper(NullStruct.NULL_VALUE);

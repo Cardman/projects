@@ -13,6 +13,7 @@ import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -40,8 +41,8 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
             return;
         }
         ArgumentList argumentList_ = list(_nodes);
-        Argument res_ = prepareCallDynNormal(previous_, argumentList_.getArguments(), _conf, _stack);
-        setCheckedResult(res_, _conf, _nodes, _stack);
+        prepareCallDynNormal(previous_, argumentList_.getArguments(), _conf, _stack);
+        setCheckedResult(ArgumentListCall.toStr(NullStruct.NULL_VALUE), _conf, _nodes, _stack);
     }
 
     @Override

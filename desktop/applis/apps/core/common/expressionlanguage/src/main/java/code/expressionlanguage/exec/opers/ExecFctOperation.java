@@ -18,6 +18,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunctionInst;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
@@ -40,8 +41,8 @@ public final class ExecFctOperation extends ExecSettableCallFctOperation {
         Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
         setRelOffsetPossibleLastPage(inst.getInst().getMethodName(), _stack);
         Argument parent_ = new Argument(ExecFieldTemplates.getParent(inst.getInst().getAnc(), previous_.getStruct(), _conf, _stack));
-        Argument res_ = prep(_conf, _stack, inst, parent_, fetchFormattedArgs(_conf, _stack, parent_.getStruct(), inst, buildInfos(_nodes)));
-        setCheckedResult(res_, _conf, _nodes, _stack);
+        prep(_conf, _stack, inst, parent_, fetchFormattedArgs(_conf, _stack, parent_.getStruct(), inst, buildInfos(_nodes)));
+        setCheckedResult(ArgumentListCall.toStr(NullStruct.NULL_VALUE), _conf, _nodes, _stack);
     }
 
     public Struct instance(IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _last) {
@@ -60,19 +61,13 @@ public final class ExecFctOperation extends ExecSettableCallFctOperation {
         return new ExecFormattedRootBlock(_classNameFound, sup_);
     }
 
-    public static Argument prep(ContextEl _conf, StackCall _stack, ExecTypeFunctionInst _inst, Argument _parent, ArgumentListCall _args) {
+    public static void prep(ContextEl _conf, StackCall _stack, ExecTypeFunctionInst _inst, Argument _parent, ArgumentListCall _args) {
         ExecFormattedRootBlock formattedType_ = _inst.getInst().getFormattedType();
-        Argument res_;
-        if (_conf.callsOrException(_stack)) {
-            res_ = new Argument();
-        } else {
-            Struct pr_ = _parent.getStruct();
-            ExecOverrideInfo polymorph_ = polymorphOrSuper(_inst.getInst().isStaticChoiceMethod(), _conf, pr_, formattedType_, _inst.getPair());
-            ExecTypeFunction pair_ = polymorph_.getPair();
-            ExecFormattedRootBlock classNameFound_ = polymorph_.getClassName();
-            res_ = new MethodParamChecker(pair_, _args, MethodAccessKind.INSTANCE).checkParams(classNameFound_, _parent, null, _conf, _stack);
-        }
-        return res_;
+        Struct pr_ = _parent.getStruct();
+        ExecOverrideInfo polymorph_ = polymorphOrSuper(_inst.getInst().isStaticChoiceMethod(), _conf, pr_, formattedType_, _inst.getPair());
+        ExecTypeFunction pair_ = polymorph_.getPair();
+        ExecFormattedRootBlock classNameFound_ = polymorph_.getClassName();
+        new MethodParamChecker(pair_, _args, MethodAccessKind.INSTANCE).checkParams(classNameFound_, _parent, null, _conf, _stack);
     }
 
     public ExecTypeFunctionInst getInst() {

@@ -14,6 +14,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunctionInst;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -33,8 +34,8 @@ public final class ExecCustArrReadOperation extends ExecSettableCallFctOperation
         Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
         Struct parent_ = ExecFieldTemplates.getParent(instRead.getInst().getAnc(), previous_.getStruct(), _conf, _stack);
         ArgumentListCall argumentListCall_ = fetchFormattedArgs(_conf, _stack, parent_, instRead, infos_);
-        Argument res_ = ExecCustArrOperation.getArgument(this,_conf, _stack,instRead, ArgumentListCall.wrapCall(argumentListCall_.getArgumentWrappers(),null), parent_);
-        setCheckedResult(res_, _conf, _nodes, _stack);
+        ExecCustArrOperation.getArgument(this,_conf, _stack,instRead, ArgumentListCall.wrapCall(argumentListCall_.getArgumentWrappers(),null), parent_);
+        setCheckedResult(ArgumentListCall.toStr(NullStruct.NULL_VALUE), _conf, _nodes, _stack);
     }
     public Struct instance(IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _last) {
         return ExecOperationNode.instance(this,instRead.getInst().getAnc(), _nodes, _last);

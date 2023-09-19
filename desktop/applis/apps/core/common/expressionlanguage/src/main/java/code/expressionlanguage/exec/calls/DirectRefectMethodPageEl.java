@@ -9,7 +9,9 @@ import code.expressionlanguage.exec.calls.util.ArrayRefState;
 import code.expressionlanguage.exec.inherits.AbstractParamChecker;
 import code.expressionlanguage.exec.inherits.ReflectMethodParamChecker;
 import code.expressionlanguage.exec.inherits.SwitchParamChecker;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.MethodMetaInfo;
+import code.expressionlanguage.structs.NullStruct;
 
 public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
@@ -25,7 +27,8 @@ public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
         } else {
             ab_ = new ReflectMethodParamChecker(getPair(), _args, _right, getAccessKind());
         }
-        return ab_.checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, _stack);
+        ab_.checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, _stack);
+        return ArgumentListCall.toStr(NullStruct.NULL_VALUE);
     }
 
     @Override

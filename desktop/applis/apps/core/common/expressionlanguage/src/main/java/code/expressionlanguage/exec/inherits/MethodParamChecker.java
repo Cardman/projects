@@ -24,8 +24,8 @@ public final class MethodParamChecker extends AbstractFormatParamChecker {
     }
 
     @Override
-    public Argument redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
-        return redir(_conf, _previous, _stackCall, _classFormat, method, args, pair);
+    public void redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
+        redir(_conf, _previous, _stackCall, _classFormat, method, args, pair);
     }
 
     @Override

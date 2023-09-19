@@ -26,15 +26,15 @@ public abstract class AbstractFormatParamChecker extends AbstractParamChecker {
         this.kind = _kind;
     }
 
-    protected static Argument redir(ContextEl _conf, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat, ExecNamedFunctionBlock _method, ArgumentListCall _args, ExecTypeFunction _pair) {
+    protected static void redir(ContextEl _conf, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat, ExecNamedFunctionBlock _method, ArgumentListCall _args, ExecTypeFunction _pair) {
         Struct prev_ = _previous.getStruct();
         LambdaStruct lda_ = matchAbstract(prev_, _method);
         if (lda_ != null) {
             Argument fctInst_ = new Argument(lda_);
-            return AbstractParamChecker.prepareCallDyn(fctInst_, _args,0, _conf, _stackCall);
+            AbstractParamChecker.prepareCallDyn(fctInst_, _args,0, _conf, _stackCall);
+            return;
         }
         _stackCall.setCallingState(new CustomFoundMethod(_previous, _classFormat.getFormattedClass(), _pair, _classFormat.getParameters()));
-        return Argument.createVoid();
     }
 
     protected static Parameters getParameters(ExecFormattedRootBlock _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall, ExecNamedFunctionBlock _method, ArgumentListCall _args) {

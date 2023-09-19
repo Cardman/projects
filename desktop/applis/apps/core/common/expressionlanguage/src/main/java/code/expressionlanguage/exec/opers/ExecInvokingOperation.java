@@ -198,12 +198,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return Argument.createVoid();
     }
 
-    public static Argument prepareCallDynReflect(Argument _previous, ArrayStruct _values, int _ref, ContextEl _conf, StackCall _stackCall) {
+    public static void prepareCallDynReflect(Argument _previous, ArrayStruct _values, int _ref, ContextEl _conf, StackCall _stackCall) {
         CustList<String> paramsFct_ = paramsFct(_previous, _conf);
         CustomFoundExc c_ = foundExc(_values, _conf, _stackCall, paramsFct_);
         if (c_ != null) {
             _stackCall.setCallingState(c_);
-            return new Argument();
+            return;
         }
         ArgumentListCall argumentListCall_ = new ArgumentListCall();
         int i_ = 0;
@@ -216,7 +216,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             i_++;
         }
-        return AbstractParamChecker.prepareCallDyn(_previous,argumentListCall_,_ref,_conf, _stackCall);
+        AbstractParamChecker.prepareCallDyn(_previous,argumentListCall_,_ref,_conf, _stackCall);
     }
     public static CustomFoundExc foundExc(ArrayStruct _values, ContextEl _conf, StackCall _stackCall, CustList<String> _params) {
         int valuesSize_ = _values.getLength();
@@ -265,24 +265,25 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return -1;
     }
 
-    public static Argument prepareCallDynNormal(Argument _previous, ArgumentListCall _values, ContextEl _conf, StackCall _stackCall) {
+    public static void prepareCallDynNormal(Argument _previous, ArgumentListCall _values, ContextEl _conf, StackCall _stackCall) {
         Struct ls_ = Argument.getNullableValue(_previous).getStruct();
         ArgumentListCall call_ = new ArgumentListCall();
         if (!(ls_ instanceof LambdaStruct)) {
-            return AbstractParamChecker.prepareCallDyn(_previous,call_,0,_conf, _stackCall);
+            AbstractParamChecker.prepareCallDyn(_previous,call_,0,_conf, _stackCall);
+            return;
         }
-        return prepareCallDynNormalDefault(_previous, _values.getArgumentWrappers(), _conf, _stackCall);
+        prepareCallDynNormalDefault(_previous, _values.getArgumentWrappers(), _conf, _stackCall);
     }
 
-    private static Argument prepareCallDynNormalDefault(Argument _previous, CustList<ArgumentWrapper> _values, ContextEl _conf, StackCall _stackCall) {
+    private static void prepareCallDynNormalDefault(Argument _previous, CustList<ArgumentWrapper> _values, ContextEl _conf, StackCall _stackCall) {
         CustomFoundExc ex_ = foundExc(_previous, _values, _conf, _stackCall);
         if (ex_ != null) {
             _stackCall.setCallingState(ex_);
-            return Argument.createVoid();
+            return;
         }
         ArgumentListCall call_ = new ArgumentListCall();
         call_.getArgumentWrappers().addAllElts(_values);
-        return AbstractParamChecker.prepareCallDyn(_previous, call_,0, _conf, _stackCall);
+        AbstractParamChecker.prepareCallDyn(_previous, call_,0, _conf, _stackCall);
     }
 
     public static CustomFoundExc foundExc(Argument _previous, CustList<ArgumentWrapper> _values, ContextEl _conf, StackCall _stackCall) {

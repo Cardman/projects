@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
+import code.expressionlanguage.structs.NullStruct;
 
 public final class LambdaStaticCallMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
@@ -19,7 +20,8 @@ public final class LambdaStaticCallMethodPageEl extends AbstractRefectLambdaMeth
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
         MethodMetaInfo method_ = getMetaInfo();
         ExecFormattedRootBlock paramName_ = getClassName();
-        return new StaticCallParamChecker(getPair(), _list).checkParams(paramName_,Argument.createVoid(), method_.getCache(), _context, _stack);
+        new StaticCallParamChecker(getPair(), _list).checkParams(paramName_,Argument.createVoid(), method_.getCache(), _context, _stack);
+        return ArgumentListCall.toStr(NullStruct.NULL_VALUE);
     }
 
 }

@@ -21,10 +21,9 @@ public final class SwitchParamChecker extends AbstractFormatParamChecker {
     }
 
     @Override
-    public Argument redirect(ContextEl _context, ExecFormattedRootBlock _classNameFound, Argument _instance, StackCall _stack, FormattedParameters _formatted) {
+    public void redirect(ContextEl _context, ExecFormattedRootBlock _classNameFound, Argument _instance, StackCall _stack, FormattedParameters _formatted) {
         Parameters parameters_ = _formatted.getParameters();
         _stack.setCallingState(new CustomFoundSwitch(_instance, _formatted.getFormattedClass(), method, parameters_.getCache(), args.first()));
-        return Argument.createVoid();
     }
 
     @Override

@@ -12,6 +12,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
+import code.expressionlanguage.structs.NullStruct;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
@@ -36,16 +37,16 @@ public final class ExecStaticFctOperation extends ExecSettableCallFctOperation {
         Argument res_ = ParamCheckerUtil.tryInit(_conf,_stack, classNameFound_.getRootBlock());
         if (res_ == null) {
             String lastType_ = ExecFormattedRootBlock.formatLastType(classNameFound_,staticFctContent);
-            Argument resNext_ = prep(_conf, _stack, classNameFound_, staticFctContent, pair, fectchArgs(lastType_, staticFctContent.getNaturalVararg(), _conf, _stack, buildInfos(_nodes)));
-            setResult(resNext_, _conf, _nodes, _stack);
+            prep(_conf, _stack, classNameFound_, staticFctContent, pair, fectchArgs(lastType_, staticFctContent.getNaturalVararg(), _conf, _stack, buildInfos(_nodes)));
+            setResult(ArgumentListCall.toStr(NullStruct.NULL_VALUE), _conf, _nodes, _stack);
         } else {
             setResult(res_, _conf, _nodes, _stack);
         }
     }
 
-    public static Argument prep(ContextEl _conf, StackCall _stack, ExecFormattedRootBlock _classNameFound, ExecStaticFctContent _staticFctContent, ExecTypeFunction _pair, ArgumentListCall _args) {
+    public static void prep(ContextEl _conf, StackCall _stack, ExecFormattedRootBlock _classNameFound, ExecStaticFctContent _staticFctContent, ExecTypeFunction _pair, ArgumentListCall _args) {
         Argument prev_ = new Argument();
-        return new MethodParamChecker(_pair, _args, _staticFctContent.getKind()).checkParams(_classNameFound, prev_, null, _conf, _stack);
+        new MethodParamChecker(_pair, _args, _staticFctContent.getKind()).checkParams(_classNameFound, prev_, null, _conf, _stack);
     }
 
 

@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunctionPair;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
@@ -33,7 +34,8 @@ public final class ArrayCustWrapper extends ValueWrapper {
     }
 
     public Struct getValue(StackCall _stack, ContextEl _conf) {
-        return ExecCustArrOperation.redirect(_conf, _stack, readWrite.getInstRead(), parent,ArgumentListCall.wrapCall(ls,null)).getStruct();
+        ExecCustArrOperation.redirect(_conf, _stack, readWrite.getInstRead(), parent,ArgumentListCall.wrapCall(ls,null));
+        return NullStruct.NULL_VALUE;
     }
 
     @Override

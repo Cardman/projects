@@ -26,6 +26,7 @@ public final class FctLambdaCall extends FctReflection {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         ArrayStruct arr_ = (ArrayStruct) inst_;
-        return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(new Argument(_instance), arr_,ref, _cont, _stackCall).getStruct());
+        ExecInvokingOperation.prepareCallDynReflect(new Argument(_instance), arr_,ref, _cont, _stackCall);
+        return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

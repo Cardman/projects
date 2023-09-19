@@ -49,7 +49,7 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
         ExecTypeFunction pair_ = metaInfo.getPair();
         ExecRootBlock execSuperClass_ = pair_.getType();
         if (execSuperClass_ != null) {
-            argCtor_ = new InstanceParamChecker(pair_, array, "", -1).checkParams(res_, argument, null, _context, _stack);
+            new InstanceParamChecker(pair_, array, "", -1).checkParams(res_, argument, null, _context, _stack);
         }
         if (metaInfo.getStandardType() != null) {
             argCtor_ = ParamCheckerUtil.instancePrepareStd(_context, metaInfo.getStandardConstructor(), mid_, array, _stack).getValue();

@@ -624,9 +624,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         StackCall stackCall_ = getStackCall(cont_);
         addPage(ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), stackCall_);
-        SampleParamChecker sample_ = new SampleParamChecker();
         ExecInheritsAdv.checkQuick("","pkg.Ex<$int>",cont_, stackCall_);
-        sample_.checkParams(new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"),Argument.createVoid(),null, cont_, stackCall_);
         assertNotNull(getTrueException(stackCall_));
         stackCall_.setNullCallingState();
         ExecTemplates.okArgsSet(ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), null, l_, cont_, stackCall_);

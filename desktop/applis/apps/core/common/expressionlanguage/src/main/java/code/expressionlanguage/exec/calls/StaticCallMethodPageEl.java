@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.inherits.AbstractParamChecker;
 import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.inherits.ReflectStaticCallParamChecker;
 import code.expressionlanguage.exec.inherits.SwitchParamChecker;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -19,6 +20,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
+import code.expressionlanguage.structs.NullStruct;
 
 public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
 
@@ -53,7 +55,8 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
         } else {
             ab_ = new ReflectStaticCallParamChecker(pair_, _args);
         }
-        return ab_.checkParams(className_,Argument.createVoid(), cache_, _context, _stack);
+        ab_.checkParams(className_,Argument.createVoid(), cache_, _context, _stack);
+        return ArgumentListCall.toStr(NullStruct.NULL_VALUE);
     }
 
 }

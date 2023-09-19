@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.StandardNamedFunction;
+import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.exec.RendStackCall;
 import code.util.CustList;
 import code.util.IdMap;
@@ -35,7 +36,8 @@ public final class RendCallDynMethodOperation extends RendSettableCallFctOperati
             setSimpleArgument(res_, _nodes, _context, _rendStack);
             return;
         }
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecInvokingOperation.prepareCallDynNormal(previous_, fectchPosArgs(_nodes), _context, _rendStack.getStackCall()), _context, _rendStack);
+        ExecInvokingOperation.prepareCallDynNormal(previous_, fectchPosArgs(_nodes), _context, _rendStack.getStackCall());
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ArgumentListCall.toStr(NullStruct.NULL_VALUE), _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 

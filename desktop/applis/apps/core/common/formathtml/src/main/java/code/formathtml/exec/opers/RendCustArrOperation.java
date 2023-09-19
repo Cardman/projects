@@ -14,6 +14,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunctionInst;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunctionPair;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.CustList;
@@ -54,8 +55,8 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         }
         CustList<ArgumentWrapper> argumentList_ = getArgumentPair(_nodes, _ren).getArgumentList();
         Argument argumentParent_ = Argument.getNullableValue(getArgumentPair(_nodes, _ren).getArgumentParent());
-        Argument result_ = ExecCustArrOperation.redirect(_context, _rendStackCall.getStackCall(), _in, argumentParent_.getStruct(), ArgumentListCall.wrapCall(argumentList_,_right));
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _rendStackCall);
+        ExecCustArrOperation.redirect(_context, _rendStackCall.getStackCall(), _in, argumentParent_.getStruct(), ArgumentListCall.wrapCall(argumentList_,_right));
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ArgumentListCall.toStr(NullStruct.NULL_VALUE), _context, _rendStackCall);
         _ren.setSimpleArgument(argres_, _nodes, _context, _rendStackCall);
         return argres_.getValue();
     }

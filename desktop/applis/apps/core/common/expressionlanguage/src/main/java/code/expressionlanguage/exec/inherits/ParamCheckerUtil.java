@@ -57,16 +57,14 @@ public final class ParamCheckerUtil {
     }
 
     public static Argument prep(ContextEl _conf, StackCall _stack, Argument _previous, ExecFormattedRootBlock _className, CustList<ExecOperationInfo> _infos, ExecInstancingCustContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
-        Argument res_;
         if (_instancingCommonContent.getPair().getType() instanceof ExecRecordBlock) {
             CustList<Argument> arguments_ = getArguments(_infos);
             Argument prev_ = instance(_instancingCommonContent.getPair().getType(),_previous);
             _stack.setCallingState(new CustomFoundRecordConstructor(prev_,_className, _instancingCommonContent.getPair(),_instancingStdContent, arguments_));
-            res_ = Argument.createVoid();
         } else {
-            res_ = new InstanceParamChecker(_instancingCommonContent.getPair(), ExecInvokingOperation.fectchInstFormattedArgs(_className, _instancingCommonContent, _conf, _stack, _infos), _instancingStdContent.getFieldName(), _instancingStdContent.getBlockIndex()).checkParams(_className, _previous, null, _conf, _stack);
+            new InstanceParamChecker(_instancingCommonContent.getPair(), ExecInvokingOperation.fectchInstFormattedArgs(_className, _instancingCommonContent, _conf, _stack, _infos), _instancingStdContent.getFieldName(), _instancingStdContent.getBlockIndex()).checkParams(_className, _previous, null, _conf, _stack);
         }
-        return res_;
+        return ArgumentListCall.toStr(NullStruct.NULL_VALUE);
     }
 
     private static CustList<Argument> getArguments(CustList<ExecOperationInfo> _nodes) {
@@ -100,13 +98,10 @@ public final class ParamCheckerUtil {
     }
 
     public static Argument prep(ContextEl _conf, StackCall _stack, Argument _previous, ExecFormattedRootBlock _className, CustList<ExecOperationInfo> _infos, ExecInstancingCustContent _instancingCommonContent) {
-        Argument res_;
-        if (_conf.getExiting().hasToExit(_stack, _className.getRootBlock())) {
-            res_ = Argument.createVoid();
-        } else {
-            res_ = new InstanceParamChecker(_instancingCommonContent.getPair(), ExecInvokingOperation.fectchInstFormattedArgs(_className, _instancingCommonContent,_conf,_stack, _infos), "", -1).checkParams(_className, _previous, null, _conf, _stack);
+        if (!_conf.getExiting().hasToExit(_stack, _className.getRootBlock())) {
+            new InstanceParamChecker(_instancingCommonContent.getPair(), ExecInvokingOperation.fectchInstFormattedArgs(_className, _instancingCommonContent,_conf,_stack, _infos), "", -1).checkParams(_className, _previous, null, _conf, _stack);
         }
-        return res_;
+        return ArgumentListCall.toStr(NullStruct.NULL_VALUE);
     }
 
     public static void checkParametersOperatorsFormatted(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named, ArgumentListCall _firstArgs, ExecFormattedRootBlock _classNameFound, MethodAccessKind _kind, StackCall _stackCall) {

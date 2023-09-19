@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.inherits.MethodParamChecker;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
+import code.expressionlanguage.structs.NullStruct;
 
 public final class LambdaDirectRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
@@ -15,7 +16,8 @@ public final class LambdaDirectRefectMethodPageEl extends AbstractRefectLambdaMe
     }
 
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
-        return new MethodParamChecker(getPair(), _list, getAccessKind()).checkParams(getClassName(), ArgumentListCall.toStr(getParent()), getMetaInfo().getCache(), _context, _stack);
+        new MethodParamChecker(getPair(), _list, getAccessKind()).checkParams(getClassName(), ArgumentListCall.toStr(getParent()), getMetaInfo().getCache(), _context, _stack);
+        return ArgumentListCall.toStr(NullStruct.NULL_VALUE);
     }
 
     @Override

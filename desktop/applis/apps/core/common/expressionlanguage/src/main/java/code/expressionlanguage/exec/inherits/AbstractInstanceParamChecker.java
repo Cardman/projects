@@ -63,7 +63,7 @@ public abstract class AbstractInstanceParamChecker extends AbstractParamChecker 
     }
 
     @Override
-    public Argument redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
+    public void redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
         Argument needed_;
         if (type.withoutInstance()) {
             needed_ = new Argument();
@@ -71,7 +71,6 @@ public abstract class AbstractInstanceParamChecker extends AbstractParamChecker 
             needed_ = new Argument(Argument.getNullableValue(_previous).getStruct());
         }
         _stackCall.setCallingState(new CustomFoundConstructor(_conf,_classNameFound, pair, fieldName, blockIndex, needed_, _classFormat.getParameters()));
-        return Argument.createVoid();
     }
 
     protected ExecTypeFunction getPair() {
