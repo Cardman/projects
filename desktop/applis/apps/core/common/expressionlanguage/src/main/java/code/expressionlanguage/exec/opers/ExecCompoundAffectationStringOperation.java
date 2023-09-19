@@ -34,17 +34,14 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
         ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes,this);
         ImplicitMethods implicits_ = getConverter();
         int indexImplicit_ = pairBefore_.getIndexImplicitConv();
+        Argument res_ = new Argument(calculated(_nodes, _conf, _stack));
         if (ImplicitMethods.isValidIndex(implicits_,indexImplicit_)) {
-            Argument leftArg_ = getFirstArgument(_nodes,this);
-            Argument rightArg_ = getLastArgument(_nodes,this);
-            Argument res_ = new Argument(calculatedValue(symbol,leftArg_.getStruct(), rightArg_.getStruct(), _conf, _stack, _stack.getLastPage()));
             if (_conf.callsOrException(_stack)) {
                 return;
             }
             pairBefore_.setIndexImplicitConv(ParamCheckerUtil.processConverter(_conf,res_,implicits_,indexImplicit_, _stack));
             return;
         }
-        Argument res_ = new Argument(calculated(_nodes,_conf, _stack));
         Argument before_ = firstArg(this,_nodes);
         Argument set_ = calculateChSetting(_nodes,_conf,res_,_stack);
         Argument arg_ = getPrePost(isStaticPostEltContent(), before_, set_);

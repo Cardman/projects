@@ -1,33 +1,26 @@
 package code.expressionlanguage.exec.dbg;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
-import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.*;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.stacks.*;
-import code.expressionlanguage.exec.symbols.ExecOperSymbol;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.*;
-import code.expressionlanguage.fcts.*;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.stds.StandardNamedFunction;
-import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
 
 public final class DbgStackStopper extends AbsStackStopperImpl {
     public DbgStackStopper(AbsLogDbg _log) {
@@ -111,768 +104,6 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return 0;
     }
 
-    private static CoreCheckedExecOperationNodeInfos expOper(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, AbstractPageEl _last) {
-        if (_o instanceof ExecAbstractAffectOperation) {
-            return affectationOrCompound(_el, (ExecAbstractAffectOperation)_o, _context, _last);
-        }
-        if (isField(_o)) {
-            return field(_el, (ExecSettableFieldOperation) _o,  _context, _last);
-        }
-        if (_o instanceof ExecStdRefVariableOperation) {
-            return variable((ExecStdRefVariableOperation)_o,  _context, _last);
-        }
-        if (_o instanceof ExecAnnotationMethodOperation) {
-            Struct instance_ = instance(0,_el, _o, _last);
-            return new CheckedExecOperationNodeInfos((ExecAnnotationMethodOperation)_o, _context,WatchPoint.BPC_READ, formatted(_context, instance_), instance_, null);
-        }
-        if (_o instanceof ExecArrayFieldOperation) {
-            Struct instance_ = instance(0,_el, _o, _last);
-            return new ArrCheckedExecOperationNodeInfos(_context,instance_);
-        }
-        if (_o instanceof ExecArrOperation) {
-            return arr(_el,(ExecArrOperation) _o,_context, _last);
-        }
-        if (_o instanceof ExecAbstractArrayInstancingOperation && ((ExecAbstractArrayInstancingOperation)_o).getCountArrayDims() >= 0) {
-            CustList<Argument> args_ = ((ExecAbstractArrayInstancingOperation)_o).getArguments(_el.getArguments());
-            int indexes_ = args_.size();
-            ArrayStruct arr_ = new ArrayStruct(indexes_,StringExpUtil.getPrettyArrayType(_context.getStandards().getPrimTypes().getAliasPrimInteger()));
-            for (int i = 0; i <indexes_; i++) {
-                arr_.set(i,ArgumentListCall.toStr(args_.get(i)));
-            }
-            String c_ = StringExpUtil.getPrettyArrayType(_last.formatVarType(((ExecAbstractArrayInstancingOperation)_o).getClassName()), indexes_ + ((ExecAbstractArrayInstancingOperation)_o).getCountArrayDims());
-            return new ArrCheckedExecOperationNodeInfos(_context, c_, arr_);
-        }
-        return null;
-    }
-
-    private static OperNatCheckedExecOperationNodeInfos expOperNat(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, AbstractPageEl _last) {
-        if (_o instanceof ExecAbstractAffectOperation) {
-            return affectationOrCompoundNat(_el, (ExecAbstractAffectOperation)_o, _context, _last);
-        }
-        if (_o instanceof ExecQuickOperation) {
-            _last.setOffset(_o.getIndexInEl()+ ((ExecQuickOperation) _o).getOperatorContent().getOpOffset());
-            Argument arg_ = ExecHelper.getArgumentPair(_el.getArguments(), _o).getArgument();
-            if (arg_ != null) {
-                return null;
-            }
-            ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), _o.getFirstChild());
-            if (argumentPair_.isArgumentTest()) {
-                return null;
-            }
-            CustList<ExecOperationNode> ls_ = ((ExecQuickOperation) _o).getChildrenNodes();
-            return operNat(_el, _context, ls_, ((ExecQuickOperation) _o).getOperSymbol(), OperNatPoint.BPC_SIMPLE);
-        }
-        return null;
-    }
-
-    private static OperNatCheckedExecOperationNodeInfos operNat(ExpressionLanguage _el, ContextEl _context, CustList<ExecOperationNode> _ls, ExecOperSymbol _symbol, int _mode) {
-        Struct left_ = ArgumentListCall.toStr(Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(_ls, 0)).getArgument()));
-        Struct right_;
-        if (_ls.size() > 1) {
-            right_ = ArgumentListCall.toStr(Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(_ls, _ls.size() - 1)).getArgument()));
-        } else {
-            right_ = null;
-        }
-        return new OperNatCheckedExecOperationNodeInfos(_context, _symbol.getSgn(), _mode, left_, right_);
-    }
-
-    private static CoreCheckedExecOperationNodeInfos expOperPar(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, AbstractPageEl _last) {
-        if (_o instanceof ExecThisOperation) {
-            int anc_ = ((ExecThisOperation) _o).getThisContent().getNbAncestors();
-            Struct instance_ = _last.getGlobalStruct();
-            return new ParCheckedExecOperationNodeInfos(_context,instance_,anc_);
-        }
-        if (_o instanceof ExecParentInstanceOperation) {
-            Struct instance_ = instance(_el, _o, _last);
-            return new ParCheckedExecOperationNodeInfos(_context,instance_,1);
-        }
-        if (_o instanceof ExecAffectationOperation) {
-            return affectationOrCompoundPar(_el,(ExecAffectationOperation) _o,_context,_last);
-        }
-        if (_o instanceof ExecCustArrOperation) {
-            int anc_ = ((ExecCustArrOperation) _o).getReadWrite().getInstRead().getInst().getAnc();
-            Struct instance_ = instance(_el, _o, _last);
-            return new ParCheckedExecOperationNodeInfos(_context,instance_,anc_);
-        }
-        if (_o instanceof ExecCustArrReadOperation) {
-            int anc_ = ((ExecCustArrReadOperation) _o).getInstRead().getInst().getAnc();
-            Struct instance_ = instance(_el, _o, _last);
-            return new ParCheckedExecOperationNodeInfos(_context,instance_,anc_);
-        }
-        if (_o instanceof ExecFctOperation) {
-            int anc_ = ((ExecFctOperation) _o).getInst().getInst().getAnc();
-            Struct instance_ = instance(_el, _o, _last);
-            return new ParCheckedExecOperationNodeInfos(_context,instance_,anc_);
-        }
-        if (_o instanceof ExecSettableFieldInstOperation&&isField(_o)&&!((ExecSettableFieldInstOperation)_o).resultCanBeSet()) {
-            int anc_ = ((ExecSettableFieldInstOperation) _o).getSettableFieldContent().getAnc();
-            Struct instance_ = instance(_el, _o, _last);
-            return new ParCheckedExecOperationNodeInfos(_context,instance_,anc_);
-        }
-        return null;
-    }
-
-    private static CallCheckedExecOperationNodeInfos expOperCall(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, AbstractPageEl _last, boolean _ex) {
-        if (_o instanceof ExecAbstractAffectOperation) {
-            return affectationOrCompoundCall(_el, (ExecAbstractAffectOperation)_o, _context, _last);
-        }
-        if (_o instanceof ExecStdRefVariableOperation) {
-            return variableCall((ExecStdRefVariableOperation)_o,  _context, _last);
-        }
-        return core(_context,_el,_last,_ex, _o);
-    }
-
-    private static StdMethodCheckedExecOperationNodeInfos expOperStd(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, AbstractPageEl _last, boolean _ex) {
-        if (_o instanceof StdParamsOperable) {
-            return new StdMethodCheckedExecOperationNodeInfos(_context.getStandards().getCoreNames().getAliasObject(),(StdParamsOperable)_o,cl((StdParamsOperable) _o,_context), _el.getArguments(), ((StdParamsOperable)_o).instance(_el.getArguments(), _last), _ex);
-        }
-        return null;
-    }
-    private static CoreCheckedExecOperationNodeInfos affectationOrCompound(ExpressionLanguage _el, ExecAbstractAffectOperation _o, ContextEl _context, AbstractPageEl _last) {
-        _last.setOffset(_o.getIndexInEl()+ _o.getOperatorContent().getOpOffset());
-        if (_o.getSettableParent() instanceof ExecSafeDotOperation && Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableParent().getFirstChild()).getArgument()).isNull()) {
-            return null;
-        }
-        if (_o instanceof ExecCompoundAffectationOperation) {
-            return compound(_el, (ExecCompoundAffectationOperation)_o, _context, _last);
-        }
-        if (_o.getSettable() instanceof ExecStdRefVariableOperation && ((ExecStdRefVariableOperation) _o.getSettable()).isDeclare()) {
-            return null;
-        }
-        CustList<ExecOperationNode> childrenNodes_ = _o.getChildrenNodes();
-        Struct right_ = ArgumentListCall.toStr(ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(childrenNodes_, childrenNodes_.size() - 1)).getArgument());
-        return settable(_el, _o, _context, WatchPoint.BPC_WRITE, new Struct[]{right_, NullStruct.NULL_VALUE}, _last);
-    }
-    private static OperNatCheckedExecOperationNodeInfos affectationOrCompoundNat(ExpressionLanguage _el, ExecAbstractAffectOperation _o, ContextEl _context, AbstractPageEl _last) {
-        _last.setOffset(_o.getIndexInEl()+ _o.getOperatorContent().getOpOffset());
-        if (_o.getSettableParent() instanceof ExecSafeDotOperation && Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableParent().getFirstChild()).getArgument()).isNull()) {
-            return null;
-        }
-        if (_o instanceof ExecCompoundAffectationStringOperation) {
-            ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableAnc());
-            if (argumentPair_.isArgumentTest()) {
-                return null;
-            }
-            return operNat(_el, _context, _o.getChildrenNodes(), ((ExecCompoundAffectationStringOperation) _o).getSymbol(), OperNatPoint.BPC_COMPOUND);
-        }
-        return null;
-    }
-
-    private static CoreCheckedExecOperationNodeInfos affectationOrCompoundPar(ExpressionLanguage _el, ExecAffectationOperation _o, ContextEl _context, AbstractPageEl _last) {
-        _last.setOffset(_o.getIndexInEl()+ _o.getOperatorContent().getOpOffset());
-        return settablePar(_el, _o, _context, _last);
-    }
-    private static CallCheckedExecOperationNodeInfos affectationOrCompoundCall(ExpressionLanguage _el, ExecAbstractAffectOperation _o, ContextEl _context, AbstractPageEl _last) {
-        _last.setOffset(_o.getIndexInEl()+ _o.getOperatorContent().getOpOffset());
-        if (_o.getSettableParent() instanceof ExecSafeDotOperation && Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableParent().getFirstChild()).getArgument()).isNull()) {
-            return null;
-        }
-        if (_o instanceof ExecCompoundAffectationOperation) {
-            return compoundCall(_el, (ExecCompoundAffectationOperation)_o, _context, _last);
-        }
-        if (_o.getSettable() instanceof ExecStdRefVariableOperation && ((ExecStdRefVariableOperation) _o.getSettable()).isDeclare()) {
-            return null;
-        }
-        CustList<ExecOperationNode> childrenNodes_ = _o.getChildrenNodes();
-        Struct right_ = ArgumentListCall.toStr(ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(childrenNodes_, childrenNodes_.size() - 1)).getArgument());
-        return settableCall(_el, _o, _context, false, new Struct[]{right_, NullStruct.NULL_VALUE}, _last);
-    }
-    private static CoreCheckedExecOperationNodeInfos field(ExpressionLanguage _el, ExecSettableFieldOperation _o, ContextEl _context, AbstractPageEl _last) {
-        if (!_o.resultCanBeSet()) {
-            int anc_ = _o.getSettableFieldContent().getAnc();
-            Struct instance_ = instance(anc_,_el, _o, _last);
-            if (sub(_o)) {
-                return new CheckedExecOperationNodeInfos(_context,_o, WatchPoint.BPC_COMPOUND_READ, formatted(_context, _o, instance_), instance_, null);
-            }
-            return new CheckedExecOperationNodeInfos(_context,_o, WatchPoint.BPC_READ, formatted(_context, _o, instance_), instance_, null);
-        }
-        return null;
-    }
-
-    private static CoreCheckedExecOperationNodeInfos arr(ExpressionLanguage _el, ExecArrOperation _o, ContextEl _context, AbstractPageEl _last) {
-        if (!_o.resultCanBeSet()) {
-            Struct instance_ = instance(0,_el, _o, _last);
-            Struct index_ = ArgumentListCall.toStr(ExecHelper.getArgumentPair(_el.getArguments(), _o.getFirstChild()).getArgument());
-            if (sub(_o)) {
-                if (index_ instanceof NumberStruct) {
-                    ArrayStruct arr_ = new ArrayStruct(1,StringExpUtil.getPrettyArrayType(_context.getStandards().getPrimTypes().getAliasPrimInteger()));
-                    arr_.set(0, index_);
-                    return new ArrCheckedExecOperationNodeInfos(_context,instance_, WatchPoint.BPC_COMPOUND_READ+1, arr_, null);
-                }
-                return new ArrCheckedExecOperationNodeInfos(_context,instance_, WatchPoint.BPC_COMPOUND_READ+6, index_, null);
-            }
-            if (index_ instanceof NumberStruct) {
-                ArrayStruct arr_ = new ArrayStruct(1,StringExpUtil.getPrettyArrayType(_context.getStandards().getPrimTypes().getAliasPrimInteger()));
-                arr_.set(0, index_);
-                return new ArrCheckedExecOperationNodeInfos(_context,instance_, WatchPoint.BPC_READ+1, arr_, null);
-            }
-            return new ArrCheckedExecOperationNodeInfos(_context,instance_, WatchPoint.BPC_READ+6, index_, null);
-        }
-        return null;
-    }
-    private static CoreCheckedExecOperationNodeInfos variable(ExecStdRefVariableOperation _o, ContextEl _context, AbstractPageEl _last) {
-        if (!_o.resultCanBeSet()) {
-            if (sub(_o)) {
-                return prVar(_o, _context, WatchPoint.BPC_COMPOUND_READ, _last);
-            }
-            return prVar(_o, _context, WatchPoint.BPC_READ, _last);
-        }
-        return null;
-    }
-
-    private static CallCheckedExecOperationNodeInfos variableCall(ExecStdRefVariableOperation _o, ContextEl _context, AbstractPageEl _last) {
-        if (!_o.resultCanBeSet()) {
-            if (sub(_o)) {
-                return prVarCall(_o, _context, _last);
-            }
-            return prVarCall(_o, _context, _last);
-        }
-        return null;
-    }
-
-    private static CoreCheckedExecOperationNodeInfos prVar(ExecStdRefVariableOperation _o, ContextEl _context, int _mode, AbstractPageEl _last) {
-        String v_ = _o.getVariableContent().getVariableName();
-        AbstractWrapper w_ = ExecVariableTemplates.getWrapper(v_, _o.getVariableContent().getDeep(), _last.getCache(), _last.getRefParams());
-        return wrapperElt(_context,w_,_mode,null);
-    }
-
-    private static CallCheckedExecOperationNodeInfos prVarCall(ExecStdRefVariableOperation _o, ContextEl _context, AbstractPageEl _last) {
-        String v_ = _o.getVariableContent().getVariableName();
-        AbstractWrapper w_ = ExecVariableTemplates.getWrapper(v_, _o.getVariableContent().getDeep(), _last.getCache(), _last.getRefParams());
-        if (w_ instanceof ArrayCustWrapper) {
-            return checkLda(new CallCheckedExecOperationNodeInfos(_context,false,(ArrayCustWrapper) w_));
-        }
-        return null;
-    }
-    private static CoreCheckedExecOperationNodeInfos compound(ExpressionLanguage _el, ExecCompoundAffectationOperation _o, ContextEl _context, AbstractPageEl _last) {
-        ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableAnc());
-        if (argumentPair_.isArgumentTest()) {
-            if (!ExecCompoundAffectationOperation.sh(_o.getOperatorContent())) {
-                return settable(_el, _o, _context, WatchPoint.BPC_COMPOUND_WRITE,new Struct[]{ArgumentListCall.toStr(argumentPair_.getArgument()),NullStruct.NULL_VALUE}, _last);
-            }
-            return null;
-        }
-        if (_o instanceof ExecCompoundAffectationStringOperation) {
-            ImplicitMethods implicits_ = _o.getConverter();
-            ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_el.getArguments(), _o);
-            int indexImplicit_ = pairBefore_.getIndexImplicitConv();
-            if (ImplicitMethods.isValidIndex(implicits_,indexImplicit_)) {
-                return null;
-            }
-            return settable(_el, _o, _context, WatchPoint.BPC_COMPOUND_WRITE, new Struct[]{((ExecCompoundAffectationStringOperation)_o).calculated(_el.getArguments(), _context, _last),((ExecCompoundAffectationStringOperation)_o).leftArg(_el.getArguments())}, _last);
-        }
-        return null;
-    }
-
-    private static CallCheckedExecOperationNodeInfos compoundCall(ExpressionLanguage _el, ExecCompoundAffectationOperation _o, ContextEl _context, AbstractPageEl _last) {
-        ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableAnc());
-        if (argumentPair_.isArgumentTest()) {
-            if (!ExecCompoundAffectationOperation.sh(_o.getOperatorContent())) {
-                return settableCall(_el, _o, _context, false, new Struct[]{ArgumentListCall.toStr(argumentPair_.getArgument()),NullStruct.NULL_VALUE}, _last);
-            }
-            return null;
-        }
-        if (_o instanceof ExecCompoundAffectationStringOperation) {
-            ImplicitMethods implicits_ = _o.getConverter();
-            ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_el.getArguments(), _o);
-            int indexImplicit_ = pairBefore_.getIndexImplicitConv();
-            if (ImplicitMethods.isValidIndex(implicits_,indexImplicit_)) {
-                return null;
-            }
-            return settableCall(_el, _o, _context, false, new Struct[]{((ExecCompoundAffectationStringOperation)_o).calculated(_el.getArguments(), _context, _last),((ExecCompoundAffectationStringOperation)_o).leftArg(_el.getArguments())}, _last);
-        }
-        return null;
-    }
-    private static CoreCheckedExecOperationNodeInfos settable(ExpressionLanguage _el, ExecAbstractAffectOperation _o, ContextEl _ctx, int _mode, Struct[] _right, AbstractPageEl _last) {
-        ExecOperationNode set_ = _o.getSettable();
-        if (isField(set_)) {
-            int anc_ = ((ExecSettableFieldOperation) set_).getSettableFieldContent().getAnc();
-            Struct instance_ = instanceSet(_el, anc_, set_,  ((ExecSettableFieldOperation) set_).resultCanBeSet(), _last);
-            return new CheckedExecOperationNodeInfos(_ctx,(ExecSettableFieldOperation) set_, altMode(_mode,_right[0]), formatted(_ctx, (ExecSettableFieldOperation) set_, instance_), instance_, altRight(_mode,_right[0],_right[1]));
-        }
-        if (set_ instanceof ExecStdRefVariableOperation || set_ instanceof ExecSettableCallFctOperation) {
-            ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), set_);
-            AbstractWrapper w_ = argumentPair_.getWrapper();
-            return wrapperElt(_ctx,w_,altMode(_mode,_right[0]),altRight(_mode,_right[0],_right[1]));
-        }
-        if (set_ instanceof ExecArrOperation) {
-            Struct instance_ = instance(0,_el, set_, _last);
-            Struct index_ = ArgumentListCall.toStr(ExecHelper.getArgumentPair(_el.getArguments(), set_.getFirstChild()).getArgument());
-            if (index_ instanceof NumberStruct) {
-                ArrayStruct arr_ = new ArrayStruct(1,StringExpUtil.getPrettyArrayType(_ctx.getStandards().getPrimTypes().getAliasPrimInteger()));
-                arr_.set(0, index_);
-                return new ArrCheckedExecOperationNodeInfos(_ctx,instance_,altMode(_mode,_right[0])+1,arr_, altRight(_mode,_right[0],_right[1]));
-            }
-            return new ArrCheckedExecOperationNodeInfos(_ctx,instance_,altMode(_mode,_right[0])+6,index_, altRight(_mode,_right[0],_right[1]));
-        }
-        return null;
-    }
-    private static CoreCheckedExecOperationNodeInfos settablePar(ExpressionLanguage _el, ExecAffectationOperation _o, ContextEl _ctx, AbstractPageEl _last) {
-        ExecOperationNode set_ = _o.getSettable();
-        if (set_ instanceof ExecSettableFieldInstOperation&&isField(set_)) {
-            int anc_ = ((ExecSettableFieldOperation) set_).getSettableFieldContent().getAnc();
-            Struct instance_ = instance(_el, set_, _last);
-            return new ParCheckedExecOperationNodeInfos(_ctx,instance_,anc_);
-        }
-        if (set_ instanceof ExecCustArrWriteOperation) {
-            int anc_ = ((ExecCustArrWriteOperation) set_).getInstWrite().getInst().getAnc();
-            Struct instance_ = instance(_el, set_, _last);
-            return new ParCheckedExecOperationNodeInfos(_ctx,instance_,anc_);
-        }
-        return null;
-    }
-    private static CallCheckedExecOperationNodeInfos settableCall(ExpressionLanguage _el, ExecAbstractAffectOperation _o, ContextEl _ctx, boolean _exit, Struct[] _right, AbstractPageEl _last) {
-        ExecOperationNode set_ = _o.getSettable();
-        if (set_ instanceof ExecStdRefVariableOperation || set_ instanceof ExecSettableCallFctOperation) {
-            ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), set_);
-            AbstractWrapper w_ = argumentPair_.getWrapper();
-            if (w_ instanceof ArrayCustWrapper) {
-                return checkLda(new CallCheckedExecOperationNodeInfos(_ctx,_exit,(ArrayCustWrapper) w_, _right[0]));
-            }
-        }
-        if (set_ instanceof ExecCustArrOperation) {
-            return checkLda(new CallCheckedExecOperationNodeInfos(_ctx, _el.getArguments(), _exit, (ExecCustArrOperation) set_, _right[0]));
-        }
-        if (set_ instanceof ExecCustArrWriteOperation) {
-            return checkLda(new CallCheckedExecOperationNodeInfos(_ctx, _el.getArguments(), _last, _exit, (ExecCustArrWriteOperation) set_, _right[0]));
-        }
-        return null;
-    }
-    private static int altMode(int _mode, Struct _right) {
-        if (_mode == WatchPoint.BPC_COMPOUND_WRITE && _right == null) {
-            return WatchPoint.BPC_COMPOUND_WRITE_ERR;
-        }
-        return _mode;
-    }
-
-    private static Struct altRight(int _mode, Struct _right, Struct _other) {
-        if (_mode == WatchPoint.BPC_COMPOUND_WRITE && _right == null) {
-            return _other;
-        }
-        return _right;
-    }
-
-    private static boolean isField(ExecOperationNode _o) {
-        return (_o instanceof ExecSettableFieldOperation) && !((ExecSettableFieldOperation) _o).isDeclare();
-    }
-
-    private static Struct instance(int _anc, ExpressionLanguage _el, ExecOperationNode _o, AbstractPageEl _last) {
-        return ExecOperationNode.instance(_o,_anc, _el.getArguments(), _last);
-    }
-
-
-    private static Struct instance(ExpressionLanguage _el, ExecOperationNode _o, AbstractPageEl _last) {
-        return ExecOperationNode.instance(_o, _el.getArguments(), _last);
-    }
-
-    private static Struct instanceSet(ExpressionLanguage _el, int _anc, ExecOperationNode _o, boolean _writeOnly, AbstractPageEl _last) {
-        if (_writeOnly) {
-            return instance(_anc,_el,_o, _last);
-        }
-        return ArgumentListCall.toStr(Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), _o).getArgumentParent()));
-    }
-    private static boolean sub(ExecOperationNode _o) {
-        ExecOperationNode curr_ = _o;
-        while (curr_ != null) {
-            if (curr_ instanceof ExecCompoundAffectationOperation && ((ExecCompoundAffectationOperation)curr_).getSettable() == _o) {
-                return true;
-            }
-            curr_ = curr_.getParent();
-        }
-        return false;
-    }
-
-    private static CallCheckedExecOperationNodeInfos infosCall(ContextEl _context, StackCall _stackCall) {
-        AbstractPageEl p_ = _stackCall.getLastPage();
-        CallCheckedExecOperationNodeInfos infos_;
-        if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null) {
-            infos_ = endCaseCall(_context, _stackCall);
-        } else if (p_ instanceof LambdaVariableGetValuePageEl) {
-            infos_ = lambdaGetCall(_context, (LambdaVariableGetValuePageEl) p_);
-        } else if (p_ instanceof LambdaVariableSetValuePageEl) {
-            infos_ = lambdaSetCall(_context, (LambdaVariableSetValuePageEl) p_);
-        } else if (p_ instanceof AbstractRefectMethodPageEl) {
-            infos_ = refMethod(_context,(AbstractRefectMethodPageEl) p_);
-        } else if (p_ instanceof AbstractRefectLambdaMethodPageEl) {
-            infos_ = refMethod(_context,(AbstractRefectLambdaMethodPageEl) p_);
-        } else if (!p_.isEmptyEl()){
-            ExpressionLanguage el_ = p_.getLastEl();
-            infos_ = expOperCall(el_, el_.getCurrentOper(), _context, p_,_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getCalculated() != null);
-        } else {
-            infos_ = null;
-        }
-        return infos_;
-    }
-    private static CoreCheckedExecOperationNodeInfos infos(ContextEl _context, StackCall _stackCall) {
-        AbstractPageEl p_ = _stackCall.getLastPage();
-        CoreCheckedExecOperationNodeInfos infos_;
-        if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null) {
-            infos_ = endCase(_context, _stackCall);
-        } else if (p_ instanceof LambdaVariableGetValuePageEl) {
-            infos_ = lambdaGet(_context, (LambdaVariableGetValuePageEl) p_);
-        } else if (p_ instanceof LambdaVariableSetValuePageEl) {
-            infos_ = lambdaSet(_context, (LambdaVariableSetValuePageEl) p_);
-        } else if (p_ instanceof LambdaMethodWithoutInfo) {
-            infos_ = reflectLambdaMethodWithoutInfo(_context, (LambdaMethodWithoutInfo) p_);
-        } else if (p_ instanceof LambdaConstructorWithoutInfo) {
-            infos_ = reflectLambdaMethodWithoutInfo(_context, (LambdaConstructorWithoutInfo) p_);
-        } else if (p_ instanceof ReflectGetFieldPageEl) {
-            infos_ = reflectGet(_context, (ReflectGetFieldPageEl) p_);
-        } else if (p_ instanceof ReflectSetFieldPageEl) {
-            infos_ = reflectSet(_context, (ReflectSetFieldPageEl) p_);
-        } else if (p_ instanceof DirectAnnotationRefectMethodPageEl) {
-            infos_ = refMethod(_context, (DirectAnnotationRefectMethodPageEl) p_);
-        } else if (p_ instanceof LambdaAnnotationRefectMethodPageEl) {
-            infos_ = refMethod(_context, (LambdaAnnotationRefectMethodPageEl) p_);
-        } else if (!p_.isEmptyEl()){
-            ExpressionLanguage el_ = p_.getLastEl();
-            infos_ = expOper(el_, el_.getCurrentOper(), _context, p_);
-        } else {
-            infos_ = null;
-        }
-        return infos_;
-    }
-
-    private static OperNatCheckedExecOperationNodeInfos infosOperNat(ContextEl _context, StackCall _stackCall) {
-        AbstractPageEl p_ = _stackCall.getLastPage();
-        OperNatCheckedExecOperationNodeInfos infos_;
-        if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null) {
-            infos_ = null;
-        } else if (p_ instanceof LambdaMethodWithoutInfo) {
-            infos_ = reflectLambdaMethodWithoutInfoNat(_context, (LambdaMethodWithoutInfo) p_);
-        } else if (!p_.isEmptyEl()){
-            ExpressionLanguage el_ = p_.getLastEl();
-            infos_ = expOperNat(el_, el_.getCurrentOper(), _context, p_);
-        } else {
-            infos_ = null;
-        }
-        return infos_;
-    }
-
-    private static CoreCheckedExecOperationNodeInfos infosPar(ContextEl _context, StackCall _stackCall) {
-        if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null) {
-            return null;
-        }
-        AbstractPageEl p_ = _stackCall.getLastPage();
-        CoreCheckedExecOperationNodeInfos infos_;
-        if (p_ instanceof AbstractRefectLambdaMethodPageEl) {
-            infos_ = refMethodPar(_context,(AbstractRefectLambdaMethodPageEl) p_);
-        } else if (p_ instanceof LambdaMethodWithoutInfo) {
-            infos_ = reflectLambdaMethodWithoutInfoPar(_context, (LambdaMethodWithoutInfo) p_);
-        } else if (p_ instanceof LambdaFieldWithoutInfo) {
-            infos_ = reflectLambdaFieldWithoutInfoPar(_context, (LambdaFieldWithoutInfo) p_);
-        } else if (p_ instanceof ReflectGetFieldPageEl) {
-            infos_ = reflectGetPar(_context, (ReflectGetFieldPageEl) p_);
-        } else if (p_ instanceof ReflectSetFieldPageEl) {
-            infos_ = reflectSetPar(_context, (ReflectSetFieldPageEl) p_);
-        } else if (!p_.isEmptyEl()){
-            ExpressionLanguage el_ = p_.getLastEl();
-            infos_ = expOperPar(el_, el_.getCurrentOper(), _context, p_);
-        } else {
-            infos_ = null;
-        }
-        return infos_;
-    }
-    private static StdMethodCheckedExecOperationNodeInfos infosStd(ContextEl _context, StackCall _stackCall) {
-        AbstractPageEl p_ = _stackCall.getLastPage();
-        StdMethodCheckedExecOperationNodeInfos infos_;
-        if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null) {
-            infos_ = endCaseStd(_context, _stackCall);
-        } else if (p_ instanceof DirectStdRefectMethodPageEl) {
-            infos_ = refMethod((DirectStdRefectMethodPageEl) p_);
-        } else if (p_ instanceof LambdaDirectStdRefectMethodPageEl) {
-            infos_ = refMethod((LambdaDirectStdRefectMethodPageEl) p_);
-        } else if (p_ instanceof ReflectConstructorPageEl) {
-            infos_ = refMethod((ReflectConstructorPageEl) p_);
-        } else if (p_ instanceof ReflectLambdaConstructorPageEl) {
-            infos_ = refMethod((ReflectLambdaConstructorPageEl) p_);
-        } else if (!p_.isEmptyEl()){
-            ExpressionLanguage el_ = p_.getLastEl();
-            infos_ = expOperStd(el_, el_.getCurrentOper(), _context, p_,_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getCalculated() != null);
-        } else {
-            infos_ = null;
-        }
-        return infos_;
-    }
-
-    private static CoreCheckedExecOperationNodeInfos endCase(ContextEl _context, StackCall _stackCall) {
-        AbstractPageEl p_ = _stackCall.getLastPage();
-        CoreCheckedExecOperationNodeInfos infos_;
-        if (!p_.isEmptyEl()) {
-            ExpressionLanguage el_ = p_.getLastEl();
-            infos_ = end(_context, el_, _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting());
-        } else {
-            infos_ = null;
-        }
-        return infos_;
-    }
-
-    private static StdMethodCheckedExecOperationNodeInfos endCaseStd(ContextEl _context, StackCall _stackCall) {
-        AbstractPageEl p_ = _stackCall.getLastPage();
-        StdMethodCheckedExecOperationNodeInfos infos_;
-        if (!p_.isEmptyEl()) {
-            ExpressionLanguage el_ = p_.getLastEl();
-            infos_ = endStd(_context, el_, _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting());
-        } else {
-            infos_ = null;
-        }
-        return infos_;
-    }
-
-    private static CallCheckedExecOperationNodeInfos endCaseCall(ContextEl _context, StackCall _stackCall) {
-        AbstractPageEl p_ = _stackCall.getLastPage();
-        CallCheckedExecOperationNodeInfos infos_;
-        if (!p_.isEmptyEl()) {
-            ExpressionLanguage el_ = p_.getLastEl();
-            infos_ = endCall(_context, el_, _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting());
-        } else {
-            infos_ = null;
-        }
-        return infos_;
-    }
-
-    private static StdMethodCheckedExecOperationNodeInfos refMethod(DirectStdRefectMethodPageEl _p) {
-        if (_p.isCheckingEntryExit()) {
-            return new StdMethodCheckedExecOperationNodeInfos(_p);
-        }
-        return null;
-    }
-
-    private static CallCheckedExecOperationNodeInfos refMethod(ContextEl _context, AbstractRefectMethodPageEl _p) {
-        if (_p.isCheckingEntryExit()) {
-            return checkLda(new CallCheckedExecOperationNodeInfos(_context,_p));
-        }
-        return null;
-    }
-
-    private static CallCheckedExecOperationNodeInfos refMethod(ContextEl _context, AbstractRefectLambdaMethodPageEl _p) {
-        if (_p.isCheckingEntryExit()) {
-            return checkLda(new CallCheckedExecOperationNodeInfos(_context,_p));
-        }
-        return null;
-    }
-
-    private static ParCheckedExecOperationNodeInfos refMethodPar(ContextEl _context, AbstractRefectLambdaMethodPageEl _p) {
-        if (_p.isEntered()&&_p.isCheckedParent()) {
-            return new ParCheckedExecOperationNodeInfos(_context,_p.getOriginalInstance(),_p.getAncestor());
-        }
-        return null;
-    }
-
-    private static StdMethodCheckedExecOperationNodeInfos refMethod(LambdaDirectStdRefectMethodPageEl _p) {
-        if (_p.isCheckingEntryExit()) {
-            return new StdMethodCheckedExecOperationNodeInfos(_p);
-        }
-        return null;
-    }
-    private static CoreCheckedExecOperationNodeInfos refMethod(ContextEl _context, DirectAnnotationRefectMethodPageEl _p) {
-        if (_p.isCheckingEntryExit()) {
-            Struct instance_ = ArgumentListCall.toStr(_p.getInstance());
-            return new CheckedExecOperationNodeInfos(_p.getMetaInfo().getRealId().getName(), _context,WatchPoint.BPC_READ, formatted(_context, instance_), instance_, null);
-        }
-        return null;
-    }
-    private static CoreCheckedExecOperationNodeInfos refMethod(ContextEl _context, LambdaAnnotationRefectMethodPageEl _p) {
-        if (_p.isCheckingEntryExit()) {
-            Struct instance_ = _p.getParent();
-            return new CheckedExecOperationNodeInfos(_p.getMetaInfo().getRealId().getName(), _context,WatchPoint.BPC_READ, formatted(_context, instance_), instance_, null);
-        }
-        return null;
-    }
-    private static StdMethodCheckedExecOperationNodeInfos refMethod(ReflectConstructorPageEl _p) {
-        if (_p.isCheckingEntryExit()) {
-            return new StdMethodCheckedExecOperationNodeInfos(_p);
-        }
-        return null;
-    }
-    private static StdMethodCheckedExecOperationNodeInfos refMethod(ReflectLambdaConstructorPageEl _p) {
-        if (_p.isCheckingEntryExit()) {
-            return new StdMethodCheckedExecOperationNodeInfos(_p);
-        }
-        return null;
-    }
-
-    private static CoreCheckedExecOperationNodeInfos lambdaGet(ContextEl _context, LambdaVariableGetValuePageEl _p) {
-        if (!_p.isCheckField()) {
-            return null;
-        }
-        ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(_p.getArr().getArgumentWrappers());
-        AbstractWrapper w_ = firstArgumentWrapper_.getWrapper();
-        if (!_p.isExiting()) {
-            return wrapperElt(_context,w_,WatchPoint.BPC_READ,null);
-        }
-        return null;
-    }
-
-    private static CoreCheckedExecOperationNodeInfos lambdaSet(ContextEl _context, LambdaVariableSetValuePageEl _p) {
-        if (!_p.isCheckField()) {
-            return null;
-        }
-        CustList<ArgumentWrapper> argumentWrappers_ = _p.getArr().getArgumentWrappers();
-        ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(argumentWrappers_);
-        AbstractWrapper w_ = firstArgumentWrapper_.getWrapper();
-        if (!_p.isExiting()) {
-            Struct right_ = ArgumentListCall.toStr(ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)));
-            return wrapperElt(_context,w_,WatchPoint.BPC_WRITE,right_);
-        }
-        return null;
-    }
-    private static CoreCheckedExecOperationNodeInfos wrapperElt(ContextEl _context, AbstractWrapper _w, int _mode, Struct _right) {
-        if (_w instanceof FieldWrapper) {
-            Struct instance_ = value(_w);
-            return new CheckedExecOperationNodeInfos(_context,(FieldWrapper) _w, _mode, formatted(_context, (FieldWrapper) _w),instance_,_right);
-        }
-        if (_w instanceof ArrayWrapper) {
-            Struct instance_ = ((ArrayWrapper)_w).getContainer();
-            ArrayStruct arr_ = new ArrayStruct(1,StringExpUtil.getPrettyArrayType(_context.getStandards().getPrimTypes().getAliasPrimInteger()));
-            arr_.set(0,((ArrayWrapper)_w).getIndex());
-            return new ArrCheckedExecOperationNodeInfos(_context,instance_,_mode+1, arr_,_right);
-        }
-        if (_w instanceof ArrPartWrapper) {
-            Struct instance_ = ((ArrPartWrapper)_w).getArray();
-            return new ArrCheckedExecOperationNodeInfos(_context,instance_,_mode+6, ((ArrPartWrapper)_w).getRange(),_right);
-        }
-        return null;
-    }
-
-    private static CallCheckedExecOperationNodeInfos lambdaGetCall(ContextEl _context, LambdaVariableGetValuePageEl _p) {
-        if (!_p.isCheckField()) {
-            return null;
-        }
-        ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(_p.getArr().getArgumentWrappers());
-        AbstractWrapper w_ = firstArgumentWrapper_.getWrapper();
-        if (w_ instanceof ArrayCustWrapper) {
-            return checkLda(new CallCheckedExecOperationNodeInfos(_context,_p.isExiting(),(ArrayCustWrapper) w_));
-        }
-        return null;
-    }
-
-    private static CallCheckedExecOperationNodeInfos lambdaSetCall(ContextEl _context, LambdaVariableSetValuePageEl _p) {
-        if (!_p.isCheckField()) {
-            return null;
-        }
-        CustList<ArgumentWrapper> argumentWrappers_ = _p.getArr().getArgumentWrappers();
-        ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(argumentWrappers_);
-        AbstractWrapper w_ = firstArgumentWrapper_.getWrapper();
-        if (w_ instanceof ArrayCustWrapper) {
-            Struct right_ = ArgumentListCall.toStr(ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)));
-            return checkLda(new CallCheckedExecOperationNodeInfos(_context,_p.isExiting(),(ArrayCustWrapper) w_, right_));
-        }
-        return null;
-    }
-
-    private static CoreCheckedExecOperationNodeInfos reflectGet(ContextEl _context, ReflectGetFieldPageEl _p) {
-        if (!_p.isCheckField()) {
-            return null;
-        }
-        if (_p.isExiting()) {
-            return null;
-        }
-        Struct instance_ = ArgumentListCall.toStr(_p.getArgument());
-        return new CheckedExecOperationNodeInfos(_context, _p.getMetaInfo(), WatchPoint.BPC_READ, formatted(_context, _p.getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, null);
-    }
-
-    private static CoreCheckedExecOperationNodeInfos reflectSet(ContextEl _context, ReflectSetFieldPageEl _p) {
-        if (!_p.isCheckField()) {
-            return null;
-        }
-        if (_p.isExiting()) {
-            return null;
-        }
-        Struct instance_ = ArgumentListCall.toStr(_p.getFirst());
-        Struct right_ = ArgumentListCall.toStr(_p.getLast());
-        return new CheckedExecOperationNodeInfos(_context, _p.getMetaInfo(), WatchPoint.BPC_WRITE, formatted(_context, _p.getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, right_);
-    }
-
-    private static CoreCheckedExecOperationNodeInfos reflectGetPar(ContextEl _context, ReflectGetFieldPageEl _p) {
-        if (!_p.getMetaInfo().isStaticField()&&_p.isCheckingParent()) {
-            Struct instance_ = _p.getOriginalInstance();
-            return new ParCheckedExecOperationNodeInfos(_context, instance_, _p.getAncestor());
-        }
-        return null;
-    }
-
-    private static CoreCheckedExecOperationNodeInfos reflectSetPar(ContextEl _context, ReflectSetFieldPageEl _p) {
-        if (!_p.getMetaInfo().isStaticField()&&_p.isCheckingParent()) {
-            Struct instance_ = _p.getOriginalInstance();
-            return new ParCheckedExecOperationNodeInfos(_context, instance_, _p.getAncestor());
-        }
-        return null;
-    }
-
-    private static CoreCheckedExecOperationNodeInfos reflectLambdaMethodWithoutInfo(ContextEl _context, LambdaMethodWithoutInfo _p) {
-        if (!_p.isCheckElement()) {
-            return null;
-        }
-        return callDynArr(_context,_p.getName(), _p.getInstance(), _p.getArguments());
-    }
-
-    private static OperNatCheckedExecOperationNodeInfos reflectLambdaMethodWithoutInfoNat(ContextEl _context, LambdaMethodWithoutInfo _p) {
-        if (!_p.isCheckElement()) {
-            return null;
-        }
-        CommonOperSymbol c_ = _p.current();
-        if (c_ != null) {
-            if (_p.getArguments().getArgumentWrappers().size() < 2) {
-                return new OperNatCheckedExecOperationNodeInfos(_context,c_.getSgn(),OperNatPoint.BPC_SIMPLE,ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_p.getArguments().getArgumentWrappers())).getStruct(),null);
-            }
-            return new OperNatCheckedExecOperationNodeInfos(_context,c_.getSgn(),OperNatPoint.BPC_SIMPLE,ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_p.getArguments().getArgumentWrappers())).getStruct(),ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(_p.getArguments().getArgumentWrappers())).getStruct());
-        }
-        return null;
-    }
-
-    private static CoreCheckedExecOperationNodeInfos reflectLambdaMethodWithoutInfoPar(ContextEl _context, LambdaMethodWithoutInfo _p) {
-        if (_p.isEntered()&&_p.isCheckedParent()) {
-            return new ParCheckedExecOperationNodeInfos(_context, _p.getOriginalInstance(),_p.getAncestor());
-        }
-        return null;
-    }
-
-    private static CoreCheckedExecOperationNodeInfos reflectLambdaFieldWithoutInfoPar(ContextEl _context, LambdaFieldWithoutInfo _p) {
-        if (_p.isEntered()&&!_p.isExited()) {
-            return new ParCheckedExecOperationNodeInfos(_context, _p.getInstance(),_p.getAncestor());
-        }
-        return null;
-    }
-
-    private static CoreCheckedExecOperationNodeInfos reflectLambdaMethodWithoutInfo(ContextEl _context, LambdaConstructorWithoutInfo _p) {
-        if (!_p.isCheckElement()) {
-            return null;
-        }
-        return callDynInit(_context, _p.getArguments(), _p.getLambdaConstructorStruct());
-    }
-
-
-    private static ExecFormattedRootBlock formatted(ContextEl _ctx, FieldWrapper _w) {
-        Struct instance_ = value(_w);
-        return formatted(_ctx, _w.owner(), instance_);
-    }
-    private static ExecFormattedRootBlock formatted(ContextEl _ctx, ExecSettableFieldOperation _id, Struct _inst) {
-        return formatted(_ctx, _id.owner(),_inst);
-    }
-    private static ExecFormattedRootBlock formatted(ContextEl _ctx, Struct _inst) {
-        String cl_ = _inst.getClassName(_ctx);
-        ExecRootBlock root_ = _ctx.getClasses().getClassBody(cl_);
-        return formatted(_ctx, root_,_inst);
-    }
-
-    private static ExecFormattedRootBlock formatted(ContextEl _ctx, ExecRootBlock _id, Struct _inst) {
-        if (_id == null) {
-            return null;
-        }
-        if (_inst == NullStruct.NULL_VALUE) {
-            return new ExecFormattedRootBlock(_id);
-        }
-        String formatted_ = ExecInherits.getQuickFullTypeByBases(_inst.getClassName(_ctx), _id.getFullName(), _ctx);
-        return new ExecFormattedRootBlock(_id, formatted_);
-    }
-
-    private static Struct value(AbstractWrapper _f) {
-        if (_f instanceof InstanceFieldWrapper) {
-            return ((InstanceFieldWrapper)_f).getParent();
-        }
-        return NullStruct.NULL_VALUE;
-    }
 
     private static ExecOperationNode getCurrentOper(AbstractPageEl _p) {
         ExecOperationNode ex_;
@@ -883,88 +114,6 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             ex_ = null;
         }
         return ex_;
-    }
-
-    private static CoreCheckedExecOperationNodeInfos end(ContextEl _context, ExpressionLanguage _el, AbstractPageEl _last) {
-        ExecOperationNode ex_ = _el.getCurrentOper();
-        if (ex_ instanceof ExecCompoundAffectationOperation) {
-            ImplicitMethods implicits_ = ((ExecCompoundAffectationOperation) ex_).getConverter();
-            ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_el.getArguments(),ex_);
-            int indexImplicit_ = pairBefore_.getIndexImplicitConv();
-            if (!ImplicitMethods.isValidIndex(implicits_,indexImplicit_)&&!pairBefore_.isEndCalculate()) {
-                return settable(_el,(ExecCompoundAffectationOperation) ex_,_context, WatchPoint.BPC_COMPOUND_WRITE,new Struct[]{ArgumentListCall.toStr(_last.getReturnedArgument()),NullStruct.NULL_VALUE}, _last);
-            }
-        }
-        return wrapp(_context, _last, ex_);
-    }
-
-    private static StdMethodCheckedExecOperationNodeInfos endStd(ContextEl _context, ExpressionLanguage _el, AbstractPageEl _last) {
-        ExecOperationNode ex_ = _el.getCurrentOper();
-        if (ex_ instanceof StdParamsOperable) {
-            return new StdMethodCheckedExecOperationNodeInfos(_context.getStandards().getCoreNames().getAliasObject(),(StdParamsOperable)ex_,cl((StdParamsOperable) ex_,_context), _el.getArguments(), ((StdParamsOperable)ex_).instance(_el.getArguments(), _last), true);
-        }
-        return null;
-    }
-    private static CallCheckedExecOperationNodeInfos endCall(ContextEl _context, ExpressionLanguage _el, AbstractPageEl _last) {
-        ExecOperationNode ex_ = _el.getCurrentOper();
-        if (ex_ instanceof ExecCompoundAffectationOperation) {
-            ImplicitMethods implicits_ = ((ExecCompoundAffectationOperation) ex_).getConverter();
-            ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_el.getArguments(),ex_);
-            int indexImplicit_ = pairBefore_.getIndexImplicitConv();
-            if (!ImplicitMethods.isValidIndex(implicits_,indexImplicit_)&&!pairBefore_.isEndCalculate()) {
-                return settableCall(_el,(ExecCompoundAffectationOperation) ex_,_context, true, new Struct[]{ArgumentListCall.toStr(_last.getReturnedArgument()),NullStruct.NULL_VALUE}, _last);
-            }
-        }
-        return core(_context, _el, _last, true, ex_);
-    }
-
-    private static CoreCheckedExecOperationNodeInfos wrapp(ContextEl _context, AbstractPageEl _last, ExecOperationNode _ex) {
-        if (!(_ex instanceof ExecSettableCallFctOperation)) {
-            return null;
-        }
-        if (sub(_ex)) {
-            AbstractWrapper w_ = _last.getWrapper();
-            return wrapp(w_, _context, WatchPoint.BPC_COMPOUND_READ);
-        }
-        if (!((ExecSettableCallFctOperation)_ex).resultCanBeSet()) {
-            AbstractWrapper w_ = _last.getWrapper();
-            return wrapp(w_, _context, WatchPoint.BPC_READ);
-        }
-        return null;
-    }
-
-    private static CallCheckedExecOperationNodeInfos core(ContextEl _context, ExpressionLanguage _el, AbstractPageEl _last, boolean _exit, ExecOperationNode _ex) {
-        if (_ex instanceof ExecFctOperation) {
-            return checkLda(new CallCheckedExecOperationNodeInfos(_context, _el.getArguments(), _last, _exit, (ExecFctOperation) _ex));
-        }
-        if (_ex instanceof ExecCustArrOperation) {
-            return checkLda(new CallCheckedExecOperationNodeInfos(_context, _el.getArguments(), _last, _exit, (ExecCustArrOperation) _ex));
-        }
-        if (_ex instanceof ExecCustArrReadOperation) {
-            return checkLda(new CallCheckedExecOperationNodeInfos(_context, _el.getArguments(), _last, _exit, (ExecCustArrReadOperation) _ex));
-        }
-        return null;
-    }
-
-    private static CallCheckedExecOperationNodeInfos checkLda(CallCheckedExecOperationNodeInfos _c) {
-        if (_c.lda() != null) {
-            return _c;
-        }
-        return null;
-    }
-
-    private static String cl(StdParamsOperable _o, ContextEl _c) {
-        if (_o instanceof ExecCallDynMethodOperation) {
-            return _c.getStandards().getReflect().getAliasFct();
-        }
-        if (_o instanceof ExecStdFctOperation) {
-            return ((ExecStdFctOperation)_o).cl();
-        }
-        return "";
-    }
-
-    private static CoreCheckedExecOperationNodeInfos wrapp(AbstractWrapper _w, ContextEl _context, int _m) {
-        return wrapperElt(_context,_w,_m,null);
     }
 
     private static boolean stopAtWp(AbsLogDbg _l,ContextEl _context,StackCall _stackCall) {
@@ -983,39 +132,44 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         }
     }
     private static StopDbgEnum calculateInterm(ContextEl _context, StackCall _stackCall, StopDbgEnum _state) {
-        CoreCheckedExecOperationNodeInfos infos_ = infos(_context, _stackCall);
-        StdMethodCheckedExecOperationNodeInfos infosStd_ = infosStd(_context, _stackCall);
-        CallCheckedExecOperationNodeInfos infosCall_ = infosCall(_context, _stackCall);
+        GroupCheckedExecOperationNodeInfos g_ = new GroupCheckedExecOperationNodeInfos(_context, _stackCall);
+        CoreCheckedExecOperationNodeInfos infos_ = g_.getInfos();
+        StdMethodCheckedExecOperationNodeInfos infosStd_ = g_.getInfosStd();
         if (_state == StopDbgEnum.STEP_RETURN_METHOD) {
             AbstractPageEl p_ = _stackCall.getLastPage();
             Struct str_ = stopExcValuRetThrowCatch(_context, _stackCall, p_);
-            return current(_context, _stackCall, infos_, infosCall_, infosStd_, str_);
+            return current(_context, _stackCall, g_, str_);
         }
         if (infosStd_ != null && (_state == StopDbgEnum.METHOD_STD_ENTRY || _state == StopDbgEnum.METHOD_STD_EXIT)) {
             AbstractPageEl p_ = _stackCall.getLastPage();
-            return nextEntry(_context, infosStd_, _stackCall, p_);
+            return nextEntry(_context, g_, _stackCall, p_);
         }
         if (_state == StopDbgEnum.METHOD_ABS_EXIT) {
             AbstractPageEl p_ = _stackCall.getLastPage();
-            return checkedMicro(_context,_stackCall,p_,infos_);
+            return checkedMicro(_context,_stackCall,p_, infos_, g_.getPar(), g_.getOpNat());
         }
         if (_state == StopDbgEnum.PARENT) {
             AbstractPageEl p_ = _stackCall.getLastPage();
-            return checkedNatAw(_context,_stackCall,p_,infos_);
+            return checkedNatAw(_context,_stackCall,p_, infos_, g_.getOpNat());
         }
         if (_state == StopDbgEnum.OPER_NAT) {
             AbstractPageEl p_ = _stackCall.getLastPage();
             return checkedAw(_context,_stackCall,p_,infos_);
+        }
+        if (_state == StopDbgEnum.METHOD_ABS_REF_ENTRY) {
+            AbstractPageEl p_ = _stackCall.getLastPage();
+            return stdCallee(_context,g_,_stackCall,p_);
+        }
+        if (_state == StopDbgEnum.METHOD_ABS_ENTRY) {
+            return afterAbsEntry(_context, _stackCall, g_);
         }
         return StopDbgEnum.NONE;
     }
 
     private static StopDbgEnum stopAtCheckedBp(AbsLogDbg _l,ContextEl _context, StackCall _stackCall) {
         AbstractPageEl p_ = _stackCall.getLastPage();
-        CoreCheckedExecOperationNodeInfos infos_ = infos(_context, _stackCall);
-        StdMethodCheckedExecOperationNodeInfos infosStd_ = infosStd(_context, _stackCall);
-        CallCheckedExecOperationNodeInfos infosCall_ = infosCall(_context, _stackCall);
-        if (!checkBreakPoint(_context,_stackCall, infos_, infosCall_, infosStd_)) {
+        GroupCheckedExecOperationNodeInfos g_ = new GroupCheckedExecOperationNodeInfos(_context, _stackCall);
+        if (!checkBreakPoint(_context,_stackCall, g_)) {
             return StopDbgEnum.NONE;
         }
         Struct exc_ = stopExcValuRetThrowCatch(_context, _stackCall, p_);
@@ -1023,7 +177,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         if (step_ != StopDbgEnum.NONE) {
             return step_;
         }
-        return logs(_l,current(_context, _stackCall, infos_, infosCall_, infosStd_, exc_),_context,_stackCall);
+        return logs(_l,current(_context, _stackCall, g_, exc_),_context,_stackCall);
     }
     private static StopDbgEnum logs(AbsLogDbg _l, StopDbgEnum _s, ContextEl _context, StackCall _stackCall) {
         if (_s == StopDbgEnum.NONE) {
@@ -1052,7 +206,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return StopDbgEnum.NONE;
     }
 
-    private static StopDbgEnum current(ContextEl _context, StackCall _stackCall, CoreCheckedExecOperationNodeInfos _infos, CallCheckedExecOperationNodeInfos _call, StdMethodCheckedExecOperationNodeInfos _std, Struct _exc) {
+    private static StopDbgEnum current(ContextEl _context, StackCall _stackCall, GroupCheckedExecOperationNodeInfos _g, Struct _exc) {
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().isMute()) {
             return StopDbgEnum.NONE;
         }
@@ -1069,180 +223,42 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             }
             return defBp(_context, _stackCall);
         }
-        if (_std != null && !_std.isExiting()) {
-            return enterCase(_context,_std, _stackCall,p_);
+        StdMethodCheckedExecOperationNodeInfos std_ = _g.getInfosStd();
+        if (std_ != null && !std_.isExiting()) {
+            return enterCase(_context, _g, _stackCall,p_);
         }
-        if (_infos instanceof CheckedExecOperationNodeInfos || _infos instanceof ArrCheckedExecOperationNodeInfos) {
-            return checkedMicro(_context, _stackCall, p_, _infos);
+        CoreCheckedExecOperationNodeInfos infos_ = _g.getInfos();
+        if (infos_ instanceof FieldCheckedExecOperationNodeInfos || infos_ instanceof ArrCheckedExecOperationNodeInfos) {
+            return checkedMicro(_context, _stackCall, p_, infos_, _g.getPar(), _g.getOpNat());
         }
-        if (_call != null && !_call.isExit()) {
-            return enterCase(_context, _stackCall, p_, _call, StopDbgEnum.METHOD_ABS_ENTRY);
+        CallCheckedExecOperationNodeInfos call_ = _g.getInfosCall();
+        if (call_ != null && !call_.isExit()) {
+            return enterCase(_context, _stackCall, p_, call_, StopDbgEnum.METHOD_ABS_ENTRY);
         }
-        return otherStopAndBp(_context, _stackCall, _infos, _std, _call, p_);
+        return afterAbsEntry(_context, _stackCall, _g);
     }
 
-    private static StopDbgEnum otherStopAndBp(ContextEl _context, StackCall _stackCall, CoreCheckedExecOperationNodeInfos _infos, StdMethodCheckedExecOperationNodeInfos _std, CallCheckedExecOperationNodeInfos _call, AbstractPageEl _p) {
-        if (_std != null) {
-            return enterCase(_context, _std, _stackCall, _p);
+    private static StopDbgEnum afterAbsEntry(ContextEl _context, StackCall _stackCall, GroupCheckedExecOperationNodeInfos _g) {
+        AbstractPageEl p_ = _stackCall.getLastPage();
+        StdMethodCheckedExecOperationNodeInfos std_ = _g.getInfosStd();
+        CoreCheckedExecOperationNodeInfos infos_ = _g.getInfos();
+        CallCheckedExecOperationNodeInfos call_ = _g.getInfosCall();
+        if (std_ != null) {
+            return enterCase(_context, _g, _stackCall, p_);
         }
-        if (_call != null && exitMethod(_context, _stackCall, _p, _call)) {
+        if (call_ != null && call_.isExit() && exitMethod(_context, _stackCall, p_, call_)) {
             return StopDbgEnum.METHOD_ABS_EXIT;
         }
-        return checkedMicro(_context, _stackCall, _p, _infos);
+        return checkedMicro(_context, _stackCall, p_, infos_, _g.getPar(), _g.getOpNat());
     }
 
-    private static StopDbgEnum arr(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, ArrCheckedExecOperationNodeInfos _arr) {
-        if (stopArr(_context, _stackCall, _p, _arr)){
-            return StopDbgEnum.ARRAY;
-        }
-        return StopDbgEnum.NONE;
-    }
-
-    private static StopDbgEnum par(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _arr) {
-        if (stopPar(_context, _stackCall, _p, _arr.getInstance(), _arr)){
-            return StopDbgEnum.PARENT;
-        }
-        return StopDbgEnum.NONE;
-    }
-
-    private static StopDbgEnum operNat(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
-        OperNatCheckedExecOperationNodeInfos opNat_ = infosOperNat(_context, _stackCall);
-        if (opNat_ == null) {
-            return StopDbgEnum.NONE;
-        }
-        String call_ = opNat_.getKey();
-        OperNatPointBlockPair pairs_ = _context.getPairOperNat(call_);
-        OperNatPoint mp_ = pairs_.getValue();
-        if (checkOperNat(_context, _stackCall, _p, mp_, opNat_)) {
+    private static StopDbgEnum operNat(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, OperNatCheckedExecOperationNodeInfos _nat) {
+        if (_nat != null && checkOperNat(_context, _stackCall, _p, _context.getPairOperNat(_nat.getKey()).getValue(), _nat)) {
             return StopDbgEnum.OPER_NAT;
         }
         return StopDbgEnum.NONE;
     }
 
-    private static CallCheckedExecOperationNodeInfos checkRefl(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _infos) {
-        StdCaller c_ = _infos.getFct().getCaller();
-        if (c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars1
-                ||c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars2
-                ||c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars3
-                ||c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars4) {
-            MethodMetaInfo m_ = NumParsers.getMethod(_infos.getInstance());
-            Cache cache_ = m_.getCache();
-            if (cache_ != null) {
-                ArgumentListCall args_ = _infos.getArgs();
-                AbstractWrapper lw_ = cache_.getLocalWrapper(NumParsers.getString(str(c_,args_, 0)).getInstance(), NumParsers.convertToNumber(str(c_,args_, 1)).longStruct());
-                if (lw_ instanceof ArrayCustWrapper) {
-                    return checkCallCheckedExecOperationNodeInfos(_context,_infos,c_,args_, (ArrayCustWrapper) lw_);
-                }
-            }
-        }
-        return null;
-    }
-
-    private static CoreCheckedExecOperationNodeInfos checkReflAw(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _infos) {
-        StdCaller c_ = _infos.getFct().getCaller();
-        if (c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars1
-                ||c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars2
-                ||c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars3
-                ||c_ instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars4) {
-            MethodMetaInfo m_ = NumParsers.getMethod(_infos.getInstance());
-            Cache cache_ = m_.getCache();
-            if (cache_ != null) {
-                ArgumentListCall args_ = _infos.getArgs();
-                AbstractWrapper lw_ = cache_.getLocalWrapper(NumParsers.getString(str(c_,args_, 0)).getInstance(), NumParsers.convertToNumber(str(c_,args_, 1)).longStruct());
-                Struct r_ = right(c_, args_);
-                return wrapperElt(_context,lw_,mode(c_),r_);
-            }
-        }
-        return null;
-    }
-    private static CallCheckedExecOperationNodeInfos checkCallCheckedExecOperationNodeInfos(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _infos, StdCaller _c, ArgumentListCall _args, ArrayCustWrapper _lw) {
-        Struct r_ = right(_c, _args);
-        if (r_ != null) {
-            return checkLda(new CallCheckedExecOperationNodeInfos(_context, _infos.isExiting(), _lw, r_));
-        }
-        return checkLda(new CallCheckedExecOperationNodeInfos(_context, _infos.isExiting(), _lw));
-    }
-    private static int mode(StdCaller _c) {
-        if (_c instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars3 || _c instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars4) {
-            return WatchPoint.BPC_WRITE;
-        }
-        return WatchPoint.BPC_READ;
-    }
-    private static Struct right(StdCaller _c,ArgumentListCall _a) {
-        if (_c instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars3){
-            return str(_a,1);
-        }
-        if (_c instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars4){
-            return str(_a,2);
-        }
-        return null;
-    }
-    private static Struct str(StdCaller _c,ArgumentListCall _a, int _i) {
-        if (_c instanceof FctMethodGetDeclaredAnonymousLambdaLocalVars3 && _i == 1) {
-            return new IntStruct(0);
-        }
-        return str(_a,_i);
-    }
-    private static Struct str(ArgumentListCall _a, int _i) {
-        CustList<ArgumentWrapper> ls_ = _a.getArgumentWrappers();
-        if (ls_.isValidIndex(_i)) {
-            return ls_.get(_i).getValue().getStruct();
-        }
-        return new IntStruct(0);
-    }
-
-    private static ArrCheckedExecOperationNodeInfos callDynInit(ContextEl _context, ArgumentListCall _ls, LambdaConstructorStruct _lam) {
-        CustList<ArgumentWrapper> args_ = _ls.getArgumentWrappers();
-        int indexes_ = args_.size();
-        ArrayStruct arr_ = new ArrayStruct(indexes_,StringExpUtil.getPrettyArrayType(_context.getStandards().getPrimTypes().getAliasPrimInteger()));
-        for (int i = 0; i <indexes_; i++) {
-            arr_.set(i,ArgumentListCall.toStr(args_.get(i).getValue()));
-        }
-        String c_ = StringExpUtil.getPrettyArrayType(_lam.getFormClassName(), indexes_);
-        return new ArrCheckedExecOperationNodeInfos(_context, c_, arr_);
-    }
-    private static ArrCheckedExecOperationNodeInfos callDynArr(ContextEl _context, String _name,Struct _instance, ArgumentListCall _ls) {
-        CustList<ArgumentWrapper> args_ = _ls.getArgumentWrappers();
-        if (args_.isEmpty()) {
-            return new ArrCheckedExecOperationNodeInfos(_context, _instance);
-        }
-        if (StringUtil.quickEq(_name,"[:]")) {
-            Struct r_ = rangeInts(_context, _ls.getArguments(), _instance);
-            return new ArrCheckedExecOperationNodeInfos(_context,_instance,ArrPoint.BPC_RANGE_GET,r_,null);
-        }
-        if (StringUtil.quickEq(_name,"[:]=")) {
-            Struct r_ = rangeInts(_context, _ls.getArguments(), _instance);
-            return new ArrCheckedExecOperationNodeInfos(_context,_instance,ArrPoint.BPC_RANGE_SET,r_,ArgumentListCall.toStr(_ls.getRight()));
-        }
-        Struct last_ = ArgumentListCall.toStr(args_.last().getValue());
-        if (last_ instanceof RangeStruct) {
-            Argument right_ = _ls.getRight();
-            if (right_ != null) {
-                return new ArrCheckedExecOperationNodeInfos(_context,_instance,ArrPoint.BPC_RANGE_SET,last_,ArgumentListCall.toStr(_ls.getRight()));
-            }
-            return new ArrCheckedExecOperationNodeInfos(_context,_instance,ArrPoint.BPC_RANGE_GET,last_,null);
-        }
-        int indexes_ = args_.size();
-        ArrayStruct arr_ = new ArrayStruct(indexes_,StringExpUtil.getPrettyArrayType(_context.getStandards().getPrimTypes().getAliasPrimInteger()));
-        for (int i = 0; i <indexes_; i++) {
-            arr_.set(i,ArgumentListCall.toStr(args_.get(i).getValue()));
-        }
-        if (StringUtil.quickEq(_name,"[]=")) {
-            return new ArrCheckedExecOperationNodeInfos(_context,_instance,ArrPoint.BPC_INT_GET_SET,arr_,ArgumentListCall.toStr(_ls.getRight()));
-        }
-        return new ArrCheckedExecOperationNodeInfos(_context,_instance,ArrPoint.BPC_INT_GET,arr_,null);
-    }
-
-    private static Struct rangeInts(ContextEl _conf, CustList<Argument> _arguments, Struct _arr) {
-        if (_arguments.size() == 2) {
-            Struct lower_ = _arguments.get(0).getStruct();
-            Struct step_ = _arguments.get(1).getStruct();
-            return Argument.getNull(FctRangeUnlimitedStep.rangeUnlimitStep(lower_, step_));
-        }
-        Struct lower_ = _arguments.last().getStruct();
-        Struct upper_ = new IntStruct(ExecArrayFieldOperation.getLength(_arr, _conf));
-        return Argument.getNull(FctRangeUnlimitedStep.range(lower_, upper_));
-    }
     private static StopDbgEnum defBp(ContextEl _context, StackCall _stackCall) {
         AbstractPageEl p_ = _stackCall.getLastPage();
         if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null || _stackCall.trueException() != null || getCurrentOper(p_) != null || _stackCall.getReadWrite() != ReadWrite.ENTRY) {
@@ -1257,34 +273,36 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return StopDbgEnum.NONE;
     }
 
-    private static StopDbgEnum checkedMicro(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos) {
-        StopDbgEnum res_ = checkedParent(_context, _stackCall, _p);
+    private static StopDbgEnum checkedMicro(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos, CoreCheckedExecOperationNodeInfos _par, OperNatCheckedExecOperationNodeInfos _opNat) {
+        StopDbgEnum res_ = checkedParent(_context, _stackCall, _p, _par);
         if (res_ != StopDbgEnum.NONE) {
             return res_;
         }
-        return checkedNatAw(_context, _stackCall, _p, _infos);
+        return checkedNatAw(_context, _stackCall, _p, _infos, _opNat);
     }
 
-    private static StopDbgEnum checkedNatAw(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos) {
-        StopDbgEnum nat_ = operNat(_context, _stackCall, _p);
+    private static StopDbgEnum checkedNatAw(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos, OperNatCheckedExecOperationNodeInfos _opNat) {
+        StopDbgEnum nat_ = operNat(_context, _stackCall, _p, _opNat);
         if (nat_ != StopDbgEnum.NONE) {
             return nat_;
         }
         return checkedAw(_context, _stackCall, _p, _infos);
     }
-    private static StopDbgEnum checkedParent(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
-        CoreCheckedExecOperationNodeInfos par_ = infosPar(_context, _stackCall);
-        if (par_ != null) {
-            return par(_context,_stackCall,_p,par_);
+    private static StopDbgEnum checkedParent(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _par) {
+        if (_par != null && stopPar(_context, _stackCall, _p, _par.getInstance(), _par)) {
+            return StopDbgEnum.PARENT;
         }
         return StopDbgEnum.NONE;
     }
     private static StopDbgEnum checkedAw(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos) {
         if (_infos instanceof ArrCheckedExecOperationNodeInfos) {
-            return arr(_context, _stackCall, _p, (ArrCheckedExecOperationNodeInfos) _infos);
+            if (stopArr(_context, _stackCall, _p, (ArrCheckedExecOperationNodeInfos) _infos)){
+                return StopDbgEnum.ARRAY;
+            }
+            return StopDbgEnum.NONE;
         }
-        if (_infos instanceof CheckedExecOperationNodeInfos) {
-            CheckedExecOperationNodeInfos infWatch_ = (CheckedExecOperationNodeInfos) _infos;
+        if (_infos instanceof FieldCheckedExecOperationNodeInfos) {
+            FieldCheckedExecOperationNodeInfos infWatch_ = (FieldCheckedExecOperationNodeInfos) _infos;
             if (!okField(_context,_stackCall, infWatch_)) {
                 return StopDbgEnum.NONE;
             }
@@ -1299,39 +317,40 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return defBp(_context, _stackCall);
     }
 
-    private static StopDbgEnum enterCase(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _ex, StackCall _stackCall, AbstractPageEl _p) {
-        if (!okMethod(_context,_stackCall,_ex)) {
+    private static StopDbgEnum enterCase(ContextEl _context, GroupCheckedExecOperationNodeInfos _g, StackCall _stackCall, AbstractPageEl _p) {
+        if (!okMethod(_context,_stackCall,_g.getInfosStd())) {
             return StopDbgEnum.NONE;
         }
-        return entryCaseTrue(_context, _ex, _stackCall, _p);
+        return entryCaseTrue(_context, _g, _stackCall, _p);
     }
 
-    private static StopDbgEnum entryCaseTrue(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _ex, StackCall _stackCall, AbstractPageEl _p) {
-        StandardNamedFunction call_ = _ex.getFct();
-        ExecFormattedRootBlock glClass_ = _ex.getDeclaring();
-        Struct instance_ = _ex.getInstance();
-        ArgumentListCall original_ = _ex.getArgs();
+    private static StopDbgEnum entryCaseTrue(ContextEl _context, GroupCheckedExecOperationNodeInfos _g, StackCall _stackCall, AbstractPageEl _p) {
+        StdMethodCheckedExecOperationNodeInfos i_ = _g.getInfosStd();
+        StandardNamedFunction call_ = i_.getFct();
+        ExecFormattedRootBlock glClass_ = i_.getDeclaring();
+        Struct instance_ = i_.getInstance();
+        ArgumentListCall original_ = i_.getArgs();
         StdMethodPointBlockPair pairs_ = _context.getPair(call_);
         if (pairs_ != null) {
             Parameters params_ = build(_context, pairs_, original_);
             MethodPoint mp_ = pairs_.getValue();
-            if (stopCurrentMp(_context, _stackCall, _p, mp_, _ex.isExiting(),new CheckedMethodInfos(glClass_, instance_, params_))) {
-                if (_ex.isExiting()) {
+            if (stopCurrentMp(_context, _stackCall, _p, mp_, i_.isExiting(),new CheckedMethodInfos(glClass_, instance_, params_))) {
+                if (i_.isExiting()) {
                     return StopDbgEnum.METHOD_STD_EXIT;
                 }
                 return StopDbgEnum.METHOD_STD_ENTRY;
             }
         }
-        return nextEntry(_context, _ex, _stackCall, _p);
+        return nextEntry(_context, _g, _stackCall, _p);
     }
 
-    private static StopDbgEnum nextEntry(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _ex, StackCall _stackCall, AbstractPageEl _p) {
-        CallCheckedExecOperationNodeInfos ref_ = checkRefl(_context, _ex);
-        if (!_ex.isExiting()) {
+    private static StopDbgEnum nextEntry(ContextEl _context, GroupCheckedExecOperationNodeInfos _g, StackCall _stackCall, AbstractPageEl _p) {
+        CallCheckedExecOperationNodeInfos ref_ = _g.getCheckRefl();
+        if (!_g.getInfosStd().isExiting()) {
             if (ref_ != null) {
                 return enterCase(_context, _stackCall, _p, ref_, StopDbgEnum.METHOD_ABS_REF_ENTRY);
             }
-            return stdCallee(_context, _ex, _stackCall, _p);
+            return stdCallee(_context, _g, _stackCall, _p);
         }
         if (ref_ != null &&exitMethod(_context, _stackCall, _p, ref_)) {
             return StopDbgEnum.METHOD_ABS_REF_EXIT;
@@ -1339,10 +358,10 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return StopDbgEnum.NONE;
     }
 
-    private static StopDbgEnum stdCallee(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _ex, StackCall _stackCall, AbstractPageEl _p) {
-        CoreCheckedExecOperationNodeInfos c_ = checkReflAw(_context, _ex);
+    private static StopDbgEnum stdCallee(ContextEl _context, GroupCheckedExecOperationNodeInfos _g, StackCall _stackCall, AbstractPageEl _p) {
+        CoreCheckedExecOperationNodeInfos c_ = _g.getCheckReflAw();
         if (c_ != null) {
-            return checkedMicro(_context, _stackCall, _p, c_);
+            return checkedMicro(_context, _stackCall, _p, c_, _g.getPar(), _g.getOpNat());
         }
         return StopDbgEnum.NONE;
     }
@@ -1732,7 +751,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     }
 
 
-    private static BreakPointCondition stopCurrentWpCondition(WatchPoint _bp, CheckedExecOperationNodeInfos _check) {
+    private static BreakPointCondition stopCurrentWpCondition(WatchPoint _bp, FieldCheckedExecOperationNodeInfos _check) {
         if (!_bp.isEnabled()) {
             return null;
         }
@@ -1859,11 +878,9 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return NumberUtil.wrapIntArray(_p.getGlobalOffset());
     }
 
-    private static boolean checkBreakPoint(ContextEl _context, StackCall _stackCall, CoreCheckedExecOperationNodeInfos _infos, CallCheckedExecOperationNodeInfos _call, StdMethodCheckedExecOperationNodeInfos _std) {
+    private static boolean checkBreakPoint(ContextEl _context, StackCall _stackCall, GroupCheckedExecOperationNodeInfos _g) {
         AbstractPageEl p_ = _stackCall.getLastPage();
-        CoreCheckedExecOperationNodeInfos par_ = infosPar(_context, _stackCall);
-        CoreCheckedExecOperationNodeInfos opNat_ = infosOperNat(_context, _stackCall);
-        if (_stackCall.trueException() != null || (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null && _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD) || _infos != null || _call != null || _std != null || par_ != null || opNat_ != null) {
+        if (_stackCall.trueException() != null || (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null && _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD) || _g.idDefined()) {
             return true;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null) {
@@ -1902,7 +919,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     private static boolean okMethod(ContextEl _context, StackCall _stackCall, StdMethodCheckedExecOperationNodeInfos _check) {
         return ExecTemplates.checkParams(_context, _check.getOwn(),_check.getFct().id(), ArgumentListCall.toStr(_check.getInstance()), _check.getArgs().getArguments(), _stackCall) == null;
     }
-    private static boolean okField(ContextEl _context, StackCall _stackCall, CheckedExecOperationNodeInfos _check) {
+    private static boolean okField(ContextEl _context, StackCall _stackCall, FieldCheckedExecOperationNodeInfos _check) {
         if (_check.getDeclaring() == null) {
             return false;
         }
@@ -1927,7 +944,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return ExecInheritsAdv.checkObjectEx(ret_, w_.getValue().getClassName(_context), _context, _stackCall) == null;
     }
 
-    private static Struct strValue(ContextEl _context, CheckedExecOperationNodeInfos _check) {
+    private static Struct strValue(ContextEl _context, FieldCheckedExecOperationNodeInfos _check) {
         if (_check.isStaticField()) {
             return NumParsers.getStaticField(_check.getIdClass(), _context.getClasses().getStaticFields());
         }

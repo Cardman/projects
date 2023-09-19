@@ -16,7 +16,7 @@ import code.expressionlanguage.exec.variables.StaticFieldWrapper;
 import code.expressionlanguage.structs.FieldMetaInfo;
 import code.expressionlanguage.structs.Struct;
 
-public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperationNodeInfos {
+public final class FieldCheckedExecOperationNodeInfos extends CoreCheckedExecOperationNodeInfos {
     private final boolean staticField;
     private final boolean checkFinalField;
     private final boolean trueField;
@@ -25,7 +25,7 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
     private final int modeField;
     private final ExecTypeReturn fieldType;
 
-    public CheckedExecOperationNodeInfos(ContextEl _ctx,ExecSettableFieldOperation _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
+    public FieldCheckedExecOperationNodeInfos(ContextEl _ctx, ExecSettableFieldOperation _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
         super(_d, _i, ArrCheckedExecOperationNodeInfos.cacheRightValue(_ctx,_r));
         this.staticField = _s instanceof ExecSettableFieldStatOperation;
         this.checkFinalField = false;
@@ -40,11 +40,11 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
         trueField = true;
     }
 
-    public CheckedExecOperationNodeInfos(ExecAnnotationMethodOperation _s, ContextEl _ctx, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
+    public FieldCheckedExecOperationNodeInfos(ExecAnnotationMethodOperation _s, ContextEl _ctx, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
         this(_s.getFieldName(),_ctx,_mode,_d,_i,_r);
     }
 
-    public CheckedExecOperationNodeInfos(String _s, ContextEl _ctx, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
+    public FieldCheckedExecOperationNodeInfos(String _s, ContextEl _ctx, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
         super(_d, _i, ArrCheckedExecOperationNodeInfos.cacheRightValue(_ctx,_r));
         this.staticField = false;
         this.checkFinalField = false;
@@ -57,7 +57,7 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
         trueField = false;
     }
 
-    public CheckedExecOperationNodeInfos(ContextEl _ctx, FieldWrapper _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
+    public FieldCheckedExecOperationNodeInfos(ContextEl _ctx, FieldWrapper _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
         super(_d, _i, ArrCheckedExecOperationNodeInfos.cacheRightValue(_ctx,_r));
         this.staticField = _s instanceof StaticFieldWrapper;
         this.checkFinalField = false;
@@ -72,7 +72,7 @@ public final class CheckedExecOperationNodeInfos extends CoreCheckedExecOperatio
         trueField = true;
     }
 
-    public CheckedExecOperationNodeInfos(ContextEl _ctx, FieldMetaInfo _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
+    public FieldCheckedExecOperationNodeInfos(ContextEl _ctx, FieldMetaInfo _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
         super(_d, _i, ArrCheckedExecOperationNodeInfos.cacheRightValue(_ctx,_r));
         this.staticField = _s.isStaticField();
         this.checkFinalField = _s.isFinalField();
