@@ -53,7 +53,7 @@ public final class OkStdMpFormEvent implements AbsActionListener {
     }
 
     private static void update(StdMethodPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, ResultContext _cur) {
-        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(),_cur, _window.getResultContextNext().generateAdv(_cur.getContext().getInterrupt()));
+        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(), _form.getWatches().getText(), _cur, _window.getResultContextNext().generateAdv(_cur.getContext().getInterrupt()));
         OkMpFormEvent.update(_condition, _form);
         if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(MethodPoint.BPC_ENTRY)) {
             _condition.getOthers().add(_mp.getValue().getResultEntry());

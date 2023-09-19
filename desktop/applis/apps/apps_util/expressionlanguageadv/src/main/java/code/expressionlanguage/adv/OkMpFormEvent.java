@@ -36,7 +36,7 @@ public final class OkMpFormEvent implements AbsActionListener {
         ToggleBreakPointEvent.afterToggle(resultContext,window.selectedTab());
     }
     private static void update(MethodPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, ResultContext _res) {
-        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(),_res, _window.getResultContextNext().generateAdv(_res.getContext().getInterrupt()));
+        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(), _form.getWatches().getText(), _res, _window.getResultContextNext().generateAdv(_res.getContext().getInterrupt()));
         update(_condition, _form);
         if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(MethodPoint.BPC_ENTRY)) {
             _condition.getOthers().add(_mp.getValue().getResultEntry());

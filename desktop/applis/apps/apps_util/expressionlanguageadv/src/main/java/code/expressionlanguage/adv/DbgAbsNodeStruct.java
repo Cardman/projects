@@ -1,9 +1,9 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ClassFieldStruct;
-import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -18,13 +18,13 @@ public abstract class DbgAbsNodeStruct extends MutableTreeNodeNav implements Dbg
     private final CustList<DbgAbsNodeStruct> children = new CustList<DbgAbsNodeStruct>();
     private DbgAbsNodeStruct parentStruct;
     private boolean calculated;
-    private final ResultContext result;
+    private final ContextEl result;
 
-    protected DbgAbsNodeStruct(ResultContext _r) {
+    protected DbgAbsNodeStruct(ContextEl _r) {
         this.result = _r;
     }
 
-    public ResultContext getResult() {
+    public ContextEl getResult() {
         return result;
     }
 
@@ -86,7 +86,7 @@ public abstract class DbgAbsNodeStruct extends MutableTreeNodeNav implements Dbg
             DbgCallStruct curr_ = (DbgCallStruct) this;
             String id_ = curr_.id();
             CustList<DbgFieldStruct> stFields_ = new CustList<DbgFieldStruct>();
-            for (EntryCust<String,Struct> f: NumParsers.getStaticFieldMap(id_,result.getContext().getClasses().getStaticFields()).entryList()) {
+            for (EntryCust<String,Struct> f: NumParsers.getStaticFieldMap(id_,result.getClasses().getStaticFields()).entryList()) {
                 DbgFieldStruct efs_ = new DbgFieldStruct(result, new ClassField(id_,f.getKey()), f.getValue());
                 efs_.setParentStruct(this);
                 stFields_.add(efs_);

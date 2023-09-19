@@ -39,7 +39,7 @@ public final class OkParFormEvent implements AbsActionListener {
         framePoints.getCommonFrame().pack();
     }
     private static void update(ParPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, ResultContext _curr) {
-        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(),_curr, _window.getResultContextNext().generateAdv(_curr.getContext().getInterrupt()));
+        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(), _form.getWatches().getText(), _curr, _window.getResultContextNext().generateAdv(_curr.getContext().getInterrupt()));
         OkMpFormEvent.update(_condition, _form);
         if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(ParPoint.BPC_GET)) {
             _condition.getOthers().add(_mp.getValue().getResultGet());

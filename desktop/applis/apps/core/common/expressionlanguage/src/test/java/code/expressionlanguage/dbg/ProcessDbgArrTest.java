@@ -1560,7 +1560,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         WatchPointBlockPair p_ = pair(_cont, _cf);
         WatchPoint wp_ = p_.getValue();
-        wp_.getResultWrite().analyze(p_,_newValue,"",_cont, new DefContextGenerator());
+        wp_.getResultWrite().analyze(p_,_newValue,"", "", _cont, new DefContextGenerator());
         assertEq(_newValue,wp_.getResultWrite().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeField(_newValue, p_, _cont, type_, new DefContextGenerator(), true);
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1693,7 +1693,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         std(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", true);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultLength().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultLength().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultLength().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1704,7 +1704,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         stdGet(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", true);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultIntGet().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultIntGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultIntGet().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1715,7 +1715,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         stdGetArrArrInt(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[[int", true);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultIntGet().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultIntGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultIntGet().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1726,7 +1726,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         stdSetArrArrInt(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[[int", true);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultIntGetSet().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultIntGetSet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultIntGetSet().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1736,7 +1736,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         stdSet(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", true);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultIntSet().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultIntSet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultIntSet().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1746,7 +1746,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         unkThrown(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("", true);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultLength().analyze(p_,"0==0","",_cont,new DefContextGenerator());
+        wp_.getResultLength().analyze(p_,"0==0","", "", _cont,new DefContextGenerator());
         assertEq("0==0",wp_.getResultLength().getResultStr());
 
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr("0==0", p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
@@ -1758,7 +1758,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         stdParam(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex<int>", true);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultLength().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultLength().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultLength().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1769,7 +1769,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         stdInc(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", false);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultLength().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultLength().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultLength().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1780,7 +1780,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         stdGetInts(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[int", true);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultIntCompoundGet().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultIntCompoundGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultIntCompoundGet().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1790,7 +1790,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         stdSetInts(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[int", true);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultIntCompoundSet().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultIntCompoundSet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultIntCompoundSet().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1801,7 +1801,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         stdSetErrInts(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[int", true);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultIntCompoundSetErr().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultIntCompoundSetErr().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultIntCompoundSetErr().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1812,7 +1812,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         stdRangeGetInts(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[int", true);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultRangeGet().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultRangeGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultRangeGet().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1823,7 +1823,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         stdInits(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[[int", true);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultInitArray().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultInitArray().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultInitArray().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1833,7 +1833,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         stdRangeSetInts(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[int", true);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultRangeSet().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultRangeSet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultRangeSet().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1844,7 +1844,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         stdRangeCompoundGetInts(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[int", true);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultRangeCompoundGet().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultRangeCompoundGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultRangeCompoundGet().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1854,7 +1854,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         stdRangeCompoundSetInts(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[int", true);
         ArrPoint wp_ = p_.getValue();
-        wp_.getResultRangeCompoundSet().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultRangeCompoundSet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultRangeCompoundSet().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -2180,14 +2180,14 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         entering(_cont, _file, _offset);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
         MethodPointBlockPair wp_ = _cont.getPair(id_);
-        wp_.getValue().getResultEntry().analyze(wp_,_newValue,"",_cont,new DefContextGenerator());
+        wp_.getValue().getResultEntry().analyze(wp_,_newValue,"", "", _cont,new DefContextGenerator());
         assertEq(_newValue,wp_.getValue().getResultEntry().getResultStr());
     }
     private void exitingCondition(String _newValue,ResultContext _cont, String _file, int _offset) {
         exiting(_cont, _file, _offset);
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
         MethodPointBlockPair wp_ = _cont.getPair(id_);
-        wp_.getValue().getResultExit().analyze(wp_,_newValue,"",_cont,new DefContextGenerator());
+        wp_.getValue().getResultExit().analyze(wp_,_newValue,"", "", _cont,new DefContextGenerator());
         assertEq(_newValue,wp_.getValue().getResultExit().getResultStr());
     }
     private void entering(ResultContext _cont, String _file, int _offset) {

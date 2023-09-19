@@ -11,7 +11,6 @@ import code.expressionlanguage.functionid.AbsractIdentifiableCommon;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
 import code.util.StringMap;
@@ -1168,7 +1167,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         StandardNamedFunction s_ = entering(_cont, _clName, _id);
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         StdMethodPointBlockPair wp_ = _cont.getPair(s_);
-        wp_.getValue().getResultEntry().analyze(wp_,_newValue,"",_cont,new DefContextGenerator());
+        wp_.getValue().getResultEntry().analyze(wp_,_newValue,"", "", _cont,new DefContextGenerator());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
         assertEq(_newValue,wp_.getValue().getResultEntry().getResultStr());
@@ -1178,7 +1177,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         StandardNamedFunction s_ = exiting(_cont, _clName, _id);
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         StdMethodPointBlockPair wp_ = _cont.getPair(s_);
-        wp_.getValue().getResultExit().analyze(wp_,_newValue,"",_cont,new DefContextGenerator());
+        wp_.getValue().getResultExit().analyze(wp_,_newValue,"", "", _cont,new DefContextGenerator());
         assertEq(_newValue,wp_.getValue().getResultExit().getResultStr());
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
@@ -1188,8 +1187,8 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         StandardNamedFunction s_ = enteringExiting(_cont, _clName, _id);
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         StdMethodPointBlockPair wp_ = _cont.getPair(s_);
-        wp_.getValue().getResultEntry().analyze(wp_,_newValue,"",_cont,new DefContextGenerator());
-        wp_.getValue().getResultExit().analyze(wp_,_exit,"",_cont,new DefContextGenerator());
+        wp_.getValue().getResultEntry().analyze(wp_,_newValue,"", "", _cont,new DefContextGenerator());
+        wp_.getValue().getResultExit().analyze(wp_,_exit,"", "", _cont,new DefContextGenerator());
         assertEq(_newValue,wp_.getValue().getResultEntry().getResultStr());
         assertEq(_exit,wp_.getValue().getResultExit().getResultStr());
 //        ResultContextLambda resEnter_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());

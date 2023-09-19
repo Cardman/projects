@@ -3900,6 +3900,72 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq("log\n",((AbsTextArea)b_.getStatusDbgAreaScroll().getChildren().get(0)).getText());
     }
     @Test
+    public void i21() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {static int a=2;static int b=4;public static int exmeth(String[] v){return v.length;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(96,96);
+        toggleBp(b_);
+        bpForm(b_);
+        b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getSuspend().setEnabled(true);
+        b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getWatches().setText("\"log\"");
+        bpFormOk(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        assertEq(3,chs_.size());
+    }
+    @Test
+    public void i22() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {static int a=2;static int b=4;public static int exmeth(String[] v){return v.length;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(96,96);
+        toggleBp(b_);
+        bpForm(b_);
+        b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getSuspend().setEnabled(true);
+        b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getWatches().setText("1/0");
+        bpFormOk(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        assertEq(3,chs_.size());
+    }
+    @Test
     public void pause() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);

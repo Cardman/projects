@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.syntax.FileBlockIndex;
@@ -26,13 +27,13 @@ public final class TreeNodeRenderUtil {
     private TreeNodeRenderUtil() {
     }
 
-    static String format(DbgRootStruct _root,DbgNodeStruct _node) {
+    static String format(DbgNodeStruct _node, ContextEl _ctx) {
         return "<" + HTML + "><" + SPAN + " " + STYLE + "='" + BACKGROUND_COLOR + ":#"+BLACK+";'>"
                 + "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+RED+";'>" + transform(_node.str()) + "</" + SPAN + ">"
                 + EXT_SPACE
-                + wrapTypeDecl(_node.value().getClassName(_root.getResult().getContext()))
+                + wrapTypeDecl(_node.value().getClassName(_ctx))
                 + EXT_SPACE
-                + wrapValue(_root,_node.value())
+                + wrapValue(_node.value(), _ctx)
                 + "</" + SPAN + ">"
                 + "</" + HTML + ">";
     }
@@ -41,12 +42,12 @@ public final class TreeNodeRenderUtil {
         return "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+WHITE+";'>" +transform(_type) + "</" + SPAN + ">";
     }
 
-    private static String wrapValue(DbgRootStruct _root,Struct _str) {
+    private static String wrapValue(Struct _str, ContextEl _ctx) {
         if (_str instanceof ArrayStruct) {
             return "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+CYAN+";'>" +((ArrayStruct)_str).getLength()+ "</" + SPAN +">";
         }
         if (_str instanceof DisplayableStruct) {
-            return "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+CYAN+";'>" +transform(((DisplayableStruct)_str).getDisplayedString(_root.getResult().getContext()).getInstance())+ "</" + SPAN +">";
+            return "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+CYAN+";'>" +transform(((DisplayableStruct)_str).getDisplayedString(_ctx).getInstance())+ "</" + SPAN +">";
         }
         return "";
     }

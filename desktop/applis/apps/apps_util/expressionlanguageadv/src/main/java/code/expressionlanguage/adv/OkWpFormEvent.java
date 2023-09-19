@@ -68,7 +68,7 @@ public final class OkWpFormEvent implements AbsActionListener {
         return false;
     }
     private static void update(WatchPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, ResultContext _res) {
-        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(),_res, _window.getResultContextNext().generateAdv(_res.getContext().getInterrupt()));
+        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(), _form.getWatches().getText(), _res, _window.getResultContextNext().generateAdv(_res.getContext().getInterrupt()));
         OkMpFormEvent.update(_condition,_form);
         if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(WatchPoint.BPC_READ)) {
             _condition.getOthers().add(_mp.getValue().getResultRead());

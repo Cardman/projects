@@ -418,21 +418,21 @@ public final class ProcessDbgParentTest extends ProcessDbgCommon {
         std(_cont);
         ParPointBlockPair p_ = _cont.getPairPar("pkg.Ex", true);
         ParPoint wp_ = p_.getValue();
-        wp_.getResultGet().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultGet().getResultStr());
     }
     private void stdThrownConditionInner(ResultContext _cont, String _condition) {
         stdInner(_cont);
         ParPointBlockPair p_ = _cont.getPairPar("pkg.Ex..Inner", true);
         ParPoint wp_ = p_.getValue();
-        wp_.getResultGet().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultGet().getResultStr());
     }
     private void conditionUnkThrown(ResultContext _cont, String _cond) {
         unkThrown(_cont);
         ParPointBlockPair p_ = _cont.getPairPar("", true);
         ParPoint wp_ = p_.getValue();
-        wp_.getResultGet().analyze(p_,_cond,"",_cont,new DefContextGenerator());
+        wp_.getResultGet().analyze(p_,_cond,"", "", _cont,new DefContextGenerator());
         assertEq(_cond,wp_.getResultGet().getResultStr());
     }
 
@@ -440,14 +440,14 @@ public final class ProcessDbgParentTest extends ProcessDbgCommon {
         anyPar(_cont);
         ParPointBlockPair p_ = _cont.getPairPar("", false);
         ParPoint wp_ = p_.getValue();
-        wp_.getResultGet().analyze(p_,"0==0","",_cont,new DefContextGenerator());
+        wp_.getResultGet().analyze(p_,"0==0","", "", _cont,new DefContextGenerator());
         assertEq("0==0",wp_.getResultGet().getResultStr());
     }
     private void stdThrownConditionWide(ResultContext _cont, String _condition) {
         stdWide(_cont);
         ParPointBlockPair p_ = _cont.getPairPar("pkg.Ex", false);
         ParPoint wp_ = p_.getValue();
-        wp_.getResultGet().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultGet().getResultStr());
     }
     private void unkThrown(ResultContext _cont) {

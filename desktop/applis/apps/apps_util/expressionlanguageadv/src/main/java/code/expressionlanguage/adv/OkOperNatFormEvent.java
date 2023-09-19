@@ -41,7 +41,7 @@ public final class OkOperNatFormEvent implements AbsActionListener {
         framePoints.getCommonFrame().pack();
     }
     private static void update(OperNatPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, ResultContext _curr) {
-        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(),_curr, _window.getResultContextNext().generateAdv(_curr.getContext().getInterrupt()));
+        _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(), _form.getWatches().getText(), _curr, _window.getResultContextNext().generateAdv(_curr.getContext().getInterrupt()));
         OkMpFormEvent.update(_condition, _form);
         if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(OperNatPoint.BPC_SIMPLE)) {
             _condition.getOthers().add(_mp.getValue().getResultSimple());

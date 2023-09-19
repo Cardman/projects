@@ -1,16 +1,16 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.Struct;
 
 public final class DbgRetVarStruct extends DbgAbsNodeStruct {
 
     private final Struct eval;
     private final String className;
-    public DbgRetVarStruct(ResultContext _r, AbstractWrapper _w) {
+    public DbgRetVarStruct(ContextEl _r, AbstractWrapper _w) {
         super(_r);
-        className = _w.getClassName(_r.getContext());
+        className = _w.getClassName(_r);
         eval = _w.getValue();
     }
 

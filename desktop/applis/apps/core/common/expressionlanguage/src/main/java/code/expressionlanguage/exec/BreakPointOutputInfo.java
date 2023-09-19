@@ -1,13 +1,18 @@
 package code.expressionlanguage.exec;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
+import code.expressionlanguage.structs.Struct;
 
 public final class BreakPointOutputInfo {
     private CallingState callingStateSub;
     private CoreCheckedExecOperationNodeInfos operElt;
     private BreakPointCondition bpc;
     private StopDbgEnum stoppedBreakPoint = StopDbgEnum.NONE;
+    private Struct watchedObject;
+    private Struct watchedTrace;
+    private ContextEl subContext;
 
     public CallingState getCallingStateSub() {
         return callingStateSub;
@@ -45,4 +50,27 @@ public final class BreakPointOutputInfo {
         this.stoppedBreakPoint = _s;
     }
 
+    public Struct getWatchedObject() {
+        return watchedObject;
+    }
+
+    public void setWatchedObject(Struct _w) {
+        this.watchedObject = _w;
+    }
+
+    public Struct getWatchedTrace() {
+        return watchedTrace;
+    }
+
+    public void setWatchedTrace(Struct _w) {
+        this.watchedTrace = _w;
+    }
+
+    public ContextEl getSubContext() {
+        return subContext;
+    }
+
+    public void setSubContext(ContextEl _c) {
+        this.subContext = _c;
+    }
 }

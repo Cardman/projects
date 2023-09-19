@@ -20,7 +20,7 @@ public final class DbgSelectNodeEvent implements AbsShortListTree {
         if (((DbgAbsNodeStruct)e_).select()){
             AbstractMutableTreeNode sel_ = tree.selectEvt();
             for (DbgAbsNodeStruct m: ((DbgAbsNodeStruct) e_).getChildren()) {
-                sel_.add(TreeNodeRenderUtil.format(root,m));
+                sel_.add(TreeNodeRenderUtil.format(m, root.getResult()));
             }
             MutableTreeNodeUtil.reload(tree);
         }

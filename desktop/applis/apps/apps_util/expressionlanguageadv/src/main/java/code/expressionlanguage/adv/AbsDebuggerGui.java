@@ -250,7 +250,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         if (!stackCall.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
             callStack.removeAll();
             callButtons.clear();
-            root = new DbgRootStruct(_res);
+            root = new DbgRootStruct(ctx_);
             treeDetail = root.buildReturn(getCommonFrame().getFrames().getCompoFactory(), view_.getStack().aw());
             detail.setViewportView(treeDetail);
             detailAll.setVisible(true);
@@ -269,9 +269,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         for (int i = 0; i< nbPages_; i++) {
             ViewPage p_ = view_.getVariables().get(i);
             String dis_ = p_.getStackElt().getDisplayedString(ctx_).getInstance();
-            DbgRootStruct r_ = new DbgRootStruct(_res);
+            DbgRootStruct r_ = new DbgRootStruct(ctx_);
             root = r_;
-            AbsTreeGui b_ = r_.build(getCommonFrame().getFrames().getCompoFactory(), p_);
+            AbsTreeGui b_ = r_.build(getCommonFrame().getFrames().getCompoFactory(), p_, stackCall.getBreakPointInfo().getBreakPointOutputInfo());
             treeDetail = b_;
             trees.add(b_);
             treesRoot.add(r_);

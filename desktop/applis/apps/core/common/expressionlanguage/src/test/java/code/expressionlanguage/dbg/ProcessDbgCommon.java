@@ -10,10 +10,7 @@ import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecClassesUtil;
-import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.StackCallReturnValue;
-import code.expressionlanguage.exec.StepDbgActionEnum;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -376,8 +373,8 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         BreakPointBlockPair pair_ = _res.getPair(classBody_.getFile(), _caret);
         pairDep_.getValue().getResultStd().getSuspend().set(false);
         pair_.getValue().getResultStd().getSuspend().set(false);
-        pairDep_.getValue().getResultStd().analyze(pairDep_,"",_logDep,_res,new DefContextGenerator());
-        pair_.getValue().getResultStd().analyze(pair_,"",_log,_res,new DefContextGenerator());
+        pairDep_.getValue().getResultStd().analyze(pairDep_,"",_logDep, "", _res,new DefContextGenerator());
+        pair_.getValue().getResultStd().analyze(pair_,"",_log, "", _res,new DefContextGenerator());
         pair_.getValue().getResultStd().getHit().set(false);
         pairDep_.getValue().getResultStd().getHit().set(false);
         pair_.getValue().getResultStd().getDisableAgain().set(_dis);
@@ -449,7 +446,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         std_.getStackLog().set(_st);
         std_.getCountModulo().set(_mod);
         std_.getDisableWhenHit().set(_d);
-        std_.analyze(pair_,_exp,_log,res_,new DefContextGenerator());
+        std_.analyze(pair_,_exp,_log, "", res_,new DefContextGenerator());
         assertEq(_exp, std_.getResultStr());
         assertEq(_log, std_.getLogsStr());
         CustomFoundMethod state_ = state(res_,_class, _meth);
@@ -457,6 +454,23 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return ((DefLogDbg) v_.getStack().getStopper().getLogger()).getList();
     }
 
+    protected BreakPointOutputInfo conditionalStdViewLogsWacthes(String _exp, String _watch, String _file, int _caret, String _class, String _meth, StringMap<String> _files, boolean _st, int _mod, boolean _d, boolean _en) {
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        res_.toggleBreakPoint(_file, _caret);
+        BreakPointBlockPair pair_ = res_.getPair(res_.getFiles().getVal(res_.getPageEl().getPreviousFilesBodies().getVal(_file)), _caret);
+        BreakPointCondition std_ = pair_.getValue().getResultStd();
+        std_.getSuspend().set(true);
+        std_.getEnabled().set(_en);
+        std_.getStackLog().set(_st);
+        std_.getCountModulo().set(_mod);
+        std_.getDisableWhenHit().set(_d);
+        std_.analyze(pair_,_exp,"", _watch, res_,new DefContextGenerator());
+        assertEq(_exp, std_.getResultStr());
+        assertEq(_watch, std_.getWatchesStr());
+        CustomFoundMethod state_ = state(res_,_class, _meth);
+        StackCallReturnValue v_ = ExecClassesUtil.tryInitStaticlyTypes(res_.getContext(), res_.getPageEl().getOptions(), null, state_, null, false);
+        return v_.getStack().getBreakPointInfo().getBreakPointOutputInfo();
+    }
     protected StackCallReturnValue conditionalStdView(String _dyn, String _class, String _meth, int _caret, StringMap<String> _files,ResultContext _res) {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         BreakPointBlockPair pair_ = _res.getPair(classBody_.getFile(), _caret);

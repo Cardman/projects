@@ -600,27 +600,27 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
     private void stdSimpleConditionEmpty(ResultContext _cont, String _condition, String _symbol,String _first, boolean _simple, boolean _compound) {
         OperNatPointBlockPair p_ = stdEmpty(_cont, _symbol, _first, _simple, _compound);
         OperNatPoint wp_ = p_.getValue();
-        wp_.getResultSimple().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultSimple().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultSimple().getResultStr());
     }
     private void stdSimpleCondition(ResultContext _cont, String _condition, String _symbol,String _first, String _second, boolean _simple, boolean _compound) {
         OperNatPointBlockPair p_ = std(_cont, _symbol, _first, _second, _simple, _compound);
         OperNatPoint wp_ = p_.getValue();
-        wp_.getResultSimple().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultSimple().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultSimple().getResultStr());
     }
 
     private void stdCompoundCondition(ResultContext _cont, String _condition, String _symbol,String _first, String _second, boolean _simple, boolean _compound) {
         OperNatPointBlockPair p_ = std(_cont, _symbol, _first, _second, _simple, _compound);
         OperNatPoint wp_ = p_.getValue();
-        wp_.getResultCompound().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultCompound().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultCompound().getResultStr());
     }
 
     private void stdSimpleCondition(ResultContext _cont, String _condition, String _symbol,String _first, String _second, boolean _simple) {
         OperNatPointBlockPair p_ = stdSingle(_cont, _symbol, _first, _second, _simple);
         OperNatPoint wp_ = p_.getValue();
-        wp_.getResultSimple().analyze(p_,_condition,"",_cont,new DefContextGenerator());
+        wp_.getResultSimple().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultSimple().getResultStr());
     }
     private OperNatPointBlockPair std(ResultContext _cont, String _symbol,String _first, String _second, boolean _simple, boolean _compound) {

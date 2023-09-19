@@ -1,9 +1,10 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.BreakPointOutputInfo;
 import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.exec.variables.ViewVariable;
-import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsTreeGui;
 import code.gui.AbstractMutableTreeNode;
@@ -13,7 +14,7 @@ import code.util.CustList;
 
 public final class DbgRootStruct extends DbgAbsNodeStruct {
 
-    public DbgRootStruct(ResultContext _r) {
+    public DbgRootStruct(ContextEl _r) {
         super(_r);
     }
     AbsTreeGui buildReturn(AbsCompoFactory _compo, ArgumentWrapper _val) {
@@ -27,15 +28,34 @@ public final class DbgRootStruct extends DbgAbsNodeStruct {
         getChildren().add(result_);
         result_.setParentStruct(this);
         MutableTreeNodeCoreUtil.add(this, result_);
-        root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(this,result_)));
+        root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(result_, this.getResult())));
         AbsTreeGui tree_ = _compo.newTreeGui(root_);
         tree_.addTreeSelectionListener(new DbgSelectNodeEvent(this,tree_));
         return tree_;
     }
-    AbsTreeGui build(AbsCompoFactory _compo, ViewPage _stView) {
+    AbsTreeGui build(AbsCompoFactory _compo, ViewPage _stView, BreakPointOutputInfo _infos) {
         AbstractMutableTreeNode root_ = _compo.newMutableTreeNode("");
+        ContextEl s_ = _infos.getSubContext();
+        if (s_ != null) {
+            Struct o_ = _infos.getWatchedObject();
+            if (o_ != null) {
+                DbgParentStruct pt_ = new DbgParentStruct(s_, o_);
+                pt_.setParentStruct(this);
+                getChildren().add(pt_);
+                MutableTreeNodeCoreUtil.add(this, pt_);
+                root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(pt_, s_)));
+            }
+            Struct t_ = _infos.getWatchedTrace();
+            if (t_ != null) {
+                DbgParentStruct pt_ = new DbgParentStruct(s_, t_);
+                pt_.setParentStruct(this);
+                getChildren().add(pt_);
+                MutableTreeNodeCoreUtil.add(this, pt_);
+                root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(pt_, s_)));
+            }
+        }
         DbgCallStruct pt_ = new DbgCallStruct(getResult(), _stView.getInstance());
-        root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(this,pt_)));
+        root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(pt_, this.getResult())));
         pt_.setParentStruct(this);
         getChildren().add(pt_);
         MutableTreeNodeCoreUtil.add(this, pt_);
@@ -45,7 +65,7 @@ public final class DbgRootStruct extends DbgAbsNodeStruct {
             nodeVar_.setParentStruct(this);
             MutableTreeNodeCoreUtil.add(this, nodeVar_);
             getChildren().add(nodeVar_);
-            root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(this,nodeVar_)));
+            root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(nodeVar_, this.getResult())));
         }
         AbsTreeGui tree_ = _compo.newTreeGui(root_);
         tree_.addTreeSelectionListener(new DbgSelectNodeEvent(this,tree_));

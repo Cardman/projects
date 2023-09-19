@@ -14,7 +14,7 @@ public final class BreakPointLambdaCtxUpdaterStatic implements BreakPointLambdaC
 
     @Override
     public ReportedMessages update(BreakPointBlockPair _bp, String _newValue) {
-        _bp.getValue().getResultStatic().analyze(_bp,_newValue,"",result,gene);
+        _bp.getValue().getResultStatic().analyze(_bp,_newValue,"", "", result,gene);
         return _bp.getValue().getResultStatic().lda().getReportedMessages();
     }
 

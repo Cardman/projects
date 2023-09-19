@@ -14,7 +14,7 @@ public final class BreakPointLambdaCtxUpdaterInstance implements BreakPointLambd
 
     @Override
     public ReportedMessages update(BreakPointBlockPair _bp, String _newValue) {
-        _bp.getValue().getResultInstance().analyze(_bp,_newValue,"",result,gene);
+        _bp.getValue().getResultInstance().analyze(_bp,_newValue,"", "", result,gene);
         return _bp.getValue().getResultInstance().lda().getReportedMessages();
     }
 

@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.StopDbgEnum;
 import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.options.ResultContextLambda;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -1474,7 +1473,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         MethodPointBlockPair wp_ = _cont.getPair(id_);
-        wp_.getValue().getResultEntry().analyze(wp_,_newValue,"",_cont,new DefContextGenerator());
+        wp_.getValue().getResultEntry().analyze(wp_,_newValue,"", "", _cont,new DefContextGenerator());
         assertEq(_newValue,wp_.getValue().getResultEntry().getResultStr());
 
 
@@ -1487,7 +1486,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
         MethodPointBlockPair wp_ = _cont.getPair(id_);
-        wp_.getValue().getResultExit().analyze(wp_,_newValue,"",_cont,new DefContextGenerator());
+        wp_.getValue().getResultExit().analyze(wp_,_newValue,"", "", _cont,new DefContextGenerator());
         assertEq(_newValue,wp_.getValue().getResultExit().getResultStr());
 
 //        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyze(_newValue, wp_, _cont, type_, new DefContextGenerator());

@@ -14,7 +14,7 @@ public final class BreakPointLambdaCtxUpdaterStd implements BreakPointLambdaCtxU
 
     @Override
     public ReportedMessages update(BreakPointBlockPair _bp, String _newValue) {
-        _bp.getValue().getResultStd().analyze(_bp,_newValue,"",result,gene);
+        _bp.getValue().getResultStd().analyze(_bp,_newValue,"", "", result,gene);
         return _bp.getValue().getResultStd().lda().getReportedMessages();
     }
 

@@ -28,6 +28,7 @@ public final class BreakPointCondition {
     private final AbsCollection<BreakPointCondition> others;
     private final AbstractAtomicRef<StrResultContextLambda> lda;
     private final AbstractAtomicRef<StrResultContextLambda> logs;
+    private final AbstractAtomicRef<StrResultContextLambda> watches;
     private final AbstractAtomicInteger countModulo;
     private final AbstractAtomicInteger count;
     private final AbstractAtomicInteger pref;
@@ -43,6 +44,7 @@ public final class BreakPointCondition {
         others = _i.newBreakPointConditionCollection();
         lda = _i.newAtLda();
         logs = _i.newAtLda();
+        watches = _i.newAtLda();
         disableWhenHit = _i.newAtBool();
         enabled = _i.newAtBool();
         enabled.set(true);
@@ -60,44 +62,52 @@ public final class BreakPointCondition {
         prefs = _i.newStringNumberCollection();
     }
 
-    public void analyze(BreakPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
+    public void analyze(BreakPointBlockPair _mp, String _exp, String _log, String _watch, ResultContext _curr, AbsLightContextGenerator _gene) {
         result(ResultContextLambda.dynamicAnalyze(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene, phasePoint), _exp);
         resultLogs(ResultContextLambda.dynamicAnalyze(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, phasePoint), _log);
+        resultWatches(ResultContextLambda.dynamicAnalyze(_watch, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, phasePoint), _watch);
     }
 
-    public void analyze(StdMethodPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
+    public void analyze(StdMethodPointBlockPair _mp, String _exp, String _log, String _watch, ResultContext _curr, AbsLightContextGenerator _gene) {
         result(ResultContextLambda.dynamicAnalyze(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene), _exp);
         resultLogs(ResultContextLambda.dynamicAnalyze(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _log);
+        resultWatches(ResultContextLambda.dynamicAnalyze(_watch, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _watch);
     }
 
-    public void analyze(OperNatPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
+    public void analyze(OperNatPointBlockPair _mp, String _exp, String _log, String _watch, ResultContext _curr, AbsLightContextGenerator _gene) {
         result(ResultContextLambda.dynamicAnalyze(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene), _exp);
         resultLogs(ResultContextLambda.dynamicAnalyze(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _log);
+        resultWatches(ResultContextLambda.dynamicAnalyze(_watch, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _watch);
     }
 
-    public void analyze(MethodPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
+    public void analyze(MethodPointBlockPair _mp, String _exp, String _log, String _watch, ResultContext _curr, AbsLightContextGenerator _gene) {
         result(ResultContextLambda.dynamicAnalyze(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene), _exp);
         resultLogs(ResultContextLambda.dynamicAnalyze(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _log);
+        resultWatches(ResultContextLambda.dynamicAnalyze(_watch, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _watch);
     }
 
-    public void analyze(WatchPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
+    public void analyze(WatchPointBlockPair _mp, String _exp, String _log, String _watch, ResultContext _curr, AbsLightContextGenerator _gene) {
         result(ResultContextLambda.dynamicAnalyzeField(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene, phasePoint), _exp);
         resultLogs(ResultContextLambda.dynamicAnalyzeField(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, phasePoint), _log);
+        resultWatches(ResultContextLambda.dynamicAnalyzeField(_watch, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, phasePoint), _watch);
     }
 
-    public void analyze(ArrPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
+    public void analyze(ArrPointBlockPair _mp, String _exp, String _log, String _watch, ResultContext _curr, AbsLightContextGenerator _gene) {
         result(ResultContextLambda.dynamicAnalyzeArr(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene, phasePoint), _exp);
         resultLogs(ResultContextLambda.dynamicAnalyzeArr(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, phasePoint), _log);
+        resultWatches(ResultContextLambda.dynamicAnalyzeArr(_watch, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, phasePoint), _watch);
     }
 
-    public void analyze(ExcPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
+    public void analyze(ExcPointBlockPair _mp, String _exp, String _log, String _watch, ResultContext _curr, AbsLightContextGenerator _gene) {
         result(ResultContextLambda.dynamicAnalyzeExc(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene), _exp);
         resultLogs(ResultContextLambda.dynamicAnalyzeExc(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _log);
+        resultWatches(ResultContextLambda.dynamicAnalyzeExc(_watch, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _watch);
     }
 
-    public void analyze(ParPointBlockPair _mp, String _exp, String _log, ResultContext _curr, AbsLightContextGenerator _gene) {
+    public void analyze(ParPointBlockPair _mp, String _exp, String _log, String _watch, ResultContext _curr, AbsLightContextGenerator _gene) {
         result(ResultContextLambda.dynamicAnalyzePar(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene), _exp);
         resultLogs(ResultContextLambda.dynamicAnalyzePar(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _log);
+        resultWatches(ResultContextLambda.dynamicAnalyzePar(_watch, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _watch);
     }
     public int pref(String _cl) {
         for (EntryCust<String, Integer> e: prefs.elts()) {
@@ -195,6 +205,11 @@ public final class BreakPointCondition {
         s_.result(_p, _str);
         logs.set(s_);
     }
+    public void resultWatches(ResultContextLambda _p, String _str) {
+        StrResultContextLambda s_ = new StrResultContextLambda();
+        s_.result(_p, _str);
+        watches.set(s_);
+    }
 
     public ResultContextLambda getResult() {
         return lda().getResult();
@@ -219,12 +234,23 @@ public final class BreakPointCondition {
         return logs().getResultStr();
     }
 
+    public ResultContextLambda getWatches() {
+        return watches().getResult();
+    }
+    public String getWatchesStr() {
+        return watches().getResultStr();
+    }
+
     public StrResultContextLambda lda() {
         return lda.get();
     }
 
     public StrResultContextLambda logs() {
         return logs.get();
+    }
+
+    public StrResultContextLambda watches() {
+        return watches.get();
     }
     public AbstractAtomicInteger getCountModulo() {
         return countModulo;
