@@ -17,6 +17,7 @@ import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
 import code.gui.images.MetaDimension;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.BytesInfo;
 import code.stream.StreamTextFile;
@@ -170,7 +171,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     }
 
     public void applyTreeChangeSelected(AbsOpeningReadOnlyFile _a, ResultContext _res, AbsTreeGui _t) {
-        AbstractMutableTreeNode sel_ = _t.selectEvt();
+        AbstractMutableTreeNodeCore<String> sel_ = _t.selectEvt();
         if (sel_ == null) {
             return;
         }
@@ -189,16 +190,16 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         }
         return false;
     }
-    void refresh(AbstractMutableTreeNode _sel, String _str, AbsTreeGui _t) {
+    void refresh(AbstractMutableTreeNodeCore<String> _sel, String _str, AbsTreeGui _t) {
         refParent(_sel, _str, _t);
     }
 
-    void refParent(AbstractMutableTreeNode _parent, String _parentPath, AbsTreeGui _t) {
+    void refParent(AbstractMutableTreeNodeCore<String> _parent, String _parentPath, AbsTreeGui _t) {
         _parent.removeAllChildren();
-        refreshList(_parent, viewable, _parentPath);
+        refreshList(_parent, viewable, _parentPath, getCommonFrame().getFrames().getCompoFactory());
         MutableTreeNodeUtil.reload(_t);
     }
-    static void refreshList(AbstractMutableTreeNode _sel, StringMap<String> _files, String _folderToVisit) {
+    static void refreshList(AbstractMutableTreeNodeCore<String> _sel, StringMap<String> _files, String _folderToVisit, AbsCompoFactory _compoFactory) {
         CustList<String> currentFolders_ = new CustList<String>();
         CustList<String> currentFiles_ = new CustList<String>();
         for (String f: _files.getKeys()) {
@@ -218,10 +219,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         currentFolders_.sortElts(new NaturalComparator());
         currentFiles_.sortElts(new NaturalComparator());
         for (String f : currentFolders_) {
-            _sel.add(f+"/");
+            _sel.add(_compoFactory.newMutableTreeNode(f+"/"));
         }
         for (String f : currentFiles_) {
-            _sel.add(f);
+            _sel.add(_compoFactory.newMutableTreeNode(f));
         }
     }
     protected abstract AbsPanel buildPart();
@@ -377,7 +378,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         openPoints.addActionListener(new OpenFramePointsEvent(this,framePoints, _res));
         GuiBaseUtil.removeTreeSelectionListeners(folderSystem);
         folderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(this,_res,folderSystem,new TabOpeningReadOnlyFile()));
-        refreshList(folderSystem.selectEvt(),viewable, "");
+        refreshList(folderSystem.selectEvt(),viewable, "",getCommonFrame().getFrames().getCompoFactory());
         framePoints.refresh(viewable,this, _res);
         closeCompos();
         int len_ = _src.size();

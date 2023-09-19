@@ -274,7 +274,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     }
 
     @Override
-    public void changeEnable(AbstractMutableTreeNode _en) {
+    public void changeEnable(AbstractMutableTreeNodeCore<String> _en) {
         changeEnable(_en != null);
     }
 

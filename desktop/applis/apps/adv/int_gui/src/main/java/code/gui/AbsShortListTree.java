@@ -1,5 +1,5 @@
 package code.gui;
 
 public interface AbsShortListTree {
-    void valueChanged(AbstractMutableTreeNodeCore _node);
+    void valueChanged(AbstractMutableTreeNodeCore<String> _node);
 }

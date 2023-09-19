@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.syntax.FileBlockIndex;
 import code.expressionlanguage.analyze.syntax.RowSrcLocation;
 import code.expressionlanguage.analyze.syntax.SrcFileLocation;
-import code.gui.AbstractMutableTreeNode;
+import code.gui.AbstractMutableTreeNodeCore;
 import code.util.CustList;
 
 public final class ResultRowSrcLocationList {
@@ -14,7 +14,7 @@ public final class ResultRowSrcLocationList {
     private final CustList<SrcFileLocation> usages;
     private final CustList<RowSrcLocation> symbols;
     private MetaCaller root;
-    private AbstractMutableTreeNode node;
+    private AbstractMutableTreeNodeCore<String> node;
     public ResultRowSrcLocationList(AnalyzedPageEl _p, String _relPath, int _caret,  CustList<SrcFileLocation> _us, CustList<RowSrcLocation> _symb) {
         page = _p;
         relPath = _relPath;
@@ -41,7 +41,7 @@ public final class ResultRowSrcLocationList {
         return root;
     }
 
-    public AbstractMutableTreeNode getNode() {
+    public AbstractMutableTreeNodeCore<String> getNode() {
         return node;
     }
 

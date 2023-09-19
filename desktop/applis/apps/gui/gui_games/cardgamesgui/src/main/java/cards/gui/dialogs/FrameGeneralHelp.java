@@ -126,7 +126,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
         // Non null pour les valeurs
         cles_.sortElts(new ComparatorListSizeElement());
         racineBis = new NodeHelp(elementsBis.getVal(cles_.first()));
-        AbstractMutableTreeNode root_ = _w.getCompoFactory().newMutableTreeNode(
+        AbstractMutableTreeNodeCore<String> root_ = _w.getCompoFactory().newMutableTreeNode(
                 racineBis.nom());
         boolean wasNull_ = editor == null;
         AbsPanel container_;
@@ -140,24 +140,24 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
             CustList<Integer> cheminSansNoeud_ = chemin_.left(
                     chemin_.getLastIndex());
             NodeHelp noeudLoc_;
-            AbstractMutableTreeNode noeudLocGraphique_;
+            AbstractMutableTreeNodeCore<String> noeudLocGraphique_;
             noeudLoc_ = racineBis.element(cheminSansNoeud_);
             if (cheminSansNoeud_.isEmpty()) {
                 noeudLocGraphique_ = root_;
             } else {
-                noeudLocGraphique_ = (AbstractMutableTreeNode) root_
+                noeudLocGraphique_ = root_
                         .getChildAt(cheminSansNoeud_.first());
                 int lengthPath_ = cheminSansNoeud_.size();
                 for (int indice_ = IndexConstants.SECOND_INDEX; indice_ < lengthPath_; indice_++) {
-                    noeudLocGraphique_ = (AbstractMutableTreeNode) noeudLocGraphique_
+                    noeudLocGraphique_ = noeudLocGraphique_
                             .getChildAt(cheminSansNoeud_.get(indice_));
                 }
             }
             ElementHelp elementLoc_ = elementsBis.getVal(chemin_);
             NodeHelp nouveauNoeud_ = new NodeHelp(elementLoc_);
             noeudLoc_.ajouterInfo(nouveauNoeud_);
-            noeudLocGraphique_.add(
-                    elementLoc_.nom());
+            noeudLocGraphique_.add(getCompoFactory().newMutableTreeNode(
+                    elementLoc_.nom()));
         }
         if (wasNull_) {
             editor = new RenderedPage(_w.getCompoFactory().newAbsScrollPane(), _w.getFrames(),new FixCharacterCaseConverter());

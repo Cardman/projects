@@ -169,7 +169,7 @@ public abstract class FileDialog implements ChangeableTitle {
         AbsPanel contentPane_ = programInfos.getCompoFactory().newBorder();
         contentPane_.add(openSaveFile_, GuiConstants.BORDER_LAYOUT_SOUTH);
         if (currentFolderRoot) {
-            AbstractMutableTreeNode default_ = programInfos.getCompoFactory().newMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
+            AbstractMutableTreeNodeCore<String> default_ = programInfos.getCompoFactory().newMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
             FileListInfo files_ = PathsUtil.abs(programInfos.getFileCoreStream().newFile(currentFolder),programInfos.getFileCoreStream());
             CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(files_.getNames());
             currentFiles_.sortElts(new FileNameComparator());
@@ -178,9 +178,9 @@ public abstract class FileDialog implements ChangeableTitle {
             folderSystem.select(folderSystem.getRoot());
             refreshList(folderSystem.selectEvt(),filesList_, currentFiles_);
         } else {
-            AbstractMutableTreeNode default_ = programInfos.getCompoFactory().newMutableTreeNode(EMPTY_STRING);
+            AbstractMutableTreeNodeCore<String> default_ = programInfos.getCompoFactory().newMutableTreeNode(EMPTY_STRING);
             for (String f: StreamFolderFile.listRootsAbPath(programInfos.getFileCoreStream())) {
-                default_.add(StringUtil.join(StringUtil.splitStrings(f, StreamTextFile.SEPARATEUR), EMPTY_STRING));
+                default_.add(getCompoFactory().newMutableTreeNode(StringUtil.join(StringUtil.splitStrings(f, StreamTextFile.SEPARATEUR), EMPTY_STRING)));
             }
             folderSystem = programInfos.getCompoFactory().newTreeGui(default_);
             folderSystem.setRootVisible(false);
@@ -243,7 +243,7 @@ public abstract class FileDialog implements ChangeableTitle {
     }
 
     public void applyTreeChangeSelected() {
-        AbstractMutableTreeNode sel_ = folderSystem.selectEvt();
+        AbstractMutableTreeNodeCore<String> sel_ = folderSystem.selectEvt();
         if (sel_ == null) {
             return;
         }
@@ -265,13 +265,13 @@ public abstract class FileDialog implements ChangeableTitle {
         MutableTreeNodeUtil.reload(folderSystem);
     }
 
-    private void refreshList(AbstractMutableTreeNode _sel,CustList<AbstractFile> _files, CustList<AbstractFile> _currentFiles) {
+    private void refreshList(AbstractMutableTreeNodeCore<String> _sel,CustList<AbstractFile> _files, CustList<AbstractFile> _currentFiles) {
         for (AbstractFile f : _currentFiles) {
             if (f.isDirectory()) {
                 if (StringUtil.contains(excludedFolders, StringUtil.replaceBackSlash(f.getAbsolutePath()))) {
                     continue;
                 }
-                _sel.add(f.getName());
+                _sel.add(getCompoFactory().newMutableTreeNode(f.getName()));
             } else {
                 if (f.getName().endsWith(extension)) {
                     _files.add(f);
@@ -281,12 +281,12 @@ public abstract class FileDialog implements ChangeableTitle {
         refreshList(_files);
     }
 
-    static StringBuilder buildPath(AbstractMutableTreeNode _treePath) {
+    static StringBuilder buildPath(AbstractMutableTreeNodeCore<String> _treePath) {
         StringList pathFull_ = new StringList();
-        AbstractMutableTreeNode current_ = _treePath;
+        AbstractMutableTreeNodeCore<String> current_ = _treePath;
         while (current_ != null) {
-            pathFull_.add(0,current_.getUserObject());
-            current_ = (AbstractMutableTreeNode) current_.getParent();
+            pathFull_.add(0,current_.info());
+            current_ = current_.getParent();
         }
         StringUtil.removeObj(pathFull_, EMPTY_STRING);
         StringBuilder str_ = new StringBuilder();

@@ -1,72 +1,14 @@
 package code.mock;
 
-import code.gui.*;
+import code.gui.AbstractMutableTreeNodeCore;
+import code.gui.MutableTreeNodeNav;
 import code.util.core.StringUtil;
 
-public final class MockMutableTreeNode extends MutableTreeNodeNav implements AbstractMutableTreeNode {
-    private String userObject;
+public final class MockMutableTreeNode extends MutableTreeNodeNav<String> implements AbstractMutableTreeNodeCore<String> {
     private boolean accessible;
 
     public MockMutableTreeNode(String _name) {
-        userObject = StringUtil.nullToEmpty(_name);
-    }
-
-    @Override
-    public int getIndex() {
-        return MutableTreeNodeCoreUtil.getIndex(this);
-    }
-
-    @Override
-    public boolean add(AbstractMutableTreeNodeCore _m) {
-        MutableTreeNodeCoreUtil.add(this, _m);
-        return false;
-    }
-
-    @Override
-    public int insert(AbstractMutableTreeNodeCore _m, int _i) {
-        return MutableTreeNodeCoreUtil.insert(this,_m,_i);
-    }
-
-    @Override
-    public int removeAllChildren() {
-        return MutableTreeNodeCoreUtil.removeAllChildren(this);
-    }
-
-    @Override
-    public AbstractMutableTreeNode getParentReal() {
-        return (AbstractMutableTreeNode) getParent();
-    }
-
-    @Override
-    public int remove(AbstractMutableTreeNodeCore _m) {
-        return MutableTreeNodeCoreUtil.remove(this,_m);
-    }
-
-    @Override
-    public AbstractMutableTreeNode remove(int _index) {
-        return (AbstractMutableTreeNode) MutableTreeNodeCoreUtil.remove(this,_index);
-    }
-
-    @Override
-    public AbstractMutableTreeNode removeFromParent() {
-        return (AbstractMutableTreeNode) MutableTreeNodeCoreUtil.removeFromParent(this);
-    }
-
-    @Override
-    public AbstractMutableTreeNode add(String _info) {
-        MockMutableTreeNode m_ = new MockMutableTreeNode(_info);
-        MutableTreeNodeCoreUtil.add(this,m_);
-        return m_;
-    }
-
-    @Override
-    public String getUserObject() {
-        return userObject;
-    }
-
-    @Override
-    public void setUserObject(String _str) {
-        userObject = _str;
+        info(StringUtil.nullToEmpty(_name));
     }
 
     public boolean isAccessible() {

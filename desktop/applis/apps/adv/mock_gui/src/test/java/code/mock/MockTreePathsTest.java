@@ -10,7 +10,7 @@ public final class MockTreePathsTest extends EquallableMockGuiUtil {
         MockTreePaths m_ = new MockTreePaths(new CustList<AbsTreePath>());
         m_.add(new MockTreePath(new MockMutableTreeNode("element")));
         assertEq(1, m_.getLength());
-        assertEq("element",m_.elt(0).data().getUserObject());
+        assertEq("element",m_.elt(0).data().info());
     }
     @Test
     public void p2() {
@@ -24,6 +24,6 @@ public final class MockTreePathsTest extends EquallableMockGuiUtil {
         MockTreePaths m_ = new MockTreePaths(new CustList<AbsTreePath>());
         m_.add(new MockTreePath(new MockMutableTreeNode("element")));
         m_.set(0,new MockTreePath(new MockMutableTreeNode("element2")));
-        assertEq("element2",m_.elt(0).data().getUserObject());
+        assertEq("element2",m_.elt(0).data().info());
     }
 }

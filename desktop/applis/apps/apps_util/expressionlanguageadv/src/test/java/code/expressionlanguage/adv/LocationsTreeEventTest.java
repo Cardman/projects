@@ -2,9 +2,6 @@ package code.expressionlanguage.adv;
 
 import code.gui.AbsPanel;
 import code.gui.AbsTreeGui;
-import code.gui.AbstractMutableTreeNode;
-import code.gui.AbstractMutableTreeNodeNav;
-import code.mock.MockMenuItem;
 import code.mock.MockPlainButton;
 import org.junit.Test;
 
@@ -13,7 +10,7 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
     public void def1() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "public class pkg.ExClass:AbsStringReplacer{Second s;public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{}");
         analyze(w_);
-        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
+        w_.getFolderExpressionMenu().getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.setLimitSymbol(1);
         s_.getTree().select(s_.getTree().getRoot());
@@ -23,14 +20,14 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         currentElement(s_.getTabs().get(0));
         callers(s_);
         AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
-        assertEq(1, ((AbstractMutableTreeNodeNav)a_.getRoot().getFirstChild()).getChildCount());
+        assertEq(1, a_.getRoot().getFirstChild().getChildCount());
         assertEq(3,locations(s_).getComponentCount());
     }
     @Test
     public void def2() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "public class pkg.ExClass{public int fac(int n){if(n<2){return 1;}return n*fac(n-1);}}","public class pkg.Second{}");
         analyze(w_);
-        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
+        w_.getFolderExpressionMenu().getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.setLimitSymbol(1);
         s_.getTree().select(s_.getTree().getRoot());
@@ -46,7 +43,7 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
     public void def3() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "public class pkg.ExClass{public int fac(int n){return \"\".indexOf('C',0);}}","public class pkg.Second{public int fac(int n){return \"\".indexOf('C',0);}}");
         analyze(w_);
-        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
+        w_.getFolderExpressionMenu().getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.setLimitSymbol(1);
         s_.getTree().select(s_.getTree().getRoot());
@@ -57,13 +54,13 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         callers(s_);
         AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
         assertEq(1, a_.getRoot().getChildCount());
-        assertEq(2, ((AbstractMutableTreeNode)a_.getRoot().getFirstChild()).getChildCount());
+        assertEq(2, a_.getRoot().getFirstChild().getChildCount());
     }
     @Test
     public void def4() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "public class pkg.ExClass:AbsStringReplacer{Second s;public StringSegment index(String t,int i){return t.indexOf\n('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{}");
         analyze(w_);
-        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
+        w_.getFolderExpressionMenu().getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.setLimitSymbol(1);
         s_.getTree().select(s_.getTree().getRoot());
@@ -73,14 +70,14 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         currentElement(s_.getTabs().get(0));
         callers(s_);
         AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
-        assertEq(1, ((AbstractMutableTreeNodeNav)a_.getRoot().getFirstChild()).getChildCount());
+        assertEq(1, a_.getRoot().getFirstChild().getChildCount());
         assertEq(3,locations(s_).getComponentCount());
     }
     @Test
     public void def5() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "public class pkg.ExClass:AbsStringReplacer{Second s;public StringSegment index(String t,int i){return t.indexOf(\n'C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{}");
         analyze(w_);
-        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
+        w_.getFolderExpressionMenu().getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.setLimitSymbol(1);
         s_.getTree().select(s_.getTree().getRoot());
@@ -90,14 +87,14 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         currentElement(s_.getTabs().get(0));
         callers(s_);
         AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
-        assertEq(1, ((AbstractMutableTreeNodeNav)a_.getRoot().getFirstChild()).getChildCount());
+        assertEq(1, a_.getRoot().getFirstChild().getChildCount());
         assertEq(3,locations(s_).getComponentCount());
     }
     @Test
     public void def6() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "public class pkg.ExClass:AbsStringReplacer{Second s;public StringSegment index(String t,int i){return t.indexOf(\n'C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{}");
         analyze(w_);
-        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
+        w_.getFolderExpressionMenu().getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.setLimitSymbol(1);
         s_.getTree().select(s_.getTree().getRoot());
@@ -108,14 +105,14 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         callers(s_);
         refreshUsages(s_);
         AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
-        assertEq(1, ((AbstractMutableTreeNodeNav)a_.getRoot().getFirstChild()).getChildCount());
+        assertEq(1, a_.getRoot().getFirstChild().getChildCount());
         assertEq(3,locations(s_).getComponentCount());
     }
     @Test
     public void def7() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "public class pkg.ExClass:AbsStringReplacer{Second s;public StringSegment index(String t,int i){return t.indexOf(\n'C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{}");
         analyze(w_);
-        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
+        w_.getFolderExpressionMenu().getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.setLimitSymbol(1);
         s_.getTree().select(s_.getTree().getRoot());
@@ -126,7 +123,7 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         callers(s_);
         refreshUsagesDef(s_);
         AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
-        assertEq(1, ((AbstractMutableTreeNodeNav)a_.getRoot().getFirstChild()).getChildCount());
+        assertEq(1, a_.getRoot().getFirstChild().getChildCount());
         assertEq(3,locations(s_).getComponentCount());
     }
     private void callers(WindowExpressionEditor _s) {

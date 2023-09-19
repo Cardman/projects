@@ -6,282 +6,280 @@ import org.junit.Test;
 public final class MutableTreeNodeCoreUtilTest extends EquallableIntGuiUtil {
     @Test
     public void t1() {
-        MutableTreeNodeCore t_ = new MutableTreeNodeCore();
-        assertEq(-1,MutableTreeNodeCoreUtil.getIndex(t_));
-        assertEq(-1,MutableTreeNodeCoreUtil.getNullableIndex(t_));
-        assertEq(-1,MutableTreeNodeCoreUtil.getNullableIndex(null));
-        assertNull(MutableTreeNodeCoreUtil.getParent(t_));
-        assertNull(MutableTreeNodeCoreUtil.getChildAt(t_,0));
+        MutableTreeNodeNav<String> t_ = new MutableTreeNodeNav<String>();
+        assertEq(-1,t_.getIndex());
+        assertNull(t_.getParent());
+        assertNull(t_.getChildAt(0));
     }
     @Test
     public void t2() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t2_));
-        assertEq(0,MutableTreeNodeCoreUtil.getIndex(t2_));
-        assertEq(0,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t2_));
-        assertSame(t1_,MutableTreeNodeCoreUtil.getParent(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertNull(MutableTreeNodeCoreUtil.getNextSibling(t2_));
-        assertNull(MutableTreeNodeCoreUtil.getPreviousSibling(t2_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t2_));
+        assertEq(0,t2_.getIndex());
+        assertEq(0,t1_.getAntiIndex(t2_));
+        assertSame(t1_, t2_.getParent());
+        assertSame(t2_, t1_.getChildAt(0));
+        assertNull(t2_.getNextSibling());
+        assertNull(t2_.getPreviousSibling());
     }
     @Test
     public void t3() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t2_));
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t3_));
-        assertEq(0,MutableTreeNodeCoreUtil.getIndex(t2_));
-        assertSame(t1_,MutableTreeNodeCoreUtil.getParent(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertEq(0,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t2_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.getChildAt(t1_,1));
-        assertEq(1,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t3_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.getNextSibling(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getPreviousSibling(t3_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t2_));
+        assertFalse(t1_.add(t3_));
+        assertEq(0,t2_.getIndex());
+        assertSame(t1_, t2_.getParent());
+        assertSame(t2_, t1_.getChildAt(0));
+        assertEq(0,t1_.getAntiIndex(t2_));
+        assertSame(t3_, t1_.getChildAt(1));
+        assertEq(1,t1_.getAntiIndex(t3_));
+        assertSame(t3_,t2_.getNextSibling());
+        assertSame(t2_,t3_.getPreviousSibling());
     }
     @Test
     public void t4() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t3_));
-        assertEq(0,MutableTreeNodeCoreUtil.insert(t1_,t2_,0));
-        assertEq(0,MutableTreeNodeCoreUtil.getIndex(t2_));
-        assertSame(t1_,MutableTreeNodeCoreUtil.getParent(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertEq(0,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t2_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.getChildAt(t1_,1));
-        assertEq(1,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t3_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.getNextSibling(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getPreviousSibling(t3_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t3_));
+        assertEq(0,t1_.insert(t2_,0));
+        assertEq(0,t2_.getIndex());
+        assertSame(t1_, t2_.getParent());
+        assertSame(t2_, t1_.getChildAt(0));
+        assertEq(0,t1_.getAntiIndex(t2_));
+        assertSame(t3_, t1_.getChildAt(1));
+        assertEq(1,t1_.getAntiIndex(t3_));
+        assertSame(t3_,t2_.getNextSibling());
+        assertSame(t2_,t3_.getPreviousSibling());
     }
     @Test
     public void t5() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t2_));
-        assertEq(1,MutableTreeNodeCoreUtil.insert(t1_,t3_,1));
-        assertEq(0,MutableTreeNodeCoreUtil.getIndex(t2_));
-        assertSame(t1_,MutableTreeNodeCoreUtil.getParent(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertEq(0,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t2_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.getChildAt(t1_,1));
-        assertEq(1,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t3_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.getNextSibling(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getPreviousSibling(t3_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t2_));
+        assertEq(1,t1_.insert(t3_,1));
+        assertEq(0,t2_.getIndex());
+        assertSame(t1_, t2_.getParent());
+        assertSame(t2_, t1_.getChildAt(0));
+        assertEq(0,t1_.getAntiIndex(t2_));
+        assertSame(t3_, t1_.getChildAt(1));
+        assertEq(1,t1_.getAntiIndex(t3_));
+        assertSame(t3_,t2_.getNextSibling());
+        assertSame(t2_,t3_.getPreviousSibling());
     }
     @Test
     public void t6() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t2_));
-        assertEq(-1,MutableTreeNodeCoreUtil.insert(t1_,t3_,2));
-        assertEq(0,MutableTreeNodeCoreUtil.getIndex(t2_));
-        assertSame(t1_,MutableTreeNodeCoreUtil.getParent(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertEq(0,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t2_));
-        assertNull(MutableTreeNodeCoreUtil.getNextSibling(t2_));
-        assertNull(MutableTreeNodeCoreUtil.getPreviousSibling(t2_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t2_));
+        assertEq(-1,t1_.insert(t3_,2));
+        assertEq(0,t2_.getIndex());
+        assertSame(t1_, t2_.getParent());
+        assertSame(t2_, t1_.getChildAt(0));
+        assertEq(0,t1_.getAntiIndex(t2_));
+        assertNull(t2_.getNextSibling());
+        assertNull(t2_.getPreviousSibling());
     }
     @Test
     public void t7() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t2_));
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t3_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.remove(t1_,0));
-        assertEq(-1,MutableTreeNodeCoreUtil.getIndex(t2_));
-        assertNull(MutableTreeNodeCoreUtil.getParent(t2_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertEq(-1,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t2_));
-        assertEq(0,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t3_));
-        assertNull(MutableTreeNodeCoreUtil.getNextSibling(t3_));
-        assertNull(MutableTreeNodeCoreUtil.getPreviousSibling(t3_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t2_));
+        assertFalse(t1_.add(t3_));
+        assertSame(t2_,t1_.remove(0));
+        assertEq(-1,t2_.getIndex());
+        assertNull(t2_.getParent());
+        assertSame(t3_, t1_.getChildAt(0));
+        assertEq(-1,t1_.getAntiIndex(t2_));
+        assertEq(0,t1_.getAntiIndex(t3_));
+        assertNull(t3_.getNextSibling());
+        assertNull(t3_.getPreviousSibling());
     }
     @Test
     public void t8() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t2_));
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t3_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.remove(t1_,1));
-        assertEq(0,MutableTreeNodeCoreUtil.getIndex(t2_));
-        assertSame(t1_,MutableTreeNodeCoreUtil.getParent(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertEq(0,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t2_));
-        assertNull(MutableTreeNodeCoreUtil.getNextSibling(t2_));
-        assertNull(MutableTreeNodeCoreUtil.getPreviousSibling(t2_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t2_));
+        assertFalse(t1_.add(t3_));
+        assertSame(t3_,t1_.remove(1));
+        assertEq(0,t2_.getIndex());
+        assertSame(t1_, t2_.getParent());
+        assertSame(t2_, t1_.getChildAt(0));
+        assertEq(0,t1_.getAntiIndex(t2_));
+        assertNull(t2_.getNextSibling());
+        assertNull(t2_.getPreviousSibling());
     }
     @Test
     public void t9() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t2_));
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t3_));
-        assertEq(0,MutableTreeNodeCoreUtil.remove(t1_,t2_));
-        assertEq(-1,MutableTreeNodeCoreUtil.getIndex(t2_));
-        assertNull(MutableTreeNodeCoreUtil.getParent(t2_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertEq(-1,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t2_));
-        assertEq(0,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t3_));
-        assertNull(MutableTreeNodeCoreUtil.getNextSibling(t3_));
-        assertNull(MutableTreeNodeCoreUtil.getPreviousSibling(t3_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t2_));
+        assertFalse(t1_.add(t3_));
+        assertEq(0,t1_.remove(t2_));
+        assertEq(-1,t2_.getIndex());
+        assertNull(t2_.getParent());
+        assertSame(t3_, t1_.getChildAt(0));
+        assertEq(-1,t1_.getAntiIndex(t2_));
+        assertEq(0,t1_.getAntiIndex(t3_));
+        assertNull(t3_.getNextSibling());
+        assertNull(t3_.getPreviousSibling());
     }
     @Test
     public void t10() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t2_));
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t3_));
-        assertEq(1,MutableTreeNodeCoreUtil.remove(t1_,t3_));
-        assertEq(0,MutableTreeNodeCoreUtil.getIndex(t2_));
-        assertSame(t1_,MutableTreeNodeCoreUtil.getParent(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertEq(0,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t2_));
-        assertNull(MutableTreeNodeCoreUtil.getNextSibling(t2_));
-        assertNull(MutableTreeNodeCoreUtil.getPreviousSibling(t2_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t2_));
+        assertFalse(t1_.add(t3_));
+        assertEq(1,t1_.remove(t3_));
+        assertEq(0,t2_.getIndex());
+        assertSame(t1_, t2_.getParent());
+        assertSame(t2_, t1_.getChildAt(0));
+        assertEq(0,t1_.getAntiIndex(t2_));
+        assertNull(t2_.getNextSibling());
+        assertNull(t2_.getPreviousSibling());
     }
     @Test
     public void t11() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t2_));
-        assertEq(-1,MutableTreeNodeCoreUtil.insert(t1_,t3_,-1));
-        assertEq(0,MutableTreeNodeCoreUtil.getIndex(t2_));
-        assertSame(t1_,MutableTreeNodeCoreUtil.getParent(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertEq(0,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t2_));
-        assertNull(MutableTreeNodeCoreUtil.getNextSibling(t2_));
-        assertNull(MutableTreeNodeCoreUtil.getPreviousSibling(t2_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t2_));
+        assertEq(-1,t1_.insert(t3_,-1));
+        assertEq(0,t2_.getIndex());
+        assertSame(t1_, t2_.getParent());
+        assertSame(t2_, t1_.getChildAt(0));
+        assertEq(0,t1_.getAntiIndex(t2_));
+        assertNull(t2_.getNextSibling());
+        assertNull(t2_.getPreviousSibling());
     }
     @Test
     public void t12() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t2_));
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t3_));
-        assertNull(MutableTreeNodeCoreUtil.remove(t1_,2));
-        assertEq(0,MutableTreeNodeCoreUtil.getIndex(t2_));
-        assertSame(t1_,MutableTreeNodeCoreUtil.getParent(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertEq(0,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t2_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.getChildAt(t1_,1));
-        assertEq(1,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t3_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.getNextSibling(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getPreviousSibling(t3_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t2_));
+        assertFalse(t1_.add(t3_));
+        assertNull(t1_.remove(2));
+        assertEq(0,t2_.getIndex());
+        assertSame(t1_, t2_.getParent());
+        assertSame(t2_, t1_.getChildAt(0));
+        assertEq(0,t1_.getAntiIndex(t2_));
+        assertSame(t3_, t1_.getChildAt(1));
+        assertEq(1,t1_.getAntiIndex(t3_));
+        assertSame(t3_,t2_.getNextSibling());
+        assertSame(t2_,t3_.getPreviousSibling());
     }
     @Test
     public void t13() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t2_));
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t3_));
-        assertNull(MutableTreeNodeCoreUtil.remove(t1_,-1));
-        assertEq(0,MutableTreeNodeCoreUtil.getIndex(t2_));
-        assertSame(t1_,MutableTreeNodeCoreUtil.getParent(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertEq(0,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t2_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.getChildAt(t1_,1));
-        assertEq(1,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t3_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.getNextSibling(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getPreviousSibling(t3_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t2_));
+        assertFalse(t1_.add(t3_));
+        assertNull(t1_.remove(-1));
+        assertEq(0,t2_.getIndex());
+        assertSame(t1_, t2_.getParent());
+        assertSame(t2_, t1_.getChildAt(0));
+        assertEq(0,t1_.getAntiIndex(t2_));
+        assertSame(t3_, t1_.getChildAt(1));
+        assertEq(1,t1_.getAntiIndex(t3_));
+        assertSame(t3_,t2_.getNextSibling());
+        assertSame(t2_,t3_.getPreviousSibling());
     }
     @Test
     public void t14() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t4_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t2_));
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t3_));
-        assertEq(-1,MutableTreeNodeCoreUtil.remove(t1_,t4_));
-        assertEq(0,MutableTreeNodeCoreUtil.getIndex(t2_));
-        assertSame(t1_,MutableTreeNodeCoreUtil.getParent(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertEq(0,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t2_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.getChildAt(t1_,1));
-        assertEq(1,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t3_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.getNextSibling(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getPreviousSibling(t3_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t4_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t2_));
+        assertFalse(t1_.add(t3_));
+        assertEq(-1,t1_.remove(t4_));
+        assertEq(0,t2_.getIndex());
+        assertSame(t1_, t2_.getParent());
+        assertSame(t2_, t1_.getChildAt(0));
+        assertEq(0,t1_.getAntiIndex(t2_));
+        assertSame(t3_, t1_.getChildAt(1));
+        assertEq(1,t1_.getAntiIndex(t3_));
+        assertSame(t3_,t2_.getNextSibling());
+        assertSame(t2_,t3_.getPreviousSibling());
     }
     @Test
     public void t15() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t2_));
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t3_));
-        assertSame(t1_,MutableTreeNodeCoreUtil.removeFromParent(t2_));
-        assertEq(-1,MutableTreeNodeCoreUtil.getIndex(t2_));
-        assertNull(MutableTreeNodeCoreUtil.getParent(t2_));
-        assertSame(t3_,MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertEq(-1,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t2_));
-        assertEq(0,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t3_));
-        assertNull(MutableTreeNodeCoreUtil.getNextSibling(t3_));
-        assertNull(MutableTreeNodeCoreUtil.getPreviousSibling(t3_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t2_));
+        assertFalse(t1_.add(t3_));
+        assertSame(t1_,t2_.removeFromParent());
+        assertEq(-1,t2_.getIndex());
+        assertNull(t2_.getParent());
+        assertSame(t3_, t1_.getChildAt(0));
+        assertEq(-1,t1_.getAntiIndex(t2_));
+        assertEq(0,t1_.getAntiIndex(t3_));
+        assertNull(t3_.getNextSibling());
+        assertNull(t3_.getPreviousSibling());
     }
     @Test
     public void t16() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t2_));
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t3_));
-        assertSame(t1_,MutableTreeNodeCoreUtil.removeFromParent(t3_));
-        assertEq(0,MutableTreeNodeCoreUtil.getIndex(t2_));
-        assertSame(t1_,MutableTreeNodeCoreUtil.getParent(t2_));
-        assertSame(t2_,MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertEq(0,MutableTreeNodeCoreUtil.getAntiIndex(t1_,t2_));
-        assertNull(MutableTreeNodeCoreUtil.getNextSibling(t2_));
-        assertNull(MutableTreeNodeCoreUtil.getPreviousSibling(t2_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t2_));
+        assertFalse(t1_.add(t3_));
+        assertSame(t1_,t3_.removeFromParent());
+        assertEq(0,t2_.getIndex());
+        assertSame(t1_, t2_.getParent());
+        assertSame(t2_, t1_.getChildAt(0));
+        assertEq(0,t1_.getAntiIndex(t2_));
+        assertNull(t2_.getNextSibling());
+        assertNull(t2_.getPreviousSibling());
     }
     @Test
     public void t17() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t2_));
-        assertFalse(MutableTreeNodeCoreUtil.add(t1_,t3_));
-        assertEq(2,MutableTreeNodeCoreUtil.removeAllChildren(t1_));
-        assertNull(MutableTreeNodeCoreUtil.getChildAt(t1_,0));
-        assertNull(MutableTreeNodeCoreUtil.getParent(t2_));
-        assertNull(MutableTreeNodeCoreUtil.getParent(t3_));
-        assertNull(MutableTreeNodeCoreUtil.getPreviousSibling(t2_));
-        assertNull(MutableTreeNodeCoreUtil.getPreviousSibling(t3_));
-        assertNull(MutableTreeNodeCoreUtil.getNextSibling(t2_));
-        assertNull(MutableTreeNodeCoreUtil.getNextSibling(t3_));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        assertFalse(t1_.add(t2_));
+        assertFalse(t1_.add(t3_));
+        assertEq(2,t1_.removeAllChildren());
+        assertNull(t1_.getChildAt(0));
+        assertNull(t2_.getParent());
+        assertNull(t3_.getParent());
+        assertNull(t2_.getPreviousSibling());
+        assertNull(t3_.getPreviousSibling());
+        assertNull(t2_.getNextSibling());
+        assertNull(t3_.getNextSibling());
     }
     @Test
     public void t18() {
-        MutableTreeNodeCore t1_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t2_ = new MutableTreeNodeCore();
-        MutableTreeNodeCore t3_ = new MutableTreeNodeCore();
-        assertFalse(MutableTreeNodeCoreUtil.add(t2_,t1_));
-        assertFalse(MutableTreeNodeCoreUtil.add(t3_,t2_));
-        assertSame(t1_,MutableTreeNodeCoreUtil.getElt(t3_, Ints.newList(0,0)));
-        assertNull(MutableTreeNodeCoreUtil.getElt(t3_, Ints.newList(0,0,0)));
-        assertNull(MutableTreeNodeCoreUtil.getElt(t3_, Ints.newList(0,0,0,0)));
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
+        assertFalse(t2_.add(t1_));
+        assertFalse(t3_.add(t2_));
+        assertSame(t1_,t3_.getElt(Ints.newList(0,0)));
+        assertNull(t3_.getElt(Ints.newList(0,0,0)));
+        assertNull(t3_.getElt(Ints.newList(0,0,0,0)));
     }
     @Test
     public void t19() {
-        MutableTreeNodeNav t1_ = new MutableTreeNodeNav();
-        MutableTreeNodeNav t2_ = new MutableTreeNodeNav();
-        MutableTreeNodeNav t3_ = new MutableTreeNodeNav();
+        MutableTreeNodeNav<String> t1_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t2_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> t3_ = new MutableTreeNodeNav<String>();
         assertEq(-1,t3_.getAntiIndex(t1_));
         assertEq(-1,t3_.getAntiIndex(t2_));
-        assertFalse(MutableTreeNodeCoreUtil.add(t3_,t1_));
-        assertFalse(MutableTreeNodeCoreUtil.add(t3_,t2_));
+        assertFalse(t3_.add(t1_));
+        assertFalse(t3_.add(t2_));
         assertEq(0,t3_.getAntiIndex(t1_));
         assertEq(1,t3_.getAntiIndex(t2_));
         assertEq(2,t3_.getChildCount());
@@ -293,5 +291,18 @@ public final class MutableTreeNodeCoreUtilTest extends EquallableIntGuiUtil {
         assertSame(t2_,t1_.getNextSibling());
         assertSame(t1_,t2_.getPreviousSibling());
         assertNull(t2_.getNextSibling());
+    }
+    @Test
+    public void getIndexes() {
+        MutableTreeNodeNav<String> r_ = new MutableTreeNodeNav<String>();
+        MutableTreeNodeNav<String> ch_ = new MutableTreeNodeNav<String>();
+        r_.info("");
+        assertEq("", r_.info());
+        r_.add(ch_);
+        Ints ls_ = ch_.getIndexes();
+        assertEq(1,ls_.size());
+        assertEq(0,ls_.get(0));
+        assertSame(null,r_.simular(null));
+        assertSame(ch_,r_.simular(ch_));
     }
 }

@@ -2,7 +2,6 @@ package code.expressionlanguage.adv;
 
 import code.gui.AbsShortListTree;
 import code.gui.AbstractMutableTreeNodeCore;
-import code.gui.MutableTreeNodeCoreUtil;
 import code.util.Ints;
 
 public final class TreeBreakPointBlockPairDepsEvent implements AbsShortListTree {
@@ -15,10 +14,10 @@ public final class TreeBreakPointBlockPairDepsEvent implements AbsShortListTree 
     }
 
     @Override
-    public void valueChanged(AbstractMutableTreeNodeCore _node) {
+    public void valueChanged(AbstractMutableTreeNodeCore<String> _node) {
         Ints is_ = new Ints();
-        AbstractMutableTreeNodeCore ch_ = TreeBreakPointBlockPairEvent.indexes(frameKeys,_node, is_);
-        int index_ = MutableTreeNodeCoreUtil.getNullableIndex(ch_);
+        AbstractMutableTreeNodeCore<String> ch_ = TreeBreakPointBlockPairEvent.indexes(frameKeys,_node, is_);
+        int index_ = TreeBreakPointBlockPairEvent.getNullableIndex(ch_);
         if (FramePointsTree.SORT_BP == index_){
             frame.guiContentBuild(frameKeys.getBpList().getValue(is_.get(0)).get(is_.get(1)));
         } else if (FramePointsTree.SORT_WP == index_) {

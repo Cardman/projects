@@ -7,20 +7,20 @@ import code.util.IdList;
 public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
     private boolean rootVisible;
     private AbsTreePaths selectionPaths = new MockTreePaths(new CustList<AbsTreePath>());
-    private final AbstractMutableTreeNode root;
+    private final AbstractMutableTreeNodeCore<String> root;
     private final IdList<AbsShortListTree> list = new IdList<AbsShortListTree>();
 
-    public MockTreeGui(AbstractMutableTreeNode _t) {
+    public MockTreeGui(AbstractMutableTreeNodeCore<String> _t) {
         root = _t;
     }
 
     @Override
-    public AbstractMutableTreeNode getRoot() {
+    public AbstractMutableTreeNodeCore<String> getRoot() {
         return root;
     }
 
     @Override
-    public void select(AbstractMutableTreeNodeCore _m) {
+    public void select(AbstractMutableTreeNodeCore<String> _m) {
         selectedPaths(new MockTreePaths(new CustList<AbsTreePath>(getTreePath((MockMutableTreeNode) _m))));
         for (AbsShortListTree l: getTreeSelectionListeners()) {
             l.valueChanged(_m);
@@ -28,7 +28,7 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
     }
 
     @Override
-    public void reload(AbstractMutableTreeNodeCore _m) {
+    public void reload(AbstractMutableTreeNodeCore<String> _m) {
         loop(_m);
     }
 
@@ -37,11 +37,11 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
         loop(getRoot());
     }
 
-    private static void loop(AbstractMutableTreeNodeCore _root) {
-        AbstractMutableTreeNodeCore cur_ = _root;
+    private static void loop(AbstractMutableTreeNodeCore<String> _root) {
+        AbstractMutableTreeNodeCore<String> cur_ = _root;
         while (cur_ != null) {
             ((MockMutableTreeNode)cur_).setAccessible(true);
-            AbstractMutableTreeNodeCore ch_ = ((MockMutableTreeNode)cur_).getChildAt(0);
+            AbstractMutableTreeNodeCore<String> ch_ = cur_.getChildAt(0);
             if (ch_ != null) {
                 cur_ = ch_;
                 continue;
@@ -49,14 +49,14 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
             cur_ = next(cur_,_root);
         }
     }
-    private static AbstractMutableTreeNodeCore next(AbstractMutableTreeNodeCore _current, AbstractMutableTreeNodeCore _root) {
-        AbstractMutableTreeNodeCore n_ = _current;
+    private static AbstractMutableTreeNodeCore<String> next(AbstractMutableTreeNodeCore<String> _current, AbstractMutableTreeNodeCore<String> _root) {
+        AbstractMutableTreeNodeCore<String> n_ = _current;
         while (n_ != null) {
-            AbstractMutableTreeNodeCore next_ = n_.getNextSibling();
+            AbstractMutableTreeNodeCore<String> next_ = n_.getNextSibling();
             if (next_ != null) {
                 return next_;
             }
-            AbstractMutableTreeNodeCore parent_ = n_.getParent();
+            AbstractMutableTreeNodeCore<String> parent_ = n_.getParent();
             if (parent_ == _root || parent_ == null) {
                 n_ = null;
             } else {
@@ -71,7 +71,7 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
     }
 
     @Override
-    public AbstractMutableTreeNode selectEvt() {
+    public AbstractMutableTreeNodeCore<String> selectEvt() {
         AbsTreePaths s_ = selectedPaths();
         if (s_.getLength() == 1) {
             return s_.elt(0).data();
@@ -80,12 +80,12 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
     }
 
     @Override
-    public AbstractMutableTreeNode translate(AbsTreePath _tr) {
+    public AbstractMutableTreeNodeCore<String> translate(AbsTreePath _tr) {
         return _tr.data();
     }
 
     @Override
-    public AbsTreePath translate(AbstractMutableTreeNode _tr) {
+    public AbsTreePath translate(AbstractMutableTreeNodeCore<String> _tr) {
         return new MockTreePath(_tr);
     }
 

@@ -104,7 +104,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     public void searchFile(AbsPlainButton _but) {
         AbstractFile currentFolder_ = getProgramInfos().getFileCoreStream().newFile(getCurrentFolder());
         if (!currentFolder_.exists()) {
-            AbstractMutableTreeNode sel_ = getFolderSystem().selectEvt();
+            AbstractMutableTreeNodeCore<String> sel_ = getFolderSystem().selectEvt();
             if (sel_ == null) {
                 return;
             }

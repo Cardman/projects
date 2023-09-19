@@ -142,35 +142,35 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void refreshTreeYes() {
         WindowCdmEditor w_ = windowLoadDefTwiceRefresh(newMockProgramInfosInitConfNoDeepProject());
-        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild()));
+        assertEq(0, w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().children().size());
         refresh(w_);
-        assertEq(2,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild()));
-        assertEq("file1",((AbstractMutableTreeNode)MutableTreeNodeCoreUtil.getChildAt(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild(),0)).getUserObject());
-        assertEq("file2",((AbstractMutableTreeNode)MutableTreeNodeCoreUtil.getChildAt(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild(),1)).getUserObject());
+        assertEq(2, w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().children().size());
+        assertEq("file1",w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getChildAt(0).info());
+        assertEq("file2",w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getChildAt(1).info());
     }
     @Test
     public void refreshTreeNo() {
         WindowCdmEditor w_ = windowLoadDefTwiceRefresh(newMockProgramInfosInitConfNoDeepProject());
-        assertEq(1,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild()));
-        assertEq("under/",((AbstractMutableTreeNode)w_.getFolderSystem().getRoot().getFirstChild().getFirstChild()).getUserObject());
-        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild()));
+        assertEq(1, w_.getFolderSystem().getRoot().getFirstChild().children().size());
+        assertEq("under/",w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().info());
+        assertEq(0, w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().children().size());
         w_.getFolderSystem().select(null);
         refresh(w_);
-        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild()));
+        assertEq(0, w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().children().size());
     }
     @Test
     public void refreshTreeDelete() {
         WindowCdmEditor w_ = windowLoadDefTwiceRefreshDelete(newMockProgramInfosInitConfNoDeepProject());
-        assertEq(1,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild()));
+        assertEq(1, w_.getFolderSystem().getRoot().getFirstChild().children().size());
         refresh(w_);
-        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild()));
+        assertEq(0, w_.getFolderSystem().getRoot().getFirstChild().children().size());
     }
     @Test
     public void refreshTreeDeleteExceptRoot() {
         WindowCdmEditor w_ = windowLoadDefTwiceRefreshDeleteExceptRoot(newMockProgramInfosInitConfNoDeepProject());
-        assertEq(1,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild()));
+        assertEq(1, w_.getFolderSystem().getRoot().getFirstChild().children().size());
         refresh(w_);
-        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot()));
+        assertEq(0, w_.getFolderSystem().getRoot().children().size());
     }
     @Test
     public void refreshTreeDeleteEdited1() {

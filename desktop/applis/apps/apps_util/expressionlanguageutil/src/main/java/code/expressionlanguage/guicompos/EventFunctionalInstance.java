@@ -168,7 +168,7 @@ public final class EventFunctionalInstance extends LaunchableFunctionalStruct im
     }
 
     @Override
-    public void valueChanged(AbstractMutableTreeNodeCore _e) {
+    public void valueChanged(AbstractMutableTreeNodeCore<String> _e) {
         CustList<Argument> args_ = new CustList<Argument>();
         Struct arg_ = TreeNodeStruct.nodeOrNull(_e);
         args_.add(new Argument(arg_));

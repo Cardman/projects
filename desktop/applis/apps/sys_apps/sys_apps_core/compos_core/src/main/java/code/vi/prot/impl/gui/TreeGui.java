@@ -10,10 +10,10 @@ import javax.swing.tree.*;
 public final class TreeGui extends CustComponent implements AbsTreeGui {
     private final JTree tree;
     private final DefaultTreeModel model;
-    private final AbstractMutableTreeNode root;
+    private final AbstractMutableTreeNodeCore<String> root;
     private final IdMap<AbsShortListTree,DefTreeSelectionListener> list = new IdMap<AbsShortListTree, DefTreeSelectionListener>();
 
-    public TreeGui(AbstractMutableTreeNode _t, int _select) {
+    public TreeGui(AbstractMutableTreeNodeCore<String> _t, int _select) {
         root = _t;
         model = new DefaultTreeModel(convert(_t));
         tree = new JTree(model);
@@ -22,12 +22,12 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
         sel_.setSelectionMode(_select);
     }
 
-    public static MutableTreeNode convert(AbstractMutableTreeNodeCore _t) {
+    public static MutableTreeNode convert(AbstractMutableTreeNodeCore<String> _t) {
         return ((DefMutableTreeNode)_t).node();
     }
 
     @Override
-    public AbstractMutableTreeNode getRoot() {
+    public AbstractMutableTreeNodeCore<String> getRoot() {
         return root;
     }
 
@@ -39,30 +39,30 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
         tree.setRootVisible(_rootVisible);
     }
 
-    public AbstractMutableTreeNode selectEvt() {
+    public AbstractMutableTreeNodeCore<String> selectEvt() {
         TreePath selectionPath_ = getSelectionPath();
         return selectedEvt(selectionPath_);
     }
 
     @Override
-    public AbstractMutableTreeNode translate(AbsTreePath _tr) {
+    public AbstractMutableTreeNodeCore<String> translate(AbsTreePath _tr) {
         return TreeGui.selected(root,((DefTreePath)_tr).getReal());
     }
 
     @Override
-    public AbsTreePath translate(AbstractMutableTreeNode _tr) {
+    public AbsTreePath translate(AbstractMutableTreeNodeCore<String> _tr) {
         return new DefTreePath(_tr, getTreePath(convert(_tr)));
     }
 
-    public static DefMutableTreeNode selected(AbstractMutableTreeNode _root,TreePath _path) {
+    public static DefMutableTreeNode selected(AbstractMutableTreeNodeCore<String> _root,TreePath _path) {
         try {
             DefMutableTreeNode res_ = DefMutableTreeNode.build((DefaultMutableTreeNode) _path.getLastPathComponent());
-            return (DefMutableTreeNode) MutableTreeNodeUtil.simular(_root,res_);
+            return (DefMutableTreeNode) _root.getElt(res_.getIndexes());
         } catch (Exception e) {
             return null;
         }
     }
-    public AbstractMutableTreeNode selectedEvt(TreePath _path) {
+    public AbstractMutableTreeNodeCore<String> selectedEvt(TreePath _path) {
         return selected(root,_path);
     }
 
@@ -70,9 +70,9 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
     public AbsTreePaths selectedPaths() {
         try {
             TreePath[] sel_ = tree.getSelectionPaths();
-            return new DefTreePaths(sel_, MutableTreeNodeUtil.list(root,new DefTreePaths(sel_,new CustList<AbstractMutableTreeNode>())));
+            return new DefTreePaths(sel_, MutableTreeNodeUtil.list(root,new DefTreePaths(sel_,new CustList<AbstractMutableTreeNodeCore<String>>())));
         } catch (Exception e) {
-            return new DefTreePaths(new TreePath[0],new CustList<AbstractMutableTreeNode>());
+            return new DefTreePaths(new TreePath[0],new CustList<AbstractMutableTreeNodeCore<String>>());
         }
     }
 
@@ -85,7 +85,7 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
         return tree.getSelectionPath();
     }
 
-    public void select(AbstractMutableTreeNodeCore _node) {
+    public void select(AbstractMutableTreeNodeCore<String> _node) {
         tree.setSelectionPath(getTreePath(convert(_node)));
     }
 
@@ -120,7 +120,7 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
     }
 
     @Override
-    public void reload(AbstractMutableTreeNodeCore _node) {
+    public void reload(AbstractMutableTreeNodeCore<String> _node) {
         model.reload(convert(_node));
     }
 

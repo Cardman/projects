@@ -6,5 +6,5 @@ public interface AbsTreePaths {
     void remove(int _path);
     void set(int _index, AbsTreePath _path);
     AbsTreePath elt(int _index);
-    AbsTreePath elt(AbstractMutableTreeNode _root,int _index);
+    AbsTreePath elt(AbstractMutableTreeNodeCore<String> _root,int _index);
 }

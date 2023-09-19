@@ -13,7 +13,7 @@ public final class MockShortListTree implements AbsShortListTree {
     }
 
     @Override
-    public void valueChanged(AbstractMutableTreeNodeCore _node) {
+    public void valueChanged(AbstractMutableTreeNodeCore<String> _node) {
         mockListTreeWindow.action(nb,_node);
     }
 }

@@ -29,7 +29,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     private final AbsTabbedPane events;
     private AbsTreeGui folderSystem;
     private AbsScrollPane scrollDialog;
-    private AbstractMutableTreeNode selectedNode;
+    private AbstractMutableTreeNodeCore<String> selectedNode;
     private final CustList<OutputDialogComments> commentsFrames = new CustList<OutputDialogComments>();
     private final CustList<OutputDialogTab> tabulationsFrames = new CustList<OutputDialogTab>();
     private final CustList<OutputDialogLanguage> languageFrames = new CustList<OutputDialogLanguage>();
@@ -113,7 +113,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
 
     public boolean applyTreeChangeSelected(boolean _treeEvent) {
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
-        AbstractMutableTreeNode sel_ = getTree().selectEvt();
+        AbstractMutableTreeNodeCore<String> sel_ = getTree().selectEvt();
         changeEnable(sel_);
         if (sel_ == null) {
             return false;
@@ -187,7 +187,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         return getTabs().get(_i);
     }
 
-    static void refreshList(AbstractMutableTreeNode _sel, String _folderToVisit, AbstractProgramInfos _factories) {
+    static void refreshList(AbstractMutableTreeNodeCore<String> _sel, String _folderToVisit, AbstractProgramInfos _factories) {
         FileListInfo files_ = PathsUtil.abs(_factories.getFileCoreStream().newFile(_folderToVisit), _factories.getFileCoreStream());
         CustList<AbstractFile> currentFolders_ = new CustList<AbstractFile>();
         CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>();
@@ -204,17 +204,17 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         }
         currentFiles_.sortElts(new FileNameComparator());
         for (AbstractFile f : currentFolders_) {
-            _sel.add(f.getName()+"/");
+            _sel.add(_factories.getCompoFactory().newMutableTreeNode(f.getName()+"/"));
         }
         for (AbstractFile f : currentFiles_) {
-            _sel.add(f.getName());
+            _sel.add(_factories.getCompoFactory().newMutableTreeNode(f.getName()));
         }
     }
 
-    void refresh(AbstractMutableTreeNode _sel, String _str) {
+    void refresh(AbstractMutableTreeNodeCore<String> _sel, String _str) {
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
-        AbstractMutableTreeNode r_ = getTree().getRoot();
-        AbstractMutableTreeNode adj_ = _sel;
+        AbstractMutableTreeNodeCore<String> r_ = getTree().getRoot();
+        AbstractMutableTreeNodeCore<String> adj_ = _sel;
         String adjPath_ = _str;
         while (adj_ != r_) {
             String candidate_ = buildPath(adj_);
@@ -228,12 +228,12 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
                 break;
             }
             closeIfOpened(candidate_);
-            adj_ = (AbstractMutableTreeNode) adj_.getParent();
+            adj_ = adj_.getParent();
         }
         refParent(adj_, adjPath_);
     }
 
-    void refParent(AbstractMutableTreeNode _parent, String _parentPath) {
+    void refParent(AbstractMutableTreeNodeCore<String> _parent, String _parentPath) {
         _parent.removeAllChildren();
         refreshList(_parent, _parentPath, getCommonFrame().getFrames());
         MutableTreeNodeUtil.reload(getTree());
@@ -249,7 +249,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
 
     public void initTree(String _acc) {
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
-        AbstractMutableTreeNode default_ = frs_.getCompoFactory().newMutableTreeNode(_acc+"/");
+        AbstractMutableTreeNodeCore<String> default_ = frs_.getCompoFactory().newMutableTreeNode(_acc+"/");
         folderSystem = frs_.getCompoFactory().newTreeGui(default_);
         folderSystem.select(folderSystem.getRoot());
         refreshList(folderSystem.selectEvt(),_acc, getCommonFrame().getFrames());
@@ -363,7 +363,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     void renameValidate() {
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         String str_ = buildPath(selectedNode);
-        AbstractMutableTreeNode par_ = (AbstractMutableTreeNode) selectedNode.getParent();
+        AbstractMutableTreeNodeCore<String> par_ = selectedNode.getParent();
         String dest_ = buildPath(par_)+targetName.getText();
         if (!frs_.getFileCoreStream().newFile(str_).renameTo(frs_.getFileCoreStream().newFile(dest_))){
             clearTreeDialog();
@@ -380,8 +380,8 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         }
         par_.remove(selectedNode);
         refParent(par_,parentPath_);
-        for (AbstractMutableTreeNodeCore c: MutableTreeNodeCoreUtil.children(par_)) {
-            if (StringUtil.quickEq(name_,((AbstractMutableTreeNode)c).getUserObject())) {
+        for (AbstractMutableTreeNodeCore<String> c: par_.children()) {
+            if (StringUtil.quickEq(name_,c.info())) {
                 folderSystem.select(c);
             }
         }
@@ -408,7 +408,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     void removeValidate() {
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         String str_ = buildPath(selectedNode);
-        AbstractMutableTreeNode par_ = (AbstractMutableTreeNode) selectedNode.getParent();
+        AbstractMutableTreeNodeCore<String> par_ = selectedNode.getParent();
         if (!frs_.getFileCoreStream().newFile(str_).delete()){
             clearTreeDialog();
             return;
@@ -598,11 +598,11 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         return factory;
     }
 
-    public AbstractMutableTreeNode getSelectedNode() {
+    public AbstractMutableTreeNodeCore<String> getSelectedNode() {
         return selectedNode;
     }
 
-    public void setSelectedNode(AbstractMutableTreeNode _s) {
+    public void setSelectedNode(AbstractMutableTreeNodeCore<String> _s) {
         this.selectedNode = _s;
     }
 
@@ -750,7 +750,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     }
 
     public abstract AbsTreeGui getTree();
-    public abstract void changeEnable(AbstractMutableTreeNode _en);
+    public abstract void changeEnable(AbstractMutableTreeNodeCore<String> _en);
     public abstract String pathToSrc();
 
     public abstract WindowCdmEditor getMainFrame();

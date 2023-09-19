@@ -2,16 +2,16 @@ package code.vi.prot.impl.gui;
 
 import code.gui.AbsTreePath;
 import code.gui.AbsTreePaths;
-import code.gui.AbstractMutableTreeNode;
+import code.gui.AbstractMutableTreeNodeCore;
 import code.util.CustList;
 
 import javax.swing.tree.TreePath;
 
 public final class DefTreePaths implements AbsTreePaths {
     private final CustList<TreePath> nodes;
-    private final CustList<AbstractMutableTreeNode> nodesTree;
+    private final CustList<AbstractMutableTreeNodeCore<String>> nodesTree;
 
-    public DefTreePaths(TreePath[] _n, CustList<AbstractMutableTreeNode> _t) {
+    public DefTreePaths(TreePath[] _n, CustList<AbstractMutableTreeNodeCore<String>> _t) {
         this.nodes = new CustList<TreePath>(_n);
         nodesTree = _t;
     }
@@ -49,7 +49,7 @@ public final class DefTreePaths implements AbsTreePaths {
     }
 
     @Override
-    public AbsTreePath elt(AbstractMutableTreeNode _root, int _index) {
+    public AbsTreePath elt(AbstractMutableTreeNodeCore<String> _root, int _index) {
         TreePath tr_ = nodes.get(_index);
         return new DefTreePath(TreeGui.selected(_root,tr_),tr_);
     }

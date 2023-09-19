@@ -9,10 +9,10 @@ import code.gui.images.MetaFont;
 
 public interface AbsCompoFactory {
     AbsTreePaths emptyList();
-    AbsTreeGui newTreeGui(AbstractMutableTreeNode _node);
-    AbsTreeGui newTreeGui(AbstractMutableTreeNode _node, int _select);
+    AbsTreeGui newTreeGui(AbstractMutableTreeNodeCore<String> _node);
+    AbsTreeGui newTreeGui(AbstractMutableTreeNodeCore<String> _node, int _select);
 
-    AbstractMutableTreeNode newMutableTreeNode(String _name);
+    AbstractMutableTreeNodeCore<String> newMutableTreeNode(String _name);
 
     AbsPaintableLabel newAbsPaintableLabel();
     AbsPreparedLabel newPreparedLabel(AbstractImage _icon);

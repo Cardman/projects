@@ -13,22 +13,22 @@ public final class MutableTreeNodeUtilTest extends EquallableGuiFctUtil {
     public void getIndexes() {
         MockProgramInfosSecSample init_ = init();
         AbsCompoFactory c_ = init_.getCompoFactory();
-        AbstractMutableTreeNode r_ = c_.newMutableTreeNode("0");
-        AbstractMutableTreeNode ch_ = c_.newMutableTreeNode("1");
+        AbstractMutableTreeNodeCore<String> r_ = c_.newMutableTreeNode("0");
+        AbstractMutableTreeNodeCore<String> ch_ = c_.newMutableTreeNode("1");
         r_.add(ch_);
         c_.newTreeGui(r_);
-        Ints ls_ = MutableTreeNodeUtil.getIndexes(ch_);
+        Ints ls_ = ch_.getIndexes();
         assertEq(1,ls_.size());
         assertEq(0,ls_.get(0));
-        assertSame(null,MutableTreeNodeUtil.simular(null,null));
-        assertSame(ch_,MutableTreeNodeUtil.simular(r_,ch_));
+        assertSame(null,r_.simular(null));
+        assertSame(ch_,r_.simular(ch_));
     }
     @Test
     public void reload1() {
         MockProgramInfosSecSample init_ = init();
         AbsCompoFactory c_ = init_.getCompoFactory();
-        AbstractMutableTreeNode r_ = c_.newMutableTreeNode("0");
-        AbstractMutableTreeNode ch_ = c_.newMutableTreeNode("1");
+        AbstractMutableTreeNodeCore<String> r_ = c_.newMutableTreeNode("0");
+        AbstractMutableTreeNodeCore<String> ch_ = c_.newMutableTreeNode("1");
         r_.add(ch_);
         AbsTreeGui t_ = c_.newTreeGui(r_);
         MutableTreeNodeUtil.reload(t_);
@@ -39,8 +39,8 @@ public final class MutableTreeNodeUtilTest extends EquallableGuiFctUtil {
     public void reload2() {
         MockProgramInfosSecSample init_ = init();
         AbsCompoFactory c_ = init_.getCompoFactory();
-        AbstractMutableTreeNode r_ = c_.newMutableTreeNode("0");
-        AbstractMutableTreeNode ch_ = c_.newMutableTreeNode("1");
+        AbstractMutableTreeNodeCore<String> r_ = c_.newMutableTreeNode("0");
+        AbstractMutableTreeNodeCore<String> ch_ = c_.newMutableTreeNode("1");
         r_.add(ch_);
         AbsTreeGui t_ = c_.newTreeGui(r_);
         t_.select(ch_);
@@ -52,13 +52,13 @@ public final class MutableTreeNodeUtilTest extends EquallableGuiFctUtil {
     public void list1() {
         MockProgramInfosSecSample init_ = init();
         AbsCompoFactory c_ = init_.getCompoFactory();
-        AbstractMutableTreeNode r_ = c_.newMutableTreeNode("0");
-        AbstractMutableTreeNode ch_ = c_.newMutableTreeNode("1");
+        AbstractMutableTreeNodeCore<String> r_ = c_.newMutableTreeNode("0");
+        AbstractMutableTreeNodeCore<String> ch_ = c_.newMutableTreeNode("1");
         r_.add(ch_);
         c_.newTreeGui(r_);
         AbsTreePaths e_ = init_.getCompoFactory().emptyList();
         e_.add(new MockTreePath(ch_));
-        CustList<AbstractMutableTreeNode> nodes_ = MutableTreeNodeUtil.list(r_,e_);
+        CustList<AbstractMutableTreeNodeCore<String>> nodes_ = MutableTreeNodeUtil.list(r_,e_);
         assertEq(1,nodes_.size());
         assertSame(ch_,nodes_.get(0));
     }
@@ -66,11 +66,11 @@ public final class MutableTreeNodeUtilTest extends EquallableGuiFctUtil {
     public void list2() {
         MockProgramInfosSecSample init_ = init();
         AbsCompoFactory c_ = init_.getCompoFactory();
-        AbstractMutableTreeNode r_ = c_.newMutableTreeNode("0");
-        AbstractMutableTreeNode ch_ = c_.newMutableTreeNode("1");
+        AbstractMutableTreeNodeCore<String> r_ = c_.newMutableTreeNode("0");
+        AbstractMutableTreeNodeCore<String> ch_ = c_.newMutableTreeNode("1");
         r_.add(ch_);
         AbsTreeGui tr_ = c_.newTreeGui(r_);
-        CustList<AbstractMutableTreeNode> e_ = new CustList<AbstractMutableTreeNode>();
+        CustList<AbstractMutableTreeNodeCore<String>> e_ = new CustList<AbstractMutableTreeNodeCore<String>>();
         e_.add(ch_);
         AbsTreePaths nodes_ = MutableTreeNodeUtil.list(init_.getCompoFactory(),tr_,e_);
         assertEq(1,nodes_.getLength());

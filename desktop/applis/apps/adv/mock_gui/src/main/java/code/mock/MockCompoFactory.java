@@ -17,17 +17,17 @@ public final class MockCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsTreeGui newTreeGui(AbstractMutableTreeNode _node) {
+    public AbsTreeGui newTreeGui(AbstractMutableTreeNodeCore<String> _node) {
         return newTreeGui(_node,1);
     }
 
     @Override
-    public AbsTreeGui newTreeGui(AbstractMutableTreeNode _node, int _select) {
+    public AbsTreeGui newTreeGui(AbstractMutableTreeNodeCore<String> _node, int _select) {
         return new MockTreeGui(_node);
     }
 
     @Override
-    public AbstractMutableTreeNode newMutableTreeNode(String _name) {
+    public AbstractMutableTreeNodeCore<String> newMutableTreeNode(String _name) {
         return new MockMutableTreeNode(_name);
     }
 

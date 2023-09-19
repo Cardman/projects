@@ -265,30 +265,31 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
     @Test
     public void t18() {
         MockMutableTreeNode t1_ = new MockMutableTreeNode("1");
-        AbstractMutableTreeNode c_ = t1_.add("0");
-        assertEq("0", c_.getUserObject());
+        MockMutableTreeNode n_ = new MockMutableTreeNode("0");
+        t1_.add(n_);
+        assertEq("0", n_.info());
         assertEq(1,t1_.getChildCount());
-        assertSame(c_, t1_.getChildAt(0));
+        assertSame(n_, t1_.getChildAt(0));
         t1_.setAccessible(true);
         assertTrue(t1_.isAccessible());
-        c_.setUserObject("1");
-        assertEq("1",c_.getUserObject());
+        n_.info("1");
+        assertEq("1", n_.info());
     }
     @Test
     public void t19() {
         MockMutableTreeNode r_ = new MockMutableTreeNode("0");
-        r_.add("1").add("3");
-        r_.add("2").add("4");
+        geneTwo(r_, "1", "3");
+        geneTwo(r_, "2", "4");
         MockTreeGui t_ = new MockTreeGui(r_);
-        AbstractMutableTreeNodeCore c_ = ((AbstractMutableTreeNodeNav)r_.getChildAt(0)).getChildAt(0);
+        AbstractMutableTreeNodeCore<String> c_ = r_.getChildAt(0).getChildAt(0);
         t_.select(c_);
         assertSame(c_,t_.selectEvt());
     }
     @Test
     public void t20() {
         MockMutableTreeNode r_ = new MockMutableTreeNode("0");
-        r_.add("1").add("3");
-        r_.add("2").add("4");
+        geneTwo(r_, "1", "3");
+        geneTwo(r_, "2", "4");
         MockTreeGui t_ = new MockTreeGui(r_);
         t_.select(null);
         assertNull(t_.selectEvt());
@@ -296,12 +297,12 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
     @Test
     public void t21() {
         MockMutableTreeNode r_ = new MockMutableTreeNode("0");
-        AbstractMutableTreeNode f_ = r_.add("1");
-        f_.add("3");
-        f_.add("5");
-        AbstractMutableTreeNode s_ = r_.add("2");
-        s_.add("4");
-        s_.add("6");
+        AbstractMutableTreeNodeCore<String> f_ = gene(r_, "1");
+        add(f_, "3");
+        add(f_, "5");
+        AbstractMutableTreeNodeCore<String> s_ = gene(r_, "2");
+        add(s_, "4");
+        add(s_, "6");
         MockTreeGui t_ = new MockTreeGui(r_);
         t_.reload(r_);
         assertTrue(r_.isAccessible());
@@ -312,6 +313,7 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
         assertTrue(((MockMutableTreeNode) s_.getChildAt(0)).isAccessible());
         assertTrue(((MockMutableTreeNode) s_.getChildAt(1)).isAccessible());
     }
+
     @Test
     public void t22() {
         MockMutableTreeNode r_ = new MockMutableTreeNode("0");
@@ -322,12 +324,12 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
     @Test
     public void t23() {
         MockMutableTreeNode r_ = new MockMutableTreeNode("0");
-        AbstractMutableTreeNode f_ = r_.add("1");
-        f_.add("3");
-        f_.add("5");
-        AbstractMutableTreeNode s_ = r_.add("2");
-        s_.add("4");
-        s_.add("6");
+        AbstractMutableTreeNodeCore<String> f_ = gene(r_, "1");
+        add(f_, "3");
+        add(f_, "5");
+        AbstractMutableTreeNodeCore<String> s_ = gene(r_, "2");
+        add(s_, "4");
+        add(s_, "6");
         MockTreeGui t_ = new MockTreeGui(r_);
         t_.select(r_);
         assertSame(r_,t_.selectEvt());
@@ -343,12 +345,12 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
     @Test
     public void t26() {
         MockMutableTreeNode r_ = new MockMutableTreeNode("0");
-        AbstractMutableTreeNode f_ = r_.add("1");
-        f_.add("3");
-        f_.add("5");
-        AbstractMutableTreeNode s_ = r_.add("2");
-        s_.add("4");
-        s_.add("6");
+        AbstractMutableTreeNodeCore<String> f_ = gene(r_, "1");
+        add(f_, "3");
+        add(f_, "5");
+        AbstractMutableTreeNodeCore<String> s_ = gene(r_, "2");
+        add(s_, "4");
+        add(s_, "6");
         MockTreeGui t_ = new MockTreeGui(r_);
         t_.setRootVisible(true);
         assertTrue(t_.isRootVisible());
@@ -376,7 +378,7 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
         MockCommonFrameTreeSample mock_ = new MockCommonFrameTreeSample(init());
         MockTreeGui tree_ = (MockTreeGui) mock_.getContentPane().getComponent(0);
         tree_.select(tree_.getRoot());
-        AbstractMutableTreeNode root_ = tree_.selectEvt();
+        AbstractMutableTreeNodeCore<String> root_ = tree_.selectEvt();
         tree_.select(root_.getChildAt(0));
         tree_.selectEvt().removeFromParent();
         assertNull(root_.getChildAt(0));
@@ -384,20 +386,20 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
     @Test
     public void t30() {
         MockMutableTreeNode r_ = new MockMutableTreeNode("0");
-        AbstractMutableTreeNode f_ = r_.add("1");
-        f_.add("3");
-        f_.add("5");
-        AbstractMutableTreeNode s_ = r_.add("2");
-        s_.add("4");
-        s_.add("6");
+        AbstractMutableTreeNodeCore<String> f_ = gene(r_, "1");
+        add(f_, "3");
+        add(f_, "5");
+        AbstractMutableTreeNodeCore<String> s_ = gene(r_, "2");
+        add(s_, "4");
+        add(s_, "6");
         r_.removeAllChildren();
         assertNull(r_.getChildAt(0));
     }
     @Test
     public void t31() {
         MockMutableTreeNode r_ = new MockMutableTreeNode("0");
-        r_.add("1");
-        r_.add("2");
+        gene(r_, "1");
+        gene(r_, "2");
         r_.removeAllChildren();
         assertNull(r_.getChildAt(0));
     }
@@ -420,4 +422,19 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
         tr_.selectedPaths(new MockTreePaths(paths_));
         assertSame(null,tr_.selectEvt());
     }
+
+    private void geneTwo(MockMutableTreeNode _r, String _i, String _j) {
+        add(gene(_r, _i), _j);
+    }
+
+    private void add(AbstractMutableTreeNodeCore<String> _f, String _i) {
+        _f.add(new MockMutableTreeNode(_i));
+    }
+
+    private AbstractMutableTreeNodeCore<String> gene(MockMutableTreeNode _r, String _i) {
+        MockMutableTreeNode add_ = new MockMutableTreeNode(_i);
+        _r.add(add_);
+        return add_;
+    }
+
 }

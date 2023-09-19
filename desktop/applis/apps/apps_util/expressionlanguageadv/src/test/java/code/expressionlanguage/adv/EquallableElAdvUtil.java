@@ -68,7 +68,7 @@ public abstract class EquallableElAdvUtil {
     public static void assertSame(AbsCustComponent _expected, AbsCustComponent _result) {
         Assert.assertSame(_expected, _result);
     }
-    public static void assertSame(AbstractMutableTreeNodeCore _expected, AbstractMutableTreeNodeCore _result) {
+    public static void assertSame(AbstractMutableTreeNodeCore<String> _expected, AbstractMutableTreeNodeCore<String> _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(Struct _expected, Struct _result) {
@@ -268,6 +268,7 @@ public abstract class EquallableElAdvUtil {
         assertTrue(_g.getFramePoints().getFramePointsTree().getCreate().isEnabled());
         ((MockPlainButton)_g.getFramePoints().getFramePointsTree().getCreate()).getActionListeners().get(0).action();
 //        ((MockPlainButton)_g.getFramePoints().getAddStd()).getActionListeners().get(0).action();
+        _g.getFramePoints().getFrameStdFormContent().getTreeStd().select(null);
         _g.getFramePoints().getFrameStdFormContent().selectTree(_cl,_id);
     }
     public static void addStd(AbsDebuggerGui _g) {
@@ -307,54 +308,54 @@ public abstract class EquallableElAdvUtil {
     }
     public static void editArr(AbsDebuggerGui _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePoints().getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_AP),0),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_AP).getChildAt(0).getChildAt(_v));
 //        ((MockPlainButton)_g.getFramePoints().getExcFrom().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editPar(AbsDebuggerGui _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePoints().getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_PP),0),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_PP).getChildAt(0).getChildAt(_v));
 //        ((MockPlainButton)_g.getFramePoints().getExcFrom().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editOperNat(AbsDebuggerGui _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePoints().getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_OP),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_OP).getChildAt(_v));
 //        ((MockPlainButton)_g.getFramePoints().getExcFrom().getComponent(_v)).getActionListeners().get(0).action();
     }
     public static void editExc(AbsDebuggerGui _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePoints().getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_EP),0),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_EP).getChildAt(0).getChildAt(_v));
 //        ((MockPlainButton)_g.getFramePoints().getExcFrom().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editStd(AbsDebuggerGui _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePoints().getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_SP),0),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_SP).getChildAt(0).getChildAt(_v));
 //        ((MockPlainButton)_g.getFramePoints().getStdForm().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editWatchAnnot(AbsDebuggerGui _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePoints().getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_WP_ANNOT),0),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_WP_ANNOT).getChildAt(0).getChildAt(_v));
 //        ((MockPlainButton)_g.getFramePoints().getWpForm().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editWatch(AbsDebuggerGui _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePoints().getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_WP),0),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_WP).getChildAt(0).getChildAt(_v));
 //        ((MockPlainButton)_g.getFramePoints().getWpForm().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editMethod(AbsDebuggerGui _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePoints().getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_MP),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_MP).getChildAt(_v));
 //        ((MockPlainButton)_g.getFramePoints().getMetForm().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editBp(AbsDebuggerGui _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePoints().getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_BP),0),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_BP).getChildAt(0).getChildAt(_v));
 //        ((MockPlainButton)_g.getFramePoints().getBpForm().getComponent(_v)).getActionListeners().get(0).action();
     }
 
@@ -389,57 +390,57 @@ public abstract class EquallableElAdvUtil {
 
     public static void editOthArr(DependantPointsForm _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_AP),0),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_AP).getChildAt(0).getChildAt(_v));
 //        ((MockPlainButton)_g.getExcFrom().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editOthPar(DependantPointsForm _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_PP),0),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_PP).getChildAt(0).getChildAt(_v));
 //        ((MockPlainButton)_g.getExcFrom().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editOthOperNat(DependantPointsForm _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_OP),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_OP).getChildAt(_v));
 //        ((MockPlainButton)_g.getExcFrom().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editOthExc(DependantPointsForm _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_EP),0),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_EP).getChildAt(0).getChildAt(_v));
 //        ((MockPlainButton)_g.getExcFrom().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editOthStd(DependantPointsForm _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePointsTree().getTree();
         tr_.select(tr_.getRoot());
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_SP),0),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_SP).getChildAt(0).getChildAt(_v));
 //        ((MockPlainButton)_g.getStdForm().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editOthWatch(DependantPointsForm _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_WP),0),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_WP).getChildAt(0).getChildAt(_v));
 //        ((MockPlainButton)_g.getWpForm().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editOthWatchAnnot(DependantPointsForm _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_WP_ANNOT),0),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_WP_ANNOT).getChildAt(0).getChildAt(_v));
 //        ((MockPlainButton)_g.getWpForm().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editOthMethod(DependantPointsForm _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_MP),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_MP).getChildAt(_v));
 //        ((MockPlainButton)_g.getMetForm().getComponent(_v)).getActionListeners().get(0).action();
     }
 
     public static void editOthBp(DependantPointsForm _g, int _v) {
         AbsTreeGui tr_ = _g.getFramePointsTree().getTree();
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_BP),0));
-        tr_.select(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(MutableTreeNodeCoreUtil.getChildAt(tr_.getRoot(),FramePointsTree.SORT_BP),0),_v));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_BP).getChildAt(0));
+        tr_.select(tr_.getRoot().getChildAt(FramePointsTree.SORT_BP).getChildAt(0).getChildAt(_v));
 //        ((MockPlainButton)_g.getBpForm().getComponent(_v)).getActionListeners().get(0).action();
     }
     public static void menuSingleMain(WindowExpressionEditor _w, AbsDebuggerGui _g) {

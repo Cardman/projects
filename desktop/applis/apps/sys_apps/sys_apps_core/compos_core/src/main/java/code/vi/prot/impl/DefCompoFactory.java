@@ -22,21 +22,21 @@ public final class DefCompoFactory implements AbsCompoFactory {
 
     @Override
     public AbsTreePaths emptyList() {
-        return new DefTreePaths(new TreePath[0],new CustList<AbstractMutableTreeNode>());
+        return new DefTreePaths(new TreePath[0],new CustList<AbstractMutableTreeNodeCore<String>>());
     }
 
     @Override
-    public AbsTreeGui newTreeGui(AbstractMutableTreeNode _node) {
+    public AbsTreeGui newTreeGui(AbstractMutableTreeNodeCore<String> _node) {
         return newTreeGui(_node, TreeSelectionModel.SINGLE_TREE_SELECTION);
     }
 
     @Override
-    public AbsTreeGui newTreeGui(AbstractMutableTreeNode _node, int _select) {
+    public AbsTreeGui newTreeGui(AbstractMutableTreeNodeCore<String> _node, int _select) {
         return new TreeGui(_node,_select);
     }
 
     @Override
-    public AbstractMutableTreeNode newMutableTreeNode(String _name) {
+    public AbstractMutableTreeNodeCore<String> newMutableTreeNode(String _name) {
         return new DefMutableTreeNode(_name);
     }
 

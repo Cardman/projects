@@ -214,7 +214,7 @@ public final class EventStruct extends LaunchableStruct implements
     }
 
     @Override
-    public void valueChanged(AbstractMutableTreeNodeCore _e) {
+    public void valueChanged(AbstractMutableTreeNodeCore<String> _e) {
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
         Struct arg_ = TreeNodeStruct.nodeOrNull(_e);

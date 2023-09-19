@@ -1,6 +1,6 @@
 package code.expressionlanguage.adv;
 
-import code.gui.AbstractMutableTreeNode;
+import code.gui.AbstractMutableTreeNodeCore;
 import code.gui.events.AbsActionListener;
 
 public final class RemoveTreeAction implements AbsActionListener {
@@ -11,7 +11,7 @@ public final class RemoveTreeAction implements AbsActionListener {
     }
     @Override
     public void action() {
-        AbstractMutableTreeNode sel_ = editor.getFolderSystem().selectEvt();
+        AbstractMutableTreeNodeCore<String> sel_ = editor.getFolderSystem().selectEvt();
         editor.setSelectedNode(sel_);
         editor.showRemoving();
 //        String str_ = WindowCdmEditor.buildPath(sel_);

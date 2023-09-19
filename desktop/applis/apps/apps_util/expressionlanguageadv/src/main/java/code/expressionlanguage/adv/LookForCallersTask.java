@@ -27,7 +27,7 @@ public final class LookForCallersTask implements Runnable {
         GuiBaseUtil.recalculate(_window.getPanelSymbolsDetailScroll());
     }
 
-    static AbstractMutableTreeNode node(WindowWithTreeImpl _window, ResultRowSrcLocationList _result, MetaCaller _r) {
+    static AbstractMutableTreeNodeCore<String> node(WindowWithTreeImpl _window, ResultRowSrcLocationList _result, MetaCaller _r) {
         CustList<CalleeToCaller> current_ = new CustList<CalleeToCaller>();
         CustList<MetaCaller> roots_ = new CustList<MetaCaller>();
         CalleeToCaller parent_ = new CalleeToCaller(_r);
@@ -37,7 +37,7 @@ public final class LookForCallersTask implements Runnable {
             MetaCaller m_ = new MetaCaller(null,s, ave_);
             current_.add(new CalleeToCaller(m_,parent_));
             roots_.add(m_);
-            MutableTreeNodeCoreUtil.add(_r,m_);
+            _r.getMeta().add(m_.getMeta());
         }
         while (true) {
             CustList<CalleeToCaller> next_ = children(current_, _result);
@@ -47,7 +47,7 @@ public final class LookForCallersTask implements Runnable {
             current_ = next_;
         }
         AbsCompoFactory compo_ = _window.getCommonFrame().getFrames().getCompoFactory();
-        AbstractMutableTreeNode n_ = compo_.newMutableTreeNode("");
+        AbstractMutableTreeNodeCore<String> n_ = compo_.newMutableTreeNode("");
         for (MetaCaller r: roots_) {
             buildRoot(compo_, n_, r, _result);
         }
@@ -61,33 +61,33 @@ public final class LookForCallersTask implements Runnable {
         return tree_;
     }
 
-    private static void buildRoot(AbsCompoFactory _compo, AbstractMutableTreeNode _n, MetaCaller _r, ResultRowSrcLocationList _result) {
+    private static void buildRoot(AbsCompoFactory _compo, AbstractMutableTreeNodeCore<String> _n, MetaCaller _r, ResultRowSrcLocationList _result) {
         MetaCaller curr_ = _r;
-        AbstractMutableTreeNode rootLoc_ = _n;
+        AbstractMutableTreeNodeCore<String> rootLoc_ = _n;
         while (curr_ != null) {
-            AbstractMutableTreeNodeCore child_ = curr_.getFirstChild();
+            AbstractMutableTreeNodeCore<MetaCaller> child_ = curr_.getMeta().getFirstChild();
             rootLoc_ = complete(_compo,rootLoc_,curr_, _result);
-            if (child_ instanceof MetaCaller) {
-                curr_ = (MetaCaller) child_;
+            if (child_ != null) {
+                curr_ = child_.info();
                 continue;
             }
             while (curr_ != null) {
-                AbstractMutableTreeNodeCore next_ = curr_.getNextSibling();
-                if (next_ instanceof MetaCaller) {
-                    curr_ = (MetaCaller) next_;
+                AbstractMutableTreeNodeCore<MetaCaller> next_ = curr_.getMeta().getNextSibling();
+                if (next_ != null) {
+                    curr_ = next_.info();
                     break;
                 }
                 if (curr_ == _r || rootLoc_ == null) {
                     curr_ = null;
                 } else {
-                    rootLoc_ = (AbstractMutableTreeNode) rootLoc_.getParent();
-                    curr_ = (MetaCaller) curr_.getParent();
+                    rootLoc_ = rootLoc_.getParent();
+                    curr_ = curr_.getMeta().getParent().info();
                 }
             }
         }
     }
 
-    private static AbstractMutableTreeNode complete(AbsCompoFactory _compo, AbstractMutableTreeNode _blockToWrite, MetaCaller _read, ResultRowSrcLocationList _result) {
+    private static AbstractMutableTreeNodeCore<String> complete(AbsCompoFactory _compo, AbstractMutableTreeNodeCore<String> _blockToWrite, MetaCaller _read, ResultRowSrcLocationList _result) {
         CallerKind b_ = _read.getKind();
         String r_ ="";
         if (_read.isRecursive()) {
@@ -98,9 +98,9 @@ public final class LookForCallersTask implements Runnable {
             s_+=b_;
         }
         String d_ = _read.getCall().build(_result.getPage().getDisplayedStrings()).getDisplay();
-        AbstractMutableTreeNode gr_ = _compo.newMutableTreeNode(_read.getNumber().size()+"::"+r_+s_ +";"+ d_);
+        AbstractMutableTreeNodeCore<String> gr_ = _compo.newMutableTreeNode(_read.getNumber().size()+"::"+r_+s_ +";"+ d_);
         _blockToWrite.add(gr_);
-        if (_read.getFirstChild() != null) {
+        if (_read.getMeta().getFirstChild() != null) {
             return gr_;
         }
         return _blockToWrite;
@@ -116,7 +116,7 @@ public final class LookForCallersTask implements Runnable {
                     CalleeToCaller found_ = foundCaller(c, caller_);
                     if (found_ == null) {
                         MetaCaller ch_ = new MetaCaller(e.getKey(),caller_,f.getValue());
-                        MutableTreeNodeCoreUtil.add(c.getCall(),ch_);
+                        c.getCall().getMeta().add(ch_.getMeta());
                         next_.add(new CalleeToCaller(ch_,c));
                     } else {
                         found_.getCall().recurse();

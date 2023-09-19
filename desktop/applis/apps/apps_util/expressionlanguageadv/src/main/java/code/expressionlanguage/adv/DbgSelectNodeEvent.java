@@ -1,28 +1,33 @@
 package code.expressionlanguage.adv;
 
 import code.gui.*;
+import code.gui.initialize.AbsCompoFactory;
 
 public final class DbgSelectNodeEvent implements AbsShortListTree {
     private final DbgRootStruct root;
     private final AbsTreeGui tree;
+    private final AbsCompoFactory compoFactory;
 
-    public DbgSelectNodeEvent(DbgRootStruct _r, AbsTreeGui _t) {
+    public DbgSelectNodeEvent(DbgRootStruct _r, AbsTreeGui _t, AbsCompoFactory _compo) {
         this.root = _r;
         this.tree = _t;
+        this.compoFactory = _compo;
     }
 
     @Override
-    public void valueChanged(AbstractMutableTreeNodeCore _node) {
-        AbstractMutableTreeNodeCore e_ = MutableTreeNodeUtil.simular(root, (AbstractMutableTreeNode) _node);
-        if (!(e_ instanceof DbgAbsNodeStruct)) {
+    public void valueChanged(AbstractMutableTreeNodeCore<String> _node) {
+        AbstractMutableTreeNodeCore<DbgAbsNodeStruct> e_ = root.getNode().simular(_node);
+        if (e_ == null) {
             return;
         }
-        if (((DbgAbsNodeStruct)e_).select()){
-            AbstractMutableTreeNode sel_ = tree.selectEvt();
-            for (DbgAbsNodeStruct m: ((DbgAbsNodeStruct) e_).getChildren()) {
-                sel_.add(TreeNodeRenderUtil.format(m, root.getResult()));
+        DbgAbsNodeStruct i_ = e_.info();
+        if (i_.select()){
+            AbstractMutableTreeNodeCore<String> sel_ = tree.selectEvt();
+            for (DbgAbsNodeStruct m: i_.getChildren()) {
+                sel_.add(compoFactory.newMutableTreeNode(TreeNodeRenderUtil.format(m, root.getResult())));
             }
             MutableTreeNodeUtil.reload(tree);
         }
     }
+
 }

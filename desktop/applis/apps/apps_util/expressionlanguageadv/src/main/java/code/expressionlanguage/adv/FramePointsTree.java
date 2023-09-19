@@ -6,7 +6,7 @@ import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.AbsPlainButton;
 import code.gui.AbsTreeGui;
-import code.gui.AbstractMutableTreeNode;
+import code.gui.AbstractMutableTreeNodeCore;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
@@ -26,15 +26,15 @@ public final class FramePointsTree {
     private final AbsCompoFactory compoFactory;
     private AbsTreeGui tree;
     private AbsPlainButton create;
-    private AbstractMutableTreeNode instruction;
-    private AbstractMutableTreeNode watchField;
-    private AbstractMutableTreeNode watchFieldAnnot;
-    private AbstractMutableTreeNode exception;
-    private AbstractMutableTreeNode customMethod;
-    private AbstractMutableTreeNode standardMethod;
-    private AbstractMutableTreeNode arrayPoints;
-    private AbstractMutableTreeNode parentPoints;
-    private AbstractMutableTreeNode operNatPoints;
+    private AbstractMutableTreeNodeCore<String> instruction;
+    private AbstractMutableTreeNodeCore<String> watchField;
+    private AbstractMutableTreeNodeCore<String> watchFieldAnnot;
+    private AbstractMutableTreeNodeCore<String> exception;
+    private AbstractMutableTreeNodeCore<String> customMethod;
+    private AbstractMutableTreeNodeCore<String> standardMethod;
+    private AbstractMutableTreeNodeCore<String> arrayPoints;
+    private AbstractMutableTreeNodeCore<String> parentPoints;
+    private AbstractMutableTreeNodeCore<String> operNatPoints;
     private final NatStringTreeMap<CustList<BreakPointBlockPair>> bpList = new NatStringTreeMap<CustList<BreakPointBlockPair>>();
     private final NatStringTreeMap<CustList<WatchPointBlockPair>> wpList = new NatStringTreeMap<CustList<WatchPointBlockPair>>();
     private final NatStringTreeMap<CustList<WatchPointBlockPair>> wpListAnnot = new NatStringTreeMap<CustList<WatchPointBlockPair>>();
@@ -49,7 +49,7 @@ public final class FramePointsTree {
     }
 
     public void guiBuild() {
-        AbstractMutableTreeNode root_ = compoFactory.newMutableTreeNode("break points");
+        AbstractMutableTreeNodeCore<String> root_ = compoFactory.newMutableTreeNode("break points");
         instruction = compoFactory.newMutableTreeNode("instruction");
         root_.add(instruction);
         watchField = compoFactory.newMutableTreeNode("watch field");
@@ -118,7 +118,7 @@ public final class FramePointsTree {
         for (EntryCust<String, CustList<BreakPointBlockPair>> p: bpList.entryList()) {
             CustList<BreakPointBlockPair> list_ = p.getValue();
             list_.sortElts(new CmpLocalFileBreakPoint());
-            AbstractMutableTreeNode file_ = compoFactory.newMutableTreeNode(p.getKey());
+            AbstractMutableTreeNodeCore<String> file_ = compoFactory.newMutableTreeNode(p.getKey());
             for (BreakPointBlockPair l: list_) {
                 file_.add(compoFactory.newMutableTreeNode(Long.toString(l.getBp().getOffset())));
             }
@@ -132,7 +132,7 @@ public final class FramePointsTree {
     public void refreshWpAnnot(ResultContext _res) {
         refreshWp(wpListAnnot,watchFieldAnnot,_res,false);
     }
-    private void refreshWp(NatStringTreeMap<CustList<WatchPointBlockPair>> _m,AbstractMutableTreeNode _node,ResultContext _res, boolean _trueField) {
+    private void refreshWp(NatStringTreeMap<CustList<WatchPointBlockPair>> _m,AbstractMutableTreeNodeCore<String> _node,ResultContext _res, boolean _trueField) {
         String suff_;
         if (_trueField) {
             suff_ = "";
@@ -155,7 +155,7 @@ public final class FramePointsTree {
         for (EntryCust<String, CustList<WatchPointBlockPair>> p: _m.entryList()) {
             CustList<WatchPointBlockPair> list_ = p.getValue();
             list_.sortElts(new CmpLocalFileWatchPoint());
-            AbstractMutableTreeNode file_ = compoFactory.newMutableTreeNode(p.getKey());
+            AbstractMutableTreeNodeCore<String> file_ = compoFactory.newMutableTreeNode(p.getKey());
             for (WatchPointBlockPair l: list_) {
                 file_.add(compoFactory.newMutableTreeNode(l.getWp().fieldName()+suff_));
             }
@@ -175,7 +175,7 @@ public final class FramePointsTree {
     public void refreshException(ResultContext _res) {
         exception.removeAllChildren();
         for (EntryCust<String, CustList<ExcPointBlockKey>> p: sortedExc(_res).entryList()) {
-            AbstractMutableTreeNode file_ = node(p.getKey(), p.getValue());
+            AbstractMutableTreeNodeCore<String> file_ = node(p.getKey(), p.getValue());
             exception.add(file_);
         }
         tree.reload(exception);
@@ -183,7 +183,7 @@ public final class FramePointsTree {
     public void refreshParent(ResultContext _res) {
         parentPoints.removeAllChildren();
         for (EntryCust<String, CustList<ExcPointBlockKey>> p: sortedPar(_res).entryList()) {
-            AbstractMutableTreeNode file_ = node(p.getKey(), p.getValue());
+            AbstractMutableTreeNodeCore<String> file_ = node(p.getKey(), p.getValue());
             parentPoints.add(file_);
         }
         tree.reload(parentPoints);
@@ -203,13 +203,13 @@ public final class FramePointsTree {
     public void refreshArray(ResultContext _res) {
         arrayPoints.removeAllChildren();
         for (EntryCust<String, CustList<ExcPointBlockKey>> p: sortedArr(_res).entryList()) {
-            AbstractMutableTreeNode file_ = node(p.getKey(), p.getValue());
+            AbstractMutableTreeNodeCore<String> file_ = node(p.getKey(), p.getValue());
             arrayPoints.add(file_);
         }
         tree.reload(arrayPoints);
     }
 
-    private AbstractMutableTreeNode node(String _key, CustList<ExcPointBlockKey> _value) {
+    private AbstractMutableTreeNodeCore<String> node(String _key, CustList<ExcPointBlockKey> _value) {
         CustList<ExcPointBlockKey> listId_ = new CustList<ExcPointBlockKey>();
         CustList<ExcPointBlockKey> listExact_ = new CustList<ExcPointBlockKey>();
         for (ExcPointBlockKey e: _value) {
@@ -291,8 +291,8 @@ public final class FramePointsTree {
         }
         return excList_;
     }
-    private AbstractMutableTreeNode node(CustList<ExcPointBlockKey> _listId, CustList<ExcPointBlockKey> _listExact, String _key) {
-        AbstractMutableTreeNode file_ = compoFactory.newMutableTreeNode(_key);
+    private AbstractMutableTreeNodeCore<String> node(CustList<ExcPointBlockKey> _listId, CustList<ExcPointBlockKey> _listExact, String _key) {
+        AbstractMutableTreeNodeCore<String> file_ = compoFactory.newMutableTreeNode(_key);
         for (ExcPointBlockKey l: _listId) {
             file_.add(compoFactory.newMutableTreeNode("all types family in "+l.getClName()));
         }
@@ -338,7 +338,7 @@ public final class FramePointsTree {
         for (EntryCust<String, CustList<StdMethodPointBlockPair>> p: stdList.entryList()) {
             CustList<StdMethodPointBlockPair> list_ = p.getValue();
             list_.sortElts(new CmpLocalFileStdPoint());
-            AbstractMutableTreeNode file_ = compoFactory.newMutableTreeNode(p.getKey());
+            AbstractMutableTreeNodeCore<String> file_ = compoFactory.newMutableTreeNode(p.getKey());
             for (StdMethodPointBlockPair l: list_) {
                 file_.add(compoFactory.newMutableTreeNode(l.getSm().keyStr()));
             }

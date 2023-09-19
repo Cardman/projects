@@ -6,12 +6,13 @@ import code.util.core.StringUtil;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 
-public final class DefMutableTreeNode extends MutableTreeNodeNav implements AbstractMutableTreeNode {
+public final class DefMutableTreeNode extends MutableTreeNodeNav<String> implements AbstractMutableTreeNodeCore<String> {
     private final DefaultMutableTreeNode node;
 
     public DefMutableTreeNode(String _name) {
         String value_ = StringUtil.nullToEmpty(_name);
         node = new DefaultMutableTreeNode(value_);
+        info(_name);
     }
 
     public DefMutableTreeNode(MutableTreeNode _name) {
@@ -32,36 +33,28 @@ public final class DefMutableTreeNode extends MutableTreeNodeNav implements Abst
     }
 
     @Override
-    public AbstractMutableTreeNode add(String _info) {
-        DefMutableTreeNode defMutableTreeNode_ = new DefMutableTreeNode(_info);
-        node.add(defMutableTreeNode_.node);
-        MutableTreeNodeCoreUtil.add(this, defMutableTreeNode_);
-        return defMutableTreeNode_;
-    }
-
-    @Override
-    public boolean add(AbstractMutableTreeNodeCore _treeNode) {
-        boolean v_ = MutableTreeNodeCoreUtil.add(this, _treeNode);
+    public boolean add(AbstractMutableTreeNodeCore<String> _treeNode) {
+        boolean v_ = super.add(_treeNode);
         node.add(((DefMutableTreeNode) _treeNode).node());
         return v_;
     }
 
     @Override
-    public int insert(AbstractMutableTreeNodeCore _treeNode, int _index) {
+    public int insert(AbstractMutableTreeNodeCore<String> _treeNode, int _index) {
         node.insert(((DefMutableTreeNode) _treeNode).node(), _index);
-        return MutableTreeNodeCoreUtil.insert(this,_treeNode,_index);
+        return super.insert(_treeNode,_index);
     }
 
     @Override
     public int removeAllChildren() {
-        int nb_ = MutableTreeNodeCoreUtil.getChildCount(this);
-        MutableTreeNodeCoreUtil.removeAllChildren(this);
+        int nb_ = super.getChildCount();
+        super.removeAllChildren();
         node.removeAllChildren();
         return nb_;
     }
 
     @Override
-    public AbstractMutableTreeNode getParentReal() {
+    public AbstractMutableTreeNodeCore<String> getParentReal() {
         try {
             return build((DefaultMutableTreeNode) node.getParent());
         } catch (Exception e) {
@@ -70,22 +63,22 @@ public final class DefMutableTreeNode extends MutableTreeNodeNav implements Abst
     }
 
     @Override
-    public int remove(AbstractMutableTreeNodeCore _treeNode) {
-        int v_ = MutableTreeNodeCoreUtil.remove(this,_treeNode);
+    public int remove(AbstractMutableTreeNodeCore<String> _treeNode) {
+        int v_ = super.remove(_treeNode);
         node.remove(((DefMutableTreeNode) _treeNode).node());
         return v_;
     }
 
     @Override
-    public AbstractMutableTreeNode remove(int _index) {
-        AbstractMutableTreeNodeCore v_ = MutableTreeNodeCoreUtil.remove(this, _index);
+    public AbstractMutableTreeNodeCore<String> remove(int _index) {
+        AbstractMutableTreeNodeCore<String> v_ = super.remove( _index);
         node.remove(_index);
-        return (AbstractMutableTreeNode) v_;
+        return v_;
     }
 
     @Override
-    public AbstractMutableTreeNode removeFromParent() {
-        AbstractMutableTreeNode v_ = (AbstractMutableTreeNode) MutableTreeNodeCoreUtil.removeFromParent(this);
+    public AbstractMutableTreeNodeCore<String> removeFromParent() {
+        AbstractMutableTreeNodeCore<String> v_ = super.removeFromParent();
         node.removeFromParent();
         return v_;
     }
@@ -95,7 +88,7 @@ public final class DefMutableTreeNode extends MutableTreeNodeNav implements Abst
     }
 
     @Override
-    public String getUserObject() {
+    public String info() {
         try {
             return (String) node.getUserObject();
         } catch (Exception e) {
@@ -104,7 +97,9 @@ public final class DefMutableTreeNode extends MutableTreeNodeNav implements Abst
     }
 
     @Override
-    public void setUserObject(String _str) {
-        node.setUserObject(StringUtil.nullToEmpty(_str));
+    public void info(String _t) {
+        super.info(_t);
+        node.setUserObject(StringUtil.nullToEmpty(_t));
     }
+
 }

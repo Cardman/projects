@@ -1,15 +1,45 @@
 package code.gui;
 
-public interface AbstractMutableTreeNodeCore {
-    AbstractMutableTreeNodeCore getParent();
+import code.util.IdList;
+import code.util.Ints;
 
-    AbstractMutableTreeNodeCore getFirstChild();
+public interface AbstractMutableTreeNodeCore<T> {
+    AbstractMutableTreeNodeCore<T> getParent();
 
-    AbstractMutableTreeNodeCore getNextSibling();
+    AbstractMutableTreeNodeCore<T> getFirstChild();
 
-    void setParent(AbstractMutableTreeNodeCore _v);
+    AbstractMutableTreeNodeCore<T> getNextSibling();
 
-    void setFirstChild(AbstractMutableTreeNodeCore _v);
+    void setParent(AbstractMutableTreeNodeCore<T> _v);
 
-    void setNextSibling(AbstractMutableTreeNodeCore _v);
+    void setFirstChild(AbstractMutableTreeNodeCore<T> _v);
+
+    void setNextSibling(AbstractMutableTreeNodeCore<T> _v);
+    int getAntiIndex(AbstractMutableTreeNodeCore<T> _treeNode);
+    int getChildCount();
+
+    AbstractMutableTreeNodeCore<T> getPreviousSibling();
+
+    AbstractMutableTreeNodeCore<T> getChildAt(int _i);
+    AbstractMutableTreeNodeCore<T> simular(AbstractMutableTreeNodeCore<String> _e);
+    AbstractMutableTreeNodeCore<T> getElt(Ints _indexes);
+    IdList<AbstractMutableTreeNodeCore<T>> children();
+    int getIndex();
+    boolean add(AbstractMutableTreeNodeCore<T> _treeNode);
+
+    int insert(AbstractMutableTreeNodeCore<T> _treeNode, int _index);
+
+    int removeAllChildren();
+
+    AbstractMutableTreeNodeCore<T> getParentReal();
+
+    int remove(AbstractMutableTreeNodeCore<T> _treeNode);
+
+    AbstractMutableTreeNodeCore<T> remove(int _index);
+
+    AbstractMutableTreeNodeCore<T> removeFromParent();
+
+    Ints getIndexes();
+    T info();
+    void info(T _t);
 }

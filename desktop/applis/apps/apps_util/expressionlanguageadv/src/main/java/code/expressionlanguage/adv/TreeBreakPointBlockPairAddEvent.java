@@ -3,7 +3,6 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.AbstractMutableTreeNodeCore;
-import code.gui.MutableTreeNodeCoreUtil;
 import code.gui.events.AbsActionListener;
 
 public final class TreeBreakPointBlockPairAddEvent implements AbsActionListener {
@@ -19,8 +18,8 @@ public final class TreeBreakPointBlockPairAddEvent implements AbsActionListener 
 
     @Override
     public void action() {
-        AbstractMutableTreeNodeCore ch_ = frameKeys.getTree().selectEvt();
-        int index_ = MutableTreeNodeCoreUtil.getNullableIndex(ch_);
+        AbstractMutableTreeNodeCore<String> ch_ = frameKeys.getTree().selectEvt();
+        int index_ = TreeBreakPointBlockPairEvent.getNullableIndex(ch_);
         if (FramePointsTree.SORT_WP == index_ || FramePointsTree.SORT_WP_ANNOT == index_) {
             frame.guiContentBuild((WatchPointBlockPair)null,resultContext);
         } else if (FramePointsTree.SORT_EP == index_) {

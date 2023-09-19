@@ -2,7 +2,7 @@ package code.mock;
 
 import code.gui.AbsTreePath;
 import code.gui.AbsTreePaths;
-import code.gui.AbstractMutableTreeNode;
+import code.gui.AbstractMutableTreeNodeCore;
 import code.util.CustList;
 
 public final class MockTreePaths implements AbsTreePaths {
@@ -23,7 +23,7 @@ public final class MockTreePaths implements AbsTreePaths {
     }
 
     @Override
-    public AbsTreePath elt(AbstractMutableTreeNode _root, int _index) {
+    public AbsTreePath elt(AbstractMutableTreeNodeCore<String> _root, int _index) {
         return nodes.get(_index);
     }
 

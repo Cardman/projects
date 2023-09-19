@@ -16,7 +16,7 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
     private final FrameStdMpFormContent frameMpFormContent;
     private AbsTreeGui treeStd;
     private AbsScrollPane treeStdScroll;
-    private MutableTreeNodeNav root;
+    private MutableTreeNodeNav<AbsMetaStdType> root;
     private final StringMap<IdList<StandardNamedFunction>> listFct = new StringMap<IdList<StandardNamedFunction>>();
     private AbsPlainLabel label;
 
@@ -26,18 +26,18 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
     public void guiBuild(AbsDebuggerGui _d) {
         treeStd = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui( _d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(""));
         label = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel("");
-        root = new MutableTreeNodeNav();
+        root = new MutableTreeNodeNav<AbsMetaStdType>();
         frameMpFormContent.guiBuildBase(_d);
     }
     public void tree(AbsDebuggerGui _d, FramePoints _p, ResultContext _res) {
         listFct.clear();
-        root = new MutableTreeNodeNav();
+        root = new MutableTreeNodeNav<AbsMetaStdType>();
         AbsCompoFactory cf_ = _d.getCommonFrame().getFrames().getCompoFactory();
-        AbstractMutableTreeNode root_ = cf_.newMutableTreeNode("");
+        AbstractMutableTreeNodeCore<String> root_ = cf_.newMutableTreeNode("");
         for (EntryCust<String, StandardType> t: _res.getPageEl().getStandardsTypes().entryList()) {
-            AbstractMutableTreeNode rootType_ = cf_.newMutableTreeNode(t.getKey());
+            AbstractMutableTreeNodeCore<String> rootType_ = cf_.newMutableTreeNode(t.getKey());
             MetaStdType mt_ = new MetaStdType(t.getValue());
-            MutableTreeNodeCoreUtil.add(root, mt_);
+            root.add(mt_.getElt());
             IdList<StandardNamedFunction> std_ = new IdList<StandardNamedFunction>();
             for (StandardConstructor c: t.getValue().getConstructors()) {
                 std_.add(c);
@@ -52,7 +52,7 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
                     rootType_.add(cf_.newMutableTreeNode("method "+c.getSignature(_res.getPageEl().getDisplayedStrings())));
                 }
                 MetaStdFunction m_ = new MetaStdFunction(t.getValue(), c);
-                MutableTreeNodeCoreUtil.add(mt_, m_);
+                mt_.getElt().add(m_.getElt());
             }
             root_.add(rootType_);
             listFct.addEntry(t.getKey(), std_);
@@ -66,19 +66,23 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
         treeStd.select(retrieve(_cl, _id));
     }
 
-    public AbstractMutableTreeNodeCore retrieve(String _cl, AbsractIdentifiableCommon _id) {
-        return node(MutableTreeNodeCoreUtil.getElt(treeStd.getRoot(), indexes(_cl, _id, listFct.getVal(_cl), ((SelectedStdFctTreeEvent)treeStd.getTreeSelectionListeners().get(0)).getCurrentResult())));
+    public AbstractMutableTreeNodeCore<String> retrieve(String _cl, AbsractIdentifiableCommon _id) {
+        return node(treeStd.getRoot().getElt(indexes(_cl, _id, listFct.getVal(_cl), ((SelectedStdFctTreeEvent)treeStd.getTreeSelectionListeners().get(0)).getCurrentResult())));
     }
 
-    public AbstractMutableTreeNodeCore node(AbstractMutableTreeNodeCore _e) {
+    public AbstractMutableTreeNodeCore<String> node(AbstractMutableTreeNodeCore<String> _e) {
         if (_e == null) {
             return rootTree();
         }
         return _e;
     }
 
-    public AbstractMutableTreeNode rootTree() {
-        return treeStd.getRoot();
+    public AbsTreeGui getTreeStd() {
+        return treeStd;
+    }
+
+    public AbstractMutableTreeNodeCore<String> rootTree() {
+        return getTreeStd().getRoot();
     }
 
     private static Ints indexes(String _cl, AbsractIdentifiableCommon _id, IdList<StandardNamedFunction> _ls, ResultContext _res) {

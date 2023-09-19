@@ -1,7 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
-import code.gui.AbstractMutableTreeNode;
+import code.gui.AbstractMutableTreeNodeCore;
 import code.gui.GroupFrame;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
@@ -14,12 +14,12 @@ public abstract class AbsEditorTabList extends GroupFrame {
         setResultContextNext(_a);
     }
 
-    static String buildPath(AbstractMutableTreeNode _treePath) {
+    static String buildPath(AbstractMutableTreeNodeCore<String> _treePath) {
         StringList pathFull_ = new StringList();
-        AbstractMutableTreeNode current_ = _treePath;
+        AbstractMutableTreeNodeCore<String> current_ = _treePath;
         while (current_ != null) {
-            pathFull_.add(0,current_.getUserObject());
-            current_ = (AbstractMutableTreeNode) current_.getParent();
+            pathFull_.add(0,current_.info());
+            current_ = current_.getParent();
         }
         StringUtil.removeObj(pathFull_, "");
         return StringUtil.join(pathFull_,"");

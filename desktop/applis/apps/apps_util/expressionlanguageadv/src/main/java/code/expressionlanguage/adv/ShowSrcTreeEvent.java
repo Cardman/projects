@@ -12,7 +12,7 @@ public final class ShowSrcTreeEvent implements AbsShortListTree {
     }
 
     @Override
-    public void valueChanged(AbstractMutableTreeNodeCore _e) {
+    public void valueChanged(AbstractMutableTreeNodeCore<String> _e) {
         if (dialog.getSelectedNode() != null) {
             return;
         }

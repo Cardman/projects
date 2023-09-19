@@ -1,17 +1,17 @@
 package code.mock;
 
 import code.gui.AbsTreePath;
-import code.gui.AbstractMutableTreeNode;
+import code.gui.AbstractMutableTreeNodeCore;
 
 public final class MockTreePath implements AbsTreePath {
-    private final AbstractMutableTreeNode elt;
+    private final AbstractMutableTreeNodeCore<String> elt;
 
-    public MockTreePath(AbstractMutableTreeNode _e) {
+    public MockTreePath(AbstractMutableTreeNodeCore<String> _e) {
         this.elt = _e;
     }
 
     @Override
-    public AbstractMutableTreeNode data() {
+    public AbstractMutableTreeNodeCore<String> data() {
         return elt;
     }
 }

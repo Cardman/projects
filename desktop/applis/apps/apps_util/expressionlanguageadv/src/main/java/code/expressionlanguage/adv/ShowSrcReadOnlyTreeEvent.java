@@ -20,7 +20,7 @@ public final class ShowSrcReadOnlyTreeEvent implements AbsShortListTree {
     }
 
     @Override
-    public void valueChanged(AbstractMutableTreeNodeCore _e) {
+    public void valueChanged(AbstractMutableTreeNodeCore<String> _e) {
         dialog.applyTreeChangeSelected(opener,resultContext,tree);
     }
 

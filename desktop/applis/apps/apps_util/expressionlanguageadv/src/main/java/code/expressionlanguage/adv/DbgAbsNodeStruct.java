@@ -8,20 +8,25 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.gui.MutableTreeNodeCoreUtil;
 import code.gui.MutableTreeNodeNav;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.ints.Comparing;
 
-public abstract class DbgAbsNodeStruct extends MutableTreeNodeNav implements DbgNodeStruct {
+public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
     private final CustList<DbgAbsNodeStruct> children = new CustList<DbgAbsNodeStruct>();
     private DbgAbsNodeStruct parentStruct;
     private boolean calculated;
     private final ContextEl result;
+    private final MutableTreeNodeNav<DbgAbsNodeStruct> node = new MutableTreeNodeNav<DbgAbsNodeStruct>();
 
     protected DbgAbsNodeStruct(ContextEl _r) {
         this.result = _r;
+        node.info(this);
+    }
+
+    public MutableTreeNodeNav<DbgAbsNodeStruct> getNode() {
+        return node;
     }
 
     public ContextEl getResult() {
@@ -55,7 +60,7 @@ public abstract class DbgAbsNodeStruct extends MutableTreeNodeNav implements Dbg
         if (v_ != NullStruct.NULL_VALUE) {
             DbgParentStruct e_ = new DbgParentStruct(result, v_);
             e_.setParentStruct(this);
-            MutableTreeNodeCoreUtil.add(this, e_);
+            node.add(e_.getNode());
             children.add(e_);
         }
         if (vn_ instanceof FieldableStruct) {
@@ -75,7 +80,7 @@ public abstract class DbgAbsNodeStruct extends MutableTreeNodeNav implements Dbg
                 DbgArrEltStruct efs_ = new DbgArrEltStruct(result, i, ls_.get(i));
                 efs_.setParentStruct(this);
                 children.add(efs_);
-                MutableTreeNodeCoreUtil.add(this, efs_);
+                node.add(efs_.getNode());
             }
         }
         return true;
@@ -99,7 +104,7 @@ public abstract class DbgAbsNodeStruct extends MutableTreeNodeNav implements Dbg
         _fs.sortElts(_c);
         for (DbgFieldStruct e: _fs) {
             children.add(e);
-            MutableTreeNodeCoreUtil.add(this, e);
+            node.add(e.getNode());
         }
     }
 

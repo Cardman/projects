@@ -95,7 +95,7 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
     }
 
     @Override
-    public void changeEnable(AbstractMutableTreeNode _en) {
+    public void changeEnable(AbstractMutableTreeNodeCore<String> _en) {
         changeEnable(_en != null);
     }
 

@@ -1,7 +1,7 @@
 package code.mock;
 
 import code.gui.AbsCustComponent;
-import code.gui.AbstractMutableTreeNode;
+import code.gui.AbstractMutableTreeNodeCore;
 import code.gui.EnabledMenu;
 import code.gui.TextAnswerValue;
 import code.gui.images.AbstractImage;
@@ -23,7 +23,7 @@ public abstract class EquallableMockGuiAdvUtil {
     public static void assertNull(AbstractImage _expected) {
         Assert.assertNull(_expected);
     }
-    public static void assertNull(AbstractMutableTreeNode _expected) {
+    public static void assertNull(AbstractMutableTreeNodeCore<String> _expected) {
         Assert.assertNull(_expected);
     }
     public static void assertNull(AbsClipStream _expected) {
@@ -48,7 +48,7 @@ public abstract class EquallableMockGuiAdvUtil {
         Assert.assertNotNull(_result);
         Assert.assertEquals(_expected, _result);
     }
-    public static void assertSame(AbstractMutableTreeNode _expected, AbstractMutableTreeNode _result) {
+    public static void assertSame(AbstractMutableTreeNodeCore<String> _expected, AbstractMutableTreeNodeCore<String> _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(AbsCustComponent _expected, AbsCustComponent _result) {

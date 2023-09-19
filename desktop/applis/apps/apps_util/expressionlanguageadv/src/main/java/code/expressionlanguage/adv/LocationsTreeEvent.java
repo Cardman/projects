@@ -21,12 +21,13 @@ public final class LocationsTreeEvent implements AbsShortListTree {
     }
 
     @Override
-    public void valueChanged(AbstractMutableTreeNodeCore _node) {
-        AbstractMutableTreeNodeCore e_ = MutableTreeNodeUtil.simular(root, (AbstractMutableTreeNode) _node);
-        if (!(e_ instanceof MetaCaller)) {
+    public void valueChanged(AbstractMutableTreeNodeCore<String> _node) {
+        AbstractMutableTreeNodeCore<MetaCaller> f_ = root.getMeta().simular(_node);
+        if (f_ == null) {
             return;
         }
-        CustList<FileBlockIndex> locs_ = ((MetaCaller)e_).getNumber();
+        MetaCaller e_ = f_.info();
+        CustList<FileBlockIndex> locs_ = e_.getNumber();
         int len_ = locs_.size();
         AbsCompoFactory comp_ = window.getCommonFrame().getFrames().getCompoFactory();
         AbsPanel pa_ = comp_.newPageBox();

@@ -3,16 +3,15 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
-import code.gui.AbstractMutableTreeNode;
 import code.gui.AbstractMutableTreeNodeCore;
 import code.util.CustList;
 
 public final class TreeNodeStruct extends WithoutParentStruct implements Struct {
 
-    private final AbstractMutableTreeNode treeNode;
+    private final AbstractMutableTreeNodeCore<String> treeNode;
     private StringStruct userObject = new StringStruct("");
 
-    public TreeNodeStruct(AbstractMutableTreeNode _str) {
+    public TreeNodeStruct(AbstractMutableTreeNodeCore<String> _str) {
         treeNode = _str;
     }
 
@@ -100,38 +99,38 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
     }
 
     public Struct getParentNode() {
-        AbstractMutableTreeNodeCore par_ = treeNode.getParent();
+        AbstractMutableTreeNodeCore<String> par_ = treeNode.getParent();
         return nodeOrNull(par_);
     }
 
     public Struct getPreviousSibling() {
-        AbstractMutableTreeNodeCore prev_ = treeNode.getPreviousSibling();
+        AbstractMutableTreeNodeCore<String> prev_ = treeNode.getPreviousSibling();
         return nodeOrNull(prev_);
     }
 
     public Struct getNextSibling() {
-        AbstractMutableTreeNodeCore next_ = treeNode.getNextSibling();
+        AbstractMutableTreeNodeCore<String> next_ = treeNode.getNextSibling();
         return nodeOrNull(next_);
     }
 
-    static Struct nodeOrNull(AbstractMutableTreeNodeCore _value) {
-        if (!(_value instanceof AbstractMutableTreeNode)) {
+    static Struct nodeOrNull(AbstractMutableTreeNodeCore<String> _value) {
+        if (_value == null) {
             return NullStruct.NULL_VALUE;
         }
-        return new TreeNodeStruct((AbstractMutableTreeNode)_value);
+        return new TreeNodeStruct(_value);
     }
 
     public IntStruct getChildCount() {
         return new IntStruct(treeNode.getChildCount());
     }
     public Struct getFirstChild() {
-        AbstractMutableTreeNodeCore ch_ = treeNode.getChildAt(0);
+        AbstractMutableTreeNodeCore<String> ch_ = treeNode.getChildAt(0);
         return nodeOrNull(ch_);
     }
 
     public Struct getLastChild() {
         int count_ = treeNode.getChildCount();
-        AbstractMutableTreeNodeCore ch_ = treeNode.getChildAt(count_ - 1);
+        AbstractMutableTreeNodeCore<String> ch_ = treeNode.getChildAt(count_ - 1);
         return nodeOrNull(ch_);
 
     }
@@ -198,7 +197,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         userObject= NumParsers.getString(_struct);
     }
 
-    public AbstractMutableTreeNode getTreeNode() {
+    public AbstractMutableTreeNodeCore<String> getTreeNode() {
         return treeNode;
     }
 

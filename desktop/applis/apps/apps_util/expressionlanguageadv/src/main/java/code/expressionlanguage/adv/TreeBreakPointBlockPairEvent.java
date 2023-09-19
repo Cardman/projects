@@ -3,7 +3,6 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.AbsShortListTree;
 import code.gui.AbstractMutableTreeNodeCore;
-import code.gui.MutableTreeNodeCoreUtil;
 import code.util.Ints;
 
 public final class TreeBreakPointBlockPairEvent implements AbsShortListTree {
@@ -18,10 +17,10 @@ public final class TreeBreakPointBlockPairEvent implements AbsShortListTree {
     }
 
     @Override
-    public void valueChanged(AbstractMutableTreeNodeCore _node) {
+    public void valueChanged(AbstractMutableTreeNodeCore<String> _node) {
         Ints is_ = new Ints();
-        AbstractMutableTreeNodeCore ch_ = indexes(frameKeys,_node, is_);
-        int index_ = MutableTreeNodeCoreUtil.getNullableIndex(ch_);
+        AbstractMutableTreeNodeCore<String> ch_ = indexes(frameKeys,_node, is_);
+        int index_ = TreeBreakPointBlockPairEvent.getNullableIndex(ch_);
         if (FramePointsTree.SORT_BP == index_){
             frame.guiContentBuild(frameKeys.getBpList().getValue(is_.get(0)).get(is_.get(1)),resultContext);
         } else if (FramePointsTree.SORT_WP == index_) {
@@ -42,22 +41,29 @@ public final class TreeBreakPointBlockPairEvent implements AbsShortListTree {
             frame.guiContentBuild(frameKeys.getOperNatList().getValue(is_.get(0)),resultContext);
         }
     }
-    static AbstractMutableTreeNodeCore indexes(FramePointsTree _f, AbstractMutableTreeNodeCore _node, Ints _is) {
-        AbstractMutableTreeNodeCore ch_ = _node;
+
+    public static int getNullableIndex(AbstractMutableTreeNodeCore<String> _c) {
+        if (_c == null) {
+            return -1;
+        }
+        return _c.getIndex();
+    }
+    static AbstractMutableTreeNodeCore<String> indexes(FramePointsTree _f, AbstractMutableTreeNodeCore<String> _node, Ints _is) {
+        AbstractMutableTreeNodeCore<String> ch_ = _node;
         _f.getCreate().setEnabled(false);
         while (ch_ != null) {
-            AbstractMutableTreeNodeCore par_ = ch_.getParent();
+            AbstractMutableTreeNodeCore<String> par_ = ch_.getParent();
             if (par_ == _f.getTree().getRoot()) {
                 _f.getCreate().setEnabled(ch_ == _node);
                 break;
             }
-            _is.add(0,MutableTreeNodeCoreUtil.getNullableIndex(ch_));
+            _is.add(0,ch_.getIndex());
             ch_ = par_;
         }
-        if (_is.isEmpty()) {
+        if (_is.isEmpty() || ch_ == null) {
             return null;
         }
-        int index_ = MutableTreeNodeCoreUtil.getNullableIndex(ch_);
+        int index_ = ch_.getIndex();
         if (FramePointsTree.SORT_MP != index_ && FramePointsTree.SORT_OP != index_ && _is.size() < 2) {
             return null;
         }

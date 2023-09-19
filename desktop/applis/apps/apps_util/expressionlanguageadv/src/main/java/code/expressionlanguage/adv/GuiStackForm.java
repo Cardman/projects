@@ -153,7 +153,7 @@ public final class GuiStackForm {
         bpRemoveFile.addActionListener(new AddExcludeEvent(this,_d, _r));
         GuiBaseUtil.removeTreeSelectionListeners(bpFolderSystem);
         bpFolderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(_d,_r,bpFolderSystem,new SelOpeningReadOnlyFile(this)));
-        AbsDebuggerGui.refreshList(bpFolderSystem.selectEvt(),_files, _folderToVisit);
+        AbsDebuggerGui.refreshList(bpFolderSystem.selectEvt(),_files, _folderToVisit,_d.getCommonFrame().getFrames().getCompoFactory());
     }
 
     public void actualiseLists(AbsCommonFrame _c) {

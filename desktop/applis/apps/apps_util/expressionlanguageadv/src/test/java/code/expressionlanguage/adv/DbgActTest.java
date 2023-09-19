@@ -13,7 +13,6 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
-import code.mock.MockPlainButton;
 import code.mock.MockProgramInfos;
 import code.util.CustList;
 import code.util.IdList;
@@ -3218,7 +3217,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         f_.getCommentsRows().get(0).getValueArea().setText("Arg");
         //validValues(f_);
         assertFalse(methods(b_).isEmpty());
-        ((MockPlainButton)b_.getStopStack()).getActionListeners().get(0).action();
+        b_.getStopStack().getActionListeners().get(0).action();
         b_.next(StepDbgActionEnum.DEBUG, curRet(b_));
         assertTrue(curRet(b_).getContext().getInterrupt().get());
     }
@@ -3249,7 +3248,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         launch(b_);
         DbgRootStruct root_ = b_.getRoot();
         assertEq("",root_.str());
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(2,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(null);
@@ -3295,7 +3294,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         DbgRootStruct root_ = b_.getRoot();
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(trDetail_.getRoot());
@@ -3337,7 +3336,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         DbgRootStruct root_ = b_.getRoot();
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(trDetail_.getRoot());
@@ -3380,7 +3379,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         DbgRootStruct root_ = b_.getRoot();
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(4,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(trDetail_.getRoot());
@@ -3428,7 +3427,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         DbgRootStruct root_ = b_.getRoot();
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(trDetail_.getRoot());
@@ -3470,7 +3469,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         launch(b_);
         next(b_);
         DbgRootStruct root_ = b_.getRoot();
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(trDetail_.getRoot());
@@ -3505,7 +3504,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         launch(b_);
         next(b_);
         DbgRootStruct root_ = b_.getRoot();
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(trDetail_.getRoot());
@@ -3543,7 +3542,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         launch(b_);
         next(b_);
         DbgRootStruct root_ = b_.getRoot();
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(trDetail_.getRoot());
@@ -3620,10 +3619,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
         //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
-        ((MockPlainButton)b_.getCallButtons().get(0)).getActionListeners().get(0).action();
+        b_.getCallButtons().get(0).getActionListeners().get(0).action();
         DbgRootStruct root_ = b_.getRoot();
         assertEq("",root_.str());
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(2,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(trDetail_.getRoot());
@@ -3670,7 +3669,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         nextInst(b_);
         assertFalse(b_.getNextInstruction().isEnabled());
         DbgRootStruct root_ = b_.getRoot();
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(trDetail_.getRoot());
@@ -3708,7 +3707,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         nextGoUp(b_);
         assertFalse(b_.getNextGoUp().isEnabled());
         DbgRootStruct root_ = b_.getRoot();
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(trDetail_.getRoot());
@@ -3748,7 +3747,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         nextGoInMethod(b_);
         assertFalse(b_.getNextInMethod().isEnabled());
         DbgRootStruct root_ = b_.getRoot();
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(trDetail_.getRoot());
@@ -3787,7 +3786,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         nextGoInMethod(b_);
         assertFalse(b_.getNextCursor().isEnabled());
         DbgRootStruct root_ = b_.getRoot();
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(trDetail_.getRoot());
@@ -3823,7 +3822,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         launch(b_);
         DbgRootStruct root_ = b_.getRoot();
         assertEq("",root_.str());
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(null);
@@ -3860,7 +3859,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         nextBlock(b_);
         assertFalse(b_.getNextBlock().isEnabled());
         DbgRootStruct root_ = b_.getRoot();
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(trDetail_.getRoot());
@@ -3929,7 +3928,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         DbgRootStruct root_ = b_.getRoot();
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(3,chs_.size());
     }
     @Test
@@ -3962,7 +3961,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertFalse(methods(b_).isEmpty());
         launch(b_);
         DbgRootStruct root_ = b_.getRoot();
-        IdList<AbstractMutableTreeNodeCore> chs_ = MutableTreeNodeCoreUtil.children(root_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(3,chs_.size());
     }
     @Test
@@ -3990,7 +3989,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         b_.getPauseStack().setEnabled(true);
-        ((MockPlainButton)b_.getPauseStack()).getActionListeners().get(0).action();
+        b_.getPauseStack().getActionListeners().get(0).action();
         assertFalse(b_.getPauseStack().isEnabled());
     }
     @Test
@@ -4036,8 +4035,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(null);
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
-        assertEq("src/",t_.selectEvt().getUserObject());
-        assertEq(4,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild()).getChildCount());
+        assertEq("src/",t_.selectEvt().info());
+        assertEq(4, t_.getRoot().getFirstChild().getChildCount());
     }
     @Test
     public void t3() {
@@ -4061,8 +4060,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
-        assertEq("sub1/",t_.selectEvt().getUserObject());
-        assertEq(3,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild()).getChildCount());
+        assertEq("sub1/",t_.selectEvt().info());
+        assertEq(3, t_.getRoot().getFirstChild().getFirstChild().getChildCount());
     }
     @Test
     public void t4() {
@@ -4087,8 +4086,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild());
-        assertEq("sub3/",t_.selectEvt().getUserObject());
-        assertEq(2,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild()).getChildCount());
+        assertEq("sub3/",t_.selectEvt().info());
+        assertEq(2, t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getChildCount());
     }
     @Test
     public void t5() {
@@ -4112,8 +4111,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
-        assertEq("sub2/",t_.selectEvt().getUserObject());
-        assertEq(3,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling()).getChildCount());
+        assertEq("sub2/",t_.selectEvt().info());
+        assertEq(3, t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getChildCount());
     }
     @Test
     public void t6() {
@@ -4139,8 +4138,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild());
-        assertEq("sub4/",t_.selectEvt().getUserObject());
-        assertEq(2,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild()).getChildCount());
+        assertEq("sub4/",t_.selectEvt().info());
+        assertEq(2, t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getChildCount());
     }
     @Test
     public void t7() {
@@ -4164,8 +4163,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling());
-        assertEq("file1.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling()).getChildCount());
+        assertEq("file1.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling().getChildCount());
     }
     @Test
     public void t8() {
@@ -4190,8 +4189,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling().getNextSibling());
-        assertEq("file2.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling().getNextSibling()).getChildCount());
+        assertEq("file2.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling().getNextSibling().getChildCount());
     }
     @Test
     public void t9() {
@@ -4216,8 +4215,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling());
-        assertEq("file3.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling()).getChildCount());
+        assertEq("file3.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getChildCount());
     }
     @Test
     public void t10() {
@@ -4242,8 +4241,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getNextSibling());
-        assertEq("file4.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getNextSibling()).getChildCount());
+        assertEq("file4.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getNextSibling().getChildCount());
     }
     @Test
     public void t11() {
@@ -4268,8 +4267,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling());
-        assertEq("file5.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling()).getChildCount());
+        assertEq("file5.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling().getChildCount());
     }
     @Test
     public void t12() {
@@ -4294,8 +4293,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling().getNextSibling());
-        assertEq("file6.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling().getNextSibling()).getChildCount());
+        assertEq("file6.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling().getNextSibling().getChildCount());
     }
     @Test
     public void t13() {
@@ -4321,8 +4320,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild());
-        assertEq("file7.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild()).getChildCount());
+        assertEq("file7.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild().getChildCount());
     }
     @Test
     public void t14() {
@@ -4348,8 +4347,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild().getNextSibling());
-        assertEq("file8.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild().getNextSibling()).getChildCount());
+        assertEq("file8.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getChildCount());
     }
     @Test
     public void t15() {
@@ -4375,8 +4374,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild());
-        assertEq("file0.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild()).getChildCount());
+        assertEq("file0.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild().getChildCount());
     }
     @Test
     public void t16() {
@@ -4402,8 +4401,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild().getNextSibling());
-        assertEq("file9.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild().getNextSibling()).getChildCount());
+        assertEq("file9.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild().getNextSibling().getChildCount());
     }
     @Test
     public void t17() {
@@ -4428,8 +4427,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot());
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling());
-        assertEq("file1.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling()).getChildCount());
+        assertEq("file1.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling().getChildCount());
     }
     @Test
     public void t18() {
@@ -4455,8 +4454,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling().getNextSibling());
-        assertEq("file2.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling().getNextSibling()).getChildCount());
+        assertEq("file2.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getNextSibling().getNextSibling().getChildCount());
     }
     @Test
     public void t19() {
@@ -4482,8 +4481,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling());
-        assertEq("file3.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling()).getChildCount());
+        assertEq("file3.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getChildCount());
     }
     @Test
     public void t20() {
@@ -4509,8 +4508,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getNextSibling());
-        assertEq("file4.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getNextSibling()).getChildCount());
+        assertEq("file4.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getNextSibling().getChildCount());
     }
     @Test
     public void t21() {
@@ -4536,8 +4535,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling());
-        assertEq("file5.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling()).getChildCount());
+        assertEq("file5.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling().getChildCount());
     }
     @Test
     public void t22() {
@@ -4563,8 +4562,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling().getNextSibling());
-        assertEq("file6.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling().getNextSibling()).getChildCount());
+        assertEq("file6.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getNextSibling().getNextSibling().getChildCount());
     }
     @Test
     public void t23() {
@@ -4591,8 +4590,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild());
-        assertEq("file7.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild()).getChildCount());
+        assertEq("file7.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild().getChildCount());
     }
     @Test
     public void t24() {
@@ -4619,8 +4618,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild().getNextSibling());
-        assertEq("file8.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild().getNextSibling()).getChildCount());
+        assertEq("file8.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getChildCount());
     }
     @Test
     public void t25() {
@@ -4647,8 +4646,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild());
-        assertEq("file0.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild()).getChildCount());
+        assertEq("file0.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild().getChildCount());
     }
     @Test
     public void t26() {
@@ -4675,8 +4674,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild());
         t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild().getNextSibling());
-        assertEq("file9.txt",t_.selectEvt().getUserObject());
-        assertEq(0,((AbstractMutableTreeNodeNav)t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild().getNextSibling()).getChildCount());
+        assertEq("file9.txt",t_.selectEvt().info());
+        assertEq(0, t_.getRoot().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild().getNextSibling().getChildCount());
     }
     @Test
     public void t27() {
@@ -4744,44 +4743,44 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertFalse(methods(b_).isEmpty());
     }
     private void launch(AbsDebuggerGui _d) {
-        ((MockPlainButton)_d.getSelectEnter()).getActionListeners().get(0).action();
+        _d.getSelectEnter().getActionListeners().get(0).action();
         _d.getCurrentThreadActions().join();
     }
 
     private void next(AbsDebuggerGui _d) {
-        ((MockPlainButton)_d.getNextAction()).getActionListeners().get(0).action();
+        _d.getNextAction().getActionListeners().get(0).action();
         _d.getCurrentThreadActions().join();
     }
 
     private void nextInst(AbsDebuggerGui _d) {
-        ((MockPlainButton)_d.getNextInstruction()).getActionListeners().get(0).action();
+        _d.getNextInstruction().getActionListeners().get(0).action();
         _d.getCurrentThreadActions().join();
     }
 
     private void nextBlock(AbsDebuggerGui _d) {
-        ((MockPlainButton)_d.getNextBlock()).getActionListeners().get(0).action();
+        _d.getNextBlock().getActionListeners().get(0).action();
         _d.getCurrentThreadActions().join();
     }
 
     private void nextGoUp(AbsDebuggerGui _d) {
-        ((MockPlainButton)_d.getNextGoUp()).getActionListeners().get(0).action();
+        _d.getNextGoUp().getActionListeners().get(0).action();
         _d.getCurrentThreadActions().join();
     }
 
     private void nextCursor(AbsDebuggerGui _d) {
-        ((MockPlainButton)_d.getNextCursor()).getActionListeners().get(0).action();
+        _d.getNextCursor().getActionListeners().get(0).action();
         _d.getCurrentThreadActions().join();
     }
 
     private void nextGoInMethod(AbsDebuggerGui _d) {
-        ((MockPlainButton)_d.getNextInMethod()).getActionListeners().get(0).action();
+        _d.getNextInMethod().getActionListeners().get(0).action();
         _d.getCurrentThreadActions().join();
     }
     private void addRow(FormInputDebugLines _r) {
-        ((MockPlainButton) _r.getAdd()).getActionListeners().get(0).action();
+        _r.getAdd().getActionListeners().get(0).action();
     }
     private void remRow(FormInputDebugLines _r) {
-        ((MockPlainButton) _r.getRem()).getActionListeners().get(0).action();
+        _r.getRem().getActionListeners().get(0).action();
     }
 //    private void validValues(FormInputDebugLines _r) {
 //        ((MockPlainButton) _r.getVal()).getActionListeners().get(0).action();
