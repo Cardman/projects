@@ -17,6 +17,7 @@ public final class DefMutableTreeNode extends MutableTreeNodeNav<String> impleme
 
     public DefMutableTreeNode(MutableTreeNode _name) {
         node = (DefaultMutableTreeNode) _name;
+        info(info(node));
     }
 
     public MutableTreeNode node() {
@@ -89,8 +90,12 @@ public final class DefMutableTreeNode extends MutableTreeNodeNav<String> impleme
 
     @Override
     public String info() {
+        return info(node);
+    }
+
+    private static String info(DefaultMutableTreeNode _n) {
         try {
-            return (String) node.getUserObject();
+            return (String) _n.getUserObject();
         } catch (Exception e) {
             return "";
         }
