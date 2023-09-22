@@ -20,4 +20,5 @@ public interface AbsTreeGui extends AbsCustComponent {
     AbsTreePath translate(AbstractMutableTreeNodeCore<String> _tr);
     AbsTreePaths selectedPaths();
     void selectedPaths(AbsTreePaths _p);
+    void info(AbstractMutableTreeNodeCore<String> _node, String _v);
 }

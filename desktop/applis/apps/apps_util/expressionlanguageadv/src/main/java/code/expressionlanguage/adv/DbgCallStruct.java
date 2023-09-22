@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.variables.ViewInstance;
 import code.expressionlanguage.structs.Struct;
@@ -9,8 +8,8 @@ public final class DbgCallStruct extends DbgAbsNodeStruct {
 
     private final String className;
     private final Struct eval;
-    public DbgCallStruct(ContextEl _r, ViewInstance _page) {
-        super(_r);
+    public DbgCallStruct(DbgAbsNodeStruct _par, ViewInstance _page) {
+        super(_par);
         className = _page.getClassName();
         eval = _page.getEval();
     }

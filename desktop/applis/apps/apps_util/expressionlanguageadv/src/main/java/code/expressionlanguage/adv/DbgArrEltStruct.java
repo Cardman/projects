@@ -1,13 +1,12 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
 
 public final class DbgArrEltStruct extends DbgAbsNodeStruct {
     private final int variable;
     private final Struct eval;
-    public DbgArrEltStruct(ContextEl _r, int _v, Struct _w) {
-        super(_r);
+    public DbgArrEltStruct(DbgAbsNodeStruct _par, int _v, Struct _w) {
+        super(_par);
         this.variable = _v;
         this.eval = _w;
     }

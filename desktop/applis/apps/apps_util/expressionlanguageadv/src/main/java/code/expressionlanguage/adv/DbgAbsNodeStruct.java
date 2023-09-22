@@ -8,6 +8,9 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsCustComponent;
+import code.gui.AbsPlainButton;
+import code.gui.AbsTextArea;
 import code.gui.MutableTreeNodeNav;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -15,13 +18,21 @@ import code.util.ints.Comparing;
 
 public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
     private final CustList<DbgAbsNodeStruct> children = new CustList<DbgAbsNodeStruct>();
-    private DbgAbsNodeStruct parentStruct;
+    private final DbgAbsNodeStruct parentStruct;
     private boolean calculated;
     private final ContextEl result;
     private final MutableTreeNodeNav<DbgAbsNodeStruct> node = new MutableTreeNodeNav<DbgAbsNodeStruct>();
+    private AbsTextArea logger;
+    private AbsPlainButton stop;
+    private AbsCustComponent group;
 
-    protected DbgAbsNodeStruct(ContextEl _r) {
+    protected DbgAbsNodeStruct(DbgAbsNodeStruct _par) {
+        this(_par.getResult(), _par);
+    }
+
+    protected DbgAbsNodeStruct(ContextEl _r, DbgAbsNodeStruct _par) {
         this.result = _r;
+        parentStruct = _par;
         node.info(this);
     }
 
@@ -58,8 +69,7 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
         staticPart();
         Struct v_ = vn_.getParent();
         if (v_ != NullStruct.NULL_VALUE) {
-            DbgParentStruct e_ = new DbgParentStruct(result, v_);
-            e_.setParentStruct(this);
+            DbgParentStruct e_ = new DbgParentStruct(this, v_);
             node.add(e_.getNode());
             children.add(e_);
         }
@@ -67,8 +77,7 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
             CustList<DbgFieldStruct> fielRet_ = new CustList<DbgFieldStruct>();
             CustList<ClassFieldStruct> fs_ = ((FieldableStruct) vn_).getFields();
             for (ClassFieldStruct e: fs_) {
-                DbgFieldStruct efs_ = new DbgFieldStruct(result, e.getClassField(), e.getStruct());
-                efs_.setParentStruct(this);
+                DbgFieldStruct efs_ = new DbgFieldStruct(this, e.getClassField(), e.getStruct());
                 fielRet_.add(efs_);
             }
             sortedAdded(fielRet_, new DbgFieldStructCmp());
@@ -77,8 +86,7 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
             CustList<Struct> ls_ = ((ArrayStruct) vn_).list();
             int s_ = ls_.size();
             for (int i = 0; i < s_; i++) {
-                DbgArrEltStruct efs_ = new DbgArrEltStruct(result, i, ls_.get(i));
-                efs_.setParentStruct(this);
+                DbgArrEltStruct efs_ = new DbgArrEltStruct(this, i, ls_.get(i));
                 children.add(efs_);
                 node.add(efs_.getNode());
             }
@@ -92,8 +100,7 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
             String id_ = curr_.id();
             CustList<DbgFieldStruct> stFields_ = new CustList<DbgFieldStruct>();
             for (EntryCust<String,Struct> f: NumParsers.getStaticFieldMap(id_,result.getClasses().getStaticFields()).entryList()) {
-                DbgFieldStruct efs_ = new DbgFieldStruct(result, new ClassField(id_,f.getKey()), f.getValue());
-                efs_.setParentStruct(this);
+                DbgFieldStruct efs_ = new DbgFieldStruct(this, new ClassField(id_,f.getKey()), f.getValue());
                 stFields_.add(efs_);
             }
             sortedAdded(stFields_, new DbgFieldStructQuickCmp());
@@ -108,12 +115,38 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
         }
     }
 
-    public DbgAbsNodeStruct getParentStruct() {
-        return parentStruct;
+    @Override
+    public AbsTextArea logs() {
+        return logger;
     }
 
-    public void setParentStruct(DbgAbsNodeStruct _p) {
-        this.parentStruct = _p;
+    @Override
+    public AbsPlainButton stopButton() {
+        return stop;
+    }
+
+    @Override
+    public AbsCustComponent panel() {
+        return group;
+    }
+
+    @Override
+    public void logs(AbsTextArea _a) {
+        logger = _a;
+    }
+
+    @Override
+    public void stopButton(AbsPlainButton _b) {
+        stop = _b;
+    }
+
+    @Override
+    public void panel(AbsCustComponent _c) {
+        group = _c;
+    }
+
+    public DbgAbsNodeStruct getParentStruct() {
+        return parentStruct;
     }
 
     public boolean isCalculated() {

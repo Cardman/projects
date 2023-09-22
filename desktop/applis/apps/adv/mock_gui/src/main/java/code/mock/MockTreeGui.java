@@ -126,4 +126,8 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
         this.selectionPaths = _p;
     }
 
+    @Override
+    public void info(AbstractMutableTreeNodeCore<String> _node, String _v) {
+        _node.info(_v);
+    }
 }

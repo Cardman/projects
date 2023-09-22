@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ViewVariable;
 import code.expressionlanguage.structs.Struct;
 
@@ -12,8 +11,8 @@ public final class DbgVarStruct extends DbgAbsNodeStruct {
     private final int deep;
     private final Struct eval;
     private final String className;
-    public DbgVarStruct(ContextEl _r, ViewVariable _w) {
-        super(_r);
+    public DbgVarStruct(DbgAbsNodeStruct _par, ViewVariable _w) {
+        super(_par);
         deep = _w.getDeep();
         this.variable = _w.getName();
         className = _w.getClassName();

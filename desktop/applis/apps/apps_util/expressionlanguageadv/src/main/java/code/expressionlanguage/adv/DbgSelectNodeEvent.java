@@ -2,16 +2,19 @@ package code.expressionlanguage.adv;
 
 import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
+import code.threads.AbstractThreadFactory;
 
 public final class DbgSelectNodeEvent implements AbsShortListTree {
-    private final DbgRootStruct root;
     private final AbsTreeGui tree;
+    private final DbgRootStruct root;
     private final AbsCompoFactory compoFactory;
+    private final AbstractThreadFactory threadFactory;
 
-    public DbgSelectNodeEvent(DbgRootStruct _r, AbsTreeGui _t, AbsCompoFactory _compo) {
-        this.root = _r;
+    public DbgSelectNodeEvent(AbsTreeGui _t, DbgRootStruct _r, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         this.tree = _t;
+        this.root = _r;
         this.compoFactory = _compo;
+        this.threadFactory = _th;
     }
 
     @Override
@@ -24,9 +27,10 @@ public final class DbgSelectNodeEvent implements AbsShortListTree {
         if (i_.select()){
             AbstractMutableTreeNodeCore<String> sel_ = tree.selectEvt();
             for (DbgAbsNodeStruct m: i_.getChildren()) {
-                sel_.add(compoFactory.newMutableTreeNode(TreeNodeRenderUtil.format(m, root.getResult())));
+                sel_.add(compoFactory.newMutableTreeNode(TreeNodeRenderUtil.format(m)));
             }
             MutableTreeNodeUtil.reload(tree);
+            threadFactory.newStartedThread(new DbgRenderStrNodeTask(tree,sel_, i_, compoFactory,threadFactory));
         }
     }
 

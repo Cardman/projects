@@ -3,6 +3,7 @@ package code.vi.prot.impl.gui;
 import code.gui.*;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.core.StringUtil;
 
 import javax.swing.*;
 import javax.swing.tree.*;
@@ -122,6 +123,11 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
     @Override
     public void reload(AbstractMutableTreeNodeCore<String> _node) {
         model.reload(convert(_node));
+    }
+
+    @Override
+    public void info(AbstractMutableTreeNodeCore<String> _node, String _v) {
+        model.valueForPathChanged(getTreePath(((DefMutableTreeNode)_node).node()), StringUtil.nullToEmpty(_v));
     }
 
     private TreePath getTreePath(TreeNode _node) {

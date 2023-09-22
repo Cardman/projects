@@ -49,6 +49,9 @@ public abstract class EquallableElAdvUtil {
         StringList cl_ = new StringList(_classNames);
         return new ConstructorId("", cl_, _vararg);
     }
+    public static void assertNull(Struct _expected) {
+        Assert.assertNull(_expected);
+    }
     public static void assertNull(AbsCustComponent _expected) {
         Assert.assertNull(_expected);
     }

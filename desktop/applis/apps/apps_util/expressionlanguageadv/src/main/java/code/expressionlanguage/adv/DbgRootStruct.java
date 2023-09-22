@@ -9,65 +9,61 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.AbsTreeGui;
 import code.gui.AbstractMutableTreeNodeCore;
 import code.gui.initialize.AbsCompoFactory;
+import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 
 public final class DbgRootStruct extends DbgAbsNodeStruct {
 
-    public DbgRootStruct(ContextEl _r) {
-        super(_r);
+    public DbgRootStruct(ContextEl _r, DbgAbsNodeStruct _par) {
+        super(_r,_par);
     }
-    AbsTreeGui buildReturn(AbsCompoFactory _compo, ArgumentWrapper _val) {
+    AbsTreeGui buildReturn(AbsCompoFactory _compo, AbstractThreadFactory _th, ArgumentWrapper _val) {
         AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode("");
         DbgAbsNodeStruct result_;
         if (_val.getWrapper() != null) {
-            result_ = new DbgRetVarStruct(getResult(), _val.getWrapper());
+            result_ = new DbgRetVarStruct(this, _val.getWrapper());
         } else {
-            result_ = new DbgParentStruct(getResult(),_val.getValue().getStruct());
+            result_ = new DbgParentStruct(this,_val.getValue().getStruct());
         }
         getChildren().add(result_);
-        result_.setParentStruct(this);
         getNode().add(result_.getNode());
-        root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(result_, this.getResult())));
+        root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(result_)));
         AbsTreeGui tree_ = _compo.newTreeGui(root_);
-        tree_.addTreeSelectionListener(new DbgSelectNodeEvent(this,tree_,_compo));
+        tree_.addTreeSelectionListener(new DbgSelectNodeEvent(tree_, this, _compo,_th));
         return tree_;
     }
-    AbsTreeGui build(AbsCompoFactory _compo, ViewPage _stView, BreakPointOutputInfo _infos) {
+    AbsTreeGui build(AbsCompoFactory _compo, AbstractThreadFactory _th, ViewPage _stView, BreakPointOutputInfo _infos) {
         AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode("");
         ContextEl s_ = _infos.getSubContext();
         if (s_ != null) {
             Struct o_ = _infos.getWatchedObject();
             if (o_ != null) {
-                DbgParentStruct pt_ = new DbgParentStruct(s_, o_);
-                pt_.setParentStruct(this);
+                DbgWatchStruct pt_ = new DbgWatchStruct(s_,this, o_);
                 getChildren().add(pt_);
                 getNode().add(pt_.getNode());
-                root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(pt_, s_)));
+                root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(pt_)));
             }
             Struct t_ = _infos.getWatchedTrace();
             if (t_ != null) {
-                DbgParentStruct pt_ = new DbgParentStruct(s_, t_);
-                pt_.setParentStruct(this);
+                DbgWatchStruct pt_ = new DbgWatchStruct(s_,this, t_);
                 getChildren().add(pt_);
                 getNode().add(pt_.getNode());
-                root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(pt_, s_)));
+                root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(pt_)));
             }
         }
-        DbgCallStruct pt_ = new DbgCallStruct(getResult(), _stView.getInstance());
-        root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(pt_, this.getResult())));
-        pt_.setParentStruct(this);
+        DbgCallStruct pt_ = new DbgCallStruct(this, _stView.getInstance());
+        root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(pt_)));
         getChildren().add(pt_);
         getNode().add(pt_.getNode());
         CustList<ViewVariable> ls_ = _stView.getVars();
         for (ViewVariable f: ls_) {
-            DbgVarStruct nodeVar_ = new DbgVarStruct(getResult(), f);
-            nodeVar_.setParentStruct(this);
+            DbgVarStruct nodeVar_ = new DbgVarStruct(this, f);
             getNode().add(nodeVar_.getNode());
             getChildren().add(nodeVar_);
-            root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(nodeVar_, this.getResult())));
+            root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(nodeVar_)));
         }
         AbsTreeGui tree_ = _compo.newTreeGui(root_);
-        tree_.addTreeSelectionListener(new DbgSelectNodeEvent(this,tree_,_compo));
+        tree_.addTreeSelectionListener(new DbgSelectNodeEvent(tree_, this, _compo,_th));
         return tree_;
     }
 

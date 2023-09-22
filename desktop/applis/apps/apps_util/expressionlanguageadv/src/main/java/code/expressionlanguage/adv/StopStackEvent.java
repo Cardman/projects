@@ -22,7 +22,9 @@ public final class StopStackEvent implements AbsActionListener {
         window.disableNext();
         window.getDetailAll().setVisible(false);
         window.getCallButtons().clear();
+        window.getCallButtonsRender().clear();
         window.getCallStack().removeAll();
+        window.getCallStackRender().removeAll();
         window.getCommonFrame().pack();
     }
 }

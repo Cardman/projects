@@ -422,7 +422,13 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
         tr_.selectedPaths(new MockTreePaths(paths_));
         assertSame(null,tr_.selectEvt());
     }
-
+    @Test
+    public void t34() {
+        MockTreeGui tr_ = new MockTreeGui(new MockMutableTreeNode("0"));
+        MockMutableTreeNode curr_ = new MockMutableTreeNode("0");
+        tr_.info(curr_,"1");
+        assertEq("1", curr_.info());
+    }
     private void geneTwo(MockMutableTreeNode _r, String _i, String _j) {
         add(gene(_r, _i), _j);
     }

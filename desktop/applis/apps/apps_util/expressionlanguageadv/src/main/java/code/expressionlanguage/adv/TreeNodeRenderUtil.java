@@ -4,9 +4,25 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.syntax.FileBlockIndex;
+import code.expressionlanguage.exec.DefStackStopper;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.ProcessMethod;
+import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
+import code.expressionlanguage.exec.opers.ExecCatOperation;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.InterruptibleContextEl;
+import code.gui.AbsPlainButton;
+import code.gui.AbsTextArea;
+import code.gui.AbsTreeGui;
+import code.gui.AbstractMutableTreeNodeCore;
+import code.gui.initialize.AbsCompoFactory;
+import code.threads.AbstractThreadFactory;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
@@ -27,27 +43,91 @@ public final class TreeNodeRenderUtil {
     private TreeNodeRenderUtil() {
     }
 
-    static String format(DbgNodeStruct _node, ContextEl _ctx) {
+    static void renderNode(AbsTreeGui _tree, AbstractMutableTreeNodeCore<String> _tr, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+        String res_ = resultWrap(_node, _compo, _th);
+        String render_ = format(_node, res_);
+        _compo.invokeLater(new FinalRenderingTask(_tree,_tr,render_));
+    }
+
+    static String resultWrap(DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+        Struct res_ = result(_node, _compo, _th);
+        return wrapValue(res_, _node.getResult());
+    }
+    static Struct result(DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+        ContextEl ctx_ = local(_node.getResult(), _th);
+        AdvLogDbg logger_ = logger(_node, _compo, ctx_);
+        StackCall st_ = StackCall.newInstance(new DefStackStopper(logger_), InitPhase.NOTHING, ctx_, ctx_.getExecutionInfos().getSeed());
+        Struct str_ = _node.value();
+        IndirectCalledFctUtil.processString(ArgumentListCall.toStr(str_), ctx_, st_);
+        CallingState state_ = st_.getCallingState();
+        Struct res_;
+        if (str_ instanceof ArrayStruct || str_ instanceof DisplayableStruct) {
+            res_ = str_;
+        } else if (state_ == null) {
+            res_ = null;
+        } else {
+            res_ = ExecCatOperation.getDisplayable(ProcessMethod.calculate(state_, ctx_, st_).getValue(), ctx_);
+            CallingState stateAfter_ = st_.getCallingState();
+            if (stateAfter_ != null) {
+                for (String f: ResultContextLambda.traceView(st_, ctx_)) {
+                    logger_.log(f);
+                }
+            }
+        }
+        return res_;
+    }
+
+    static AdvLogDbg logger(DbgNodeStruct _node, AbsCompoFactory _compo, ContextEl _ctx) {
+        AbsTextArea ta_ = _compo.newTextArea();
+        ta_.setEditable(false);
+        _node.logs(ta_);
+        AbsPlainButton stop_ = _compo.newPlainButton("stop");
+        stop_.addActionListener(new DbgStopRenderEvent(_ctx));
+        _node.stopButton(stop_);
+        _node.panel(_compo.newVerticalSplitPane(_compo.newAbsScrollPane(ta_), stop_));
+        return new AdvLogDbg(ta_);
+    }
+
+    private static ContextEl local(ContextEl _orig, AbstractThreadFactory _compo) {
+        return new InterruptibleContextEl(_compo.newAtomicBoolean(), _orig.getExecutionInfos());
+//        return new GuiContextEl(_compo.newAtomicBoolean(), null, _orig.getExecutionInfos(), new StringList());
+    }
+    static String format(DbgNodeStruct _node) {
+        return format(_node, wrapValue(_node));
+    }
+
+    private static String wrapValue(DbgNodeStruct _node) {
+        return wrapValue(_node.value(), _node.getResult());
+    }
+
+    static String format(DbgNodeStruct _node, String _value) {
         return "<" + HTML + "><" + SPAN + " " + STYLE + "='" + BACKGROUND_COLOR + ":#"+BLACK+";'>"
                 + "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+RED+";'>" + transform(_node.str()) + "</" + SPAN + ">"
                 + EXT_SPACE
-                + wrapTypeDecl(_node.value().getClassName(_ctx))
+                + wrapTypeDecl(_node.value().getClassName(_node.getResult()))
                 + EXT_SPACE
-                + wrapValue(_node.value(), _ctx)
+                + _value
                 + "</" + SPAN + ">"
                 + "</" + HTML + ">";
     }
-
     private static String wrapTypeDecl(String _type) {
         return "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+WHITE+";'>" +transform(_type) + "</" + SPAN + ">";
     }
 
     private static String wrapValue(Struct _str, ContextEl _ctx) {
+        String v_ = wrapValueInner(_str, _ctx);
+        if (!v_.isEmpty()) {
+            return "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+CYAN+";'>" +v_+ "</" + SPAN +">";
+        }
+        return "";
+    }
+
+    private static String wrapValueInner(Struct _str, ContextEl _ctx) {
         if (_str instanceof ArrayStruct) {
-            return "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+CYAN+";'>" +((ArrayStruct)_str).getLength()+ "</" + SPAN +">";
+            return Long.toString(((ArrayStruct)_str).getLength());
         }
         if (_str instanceof DisplayableStruct) {
-            return "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+CYAN+";'>" +transform(((DisplayableStruct)_str).getDisplayedString(_ctx).getInstance())+ "</" + SPAN +">";
+            return transform(((DisplayableStruct)_str).getDisplayedString(_ctx).getInstance());
         }
         return "";
     }

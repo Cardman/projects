@@ -52,10 +52,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private StackCallReturnValue stackCallView;
     private DbgRootStruct root;
     private AbsTreeGui treeDetail;
-    private final CustList<AbsTreeGui> trees = new CustList<AbsTreeGui>();
-    private final CustList<DbgRootStruct> treesRoot = new CustList<DbgRootStruct>();
     private final CustList<AbsPlainButton> callButtons = new CustList<AbsPlainButton>();
+    private final CustList<AbsPlainButton> callButtonsRender = new CustList<AbsPlainButton>();
     private AbsPanel callStack;
+    private AbsPanel callStackRender;
     private AbstractAtomicBoolean stopDbg;
     private final AbstractAtomicBoolean stoppedClick;
     private AbsOpenFrameInteract dbgMenu;
@@ -70,6 +70,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbstractThread currentThreadActions;
     private final AbsOpenFrameInteract menuManage;
     private AbsScrollPane statusDbgAreaScroll;
+    private AbsScrollPane statusDbgAreaScrollRender;
 
     protected AbsDebuggerGui(AbsOpenFrameInteract _m, AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a,_lg,_list);
@@ -131,7 +132,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         stopStack.setEnabled(false);
         detail = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
         callStack = getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(callStack,detail);
+        callStackRender = getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        AbsSplitPane calls_ = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(
+                getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(callStack),
+                getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(callStackRender));
+        detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(calls_,detail);
         detailAll.setVisible(false);
         navigation = getCommonFrame().getFrames().getCompoFactory().newLineBox();
         navigation.setVisible(false);
@@ -153,7 +158,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         statusAnalyzeArea.setEditable(false);
         page_.add(getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(statusAnalyzeArea));
         statusDbgAreaScroll = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
-        page_.add(statusDbgAreaScroll);
+        statusDbgAreaScrollRender = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
+        page_.add(getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(statusDbgAreaScroll,statusDbgAreaScrollRender));
         getCommonFrame().setContentPane(page_);
         getCommonFrame().setVisible(true);
         AbsMenuBar bar_ = getCommonFrame().getFrames().getCompoFactory().newMenuBar();
@@ -254,9 +260,15 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         stackCall = getStackCallView().getStack();
         if (!stackCall.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
             callStack.removeAll();
+            callStackRender.removeAll();
             callButtons.clear();
-            root = new DbgRootStruct(ctx_);
-            treeDetail = root.buildReturn(getCommonFrame().getFrames().getCompoFactory(), view_.getStack().aw());
+            callButtonsRender.clear();
+            root = new DbgRootStruct(ctx_, null);
+            treeDetail = root.buildReturn(getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory(), view_.getStack().aw());
+            AbsPlainButton shRend_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton("show render");
+            shRend_.addActionListener(new DbgSelectNodeLogEvent(root,treeDetail,statusDbgAreaScrollRender));
+            callStackRender.add(shRend_);
+            callButtonsRender.add(shRend_);
             detail.setViewportView(treeDetail);
             detailAll.setVisible(true);
             selectEnter.setEnabled(true);
@@ -266,24 +278,26 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             getAnalyzeMenu().setEnabled(true);
             return;
         }
-        trees.clear();
-        treesRoot.clear();
         callButtons.clear();
+        callButtonsRender.clear();
         callStack.removeAll();
+        callStackRender.removeAll();
         int nbPages_ = view_.getVariables().size();
         for (int i = 0; i< nbPages_; i++) {
             ViewPage p_ = view_.getVariables().get(i);
             String dis_ = p_.getStackElt().getDisplayedString(ctx_).getInstance();
-            DbgRootStruct r_ = new DbgRootStruct(ctx_);
+            DbgRootStruct r_ = new DbgRootStruct(ctx_, null);
             root = r_;
-            AbsTreeGui b_ = r_.build(getCommonFrame().getFrames().getCompoFactory(), p_, stackCall.getBreakPointInfo().getBreakPointOutputInfo());
+            AbsTreeGui b_ = r_.build(getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory(), p_, stackCall.getBreakPointInfo().getBreakPointOutputInfo());
             treeDetail = b_;
-            trees.add(b_);
-            treesRoot.add(r_);
             AbsPlainButton but_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton(dis_);
             callButtons.add(but_);
             but_.addActionListener(new SelectCallStackEvent(this,p_,b_,r_));
             callStack.add(but_);
+            AbsPlainButton shRend_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton("show render");
+            shRend_.addActionListener(new DbgSelectNodeLogEvent(r_,b_,statusDbgAreaScrollRender));
+            callStackRender.add(shRend_);
+            callButtonsRender.add(shRend_);
         }
         AbstractPageEl last_ = getStackCall().getLastPage();
         int opened_ = indexOpened(ExecFileBlock.name(last_.getFile()));
@@ -557,8 +571,16 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return callStack;
     }
 
+    public AbsPanel getCallStackRender() {
+        return callStackRender;
+    }
+
     public CustList<AbsPlainButton> getCallButtons() {
         return callButtons;
+    }
+
+    public CustList<AbsPlainButton> getCallButtonsRender() {
+        return callButtonsRender;
     }
 
     public AbsMenuItem getAnalyzeMenu() {
