@@ -168,9 +168,15 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     protected static StackCall dbgContinueNormalValueStepBlock(StackCall _stack, ContextEl _cont) {
         return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.NEXT_BLOCK, false).getStack();
     }
-    protected static StackCall dbgContinueNormalValueCursor(StackCall _stack, ResultContext _cont, int _caret) {
+    protected static StackCall dbgContinueNormalValueCursorInstruction(StackCall _stack, ResultContext _cont, int _caret) {
         cursor(_stack, _cont, _caret);
-        return ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),null,_stack,null,StepDbgActionEnum.CURSOR, false).getStack();
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),null,_stack,null,StepDbgActionEnum.CURSOR_INSTRUCTION, false).getStack();
+    }
+    protected static StackCall dbgContinueNormalValueCursorExpression(StackCall _stack, ResultContext _cont, int _caret) {
+        int off_ = ResultExpressionOperationNode.beginPartExp(_caret, _cont.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex"));
+        assertEq(off_,_caret);
+        cursor(_stack, _cont, off_);
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),null,_stack,null,StepDbgActionEnum.CURSOR_EXPRESSION, false).getStack();
     }
 
     protected static void cursor(StackCall _stack, ResultContext _cont, int _caret) {

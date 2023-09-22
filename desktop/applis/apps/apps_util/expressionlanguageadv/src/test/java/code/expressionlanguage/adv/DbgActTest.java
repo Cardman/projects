@@ -3909,7 +3909,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         launch(b_);
         b_.selectFocus(-1,-1);
         b_.focus(-1);
-        b_.possibleSelect(-1,r_);
+        b_.possibleSelectInstruction(-1,r_);
+        b_.possibleSelectExpression(-1,r_);
         assertEq(src_.getVal("src/file.txt"),tabSelect(b_).getCenter().getText());
         assertTrue(b_.getSelectEnter().isEnabled());
     }
@@ -4126,12 +4127,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
-        assertTrue(b_.getNextCursor().isEnabled());
+        assertTrue(b_.getNextCursorInstruction().isEnabled());
         tabEditor(b_).getCenter().select(85,85);
-        nextCursor(b_);
-        assertTrue(b_.getNextCursor().isEnabled());
+        nextCursorInstruction(b_);
+        assertTrue(b_.getNextCursorInstruction().isEnabled());
         nextGoInMethod(b_);
-        assertFalse(b_.getNextCursor().isEnabled());
+        assertFalse(b_.getNextCursorInstruction().isEnabled());
         DbgRootStruct root_ = b_.getRoot();
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
@@ -4310,6 +4311,51 @@ public final class DbgActTest extends EquallableElAdvUtil {
         DbgRootStruct root_ = b_.getRoot();
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(3,chs_.size());
+    }
+    @Test
+    public void i23() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){int t = 8;int u = 3;return Math.mod(t,u);}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(62,62);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exmeth");
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        assertTrue(b_.getNextCursorExpression().isEnabled());
+        tabEditor(b_).getCenter().select(94,94);
+        nextCursorExpression(b_);
+        assertTrue(b_.getNextCursorExpression().isEnabled());
+        tabEditor(b_).getCenter().select(96,96);
+        nextCursorExpression(b_);
+        assertTrue(b_.getNextCursorExpression().isEnabled());
+        tabEditor(b_).getCenter().select(90,90);
+        nextCursorExpression(b_);
+        assertTrue(b_.getNextCursorExpression().isEnabled());
+        nextGoInMethod(b_);
+        assertFalse(b_.getNextCursorExpression().isEnabled());
+        DbgRootStruct root_ = b_.getRoot();
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(1,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        trDetail_.select(trDetail_.getRoot());
+        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        assertEq(1,root_.getChildren().size());
+        assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
     }
     @Test
     public void pause() {
@@ -5114,8 +5160,13 @@ public final class DbgActTest extends EquallableElAdvUtil {
         _d.getCurrentThreadActions().join();
     }
 
-    private void nextCursor(AbsDebuggerGui _d) {
-        _d.getNextCursor().getActionListeners().get(0).action();
+    private void nextCursorInstruction(AbsDebuggerGui _d) {
+        _d.getNextCursorInstruction().getActionListeners().get(0).action();
+        _d.getCurrentThreadActions().join();
+    }
+
+    private void nextCursorExpression(AbsDebuggerGui _d) {
+        _d.getNextCursorExpression().getActionListeners().get(0).action();
         _d.getCurrentThreadActions().join();
     }
 

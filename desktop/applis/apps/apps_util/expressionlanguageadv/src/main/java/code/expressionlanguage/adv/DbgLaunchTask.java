@@ -11,8 +11,11 @@ public final class DbgLaunchTask implements Runnable {
     public DbgLaunchTask(AbsDebuggerGui _w, StepDbgActionEnum _s, ResultContext _curr) {
         this.window = _w;
         this.step = _s;
-        if (_s == StepDbgActionEnum.CURSOR) {
-            window.possibleSelect(_w.getTabbedPane().getSelectedIndex(), _curr);
+        if (_s == StepDbgActionEnum.CURSOR_INSTRUCTION) {
+            window.possibleSelectInstruction(_w.getTabbedPane().getSelectedIndex(), _curr);
+        }
+        if (_s == StepDbgActionEnum.CURSOR_EXPRESSION) {
+            window.possibleSelectExpression(_w.getTabbedPane().getSelectedIndex(), _curr);
         }
         this.currentResult = _curr;
     }

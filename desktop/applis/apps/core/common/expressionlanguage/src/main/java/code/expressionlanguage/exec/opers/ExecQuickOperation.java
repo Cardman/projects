@@ -46,11 +46,11 @@ public final class ExecQuickOperation extends ExecMethodOperation implements Ato
 
     @Override
     public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
+        setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
         end(this,_conf, _nodes, _right, _stack, converter);
     }
 
     static void end(ExecMethodOperation _cur,ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack, ImplicitMethods _converter) {
-        _cur.setRelativeOffsetPossibleLastPage(_stack);
         ExecOperationNode first_ = _cur.getFirstChild();
         ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, first_);
         if (argumentPair_.isArgumentTest()){

@@ -44,7 +44,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsPlainButton nextBlock;
     private AbsPlainButton nextGoUp;
     private AbsPlainButton nextInMethod;
-    private AbsPlainButton nextCursor;
+    private AbsPlainButton nextCursorInstruction;
+    private AbsPlainButton nextCursorExpression;
     private AbsScrollPane detail;
     private AbsSplitPane detailAll;
     private StackCall stackCall;
@@ -120,8 +121,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nextGoUp.setEnabled(false);
         nextInMethod = getCommonFrame().getFrames().getCompoFactory().newPlainButton("=");
         nextInMethod.setEnabled(false);
-        nextCursor = getCommonFrame().getFrames().getCompoFactory().newPlainButton("_");
-        nextCursor.setEnabled(false);
+        nextCursorInstruction = getCommonFrame().getFrames().getCompoFactory().newPlainButton("_");
+        nextCursorInstruction.setEnabled(false);
+        nextCursorExpression = getCommonFrame().getFrames().getCompoFactory().newPlainButton("__");
+        nextCursorExpression.setEnabled(false);
         pauseStack = getCommonFrame().getFrames().getCompoFactory().newPlainButton("||");
         pauseStack.setEnabled(false);
         stopStack = getCommonFrame().getFrames().getCompoFactory().newPlainButton("stop");
@@ -140,7 +143,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nav_.add(nextBlock);
         nav_.add(nextGoUp);
         nav_.add(nextInMethod);
-        nav_.add(nextCursor);
+        nav_.add(nextCursorInstruction);
+        nav_.add(nextCursorExpression);
         nav_.add(pauseStack);
         nav_.add(stopStack);
         page_.add(nav_);
@@ -292,17 +296,27 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nextBlock.setEnabled(true);
         nextGoUp.setEnabled(true);
         nextInMethod.setEnabled(true);
-        nextCursor.setEnabled(true);
+        nextCursorInstruction.setEnabled(true);
+        nextCursorExpression.setEnabled(true);
         getStopStack().setEnabled(true);
         getAnalyzeMenu().setEnabled(true);
     }
 
-    public void possibleSelect(int _s, ResultContext _res) {
+    public void possibleSelectInstruction(int _s, ResultContext _res) {
         if (_s > -1) {
             FileBlock f_ = _res.getPageEl().getPreviousFilesBodies().getVal(tabs.get(_s).getFullPath());
             ExecFileBlock e_ = _res.getFiles().getVal(f_);
             int caret_ = tabs.get(_s).getCenter().getCaretPosition();
             _res.getContext().tmpList().add(new BreakPointBlockKey(e_, FileBlock.number(f_), ResultExpressionOperationNode.beginPart(caret_,f_)));
+        }
+    }
+
+    public void possibleSelectExpression(int _s, ResultContext _res) {
+        if (_s > -1) {
+            FileBlock f_ = _res.getPageEl().getPreviousFilesBodies().getVal(tabs.get(_s).getFullPath());
+            ExecFileBlock e_ = _res.getFiles().getVal(f_);
+            int caret_ = tabs.get(_s).getCenter().getCaretPosition();
+            _res.getContext().tmpList().add(new BreakPointBlockKey(e_, FileBlock.number(f_), ResultExpressionOperationNode.beginPartExp(caret_,f_)));
         }
     }
 
@@ -368,8 +382,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nextGoUp.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.RETURN_METHOD, _res));
         GuiBaseUtil.removeActionListeners(nextInMethod);
         nextInMethod.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.NEXT_IN_METHOD, _res));
-        GuiBaseUtil.removeActionListeners(nextCursor);
-        nextCursor.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.CURSOR, _res));
+        GuiBaseUtil.removeActionListeners(nextCursorInstruction);
+        nextCursorInstruction.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.CURSOR_INSTRUCTION, _res));
+        GuiBaseUtil.removeActionListeners(nextCursorExpression);
+        nextCursorExpression.addActionListener(new DbgNextBpEvent(this, StepDbgActionEnum.CURSOR_EXPRESSION, _res));
         GuiBaseUtil.removeActionListeners(stopStack);
         stopStack.addActionListener(new StopStackEvent(this, _res));
         GuiBaseUtil.removeActionListeners(pauseStack);
@@ -414,7 +430,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         getNextBlock().setEnabled(false);
         getNextGoUp().setEnabled(false);
         getNextInMethod().setEnabled(false);
-        getNextCursor().setEnabled(false);
+        getNextCursorInstruction().setEnabled(false);
+        getNextCursorExpression().setEnabled(false);
     }
     public void currentThreadActions(Runnable _t) {
         setCurrentThreadActions(getCommonFrame().getFrames().getThreadFactory().newStartedThread(_t));
@@ -520,8 +537,12 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return nextInMethod;
     }
 
-    public AbsPlainButton getNextCursor() {
-        return nextCursor;
+    public AbsPlainButton getNextCursorInstruction() {
+        return nextCursorInstruction;
+    }
+
+    public AbsPlainButton getNextCursorExpression() {
+        return nextCursorExpression;
     }
 
     public AbsPlainButton getPauseStack() {

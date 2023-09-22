@@ -38,6 +38,7 @@ import code.util.core.StringUtil;
 
 public final class ResultExpressionOperationNode {
     private ResultExpression resultExpression;
+    private int beginOff = -1;
     private AbsBk block;
     private OperationNode found;
     private ResultExpressionOperationNode(){
@@ -521,6 +522,10 @@ public final class ResultExpressionOperationNode {
             return "";
         }
         return MemberCallingsBlock.clName(m_);
+    }
+    public static int beginPartExp(int _caret, FileBlock _file) {
+        ResultExpressionOperationNode c_ = container(_caret, _file);
+        return c_.beginOff;
     }
     public static int beginPart(int _caret, FileBlock _file) {
         ResultExpressionOperationNode c_ = container(_caret, _file);
@@ -1295,6 +1300,7 @@ public final class ResultExpressionOperationNode {
             sub_ = subContainer(_caret, sub_);
             ResultExpression res_ = result(sub_, _caret);
             out_.setResultExpression(res_);
+            ResultExpression u_ = null;
             BracedBlock next_;
             if (res_ == null) {
                 next_ = null;
@@ -1303,10 +1309,15 @@ public final class ResultExpressionOperationNode {
             } else {
                 OperationNode found_ = out_.subContainer(_caret);
                 next_ = nextBlock(found_, res_.getSumOffset(),_caret);
+                u_ = res_;
                 if (next_ == null) {
                     out_.setBlock(sub_);
                     out_.setFound(found_);
                 }
+            }
+            OperationNode f_ = out_.getFound();
+            if (u_ != null && f_ != null) {
+                out_.beginOff = begin(u_, f_);
             }
             sub_ = next_;
         }

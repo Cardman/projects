@@ -532,6 +532,9 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.RETURN_METHOD && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() > _stackCall.nbPages()) {
             return StopDbgEnum.STEP_RETURN_METHOD;
         }
+        if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() == null && getCurrentOper(_p) != null && _stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.CURSOR_EXPRESSION && stopTmp(_context, _p)) {
+            return StopDbgEnum.STEP_CURSOR;
+        }
         if (skipStepNotReturn(_stackCall, _p)) {
             return StopDbgEnum.NONE;
         }
@@ -548,7 +551,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_INSTRUCTION && okStack(_context, _stackCall)) {
             return StopDbgEnum.STEP_NEXT_INSTRUCTION;
         }
-        if (stopTmp(_context, _stackCall, _p)) {
+        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.CURSOR_INSTRUCTION && stopTmp(_context, _p)) {
             return StopDbgEnum.STEP_CURSOR;
         }
         return StopDbgEnum.NONE;
@@ -562,12 +565,10 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null || getCurrentOper(_p) != null;
     }
 
-    private static boolean stopTmp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
-        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.CURSOR) {
-            for (int i : list(_p)) {
-                if (_context.isTmp(_p.getFile(), i)) {
-                    return true;
-                }
+    private static boolean stopTmp(ContextEl _context, AbstractPageEl _p) {
+        for (int i : list(_p)) {
+            if (_context.isTmp(_p.getFile(), i)) {
+                return true;
             }
         }
         return false;
@@ -884,11 +885,11 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     private static int[] list(AbstractPageEl _p) {
         ExecBlock bl_ = _p.getBlock();
         AbstractStask st_ = _p.tryGetLastStack();
-        if (st_ instanceof LoopBlockStack && bl_ instanceof ExecAbstractForEachLoop && !(bl_ instanceof ExecForEachIterable) && ((ExecAbstractForEachLoop) bl_).getVariable().getOffset() == _p.getGlobalOffset()) {
+        if (st_ instanceof LoopBlockStack && bl_ instanceof ExecAbstractForEachLoop && !(bl_ instanceof ExecForEachIterable) && ((ExecAbstractForEachLoop) bl_).getVariable().getOffset() == _p.getTraceIndex()) {
             if (!((LoopBlockStack) st_).getContent().hasNext()) {
                 return NumberUtil.wrapIntArray(((ExecAbstractForEachLoop) bl_).getSeparator());
             }
-            return NumberUtil.wrapIntArray(_p.getGlobalOffset(), ((ExecAbstractForEachLoop) bl_).getSeparator());
+            return NumberUtil.wrapIntArray(_p.getTraceIndex(), ((ExecAbstractForEachLoop) bl_).getSeparator());
         }
         if (_p.getLastLoopIfPossible(bl_) == null){
             if (bl_ instanceof ExecForEachIterable && _p.sizeEl() == 2) {
@@ -898,7 +899,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
                 return NumberUtil.wrapIntArray(((ExecForEachTable) bl_).getOffsets().getIteratorOffset());
             }
         }
-        return NumberUtil.wrapIntArray(_p.getGlobalOffset());
+        return NumberUtil.wrapIntArray(_p.getTraceIndex());
     }
 
     private static boolean checkBreakPoint(ContextEl _context, StackCall _stackCall, GroupCheckedExecOperationNodeInfos _g) {

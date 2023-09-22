@@ -23,7 +23,7 @@ public final class ProcessDbgMuteTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         StackCallReturnValue first_ = stdViewMute("pkg.Ex", "exmeth", 52, 69, cont_, StepDbgActionEnum.DEBUG, false);
         cursor(first_.getStack(),cont_,82);
-        StackCallReturnValue second_ = stdViewMuteContinue(first_, cont_, StepDbgActionEnum.CURSOR, true);
+        StackCallReturnValue second_ = stdViewMuteContinue(first_, cont_, StepDbgActionEnum.CURSOR_INSTRUCTION, true);
         assertEq(1,second_.getStack().nbPages());
         assertEq(82,now(second_.getStack()));
     }
@@ -34,7 +34,7 @@ public final class ProcessDbgMuteTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         StackCallReturnValue first_ = stdViewMute("pkg.Ex", "exmeth", 52, 69, cont_, StepDbgActionEnum.DEBUG, false);
         cursor(first_.getStack(),cont_,82);
-        StackCallReturnValue second_ = stdViewMuteContinue(first_, cont_, StepDbgActionEnum.CURSOR, false);
+        StackCallReturnValue second_ = stdViewMuteContinue(first_, cont_, StepDbgActionEnum.CURSOR_INSTRUCTION, false);
         assertEq(1,second_.getStack().nbPages());
         assertEq(69,now(second_.getStack()));
     }
@@ -45,7 +45,7 @@ public final class ProcessDbgMuteTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         StackCallReturnValue first_ = stdViewMute("pkg.Ex", "exmeth", 52, 69, cont_, StepDbgActionEnum.DEBUG, false);
         cursor(first_.getStack(),cont_,82);
-        StackCallReturnValue second_ = stdViewMuteContinue(first_, cont_, StepDbgActionEnum.CURSOR, false);
+        StackCallReturnValue second_ = stdViewMuteContinue(first_, cont_, StepDbgActionEnum.CURSOR_INSTRUCTION, false);
         assertEq(0,dbgContinueNormal(second_.getStack(),cont_.getContext()).nbPages());
     }
     @Test
