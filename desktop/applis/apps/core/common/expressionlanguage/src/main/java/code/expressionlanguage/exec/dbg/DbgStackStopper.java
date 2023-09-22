@@ -535,13 +535,17 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         if (skipStepNotReturn(_stackCall, _p)) {
             return StopDbgEnum.NONE;
         }
+        return stopStepFct(_context, _stackCall, _p);
+    }
+
+    private static StopDbgEnum stopStepFct(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_BLOCK && (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() == _stackCall.nbPages() && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbBlocks() > _p.nbBlock() || _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() > _stackCall.nbPages())) {
             return StopDbgEnum.STEP_NEXT_BLOCK;
         }
         if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_IN_METHOD && _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages() >= _stackCall.nbPages()) {
             return StopDbgEnum.STEP_NEXT_IN_METHOD;
         }
-        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_INSTRUCTION) {
+        if (_stackCall.getBreakPointInfo().getBreakPointInputInfo().getStep() == StepDbgActionEnum.NEXT_INSTRUCTION && okStack(_context, _stackCall)) {
             return StopDbgEnum.STEP_NEXT_INSTRUCTION;
         }
         if (stopTmp(_context, _stackCall, _p)) {
@@ -793,32 +797,38 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         if (_bp == null) {
             return false;
         }
-        for (AbsCallContraints e: _bp.getExclude().elts()) {
-            if (!excOk(_context,_stackCall,e)) {
+        return okStack(0,_context, _stackCall, _bp.getExclude(), _bp.getInclude());
+    }
+
+    private static boolean okStack(ContextEl _context, StackCall _stackCall) {
+        BreakPointBlockList l_ = _context.getBreakPointsBlock();
+        int pr_ = _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getPreviousNbPages();
+        int m_ = NumberUtil.max(0, pr_);
+        AbsCollection<AbsCallContraints> cts_;
+        if (pr_ < _stackCall.nbPages()) {
+            cts_ = l_.getInclude();
+        } else {
+            cts_ = l_.getInclude().intercept().newExecFileBlockTraceIndexCollection();
+        }
+        return okStack(m_,_context,_stackCall, l_.getExclude(),cts_);
+    }
+    private static boolean okStack(int _f, ContextEl _context, StackCall _stackCall, AbsCollection<AbsCallContraints> _exc, AbsCollection<AbsCallContraints> _inc) {
+        for (AbsCallContraints e: _exc.elts()) {
+            if (existMatch(_f, _context, _stackCall, e)) {
                 return false;
             }
         }
-        for (AbsCallContraints e: _bp.getInclude().elts()) {
-            if (!incOk(_context,_stackCall,e)) {
+        for (AbsCallContraints e: _inc.elts()) {
+            if (!existMatch(0, _context, _stackCall, e)) {
                 return false;
             }
         }
         return true;
     }
 
-    private static boolean excOk(ContextEl _context, StackCall _stackCall, AbsCallContraints _elt) {
+    private static boolean existMatch(int _f, ContextEl _context, StackCall _stackCall, AbsCallContraints _elt) {
         int nb_ = _stackCall.nbPages();
-        for (int i = 0; i < nb_; i++) {
-            AbstractPageEl e_ = _stackCall.getCall(i);
-            if (_elt.match(_context,e_)){
-                return false;
-            }
-        }
-        return true;
-    }
-    private static boolean incOk(ContextEl _context, StackCall _stackCall, AbsCallContraints _elt) {
-        int nb_ = _stackCall.nbPages();
-        for (int i = 0; i < nb_; i++) {
+        for (int i = _f; i < nb_; i++) {
             AbstractPageEl e_ = _stackCall.getCall(i);
             if (_elt.match(_context,e_)){
                 return true;

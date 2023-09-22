@@ -255,6 +255,10 @@ public abstract class ContextEl {
         return getClasses().getDebugMapping().getBreakPointsBlock().buildPar(_exact, _clName, _de);
     }
 
+    public BreakPointBlockList getBreakPointsBlock() {
+        return getClasses().getDebugMapping().getBreakPointsBlock();
+    }
+
     private static boolean koArr(String _solved, String _clName) {
         return !_solved.startsWith(StringExpUtil.ARR_CLASS) && !_clName.trim().isEmpty();
     }

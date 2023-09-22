@@ -484,6 +484,18 @@ public abstract class EquallableElAdvUtil {
     public static void bpFormStdRemExc(AbsDebuggerGui _w, int _index) {
         ((MockPlainButton) _w.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getExcludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
     }
+    public static void bpFormStdAddIncGl(AbsDebuggerGui _w) {
+        ((MockPlainButton)_w.getFramePoints().getStackConstraintsForm().getBpAddFile()).getActionListeners().get(0).action();
+    }
+    public static void bpFormStdAddExcGl(AbsDebuggerGui _w) {
+        ((MockPlainButton)_w.getFramePoints().getStackConstraintsForm().getBpRemoveFile()).getActionListeners().get(0).action();
+    }
+    public static void bpFormStdRemIncGl(AbsDebuggerGui _w, int _index) {
+        ((MockPlainButton) _w.getFramePoints().getStackConstraintsForm().getIncludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
+    }
+    public static void bpFormStdRemExcGl(AbsDebuggerGui _w, int _index) {
+        ((MockPlainButton) _w.getFramePoints().getStackConstraintsForm().getExcludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
+    }
     public static void bpFormOk(AbsDebuggerGui _w) {
         ((MockPlainButton)_w.getFramePoints().getFrameBpFormContent().getOk()).getActionListeners().get(0).action();
     }

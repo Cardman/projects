@@ -5,8 +5,8 @@ import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 
 public final class SelOpeningReadOnlyFile implements AbsOpeningReadOnlyFile {
-    private final GuiStackForm form;
-    public SelOpeningReadOnlyFile(GuiStackForm _f) {
+    private final StackConstraintsForm form;
+    public SelOpeningReadOnlyFile(StackConstraintsForm _f) {
         form = _f;
     }
     @Override

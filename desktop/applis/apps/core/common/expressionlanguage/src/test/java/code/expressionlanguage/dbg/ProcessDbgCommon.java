@@ -578,6 +578,32 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_, null, false);
     }
 
+    protected StackCallReturnValue stackInsViewStepExc(String _class, String _meth, String _excFile, int _excCaret, ResultContext _res) {
+        AbsCallContraints excOne_ = execFileBlockFct(_res, _excCaret, _excFile);
+        RootBlock ana_ = _res.getPageEl().getAnaClassBody("pkg.Ex0");
+        AbsCallContraints excTwo_ = fileBlockTraceIndex(_res, ana_.getFile().getFileName(), ana_.getIdRowCol());
+        CustList<AbsCallContraints> excList_ = new CustList<AbsCallContraints>();
+        excList_.add(excOne_);
+        excList_.add(excTwo_);
+        ExecFileBlockTraceIndex.setAll(_res.getBreakPointsBlock().getExclude(),excList_);
+        CustomFoundMethod state_ = state(_res, _class, _meth);
+        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_, null, false);
+    }
+
+    protected StackCallReturnValue stackInsViewStepInc(String _class, String _meth, String _excFile, int _excCaret, ResultContext _res) {
+        AbsCallContraints inc_ = execFileBlockFct(_res, _excCaret, _excFile);
+        RootBlock ana_ = _res.getPageEl().getAnaClassBody("pkg.Ex0");
+        AbsCallContraints exc_ = fileBlockTraceIndex(_res, ana_.getFile().getFileName(), ana_.getIdRowCol());
+        CustList<AbsCallContraints> incList_ = new CustList<AbsCallContraints>();
+        CustList<AbsCallContraints> excList_ = new CustList<AbsCallContraints>();
+        incList_.add(inc_);
+        excList_.add(exc_);
+        ExecFileBlockTraceIndex.setAll(_res.getBreakPointsBlock().getInclude(),incList_);
+        ExecFileBlockTraceIndex.setAll(_res.getBreakPointsBlock().getExclude(),excList_);
+        CustomFoundMethod state_ = state(_res, _class, _meth);
+        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, state_, null, false);
+    }
+
     protected ExecFileBlockTraceIndex fileBlockTraceIndex(ResultContext _res, String _name, int _caret) {
         return new ExecFileBlockTraceIndex(_res.getFiles().getVal(file(_res, _name)), FileBlock.number(file(_res, _name)), _caret);
     }

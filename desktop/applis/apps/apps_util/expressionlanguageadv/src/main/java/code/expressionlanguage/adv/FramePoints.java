@@ -18,6 +18,8 @@ public final class FramePoints {
     private final FrameOperNatFormContent frameOperNatFormContent;
     private final FramePointsTree framePointsTree;
     private AbsScrollPane view;
+    private final StackConstraintsForm stackConstraintsForm;
+    private AbsPlainButton validStack;
 
     public FramePoints(AbsDebuggerGui _d, String _lg, AbstractProgramInfos _list) {
         framePointsTree = new FramePointsTree(_d.getCompoFactory());
@@ -31,14 +33,19 @@ public final class FramePoints {
         frameArrFormContent = new FrameArrFormContent(_list);
         frameParFormContent = new FrameParFormContent(_list);
         frameOperNatFormContent = new FrameOperNatFormContent(_list);
+        stackConstraintsForm = new StackConstraintsForm();
     }
     public void guiBuild(AbsDebuggerGui _d) {
         view = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
-        AbsPanel all_ = _d.getCommonFrame().getFrames().getCompoFactory().newLineBox();
+        AbsPanel pointsKeys_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         framePointsTree.guiBuild();
-        all_.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(framePointsTree.getTree()));
-        all_.add(framePointsTree.getCreate());
-        all_.add(view);
+        pointsKeys_.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(framePointsTree.getTree()));
+        pointsKeys_.add(framePointsTree.getCreate());
+        AbsPanel pageStack_ = stackConstraintsForm.guiBuild(_d);
+        validStack = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("validate constraints stack for stepping into");
+        pageStack_.add(validStack);
+        AbsPanel all_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        all_.add(_d.getCommonFrame().getFrames().getCompoFactory().newVerticalSplitPane(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(pointsKeys_,view)),commonFrame.getFrames().getCompoFactory().newAbsScrollPane(pageStack_)));
         commonFrame.setContentPane(all_);
         frameExcFormContent.guiBuild(_d);
         frameStdFormContent.guiBuild(_d);
@@ -66,6 +73,11 @@ public final class FramePoints {
         frameArrFormContent.refresh(_v, _r, _d, this);
         frameParFormContent.refresh(_v, _r, _d, this);
         frameOperNatFormContent.refresh(_v, _r, _d, this);
+        stackConstraintsForm.refresh(_v,"",_r,_d);
+        GuiBaseUtil.removeActionListeners(validStack);
+        validStack.addActionListener(new ValidateStepStackConstraintsEvent(_r,this));
+        BreakPointFormEvent.feed(stackConstraintsForm.getMustBe(), _r.getBreakPointsBlock().getInclude());
+        BreakPointFormEvent.feed(stackConstraintsForm.getMustNotBe(), _r.getBreakPointsBlock().getExclude());
     }
     public void init(AbsDebuggerGui _d, ResultContext _res) {
         if (commonFrame.isVisible()) {
@@ -200,6 +212,14 @@ public final class FramePoints {
 
     public FrameParFormContent getFrameParFormContent() {
         return frameParFormContent;
+    }
+
+    public StackConstraintsForm getStackConstraintsForm() {
+        return stackConstraintsForm;
+    }
+
+    public AbsPlainButton getValidStack() {
+        return validStack;
     }
 
     public AbsCommonFrame getCommonFrame() {

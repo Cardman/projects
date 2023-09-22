@@ -34,6 +34,8 @@ public final class BreakPointBlockList {
     private final AbsCollection<StdMethodPointBlockPair> stdMethPointList;
     private final AbsCollection<ParPointBlockPair> parPointList;
     private final AbsCollection<OperNatPointBlockPair> operNatPointList;
+    private final AbsCollection<AbsCallContraints> exclude;
+    private final AbsCollection<AbsCallContraints> include;
 
     public BreakPointBlockList(AbstractInterceptorStdCaller _i) {
         interceptor = _i;
@@ -47,6 +49,8 @@ public final class BreakPointBlockList {
         stdMethPointList = _i.newStdMethodPointKeyStringCollection();
         operNatPointList = _i.newOperNatPointKeyStringCollection();
         pausedLoop = _i.newAtBool();
+        exclude = _i.newExecFileBlockTraceIndexCollection();
+        include = _i.newExecFileBlockTraceIndexCollection();
     }
 
     public static int pref(AbsCollection<MethodPointBlockPair> _p, boolean _exit) {
@@ -329,7 +333,13 @@ public final class BreakPointBlockList {
     public AbsCollection<OperNatPointBlockPair> getOperNatPointList() {
         return operNatPointList;
     }
+    public AbsCollection<AbsCallContraints> getExclude() {
+        return exclude;
+    }
 
+    public AbsCollection<AbsCallContraints> getInclude() {
+        return include;
+    }
     public AbsCollection<BreakPointBlockKey> getListTmp() {
         return listTmp;
     }

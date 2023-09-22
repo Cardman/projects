@@ -5,11 +5,11 @@ import code.gui.AbsCommonFrame;
 import code.gui.events.AbsActionListener;
 
 public final class RemoveExcludeEvent implements AbsActionListener {
-    private final GuiStackForm form;
+    private final StackConstraintsForm form;
     private final AbsCallContraints elt;
     private final AbsCommonFrame commonFrame;
 
-    public RemoveExcludeEvent(GuiStackForm _f, AbsCallContraints _l, AbsCommonFrame _com) {
+    public RemoveExcludeEvent(StackConstraintsForm _f, AbsCallContraints _l, AbsCommonFrame _com) {
         this.form = _f;
         this.commonFrame = _com;
         this.elt = _l;
@@ -17,7 +17,7 @@ public final class RemoveExcludeEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        GuiStackForm.remove(form.getMustNotBe(), elt);
+        StackConstraintsForm.remove(form.getMustNotBe(), elt);
         form.actualiseLists(commonFrame);
     }
 }

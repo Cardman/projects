@@ -5,10 +5,10 @@ import code.gui.events.AbsActionListener;
 
 public final class AddExcludeEvent implements AbsActionListener {
     private final AbsDebuggerGui window;
-    private final GuiStackForm form;
+    private final StackConstraintsForm form;
     private final ResultContext currentResult;
 
-    public AddExcludeEvent(GuiStackForm _f, AbsDebuggerGui _w, ResultContext _res) {
+    public AddExcludeEvent(StackConstraintsForm _f, AbsDebuggerGui _w, ResultContext _res) {
         this.form = _f;
         this.window = _w;
         currentResult = _res;

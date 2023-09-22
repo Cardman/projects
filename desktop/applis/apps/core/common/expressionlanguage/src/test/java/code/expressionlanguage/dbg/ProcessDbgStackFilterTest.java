@@ -237,6 +237,66 @@ public final class ProcessDbgStackFilterTest extends ProcessDbgCommon {
         assertEq(0,dbgNormal("pkg.Ex2",getMethodId("exmeth"),res_,cont_.getStack()).nbPages());
     }
     @Test
+    public void test26() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex0", "public class pkg.Ex0 {int i;public Ex0(){i=id(i);}public static int id(int i){return i;}}public class pkg.Ex1 {public static int exmeth(){new Ex0();return 1;}}");
+        ResultContext res_ = ctxStd("pkg.Ex0", 138, files_);
+        StackCallReturnValue sta_ = stackInsViewStepExc("pkg.Ex1", "exmeth", "pkg/Ex0", 28, res_);
+        assertEq(1, sta_.getStack().nbPages());
+        assertEq(138, now(sta_.getStack()));
+        dbgContinueNormalValueNextInst(sta_.getStack(), res_.getContext());
+        assertEq(1,sta_.getStack().nbPages());
+        assertEq(155,now(sta_.getStack()));
+        dbgContinueNormalValueNextInst(sta_.getStack(), res_.getContext());
+        assertEq(0,sta_.getStack().nbPages());
+    }
+    @Test
+    public void test27() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex0", "public class pkg.Ex0 {int i;public Ex0(){i=id(i);}public Ex0(int i){this.i=id(i);}public static int id(int i){return i;}}public class pkg.Ex1 {public static int exmeth(){new Ex0();new Ex0(0);return 1;}}");
+        ResultContext res_ = ctxStd("pkg.Ex0", 170, files_);
+        StackCallReturnValue sta_ = stackInsViewStepExc("pkg.Ex1", "exmeth", "pkg/Ex0", 28, res_);
+        assertEq(1, sta_.getStack().nbPages());
+        assertEq(170, now(sta_.getStack()));
+        dbgContinueNormalValueNextInst(sta_.getStack(), res_.getContext());
+        assertEq(1,sta_.getStack().nbPages());
+        assertEq(180,now(sta_.getStack()));
+        dbgContinueNormalValueNextInst(sta_.getStack(), res_.getContext());
+        assertEq(2,sta_.getStack().nbPages());
+        assertEq(68,now(sta_.getStack()));
+        dbgContinueNormalValueNextInst(sta_.getStack(), res_.getContext());
+        assertEq(3,sta_.getStack().nbPages());
+        assertEq(117,now(sta_.getStack()));
+        dbgContinueNormalValueNextInst(sta_.getStack(), res_.getContext());
+        assertEq(1,sta_.getStack().nbPages());
+        assertEq(198,now(sta_.getStack()));
+        dbgContinueNormalValueNextInst(sta_.getStack(), res_.getContext());
+        assertEq(0,sta_.getStack().nbPages());
+    }
+    @Test
+    public void test28() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex0", "public class pkg.Ex0 {int i;public Ex0(){i=id(i);}public Ex0(int i){this.i=id(i);}public static int id(int i){return i;}}public class pkg.Ex1 {public static int exmeth(){new Ex0();new Ex0(0);return 1;}}");
+        ResultContext res_ = ctxStd("pkg.Ex0", 170, files_);
+        StackCallReturnValue sta_ = stackInsViewStepInc("pkg.Ex1", "exmeth", "pkg/Ex0", 28, res_);
+        assertEq(1, sta_.getStack().nbPages());
+        assertEq(170, now(sta_.getStack()));
+        dbgContinueNormalValueNextInst(sta_.getStack(), res_.getContext());
+        assertEq(2,sta_.getStack().nbPages());
+        assertEq(41,now(sta_.getStack()));
+        dbgContinueNormalValueNextInst(sta_.getStack(), res_.getContext());
+        assertEq(3,sta_.getStack().nbPages());
+        assertEq(117,now(sta_.getStack()));
+        dbgContinueNormalValueNextInst(sta_.getStack(), res_.getContext());
+        assertEq(1,sta_.getStack().nbPages());
+        assertEq(180,now(sta_.getStack()));
+        dbgContinueNormalValueNextInst(sta_.getStack(), res_.getContext());
+        assertEq(1,sta_.getStack().nbPages());
+        assertEq(198,now(sta_.getStack()));
+        dbgContinueNormalValueNextInst(sta_.getStack(), res_.getContext());
+        assertEq(0,sta_.getStack().nbPages());
+    }
+    @Test
     public void f1() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex0", "public class pkg.Ex0 {public static int sup1(){return sub();}public static int sup2(){return sub();}public static int sup3(){return sub();}public static int sub(){return Ex2._();}}");

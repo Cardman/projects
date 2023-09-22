@@ -312,6 +312,9 @@ public final class ResultContext {
         return getContext().getFiles();
     }
 
+    public BreakPointBlockList getBreakPointsBlock() {
+        return getContext().getBreakPointsBlock();
+    }
     public boolean isWatch(boolean _trField,int _root, String _field) {
         return getContext().isWatch(_trField, _root, _field);
     }

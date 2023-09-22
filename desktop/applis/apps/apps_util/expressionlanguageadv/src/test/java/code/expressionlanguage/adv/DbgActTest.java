@@ -233,7 +233,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         bpForm(b_);
         bpFormStdAddExc(b_);
         bpFormStdAddInc(b_);
-        GuiStackForm.remove(new CustList<AbsCallContraints>(),null);
+        StackConstraintsForm.remove(new CustList<AbsCallContraints>(),null);
         assertEq(0,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getMustBe().size());
         assertEq(0,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getMustNotBe().size());
     }
@@ -2790,6 +2790,353 @@ public final class DbgActTest extends EquallableElAdvUtil {
         addOperNatOk(b_);
         assertTrue(curRet(b_).getContext().operNatList().elts().iterator().hasNext());
     }
+    @Test
+    public void bp146() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExcGl(b_);
+        assertEq(0,b_.getFramePoints().getStackConstraintsForm().getMustBe().size());
+        assertEq(1,b_.getFramePoints().getStackConstraintsForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp147() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddIncGl(b_);
+        assertEq(1,b_.getFramePoints().getStackConstraintsForm().getMustBe().size());
+        assertEq(0,b_.getFramePoints().getStackConstraintsForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp148() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExcGl(b_);
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(56,56);
+        bpFormStdAddExcGl(b_);
+        assertEq(0,b_.getFramePoints().getStackConstraintsForm().getMustBe().size());
+        assertEq(2,b_.getFramePoints().getStackConstraintsForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp149() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddIncGl(b_);
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(56,56);
+        bpFormStdAddIncGl(b_);
+        assertEq(2,b_.getFramePoints().getStackConstraintsForm().getMustBe().size());
+        assertEq(0,b_.getFramePoints().getStackConstraintsForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp150() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExcGl(b_);
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExcGl(b_);
+        assertEq(0,b_.getFramePoints().getStackConstraintsForm().getMustBe().size());
+        assertEq(2,b_.getFramePoints().getStackConstraintsForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp151() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddIncGl(b_);
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddIncGl(b_);
+        assertEq(2,b_.getFramePoints().getStackConstraintsForm().getMustBe().size());
+        assertEq(0,b_.getFramePoints().getStackConstraintsForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp152() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExcGl(b_);
+        bpFormStdAddExcGl(b_);
+        assertEq(0,b_.getFramePoints().getStackConstraintsForm().getMustBe().size());
+        assertEq(1,b_.getFramePoints().getStackConstraintsForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp153() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddIncGl(b_);
+        bpFormStdAddIncGl(b_);
+        assertEq(1,b_.getFramePoints().getStackConstraintsForm().getMustBe().size());
+        assertEq(0,b_.getFramePoints().getStackConstraintsForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp154() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExcGl(b_);
+        bpFormStdRemExcGl(b_,0);
+        assertEq(0,b_.getFramePoints().getStackConstraintsForm().getMustBe().size());
+        assertEq(0,b_.getFramePoints().getStackConstraintsForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp155() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddIncGl(b_);
+        bpFormStdRemIncGl(b_,0);
+        assertEq(0,b_.getFramePoints().getStackConstraintsForm().getMustBe().size());
+        assertEq(0,b_.getFramePoints().getStackConstraintsForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp156() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExcGl(b_);
+        t_.select(t_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddIncGl(b_);
+        assertEq(1,b_.getFramePoints().getStackConstraintsForm().getMustBe().size());
+        assertEq(1,b_.getFramePoints().getStackConstraintsForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp157() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExcGl(b_);
+        bpFormStdAddIncGl(b_);
+        assertEq(1,b_.getFramePoints().getStackConstraintsForm().getMustBe().size());
+        assertEq(1,b_.getFramePoints().getStackConstraintsForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp158() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getSingleCaret().setSelected(false);
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExcGl(b_);
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(56,56);
+        bpFormStdAddExcGl(b_);
+        assertEq(0,b_.getFramePoints().getStackConstraintsForm().getMustBe().size());
+        assertEq(1,b_.getFramePoints().getStackConstraintsForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp159() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getSingleCaret().setSelected(false);
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddIncGl(b_);
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(56,56);
+        bpFormStdAddIncGl(b_);
+        assertEq(1,b_.getFramePoints().getStackConstraintsForm().getMustBe().size());
+        assertEq(0,b_.getFramePoints().getStackConstraintsForm().getMustNotBe().size());
+    }
+    @Test
+    public void bp160() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddExcGl(b_);
+        b_.getFramePoints().getValidStack().getActionListeners().get(0).action();
+        assertTrue(curRet(b_).getBreakPointsBlock().getExclude().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getBreakPointsBlock().getInclude().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp161() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file0.txt","public class pkg.Ex0 {public static int exmeth(){return 1;}}");
+        save(b_,src_,"src/file1.txt","public class pkg.Ex1 {public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        AbsTreeGui t_ = b_.getFramePoints().getStackConstraintsForm().getBpFolderSystem();
+        t_.select(null);
+        t_.select(t_.getRoot());
+        t_.select(t_.getRoot().getFirstChild());
+        t_.select(t_.getRoot().getFirstChild().getFirstChild());
+        b_.getFramePoints().getStackConstraintsForm().getReadOnlyFormTabEditor().getCenter().select(55,55);
+        bpFormStdAddIncGl(b_);
+        b_.getFramePoints().getValidStack().getActionListeners().get(0).action();
+        assertTrue(curRet(b_).getBreakPointsBlock().getInclude().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getBreakPointsBlock().getExclude().elts().iterator().hasNext());
+    }
+
     @Test
     public void syntheFilter1() {
         AbsDebuggerGui b_ = build();
