@@ -4388,7 +4388,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq(3,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
-        Struct str_ = TreeNodeRenderUtil.result(b_.getRoot().getNode().simular(node_).info(), b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = TreeNodeRenderUtil.result(null, b_.getRoot().getNode().simular(node_).info(), b_.getCompoFactory(), b_.getThreadFactory());
         assertEq("render",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4423,7 +4423,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        TreeNodeRenderUtil.result(info_, b_.getCompoFactory(), b_.getThreadFactory());
+        TreeNodeRenderUtil.result(null, info_, b_.getCompoFactory(), b_.getThreadFactory());
         assertEq("src/file.txt:1,158:157\n" +
                 "pkg.Ex..Inner.$toString()\n",info_.logs().getText());
     }
@@ -4459,7 +4459,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = TreeNodeRenderUtil.result(info_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = TreeNodeRenderUtil.result(null, info_, b_.getCompoFactory(), b_.getThreadFactory());
         assertNull(str_);
     }
     @Test
@@ -4494,7 +4494,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = TreeNodeRenderUtil.result(info_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = TreeNodeRenderUtil.result(null, info_, b_.getCompoFactory(), b_.getThreadFactory());
         assertEq("standard",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4529,7 +4529,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = TreeNodeRenderUtil.result(info_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = TreeNodeRenderUtil.result(null, info_, b_.getCompoFactory(), b_.getThreadFactory());
         assertEq("[int",((ArrayStruct)str_).getClassName());
         assertEq(1,((ArrayStruct)str_).getLength());
         assertEq(1, NumParsers.convertToNumber(((ArrayStruct)str_).get(0)).intStruct());
@@ -4568,10 +4568,375 @@ public final class DbgActTest extends EquallableElAdvUtil {
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         trDetail_.select(node_);
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = TreeNodeRenderUtil.result(info_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = TreeNodeRenderUtil.result(null, info_, b_.getCompoFactory(), b_.getThreadFactory());
         b_.getCallButtonsRender().get(0).getActionListeners().get(0).action();
         assertEq("render",((StringStruct)str_).getInstance());
         info_.stopButton().getActionListeners().get(0).action();
+    }
+    @Test
+    public void i30() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"to_str\";}}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        addRendOk(b_);
+        Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
+        assertEq("render",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i31() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"to_str\";}}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
+        addRendOk(b_);
+        Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
+        assertEq("to_str",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i32() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"to_str\";}}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        addRendOk(b_);
+        Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
+        assertEq("render",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i33() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){Ex.Inner i=null;return 0;}public class Inner{public String $toString(){return \"to_str\";}}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(81,81);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        addRendOk(b_);
+        Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
+        assertEq("render",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i34() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"to_str\";}}public class Inner2{}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner2");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        addRendOk(b_);
+        Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
+        assertEq("to_str",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i35() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"to_str\";}}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"+1/0");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        addRendOk(b_);
+        TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
+        assertEq(":1,11:10\n" +
+                "pkg.Ex..Inner..1()\n",i_.logs().getText());
+    }
+    @Test
+    public void ir1() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"render\";}}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        addRendOk(b_);
+        assertEq(1,b_.getRenderList().size());
+    }
+    @Test
+    public void ir2() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"render\";}}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("ExInex");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        addRendOk(b_);
+        assertEq(0,b_.getRenderList().size());
+    }
+    @Test
+    public void ir3() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"render\";}}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        addRendOk(b_);
+        editRend(b_, 0);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
+        addRendOk(b_);
+        assertEq(1,b_.getRenderList().size());
+        assertEq("\"render\"", b_.getRenderList().get(0).getRender().getResultStr());
+    }
+    @Test
+    public void ir4() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"render\";}}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        addRendOk(b_);
+        editRend(b_, 0);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
+        addRendRemove(b_);
+        assertEq(0,b_.getRenderList().size());
+    }
+    @Test
+    public void ir5() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"render\";}}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRendRemove(b_);
+        assertEq(0,b_.getRenderList().size());
+    }
+    @Test
+    public void ir6() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"render\";}}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        addRendOk(b_);
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        addRendOk(b_);
+        editRend(b_, 1);
+        addRendRemove(b_);
+        assertEq(1,b_.getRenderList().size());
     }
     @Test
     public void render() {
@@ -4605,7 +4970,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        new DbgRenderStrNodeTask(trDetail_,node_,info_,b_.getCompoFactory(), b_.getThreadFactory()).run();
+        new DbgRenderStrNodeTask(null, trDetail_,node_,info_,b_.getCompoFactory(), b_.getThreadFactory()).run();
         ((MockCompoFactory)b_.getCompoFactory()).invoke();
         assertFalse(node_.info().isEmpty());
     }

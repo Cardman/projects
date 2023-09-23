@@ -4,14 +4,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.syntax.FileBlockIndex;
-import code.expressionlanguage.exec.DefStackStopper;
-import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.ProcessMethod;
-import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.DisplayableStruct;
@@ -43,21 +41,32 @@ public final class TreeNodeRenderUtil {
     private TreeNodeRenderUtil() {
     }
 
-    static void renderNode(AbsTreeGui _tree, AbstractMutableTreeNodeCore<String> _tr, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
-        String res_ = resultWrap(_node, _compo, _th);
+    static void renderNode(ResultContextLambda _renderPointPairs, AbsTreeGui _tree, AbstractMutableTreeNodeCore<String> _tr, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+        String res_ = resultWrap(_renderPointPairs,_node, _compo, _th);
         String render_ = format(_node, res_);
         _compo.invokeLater(new FinalRenderingTask(_tree,_tr,render_));
     }
 
-    static String resultWrap(DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
-        Struct res_ = result(_node, _compo, _th);
+    static String resultWrap(ResultContextLambda _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+        Struct res_ = result(_renderPointPairs, _node, _compo, _th);
         return wrapValue(res_, _node.getResult());
     }
-    static Struct result(DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+    static Struct result(ResultContextLambda _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         ContextEl ctx_ = local(_node.getResult(), _th);
         AdvLogDbg logger_ = logger(_node, _compo, ctx_);
         StackCall st_ = StackCall.newInstance(new DefStackStopper(logger_), InitPhase.NOTHING, ctx_, ctx_.getExecutionInfos().getSeed());
         Struct str_ = _node.value();
+        if (_renderPointPairs != null) {
+            String clName_ = str_.getClassName(ctx_);
+            StackCallReturnValue result_ = _renderPointPairs.eval(ctx_, new CoreCheckedExecOperationNodeInfos(ExecFormattedRootBlock.build(clName_, ctx_.getClasses()), str_), null);
+            CallingState stateAfter_ = result_.getStack().getCallingState();
+            if (stateAfter_ != null) {
+                for (String l: ResultContextLambda.traceView(result_.getStack(),ctx_)) {
+                    logger_.log(l);
+                }
+            }
+            return ExecCatOperation.getDisplayable(result_.getStack().aw().getValue(),ctx_);
+        }
         IndirectCalledFctUtil.processString(ArgumentListCall.toStr(str_), ctx_, st_);
         CallingState state_ = st_.getCallingState();
         Struct res_;

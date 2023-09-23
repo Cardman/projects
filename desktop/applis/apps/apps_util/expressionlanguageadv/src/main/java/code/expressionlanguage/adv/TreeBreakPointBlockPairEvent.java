@@ -1,7 +1,9 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.options.ResultContext;
+import code.gui.AbsPlainButton;
 import code.gui.AbsShortListTree;
+import code.gui.AbsTreeGui;
 import code.gui.AbstractMutableTreeNodeCore;
 import code.util.Ints;
 
@@ -49,12 +51,22 @@ public final class TreeBreakPointBlockPairEvent implements AbsShortListTree {
         return _c.getIndex();
     }
     static AbstractMutableTreeNodeCore<String> indexes(FramePointsTree _f, AbstractMutableTreeNodeCore<String> _node, Ints _is) {
+        return indexes(_f.getTree(),_f.getCreate(),_node,_is);
+    }
+
+    static AbstractMutableTreeNodeCore<String> indexes(AbsTreeGui _f, AbsPlainButton _b, AbstractMutableTreeNodeCore<String> _node, Ints _is) {
         AbstractMutableTreeNodeCore<String> ch_ = _node;
-        _f.getCreate().setEnabled(false);
+        if (_b != null) {
+            _b.setEnabled(false);
+        }
         while (ch_ != null) {
             AbstractMutableTreeNodeCore<String> par_ = ch_.getParent();
-            if (par_ == _f.getTree().getRoot()) {
-                _f.getCreate().setEnabled(ch_ == _node);
+            if (par_ == _f.getRoot()) {
+                if (_b != null) {
+                    _b.setEnabled(ch_ == _node);
+                } else {
+                    _is.add(0,ch_.getIndex());
+                }
                 break;
             }
             _is.add(0,ch_.getIndex());

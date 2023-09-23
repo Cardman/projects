@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.dbg.BreakPointBlockKey;
 import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.expressionlanguage.utilimpl.ManageOptions;
@@ -71,6 +72,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private final AbsOpenFrameInteract menuManage;
     private AbsScrollPane statusDbgAreaScroll;
     private AbsScrollPane statusDbgAreaScrollRender;
+    private CustList<RenderPointPair> renderList = new CustList<RenderPointPair>();
+    private AbstractInterceptorStdCaller caller;
 
     protected AbsDebuggerGui(AbsOpenFrameInteract _m, AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a,_lg,_list);
@@ -264,7 +267,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             callButtons.clear();
             callButtonsRender.clear();
             root = new DbgRootStruct(ctx_, null);
-            treeDetail = root.buildReturn(getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory(), view_.getStack().aw());
+            treeDetail = root.buildReturn(renderList,getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory(), view_.getStack().aw());
             AbsPlainButton shRend_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton("show render");
             shRend_.addActionListener(new DbgSelectNodeLogEvent(root,treeDetail,statusDbgAreaScrollRender));
             callStackRender.add(shRend_);
@@ -288,7 +291,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             String dis_ = p_.getStackElt().getDisplayedString(ctx_).getInstance();
             DbgRootStruct r_ = new DbgRootStruct(ctx_, null);
             root = r_;
-            AbsTreeGui b_ = r_.build(getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory(), p_, stackCall.getBreakPointInfo().getBreakPointOutputInfo());
+            AbsTreeGui b_ = r_.build(renderList,getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory(), p_, stackCall.getBreakPointInfo().getBreakPointOutputInfo());
             treeDetail = b_;
             AbsPlainButton but_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton(dis_);
             callButtons.add(but_);
@@ -382,6 +385,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             selectEnter.setEnabled(true);
             navigation.setVisible(true);
         }
+        caller = _res.getContext().getCaller();
+        renderList = new CustList<RenderPointPair>();
         stopDbg = _res.getContext().getInterrupt();
         openPoints.setEnabled(true);
         GuiBaseUtil.removeActionListeners(selectEnter);
@@ -468,6 +473,15 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         }
         return getTabs().get(ind_);
     }
+
+    public AbstractInterceptorStdCaller getCaller() {
+        return caller;
+    }
+
+    public CustList<RenderPointPair> getRenderList() {
+        return renderList;
+    }
+
     public AbsTreeGui getTree() {
         return getFolderSystem();
     }

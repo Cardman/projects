@@ -1135,6 +1135,27 @@ public abstract class EquallableElAdvUtil {
         invokeAndClear(_w.getCommonFrame().getFrames());
     }
 
+    public static void addRend(AbsDebuggerGui _g) {
+        AbsTreeGui tr_ = _g.getFramePoints().getTree();
+        tr_.select(tr_.getRoot());
+        assertTrue(_g.getFramePoints().getCreate().isEnabled());
+        ((MockPlainButton)_g.getFramePoints().getCreate()).getActionListeners().get(0).action();
+//        ((MockPlainButton)_g.getFramePoints().getAddExc()).getActionListeners().get(0).action();
+    }
+
+    public static void addRendOk(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getFrameRenderFormContent().getOk()).getActionListeners().get(0).action();
+    }
+
+    public static void editRend(AbsDebuggerGui _g, int _v) {
+        AbsTreeGui tr_ = _g.getFramePoints().getTree();
+        tr_.select(tr_.getRoot().getChildAt(0).getChildAt(_v));
+//        ((MockPlainButton)_g.getFramePoints().getExcFrom().getComponent(_v)).getActionListeners().get(0).action();
+    }
+
+    public static void addRendRemove(AbsDebuggerGui _g) {
+        ((MockPlainButton)_g.getFramePoints().getFrameRenderFormContent().getRemove()).getActionListeners().get(0).action();
+    }
     protected static OutputDialogComments comments(WindowCdmEditor _w) {
         ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) _w.getCommentsMenu()).getActionListeners().get(0);
         ev_.action();

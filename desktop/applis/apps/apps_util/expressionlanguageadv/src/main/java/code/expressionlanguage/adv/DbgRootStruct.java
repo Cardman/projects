@@ -17,7 +17,7 @@ public final class DbgRootStruct extends DbgAbsNodeStruct {
     public DbgRootStruct(ContextEl _r, DbgAbsNodeStruct _par) {
         super(_r,_par);
     }
-    AbsTreeGui buildReturn(AbsCompoFactory _compo, AbstractThreadFactory _th, ArgumentWrapper _val) {
+    AbsTreeGui buildReturn(CustList<RenderPointPair> _renderList, AbsCompoFactory _compo, AbstractThreadFactory _th, ArgumentWrapper _val) {
         AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode("");
         DbgAbsNodeStruct result_;
         if (_val.getWrapper() != null) {
@@ -29,10 +29,10 @@ public final class DbgRootStruct extends DbgAbsNodeStruct {
         getNode().add(result_.getNode());
         root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(result_)));
         AbsTreeGui tree_ = _compo.newTreeGui(root_);
-        tree_.addTreeSelectionListener(new DbgSelectNodeEvent(tree_, this, _compo,_th));
+        tree_.addTreeSelectionListener(new DbgSelectNodeEvent(_renderList,tree_, this, _compo,_th));
         return tree_;
     }
-    AbsTreeGui build(AbsCompoFactory _compo, AbstractThreadFactory _th, ViewPage _stView, BreakPointOutputInfo _infos) {
+    AbsTreeGui build(CustList<RenderPointPair> _renderList, AbsCompoFactory _compo, AbstractThreadFactory _th, ViewPage _stView, BreakPointOutputInfo _infos) {
         AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode("");
         ContextEl s_ = _infos.getSubContext();
         if (s_ != null) {
@@ -63,7 +63,7 @@ public final class DbgRootStruct extends DbgAbsNodeStruct {
             root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(nodeVar_)));
         }
         AbsTreeGui tree_ = _compo.newTreeGui(root_);
-        tree_.addTreeSelectionListener(new DbgSelectNodeEvent(tree_, this, _compo,_th));
+        tree_.addTreeSelectionListener(new DbgSelectNodeEvent(_renderList,tree_, this, _compo,_th));
         return tree_;
     }
 

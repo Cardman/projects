@@ -174,8 +174,8 @@ public final class FramePointsTree {
     }
     public void refreshException(ResultContext _res) {
         exception.removeAllChildren();
-        for (EntryCust<String, CustList<ExcPointBlockKey>> p: sortedExc(_res).entryList()) {
-            AbstractMutableTreeNodeCore<String> file_ = node(p.getKey(), p.getValue());
+        for (EntryCust<String, CustList<ExcPointBlockKey>> p: sortedExc(excList, _res.getContext().excList()).entryList()) {
+            AbstractMutableTreeNodeCore<String> file_ = node(p.getKey(), p.getValue(), compoFactory);
             exception.add(file_);
         }
         tree.reload(exception);
@@ -183,7 +183,7 @@ public final class FramePointsTree {
     public void refreshParent(ResultContext _res) {
         parentPoints.removeAllChildren();
         for (EntryCust<String, CustList<ExcPointBlockKey>> p: sortedPar(_res).entryList()) {
-            AbstractMutableTreeNodeCore<String> file_ = node(p.getKey(), p.getValue());
+            AbstractMutableTreeNodeCore<String> file_ = node(p.getKey(), p.getValue(), compoFactory);
             parentPoints.add(file_);
         }
         tree.reload(parentPoints);
@@ -203,13 +203,13 @@ public final class FramePointsTree {
     public void refreshArray(ResultContext _res) {
         arrayPoints.removeAllChildren();
         for (EntryCust<String, CustList<ExcPointBlockKey>> p: sortedArr(_res).entryList()) {
-            AbstractMutableTreeNodeCore<String> file_ = node(p.getKey(), p.getValue());
+            AbstractMutableTreeNodeCore<String> file_ = node(p.getKey(), p.getValue(), compoFactory);
             arrayPoints.add(file_);
         }
         tree.reload(arrayPoints);
     }
 
-    private AbstractMutableTreeNodeCore<String> node(String _key, CustList<ExcPointBlockKey> _value) {
+    static AbstractMutableTreeNodeCore<String> node(String _key, CustList<ExcPointBlockKey> _value, AbsCompoFactory _compo) {
         CustList<ExcPointBlockKey> listId_ = new CustList<ExcPointBlockKey>();
         CustList<ExcPointBlockKey> listExact_ = new CustList<ExcPointBlockKey>();
         for (ExcPointBlockKey e: _value) {
@@ -217,24 +217,24 @@ public final class FramePointsTree {
         }
         listId_.sortElts(new CmpLocalFileExcPoint());
         listExact_.sortElts(new CmpLocalFileExcPoint());
-        return node(listId_, listExact_, _key);
+        return node(listId_, listExact_, _key, _compo);
     }
 
-    private NatStringTreeMap<CustList<ExcPointBlockKey>> sortedExc(ResultContext _res) {
-        excList.clear();
-        for (ExcPointBlockPair p: _res.getContext().excList().elts()) {
+    static NatStringTreeMap<CustList<ExcPointBlockKey>> sortedExc(NatStringTreeMap<CustList<ExcPointBlockPair>> _exListMap, AbsCollection<ExcPointBlockPair> _exCollection) {
+        _exListMap.clear();
+        for (ExcPointBlockPair p: _exCollection.elts()) {
             String className_ = StringExpUtil.getIdFromAllTypes(p.getEp().getClName());
-            CustList<ExcPointBlockPair> alreadyExc_ = excList.getVal(className_);
+            CustList<ExcPointBlockPair> alreadyExc_ = _exListMap.getVal(className_);
             if (alreadyExc_ == null) {
                 CustList<ExcPointBlockPair> local_ = new CustList<ExcPointBlockPair>();
                 local_.add(p);
-                excList.put(className_, local_);
+                _exListMap.put(className_, local_);
             } else {
                 alreadyExc_.add(p);
             }
         }
         NatStringTreeMap<CustList<ExcPointBlockKey>> excList_ = new NatStringTreeMap<CustList<ExcPointBlockKey>>();
-        for (EntryCust<String,CustList<ExcPointBlockPair>> e: excList.entryList()) {
+        for (EntryCust<String,CustList<ExcPointBlockPair>> e: _exListMap.entryList()) {
             CustList<ExcPointBlockKey> synth_ = new CustList<ExcPointBlockKey>();
             for (ExcPointBlockPair f: e.getValue()) {
                 synth_.add(f.getEp());
@@ -242,6 +242,30 @@ public final class FramePointsTree {
             excList_.addEntry(e.getKey(), synth_);
         }
         return excList_;
+    }
+
+    static NatStringTreeMap<CustList<ExcPointBlockKey>> sortedRend(NatStringTreeMap<CustList<RenderPointPair>> _reListMap, CustList<RenderPointPair> _exCollection) {
+        _reListMap.clear();
+        for (RenderPointPair p: _exCollection) {
+            String className_ = StringExpUtil.getIdFromAllTypes(p.getExcPointBlockPair().getEp().getClName());
+            CustList<RenderPointPair> alreadyRec_ = _reListMap.getVal(className_);
+            if (alreadyRec_ == null) {
+                CustList<RenderPointPair> local_ = new CustList<RenderPointPair>();
+                local_.add(p);
+                _reListMap.put(className_, local_);
+            } else {
+                alreadyRec_.add(p);
+            }
+        }
+        NatStringTreeMap<CustList<ExcPointBlockKey>> recList_ = new NatStringTreeMap<CustList<ExcPointBlockKey>>();
+        for (EntryCust<String,CustList<RenderPointPair>> e: _reListMap.entryList()) {
+            CustList<ExcPointBlockKey> synth_ = new CustList<ExcPointBlockKey>();
+            for (RenderPointPair f: e.getValue()) {
+                synth_.add(f.getExcPointBlockPair().getEp());
+            }
+            recList_.addEntry(e.getKey(), synth_);
+        }
+        return recList_;
     }
 
     private NatStringTreeMap<CustList<ExcPointBlockKey>> sortedPar(ResultContext _res) {
@@ -291,18 +315,18 @@ public final class FramePointsTree {
         }
         return excList_;
     }
-    private AbstractMutableTreeNodeCore<String> node(CustList<ExcPointBlockKey> _listId, CustList<ExcPointBlockKey> _listExact, String _key) {
-        AbstractMutableTreeNodeCore<String> file_ = compoFactory.newMutableTreeNode(_key);
+    static AbstractMutableTreeNodeCore<String> node(CustList<ExcPointBlockKey> _listId, CustList<ExcPointBlockKey> _listExact, String _key, AbsCompoFactory _compo) {
+        AbstractMutableTreeNodeCore<String> file_ = _compo.newMutableTreeNode(_key);
         for (ExcPointBlockKey l: _listId) {
-            file_.add(compoFactory.newMutableTreeNode("all types family in "+l.getClName()));
+            file_.add(_compo.newMutableTreeNode("all types family in "+l.getClName()));
         }
         for (ExcPointBlockKey l: _listExact) {
-            file_.add(compoFactory.newMutableTreeNode("exact type "+l.getClName()));
+            file_.add(_compo.newMutableTreeNode("exact type "+l.getClName()));
         }
         return file_;
     }
 
-    private void feedList(CustList<ExcPointBlockKey> _listId, CustList<ExcPointBlockKey> _listExact, ExcPointBlockKey _ep) {
+    static void feedList(CustList<ExcPointBlockKey> _listId, CustList<ExcPointBlockKey> _listExact, ExcPointBlockKey _ep) {
         if (!_ep.isExact()) {
             _listId.add(_ep);
         } else {
