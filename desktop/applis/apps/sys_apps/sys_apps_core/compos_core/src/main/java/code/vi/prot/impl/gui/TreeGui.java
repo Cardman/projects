@@ -117,16 +117,17 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
 
     @Override
     public void reloadRoot() {
-        model.reload();
+        tree.repaint();
     }
 
     @Override
     public void reload(AbstractMutableTreeNodeCore<String> _node) {
-        model.reload(convert(_node));
+        tree.repaint();
     }
 
     @Override
     public void info(AbstractMutableTreeNodeCore<String> _node, String _v) {
+        _node.info(StringUtil.nullToEmpty(_v));
         model.valueForPathChanged(getTreePath(((DefMutableTreeNode)_node).node()), StringUtil.nullToEmpty(_v));
     }
 
