@@ -64,6 +64,7 @@ public final class ResultExpressionOperationNode {
             for (NamedCalledFunctionBlock i: _trField.getRoot().getAnnotationsMethodsBlocks()) {
                 if (StringUtil.quickEq(i.getName(), _trField.getWp().fieldName())) {
                     field(a_, _trField.getRoot(), false);
+                    possibleSet(_setting, a_, i.getImportedReturnType());
                 }
             }
         }
@@ -76,16 +77,20 @@ public final class ResultExpressionOperationNode {
         for (InfoBlock i: ls_) {
             if (StringUtil.contains(i.getElements().getFieldName(), _trField.getWp().fieldName())) {
                 field(_a, _trField.getRoot(), i.isStaticField());
-                if (_setting == WatchPoint.BPC_WRITE || _setting == WatchPoint.BPC_COMPOUND_WRITE || _setting == WatchPoint.BPC_COMPOUND_WRITE_ERR) {
-                    String p_ = _a.getKeyWords().getKeyWordValue();
-                    AnaLocalVariable lv_ = new AnaLocalVariable();
-                    lv_.setClassName(i.getImportedClassName());
-                    lv_.setConstType(ConstType.PARAM);
-                    lv_.setFinalVariable(true);
-                    lv_.setKeyWord(true);
-                    _a.getCache().getLocalVariables().add(new AnaNamedLocalVariable(p_, lv_));
-                }
+                possibleSet(_setting, _a, i.getImportedClassName());
             }
+        }
+    }
+
+    private static void possibleSet(int _setting, AnalyzedPageEl _a, String _cl) {
+        if (_setting == WatchPoint.BPC_WRITE || _setting == WatchPoint.BPC_COMPOUND_WRITE || _setting == WatchPoint.BPC_COMPOUND_WRITE_ERR) {
+            String p_ = _a.getKeyWords().getKeyWordValue();
+            AnaLocalVariable lv_ = new AnaLocalVariable();
+            lv_.setClassName(_cl);
+            lv_.setConstType(ConstType.PARAM);
+            lv_.setFinalVariable(true);
+            lv_.setKeyWord(true);
+            _a.getCache().getLocalVariables().add(new AnaNamedLocalVariable(p_, lv_));
         }
     }
 

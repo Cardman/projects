@@ -53,6 +53,9 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock {
         if (_stack.stopAt(_cont)) {
             return;
         }
+        if (_stack.getStopper().isStopAtRef(_cont,_stack)) {
+            return;
+        }
         setValue(_cont,arg_, _last.getBlockRootType(), _stack);
         _last.clearCurrentEls();
         ExecHelperBlocks.processMemberBlock(_stack,_last);

@@ -17,6 +17,7 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
 
     private final StringMap<AnnotationTypeInfo> names;
     private final CustList<Argument> args;
+    private int indexSupplied = -1;
     public NewAnnotationPageEl(StringMap<AnnotationTypeInfo> _names, CustList<Argument> _args, ExecFormattedRootBlock _global) {
         super(_global);
         names = _names;
@@ -27,11 +28,18 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
         if (!checkCondition(_stack)) {
             return;
         }
+        if (indexSupplied < 0) {
+            indexSupplied = 0;
+        }
         //set fields for annotation after calculating default one
         int len_ = NumberUtil.min(names.size(),args.size());
         Struct str_ = getGlobalStruct();
         String className_ = str_.getClassName(_context);
-        for (int i = 0; i <len_; i++) {
+        for (int i = indexSupplied; i <len_; i++) {
+            if (_stack.getStopper().isStopAtRef(_context,_stack)) {
+                indexSupplied = i;
+                return;
+            }
             String name_ = names.getKey(i);
             Argument value_ = args.get(i);
             AnnotationTypeInfo i_ = names.getValue(i);
@@ -43,14 +51,28 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
                 if (_context.callsOrException(_stack)) {
                     return;
                 }
+                _stack.getBreakPointInfo().getStackState().visitedNone();
                 continue;
             }
             ExecAnnotationMethodBlock.setValue(getBlockRootType(),className_,name_,t_,_context,value_, _stack);
             if (_context.callsOrException(_stack)) {
                 return;
             }
+            _stack.getBreakPointInfo().getStackState().visitedNone();
         }
+        indexSupplied = len_;
         _stack.nullReadWrite();
     }
 
+    public StringMap<AnnotationTypeInfo> getNames() {
+        return names;
+    }
+
+    public CustList<Argument> getArgs() {
+        return args;
+    }
+
+    public int getIndexSupplied() {
+        return indexSupplied;
+    }
 }

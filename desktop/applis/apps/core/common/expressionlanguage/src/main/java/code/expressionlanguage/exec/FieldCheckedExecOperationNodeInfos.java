@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.FieldWrapper;
 import code.expressionlanguage.exec.variables.InstanceFieldWrapper;
 import code.expressionlanguage.exec.variables.StaticFieldWrapper;
+import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
 import code.expressionlanguage.structs.FieldMetaInfo;
 import code.expressionlanguage.structs.Struct;
 
@@ -45,6 +46,9 @@ public final class FieldCheckedExecOperationNodeInfos extends CoreCheckedExecOpe
     }
 
     public FieldCheckedExecOperationNodeInfos(String _s, ContextEl _ctx, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {
+        this(_s,_ctx,_mode,_d,_i,_r,"");
+    }
+    public FieldCheckedExecOperationNodeInfos(String _s, ContextEl _ctx, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r, String _ip) {
         super(_d, _i, ArrCheckedExecOperationNodeInfos.cacheRightValue(_ctx,_r));
         this.staticField = false;
         this.checkFinalField = false;
@@ -53,8 +57,19 @@ public final class FieldCheckedExecOperationNodeInfos extends CoreCheckedExecOpe
         this.nbType = ExecRootBlock.numberType(root_);
         this.idClass = new ClassField(cl_,_s);
         this.modeField = _mode;
-        fieldType = new ExecTypeReturn(root_, "");
+        fieldType = new ExecTypeReturn(root_, _ip);
         trueField = false;
+    }
+    public FieldCheckedExecOperationNodeInfos(ContextEl _ctx, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r, ExecNamedFieldContent _content) {
+        super(_d, _i, ArrCheckedExecOperationNodeInfos.cacheRightValue(_ctx,_r));
+        this.staticField = false;
+        this.checkFinalField = false;
+        ExecRootBlock root_ = _content.getDeclaring();
+        this.nbType = ExecRootBlock.numberType(root_);
+        this.idClass = new ClassField(_content.getIdClass(),_content.getName());
+        this.modeField = _mode;
+        fieldType = new ExecTypeReturn(root_, _content.getType());
+        trueField = true;
     }
 
     public FieldCheckedExecOperationNodeInfos(ContextEl _ctx, FieldWrapper _s, int _mode, ExecFormattedRootBlock _d, Struct _i, Struct _r) {

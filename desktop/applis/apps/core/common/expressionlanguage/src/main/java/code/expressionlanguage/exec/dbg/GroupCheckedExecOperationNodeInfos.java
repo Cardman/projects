@@ -2,10 +2,13 @@ package code.expressionlanguage.exec.dbg;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.inherits.ExecInherits;
@@ -18,9 +21,12 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fcts.*;
+import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
+import code.util.StringMap;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class GroupCheckedExecOperationNodeInfos {
@@ -107,6 +113,15 @@ public final class GroupCheckedExecOperationNodeInfos {
             }
             String c_ = StringExpUtil.getPrettyArrayType(_last.formatVarType(((ExecAbstractArrayInstancingOperation)_o).getClassName()), indexes_ + ((ExecAbstractArrayInstancingOperation)_o).getCountArrayDims());
             return new ArrCheckedExecOperationNodeInfos(_context, c_, arr_);
+        }
+        ExecBlock curr_ = _last.getBlock();
+        if (curr_ instanceof ExecAnnotationMethodBlock) {
+            String n_ = ((ExecAnnotationMethodBlock) curr_).getName();
+            String ip_ = ((ExecAnnotationMethodBlock) curr_).getImportedReturnType();
+            if (_el.getIndex() >= _el.getArguments().size()) {
+                Struct instance_ = _last.getGlobalStruct();
+                return new FieldCheckedExecOperationNodeInfos(n_,_context,WatchPoint.BPC_WRITE,formatted(_context, _last.getBlockRootType(),instance_),instance_,ArgumentListCall.toStr(_el.getArgument()),ip_);
+            }
         }
         return null;
     }
@@ -493,10 +508,46 @@ public final class GroupCheckedExecOperationNodeInfos {
         } else if (!p_.isEmptyEl()){
             ExpressionLanguage el_ = p_.getLastEl();
             infos_ = expOper(el_, el_.getCurrentOper(), _context, p_);
+        } else if (p_ instanceof AbstractCallingInstancingPageEl) {
+            infos_ = initSupplFields(_context, (AbstractCallingInstancingPageEl) p_);
         } else {
             infos_ = null;
         }
         return infos_;
+    }
+
+    private static CoreCheckedExecOperationNodeInfos initSupplFields(ContextEl _ctx, AbstractCallingInstancingPageEl _p) {
+        if (_p instanceof NewAnnotationPageEl) {
+            int iSuppl_ = ((NewAnnotationPageEl) _p).getIndexSupplied();
+            StringMap<AnnotationTypeInfo> names_ = ((NewAnnotationPageEl) _p).getNames();
+            int len_ = NumberUtil.min(names_.size(), ((NewAnnotationPageEl) _p).getArgs().size());
+            if (iSuppl_ < 0||iSuppl_ >= len_) {
+                return null;
+            }
+            String name_ = names_.getKey(iSuppl_);
+            Argument value_ = ((NewAnnotationPageEl) _p).getArgs().get(iSuppl_);
+            AnnotationTypeInfo i_ = names_.getValue(iSuppl_);
+            String t_ = i_.getType();
+            Struct instance_ = _p.getGlobalStruct();
+            ExecRootBlock blockRootType_ = _p.getBlockRootType();
+            if (i_.isWrap()) {
+                ArrayStruct arr_ = ArrayStruct.instance(t_, new CustList<Argument>(value_));
+                return new FieldCheckedExecOperationNodeInfos(name_,_ctx,WatchPoint.BPC_WRITE,formatted(_ctx,blockRootType_,instance_),instance_,arr_,t_);
+            }
+            return new FieldCheckedExecOperationNodeInfos(name_,_ctx,WatchPoint.BPC_WRITE,formatted(_ctx,blockRootType_,instance_),instance_,ArgumentListCall.toStr(value_),t_);
+        }
+        if (_p instanceof NewRecordPageEl) {
+            int iSuppl_ = ((NewRecordPageEl) _p).getIndexSupplied();
+            int len_ = NumberUtil.min(((NewRecordPageEl) _p).getNamed().size(),((NewRecordPageEl) _p).getArgs().size());
+            if (iSuppl_ < 0||iSuppl_ >= len_) {
+                return null;
+            }
+            Struct instance_ = _p.getGlobalStruct();
+            ExecNamedFieldContent info_ = ((NewRecordPageEl) _p).getNamed().get(iSuppl_);
+            Argument value_ = ((NewRecordPageEl) _p).getArgs().get(iSuppl_);
+            return new FieldCheckedExecOperationNodeInfos(_ctx,WatchPoint.BPC_WRITE,formatted(_ctx,info_.getDeclaring(),instance_),instance_,ArgumentListCall.toStr(value_),info_);
+        }
+        return null;
     }
 
     private static OperNatCheckedExecOperationNodeInfos infosOperNat(ContextEl _context, StackCall _stackCall) {

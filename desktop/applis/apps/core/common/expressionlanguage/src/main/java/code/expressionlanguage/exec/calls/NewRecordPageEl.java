@@ -15,6 +15,7 @@ public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
 
     private final CustList<ExecNamedFieldContent> named;
     private final CustList<Argument> args;
+    private int indexSupplied = -1;
     public NewRecordPageEl(CustList<ExecNamedFieldContent> _named, CustList<Argument> _args, ExecFormattedRootBlock _global, CustList<ExecFormattedRootBlock> _ls) {
         super(_global, _ls);
         named = _named;
@@ -25,10 +26,17 @@ public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
         if (!checkCondition(_stack)) {
             return;
         }
+        if (indexSupplied < 0) {
+            indexSupplied = 0;
+        }
         //set fields for annotation after calculating default one
         int len_ = NumberUtil.min(named.size(),args.size());
         Argument gl_ = getGlobalArgument();
-        for (int i = 0; i <len_; i++) {
+        for (int i = indexSupplied; i <len_; i++) {
+            if (_stack.getStopper().isStopAtRef(_context,_stack)) {
+                indexSupplied = i;
+                return;
+            }
             ExecNamedFieldContent info_ = named.get(i);
             String id_ = info_.getIdClass();
             String name_ = info_.getName();
@@ -38,8 +46,21 @@ public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
             if (_context.callsOrException(_stack)) {
                 return;
             }
+            _stack.getBreakPointInfo().getStackState().visitedNone();
         }
+        indexSupplied = len_;
         _stack.nullReadWrite();
     }
 
+    public CustList<ExecNamedFieldContent> getNamed() {
+        return named;
+    }
+
+    public CustList<Argument> getArgs() {
+        return args;
+    }
+
+    public int getIndexSupplied() {
+        return indexSupplied;
+    }
 }

@@ -166,7 +166,9 @@ public final class ExpressionLanguage {
             return _max;
         }
         _stackCall.getBreakPointInfo().getStackState().visitedNone();
-        return getNextIndex(_args,_oper,_least);
+        int res_ = getNextIndex(_args, _oper, _least);
+        _exp.index = res_;
+        return res_;
     }
     private static int getNextIndex(IdMap<ExecOperationNode, ArgumentsPair> _args, ExecOperationNode _oper, int _least) {
         ArgumentsPair value_ = ExecHelper.getArgumentPair(_args,_oper);

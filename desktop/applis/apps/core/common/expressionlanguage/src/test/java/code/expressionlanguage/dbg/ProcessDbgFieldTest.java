@@ -4112,6 +4112,26 @@ public final class ProcessDbgFieldTest extends ProcessDbgCommon {
         assertEq(1, ((DefLogDbg)next_.getStopper().getLogger()).getList().size());
         assertEq("0", ((DefLogDbg)next_.getStopper().getLogger()).getList().get(0));
     }
+
+    @Test
+    public void test173() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public @class interfaces(pkg.Ex) pkg.ExSub<T>:Ex<T>{}public interface pkg.Ex<U> {public U base1=(U)1,base2=(U)2;}public class pkg.ExCaller {public static void catching(){new ExSub<int>(Ex.base1:3,Ex.base2:4);}}");
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.toggleWatchPoint("pkg/Ex",90);
+        cont_.toggleWatchPoint("pkg/Ex",101);
+        writeCondition("class(Ex<U>)==class(Ex<int>)&&value==3",cont_, cf("pkg.Ex", "base1"));
+        writeCondition("class(Ex<U>)==class(Ex<int>)&&value==4",cont_, cf("pkg.Ex", "base2"));
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.ExCaller", id_, cont_);
+        assertEq(2, stack_.nbPages());
+        assertEq(33, now(stack_));
+        assertSame(StopDbgEnum.FIELD, stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(2, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+        assertEq(33, now(stack_));
+        assertSame(StopDbgEnum.FIELD, stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
     private void readCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         read(_cont, _cf);
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
