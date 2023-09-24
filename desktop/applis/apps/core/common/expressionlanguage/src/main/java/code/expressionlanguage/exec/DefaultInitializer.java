@@ -182,7 +182,6 @@ public class DefaultInitializer implements Initializer {
             } else {
                 _stackCall.setCallingState(ex_.getThrown());
             }
-            _stackCall.getBreakPointInfo().getStackState().visitedNone();
             _stackCall.entryReadWrite();
         }
         _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setExiting(null);
@@ -194,7 +193,6 @@ public class DefaultInitializer implements Initializer {
             AbstractPageEl p_ = _stackCall.getLastPage();
             ExpressionLanguage el_ = p_.getLastEl();
             el_.setArgument(ex_.getWrapper(),ex_.getValue(),_owner,_stackCall);
-            _stackCall.getBreakPointInfo().getStackState().visitedNone();
             _stackCall.entryReadWrite();
         }
         _stackCall.getBreakPointInfo().getBreakPointMiddleInfo().setCalculated(null);
