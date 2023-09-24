@@ -10,6 +10,7 @@ public interface DbgNodeStruct {
     Struct value();
     String str();
     ContextEl getResult();
+    ContextEl getOriginal();
     AbsTextArea logs();
     AbsPlainButton stopButton();
     AbsCustComponent panel();

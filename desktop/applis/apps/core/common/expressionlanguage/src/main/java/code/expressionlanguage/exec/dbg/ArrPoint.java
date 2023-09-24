@@ -44,20 +44,20 @@ public final class ArrPoint {
     private final BreakPointCondition resultIntGetSet;
     private final BreakPointCondition resultInitArray;
     private final BreakPointCondition resultClone;
-    public ArrPoint(AbstractInterceptorStdCaller _i, AbsKeyPoint _key){
-        resultLength = new BreakPointCondition(_i,_key,AP, BPC_LENGTH);
-        resultIntGet = new BreakPointCondition(_i,_key,AP, BPC_INT_GET);
-        resultIntSet = new BreakPointCondition(_i,_key,AP, BPC_INT_SET);
-        resultIntCompoundGet = new BreakPointCondition(_i,_key,AP, BPC_INT_COMPOUND_GET);
-        resultIntCompoundSet = new BreakPointCondition(_i,_key,AP, BPC_INT_COMPOUND_SET);
-        resultIntCompoundSetErr = new BreakPointCondition(_i,_key,AP, BPC_INT_COMPOUND_SET_ERR);
-        resultRangeGet = new BreakPointCondition(_i,_key,AP, BPC_RANGE_GET);
-        resultRangeSet = new BreakPointCondition(_i,_key,AP, BPC_RANGE_SET);
-        resultRangeCompoundGet = new BreakPointCondition(_i,_key,AP, BPC_RANGE_COMPOUND_GET);
-        resultRangeCompoundSet = new BreakPointCondition(_i,_key,AP, BPC_RANGE_COMPOUND_SET);
-        resultIntGetSet = new BreakPointCondition(_i,_key,AP, BPC_INT_GET_SET);
-        resultInitArray = new BreakPointCondition(_i,_key,AP, BPC_INIT);
-        resultClone = new BreakPointCondition(_i,_key,AP, BPC_CLONE);
+    public ArrPoint(AbstractInterceptorStdCaller _i, AbsPairPoint _superKey, AbsKeyPoint _key){
+        resultLength = new BreakPointCondition(_i, _superKey, _key,AP, BPC_LENGTH);
+        resultIntGet = new BreakPointCondition(_i, _superKey, _key,AP, BPC_INT_GET);
+        resultIntSet = new BreakPointCondition(_i, _superKey, _key,AP, BPC_INT_SET);
+        resultIntCompoundGet = new BreakPointCondition(_i, _superKey, _key,AP, BPC_INT_COMPOUND_GET);
+        resultIntCompoundSet = new BreakPointCondition(_i, _superKey, _key,AP, BPC_INT_COMPOUND_SET);
+        resultIntCompoundSetErr = new BreakPointCondition(_i, _superKey, _key,AP, BPC_INT_COMPOUND_SET_ERR);
+        resultRangeGet = new BreakPointCondition(_i, _superKey, _key,AP, BPC_RANGE_GET);
+        resultRangeSet = new BreakPointCondition(_i, _superKey, _key,AP, BPC_RANGE_SET);
+        resultRangeCompoundGet = new BreakPointCondition(_i, _superKey, _key,AP, BPC_RANGE_COMPOUND_GET);
+        resultRangeCompoundSet = new BreakPointCondition(_i, _superKey, _key,AP, BPC_RANGE_COMPOUND_SET);
+        resultIntGetSet = new BreakPointCondition(_i, _superKey, _key,AP, BPC_INT_GET_SET);
+        resultInitArray = new BreakPointCondition(_i, _superKey, _key,AP, BPC_INIT);
+        resultClone = new BreakPointCondition(_i, _superKey, _key,AP, BPC_CLONE);
         setLength(true);
         setIntGet(true);
         setIntSet(true);

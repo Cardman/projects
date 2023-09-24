@@ -12,9 +12,9 @@ public final class OperNatPoint {
     private boolean compound;
     private final BreakPointCondition resultSimple;
     private final BreakPointCondition resultCompound;
-    public OperNatPoint(AbstractInterceptorStdCaller _i, AbsKeyPoint _key){
-        resultSimple = new BreakPointCondition(_i,_key,OP, BPC_SIMPLE);
-        resultCompound = new BreakPointCondition(_i,_key,OP, BPC_COMPOUND);
+    public OperNatPoint(AbstractInterceptorStdCaller _i, AbsPairPoint _superKey, AbsKeyPoint _key){
+        resultSimple = new BreakPointCondition(_i, _superKey, _key,OP, BPC_SIMPLE);
+        resultCompound = new BreakPointCondition(_i, _superKey, _key,OP, BPC_COMPOUND);
     }
 
     public void resetCount() {

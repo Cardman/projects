@@ -8,8 +8,8 @@ public final class ParPoint {
     private boolean enabled;
     private boolean get;
     private final BreakPointCondition resultGet;
-    public ParPoint(AbstractInterceptorStdCaller _i, AbsKeyPoint _key){
-        resultGet = new BreakPointCondition(_i,_key, PP, BPC_GET);
+    public ParPoint(AbstractInterceptorStdCaller _i, AbsPairPoint _superKey, AbsKeyPoint _key){
+        resultGet = new BreakPointCondition(_i, _superKey, _key, PP, BPC_GET);
         setGet(true);
     }
 

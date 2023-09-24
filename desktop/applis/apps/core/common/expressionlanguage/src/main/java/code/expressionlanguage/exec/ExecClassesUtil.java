@@ -134,6 +134,8 @@ public final class ExecClassesUtil {
         if (_st != null) {
             _st.getBreakPointInfo().getBreakPointInputInfo().setStep(_step);
             _st.getBreakPointInfo().getBreakPointInputInfo().setMute(_mute);
+            _st.getBreakPointInfo().getBreakPointOutputInfo().setBpc(null);
+            _st.getBreakPointInfo().getBreakPointOutputInfo().setOperElt(null);
         }
         StackCall st_ = tryInitStaticlyTypes(_context, _options, _st, _mute);
         int res_ = st_.getStopper().checkNext(_context,st_);

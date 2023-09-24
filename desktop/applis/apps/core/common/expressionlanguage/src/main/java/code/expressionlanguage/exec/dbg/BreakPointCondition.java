@@ -14,6 +14,7 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class BreakPointCondition {
+    private final AbsPairPoint superKeyPoint;
     private final AbsKeyPoint keyPoint;
     private final int kindPoint;
     private final int phasePoint;
@@ -35,7 +36,8 @@ public final class BreakPointCondition {
     private final AbsCollection<AbsCallContraints> exclude;
     private final AbsCollection<AbsCallContraints> include;
     private final AbsCollection<EntryCust<String,Integer>> prefs;
-    public BreakPointCondition(AbstractInterceptorStdCaller _i, AbsKeyPoint _key, int _kind, int _phase) {
+    public BreakPointCondition(AbstractInterceptorStdCaller _i, AbsPairPoint _superKey, AbsKeyPoint _key, int _kind, int _phase) {
+        this.superKeyPoint = _superKey;
         this.keyPoint = _key;
         this.kindPoint = _kind;
         this.phasePoint = _phase;
@@ -163,6 +165,10 @@ public final class BreakPointCondition {
 
     public int getKindPoint() {
         return kindPoint;
+    }
+
+    public AbsPairPoint getSuperKeyPoint() {
+        return superKeyPoint;
     }
 
     public AbsKeyPoint getKeyPoint() {

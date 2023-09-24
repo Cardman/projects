@@ -14,10 +14,10 @@ public final class ExcPoint {
     private final BreakPointCondition resultThrown;
     private final BreakPointCondition resultCaught;
     private final BreakPointCondition resultPropagated;
-    public ExcPoint(AbstractInterceptorStdCaller _i, AbsKeyPoint _key){
-        resultThrown = new BreakPointCondition(_i,_key,EP, BPC_THROWN);
-        resultCaught = new BreakPointCondition(_i,_key,EP, BPC_CAUGHT);
-        resultPropagated = new BreakPointCondition(_i,_key,EP, BPC_PROPAGATED);
+    public ExcPoint(AbstractInterceptorStdCaller _i, AbsPairPoint _superKey, AbsKeyPoint _key){
+        resultThrown = new BreakPointCondition(_i, _superKey, _key,EP, BPC_THROWN);
+        resultCaught = new BreakPointCondition(_i, _superKey, _key,EP, BPC_CAUGHT);
+        resultPropagated = new BreakPointCondition(_i, _superKey, _key,EP, BPC_PROPAGATED);
         setThrown(true);
         setCaught(true);
         setPropagated(true);

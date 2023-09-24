@@ -20,12 +20,12 @@ public final class WatchPoint {
     private final BreakPointCondition resultCompoundRead;
     private final BreakPointCondition resultCompoundWrite;
     private final BreakPointCondition resultCompoundWriteErr;
-    public WatchPoint(AbstractInterceptorStdCaller _i, AbsKeyPoint _key){
-        resultRead = new BreakPointCondition(_i,_key,WP, BPC_READ);
-        resultWrite = new BreakPointCondition(_i,_key,WP, BPC_WRITE);
-        resultCompoundRead = new BreakPointCondition(_i,_key,WP, BPC_COMPOUND_READ);
-        resultCompoundWrite = new BreakPointCondition(_i,_key,WP, BPC_COMPOUND_WRITE);
-        resultCompoundWriteErr = new BreakPointCondition(_i,_key,WP, BPC_COMPOUND_WRITE_ERR);
+    public WatchPoint(AbstractInterceptorStdCaller _i, AbsPairPoint _superKey, AbsKeyPoint _key){
+        resultRead = new BreakPointCondition(_i, _superKey, _key,WP, BPC_READ);
+        resultWrite = new BreakPointCondition(_i, _superKey, _key,WP, BPC_WRITE);
+        resultCompoundRead = new BreakPointCondition(_i, _superKey, _key,WP, BPC_COMPOUND_READ);
+        resultCompoundWrite = new BreakPointCondition(_i, _superKey, _key,WP, BPC_COMPOUND_WRITE);
+        resultCompoundWriteErr = new BreakPointCondition(_i, _superKey, _key,WP, BPC_COMPOUND_WRITE_ERR);
         setRead(true);
         setWrite(true);
         setCompoundRead(true);

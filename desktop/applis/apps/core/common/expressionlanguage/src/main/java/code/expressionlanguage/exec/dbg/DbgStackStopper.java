@@ -189,17 +189,17 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             }
         }
         if (bp_.getSuspend().get()) {
-            out_.setWatchedObject(null);
-            out_.setWatchedTrace(null);
-            out_.setSubContext(null);
+            out_.getWatchResults().setWatchedObject(null);
+            out_.getWatchResults().setWatchedTrace(null);
+            out_.getWatchResults().setSubContext(null);
             ResultContextLambda w_ = bp_.getWatches();
             if (w_ != null) {
-                out_.setSubContext(w_.getContext());
+                out_.getWatchResults().setSubContext(w_.getContext());
                 StackCallReturnValue st_ = w_.eval(_context, o_, p_);
                 if (st_.getStack().trueException() != null) {
-                    out_.setWatchedTrace(st_.getStack().getStackView());
+                    out_.getWatchResults().setWatchedTrace(st_.getStack().getStackView());
                 } else {
-                    out_.setWatchedObject(ArgumentListCall.toStr(st_.getStack().aw().getValue()));
+                    out_.getWatchResults().setWatchedObject(ArgumentListCall.toStr(st_.getStack().aw().getValue()));
                 }
             }
             return _s;

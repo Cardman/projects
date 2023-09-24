@@ -695,8 +695,8 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         assertEq("",new ExecFileBlockTraceIndexKeyString().keyString(new ExecFileBlockFct("","")));
         assertEq("",new ExecFileBlockFct("","").valueStr());
         assertFalse(StringUtil.nullToEmpty(new ExecFileBlockTraceIndex(null,-1,0).valueStr()+"_").isEmpty());
-        assertFalse(new BpcKeyString().keyString(new BreakPointCondition(new ElInterceptorStdCaller(),new BreakPointBlockKey(null,-1,0),0,0)).isEmpty());
-        assertFalse(new BpcKeyString().keyString(new BreakPointCondition(new ElInterceptorStdCaller(),new BreakPointBlockKey(null,-1,0),10,0)).isEmpty());
+        assertFalse(new BpcKeyString().keyString(new BreakPointCondition(new ElInterceptorStdCaller(), null, new BreakPointBlockKey(null,-1,0),0,0)).isEmpty());
+        assertFalse(new BpcKeyString().keyString(new BreakPointCondition(new ElInterceptorStdCaller(), null, new BreakPointBlockKey(null,-1,0),10,0)).isEmpty());
         assertEq(-1, NumberUtil.signum(new CmpMethodPair().compare(new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(), "0", ""),2,null),new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(), "1", ""),2, null))));
         assertEq(1, NumberUtil.signum(new CmpMethodPair().compare(new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(), "0", ""),3,null),new MethodPointBlockPairRootBlock(pair(new ElInterceptorStdCaller(), "1", ""),2, null))));
     }

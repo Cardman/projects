@@ -21,17 +21,19 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
     private final DbgAbsNodeStruct parentStruct;
     private boolean calculated;
     private final ContextEl result;
+    private final ContextEl original;
     private final MutableTreeNodeNav<DbgAbsNodeStruct> node = new MutableTreeNodeNav<DbgAbsNodeStruct>();
     private AbsTextArea logger;
     private AbsPlainButton stop;
     private AbsCustComponent group;
 
     protected DbgAbsNodeStruct(DbgAbsNodeStruct _par) {
-        this(_par.getResult(), _par);
+        this(_par.getResult(), _par.getOriginal(), _par);
     }
 
-    protected DbgAbsNodeStruct(ContextEl _r, DbgAbsNodeStruct _par) {
+    protected DbgAbsNodeStruct(ContextEl _r, ContextEl _o, DbgAbsNodeStruct _par) {
         this.result = _r;
+        this.original = _o;
         parentStruct = _par;
         node.info(this);
     }
@@ -42,6 +44,11 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
 
     public ContextEl getResult() {
         return result;
+    }
+
+    @Override
+    public ContextEl getOriginal() {
+        return original;
     }
 
     public CustList<DbgAbsNodeStruct> getChildren() {

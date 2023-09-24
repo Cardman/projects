@@ -10,9 +10,9 @@ public final class MethodPoint {
     private final BreakPointCondition resultExit;
     private boolean entry;
     private boolean exit;
-    public MethodPoint(AbstractInterceptorStdCaller _i, AbsKeyPoint _key, int _c){
-        resultEntry = new BreakPointCondition(_i,_key,_c, BPC_ENTRY);
-        resultExit = new BreakPointCondition(_i,_key,_c, BPC_EXIT);
+    public MethodPoint(AbstractInterceptorStdCaller _i, AbsPairPoint _superKey, AbsKeyPoint _key, int _c){
+        resultEntry = new BreakPointCondition(_i, _superKey, _key,_c, BPC_ENTRY);
+        resultExit = new BreakPointCondition(_i, _superKey, _key,_c, BPC_EXIT);
         setEntry(true);
         setExit(true);
     }

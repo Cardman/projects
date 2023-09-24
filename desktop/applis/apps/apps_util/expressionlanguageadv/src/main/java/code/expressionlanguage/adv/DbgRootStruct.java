@@ -15,7 +15,7 @@ import code.util.CustList;
 public final class DbgRootStruct extends DbgAbsNodeStruct {
 
     public DbgRootStruct(ContextEl _r, DbgAbsNodeStruct _par) {
-        super(_r,_par);
+        super(_r,_r,_par);
     }
     AbsTreeGui buildReturn(CustList<RenderPointPair> _renderList, AbsCompoFactory _compo, AbstractThreadFactory _th, ArgumentWrapper _val) {
         AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode("");
@@ -34,16 +34,16 @@ public final class DbgRootStruct extends DbgAbsNodeStruct {
     }
     AbsTreeGui build(CustList<RenderPointPair> _renderList, AbsCompoFactory _compo, AbstractThreadFactory _th, ViewPage _stView, BreakPointOutputInfo _infos) {
         AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode("");
-        ContextEl s_ = _infos.getSubContext();
+        ContextEl s_ = _infos.getWatchResults().getSubContext();
         if (s_ != null) {
-            Struct o_ = _infos.getWatchedObject();
+            Struct o_ = _infos.getWatchResults().getWatchedObject();
             if (o_ != null) {
                 DbgWatchStruct pt_ = new DbgWatchStruct(s_,this, o_);
                 getChildren().add(pt_);
                 getNode().add(pt_.getNode());
                 root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(pt_)));
             }
-            Struct t_ = _infos.getWatchedTrace();
+            Struct t_ = _infos.getWatchResults().getWatchedTrace();
             if (t_ != null) {
                 DbgWatchStruct pt_ = new DbgWatchStruct(s_,this, t_);
                 getChildren().add(pt_);

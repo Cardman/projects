@@ -14,10 +14,10 @@ public final class BreakPoint {
     private final BreakPointCondition resultStd;
     private final BreakPointCondition resultStatic;
     private final BreakPointCondition resultInstance;
-    public BreakPoint(AbstractInterceptorStdCaller _i, AbsKeyPoint _key){
-        resultStd = new BreakPointCondition(_i,_key,BP, BPC_STD);
-        resultStatic = new BreakPointCondition(_i,_key,BP, BPC_STATIC);
-        resultInstance = new BreakPointCondition(_i,_key,BP, BPC_INSTANCE);
+    public BreakPoint(AbstractInterceptorStdCaller _i, AbsPairPoint _superKey, AbsKeyPoint _key){
+        resultStd = new BreakPointCondition(_i, _superKey, _key,BP, BPC_STD);
+        resultStatic = new BreakPointCondition(_i, _superKey, _key,BP, BPC_STATIC);
+        resultInstance = new BreakPointCondition(_i, _superKey, _key,BP, BPC_INSTANCE);
     }
 
     public void resetCount() {
