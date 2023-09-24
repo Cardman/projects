@@ -3,7 +3,6 @@ package code.expressionlanguage.exec;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.dbg.AbsLogDbg;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 
 public final class DefStackStopper extends AbsStackStopperImpl {
     public DefStackStopper(){
@@ -33,11 +32,6 @@ public final class DefStackStopper extends AbsStackStopperImpl {
 
     @Override
     public boolean isStopAtRef(ContextEl _context, StackCall _stackCall) {
-        return false;
-    }
-
-    @Override
-    public boolean isStopAt(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, StackCall _stackCall) {
         return false;
     }
 

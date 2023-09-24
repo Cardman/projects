@@ -58,54 +58,48 @@ public final class ExpressionLanguage {
         while (fr_ < len_) {
             ExecOperationNode o = arguments.getKey(fr_);
             o.setRelativeOffsetPossibleLastPage(_stackCall);
-            if (hasToExit(o, this, _context, _stackCall) || _stackCall.getStopper().isStopAt(this, o, _context, _stackCall)) {
+            currentOper = o;
+            if (hasToExit(o, _context, _stackCall) || _stackCall.getStopper().isStopAtRef(_context, _stackCall)) {
                 return;
             }
             ArgumentsPair pair_ = arguments.getValue(fr_);
             if (!(o instanceof AtomicExecCalculableOperation)) {
                 Argument a_ = Argument.getNullableValue(o.getArgument());
                 o.setConstantSimpleArgument(a_,_context,arguments, _stackCall);
-                fr_ = getNextIndex(len_,arguments,o, fr_ + 1,_context,_stackCall,this);
+                fr_ = getNextIndex(len_, o, fr_ + 1,_context,_stackCall);
             } else if (pair_.getArgument() != null) {
                 o.setConstantSimpleArgument(pair_.getArgument(),_context,arguments, _stackCall);
-                fr_ = getNextIndex(len_,arguments,o, fr_ + 1,_context,_stackCall,this);
+                fr_ = getNextIndex(len_, o, fr_ + 1,_context,_stackCall);
             } else {
                 AtomicExecCalculableOperation a_ = (AtomicExecCalculableOperation)o;
                 a_.calculate(arguments, _context, _stackCall);
                 if (_stackCall.getStopper().stopAt(_stackCall)) {
                     return;
                 }
-                fr_ = getNextIndex(len_,arguments,o, fr_ + 1,_context,_stackCall,this);
+                fr_ = getNextIndex(len_, o, fr_ + 1,_context,_stackCall);
             }
         }
     }
-    private static boolean hasToExit(ExecOperationNode _o, ExpressionLanguage _el, ContextEl _context, StackCall _stackCall) {
+    private static boolean hasToExit(ExecOperationNode _o, ContextEl _context, StackCall _stackCall) {
         ExecMethodOperation parent_ = _o.getParent();
         if (parent_ instanceof ExecAbstractInstancingOperation && ((ExecAbstractInstancingOperation) parent_).isInitBefore() && _o.getIndexChild() == 0) {
             ExecRootBlock type_ = ((ExecAbstractInstancingOperation) parent_).getInstancingCommonContent().getPair().getType();
             if (!(type_ instanceof ExecInnerElementBlock)&&_context.getExiting().hasToExit(_stackCall, type_)) {
-                processCalling(_el, _o);
                 return true;
             }
         }
         if (_o instanceof ExecSettableFieldStatOperation && !((ExecSettableFieldStatOperation)_o).resultCanBeSet() && _context.getExiting().hasToExit(_stackCall, ((ExecSettableFieldStatOperation)_o).getRootBlock())) {
             _stackCall.setOffset(((ExecSettableFieldStatOperation)_o).getOff());
-            processCalling(_el, _o);
             return true;
         }
         if (_o instanceof ExecAffectationOperation) {
             ExecOperationNode s_ = ((ExecAbstractAffectOperation) _o).getSettable();
             if (s_ instanceof ExecSettableFieldStatOperation && _context.getExiting().hasToExit(_stackCall, ((ExecSettableFieldStatOperation)s_).getRootBlock())) {
                 _stackCall.setOffset(((ExecSettableFieldStatOperation)s_).getOff());
-                processCalling(_el, _o);
                 return true;
             }
         }
         return false;
-    }
-
-    private static void processCalling(ExpressionLanguage _el, ExecOperationNode _o) {
-        _el.setCurrentOper(_o);
     }
 
     private static IdMap<ExecOperationNode,ArgumentsPair> buildArguments(CustList<ExecOperationNode> _operations) {
@@ -153,21 +147,15 @@ public final class ExpressionLanguage {
     }
 
     private void getNextIndex(ExecOperationNode _currentOper, int _least, ContextEl _context, StackCall _stackCall) {
-        if (_context.callsOrException(_stackCall)) {
-            return;
-        }
-        _stackCall.getBreakPointInfo().getStackState().visitedNone();
-        index = getNextIndex(arguments, _currentOper, _least);
+        getNextIndex(arguments.size(),_currentOper,_least,_context,_stackCall);
     }
 
-    private static int getNextIndex(int _max, IdMap<ExecOperationNode, ArgumentsPair> _args, ExecOperationNode _oper, int _least, ContextEl _context, StackCall _stackCall,ExpressionLanguage _exp) {
+    private int getNextIndex(int _max, ExecOperationNode _oper, int _least, ContextEl _context, StackCall _stackCall) {
         if (_context.callsOrException(_stackCall)) {
-            processCalling(_exp, _oper);
             return _max;
         }
-        _stackCall.getBreakPointInfo().getStackState().visitedNone();
-        int res_ = getNextIndex(_args, _oper, _least);
-        _exp.index = res_;
+        int res_ = getNextIndex(arguments, _oper, _least);
+        index = res_;
         return res_;
     }
     private static int getNextIndex(IdMap<ExecOperationNode, ArgumentsPair> _args, ExecOperationNode _oper, int _least) {
@@ -234,14 +222,6 @@ public final class ExpressionLanguage {
 
     public IdMap<ExecOperationNode, ArgumentsPair> getArguments() {
         return arguments;
-    }
-
-    public void currentOper(ExecOperationNode _currentOper) {
-        setCurrentOper(_currentOper);
-    }
-    private void setCurrentOper(ExecOperationNode _currentOper) {
-        currentOper = _currentOper;
-        index = _currentOper.getOrder();
     }
 
     public ExecOperationNode getCurrentOper() {

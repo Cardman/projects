@@ -46,7 +46,6 @@ public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
             if (_context.callsOrException(_stack)) {
                 return;
             }
-            _stack.getBreakPointInfo().getStackState().visitedNone();
         }
         indexSupplied = len_;
         _stack.nullReadWrite();

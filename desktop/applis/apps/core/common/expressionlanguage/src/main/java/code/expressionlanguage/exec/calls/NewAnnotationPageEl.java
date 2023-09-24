@@ -51,14 +51,12 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
                 if (_context.callsOrException(_stack)) {
                     return;
                 }
-                _stack.getBreakPointInfo().getStackState().visitedNone();
                 continue;
             }
             ExecAnnotationMethodBlock.setValue(getBlockRootType(),className_,name_,t_,_context,value_, _stack);
             if (_context.callsOrException(_stack)) {
                 return;
             }
-            _stack.getBreakPointInfo().getStackState().visitedNone();
         }
         indexSupplied = len_;
         _stack.nullReadWrite();

@@ -32,7 +32,6 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
             return false;
         }
         checkField = false;
-        _stack.getBreakPointInfo().getStackState().visitedNone();
         if (!calledAfter) {
             setWrapException(false);
             Argument arg_ = calculate(_context, _stack);

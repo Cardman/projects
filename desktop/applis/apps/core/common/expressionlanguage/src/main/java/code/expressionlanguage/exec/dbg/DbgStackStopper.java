@@ -52,19 +52,9 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     }
 
     @Override
-    public boolean isStopAt(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, StackCall _stackCall) {
-        if (_stackCall.getBreakPointInfo().getStackState().visitedExp()) {
-            return false;
-        }
-        _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
-        _stackCall.getBreakPointInfo().getStackState().visitExp();
-        _el.currentOper(_o);
-        return true;
-    }
-
-    @Override
     public boolean isStopAtRef(ContextEl _context, StackCall _stackCall) {
         if (_stackCall.getBreakPointInfo().getStackState().visitedExp()) {
+            _stackCall.getBreakPointInfo().getStackState().visitedNone();
             return false;
         }
         _stackCall.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
