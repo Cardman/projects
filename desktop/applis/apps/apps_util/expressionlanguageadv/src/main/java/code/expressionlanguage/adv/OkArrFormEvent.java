@@ -43,6 +43,7 @@ public final class OkArrFormEvent implements AbsActionListener {
         arr_.getValue().setRangeCompoundSet(frameArrFormContent.getRangeCompoundSet().isSelected());
         arr_.getValue().setIntGetSet(frameArrFormContent.getIntGetSet().isSelected());
         arr_.getValue().setInitArray(frameArrFormContent.getInitArray().isSelected());
+        arr_.getValue().setClone(frameArrFormContent.getClone().isSelected());
         update(arr_, arr_.getValue().getResultLength(), window, frameArrFormContent.getGuiLengthStackForm(), currentResult);
         update(arr_, arr_.getValue().getResultIntGet(), window, frameArrFormContent.getGuiIntGetStackForm(), currentResult);
         update(arr_, arr_.getValue().getResultIntSet(), window, frameArrFormContent.getGuiIntSetStackForm(), currentResult);
@@ -55,6 +56,7 @@ public final class OkArrFormEvent implements AbsActionListener {
         update(arr_, arr_.getValue().getResultRangeCompoundSet(), window, frameArrFormContent.getGuiRangeCompoundSetStackForm(), currentResult);
         update(arr_, arr_.getValue().getResultIntGetSet(), window, frameArrFormContent.getGuiIntGetSetStackForm(), currentResult);
         update(arr_, arr_.getValue().getResultInitArray(), window, frameArrFormContent.getGuiInitArrayStackForm(), currentResult);
+        update(arr_, arr_.getValue().getResultClone(), window, frameArrFormContent.getGuiCloneStackForm(), currentResult);
         frameArrFormContent.setSelectedArr(null);
         framePoints.guiContentBuildClear();
         framePoints.refreshArr(currentResult);
@@ -98,6 +100,9 @@ public final class OkArrFormEvent implements AbsActionListener {
         }
         if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(ArrPoint.BPC_INIT)) {
             _condition.getOthers().add(_mp.getValue().getResultInitArray());
+        }
+        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(ArrPoint.BPC_CLONE)) {
+            _condition.getOthers().add(_mp.getValue().getResultClone());
         }
     }
 

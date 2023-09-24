@@ -696,7 +696,10 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         if (_a.getModeField() == ArrPoint.BPC_INIT) {
             return stopBpc(_ex.isInitArray(), _ex.getResultInitArray());
         }
-        return stopBpc(_ex.isIntCompoundSetErr(), _ex.getResultIntCompoundSetErr());
+        if (_a.getModeField() == ArrPoint.BPC_INT_COMPOUND_SET_ERR) {
+            return stopBpc(_ex.isIntCompoundSetErr(), _ex.getResultIntCompoundSetErr());
+        }
+        return stopBpc(_ex.isClone(), _ex.getResultClone());
     }
 
     private static BreakPointCondition stopParValue(ParPoint _ex) {

@@ -15,9 +15,9 @@ import code.util.StringMap;
 public final class ArrCheckedExecOperationNodeInfos extends CoreCheckedExecOperationNodeInfos {
     private final int modeField;
 
-    public ArrCheckedExecOperationNodeInfos(ContextEl _context, Struct _i) {
+    public ArrCheckedExecOperationNodeInfos(ContextEl _context, Struct _i, int _mode) {
         super(ExecFormattedRootBlock.build(_i.getClassName(_context), _context.getClasses()), _i);
-        this.modeField = ArrPoint.BPC_LENGTH;
+        this.modeField = _mode;
     }
 
     public ArrCheckedExecOperationNodeInfos(ContextEl _context, String _i, Struct _values) {

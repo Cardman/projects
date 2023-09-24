@@ -15,6 +15,11 @@ public final class LambdaDirectCloneRefectMethodPageEl extends AbstractRefectLam
     }
 
     @Override
+    protected boolean checkParams(ContextEl _context, StackCall _stack) {
+        return checkParamsAnnot(_stack);
+    }
+
+    @Override
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
         return ExecInvokingOperation.cloneArray(ArgumentListCall.toStr(getParent()),_context, _stack);
     }

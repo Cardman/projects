@@ -20,6 +20,7 @@ public final class FrameArrFormContent {
     private final GuiStackForm guiRangeCompoundSetStackForm;
     private final GuiStackForm guiIntGetSetStackForm;
     private final GuiStackForm guiInitArrayStackForm;
+    private final GuiStackForm guiCloneStackForm;
     private ArrPointBlockPair selectedArr;
     private AbsTextField clName;
     private AbsCustCheckBox exact;
@@ -35,6 +36,7 @@ public final class FrameArrFormContent {
     private AbsCustCheckBox rangeCompoundSet;
     private AbsCustCheckBox intGetSet;
     private AbsCustCheckBox initArray;
+    private AbsCustCheckBox clone;
     private AbsCustCheckBox enabledExc;
     private AbsPlainButton ok;
     private AbsPlainButton remove;
@@ -53,6 +55,7 @@ public final class FrameArrFormContent {
         guiRangeCompoundSetStackForm = new GuiStackForm(_c);
         guiIntGetSetStackForm = new GuiStackForm(_c);
         guiInitArrayStackForm = new GuiStackForm(_c);
+        guiCloneStackForm = new GuiStackForm(_c);
     }
 
     public void guiBuild(AbsDebuggerGui _d) {
@@ -68,6 +71,7 @@ public final class FrameArrFormContent {
         rangeCompoundSet = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("range compound set");
         intGetSet = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("get set");
         initArray = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("init array");
+        clone = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("clone");
         enabledExc = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
         ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
         remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
@@ -89,6 +93,7 @@ public final class FrameArrFormContent {
         bpForm_.add(rangeCompoundSet);
         bpForm_.add(intGetSet);
         bpForm_.add(initArray);
+        bpForm_.add(clone);
         bpForm_.add(guiLengthStackForm.guiBuild(_d));
         bpForm_.add(guiIntGetStackForm.guiBuild(_d));
         bpForm_.add(guiIntSetStackForm.guiBuild(_d));
@@ -101,6 +106,7 @@ public final class FrameArrFormContent {
         bpForm_.add(guiRangeCompoundSetStackForm.guiBuild(_d));
         bpForm_.add(guiIntGetSetStackForm.guiBuild(_d));
         bpForm_.add(guiInitArrayStackForm.guiBuild(_d));
+        bpForm_.add(guiCloneStackForm.guiBuild(_d));
         bpForm_.add(ok);
         bpForm_.add(remove);
         contentPane = bpForm_;
@@ -139,6 +145,8 @@ public final class FrameArrFormContent {
             getIntGetSet().setSelected(exc_.getValue().isIntGetSet());
             BreakPointFormEvent.specific(getGuiInitArrayStackForm(), true, exc_.getValue().getResultInitArray(), _f,_r);
             getInitArray().setSelected(exc_.getValue().isInitArray());
+            BreakPointFormEvent.specific(getGuiCloneStackForm(), true, exc_.getValue().getResultClone(), _f,_r);
+            getClone().setSelected(exc_.getValue().isInitArray());
         } else {
             getGuiLengthStackForm().getDependantPointsForm().init(_r, ArrPoint.AP);
             getGuiIntGetStackForm().getDependantPointsForm().init(_r, ArrPoint.AP);
@@ -152,6 +160,7 @@ public final class FrameArrFormContent {
             getGuiRangeCompoundSetStackForm().getDependantPointsForm().init(_r, ArrPoint.AP);
             getGuiIntGetSetStackForm().getDependantPointsForm().init(_r, ArrPoint.AP);
             getGuiInitArrayStackForm().getDependantPointsForm().init(_r, ArrPoint.AP);
+            getGuiCloneStackForm().getDependantPointsForm().init(_r, ArrPoint.AP);
             exact.setEnabled(true);
             clName.setEnabled(true);
             remove.setEnabled(false);
@@ -175,6 +184,7 @@ public final class FrameArrFormContent {
         getGuiRangeCompoundSetStackForm().refresh(_v, "", _r, _d);
         getGuiIntGetSetStackForm().refresh(_v, "", _r, _d);
         getGuiInitArrayStackForm().refresh(_v, "", _r, _d);
+        getGuiCloneStackForm().refresh(_v, "", _r, _d);
     }
 
     public AbsPanel getContentPane() {
@@ -245,6 +255,10 @@ public final class FrameArrFormContent {
         return initArray;
     }
 
+    public AbsCustCheckBox getClone() {
+        return clone;
+    }
+
     public AbsCustCheckBox getEnabledExc() {
         return enabledExc;
     }
@@ -303,5 +317,9 @@ public final class FrameArrFormContent {
 
     public GuiStackForm getGuiInitArrayStackForm() {
         return guiInitArrayStackForm;
+    }
+
+    public GuiStackForm getGuiCloneStackForm() {
+        return guiCloneStackForm;
     }
 }

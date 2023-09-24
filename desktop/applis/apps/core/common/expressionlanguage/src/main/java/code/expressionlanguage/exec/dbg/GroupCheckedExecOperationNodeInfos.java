@@ -99,7 +99,11 @@ public final class GroupCheckedExecOperationNodeInfos {
         }
         if (_o instanceof ExecArrayFieldOperation) {
             Struct instance_ = instance(0,_el, _o, _last);
-            return new ArrCheckedExecOperationNodeInfos(_context,instance_);
+            return new ArrCheckedExecOperationNodeInfos(_context,instance_, ArrPoint.BPC_LENGTH);
+        }
+        if (_o instanceof ExecCloneOperation) {
+            Struct instance_ = instance(0,_el, _o, _last);
+            return new ArrCheckedExecOperationNodeInfos(_context,instance_, ArrPoint.BPC_CLONE);
         }
         if (_o instanceof ExecArrOperation) {
             return arr(_el,(ExecArrOperation) _o,_context, _last);
@@ -505,6 +509,10 @@ public final class GroupCheckedExecOperationNodeInfos {
             infos_ = refMethod(_context, (DirectAnnotationRefectMethodPageEl) p_);
         } else if (p_ instanceof LambdaAnnotationRefectMethodPageEl) {
             infos_ = refMethod(_context, (LambdaAnnotationRefectMethodPageEl) p_);
+        } else if (p_ instanceof DirectCloneRefectMethodPageEl) {
+            infos_ = refMethod(_context, (DirectCloneRefectMethodPageEl) p_);
+        } else if (p_ instanceof LambdaDirectCloneRefectMethodPageEl) {
+            infos_ = refMethod(_context, (LambdaDirectCloneRefectMethodPageEl) p_);
         } else if (!p_.isEmptyEl()){
             ExpressionLanguage el_ = p_.getLastEl();
             infos_ = expOper(el_, el_.getCurrentOper(), _context, p_);
@@ -693,6 +701,20 @@ public final class GroupCheckedExecOperationNodeInfos {
         if (_p.isCheckingEntryExit()) {
             Struct instance_ = _p.getParent();
             return new FieldCheckedExecOperationNodeInfos(_p.getMetaInfo().getRealId().getName(), _context,WatchPoint.BPC_READ, formatted(_context, instance_), instance_, null);
+        }
+        return null;
+    }
+    private static CoreCheckedExecOperationNodeInfos refMethod(ContextEl _context, DirectCloneRefectMethodPageEl _p) {
+        if (_p.isCheckingEntryExit()) {
+            Struct instance_ = ArgumentListCall.toStr(_p.getInstance());
+            return new ArrCheckedExecOperationNodeInfos(_context,instance_, ArrPoint.BPC_CLONE);
+        }
+        return null;
+    }
+    private static CoreCheckedExecOperationNodeInfos refMethod(ContextEl _context, LambdaDirectCloneRefectMethodPageEl _p) {
+        if (_p.isCheckingEntryExit()) {
+            Struct instance_ = _p.getParent();
+            return new ArrCheckedExecOperationNodeInfos(_context,instance_, ArrPoint.BPC_CLONE);
         }
         return null;
     }
@@ -986,7 +1008,7 @@ public final class GroupCheckedExecOperationNodeInfos {
     private static ArrCheckedExecOperationNodeInfos callDynArr(ContextEl _context, String _name,Struct _instance, ArgumentListCall _ls) {
         CustList<ArgumentWrapper> args_ = _ls.getArgumentWrappers();
         if (args_.isEmpty()) {
-            return new ArrCheckedExecOperationNodeInfos(_context, _instance);
+            return new ArrCheckedExecOperationNodeInfos(_context, _instance, ArrPoint.BPC_LENGTH);
         }
         if (StringUtil.quickEq(_name,"[:]")) {
             Struct r_ = rangeInts(_context, _ls.getArguments(), _instance);

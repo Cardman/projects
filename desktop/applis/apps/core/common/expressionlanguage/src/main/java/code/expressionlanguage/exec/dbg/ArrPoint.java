@@ -16,6 +16,7 @@ public final class ArrPoint {
     public static final int BPC_RANGE_COMPOUND_SET = WatchPoint.BPC_COMPOUND_WRITE+6;
     public static final int BPC_INT_GET_SET = 10;
     public static final int BPC_INIT = 11;
+    public static final int BPC_CLONE = 12;
     private boolean enabled;
     private boolean length;
     private boolean intGet;
@@ -29,6 +30,7 @@ public final class ArrPoint {
     private boolean rangeCompoundSet;
     private boolean intGetSet;
     private boolean initArray;
+    private boolean clone;
     private final BreakPointCondition resultLength;
     private final BreakPointCondition resultIntGet;
     private final BreakPointCondition resultIntSet;
@@ -41,6 +43,7 @@ public final class ArrPoint {
     private final BreakPointCondition resultRangeCompoundSet;
     private final BreakPointCondition resultIntGetSet;
     private final BreakPointCondition resultInitArray;
+    private final BreakPointCondition resultClone;
     public ArrPoint(AbstractInterceptorStdCaller _i, AbsKeyPoint _key){
         resultLength = new BreakPointCondition(_i,_key,AP, BPC_LENGTH);
         resultIntGet = new BreakPointCondition(_i,_key,AP, BPC_INT_GET);
@@ -54,6 +57,7 @@ public final class ArrPoint {
         resultRangeCompoundSet = new BreakPointCondition(_i,_key,AP, BPC_RANGE_COMPOUND_SET);
         resultIntGetSet = new BreakPointCondition(_i,_key,AP, BPC_INT_GET_SET);
         resultInitArray = new BreakPointCondition(_i,_key,AP, BPC_INIT);
+        resultClone = new BreakPointCondition(_i,_key,AP, BPC_CLONE);
         setLength(true);
         setIntGet(true);
         setIntSet(true);
@@ -65,6 +69,7 @@ public final class ArrPoint {
         setRangeCompoundGet(true);
         setRangeCompoundSet(true);
         setIntGetSet(true);
+        setClone(true);
     }
 
     public void resetCount() {
@@ -80,6 +85,7 @@ public final class ArrPoint {
         resultRangeCompoundSet.resetCount();
         resultIntGetSet.resetCount();
         resultInitArray.resetCount();
+        resultClone.resetCount();
     }
     public boolean isEnabled() {
         return enabled;
@@ -185,6 +191,14 @@ public final class ArrPoint {
         this.initArray = _i;
     }
 
+    public boolean isClone() {
+        return clone;
+    }
+
+    public void setClone(boolean _i) {
+        this.clone = _i;
+    }
+
     public BreakPointCondition getResultLength() {
         return resultLength;
     }
@@ -232,5 +246,9 @@ public final class ArrPoint {
 
     public BreakPointCondition getResultInitArray() {
         return resultInitArray;
+    }
+
+    public BreakPointCondition getResultClone() {
+        return resultClone;
     }
 }

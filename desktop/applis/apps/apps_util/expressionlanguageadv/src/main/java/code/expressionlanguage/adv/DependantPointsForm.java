@@ -130,6 +130,7 @@ public final class DependantPointsForm {
             arrForm.add(check(LENGTH,ArrPoint.BPC_RANGE_COMPOUND_SET));
             arrForm.add(check(LENGTH,ArrPoint.BPC_INT_GET_SET));
             arrForm.add(check(LENGTH,ArrPoint.BPC_INIT));
+            arrForm.add(check(LENGTH,ArrPoint.BPC_CLONE));
         } else if (_add == ParPoint.PP) {
             parForm.add(check(THROWN,ParPoint.BPC_GET));
         } else if (_add == OperNatPoint.OP) {
@@ -180,6 +181,18 @@ public final class DependantPointsForm {
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
         page_.add(check(LENGTH,_p.getValue().getResultLength()));
+        page_.add(check(LENGTH,_p.getValue().getResultIntGet()));
+        page_.add(check(LENGTH,_p.getValue().getResultIntSet()));
+        page_.add(check(LENGTH,_p.getValue().getResultIntCompoundGet()));
+        page_.add(check(LENGTH,_p.getValue().getResultIntCompoundSet()));
+        page_.add(check(LENGTH,_p.getValue().getResultIntCompoundSetErr()));
+        page_.add(check(LENGTH,_p.getValue().getResultRangeGet()));
+        page_.add(check(LENGTH,_p.getValue().getResultRangeSet()));
+        page_.add(check(LENGTH,_p.getValue().getResultRangeCompoundGet()));
+        page_.add(check(LENGTH,_p.getValue().getResultRangeCompoundSet()));
+        page_.add(check(LENGTH,_p.getValue().getResultIntGetSet()));
+        page_.add(check(LENGTH,_p.getValue().getResultInitArray()));
+        page_.add(check(LENGTH,_p.getValue().getResultClone()));
         view.setViewportView(page_);
     }
 

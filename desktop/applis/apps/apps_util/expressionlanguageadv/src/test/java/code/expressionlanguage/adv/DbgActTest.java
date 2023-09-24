@@ -2241,7 +2241,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
         b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
         editOthArr(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
-        assertEq(1,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+        assertEq(13,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
     }
     @Test
     public void bp119() {
@@ -2263,7 +2263,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
         b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
         editOthArr(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
-        assertEq(1,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+        assertEq(13,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
     }
     @Test
     public void bp120() {
@@ -2291,6 +2291,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameArrFormContent().getGuiRangeCompoundSetStackForm().getDependantPointsForm().getChecksCurrent().get(9).setSelected(true);
         b_.getFramePoints().getFrameArrFormContent().getGuiIntGetSetStackForm().getDependantPointsForm().getChecksCurrent().get(10).setSelected(true);
         b_.getFramePoints().getFrameArrFormContent().getGuiInitArrayStackForm().getDependantPointsForm().getChecksCurrent().get(11).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiInitArrayStackForm().getDependantPointsForm().getChecksCurrent().get(12).setSelected(true);
         addArrOk(b_);
         assertTrue(curRet(b_).getPairArr("[pkg.Ex",false).getValue().getResultLength().getOthers().elts().iterator().hasNext());
     }
@@ -2320,6 +2321,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameArrFormContent().getGuiRangeCompoundSetStackForm().getDependantPointsForm().getChecksCurrent().get(9).setSelected(true);
         b_.getFramePoints().getFrameArrFormContent().getGuiIntGetSetStackForm().getDependantPointsForm().getChecksCurrent().get(10).setSelected(true);
         b_.getFramePoints().getFrameArrFormContent().getGuiInitArrayStackForm().getDependantPointsForm().getChecksCurrent().get(11).setSelected(true);
+        b_.getFramePoints().getFrameArrFormContent().getGuiInitArrayStackForm().getDependantPointsForm().getChecksCurrent().get(12).setSelected(true);
         addArrOk(b_);
         assertTrue(curRet(b_).getPairArr("[pkg.Ex",true).getValue().getResultLength().getOthers().elts().iterator().hasNext());
     }

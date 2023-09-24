@@ -1555,6 +1555,74 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertEq(2, getNumber(ArgumentListCall.toStr(stack_.getReturnedArgument())));
         assertNull(stack_.getCallingState());
     }
+    @Test
+    public void test99() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static Ex[] exmeth(){return new Ex[1].clone();}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdThrownConditionClone(cont_,"this.length==1");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(66, nowTrace(stack_));
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test100() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static Ex[] exmeth(){return new Ex[1].clone();}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdThrownConditionClone(cont_,"this.length==2");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+    @Test
+    public void test101() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static Ex[] exmeth(){return new Ex[1].clone();}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdThrownConditionClone(cont_,"");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(66, nowTrace(stack_));
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test102() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static Ex[] exmeth(){var l=$lambda(Ex[],clone);return l.call(new Ex[1]);}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdThrownConditionClone(cont_,"this.length==1");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(2, stack_.nbPages());
+        assertEq(84, stack_.getCall(0).getTraceIndex());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test103() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static Ex[] exmeth(){return (Ex[])class(Ex[]).getDeclaredMethods()[0].invoke(new Ex[1]);}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdThrownConditionClone(cont_,"this.length==1");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(2, stack_.nbPages());
+        assertEq(98, stack_.getCall(0).getTraceIndex());
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
     private void writeCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         write(_cont, _cf);
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
@@ -1699,7 +1767,16 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
 //        wp_.getResultThrown().result(res_, _condition);
     }
-
+    private void stdThrownConditionClone(ResultContext _cont, String _condition) {
+        stdClone(_cont);
+        ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", true);
+        ArrPoint wp_ = p_.getValue();
+        wp_.getResultClone().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
+        assertEq(_condition,wp_.getResultClone().getResultStr());
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeArr(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getResultThrown().result(res_, _condition);
+    }
     private void stdGetThrownCondition(ResultContext _cont, String _condition) {
         stdGet(_cont);
         ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", true);
@@ -2160,7 +2237,50 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         disable(val_);
         val_.setInitArray(true);
     }
+    private void unkThrownClone(ResultContext _cont) {
+        _cont.toggleArrPoint("",true);
+        ArrPoint val_ = _cont.getPairArr("", true).getValue();
+        disable(val_);
+        val_.setClone(true);
+    }
+    private void stdClone(ResultContext _cont) {
+        _cont.toggleArrPoint("[pkg.Ex",true);
+        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", true).getValue();
+        disable(val_);
+        val_.setClone(true);
+    }
+    private void intsClone(ResultContext _cont) {
+        _cont.toggleArrPoint("[int",true);
+        ArrPoint val_ = _cont.getPairArr("[int", true).getValue();
+        disable(val_);
+        val_.setClone(true);
+    }
 
+    private void intsNotExClone(ResultContext _cont) {
+        _cont.toggleArrPoint("[int",false);
+        ArrPoint val_ = _cont.getPairArr("[int", false).getValue();
+        disable(val_);
+        val_.setClone(true);
+    }
+    private void stdParamClone(ResultContext _cont) {
+        _cont.toggleArrPoint("[pkg.Ex<int>",true);
+        ArrPoint val_ = _cont.getPairArr("[pkg.Ex<int>", true).getValue();
+        disable(val_);
+        val_.setClone(true);
+    }
+    private void stdIncClone(ResultContext _cont) {
+        _cont.toggleArrPoint("[pkg.Ex<?>",false);
+        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", false).getValue();
+        disable(val_);
+        val_.setClone(true);
+    }
+
+    private void allArrClone(ResultContext _cont) {
+        _cont.toggleArrPoint("",false);
+        ArrPoint val_ = _cont.getPairArr("", false).getValue();
+        disable(val_);
+        val_.setClone(true);
+    }
     private void disable(ArrPoint _val) {
         _val.setLength(false);
         _val.setIntGet(false);
@@ -2174,6 +2294,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         _val.setRangeCompoundSet(false);
         _val.setIntGetSet(false);
         _val.setInitArray(false);
+        _val.setClone(false);
     }
 
     private void enteringCondition(String _newValue,ResultContext _cont, String _file, int _offset) {
