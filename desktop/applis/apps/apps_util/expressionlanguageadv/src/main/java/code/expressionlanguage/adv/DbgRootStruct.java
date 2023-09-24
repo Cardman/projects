@@ -3,6 +3,7 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.BreakPointOutputInfo;
+import code.expressionlanguage.exec.WatchResults;
 import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.exec.variables.ViewVariable;
 import code.expressionlanguage.structs.Struct;
@@ -34,23 +35,7 @@ public final class DbgRootStruct extends DbgAbsNodeStruct {
     }
     AbsTreeGui build(CustList<RenderPointPair> _renderList, AbsCompoFactory _compo, AbstractThreadFactory _th, ViewPage _stView, BreakPointOutputInfo _infos) {
         AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode("");
-        ContextEl s_ = _infos.getWatchResults().getSubContext();
-        if (s_ != null) {
-            Struct o_ = _infos.getWatchResults().getWatchedObject();
-            if (o_ != null) {
-                DbgWatchStruct pt_ = new DbgWatchStruct(s_,this, o_);
-                getChildren().add(pt_);
-                getNode().add(pt_.getNode());
-                root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(pt_)));
-            }
-            Struct t_ = _infos.getWatchResults().getWatchedTrace();
-            if (t_ != null) {
-                DbgWatchStruct pt_ = new DbgWatchStruct(s_,this, t_);
-                getChildren().add(pt_);
-                getNode().add(pt_.getNode());
-                root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(pt_)));
-            }
-        }
+        addWatches(_compo, root_, _infos.getWatchResults());
         DbgCallStruct pt_ = new DbgCallStruct(this, _stView.getInstance());
         root_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(pt_)));
         getChildren().add(pt_);
@@ -65,6 +50,32 @@ public final class DbgRootStruct extends DbgAbsNodeStruct {
         AbsTreeGui tree_ = _compo.newTreeGui(root_);
         tree_.addTreeSelectionListener(new DbgSelectNodeEvent(_renderList,tree_, this, _compo,_th));
         return tree_;
+    }
+    AbsTreeGui buildDynamic(CustList<RenderPointPair> _renderList, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+        AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode("");
+        AbsTreeGui tree_ = _compo.newTreeGui(root_);
+        tree_.addTreeSelectionListener(new DbgSelectNodeEvent(_renderList,tree_, this, _compo,_th));
+        return tree_;
+    }
+
+    void addWatches(AbsCompoFactory _compo, AbstractMutableTreeNodeCore<String> _root, WatchResults _wr) {
+        ContextEl s_ = _wr.getSubContext();
+        if (s_ != null) {
+            Struct o_ = _wr.getWatchedObject();
+            if (o_ != null) {
+                DbgWatchStruct pt_ = new DbgWatchStruct(s_,this, o_);
+                getChildren().add(pt_);
+                getNode().add(pt_.getNode());
+                _root.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(pt_)));
+            }
+            Struct t_ = _wr.getWatchedTrace();
+            if (t_ != null) {
+                DbgWatchStruct pt_ = new DbgWatchStruct(s_,this, t_);
+                getChildren().add(pt_);
+                getNode().add(pt_.getNode());
+                _root.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(pt_)));
+            }
+        }
     }
 
     @Override

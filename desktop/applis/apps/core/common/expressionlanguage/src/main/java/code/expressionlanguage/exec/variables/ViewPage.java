@@ -1,5 +1,7 @@
 package code.expressionlanguage.exec.variables;
 
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.util.CustList;
 
@@ -7,15 +9,21 @@ public final class ViewPage {
     private final StackTraceElementStruct stackElt;
     private final CustList<ViewVariable> vars;
     private final ViewInstance instance;
-    private final String fileName;
-    private final int trace;
+    private final AbstractPageEl page;
 
-    public ViewPage(StackTraceElementStruct _st, CustList<ViewVariable> _v, ViewInstance _i, String _fileName, int _trace) {
+    public ViewPage(StackTraceElementStruct _st, CustList<ViewVariable> _v, ViewInstance _i, AbstractPageEl _call) {
         this.stackElt = _st;
         this.vars = _v;
         this.instance = _i;
-        this.fileName = _fileName;
-        this.trace = _trace;
+        this.page = _call;
+    }
+
+    public String getFileName() {
+        return ExecFileBlock.name(getPage().getFile());
+    }
+
+    public int getTrace() {
+        return getPage().getTraceIndex();
     }
 
     public StackTraceElementStruct getStackElt() {
@@ -30,11 +38,8 @@ public final class ViewPage {
         return instance;
     }
 
-    public String getFileName() {
-        return fileName;
+    public AbstractPageEl getPage() {
+        return page;
     }
 
-    public int getTrace() {
-        return trace;
-    }
 }

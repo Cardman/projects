@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.dbg.BreakPointBlockKey;
 import code.expressionlanguage.exec.variables.ViewPage;
+import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
@@ -74,6 +75,13 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsScrollPane statusDbgAreaScrollRender;
     private CustList<RenderPointPair> renderList = new CustList<RenderPointPair>();
     private AbstractInterceptorStdCaller caller;
+    private AbstractPageEl currentPage;
+    private AbsTextArea dynamicEval;
+    private AbsPlainButton evalPage;
+    private AbsPlainButton evalNoPage;
+    private AbsScrollPane dynScroll;
+    private DbgRootStruct rootStructStr;
+    private AbsTreeGui dynTree;
 
     protected AbsDebuggerGui(AbsOpenFrameInteract _m, AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a,_lg,_list);
@@ -139,7 +147,16 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         AbsSplitPane calls_ = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(
                 getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(callStack),
                 getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(callStackRender));
-        detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(calls_,detail);
+        AbsPanel dynPanel_ = getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        dynamicEval = getCommonFrame().getFrames().getCompoFactory().newTextArea();
+        evalPage = getCommonFrame().getFrames().getCompoFactory().newPlainButton("eval page");
+        evalNoPage = getCommonFrame().getFrames().getCompoFactory().newPlainButton("eval no page");
+        dynScroll = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
+        dynPanel_.add(dynamicEval);
+        dynPanel_.add(evalPage);
+        dynPanel_.add(evalNoPage);
+        dynPanel_.add(dynScroll);
+        detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(calls_,getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(detail,getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(dynPanel_)));
         detailAll.setVisible(false);
         navigation = getCommonFrame().getFrames().getCompoFactory().newLineBox();
         navigation.setVisible(false);
@@ -305,7 +322,15 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         AbstractPageEl last_ = getStackCall().getLastPage();
         int opened_ = indexOpened(ExecFileBlock.name(last_.getFile()));
         selectFocus(opened_, last_.getTraceIndex());
+        currentPage = last_;
         detail.setViewportView(treeDetail);
+        rootStructStr = new DbgRootStruct(ctx_, null);
+        dynTree = rootStructStr.buildDynamic(renderList, getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory());
+        dynScroll.setViewportView(dynTree);
+        GuiBaseUtil.removeActionListeners(evalPage);
+        evalPage.addActionListener(new EvalPageEvent(this,_res));
+        GuiBaseUtil.removeActionListeners(evalNoPage);
+        evalNoPage.addActionListener(new EvalNoPageEvent(this,_res));
         detailAll.setVisible(true);
         PackingWindowAfter.pack(getCommonFrame());
         nextAction.setEnabled(true);
@@ -317,6 +342,22 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nextCursorExpression.setEnabled(true);
         getStopStack().setEnabled(true);
         getAnalyzeMenu().setEnabled(true);
+    }
+    public void dynamicAnalyzeSelectedPage(ResultContext _res) {
+        WatchResults wr_ = dynamicAnalyze(dynamicEval.getText(), getStackCall(), currentPage, _res, getResultContextNext().generateAdv(_res.getContext().getInterrupt()));
+        rootStructStr.addWatches(getCommonFrame().getFrames().getCompoFactory(),dynTree.getRoot(),wr_);
+        dynTree.reloadRoot();
+    }
+    public void dynamicAnalyzeNoSelectedPage(ResultContext _res) {
+        WatchResults wr_ = dynamicAnalyze(dynamicEval.getText(), getStackCall(), null, _res, getResultContextNext().generateAdv(_res.getContext().getInterrupt()));
+        rootStructStr.addWatches(getCommonFrame().getFrames().getCompoFactory(),dynTree.getRoot(),wr_);
+        dynTree.reloadRoot();
+    }
+    public static WatchResults dynamicAnalyze(String _dyn, StackCall _stack, AbstractPageEl _page, ResultContext _res, AbsLightContextGenerator _gene) {
+        if (_page == null) {
+            return WatchResults.dynamicAnalyze(_dyn,_stack,_res,_gene);
+        }
+        return WatchResults.dynamicAnalyze(_dyn,_res,_gene,_page);
     }
 
     public void possibleSelectInstruction(int _s, ResultContext _res) {
@@ -340,6 +381,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     public void updateGui(ViewPage _view, AbsTreeGui _treeDetailEvt, DbgRootStruct _treeRoot) {
         int opened_ = indexOpened(_view.getFileName());
         selectFocus(opened_, _view.getTrace());
+        currentPage = _view.getPage();
         detail.setNullViewportView();
         treeDetail = _treeDetailEvt;
         root = _treeRoot;
@@ -635,5 +677,25 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public AbsScrollPane getStatusDbgAreaScroll() {
         return statusDbgAreaScroll;
+    }
+
+    public AbsTextArea getDynamicEval() {
+        return dynamicEval;
+    }
+
+    public AbsPlainButton getEvalPage() {
+        return evalPage;
+    }
+
+    public AbsPlainButton getEvalNoPage() {
+        return evalNoPage;
+    }
+
+    public DbgRootStruct getRootStructStr() {
+        return rootStructStr;
+    }
+
+    public AbsTreeGui getDynTree() {
+        return dynTree;
     }
 }

@@ -159,7 +159,7 @@ public final class ExecClassesUtil {
             AbstractPageEl call_ = _st.getCall(i);
             CustList<ViewVariable> v_ = Cache.view(call_, _context);
             Cache.sortByDeepThenName(v_);
-            ls_.add(new ViewPage(MetaInfoUtil.newStackTraceElement(_context, call_, 0), v_,new ViewInstance(_context, call_), ExecFileBlock.name(call_.getFile()),call_.getTraceIndex()));
+            ls_.add(new ViewPage(MetaInfoUtil.newStackTraceElement(_context, call_, 0), v_,new ViewInstance(_context, call_), call_));
         }
         return ls_;
     }
