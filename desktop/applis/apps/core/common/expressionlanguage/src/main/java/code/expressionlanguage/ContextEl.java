@@ -386,6 +386,9 @@ public abstract class ContextEl {
     public IdMap<FileBlock, ExecFileBlock> getFiles() {
         return getClasses().getDebugMapping().getFiles();
     }
+    public IdMap<ExecFileBlock, FileBlock> getRevFiles() {
+        return getClasses().getDebugMapping().getRevFiles();
+    }
 
     public boolean isWatch(boolean _trField,int _root, String _field) {
         return getNotNullWatch(_trField,_root, _field).isEnabled();

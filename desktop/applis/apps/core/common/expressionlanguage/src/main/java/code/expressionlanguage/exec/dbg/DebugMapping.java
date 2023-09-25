@@ -12,6 +12,7 @@ import code.util.StringMap;
 
 public final class DebugMapping {
     private final IdMap<FileBlock, ExecFileBlock> files = new IdMap<FileBlock, ExecFileBlock>();
+    private final IdMap<ExecFileBlock, FileBlock> revFiles = new IdMap<ExecFileBlock, FileBlock>();
     private StringMap<StringMap<Struct>> shared = new StringMap<StringMap<Struct>>();
     private final CustList<String> typesInit = new CustList<String>();
     private String initClass="";
@@ -28,6 +29,7 @@ public final class DebugMapping {
             return;
         }
         files.addEntry(_file, _e);
+        revFiles.addEntry(_e, _file);
     }
     public BreakPointBlockList getBreakPointsBlock() {
         return breakPointsBlock;
@@ -35,6 +37,10 @@ public final class DebugMapping {
 
     public IdMap<FileBlock, ExecFileBlock> getFiles() {
         return files;
+    }
+
+    public IdMap<ExecFileBlock, FileBlock> getRevFiles() {
+        return revFiles;
     }
 
     public CustList<String> getTypesInit() {

@@ -15,8 +15,8 @@ public final class ProcessDbgEvalInitTypesTest extends ProcessDbgCommon {
         ResultContext f_ = firstAna(files_);
         ResultContextLambda res_ = dynAna("{class Loc{static int i=1;static{i++;}}return Loc.i;}", "pkg.Ex", 55, f_);
         AbstractPageEl next_ = goToBp(f_, "pkg.Ex", "exmeth", null);
-        assertEq(2,((NumberStruct)eval(res_,f_, next_)).intStruct());
-        assertEq(2,((NumberStruct)eval(res_,f_, next_)).intStruct());
+        assertEq(2,((NumberStruct)eval(res_, next_)).intStruct());
+        assertEq(2,((NumberStruct)eval(res_, next_)).intStruct());
     }
     @Test
     public void test2() {
@@ -25,8 +25,8 @@ public final class ProcessDbgEvalInitTypesTest extends ProcessDbgCommon {
         ResultContext f_ = firstAna(files_);
         ResultContextLambda res_ = dynAna("{class Loc{static int i=1;static{i++;Moc.i=Moc.i;}}class Moc{static int i=1;static{i++;}}return Loc.i;}", "pkg.Ex", 55, f_);
         AbstractPageEl next_ = goToBp(f_, "pkg.Ex", "exmeth", null);
-        assertEq(2,((NumberStruct)eval(res_,f_, next_)).intStruct());
-        assertEq(2,((NumberStruct)eval(res_,f_, next_)).intStruct());
+        assertEq(2,((NumberStruct)eval(res_, next_)).intStruct());
+        assertEq(2,((NumberStruct)eval(res_, next_)).intStruct());
     }
     @Test
     public void test3() {
@@ -35,7 +35,7 @@ public final class ProcessDbgEvalInitTypesTest extends ProcessDbgCommon {
         ResultContext f_ = firstAna(files_);
         ResultContextLambda res_ = dynAna("{public enum LocEnum{THREE{},FOUR{}}return ExEnum.ONE.ordinal()+LocEnum.FOUR.ordinal();}", "pkg.Ex", 55, f_);
         AbstractPageEl next_ = goToBp(f_, "pkg.Ex", "exmeth", null);
-        assertEq(1,((NumberStruct)eval(res_,f_, next_)).intStruct());
-        assertEq(1,((NumberStruct)eval(res_,f_, next_)).intStruct());
+        assertEq(1,((NumberStruct)eval(res_, next_)).intStruct());
+        assertEq(1,((NumberStruct)eval(res_, next_)).intStruct());
     }
 }

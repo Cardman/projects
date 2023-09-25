@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.StackCallReturnValue;
 import code.expressionlanguage.exec.WatchResults;
 import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.functionid.AbsractIdentifiableCommon;
@@ -136,7 +137,77 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         dbgContinueNormalValueStepBlock(stack_, res_.getContext());
         assertNull(WatchResults.dynamicAnalyze("",stack_, res_, new DefContextGenerator()).getWatchedObject());
     }
-
+    @Test
+    public void test11() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle();return end(v);}public static int end(int i){return i+1;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        res_.toggleBreakPoint("pkg/Ex",114);
+        StackCallReturnValue stVal_ = goLoop(res_, "pkg.Ex", "exmeth", null);
+        Struct cont1_ = WatchResults.dynamicAnalyze("v", res_, new DefContextGenerator(), stVal_.getStack().getCall(0)).getWatchedObject();
+        assertEq(2,((NumberStruct)cont1_).intStruct());
+        Struct cont2_ = WatchResults.dynamicAnalyze("i", res_, new DefContextGenerator(), stVal_.getStack().getCall(1)).getWatchedObject();
+        assertEq(2,((NumberStruct)cont2_).intStruct());
+    }
+    @Test
+    public void test12() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {static int m(){int res=5;for(int e:{1,2,3}){res+=e;}return res;}}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        res_.toggleBreakPoint("pkg/Ex",55);
+        StackCallReturnValue stVal_ = goLoop(res_, "pkg.Ex", "m", null);
+        Struct cont1_ = WatchResults.dynamicAnalyze("res", res_, new DefContextGenerator(), stVal_.getStack().getLastPage()).getWatchedObject();
+        assertEq(5,((NumberStruct)cont1_).intStruct());
+    }
+    @Test
+    public void test13() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {static int m(){int res=5;for(int e:{0}){res+=e;}return res;}}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        res_.toggleBreakPoint("pkg/Ex",55);
+        StackCallReturnValue first_ = goLoop(res_, "pkg.Ex", "m", null);
+        Struct cont1_ = WatchResults.dynamicAnalyze("res", res_, new DefContextGenerator(), dbgContinueNormal(first_.getStack(),res_.getContext()).getLastPage()).getWatchedObject();
+        assertEq(5,((NumberStruct)cont1_).intStruct());
+    }
+    @Test
+    public void test14() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {static int m(){return (int)class(Ex).getDeclaredMethods(null,null,null,class(int))[0].invoke(null,2);}static int m(int v){return 5+v;}}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        res_.toggleBreakPoint("pkg/Ex",150);
+        StackCallReturnValue first_ = goLoop(res_, "pkg.Ex", "m", null);
+        assertNull(WatchResults.dynamicAnalyze("", res_, new DefContextGenerator(),first_.getStack().getCall(1)).getWatchedObject());
+    }
+    @Test
+    public void test15() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        res_.toggleBreakPoint("pkg/Ex",114);
+        StackCallReturnValue first_ = goLoop(res_, "pkg.Ex", "exmeth", null);
+        StackCall stack_ = first_.getStack();
+        StackCall next_ = dbgContinueNormalValueNextInstMethod(stack_, res_.getContext());
+        Struct cont_ = WatchResults.dynamicAnalyze("t+u", next_, res_, new DefContextGenerator()).getWatchedObject();
+        assertEq(11,((NumberStruct)cont_).intStruct());
+    }
+    @Test
+    public void test16() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        res_.toggleBreakPoint("pkg/Ex",114);
+        StackCallReturnValue first_ = goLoop(res_, "pkg.Ex", "exmeth", null);
+        StackCall stack_ = first_.getStack();
+        StackCall next_ = dbgContinueNormalValueStepRet(stack_, res_.getContext());
+        Struct cont_ = WatchResults.dynamicAnalyze("t+u", next_, res_, new DefContextGenerator()).getWatchedObject();
+        assertEq(11,((NumberStruct)cont_).intStruct());
+    }
     private void divThrown(ResultContext _cond) {
         _cond.toggleExcPoint(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(),true);
         ExcPoint val_ = _cond.getPairExc(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();

@@ -44,7 +44,7 @@ public final class TreeNodeRenderUtil {
     static void renderNode(ResultContextLambda _renderPointPairs, AbsTreeGui _tree, AbstractMutableTreeNodeCore<String> _tr, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         String res_ = resultWrap(_renderPointPairs,_node, _compo, _th);
         String render_ = format(_node, res_);
-        _compo.invokeLater(new FinalRenderingTask(_tree,_tr,render_));
+        _compo.invokeNow(new FinalRenderingTask(_tree,_tr,render_));
     }
 
     static String resultWrap(ResultContextLambda _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
@@ -58,7 +58,7 @@ public final class TreeNodeRenderUtil {
         Struct str_ = _node.value();
         if (_renderPointPairs != null) {
             String clName_ = str_.getClassName(ctx_);
-            StackCallReturnValue result_ = _renderPointPairs.eval(_node.getOriginal(), new CoreCheckedExecOperationNodeInfos(ExecFormattedRootBlock.build(clName_, ctx_.getClasses()), str_), null);
+            StackCallReturnValue result_ = _renderPointPairs.eval(new CoreCheckedExecOperationNodeInfos(ExecFormattedRootBlock.build(clName_, ctx_.getClasses()), str_), null);
             CallingState stateAfter_ = result_.getStack().getCallingState();
             if (stateAfter_ != null) {
                 for (String l: ResultContextLambda.traceView(result_.getStack(),ctx_)) {

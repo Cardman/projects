@@ -669,8 +669,8 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return ResultContextLambda.dynamicAnalyze(_dyn, _res.getPair(_res.getFiles().getVal(ana_.getFile()), _caret), _res, _res.getPageEl().getAliasPrimInteger(), new DefContextGenerator(),BreakPoint.BPC_STD);
     }
 
-    protected Struct eval(ResultContextLambda _dyn, ResultContext _res, AbstractPageEl _page) {
-        return _dyn.eval(_res.getContext(), null, _page).getStack().aw().getValue().getStruct();
+    protected Struct eval(ResultContextLambda _dyn, AbstractPageEl _page) {
+        return _dyn.eval(null, _page).getStack().aw().getValue().getStruct();
     }
 
     protected AbstractPageEl goToBp(ResultContext _res, String _class, String _meth, StackCall _stack) {

@@ -27,19 +27,28 @@ public final class WatchResults {
         BreakPointOutputInfo output_ = _stack.getBreakPointInfo().getBreakPointOutputInfo();
         BreakPointCondition bpc_ = output_.getBpc();
         if (bpc_ == null) {
-            return new WatchResults();
+            AbstractPageEl exit_ = _stack.getBreakPointInfo().getBreakPointMiddleInfo().getExiting();
+            if (exit_ != null) {
+                return dynamicAnalyze(_dyn,_res,_gene, exit_);
+            }
+            return dynamicAnalyze(_dyn,_res,_gene,_stack.getLastPage());
         }
         ResultContextLambda resCtxLambda_ = bpc_.getSuperKeyPoint().analyze(_dyn, _res, _res.getPageEl().getAliasObject(), _gene, bpc_.getPhasePoint());
         CoreCheckedExecOperationNodeInfos opElt_ = output_.getOperElt();
         if (opElt_ == null) {
-            return afterAnalyze(resCtxLambda_,_res.getContext(),null,_stack.getLastPage());
+            return afterAnalyze(resCtxLambda_, null,_stack.getLastPage());
         }
-        return afterAnalyze(resCtxLambda_,_res.getContext(),opElt_,null);
+        return afterAnalyze(resCtxLambda_, opElt_,null);
     }
 
     public static WatchResults dynamicAnalyze(String _dyn, ResultContext _res, AbsLightContextGenerator _gene, AbstractPageEl _last) {
         AbstractInterceptorStdCaller inter_ = _res.getContext().getCaller();
-        BreakPointBlockPair pair_ = new BreakPointBlockPair(_last.getFile(), FileBlock.number(_res.getPageEl().getPreviousFilesBodies().getVal(ExecFileBlock.name(_last.getFile()))), _last.getTraceIndex(), inter_, true);
+        ExecFileBlock ex_ = _last.getFile();
+        FileBlock bl_ = _res.getRevFiles().getVal(ex_);
+        if (bl_ == null) {
+            return new WatchResults();
+        }
+        BreakPointBlockPair pair_ = new BreakPointBlockPair(ex_, FileBlock.number(bl_), _last.getTraceIndex(), inter_, true);
         int phase_;
         if (_last instanceof AbstractCallingInstancingPageEl) {
             phase_ = BreakPoint.BPC_INSTANCE;
@@ -49,9 +58,9 @@ public final class WatchResults {
             phase_ = BreakPoint.BPC_STD;
         }
         ResultContextLambda resCtxLambda_ = ResultContextLambda.dynamicAnalyze(_dyn, pair_, _res, _res.getPageEl().getAliasObject(), _gene, phase_);
-        return afterAnalyze(resCtxLambda_,_res.getContext(),null,_last);
+        return afterAnalyze(resCtxLambda_, null,_last);
     }
-    private static WatchResults afterAnalyze(ResultContextLambda _reCtx, ContextEl _original, CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
+    private static WatchResults afterAnalyze(ResultContextLambda _reCtx, CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
         ContextEl sub_ = _reCtx.getContext();
         if (sub_ == null) {
             WatchResults wr_ = new WatchResults();
@@ -60,7 +69,7 @@ public final class WatchResults {
         }
         WatchResults wr_ = new WatchResults();
         wr_.setSubContext(sub_);
-        StackCallReturnValue st_ = _reCtx.eval(_original, _addon, _page);
+        StackCallReturnValue st_ = _reCtx.eval(_addon, _page);
         if (st_.getStack().trueException() != null) {
             wr_.setWatchedTrace(st_.getStack().getStackView());
         } else {

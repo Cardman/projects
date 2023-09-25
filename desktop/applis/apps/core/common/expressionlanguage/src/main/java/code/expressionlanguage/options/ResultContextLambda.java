@@ -52,13 +52,15 @@ import code.util.core.StringUtil;
 
 public final class ResultContextLambda {
     private final ExecTypeFunction lambda;
+    private final ContextEl original;
     private final ContextEl context;
     private final ReportedMessages reportedMessages;
     private boolean initTypes;
     private final int delta;
     private final AnonymousLambdaOperation lda;
 
-    public ResultContextLambda(ContextEl _c, ExecTypeFunction _l, ReportedMessages _r, int _d, AnonymousLambdaOperation _ld) {
+    public ResultContextLambda(ContextEl _o,ContextEl _c, ExecTypeFunction _l, ReportedMessages _r, int _d, AnonymousLambdaOperation _ld) {
+        this.original = _o;
         this.lambda = _l;
         this.context = _c;
         this.reportedMessages = _r;
@@ -68,7 +70,7 @@ public final class ResultContextLambda {
 
     public static ResultContextLambda dynamicAnalyze(String _exp, BreakPointBlockPair _mp, ResultContext _result, String _type, AbsLightContextGenerator _gene, int _phasePoint) {
         if (_exp.trim().isEmpty()) {
-            return new ResultContextLambda(null,null,new ReportedMessages(), 0, null);
+            return new ResultContextLambda(_result.getContext(),null,null,new ReportedMessages(), 0, null);
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(ExecFileBlock.name(_mp.getBp().getFile()), _mp.getBp().getOffset(), _result.getPageEl(),_phasePoint);
         return build(_exp, _result, _type, _gene, a_);
@@ -76,7 +78,7 @@ public final class ResultContextLambda {
 
     public static ResultContextLambda dynamicAnalyze(String _exp, StdMethodPointBlockPair _instance, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
         if (_exp.trim().isEmpty()) {
-            return new ResultContextLambda(null,null,new ReportedMessages(), 0, null);
+            return new ResultContextLambda(_result.getContext(),null,null,new ReportedMessages(), 0, null);
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_instance, _result.getPageEl());
         return build(_exp, _result, _type, _gene, a_);
@@ -85,7 +87,7 @@ public final class ResultContextLambda {
 
     public static ResultContextLambda dynamicAnalyze(String _exp, OperNatPointBlockPair _instance, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
         if (_exp.trim().isEmpty()) {
-            return new ResultContextLambda(null,null,new ReportedMessages(), 0, null);
+            return new ResultContextLambda(_result.getContext(),null,null,new ReportedMessages(), 0, null);
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_instance, _result.getPageEl());
         return build(_exp, _result, _type, _gene, a_);
@@ -93,7 +95,7 @@ public final class ResultContextLambda {
 
     public static ResultContextLambda dynamicAnalyze(String _exp, MethodPointBlockPair _instance, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
         if (_exp.trim().isEmpty()) {
-            return new ResultContextLambda(null,null,new ReportedMessages(), 0, null);
+            return new ResultContextLambda(_result.getContext(),null,null,new ReportedMessages(), 0, null);
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(_instance, _result.getPageEl());
         return build(_exp, _result, _type, _gene, a_);
@@ -101,7 +103,7 @@ public final class ResultContextLambda {
 
     public static ResultContextLambda dynamicAnalyzeField(String _exp, WatchPointBlockPair _trField, ResultContext _result, String _type, AbsLightContextGenerator _gene, int _flag) {
         if (_exp.trim().isEmpty()) {
-            return new ResultContextLambda(null,null,new ReportedMessages(), 0, null);
+            return new ResultContextLambda(_result.getContext(),null,null,new ReportedMessages(), 0, null);
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareFields(_trField, _result.getPageEl(),_flag);
         return build(_exp, _result, _type, _gene, a_);
@@ -109,7 +111,7 @@ public final class ResultContextLambda {
 
     public static ResultContextLambda dynamicAnalyzeArr(String _exp, ArrPointBlockPair _ex, ResultContext _result, String _type, AbsLightContextGenerator _gene, int _flag) {
         if (_exp.trim().isEmpty()) {
-            return new ResultContextLambda(null,null,new ReportedMessages(), 0, null);
+            return new ResultContextLambda(_result.getContext(),null,null,new ReportedMessages(), 0, null);
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareArr(_ex.getEp().getClName(),_result.getPageEl(), _flag);
         return build(_exp, _result, _type, _gene, a_);
@@ -117,7 +119,7 @@ public final class ResultContextLambda {
 
     public static ResultContextLambda dynamicAnalyzeExc(String _exp, ExcPointBlockPair _ex, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
         if (_exp.trim().isEmpty()) {
-            return new ResultContextLambda(null,null,new ReportedMessages(), 0, null);
+            return new ResultContextLambda(_result.getContext(),null,null,new ReportedMessages(), 0, null);
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.prepareExc(_ex.getEp().getClName(), _ex.getEp().isExact(), _result.getPageEl());
         return build(_exp, _result, _type, _gene, a_);
@@ -126,7 +128,7 @@ public final class ResultContextLambda {
 
     public static ResultContextLambda dynamicAnalyzePar(String _exp, ParPointBlockPair _ex, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
         if (_exp.trim().isEmpty()) {
-            return new ResultContextLambda(null,null,new ReportedMessages(), 0, null);
+            return new ResultContextLambda(_result.getContext(),null,null,new ReportedMessages(), 0, null);
         }
         AnalyzedPageEl a_ = ResultExpressionOperationNode.preparePar(_ex.getPp().getClName(), _ex.getPp().isExact(), _ex.getRootBlock(), _result.getPageEl());
         return build(_exp, _result, _type, _gene, a_);
@@ -164,7 +166,7 @@ public final class ResultContextLambda {
         l_.buildExpressionLanguageReadOnly(_a);
         CustList<AnonymousLambdaOperation> al_ = _a.getAnonymousLambda();
         if (al_.isEmpty()) {
-            return new ResultContextLambda(null, null, _a.getMessages(), 0, null);
+            return new ResultContextLambda(_result.getContext(),null, null, _a.getMessages(), 0, null);
         }
         AnonymousLambdaOperation mainLambda_ = al_.first();
         ClassesUtil.processAnonymous(_a);
@@ -172,12 +174,12 @@ public final class ResultContextLambda {
         ClassesUtil.validateSimFinals(_a);
         ClassesUtil.checkEnd(_a);
         if (_a.notAllEmptyErrors()) {
-            return new ResultContextLambda(null, null, _a.getMessages(), 0, null);
+            return new ResultContextLambda(_result.getContext(),null, null, _a.getMessages(), 0, null);
         }
         Forwards forwards_ = ForwardInfos.generalForward(_a, _result);
         ContextEl ctx_ = _gene.gene(forwards_);
         Classes.forwardAndClear(ctx_);
-        return new ResultContextLambda(ctx_, ForwardInfos.buildAnonFctPair(forwards_, mainLambda_), _a.getMessages(), d_, mainLambda_);
+        return new ResultContextLambda(_result.getContext(), ctx_, ForwardInfos.buildAnonFctPair(forwards_, mainLambda_), _a.getMessages(), d_, mainLambda_);
     }
 
     private static void extractAnon(AnalyzedPageEl _page, IntermediaryResults _int, ResultExpression _resultExpression) {
@@ -203,13 +205,13 @@ public final class ResultContextLambda {
         }
         return StringUtil.nullToEmpty(_str);
     }
-    public StackCallReturnValue eval(ContextEl _original, CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
-        prepare(_original);
-        return eval(_addon,_page);
+    public StackCallReturnValue eval(CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
+        prepare();
+        return evalStack(_addon,_page);
     }
-    public CustList<String> evalLog(ContextEl _original, CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
-        prepare(_original);
-        return evalStr(eval(_addon, _page));
+    public CustList<String> evalLog(CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
+        prepare();
+        return evalStr(evalStack(_addon, _page));
     }
     public CustList<String> evalStr(StackCallReturnValue _pre) {
         StackCall st_ = _pre.getStack();
@@ -253,7 +255,7 @@ public final class ResultContextLambda {
         return e_;
     }
 
-    private void prepare(ContextEl _original) {
+    private void prepare() {
         if (!initTypes) {
             initTypes = true;
             ExecClassesUtil.forwardClassesMetaInfos(context);
@@ -262,22 +264,22 @@ public final class ResultContextLambda {
             context.setExiting(new DefaultExiting(context));
             StackCall st_ = StackCall.newInstance(InitPhase.LIST,context);
             st_.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
-            endOrder(_original,st_);
+            endOrder(st_);
             ExecClassesUtil.updateAfter(context);
         } else {
-            context.getClasses().getCommon().getStaticFields().putAllMap(_original.getClasses().getStaticFields());
+            context.getClasses().getCommon().getStaticFields().putAllMap(original.getClasses().getStaticFields());
         }
-        for (EntryCust<ExecRootBlock, InitClassState> c: _original.getLocks().getClasses().entryList()) {
+        for (EntryCust<ExecRootBlock, InitClassState> c: original.getLocks().getClasses().entryList()) {
             context.getLocks().state(c.getKey(),c.getValue());
         }
     }
 
-    private void endOrder(ContextEl _original, StackCall _st) {
+    private void endOrder(StackCall _st) {
         CustList<String> f_ = context.getClasses().getClassesBodies().getKeys();
-        StringUtil.removeAllElements(f_, _original.getClasses().getClassesBodies().getKeys());
+        StringUtil.removeAllElements(f_, original.getClasses().getClassesBodies().getKeys());
         f_.sortElts(new NaturalComparator());
         Classes cl_ = context.getClasses();
-        cl_.getCommon().getStaticFields().putAllMap(_original.getClasses().getStaticFields());
+        cl_.getCommon().getStaticFields().putAllMap(original.getClasses().getStaticFields());
         for (String c: f_) {
             _st.getInitializingTypeInfos().resetInitEnums(_st);
             ExecRootBlock r_ = cl_.getClassBody(c);
@@ -290,7 +292,7 @@ public final class ResultContextLambda {
         _st.getInitializingTypeInfos().resetInitEnums(_st);
     }
 
-    public StackCallReturnValue eval(CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
+    public StackCallReturnValue evalStack(CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING, context);
         if (_addon instanceof CheckedMethodInfos) {
             AbstractPageEl page_ = new CustomFoundMethod(new Argument(_addon.getInstance()),_addon.getDeclaring(),lambda, ((CheckedMethodInfos)_addon).getParameters()).processAfterOperation(context,stackCall_);

@@ -311,6 +311,9 @@ public final class ResultContext {
     public IdMap<FileBlock, ExecFileBlock> getFiles() {
         return getContext().getFiles();
     }
+    public IdMap<ExecFileBlock, FileBlock> getRevFiles() {
+        return getContext().getRevFiles();
+    }
 
     public BreakPointBlockList getBreakPointsBlock() {
         return getContext().getBreakPointsBlock();

@@ -184,7 +184,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         CoreCheckedExecOperationNodeInfos o_ = out_.getOperElt();
         ResultContextLambda logs_ = bp_.getLogs();
         if (logs_ != null) {
-            for (String s: logs_.evalLog(_context, o_, p_)) {
+            for (String s: logs_.evalLog(o_, p_)) {
                 _l.log(s);
             }
         }
@@ -195,7 +195,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             ResultContextLambda w_ = bp_.getWatches();
             if (w_ != null) {
                 out_.getWatchResults().setSubContext(w_.getContext());
-                StackCallReturnValue st_ = w_.eval(_context, o_, p_);
+                StackCallReturnValue st_ = w_.eval(o_, p_);
                 if (st_.getStack().trueException() != null) {
                     out_.getWatchResults().setWatchedTrace(st_.getStack().getStackView());
                 } else {
@@ -832,7 +832,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     }
 
     private static boolean condition(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, ResultContextLambda _result, CoreCheckedExecOperationNodeInfos _info, boolean _errStack, boolean _errLogs) {
-        StackCallReturnValue result_ = _result.eval(_context, _info, _p);
+        StackCallReturnValue result_ = _result.eval(_info, _p);
         if (result_.getStack().getCallingState() != null) {
             if (_errStack) {
                 for (String s: ResultContextLambda.trace(_stackCall,_context)) {

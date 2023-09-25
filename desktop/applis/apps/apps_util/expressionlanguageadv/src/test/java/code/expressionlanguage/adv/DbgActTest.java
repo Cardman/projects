@@ -4973,7 +4973,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
         new DbgRenderStrNodeTask(null, trDetail_,node_,info_,b_.getCompoFactory(), b_.getThreadFactory()).run();
-        ((MockCompoFactory)b_.getCompoFactory()).invoke();
+//        ((MockCompoFactory)b_.getCompoFactory()).invoke();
         assertFalse(node_.info().isEmpty());
     }
     @Test
@@ -5003,6 +5003,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         launch(b_);
         b_.getDynamicEval().setText("i+j");
         b_.getEvalNoPage().getActionListeners().get(0).action();
+        b_.getDynamicAna().join();
         DbgRootStruct root_ = b_.getRootStructStr();
         assertEq("",root_.str());
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
@@ -5040,6 +5041,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         launch(b_);
         b_.getDynamicEval().setText("i+j");
         b_.getEvalPage().getActionListeners().get(0).action();
+        b_.getDynamicAna().join();
         DbgRootStruct root_ = b_.getRootStructStr();
         assertEq("",root_.str());
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();

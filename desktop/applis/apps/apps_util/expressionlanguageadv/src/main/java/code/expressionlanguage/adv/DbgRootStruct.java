@@ -52,7 +52,7 @@ public final class DbgRootStruct extends DbgAbsNodeStruct {
         return tree_;
     }
     AbsTreeGui buildDynamic(CustList<RenderPointPair> _renderList, AbsCompoFactory _compo, AbstractThreadFactory _th) {
-        AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode("");
+        AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode("vars");
         AbsTreeGui tree_ = _compo.newTreeGui(root_);
         tree_.addTreeSelectionListener(new DbgSelectNodeEvent(_renderList,tree_, this, _compo,_th));
         return tree_;

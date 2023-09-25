@@ -82,6 +82,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsScrollPane dynScroll;
     private DbgRootStruct rootStructStr;
     private AbsTreeGui dynTree;
+    private AbstractThread dynamicAna;
 
     protected AbsDebuggerGui(AbsOpenFrameInteract _m, AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a,_lg,_list);
@@ -344,15 +345,21 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         getAnalyzeMenu().setEnabled(true);
     }
     public void dynamicAnalyzeSelectedPage(ResultContext _res) {
-        WatchResults wr_ = dynamicAnalyze(dynamicEval.getText(), getStackCall(), currentPage, _res, getResultContextNext().generateAdv(_res.getContext().getInterrupt()));
-        rootStructStr.addWatches(getCommonFrame().getFrames().getCompoFactory(),dynTree.getRoot(),wr_);
-        dynTree.reloadRoot();
+        dynamicAna = getThreadFactory().newStartedThread(new DynamicAnalysisTask(this,dynamicEval.getText(), getStackCall(), currentPage, _res,getResultContextNext(), getThreadFactory().newAtomicBoolean()));
     }
     public void dynamicAnalyzeNoSelectedPage(ResultContext _res) {
-        WatchResults wr_ = dynamicAnalyze(dynamicEval.getText(), getStackCall(), null, _res, getResultContextNext().generateAdv(_res.getContext().getInterrupt()));
-        rootStructStr.addWatches(getCommonFrame().getFrames().getCompoFactory(),dynTree.getRoot(),wr_);
+        dynamicAna = getThreadFactory().newStartedThread(new DynamicAnalysisTask(this,dynamicEval.getText(), getStackCall(), null, _res,getResultContextNext(), getThreadFactory().newAtomicBoolean()));
+    }
+
+    public void refreshDynamic(WatchResults _wr) {
+        rootStructStr.addWatches(getCommonFrame().getFrames().getCompoFactory(), dynTree.getRoot(), _wr);
         dynTree.reloadRoot();
     }
+
+    public AbstractThread getDynamicAna() {
+        return dynamicAna;
+    }
+
     public static WatchResults dynamicAnalyze(String _dyn, StackCall _stack, AbstractPageEl _page, ResultContext _res, AbsLightContextGenerator _gene) {
         if (_page == null) {
             return WatchResults.dynamicAnalyze(_dyn,_stack,_res,_gene);
