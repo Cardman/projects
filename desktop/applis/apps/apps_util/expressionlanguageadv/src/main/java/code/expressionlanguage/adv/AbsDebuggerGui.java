@@ -358,7 +358,6 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public void refreshDynamic(WatchResults _wr, AbsTreeGui _tr, DbgRootStruct _root) {
         _root.addWatches(getCommonFrame().getFrames().getCompoFactory(), _tr.getRoot(), _wr);
-        _tr.reloadRoot();
         dynTrees.add(_tr);
         watches.addIntTab("vars",getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(_tr));
         getCommonFrame().pack();
@@ -470,7 +469,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         openPoints.addActionListener(new OpenFramePointsEvent(this,framePoints, _res));
         GuiBaseUtil.removeTreeSelectionListeners(folderSystem);
         folderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(this,_res,folderSystem,new TabOpeningReadOnlyFile()));
-        refreshList(folderSystem.selectEvt(),viewable, "",getCommonFrame().getFrames().getCompoFactory());
+        refParent(folderSystem.getRoot(),"",folderSystem);
         framePoints.refresh(viewable,this, _res);
         closeCompos();
         int len_ = _src.size();

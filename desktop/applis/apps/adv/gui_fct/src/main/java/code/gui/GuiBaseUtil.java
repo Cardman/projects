@@ -27,11 +27,19 @@ public final class GuiBaseUtil {
 
     }
 
-    public static void removeTreeSelectionListeners(AbsTreeGui _tr) {
+    public static CustList<AbsShortListTree> removeTreeSelectionListeners(AbsTreeGui _tr) {
         CustList<AbsShortListTree> tr_ = _tr.getTreeSelectionListeners();
         int s_ = tr_.size();
         for (int i = 0; i < s_; i++) {
             _tr.removeTreeSelectionListener(tr_.get(i));
+        }
+        return tr_;
+    }
+
+    public static void addTreeSelectionListeners(AbsTreeGui _tr, CustList<AbsShortListTree> _list) {
+        int s_ = _list.size();
+        for (int i = 0; i < s_; i++) {
+            _tr.addTreeSelectionListener(_list.get(i));
         }
     }
 

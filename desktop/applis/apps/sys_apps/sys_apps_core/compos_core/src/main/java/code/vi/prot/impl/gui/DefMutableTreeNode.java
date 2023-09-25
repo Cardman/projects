@@ -48,8 +48,7 @@ public final class DefMutableTreeNode extends MutableTreeNodeNav<String> impleme
 
     @Override
     public int removeAllChildren() {
-        int nb_ = super.getChildCount();
-        super.removeAllChildren();
+        int nb_ = super.removeAllChildren();
         node.removeAllChildren();
         return nb_;
     }

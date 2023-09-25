@@ -354,6 +354,15 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     }
 
     @Test
+    public void addTreeEvts() {
+        MockTreeGui m_ = new MockTreeGui(new MockMutableTreeNode(""));
+        CustList<AbsShortListTree> ls_ = new CustList<AbsShortListTree>();
+        ls_.add(new MockShortListTree(0,new MockCommonFrameTreeSample(init())));
+        GuiBaseUtil.addTreeSelectionListeners(m_, ls_);
+        assertEq(1,m_.getTreeSelectionListeners().size());
+    }
+
+    @Test
     public void removeTreeEvts() {
         MockTreeGui m_ = new MockTreeGui(new MockMutableTreeNode(""));
         m_.addTreeSelectionListener(new MockShortListTree(0,new MockCommonFrameTreeSample(init())));
