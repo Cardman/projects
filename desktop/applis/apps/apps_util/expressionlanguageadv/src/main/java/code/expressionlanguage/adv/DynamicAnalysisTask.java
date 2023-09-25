@@ -7,6 +7,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.gui.AbsTreeGui;
 import code.threads.AbstractAtomicBoolean;
+import code.util.core.StringUtil;
 
 public final class DynamicAnalysisTask implements Runnable {
     private final AbsDebuggerGui window;
@@ -15,25 +16,33 @@ public final class DynamicAnalysisTask implements Runnable {
     private final AbstractPageEl call;
     private final ResultContext resultContext;
     private final AbsResultContextNext resultContextNext;
-    private final AbstractAtomicBoolean interruped;
+    private final AbstractAtomicBoolean interrupted;
     private final AbsTreeGui tree;
     private final DbgRootStruct root;
 
     public DynamicAnalysisTask(AbsDebuggerGui _w, AbstractPageEl _c, ResultContext _rc, AbsTreeGui _tr, DbgRootStruct _root) {
         this.window = _w;
-        this.dynamic = _w.getDynamicEval().getText();
+        this.dynamic = StringUtil.nullToEmpty(_w.getDynamicEval().getText());
         this.stackCall = _w.getStackCall();
         this.call = _c;
         this.resultContext = _rc;
         this.resultContextNext = _w.getResultContextNext();
-        this.interruped = _w.getThreadFactory().newAtomicBoolean();
+        this.interrupted = _w.getThreadFactory().newAtomicBoolean();
         this.tree = _tr;
         this.root = _root;
     }
 
+    public String getDynamic() {
+        return dynamic;
+    }
+
+    public AbstractAtomicBoolean getInterrupted() {
+        return interrupted;
+    }
+
     @Override
     public void run() {
-        WatchResults wr_ = AbsDebuggerGui.dynamicAnalyze(dynamic, stackCall, call, resultContext, resultContextNext.generateAdv(interruped));
-        window.getCompoFactory().invokeNow(new DynamicAnalysisLater(window,wr_,tree,root));
+        WatchResults wr_ = AbsDebuggerGui.dynamicAnalyze(dynamic, stackCall, call, resultContext, resultContextNext.generateAdv(interrupted));
+        window.getCompoFactory().invokeNow(new DynamicAnalysisLater(window,dynamic,wr_,tree,root));
     }
 }
