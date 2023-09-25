@@ -79,9 +79,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsTextArea dynamicEval;
     private AbsPlainButton evalPage;
     private AbsPlainButton evalNoPage;
-    private AbsScrollPane dynScroll;
     private DbgRootStruct rootStructStr;
-    private AbsTreeGui dynTree;
+    private final CustList<AbsTreeGui> dynTrees = new CustList<AbsTreeGui>();
+    private AbsTabbedPane watches;
     private AbstractThread dynamicAna;
 
     protected AbsDebuggerGui(AbsOpenFrameInteract _m, AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
@@ -152,11 +152,12 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         dynamicEval = getCommonFrame().getFrames().getCompoFactory().newTextArea();
         evalPage = getCommonFrame().getFrames().getCompoFactory().newPlainButton("eval page");
         evalNoPage = getCommonFrame().getFrames().getCompoFactory().newPlainButton("eval no page");
-        dynScroll = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
+        watches = getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        dynTrees.clear();
         dynPanel_.add(dynamicEval);
         dynPanel_.add(evalPage);
         dynPanel_.add(evalNoPage);
-        dynPanel_.add(dynScroll);
+        dynPanel_.add(watches);
         detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(calls_,getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(detail,getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(dynPanel_)));
         detailAll.setVisible(false);
         navigation = getCommonFrame().getFrames().getCompoFactory().newLineBox();
@@ -325,9 +326,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         selectFocus(opened_, last_.getTraceIndex());
         currentPage = last_;
         detail.setViewportView(treeDetail);
-        rootStructStr = new DbgRootStruct(ctx_, null);
-        dynTree = rootStructStr.buildDynamic(renderList, getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory());
-        dynScroll.setViewportView(dynTree);
+        rootStructStr = new DbgRootStruct(root.getResult(), null);
         GuiBaseUtil.removeActionListeners(evalPage);
         evalPage.addActionListener(new EvalPageEvent(this,_res));
         GuiBaseUtil.removeActionListeners(evalNoPage);
@@ -345,15 +344,24 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         getAnalyzeMenu().setEnabled(true);
     }
     public void dynamicAnalyzeSelectedPage(ResultContext _res) {
-        dynamicAna = getThreadFactory().newStartedThread(new DynamicAnalysisTask(this,dynamicEval.getText(), getStackCall(), currentPage, _res,getResultContextNext(), getThreadFactory().newAtomicBoolean()));
+        DbgRootStruct root_ = new DbgRootStruct(root.getResult(), null);
+        this.rootStructStr = root_;
+        AbsTreeGui d_ = root_.buildDynamic(renderList, getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory());
+        dynamicAna = getThreadFactory().newStartedThread(new DynamicAnalysisTask(this, currentPage, _res, d_, root_));
     }
     public void dynamicAnalyzeNoSelectedPage(ResultContext _res) {
-        dynamicAna = getThreadFactory().newStartedThread(new DynamicAnalysisTask(this,dynamicEval.getText(), getStackCall(), null, _res,getResultContextNext(), getThreadFactory().newAtomicBoolean()));
+        DbgRootStruct root_ = new DbgRootStruct(root.getResult(), null);
+        this.rootStructStr = root_;
+        AbsTreeGui d_ = root_.buildDynamic(renderList, getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory());
+        dynamicAna = getThreadFactory().newStartedThread(new DynamicAnalysisTask(this, null, _res, d_, root_));
     }
 
-    public void refreshDynamic(WatchResults _wr) {
-        rootStructStr.addWatches(getCommonFrame().getFrames().getCompoFactory(), dynTree.getRoot(), _wr);
-        dynTree.reloadRoot();
+    public void refreshDynamic(WatchResults _wr, AbsTreeGui _tr, DbgRootStruct _root) {
+        _root.addWatches(getCommonFrame().getFrames().getCompoFactory(), _tr.getRoot(), _wr);
+        _tr.reloadRoot();
+        dynTrees.add(_tr);
+        watches.addIntTab("vars",getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(_tr));
+        getCommonFrame().pack();
     }
 
     public AbstractThread getDynamicAna() {
@@ -702,7 +710,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return rootStructStr;
     }
 
-    public AbsTreeGui getDynTree() {
-        return dynTree;
+    public CustList<AbsTreeGui> getDynTrees() {
+        return dynTrees;
     }
 }

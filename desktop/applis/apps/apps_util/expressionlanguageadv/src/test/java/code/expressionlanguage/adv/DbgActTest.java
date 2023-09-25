@@ -5008,7 +5008,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq("",root_.str());
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
-        AbsTreeGui trDetail_ = b_.getDynTree();
+        AbsTreeGui trDetail_ = b_.getDynTrees().last();
         trDetail_.select(trDetail_.getRoot());
         trDetail_.select(trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
@@ -5046,7 +5046,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq("",root_.str());
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
-        AbsTreeGui trDetail_ = b_.getDynTree();
+        AbsTreeGui trDetail_ = b_.getDynTrees().last();
         trDetail_.select(trDetail_.getRoot());
         trDetail_.select(trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());

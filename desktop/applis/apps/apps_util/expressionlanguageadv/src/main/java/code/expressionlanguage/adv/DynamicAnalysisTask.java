@@ -5,6 +5,7 @@ import code.expressionlanguage.exec.WatchResults;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
+import code.gui.AbsTreeGui;
 import code.threads.AbstractAtomicBoolean;
 
 public final class DynamicAnalysisTask implements Runnable {
@@ -15,20 +16,24 @@ public final class DynamicAnalysisTask implements Runnable {
     private final ResultContext resultContext;
     private final AbsResultContextNext resultContextNext;
     private final AbstractAtomicBoolean interruped;
+    private final AbsTreeGui tree;
+    private final DbgRootStruct root;
 
-    public DynamicAnalysisTask(AbsDebuggerGui _w,String _d, StackCall _s, AbstractPageEl _c, ResultContext _rc, AbsResultContextNext _rcn, AbstractAtomicBoolean _i) {
+    public DynamicAnalysisTask(AbsDebuggerGui _w, AbstractPageEl _c, ResultContext _rc, AbsTreeGui _tr, DbgRootStruct _root) {
         this.window = _w;
-        this.dynamic = _d;
-        this.stackCall = _s;
+        this.dynamic = _w.getDynamicEval().getText();
+        this.stackCall = _w.getStackCall();
         this.call = _c;
         this.resultContext = _rc;
-        this.resultContextNext = _rcn;
-        this.interruped = _i;
+        this.resultContextNext = _w.getResultContextNext();
+        this.interruped = _w.getThreadFactory().newAtomicBoolean();
+        this.tree = _tr;
+        this.root = _root;
     }
 
     @Override
     public void run() {
         WatchResults wr_ = AbsDebuggerGui.dynamicAnalyze(dynamic, stackCall, call, resultContext, resultContextNext.generateAdv(interruped));
-        window.getCompoFactory().invokeNow(new DynamicAnalysisLater(window,wr_));
+        window.getCompoFactory().invokeNow(new DynamicAnalysisLater(window,wr_,tree,root));
     }
 }
