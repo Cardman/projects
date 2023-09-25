@@ -451,7 +451,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         String acc_ = _man.getEx().getAccess();
         return acc_+ StreamTextFile.SEPARATEUR;
     }
-    public void update(ResultContext _res, StringMap<String> _src) {
+    public void update(final ResultContext _res,final StringMap<String> _src) {
+        getCompoFactory().invokeNow(new AnalysisDebugLater(this, _res, _src));
+    }
+    public void coreUpdate(ResultContext _res, StringMap<String> _src) {
         if (_res.getPageEl().notAllEmptyErrors()) {
             statusAnalyzeArea.append(_res.getReportedMessages().displayErrors());
             selectEnter.setEnabled(false);
@@ -497,7 +500,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             BytesInfo content_ = new BytesInfo(StringUtil.encode(_src.getValue(i)),false);
             addTab(_res,manageOptions,fullPath_,content_, manageOptions.getOptions());
         }
-        PackingWindowAfter.pack(getCommonFrame());
+        getCommonFrame().pack();
     }
 
     public void closeAll() {
