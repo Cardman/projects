@@ -5179,6 +5179,45 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq("render1",i_.repr());
     }
     @Test
+    public void refDyn() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=1;var j=2;return 0;}public class Inner{public String $toString(){return \"to_str\";}}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(81,81);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        b_.getDynamicEval().setText("i+j");
+        b_.getEvalPage().getActionListeners().get(0).action();
+        b_.getDynamicAna().join();
+        DbgRootStruct root_ = b_.getRootStructStr();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(1,chs_.size());
+        AbsTreeGui trDetail_ = b_.getDynTrees().last();
+        trDetail_.select(trDetail_.getRoot());
+        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        b_.getButtonsDynRef().get(0).getActionListeners().get(0).action();
+        b_.getDynamicAna().join();
+        assertEq("3",root_.getChildren().get(0).repr());
+    }
+    @Test
     public void pause() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);

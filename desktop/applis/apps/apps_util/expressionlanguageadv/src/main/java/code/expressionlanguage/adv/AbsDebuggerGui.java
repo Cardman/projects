@@ -83,6 +83,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private DbgRootStruct rootStructStr;
     private CustList<AbsTreeGui> dynTrees = new CustList<AbsTreeGui>();
     private IdList<AbsPlainButton> buttons = new IdList<AbsPlainButton>();
+    private IdList<AbsPlainButton> buttonsDynRef = new IdList<AbsPlainButton>();
     private AbsTabbedPane watches;
     private AbsPanel cancelDynWatch;
     private AbstractThread dynamicAna;
@@ -159,6 +160,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         watches = getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
         dynTrees = new CustList<AbsTreeGui>();
         buttons = new IdList<AbsPlainButton>();
+        buttonsDynRef = new IdList<AbsPlainButton>();
         cancelDynWatch = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         dynPanel_.add(dynamicEval);
         dynPanel_.add(evalPage);
@@ -383,8 +385,16 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     public void refreshDynamic(WatchResults _wr, String _dynamic, AbsTreeGui _tr, DbgRootStruct _root) {
         _root.addWatches(getCommonFrame().getFrames().getCompoFactory(), _tr.getRoot(), _wr);
         dynTrees.add(_tr);
-        watches.addIntTab("vars",getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(_tr), _dynamic.trim());
+        AbsPlainButton ref_ = getCompoFactory().newPlainButton("refresh render");
+        ref_.addActionListener(new RefreshRenderDynEvent(this,_tr,_root));
+        buttonsDynRef.add(ref_);
+        AbsSplitPane elt_ = getCommonFrame().getFrames().getCompoFactory().newVerticalSplitPane(ref_, getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(_tr));
+        watches.addIntTab("vars",elt_, _dynamic.trim());
         getCommonFrame().pack();
+    }
+
+    public IdList<AbsPlainButton> getButtonsDynRef() {
+        return buttonsDynRef;
     }
 
     public AbstractThread getDynamicAna() {
@@ -399,14 +409,22 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     }
 
     public void refreshRender() {
-        AbstractMutableTreeNodeCore<String> sel_ = treeDetail.selectEvt();
-        AbstractMutableTreeNodeCore<DbgAbsNodeStruct> e_ = root.getNode().simular(sel_);
+        ref(treeDetail, root);
+    }
+
+    public void refreshRenderDyn(AbsTreeGui _tree, DbgRootStruct _root) {
+        ref(_tree, _root);
+    }
+
+    private void ref(AbsTreeGui _tree, DbgRootStruct _root) {
+        AbstractMutableTreeNodeCore<String> sel_ = _tree.selectEvt();
+        AbstractMutableTreeNodeCore<DbgAbsNodeStruct> e_ = _root.getNode().simular(sel_);
         if (e_ == null) {
             dynamicAna = getThreadFactory().newStartedThread(null);
             return;
         }
         DbgAbsNodeStruct i_ = e_.info();
-        dynamicAna = DbgSelectNodeEvent.render(i_,treeDetail,getCompoFactory(),getThreadFactory(),renderList,sel_);
+        dynamicAna = DbgSelectNodeEvent.render(i_, _tree,getCompoFactory(),getThreadFactory(),renderList,sel_);
     }
     public void possibleSelectInstruction(int _s, ResultContext _res) {
         if (_s > -1) {
