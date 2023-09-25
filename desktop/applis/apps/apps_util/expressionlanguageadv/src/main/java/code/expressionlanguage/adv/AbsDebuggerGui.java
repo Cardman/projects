@@ -86,6 +86,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsTabbedPane watches;
     private AbsPanel cancelDynWatch;
     private AbstractThread dynamicAna;
+    private AbsPlainButton refreshRender;
 
     protected AbsDebuggerGui(AbsOpenFrameInteract _m, AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a,_lg,_list);
@@ -164,7 +165,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         dynPanel_.add(evalNoPage);
         dynPanel_.add(watches);
         dynPanel_.add(cancelDynWatch);
-        detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(calls_,getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(detail,getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(dynPanel_)));
+        refreshRender = getCompoFactory().newPlainButton("refresh render");
+        AbsSplitPane detRender_ = getCommonFrame().getFrames().getCompoFactory().newVerticalSplitPane(refreshRender,detail);
+        detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(calls_,getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(detRender_,getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(dynPanel_)));
         detailAll.setVisible(false);
         navigation = getCommonFrame().getFrames().getCompoFactory().newLineBox();
         navigation.setVisible(false);
@@ -336,6 +339,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         selectFocus(opened_, last_.getTraceIndex());
         currentPage = last_;
         detail.setViewportView(treeDetail);
+        GuiBaseUtil.removeActionListeners(refreshRender);
+        refreshRender.addActionListener(new RefreshRenderEvent(this));
         rootStructStr = new DbgRootStruct(root.getResult(), null);
         GuiBaseUtil.removeActionListeners(evalPage);
         evalPage.addActionListener(new EvalPageEvent(this,_res));
@@ -393,6 +398,16 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return WatchResults.dynamicAnalyze(_dyn,_res,_gene,_page);
     }
 
+    public void refreshRender() {
+        AbstractMutableTreeNodeCore<String> sel_ = treeDetail.selectEvt();
+        AbstractMutableTreeNodeCore<DbgAbsNodeStruct> e_ = root.getNode().simular(sel_);
+        if (e_ == null) {
+            dynamicAna = getThreadFactory().newStartedThread(null);
+            return;
+        }
+        DbgAbsNodeStruct i_ = e_.info();
+        dynamicAna = DbgSelectNodeEvent.render(i_,treeDetail,getCompoFactory(),getThreadFactory(),renderList,sel_);
+    }
     public void possibleSelectInstruction(int _s, ResultContext _res) {
         if (_s > -1) {
             FileBlock f_ = _res.getPageEl().getPreviousFilesBodies().getVal(tabs.get(_s).getFullPath());
@@ -741,5 +756,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public IdList<AbsPlainButton> getButtons() {
         return buttons;
+    }
+
+    public AbsPlainButton getRefreshRender() {
+        return refreshRender;
     }
 }

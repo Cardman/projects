@@ -26,6 +26,7 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
     private AbsTextArea logger;
     private AbsPlainButton stop;
     private AbsCustComponent group;
+    private String infoStr = "";
 
     protected DbgAbsNodeStruct(DbgAbsNodeStruct _par) {
         this(_par.getResult(), _par.getOriginal(), _par);
@@ -36,6 +37,16 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
         this.original = _o;
         parentStruct = _par;
         node.info(this);
+    }
+
+    @Override
+    public String repr() {
+        return infoStr;
+    }
+
+    @Override
+    public void repr(String _r) {
+        infoStr = _r;
     }
 
     public MutableTreeNodeNav<DbgAbsNodeStruct> getNode() {

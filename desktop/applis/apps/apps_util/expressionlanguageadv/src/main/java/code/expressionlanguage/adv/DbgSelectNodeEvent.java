@@ -2,6 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
+import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 
@@ -27,14 +28,22 @@ public final class DbgSelectNodeEvent implements AbsShortListTree {
             return;
         }
         DbgAbsNodeStruct i_ = e_.info();
-        if (i_.select()){
-            AbstractMutableTreeNodeCore<String> sel_ = tree.selectEvt();
-            for (DbgAbsNodeStruct m: i_.getChildren()) {
-                sel_.add(compoFactory.newMutableTreeNode(TreeNodeRenderUtil.format(m)));
+        process(i_, tree, compoFactory, threadFactory, list);
+    }
+
+    static void process(DbgAbsNodeStruct _i, AbsTreeGui _tree, AbsCompoFactory _compo, AbstractThreadFactory _thFact, CustList<RenderPointPair> _ls) {
+        if (_i.select()){
+            AbstractMutableTreeNodeCore<String> sel_ = _tree.selectEvt();
+            for (DbgAbsNodeStruct m: _i.getChildren()) {
+                sel_.add(_compo.newMutableTreeNode(TreeNodeRenderUtil.format(m)));
             }
-            MutableTreeNodeUtil.reload(tree);
-            threadFactory.newStartedThread(new DbgRenderStrNodeTask(RenderPointPair.stopExc(list, i_),tree,sel_, i_, compoFactory,threadFactory));
+            MutableTreeNodeUtil.reload(_tree);
+            render(_i, _tree, _compo, _thFact, _ls, sel_);
         }
+    }
+
+    static AbstractThread render(DbgAbsNodeStruct _i, AbsTreeGui _tree, AbsCompoFactory _compo, AbstractThreadFactory _thFact, CustList<RenderPointPair> _ls, AbstractMutableTreeNodeCore<String> _sel) {
+        return _thFact.newStartedThread(new DbgRenderStrNodeTask(RenderPointPair.stopExc(_ls, _i), _tree, _sel, _i, _compo, _thFact));
     }
 
 }

@@ -49,7 +49,9 @@ public final class TreeNodeRenderUtil {
 
     static String resultWrap(ResultContextLambda _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         Struct res_ = result(_renderPointPairs, _node, _compo, _th);
-        return wrapValue(res_, _node.getResult());
+        String v_ = wrapValueInner(res_, _node.getResult());
+        _node.repr(v_);
+        return wrapValue(v_);
     }
     static Struct result(ResultContextLambda _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         ContextEl ctx_ = local(_node.getResult(), _th);
@@ -106,7 +108,7 @@ public final class TreeNodeRenderUtil {
     }
 
     private static String wrapValue(DbgNodeStruct _node) {
-        return wrapValue(_node.value(), _node.getResult());
+        return wrapValue(wrapValueInner(_node.value(), _node.getResult()));
     }
 
     static String format(DbgNodeStruct _node, String _value) {
@@ -123,10 +125,9 @@ public final class TreeNodeRenderUtil {
         return "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+WHITE+";'>" +transform(_type) + "</" + SPAN + ">";
     }
 
-    private static String wrapValue(Struct _str, ContextEl _ctx) {
-        String v_ = wrapValueInner(_str, _ctx);
-        if (!v_.isEmpty()) {
-            return "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+CYAN+";'>" +v_+ "</" + SPAN +">";
+    private static String wrapValue(String _v) {
+        if (!_v.isEmpty()) {
+            return "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+CYAN+";'>" + transform(_v) + "</" + SPAN +">";
         }
         return "";
     }
@@ -136,7 +137,7 @@ public final class TreeNodeRenderUtil {
             return Long.toString(((ArrayStruct)_str).getLength());
         }
         if (_str instanceof DisplayableStruct) {
-            return transform(((DisplayableStruct)_str).getDisplayedString(_ctx).getInstance());
+            return ((DisplayableStruct)_str).getDisplayedString(_ctx).getInstance();
         }
         return "";
     }

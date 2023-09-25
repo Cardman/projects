@@ -17,4 +17,6 @@ public interface DbgNodeStruct {
     void logs(AbsTextArea _a);
     void stopButton(AbsPlainButton _b);
     void panel(AbsCustComponent _c);
+    String repr();
+    void repr(String _r);
 }
