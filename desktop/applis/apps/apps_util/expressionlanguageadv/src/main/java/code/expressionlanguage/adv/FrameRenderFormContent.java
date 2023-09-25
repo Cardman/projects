@@ -9,12 +9,14 @@ public final class FrameRenderFormContent {
     private AbsTextField clName;
     private AbsCustCheckBox exact;
     private AbsCustCheckBox enabledExc;
+    private AbsCustCheckBox enabledExcGlobal;
     private AbsPlainButton ok;
     private AbsPlainButton remove;
     private AbsPanel contentPane;
 
     public void guiBuild(AbsDebuggerGui _d) {
-        enabledExc = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
+        enabledExc = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled custom render");
+        enabledExcGlobal = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled global");
         ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
         remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
         clName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
@@ -24,6 +26,7 @@ public final class FrameRenderFormContent {
         bpForm_.add(exact);
         bpForm_.add(clName);
         bpForm_.add(enabledExc);
+        bpForm_.add(enabledExcGlobal);
         bpForm_.add(_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(renderText));
         bpForm_.add(ok);
         bpForm_.add(remove);
@@ -38,9 +41,11 @@ public final class FrameRenderFormContent {
             clName.setEnabled(false);
             clName.setText(exc_.getExcPointBlockPair().getEp().getClName());
             getEnabledExc().setSelected(exc_.getExcPointBlockPair().getValue().isEnabled());
+            getEnabledExcGlobal().setSelected(exc_.isGlobalEnabled());
             renderText.setText(exc_.getRender().getResultStr());
         } else {
             getEnabledExc().setSelected(true);
+            getEnabledExcGlobal().setSelected(true);
             exact.setEnabled(true);
             clName.setEnabled(true);
         }
@@ -75,6 +80,10 @@ public final class FrameRenderFormContent {
 
     public AbsCustCheckBox getEnabledExc() {
         return enabledExc;
+    }
+
+    public AbsCustCheckBox getEnabledExcGlobal() {
+        return enabledExcGlobal;
     }
 
     public AbsTextArea getRenderText() {

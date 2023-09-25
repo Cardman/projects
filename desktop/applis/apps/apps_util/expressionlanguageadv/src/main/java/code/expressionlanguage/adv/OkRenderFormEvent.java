@@ -32,6 +32,7 @@ public final class OkRenderFormEvent implements AbsActionListener {
             exc_ = r_;
         }
         exc_.getExcPointBlockPair().getValue().setEnabled(frameExcFormContent.getEnabledExc().isSelected());
+        exc_.setGlobalEnabled(frameExcFormContent.getEnabledExcGlobal().isSelected());
         exc_.analyze(frameExcFormContent.getRenderText().getText(),currentResult, window.getResultContextNext().generateAdv(currentResult.getContext().getInterrupt()));
 //        exc_.getValue().setThrown(frameExcFormContent.getThrown().isSelected());
 //        exc_.getValue().setCaught(frameExcFormContent.getCaught().isSelected());

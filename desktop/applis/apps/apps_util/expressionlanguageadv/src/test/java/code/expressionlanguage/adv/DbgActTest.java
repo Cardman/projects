@@ -12,7 +12,6 @@ import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
-import code.mock.MockCompoFactory;
 import code.mock.MockProgramInfos;
 import code.util.CustList;
 import code.util.IdList;
@@ -3601,10 +3600,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq(2,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         trDetail_.select(null);
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
-        trDetail_.select(trDetail_.getRoot().getFirstChild().getNextSibling());
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild().getNextSibling());
         assertEq(2,root_.getChildren().size());
         assertEq("pkg.Ex",root_.getChildren().get(0).str());
         assertSame(NullStruct.NULL_VALUE,root_.getChildren().get(0).value());
@@ -3646,10 +3645,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
-        trDetail_.select(trDetail_.getRoot().getFirstChild().getFirstChild());
-        trDetail_.select(trDetail_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild().getFirstChild().getNextSibling());
         assertEq(1,root_.getChildren().size());
         assertEq("pkg.Ex",root_.getChildren().get(0).str());
         assertEq("pkg.Ex",root_.getChildren().get(0).value().getClassName(curRet(b_).getContext()));
@@ -3688,9 +3687,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
-        trDetail_.select(trDetail_.getRoot().getFirstChild().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq("pkg.Ex..Inner",root_.getChildren().get(0).str());
         assertEq("pkg.Ex..Inner",root_.getChildren().get(0).value().getClassName(curRet(b_).getContext()));
@@ -3731,11 +3730,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(4,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
-        trDetail_.select(trDetail_.getRoot().getFirstChild().getNextSibling());
-        trDetail_.select(trDetail_.getRoot().getFirstChild().getNextSibling().getNextSibling());
-        trDetail_.select(trDetail_.getRoot().getFirstChild().getNextSibling().getNextSibling().getNextSibling());
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild().getNextSibling());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild().getNextSibling().getNextSibling());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild().getNextSibling().getNextSibling().getNextSibling());
         assertEq(4,root_.getChildren().size());
         assertEq("pkg.Ex",root_.getChildren().get(0).str());
         assertSame(NullStruct.NULL_VALUE,root_.getChildren().get(0).value());
@@ -3779,10 +3778,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
-        trDetail_.select(trDetail_.getRoot().getFirstChild().getFirstChild());
-        trDetail_.select(trDetail_.getRoot().getFirstChild().getFirstChild().getNextSibling());
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild().getFirstChild().getNextSibling());
         assertEq(1,root_.getChildren().size());
         assertEq("pkg.Ex",root_.getChildren().get(0).str());
         assertEq("pkg.Ex",root_.getChildren().get(0).value().getClassName(curRet(b_).getContext()));
@@ -3821,8 +3820,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq("|",root_.getChildren().get(0).str());
         assertEq(1,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
@@ -3856,8 +3855,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq("int",root_.getChildren().get(0).str());
         assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
@@ -3894,8 +3893,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq("int",root_.getChildren().get(0).str());
         assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
@@ -3975,9 +3974,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(2,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
-        trDetail_.select(trDetail_.getRoot().getFirstChild().getNextSibling());
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild().getNextSibling());
         assertEq(2,root_.getChildren().size());
         assertEq("pkg.Ex",root_.getChildren().get(0).str());
         assertSame(NullStruct.NULL_VALUE,root_.getChildren().get(0).value());
@@ -4022,8 +4021,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
     }
@@ -4060,8 +4059,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
     }
@@ -4100,8 +4099,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
     }
@@ -4139,8 +4138,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
     }
@@ -4175,8 +4174,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        trDetail_.select(null);
-        trDetail_.select(trDetail_.getRoot());
+        selectJoin(b_, trDetail_, null);
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
         assertEq(1,root_.getChildren().size());
         assertEq("|",root_.getChildren().get(0).str());
         assertEq(1,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
@@ -4212,8 +4211,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
     }
@@ -4354,8 +4353,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        selectJoin(b_, trDetail_, trDetail_.getRoot());
+        selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
     }
@@ -4389,8 +4388,17 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(3,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        addRendOk(b_);
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
-        Struct str_ = TreeNodeRenderUtil.result(null, b_.getRoot().getNode().simular(node_).info(), b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = TreeNodeRenderUtil.result(b_.getRenderList().get(0), b_.getRoot().getNode().simular(node_).info(), b_.getCompoFactory(), b_.getThreadFactory());
         assertEq("render",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4423,9 +4431,18 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(3,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        addRendOk(b_);
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        TreeNodeRenderUtil.result(null, info_, b_.getCompoFactory(), b_.getThreadFactory());
+        TreeNodeRenderUtil.result(b_.getRenderList().get(0), info_, b_.getCompoFactory(), b_.getThreadFactory());
         assertEq("src/file.txt:1,158:157\n" +
                 "pkg.Ex..Inner.$toString()\n",info_.logs().getText());
     }
@@ -4459,9 +4476,18 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(3,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        addRendOk(b_);
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = TreeNodeRenderUtil.result(null, info_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = TreeNodeRenderUtil.result(b_.getRenderList().get(0), info_, b_.getCompoFactory(), b_.getThreadFactory());
         assertNull(str_);
     }
     @Test
@@ -4494,9 +4520,18 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(3,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        addRendOk(b_);
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = TreeNodeRenderUtil.result(null, info_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = TreeNodeRenderUtil.result(b_.getRenderList().get(0), info_, b_.getCompoFactory(), b_.getThreadFactory());
         assertEq("standard",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4529,9 +4564,18 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(3,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        addRendOk(b_);
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = TreeNodeRenderUtil.result(null, info_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = TreeNodeRenderUtil.result(b_.getRenderList().get(0), info_, b_.getCompoFactory(), b_.getThreadFactory());
         assertEq("[int",((ArrayStruct)str_).getClassName());
         assertEq(1,((ArrayStruct)str_).getLength());
         assertEq(1, NumParsers.convertToNumber(((ArrayStruct)str_).get(0)).intStruct());
@@ -4567,10 +4611,19 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq(3,chs_.size());
         b_.getCallButtonsRender().get(0).getActionListeners().get(0).action();
         AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        addRendOk(b_);
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
-        trDetail_.select(node_);
+        selectJoin(b_, trDetail_, node_);
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = TreeNodeRenderUtil.result(null, info_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = TreeNodeRenderUtil.result(b_.getRenderList().get(0), info_, b_.getCompoFactory(), b_.getThreadFactory());
         b_.getCallButtonsRender().get(0).getActionListeners().get(0).action();
         assertEq("render",((StringStruct)str_).getInstance());
         info_.stopButton().getActionListeners().get(0).action();
@@ -4614,6 +4667,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
         Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
         assertEq("render",((StringStruct)str_).getInstance());
@@ -4657,6 +4711,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
         Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
         assertEq("to_str",((StringStruct)str_).getInstance());
@@ -4700,6 +4755,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
         Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
         assertEq("render",((StringStruct)str_).getInstance());
@@ -4743,6 +4799,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
         Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
         assertEq("render",((StringStruct)str_).getInstance());
@@ -4786,6 +4843,14 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        addRendOk(b_);
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
         Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
         assertEq("to_str",((StringStruct)str_).getInstance());
@@ -4829,10 +4894,62 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"+1/0");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
         TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
         assertEq(":1,11:10\n" +
                 "pkg.Ex..Inner..1()\n",i_.logs().getText());
+    }
+    @Test
+    public void i36() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"to_str\";}}public class Inner2{}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner2");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        addRendOk(b_);
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(false);
+        addRendOk(b_);
+        Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
+        assertEq("pkg.Ex..Inner",str_.getClassName(curRet(b_).getContext()));
     }
     @Test
     public void ir1() {
@@ -5009,8 +5126,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getDynTrees().last();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        selectJoin(b_,trDetail_,trDetail_.getRoot());
+        selectJoin(b_,trDetail_,trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq(3,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
     }
@@ -5047,8 +5164,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getDynTrees().last();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        selectJoin(b_,trDetail_,trDetail_.getRoot());
+        selectJoin(b_,trDetail_,trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq(3,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
     }
@@ -5122,11 +5239,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"+(++v)");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
-        assertEq("render1",((StringStruct)str_).getInstance());
-        i_.repr(((StringStruct)str_).getInstance());
-        trDetail_.select(trDetail_.getRoot().getFirstChild().getNextSibling());
+        selectJoin(b_,trDetail_,trDetail_.getRoot());
+        selectJoin(b_,trDetail_,trDetail_.getRoot().getFirstChild().getNextSibling());
         b_.getRefreshRender().getActionListeners().get(0).action();
         b_.getDynamicAna().join();
         assertEq("render2",i_.repr());
@@ -5170,6 +5286,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"+(++v)");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
         Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
         assertEq("render1",((StringStruct)str_).getInstance());
@@ -5211,8 +5328,17 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getDynTrees().last();
-        trDetail_.select(trDetail_.getRoot());
-        trDetail_.select(trDetail_.getRoot().getFirstChild());
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        addRendOk(b_);
+        selectJoin(b_,trDetail_,trDetail_.getRoot());
+        selectJoin(b_,trDetail_,trDetail_.getRoot().getFirstChild());
         b_.getButtonsDynRef().get(0).getActionListeners().get(0).action();
         b_.getDynamicAna().join();
         assertEq("3",root_.getChildren().get(0).repr());
@@ -6077,6 +6203,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
 
     private ResultContext curRet(AbsDebuggerGui _b) {
         return ((OpenFramePointsEvent)_b.getOpenPoints().getActionListeners().get(0)).getCurrentResult();
+    }
+
+    private void selectJoin(AbsDebuggerGui _b, AbsTreeGui _tree, AbstractMutableTreeNodeCore<String> _node) {
+        _tree.select(_node);
+        _b.getCurrentThreadActions().join();
     }
 
 }

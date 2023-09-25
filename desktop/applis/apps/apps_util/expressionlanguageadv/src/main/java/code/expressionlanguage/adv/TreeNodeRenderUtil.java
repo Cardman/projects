@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.syntax.FileBlockIndex;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.dbg.StrResultContextLambda;
 import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -41,26 +42,41 @@ public final class TreeNodeRenderUtil {
     private TreeNodeRenderUtil() {
     }
 
-    static void renderNode(ResultContextLambda _renderPointPairs, AbsTreeGui _tree, AbstractMutableTreeNodeCore<String> _tr, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+    static void renderNode(RenderPointPair _renderPointPairs, AbsTreeGui _tree, AbstractMutableTreeNodeCore<String> _tr, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         String res_ = resultWrap(_renderPointPairs,_node, _compo, _th);
+        if (_node.value() == null) {
+            return;
+        }
         String render_ = format(_node, res_);
         _compo.invokeNow(new FinalRenderingTask(_tree,_tr,render_));
     }
 
-    static String resultWrap(ResultContextLambda _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+    static String resultWrap(RenderPointPair _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         Struct res_ = result(_renderPointPairs, _node, _compo, _th);
+        _node.feedChildren(_compo);
+        if (res_ == null) {
+            return "";
+        }
         String v_ = wrapValueInner(res_, _node.getResult());
         _node.repr(v_);
         return wrapValue(v_);
     }
-    static Struct result(ResultContextLambda _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+    static Struct result(RenderPointPair _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+        if (_renderPointPairs == null) {
+            return _node.value();
+        }
+        ResultContextLambda rLda_ = checkExc(_renderPointPairs);
+        return result(rLda_, _node, _compo, _th);
+    }
+
+    private static Struct result(ResultContextLambda _rLda, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         ContextEl ctx_ = local(_node.getResult(), _th);
         AdvLogDbg logger_ = logger(_node, _compo, ctx_);
         StackCall st_ = StackCall.newInstance(new DefStackStopper(logger_), InitPhase.NOTHING, ctx_, ctx_.getExecutionInfos().getSeed());
         Struct str_ = _node.value();
-        if (_renderPointPairs != null) {
+        if (_rLda != null) {
             String clName_ = str_.getClassName(ctx_);
-            StackCallReturnValue result_ = _renderPointPairs.eval(new CoreCheckedExecOperationNodeInfos(ExecFormattedRootBlock.build(clName_, ctx_.getClasses()), str_), null);
+            StackCallReturnValue result_ = _rLda.eval(new CoreCheckedExecOperationNodeInfos(ExecFormattedRootBlock.build(clName_, ctx_.getClasses()), str_), null);
             CallingState stateAfter_ = result_.getStack().getCallingState();
             if (stateAfter_ != null) {
                 for (String l: ResultContextLambda.traceView(result_.getStack(),ctx_)) {
@@ -88,6 +104,24 @@ public final class TreeNodeRenderUtil {
         return res_;
     }
 
+    private static ResultContextLambda checkExc(RenderPointPair _bp) {
+        StrResultContextLambda bpc_ = stopExcValue(_bp);
+        return stopCurrent(bpc_);
+    }
+
+    private static ResultContextLambda stopCurrent(StrResultContextLambda _condition) {
+        if (_condition == null) {
+            return null;
+        }
+        return _condition.getResult();
+    }
+
+    private static StrResultContextLambda stopExcValue(RenderPointPair _ex) {
+        if (!_ex.getExcPointBlockPair().getValue().isEnabled()) {
+            return null;
+        }
+        return _ex.getRender();
+    }
     static AdvLogDbg logger(DbgNodeStruct _node, AbsCompoFactory _compo, ContextEl _ctx) {
         AbsTextArea ta_ = _compo.newTextArea();
         ta_.setEditable(false);

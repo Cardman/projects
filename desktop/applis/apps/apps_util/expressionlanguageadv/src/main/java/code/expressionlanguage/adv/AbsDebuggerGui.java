@@ -301,7 +301,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             callButtons.clear();
             callButtonsRender.clear();
             root = new DbgRootStruct(ctx_, null);
-            treeDetail = root.buildReturn(renderList,getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory(), view_.getStack().aw());
+            treeDetail = root.buildReturn(this,renderList,getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory(), view_.getStack().aw());
             AbsPlainButton shRend_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton("show render");
             shRend_.addActionListener(new DbgSelectNodeLogEvent(root,treeDetail,statusDbgAreaScrollRender));
             callStackRender.add(shRend_);
@@ -325,7 +325,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             String dis_ = p_.getStackElt().getDisplayedString(ctx_).getInstance();
             DbgRootStruct r_ = new DbgRootStruct(ctx_, null);
             root = r_;
-            AbsTreeGui b_ = r_.build(renderList,getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory(), p_, stackCall.getBreakPointInfo().getBreakPointOutputInfo());
+            AbsTreeGui b_ = r_.build(this,renderList,getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory(), p_, stackCall.getBreakPointInfo().getBreakPointOutputInfo());
             treeDetail = b_;
             AbsPlainButton but_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton(dis_);
             callButtons.add(but_);
@@ -363,13 +363,13 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     public void dynamicAnalyzeSelectedPage(ResultContext _res) {
         DbgRootStruct root_ = new DbgRootStruct(root.getResult(), null);
         this.rootStructStr = root_;
-        AbsTreeGui d_ = root_.buildDynamic(renderList, getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory());
+        AbsTreeGui d_ = root_.buildDynamic(this,renderList, getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory());
         dynamicAna = getThreadFactory().newStartedThread(build(_res, root_, d_, currentPage));
     }
     public void dynamicAnalyzeNoSelectedPage(ResultContext _res) {
         DbgRootStruct root_ = new DbgRootStruct(root.getResult(), null);
         this.rootStructStr = root_;
-        AbsTreeGui d_ = root_.buildDynamic(renderList, getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory());
+        AbsTreeGui d_ = root_.buildDynamic(this,renderList, getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory());
         dynamicAna = getThreadFactory().newStartedThread(build(_res, root_, d_, null));
     }
 
@@ -424,7 +424,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             return;
         }
         DbgAbsNodeStruct i_ = e_.info();
-        dynamicAna = DbgSelectNodeEvent.render(i_, _tree,getCompoFactory(),getThreadFactory(),renderList,sel_);
+        i_.removeChildren();
+        dynamicAna = DbgSelectNodeEvent.process(this,i_, _tree,getCompoFactory(),getThreadFactory(),renderList);
     }
     public void possibleSelectInstruction(int _s, ResultContext _res) {
         if (_s > -1) {

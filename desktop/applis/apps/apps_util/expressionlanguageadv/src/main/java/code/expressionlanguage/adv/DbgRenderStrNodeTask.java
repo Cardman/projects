@@ -1,20 +1,19 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.options.ResultContextLambda;
 import code.gui.AbsTreeGui;
 import code.gui.AbstractMutableTreeNodeCore;
 import code.gui.initialize.AbsCompoFactory;
 import code.threads.AbstractThreadFactory;
 
 public final class DbgRenderStrNodeTask implements Runnable {
-    private final ResultContextLambda renderPointPairs;
+    private final RenderPointPair renderPointPairs;
     private final AbsTreeGui treeGui;
     private final AbstractMutableTreeNodeCore<String> trNode;
     private final DbgNodeStruct node;
     private final AbsCompoFactory compoFactory;
     private final AbstractThreadFactory threadFactory;
 
-    public DbgRenderStrNodeTask(ResultContextLambda _list, AbsTreeGui _treeGui, AbstractMutableTreeNodeCore<String> _t, DbgNodeStruct _n, AbsCompoFactory _c, AbstractThreadFactory _th) {
+    public DbgRenderStrNodeTask(RenderPointPair _list, AbsTreeGui _treeGui, AbstractMutableTreeNodeCore<String> _t, DbgNodeStruct _n, AbsCompoFactory _c, AbstractThreadFactory _th) {
         this.renderPointPairs = _list;
         this.treeGui = _treeGui;
         this.trNode = _t;

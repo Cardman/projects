@@ -8,17 +8,15 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.gui.AbsCustComponent;
-import code.gui.AbsPlainButton;
-import code.gui.AbsTextArea;
-import code.gui.MutableTreeNodeNav;
+import code.gui.*;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.ints.Comparing;
 
 public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
     private final CustList<DbgAbsNodeStruct> children = new CustList<DbgAbsNodeStruct>();
-    private final DbgAbsNodeStruct parentStruct;
+    private DbgAbsNodeStruct parentStruct;
     private boolean calculated;
     private final ContextEl result;
     private final ContextEl original;
@@ -27,6 +25,7 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
     private AbsPlainButton stop;
     private AbsCustComponent group;
     private String infoStr = "";
+    private AbstractMutableTreeNodeCore<String> associated;
 
     protected DbgAbsNodeStruct(DbgAbsNodeStruct _par) {
         this(_par.getResult(), _par.getOriginal(), _par);
@@ -39,6 +38,17 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
         node.info(this);
     }
 
+    public void removeChildren() {
+        for (DbgAbsNodeStruct d: children) {
+            d.node.removeFromParent();
+            d.parentStruct = null;
+            d.associated = null;
+        }
+        associated.removeAllChildren();
+        children.clear();
+        node.removeAllChildren();
+        setCalculated(false);
+    }
     @Override
     public String repr() {
         return infoStr;
@@ -80,15 +90,22 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
             anc_ = anc_.getParentStruct();
             ent_ = true;
         }
+        return true;
+    }
+
+    public boolean feedChildren(AbsCompoFactory _compo) {
         Struct vn_ = value();
         if (vn_ == null) {
             return false;
         }
-        staticPart();
+        staticPart(_compo);
         Struct v_ = vn_.getParent();
         if (v_ != NullStruct.NULL_VALUE) {
             DbgParentStruct e_ = new DbgParentStruct(this, v_);
             node.add(e_.getNode());
+            AbstractMutableTreeNodeCore<String> sub_ = _compo.newMutableTreeNode(TreeNodeRenderUtil.format(e_));
+            e_.setAssociated(sub_);
+            getAssociated().add(sub_);
             children.add(e_);
         }
         if (vn_ instanceof FieldableStruct) {
@@ -98,13 +115,16 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
                 DbgFieldStruct efs_ = new DbgFieldStruct(this, e.getClassField(), e.getStruct());
                 fielRet_.add(efs_);
             }
-            sortedAdded(fielRet_, new DbgFieldStructCmp());
+            sortedAdded(_compo,fielRet_, new DbgFieldStructCmp());
         }
         if (vn_ instanceof ArrayStruct) {
             CustList<Struct> ls_ = ((ArrayStruct) vn_).list();
             int s_ = ls_.size();
             for (int i = 0; i < s_; i++) {
                 DbgArrEltStruct efs_ = new DbgArrEltStruct(this, i, ls_.get(i));
+                AbstractMutableTreeNodeCore<String> sub_ = _compo.newMutableTreeNode(TreeNodeRenderUtil.format(efs_));
+                efs_.setAssociated(sub_);
+                getAssociated().add(sub_);
                 children.add(efs_);
                 node.add(efs_.getNode());
             }
@@ -112,7 +132,7 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
         return true;
     }
 
-    private void staticPart() {
+    private void staticPart(AbsCompoFactory _compo) {
         if (this instanceof DbgCallStruct) {
             DbgCallStruct curr_ = (DbgCallStruct) this;
             String id_ = curr_.id();
@@ -121,16 +141,27 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
                 DbgFieldStruct efs_ = new DbgFieldStruct(this, new ClassField(id_,f.getKey()), f.getValue());
                 stFields_.add(efs_);
             }
-            sortedAdded(stFields_, new DbgFieldStructQuickCmp());
+            sortedAdded(_compo,stFields_, new DbgFieldStructQuickCmp());
         }
     }
 
-    private void sortedAdded(CustList<DbgFieldStruct> _fs, Comparing<DbgFieldStruct> _c) {
+    private void sortedAdded(AbsCompoFactory _compo, CustList<DbgFieldStruct> _fs, Comparing<DbgFieldStruct> _c) {
         _fs.sortElts(_c);
         for (DbgFieldStruct e: _fs) {
             children.add(e);
+            AbstractMutableTreeNodeCore<String> sub_ = _compo.newMutableTreeNode(TreeNodeRenderUtil.format(e));
+            e.setAssociated(sub_);
+            getAssociated().add(sub_);
             node.add(e.getNode());
         }
+    }
+
+    public AbstractMutableTreeNodeCore<String> getAssociated() {
+        return associated;
+    }
+
+    public void setAssociated(AbstractMutableTreeNodeCore<String> _ass) {
+        this.associated = _ass;
     }
 
     @Override
