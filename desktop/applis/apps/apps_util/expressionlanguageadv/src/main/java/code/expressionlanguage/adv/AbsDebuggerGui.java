@@ -233,8 +233,12 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     }
 
     void refParent(AbstractMutableTreeNodeCore<String> _parent, String _parentPath, AbsTreeGui _t) {
+        refParent(_parent, viewable, _parentPath, _t);
+    }
+
+    void refParent(AbstractMutableTreeNodeCore<String> _parent, StringMap<String> _files, String _parentPath, AbsTreeGui _t) {
         _parent.removeAllChildren();
-        refreshList(_parent, viewable, _parentPath, getCommonFrame().getFrames().getCompoFactory());
+        refreshList(_parent, _files, _parentPath, getCommonFrame().getFrames().getCompoFactory());
         MutableTreeNodeUtil.reload(_t);
     }
     static void refreshList(AbstractMutableTreeNodeCore<String> _sel, StringMap<String> _files, String _folderToVisit, AbsCompoFactory _compoFactory) {
