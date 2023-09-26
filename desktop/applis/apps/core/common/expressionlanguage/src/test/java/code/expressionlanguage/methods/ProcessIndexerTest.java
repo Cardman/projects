@@ -1529,6 +1529,88 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         assertEq(5, getNumber(ret_));
     }
     @Test
+    public void calculate29__Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  $int[] e = $new $int[2];\n");
+        xml_.append("  $Method meth = $class(ExInt).getDeclaredMethods(\"[]=\",$null,$null,$null)[0];\n");
+        xml_.append("  meth.invoke((ExInt)$new Apply().$lambda(Apply,method,$int[],$int[],$int),e,$new $int[]{0},5);\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int method($int[] inst,$int[] p,$int $value)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p[0]] = $value;\n");
+        xml_.append("  $return $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExInt {\n");
+        xml_.append(" $public $void $this($int[] inst,$int... p,$int $value);\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(5, getNumber(ret_));
+    }
+    @Test
+    public void calculate__29Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  $int[] e = $new $int[2];\n");
+        xml_.append("  $Method meth = $class(ExInt).getDeclaredMethods(\"[]=\",$null,$null,$null)[0];\n");
+        xml_.append("  meth.invoke((ExInt)$new Apply().$lambda(Apply,[]=,$int[],$int[]),e,$new $int[]{0},5);\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int[] inst,$int... p,$int $value)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p[0]] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExInt {\n");
+        xml_.append(" $public $void $this($int[] inst,$int... p,$int $value);\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(5, getNumber(ret_));
+    }
+    @Test
+    public void calculate__29__Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  $int[] e = $new $int[2];\n");
+        xml_.append("  $Method meth = $class(ExInt).getDeclaredMethods(\"method\",$null,$null,$null)[0];\n");
+        xml_.append("  meth.invoke((ExInt)$new Apply().$lambda(Apply,[]=,$int[],$int[]),e,$new $int[]{0},5);\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int[] inst,$int... p,$int $value)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p[0]] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExInt {\n");
+        xml_.append(" $public $int method($int[] inst,$int[] p,$int $value);\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(5, getNumber(ret_));
+    }
+    @Test
     public void calculate30Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
