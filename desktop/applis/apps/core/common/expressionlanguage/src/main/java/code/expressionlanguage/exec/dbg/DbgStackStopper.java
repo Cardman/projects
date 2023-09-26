@@ -879,7 +879,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     private static int[] list(AbstractPageEl _p) {
         ExecBlock bl_ = _p.getBlock();
         AbstractStask st_ = _p.tryGetLastStack();
-        if (st_ instanceof LoopBlockStack && bl_ instanceof ExecAbstractForEachLoop && !(bl_ instanceof ExecForEachIterable) && ((ExecAbstractForEachLoop) bl_).getVariable().getOffset() == _p.getTraceIndex()) {
+        if (st_ instanceof LoopBlockStack && simpleLoop(_p, bl_)) {
             if (!((LoopBlockStack) st_).getContent().hasNext()) {
                 return NumberUtil.wrapIntArray(((ExecAbstractForEachLoop) bl_).getSeparator());
             }
@@ -926,12 +926,19 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             return !((EnteredStack) st_).isEntered();
         }
         if (st_ instanceof LoopBlockStack) {
+            if (simpleLoop(_p, bl_)) {
+                return true;
+            }
             return !((LoopBlockStack) st_).getContent().isFinished();
         }
         if (st_ instanceof SwitchBlockStack) {
             return !((SwitchBlockStack) st_).isEntered();
         }
         return true;
+    }
+
+    private static boolean simpleLoop(AbstractPageEl _p, ExecBlock _bl) {
+        return _bl instanceof ExecAbstractForEachLoop && !(_bl instanceof ExecForEachIterable) && ((ExecAbstractForEachLoop) _bl).getVariable().getOffset() == _p.getTraceIndex();
     }
 
     private static boolean okMethod(ContextEl _context, StackCall _stackCall, StdMethodCheckedExecOperationNodeInfos _check) {

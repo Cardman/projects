@@ -1,6 +1,9 @@
 package code.expressionlanguage.dbg;
 
+import code.expressionlanguage.DefContextGenerator;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
@@ -478,5 +481,25 @@ public final class ProcessDbgArrLoopTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
         assertEq(0, next_.nbPages());
+    }
+    @Test
+    public void test18() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {static int m(){int res=1;for(int e:{}){res+=e;}return res;}}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleBreakPoint("pkg/Ex",55);
+        analyze(cont_,"res==1","pkg/Ex",55);
+        MethodId id_ = getMethodId("m");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        StackCall next_ = dbgContinueNormal(stack_, cont_.getContext());
+        assertEq(0, next_.nbPages());
+    }
+    static void analyze(ResultContext _cont, String _cond, String _file, int _caret) {
+        FileBlock bl_ = _cont.getPageEl().getPreviousFilesBodies().getVal(_file);
+        BreakPointBlockPair pair_ = _cont.getPair(_cont.getFiles().getVal(bl_), _caret);
+        pair_.getValue().getResultStd().analyze(pair_,_cond,"","",_cont,new DefContextGenerator());
     }
 }
