@@ -4,10 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.util.CustList;
 
 public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements WithEl {
     private final String label;
@@ -15,10 +13,10 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
 
     private final ExecOperationNodeListOff value;
 
-    ExecAbstractSwitchBlock(String _instanceTest, String _label, int _valueOffset, CustList<ExecOperationNode> _opValue) {
+    ExecAbstractSwitchBlock(String _instanceTest, String _label, ExecOperationNodeListOff _ex) {
         instanceTest = _instanceTest;
         label = _label;
-        value = new ExecOperationNodeListOff(_opValue,_valueOffset);
+        value = _ex;
     }
 
     @Override

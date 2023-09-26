@@ -29,6 +29,8 @@ import code.util.IdMap;
 import code.util.StringMap;
 
 public final class ResultContext {
+    public static final int END_LINE=1;
+    public static final int NO_END=-1;
     private final AnalyzedPageEl pageEl;
     private ContextEl context;
     private final Forwards forwards;

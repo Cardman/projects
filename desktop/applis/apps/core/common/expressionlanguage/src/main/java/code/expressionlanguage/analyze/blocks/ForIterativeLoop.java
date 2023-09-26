@@ -29,10 +29,16 @@ public final class ForIterativeLoop extends AbstractForLoop {
 
     private final OneLoopExpressionsContent oneLoopExpressionsContent;
     private final StringList nameErrors = new StringList();
+    private final int first;
+    private final int second;
+    private final int last;
 
-    public ForIterativeLoop(OneLoopExpressionsContent _content, int _offset, OffsetStringInfo _label) {
+    public ForIterativeLoop(OneLoopExpressionsContent _content, int _offset, OffsetStringInfo _label, int _firstSep, int _secondSep, int _lastSep) {
         super(_offset, _label);
         oneLoopExpressionsContent = _content;
+        first = _firstSep;
+        second = _secondSep;
+        last = _lastSep;
     }
 
     public int getClassNameOffset() {
@@ -85,6 +91,18 @@ public final class ForIterativeLoop extends AbstractForLoop {
 
     public String getStep() {
         return oneLoopExpressionsContent.getStep();
+    }
+
+    public int getFirst() {
+        return first;
+    }
+
+    public int getSecond() {
+        return second;
+    }
+
+    public int getLast() {
+        return last;
     }
 
     public boolean isEq() {

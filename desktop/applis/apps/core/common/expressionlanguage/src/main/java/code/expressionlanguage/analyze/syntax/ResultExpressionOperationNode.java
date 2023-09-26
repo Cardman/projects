@@ -573,7 +573,7 @@ public final class ResultExpressionOperationNode {
     }
     private int outExp(int _caret) {
         if (block instanceof ForIterativeLoop) {
-            return ((ForIterativeLoop) block).getVariableNameOffset();
+            return forIterativeLoop(_caret);
         }
         if (block instanceof ForEachLoop) {
             return forEachIterable(_caret);
@@ -582,15 +582,73 @@ public final class ResultExpressionOperationNode {
             return forEachTable(_caret);
         }
         if (block instanceof WithFilterContent) {
-            if (!((WithFilterContent)block).getFilterContent().getDeclaringType().isEmpty()){
-                return ((WithFilterContent)block).getFilterContent().getValueOffset();
-            }
-            return block.getOffset();
+            return withFilterContent(_caret);
         }
         if (block instanceof MemberCallingsBlock) {
             return block.getOffset();
         }
+        if (block instanceof Line) {
+            return ((Line)block).getRes().end();
+        }
+        if (block instanceof ReturnMethod) {
+            return ((ReturnMethod)block).getRes().end();
+        }
+        if (block instanceof Throwing) {
+            return ((Throwing)block).getRes().end();
+        }
+        if (block instanceof ForMutableIterativeLoop) {
+            return forMutableIterativeLoop(_caret);
+        }
+        if (block instanceof ConditionBlock) {
+            return ((ConditionBlock)block).getRes().end();
+        }
+        if (block instanceof SwitchBlock) {
+            return ((SwitchBlock)block).getRes().end();
+        }
         return -1;
+    }
+
+    private int withFilterContent(int _caret) {
+        int e_ = ((WithFilterContent) block).getFilterContent().getResCondition().end();
+        if (!((WithFilterContent) block).getFilterContent().getResCondition().getAnalyzedString().isEmpty()&& _caret >= e_) {
+            return e_;
+        }
+        if (!((WithFilterContent)block).getFilterContent().getDeclaringType().isEmpty()){
+            return ((WithFilterContent) block).getFilterContent().getValueOffset();
+        }
+        return block.getOffset();
+    }
+
+    private int forMutableIterativeLoop(int _caret) {
+        int vf_ = ((ForMutableIterativeLoop) block).getFirst()+1;
+        int vs_ = ((ForMutableIterativeLoop) block).getSecond()+1;
+        int vl_ = ((ForMutableIterativeLoop) block).getLast()+1;
+        if (inRange(((ForMutableIterativeLoop) block).getResInit().end(), _caret,vf_)) {
+            return ((ForMutableIterativeLoop) block).getResInit().end();
+        }
+        if (inRange(((ForMutableIterativeLoop) block).getResExp().end(), _caret,vs_)) {
+            return ((ForMutableIterativeLoop) block).getResExp().end();
+        }
+        if (inRange(((ForMutableIterativeLoop) block).getResStep().end(), _caret,vl_)) {
+            return ((ForMutableIterativeLoop) block).getResStep().end();
+        }
+        return -1;
+    }
+
+    private int forIterativeLoop(int _caret) {
+        int vf_ = ((ForIterativeLoop) block).getFirst()+1;
+        int vs_ = ((ForIterativeLoop) block).getSecond()+1;
+        int vl_ = ((ForIterativeLoop) block).getLast()+1;
+        if (inRange(((ForIterativeLoop) block).getResInit().end(), _caret,vf_)) {
+            return ((ForIterativeLoop) block).getResInit().end();
+        }
+        if (inRange(((ForIterativeLoop) block).getResExp().end(), _caret,vs_)) {
+            return ((ForIterativeLoop) block).getResExp().end();
+        }
+        if (inRange(((ForIterativeLoop) block).getResStep().end(), _caret,vl_)) {
+            return ((ForIterativeLoop) block).getResStep().end();
+        }
+        return ((ForIterativeLoop) block).getVariableNameOffset();
     }
 
     private int forEachTable(int _caret) {
@@ -612,6 +670,10 @@ public final class ResultExpressionOperationNode {
         if (inRange(vs_, _caret,vs_+ns_)) {
             return vs_;
         }
+        int e_ = ((ForEachTable) block).getRes().end();
+        if (_caret >= e_) {
+            return e_;
+        }
         return block.getOffset();
     }
 
@@ -624,6 +686,10 @@ public final class ResultExpressionOperationNode {
         }
         if (inRange(v_, _caret,v_+n_)) {
             return v_;
+        }
+        int e_ = ((ForEachLoop) block).getRes().end();
+        if (_caret >= e_) {
+            return e_;
         }
         return block.getOffset();
     }
@@ -1561,7 +1627,7 @@ public final class ResultExpressionOperationNode {
 
     private static boolean inExp(ResultExpression _res, int _caret) {
         int begin_ = _res.getSumOffset();
-        int end_ = begin_ + _res.getAnalyzedString().length();
+        int end_ = _res.end();
         return begin_<=_caret&&_caret<end_;
     }
 

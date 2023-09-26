@@ -48,7 +48,7 @@ public final class WatchResults {
         if (bl_ == null) {
             return new WatchResults();
         }
-        BreakPointBlockPair pair_ = new BreakPointBlockPair(ex_, FileBlock.number(bl_), _last.getTraceIndex(), inter_, true);
+        int tr_ = _last.getTraceIndex();
         int phase_;
         if (_last instanceof AbstractCallingInstancingPageEl) {
             phase_ = BreakPoint.BPC_INSTANCE;
@@ -57,6 +57,7 @@ public final class WatchResults {
         } else {
             phase_ = BreakPoint.BPC_STD;
         }
+        BreakPointBlockPair pair_ = new BreakPointBlockPair(ex_, FileBlock.number(bl_), tr_, inter_, true, phase_ != BreakPoint.BPC_STD);
         ResultContextLambda resCtxLambda_ = ResultContextLambda.dynamicAnalyze(_dyn, pair_, _res, _res.getPageEl().getAliasObject(), _gene, phase_);
         return afterAnalyze(resCtxLambda_, null,_last);
     }

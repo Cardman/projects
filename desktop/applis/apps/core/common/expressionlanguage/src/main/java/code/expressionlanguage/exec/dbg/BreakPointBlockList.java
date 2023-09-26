@@ -118,9 +118,7 @@ public final class BreakPointBlockList {
     }
 
     public BreakPointBlockPair bp(ExecFileBlock _file, int _nf, int _offset, boolean _enType) {
-        BreakPointBlockPair pair_ = new BreakPointBlockPair(_file,_nf, _offset, interceptor,true);
-        pair_.getValue().setEnabledChgtType(_enType);
-        return pair_;
+        return new BreakPointBlockPair(_file,_nf, _offset, interceptor,true, _enType);
     }
 
     public static BracedBlock rootOfAnnot(AbsBk _id) {
@@ -197,7 +195,7 @@ public final class BreakPointBlockList {
 
     public BreakPointBlockPair notNull(BreakPointBlockPair _b) {
         if (_b == null) {
-            return new BreakPointBlockPair(null,-1,-1,interceptor,false);
+            return new BreakPointBlockPair(null,-1,-1,interceptor,false, false);
         }
         return _b;
     }

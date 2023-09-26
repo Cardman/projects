@@ -10,9 +10,9 @@ public final class BreakPointBlockPair implements AbsPairPoint {
     private final BreakPointBlockKey bp;
     private final BreakPoint value;
 
-    public BreakPointBlockPair(ExecFileBlock _file, int _nf, int _offset, AbstractInterceptorStdCaller _v, boolean _enabled) {
+    public BreakPointBlockPair(ExecFileBlock _file, int _nf, int _offset, AbstractInterceptorStdCaller _v, boolean _enabled, boolean _enType) {
         bp = new BreakPointBlockKey(_file, _nf, _offset);
-        this.value = new BreakPoint(_v, this, bp);
+        this.value = new BreakPoint(_v, this, bp,_enType);
         this.value.setEnabled(_enabled);
     }
 

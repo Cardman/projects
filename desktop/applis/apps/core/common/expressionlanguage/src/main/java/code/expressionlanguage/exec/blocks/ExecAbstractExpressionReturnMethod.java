@@ -5,11 +5,16 @@ import code.util.CustList;
 
 public abstract class ExecAbstractExpressionReturnMethod extends ExecAbstractReturnMethod implements WithEl {
     private final ExecOperationNodeListOff exp;
-    protected ExecAbstractExpressionReturnMethod(int _expressionOffset, CustList<ExecOperationNode> _opRet) {
-        exp = new ExecOperationNodeListOff(_opRet,_expressionOffset);
+
+    protected ExecAbstractExpressionReturnMethod(ExecOperationNodeListOff _ex) {
+        exp = _ex;
     }
 
-    public CustList<ExecOperationNode> getExp() {
+    public ExecOperationNodeListOff getExp() {
+        return exp;
+    }
+
+    public CustList<ExecOperationNode> exp() {
         return exp.getList();
     }
 

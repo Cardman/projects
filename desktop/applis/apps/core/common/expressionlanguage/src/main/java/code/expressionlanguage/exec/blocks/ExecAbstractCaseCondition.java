@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 
 public final class ExecAbstractCaseCondition extends ExecBracedBlock implements
@@ -14,8 +13,8 @@ public final class ExecAbstractCaseCondition extends ExecBracedBlock implements
     private final ExecOperationNodeListOff exp;
     private final ExecFilterContent content;
 
-    public ExecAbstractCaseCondition(int _b,CustList<ExecOperationNode> _list, int _offset, String _c, String _v, CustList<Argument> _stdValues, CustList<ClassField> _enumValues) {
-        exp = new ExecOperationNodeListOff(_list, _offset);
+    public ExecAbstractCaseCondition(int _b, ExecOperationNodeListOff _ex, String _c, String _v, CustList<Argument> _stdValues, CustList<ClassField> _enumValues) {
+        exp = _ex;
         content = new ExecFilterContent(_b,_c, _v, _stdValues, _enumValues);
     }
     @Override

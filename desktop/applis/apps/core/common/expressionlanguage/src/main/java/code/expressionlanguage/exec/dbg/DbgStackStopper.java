@@ -15,6 +15,7 @@ import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.*;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.structs.*;
@@ -136,15 +137,15 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         }
         if (_state == StopDbgEnum.METHOD_ABS_EXIT) {
             AbstractPageEl p_ = _stackCall.getLastPage();
-            return checkedMicro(_context,_stackCall,p_, infos_, g_.getPar(), g_.getOpNat());
+            return checkedMicro(_context,_stackCall,p_, infos_, g_);
         }
         if (_state == StopDbgEnum.PARENT) {
             AbstractPageEl p_ = _stackCall.getLastPage();
-            return checkedNatAw(_context,_stackCall,p_, infos_, g_.getOpNat());
+            return checkedNatAw(_context,_stackCall,p_, infos_, g_);
         }
         if (_state == StopDbgEnum.OPER_NAT) {
             AbstractPageEl p_ = _stackCall.getLastPage();
-            return checkedAw(_context,_stackCall,p_,infos_);
+            return checkedAw(_context,_stackCall,p_, infos_, g_.getProcessEnds());
         }
         if (_state == StopDbgEnum.METHOD_ABS_REF_ENTRY) {
             AbstractPageEl p_ = _stackCall.getLastPage();
@@ -224,7 +225,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             if (stopExc(_context, _stackCall, p_, _exc)) {
                 return StopDbgEnum.EXCEPTION;
             }
-            return defBp(_context, _stackCall);
+            return defBp(_context, _stackCall, _g.getProcessEnds());
         }
         StdMethodCheckedExecOperationNodeInfos std_ = _g.getInfosStd();
         if (std_ != null && !std_.isExiting()) {
@@ -232,7 +233,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         }
         CoreCheckedExecOperationNodeInfos infos_ = _g.getInfos();
         if (infos_ instanceof FieldCheckedExecOperationNodeInfos || infos_ instanceof ArrCheckedExecOperationNodeInfos) {
-            return checkedMicro(_context, _stackCall, p_, infos_, _g.getPar(), _g.getOpNat());
+            return checkedMicro(_context, _stackCall, p_, infos_, _g);
         }
         CallCheckedExecOperationNodeInfos call_ = _g.getInfosCall();
         if (call_ != null && !call_.isExit()) {
@@ -252,7 +253,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         if (call_ != null && call_.isExit() && exitMethod(_context, _stackCall, p_, call_)) {
             return StopDbgEnum.METHOD_ABS_EXIT;
         }
-        return checkedMicro(_context, _stackCall, p_, infos_, _g.getPar(), _g.getOpNat());
+        return checkedMicro(_context, _stackCall, p_, infos_, _g);
     }
 
     private static StopDbgEnum operNat(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, OperNatCheckedExecOperationNodeInfos _nat) {
@@ -262,34 +263,34 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return StopDbgEnum.NONE;
     }
 
-    private static StopDbgEnum defBp(ContextEl _context, StackCall _stackCall) {
+    private static StopDbgEnum defBp(ContextEl _context, StackCall _stackCall, int _prEnd) {
         AbstractPageEl p_ = _stackCall.getLastPage();
-        if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null || _stackCall.trueException() != null || getCurrentOper(p_) != null || _stackCall.getReadWrite() != ReadWrite.ENTRY) {
+        if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null || _stackCall.trueException() != null || getCurrentOper(p_) != null && _prEnd == ResultContext.NO_END || _stackCall.getReadWrite() != ReadWrite.ENTRY) {
             return StopDbgEnum.NONE;
         }
         for (int i : list(p_)) {
-            BreakPoint bp_ = _context.getNotNull(p_.getFile(), i);
-            if (stopCurrentBp(_context, _stackCall,p_,bp_)) {
+            BreakPointBlockPair bp_ = _context.getNotNullPair(p_.getFile(), i);
+            if (stopCurrentBp(_context, _stackCall, p_, bp_.getValue())) {
                 return StopDbgEnum.INSTRUCTION;
             }
         }
         return StopDbgEnum.NONE;
     }
 
-    private static StopDbgEnum checkedMicro(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos, CoreCheckedExecOperationNodeInfos _par, OperNatCheckedExecOperationNodeInfos _opNat) {
-        StopDbgEnum res_ = checkedParent(_context, _stackCall, _p, _par);
+    private static StopDbgEnum checkedMicro(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos, GroupCheckedExecOperationNodeInfos _g) {
+        StopDbgEnum res_ = checkedParent(_context, _stackCall, _p, _g.getPar());
         if (res_ != StopDbgEnum.NONE) {
             return res_;
         }
-        return checkedNatAw(_context, _stackCall, _p, _infos, _opNat);
+        return checkedNatAw(_context, _stackCall, _p, _infos, _g);
     }
 
-    private static StopDbgEnum checkedNatAw(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos, OperNatCheckedExecOperationNodeInfos _opNat) {
-        StopDbgEnum nat_ = operNat(_context, _stackCall, _p, _opNat);
+    private static StopDbgEnum checkedNatAw(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos, GroupCheckedExecOperationNodeInfos _g) {
+        StopDbgEnum nat_ = operNat(_context, _stackCall, _p, _g.getOpNat());
         if (nat_ != StopDbgEnum.NONE) {
             return nat_;
         }
-        return checkedAw(_context, _stackCall, _p, _infos);
+        return checkedAw(_context, _stackCall, _p, _infos, _g.getProcessEnds());
     }
     private static StopDbgEnum checkedParent(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _par) {
         if (_par != null && stopPar(_context, _stackCall, _p, _par.getInstance(), _par)) {
@@ -297,7 +298,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         }
         return StopDbgEnum.NONE;
     }
-    private static StopDbgEnum checkedAw(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos) {
+    private static StopDbgEnum checkedAw(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, CoreCheckedExecOperationNodeInfos _infos, int _state) {
         if (_infos instanceof ArrCheckedExecOperationNodeInfos) {
             if (stopArr(_context, _stackCall, _p, (ArrCheckedExecOperationNodeInfos) _infos)){
                 return StopDbgEnum.ARRAY;
@@ -317,7 +318,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             }
             return StopDbgEnum.NONE;
         }
-        return defBp(_context, _stackCall);
+        return defBp(_context, _stackCall, _state);
     }
 
     private static StopDbgEnum enterCase(ContextEl _context, GroupCheckedExecOperationNodeInfos _g, StackCall _stackCall, AbstractPageEl _p) {
@@ -364,7 +365,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     private static StopDbgEnum stdCallee(ContextEl _context, GroupCheckedExecOperationNodeInfos _g, StackCall _stackCall, AbstractPageEl _p) {
         CoreCheckedExecOperationNodeInfos c_ = _g.getCheckReflAw();
         if (c_ != null) {
-            return checkedMicro(_context, _stackCall, _p, c_, _g.getPar(), _g.getOpNat());
+            return checkedMicro(_context, _stackCall, _p, c_, _g);
         }
         return StopDbgEnum.NONE;
     }

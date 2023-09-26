@@ -925,7 +925,7 @@ public final class ForwardInfos {
         }
         if (_en instanceof IfCondition) {
             CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((ConditionBlock) _en).getRoot(), _coverage, _forwards, _en);
-            ExecCondition exec_ = new ExecIfCondition(((ConditionBlock) _en).getConditionOffset(), ((IfCondition) _en).getLabel(), opCondition_);
+            ExecCondition exec_ = new ExecIfCondition(((IfCondition) _en).getLabel(), new ExecOperationNodeListOff(opCondition_, ((ConditionBlock) _en).getConditionOffset(),((ConditionBlock) _en).getRes().end()));
             exec_.setFile(_fileDest);
             _coverage.putBlockOperationsConditions(_en, (ConditionBlock) _en, exec_);
             _coverage.putBlockOperations(exec_, _en);
@@ -933,7 +933,7 @@ public final class ForwardInfos {
         }
         if (_en instanceof ElseIfCondition) {
             CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((ConditionBlock) _en).getRoot(), _coverage, _forwards, _en);
-            ExecCondition exec_ = new ExecElseIfCondition(((ConditionBlock) _en).getConditionOffset(), opCondition_);
+            ExecCondition exec_ = new ExecElseIfCondition(new ExecOperationNodeListOff(opCondition_, ((ConditionBlock) _en).getConditionOffset(),((ConditionBlock) _en).getRes().end()));
             exec_.setFile(_fileDest);
             _coverage.putBlockOperationsConditions(_en, (ConditionBlock) _en, exec_);
             _coverage.putBlockOperations(exec_, _en);
@@ -941,7 +941,7 @@ public final class ForwardInfos {
         }
         if (_en instanceof WhileCondition) {
             CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((ConditionBlock) _en).getRoot(), _coverage, _forwards, _en);
-            ExecCondition exec_ = new ExecWhileCondition(((ConditionBlock) _en).getConditionOffset(), ((WhileCondition) _en).getLabel(), opCondition_);
+            ExecCondition exec_ = new ExecWhileCondition(((WhileCondition) _en).getLabel(), new ExecOperationNodeListOff(opCondition_, ((ConditionBlock) _en).getConditionOffset(),((ConditionBlock) _en).getRes().end()));
             exec_.setFile(_fileDest);
             _coverage.putBlockOperationsConditions(_en, (ConditionBlock) _en, exec_);
             _coverage.putBlockOperations(exec_, _en);
@@ -953,7 +953,7 @@ public final class ForwardInfos {
     private static ExecBlock block4(AbsBk _en, ExecFileBlock _fileDest, Coverage _coverage, Forwards _forwards) {
         if (_en instanceof DoWhileCondition) {
             CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((ConditionBlock) _en).getRoot(), _coverage, _forwards, _en);
-            ExecCondition exec_ = new ExecDoWhileCondition(((ConditionBlock) _en).getConditionOffset(), opCondition_);
+            ExecCondition exec_ = new ExecDoWhileCondition(new ExecOperationNodeListOff(opCondition_, ((ConditionBlock) _en).getConditionOffset(),((ConditionBlock) _en).getRes().end()));
             exec_.setFile(_fileDest);
             _coverage.putBlockOperationsConditions(_en, (ConditionBlock) _en, exec_);
             _coverage.putBlockOperations(exec_, _en);
@@ -1003,7 +1003,7 @@ public final class ForwardInfos {
         }
         if (_en instanceof Line) {
             CustList<ExecOperationNode> op_ = getExecutableNodes(((Line) _en).getRoot(), _coverage, _forwards, _en);
-            ExecLine exec_ = new ExecLine(((Line) _en).isCallSuper(),((Line) _en).isCallInts(), new ExecOperationNodeListOff(op_, ((Line) _en).getExpressionOffset()));
+            ExecLine exec_ = new ExecLine(((Line) _en).isCallSuper(),((Line) _en).isCallInts(), new ExecOperationNodeListOff(op_, ((Line) _en).getExpressionOffset(),((Line) _en).getRes().end()));
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;
@@ -1026,14 +1026,14 @@ public final class ForwardInfos {
             if (((ForEachLoop) _en).getRoot().getResultClass().isArray()) {
                 if (((ForEachLoop) _en).isRefVariable()) {
                     exec_ = new ExecForEachRefArray(((ForEachLoop) _en).getLabel(),
-                            ((ForEachLoop) _en).getImportedClassIndexName(), new ExecVariableName(((ForEachLoop) _en).getImportedClassName(), ((ForEachLoop) _en).getVariableName(), ((ForEachLoop) _en).getVariableNameOffset()), ((ForEachLoop) _en).getSepOffset(), ((ForEachLoop) _en).getExpressionOffset(),op_);
+                            ((ForEachLoop) _en).getImportedClassIndexName(), new ExecVariableName(((ForEachLoop) _en).getImportedClassName(), ((ForEachLoop) _en).getVariableName(), ((ForEachLoop) _en).getVariableNameOffset()), ((ForEachLoop) _en).getSepOffset(), new ExecOperationNodeListOff(op_, ((ForEachLoop) _en).getExpressionOffset(), ((ForEachLoop) _en).getRes().end()));
                 } else {
                     exec_ = new ExecForEachArray(((ForEachLoop) _en).getLabel(),
-                            ((ForEachLoop) _en).getImportedClassIndexName(), new ExecVariableName(((ForEachLoop) _en).getImportedClassName(), ((ForEachLoop) _en).getVariableName(), ((ForEachLoop) _en).getVariableNameOffset()), ((ForEachLoop) _en).getSepOffset(), ((ForEachLoop) _en).getExpressionOffset(),op_);
+                            ((ForEachLoop) _en).getImportedClassIndexName(), new ExecVariableName(((ForEachLoop) _en).getImportedClassName(), ((ForEachLoop) _en).getVariableName(), ((ForEachLoop) _en).getVariableNameOffset()), ((ForEachLoop) _en).getSepOffset(), new ExecOperationNodeListOff(op_, ((ForEachLoop) _en).getExpressionOffset(), ((ForEachLoop) _en).getRes().end()));
                 }
             } else {
                 exec_ = new ExecForEachIterable(((ForEachLoop) _en).getLabel(),
-                        ((ForEachLoop) _en).getImportedClassIndexName(), new ExecVariableName(((ForEachLoop) _en).getImportedClassName(), ((ForEachLoop) _en).getVariableName(), ((ForEachLoop) _en).getVariableNameOffset()), ((ForEachLoop) _en).getSepOffset(), ((ForEachLoop) _en).getExpressionOffset(),op_, _en.getOffset());
+                        ((ForEachLoop) _en).getImportedClassIndexName(), new ExecVariableName(((ForEachLoop) _en).getImportedClassName(), ((ForEachLoop) _en).getVariableName(), ((ForEachLoop) _en).getVariableNameOffset()), ((ForEachLoop) _en).getSepOffset(), _en.getOffset(), new ExecOperationNodeListOff(op_, ((ForEachLoop) _en).getExpressionOffset(), ((ForEachLoop) _en).getRes().end()));
             }
             _coverage.putBlockOperationsLoops((AbstractForLoop) _en, exec_);
             exec_.setFile(_fileDest);
@@ -1049,7 +1049,7 @@ public final class ForwardInfos {
             ExecForEachTable exec_ = new ExecForEachTable(((ForEachTable) _en).getLabel(), new ExecVariableName(((ForEachTable) _en).getImportedClassNameFirst(),((ForEachTable) _en).getVariableNameFirst(),((ForEachTable) _en).getVariableNameOffsetFirst()),
                     new ExecVariableName(((ForEachTable) _en).getImportedClassNameSecond(), ((ForEachTable) _en).getVariableNameSecond(), ((ForEachTable) _en).getVariableNameOffsetSecond()), new ExecTableOffsets(((ForEachTable) _en).getSepOffset(), ((ForEachTable) _en).getSepNext(), _en.getOffset()),
                     ((ForEachTable) _en).getImportedClassIndexName(),
-                    new ExecOperationNodeListOff(op_, ((ForEachTable) _en).getExpressionOffset()));
+                    new ExecOperationNodeListOff(op_, ((ForEachTable) _en).getExpressionOffset(), ((ForEachTable) _en).getRes().end()));
             _coverage.putBlockOperationsLoops((AbstractForLoop) _en, exec_);
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);
@@ -1077,7 +1077,7 @@ public final class ForwardInfos {
             step_ = getExecutableNodes(rStep_, _coverage, _forwards, _en);
             ExecForMutableIterativeLoop exec_ = new ExecForMutableIterativeLoop(((ForMutableIterativeLoop) _en).getLabel(), ((ForMutableIterativeLoop) _en).getImportedClassName(), ((ForMutableIterativeLoop) _en).getImportedClassIndexName(),
                     ((ForMutableIterativeLoop) _en).getVariableNames(),
-                    new ExecOperationNodeListOff(init_, ((ForMutableIterativeLoop) _en).getInitOffset()), new ExecOperationNodeListOff(exp_, ((ForMutableIterativeLoop) _en).getExpressionOffset()), new ExecOperationNodeListOff(step_, ((ForMutableIterativeLoop) _en).getStepOffset()));
+                    new ExecOperationNodeListOff(init_, ((ForMutableIterativeLoop) _en).getInitOffset(), ((ForMutableIterativeLoop) _en).getResInit().end()), new ExecOperationNodeListOff(exp_, ((ForMutableIterativeLoop) _en).getExpressionOffset(), ((ForMutableIterativeLoop) _en).getResExp().end()), new ExecOperationNodeListOff(step_, ((ForMutableIterativeLoop) _en).getStepOffset(), ((ForMutableIterativeLoop) _en).getResStep().end()));
             _coverage.putBlockOperationsConditions(_en,(ForMutableIterativeLoop) _en, exec_);
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);
@@ -1085,7 +1085,7 @@ public final class ForwardInfos {
         }
         if (_en instanceof ReturnMethod) {
             OperationNode r_ = ((ReturnMethod) _en).getRoot();
-            ExecBlock exec_ = buildRet(_coverage, _forwards, _en, r_);
+            ExecBlock exec_ = buildRet(_coverage, _forwards, (ReturnMethod) _en, r_);
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;
@@ -1106,7 +1106,7 @@ public final class ForwardInfos {
         }
         if (_en instanceof Throwing) {
             CustList<ExecOperationNode> op_ = getExecutableNodes(((Throwing) _en).getRoot(), _coverage, _forwards, _en);
-            ExecThrowing exec_ = new ExecThrowing(((Throwing) _en).getExpressionOffset(),op_);
+            ExecThrowing exec_ = new ExecThrowing(new ExecOperationNodeListOff(op_, ((Throwing) _en).getExpressionOffset(), ((Throwing)_en).getRes().end()));
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;
@@ -1123,9 +1123,9 @@ public final class ForwardInfos {
     private static ExecBracedBlock buildSwitch(SwitchBlock _en, CustList<ExecOperationNode> _op) {
         ExecBracedBlock exec_;
         if (_en.isInstance()) {
-            exec_ = new ExecInstanceSwitchBlock(_en.getInstanceTest(), _en.getLabel(), _en.getValueOffset(), _op);
+            exec_ = new ExecInstanceSwitchBlock(_en.getInstanceTest(), _en.getLabel(), new ExecOperationNodeListOff(_op, _en.getValueOffset(),_en.getRes().end()));
         } else {
-            exec_ = new ExecStdSwitchBlock(_en.getInstanceTest(), _en.getLabel(), _en.getValueOffset(), _op);
+            exec_ = new ExecStdSwitchBlock(_en.getInstanceTest(), _en.getLabel(), new ExecOperationNodeListOff(_op, _en.getValueOffset(),_en.getRes().end()));
         }
         return exec_;
     }
@@ -1141,7 +1141,7 @@ public final class ForwardInfos {
 //        } else
         OperationNode root_ = _en.getFilterContent().getResCondition().getRoot();
         if (!_en.getFilterContent().getImportedType().isEmpty()) {
-            exec_ = new ExecAbstractCaseCondition(_en.getOffset(),getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),_en.getFilterContent().getImportedType(),_en.getFilterContent().getVariableName(), new CustList<Argument>(),new CustList<ClassField>());
+            exec_ = new ExecAbstractCaseCondition(_en.getOffset(),new ExecOperationNodeListOff(getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),_en.getFilterContent().getResCondition().end()),_en.getFilterContent().getImportedType(),_en.getFilterContent().getVariableName(), new CustList<Argument>(),new CustList<ClassField>());
 //        } else if (((CaseCondition) _en).isInstance()) {
 //            exec_ = new ExecStdCaseCondition(Argument.createVoid());
 //        } else if (((CaseCondition) _en).getQualif() != null) {
@@ -1150,7 +1150,7 @@ public final class ForwardInfos {
         } else {
 //            getExecutableNodes(((CaseCondition) _en).getRoot(), _coverage, _forwards, _en);
 //            Argument argument_ = Argument.getNullableValue(((CaseCondition) _en).getArgument());
-            exec_ = new ExecAbstractCaseCondition(_en.getOffset(),getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),"","",_en.getFilterContent().getStdValues(), _en.getFilterContent().getEnumValues());
+            exec_ = new ExecAbstractCaseCondition(_en.getOffset(),new ExecOperationNodeListOff(getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),_en.getFilterContent().getResCondition().end()),"","",_en.getFilterContent().getStdValues(), _en.getFilterContent().getEnumValues());
 //            exec_ = new ExecStdCaseCondition(argument_);
         }
         return exec_;
@@ -1167,7 +1167,7 @@ public final class ForwardInfos {
 //        } else
         OperationNode root_ = _en.getFilterContent().getResCondition().getRoot();
         if (!_en.getFilterContent().getImportedType().isEmpty()) {
-            exec_ = new ExecAbstractCatchEval(getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),new ExecFilterContent(_en.getOffset(), _en.getFilterContent().getImportedType(),_en.getFilterContent().getVariableName(), new CustList<Argument>(),new CustList<ClassField>()), _en.isThrowIfGuardError(), _en.isCatchAll());
+            exec_ = new ExecAbstractCatchEval(new ExecOperationNodeListOff(getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),_en.getFilterContent().getResCondition().end()),new ExecFilterContent(_en.getOffset(), _en.getFilterContent().getImportedType(),_en.getFilterContent().getVariableName(), new CustList<Argument>(),new CustList<ClassField>()), _en.isThrowIfGuardError(), _en.isCatchAll());
 //        } else if (((CaseCondition) _en).isInstance()) {
 //            exec_ = new ExecStdCaseCondition(Argument.createVoid());
 //        } else if (((CaseCondition) _en).getQualif() != null) {
@@ -1176,7 +1176,7 @@ public final class ForwardInfos {
         } else {
 //            getExecutableNodes(((CaseCondition) _en).getRoot(), _coverage, _forwards, _en);
 //            Argument argument_ = Argument.getNullableValue(((CaseCondition) _en).getArgument());
-            exec_ = new ExecAbstractCatchEval(getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),new ExecFilterContent(_en.getOffset(), "","",_en.getFilterContent().getStdValues(), _en.getFilterContent().getEnumValues()),_en.isThrowIfGuardError(), false);
+            exec_ = new ExecAbstractCatchEval(new ExecOperationNodeListOff(getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),_en.getFilterContent().getResCondition().end()),new ExecFilterContent(_en.getOffset(), "","",_en.getFilterContent().getStdValues(), _en.getFilterContent().getEnumValues()),_en.isThrowIfGuardError(), false);
 //            exec_ = new ExecStdCaseCondition(argument_);
         }
         return exec_;
@@ -1199,25 +1199,31 @@ public final class ForwardInfos {
         if (_en.isEq()) {
             exec_ = new ExecForIterativeLoopEq(_en.getLabel(),
                     _en.getImportedClassIndexName(), new ExecVariableName(_en.getImportedClassName(), _en.getVariableName(),_en.getVariableNameOffset()),
-                    new ExecOperationNodeListOff(_init, _en.getInitOffset()), new ExecOperationNodeListOff(_exp, _en.getExpressionOffset()), new ExecOperationNodeListOff(_step, _en.getStepOffset()));
+                    new ExecOperationNodeListOff(_init, _en.getInitOffset(), _en.getResInit().end()), new ExecOperationNodeListOff(_exp, _en.getExpressionOffset(), _en.getResExp().end()), new ExecOperationNodeListOff(_step, _en.getStepOffset(), _en.getResStep().end()));
         } else {
             exec_ = new ExecForIterativeLoopStrict(_en.getLabel(),
                     _en.getImportedClassIndexName(), new ExecVariableName(_en.getImportedClassName(),_en.getVariableName(),_en.getVariableNameOffset()),
-                    new ExecOperationNodeListOff(_init, _en.getInitOffset()), new ExecOperationNodeListOff(_exp, _en.getExpressionOffset()), new ExecOperationNodeListOff(_step, _en.getStepOffset()));
+                    new ExecOperationNodeListOff(_init, _en.getInitOffset(), _en.getResInit().end()), new ExecOperationNodeListOff(_exp, _en.getExpressionOffset(), _en.getResExp().end()), new ExecOperationNodeListOff(_step, _en.getStepOffset(), _en.getResStep().end()));
         }
         return exec_;
     }
 
-    private static ExecBlock buildRet(Coverage _coverage, Forwards _forwards, AbsBk _en, OperationNode _r) {
+    private static ExecBlock buildRet(Coverage _coverage, Forwards _forwards, ReturnMethod _en, OperationNode _r) {
+        int end_;
+        if (_en.isImplicit() || _r == null) {
+            end_ = -1;
+        } else {
+            end_ = _en.getRes().end();
+        }
         ExecBlock exec_;
         if (_r == null) {
-            exec_ = new ExecRefReturnMethod(((ReturnMethod) _en).getExpressionOffset(), new CustList<ExecOperationNode>());
+            exec_ = new ExecRefReturnMethod(new ExecOperationNodeListOff(new CustList<ExecOperationNode>(), _en.getExpressionOffset(), end_));
         } else {
             CustList<ExecOperationNode> op_ = getExecutableNodes(_r, _coverage, _forwards, _en);
             if (_r instanceof WrappOperation){
-                exec_ = new ExecRefReturnMethod(((ReturnMethod) _en).getExpressionOffset(),op_);
+                exec_ = new ExecRefReturnMethod(new ExecOperationNodeListOff(op_, _en.getExpressionOffset(), end_));
             } else {
-                exec_ = new ExecReturnMethod(((ReturnMethod) _en).getExpressionOffset(),op_, ((ReturnMethod) _en).getReturnType());
+                exec_ = new ExecReturnMethod(_en.getReturnType(), new ExecOperationNodeListOff(op_, _en.getExpressionOffset(), end_));
             }
         }
         return exec_;

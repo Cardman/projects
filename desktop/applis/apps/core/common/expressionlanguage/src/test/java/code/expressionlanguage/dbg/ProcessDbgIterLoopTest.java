@@ -1,6 +1,9 @@
 package code.expressionlanguage.dbg;
 
+import code.expressionlanguage.DefContextGenerator;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
 import code.util.StringMap;
@@ -392,5 +395,27 @@ public final class ProcessDbgIterLoopTest extends ProcessDbgCommon {
         MethodId id_ = getMethodId("m");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test15() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {static int m(){pkg.CustList<int> inst=new pkg.CustList<int>();int res;inst.add(3i);inst.add(1i);inst.add(2i);for(int e:inst){res+=e.intValue();}return res;}}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleBreakPoint("pkg/Ex",144);
+        analyze(cont_,"res == 0","pkg/Ex",144);
+        MethodId id_ = getMethodId("m");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(144, now(stack_));
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+    static void analyze(ResultContext _cont, String _cond, String _file, int _caret) {
+        FileBlock bl_ = _cont.getPageEl().getPreviousFilesBodies().getVal(_file);
+        BreakPointBlockPair pair_ = _cont.getPair(_cont.getFiles().getVal(bl_), _caret);
+        pair_.getValue().getResultStd().analyze(pair_,_cond,"","",_cont,new DefContextGenerator());
     }
 }

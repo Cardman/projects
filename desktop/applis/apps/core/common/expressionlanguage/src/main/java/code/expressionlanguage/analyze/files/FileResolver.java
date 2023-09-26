@@ -2361,7 +2361,7 @@ public final class FileResolver {
                                 new OffsetStringInfo(typeOffset_ + _offset, declaringType_.trim()),
                                 new OffsetStringInfo(initOff_ + _offset, init_.trim()), new OffsetStringInfo(toOff_ + _offset, to_.trim()),
                                 new OffsetStringInfo(stepOff_ + _offset, step_.trim()),
-                                clNa_));
+                                clNa_),_offset +initOff_+init_.length(), _offset +toOff_+to_.length(), _offset+stepOff_+step_.length());
                 _currentParent.appendChild(br_);
                 br_.setTestOffset(_i.getIndex()+ _offset);
                 br_.getResInit().partsAbsol(strInit_);
@@ -2564,7 +2564,8 @@ public final class FileResolver {
                 _primTypes);
         ForIterativeLoop br_ = new ForIterativeLoop(new OneLoopExpressionsContent(new OffsetClassVariableInfo(new OffsetStringInfo(typeOffset_ + _offset, declaringType_.trim()), new OffsetStringInfo(varOffset_ + _offset, variable_.trim())),
                 new OffsetStringInfo(initOff_ + _offset, init_.trim()), new OffsetStringInfo(toOff_ + _offset, to_.trim()),
-                new OffsetStringInfo(stepOff_ + _offset, step_.trim()), new OffsetBooleanInfo(expOff_ + _offset, eq_), clNa_), _i.instLocAfter() + _offset, lab_);
+                new OffsetStringInfo(stepOff_ + _offset, step_.trim()), new OffsetBooleanInfo(expOff_ + _offset, eq_), clNa_), _i.instLocAfter() + _offset, lab_,
+                initOff_ + _offset+init_.length(),toOff_ + _offset+to_.length(),stepOff_ + _offset+step_.length());
         if (!ok_) {
             br_.getBadIndexes().add(_i.getIndex()+ _offset);
         }

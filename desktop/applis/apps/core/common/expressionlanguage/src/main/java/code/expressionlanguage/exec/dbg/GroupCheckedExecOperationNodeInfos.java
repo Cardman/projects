@@ -7,9 +7,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
-import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
@@ -22,6 +20,7 @@ import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fcts.*;
 import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
@@ -30,6 +29,7 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class GroupCheckedExecOperationNodeInfos {
+    private final int processEnds;
     private final CoreCheckedExecOperationNodeInfos infos;
     private final StdMethodCheckedExecOperationNodeInfos infosStd;
     private final CallCheckedExecOperationNodeInfos infosCall;
@@ -38,6 +38,7 @@ public final class GroupCheckedExecOperationNodeInfos {
     private final CallCheckedExecOperationNodeInfos checkRefl;
     private final CoreCheckedExecOperationNodeInfos checkReflAw;
     public GroupCheckedExecOperationNodeInfos(ContextEl _context, StackCall _stackCall) {
+        processEnds = initEndsInstr(_stackCall);
         infos = infos(_context, _stackCall);
         infosStd = infosStd(_context, _stackCall);
         infosCall = infosCall(_context, _stackCall);
@@ -53,6 +54,10 @@ public final class GroupCheckedExecOperationNodeInfos {
     }
     public boolean idDefined() {
         return infos != null || infosStd != null || infosCall != null || par != null || opNat != null;
+    }
+
+    public int getProcessEnds() {
+        return processEnds;
     }
 
     public CoreCheckedExecOperationNodeInfos getInfos() {
@@ -84,6 +89,10 @@ public final class GroupCheckedExecOperationNodeInfos {
     }
 
     private static CoreCheckedExecOperationNodeInfos expOper(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, AbstractPageEl _last) {
+        ExecBlock curr_ = _last.getBlock();
+        if (skipLine(_el, curr_)) {
+            return null;
+        }
         if (_o instanceof ExecAbstractAffectOperation) {
             return affectationOrCompound(_el, (ExecAbstractAffectOperation)_o, _context, _last);
         }
@@ -118,7 +127,6 @@ public final class GroupCheckedExecOperationNodeInfos {
             String c_ = StringExpUtil.getPrettyArrayType(_last.formatVarType(((ExecAbstractArrayInstancingOperation)_o).getClassName()), indexes_ + ((ExecAbstractArrayInstancingOperation)_o).getCountArrayDims());
             return new ArrCheckedExecOperationNodeInfos(_context, c_, arr_);
         }
-        ExecBlock curr_ = _last.getBlock();
         if (curr_ instanceof ExecAnnotationMethodBlock) {
             String n_ = ((ExecAnnotationMethodBlock) curr_).getName();
             String ip_ = ((ExecAnnotationMethodBlock) curr_).getImportedReturnType();
@@ -131,6 +139,10 @@ public final class GroupCheckedExecOperationNodeInfos {
     }
 
     private static OperNatCheckedExecOperationNodeInfos expOperNat(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, AbstractPageEl _last) {
+        ExecBlock curr_ = _last.getBlock();
+        if (skipLine(_el, curr_)) {
+            return null;
+        }
         if (_o instanceof ExecAbstractAffectOperation) {
             return affectationOrCompoundNat(_el, (ExecAbstractAffectOperation)_o, _context, _last);
         }
@@ -149,6 +161,23 @@ public final class GroupCheckedExecOperationNodeInfos {
         }
         return null;
     }
+    private static int initEndsInstr(StackCall _stackCall) {
+        if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() != null) {
+            return ResultContext.NO_END;
+        }
+        AbstractPageEl p_ = _stackCall.getLastPage();
+        if (p_.isEmptyEl()) {
+            return ResultContext.NO_END;
+        }
+        if (skipLine(p_.getLastEl(),p_.getBlock())) {
+            return ResultContext.END_LINE;
+        }
+        return ResultContext.NO_END;
+    }
+
+    private static boolean skipLine(ExpressionLanguage _el, ExecBlock _curr) {
+        return (_curr instanceof ExecLine || _curr instanceof ExecCondition || _curr instanceof ExecAbstractExpressionReturnMethod || _curr instanceof ExecThrowing || _curr instanceof ExecForMutableIterativeLoop || _curr instanceof ExecForIterativeLoop || _curr instanceof ExecAbstractForEachLoop || _curr instanceof ExecForEachTable || _curr instanceof ExecWithFilterContent || _curr instanceof ExecAbstractSwitchBlock) && _el.getIndex() >= _el.getArguments().size();
+    }
 
     private static OperNatCheckedExecOperationNodeInfos operNat(ExpressionLanguage _el, ContextEl _context, CustList<ExecOperationNode> _ls, ExecOperSymbol _symbol, int _mode) {
         Struct left_ = ArgumentListCall.toStr(Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(_ls, 0)).getArgument()));
@@ -162,6 +191,10 @@ public final class GroupCheckedExecOperationNodeInfos {
     }
 
     private static CoreCheckedExecOperationNodeInfos expOperPar(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, AbstractPageEl _last) {
+        ExecBlock curr_ = _last.getBlock();
+        if (skipLine(_el, curr_)) {
+            return null;
+        }
         if (_o instanceof ExecThisOperation) {
             int anc_ = ((ExecThisOperation) _o).getThisContent().getNbAncestors();
             Struct instance_ = _last.getGlobalStruct();
@@ -198,6 +231,10 @@ public final class GroupCheckedExecOperationNodeInfos {
     }
 
     private static CallCheckedExecOperationNodeInfos expOperCall(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, AbstractPageEl _last, boolean _ex) {
+        ExecBlock curr_ = _last.getBlock();
+        if (skipLine(_el, curr_)) {
+            return null;
+        }
         if (_o instanceof ExecAbstractAffectOperation) {
             return affectationOrCompoundCall(_el, (ExecAbstractAffectOperation)_o, _context, _last);
         }
@@ -208,6 +245,10 @@ public final class GroupCheckedExecOperationNodeInfos {
     }
 
     private static StdMethodCheckedExecOperationNodeInfos expOperStd(ExpressionLanguage _el, ExecOperationNode _o, ContextEl _context, AbstractPageEl _last, boolean _ex) {
+        ExecBlock curr_ = _last.getBlock();
+        if (skipLine(_el, curr_)) {
+            return null;
+        }
         if (_o instanceof StdParamsOperable) {
             return new StdMethodCheckedExecOperationNodeInfos(_context.getStandards().getCoreNames().getAliasObject(),(StdParamsOperable)_o,cl((StdParamsOperable) _o,_context), _el.getArguments(), ((StdParamsOperable)_o).instance(_el.getArguments(), _last), _ex);
         }

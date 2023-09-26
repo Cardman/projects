@@ -1,7 +1,10 @@
 package code.expressionlanguage.dbg;
 
+import code.expressionlanguage.DefContextGenerator;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.Struct;
@@ -394,5 +397,55 @@ public final class ProcessDbgForIterativeTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCall next_ = dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(dbgContinueNormal(stack_, cont_.getContext()), cont_.getContext()), cont_.getContext()), cont_.getContext()), cont_.getContext());
         assertEq(0, next_.nbPages());
+    }
+    @Test
+    public void test18() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int catching(){int t=1;iter(int i= 0; 4;;1){t+=i;}return t;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleBreakPoint("pkg/Ex",71);
+        analyze(cont_,"t==1","pkg/Ex",71);
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(71, now(stack_));
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test19() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int catching(){int t=1;iter(int i= 0; 4;;1){t+=i;}return t;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleBreakPoint("pkg/Ex",74);
+        analyze(cont_,"t==1","pkg/Ex",74);
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(74, now(stack_));
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test20() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int catching(){int t=1;iter(int i= 0; 4;;1){t+=i;}return t;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleBreakPoint("pkg/Ex",77);
+        analyze(cont_,"t==1","pkg/Ex",77);
+        MethodId id_ = getMethodId("catching");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(77, now(stack_));
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+    static void analyze(ResultContext _cont, String _cond, String _file, int _caret) {
+        FileBlock bl_ = _cont.getPageEl().getPreviousFilesBodies().getVal(_file);
+        BreakPointBlockPair pair_ = _cont.getPair(_cont.getFiles().getVal(bl_), _caret);
+        pair_.getValue().getResultStd().analyze(pair_,_cond,"","",_cont,new DefContextGenerator());
     }
 }

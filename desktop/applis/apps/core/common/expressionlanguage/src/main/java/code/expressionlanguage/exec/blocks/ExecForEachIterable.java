@@ -5,17 +5,15 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 
 public final class ExecForEachIterable extends ExecAbstractForEachLoop {
     private final int iteratorOffset;
-    public ExecForEachIterable(String _label, String _importedClassIndexName, ExecVariableName _variableName, int _sep, int _expressionOffset, CustList<ExecOperationNode> _opList, int _i) {
-        super(_label, _importedClassIndexName, _variableName, _sep, _expressionOffset, _opList);
+    public ExecForEachIterable(String _label, String _importedClassIndexName, ExecVariableName _variableName, int _sep, int _i, ExecOperationNodeListOff _ex) {
+        super(_label, _importedClassIndexName, _variableName, _sep, _ex);
         iteratorOffset = _i;
     }
 

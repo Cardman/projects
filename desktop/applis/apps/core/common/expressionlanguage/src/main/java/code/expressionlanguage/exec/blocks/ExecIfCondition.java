@@ -2,15 +2,13 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.util.CustList;
 
 public final class ExecIfCondition extends ExecCondition implements WithEl {
 
     private final String label;
 
-    public ExecIfCondition(int _conditionOffset, String _label, CustList<ExecOperationNode> _opCondition) {
-        super(_conditionOffset, _opCondition);
+    public ExecIfCondition(String _label, ExecOperationNodeListOff _ex) {
+        super(_ex);
         label = _label;
     }
 

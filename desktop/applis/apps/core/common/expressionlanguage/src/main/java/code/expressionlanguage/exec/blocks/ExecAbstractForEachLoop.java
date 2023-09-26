@@ -5,11 +5,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.StringMap;
 
 public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements WithEl {
@@ -22,12 +20,12 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
     private final ExecVariableName variable;
     private final ExecOperationNodeListOff expression;
 
-    protected ExecAbstractForEachLoop(String _label, String _importedClassIndexName, ExecVariableName _variableName, int _sep, int _expressionOffset, CustList<ExecOperationNode> _opList) {
+    protected ExecAbstractForEachLoop(String _label, String _importedClassIndexName, ExecVariableName _variableName, int _sep, ExecOperationNodeListOff _ex) {
         label = _label;
         this.importedClassIndexName = _importedClassIndexName;
         this.variable = _variableName;
         this.separator = _sep;
-        expression = new ExecOperationNodeListOff(_opList,_expressionOffset);
+        expression = _ex;
     }
 
     @Override

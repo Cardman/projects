@@ -41,6 +41,8 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
     private AbstractWrapper wrapper;
     private Argument returnedArgument = Argument.createVoid();
     private CustomFoundExc thrown;
+    private int bkup;
+    private int bkupOff;
 
     private final PageElContent contentEx = new PageElContent();
 
@@ -138,6 +140,10 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
 
     public void setGlobalOffset(int _globalOffset) {
         globalOffset = _globalOffset;
+    }
+
+    public int getOffset() {
+        return offset;
     }
 
     public void setOffset(int _offset) {
@@ -328,4 +334,19 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
         return globalClass.getRootBlock();
     }
 
+    public int getBkup() {
+        return bkup;
+    }
+
+    public void setBkup(int _b) {
+        this.bkup = _b;
+    }
+
+    public int getBkupOff() {
+        return bkupOff;
+    }
+
+    public void setBkupOff(int _b) {
+        this.bkupOff = _b;
+    }
 }

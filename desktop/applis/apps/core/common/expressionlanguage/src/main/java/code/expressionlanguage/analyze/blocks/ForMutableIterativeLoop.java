@@ -31,10 +31,16 @@ public final class ForMutableIterativeLoop extends AbstractForLoop implements
 
     private AnaResultPartType partOffsets = new AnaResultPartType();
     private String errInf = EMPTY_STRING;
+    private final int first;
+    private final int second;
+    private final int last;
 
-    public ForMutableIterativeLoop(int _offset, OffsetStringInfo _label, ManyLoopExpressionsContent _ma) {
+    public ForMutableIterativeLoop(int _offset, OffsetStringInfo _label, ManyLoopExpressionsContent _ma, int _firstSep, int _secondSep, int _lastSep) {
         super(_offset, _label);
         manyLoopExpressionsContent = _ma;
+        first = _firstSep;
+        second = _secondSep;
+        last = _lastSep;
     }
 
     public int getClassNameOffset() {
@@ -75,6 +81,18 @@ public final class ForMutableIterativeLoop extends AbstractForLoop implements
 
     public String getStep() {
         return manyLoopExpressionsContent.getStep();
+    }
+
+    public int getFirst() {
+        return first;
+    }
+
+    public int getSecond() {
+        return second;
+    }
+
+    public int getLast() {
+        return last;
     }
 
     public boolean isFinalVariable() {

@@ -8,16 +8,17 @@ public final class BreakPoint {
     public static final int BPC_STATIC = 1;
     public static final int BPC_INSTANCE = 2;
     private boolean enabled;
-    private boolean enabledChgtType;
+    private final boolean enabledChgtType;
     private boolean instanceType = true;
     private boolean staticType;
     private final BreakPointCondition resultStd;
     private final BreakPointCondition resultStatic;
     private final BreakPointCondition resultInstance;
-    public BreakPoint(AbstractInterceptorStdCaller _i, AbsPairPoint _superKey, AbsKeyPoint _key){
+    public BreakPoint(AbstractInterceptorStdCaller _i, AbsPairPoint _superKey, AbsKeyPoint _key, boolean _enType){
         resultStd = new BreakPointCondition(_i, _superKey, _key,BP, BPC_STD);
         resultStatic = new BreakPointCondition(_i, _superKey, _key,BP, BPC_STATIC);
         resultInstance = new BreakPointCondition(_i, _superKey, _key,BP, BPC_INSTANCE);
+        enabledChgtType = _enType;
     }
 
     public void resetCount() {
@@ -35,10 +36,6 @@ public final class BreakPoint {
 
     public boolean isEnabledChgtType() {
         return enabledChgtType;
-    }
-
-    public void setEnabledChgtType(boolean _e) {
-        this.enabledChgtType = _e;
     }
 
     public boolean isInstanceType() {

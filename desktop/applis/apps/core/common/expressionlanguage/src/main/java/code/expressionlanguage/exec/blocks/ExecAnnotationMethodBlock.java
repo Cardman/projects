@@ -49,7 +49,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock {
 
     public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last) {
         _last.globalOffset(defaultValueOffset);
-        Argument arg_ = ExecHelperBlocks.tryToCalculate(_cont,0,_stack,getOpValue(),0, this);
+        Argument arg_ = ExecHelperBlocks.tryToCalculate(_cont,0,_stack,getOpValue(),0, this, -1);
         if (_stack.stopAt(_cont)) {
             return;
         }

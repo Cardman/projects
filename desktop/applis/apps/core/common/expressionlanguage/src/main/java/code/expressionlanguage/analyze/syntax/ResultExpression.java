@@ -19,6 +19,9 @@ public final class ResultExpression {
     private final Ints annotDelNew = new Ints();
     private final Ints annotDelSwitch = new Ints();
 
+    public int end() {
+        return sumOffset + analyzedString.length();
+    }
     public String getAnalyzedString() {
         return analyzedString;
     }

@@ -3,8 +3,6 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.util.CustList;
 
 public final class ExecAbstractCatchEval extends ExecBracedBlock implements WithEl,ExecWithFilterContent {
 
@@ -13,8 +11,8 @@ public final class ExecAbstractCatchEval extends ExecBracedBlock implements With
 
     private final boolean throwIfGuardError;
     private final boolean catchAll;
-    public ExecAbstractCatchEval(CustList<ExecOperationNode> _ls, int _offset, ExecFilterContent _filterContent, boolean _thr, boolean _ca) {
-        exp = new ExecOperationNodeListOff(_ls,_offset);
+    public ExecAbstractCatchEval(ExecOperationNodeListOff _ex, ExecFilterContent _filterContent, boolean _thr, boolean _ca) {
+        exp = _ex;
         content = _filterContent;
         throwIfGuardError = _thr;
         catchAll = _ca;

@@ -6,16 +6,14 @@ import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.variables.ArrayWrapper;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 
 public final class ExecForEachRefArray extends ExecAbstractForEachLoop {
-    public ExecForEachRefArray(String _label, String _importedClassIndexName, ExecVariableName _variableName, int _sep, int _expressionOffset, CustList<ExecOperationNode> _opList) {
-        super(_label, _importedClassIndexName, _variableName, _sep, _expressionOffset, _opList);
+    public ExecForEachRefArray(String _label, String _importedClassIndexName, ExecVariableName _variableName, int _sep, ExecOperationNodeListOff _ex) {
+        super(_label, _importedClassIndexName, _variableName, _sep, _ex);
     }
 
     @Override

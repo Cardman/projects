@@ -1,12 +1,9 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.util.CustList;
-
 public final class ExecStdSwitchBlock extends ExecAbstractSwitchBlock {
 
-    public ExecStdSwitchBlock(String _instanceTest, String _label, int _valueOffset, CustList<ExecOperationNode> _opValue) {
-        super(_instanceTest,_label,_valueOffset,_opValue);
+    public ExecStdSwitchBlock(String _instanceTest, String _label, ExecOperationNodeListOff _ex) {
+        super(_instanceTest,_label, _ex);
     }
 
 }

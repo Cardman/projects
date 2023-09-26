@@ -689,7 +689,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
     }
     @Test
     public void test() {
-        assertEq("-1/0",new BreakPointBlockPairKeyString().keyString(new BreakPointBlockPair(null,-1,0,new ElInterceptorStdCaller(),false)));
+        assertEq("-1/0",new BreakPointBlockPairKeyString().keyString(new BreakPointBlockPair(null,-1,0,new ElInterceptorStdCaller(), false,false)));
         assertEq("-1/0",new BreakPointBlockPairKeyIdString().keyString(new BreakPointBlockKey(null,-1,0)));
         assertEq("-1/0",new ExecFileBlockTraceIndexKeyString().keyString(new ExecFileBlockTraceIndex(null,-1,0)));
         assertEq("",new ExecFileBlockTraceIndexKeyString().keyString(new ExecFileBlockFct("","")));

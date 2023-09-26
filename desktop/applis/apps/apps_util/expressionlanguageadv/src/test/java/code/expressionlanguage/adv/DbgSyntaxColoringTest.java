@@ -542,6 +542,54 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertEq(38,l_.get(1).getEnd());
         assertSame(SyntaxRefEnum.FIELD,l_.get(1).getKind());
     }
+    @Test
+    public void parts47() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){int t=2;switch((Object)10){case int v;t=3;}return t;}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleBreakPoint("src/file.txt",55);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(1,l_.size());
+        assertEq(55,l_.get(0).getBegin());
+        assertEq(56,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(0).getKind());
+    }
+    @Test
+    public void parts48() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){var f=(int a:int)->2*a;return 0;}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleBreakPoint("src/file.txt",70);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(1,l_.size());
+        assertEq(70,l_.get(0).getBegin());
+        assertEq(71,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(0).getKind());
+    }
+    @Test
+    public void parts49() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){int t=2;switch((Object)10){case int v;t=3;}return t;}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleBreakPoint("src/file.txt",99);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(1,l_.size());
+        assertEq(99,l_.get(0).getBegin());
+        assertEq(100,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(0).getKind());
+    }
+    @Test
+    public void parts50() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){var f=(int a:int)->2*a;throw 0;}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleBreakPoint("src/file.txt",78);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(1,l_.size());
+        assertEq(78,l_.get(0).getBegin());
+        assertEq(79,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(0).getKind());
+    }
     private CustList<SegmentReadOnlyPart> list(ResultContext _res) {
         IdMap<FileBlock,CustList<SegmentReadOnlyPart>> s_ = DbgSyntaxColoring.partsBpMpWp(_res);
         return s_.getVal(_res.getPageEl().getPreviousFilesBodies().getVal("src/file.txt"));
