@@ -77,14 +77,24 @@ public final class LookForCallersTask implements Runnable {
                     curr_ = next_.info();
                     break;
                 }
-                if (curr_ == _r || rootLoc_ == null) {
+                AbstractMutableTreeNodeCore<MetaCaller> par_ = par(curr_, _r, rootLoc_);
+                if (par_ == null || rootLoc_ == null) {
                     curr_ = null;
                 } else {
                     rootLoc_ = rootLoc_.getParent();
-                    curr_ = curr_.getMeta().getParent().info();
+                    curr_ = par_.info();
                 }
             }
         }
+    }
+    private static AbstractMutableTreeNodeCore<MetaCaller> par(MetaCaller _curr, MetaCaller _r, AbstractMutableTreeNodeCore<String> _rootLoc) {
+        if (_rootLoc == null) {
+            return _curr.getMeta();
+        }
+        if (_curr == _r) {
+            return null;
+        }
+        return _curr.getMeta().getParent();
     }
 
     private static AbstractMutableTreeNodeCore<String> complete(AbsCompoFactory _compo, AbstractMutableTreeNodeCore<String> _blockToWrite, MetaCaller _read, ResultRowSrcLocationList _result) {
