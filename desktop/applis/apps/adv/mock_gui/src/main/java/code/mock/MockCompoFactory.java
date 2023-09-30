@@ -303,6 +303,11 @@ public final class MockCompoFactory implements AbsCompoFactory {
     }
 
     @Override
+    public int heightFont(MetaFont _font) {
+        return MockCustComponent.heightFontStr(_font);
+    }
+
+    @Override
     public AbsEnabledAction wrap(AbsAdvActionListener _actionListener) {
         return new MockAdvAbstractAction(_actionListener);
     }

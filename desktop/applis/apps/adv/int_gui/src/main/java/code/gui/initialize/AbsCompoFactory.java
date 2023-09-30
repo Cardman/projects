@@ -80,6 +80,7 @@ public interface AbsCompoFactory {
 
     AbsMenuItem newMenuItem(String _value);
     int stringWidth(MetaFont _font, String _string);
+    int heightFont(MetaFont _font);
     AbsEnabledAction wrap(AbsAdvActionListener _actionListener);
     AbsEnabledAction wrap(AbsActionListener _actionListener);
     AbsTextPane newTextPane();

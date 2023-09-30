@@ -407,6 +407,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         MockProgramInfosSample init_ = init();
         AbsCompoFactory ab_ = init_.getCompoFactory();
         assertEq(10,ab_.stringWidth(new MetaFont("",0,2),"hello"));
+        assertEq(2,ab_.heightFont(new MetaFont("",0,2)));
     }
     @Test
     public void c16() {

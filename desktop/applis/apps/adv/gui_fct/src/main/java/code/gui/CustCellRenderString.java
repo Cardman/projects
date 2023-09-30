@@ -13,7 +13,7 @@ public final class CustCellRenderString implements AbsCustCellRenderGene<String>
     }
     @Override
     public AbstractImage getListCellRendererComponent(int _index, String _info, boolean _isSelected, boolean _cellHasFocus, AbsPreparedLabel _lab, ColorsGroupList _colors) {
-        AbstractImage img_ = imageFactory.newImageRgb(compoFactory.stringWidth(_lab.getMetaFont(), _info), _lab.heightFont() + 2, _lab);
+        AbstractImage img_ = imageFactory.newImageRgb(compoFactory.stringWidth(_lab.getMetaFont(), _info), compoFactory.heightFont(_lab.getMetaFont()) + 2, _lab);
         if (_isSelected) {
             img_.setColor(_colors.getBgSel());
             img_.fillRect(0,0,img_.getWidth(),img_.getHeight());

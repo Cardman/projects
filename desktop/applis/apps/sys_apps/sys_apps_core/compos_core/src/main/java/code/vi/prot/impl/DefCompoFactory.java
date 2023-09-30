@@ -301,6 +301,11 @@ public final class DefCompoFactory implements AbsCompoFactory {
     }
 
     @Override
+    public int heightFont(MetaFont _font) {
+        return label.heightFont(_font);
+    }
+
+    @Override
     public AbsEnabledAction wrap(AbsAdvActionListener _actionListener) {
         return new WrAbstractAction(new WrAdvActionListener(_actionListener));
     }

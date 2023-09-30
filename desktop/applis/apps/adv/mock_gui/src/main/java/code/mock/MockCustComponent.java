@@ -298,6 +298,10 @@ public abstract class MockCustComponent implements AbsCustComponent {
 
     @Override
     public int heightFont(MetaFont _font) {
+        return heightFontStr(_font);
+    }
+
+    public static int heightFontStr(MetaFont _font) {
         if (_font == null) {
             return 1;
         }
