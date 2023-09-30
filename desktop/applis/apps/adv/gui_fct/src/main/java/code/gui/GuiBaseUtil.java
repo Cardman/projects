@@ -4,6 +4,7 @@ import code.gui.events.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.ResourcesMessagesUtil;
@@ -311,6 +312,9 @@ public final class GuiBaseUtil {
 
     public static void initStringMapInt(AbsCommonFrame _c,CrudGeneForm<String,Integer> _f, StringMap<Integer> _m, StringList _aDictionary, AfterValidateText _after) {
         _f.initForm(_c,new StringIntDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),new GeneComponentModelInt(_f.getFactory()),new NaturalComparator(),_m);
+    }
+    public static ScrollCustomGraphicList<String> standard(AbsCompoFactory _compo, AbstractImageFactory _img, boolean _simple) {
+        return new ScrollCustomGraphicList<String>(_compo,_img,new CustCellRenderString(_compo, _img),_simple);
     }
 
     public static MetaDimension dimension(AbsPanel _curr, int _visible) {

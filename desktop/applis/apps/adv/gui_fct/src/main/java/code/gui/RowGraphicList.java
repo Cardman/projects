@@ -12,26 +12,26 @@ public final class RowGraphicList<T> {
     private boolean selected;
     private boolean focused;
     private boolean dirty;
-    public RowGraphicList(T _i, int _index, AbsCompoFactory _compo, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g) {
+    public RowGraphicList(T _i, int _index, AbsCompoFactory _compo, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g, ColorsGroupList _cs) {
         label = _compo.newPreparedLabel(_imgFact.newImageRgb(1,1));
         info = _i;
-        updated(_index,_imgFact,_g,_i);
+        updated(_index,_imgFact,_g,_i,_cs);
     }
-    public void update(int _index, T _info, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g) {
+    public void update(int _index, T _info, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g, ColorsGroupList _cs) {
         info = _info;
-        updated(_index, _imgFact, _g, _info);
+        updated(_index, _imgFact, _g, _info,_cs);
     }
-    public void select(int _index, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g) {
+    public void select(int _index, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g, ColorsGroupList _cs) {
         if (!dirty) {
             return;
         }
-        updated(_index, _imgFact, _g, info);
+        updated(_index, _imgFact, _g, info,_cs);
     }
-    public void forceRefresh(int _index, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g) {
-        updated(_index, _imgFact, _g, info);
+    public void forceRefresh(int _index, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g, ColorsGroupList _cs) {
+        updated(_index, _imgFact, _g, info,_cs);
     }
-    private void updated(int _index, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g, T _inf) {
-        AbstractImage img_ = _g.getListCellRendererComponent(_index, _inf, selected, focused, label);
+    private void updated(int _index, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g, T _inf, ColorsGroupList _cs) {
+        AbstractImage img_ = _g.getListCellRendererComponent(_index, _inf, selected, focused, label,_cs);
         label.setIcon(_imgFact, img_);
         dirty = false;
     }

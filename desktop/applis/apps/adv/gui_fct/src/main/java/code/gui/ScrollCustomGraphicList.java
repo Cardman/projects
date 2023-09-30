@@ -35,6 +35,8 @@ public final class ScrollCustomGraphicList<T> {
 
     private boolean enabled = true;
     private RowGraphicListIndex<T> focused = new RowGraphicListIndex<T>(null,-1);
+    private int selectedFg;
+    private int selectedBg;
     public ScrollCustomGraphicList(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<T> _render, boolean _s) {
         compoFactory = _compo;
         imageFactory = _img;
@@ -72,6 +74,10 @@ public final class ScrollCustomGraphicList<T> {
         custCellRenderGene = _render;
         this.single = _s;
         enable(enabled);
+        elements.setBackground(GuiConstants.WHITE);
+        elements.setForeground(GuiConstants.BLACK);
+        setSelectedBg(GuiConstants.BLUE);
+        setSelectedFg(GuiConstants.WHITE);
     }
     private void enable(boolean _en) {
         moveDownAction.setEnabled(_en);
@@ -90,7 +96,7 @@ public final class ScrollCustomGraphicList<T> {
     }
     public void add(T _i) {
         int s_ = size();
-        RowGraphicList<T> elt_ = new RowGraphicList<T>(_i, s_, compoFactory, imageFactory, custCellRenderGene);
+        RowGraphicList<T> elt_ = new RowGraphicList<T>(_i, s_, compoFactory, imageFactory, custCellRenderGene, colorGroup());
         append(elt_);
         elements.add(elt_.getLabel());
     }
@@ -98,7 +104,7 @@ public final class ScrollCustomGraphicList<T> {
         if (_index < 0) {
             return;
         }
-        RowGraphicList<T> elt_ = new RowGraphicList<T>(_i, _index, compoFactory, imageFactory, custCellRenderGene);
+        RowGraphicList<T> elt_ = new RowGraphicList<T>(_i, _index, compoFactory, imageFactory, custCellRenderGene, colorGroup());
         RowGraphicList<T> next_ = getRow(_index);
         if (next_ != null) {
             RowGraphicList<T> pr_ = next_.getPrevious();
@@ -150,7 +156,7 @@ public final class ScrollCustomGraphicList<T> {
         if (next_ == null) {
             return;
         }
-        next_.update(_index,_i, imageFactory,custCellRenderGene);
+        next_.update(_index,_i, imageFactory,custCellRenderGene, colorGroup());
     }
 
     public void remove(int _index) {
@@ -505,7 +511,7 @@ public final class ScrollCustomGraphicList<T> {
         RowGraphicList<T> cu_ = first;
         int s_ = 0;
         while (cu_ != null) {
-            cu_.forceRefresh(s_,imageFactory,custCellRenderGene);
+            cu_.forceRefresh(s_,imageFactory,custCellRenderGene, colorGroup());
             cu_ = cu_.getNext();
             s_++;
         }
@@ -723,7 +729,7 @@ public final class ScrollCustomGraphicList<T> {
     }
 
     private void refresh(RowGraphicList<T> _elt, int _i) {
-        _elt.select(_i, imageFactory,custCellRenderGene);
+        _elt.select(_i, imageFactory,custCellRenderGene, colorGroup());
     }
 
 
@@ -743,6 +749,10 @@ public final class ScrollCustomGraphicList<T> {
     public void rowCount(int _r) {
         setVisibleRowCount(_r);
         scrollPane.setPreferredSize(GuiBaseUtil.dimension(elements,_r));
+    }
+
+    private ColorsGroupList colorGroup() {
+        return new ColorsGroupList(elements.getBackgroundValue(), elements.getForegroundValue(), getSelectedBg(), getSelectedFg());
     }
 
     public AbsScrollPane getScrollPane() {
@@ -772,5 +782,21 @@ public final class ScrollCustomGraphicList<T> {
 
     public IdList<ListSelection> getSelections() {
         return selections;
+    }
+
+    public int getSelectedBg() {
+        return selectedBg;
+    }
+
+    public void setSelectedBg(int _s) {
+        this.selectedBg = _s;
+    }
+
+    public int getSelectedFg() {
+        return selectedFg;
+    }
+
+    public void setSelectedFg(int _s) {
+        this.selectedFg = _s;
     }
 }

@@ -33,4 +33,12 @@ public class CustCellRenderTest extends EquallableIntGuiUtil {
         sample_.setList(new CustList<String>(""));
         assertEq("",sample_.get(0));
     }
+    @Test
+    public void t5() {
+        ColorsGroupList g_ = new ColorsGroupList(1,2,3,4);
+        assertEq(1,g_.getBg());
+        assertEq(2,g_.getFg());
+        assertEq(3,g_.getBgSel());
+        assertEq(4,g_.getFgSel());
+    }
 }
