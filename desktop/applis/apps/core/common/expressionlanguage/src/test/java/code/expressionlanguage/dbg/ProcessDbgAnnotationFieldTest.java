@@ -254,6 +254,17 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         assertSame(StopDbgEnum.FIELD, stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
+    @Test
+    public void test17() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@ExAnnot(method1=1,method2=2)public class pkg.Ex {public static int exmeth(){Ex e=((ExAnnot)class(Ex).getAnnotations()[0]).method3();return e.t;}public int t;public(int t){this.t=t;}public static Ex $(int u){return new(u);}}public annotation pkg.ExAnnot {int[] method1(){3};int[] method2(){4};int method3()5;int method6;}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
     private boolean isWatch(ResultContext _cont, ClassField _cf) {
         int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
         return _cont.isWatch(false,n_,_cf.getFieldName());
