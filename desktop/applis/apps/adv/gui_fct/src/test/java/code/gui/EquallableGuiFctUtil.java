@@ -8,6 +8,9 @@ import code.threads.ThState;
 import org.junit.Assert;
 
 public abstract class EquallableGuiFctUtil {
+    public static void assertNull(String _expected) {
+        Assert.assertNull(_expected);
+    }
     public static void assertNull(AbsCustComponent _expected) {
         Assert.assertNull(_expected);
     }

@@ -3,6 +3,7 @@ package code.gui;
 import code.gui.events.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.ResourcesMessagesUtil;
@@ -16,6 +17,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.NaturalComparator;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class GuiBaseUtil {
@@ -309,5 +311,26 @@ public final class GuiBaseUtil {
 
     public static void initStringMapInt(AbsCommonFrame _c,CrudGeneForm<String,Integer> _f, StringMap<Integer> _m, StringList _aDictionary, AfterValidateText _after) {
         _f.initForm(_c,new StringIntDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),new GeneComponentModelInt(_f.getFactory()),new NaturalComparator(),_m);
+    }
+
+    public static MetaDimension dimension(AbsPanel _curr, int _visible) {
+        int width_ = 0;
+        width_ = getBasicMaxWidth(width_, _curr);
+        int h_ = 0;
+        int c_ = 0;
+        for (AbsCustComponent c: _curr.getChildren()) {
+            h_ = c.getPreferredSizeValue().getHeight();
+            c_++;
+        }
+        return new MetaDimension(width_ + 24, (h_ + 2) * NumberUtil.min(c_, _visible));
+    }
+
+
+    public static int getBasicMaxWidth(int _width, AbsPanel _curr) {
+        int width_ = _width;
+        for (AbsCustComponent c: _curr.getChildren()) {
+            width_ = NumberUtil.max(width_, c.getPreferredSizeValue().getWidth());
+        }
+        return width_;
     }
 }
