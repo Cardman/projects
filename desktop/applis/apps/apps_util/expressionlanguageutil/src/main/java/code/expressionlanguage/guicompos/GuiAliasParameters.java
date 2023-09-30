@@ -255,6 +255,7 @@ public final class GuiAliasParameters {
     private static final String FONT_0_FONT_STRING_WIDTH_0="__963";
     private static final String FONT_1_FONT_STRING_WIDTH_0="__964";
     private static final String FONT_1_FONT_STRING_WIDTH_1="__965";
+    private static final String FONT_0_FONT_STRING_HEIGHT_0="__965_";
     private static final String FONT_0_FONT_0="__966";
     private static final String FONT_1_FONT_0="__967";
     private static final String FONT_1_FONT_1="__968";
@@ -684,6 +685,7 @@ public final class GuiAliasParameters {
     private String aliasTextLabel0TextLabel0;
     private String aliasImageLabel0SetLabelImage0;
     private String aliasImageLabel0ImageLabel0;
+    private String aliasFont0FontStringHeight0;
     private String aliasFont0FontStringWidth0;
     private String aliasFont1FontStringWidth0;
     private String aliasFont1FontStringWidth1;
@@ -1118,6 +1120,7 @@ public final class GuiAliasParameters {
         aliasFont0FontStringWidth0=LgNamesContent.get(_util,_cust,_mapping.getVal(FONT_0_FONT_STRING_WIDTH_0));
         aliasFont1FontStringWidth0=LgNamesContent.get(_util,_cust,_mapping.getVal(FONT_1_FONT_STRING_WIDTH_0));
         aliasFont1FontStringWidth1=LgNamesContent.get(_util,_cust,_mapping.getVal(FONT_1_FONT_STRING_WIDTH_1));
+        aliasFont0FontStringHeight0=LgNamesContent.get(_util,_cust,_mapping.getVal(FONT_0_FONT_STRING_HEIGHT_0));
         aliasFont0Font0=LgNamesContent.get(_util,_cust,_mapping.getVal(FONT_0_FONT_0));
         aliasFont1Font0=LgNamesContent.get(_util,_cust,_mapping.getVal(FONT_1_FONT_0));
         aliasFont1Font1=LgNamesContent.get(_util,_cust,_mapping.getVal(FONT_1_FONT_1));
@@ -1550,6 +1553,7 @@ public final class GuiAliasParameters {
         _en.add(FONT_0_FONT_STRING_WIDTH_0,"Font0FontStringWidth0=a");
         _en.add(FONT_1_FONT_STRING_WIDTH_0,"Font1FontStringWidth0=a");
         _en.add(FONT_1_FONT_STRING_WIDTH_1,"Font1FontStringWidth1=b");
+        _en.add(FONT_0_FONT_STRING_HEIGHT_0,"Font0FontStringHeight0=a");
         _en.add(FONT_0_FONT_0,"Font0Font0=a");
         _en.add(FONT_1_FONT_0,"Font1Font0=a");
         _en.add(FONT_1_FONT_1,"Font1Font1=b");
@@ -1982,6 +1986,7 @@ public final class GuiAliasParameters {
         _fr.add(FONT_0_FONT_STRING_WIDTH_0,"Font0FontStringWidth0=a");
         _fr.add(FONT_1_FONT_STRING_WIDTH_0,"Font1FontStringWidth0=a");
         _fr.add(FONT_1_FONT_STRING_WIDTH_1,"Font1FontStringWidth1=b");
+        _fr.add(FONT_0_FONT_STRING_HEIGHT_0,"Font0FontStringHeight0=a");
         _fr.add(FONT_0_FONT_0,"Font0Font0=a");
         _fr.add(FONT_1_FONT_0,"Font1Font0=a");
         _fr.add(FONT_1_FONT_1,"Font1Font1=b");
@@ -2312,6 +2317,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(IMAGE_LABEL_0_IMAGE_LABEL_0),aliasImageLabel0ImageLabel0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(FONT_0_FONT_STRING_WIDTH_0),aliasFont0FontStringWidth0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(FONT_1_FONT_STRING_WIDTH_0),aliasFont1FontStringWidth0),new KeyValueMemberName(_mapping.getVal(FONT_1_FONT_STRING_WIDTH_1),aliasFont1FontStringWidth1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(FONT_0_FONT_STRING_HEIGHT_0),aliasFont0FontStringHeight0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(FONT_0_FONT_0),aliasFont0Font0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(FONT_1_FONT_0),aliasFont1Font0),new KeyValueMemberName(_mapping.getVal(FONT_1_FONT_1),aliasFont1Font1),new KeyValueMemberName(_mapping.getVal(FONT_1_FONT_2),aliasFont1Font2),new KeyValueMemberName(_mapping.getVal(FONT_1_FONT_3),aliasFont1Font3)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(COLOR_0_COLOR_0),aliasColor0Color0)));
@@ -3417,6 +3423,10 @@ public final class GuiAliasParameters {
 
     public String getAliasFont1FontStringWidth1() {
         return aliasFont1FontStringWidth1;
+    }
+
+    public String getAliasFont0FontStringHeight0() {
+        return aliasFont0FontStringHeight0;
     }
 
     public String getAliasFont0Font0() {

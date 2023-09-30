@@ -572,6 +572,10 @@ public final class GuiExecutingBlocks {
         return new IntStruct(compoFactory.stringWidth(_font.getFont(),((StringStruct)_string).getInstance()));
     }
 
+    public IntStruct stringHeight(FontStruct _font) {
+        return new IntStruct(compoFactory.heightFont(_font.getFont()));
+    }
+
     public AbsPlainButton getStop() {
         return stop;
     }

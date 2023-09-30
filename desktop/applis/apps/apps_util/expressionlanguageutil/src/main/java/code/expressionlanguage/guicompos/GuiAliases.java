@@ -486,6 +486,7 @@ public final class GuiAliases {
     private static final String FONT_IS_BOLD="881";
     private static final String FONT_IS_ITALIC="882";
     private static final String FONT_STRING_WIDTH="883";
+    private static final String FONT_STRING_HEIGHT="883_";
     private static final String BUTTON_GROUP_ADD="_____1431";
     private static final String RENDER_GET_HEIGHT="_____1432";
     private static final String RENDER_GET_PAINT="_____1433";
@@ -810,6 +811,7 @@ public final class GuiAliases {
     private String aliasFontIsBold;
     private String aliasFontIsItalic;
     private String aliasFontStringWidth;
+    private String aliasFontStringHeight;
     private String aliasImage;
     private String aliasImageGetWidth;
     private String aliasImageGetHeight;
@@ -2465,6 +2467,12 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasFontStringWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasFont1FontStringWidth0(),guiAliasParameters.getAliasFont1FontStringWidth1()), new FctFontStringWidth0(_guiEx));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
+        method_ = new StandardMethod(aliasFontStringHeight, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctFontStringHeight1(_guiEx));
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasImage);
+        method_ = new StandardMethod(aliasFontStringHeight, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasFont0FontStringHeight0()), new FctFontStringHeight0(_guiEx));
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false, new FctFont0());
         StandardNamedFunction.addFct(constructors_, ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
@@ -3451,6 +3459,7 @@ public final class GuiAliases {
         setAliasImageLabel(LgNamesContent.get(_util,_cust,_mapping.getVal(IMAGE_LABEL)));
         setAliasPanelBorderCenter(LgNamesContent.get(_util,_cust,_mapping.getVal(PANEL_BORDER_CENTER)));
         setAliasFontStringWidth(LgNamesContent.get(_util,_cust,_mapping.getVal(FONT_STRING_WIDTH)));
+        setAliasFontStringHeight(LgNamesContent.get(_util,_cust,_mapping.getVal(FONT_STRING_HEIGHT)));
         setAliasTableSetColumns(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_SET_COLUMNS)));
         setAliasTreeIsRootVisible(LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_IS_ROOT_VISIBLE)));
         setAliasTreeNodeRemoveFromParent(LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_NODE_REMOVE_FROM_PARENT)));
@@ -4107,6 +4116,7 @@ public final class GuiAliases {
         _en.add(FONT_IS_BOLD,"FontIsBold=isBold");
         _en.add(FONT_IS_ITALIC,"FontIsItalic=isItalic");
         _en.add(FONT_STRING_WIDTH,"FontStringWidth=stringWidth");
+        _en.add(FONT_STRING_HEIGHT,"FontStringHeight=stringHeight");
         _en.add(BUTTON_GROUP_ADD,"ButtonGroupAdd=add");
         _en.add(RENDER_GET_HEIGHT,"RenderGetHeight=getHeight");
         _en.add(RENDER_GET_PAINT,"RenderGetPaint=getPaint");
@@ -4535,6 +4545,7 @@ public final class GuiAliases {
         _fr.add(FONT_IS_BOLD,"FontIsBold=estGras");
         _fr.add(FONT_IS_ITALIC,"FontIsItalic=estItalique");
         _fr.add(FONT_STRING_WIDTH,"FontStringWidth=largeurChaine");
+        _fr.add(FONT_STRING_HEIGHT,"FontStringHeight=hauteurChaine");
         _fr.add(BUTTON_GROUP_ADD,"ButtonGroupAdd=ajout");
         _fr.add(RENDER_GET_HEIGHT,"RenderGetHeight=valHauteur");
         _fr.add(RENDER_GET_PAINT,"RenderGetPaint=valPeindre");
@@ -4715,7 +4726,8 @@ public final class GuiAliases {
                 new KeyValueMemberName(_mapping.getVal(FONT_GET_SIZE),getAliasFontGetSize()),
                 new KeyValueMemberName(_mapping.getVal(FONT_IS_BOLD),getAliasFontIsBold()),
                 new KeyValueMemberName(_mapping.getVal(FONT_IS_ITALIC),getAliasFontIsItalic()),
-                new KeyValueMemberName(_mapping.getVal(FONT_STRING_WIDTH),getAliasFontStringWidth())));
+                new KeyValueMemberName(_mapping.getVal(FONT_STRING_WIDTH),getAliasFontStringWidth()),
+                new KeyValueMemberName(_mapping.getVal(FONT_STRING_HEIGHT),getAliasFontStringHeight())));
         m_.addEntry(getAliasButtonGroup(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(BUTTON_GROUP_ADD),getAliasButtonGroupAdd()))
         );
@@ -6178,6 +6190,14 @@ public final class GuiAliases {
 
     public void setAliasFontStringWidth(String _v) {
         this.aliasFontStringWidth = _v;
+    }
+
+    public String getAliasFontStringHeight() {
+        return aliasFontStringHeight;
+    }
+
+    public void setAliasFontStringHeight(String _v) {
+        this.aliasFontStringHeight = _v;
     }
 
     public String getAliasDimension() {
