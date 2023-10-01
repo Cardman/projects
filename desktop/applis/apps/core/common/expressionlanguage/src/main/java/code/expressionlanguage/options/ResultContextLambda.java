@@ -205,11 +205,11 @@ public final class ResultContextLambda {
         }
         return StringUtil.nullToEmpty(_str);
     }
-    public StackCallReturnValue eval(CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
+    public StackCallReturnValue eval(CheckedMethodInfos _addon, AbstractPageEl _page) {
         prepare();
         return evalStack(_addon,_page);
     }
-    public CustList<String> evalLog(CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
+    public CustList<String> evalLog(CheckedMethodInfos _addon, AbstractPageEl _page) {
         prepare();
         return evalStr(evalStack(_addon, _page));
     }
@@ -292,22 +292,17 @@ public final class ResultContextLambda {
         _st.getInitializingTypeInfos().resetInitEnums(_st);
     }
 
-    public StackCallReturnValue evalStack(CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
+    public StackCallReturnValue evalStack(CheckedMethodInfos _addon, AbstractPageEl _page) {
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING, context);
-        if (_addon instanceof CheckedMethodInfos) {
-            AbstractPageEl page_ = new CustomFoundMethod(new Argument(_addon.getInstance()),_addon.getDeclaring(),lambda, ((CheckedMethodInfos)_addon).getParameters()).processAfterOperation(context,stackCall_);
+        if (_addon != null) {
+            AbstractPageEl page_ = new CustomFoundMethod(new Argument(_addon.getInstance()),_addon.getDeclaring(),lambda, _addon.getParameters()).processAfterOperation(context,stackCall_);
             return loop(stackCall_, page_);
         }
         Parameters p_ = new Parameters();
-        if (_addon == null) {
-            p_.getRefParameters().addAllEntries(_page.getRefParams());
-            p_.setCache(_page.getCache());
-            AbstractPageEl page_ = new CustomFoundMethod(_page.getGlobalArgument(),_page.getGlobalClass(),lambda, p_).processAfterOperation(context,stackCall_);
-            page_.getVars().addAllEntries(_page.getVars());
-            return loop(stackCall_, page_);
-        }
-        p_.setCache(_addon.getCache());
-        AbstractPageEl page_ = new CustomFoundMethod(new Argument(_addon.getInstance()),_addon.getDeclaring(),lambda, p_).processAfterOperation(context,stackCall_);
+        p_.getRefParameters().addAllEntries(_page.getRefParams());
+        p_.setCache(_page.getCache());
+        AbstractPageEl page_ = new CustomFoundMethod(_page.getGlobalArgument(),_page.getGlobalClass(),lambda, p_).processAfterOperation(context,stackCall_);
+        page_.getVars().addAllEntries(_page.getVars());
         return loop(stackCall_, page_);
     }
 

@@ -5,7 +5,7 @@ import code.expressionlanguage.exec.dbg.BreakPointCondition;
 
 public final class BreakPointOutputInfo {
     private CallingState callingStateSub;
-    private CoreCheckedExecOperationNodeInfos operElt;
+    private CheckedMethodInfos operElt;
     private BreakPointCondition bpc;
     private StopDbgEnum stoppedBreakPoint = StopDbgEnum.NONE;
     private final WatchResults watchResults = new WatchResults();
@@ -18,11 +18,11 @@ public final class BreakPointOutputInfo {
         this.callingStateSub = _c;
     }
 
-    public CoreCheckedExecOperationNodeInfos getOperElt() {
+    public CheckedMethodInfos getOperElt() {
         return operElt;
     }
 
-    public void setOperElt(CoreCheckedExecOperationNodeInfos _o) {
+    public void setOperElt(CheckedMethodInfos _o) {
         this.operElt = _o;
     }
 

@@ -75,8 +75,7 @@ public final class TreeNodeRenderUtil {
         StackCall st_ = StackCall.newInstance(new DefStackStopper(logger_), InitPhase.NOTHING, ctx_, ctx_.getExecutionInfos().getSeed());
         Struct str_ = _node.value();
         if (_rLda != null) {
-            String clName_ = str_.getClassName(ctx_);
-            StackCallReturnValue result_ = _rLda.eval(new CoreCheckedExecOperationNodeInfos(ExecFormattedRootBlock.build(clName_, ctx_.getClasses()), str_), null);
+            StackCallReturnValue result_ = _rLda.eval(new CheckedMethodInfos(new CoreCheckedExecOperationNodeInfos(ExecFormattedRootBlock.build(str_.getClassName(ctx_), ctx_.getClasses()), str_)), null);
             CallingState stateAfter_ = result_.getStack().getCallingState();
             if (stateAfter_ != null) {
                 for (String l: ResultContextLambda.traceView(result_.getStack(),ctx_)) {

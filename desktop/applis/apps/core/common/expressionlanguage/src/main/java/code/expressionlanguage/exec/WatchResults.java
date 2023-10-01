@@ -34,7 +34,7 @@ public final class WatchResults {
             return dynamicAnalyze(_dyn,_res,_gene,_stack.getLastPage());
         }
         ResultContextLambda resCtxLambda_ = bpc_.getSuperKeyPoint().analyze(_dyn, _res, _res.getPageEl().getAliasObject(), _gene, bpc_.getPhasePoint());
-        CoreCheckedExecOperationNodeInfos opElt_ = output_.getOperElt();
+        CheckedMethodInfos opElt_ = output_.getOperElt();
         if (opElt_ == null) {
             return afterAnalyze(resCtxLambda_, null,_stack.getLastPage());
         }
@@ -61,7 +61,7 @@ public final class WatchResults {
         ResultContextLambda resCtxLambda_ = ResultContextLambda.dynamicAnalyze(_dyn, pair_, _res, _res.getPageEl().getAliasObject(), _gene, phase_);
         return afterAnalyze(resCtxLambda_, null,_last);
     }
-    private static WatchResults afterAnalyze(ResultContextLambda _reCtx, CoreCheckedExecOperationNodeInfos _addon, AbstractPageEl _page) {
+    private static WatchResults afterAnalyze(ResultContextLambda _reCtx, CheckedMethodInfos _addon, AbstractPageEl _page) {
         ContextEl sub_ = _reCtx.getContext();
         if (sub_ == null) {
             WatchResults wr_ = new WatchResults();
