@@ -54,7 +54,7 @@ public abstract class DualLabel extends DualLeaf {
     public void paint() {
         MetaStyle style_ = getComponent().getStyle();
         MetaFont copy_ = newFont(style_);
-        int h_ = label.heightFont(copy_);
+        int h_ = getPage().getCompoFactory().heightFont(copy_);
         int w_ = adjustedWidth(copy_);
         AbstractImage img_ = getPage().getGene().getImageFactory().newImageRgb(w_, h_);
         img_.setFont(copy_);

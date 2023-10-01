@@ -217,7 +217,7 @@ public final class FrameUtil {
     }
 
     public static void paintLabel(int _render, AbstractImage _g, AbsPreparedLabel _label, String _text, boolean _selected, AbsCompoFactory _compo) {
-        int h_ = _label.heightFont();
+        int h_ = _compo.heightFont(_label.getMetaFont());
         int w_ = _compo.stringWidth(_label.getMetaFont(),_text);
         if (_selected) {
             LabelButtonUtil.paintDefaultLabel(_g, _text, w_, _render, h_, GuiConstants.WHITE, GuiConstants.BLUE);

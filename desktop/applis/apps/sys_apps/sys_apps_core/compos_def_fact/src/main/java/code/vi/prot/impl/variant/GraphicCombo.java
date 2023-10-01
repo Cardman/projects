@@ -41,7 +41,7 @@ public final class GraphicCombo extends CustComponent implements AbsGraphicCombo
         compoFactory = _compoFactory;
         grList.setListener(new ComboSelection(menu, this));
         menu.add(grList.getGlobal());
-        int s_ = panel.heightFont() + 2;
+        int s_ = _compoFactory.heightFont(panel.getMetaFont()) + 2;
         AbstractImage img_ = _fact.newImageRgb(s_, s_);
         img_.setColor(GuiConstants.WHITE);
         img_.fillRect(0, 0, s_, s_);

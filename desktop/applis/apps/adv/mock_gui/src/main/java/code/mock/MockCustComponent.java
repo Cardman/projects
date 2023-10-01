@@ -291,12 +291,10 @@ public abstract class MockCustComponent implements AbsCustComponent {
         return height;
     }
 
-    @Override
     public int heightFont() {
         return heightFont(metaFont);
     }
 
-    @Override
     public int heightFont(MetaFont _font) {
         return heightFontStr(_font);
     }
@@ -308,7 +306,6 @@ public abstract class MockCustComponent implements AbsCustComponent {
         return _font.getRealSize();
     }
 
-    @Override
     public int stringWidth(MetaFont _font, String _s) {
         return strWidth(_font, _s);
     }

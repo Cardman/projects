@@ -31,7 +31,7 @@ public final class WrappedLabel {
 
     public void setPreferredSize(AbstractImageFactory _fact) {
         int nbLines_ = lines.size() + 1;
-        int h_ = paintableLabel.heightFont() * nbLines_;
+        int h_ = compo.heightFont(paintableLabel.getMetaFont()) * nbLines_;
         int w_ = IndexConstants.SIZE_EMPTY;
         for (String l: lines) {
             int wLine_ = compo.stringWidth(paintableLabel.getMetaFont(),l);
@@ -58,7 +58,7 @@ public final class WrappedLabel {
         _g.setColorBg(getPaintableLabel());
         _g.fillRect(0, 0, paintableLabel.getWidth(), paintableLabel.getHeight());
         _g.setColorFg(getPaintableLabel());
-        int hLine_ = paintableLabel.heightFont();
+        int hLine_ = compo.heightFont(paintableLabel.getMetaFont());
         int i_ = IndexConstants.FIRST_INDEX;
         for (String l: lines) {
             _g.drawString(l, 0, hLine_ * (i_ + 1));

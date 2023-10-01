@@ -27,7 +27,7 @@ public final class GraphicStringListMult extends GraphicList<String> implements 
         AbsPanel panel_ = getPanel();
         int width_ = getMaxWidth();
         int c_ = getListComponents().size();
-        getScroll().setPreferredSize(new Dimension(width_ + 24, 2+panel_.heightFont() * NumberUtil.min(c_, getVisibleRowCount())));
+        getScroll().setPreferredSize(new Dimension(width_ + 24, 2+((DefaultCellRender)getSimpleRender()).getCompo().heightFont(panel_.getMetaFont()) * NumberUtil.min(c_, getVisibleRowCount())));
         getScroll().revalidate();
     }
 

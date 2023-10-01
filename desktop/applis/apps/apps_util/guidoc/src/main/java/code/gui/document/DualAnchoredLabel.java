@@ -25,7 +25,7 @@ public final class DualAnchoredLabel extends DualLabel {
         AbsPreparedLabel lab_ = getLabel();
         MetaStyle style_ = getComponent().getStyle();
         MetaFont copy_ =  newFont(style_);
-        int h_ = lab_.heightFont(copy_);
+        int h_ = getPage().getCompoFactory().heightFont(copy_);
         String text_ = getText();
         int w_ = adjustedWidth(copy_);
         AbstractImage img_ = getPage().getGene().getImageFactory().newImageRgb(w_, h_);

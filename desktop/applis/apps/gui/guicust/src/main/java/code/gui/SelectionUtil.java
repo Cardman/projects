@@ -44,7 +44,7 @@ public final class SelectionUtil {
         if (_curr.getGrList().getList().size() == 1) {
             _curr.setSelectedIndex(0);
             int w_ = _curr.getGrList().getMaxWidth();
-            int s_ = _curr.getPanel().heightFont() + 2;
+            int s_ = _curr.getCompoFactory().heightFont(_curr.getPanel().getMetaFont()) + 2;
             AbstractImage img_ = _curr.getFact().newImageRgb(w_, s_);
 //            CustGraphics gr_ = new CustGraphics(img_.createGraphics());
             img_.setFont(_curr.getLabel());
@@ -118,7 +118,7 @@ public final class SelectionUtil {
             return;
         }
         int w_ = _curr.getGrList().getMaxWidth();
-        int s_ = _curr.getPanel().heightFont() + 2;
+        int s_ = _curr.getCompoFactory().heightFont(_curr.getPanel().getMetaFont()) + 2;
         AbstractImage img_ = _curr.getFact().newImageRgb(w_, s_);
 //        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
         img_.setFont(_curr.getLabel());
@@ -416,7 +416,7 @@ public final class SelectionUtil {
     }
 
     public static void setNoSelected(AbsGraphicCombo _current) {
-        int s_ = _current.getPanel().heightFont() + 2;
+        int s_ = _current.getCompoFactory().heightFont(_current.getPanel().getMetaFont()) + 2;
         int w_ = 5;
         AbstractImage img_ = _current.getFact().newImageRgb(w_, s_);
 //        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
@@ -448,12 +448,12 @@ public final class SelectionUtil {
     public static AbstractImage repaintSelected(int _index, boolean _sel, AbsGraphicStringList _curr, DefaultCellRender _simpleRender, AbsCompoFactory _compoFactory) {
         String elt_ = _curr.getElements().get(_index);
         AbsPanel panel_ = _curr.getPanel();
-        _curr.setHeightList(NumberUtil.max(_curr.getHeightList(),panel_.heightFont()));
+        _curr.setHeightList(NumberUtil.max(_curr.getHeightList(),_compoFactory.heightFont(panel_.getMetaFont())));
         _simpleRender.setMaxWidth(NumberUtil.max(_simpleRender.getMaxWidth(),_compoFactory.stringWidth(panel_.getMetaFont(),elt_)));
-        AbstractImage buff_ = _curr.getFact().newImageRgb(_simpleRender.getWidth(),panel_.heightFont());
+        AbstractImage buff_ = _curr.getFact().newImageRgb(_simpleRender.getWidth(),_compoFactory.heightFont(panel_.getMetaFont()));
 //        CustGraphics gr_ = new CustGraphics(buff_.getGraphics());
         buff_.setFont(panel_);
-        int h_ = panel_.heightFont();
+        int h_ = _compoFactory.heightFont(panel_.getMetaFont());
         int w_ = _compoFactory.stringWidth(panel_.getMetaFont(),elt_);
         if (_sel) {
             LabelButtonUtil.paintDefaultLabel(buff_, elt_, w_, _simpleRender.getMaxWidth(), h_, GuiConstants.WHITE, GuiConstants.BLUE);

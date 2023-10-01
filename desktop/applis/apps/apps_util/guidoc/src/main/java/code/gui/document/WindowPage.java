@@ -220,7 +220,7 @@ public final class WindowPage implements Runnable {
             if (_cont.containsOnlyEndLine()) {
                 AbsPanel c_ = (AbsPanel) _cur.getGraphic();
                 int em_ = _cur.getComponent().getStyle().getEmToPixels();
-                _cur.getChildren().last().getGraphic().setPreferredSize(new MetaDimension(em_, c_.heightFont()));
+                _cur.getChildren().last().getGraphic().setPreferredSize(new MetaDimension(em_, page.getCompoFactory().heightFont(c_.getMetaFont())));
             }
             return res_;
         }

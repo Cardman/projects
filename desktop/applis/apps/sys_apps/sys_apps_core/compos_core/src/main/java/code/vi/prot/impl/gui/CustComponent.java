@@ -194,7 +194,6 @@ public abstract class CustComponent implements AbsCustComponent {
         return heightFont(getNatComponent().getFont());
     }
 
-    @Override
     public int heightFont(MetaFont _font) {
         return heightFont(ft(_font));
     }
@@ -203,7 +202,6 @@ public abstract class CustComponent implements AbsCustComponent {
         return getNatComponent().getFontMetrics(_font).getHeight();
     }
 
-    @Override
     public int stringWidth(MetaFont _font, String _string) {
         return stringWidth(ft(_font),_string);
     }

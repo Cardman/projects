@@ -55,7 +55,7 @@ public abstract class AbsMetaLabelPk {
         return getPaintableLabel().getPreferredSizeValue().getHeight();
     }
     public int heightFont(){
-        return getPaintableLabel().heightFont();
+        return factPk.heightFont(getPaintableLabel().getMetaFont());
     }
 
     public int stringWidth(String _string){

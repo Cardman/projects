@@ -61,6 +61,6 @@ public final class DefaultCellRenderStr extends CustCellRender<Struct> {
     }
     @Override
     public int getHeight() {
-        return labelStr.heightFont();
+        return compo.heightFont(labelStr.getMetaFont());
     }
 }

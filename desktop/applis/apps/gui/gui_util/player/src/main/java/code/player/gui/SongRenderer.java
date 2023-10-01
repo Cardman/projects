@@ -37,7 +37,7 @@ public final class SongRenderer {
                 w_ = ws_;
             }
         }
-        int h_ = paintableLabel.heightFont() * songs.size();
+        int h_ = compo.heightFont(paintableLabel.getMetaFont()) * songs.size();
         if (w_ <= 0 || h_ <= 0) {
             paintableLabel.setEmptyIcon();
             return;
@@ -52,7 +52,7 @@ public final class SongRenderer {
     public void paintComponent(AbstractImage _g) {
         _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0, 0, paintableLabel.getWidth(), paintableLabel.getHeight());
-        int hstring_ = paintableLabel.heightFont();
+        int hstring_ = compo.heightFont(paintableLabel.getMetaFont());
         for (int i = IndexConstants.FIRST_INDEX; i < songs.size(); i++) {
             if (i == noSong) {
                 _g.setColor(GuiConstants.YELLOW);

@@ -27,7 +27,7 @@ public final class DualNumberedLabel extends DualLabel {
         AbsPreparedLabel lab_ = getLabel();
         MetaStyle style_ = getComponent().getStyle();
         MetaFont copy_ =  newFont(style_);
-        int h_ = lab_.heightFont(copy_);
+        int h_ = getPage().getCompoFactory().heightFont(copy_);
         String tr_ = new StringBuilder(number).append(PAD).toString();
         int diff_ = getPage().getCompoFactory().stringWidth(copy_,tr_);
         AbstractImage img_ = getPage().getGene().getImageFactory().newImageRgb(diff_, h_);
