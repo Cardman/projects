@@ -1,16 +1,13 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.CoreCheckedExecOperationNodeInfos;
 import code.expressionlanguage.exec.StepDbgActionEnum;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.dbg.AbsCallContraints;
 import code.expressionlanguage.exec.dbg.ExcPointBlockKey;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.*;
@@ -4491,7 +4488,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         addRendOk(b_);
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        res2(info_, b_);
+        resNode(info_, b_);
         assertEq("src/file.txt:1,158:157\n" +
                 "pkg.Ex..Inner.$toString()\n",info_.logs().getText());
     }
@@ -4536,7 +4533,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         addRendOk(b_);
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = res2(info_, b_);
+        Struct str_ = resNode(info_, b_);
         assertNull(str_);
     }
     @Test
@@ -4580,7 +4577,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         addRendOk(b_);
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = res2(info_, b_);
+        Struct str_ = resNode(info_, b_);
         assertEq("standard",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4624,7 +4621,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         addRendOk(b_);
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = res2(info_, b_);
+        Struct str_ = resNode(info_, b_);
         assertEq("[int",((ArrayStruct)str_).getClassName());
         assertEq(1,((ArrayStruct)str_).getLength());
         assertEq(1, NumParsers.convertToNumber(((ArrayStruct)str_).get(0)).intStruct());
@@ -4672,7 +4669,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         selectJoin(b_, trDetail_, node_);
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = res2(info_, b_);
+        Struct str_ = resNode(info_, b_);
         b_.getCallButtonsRender().get(0).getActionListeners().get(0).action();
         assertEq("render",((StringStruct)str_).getInstance());
         info_.stopButton().getActionListeners().get(0).action();
@@ -4718,7 +4715,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("render",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4762,7 +4759,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("to_str",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4806,7 +4803,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("render",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4850,7 +4847,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("render",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4901,7 +4898,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("to_str",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4945,7 +4942,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        res3(i_, b_);
+        resNode(i_, b_);
         assertEq(":1,11:10\n" +
                 "pkg.Ex..Inner..1()\n",i_.logs().getText());
     }
@@ -4997,7 +4994,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(false);
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("pkg.Ex..Inner",str_.getClassName(curRet(b_).getContext()));
     }
     @Test
@@ -5033,7 +5030,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         openPoints(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
-        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
         checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
@@ -5084,7 +5081,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("render",((StringStruct)str_).getInstance());
     }
     @Test
@@ -5128,7 +5125,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(false);
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("pkg.Ex..Inner",str_.getClassName(curRet(b_).getContext()));
     }
     @Test
@@ -5172,7 +5169,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("pkg.Ex..Inner",str_.getClassName(curRet(b_).getContext()));
     }
     @Test
@@ -5223,7 +5220,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("render",((StringStruct)str_).getInstance());
     }
     @Test
@@ -5290,7 +5287,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneValue().value(2);
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getValidAddEdit().getActionListeners().get(0).action();
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("render1",((StringStruct)str_).getInstance());
     }
     @Test
@@ -5357,7 +5354,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneValue().value(1);
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getValidAddEdit().getActionListeners().get(0).action();
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("render2",((StringStruct)str_).getInstance());
     }
     @Test
@@ -5410,7 +5407,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getPref().setValue(0);
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("render",((StringStruct)str_).getInstance());
     }
     @Test
@@ -5477,7 +5474,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneValue().value(2);
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getValidAddEdit().getActionListeners().get(0).action();
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("render1",((StringStruct)str_).getInstance());
     }
     @Test
@@ -5544,7 +5541,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneValue().value(1);
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getValidAddEdit().getActionListeners().get(0).action();
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("render2",((StringStruct)str_).getInstance());
     }
     @Test
@@ -5884,7 +5881,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = res3(i_, b_);
+        Struct str_ = resNode(i_, b_);
         assertEq("render1",((StringStruct)str_).getInstance());
         i_.repr(((StringStruct)str_).getInstance());
         b_.getRefreshRender().getActionListeners().get(0).action();
@@ -6867,19 +6864,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
     }
 
     private Struct resNode(AbstractMutableTreeNodeCore<String> _node, AbsDebuggerGui _b) {
-        return res2(_b.getRoot().getNode().simular(_node).info(), _b);
+        return resNode(_b.getRoot().getNode().simular(_node).info(), _b);
     }
 
-    private Struct res2(DbgAbsNodeStruct _info, AbsDebuggerGui _b) {
-        ContextEl ctx_ = _info.getResult();
-        Struct str_ = _info.getNode().info().value();
-        String clName_ = str_.getClassName(ctx_);
-        CoreCheckedExecOperationNodeInfos core_ = new CoreCheckedExecOperationNodeInfos(ExecFormattedRootBlock.build(clName_, ctx_.getClasses()), str_);
-        RenderPointInfosPreference r_ = new RenderPointInfosPreference(_b.getRenderList().get(0),core_,"",-1,core_.getDeclaring());
-        return TreeNodeRenderUtil.result(r_, _info, _b.getCompoFactory(), _b.getThreadFactory());
-    }
-
-    private Struct res3(DbgAbsNodeStruct _i, AbsDebuggerGui _b) {
+    private Struct resNode(DbgAbsNodeStruct _i, AbsDebuggerGui _b) {
         return TreeNodeRenderUtil.result(RenderPointPair.stopExc(_b.getRenderList(), _i), _i, _b.getCompoFactory(), _b.getThreadFactory());
     }
 
