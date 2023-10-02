@@ -2,11 +2,13 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.SynthFieldInfo;
+import code.expressionlanguage.exec.dbg.BreakPointCondition;
 import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.AbsCommonFrame;
 import code.gui.PackingWindowAfter;
 import code.gui.events.AbsActionListener;
+import code.util.CustList;
 
 public final class WatchPointFormEvent implements AbsActionListener {
     private final AbsDebuggerGui window;
@@ -39,11 +41,11 @@ public final class WatchPointFormEvent implements AbsActionListener {
     static void watchAction(FrameWpFormContent _content, AbsCommonFrame _frame, WatchPointBlockPair _bp, ResultContext _r) {
         _content.getEdited().setText(FramePoints.displayWatch(_bp));
         _content.getEnabledWp().setSelected(_bp.getValue().isEnabled());
-        BreakPointFormEvent.specific(_content.getGuiReadStackForm(), true, _bp.getValue().getResultRead(), _frame,_r);
-        BreakPointFormEvent.specific(_content.getGuiWriteStackForm(), true, _bp.getValue().getResultWrite(), _frame,_r);
-        BreakPointFormEvent.specific(_content.getGuiCompoundReadStackForm(), true, _bp.getValue().getResultCompoundRead(), _frame,_r);
-        BreakPointFormEvent.specific(_content.getGuiCompoundWriteStackForm(), true, _bp.getValue().getResultCompoundWrite(), _frame,_r);
-        BreakPointFormEvent.specific(_content.getGuiCompoundWriteErrStackForm(), true, _bp.getValue().getResultCompoundWriteErr(), _frame,_r);
+        BreakPointFormEvent.specific(_content.getGuiReadStackForm(), true, _bp.getValue().getResultRead(), new CustList<BreakPointCondition>(), _frame,_r);
+        BreakPointFormEvent.specific(_content.getGuiWriteStackForm(), true, _bp.getValue().getResultWrite(), new CustList<BreakPointCondition>(), _frame,_r);
+        BreakPointFormEvent.specific(_content.getGuiCompoundReadStackForm(), true, _bp.getValue().getResultCompoundRead(), new CustList<BreakPointCondition>(), _frame,_r);
+        BreakPointFormEvent.specific(_content.getGuiCompoundWriteStackForm(), true, _bp.getValue().getResultCompoundWrite(), new CustList<BreakPointCondition>(), _frame,_r);
+        BreakPointFormEvent.specific(_content.getGuiCompoundWriteErrStackForm(), true, _bp.getValue().getResultCompoundWriteErr(), new CustList<BreakPointCondition>(), _frame,_r);
         _content.getRead().setSelected(_bp.getValue().isRead());
         _content.getWrite().setSelected(_bp.getValue().isWrite());
         _content.getCompoundRead().setSelected(_bp.getValue().isCompoundRead());

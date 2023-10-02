@@ -17,8 +17,8 @@ public final class MethodPoint {
         setExit(true);
     }
 
-    public BreakPointCondition result(boolean _exit) {
-        if (_exit) {
+    public BreakPointCondition result(int _exit) {
+        if (_exit == BPC_EXIT) {
             return resultExit;
         }
         return resultEntry;

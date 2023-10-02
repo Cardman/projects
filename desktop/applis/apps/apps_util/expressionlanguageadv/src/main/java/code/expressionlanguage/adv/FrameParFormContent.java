@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.exec.dbg.BreakPointBlockList;
 import code.expressionlanguage.exec.dbg.ParPoint;
 import code.expressionlanguage.exec.dbg.ParPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
@@ -11,7 +12,7 @@ public final class FrameParFormContent {
     private final GuiStackForm guiGetStackForm;
     private ParPointBlockPair selectedPar;
     private AbsTextField clName;
-    private AbsCustCheckBox exact;
+    private final ExactMatchingTypeForm exactForm = new ExactMatchingTypeForm();
     private AbsCustCheckBox get;
     private AbsCustCheckBox enabledPar;
     private AbsPlainButton ok;
@@ -28,13 +29,14 @@ public final class FrameParFormContent {
         ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
         remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
         clName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
-        exact = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("exact");
+        exactForm.guiBuild(_d);
         AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        bpForm_.add(exact);
+        bpForm_.add(exactForm.getPanel());
         bpForm_.add(clName);
         bpForm_.add(enabledPar);
         bpForm_.add(get);
         bpForm_.add(guiGetStackForm.guiBuild(_d));
+        getGuiGetStackForm().showPrefs();
         bpForm_.add(ok);
         bpForm_.add(remove);
         contentPane = bpForm_;
@@ -43,17 +45,20 @@ public final class FrameParFormContent {
         setSelectedPar(_s);
         ParPointBlockPair exc_ = getSelectedPar();
         if (exc_ != null) {
-            exact.setEnabled(false);
-            exact.setSelected(exc_.getPp().isExact());
+            exactForm.updateValue(exc_.getPp());
+        } else {
+            exactForm.updateValue(null);
+        }
+        if (exc_ != null) {
             clName.setEnabled(false);
             clName.setText(exc_.getPp().getClName());
             remove.setEnabled(true);
             getEnabledPar().setSelected(exc_.getValue().isEnabled());
-            BreakPointFormEvent.specific(getGuiGetStackForm(), true, exc_.getValue().getResultGet(), _f,_r);
+            BreakPointFormEvent.specific(getGuiGetStackForm(), true, exc_.getValue().getResultGet(), BreakPointBlockList.prefsPar(_r.getContext().parList()), _f,_r);
             getGet().setSelected(exc_.getValue().isGet());
         } else {
             getGuiGetStackForm().getDependantPointsForm().init(_r, ParPoint.PP);
-            exact.setEnabled(true);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsPar(_r.getContext().parList()),getGuiGetStackForm(),_f,_r);
             clName.setEnabled(true);
             remove.setEnabled(false);
         }
@@ -79,8 +84,8 @@ public final class FrameParFormContent {
         this.selectedPar = _s;
     }
 
-    public AbsCustCheckBox getExact() {
-        return exact;
+    public ExactMatchingTypeForm getExactForm() {
+        return exactForm;
     }
 
     public AbsTextField getClName() {

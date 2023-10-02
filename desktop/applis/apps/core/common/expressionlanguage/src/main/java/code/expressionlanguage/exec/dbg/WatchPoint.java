@@ -107,4 +107,23 @@ public final class WatchPoint {
     public BreakPointCondition getResultCompoundWriteErr() {
         return resultCompoundWriteErr;
     }
+
+    public BreakPointCondition result(int _m) {
+        if (!isEnabled()) {
+            return null;
+        }
+        if (_m == WatchPoint.BPC_READ) {
+            return getResultRead().stopBpc(isRead());
+        }
+        if (_m == WatchPoint.BPC_WRITE) {
+            return getResultWrite().stopBpc(isWrite());
+        }
+        if (_m == WatchPoint.BPC_COMPOUND_READ) {
+            return getResultCompoundRead().stopBpc(isCompoundRead());
+        }
+        if (_m == WatchPoint.BPC_COMPOUND_WRITE) {
+            return getResultCompoundWrite().stopBpc(isCompoundWrite());
+        }
+        return getResultCompoundWriteErr().stopBpc(isCompoundWriteErr());
+    }
 }

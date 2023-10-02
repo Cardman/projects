@@ -61,4 +61,13 @@ public final class OperNatPoint {
         return resultCompound;
     }
 
+    public BreakPointCondition result(int _mode) {
+        if (!isEnabled()) {
+            return null;
+        }
+        if (_mode == OperNatPoint.BPC_SIMPLE) {
+            return getResultSimple().stopBpc(isSimple());
+        }
+        return getResultCompound().stopBpc(isCompound());
+    }
 }

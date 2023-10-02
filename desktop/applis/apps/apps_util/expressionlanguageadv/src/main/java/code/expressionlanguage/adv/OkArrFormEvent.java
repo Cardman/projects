@@ -23,7 +23,7 @@ public final class OkArrFormEvent implements AbsActionListener {
     public void action() {
         ArrPointBlockPair arr_ = frameArrFormContent.getSelectedArr();
         if (arr_ == null) {
-            ArrPointBlockPair added_ = currentResult.getContext().buildArr(frameArrFormContent.getExact().isSelected(), frameArrFormContent.getClName().getText());
+            ArrPointBlockPair added_ = currentResult.getContext().buildArr(frameArrFormContent.getExactForm().code(), frameArrFormContent.getClName().getText());
             if (added_ == null) {
                 return;
             }

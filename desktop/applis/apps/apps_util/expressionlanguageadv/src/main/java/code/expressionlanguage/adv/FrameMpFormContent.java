@@ -12,10 +12,8 @@ public final class FrameMpFormContent extends AbsFrameMpFormContent {
     @Override
     public void guiBuildBase(AbsDebuggerGui _d) {
         guiBuild(_d);
-        getGuiEnterStackForm().getPref().setVisible(true);
-        getGuiExitStackForm().getPref().setVisible(true);
-        getGuiEnterStackForm().getPrefs().getGroup().setVisible(true);
-        getGuiExitStackForm().getPrefs().getGroup().setVisible(true);
+        getGuiEnterStackForm().showPrefs();
+        getGuiExitStackForm().showPrefs();
     }
 
     public MethodPointBlockPair getSelectedMp() {

@@ -1,9 +1,12 @@
 package code.expressionlanguage.dbg;
 
 import code.expressionlanguage.DefContextGenerator;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.StopDbgEnum;
+import code.expressionlanguage.exec.WatchResults;
 import code.expressionlanguage.exec.dbg.ExcPoint;
+import code.expressionlanguage.exec.dbg.ExcPointBlockKey;
 import code.expressionlanguage.exec.dbg.ExcPointBlockPair;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
@@ -1111,9 +1114,280 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
         assertEq(77, nowTrace(stack_));
         assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
+    @Test
+    public void test50() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  try{\n");
+        xml_.append("   throw new Ex(5);\n");
+        xml_.append("  } catch (Object e) {\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" public final int v;\n");
+        xml_.append(" public(int v){\n");
+        xml_.append("  this.v=v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInehritThrownCondition(cont_, "v==5");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(67, nowTrace(stack_));
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test51() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  try{\n");
+        xml_.append("   throw new Ex2(5);\n");
+        xml_.append("  } catch (Object e) {\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" public final int v;\n");
+        xml_.append(" public(int v){\n");
+        xml_.append("  this.v=v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex2 {\n");
+        xml_.append(" public final int v;\n");
+        xml_.append(" public(int v){\n");
+        xml_.append("  this.v=v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInehritThrownCondition(cont_, "");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+    @Test
+    public void test52() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  try{\n");
+        xml_.append("   throw new Ex(5);\n");
+        xml_.append("  } catch (Object e) {\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" public final int v;\n");
+        xml_.append(" public(int v){\n");
+        xml_.append("  this.v=v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInherit(cont_);
+        ExcPoint val_ = cont_.getPairExc("pkg.Ex", ExcPointBlockKey.INHERIT).getValue();
+        val_.getResultThrown().getEnabled().set(false);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+    @Test
+    public void test53() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  try{\n");
+        xml_.append("   throw new Ex(5);\n");
+        xml_.append("  } catch (Object e) {\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" public final int v;\n");
+        xml_.append(" public(int v){\n");
+        xml_.append("  this.v=v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInehritThrownCondition(cont_, "v==4");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+    @Test
+    public void test54() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex:Ex1:Ex2 {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  try{\n");
+        xml_.append("   throw new Ex(5);\n");
+        xml_.append("  } catch (Object e) {\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" public int v;\n");
+        xml_.append(" public(int v){\n");
+        xml_.append("  this.v=v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Ex1 {\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Ex2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInehritThrownConditionInt1(cont_, "(((Ex)this).v*=2)==10");
+        stdInehritThrownConditionInt2(cont_, "(++((Ex)this).v)==6");
+        cont_.getPairExc("pkg.Ex1", ExcPointBlockKey.INHERIT).getValue().getResultThrown().getPref().set(1);
+        cont_.getPairExc("pkg.Ex2", ExcPointBlockKey.INHERIT).getValue().getResultThrown().getPref().set(2);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(10, NumParsers.convertToNumber(WatchResults.dynamicAnalyze("((Ex)this).v",stack_,cont_,new DefContextGenerator()).getWatchedObject()).intStruct());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test55() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex:Ex1:Ex2 {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  try{\n");
+        xml_.append("   throw new Ex(5);\n");
+        xml_.append("  } catch (Object e) {\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" public int v;\n");
+        xml_.append(" public(int v){\n");
+        xml_.append("  this.v=v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Ex1 {\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Ex2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInehritThrownConditionInt1(cont_, "(((Ex)this).v*=2)==10");
+        stdInehritThrownConditionInt2(cont_, "(++((Ex)this).v)==6");
+        cont_.getPairExc("pkg.Ex1", ExcPointBlockKey.INHERIT).getValue().getResultThrown().getPref().set(2);
+        cont_.getPairExc("pkg.Ex2", ExcPointBlockKey.INHERIT).getValue().getResultThrown().getPref().set(1);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(6, NumParsers.convertToNumber(WatchResults.dynamicAnalyze("((Ex)this).v",stack_,cont_,new DefContextGenerator()).getWatchedObject()).intStruct());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test56() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex:Ex1:Ex2 {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  try{\n");
+        xml_.append("   throw new Ex(5);\n");
+        xml_.append("  } catch (Object e) {\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" public int v;\n");
+        xml_.append(" public(int v){\n");
+        xml_.append("  this.v=v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Ex1 {\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Ex2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInehritThrownConditionInt1(cont_, "(((Ex)this).v*=2)==10");
+        stdInehritThrownConditionInt2(cont_, "(++((Ex)this).v)==6");
+        cont_.getPairExc("pkg.Ex1", ExcPointBlockKey.INHERIT).getValue().getResultThrown().getPref().set(1);
+        cont_.getPairExc("pkg.Ex2", ExcPointBlockKey.INHERIT).getValue().getResultThrown().getPref().set(1);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(10, NumParsers.convertToNumber(WatchResults.dynamicAnalyze("((Ex)this).v",stack_,cont_,new DefContextGenerator()).getWatchedObject()).intStruct());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test57() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex:Ex1:Ex2 {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  try{\n");
+        xml_.append("   throw new Ex(5);\n");
+        xml_.append("  } catch (Object e) {\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" public int v;\n");
+        xml_.append(" public(int v){\n");
+        xml_.append("  this.v=v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Ex1 {\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Ex2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInehritThrownConditionInt1(cont_, "(((Ex)this).v*=2)==9");
+        stdInehritThrownConditionInt2(cont_, "(++((Ex)this).v)==11");
+        cont_.getPairExc("pkg.Ex1", ExcPointBlockKey.INHERIT).getValue().getResultThrown().getPref().set(1);
+        cont_.getPairExc("pkg.Ex2", ExcPointBlockKey.INHERIT).getValue().getResultThrown().getPref().set(2);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(11, NumParsers.convertToNumber(WatchResults.dynamicAnalyze("((Ex)this).v",stack_,cont_,new DefContextGenerator()).getWatchedObject()).intStruct());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test58() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex:Ex1:Ex2 {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  try{\n");
+        xml_.append("   throw new Ex(5);\n");
+        xml_.append("  } catch (Object e) {\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" public int v;\n");
+        xml_.append(" public(int v){\n");
+        xml_.append("  this.v=v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Ex1 {\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Ex2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInehritThrownConditionInt1(cont_, "(((Ex)this).v*=2)==12");
+        stdInehritThrownConditionInt2(cont_, "(++((Ex)this).v)==7");
+        cont_.getPairExc("pkg.Ex1", ExcPointBlockKey.INHERIT).getValue().getResultThrown().getPref().set(2);
+        cont_.getPairExc("pkg.Ex2", ExcPointBlockKey.INHERIT).getValue().getResultThrown().getPref().set(1);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(12, NumParsers.convertToNumber(WatchResults.dynamicAnalyze("((Ex)this).v",stack_,cont_,new DefContextGenerator()).getWatchedObject()).intStruct());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
     private void stdThrownCondition(ResultContext _cont, String _condition) {
         std(_cont);
-        ExcPointBlockPair p_ = _cont.getPairExc("pkg.Ex", true);
+        ExcPointBlockPair p_ = _cont.getPairExc("pkg.Ex", ExcPointBlockKey.SAME);
         ExcPoint wp_ = p_.getValue();
         wp_.getResultThrown().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultThrown().getResultStr());
@@ -1122,9 +1396,35 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 //        wp_.getResultThrown().result(res_, _condition);
     }
 
+    private void stdInehritThrownCondition(ResultContext _cont, String _condition) {
+        stdInherit(_cont);
+        ExcPointBlockPair p_ = _cont.getPairExc("pkg.Ex", ExcPointBlockKey.INHERIT);
+        ExcPoint wp_ = p_.getValue();
+        wp_.getResultThrown().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
+        assertEq(_condition,wp_.getResultThrown().getResultStr());
+//        ResultContextLambda res_ = ResultContextLambda.dynamicAnalyzeExc(_condition, p_, _cont, _cont.getPageEl().getAliasPrimBoolean(), new DefContextGenerator());
+//        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
+//        wp_.getResultThrown().result(res_, _condition);
+    }
+
+    private void stdInehritThrownConditionInt1(ResultContext _cont, String _condition) {
+        stdInheritInt1(_cont);
+        ExcPointBlockPair p_ = _cont.getPairExc("pkg.Ex1", ExcPointBlockKey.INHERIT);
+        ExcPoint wp_ = p_.getValue();
+        wp_.getResultThrown().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
+        assertEq(_condition,wp_.getResultThrown().getResultStr());
+    }
+
+    private void stdInehritThrownConditionInt2(ResultContext _cont, String _condition) {
+        stdInheritInt2(_cont);
+        ExcPointBlockPair p_ = _cont.getPairExc("pkg.Ex2", ExcPointBlockKey.INHERIT);
+        ExcPoint wp_ = p_.getValue();
+        wp_.getResultThrown().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
+        assertEq(_condition,wp_.getResultThrown().getResultStr());
+    }
     private void conditionUnkThrown(ResultContext _cont) {
         unkThrown(_cont);
-        ExcPointBlockPair p_ = _cont.getPairExc("", true);
+        ExcPointBlockPair p_ = _cont.getPairExc("", ExcPointBlockKey.SAME);
         ExcPoint wp_ = p_.getValue();
         wp_.getResultThrown().analyze(p_,"0==0","", "", _cont,new DefContextGenerator());
         assertEq("0==0",wp_.getResultThrown().getResultStr());
@@ -1136,7 +1436,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void stdParamConditionThrown(ResultContext _cont, String _condition) {
         stdParam(_cont);
-        ExcPointBlockPair p_ = _cont.getPairExc("pkg.Ex<int>", true);
+        ExcPointBlockPair p_ = _cont.getPairExc("pkg.Ex<int>", ExcPointBlockKey.SAME);
         ExcPoint wp_ = p_.getValue();
         wp_.getResultThrown().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultThrown().getResultStr());
@@ -1148,7 +1448,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
     private void nbeCaughtCondition(ResultContext _cont, String _condition) {
         nbe(_cont);
         String cf_ = _cont.getContext().getStandards().getNbAlias().getAliasInteger();
-        ExcPointBlockPair p_ = _cont.getPairExc(cf_, true);
+        ExcPointBlockPair p_ = _cont.getPairExc(cf_, ExcPointBlockKey.SAME);
         ExcPoint wp_ = p_.getValue();
         wp_.getResultCaught().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultCaught().getResultStr());
@@ -1159,7 +1459,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void nbeaCaughtCondition(ResultContext _cont, String _condition) {
         nbea(_cont);
-        ExcPointBlockPair p_ = _cont.getPairExc("[int", true);
+        ExcPointBlockPair p_ = _cont.getPairExc("[int", ExcPointBlockKey.SAME);
         ExcPoint wp_ = p_.getValue();
         wp_.getResultCaught().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultCaught().getResultStr());
@@ -1170,7 +1470,7 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
     private void stdIncThrownCondition(ResultContext _cont, String _condition) {
         stdInc(_cont);
-        ExcPointBlockPair p_ = _cont.getPairExc("pkg.Ex", false);
+        ExcPointBlockPair p_ = _cont.getPairExc("pkg.Ex", ExcPointBlockKey.SAME_FAMILY);
         ExcPoint wp_ = p_.getValue();
         wp_.getResultThrown().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultThrown().getResultStr());
@@ -1180,40 +1480,40 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
     }
 
     private void npeThrown(ResultContext _cont) {
-        _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(),true);
-        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(), true).getValue();
+        _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(),ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(), ExcPointBlockKey.SAME).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(false);
     }
 
     private void npe(ResultContext _cont) {
-        _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(),true);
-        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(), true).getValue();
+        _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(),ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasNullPe(), ExcPointBlockKey.SAME).getValue();
         val_.setThrown(false);
         val_.setCaught(true);
         val_.setPropagated(false);
     }
 
     private void divThrown(ResultContext _cond) {
-        _cond.toggleExcPoint(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(),true);
-        ExcPoint val_ = _cond.getPairExc(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
+        _cond.toggleExcPoint(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(),ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cond.getPairExc(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(), ExcPointBlockKey.SAME).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(false);
     }
 
     private void divThrownProp(ResultContext _cond) {
-        _cond.toggleExcPoint(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(),true);
-        ExcPoint val_ = _cond.getPairExc(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
+        _cond.toggleExcPoint(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(),ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cond.getPairExc(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(), ExcPointBlockKey.SAME).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(true);
     }
 
     private void divCaught(ResultContext _cont) {
-        _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(),true);
-        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
+        _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(),ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), ExcPointBlockKey.SAME).getValue();
         val_.setThrown(false);
         val_.setCaught(true);
         val_.setPropagated(false);
@@ -1221,69 +1521,94 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 
 
     private void div(ResultContext _cont) {
-        _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(),true);
-        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
+        _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(),ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), ExcPointBlockKey.SAME).getValue();
         val_.setThrown(true);
         val_.setCaught(true);
         val_.setPropagated(false);
     }
 
     private void nbe(ResultContext _cont) {
-        _cont.toggleExcPoint(_cont.getContext().getStandards().getNbAlias().getAliasInteger(),true);
-        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getNbAlias().getAliasInteger(), true).getValue();
+        _cont.toggleExcPoint(_cont.getContext().getStandards().getNbAlias().getAliasInteger(),ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getNbAlias().getAliasInteger(), ExcPointBlockKey.SAME).getValue();
         val_.setThrown(false);
         val_.setCaught(true);
         val_.setPropagated(false);
     }
 
     private void nbea(ResultContext _cont) {
-        _cont.toggleExcPoint("[int",true);
-        ExcPoint val_ = _cont.getPairExc("[int", true).getValue();
+        _cont.toggleExcPoint("[int",ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cont.getPairExc("[int", ExcPointBlockKey.SAME).getValue();
         val_.setThrown(false);
         val_.setCaught(true);
         val_.setPropagated(false);
     }
     private void unkCaught(ResultContext _cont) {
-        _cont.toggleExcPoint("",true);
-        ExcPoint val_ = _cont.getPairExc("", true).getValue();
+        _cont.toggleExcPoint("",ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cont.getPairExc("", ExcPointBlockKey.SAME).getValue();
         val_.setThrown(false);
         val_.setCaught(true);
         val_.setPropagated(false);
     }
     private void unkThrown(ResultContext _cont) {
-        _cont.toggleExcPoint("",true);
-        ExcPoint val_ = _cont.getPairExc("", true).getValue();
+        _cont.toggleExcPoint("",ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cont.getPairExc("", ExcPointBlockKey.SAME).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(false);
     }
     private void std(ResultContext _cont) {
-        _cont.toggleExcPoint("pkg.Ex",true);
-        ExcPoint val_ = _cont.getPairExc("pkg.Ex", true).getValue();
+        _cont.toggleExcPoint("pkg.Ex",ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cont.getPairExc("pkg.Ex", ExcPointBlockKey.SAME).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(false);
     }
 
     private void stdParam(ResultContext _cont) {
-        _cont.toggleExcPoint("pkg.Ex<int>",true);
-        ExcPoint val_ = _cont.getPairExc("pkg.Ex<int>", true).getValue();
+        _cont.toggleExcPoint("pkg.Ex<int>",ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cont.getPairExc("pkg.Ex<int>", ExcPointBlockKey.SAME).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(false);
     }
     private void stdInc(ResultContext _cont) {
-        _cont.toggleExcPoint("pkg.Ex<?>",false);
-        ExcPoint val_ = _cont.getPairExc("pkg.Ex", false).getValue();
+        _cont.toggleExcPoint("pkg.Ex<?>",ExcPointBlockKey.SAME_FAMILY);
+        ExcPoint val_ = _cont.getPairExc("pkg.Ex", ExcPointBlockKey.SAME_FAMILY).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(false);
     }
     private void any(ResultContext _cont) {
-        _cont.toggleExcPoint("",false);
-        ExcPoint val_ = _cont.getPairExc("", false).getValue();
+        _cont.toggleExcPoint("",ExcPointBlockKey.SAME_FAMILY);
+        ExcPoint val_ = _cont.getPairExc("", ExcPointBlockKey.SAME_FAMILY).getValue();
         val_.setThrown(false);
         val_.setCaught(true);
+        val_.setPropagated(false);
+    }
+
+
+    private void stdInherit(ResultContext _cont) {
+        _cont.toggleExcPoint("pkg.Ex",ExcPointBlockKey.INHERIT);
+        ExcPoint val_ = _cont.getPairExc("pkg.Ex", ExcPointBlockKey.INHERIT).getValue();
+        val_.setThrown(true);
+        val_.setCaught(false);
+        val_.setPropagated(false);
+    }
+
+    private void stdInheritInt1(ResultContext _cont) {
+        _cont.toggleExcPoint("pkg.Ex1",ExcPointBlockKey.INHERIT);
+        ExcPoint val_ = _cont.getPairExc("pkg.Ex1", ExcPointBlockKey.INHERIT).getValue();
+        val_.setThrown(true);
+        val_.setCaught(false);
+        val_.setPropagated(false);
+    }
+
+    private void stdInheritInt2(ResultContext _cont) {
+        _cont.toggleExcPoint("pkg.Ex2",ExcPointBlockKey.INHERIT);
+        ExcPoint val_ = _cont.getPairExc("pkg.Ex2", ExcPointBlockKey.INHERIT).getValue();
+        val_.setThrown(true);
+        val_.setCaught(false);
         val_.setPropagated(false);
     }
 }

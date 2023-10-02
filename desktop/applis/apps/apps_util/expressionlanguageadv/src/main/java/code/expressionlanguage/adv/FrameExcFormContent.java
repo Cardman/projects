@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.exec.dbg.BreakPointBlockList;
 import code.expressionlanguage.exec.dbg.ExcPoint;
 import code.expressionlanguage.exec.dbg.ExcPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
@@ -13,7 +14,7 @@ public final class FrameExcFormContent {
     private final GuiStackForm guiPropagatedStackForm;
     private ExcPointBlockPair selectedExc;
     private AbsTextField clName;
-    private AbsCustCheckBox exact;
+    private final ExactMatchingTypeForm exactForm = new ExactMatchingTypeForm();
     private AbsCustCheckBox thrown;
     private AbsCustCheckBox caught;
     private AbsCustCheckBox propagated;
@@ -36,9 +37,9 @@ public final class FrameExcFormContent {
         ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
         remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
         clName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
-        exact = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("exact");
+        exactForm.guiBuild(_d);
         AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        bpForm_.add(exact);
+        bpForm_.add(exactForm.getPanel());
         bpForm_.add(clName);
         bpForm_.add(enabledExc);
         bpForm_.add(thrown);
@@ -47,6 +48,9 @@ public final class FrameExcFormContent {
         bpForm_.add(guiThrownStackForm.guiBuild(_d));
         bpForm_.add(guiCaughtStackForm.guiBuild(_d));
         bpForm_.add(guiPropagatedStackForm.guiBuild(_d));
+        getGuiThrownStackForm().showPrefs();
+        getGuiCaughtStackForm().showPrefs();
+        getGuiPropagatedStackForm().showPrefs();
         bpForm_.add(ok);
         bpForm_.add(remove);
         contentPane = bpForm_;
@@ -55,15 +59,18 @@ public final class FrameExcFormContent {
         setSelectedExc(_s);
         ExcPointBlockPair exc_ = getSelectedExc();
         if (exc_ != null) {
-            exact.setEnabled(false);
-            exact.setSelected(exc_.getEp().isExact());
+            exactForm.updateValue(exc_.getEp());
+        } else {
+            exactForm.updateValue(null);
+        }
+        if (exc_ != null) {
             clName.setEnabled(false);
             clName.setText(exc_.getEp().getClName());
             remove.setEnabled(true);
             getEnabledExc().setSelected(exc_.getValue().isEnabled());
-            BreakPointFormEvent.specific(getGuiThrownStackForm(), true, exc_.getValue().getResultThrown(), _f,_r);
-            BreakPointFormEvent.specific(getGuiCaughtStackForm(), true, exc_.getValue().getResultCaught(), _f,_r);
-            BreakPointFormEvent.specific(getGuiPropagatedStackForm(), true, exc_.getValue().getResultPropagated(), _f,_r);
+            BreakPointFormEvent.specific(getGuiThrownStackForm(), true, exc_.getValue().getResultThrown(), BreakPointBlockList.prefsExc(_r.getContext().excList(),ExcPoint.BPC_THROWN), _f,_r);
+            BreakPointFormEvent.specific(getGuiCaughtStackForm(), true, exc_.getValue().getResultCaught(), BreakPointBlockList.prefsExc(_r.getContext().excList(),ExcPoint.BPC_CAUGHT), _f,_r);
+            BreakPointFormEvent.specific(getGuiPropagatedStackForm(), true, exc_.getValue().getResultPropagated(), BreakPointBlockList.prefsExc(_r.getContext().excList(),ExcPoint.BPC_PROPAGATED), _f,_r);
             getThrown().setSelected(exc_.getValue().isThrown());
             getCaught().setSelected(exc_.getValue().isCaught());
             getPropagated().setSelected(exc_.getValue().isPropagated());
@@ -71,7 +78,9 @@ public final class FrameExcFormContent {
             getGuiThrownStackForm().getDependantPointsForm().init(_r, ExcPoint.EP);
             getGuiCaughtStackForm().getDependantPointsForm().init(_r,ExcPoint.EP);
             getGuiPropagatedStackForm().getDependantPointsForm().init(_r,ExcPoint.EP);
-            exact.setEnabled(true);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsExc(_r.getContext().excList(),ExcPoint.BPC_THROWN),getGuiThrownStackForm(),_f,_r);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsExc(_r.getContext().excList(),ExcPoint.BPC_CAUGHT),getGuiCaughtStackForm(),_f,_r);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsExc(_r.getContext().excList(),ExcPoint.BPC_PROPAGATED),getGuiPropagatedStackForm(),_f,_r);
             clName.setEnabled(true);
             remove.setEnabled(false);
         }
@@ -99,8 +108,8 @@ public final class FrameExcFormContent {
         this.selectedExc = _s;
     }
 
-    public AbsCustCheckBox getExact() {
-        return exact;
+    public ExactMatchingTypeForm getExactForm() {
+        return exactForm;
     }
 
     public AbsTextField getClName() {

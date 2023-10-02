@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.exec.dbg.AbsCallContraints;
+import code.expressionlanguage.exec.dbg.BreakPointCondition;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
@@ -73,9 +74,9 @@ public final class GuiStackForm {
         return staScIncExc;
     }
 
-    public static void initPrefs(CrudGeneForm<String, Integer> _f, ResultContext _res, boolean _exit) {
+    public static void initPrefs(CustList<BreakPointCondition> _bpc, CrudGeneForm<String, Integer> _f) {
         AbsPlainButton pref_ = _f.getFactory().getCompoFactory().newPlainButton("pref");
-        pref_.addActionListener(new ValuePrefEvent(_f, _res, _exit));
+        pref_.addActionListener(new ValuePrefEvent(_f, _bpc));
         _f.getButtons().add(pref_);
     }
 
@@ -83,6 +84,10 @@ public final class GuiStackForm {
         stackConstraintsForm.refresh(_files, _folderToVisit, _r, _d);
     }
 
+    public void showPrefs() {
+        getPref().setVisible(true);
+        getPrefs().getGroup().setVisible(true);
+    }
     public void actualiseLists(AbsCommonFrame _c) {
         stackConstraintsForm.actualiseLists(_c);
     }

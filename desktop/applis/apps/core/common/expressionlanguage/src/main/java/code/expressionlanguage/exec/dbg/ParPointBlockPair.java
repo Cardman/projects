@@ -11,7 +11,7 @@ public final class ParPointBlockPair implements AbsPairPoint {
     private final RootBlock rootBlock;
     private final ParPoint value;
 
-    public ParPointBlockPair(boolean _ex, String _cl, AbstractInterceptorStdCaller _v, boolean _enabled, RootBlock _de) {
+    public ParPointBlockPair(int _ex, String _cl, AbstractInterceptorStdCaller _v, boolean _enabled, RootBlock _de) {
         this.pp = new ExcPointBlockKey(_ex, _cl);
         this.value = new ParPoint(_v, this, pp);
         this.value.setEnabled(_enabled);

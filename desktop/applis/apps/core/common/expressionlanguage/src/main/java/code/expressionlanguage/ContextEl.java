@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.dbg.*;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.exec.util.ClassMethodIdOverride;
@@ -43,14 +44,14 @@ public abstract class ContextEl {
     public AbstractTypePairHash getChecker() {
         return executionInfos.getClasses().getChecker();
     }
-    public CustList<MethodPointBlockPairRootBlock> getPairs(ExecBlock _id, ExecFormattedRootBlock _gl, ContextEl _context, Struct _instance, boolean _exit, Parameters _p) {
+    public CustList<MethodPointBlockPairRootBlock> getPairs(ExecBlock _id, ExecFormattedRootBlock _gl, Struct _instance, int _exit, Parameters _p) {
         if (_p.getError() != null) {
             return new CustList<MethodPointBlockPairRootBlock>();
         }
-        return getPairs(_id, _gl, _context, _instance, _exit);
+        return getPairs(_id, _gl, _instance, _exit);
     }
-    public CustList<MethodPointBlockPairRootBlock> getPairs(ExecBlock _id, ExecFormattedRootBlock _gl, ContextEl _context, Struct _instance, boolean _exit) {
-        String argClassName_ = _instance.getClassName(_context);
+    public CustList<MethodPointBlockPairRootBlock> getPairs(ExecBlock _id, ExecFormattedRootBlock _gl, Struct _instance, int _exit) {
+        String argClassName_ = _instance.getClassName(this);
         String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);
         CustList<MethodPointBlockPairRootBlock> out_ = new CustList<MethodPointBlockPairRootBlock>();
         String id_ = BreakPointBlockList.id(_id);
@@ -58,12 +59,13 @@ public abstract class ContextEl {
             MemberCallingsBlock i_ = b.getMp().getId();
             int nb_ = nb(i_);
             int pr_ = b.getValue().result(_exit).pref(base_);
-            if (_context.getClasses().getRedirections().isValidIndex(nb_)) {
-                ClassMethodIdOverride v_ = _context.getClasses().getRedirections().get(nb_).getVal(MemberCallingsBlock.clName(i_));
+            if (getClasses().getRedirections().isValidIndex(nb_)) {
+                ClassMethodIdOverride v_ = getClasses().getRedirections().get(nb_).getVal(MemberCallingsBlock.clName(i_));
                 if (v_ != null) {
                     ExecOverrideInfo ov_ = v_.getVal(base_);
                     if (ov_ != null && ov_.getPair().getFct() == _id) {
-                        out_.add(new MethodPointBlockPairRootBlock(b, pr_,ExecFormattedRootBlock.getFullObject(argClassName_,new ExecFormattedRootBlock(v_.getRoot()),_context)));
+                        String formatted_ = ExecInherits.getQuickFullTypeByBases(argClassName_, v_.getRoot().getFullName(), this);
+                        out_.add(new MethodPointBlockPairRootBlock(b, pr_,new ExecFormattedRootBlock(v_.getRoot(),formatted_)));
                         continue;
                     }
                 }
@@ -74,6 +76,62 @@ public abstract class ContextEl {
         }
         out_.sortElts(new CmpMethodPair());
         return out_;
+    }
+    public CustList<CoreCheckedExecOperationNodeInfosPreference> getArr(CoreCheckedExecOperationNodeInfos _core, int _exit) {
+        String argClassName_ = _core.getInstance().getClassName(this);
+        String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);
+        CustList<CoreCheckedExecOperationNodeInfosPreference> out_ = new CustList<CoreCheckedExecOperationNodeInfosPreference>();
+        for (ArrPointBlockPair b: arrList().elts()) {
+            ExcPointBlockKey k_ = b.getEp();
+            if (k_.isExact() != ExcPointBlockKey.INHERIT) {
+                continue;
+            }
+            BreakPointCondition bpc_ = b.getValue().result(_exit);
+            tryAdd(_core, argClassName_, base_, out_, k_, bpc_);
+        }
+        out_.sortElts(new CmpClPair());
+        return out_;
+    }
+    public CustList<CoreCheckedExecOperationNodeInfosPreference> getExc(CoreCheckedExecOperationNodeInfos _core, int _exit) {
+        String argClassName_ = _core.getInstance().getClassName(this);
+        String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);
+        CustList<CoreCheckedExecOperationNodeInfosPreference> out_ = new CustList<CoreCheckedExecOperationNodeInfosPreference>();
+        for (ExcPointBlockPair b: excList().elts()) {
+            ExcPointBlockKey k_ = b.getEp();
+            if (k_.isExact() != ExcPointBlockKey.INHERIT) {
+                continue;
+            }
+            BreakPointCondition bpc_ = b.getValue().result(_exit);
+            tryAdd(_core, argClassName_, base_, out_, k_, bpc_);
+        }
+        out_.sortElts(new CmpClPair());
+        return out_;
+    }
+    public CustList<CoreCheckedExecOperationNodeInfosPreference> getPar(CoreCheckedExecOperationNodeInfos _core) {
+        String argClassName_ = _core.getInstance().getClassName(this);
+        String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);
+        CustList<CoreCheckedExecOperationNodeInfosPreference> out_ = new CustList<CoreCheckedExecOperationNodeInfosPreference>();
+        for (ParPointBlockPair b: parList().elts()) {
+            ExcPointBlockKey k_ = b.getPp();
+            if (k_.isExact() != ExcPointBlockKey.INHERIT) {
+                continue;
+            }
+            BreakPointCondition bpc_ = b.getValue().result();
+            tryAdd(_core, argClassName_, base_, out_, k_, bpc_);
+        }
+        out_.sortElts(new CmpClPair());
+        return out_;
+    }
+
+    private void tryAdd(CoreCheckedExecOperationNodeInfos _core, String _argClassName, String _base, CustList<CoreCheckedExecOperationNodeInfosPreference> _out, ExcPointBlockKey _k, BreakPointCondition _bpc) {
+        if (_bpc != null) {
+            int pr_ = _bpc.pref(_base);
+            String param_ = _k.getClName();
+            String formatted_ = ExecInherits.getQuickFullTypeByBases(_argClassName, param_, this);
+            if (!formatted_.isEmpty()) {
+                _out.add(new CoreCheckedExecOperationNodeInfosPreference(_bpc, _core, param_, pr_, ExecFormattedRootBlock.build(formatted_, getClasses())));
+            }
+        }
     }
 
     private int nb(MemberCallingsBlock _i) {
@@ -198,14 +256,14 @@ public abstract class ContextEl {
         }
         bpList().add(pair_);
     }
-    public void toggleArrPoint(String _clName, boolean _exact) {
+    public void toggleArrPoint(String _clName, int _exact) {
         ArrPointBlockPair exc_ = buildArr(_exact, _clName);
         if (exc_ == null) {
             return;
         }
         toggleArr(exc_);
     }
-    public void toggleExcPoint(String _clName, boolean _exact) {
+    public void toggleExcPoint(String _clName, int _exact) {
         ExcPointBlockPair exc_ = build(_exact, _clName);
         if (exc_ == null) {
             return;
@@ -228,7 +286,7 @@ public abstract class ContextEl {
     public AbsCollection<OperNatPointBlockPair> operNatList() {
         return getClasses().getDebugMapping().getBreakPointsBlock().getOperNatPointList();
     }
-    public ArrPointBlockPair buildArr(boolean _exact, String _clName) {
+    public ArrPointBlockPair buildArr(int _exact, String _clName) {
         String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, this);
         if (koArr(solved_, _clName)) {
             return null;
@@ -236,10 +294,10 @@ public abstract class ContextEl {
         return notNullBuildArr(_exact, solved_);
     }
 
-    public ArrPointBlockPair notNullBuildArr(boolean _exact, String _clName) {
+    public ArrPointBlockPair notNullBuildArr(int _exact, String _clName) {
         return getClasses().getDebugMapping().getBreakPointsBlock().buildArr(_exact, _clName);
     }
-    public ExcPointBlockPair build(boolean _exact, String _clName) {
+    public ExcPointBlockPair build(int _exact, String _clName) {
         String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, this);
         if (koExc(solved_, _clName)) {
             return null;
@@ -247,11 +305,11 @@ public abstract class ContextEl {
         return notNullBuild(_exact, solved_);
     }
 
-    public ExcPointBlockPair notNullBuild(boolean _exact, String _clName) {
+    public ExcPointBlockPair notNullBuild(int _exact, String _clName) {
         return getClasses().getDebugMapping().getBreakPointsBlock().build(_exact, _clName);
     }
 
-    public ParPointBlockPair notNullBuildPar(boolean _exact, String _clName, RootBlock _de) {
+    public ParPointBlockPair notNullBuildPar(int _exact, String _clName, RootBlock _de) {
         return getClasses().getDebugMapping().getBreakPointsBlock().buildPar(_exact, _clName, _de);
     }
 
@@ -267,7 +325,7 @@ public abstract class ContextEl {
         return _solved.isEmpty() && !_clName.trim().isEmpty();
     }
 
-    public void toggleArrPointEnabled(String _clName, boolean _exact) {
+    public void toggleArrPointEnabled(String _clName, int _exact) {
         ArrPointBlockPair e_ = buildArr(_exact, _clName);
         if (e_ == null) {
             return;
@@ -294,7 +352,7 @@ public abstract class ContextEl {
         }
         arrList().add(_b);
     }
-    public void toggleExcPointEnabled(String _clName, boolean _exact) {
+    public void toggleExcPointEnabled(String _clName, int _exact) {
         ExcPointBlockPair e_ = build(_exact, _clName);
         if (e_ == null) {
             return;
@@ -403,13 +461,13 @@ public abstract class ContextEl {
     public boolean is(StandardNamedFunction _id) {
         return getNotNull(_id).isEnabled();
     }
-    public boolean isArr(String _field, boolean _exact) {
+    public boolean isArr(String _field, int _exact) {
         return getNotNullArr(_field, _exact).isEnabled();
     }
-    public boolean isExc(String _field, boolean _exact) {
+    public boolean isExc(String _field, int _exact) {
         return getNotNullExc(_field, _exact).isEnabled();
     }
-    public boolean isPar(String _field, boolean _exact) {
+    public boolean isPar(String _field, int _exact) {
         return getNotNullPar(_field, _exact).isEnabled();
     }
     public BreakPoint getNotNull(ExecFileBlock _file, int _offset) {
@@ -427,27 +485,27 @@ public abstract class ContextEl {
         StdMethodPointBlockPair b_ = getPair(_id);
         return getClasses().getDebugMapping().getBreakPointsBlock().notNull(b_);
     }
-    public ArrPoint getNotNullArr(String _field, boolean _exact) {
+    public ArrPoint getNotNullArr(String _field, int _exact) {
         ArrPointBlockPair b_ = getNotNullArrPair(_field,_exact);
         return b_.getValue();
     }
-    public ArrPointBlockPair getNotNullArrPair(String _field, boolean _exact) {
+    public ArrPointBlockPair getNotNullArrPair(String _field, int _exact) {
         ArrPointBlockPair b_ = getPairArr(_field,_exact);
         return getClasses().getDebugMapping().getBreakPointsBlock().notNullExp(b_);
     }
-    public ExcPoint getNotNullExc(String _field, boolean _exact) {
+    public ExcPoint getNotNullExc(String _field, int _exact) {
         ExcPointBlockPair b_ = getNotNullExcPair(_field,_exact);
         return b_.getValue();
     }
-    public ExcPointBlockPair getNotNullExcPair(String _field, boolean _exact) {
+    public ExcPointBlockPair getNotNullExcPair(String _field, int _exact) {
         ExcPointBlockPair b_ = getPairExc(_field,_exact);
         return getClasses().getDebugMapping().getBreakPointsBlock().notNullExp(b_);
     }
-    public ParPoint getNotNullPar(String _field, boolean _exact) {
+    public ParPoint getNotNullPar(String _field, int _exact) {
         ParPointBlockPair b_ = getNotNullPair(_field,_exact);
         return b_.getValue();
     }
-    public ParPointBlockPair getNotNullPair(String _field, boolean _exact) {
+    public ParPointBlockPair getNotNullPair(String _field, int _exact) {
         ParPointBlockPair b_ = getPairPar(_field,_exact);
         return getClasses().getDebugMapping().getBreakPointsBlock().notNullExp(b_);
     }
@@ -493,7 +551,7 @@ public abstract class ContextEl {
         return null;
     }
 
-    public ArrPointBlockPair getPairArr(String _field, boolean _exact) {
+    public ArrPointBlockPair getPairArr(String _field, int _exact) {
         for (ArrPointBlockPair b: arrList().elts()) {
             if (b.getEp().match(_field, _exact)) {
                 return b;
@@ -502,7 +560,7 @@ public abstract class ContextEl {
         return null;
     }
 
-    public ExcPointBlockPair getPairExc(String _field, boolean _exact) {
+    public ExcPointBlockPair getPairExc(String _field, int _exact) {
         for (ExcPointBlockPair b: excList().elts()) {
             if (b.getEp().match(_field, _exact)) {
                 return b;
@@ -511,7 +569,7 @@ public abstract class ContextEl {
         return null;
     }
 
-    public ParPointBlockPair getPairPar(String _field, boolean _exact) {
+    public ParPointBlockPair getPairPar(String _field, int _exact) {
         for (ParPointBlockPair b: parList().elts()) {
             if (b.getPp().match(_field, _exact)) {
                 return b;

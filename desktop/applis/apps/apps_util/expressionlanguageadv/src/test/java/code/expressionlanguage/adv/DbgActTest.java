@@ -1,12 +1,16 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.CoreCheckedExecOperationNodeInfos;
 import code.expressionlanguage.exec.StepDbgActionEnum;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.dbg.AbsCallContraints;
+import code.expressionlanguage.exec.dbg.ExcPointBlockKey;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.*;
@@ -746,7 +750,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addExc(b_);
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        selectExcRadioTrue(b_);
         addExcOk(b_);
         assertTrue(curRet(b_).getContext().excList().elts().iterator().hasNext());
     }
@@ -762,7 +766,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addExc(b_);
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(false);
+        selectExcRadioFalse(b_);
         addExcOk(b_);
         assertTrue(curRet(b_).getContext().excList().elts().iterator().hasNext());
     }
@@ -778,7 +782,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addExc(b_);
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Inex");
-        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        selectExcRadioTrue(b_);
         addExcOk(b_);
         assertFalse(curRet(b_).getContext().excList().elts().iterator().hasNext());
     }
@@ -794,7 +798,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addExc(b_);
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        selectExcRadioTrue(b_);
         b_.getFramePoints().getFrameExcFormContent().getPropagated().setSelected(true);
         addExcOk(b_);
         assertTrue(curRet(b_).getContext().excList().elts().iterator().next().getValue().isPropagated());
@@ -815,7 +819,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addExc(b_);
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        selectExcRadioTrue(b_);
         b_.getFramePoints().getFrameExcFormContent().getPropagated().setSelected(true);
         addExcOk(b_);
         assertTrue(curRet(b_).getContext().excList().elts().iterator().next().getValue().isPropagated());
@@ -1762,7 +1766,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         openPoints(b_);
         addExc(b_);
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(false);
+        selectExcRadioFalse(b_);
         addExcOk(b_);
         addBp(b_);
         b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
@@ -1784,7 +1788,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         openPoints(b_);
         addExc(b_);
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        selectExcRadioTrue(b_);
         addExcOk(b_);
         addBp(b_);
         b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
@@ -1914,12 +1918,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         openPoints(b_);
         addExc(b_);
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(false);
+        selectExcRadioFalse(b_);
         b_.getFramePoints().getFrameExcFormContent().getGuiThrownStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
         b_.getFramePoints().getFrameExcFormContent().getGuiThrownStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
         b_.getFramePoints().getFrameExcFormContent().getGuiThrownStackForm().getDependantPointsForm().getChecksCurrent().get(2).setSelected(true);
         addExcOk(b_);
-        assertTrue(curRet(b_).getPairExc("pkg.Ex",false).getValue().getResultThrown().getOthers().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getPairExc("pkg.Ex", ExcPointBlockKey.SAME_FAMILY).getValue().getResultThrown().getOthers().elts().iterator().hasNext());
     }
     @Test
     public void bp102() {
@@ -1934,12 +1938,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         openPoints(b_);
         addExc(b_);
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        selectExcRadioTrue(b_);
         b_.getFramePoints().getFrameExcFormContent().getGuiThrownStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
         b_.getFramePoints().getFrameExcFormContent().getGuiThrownStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
         b_.getFramePoints().getFrameExcFormContent().getGuiThrownStackForm().getDependantPointsForm().getChecksCurrent().get(2).setSelected(true);
         addExcOk(b_);
-        assertTrue(curRet(b_).getPairExc("pkg.Ex",true).getValue().getResultThrown().getOthers().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getPairExc("pkg.Ex",ExcPointBlockKey.SAME).getValue().getResultThrown().getOthers().elts().iterator().hasNext());
     }
     @Test
     public void bp103() {
@@ -2064,11 +2068,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addExc(b_);
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        selectExcRadioTrue(b_);
         addExcOk(b_);
         addExc(b_);
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(false);
+        selectExcRadioFalse(b_);
         addExcOk(b_);
         assertTrue(curRet(b_).getContext().excList().elts().iterator().hasNext());
     }
@@ -2099,11 +2103,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addExc(b_);
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        selectExcRadioTrue(b_);
         addExcOk(b_);
         addExc(b_);
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex2");
-        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        selectExcRadioTrue(b_);
         addExcOk(b_);
         assertTrue(curRet(b_).getContext().excList().elts().iterator().hasNext());
     }
@@ -2119,11 +2123,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addExc(b_);
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex<int>");
-        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        selectExcRadioTrue(b_);
         addExcOk(b_);
         addExc(b_);
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex<long>");
-        b_.getFramePoints().getFrameExcFormContent().getExact().setSelected(true);
+        selectExcRadioTrue(b_);
         addExcOk(b_);
         assertTrue(curRet(b_).getContext().excList().elts().iterator().hasNext());
     }
@@ -2139,7 +2143,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addArr(b_);
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex");
-        b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(true);
+        selectArrRadioTrue(b_);
         addArrOk(b_);
         assertTrue(curRet(b_).getContext().arrList().elts().iterator().hasNext());
     }
@@ -2155,7 +2159,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addArr(b_);
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex");
-        b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(false);
+        selectArrRadioFalse(b_);
         addArrOk(b_);
         assertTrue(curRet(b_).getContext().arrList().elts().iterator().hasNext());
     }
@@ -2171,7 +2175,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addArr(b_);
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Inex");
-        b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(true);
+        selectArrRadioTrue(b_);
         addArrOk(b_);
         assertFalse(curRet(b_).getContext().arrList().elts().iterator().hasNext());
     }
@@ -2187,7 +2191,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addArr(b_);
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex");
-        b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(true);
+        selectArrRadioTrue(b_);
         b_.getFramePoints().getFrameArrFormContent().getLength().setSelected(true);
         addArrOk(b_);
         assertTrue(curRet(b_).getContext().arrList().elts().iterator().next().getValue().isLength());
@@ -2208,7 +2212,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addArr(b_);
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex");
-        b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(true);
+        selectArrRadioTrue(b_);
         b_.getFramePoints().getFrameArrFormContent().getLength().setSelected(true);
         addArrOk(b_);
         assertTrue(curRet(b_).getContext().arrList().elts().iterator().next().getValue().isLength());
@@ -2245,7 +2249,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         openPoints(b_);
         addArr(b_);
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex");
-        b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(false);
+        selectArrRadioFalse(b_);
         addArrOk(b_);
         addBp(b_);
         b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
@@ -2267,7 +2271,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         openPoints(b_);
         addArr(b_);
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex");
-        b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(true);
+        selectArrRadioTrue(b_);
         addArrOk(b_);
         addBp(b_);
         b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
@@ -2289,7 +2293,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         openPoints(b_);
         addArr(b_);
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex");
-        b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(false);
+        selectArrRadioFalse(b_);
         b_.getFramePoints().getFrameArrFormContent().getGuiLengthStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
         b_.getFramePoints().getFrameArrFormContent().getGuiIntGetStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
         b_.getFramePoints().getFrameArrFormContent().getGuiIntSetStackForm().getDependantPointsForm().getChecksCurrent().get(2).setSelected(true);
@@ -2304,7 +2308,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameArrFormContent().getGuiInitArrayStackForm().getDependantPointsForm().getChecksCurrent().get(11).setSelected(true);
         b_.getFramePoints().getFrameArrFormContent().getGuiInitArrayStackForm().getDependantPointsForm().getChecksCurrent().get(12).setSelected(true);
         addArrOk(b_);
-        assertTrue(curRet(b_).getPairArr("[pkg.Ex",false).getValue().getResultLength().getOthers().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getPairArr("[pkg.Ex",ExcPointBlockKey.SAME_FAMILY).getValue().getResultLength().getOthers().elts().iterator().hasNext());
     }
     @Test
     public void bp121() {
@@ -2319,7 +2323,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         openPoints(b_);
         addArr(b_);
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex");
-        b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(true);
+        selectArrRadioTrue(b_);
         b_.getFramePoints().getFrameArrFormContent().getGuiLengthStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
         b_.getFramePoints().getFrameArrFormContent().getGuiIntGetStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
         b_.getFramePoints().getFrameArrFormContent().getGuiIntSetStackForm().getDependantPointsForm().getChecksCurrent().get(2).setSelected(true);
@@ -2334,7 +2338,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameArrFormContent().getGuiInitArrayStackForm().getDependantPointsForm().getChecksCurrent().get(11).setSelected(true);
         b_.getFramePoints().getFrameArrFormContent().getGuiInitArrayStackForm().getDependantPointsForm().getChecksCurrent().get(12).setSelected(true);
         addArrOk(b_);
-        assertTrue(curRet(b_).getPairArr("[pkg.Ex",true).getValue().getResultLength().getOthers().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getPairArr("[pkg.Ex",ExcPointBlockKey.SAME).getValue().getResultLength().getOthers().elts().iterator().hasNext());
     }
     @Test
     public void bp122() {
@@ -2348,11 +2352,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addArr(b_);
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex");
-        b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(true);
+        selectArrRadioTrue(b_);
         addArrOk(b_);
         addArr(b_);
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex");
-        b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(false);
+        selectArrRadioFalse(b_);
         addArrOk(b_);
         assertTrue(curRet(b_).getContext().arrList().elts().iterator().hasNext());
     }
@@ -2368,11 +2372,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addArr(b_);
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex");
-        b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(true);
+        selectArrRadioTrue(b_);
         addArrOk(b_);
         addArr(b_);
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex2");
-        b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(true);
+        selectArrRadioTrue(b_);
         addArrOk(b_);
         assertTrue(curRet(b_).getContext().arrList().elts().iterator().hasNext());
     }
@@ -2388,11 +2392,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addArr(b_);
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex<int>");
-        b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(true);
+        selectArrRadioTrue(b_);
         addArrOk(b_);
         addArr(b_);
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex<long>");
-        b_.getFramePoints().getFrameArrFormContent().getExact().setSelected(true);
+        selectArrRadioTrue(b_);
         addArrOk(b_);
         assertTrue(curRet(b_).getContext().arrList().elts().iterator().hasNext());
     }
@@ -2408,7 +2412,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addPar(b_);
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameParFormContent().getExact().setSelected(true);
+        selectParRadioTrue(b_);
         addParOk(b_);
         assertTrue(curRet(b_).getContext().parList().elts().iterator().hasNext());
     }
@@ -2424,7 +2428,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addPar(b_);
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameParFormContent().getExact().setSelected(false);
+        selectParRadioFalse(b_);
         addParOk(b_);
         assertTrue(curRet(b_).getContext().parList().elts().iterator().hasNext());
     }
@@ -2440,7 +2444,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addPar(b_);
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Inex");
-        b_.getFramePoints().getFrameParFormContent().getExact().setSelected(true);
+        selectParRadioTrue(b_);
         addParOk(b_);
         assertFalse(curRet(b_).getContext().parList().elts().iterator().hasNext());
     }
@@ -2456,7 +2460,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addPar(b_);
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameParFormContent().getExact().setSelected(true);
+        selectParRadioTrue(b_);
         b_.getFramePoints().getFrameParFormContent().getGet().setSelected(true);
         addParOk(b_);
         assertTrue(curRet(b_).getContext().parList().elts().iterator().next().getValue().isGet());
@@ -2477,7 +2481,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addPar(b_);
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameParFormContent().getExact().setSelected(true);
+        selectParRadioTrue(b_);
         b_.getFramePoints().getFrameParFormContent().getGet().setSelected(true);
         addParOk(b_);
         assertTrue(curRet(b_).getContext().parList().elts().iterator().next().getValue().isGet());
@@ -2514,7 +2518,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         openPoints(b_);
         addPar(b_);
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameParFormContent().getExact().setSelected(false);
+        selectParRadioFalse(b_);
         addParOk(b_);
         addBp(b_);
         b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
@@ -2536,7 +2540,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         openPoints(b_);
         addPar(b_);
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameParFormContent().getExact().setSelected(true);
+        selectParRadioTrue(b_);
         addParOk(b_);
         addBp(b_);
         b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
@@ -2558,10 +2562,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
         openPoints(b_);
         addPar(b_);
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameParFormContent().getExact().setSelected(false);
+        selectParRadioFalse(b_);
         b_.getFramePoints().getFrameParFormContent().getGuiGetStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
         addParOk(b_);
-        assertTrue(curRet(b_).getPairPar("pkg.Ex",false).getValue().getResultGet().getOthers().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getPairPar("pkg.Ex",ExcPointBlockKey.SAME_FAMILY).getValue().getResultGet().getOthers().elts().iterator().hasNext());
     }
     @Test
     public void bp134() {
@@ -2576,10 +2580,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
         openPoints(b_);
         addPar(b_);
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameParFormContent().getExact().setSelected(true);
+        selectParRadioTrue(b_);
         b_.getFramePoints().getFrameParFormContent().getGuiGetStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
         addParOk(b_);
-        assertTrue(curRet(b_).getPairPar("pkg.Ex",true).getValue().getResultGet().getOthers().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getPairPar("pkg.Ex",ExcPointBlockKey.SAME).getValue().getResultGet().getOthers().elts().iterator().hasNext());
     }
     @Test
     public void bp135() {
@@ -2593,11 +2597,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addPar(b_);
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameParFormContent().getExact().setSelected(true);
+        selectParRadioTrue(b_);
         addParOk(b_);
         addPar(b_);
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameParFormContent().getExact().setSelected(false);
+        selectParRadioFalse(b_);
         addParOk(b_);
         assertTrue(curRet(b_).getContext().parList().elts().iterator().hasNext());
     }
@@ -2613,11 +2617,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addPar(b_);
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex");
-        b_.getFramePoints().getFrameParFormContent().getExact().setSelected(true);
+        selectParRadioTrue(b_);
         addParOk(b_);
         addPar(b_);
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex2");
-        b_.getFramePoints().getFrameParFormContent().getExact().setSelected(true);
+        selectParRadioTrue(b_);
         addParOk(b_);
         assertTrue(curRet(b_).getContext().parList().elts().iterator().hasNext());
     }
@@ -2633,11 +2637,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addPar(b_);
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex<int>");
-        b_.getFramePoints().getFrameParFormContent().getExact().setSelected(true);
+        selectParRadioTrue(b_);
         addParOk(b_);
         addPar(b_);
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex<long>");
-        b_.getFramePoints().getFrameParFormContent().getExact().setSelected(true);
+        selectParRadioTrue(b_);
         addParOk(b_);
         assertTrue(curRet(b_).getContext().parList().elts().iterator().hasNext());
     }
@@ -3149,7 +3153,40 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(curRet(b_).getBreakPointsBlock().getInclude().elts().iterator().hasNext());
         assertFalse(curRet(b_).getBreakPointsBlock().getExclude().elts().iterator().hasNext());
     }
-
+    @Test
+    public void bp162() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int v;public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addExc(b_);
+        b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
+        selectExcRadioInehrit(b_);
+        addExcOk(b_);
+        assertTrue(curRet(b_).getContext().excList().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp163() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int v;public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addExc(b_);
+        b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
+        selectExcRadioInehrit(b_);
+        addExcOk(b_);
+        editExc(b_,0);
+        assertTrue(b_.getFramePoints().getFrameExcFormContent().getExactForm().getInherit().isSelected());
+        assertTrue(curRet(b_).getContext().excList().elts().iterator().hasNext());
+    }
     @Test
     public void syntheFilter1() {
         AbsDebuggerGui b_ = build();
@@ -4404,13 +4441,13 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
-        Struct str_ = TreeNodeRenderUtil.result(b_.getRenderList().get(0), b_.getRoot().getNode().simular(node_).info(), b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = resNode(node_, b_);
         assertEq("render",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4447,14 +4484,14 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        TreeNodeRenderUtil.result(b_.getRenderList().get(0), info_, b_.getCompoFactory(), b_.getThreadFactory());
+        res2(info_, b_);
         assertEq("src/file.txt:1,158:157\n" +
                 "pkg.Ex..Inner.$toString()\n",info_.logs().getText());
     }
@@ -4492,14 +4529,14 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = TreeNodeRenderUtil.result(b_.getRenderList().get(0), info_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = res2(info_, b_);
         assertNull(str_);
     }
     @Test
@@ -4536,14 +4573,14 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = TreeNodeRenderUtil.result(b_.getRenderList().get(0), info_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = res2(info_, b_);
         assertEq("standard",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4580,14 +4617,14 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = TreeNodeRenderUtil.result(b_.getRenderList().get(0), info_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = res2(info_, b_);
         assertEq("[int",((ArrayStruct)str_).getClassName());
         assertEq(1,((ArrayStruct)str_).getLength());
         assertEq(1, NumParsers.convertToNumber(((ArrayStruct)str_).get(0)).intStruct());
@@ -4627,7 +4664,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
@@ -4635,7 +4672,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         selectJoin(b_, trDetail_, node_);
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        Struct str_ = TreeNodeRenderUtil.result(b_.getRenderList().get(0), info_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = res2(info_, b_);
         b_.getCallButtonsRender().get(0).getActionListeners().get(0).action();
         assertEq("render",((StringStruct)str_).getInstance());
         info_.stopButton().getActionListeners().get(0).action();
@@ -4676,12 +4713,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        selectRenderTrue(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = res3(i_, b_);
         assertEq("render",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4720,12 +4757,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        selectRenderTrue(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = res3(i_, b_);
         assertEq("to_str",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4764,12 +4801,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = res3(i_, b_);
         assertEq("render",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4808,12 +4845,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = res3(i_, b_);
         assertEq("render",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4852,19 +4889,19 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner2");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = res3(i_, b_);
         assertEq("to_str",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4903,12 +4940,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        selectRenderTrue(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"+1/0");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
+        res3(i_, b_);
         assertEq(":1,11:10\n" +
                 "pkg.Ex..Inner..1()\n",i_.logs().getText());
     }
@@ -4948,20 +4985,567 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner2");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(false);
         addRendOk(b_);
-        Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = res3(i_, b_);
         assertEq("pkg.Ex..Inner",str_.getClassName(curRet(b_).getContext()));
+    }
+    @Test
+    public void i37() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"render\";}}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        addRendOk(b_);
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        Struct str_ = resNode(node_, b_);
+        assertEq("render",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i38() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"render\";}}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        addRendOk(b_);
+        Struct str_ = res3(i_, b_);
+        assertEq("render",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i39() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"render\";}}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(false);
+        addRendOk(b_);
+        Struct str_ = res3(i_, b_);
+        assertEq("pkg.Ex..Inner",str_.getClassName(curRet(b_).getContext()));
+    }
+    @Test
+    public void i40() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner{public String $toString(){return \"render\";}}public class Inner2{public String $toString(){return \"render\";}}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner2");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        addRendOk(b_);
+        Struct str_ = res3(i_, b_);
+        assertEq("pkg.Ex..Inner",str_.getClassName(curRet(b_).getContext()));
+    }
+    @Test
+    public void i41() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner:Int1:Int2{public String $toString(){return \"render\";}}}public interface pkg.Int1{}public interface pkg.Int2{}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Int1");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        addRendOk(b_);
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Int2");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        addRendOk(b_);
+        Struct str_ = res3(i_, b_);
+        assertEq("render",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i42() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner:Int1:Int2{public String $toString(){return \"render\";}}}public interface pkg.Int1{}public interface pkg.Int2{}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Int1");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render1\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getPref().setValue(0);
+        AbsPanel bs_ = b_.getFramePoints().getFrameRenderFormContent().getPrefs().getButtons();
+        AbsPlainButton last_ = (AbsPlainButton) bs_.getComponent(bs_.getComponentCount()-1);
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getAdd().getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneKey().value("pkg.Ex..Inner");
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneValue().value(1);
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getValidAddEdit().getActionListeners().get(0).action();
+        addRendOk(b_);
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Int2");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render2\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getPref().setValue(0);
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getAdd().getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneKey().value("pkg.Ex..Inner");
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneValue().value(2);
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getValidAddEdit().getActionListeners().get(0).action();
+        addRendOk(b_);
+        Struct str_ = res3(i_, b_);
+        assertEq("render1",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i43() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner:Int1:Int2{public String $toString(){return \"render\";}}}public interface pkg.Int1{}public interface pkg.Int2{}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Int1");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render1\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getPref().setValue(0);
+        AbsPanel bs_ = b_.getFramePoints().getFrameRenderFormContent().getPrefs().getButtons();
+        AbsPlainButton last_ = (AbsPlainButton) bs_.getComponent(bs_.getComponentCount()-1);
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getAdd().getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneKey().value("pkg.Ex..Inner");
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneValue().value(2);
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getValidAddEdit().getActionListeners().get(0).action();
+        addRendOk(b_);
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Int2");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render2\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getPref().setValue(0);
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getAdd().getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneKey().value("pkg.Ex..Inner");
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneValue().value(1);
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getValidAddEdit().getActionListeners().get(0).action();
+        addRendOk(b_);
+        Struct str_ = res3(i_, b_);
+        assertEq("render2",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i44() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner:Int1:Int2{public String $toString(){return \"render\";}}}public interface pkg.Int1{}public interface pkg.Int2{}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Int1");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getPref().setValue(0);
+        addRendOk(b_);
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Int2");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getPref().setValue(0);
+        addRendOk(b_);
+        Struct str_ = res3(i_, b_);
+        assertEq("render",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i45() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner:Int1:Int2{public String $toString(){return \"render\";}}}public interface pkg.Int1{}public interface pkg.Int2{}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Int1");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render1\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getPref().setValue(1);
+        AbsPanel bs_ = b_.getFramePoints().getFrameRenderFormContent().getPrefs().getButtons();
+        AbsPlainButton last_ = (AbsPlainButton) bs_.getComponent(bs_.getComponentCount()-1);
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getAdd().getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneKey().value("pkg.Ex");
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneValue().value(1);
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getValidAddEdit().getActionListeners().get(0).action();
+        addRendOk(b_);
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Int2");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render2\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getPref().setValue(0);
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getAdd().getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneKey().value("pkg.Ex..Inner");
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneValue().value(2);
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getValidAddEdit().getActionListeners().get(0).action();
+        addRendOk(b_);
+        Struct str_ = res3(i_, b_);
+        assertEq("render1",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i46() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(String[] v){var i=new Ex().new Inner();return 0;}public class Inner:Int1:Int2{public String $toString(){return \"render\";}}}public interface pkg.Int1{}public interface pkg.Int2{}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(92,92);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Int1");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render1\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getPref().setValue(0);
+        AbsPanel bs_ = b_.getFramePoints().getFrameRenderFormContent().getPrefs().getButtons();
+        AbsPlainButton last_ = (AbsPlainButton) bs_.getComponent(bs_.getComponentCount()-1);
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getAdd().getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneKey().value("pkg.Ex..Inner");
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneValue().value(2);
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getValidAddEdit().getActionListeners().get(0).action();
+        addRendOk(b_);
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Int2");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render2\"");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getPref().setValue(1);
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getAdd().getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneKey().value("pkg.Ex");
+        last_.getActionListeners().get(0).action();
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneValue().value(1);
+        b_.getFramePoints().getFrameRenderFormContent().getPrefs().getValidAddEdit().getActionListeners().get(0).action();
+        addRendOk(b_);
+        Struct str_ = res3(i_, b_);
+        assertEq("render2",((StringStruct)str_).getInstance());
     }
     @Test
     public void ir1() {
@@ -4975,7 +5559,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        selectRenderTrue(b_);
         addRendOk(b_);
         assertEq(1,b_.getRenderList().size());
     }
@@ -4991,7 +5575,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("ExInex");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        selectRenderTrue(b_);
         addRendOk(b_);
         assertEq(0,b_.getRenderList().size());
     }
@@ -5007,7 +5591,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        selectRenderTrue(b_);
         addRendOk(b_);
         editRend(b_, 0);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
@@ -5027,7 +5611,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        selectRenderTrue(b_);
         addRendOk(b_);
         editRend(b_, 0);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"");
@@ -5059,11 +5643,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(true);
+        selectRenderTrue(b_);
         addRendOk(b_);
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         addRendOk(b_);
         editRend(b_, 1);
         addRendRemove(b_);
@@ -5248,7 +5832,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"+(++v)");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
@@ -5295,12 +5879,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex..Inner");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("\"render\"+(++v)");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
-        Struct str_ = TreeNodeRenderUtil.result(RenderPointPair.stopExc(b_.getRenderList(),i_), i_, b_.getCompoFactory(), b_.getThreadFactory());
+        Struct str_ = res3(i_, b_);
         assertEq("render1",((StringStruct)str_).getInstance());
         i_.repr(((StringStruct)str_).getInstance());
         b_.getRefreshRender().getActionListeners().get(0).action();
@@ -5344,7 +5928,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         addRend(b_);
         b_.getFramePoints().getFrameRenderFormContent().getClName().setText("");
-        b_.getFramePoints().getFrameRenderFormContent().getExact().setSelected(false);
+        selectRenderFalse(b_);
         b_.getFramePoints().getFrameRenderFormContent().getRenderText().setText("");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExc().setSelected(false);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
@@ -6221,5 +6805,83 @@ public final class DbgActTest extends EquallableElAdvUtil {
         _tree.select(_node);
         _b.getCurrentThreadActions().join();
     }
+
+    private void selectArrRadioFalse(AbsDebuggerGui _b) {
+        checkSameFamily(_b.getFramePoints().getFrameArrFormContent().getExactForm());
+    }
+
+    private void selectExcRadioFalse(AbsDebuggerGui _b) {
+        checkSameFamily(_b.getFramePoints().getFrameExcFormContent().getExactForm());
+    }
+
+    private void selectParRadioFalse(AbsDebuggerGui _b) {
+        checkSameFamily(_b.getFramePoints().getFrameParFormContent().getExactForm());
+    }
+
+    private void selectRenderFalse(AbsDebuggerGui _b) {
+        checkSameFamily(_b.getFramePoints().getFrameRenderFormContent().getExactForm());
+    }
+
+    private void selectArrRadioTrue(AbsDebuggerGui _b) {
+        checkSame(_b.getFramePoints().getFrameArrFormContent().getExactForm());
+    }
+
+    private void selectExcRadioTrue(AbsDebuggerGui _b) {
+        checkSame(_b.getFramePoints().getFrameExcFormContent().getExactForm());
+    }
+
+    private void selectExcRadioInehrit(AbsDebuggerGui _b) {
+        checkInehrit(_b.getFramePoints().getFrameExcFormContent().getExactForm());
+    }
+    private void selectParRadioTrue(AbsDebuggerGui _b) {
+        checkSame(_b.getFramePoints().getFrameParFormContent().getExactForm());
+    }
+
+    private void selectRenderTrue(AbsDebuggerGui _b) {
+        checkSame(_b.getFramePoints().getFrameRenderFormContent().getExactForm());
+    }
+
+    private void checkSame(ExactMatchingTypeForm _form) {
+        checkSame(_form.getSame(), _form.getSameFamily(), _form.getInherit());
+    }
+
+    private void checkInehrit(ExactMatchingTypeForm _form) {
+        _form.getSame().setSelected(false);
+        _form.getSameFamily().setSelected(false);
+        _form.getInherit().setSelected(true);
+    }
+    private void checkSame(AbsRadioButton _same, AbsRadioButton _sameFamily, AbsRadioButton _inherit) {
+        _same.setSelected(true);
+        _sameFamily.setSelected(false);
+        _inherit.setSelected(false);
+    }
+
+    private void checkSameFamily(ExactMatchingTypeForm _form) {
+        checkSameFamily(_form.getSame(), _form.getSameFamily(), _form.getInherit());
+    }
+
+    private void checkSameFamily(AbsRadioButton _same, AbsRadioButton _sameFamily, AbsRadioButton _inherit) {
+        _same.setSelected(false);
+        _sameFamily.setSelected(true);
+        _inherit.setSelected(false);
+    }
+
+    private Struct resNode(AbstractMutableTreeNodeCore<String> _node, AbsDebuggerGui _b) {
+        return res2(_b.getRoot().getNode().simular(_node).info(), _b);
+    }
+
+    private Struct res2(DbgAbsNodeStruct _info, AbsDebuggerGui _b) {
+        ContextEl ctx_ = _info.getResult();
+        Struct str_ = _info.getNode().info().value();
+        String clName_ = str_.getClassName(ctx_);
+        CoreCheckedExecOperationNodeInfos core_ = new CoreCheckedExecOperationNodeInfos(ExecFormattedRootBlock.build(clName_, ctx_.getClasses()), str_);
+        RenderPointInfosPreference r_ = new RenderPointInfosPreference(_b.getRenderList().get(0),core_,"",-1,core_.getDeclaring());
+        return TreeNodeRenderUtil.result(r_, _info, _b.getCompoFactory(), _b.getThreadFactory());
+    }
+
+    private Struct res3(DbgAbsNodeStruct _i, AbsDebuggerGui _b) {
+        return TreeNodeRenderUtil.result(RenderPointPair.stopExc(_b.getRenderList(), _i), _i, _b.getCompoFactory(), _b.getThreadFactory());
+    }
+
 
 }

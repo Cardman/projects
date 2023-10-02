@@ -94,14 +94,14 @@ public final class ResultExpressionOperationNode {
         }
     }
 
-    public static AnalyzedPageEl prepareExc(String _id, boolean _exact, AnalyzedPageEl _original) {
+    public static AnalyzedPageEl prepareExc(String _id, int _exact, AnalyzedPageEl _original) {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);
         a_.setCurrentPkg(a_.getDefaultPkg());
         RootBlock r_ = _original.getAnaClassBody(StringExpUtil.getIdFromAllTypes(_id));
         if (r_ != null) {
             field(a_,r_,false);
-            if (_exact) {
+            if (_exact == ExcPointBlockKey.SAME) {
                 a_.setOriginalGlobalType(new AnaFormattedRootBlock(r_,_id));
             }
         } else {
@@ -112,13 +112,13 @@ public final class ResultExpressionOperationNode {
         return a_;
     }
 
-    public static AnalyzedPageEl preparePar(String _id, boolean _exact, RootBlock _rootBlock, AnalyzedPageEl _original) {
+    public static AnalyzedPageEl preparePar(String _id, int _exact, RootBlock _rootBlock, AnalyzedPageEl _original) {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);
         a_.setCurrentPkg(a_.getDefaultPkg());
         if (_rootBlock != null) {
             field(a_,_rootBlock,false);
-            if (_exact) {
+            if (_exact == ExcPointBlockKey.SAME) {
                 a_.setOriginalGlobalType(new AnaFormattedRootBlock(_rootBlock,_id));
             }
         } else {

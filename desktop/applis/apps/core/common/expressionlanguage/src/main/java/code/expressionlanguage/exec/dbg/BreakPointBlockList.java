@@ -53,27 +53,74 @@ public final class BreakPointBlockList {
         include = _i.newExecFileBlockTraceIndexCollection();
     }
 
-    public static int pref(AbsCollection<MethodPointBlockPair> _p, boolean _exit) {
-        Ints values_ = new Ints();
-        for (MethodPointBlockPair m: _p.elts()) {
-            values_.add(m.getValue().result(_exit).getPref().get());
-        }
-        return pref(values_);
+    public static int pref(AbsCollection<MethodPointBlockPair> _p, int _exit) {
+        return prefIn(prefsMeths(_p, _exit));
     }
 
-    public static int pref(AbsCollection<MethodPointBlockPair> _p, boolean _exit, String _cl) {
+    public static int prefIn(CustList<BreakPointCondition> _ls) {
+        return pref(retrieve(_ls));
+    }
+
+    private static Ints retrieve(CustList<BreakPointCondition> _ls) {
         Ints values_ = new Ints();
+        for (BreakPointCondition m: _ls) {
+            values_.add(m.getPref().get());
+        }
+        return values_;
+    }
+
+    public static int pref(AbsCollection<MethodPointBlockPair> _p, int _exit, String _cl) {
+        return prefBpc(prefsMeths(_p, _exit),_cl);
+    }
+
+    public static CustList<BreakPointCondition> prefsArr(AbsCollection<ArrPointBlockPair> _p, int _exit) {
+        CustList<BreakPointCondition> values_ = new CustList<BreakPointCondition>();
+        for (ArrPointBlockPair m: _p.elts()) {
+            values_.add(m.getValue().resultBpc(_exit));
+        }
+        return values_;
+    }
+
+    public static CustList<BreakPointCondition> prefsExc(AbsCollection<ExcPointBlockPair> _p, int _exit) {
+        CustList<BreakPointCondition> values_ = new CustList<BreakPointCondition>();
+        for (ExcPointBlockPair m: _p.elts()) {
+            values_.add(m.getValue().resultBpc(_exit));
+        }
+        return values_;
+    }
+
+    public static CustList<BreakPointCondition> prefsPar(AbsCollection<ParPointBlockPair> _p) {
+        CustList<BreakPointCondition> values_ = new CustList<BreakPointCondition>();
+        for (ParPointBlockPair m: _p.elts()) {
+            values_.add(m.getValue().getResultGet());
+        }
+        return values_;
+    }
+    public static CustList<BreakPointCondition> prefsMeths(AbsCollection<MethodPointBlockPair> _p, int _exit) {
+        CustList<BreakPointCondition> values_ = new CustList<BreakPointCondition>();
         for (MethodPointBlockPair m: _p.elts()) {
-            for (EntryCust<String,Integer> e: m.getValue().result(_exit).getPrefs().elts()) {
-                if (StringUtil.quickEq(e.getKey(),_cl)) {
-                    values_.add(e.getValue());
-                }
+            values_.add(m.getValue().result(_exit));
+        }
+        return values_;
+    }
+
+    public static int prefBpc(CustList<BreakPointCondition> _p, String _cl) {
+        Ints values_ = new Ints();
+        for (BreakPointCondition m: _p) {
+            for (EntryCust<String,Integer> e: m.getPrefs().elts()) {
+                filter(_cl, values_, e);
             }
         }
         return pref(values_);
     }
 
-    private static int pref(Ints _values) {
+    public static void filter(String _cl, Ints _values, EntryCust<String, Integer> _e) {
+        if (StringUtil.quickEq(_e.getKey(), _cl)) {
+            _values.add(_e.getValue());
+        }
+    }
+
+    public static int pref(Ints _values) {
         _values.sort();
         int s_ = _values.size();
         if (s_ > 0 && _values.get(0) > 0) {
@@ -247,45 +294,45 @@ public final class BreakPointBlockList {
         }
     }
 
-    public ArrPointBlockPair buildArr(boolean _exact, String _clName) {
-        if (_exact) {
-            return new ArrPointBlockPair(true, _clName, interceptor, true);
+    public ArrPointBlockPair buildArr(int _exact, String _clName) {
+        if (_exact == ExcPointBlockKey.SAME) {
+            return new ArrPointBlockPair(_exact, _clName, interceptor, true);
         }
-        return new ArrPointBlockPair(false, StringExpUtil.getIdFromAllTypes(_clName), interceptor, true);
+        return new ArrPointBlockPair(_exact, StringExpUtil.getIdFromAllTypes(_clName), interceptor, true);
     }
 
     public ArrPointBlockPair notNullExp(ArrPointBlockPair _b) {
         if (_b == null) {
-            return new ArrPointBlockPair(false,"",interceptor,false);
+            return new ArrPointBlockPair(-1,"",interceptor,false);
         }
         return _b;
     }
 
-    public ExcPointBlockPair build(boolean _exact, String _clName) {
-        if (_exact) {
-            return new ExcPointBlockPair(true, _clName, interceptor, true);
+    public ExcPointBlockPair build(int _exact, String _clName) {
+        if (_exact == ExcPointBlockKey.SAME) {
+            return new ExcPointBlockPair(_exact, _clName, interceptor, true);
         }
-        return new ExcPointBlockPair(false, StringExpUtil.getIdFromAllTypes(_clName), interceptor, true);
+        return new ExcPointBlockPair(_exact, StringExpUtil.getIdFromAllTypes(_clName), interceptor, true);
     }
 
     public ExcPointBlockPair notNullExp(ExcPointBlockPair _b) {
         if (_b == null) {
-            return new ExcPointBlockPair(false,"",interceptor,false);
+            return new ExcPointBlockPair(-1,"",interceptor,false);
         }
         return _b;
     }
 
 
-    public ParPointBlockPair buildPar(boolean _exact, String _clName, RootBlock _de) {
-        if (_exact) {
-            return new ParPointBlockPair(true, _clName, interceptor, true,_de);
+    public ParPointBlockPair buildPar(int _exact, String _clName, RootBlock _de) {
+        if (_exact == ExcPointBlockKey.SAME) {
+            return new ParPointBlockPair(_exact, _clName, interceptor, true,_de);
         }
-        return new ParPointBlockPair(false, StringExpUtil.getIdFromAllTypes(_clName), interceptor, true,_de);
+        return new ParPointBlockPair(_exact, StringExpUtil.getIdFromAllTypes(_clName), interceptor, true,_de);
     }
 
     public ParPointBlockPair notNullExp(ParPointBlockPair _b) {
         if (_b == null) {
-            return new ParPointBlockPair(false,"",interceptor,false, null);
+            return new ParPointBlockPair(-1,"",interceptor,false, null);
         }
         return _b;
     }

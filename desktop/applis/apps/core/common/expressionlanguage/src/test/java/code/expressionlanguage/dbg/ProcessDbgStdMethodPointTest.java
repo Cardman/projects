@@ -1129,8 +1129,8 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         assertFalse(new StdMethodKeyString().keyString(wp_).isEmpty());
     }
     private void div(ResultContext _cont) {
-        _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true);
-        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
+        _cont.toggleExcPoint(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cont.getPairExc(_cont.getContext().getStandards().getCoreNames().getAliasDivisionZero(), ExcPointBlockKey.SAME).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(true);

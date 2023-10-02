@@ -23,7 +23,7 @@ public final class OkExcFormEvent implements AbsActionListener {
     public void action() {
         ExcPointBlockPair exc_ = frameExcFormContent.getSelectedExc();
         if (exc_ == null) {
-            ExcPointBlockPair added_ = currentResult.getContext().build(frameExcFormContent.getExact().isSelected(), frameExcFormContent.getClName().getText());
+            ExcPointBlockPair added_ = currentResult.getContext().build(frameExcFormContent.getExactForm().code(), frameExcFormContent.getClName().getText());
             if (added_ == null) {
                 return;
             }

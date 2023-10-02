@@ -248,21 +248,21 @@ public final class ResultContext {
     public void toggleEnabled(ExecFileBlock _file, int _nf, int _offset, boolean _enType) {
         getContext().toggleEnabled(_file, _nf, _offset, _enType);
     }
-    public void toggleArrPoint(String _clName, boolean _exact) {
+    public void toggleArrPoint(String _clName, int _exact) {
         getContext().toggleArrPoint(_clName, _exact);
     }
 
-    public void toggleArrPointEnabled(String _clName, boolean _exact) {
+    public void toggleArrPointEnabled(String _clName, int _exact) {
         getContext().toggleArrPointEnabled(_clName, _exact);
     }
-    public void toggleExcPoint(String _clName, boolean _exact) {
+    public void toggleExcPoint(String _clName, int _exact) {
         getContext().toggleExcPoint(_clName, _exact);
     }
 
-    public void toggleExcPointEnabled(String _clName, boolean _exact) {
+    public void toggleExcPointEnabled(String _clName, int _exact) {
         getContext().toggleExcPointEnabled(_clName, _exact);
     }
-    public void toggleParPoint(String _clName, boolean _exact) {
+    public void toggleParPoint(String _clName, int _exact) {
         ParPointBlockPair p_ = tryBuild(_clName, _exact);
         if (p_ == null) {
             return;
@@ -270,14 +270,14 @@ public final class ResultContext {
         getContext().togglePar(p_);
     }
 
-    public void toggleParPointEnabled(String _clName, boolean _exact) {
+    public void toggleParPointEnabled(String _clName, int _exact) {
         ParPointBlockPair p_ = tryBuild(_clName, _exact);
         if (p_ == null) {
             return;
         }
         getContext().toggleEnabledPar(p_);
     }
-    public ParPointBlockPair tryBuild(String _clName, boolean _exact) {
+    public ParPointBlockPair tryBuild(String _clName, int _exact) {
         String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, getContext());
         RootBlock r_ = getPageEl().getAnaClassBody(StringExpUtil.getIdFromAllTypes(solved_));
         if (koPar(r_, _clName)) {
@@ -345,22 +345,22 @@ public final class ResultContext {
     public MethodPointBlockPair getPair(String _id) {
         return getContext().getPair(_id);
     }
-    public boolean isArr(String _field, boolean _exact) {
+    public boolean isArr(String _field, int _exact) {
         return getContext().isArr(_field, _exact);
     }
-    public ArrPointBlockPair getPairArr(String _field, boolean _exact) {
+    public ArrPointBlockPair getPairArr(String _field, int _exact) {
         return getContext().getPairArr(_field, _exact);
     }
-    public boolean isExc(String _field, boolean _exact) {
+    public boolean isExc(String _field, int _exact) {
         return getContext().isExc(_field, _exact);
     }
-    public ExcPointBlockPair getPairExc(String _field, boolean _exact) {
+    public ExcPointBlockPair getPairExc(String _field, int _exact) {
         return getContext().getPairExc(_field, _exact);
     }
-    public boolean isPar(String _field, boolean _exact) {
+    public boolean isPar(String _field, int _exact) {
         return getContext().isPar(_field, _exact);
     }
-    public ParPointBlockPair getPairPar(String _field, boolean _exact) {
+    public ParPointBlockPair getPairPar(String _field, int _exact) {
         return getContext().getPairPar(_field, _exact);
     }
     public void breakPointEnabled(String _file, int _offset, boolean _newValue) {

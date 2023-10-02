@@ -36,5 +36,10 @@ public final class ParPoint {
         return resultGet;
     }
 
-
+    public BreakPointCondition result() {
+        if (!isEnabled()) {
+            return null;
+        }
+        return getResultGet().stopBpc(isGet());
+    }
 }

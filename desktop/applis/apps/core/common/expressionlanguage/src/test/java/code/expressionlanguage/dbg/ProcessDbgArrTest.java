@@ -1623,6 +1623,58 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertEq(98, stack_.getCall(0).getTraceIndex());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
+    @Test
+    public void test104() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){return new Ex[0].length;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInherit(cont_);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(65, nowTrace(stack_));
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test105() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){return new Ex2[0].length;}}public class pkg.Ex2{}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInherit(cont_);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+    @Test
+    public void test106() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){return new Ex[0].length;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInheritCondition(cont_,"this.length==1");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+    @Test
+    public void test107() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){return new Ex[0].length;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInheritCondition(cont_,"this.length==0");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(65, nowTrace(stack_));
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
     private void writeCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         write(_cont, _cf);
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
@@ -1759,7 +1811,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     //
     private void stdThrownCondition(ResultContext _cont, String _condition) {
         std(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultLength().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultLength().getResultStr());
@@ -1769,7 +1821,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
     private void stdThrownConditionClone(ResultContext _cont, String _condition) {
         stdClone(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultClone().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultClone().getResultStr());
@@ -1779,7 +1831,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
     private void stdGetThrownCondition(ResultContext _cont, String _condition) {
         stdGet(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultIntGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultIntGet().getResultStr());
@@ -1790,7 +1842,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
 
     private void stdGetArrArrIntsThrownCondition(ResultContext _cont, String _condition) {
         stdGetArrArrInt(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[[int", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("[[int", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultIntGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultIntGet().getResultStr());
@@ -1801,7 +1853,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
 
     private void stdSetArrArrIntsThrownCondition(ResultContext _cont, String _condition) {
         stdSetArrArrInt(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[[int", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("[[int", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultIntGetSet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultIntGetSet().getResultStr());
@@ -1811,7 +1863,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
     private void stdSetThrownCondition(ResultContext _cont, String _condition) {
         stdSet(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultIntSet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultIntSet().getResultStr());
@@ -1821,7 +1873,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
     private void conditionUnkThrown(ResultContext _cont) {
         unkThrown(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultLength().analyze(p_,"0==0","", "", _cont,new DefContextGenerator());
         assertEq("0==0",wp_.getResultLength().getResultStr());
@@ -1833,7 +1885,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
 
     private void stdParamConditionThrown(ResultContext _cont, String _condition) {
         stdParam(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex<int>", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex<int>", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultLength().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultLength().getResultStr());
@@ -1844,7 +1896,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
 
     private void stdIncThrownCondition(ResultContext _cont, String _condition) {
         stdInc(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", false);
+        ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", ExcPointBlockKey.SAME_FAMILY);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultLength().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultLength().getResultStr());
@@ -1855,7 +1907,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
 
     private void stdCompoundGetThrownCondition(ResultContext _cont, String _condition) {
         stdGetInts(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[int", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultIntCompoundGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultIntCompoundGet().getResultStr());
@@ -1865,7 +1917,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
     private void stdCompoundSetThrownCondition(ResultContext _cont, String _condition) {
         stdSetInts(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[int", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultIntCompoundSet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultIntCompoundSet().getResultStr());
@@ -1876,7 +1928,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
 
     private void stdCompoundSetErrThrownCondition(ResultContext _cont, String _condition) {
         stdSetErrInts(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[int", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultIntCompoundSetErr().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultIntCompoundSetErr().getResultStr());
@@ -1887,7 +1939,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
 
     private void stdRangeGetThrownCondition(ResultContext _cont, String _condition) {
         stdRangeGetInts(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[int", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultRangeGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultRangeGet().getResultStr());
@@ -1898,7 +1950,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
 
     private void stdInitArraysThrownCondition(ResultContext _cont, String _condition) {
         stdInits(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[[int", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("[[int", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultInitArray().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultInitArray().getResultStr());
@@ -1908,7 +1960,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
     private void stdRangeSetThrownCondition(ResultContext _cont, String _condition) {
         stdRangeSetInts(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[int", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultRangeSet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultRangeSet().getResultStr());
@@ -1919,7 +1971,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
 
     private void stdRangeCompoundGetThrownCondition(ResultContext _cont, String _condition) {
         stdRangeCompoundGetInts(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[int", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultRangeCompoundGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultRangeCompoundGet().getResultStr());
@@ -1929,7 +1981,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
     private void stdRangeCompoundSetThrownCondition(ResultContext _cont, String _condition) {
         stdRangeCompoundSetInts(_cont);
-        ArrPointBlockPair p_ = _cont.getPairArr("[int", true);
+        ArrPointBlockPair p_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME);
         ArrPoint wp_ = p_.getValue();
         wp_.getResultRangeCompoundSet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultRangeCompoundSet().getResultStr());
@@ -1938,8 +1990,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
 //        wp_.getResultThrown().result(res_, _condition);
     }
     private void unkThrown(ResultContext _cont) {
-        _cont.toggleArrPoint("",true);
-        ArrPoint val_ = _cont.getPairArr("", true).getValue();
+        _cont.toggleArrPoint("", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(true);
         val_.setIntGet(false);
@@ -1953,8 +2005,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         val_.setRangeCompoundSet(false);
     }
     private void std(ResultContext _cont) {
-        _cont.toggleArrPoint("[pkg.Ex",true);
-        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", true).getValue();
+        _cont.toggleArrPoint("[pkg.Ex", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(true);
         val_.setIntGet(false);
@@ -1969,8 +2021,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void stdNotLen(ResultContext _cont) {
-        _cont.toggleArrPoint("[pkg.Ex",true);
-        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", true).getValue();
+        _cont.toggleArrPoint("[pkg.Ex", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(false);
         val_.setIntGet(false);
@@ -1984,8 +2036,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         val_.setRangeCompoundSet(false);
     }
     private void ints(ResultContext _cont) {
-        _cont.toggleArrPoint("[int",true);
-        ArrPoint val_ = _cont.getPairArr("[int", true).getValue();
+        _cont.toggleArrPoint("[int", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(true);
         val_.setIntGet(false);
@@ -2000,8 +2052,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void intsNotEx(ResultContext _cont) {
-        _cont.toggleArrPoint("[int",false);
-        ArrPoint val_ = _cont.getPairArr("[int", false).getValue();
+        _cont.toggleArrPoint("[int", ExcPointBlockKey.SAME_FAMILY);
+        ArrPoint val_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME_FAMILY).getValue();
         disable(val_);
         val_.setLength(true);
         val_.setIntGet(false);
@@ -2015,8 +2067,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         val_.setRangeCompoundSet(false);
     }
     private void stdParam(ResultContext _cont) {
-        _cont.toggleArrPoint("[pkg.Ex<int>",true);
-        ArrPoint val_ = _cont.getPairArr("[pkg.Ex<int>", true).getValue();
+        _cont.toggleArrPoint("[pkg.Ex<int>", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[pkg.Ex<int>", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(true);
         val_.setIntGet(false);
@@ -2030,8 +2082,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         val_.setRangeCompoundSet(false);
     }
     private void stdInc(ResultContext _cont) {
-        _cont.toggleArrPoint("[pkg.Ex<?>",false);
-        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", false).getValue();
+        _cont.toggleArrPoint("[pkg.Ex<?>", ExcPointBlockKey.SAME_FAMILY);
+        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", ExcPointBlockKey.SAME_FAMILY).getValue();
         disable(val_);
         val_.setLength(true);
         val_.setIntGet(false);
@@ -2046,8 +2098,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void allArr(ResultContext _cont) {
-        _cont.toggleArrPoint("",false);
-        ArrPoint val_ = _cont.getPairArr("", false).getValue();
+        _cont.toggleArrPoint("", ExcPointBlockKey.SAME_FAMILY);
+        ArrPoint val_ = _cont.getPairArr("", ExcPointBlockKey.SAME_FAMILY).getValue();
         disable(val_);
         val_.setLength(true);
         val_.setIntGet(false);
@@ -2062,8 +2114,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void stdGet(ResultContext _cont) {
-        _cont.toggleArrPoint("[pkg.Ex",true);
-        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", true).getValue();
+        _cont.toggleArrPoint("[pkg.Ex", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(false);
         val_.setIntGet(true);
@@ -2078,8 +2130,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void stdSet(ResultContext _cont) {
-        _cont.toggleArrPoint("[pkg.Ex",true);
-        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", true).getValue();
+        _cont.toggleArrPoint("[pkg.Ex", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(false);
         val_.setIntGet(false);
@@ -2094,8 +2146,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void stdGetInts(ResultContext _cont) {
-        _cont.toggleArrPoint("[int",true);
-        ArrPoint val_ = _cont.getPairArr("[int", true).getValue();
+        _cont.toggleArrPoint("[int", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(false);
         val_.setIntGet(false);
@@ -2110,8 +2162,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void stdSetInts(ResultContext _cont) {
-        _cont.toggleArrPoint("[int",true);
-        ArrPoint val_ = _cont.getPairArr("[int", true).getValue();
+        _cont.toggleArrPoint("[int", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(false);
         val_.setIntGet(false);
@@ -2126,8 +2178,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void stdSetErrInts(ResultContext _cont) {
-        _cont.toggleArrPoint("[int",true);
-        ArrPoint val_ = _cont.getPairArr("[int", true).getValue();
+        _cont.toggleArrPoint("[int", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(false);
         val_.setIntGet(false);
@@ -2142,8 +2194,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void stdRangeGetInts(ResultContext _cont) {
-        _cont.toggleArrPoint("[int",true);
-        ArrPoint val_ = _cont.getPairArr("[int", true).getValue();
+        _cont.toggleArrPoint("[int", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(false);
         val_.setIntGet(false);
@@ -2158,8 +2210,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void stdRangeSetInts(ResultContext _cont) {
-        _cont.toggleArrPoint("[int",true);
-        ArrPoint val_ = _cont.getPairArr("[int", true).getValue();
+        _cont.toggleArrPoint("[int", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(false);
         val_.setIntGet(false);
@@ -2174,8 +2226,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void stdRangeCompoundGetInts(ResultContext _cont) {
-        _cont.toggleArrPoint("[int",true);
-        ArrPoint val_ = _cont.getPairArr("[int", true).getValue();
+        _cont.toggleArrPoint("[int", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(false);
         val_.setIntGet(false);
@@ -2190,8 +2242,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void stdRangeCompoundSetInts(ResultContext _cont) {
-        _cont.toggleArrPoint("[int",true);
-        ArrPoint val_ = _cont.getPairArr("[int", true).getValue();
+        _cont.toggleArrPoint("[int", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(false);
         val_.setIntGet(false);
@@ -2206,8 +2258,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void stdGetArrArrInt(ResultContext _cont) {
-        _cont.toggleArrPoint("[[int",true);
-        ArrPoint val_ = _cont.getPairArr("[[int", true).getValue();
+        _cont.toggleArrPoint("[[int", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[[int", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(false);
         val_.setIntGet(true);
@@ -2223,8 +2275,8 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void stdSetArrArrInt(ResultContext _cont) {
-        _cont.toggleArrPoint("[[int",true);
-        ArrPoint val_ = _cont.getPairArr("[[int", true).getValue();
+        _cont.toggleArrPoint("[[int", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[[int", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setIntGetSet(true);
         val_.setInitArray(true);
@@ -2232,52 +2284,52 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void stdInits(ResultContext _cont) {
-        _cont.toggleArrPoint("[[int",true);
-        ArrPoint val_ = _cont.getPairArr("[[int", true).getValue();
+        _cont.toggleArrPoint("[[int", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[[int", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setInitArray(true);
     }
     private void unkThrownClone(ResultContext _cont) {
-        _cont.toggleArrPoint("",true);
-        ArrPoint val_ = _cont.getPairArr("", true).getValue();
+        _cont.toggleArrPoint("", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setClone(true);
     }
     private void stdClone(ResultContext _cont) {
-        _cont.toggleArrPoint("[pkg.Ex",true);
-        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", true).getValue();
+        _cont.toggleArrPoint("[pkg.Ex", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setClone(true);
     }
     private void intsClone(ResultContext _cont) {
-        _cont.toggleArrPoint("[int",true);
-        ArrPoint val_ = _cont.getPairArr("[int", true).getValue();
+        _cont.toggleArrPoint("[int", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setClone(true);
     }
 
     private void intsNotExClone(ResultContext _cont) {
-        _cont.toggleArrPoint("[int",false);
-        ArrPoint val_ = _cont.getPairArr("[int", false).getValue();
+        _cont.toggleArrPoint("[int", ExcPointBlockKey.SAME_FAMILY);
+        ArrPoint val_ = _cont.getPairArr("[int", ExcPointBlockKey.SAME_FAMILY).getValue();
         disable(val_);
         val_.setClone(true);
     }
     private void stdParamClone(ResultContext _cont) {
-        _cont.toggleArrPoint("[pkg.Ex<int>",true);
-        ArrPoint val_ = _cont.getPairArr("[pkg.Ex<int>", true).getValue();
+        _cont.toggleArrPoint("[pkg.Ex<int>", ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[pkg.Ex<int>", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setClone(true);
     }
     private void stdIncClone(ResultContext _cont) {
-        _cont.toggleArrPoint("[pkg.Ex<?>",false);
-        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", false).getValue();
+        _cont.toggleArrPoint("[pkg.Ex<?>", ExcPointBlockKey.SAME_FAMILY);
+        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", ExcPointBlockKey.SAME_FAMILY).getValue();
         disable(val_);
         val_.setClone(true);
     }
 
     private void allArrClone(ResultContext _cont) {
-        _cont.toggleArrPoint("",false);
-        ArrPoint val_ = _cont.getPairArr("", false).getValue();
+        _cont.toggleArrPoint("", ExcPointBlockKey.SAME_FAMILY);
+        ArrPoint val_ = _cont.getPairArr("", ExcPointBlockKey.SAME_FAMILY).getValue();
         disable(val_);
         val_.setClone(true);
     }
@@ -2330,5 +2382,18 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
         _cont.getPair(id_).getValue().setEntry(true);
         _cont.getPair(id_).getValue().setExit(true);
+    }
+    private void stdInheritCondition(ResultContext _cont, String _condition) {
+        stdInherit(_cont);
+        ArrPointBlockPair p_ = _cont.getPairArr("[pkg.Ex", ExcPointBlockKey.INHERIT);
+        ArrPoint wp_ = p_.getValue();
+        wp_.getResultLength().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
+        assertEq(_condition,wp_.getResultLength().getResultStr());
+    }
+    private void stdInherit(ResultContext _cont) {
+        _cont.toggleArrPoint("[pkg.Ex", ExcPointBlockKey.INHERIT);
+        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", ExcPointBlockKey.INHERIT).getValue();
+        disable(val_);
+        val_.setLength(true);
     }
 }

@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.dbg.StrResultContextLambda;
 import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.DisplayableStruct;
@@ -42,7 +41,7 @@ public final class TreeNodeRenderUtil {
     private TreeNodeRenderUtil() {
     }
 
-    static void renderNode(RenderPointPair _renderPointPairs, AbsTreeGui _tree, AbstractMutableTreeNodeCore<String> _tr, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+    static void renderNode(RenderPointInfosPreference _renderPointPairs, AbsTreeGui _tree, AbstractMutableTreeNodeCore<String> _tr, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         String res_ = resultWrap(_renderPointPairs,_node, _compo, _th);
         if (_node.value() == null) {
             return;
@@ -51,7 +50,7 @@ public final class TreeNodeRenderUtil {
         _compo.invokeNow(new FinalRenderingTask(_tree,_tr,render_));
     }
 
-    static String resultWrap(RenderPointPair _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+    static String resultWrap(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         Struct res_ = result(_renderPointPairs, _node, _compo, _th);
         _node.feedChildren(_compo);
         if (res_ == null) {
@@ -61,21 +60,21 @@ public final class TreeNodeRenderUtil {
         _node.repr(v_);
         return wrapValue(v_);
     }
-    static Struct result(RenderPointPair _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+    static Struct result(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         if (_renderPointPairs == null) {
             return _node.value();
         }
         ResultContextLambda rLda_ = checkExc(_renderPointPairs);
-        return result(rLda_, _node, _compo, _th);
+        return result(_renderPointPairs,rLda_, _node, _compo, _th);
     }
 
-    private static Struct result(ResultContextLambda _rLda, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+    private static Struct result(RenderPointInfosPreference _rp,ResultContextLambda _rLda, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         ContextEl ctx_ = local(_node.getResult(), _th);
         AdvLogDbg logger_ = logger(_node, _compo, ctx_);
         StackCall st_ = StackCall.newInstance(new DefStackStopper(logger_), InitPhase.NOTHING, ctx_, ctx_.getExecutionInfos().getSeed());
         Struct str_ = _node.value();
         if (_rLda != null) {
-            StackCallReturnValue result_ = _rLda.eval(new CheckedMethodInfos(new CoreCheckedExecOperationNodeInfos(ExecFormattedRootBlock.build(str_.getClassName(ctx_), ctx_.getClasses()), str_)), null);
+            StackCallReturnValue result_ = _rLda.eval(_rp.build(), null);
             CallingState stateAfter_ = result_.getStack().getCallingState();
             if (stateAfter_ != null) {
                 for (String l: ResultContextLambda.traceView(result_.getStack(),ctx_)) {
@@ -103,8 +102,8 @@ public final class TreeNodeRenderUtil {
         return res_;
     }
 
-    private static ResultContextLambda checkExc(RenderPointPair _bp) {
-        StrResultContextLambda bpc_ = stopExcValue(_bp);
+    private static ResultContextLambda checkExc(RenderPointInfosPreference _bp) {
+        StrResultContextLambda bpc_ = stopExcValue(_bp.getBreakPointCondition());
         return stopCurrent(bpc_);
     }
 

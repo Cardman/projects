@@ -72,4 +72,30 @@ public final class ExcPoint {
         return resultPropagated;
     }
 
+    public BreakPointCondition result(int _m) {
+        if (!isEnabled()) {
+            return null;
+        }
+        return resultBpc(_m).stopBpc(resultEn(_m));
+    }
+
+    public BreakPointCondition resultBpc(int _m) {
+        if (_m == BPC_THROWN) {
+            return getResultThrown();
+        }
+        if (_m == BPC_CAUGHT) {
+            return getResultCaught();
+        }
+        return getResultPropagated();
+    }
+
+    public boolean resultEn(int _m) {
+        if (_m == BPC_THROWN) {
+            return isThrown();
+        }
+        if (_m == BPC_CAUGHT) {
+            return isCaught();
+        }
+        return isPropagated();
+    }
 }

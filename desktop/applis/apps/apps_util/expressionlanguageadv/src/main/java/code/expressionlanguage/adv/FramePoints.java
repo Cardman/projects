@@ -42,7 +42,7 @@ public final class FramePoints {
         frameArrFormContent = new FrameArrFormContent(_list);
         frameParFormContent = new FrameParFormContent(_list);
         frameOperNatFormContent = new FrameOperNatFormContent(_list);
-        frameRenderFormContent = new FrameRenderFormContent();
+        frameRenderFormContent = new FrameRenderFormContent(_list);
         stackConstraintsForm = new StackConstraintsForm();
     }
     public void guiBuild(AbsDebuggerGui _d) {
@@ -104,8 +104,8 @@ public final class FramePoints {
         caller = _d.getCaller();
         refreshRender(_d.getRenderList());
         GuiBaseUtil.removeActionListeners(create);
-        create.addActionListener(new TreeRenderPointBlockPairAddEvent(this));
-        listenerSelect();
+        create.addActionListener(new TreeRenderPointBlockPairAddEvent(_d.getRenderList(),_res,this));
+        listenerSelect(_d.getRenderList(), _res);
         framePointsTree.init(this,_res);
         frameStdFormContent.tree(_d,this, _res);
         commonFrame.setVisible(true);
@@ -126,9 +126,9 @@ public final class FramePoints {
         tree.reload(root_);
     }
 
-    public void listenerSelect() {
+    public void listenerSelect(CustList<RenderPointPair> _bpc,ResultContext _res) {
         GuiBaseUtil.removeTreeSelectionListeners(tree);
-        tree.addTreeSelectionListener(new TreeRenderPointBlockPairEvent(this));
+        tree.addTreeSelectionListener(new TreeRenderPointBlockPairEvent(_bpc,this, _res));
     }
     public void refreshBp(ResultContext _res) {
         framePointsTree.refreshBp(_res);
@@ -167,8 +167,8 @@ public final class FramePoints {
         return framePointsTree;
     }
 
-    public void guiContentBuild(RenderPointPair _exc) {
-        frameRenderFormContent.initForm(_exc);
+    public void guiContentBuild(CustList<RenderPointPair> _bpc,RenderPointPair _exc, ResultContext _r) {
+        frameRenderFormContent.initForm(_bpc,_exc,commonFrame,_r);
         view.setViewportView(frameRenderFormContent.getContentPane());
         view.recalculateViewport();
     }

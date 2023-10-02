@@ -651,8 +651,8 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
     }
 
     private void std(ResultContext _cont) {
-        _cont.toggleParPoint("pkg.Ex",true);
-        ParPoint val_ = _cont.getPairPar("pkg.Ex", true).getValue();
+        _cont.toggleParPoint("pkg.Ex",ExcPointBlockKey.SAME);
+        ParPoint val_ = _cont.getPairPar("pkg.Ex", ExcPointBlockKey.SAME).getValue();
         val_.setGet(true);
     }
 

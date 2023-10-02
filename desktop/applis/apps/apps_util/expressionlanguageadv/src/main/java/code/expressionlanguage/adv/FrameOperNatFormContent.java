@@ -1,10 +1,12 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.exec.dbg.BreakPointCondition;
 import code.expressionlanguage.exec.dbg.OperNatPoint;
 import code.expressionlanguage.exec.dbg.OperNatPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
+import code.util.CustList;
 import code.util.StringMap;
 
 public final class FrameOperNatFormContent {
@@ -60,8 +62,8 @@ public final class FrameOperNatFormContent {
             second.setText(exc_.getOn().getSecond());
             remove.setEnabled(true);
             getEnabledOperNat().setSelected(exc_.getValue().isEnabled());
-            BreakPointFormEvent.specific(getGuiSimpleStackForm(), true, exc_.getValue().getResultSimple(), _f,_r);
-            BreakPointFormEvent.specific(getGuiCompoundStackForm(), exc_.getValue().isEnabledAffect(), exc_.getValue().getResultCompound(), _f,_r);
+            BreakPointFormEvent.specific(getGuiSimpleStackForm(), true, exc_.getValue().getResultSimple(),new CustList<BreakPointCondition>(),  _f,_r);
+            BreakPointFormEvent.specific(getGuiCompoundStackForm(), exc_.getValue().isEnabledAffect(), exc_.getValue().getResultCompound(),new CustList<BreakPointCondition>(),  _f,_r);
             getSimple().setSelected(exc_.getValue().isSimple());
             getCompound().setSelected(exc_.getValue().isCompound());
         } else {

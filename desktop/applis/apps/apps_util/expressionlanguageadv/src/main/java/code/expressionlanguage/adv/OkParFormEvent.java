@@ -23,7 +23,7 @@ public final class OkParFormEvent implements AbsActionListener {
     public void action() {
         ParPointBlockPair exc_ = frameParFormContent.getSelectedPar();
         if (exc_ == null) {
-            ParPointBlockPair added_ = currentResult.tryBuild(frameParFormContent.getClName().getText(), frameParFormContent.getExact().isSelected());
+            ParPointBlockPair added_ = currentResult.tryBuild(frameParFormContent.getClName().getText(), frameParFormContent.getExactForm().code());
             if (added_ == null) {
                 return;
             }

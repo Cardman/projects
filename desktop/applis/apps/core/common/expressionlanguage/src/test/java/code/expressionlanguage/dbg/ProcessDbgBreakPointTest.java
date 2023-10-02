@@ -703,250 +703,294 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
     @Test
     public void pref1() {
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),new ElInterceptorStdCaller());
-        assertEq(0,BreakPointBlockList.pref(ls_,false));
+        assertEq(0,BreakPointBlockList.pref(ls_,MethodPoint.BPC_ENTRY));
     }
     @Test
     public void pref2() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = add(i_, ls_, "0", false);
-        assertEq(0,e_.getValue().result(false).getPref().get());
+        MethodPointBlockPair e_ = add(i_, ls_, "0", MethodPoint.BPC_ENTRY);
+        assertEq(0,e_.getValue().result(MethodPoint.BPC_ENTRY).getPref().get());
     }
 
     @Test
     public void pref3() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = add(i_, ls_, "0", false);
-        MethodPointBlockPair f_ = add(i_, ls_, "1", false);
-        assertEq(0,e_.getValue().result(false).getPref().get());
-        assertEq(1,f_.getValue().result(false).getPref().get());
+        MethodPointBlockPair e_ = add(i_, ls_, "0", MethodPoint.BPC_ENTRY);
+        MethodPointBlockPair f_ = add(i_, ls_, "1", MethodPoint.BPC_ENTRY);
+        assertEq(0,e_.getValue().result(MethodPoint.BPC_ENTRY).getPref().get());
+        assertEq(1,f_.getValue().result(MethodPoint.BPC_ENTRY).getPref().get());
     }
 
     @Test
     public void pref4() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = add(i_, ls_, "0", false);
-        MethodPointBlockPair f_ = add(i_, ls_, "1", false);
-        MethodPointBlockPair g_ = add(i_, ls_, "2", false);
-        assertEq(0,e_.getValue().result(false).getPref().get());
-        assertEq(1,f_.getValue().result(false).getPref().get());
-        assertEq(2,g_.getValue().result(false).getPref().get());
+        MethodPointBlockPair e_ = add(i_, ls_, "0", MethodPoint.BPC_ENTRY);
+        MethodPointBlockPair f_ = add(i_, ls_, "1", MethodPoint.BPC_ENTRY);
+        MethodPointBlockPair g_ = add(i_, ls_, "2", MethodPoint.BPC_ENTRY);
+        assertEq(0,e_.getValue().result(MethodPoint.BPC_ENTRY).getPref().get());
+        assertEq(1,f_.getValue().result(MethodPoint.BPC_ENTRY).getPref().get());
+        assertEq(2,g_.getValue().result(MethodPoint.BPC_ENTRY).getPref().get());
     }
 
     @Test
     public void pref5() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = add(i_, ls_, "0", false);
-        MethodPointBlockPair f_ = add(i_, ls_, "1", false);
-        f_.getValue().result(false).getPref().set(2);
-        MethodPointBlockPair g_ = add(i_, ls_, "2", false);
-        assertEq(0,e_.getValue().result(false).getPref().get());
-        assertEq(2,f_.getValue().result(false).getPref().get());
-        assertEq(1,g_.getValue().result(false).getPref().get());
+        MethodPointBlockPair e_ = add(i_, ls_, "0", MethodPoint.BPC_ENTRY);
+        MethodPointBlockPair f_ = add(i_, ls_, "1", MethodPoint.BPC_ENTRY);
+        f_.getValue().result(MethodPoint.BPC_ENTRY).getPref().set(2);
+        MethodPointBlockPair g_ = add(i_, ls_, "2", MethodPoint.BPC_ENTRY);
+        assertEq(0,e_.getValue().result(MethodPoint.BPC_ENTRY).getPref().get());
+        assertEq(2,f_.getValue().result(MethodPoint.BPC_ENTRY).getPref().get());
+        assertEq(1,g_.getValue().result(MethodPoint.BPC_ENTRY).getPref().get());
     }
 
     @Test
     public void pref6() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = add(i_, ls_, "0", false);
-        MethodPointBlockPair f_ = add(i_, ls_, "1", false);
-        f_.getValue().result(false).getPref().set(3);
-        MethodPointBlockPair g_ = add(i_, ls_, "2", false);
-        MethodPointBlockPair h_ = add(i_, ls_, "3", false);
-        assertEq(0,e_.getValue().result(false).getPref().get());
-        assertEq(3,f_.getValue().result(false).getPref().get());
-        assertEq(1,g_.getValue().result(false).getPref().get());
-        assertEq(2,h_.getValue().result(false).getPref().get());
+        MethodPointBlockPair e_ = add(i_, ls_, "0", MethodPoint.BPC_ENTRY);
+        MethodPointBlockPair f_ = add(i_, ls_, "1", MethodPoint.BPC_ENTRY);
+        f_.getValue().result(MethodPoint.BPC_ENTRY).getPref().set(3);
+        MethodPointBlockPair g_ = add(i_, ls_, "2", MethodPoint.BPC_ENTRY);
+        MethodPointBlockPair h_ = add(i_, ls_, "3", MethodPoint.BPC_ENTRY);
+        assertEq(0,e_.getValue().result(MethodPoint.BPC_ENTRY).getPref().get());
+        assertEq(3,f_.getValue().result(MethodPoint.BPC_ENTRY).getPref().get());
+        assertEq(1,g_.getValue().result(MethodPoint.BPC_ENTRY).getPref().get());
+        assertEq(2,h_.getValue().result(MethodPoint.BPC_ENTRY).getPref().get());
     }
 
     @Test
     public void pref7() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = add(i_, ls_, "0", false);
-        e_.getValue().result(false).getPref().set(1);
-        MethodPointBlockPair f_ = add(i_, ls_, "1", false);
-        assertEq(1,e_.getValue().result(false).getPref().get());
-        assertEq(0,f_.getValue().result(false).getPref().get());
+        MethodPointBlockPair e_ = add(i_, ls_, "0", MethodPoint.BPC_ENTRY);
+        e_.getValue().result(MethodPoint.BPC_ENTRY).getPref().set(1);
+        MethodPointBlockPair f_ = add(i_, ls_, "1", MethodPoint.BPC_ENTRY);
+        assertEq(1,e_.getValue().result(MethodPoint.BPC_ENTRY).getPref().get());
+        assertEq(0,f_.getValue().result(MethodPoint.BPC_ENTRY).getPref().get());
     }
     @Test
     public void pref8() {
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),new ElInterceptorStdCaller());
-        assertEq(0,BreakPointBlockList.pref(ls_,true));
+        assertEq(0,BreakPointBlockList.pref(ls_,MethodPoint.BPC_EXIT));
     }
     @Test
     public void pref9() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = add(i_, ls_, "0", true);
-        assertEq(0,e_.getValue().result(true).getPref().get());
+        MethodPointBlockPair e_ = add(i_, ls_, "0", MethodPoint.BPC_EXIT);
+        assertEq(0,e_.getValue().result(MethodPoint.BPC_EXIT).getPref().get());
     }
 
     @Test
     public void pref10() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = add(i_, ls_, "0", true);
-        MethodPointBlockPair f_ = add(i_, ls_, "1", true);
-        assertEq(0,e_.getValue().result(true).getPref().get());
-        assertEq(1,f_.getValue().result(true).getPref().get());
+        MethodPointBlockPair e_ = add(i_, ls_, "0", MethodPoint.BPC_EXIT);
+        MethodPointBlockPair f_ = add(i_, ls_, "1", MethodPoint.BPC_EXIT);
+        assertEq(0,e_.getValue().result(MethodPoint.BPC_EXIT).getPref().get());
+        assertEq(1,f_.getValue().result(MethodPoint.BPC_EXIT).getPref().get());
     }
 
     @Test
     public void pref11() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = add(i_, ls_, "0", true);
-        MethodPointBlockPair f_ = add(i_, ls_, "1", true);
-        MethodPointBlockPair g_ = add(i_, ls_, "2", true);
-        assertEq(0,e_.getValue().result(true).getPref().get());
-        assertEq(1,f_.getValue().result(true).getPref().get());
-        assertEq(2,g_.getValue().result(true).getPref().get());
+        MethodPointBlockPair e_ = add(i_, ls_, "0", MethodPoint.BPC_EXIT);
+        MethodPointBlockPair f_ = add(i_, ls_, "1", MethodPoint.BPC_EXIT);
+        MethodPointBlockPair g_ = add(i_, ls_, "2", MethodPoint.BPC_EXIT);
+        assertEq(0,e_.getValue().result(MethodPoint.BPC_EXIT).getPref().get());
+        assertEq(1,f_.getValue().result(MethodPoint.BPC_EXIT).getPref().get());
+        assertEq(2,g_.getValue().result(MethodPoint.BPC_EXIT).getPref().get());
     }
 
     @Test
     public void pref12() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = add(i_, ls_, "0", true);
-        MethodPointBlockPair f_ = add(i_, ls_, "1", true);
-        f_.getValue().result(true).getPref().set(2);
-        MethodPointBlockPair g_ = add(i_, ls_, "2", true);
-        assertEq(0,e_.getValue().result(true).getPref().get());
-        assertEq(2,f_.getValue().result(true).getPref().get());
-        assertEq(1,g_.getValue().result(true).getPref().get());
+        MethodPointBlockPair e_ = add(i_, ls_, "0", MethodPoint.BPC_EXIT);
+        MethodPointBlockPair f_ = add(i_, ls_, "1", MethodPoint.BPC_EXIT);
+        f_.getValue().result(MethodPoint.BPC_EXIT).getPref().set(2);
+        MethodPointBlockPair g_ = add(i_, ls_, "2", MethodPoint.BPC_EXIT);
+        assertEq(0,e_.getValue().result(MethodPoint.BPC_EXIT).getPref().get());
+        assertEq(2,f_.getValue().result(MethodPoint.BPC_EXIT).getPref().get());
+        assertEq(1,g_.getValue().result(MethodPoint.BPC_EXIT).getPref().get());
     }
 
     @Test
     public void pref13() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = add(i_, ls_, "0", true);
-        MethodPointBlockPair f_ = add(i_, ls_, "1", true);
-        f_.getValue().result(true).getPref().set(3);
-        MethodPointBlockPair g_ = add(i_, ls_, "2", true);
-        MethodPointBlockPair h_ = add(i_, ls_, "3", true);
-        assertEq(0,e_.getValue().result(true).getPref().get());
-        assertEq(3,f_.getValue().result(true).getPref().get());
-        assertEq(1,g_.getValue().result(true).getPref().get());
-        assertEq(2,h_.getValue().result(true).getPref().get());
+        MethodPointBlockPair e_ = add(i_, ls_, "0", MethodPoint.BPC_EXIT);
+        MethodPointBlockPair f_ = add(i_, ls_, "1", MethodPoint.BPC_EXIT);
+        f_.getValue().result(MethodPoint.BPC_EXIT).getPref().set(3);
+        MethodPointBlockPair g_ = add(i_, ls_, "2", MethodPoint.BPC_EXIT);
+        MethodPointBlockPair h_ = add(i_, ls_, "3", MethodPoint.BPC_EXIT);
+        assertEq(0,e_.getValue().result(MethodPoint.BPC_EXIT).getPref().get());
+        assertEq(3,f_.getValue().result(MethodPoint.BPC_EXIT).getPref().get());
+        assertEq(1,g_.getValue().result(MethodPoint.BPC_EXIT).getPref().get());
+        assertEq(2,h_.getValue().result(MethodPoint.BPC_EXIT).getPref().get());
     }
 
     @Test
     public void pref14() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = add(i_, ls_, "0", true);
-        e_.getValue().result(true).getPref().set(1);
-        MethodPointBlockPair f_ = add(i_, ls_, "1", true);
-        assertEq(1,e_.getValue().result(true).getPref().get());
-        assertEq(0,f_.getValue().result(true).getPref().get());
+        MethodPointBlockPair e_ = add(i_, ls_, "0", MethodPoint.BPC_EXIT);
+        e_.getValue().result(MethodPoint.BPC_EXIT).getPref().set(1);
+        MethodPointBlockPair f_ = add(i_, ls_, "1", MethodPoint.BPC_EXIT);
+        assertEq(1,e_.getValue().result(MethodPoint.BPC_EXIT).getPref().get());
+        assertEq(0,f_.getValue().result(MethodPoint.BPC_EXIT).getPref().get());
     }
     @Test
     public void prefs1() {
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),new ElInterceptorStdCaller());
-        assertEq(0,BreakPointBlockList.pref(ls_,false,""));
+        assertEq(0,BreakPointBlockList.pref(ls_,MethodPoint.BPC_ENTRY,""));
     }
     @Test
     public void prefs2() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = addList(i_, ls_, "0", false,"1",1, 4);
-        assertEq(1,e_.getValue().result(false).pref("1"));
+        MethodPointBlockPair e_ = addList(i_, ls_, "0", MethodPoint.BPC_ENTRY,"1",1, 4);
+        assertEq(1,e_.getValue().result(MethodPoint.BPC_ENTRY).pref("1"));
     }
     @Test
     public void prefs3() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = addList(i_, ls_, "0", false,"1",1, 4);
-        assertEq(4,e_.getValue().result(false).pref("2"));
+        MethodPointBlockPair e_ = addList(i_, ls_, "0", MethodPoint.BPC_ENTRY,"1",1, 4);
+        assertEq(4,e_.getValue().result(MethodPoint.BPC_ENTRY).pref("2"));
     }
     @Test
     public void prefs4() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        addList(i_, ls_, "0", false,"1",1, 4);
-        assertEq(0,BreakPointBlockList.pref(ls_,false,"1"));
+        addList(i_, ls_, "0", MethodPoint.BPC_ENTRY,"1",1, 4);
+        assertEq(0,BreakPointBlockList.pref(ls_,MethodPoint.BPC_ENTRY,"1"));
     }
     @Test
     public void prefs5() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        addList(i_, ls_, "0", false,"1",0, 4);
-        assertEq(1,BreakPointBlockList.pref(ls_,false,"1"));
+        addList(i_, ls_, "0", MethodPoint.BPC_ENTRY,"1",0, 4);
+        assertEq(1,BreakPointBlockList.pref(ls_,MethodPoint.BPC_ENTRY,"1"));
     }
     @Test
     public void prefs6() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = addList(i_, ls_, "0", false,"1",1, 4);
-        assertEq(1,e_.getValue().result(false).mapPrefs().size());
+        MethodPointBlockPair e_ = addList(i_, ls_, "0", MethodPoint.BPC_ENTRY,"1",1, 4);
+        assertEq(1,e_.getValue().result(MethodPoint.BPC_ENTRY).mapPrefs().size());
     }
     @Test
     public void prefs7() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        addList(i_, ls_, "0", false,"2",0, 4);
-        assertEq(0,BreakPointBlockList.pref(ls_,false,"1"));
+        addList(i_, ls_, "0", MethodPoint.BPC_ENTRY,"2",0, 4);
+        assertEq(0,BreakPointBlockList.pref(ls_,MethodPoint.BPC_ENTRY,"1"));
     }
     @Test
     public void prefs8() {
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),new ElInterceptorStdCaller());
-        assertEq(0,BreakPointBlockList.pref(ls_,true,""));
+        assertEq(0,BreakPointBlockList.pref(ls_,MethodPoint.BPC_EXIT,""));
     }
     @Test
     public void prefs9() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = addList(i_, ls_, "0", true,"1",1, 4);
-        assertEq(1,e_.getValue().result(true).pref("1"));
+        MethodPointBlockPair e_ = addList(i_, ls_, "0", MethodPoint.BPC_EXIT,"1",1, 4);
+        assertEq(1,e_.getValue().result(MethodPoint.BPC_EXIT).pref("1"));
     }
     @Test
     public void prefs10() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = addList(i_, ls_, "0", true,"1",1, 4);
-        assertEq(4,e_.getValue().result(true).pref("2"));
+        MethodPointBlockPair e_ = addList(i_, ls_, "0", MethodPoint.BPC_EXIT,"1",1, 4);
+        assertEq(4,e_.getValue().result(MethodPoint.BPC_EXIT).pref("2"));
     }
     @Test
     public void prefs11() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        addList(i_, ls_, "0", true,"1",1, 4);
-        assertEq(0,BreakPointBlockList.pref(ls_,true,"1"));
+        addList(i_, ls_, "0", MethodPoint.BPC_EXIT,"1",1, 4);
+        assertEq(0,BreakPointBlockList.pref(ls_,MethodPoint.BPC_EXIT,"1"));
     }
     @Test
     public void prefs12() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        addList(i_, ls_, "0", true,"1",0, 4);
-        assertEq(1,BreakPointBlockList.pref(ls_,true,"1"));
+        addList(i_, ls_, "0", MethodPoint.BPC_EXIT,"1",0, 4);
+        assertEq(1,BreakPointBlockList.pref(ls_,MethodPoint.BPC_EXIT,"1"));
     }
     @Test
     public void prefs13() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        MethodPointBlockPair e_ = addList(i_, ls_, "0", true,"1",1, 4);
-        assertEq(1,e_.getValue().result(true).mapPrefs().size());
+        MethodPointBlockPair e_ = addList(i_, ls_, "0", MethodPoint.BPC_EXIT,"1",1, 4);
+        assertEq(1,e_.getValue().result(MethodPoint.BPC_EXIT).mapPrefs().size());
     }
     @Test
     public void prefs14() {
         ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
         ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
-        addList(i_, ls_, "0", true,"2",0, 4);
-        assertEq(0,BreakPointBlockList.pref(ls_,true,"1"));
+        addList(i_, ls_, "0", MethodPoint.BPC_EXIT,"2",0, 4);
+        assertEq(0,BreakPointBlockList.pref(ls_,MethodPoint.BPC_EXIT,"1"));
     }
-    private static MethodPointBlockPair add(ElInterceptorStdCaller _i, ConcList<MethodPointBlockPair> _ls, String _k, boolean _exit) {
+    @Test
+    public void prefs15() {
+        ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
+        ConcList<ArrPointBlockPair> ls_ = new ConcList<ArrPointBlockPair>(new ArrKeyString(),i_);
+        addArrList(i_, ls_, "0", ArrPoint.BPC_LENGTH,"2",0, 4);
+        assertEq(1,BreakPointBlockList.prefsArr(ls_,ArrPoint.BPC_LENGTH).size());
+    }
+    @Test
+    public void prefs16() {
+        ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
+        ConcList<ExcPointBlockPair> ls_ = new ConcList<ExcPointBlockPair>(new ExcKeyString(),i_);
+        addExcList(i_, ls_, "0", ArrPoint.BPC_LENGTH,"2",0, 4);
+        assertEq(1,BreakPointBlockList.prefsExc(ls_,ArrPoint.BPC_LENGTH).size());
+    }
+    @Test
+    public void prefs17() {
+        ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
+        ConcList<ParPointBlockPair> ls_ = new ConcList<ParPointBlockPair>(new ParKeyString(),i_);
+        addParList(i_, ls_, "0", ArrPoint.BPC_LENGTH,"2",0, 4);
+        assertEq(1,BreakPointBlockList.prefsPar(ls_).size());
+    }
+
+    @Test
+    public void pref18() {
+        ElInterceptorStdCaller i_ = new ElInterceptorStdCaller();
+        ConcList<MethodPointBlockPair> ls_ = new ConcList<MethodPointBlockPair>(new MethodKeyString(),i_);
+        MethodPointBlockPair e_ = add(i_, ls_, "0", MethodPoint.BPC_ENTRY);
+        StringMap<Integer> elts_ = new StringMap<Integer>();
+        elts_.addEntry("0",0);
+        e_.getValue().getResultEntry().prefsMap(elts_);
+        MethodPointBlockPair f_ = add(i_, ls_, "1", MethodPoint.BPC_ENTRY);
+        StringMap<Integer> elts2_ = new StringMap<Integer>();
+        elts2_.addEntry("1",1);
+        f_.getValue().getResultEntry().prefsMap(elts2_);
+        assertEq(1,BreakPointBlockList.prefBpc(BreakPointBlockList.prefsMeths(ls_,MethodPoint.BPC_ENTRY),"0"));
+    }
+
+    private static MethodPointBlockPair add(ElInterceptorStdCaller _i, ConcList<MethodPointBlockPair> _ls, String _k, int _exit) {
         MethodPointBlockPair e_ = pair(_i, "", _k);
         e_.getValue().result(_exit).getPref().set(BreakPointBlockList.pref(_ls, _exit));
         _ls.add(e_);
         return e_;
     }
-    private static MethodPointBlockPair addList(ElInterceptorStdCaller _i, ConcList<MethodPointBlockPair> _ls, String _k, boolean _exit, String _cl, int _prCl, int _def) {
+
+    private static ArrPointBlockPair addArr(ElInterceptorStdCaller _i, ConcList<ArrPointBlockPair> _ls, String _k, int _exit) {
+        ArrPointBlockPair e_ = pairArr(_i, "", _k);
+        e_.getValue().resultBpc(_exit).getPref().set(BreakPointBlockList.prefIn(BreakPointBlockList.prefsArr(_ls, _exit)));
+        _ls.add(e_);
+        return e_;
+    }
+    private static MethodPointBlockPair addList(ElInterceptorStdCaller _i, ConcList<MethodPointBlockPair> _ls, String _k, int _exit, String _cl, int _prCl, int _def) {
         MethodPointBlockPair e_ = pair(_i, "", _k);
         StringMap<Integer> m_ = new StringMap<Integer>();
         m_.addEntry(_cl,_prCl);
@@ -956,8 +1000,47 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         _ls.add(e_);
         return e_;
     }
+    private static ArrPointBlockPair addArrList(ElInterceptorStdCaller _i, ConcList<ArrPointBlockPair> _ls, String _k, int _exit, String _cl, int _prCl, int _def) {
+        ArrPointBlockPair e_ = pairArr(_i, "", _k);
+        StringMap<Integer> m_ = new StringMap<Integer>();
+        m_.addEntry(_cl,_prCl);
+        BreakPointCondition bpc_ = e_.getValue().resultBpc(_exit);
+        bpc_.getPref().set(_def);
+        bpc_.prefsMap(m_);
+        _ls.add(e_);
+        return e_;
+    }
+    private static ExcPointBlockPair addExcList(ElInterceptorStdCaller _i, ConcList<ExcPointBlockPair> _ls, String _k, int _exit, String _cl, int _prCl, int _def) {
+        ExcPointBlockPair e_ = pairExc(_i, "", _k);
+        StringMap<Integer> m_ = new StringMap<Integer>();
+        m_.addEntry(_cl,_prCl);
+        BreakPointCondition bpc_ = e_.getValue().resultBpc(_exit);
+        bpc_.getPref().set(_def);
+        bpc_.prefsMap(m_);
+        _ls.add(e_);
+        return e_;
+    }
+    private static ParPointBlockPair addParList(ElInterceptorStdCaller _i, ConcList<ParPointBlockPair> _ls, String _k, int _exit, String _cl, int _prCl, int _def) {
+        ParPointBlockPair e_ = pairPar(_i, "", _k);
+        StringMap<Integer> m_ = new StringMap<Integer>();
+        m_.addEntry(_cl,_prCl);
+        BreakPointCondition bpc_ = e_.getValue().getResultGet();
+        bpc_.getPref().set(_def);
+        bpc_.prefsMap(m_);
+        _ls.add(e_);
+        return e_;
+    }
     private static MethodPointBlockPair pair(ElInterceptorStdCaller _i, String _sgn, String _k) {
         return new MethodPointBlockPair(null, _i, _sgn, true, _k);
+    }
+    private static ArrPointBlockPair pairArr(ElInterceptorStdCaller _i, String _sgn, String _k) {
+        return new ArrPointBlockPair(ExcPointBlockKey.INHERIT, _sgn, _i, true);
+    }
+    private static ExcPointBlockPair pairExc(ElInterceptorStdCaller _i, String _sgn, String _k) {
+        return new ExcPointBlockPair(ExcPointBlockKey.INHERIT, _sgn, _i, true);
+    }
+    private static ParPointBlockPair pairPar(ElInterceptorStdCaller _i, String _sgn, String _k) {
+        return new ParPointBlockPair(ExcPointBlockKey.INHERIT, _sgn, _i, true,null);
     }
 
     private ExecFileBlock file(ResultContext _cont) {

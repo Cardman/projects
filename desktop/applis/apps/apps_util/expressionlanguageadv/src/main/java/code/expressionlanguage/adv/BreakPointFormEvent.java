@@ -52,9 +52,9 @@ public final class BreakPointFormEvent implements AbsActionListener {
     static void bpAction(BreakPointBlockPair _pair, AbsCommonFrame _f, FrameBpFormContent _bp, ResultContext _r) {
         _bp.setSelectedBp(_pair);
         _bp.getEnabledBp().setSelected(_pair.getValue().isEnabled());
-        specific(_bp.getGuiStdStackForm(), !_pair.getValue().isEnabledChgtType(), _pair.getValue().getResultStd(), _f, _r);
-        specific(_bp.getGuiStaStackForm(), _pair.getValue().isEnabledChgtType(), _pair.getValue().getResultStatic(), _f, _r);
-        specific(_bp.getGuiInsStackForm(), _pair.getValue().isEnabledChgtType(), _pair.getValue().getResultInstance(), _f, _r);
+        specific(_bp.getGuiStdStackForm(), !_pair.getValue().isEnabledChgtType(), _pair.getValue().getResultStd(), new CustList<BreakPointCondition>(), _f, _r);
+        specific(_bp.getGuiStaStackForm(), _pair.getValue().isEnabledChgtType(), _pair.getValue().getResultStatic(), new CustList<BreakPointCondition>(), _f, _r);
+        specific(_bp.getGuiInsStackForm(), _pair.getValue().isEnabledChgtType(), _pair.getValue().getResultInstance(), new CustList<BreakPointCondition>(), _f, _r);
         _bp.getInstanceType().setEnabled(_pair.getValue().isEnabledChgtType());
         _bp.getInstanceType().setSelected(_pair.getValue().isInstanceType());
         _bp.getStaticType().setEnabled(_pair.getValue().isEnabledChgtType());
@@ -67,17 +67,15 @@ public final class BreakPointFormEvent implements AbsActionListener {
         _mePoint.getEdited().setText(_mp.getSgn());
         _mePoint.setSelectedMp(_mp);
         _mePoint.getEnabledMp().setSelected(_mp.getValue().isEnabled());
-        specific(_mePoint.getGuiEnterStackForm(), true, _mp.getValue().getResultEntry(), _frame,_r);
-        specific(_mePoint.getGuiExitStackForm(), true, _mp.getValue().getResultExit(), _frame,_r);
+        specific(_mePoint.getGuiEnterStackForm(), true, _mp.getValue().getResultEntry(), BreakPointBlockList.prefsMeths(_r.getContext().metList(),MethodPoint.BPC_ENTRY), _frame,_r);
+        specific(_mePoint.getGuiExitStackForm(), true, _mp.getValue().getResultExit(), BreakPointBlockList.prefsMeths(_r.getContext().metList(),MethodPoint.BPC_EXIT), _frame,_r);
         _mePoint.getEnterFunction().setSelected(_mp.getValue().isEntry());
         _mePoint.getExitFunction().setSelected(_mp.getValue().isExit());
-        GuiStackForm.initPrefs(_mePoint.getGuiEnterStackForm().getPrefs(),_r,false);
-        GuiStackForm.initPrefs(_mePoint.getGuiExitStackForm().getPrefs(),_r,true);
         _frame.setVisible(true);
         PackingWindowAfter.pack(_frame);
     }
 
-    static void specific(GuiStackForm _specForm, boolean _visible, BreakPointCondition _model, AbsCommonFrame _frame, ResultContext _r) {
+    static void specific(GuiStackForm _specForm, boolean _visible, BreakPointCondition _model, CustList<BreakPointCondition> _bpcs, AbsCommonFrame _frame, ResultContext _r) {
         _specForm.getConditional().setVisible(_visible);
         _specForm.getConditional().setText(_model.getResultStr());
         _specForm.getLogs().setVisible(_visible);
@@ -111,6 +109,7 @@ public final class BreakPointFormEvent implements AbsActionListener {
         _specForm.getDependantPointsForm().init(_r,_model);
         _specForm.getPref().setValue(_model.getPref().get());
         GuiBaseUtil.initStringMapInt(_frame,_specForm.getPrefs(),_model.mapPrefs(),new StringList(_r.getContext().getClasses().getClassesBodies().getKeys()),new StrictTypeFromFilter(_r));
+        GuiStackForm.initPrefs(_bpcs, _specForm.getPrefs());
     }
 
     static void feed(CustList<AbsCallContraints> _specForm, AbsCollection<AbsCallContraints> _model) {

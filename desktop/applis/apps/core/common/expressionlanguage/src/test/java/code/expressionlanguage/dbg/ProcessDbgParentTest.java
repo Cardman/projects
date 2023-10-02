@@ -4,6 +4,7 @@ import code.expressionlanguage.DefContextGenerator;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.StopDbgEnum;
+import code.expressionlanguage.exec.dbg.ExcPointBlockKey;
 import code.expressionlanguage.exec.dbg.ParPoint;
 import code.expressionlanguage.exec.dbg.ParPointBlockPair;
 import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
@@ -414,23 +415,57 @@ public final class ProcessDbgParentTest extends ProcessDbgCommon {
         assertEq(97, nowTrace(stack_));
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
+    @Test
+    public void test30() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public int v;public class Inner{}public static int exmeth(){return new Ex().v;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInheritThrownCondition(cont_,"value==0&&v==0");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(97, nowTrace(stack_));
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test31() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public int v;public class Inner{}public static int exmeth(){return new Ex().v;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdInheritThrownCondition(cont_,"value==1");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
     private void stdThrownCondition(ResultContext _cont, String _condition) {
         std(_cont);
-        ParPointBlockPair p_ = _cont.getPairPar("pkg.Ex", true);
+        ParPointBlockPair p_ = _cont.getPairPar("pkg.Ex", ExcPointBlockKey.SAME);
+        ParPoint wp_ = p_.getValue();
+        wp_.getResultGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
+        assertEq(_condition,wp_.getResultGet().getResultStr());
+    }
+
+    private void stdInheritThrownCondition(ResultContext _cont, String _condition) {
+        stdInherit(_cont);
+        ParPointBlockPair p_ = _cont.getPairPar("pkg.Ex", ExcPointBlockKey.INHERIT);
         ParPoint wp_ = p_.getValue();
         wp_.getResultGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultGet().getResultStr());
     }
     private void stdThrownConditionInner(ResultContext _cont, String _condition) {
         stdInner(_cont);
-        ParPointBlockPair p_ = _cont.getPairPar("pkg.Ex..Inner", true);
+        ParPointBlockPair p_ = _cont.getPairPar("pkg.Ex..Inner", ExcPointBlockKey.SAME);
         ParPoint wp_ = p_.getValue();
         wp_.getResultGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultGet().getResultStr());
     }
     private void conditionUnkThrown(ResultContext _cont, String _cond) {
         unkThrown(_cont);
-        ParPointBlockPair p_ = _cont.getPairPar("", true);
+        ParPointBlockPair p_ = _cont.getPairPar("", ExcPointBlockKey.SAME);
         ParPoint wp_ = p_.getValue();
         wp_.getResultGet().analyze(p_,_cond,"", "", _cont,new DefContextGenerator());
         assertEq(_cond,wp_.getResultGet().getResultStr());
@@ -438,53 +473,58 @@ public final class ProcessDbgParentTest extends ProcessDbgCommon {
 
     private void conditionUnkThrownAny(ResultContext _cont) {
         anyPar(_cont);
-        ParPointBlockPair p_ = _cont.getPairPar("", false);
+        ParPointBlockPair p_ = _cont.getPairPar("", ExcPointBlockKey.SAME_FAMILY);
         ParPoint wp_ = p_.getValue();
         wp_.getResultGet().analyze(p_,"0==0","", "", _cont,new DefContextGenerator());
         assertEq("0==0",wp_.getResultGet().getResultStr());
     }
     private void stdThrownConditionWide(ResultContext _cont, String _condition) {
         stdWide(_cont);
-        ParPointBlockPair p_ = _cont.getPairPar("pkg.Ex", false);
+        ParPointBlockPair p_ = _cont.getPairPar("pkg.Ex", ExcPointBlockKey.SAME_FAMILY);
         ParPoint wp_ = p_.getValue();
         wp_.getResultGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultGet().getResultStr());
     }
     private void unkThrown(ResultContext _cont) {
-        _cont.toggleParPoint("",true);
-        ParPoint val_ = _cont.getPairPar("", true).getValue();
+        _cont.toggleParPoint("",ExcPointBlockKey.SAME);
+        ParPoint val_ = _cont.getPairPar("", ExcPointBlockKey.SAME).getValue();
         val_.setGet(true);
     }
     private void std(ResultContext _cont) {
-        _cont.toggleParPoint("pkg.Ex",true);
-        ParPoint val_ = _cont.getPairPar("pkg.Ex", true).getValue();
+        _cont.toggleParPoint("pkg.Ex",ExcPointBlockKey.SAME);
+        ParPoint val_ = _cont.getPairPar("pkg.Ex", ExcPointBlockKey.SAME).getValue();
+        val_.setGet(true);
+    }
+    private void stdInherit(ResultContext _cont) {
+        _cont.toggleParPoint("pkg.Ex",ExcPointBlockKey.INHERIT);
+        ParPoint val_ = _cont.getPairPar("pkg.Ex", ExcPointBlockKey.INHERIT).getValue();
         val_.setGet(true);
     }
 
     private void stdInner(ResultContext _cont) {
-        _cont.toggleParPoint("pkg.Ex..Inner",true);
-        ParPoint val_ = _cont.getPairPar("pkg.Ex..Inner", true).getValue();
+        _cont.toggleParPoint("pkg.Ex..Inner",ExcPointBlockKey.SAME);
+        ParPoint val_ = _cont.getPairPar("pkg.Ex..Inner", ExcPointBlockKey.SAME).getValue();
         val_.setGet(true);
     }
     private void anyPar(ResultContext _cont) {
-        _cont.toggleParPoint("",false);
-        ParPoint val_ = _cont.getPairPar("", false).getValue();
+        _cont.toggleParPoint("",ExcPointBlockKey.SAME_FAMILY);
+        ParPoint val_ = _cont.getPairPar("", ExcPointBlockKey.SAME_FAMILY).getValue();
         val_.setGet(true);
     }
     private void stdWide(ResultContext _cont) {
-        _cont.toggleParPoint("pkg.Ex",false);
-        ParPoint val_ = _cont.getPairPar("pkg.Ex", false).getValue();
+        _cont.toggleParPoint("pkg.Ex",ExcPointBlockKey.SAME_FAMILY);
+        ParPoint val_ = _cont.getPairPar("pkg.Ex", ExcPointBlockKey.SAME_FAMILY).getValue();
         val_.setGet(true);
     }
     private void anyParDisableOne(ResultContext _cont) {
-        _cont.toggleParPoint("",false);
-        ParPoint val_ = _cont.getPairPar("", false).getValue();
+        _cont.toggleParPoint("",ExcPointBlockKey.SAME_FAMILY);
+        ParPoint val_ = _cont.getPairPar("", ExcPointBlockKey.SAME_FAMILY).getValue();
         val_.setGet(false);
     }
 
     private void anyParDisableTwo(ResultContext _cont) {
-        _cont.toggleParPoint("",false);
-        _cont.getPairPar("", false).getValue().setEnabled(false);
+        _cont.toggleParPoint("",ExcPointBlockKey.SAME_FAMILY);
+        _cont.getPairPar("", ExcPointBlockKey.SAME_FAMILY).getValue().setEnabled(false);
     }
     private void read(ResultContext _cont, ClassField _cf) {
         pair(_cont, _cf).getValue().setRead(true);

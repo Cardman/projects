@@ -22,7 +22,7 @@ public final class OkRenderFormEvent implements AbsActionListener {
     public void action() {
         RenderPointPair exc_ = frameExcFormContent.getSelectedExc();
         if (exc_ == null) {
-            ExcPointBlockPair added_ = currentResult.getContext().build(frameExcFormContent.getExact().isSelected(), frameExcFormContent.getClName().getText());
+            ExcPointBlockPair added_ = currentResult.getContext().build(frameExcFormContent.getExactForm().code(), frameExcFormContent.getClName().getText());
             if (added_ == null) {
                 return;
             }
@@ -33,6 +33,8 @@ public final class OkRenderFormEvent implements AbsActionListener {
         }
         exc_.getExcPointBlockPair().getValue().setEnabled(frameExcFormContent.getEnabledExc().isSelected());
         exc_.setGlobalEnabled(frameExcFormContent.getEnabledExcGlobal().isSelected());
+        exc_.setPref(frameExcFormContent.getPref().getValue());
+        exc_.prefsMap(frameExcFormContent.getPrefs().getList());
         exc_.analyze(frameExcFormContent.getRenderText().getText(),currentResult, window.getResultContextNext().generateAdv(currentResult.getContext().getInterrupt()));
 //        exc_.getValue().setThrown(frameExcFormContent.getThrown().isSelected());
 //        exc_.getValue().setCaught(frameExcFormContent.getCaught().isSelected());

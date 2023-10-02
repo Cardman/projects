@@ -1,10 +1,13 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.exec.dbg.BreakPointBlockList;
+import code.expressionlanguage.exec.dbg.BreakPointCondition;
+import code.expressionlanguage.exec.dbg.MethodPoint;
 import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -38,15 +41,17 @@ public final class FrameMpForm extends AdvFrameMpForm{
         } else {
             getGuiEnterStackForm().getDependantPointsForm().init(_r,MethodPointBlockPair.CMP);
             getGuiExitStackForm().getDependantPointsForm().init(_r,MethodPointBlockPair.CMP);
-            getGuiEnterStackForm().getPref().setValue(BreakPointBlockList.pref(_r.getContext().metList(), false));
-            getGuiExitStackForm().getPref().setValue(BreakPointBlockList.pref(_r.getContext().metList(),true));
-            GuiBaseUtil.initStringMapInt(_c,getGuiEnterStackForm().getPrefs(),new StringMap<Integer>(),new StringList(_r.getContext().getClasses().getClassesBodies().getKeys()),new StrictTypeFromFilter(_r));
-            GuiBaseUtil.initStringMapInt(_c,getGuiExitStackForm().getPrefs(),new StringMap<Integer>(),new StringList(_r.getContext().getClasses().getClassesBodies().getKeys()),new StrictTypeFromFilter(_r));
-            GuiStackForm.initPrefs(getGuiEnterStackForm().getPrefs(),_r,false);
-            GuiStackForm.initPrefs(getGuiExitStackForm().getPrefs(),_r,true);
+            updatePref(BreakPointBlockList.prefsMeths(_r.getContext().metList(),MethodPoint.BPC_ENTRY),getGuiEnterStackForm(),_c,_r);
+            updatePref(BreakPointBlockList.prefsMeths(_r.getContext().metList(),MethodPoint.BPC_EXIT),getGuiExitStackForm(),_c,_r);
             getEdited().setText("");
             frameMpFormContent.getRemove().setEnabled(false);
         }
+    }
+
+    public static void updatePref(CustList<BreakPointCondition> _bpc, GuiStackForm _g, AbsCommonFrame _c, ResultContext _r) {
+        _g.getPref().setValue(BreakPointBlockList.prefIn(_bpc));
+        GuiBaseUtil.initStringMapInt(_c,_g.getPrefs(),new StringMap<Integer>(),new StringList(_r.getContext().getClasses().getClassesBodies().getKeys()),new StrictTypeFromFilter(_r));
+        GuiStackForm.initPrefs(_bpc, _g.getPrefs());
     }
 
     public AbsTextField getFileName() {

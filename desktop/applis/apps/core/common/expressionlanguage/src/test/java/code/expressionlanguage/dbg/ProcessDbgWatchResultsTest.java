@@ -229,23 +229,23 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         assertTrue(BooleanStruct.isTrue(cont1_));
     }
     private void divThrown(ResultContext _cond) {
-        _cond.toggleExcPoint(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(),true);
-        ExcPoint val_ = _cond.getPairExc(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(), true).getValue();
+        _cond.toggleExcPoint(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(),ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cond.getPairExc(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(), ExcPointBlockKey.SAME).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(false);
     }
 
     private void intThrown(ResultContext _cond) {
-        _cond.toggleExcPoint(_cond.getContext().getStandards().getNbAlias().getAliasInteger(),true);
-        ExcPoint val_ = _cond.getPairExc(_cond.getContext().getStandards().getNbAlias().getAliasInteger(), true).getValue();
+        _cond.toggleExcPoint(_cond.getContext().getStandards().getNbAlias().getAliasInteger(),ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cond.getPairExc(_cond.getContext().getStandards().getNbAlias().getAliasInteger(), ExcPointBlockKey.SAME).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(false);
     }
     private void std(ResultContext _cont) {
-        _cont.toggleArrPoint("[pkg.Ex",true);
-        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", true).getValue();
+        _cont.toggleArrPoint("[pkg.Ex",ExcPointBlockKey.SAME);
+        ArrPoint val_ = _cont.getPairArr("[pkg.Ex", ExcPointBlockKey.SAME).getValue();
         disable(val_);
         val_.setLength(true);
     }
@@ -298,15 +298,15 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
 
     private void stdThrownConditionInner(ResultContext _cont, String _condition) {
         stdInner(_cont);
-        ParPointBlockPair p_ = _cont.getPairPar("pkg.Ex..Inner", true);
+        ParPointBlockPair p_ = _cont.getPairPar("pkg.Ex..Inner", ExcPointBlockKey.SAME);
         ParPoint wp_ = p_.getValue();
         wp_.getResultGet().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultGet().getResultStr());
     }
 
     private void stdInner(ResultContext _cont) {
-        _cont.toggleParPoint("pkg.Ex..Inner",true);
-        ParPoint val_ = _cont.getPairPar("pkg.Ex..Inner", true).getValue();
+        _cont.toggleParPoint("pkg.Ex..Inner",ExcPointBlockKey.SAME);
+        ParPoint val_ = _cont.getPairPar("pkg.Ex..Inner", ExcPointBlockKey.SAME).getValue();
         val_.setGet(true);
     }
 

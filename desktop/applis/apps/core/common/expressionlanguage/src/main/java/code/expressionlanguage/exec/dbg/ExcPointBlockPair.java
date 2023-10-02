@@ -9,7 +9,7 @@ public final class ExcPointBlockPair implements AbsPairPoint {
     private final ExcPointBlockKey ep;
     private final ExcPoint value;
 
-    public ExcPointBlockPair(boolean _ex, String _cl, AbstractInterceptorStdCaller _v, boolean _enabled) {
+    public ExcPointBlockPair(int _ex, String _cl, AbstractInterceptorStdCaller _v, boolean _enabled) {
         this.ep = new ExcPointBlockKey(_ex, _cl);
         this.value = new ExcPoint(_v, this, ep);
         this.value.setEnabled(_enabled);

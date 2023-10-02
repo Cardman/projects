@@ -251,4 +251,91 @@ public final class ArrPoint {
     public BreakPointCondition getResultClone() {
         return resultClone;
     }
+
+    public BreakPointCondition result(int _m) {
+        if (!isEnabled()) {
+            return null;
+        }
+        return resultBpc(_m).stopBpc(resultEn(_m));
+    }
+
+    public BreakPointCondition resultBpc(int _m) {
+        if (_m == ArrPoint.BPC_LENGTH) {
+            return getResultLength();
+        }
+        if (_m == ArrPoint.BPC_INT_GET) {
+            return getResultIntGet();
+        }
+        if (_m == ArrPoint.BPC_INT_SET) {
+            return getResultIntSet();
+        }
+        if (_m == ArrPoint.BPC_INT_COMPOUND_GET) {
+            return getResultIntCompoundGet();
+        }
+        if (_m == ArrPoint.BPC_INT_COMPOUND_SET) {
+            return getResultIntCompoundSet();
+        }
+        if (_m == ArrPoint.BPC_RANGE_GET) {
+            return getResultRangeGet();
+        }
+        if (_m == ArrPoint.BPC_RANGE_SET) {
+            return getResultRangeSet();
+        }
+        if (_m == ArrPoint.BPC_RANGE_COMPOUND_GET) {
+            return getResultRangeCompoundGet();
+        }
+        if (_m == ArrPoint.BPC_RANGE_COMPOUND_SET) {
+            return getResultRangeCompoundSet();
+        }
+        if (_m == ArrPoint.BPC_INT_GET_SET) {
+            return getResultIntGetSet();
+        }
+        if (_m == ArrPoint.BPC_INIT) {
+            return getResultInitArray();
+        }
+        if (_m == ArrPoint.BPC_INT_COMPOUND_SET_ERR) {
+            return getResultIntCompoundSetErr();
+        }
+        return getResultClone();
+    }
+
+    public boolean resultEn(int _m) {
+        if (_m == ArrPoint.BPC_LENGTH) {
+            return isLength();
+        }
+        if (_m == ArrPoint.BPC_INT_GET) {
+            return isIntGet();
+        }
+        if (_m == ArrPoint.BPC_INT_SET) {
+            return isIntSet();
+        }
+        if (_m == ArrPoint.BPC_INT_COMPOUND_GET) {
+            return isIntCompoundGet();
+        }
+        if (_m == ArrPoint.BPC_INT_COMPOUND_SET) {
+            return isIntCompoundSet();
+        }
+        if (_m == ArrPoint.BPC_RANGE_GET) {
+            return isRangeGet();
+        }
+        if (_m == ArrPoint.BPC_RANGE_SET) {
+            return isRangeSet();
+        }
+        if (_m == ArrPoint.BPC_RANGE_COMPOUND_GET) {
+            return isRangeCompoundGet();
+        }
+        if (_m == ArrPoint.BPC_RANGE_COMPOUND_SET) {
+            return isRangeCompoundSet();
+        }
+        if (_m == ArrPoint.BPC_INT_GET_SET) {
+            return isIntGetSet();
+        }
+        if (_m == ArrPoint.BPC_INIT) {
+            return isInitArray();
+        }
+        if (_m == ArrPoint.BPC_INT_COMPOUND_SET_ERR) {
+            return isIntCompoundSetErr();
+        }
+        return isClone();
+    }
 }

@@ -9,7 +9,7 @@ public final class ArrPointBlockPair implements AbsPairPoint {
     private final ExcPointBlockKey ep;
     private final ArrPoint value;
 
-    public ArrPointBlockPair(boolean _ex, String _cl, AbstractInterceptorStdCaller _v, boolean _enabled) {
+    public ArrPointBlockPair(int _ex, String _cl, AbstractInterceptorStdCaller _v, boolean _enabled) {
         this.ep = new ExcPointBlockKey(_ex, _cl);
         this.value = new ArrPoint(_v, this, ep);
         this.value.setEnabled(_enabled);

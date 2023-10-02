@@ -64,6 +64,12 @@ public final class BreakPointCondition {
         prefs = _i.newStringNumberCollection();
     }
 
+    public BreakPointCondition stopBpc(boolean _en) {
+        if (_en) {
+            return this;
+        }
+        return null;
+    }
     public void analyze(BreakPointBlockPair _mp, String _exp, String _log, String _watch, ResultContext _curr, AbsLightContextGenerator _gene) {
         result(ResultContextLambda.dynamicAnalyze(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene, phasePoint), _exp);
         resultLogs(ResultContextLambda.dynamicAnalyze(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, phasePoint), _log);

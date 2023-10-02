@@ -210,14 +210,16 @@ public final class FramePointsTree {
     }
 
     static AbstractMutableTreeNodeCore<String> node(String _key, CustList<ExcPointBlockKey> _value, AbsCompoFactory _compo) {
+        CustList<ExcPointBlockKey> listInh_ = new CustList<ExcPointBlockKey>();
         CustList<ExcPointBlockKey> listId_ = new CustList<ExcPointBlockKey>();
         CustList<ExcPointBlockKey> listExact_ = new CustList<ExcPointBlockKey>();
         for (ExcPointBlockKey e: _value) {
-            feedList(listId_, listExact_, e);
+            feedList(listInh_,listId_, listExact_, e);
         }
+        listInh_.sortElts(new CmpLocalFileExcPoint());
         listId_.sortElts(new CmpLocalFileExcPoint());
         listExact_.sortElts(new CmpLocalFileExcPoint());
-        return node(listId_, listExact_, _key, _compo);
+        return node(listInh_,listId_, listExact_, _key, _compo);
     }
 
     static NatStringTreeMap<CustList<ExcPointBlockKey>> sortedExc(NatStringTreeMap<CustList<ExcPointBlockPair>> _exListMap, AbsCollection<ExcPointBlockPair> _exCollection) {
@@ -315,8 +317,11 @@ public final class FramePointsTree {
         }
         return excList_;
     }
-    static AbstractMutableTreeNodeCore<String> node(CustList<ExcPointBlockKey> _listId, CustList<ExcPointBlockKey> _listExact, String _key, AbsCompoFactory _compo) {
+    static AbstractMutableTreeNodeCore<String> node(CustList<ExcPointBlockKey> _listInherit, CustList<ExcPointBlockKey> _listId, CustList<ExcPointBlockKey> _listExact, String _key, AbsCompoFactory _compo) {
         AbstractMutableTreeNodeCore<String> file_ = _compo.newMutableTreeNode(_key);
+        for (ExcPointBlockKey l: _listInherit) {
+            file_.add(_compo.newMutableTreeNode("inherit from "+l.getClName()));
+        }
         for (ExcPointBlockKey l: _listId) {
             file_.add(_compo.newMutableTreeNode("all types family in "+l.getClName()));
         }
@@ -326,8 +331,10 @@ public final class FramePointsTree {
         return file_;
     }
 
-    static void feedList(CustList<ExcPointBlockKey> _listId, CustList<ExcPointBlockKey> _listExact, ExcPointBlockKey _ep) {
-        if (!_ep.isExact()) {
+    static void feedList(CustList<ExcPointBlockKey> _listInherit,CustList<ExcPointBlockKey> _listId, CustList<ExcPointBlockKey> _listExact, ExcPointBlockKey _ep) {
+        if (_ep.isExact() == ExcPointBlockKey.INHERIT) {
+            _listInherit.add(_ep);
+        } else if (_ep.isExact() == ExcPointBlockKey.SAME_FAMILY) {
             _listId.add(_ep);
         } else {
             _listExact.add(_ep);

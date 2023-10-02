@@ -16,7 +16,7 @@ public final class CheckedMethodInfos extends CoreCheckedExecOperationNodeInfos{
         this.parameters = _p;
     }
 
-    private static Parameters params(CoreCheckedExecOperationNodeInfos _core) {
+    public static Parameters params(CoreCheckedExecOperationNodeInfos _core) {
         Parameters p_ = new Parameters();
         p_.setCache(_core.getCache());
         return p_;

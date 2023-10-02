@@ -2,6 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.exec.dbg.ArrPoint;
 import code.expressionlanguage.exec.dbg.ArrPointBlockPair;
+import code.expressionlanguage.exec.dbg.BreakPointBlockList;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
@@ -23,7 +24,7 @@ public final class FrameArrFormContent {
     private final GuiStackForm guiCloneStackForm;
     private ArrPointBlockPair selectedArr;
     private AbsTextField clName;
-    private AbsCustCheckBox exact;
+    private final ExactMatchingTypeForm exactForm = new ExactMatchingTypeForm();
     private AbsCustCheckBox length;
     private AbsCustCheckBox intGet;
     private AbsCustCheckBox intSet;
@@ -76,9 +77,9 @@ public final class FrameArrFormContent {
         ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
         remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
         clName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
-        exact = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("exact");
+        exactForm.guiBuild(_d);
         AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        bpForm_.add(exact);
+        bpForm_.add(exactForm.getPanel());
         bpForm_.add(clName);
         bpForm_.add(enabledExc);
         bpForm_.add(length);
@@ -107,6 +108,19 @@ public final class FrameArrFormContent {
         bpForm_.add(guiIntGetSetStackForm.guiBuild(_d));
         bpForm_.add(guiInitArrayStackForm.guiBuild(_d));
         bpForm_.add(guiCloneStackForm.guiBuild(_d));
+        getGuiLengthStackForm().showPrefs();
+        getGuiIntGetStackForm().showPrefs();
+        getGuiIntSetStackForm().showPrefs();
+        getGuiIntCompoundGetStackForm().showPrefs();
+        getGuiIntCompoundSetStackForm().showPrefs();
+        getGuiIntCompoundSetErrStackForm().showPrefs();
+        getGuiRangeGetStackForm().showPrefs();
+        getGuiRangeSetStackForm().showPrefs();
+        getGuiRangeCompoundGetStackForm().showPrefs();
+        getGuiRangeCompoundSetStackForm().showPrefs();
+        getGuiIntGetSetStackForm().showPrefs();
+        getGuiInitArrayStackForm().showPrefs();
+        getGuiCloneStackForm().showPrefs();
         bpForm_.add(ok);
         bpForm_.add(remove);
         contentPane = bpForm_;
@@ -115,37 +129,40 @@ public final class FrameArrFormContent {
         setSelectedArr(_s);
         ArrPointBlockPair exc_ = getSelectedArr();
         if (exc_ != null) {
-            exact.setEnabled(false);
-            exact.setSelected(exc_.getEp().isExact());
+            exactForm.updateValue(exc_.getEp());
+        } else {
+            exactForm.updateValue(null);
+        }
+        if (exc_ != null) {
             clName.setEnabled(false);
             clName.setText(exc_.getEp().getClName());
             remove.setEnabled(true);
             getEnabledExc().setSelected(exc_.getValue().isEnabled());
-            BreakPointFormEvent.specific(getGuiLengthStackForm(), true, exc_.getValue().getResultLength(), _f,_r);
+            BreakPointFormEvent.specific(getGuiLengthStackForm(), true, exc_.getValue().getResultLength(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_LENGTH), _f,_r);
             getLength().setSelected(exc_.getValue().isLength());
-            BreakPointFormEvent.specific(getGuiIntGetStackForm(), true, exc_.getValue().getResultIntGet(), _f,_r);
+            BreakPointFormEvent.specific(getGuiIntGetStackForm(), true, exc_.getValue().getResultIntGet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_GET), _f,_r);
             getIntGet().setSelected(exc_.getValue().isIntGet());
-            BreakPointFormEvent.specific(getGuiIntSetStackForm(), true, exc_.getValue().getResultIntSet(), _f,_r);
+            BreakPointFormEvent.specific(getGuiIntSetStackForm(), true, exc_.getValue().getResultIntSet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_SET), _f,_r);
             getIntSet().setSelected(exc_.getValue().isIntSet());
-            BreakPointFormEvent.specific(getGuiIntCompoundGetStackForm(), true, exc_.getValue().getResultIntCompoundGet(), _f,_r);
+            BreakPointFormEvent.specific(getGuiIntCompoundGetStackForm(), true, exc_.getValue().getResultIntCompoundGet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_COMPOUND_GET), _f,_r);
             getIntCompoundGet().setSelected(exc_.getValue().isIntCompoundGet());
-            BreakPointFormEvent.specific(getGuiIntCompoundSetStackForm(), true, exc_.getValue().getResultIntCompoundSet(), _f,_r);
+            BreakPointFormEvent.specific(getGuiIntCompoundSetStackForm(), true, exc_.getValue().getResultIntCompoundSet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_COMPOUND_SET), _f,_r);
             getIntCompoundSet().setSelected(exc_.getValue().isIntCompoundSet());
-            BreakPointFormEvent.specific(getGuiIntCompoundSetErrStackForm(), true, exc_.getValue().getResultIntCompoundSetErr(), _f,_r);
+            BreakPointFormEvent.specific(getGuiIntCompoundSetErrStackForm(), true, exc_.getValue().getResultIntCompoundSetErr(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_COMPOUND_SET_ERR), _f,_r);
             getIntCompoundSetErr().setSelected(exc_.getValue().isIntCompoundSetErr());
-            BreakPointFormEvent.specific(getGuiRangeGetStackForm(), true, exc_.getValue().getResultRangeGet(), _f,_r);
+            BreakPointFormEvent.specific(getGuiRangeGetStackForm(), true, exc_.getValue().getResultRangeGet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_RANGE_GET), _f,_r);
             getRangeGet().setSelected(exc_.getValue().isRangeGet());
-            BreakPointFormEvent.specific(getGuiRangeSetStackForm(), true, exc_.getValue().getResultRangeSet(), _f,_r);
+            BreakPointFormEvent.specific(getGuiRangeSetStackForm(), true, exc_.getValue().getResultRangeSet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_RANGE_SET), _f,_r);
             getRangeSet().setSelected(exc_.getValue().isRangeSet());
-            BreakPointFormEvent.specific(getGuiRangeCompoundGetStackForm(), true, exc_.getValue().getResultRangeCompoundGet(), _f,_r);
+            BreakPointFormEvent.specific(getGuiRangeCompoundGetStackForm(), true, exc_.getValue().getResultRangeCompoundGet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_RANGE_COMPOUND_GET), _f,_r);
             getRangeCompoundGet().setSelected(exc_.getValue().isRangeCompoundGet());
-            BreakPointFormEvent.specific(getGuiRangeCompoundSetStackForm(), true, exc_.getValue().getResultRangeCompoundSet(), _f,_r);
+            BreakPointFormEvent.specific(getGuiRangeCompoundSetStackForm(), true, exc_.getValue().getResultRangeCompoundSet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_RANGE_COMPOUND_SET), _f,_r);
             getRangeCompoundSet().setSelected(exc_.getValue().isRangeCompoundSet());
-            BreakPointFormEvent.specific(getGuiIntGetSetStackForm(), true, exc_.getValue().getResultIntGetSet(), _f,_r);
+            BreakPointFormEvent.specific(getGuiIntGetSetStackForm(), true, exc_.getValue().getResultIntGetSet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_GET_SET), _f,_r);
             getIntGetSet().setSelected(exc_.getValue().isIntGetSet());
-            BreakPointFormEvent.specific(getGuiInitArrayStackForm(), true, exc_.getValue().getResultInitArray(), _f,_r);
+            BreakPointFormEvent.specific(getGuiInitArrayStackForm(), true, exc_.getValue().getResultInitArray(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INIT), _f,_r);
             getInitArray().setSelected(exc_.getValue().isInitArray());
-            BreakPointFormEvent.specific(getGuiCloneStackForm(), true, exc_.getValue().getResultClone(), _f,_r);
+            BreakPointFormEvent.specific(getGuiCloneStackForm(), true, exc_.getValue().getResultClone(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_CLONE), _f,_r);
             getClone().setSelected(exc_.getValue().isInitArray());
         } else {
             getGuiLengthStackForm().getDependantPointsForm().init(_r, ArrPoint.AP);
@@ -161,7 +178,19 @@ public final class FrameArrFormContent {
             getGuiIntGetSetStackForm().getDependantPointsForm().init(_r, ArrPoint.AP);
             getGuiInitArrayStackForm().getDependantPointsForm().init(_r, ArrPoint.AP);
             getGuiCloneStackForm().getDependantPointsForm().init(_r, ArrPoint.AP);
-            exact.setEnabled(true);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsArr(_r.getContext().arrList(),ArrPoint.BPC_LENGTH),getGuiLengthStackForm(),_f,_r);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsArr(_r.getContext().arrList(),ArrPoint.BPC_INT_GET),getGuiIntGetStackForm(),_f,_r);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsArr(_r.getContext().arrList(),ArrPoint.BPC_INT_SET),getGuiIntSetStackForm(),_f,_r);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsArr(_r.getContext().arrList(),ArrPoint.BPC_INT_COMPOUND_GET),getGuiIntCompoundGetStackForm(),_f,_r);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsArr(_r.getContext().arrList(),ArrPoint.BPC_INT_COMPOUND_SET),getGuiIntCompoundSetStackForm(),_f,_r);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsArr(_r.getContext().arrList(),ArrPoint.BPC_INT_COMPOUND_SET_ERR),getGuiIntCompoundSetErrStackForm(),_f,_r);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsArr(_r.getContext().arrList(),ArrPoint.BPC_RANGE_GET),getGuiRangeGetStackForm(),_f,_r);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsArr(_r.getContext().arrList(),ArrPoint.BPC_RANGE_SET),getGuiRangeSetStackForm(),_f,_r);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsArr(_r.getContext().arrList(),ArrPoint.BPC_RANGE_COMPOUND_GET),getGuiRangeCompoundGetStackForm(),_f,_r);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsArr(_r.getContext().arrList(),ArrPoint.BPC_RANGE_COMPOUND_SET),getGuiRangeCompoundSetStackForm(),_f,_r);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsArr(_r.getContext().arrList(),ArrPoint.BPC_INT_GET_SET),getGuiIntGetSetStackForm(),_f,_r);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsArr(_r.getContext().arrList(),ArrPoint.BPC_INIT),getGuiInitArrayStackForm(),_f,_r);
+            FrameMpForm.updatePref(BreakPointBlockList.prefsArr(_r.getContext().arrList(),ArrPoint.BPC_CLONE),getGuiCloneStackForm(),_f,_r);
             clName.setEnabled(true);
             remove.setEnabled(false);
         }
@@ -199,8 +228,8 @@ public final class FrameArrFormContent {
         this.selectedArr = _s;
     }
 
-    public AbsCustCheckBox getExact() {
-        return exact;
+    public ExactMatchingTypeForm getExactForm() {
+        return exactForm;
     }
 
     public AbsTextField getClName() {
