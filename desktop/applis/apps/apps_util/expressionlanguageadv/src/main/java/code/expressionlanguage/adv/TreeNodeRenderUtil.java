@@ -71,23 +71,23 @@ public final class TreeNodeRenderUtil {
             return res_;
         }
         ResultContextLambda rLda_ = checkExc(_renderPointPairs);
-        Struct res_ = result(_renderPointPairs, rLda_, _node, _compo, _th);
-        resultTable(_renderPointPairs,checkExcExp(_renderPointPairs),_node,_compo,_th);
+        ContextEl ctx_ = local(_node.getResult(), _th);
+        AdvLogDbg logger_ = logger(_node, _compo, ctx_);
+        Struct res_ = result(_renderPointPairs, rLda_, _node, ctx_, logger_);
+        resultTable(_renderPointPairs,checkExcExp(_renderPointPairs),_node,_compo,ctx_,logger_);
         return res_;
     }
 
-    private static Struct result(RenderPointInfosPreference _rp,ResultContextLambda _rLda, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
-        ContextEl ctx_ = local(_node.getResult(), _th);
-        AdvLogDbg logger_ = logger(_node, _compo, ctx_);
-        DefStackStopper stopper_ = new DefStackStopper(logger_);
-        StackCall st_ = ResultContextLambda.newInstance(stopper_, ctx_, InitPhase.NOTHING);
+    private static Struct result(RenderPointInfosPreference _rp, ResultContextLambda _rLda, DbgNodeStruct _node, ContextEl _ctx, AdvLogDbg _logger) {
+        DefStackStopper stopper_ = new DefStackStopper(_logger);
+        StackCall st_ = ResultContextLambda.newInstance(stopper_, _ctx, InitPhase.NOTHING);
         Struct str_ = _node.value();
         if (_rLda != null) {
             StackCallReturnValue result_ = _rLda.eval(stopper_,_rp.build(), null);
-            logTrace(result_.getStack(), ctx_, logger_);
-            return ExecCatOperation.getDisplayable(result_.getStack().aw().getValue(),ctx_);
+            logTrace(result_.getStack(), _ctx, _logger);
+            return ExecCatOperation.getDisplayable(result_.getStack().aw().getValue(), _ctx);
         }
-        IndirectCalledFctUtil.processString(ArgumentListCall.toStr(str_), ctx_, st_);
+        IndirectCalledFctUtil.processString(ArgumentListCall.toStr(str_), _ctx, st_);
         CallingState state_ = st_.getCallingState();
         Struct res_;
         if (str_ instanceof ArrayStruct || str_ instanceof DisplayableStruct) {
@@ -95,22 +95,20 @@ public final class TreeNodeRenderUtil {
         } else if (state_ == null) {
             res_ = null;
         } else {
-            res_ = ExecCatOperation.getDisplayable(ProcessMethod.calculate(state_, ctx_, st_).getValue(), ctx_);
-            logTrace(st_, ctx_, logger_);
+            res_ = ExecCatOperation.getDisplayable(ProcessMethod.calculate(state_, _ctx, st_).getValue(), _ctx);
+            logTrace(st_, _ctx, _logger);
         }
         return res_;
     }
-    private static void resultTable(RenderPointInfosPreference _rp,ResultContextLambda _rLda, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+    private static void resultTable(RenderPointInfosPreference _rp,ResultContextLambda _rLda, DbgNodeStruct _node, AbsCompoFactory _compo, ContextEl _ctx, AdvLogDbg _logger) {
         if (_rLda == null) {
             _node.feedChildren(_compo);
             return;
         }
-        ContextEl ctx_ = local(_node.getResult(), _th);
-        AdvLogDbg logger_ = logger(_node, _compo, ctx_);
-        DefStackStopper stopper_ = new DefStackStopper(logger_);
+        DefStackStopper stopper_ = new DefStackStopper(_logger);
         StackCallReturnValue result_ = _rLda.eval(stopper_,_rp.build(), null);
-        logTrace(result_.getStack(), ctx_, logger_);
-        StackCall st_ = ResultContextLambda.newInstance(stopper_, ctx_, InitPhase.NOTHING);
+        logTrace(result_.getStack(), _ctx, _logger);
+        StackCall st_ = ResultContextLambda.newInstance(stopper_, _ctx, InitPhase.NOTHING);
         ContextEl lda_ = _rLda.getContext();
         String table_ = _rp.getBreakPointCondition().getAliasIterableTable();
         String iteratorMethod_ = _rp.getBreakPointCondition().getAliasIteratorTableMethod();
