@@ -22,6 +22,8 @@ public final class MutableTreeNodeCoreUtilTest extends EquallableIntGuiUtil {
         assertSame(t2_, t1_.getChildAt(0));
         assertNull(t2_.getNextSibling());
         assertNull(t2_.getPreviousSibling());
+        assertNull(t2_.getNextSiblingReal());
+        assertNull(t2_.getFirstChildReal());
     }
     @Test
     public void t3() {

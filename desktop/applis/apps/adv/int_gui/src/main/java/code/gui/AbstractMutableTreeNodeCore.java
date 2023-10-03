@@ -31,6 +31,8 @@ public interface AbstractMutableTreeNodeCore<T> {
 
     int removeAllChildren();
 
+    AbstractMutableTreeNodeCore<T> getFirstChildReal();
+    AbstractMutableTreeNodeCore<T> getNextSiblingReal();
     AbstractMutableTreeNodeCore<T> getParentReal();
 
     int remove(AbstractMutableTreeNodeCore<T> _treeNode);

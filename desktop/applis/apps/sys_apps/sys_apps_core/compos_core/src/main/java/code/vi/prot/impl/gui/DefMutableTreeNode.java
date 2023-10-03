@@ -54,6 +54,24 @@ public final class DefMutableTreeNode extends MutableTreeNodeNav<String> impleme
     }
 
     @Override
+    public AbstractMutableTreeNodeCore<String> getFirstChildReal() {
+        try {
+            return build((DefaultMutableTreeNode) node.getFirstChild());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public AbstractMutableTreeNodeCore<String> getNextSiblingReal() {
+        try {
+            return build(node.getNextSibling());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
     public AbstractMutableTreeNodeCore<String> getParentReal() {
         try {
             return build((DefaultMutableTreeNode) node.getParent());

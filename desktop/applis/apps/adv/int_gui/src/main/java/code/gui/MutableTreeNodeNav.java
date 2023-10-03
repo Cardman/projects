@@ -20,6 +20,16 @@ public class MutableTreeNodeNav<T> implements AbstractMutableTreeNodeCore<T>{
     }
 
     @Override
+    public AbstractMutableTreeNodeCore<T> getFirstChildReal() {
+        return getFirstChild();
+    }
+
+    @Override
+    public AbstractMutableTreeNodeCore<T> getNextSiblingReal() {
+        return getNextSibling();
+    }
+
+    @Override
     public AbstractMutableTreeNodeCore<T> getParentReal() {
         return getParent();
     }
