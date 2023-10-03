@@ -1,19 +1,28 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.syntax.FileBlockIndex;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.dbg.StrResultContextLambda;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
-import code.expressionlanguage.exec.opers.ExecCatOperation;
+import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.ResultContextLambda;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.DisplayableStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.InterruptibleContextEl;
 import code.gui.AbsPlainButton;
 import code.gui.AbsTextArea;
@@ -21,6 +30,7 @@ import code.gui.AbsTreeGui;
 import code.gui.AbstractMutableTreeNodeCore;
 import code.gui.initialize.AbsCompoFactory;
 import code.threads.AbstractThreadFactory;
+import code.util.CustList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
@@ -52,16 +62,18 @@ public final class TreeNodeRenderUtil {
     }
 
     static Struct resultWrap(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
-        Struct res_ = result(_renderPointPairs, _node, _compo, _th);
-        _node.feedChildren(_compo);
-        return res_;
+        return result(_renderPointPairs, _node, _compo, _th);
     }
     static Struct result(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         if (_renderPointPairs == null) {
-            return _node.value();
+            Struct res_ = _node.value();
+            _node.feedChildren(_compo);
+            return res_;
         }
         ResultContextLambda rLda_ = checkExc(_renderPointPairs);
-        return result(_renderPointPairs,rLda_, _node, _compo, _th);
+        Struct res_ = result(_renderPointPairs, rLda_, _node, _compo, _th);
+        resultTable(_renderPointPairs,checkExcExp(_renderPointPairs),_node,_compo,_th);
+        return res_;
     }
 
     private static Struct result(RenderPointInfosPreference _rp,ResultContextLambda _rLda, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
@@ -72,12 +84,7 @@ public final class TreeNodeRenderUtil {
         Struct str_ = _node.value();
         if (_rLda != null) {
             StackCallReturnValue result_ = _rLda.eval(stopper_,_rp.build(), null);
-            CallingState stateAfter_ = result_.getStack().getCallingState();
-            if (stateAfter_ != null) {
-                for (String l: ResultContextLambda.traceView(result_.getStack(),ctx_)) {
-                    logger_.log(l);
-                }
-            }
+            logTrace(result_.getStack(), ctx_, logger_);
             return ExecCatOperation.getDisplayable(result_.getStack().aw().getValue(),ctx_);
         }
         IndirectCalledFctUtil.processString(ArgumentListCall.toStr(str_), ctx_, st_);
@@ -89,18 +96,87 @@ public final class TreeNodeRenderUtil {
             res_ = null;
         } else {
             res_ = ExecCatOperation.getDisplayable(ProcessMethod.calculate(state_, ctx_, st_).getValue(), ctx_);
-            CallingState stateAfter_ = st_.getCallingState();
-            if (stateAfter_ != null) {
-                for (String f: ResultContextLambda.traceView(st_, ctx_)) {
-                    logger_.log(f);
-                }
-            }
+            logTrace(st_, ctx_, logger_);
         }
         return res_;
+    }
+    private static void resultTable(RenderPointInfosPreference _rp,ResultContextLambda _rLda, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+        if (_rLda == null) {
+            _node.feedChildren(_compo);
+            return;
+        }
+        ContextEl ctx_ = local(_node.getResult(), _th);
+        AdvLogDbg logger_ = logger(_node, _compo, ctx_);
+        DefStackStopper stopper_ = new DefStackStopper(logger_);
+        StackCallReturnValue result_ = _rLda.eval(stopper_,_rp.build(), null);
+        logTrace(result_.getStack(), ctx_, logger_);
+        StackCall st_ = ResultContextLambda.newInstance(stopper_, ctx_, InitPhase.NOTHING);
+        ContextEl lda_ = _rLda.getContext();
+        String table_ = _rp.getBreakPointCondition().getAliasIterableTable();
+        String iteratorMethod_ = _rp.getBreakPointCondition().getAliasIteratorTableMethod();
+        getOrRedirect(ArgumentListCall.toStr(result_.getStack().aw().getValue()),lda_,st_,table_,iteratorMethod_);
+        Struct map_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), lda_, st_).getValue());
+        while (true) {
+            String iteratorType_ = _rp.getBreakPointCondition().getAliasIteratorTableType();
+            String hasNextMethod_ = _rp.getBreakPointCondition().getAliasHasNextPair();
+            getOrRedirect(map_,lda_,st_,iteratorType_,hasNextMethod_);
+            Struct has_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), lda_, st_).getValue());
+            if (lda_.callsOrException(st_) || BooleanStruct.isFalse(has_)) {
+                break;
+            }
+            String nextMethod_ = _rp.getBreakPointCondition().getAliasNextPair();
+            getOrRedirect(map_,lda_,st_,iteratorType_,nextMethod_);
+            Struct pair_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), lda_, st_).getValue());
+            String pairType_ = _rp.getBreakPointCondition().getAliasPairType();
+            String first_ = _rp.getBreakPointCondition().getAliasGetFirst();
+            getOrRedirect(pair_,lda_,st_,pairType_,first_);
+            Struct prefix_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), lda_, st_).getValue());
+            String second_ = _rp.getBreakPointCondition().getAliasGetSecond();
+            getOrRedirect(pair_,lda_,st_,pairType_,second_);
+            Struct value_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), lda_, st_).getValue());
+            _node.append(_compo, NumParsers.getString(prefix_).getInstance(),value_);
+        }
+    }
+
+    private static void getOrRedirect(Struct _argument, ContextEl _conf, StackCall _stackCall, String _cl, String _m) {
+        if (_argument == NullStruct.NULL_VALUE) {
+            String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
+        }
+        if (_stackCall.getCallingState() != null) {
+            return;
+        }
+        String argClassName_ = _argument.getClassName(_conf);
+        ExecTypeFunction valBody_ = newCall(_cl,_m, _conf.getClasses());
+        ExecOverrideInfo polymorphMethod_ = ExecInvokingOperation.polymorph(_conf, _argument, valBody_);
+        ExecTypeFunction p_ = polymorphMethod_.getPair();
+        ExecFormattedRootBlock clCall_ = ExecFormattedRootBlock.getFullObject(argClassName_, polymorphMethod_.getClassName(), _conf);
+        ExecTemplates.wrapAndCall(p_, clCall_,new Argument(_argument), _conf, _stackCall, new ArgumentListCall());
+    }
+
+    private static ExecTypeFunction newCall(String _cl, String _m,
+                                            Classes _classes) {
+        ExecFormattedRootBlock formattedType_ = ExecFormattedRootBlock.build(_cl,_classes);
+        ExecRootBlock classBody_ = formattedType_.getRootBlock();
+        ExecNamedFunctionBlock fct_ = ExecClassesUtil.getMethodBodiesById(classBody_, new MethodId(MethodAccessKind.INSTANCE,_m,new CustList<String>())).first();
+        return new ExecTypeFunction(formattedType_, fct_);
+    }
+    private static void logTrace(StackCall _st, ContextEl _ctx, AdvLogDbg _logger) {
+        CallingState stateAfter_ = _st.getCallingState();
+        if (stateAfter_ != null) {
+            for (String f: ResultContextLambda.traceView(_st, _ctx)) {
+                _logger.log(f);
+            }
+        }
     }
 
     private static ResultContextLambda checkExc(RenderPointInfosPreference _bp) {
         StrResultContextLambda bpc_ = stopExcValue(_bp.getBreakPointCondition());
+        return stopCurrent(bpc_);
+    }
+
+    private static ResultContextLambda checkExcExp(RenderPointInfosPreference _bp) {
+        StrResultContextLambda bpc_ = stopExcValueExp(_bp.getBreakPointCondition());
         return stopCurrent(bpc_);
     }
 
@@ -116,6 +192,13 @@ public final class TreeNodeRenderUtil {
             return null;
         }
         return _ex.getRender();
+    }
+
+    private static StrResultContextLambda stopExcValueExp(RenderPointPair _ex) {
+        if (!_ex.isEnableExpand()) {
+            return null;
+        }
+        return _ex.getExpand();
     }
     static AdvLogDbg logger(DbgNodeStruct _node, AbsCompoFactory _compo, ContextEl _ctx) {
         AbsTextArea ta_ = _compo.newTextArea();

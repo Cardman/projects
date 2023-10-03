@@ -22,4 +22,5 @@ public interface DbgNodeStruct {
     boolean feedChildren(AbsCompoFactory _compo);
     void repr(String _r);
     void repr(Struct _r);
+    void append(AbsCompoFactory _compo, String _prefix, Struct _str);
 }

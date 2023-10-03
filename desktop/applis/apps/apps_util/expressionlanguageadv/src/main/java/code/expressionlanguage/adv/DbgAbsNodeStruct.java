@@ -161,6 +161,16 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
         }
     }
 
+    @Override
+    public void append(AbsCompoFactory _compo, String _prefix, Struct _str) {
+        DbgCustomRenderedStruct e_ = new DbgCustomRenderedStruct(this, _prefix, _str);
+        node.add(e_.getNode());
+        AbstractMutableTreeNodeCore<String> sub_ = _compo.newMutableTreeNode(TreeNodeRenderUtil.format(e_));
+        e_.setAssociated(sub_);
+        getAssociated().add(sub_);
+        children.add(e_);
+    }
+
     public AbstractMutableTreeNodeCore<String> getAssociated() {
         return associated;
     }

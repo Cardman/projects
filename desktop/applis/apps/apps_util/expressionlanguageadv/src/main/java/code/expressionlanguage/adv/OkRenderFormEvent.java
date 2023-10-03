@@ -27,15 +27,16 @@ public final class OkRenderFormEvent implements AbsActionListener {
                 return;
             }
             ExcPointBlockKey ep_ = added_.getEp();
-            RenderPointPair r_ = new RenderPointPair(ep_.isExact(), ep_.getClName(), window.getCaller(), false);
+            RenderPointPair r_ = new RenderPointPair(ep_.isExact(), ep_.getClName(), window.getCaller(), false, false);
             window.getRenderList().add(r_);
             exc_ = r_;
         }
         exc_.getExcPointBlockPair().getValue().setEnabled(frameExcFormContent.getEnabledExc().isSelected());
+        exc_.setEnableExpand(frameExcFormContent.getEnabledExpand().isSelected());
         exc_.setGlobalEnabled(frameExcFormContent.getEnabledExcGlobal().isSelected());
         exc_.setPref(frameExcFormContent.getPref().getValue());
         exc_.prefsMap(frameExcFormContent.getPrefs().getList());
-        exc_.analyze(frameExcFormContent.getRenderText().getText(),currentResult, window.getResultContextNext().generateAdv(currentResult.getContext().getInterrupt()));
+        exc_.analyze(frameExcFormContent.getRenderText().getText(),frameExcFormContent.getExpandText().getText(),currentResult, window.getResultContextNext().generateAdv(currentResult.getContext().getInterrupt()));
 //        exc_.getValue().setThrown(frameExcFormContent.getThrown().isSelected());
 //        exc_.getValue().setCaught(frameExcFormContent.getCaught().isSelected());
 //        exc_.getValue().setPropagated(frameExcFormContent.getPropagated().isSelected());
