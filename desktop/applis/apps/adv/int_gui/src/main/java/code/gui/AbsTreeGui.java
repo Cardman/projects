@@ -8,6 +8,7 @@ public interface AbsTreeGui extends AbsCustComponent {
     void reloadRoot();
     AbstractMutableTreeNodeCore<String> getRoot();
     AbstractMutableTreeNodeCore<String> selectEvt();
+    AbstractMutableTreeNodeCore<String> realEvt();
 
     boolean isRootVisible();
 
@@ -18,6 +19,7 @@ public interface AbsTreeGui extends AbsCustComponent {
     CustList<AbsShortListTree> getTreeSelectionListeners();
     AbstractMutableTreeNodeCore<String> translate(AbsTreePath _tr);
     AbsTreePath translate(AbstractMutableTreeNodeCore<String> _tr);
+    AbsTreePath selectedPath();
     AbsTreePaths selectedPaths();
     void selectedPaths(AbsTreePaths _p);
     void info(AbstractMutableTreeNodeCore<String> _node, String _v);

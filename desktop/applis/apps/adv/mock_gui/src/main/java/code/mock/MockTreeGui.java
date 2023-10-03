@@ -72,9 +72,23 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
 
     @Override
     public AbstractMutableTreeNodeCore<String> selectEvt() {
+        return realEvt();
+    }
+
+    @Override
+    public AbstractMutableTreeNodeCore<String> realEvt() {
+        AbsTreePath s_ = selectedPath();
+        if (s_ != null) {
+            return s_.data();
+        }
+        return null;
+    }
+
+    @Override
+    public AbsTreePath selectedPath() {
         AbsTreePaths s_ = selectedPaths();
         if (s_.getLength() == 1) {
-            return s_.elt(0).data();
+            return s_.elt(0);
         }
         return null;
     }

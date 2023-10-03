@@ -46,6 +46,26 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
     }
 
     @Override
+    public AbstractMutableTreeNodeCore<String> realEvt() {
+        TreePath selectionPath_ = getSelectionPath();
+        try {
+            return DefMutableTreeNode.build((DefaultMutableTreeNode) selectionPath_.getLastPathComponent());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public AbsTreePath selectedPath() {
+        TreePath selectionPath_ = getSelectionPath();
+        try {
+            return new DefTreePath(DefMutableTreeNode.build((DefaultMutableTreeNode) selectionPath_.getLastPathComponent()),selectionPath_);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
     public AbstractMutableTreeNodeCore<String> translate(AbsTreePath _tr) {
         return TreeGui.selected(root,((DefTreePath)_tr).getReal());
     }
