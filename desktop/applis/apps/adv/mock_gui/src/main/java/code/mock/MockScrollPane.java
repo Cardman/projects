@@ -5,6 +5,7 @@ import code.gui.AbsScrollPane;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaRect;
 import code.util.CustList;
+import code.util.core.NumberUtil;
 
 public final class MockScrollPane extends MockCustComponent implements AbsScrollPane {
     private AbsCustComponent child;
@@ -71,7 +72,8 @@ public final class MockScrollPane extends MockCustComponent implements AbsScroll
 
     @Override
     public MetaRect viewRect() {
-        return new MetaRect(0,0,1,1);
+        MetaDimension dim_ = getPreferredSizeValue();
+        return new MetaRect(0,0, NumberUtil.max(1, dim_.getWidth()), NumberUtil.max(1, dim_.getHeight()));
     }
 
 }
