@@ -121,24 +121,29 @@ public final class TreeNodeRenderUtil {
         String iteratorMethod_ = _rp.getBreakPointCondition().getAliasIteratorTableMethod();
         getOrRedirect(ArgumentListCall.toStr(result_.getStack().aw().getValue()), _ctx,st_,table_,iteratorMethod_);
         Struct map_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), _ctx, st_).getValue());
+        logTrace(st_, _ctx, _logger);
         while (true) {
             String iteratorType_ = _rp.getBreakPointCondition().getAliasIteratorTableType();
             String hasNextMethod_ = _rp.getBreakPointCondition().getAliasHasNextPair();
             getOrRedirect(map_, _ctx,st_,iteratorType_,hasNextMethod_);
             Struct has_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), _ctx, st_).getValue());
+            logTrace(st_, _ctx, _logger);
             if (_ctx.callsOrException(st_) || BooleanStruct.isFalse(has_)) {
                 break;
             }
             String nextMethod_ = _rp.getBreakPointCondition().getAliasNextPair();
             getOrRedirect(map_, _ctx,st_,iteratorType_,nextMethod_);
             Struct pair_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), _ctx, st_).getValue());
+            logTrace(st_, _ctx, _logger);
             String pairType_ = _rp.getBreakPointCondition().getAliasPairType();
             String first_ = _rp.getBreakPointCondition().getAliasGetFirst();
             getOrRedirect(pair_, _ctx,st_,pairType_,first_);
             Struct prefix_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), _ctx, st_).getValue());
+            logTrace(st_, _ctx, _logger);
             String second_ = _rp.getBreakPointCondition().getAliasGetSecond();
             getOrRedirect(pair_, _ctx,st_,pairType_,second_);
             Struct value_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), _ctx, st_).getValue());
+            logTrace(st_, _ctx, _logger);
             _node.append(_compo, NumParsers.getString(prefix_).getInstance(),value_);
         }
     }
