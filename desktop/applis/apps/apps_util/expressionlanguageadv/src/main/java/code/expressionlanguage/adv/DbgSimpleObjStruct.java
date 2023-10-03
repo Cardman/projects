@@ -8,10 +8,12 @@ public abstract class DbgSimpleObjStruct extends DbgAbsNodeStruct {
     protected DbgSimpleObjStruct(ContextEl _r, DbgAbsNodeStruct _par, Struct _w) {
         super(_r, _par.getOriginal(),_par);
         this.eval = _w;
+        repr(value());
     }
     protected DbgSimpleObjStruct(DbgAbsNodeStruct _par, Struct _w) {
         super(_par);
         this.eval = _w;
+        repr(value());
     }
 
     @Override

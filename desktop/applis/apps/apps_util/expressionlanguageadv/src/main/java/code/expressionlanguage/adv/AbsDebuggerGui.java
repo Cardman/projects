@@ -85,7 +85,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private IdList<AbsPlainButton> buttons = new IdList<AbsPlainButton>();
     private IdList<AbsPlainButton> buttonsDynRef = new IdList<AbsPlainButton>();
     private AbsTabbedPane watches;
-    private AbsPanel cancelDynWatch;
+//    private AbsPanel cancelDynWatch;
     private AbstractThread dynamicAna;
     private AbsPlainButton refreshRender;
 
@@ -161,12 +161,12 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         dynTrees = new CustList<AbsTreeGui>();
         buttons = new IdList<AbsPlainButton>();
         buttonsDynRef = new IdList<AbsPlainButton>();
-        cancelDynWatch = getCommonFrame().getFrames().getCompoFactory().newPageBox();
+//        cancelDynWatch = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         dynPanel_.add(dynamicEval);
         dynPanel_.add(evalPage);
         dynPanel_.add(evalNoPage);
         dynPanel_.add(watches);
-        dynPanel_.add(cancelDynWatch);
+//        dynPanel_.add(cancelDynWatch);
         refreshRender = getCompoFactory().newPlainButton("refresh render");
         AbsSplitPane detRender_ = getCommonFrame().getFrames().getCompoFactory().newVerticalSplitPane(refreshRender,detail);
         detailAll = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(calls_,getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(detRender_,getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(dynPanel_)));
@@ -375,22 +375,21 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     private DynamicAnalysisTask build(ResultContext _res, DbgRootStruct _root, AbsTreeGui _tree, AbstractPageEl _call) {
         DynamicAnalysisTask d_ = new DynamicAnalysisTask(this, _call, _res, _tree, _root);
-        AbsPlainButton stop_ = getCompoFactory().newPlainButton("stop:"+d_.getDynamic());
-        stop_.addActionListener(new CancelEvalDynEvent(this, stop_,d_.getInterrupted()));
-        cancelDynWatch.add(stop_);
-        buttons.add(stop_);
+        buttons.add(d_.getStButton());
+        dynTrees.add(d_.getTree());
+        buttonsDynRef.add(d_.getRefreshButton());
         return d_;
     }
 
-    public void refreshDynamic(WatchResults _wr, String _dynamic, AbsTreeGui _tr, DbgRootStruct _root) {
-        _root.addWatches(getCommonFrame().getFrames().getCompoFactory(), _tr.getRoot(), _wr);
-        dynTrees.add(_tr);
-        AbsPlainButton ref_ = getCompoFactory().newPlainButton("refresh render");
-        ref_.addActionListener(new RefreshRenderDynEvent(this,_tr,_root));
-        buttonsDynRef.add(ref_);
-        AbsSplitPane elt_ = getCommonFrame().getFrames().getCompoFactory().newVerticalSplitPane(ref_, getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(_tr));
-        watches.addIntTab("vars",elt_, _dynamic.trim());
+    public void refreshDynamic(DynamicAnalysisTask _d, WatchResults _wr) {
+        AbsTreeGui tr_ = _d.getTree();
+        _d.getRoot().addWatches(getCommonFrame().getFrames().getCompoFactory(), tr_.getRoot(), _wr);
+        _d.getScroll().setViewportView(tr_);
         getCommonFrame().pack();
+    }
+
+    public AbsTabbedPane getWatches() {
+        return watches;
     }
 
     public IdList<AbsPlainButton> getButtonsDynRef() {
@@ -401,11 +400,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return dynamicAna;
     }
 
-    public static WatchResults dynamicAnalyze(String _dyn, StackCall _stack, AbstractPageEl _page, ResultContext _res, AbsLightContextGenerator _gene) {
+    public static WatchResults dynamicAnalyze(String _dyn, StackCall _stack, AbstractPageEl _page, ResultContext _res, AbsLightContextGenerator _gene, AdvLogDbg _a) {
         if (_page == null) {
-            return WatchResults.dynamicAnalyze(_dyn,_stack,_res,_gene);
+            return WatchResults.dynamicAnalyze(_dyn,_stack,_res,_gene,new DefStackStopper(_a));
         }
-        return WatchResults.dynamicAnalyze(_dyn,_res,_gene,_page);
+        return WatchResults.dynamicAnalyze(_dyn,_res,_gene,_page,new DefStackStopper(_a));
     }
 
     public void refreshRender() {
@@ -769,9 +768,9 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return dynTrees;
     }
 
-    public AbsPanel getCancelDynWatch() {
-        return cancelDynWatch;
-    }
+//    public AbsPanel getCancelDynWatch() {
+//        return cancelDynWatch;
+//    }
 
     public IdList<AbsPlainButton> getButtons() {
         return buttons;

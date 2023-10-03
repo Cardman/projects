@@ -9,6 +9,7 @@ public final class DbgArrEltStruct extends DbgAbsNodeStruct {
         super(_par);
         this.variable = _v;
         this.eval = _w;
+        repr(value());
     }
 
     @Override

@@ -18,7 +18,7 @@ public class CancelEvalDynEvent implements AbsActionListener {
     public void action() {
         stopped.set(true);
         win.getButtons().removeObj(stopping);
-        win.getCancelDynWatch().remove(stopping);
+//        win.getCancelDynWatch().remove(stopping);
         win.getCommonFrame().pack();
     }
 }

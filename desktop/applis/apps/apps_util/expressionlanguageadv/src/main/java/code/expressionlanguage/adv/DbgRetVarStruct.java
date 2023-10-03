@@ -11,6 +11,7 @@ public final class DbgRetVarStruct extends DbgAbsNodeStruct {
         super(_par);
         className = _w.getClassName(_par.getResult());
         eval = _w.getValue();
+        repr(value());
     }
 
     @Override

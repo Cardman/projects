@@ -42,23 +42,19 @@ public final class TreeNodeRenderUtil {
     }
 
     static void renderNode(RenderPointInfosPreference _renderPointPairs, AbsTreeGui _tree, AbstractMutableTreeNodeCore<String> _tr, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
-        String res_ = resultWrap(_renderPointPairs,_node, _compo, _th);
+        Struct res_ = resultWrap(_renderPointPairs,_node, _compo, _th);
         if (_node.value() == null) {
             return;
         }
-        String render_ = format(_node, res_);
+        _node.repr(res_);
+        String render_ = format(_node);
         _compo.invokeNow(new FinalRenderingTask(_tree,_tr,render_));
     }
 
-    static String resultWrap(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+    static Struct resultWrap(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         Struct res_ = result(_renderPointPairs, _node, _compo, _th);
         _node.feedChildren(_compo);
-        if (res_ == null) {
-            return "";
-        }
-        String v_ = wrapValueInner(res_, _node.getResult());
-        _node.repr(v_);
-        return wrapValue(v_);
+        return res_;
     }
     static Struct result(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         if (_renderPointPairs == null) {
@@ -71,10 +67,11 @@ public final class TreeNodeRenderUtil {
     private static Struct result(RenderPointInfosPreference _rp,ResultContextLambda _rLda, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
         ContextEl ctx_ = local(_node.getResult(), _th);
         AdvLogDbg logger_ = logger(_node, _compo, ctx_);
-        StackCall st_ = StackCall.newInstance(new DefStackStopper(logger_), InitPhase.NOTHING, ctx_, ctx_.getExecutionInfos().getSeed());
+        DefStackStopper stopper_ = new DefStackStopper(logger_);
+        StackCall st_ = ResultContextLambda.newInstance(stopper_, ctx_, InitPhase.NOTHING);
         Struct str_ = _node.value();
         if (_rLda != null) {
-            StackCallReturnValue result_ = _rLda.eval(_rp.build(), null);
+            StackCallReturnValue result_ = _rLda.eval(stopper_,_rp.build(), null);
             CallingState stateAfter_ = result_.getStack().getCallingState();
             if (stateAfter_ != null) {
                 for (String l: ResultContextLambda.traceView(result_.getStack(),ctx_)) {
@@ -140,7 +137,7 @@ public final class TreeNodeRenderUtil {
     }
 
     private static String wrapValue(DbgNodeStruct _node) {
-        return wrapValue(wrapValueInner(_node.value(), _node.getResult()));
+        return wrapValue(_node.repr());
     }
 
     static String format(DbgNodeStruct _node, String _value) {
@@ -164,7 +161,7 @@ public final class TreeNodeRenderUtil {
         return "";
     }
 
-    private static String wrapValueInner(Struct _str, ContextEl _ctx) {
+    static String wrapValueInner(Struct _str, ContextEl _ctx) {
         if (_str instanceof ArrayStruct) {
             return Long.toString(((ArrayStruct)_str).getLength());
         }

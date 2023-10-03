@@ -10,6 +10,7 @@ public final class DbgFieldStruct extends DbgAbsNodeStruct {
         super(_par);
         this.variable = _v;
         this.eval = _w;
+        repr(value());
     }
 
     @Override

@@ -12,6 +12,7 @@ public final class DbgCallStruct extends DbgAbsNodeStruct {
         super(_par);
         className = _page.getClassName();
         eval = _page.getEval();
+        repr(value());
     }
     public String id() {
         return StringExpUtil.getIdFromAllTypes(className);

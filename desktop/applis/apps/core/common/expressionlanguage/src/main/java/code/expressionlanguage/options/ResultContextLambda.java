@@ -206,12 +206,14 @@ public final class ResultContextLambda {
         return StringUtil.nullToEmpty(_str);
     }
     public StackCallReturnValue eval(CheckedMethodInfos _addon, AbstractPageEl _page) {
-        prepare();
-        return evalStack(_addon,_page);
+        return eval(context.getClasses().getDebugMapping().getStopper(),_addon,_page);
+    }
+    public StackCallReturnValue eval(AbsStackStopper _logger,CheckedMethodInfos _addon, AbstractPageEl _page) {
+        prepare(_logger);
+        return evalStack(_logger,_addon,_page);
     }
     public CustList<String> evalLog(CheckedMethodInfos _addon, AbstractPageEl _page) {
-        prepare();
-        return evalStr(evalStack(_addon, _page));
+        return evalStr(eval(_addon, _page));
     }
     public CustList<String> evalStr(StackCallReturnValue _pre) {
         StackCall st_ = _pre.getStack();
@@ -255,14 +257,14 @@ public final class ResultContextLambda {
         return e_;
     }
 
-    private void prepare() {
+    private void prepare(AbsStackStopper _st) {
         if (!initTypes) {
             initTypes = true;
             ExecClassesUtil.forwardClassesMetaInfos(context);
             DefaultLockingClass dl_ = context.getLocks();
             dl_.init(context);
             context.setExiting(new DefaultExiting(context));
-            StackCall st_ = StackCall.newInstance(InitPhase.LIST,context);
+            StackCall st_ = newInstance(_st, context, InitPhase.LIST);
             st_.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
             endOrder(st_);
             ExecClassesUtil.updateAfter(context);
@@ -272,6 +274,10 @@ public final class ResultContextLambda {
         for (EntryCust<ExecRootBlock, InitClassState> c: original.getLocks().getClasses().entryList()) {
             context.getLocks().state(c.getKey(),c.getValue());
         }
+    }
+
+    public static StackCall newInstance(AbsStackStopper _st, ContextEl _ctx, InitPhase _ls) {
+        return StackCall.newInstance(_st, _ls, _ctx, _ctx.getExecutionInfos().getSeed());
     }
 
     private void endOrder(StackCall _st) {
@@ -292,8 +298,8 @@ public final class ResultContextLambda {
         _st.getInitializingTypeInfos().resetInitEnums(_st);
     }
 
-    public StackCallReturnValue evalStack(CheckedMethodInfos _addon, AbstractPageEl _page) {
-        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING, context);
+    public StackCallReturnValue evalStack(AbsStackStopper _lg,CheckedMethodInfos _addon, AbstractPageEl _page) {
+        StackCall stackCall_ = newInstance(_lg, context, InitPhase.NOTHING);
         if (_addon != null) {
             AbstractPageEl page_ = new CustomFoundMethod(new Argument(_addon.getInstance()),_addon.getDeclaring(),lambda, _addon.getParameters()).processAfterOperation(context,stackCall_);
             return loop(stackCall_, page_);

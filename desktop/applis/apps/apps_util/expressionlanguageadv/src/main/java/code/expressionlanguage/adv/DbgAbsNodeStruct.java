@@ -59,6 +59,11 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
         infoStr = _r;
     }
 
+    @Override
+    public void repr(Struct _r) {
+        repr(TreeNodeRenderUtil.wrapValueInner(_r, getResult()));
+    }
+
     public MutableTreeNodeNav<DbgAbsNodeStruct> getNode() {
         return node;
     }

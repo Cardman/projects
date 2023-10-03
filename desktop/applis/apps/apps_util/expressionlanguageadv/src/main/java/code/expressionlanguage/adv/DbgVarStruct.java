@@ -19,6 +19,7 @@ public final class DbgVarStruct extends DbgAbsNodeStruct {
         indexClassName = _w.getIndexClassName();
         index = _w.getIndex();
         eval = _w.getWrapper().getValue();
+        repr(value());
     }
 
     @Override
