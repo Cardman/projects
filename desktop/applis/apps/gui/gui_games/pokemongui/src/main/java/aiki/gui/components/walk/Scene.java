@@ -264,7 +264,6 @@ public final class Scene extends AbsMetaLabelPk implements AbsMouseListenerIntRe
     }
 
     public void setFocus() {
-        getPaintableLabel().requestFocus();
         getPaintableLabel().requestFocusInWindow();
     }
 }

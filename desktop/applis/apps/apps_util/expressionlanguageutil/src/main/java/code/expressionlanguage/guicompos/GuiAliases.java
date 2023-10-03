@@ -315,6 +315,7 @@ public final class GuiAliases {
     private static final String REMOVE_LISTENER="___1030";
     private static final String GET_LISTENERS="___1058";
     private static final String REQUEST_FOCUS="___1081";
+    private static final String FOCUSED="___1081_";
     private static final String COMP_BACK="859";
     private static final String COMPO_REL_LEFT="860";
     private static final String COMPO_REL_RIGHT="861";
@@ -696,6 +697,7 @@ public final class GuiAliases {
     private String aliasListSelection;
     private String aliasValueChanged;
     private String aliasRequestFocus;
+    private String aliasFocused;
     private String aliasCompToolTip;
     private String aliasCompFocusable;
     private String aliasCompOpaque;
@@ -1895,7 +1897,10 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasGetListeners, params_, StringExpUtil.getPrettyArrayType(aliasMouseListener), false, MethodModifier.FINAL,new StringList(), new FctCompoGetMouseListeners());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasRequestFocus, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctCompoRequestFocus());
+        method_ = new StandardMethod(aliasRequestFocus, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctCompoRequestFocus());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasFocused, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctCompoFocused());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasComponentGetHeight, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctCompoGetHeight());
@@ -3652,6 +3657,7 @@ public final class GuiAliases {
         setAliasCompBorLine(LgNamesContent.get(_util,_cust,_mapping.getVal(COMP_BOR_LINE)));
         setAliasKeyEventCode(LgNamesContent.get(_util,_cust,_mapping.getVal(KEY_EVENT_CODE)));
         setAliasRequestFocus(LgNamesContent.get(_util,_cust,_mapping.getVal(REQUEST_FOCUS)));
+        setAliasFocused(LgNamesContent.get(_util,_cust,_mapping.getVal(FOCUSED)));
         setAliasCompBorRaise(LgNamesContent.get(_util,_cust,_mapping.getVal(COMP_BOR_RAISE)));
         setAliasWheelEvent(LgNamesContent.get(_util,_cust,_mapping.getVal(WHEEL_EVENT)));
         setAliasKeyEventIsShift(LgNamesContent.get(_util,_cust,_mapping.getVal(KEY_EVENT_IS_SHIFT)));
@@ -3945,6 +3951,7 @@ public final class GuiAliases {
         _en.add(REMOVE_LISTENER,"RemoveListener=removeList");
         _en.add(GET_LISTENERS,"GetListeners=getLists");
         _en.add(REQUEST_FOCUS,"RequestFocus=requestFocus");
+        _en.add(FOCUSED,"Focused=focused");
         _en.add(COMP_BACK,"CompBack=back");
         _en.add(COMPO_REL_LEFT,"CompoRelLeft=left");
         _en.add(COMPO_REL_RIGHT,"CompoRelRight=right");
@@ -4374,6 +4381,7 @@ public final class GuiAliases {
         _fr.add(REMOVE_LISTENER,"RemoveListener=supprEcout");
         _fr.add(GET_LISTENERS,"GetListeners=valEcouts");
         _fr.add(REQUEST_FOCUS,"RequestFocus=demanderFocus");
+        _fr.add(FOCUSED,"Focused=afocus");
         _fr.add(COMP_BACK,"CompBack=arriere");
         _fr.add(COMPO_REL_LEFT,"CompoRelLeft=gauche");
         _fr.add(COMPO_REL_RIGHT,"CompoRelRight=droite");
@@ -5135,6 +5143,7 @@ public final class GuiAliases {
                 new KeyValueMemberName(_mapping.getVal(REMOVE_LISTENER),getAliasRemoveListener()),
                 new KeyValueMemberName(_mapping.getVal(GET_LISTENERS),getAliasGetListeners()),
                 new KeyValueMemberName(_mapping.getVal(REQUEST_FOCUS),getAliasRequestFocus()),
+                new KeyValueMemberName(_mapping.getVal(FOCUSED),getAliasFocused()),
                 new KeyValueMemberName(_mapping.getVal(COMP_BACK),getAliasCompBack()),
                 new KeyValueMemberName(_mapping.getVal(COMPO_REL_LEFT),getAliasCompoRelLeft()),
                 new KeyValueMemberName(_mapping.getVal(COMPO_REL_RIGHT),getAliasCompoRelRight()),
@@ -7262,6 +7271,14 @@ public final class GuiAliases {
 
     public void setAliasRequestFocus(String _v) {
         this.aliasRequestFocus = _v;
+    }
+
+    public String getAliasFocused() {
+        return aliasFocused;
+    }
+
+    public void setAliasFocused(String _v) {
+        this.aliasFocused = _v;
     }
 
     public String getAliasCompToolTip() {

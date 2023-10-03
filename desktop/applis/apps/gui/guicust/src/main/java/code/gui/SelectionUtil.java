@@ -288,7 +288,7 @@ public final class SelectionUtil {
         AbsCustCellRender r_ = _curr.setted();
         AbsPreparedLabel c_ = _curr.getListComponents().get(_index);
         r_.getListCellRendererComponent(c_, _index, _sel, false);
-        c_.requestFocus();
+        c_.requestFocusInWindow();
         r_.paintComponent(c_);
         if (_sel) {
             _curr.addRange();

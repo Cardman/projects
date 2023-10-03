@@ -264,7 +264,7 @@ public final class TabEditor implements AbsTabEditor {
     public void afterValidate(int _dest) {
         index = _dest;
 //        center.setEditable(true);
-        center.requestFocus();
+        center.requestFocusInWindow();
         centerSelect(dest, dest);
         center.visibleCaret();
 //        center.setEditable(false);

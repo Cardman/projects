@@ -37,7 +37,8 @@ public interface AbsCustComponent {
     StringMap<AbsEnabledAction> getActionsMap();
 
 
-    void requestFocus();
+    boolean requestFocusInWindow();
+    boolean isFocused();
     boolean isVisible();
     void setVisible(boolean _b);
     int getWidth();

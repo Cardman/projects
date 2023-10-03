@@ -4,7 +4,6 @@ import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 
 public interface AbsPaintableLabel extends AbsCustComponent {
-    void requestFocusInWindow();
     void setEmptyIcon();
     void setIcon(AbstractImageFactory _fact, AbstractImage _icon);
     void setVerticalAlignment(int _alignment);

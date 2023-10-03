@@ -15,6 +15,6 @@ public final class ClosePanelExpressionAction implements AbsActionListener {
         editor.getMainSplitter().setDividerLocation(editor.getMainSplitter().getHeight());
         new UpdatingEditorQuick(editor).run();
 //        editor.getCenter().setEditable(true);
-        editor.getCenter().requestFocus();
+        editor.getCenter().requestFocusInWindow();
     }
 }

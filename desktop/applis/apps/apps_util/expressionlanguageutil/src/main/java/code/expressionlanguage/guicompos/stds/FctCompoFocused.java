@@ -10,10 +10,10 @@ import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 
-public final class FctCompoRequestFocus implements StdCaller {
+public final class FctCompoFocused implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustComponentStruct inst_ = (CustComponentStruct)_instance;
-        return new ArgumentWrapper(BooleanStruct.of(inst_.requestFocus()));
+        return new ArgumentWrapper(BooleanStruct.of(inst_.isFocused()));
     }
 }

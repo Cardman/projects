@@ -458,14 +458,14 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         if (_open > -1) {
             tabbedPane.selectIndex(_open);
             tabs.get(_open).centerSelect(_trace, _trace);
-            tabs.get(_open).getCenter().requestFocus();
+            tabs.get(_open).getCenter().requestFocusInWindow();
             tabs.get(_open).getCenter().visibleCaret();
         }
     }
 
     public void focus(int _opened) {
         if (_opened > -1) {
-            tabs.get(_opened).getCenter().requestFocus();
+            tabs.get(_opened).getCenter().requestFocusInWindow();
             tabs.get(_opened).getCenter().visibleCaret();
         }
     }

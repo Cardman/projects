@@ -28,7 +28,7 @@ public final class MultSelectEltList implements AbsMouseListenerIntRel, Indexabl
             SelectionUtil.selectEvent(index, index, false,selection);
             AbsPreparedLabel elt_ = painter.selectedOneAmongIntervalPaint(grList, sel_, index);
             if (elt_ != null) {
-                elt_.requestFocus();
+                elt_.requestFocusInWindow();
             }
             return;
         }

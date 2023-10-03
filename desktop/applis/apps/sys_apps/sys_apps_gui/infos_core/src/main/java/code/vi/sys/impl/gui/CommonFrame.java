@@ -61,7 +61,7 @@ public final class CommonFrame implements AbsCommonFrame {
     }
 
     public void requestFocus() {
-        frame.requestFocus();
+        frame.requestFocusInWindow();
     }
 
     @Override

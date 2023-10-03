@@ -15,6 +15,6 @@ public final class ClickTextPane implements AbsMouseListenerIntRel {
 
     @Override
     public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        textPane.requestFocus();
+        textPane.requestFocusInWindow();
     }
 }

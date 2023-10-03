@@ -367,22 +367,22 @@ public final class ScrollCustomGraphicList<T> {
         move(false);
     }
 
-    public void move(boolean _rev) {
+    public void move(boolean _down) {
         RowGraphicList<T> foc_ = this.focused.getRow();
         if (foc_ == null){
-            goBound(_rev);
+            goBound(_down);
             return;
         }
-        RowGraphicList<T> prev_ = rev(foc_,!_rev);
+        RowGraphicList<T> prev_ = rev(foc_,!_down);
         if (prev_ == null) {
             return;
         }
         deselectAll();
         int ind_ = this.focused.getIndex();
-        updateFocus(prev_, ind_+rate(!_rev));
-        int ni_ = ind_+rate(!_rev);
+        updateFocus(prev_, ind_+rate(!_down));
+        int ni_ = ind_+rate(!_down);
         prev_.select(true);
-        scrollPage(_rev, scrollPane.viewRect());
+        scrollPage(_down, scrollPane.viewRect());
         fireEvents(ni_, ni_, false);
         refreshAll();
     }
@@ -393,26 +393,26 @@ public final class ScrollCustomGraphicList<T> {
     public void moveShiftUp() {
         moveShift(false);
     }
-    public void moveShift(boolean _rev) {
+    public void moveShift(boolean _down) {
         if (single) {
-            move(_rev);
+            move(_down);
             return;
         }
         RowGraphicList<T> foc_ = this.focused.getRow();
         if (foc_ == null){
-            goBound(_rev);
+            goBound(_down);
             return;
         }
-        RowGraphicList<T> next_ = rev(foc_,!_rev);
+        RowGraphicList<T> next_ = rev(foc_,!_down);
         if (next_ == null) {
             return;
         }
-        deselect(foc_, _rev);
+        deselect(foc_, _down);
         int ind_ = this.focused.getIndex();
-        int ni_ = ind_+rate(!_rev);
+        int ni_ = ind_+rate(!_down);
         toUpdate(next_,foc_).select(!next_.isSelected());
-        updateFocus(next_, ind_+rate(!_rev));
-        scrollPage(_rev, scrollPane.viewRect());
+        updateFocus(next_, ind_+rate(!_down));
+        scrollPage(_down, scrollPane.viewRect());
         fireEvents(ni_, ni_, false);
         refreshAll();
     }
@@ -427,17 +427,17 @@ public final class ScrollCustomGraphicList<T> {
     public void moveShiftPageDown() {
         moveShiftPage(true);
     }
-    public void moveShiftPage(boolean _rev) {
+    public void moveShiftPage(boolean _down) {
         if (single) {
-            movePage(_rev);
+            movePage(_down);
             return;
         }
         RowGraphicList<T> foc_ = this.focused.getRow();
         if (foc_ == null){
-            goBound(_rev);
+            goBound(_down);
             return;
         }
-        moveShiftPage(_rev, foc_, scrollPane.viewRect());
+        moveShiftPage(_down, foc_, scrollPane.viewRect());
     }
 
     public void moveShiftPage(boolean _rev, RowGraphicList<T> _foc, MetaRect _rect) {
@@ -550,30 +550,30 @@ public final class ScrollCustomGraphicList<T> {
     public void moveShiftBottom() {
         moveShiftBound(true);
     }
-    public void moveShiftBound(boolean _rev) {
+    public void moveShiftBound(boolean _down) {
         if (single) {
-            goBound(!_rev);
+            goBound(!_down);
             return;
         }
         RowGraphicList<T> foc_ = this.focused.getRow();
         if (foc_ == null){
-            goBound(_rev);
+            goBound(_down);
             return;
         }
-        boolean sel_ = select(foc_, !_rev);
-        RowGraphicList<T> b_ = bound(!_rev);
+        boolean sel_ = select(foc_, !_down);
+        RowGraphicList<T> b_ = bound(!_down);
         if (b_ == foc_) {
             return;
         }
-        deselect(foc_, _rev);
-        RowGraphicListIndex<T> next_ = new RowGraphicListIndex<T>(b_, boundIndex(!_rev));
-        toggle(foc_, next_, !_rev, sel_);
+        deselect(foc_, _down);
+        RowGraphicListIndex<T> next_ = new RowGraphicListIndex<T>(b_, boundIndex(!_down));
+        toggle(foc_, next_, !_down, sel_);
         int ind_ = next_.getIndex();
         int ni_ = this.focused.getIndex();
         updateFocus(b_, ind_);
-        scrollPage(_rev, scrollPane.viewRect());
-        int first_ = NumberUtil.min(ni_+rate(!_rev),ind_);
-        int last_ = NumberUtil.max(ni_+rate(!_rev),ind_);
+        scrollPage(_down, scrollPane.viewRect());
+        int first_ = NumberUtil.min(ni_+rate(!_down),ind_);
+        int last_ = NumberUtil.max(ni_+rate(!_down),ind_);
         fireEvents(first_, last_, false);
         refreshAll();
     }
@@ -584,13 +584,13 @@ public final class ScrollCustomGraphicList<T> {
     public void goTop() {
         goBound(true);
     }
-    public void goBound(boolean _rev) {
+    public void goBound(boolean _up) {
         deselectAll();
-        RowGraphicList<T> b_ = bound(_rev);
+        RowGraphicList<T> b_ = bound(_up);
         if (b_ != null) {
-            updateFocus(b_, boundIndex(_rev));
+            updateFocus(b_, boundIndex(_up));
             b_.select(true);
-            scrollBound(_rev);
+            scrollBound(_up);
             fireEvents(focused.getIndex(), focused.getIndex(), false);
             refreshAll();
         }
@@ -611,9 +611,9 @@ public final class ScrollCustomGraphicList<T> {
     public void movePageUp() {
         movePage(false);
     }
-    public void movePage(boolean _rev) {
+    public void movePage(boolean _down) {
         MetaRect rect_ = scrollPane.viewRect();
-        movePage(_rev, rect_);
+        movePage(_down, rect_);
     }
 
     public void movePage(boolean _rev, MetaRect _rect) {

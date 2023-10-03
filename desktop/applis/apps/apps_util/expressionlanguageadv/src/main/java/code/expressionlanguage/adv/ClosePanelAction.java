@@ -14,6 +14,6 @@ public final class ClosePanelAction implements AbsActionListener {
         editor.getNavModifPanel().setVisible(false);
         new UpdatingEditorQuick(editor).run();
 //        editor.getCenter().setEditable(true);
-        editor.getCenter().requestFocus();
+        editor.getCenter().requestFocusInWindow();
     }
 }

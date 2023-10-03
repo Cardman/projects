@@ -170,10 +170,6 @@ public final class TextArea extends TxtComponent implements AbsTextArea {
         return area.requestFocus(_temporary);
     }
 
-    public boolean requestFocusInWindow() {
-        return area.requestFocusInWindow();
-    }
-
     public void grabFocus() {
         area.grabFocus();
     }

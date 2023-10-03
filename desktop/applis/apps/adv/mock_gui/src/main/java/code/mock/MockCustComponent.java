@@ -19,6 +19,7 @@ public abstract class MockCustComponent implements AbsCustComponent {
     private boolean visible = true;
     private boolean accessible = true;
     private boolean focusable = true;
+    private boolean focused;
     private boolean opaque;
     private int xcoords;
     private int ycoords;
@@ -211,10 +212,23 @@ public abstract class MockCustComponent implements AbsCustComponent {
     }
 
     @Override
-    public void requestFocus() {
+    public boolean requestFocusInWindow() {
         if (isFocusable()) {
             accessible = true;
+            setFocused(true);
+            return true;
         }
+        setFocused(false);
+        return false;
+    }
+
+    @Override
+    public boolean isFocused() {
+        return focused;
+    }
+
+    public void setFocused(boolean _f) {
+        this.focused = _f;
     }
 
     @Override

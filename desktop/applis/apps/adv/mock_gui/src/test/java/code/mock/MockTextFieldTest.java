@@ -85,17 +85,19 @@ public final class MockTextFieldTest extends EquallableMockGuiUtil {
         MockTextField t_ = new MockTextField("",16);
         t_.setFocusable(false);
         t_.setFocusable(true);
-        t_.requestFocus();
+        t_.requestFocusInWindow();
         t_.setSize(new MetaDimension(100,100));
         assertTrue(t_.isAccessible());
+        assertTrue(t_.isFocused());
     }
     @Test
     public void f13() {
         MockTextField t_ = new MockTextField("",16);
         t_.setFocusable(false);
-        t_.requestFocus();
+        t_.requestFocusInWindow();
         t_.setSize(new MetaDimension(100,100));
         assertFalse(t_.isAccessible());
+        assertFalse(t_.isFocused());
     }
     @Test
     public void f14() {

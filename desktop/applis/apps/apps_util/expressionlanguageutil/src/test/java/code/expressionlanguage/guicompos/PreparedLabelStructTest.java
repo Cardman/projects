@@ -330,6 +330,12 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         call(new FctCompoRequestFocus(),null,ctx_,i_,null,st_);
         call(new FctCompoBorLower(),null,ctx_,i_,null,st_);
         call(new FctCompoBorRaise(),null,ctx_,i_,null,st_);
+        call(new FctCompoFocusable1(),null,ctx_,i_,one(BooleanStruct.of(false)),st_);
+        call(new FctCompoRequestFocus(),null,ctx_,i_,null,st_);
+        call(new FctCompoFocused(),null,ctx_,i_,null,st_);
+        call(new FctCompoFocusable1(),null,ctx_,i_,one(BooleanStruct.of(true)),st_);
+        call(new FctCompoRequestFocus(),null,ctx_,i_,null,st_);
+        call(new FctCompoFocused(),null,ctx_,i_,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }

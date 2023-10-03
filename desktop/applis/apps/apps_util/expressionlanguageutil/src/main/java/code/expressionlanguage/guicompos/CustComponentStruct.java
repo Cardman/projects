@@ -164,8 +164,12 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
         }
     }
 
-    public void requestFocus() {
-        getVisibleComponent().requestFocus();
+    public boolean requestFocus() {
+        return getVisibleComponent().requestFocusInWindow();
+    }
+
+    public boolean isFocused() {
+        return getVisibleComponent().isFocused();
     }
     public void addMouse(Struct _mouseListener) {
         if (_mouseListener instanceof AbsMouseListener) {

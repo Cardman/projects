@@ -174,9 +174,15 @@ public abstract class CustComponent implements AbsCustComponent {
         return mapKey.getKeys();
     }
 
-    public void requestFocus() {
-        getNatComponent().requestFocus();
+    public boolean requestFocusInWindow() {
+        return getNatComponent().requestFocusInWindow();
     }
+
+    @Override
+    public boolean isFocused() {
+        return getNatComponent().isFocusOwner();
+    }
+
     public boolean isVisible() {
         return getNatComponent().isVisible();
     }

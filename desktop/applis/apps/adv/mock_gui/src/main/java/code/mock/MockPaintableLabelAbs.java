@@ -10,11 +10,6 @@ public class MockPaintableLabelAbs extends MockCustComponent implements AbsPaint
     private int horizontalAlignment;
 
     @Override
-    public void requestFocusInWindow() {
-        requestFocus();
-    }
-
-    @Override
     public void setEmptyIcon() {
         empty = true;
     }

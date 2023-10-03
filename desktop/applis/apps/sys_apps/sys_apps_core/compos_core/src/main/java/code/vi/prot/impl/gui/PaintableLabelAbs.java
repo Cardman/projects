@@ -12,10 +12,6 @@ public class PaintableLabelAbs extends CustComponent implements AbsPaintableLabe
 
     private final JLabel label = new JLabel();
 
-    public void requestFocusInWindow() {
-        label.requestFocusInWindow();
-    }
-
     public void setEmptyIcon() {
         label.setIcon(new ImageIcon());
     }
