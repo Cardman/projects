@@ -163,7 +163,7 @@ public final class ResolvingImportTypes {
     private static void staticMethods(RootBlock _glClass, String _method, AnalyzedPageEl _page, CustList<ImportedMethod> _methods, String _typeName) {
         String typeLoc_ = StringExpUtil.removeDottedSpaces(_typeName.substring(0, _typeName.lastIndexOf('.')));
         ResolvedIdTypeContent foundCandidate_ = resolveCandidate(typeLoc_, _page);
-        fetchImportStaticMethods(_glClass, _method, _methods, foundCandidate_, MethodModifier.STATIC);
+        fetchImportStaticMethods(_page,_glClass, _method, _methods, foundCandidate_, MethodModifier.STATIC);
     }
 
     public static CustList<CustList<ImportedMethod>> lookupImportStaticCallMethods(RootBlock _glClass, String _method, AnalyzedPageEl _page) {
@@ -200,11 +200,11 @@ public final class ResolvingImportTypes {
     private static void staticCallMethods(RootBlock _glClass, String _method, AnalyzedPageEl _page, CustList<ImportedMethod> _methods, String _typeName) {
         String typeLoc_ = StringExpUtil.removeDottedSpaces(_typeName.substring(0, _typeName.lastIndexOf('.')));
         ResolvedIdTypeContent foundCandidate_ = resolveCandidate(typeLoc_, _page);
-        fetchImportStaticMethods(_glClass, _method, _methods, foundCandidate_, MethodModifier.STATIC_CALL);
-        fetchImportStaticMethods(_glClass, _method, _methods, foundCandidate_, MethodModifier.STATIC);
+        fetchImportStaticMethods(_page,_glClass, _method, _methods, foundCandidate_, MethodModifier.STATIC_CALL);
+        fetchImportStaticMethods(_page,_glClass, _method, _methods, foundCandidate_, MethodModifier.STATIC);
     }
 
-    private static void fetchImportStaticMethods(RootBlock _glClass, String _method, CustList<ImportedMethod> _methods, ResolvedIdTypeContent _typeLoc, MethodModifier _modif) {
+    private static void fetchImportStaticMethods(AnalyzedPageEl _page, RootBlock _glClass, String _method, CustList<ImportedMethod> _methods, ResolvedIdTypeContent _typeLoc, MethodModifier _modif) {
         AnaGeneType root_ = _typeLoc.getGeneType();
         if (root_ instanceof RootBlock) {
             CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock((RootBlock) root_));
@@ -212,7 +212,7 @@ public final class ResolvingImportTypes {
             for (AnaFormattedRootBlock s: allClasses_) {
                 RootBlock t_ = s.getRootBlock();
                 for (NamedCalledFunctionBlock e: t_.getValidMethods()) {
-                    if (filterStaticCustMethod(_glClass,_method, (RootBlock) root_, _modif,e,t_)) {
+                    if (filterStaticCustMethod(_page,_glClass,_method, (RootBlock) root_, _modif,e,t_)) {
                         continue;
                     }
                     ClassMethodId clMet_ = new ClassMethodId(StringExpUtil.getIdFromAllTypes(s.getFormatted()), e.getId());
@@ -249,13 +249,13 @@ public final class ResolvingImportTypes {
         }
     }
 
-    private static boolean filterStaticCustMethod(RootBlock _glClass, String _method, RootBlock _typeLoc, MethodModifier _modif, NamedCalledFunctionBlock _e, RootBlock _t) {
+    private static boolean filterStaticCustMethod(AnalyzedPageEl _page, RootBlock _glClass, String _method, RootBlock _typeLoc, MethodModifier _modif, NamedCalledFunctionBlock _e, RootBlock _t) {
         if (_e.getModifier() != _modif || !StringUtil.quickEq(_method.trim(), _e.getId().getName())) {
             return true;
         }
         String pkg_ = _t.getPackageName();
         Accessed a_ = new Accessed(_e.getAccess(), pkg_, _t);
-        return !ContextUtil.canAccess(_typeLoc, a_) || !ContextUtil.canAccess(_glClass, a_);
+        return ContextUtil.cannotAccess(_page, a_,_glClass,_typeLoc);
     }
     private static void addImportMethod(CustList<ImportedMethod> _methods, ImportedMethod _value) {
         for (ImportedMethod e: _methods) {
@@ -299,7 +299,7 @@ public final class ResolvingImportTypes {
     private static void staticFields(RootBlock _glClass, String _method, AnalyzedPageEl _page, IdMap<AnaGeneType, ImportedField> _fields, int _nb, String _typeName) {
         String typeLoc_ = StringExpUtil.removeDottedSpaces(_typeName.substring(0, _typeName.lastIndexOf('.')));
         ResolvedIdTypeContent foundCandidate_ = resolveCandidate(typeLoc_, _page);
-        fetchImportStaticFields(_glClass, _method, _fields, _nb, foundCandidate_);
+        fetchImportStaticFields(_page,_glClass, _method, _fields, _nb, foundCandidate_);
     }
 
     private static boolean misMatchMethod(String _keyWordStatic, String _criteria, String _tr) {
@@ -333,14 +333,14 @@ public final class ResolvingImportTypes {
         return res_;
     }
 
-    public static void fetchImportStaticFields(RootBlock _glClass, String _method, IdMap<AnaGeneType, ImportedField> _methods, int _import, ResolvedIdTypeContent _typeLoc) {
+    public static void fetchImportStaticFields(AnalyzedPageEl _page,RootBlock _glClass, String _method, IdMap<AnaGeneType, ImportedField> _methods, int _import, ResolvedIdTypeContent _typeLoc) {
         AnaGeneType root_ = _typeLoc.getGeneType();
         if (root_ instanceof RootBlock) {
             CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock((RootBlock) root_));
             allClasses_.addAllElts(((RootBlock) root_).getAllGenericSuperTypesInfo());
             for (AnaFormattedRootBlock s: allClasses_) {
                 for (InfoBlock e: s.getRootBlock().getFieldsBlocks()) {
-                    if (filterStaticCustField(_glClass,_method, (RootBlock) root_, s.getRootBlock(),e)) {
+                    if (filterStaticCustField(_page,_glClass,_method, (RootBlock) root_, s.getRootBlock(),e)) {
                         continue;
                     }
                     int v_ = AnaTypeUtil.getIndex(e,_method);
@@ -368,7 +368,7 @@ public final class ResolvingImportTypes {
         }
     }
 
-    private static boolean filterStaticCustField(RootBlock _glClass, String _method, RootBlock _typeLoc, RootBlock _cust, InfoBlock _e) {
+    private static boolean filterStaticCustField(AnalyzedPageEl _page, RootBlock _glClass, String _method, RootBlock _typeLoc, RootBlock _cust, InfoBlock _e) {
         if (!_e.isStaticField()) {
             return true;
         }
@@ -378,7 +378,7 @@ public final class ResolvingImportTypes {
         }
         String pkg_ = _cust.getPackageName();
         Accessed a_ = new Accessed(_e.getAccess(),pkg_, _cust);
-        return !ContextUtil.canAccess(_typeLoc, a_) || !ContextUtil.canAccess(_glClass, a_);
+        return ContextUtil.cannotAccess(_page, a_,_glClass,_typeLoc);
     }
     private static void addImport(IdMap<AnaGeneType,ImportedField> _methods, AnaGeneType _class, ImportedField _value) {
         for (EntryCust<AnaGeneType, ImportedField> e: _methods.entryList()) {

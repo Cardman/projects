@@ -18,6 +18,24 @@ import code.util.core.StringUtil;
 public final class ContextUtil {
     private ContextUtil() {
     }
+
+    public static boolean excludeQuick(RootBlock _g, ConstructorBlock _e, AnalyzedPageEl _page, RootBlock _root) {
+        if (_page.isDynamic()) {
+            return false;
+        }
+        Accessed a_ = new Accessed(_e.getAccess(), _g.getPackageName(), _g);
+        return !ContextUtil.canAccess(_root, a_);
+    }
+    public static boolean cannotAccess(AnalyzedPageEl _page, Accessed _acc,
+                                        RootBlock _glClass, RootBlock _base) {
+        if (_page.isDynamic()) {
+            return false;
+        }
+        if (!canAccess(_base,_acc)) {
+            return true;
+        }
+        return !canAccess(_glClass,_acc);
+    }
     public static boolean canAccess(RootBlock _className, Accessed _block) {
         CodeAccess code_ = processBegin(_className, _block);
         RootBlock root_ = code_.getRoot();
@@ -40,6 +58,12 @@ public final class ContextUtil {
         return StringUtil.quickEq(_belongPkg, _rootPkg);
     }
 
+    public static boolean canAccessType(AnalyzedPageEl _page, RootBlock _className, Accessed _block) {
+        if (_page.isDynamic()) {
+            return true;
+        }
+        return canAccessType(_className, _block);
+    }
     public static boolean canAccessType(RootBlock _className, Accessed _block) {
         CodeAccess code_ = processBegin(_className, _block);
         RootBlock root_ = code_.getRoot();

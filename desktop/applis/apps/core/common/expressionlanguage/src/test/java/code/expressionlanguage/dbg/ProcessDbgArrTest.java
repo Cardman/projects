@@ -1675,6 +1675,20 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertEq(65, nowTrace(stack_));
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
+    @Test
+    public void test108() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int field=0;public static int exmeth(){return new Ex[1].length;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdThrownCondition(cont_,"length==1+static(pkg.Ex).field");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(91, nowTrace(stack_));
+        assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
     private void writeCondition(String _newValue,ResultContext _cont, ClassField _cf) {
         write(_cont, _cf);
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();

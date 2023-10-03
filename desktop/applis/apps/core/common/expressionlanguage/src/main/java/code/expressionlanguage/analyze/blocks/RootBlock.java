@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.MethodHeaderInfo;
 import code.expressionlanguage.analyze.TokenErrorMessage;
-import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
@@ -1797,8 +1796,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             return true;
         }
         for (ConstructorBlock c: ctors_) {
-            Accessed a_ = new Accessed(c.getAccess(), clMeta_.getPackageName(), clMeta_);
-            if (!ContextUtil.canAccess(this, a_)) {
+            if (ContextUtil.excludeQuick(clMeta_,c,_page,this)) {
                 continue;
             }
             if (c.getId().getParametersTypesLength() == 0) {

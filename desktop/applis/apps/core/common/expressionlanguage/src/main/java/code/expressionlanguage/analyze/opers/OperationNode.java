@@ -553,7 +553,7 @@ public abstract class OperationNode {
             val_.setUsed(true);
             return new VariableOperationUse(_index, _indexChild, _m, _op, foundVar_);
         }
-        return new SettableFieldOperation(_index, _indexChild, _m, _op,new StandardFieldOperation(_op));
+        return previousField(_index, _indexChild, _m, _op, _page.isDynamic() && _page.getGlobalClass().startsWith(AnaTemplates.ARR_BEG_STRING));
     }
 
     private static AbstractFieldOperation previousField(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, boolean _array) {
@@ -713,7 +713,7 @@ public abstract class OperationNode {
                 return;
             }
         }
-        if (cannotAccess(_fi.getAccessed(), _scope.getGlClass(), _scope.getSuperTypesBaseAncBis().getVal(fullName_))) {
+        if (cannotAccess(_page,_fi.getAccessed(), _scope.getGlClass(), _scope.getSuperTypesBaseAncBis().getVal(fullName_))) {
             return;
         }
         if (filterMember(_scope.isBaseClass(), _scope.isSuperClass(), _scope.getSuperTypesBase(),fullName_)) {
@@ -1081,8 +1081,7 @@ public abstract class OperationNode {
     }
 
     protected static boolean excludeQuick(RootBlock _g, ConstructorBlock _e, AnalyzedPageEl _page) {
-        Accessed a_ = new Accessed(_e.getAccess(), _g.getPackageName(), _g);
-        return !ContextUtil.canAccess(_page.getGlobalType().getRootBlock(), a_);
+        return ContextUtil.excludeQuick(_g, _e, _page, _page.getGlobalType().getRootBlock());
     }
 
     protected static AnaClassArgumentMatching voidToObject(AnaClassArgumentMatching _original, AnalyzedPageEl _page) {
@@ -1971,7 +1970,7 @@ public abstract class OperationNode {
         }
         if (AbsBk.isOverBlock(_m)) {
             Accessed a_ = new Accessed(_m.getAccess(), r_.getPackageName(), r_);
-            if (cannotAccess(a_,_scType.getGlClass(), _scType.getSuperTypesBaseAncBis().getVal(base_))) {
+            if (cannotAccess(_page,a_,_scType.getGlClass(), _scType.getSuperTypesBaseAncBis().getVal(base_))) {
                 return null;
             }
         }
@@ -1998,7 +1997,7 @@ public abstract class OperationNode {
         }
         RootBlock root_ = _m.getRoot();
         Accessed a_ = new Accessed(_m.getAccess(), root_.getPackageName(), root_);
-        if (cannotAccess(a_,_page.getGlobalType().getRootBlock(), rBl_)) {
+        if (cannotAccess(_page,a_,_page.getGlobalType().getRootBlock(), rBl_)) {
             return null;
         }
         return buildCastMethodInfo(_m,_uniqueId, _returnType,_s.getFormatted(), _page, _vars, _cmp);
@@ -2008,12 +2007,9 @@ public abstract class OperationNode {
         return buildImproveOperatorInfo(_m, _s, _page);
     }
 
-    private static boolean cannotAccess(Accessed _acc,
+    private static boolean cannotAccess(AnalyzedPageEl _page, Accessed _acc,
                                         RootBlock _glClass, RootBlock _base) {
-        if (!ContextUtil.canAccess(_base,_acc)) {
-            return true;
-        }
-        return !ContextUtil.canAccess(_glClass,_acc);
+        return ContextUtil.cannotAccess(_page,_acc,_glClass,_base);
     }
 
     private static MethodInfo buildMethodInfoCust(NamedCalledFunctionBlock _m, ScopeFilterType _scType, AnalyzedPageEl _page, MethodId _id) {
