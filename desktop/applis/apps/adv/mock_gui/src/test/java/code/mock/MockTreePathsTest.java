@@ -26,4 +26,14 @@ public final class MockTreePathsTest extends EquallableMockGuiUtil {
         m_.set(0,new MockTreePath(new MockMutableTreeNode("element2")));
         assertEq("element2",m_.elt(0).data().info());
     }
+    @Test
+    public void p4() {
+        MockMutableTreeNode root_ = new MockMutableTreeNode("element");
+        MockMutableTreeNode ch_ = new MockMutableTreeNode("element2");
+        root_.add(ch_);
+        assertEq(2,new MockTreePath(ch_).getLength());
+        assertEq(1,new MockTreePath(root_).getLength());
+        assertSame(root_,new MockTreePath(ch_).parent(null).data());
+        assertNull(new MockTreePath(root_).parent(null));
+    }
 }

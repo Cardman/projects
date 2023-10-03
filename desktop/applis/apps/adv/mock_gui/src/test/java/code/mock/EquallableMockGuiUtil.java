@@ -1,9 +1,6 @@
 package code.mock;
 
-import code.gui.AbsCustComponent;
-import code.gui.AbstractMutableTreeNodeCore;
-import code.gui.EnabledMenu;
-import code.gui.TextAnswerValue;
+import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.stream.AbsClipStream;
 import code.stream.core.ContentTime;
@@ -15,6 +12,9 @@ import org.junit.Assert;
 
 public abstract class EquallableMockGuiUtil {
     public static void assertNull(String _expected) {
+        Assert.assertNull(_expected);
+    }
+    public static void assertNull(AbsTreePath _expected) {
         Assert.assertNull(_expected);
     }
     public static void assertNull(EnabledMenu _expected) {

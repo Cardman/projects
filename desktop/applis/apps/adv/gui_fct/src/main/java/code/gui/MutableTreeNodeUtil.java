@@ -31,4 +31,14 @@ public final class MutableTreeNodeUtil {
         return ls_;
     }
 
+    public static CustList<AbstractMutableTreeNodeCore<String>> listPaths(AbsTreeGui _tr,AbsTreePath _path) {
+        int len_ = _path.getLength();
+        CustList<AbstractMutableTreeNodeCore<String>> ls_ = new CustList<AbstractMutableTreeNodeCore<String>>();
+        AbsTreePath par_ = _path;
+        for (int i = 0; i < len_; i++) {
+            ls_.add(0,par_.data());
+            par_ = par_.parent(_tr);
+        }
+        return ls_;
+    }
 }
