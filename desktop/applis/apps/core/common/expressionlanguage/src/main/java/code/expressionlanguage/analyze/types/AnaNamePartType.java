@@ -352,12 +352,12 @@ final class AnaNamePartType extends AnaLeafPartType {
         CustList<InaccessibleType> l_ = new CustList<InaccessibleType>();
         AccessingImportingBlock gl_ = _page.getImportingAcces();
         Accessed a_ = new Accessed(found_.getAccess(), found_.getPackageName(), found_.getParentType(), found_);
-        if (gl_.isTypeHidden(a_)) {
+        if (gl_.isTypeHidden(_page,a_)) {
             InaccessibleType i_ = new InaccessibleType(_indexInType, idFound_);
             _page.getCurrentBadIndexes().add(i_);
             l_.add(i_);
         }
-        if (new TypeAccessor(own_).isTypeHidden(a_)) {
+        if (new TypeAccessor(own_).isTypeHidden(_page,a_)) {
             InaccessibleType i_ = new InaccessibleType(_indexInType, idFound_);
             _page.getCurrentBadIndexes().add(i_);
             l_.add(i_);

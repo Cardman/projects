@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.accessing;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessingImportingBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -13,8 +14,8 @@ public final class TypeAccessor implements AccessingImportingBlock {
     }
 
     @Override
-    public boolean isTypeHidden(Accessed _class) {
-        return !ContextUtil.canAccessType(fullName, _class);
+    public boolean isTypeHidden(AnalyzedPageEl _page, Accessed _class) {
+        return !ContextUtil.canAccessType(_page,fullName, _class);
     }
 
 }

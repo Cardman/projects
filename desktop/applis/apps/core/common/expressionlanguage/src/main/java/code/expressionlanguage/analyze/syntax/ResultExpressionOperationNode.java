@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.syntax;
 
-import code.expressionlanguage.analyze.AllAccessedTypes;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
@@ -68,7 +67,6 @@ public final class ResultExpressionOperationNode {
                 }
             }
         }
-        a_.setImportingAcces(new AllAccessedTypes());
         return a_;
     }
 
@@ -108,7 +106,6 @@ public final class ResultExpressionOperationNode {
             a_.setAccessStaticContext(MethodAccessKind.INSTANCE);
             a_.setOriginalGlobalType(new AnaFormattedRootBlock((RootBlock)null,_id));
         }
-        a_.setImportingAcces(new AllAccessedTypes());
         return a_;
     }
 
@@ -124,7 +121,6 @@ public final class ResultExpressionOperationNode {
         } else {
             a_.setOriginalGlobalType(new AnaFormattedRootBlock((RootBlock)null,_original.getAliasObject()));
         }
-        a_.setImportingAcces(new AllAccessedTypes());
         AnaLocalVariable lvIndex_ = new AnaLocalVariable();
         lvIndex_.setClassName(a_.getAliasPrimInteger());
         lvIndex_.setConstType(ConstType.PARAM);
@@ -141,7 +137,6 @@ public final class ResultExpressionOperationNode {
         if (_flag != ArrPoint.BPC_INIT) {
             a_.setOriginalGlobalType(new AnaFormattedRootBlock((RootBlock)null,_id));
         }
-        a_.setImportingAcces(new AllAccessedTypes());
         if (_flag == ArrPoint.BPC_INIT || _flag == ArrPoint.BPC_INT_GET || _flag == ArrPoint.BPC_INT_SET || _flag == ArrPoint.BPC_INT_COMPOUND_GET || _flag == ArrPoint.BPC_INT_COMPOUND_SET || _flag == ArrPoint.BPC_INT_COMPOUND_SET_ERR || _flag == ArrPoint.BPC_INT_GET_SET) {
             AnaLocalVariable lvIndex_ = new AnaLocalVariable();
             lvIndex_.setClassName(StringExpUtil.getPrettyArrayType(a_.getAliasPrimInteger()));
@@ -216,7 +211,6 @@ public final class ResultExpressionOperationNode {
             a_.setAccessStaticContext(MethodAccessKind.STATIC);
         }
         a_.setOriginalGlobalType(new AnaFormattedRootBlock((RootBlock)null,std_.getFullName()));
-        a_.setImportingAcces(new AllAccessedTypes());
         ClassesUtil.prepare(id_, a_);
         return a_;
     }
@@ -227,7 +221,6 @@ public final class ResultExpressionOperationNode {
         a_.setCurrentPkg(a_.getDefaultPkg());
         a_.setAccessStaticContext(MethodAccessKind.STATIC);
         a_.setOriginalGlobalType(new AnaFormattedRootBlock((RootBlock)null,_original.getAliasObject()));
-        a_.setImportingAcces(new AllAccessedTypes());
         String p_ = a_.getKeyWords().getKeyWordValue();
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(_instance.getOn().getFirst());
@@ -281,7 +274,6 @@ public final class ResultExpressionOperationNode {
             ClassesUtil.prepare(m_, _a);
         }
         typeOrField(_a, _block);
-        _a.setImportingAcces(new AllAccessedTypes());
         return _a;
     }
 
@@ -344,7 +336,6 @@ public final class ResultExpressionOperationNode {
         }
         _a.setCurrentFct(null);
         _a.setAccessStaticContext(MethodAccessKind.STATIC);
-        _a.setImportingAcces(new AllAccessedTypes());
         return _a;
     }
 

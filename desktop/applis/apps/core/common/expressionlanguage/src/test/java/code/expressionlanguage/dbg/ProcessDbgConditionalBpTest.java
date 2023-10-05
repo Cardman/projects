@@ -1,6 +1,5 @@
 package code.expressionlanguage.dbg;
 
-import code.expressionlanguage.analyze.AllAccessedTypes;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.StackCallReturnValue;
@@ -107,9 +106,5 @@ public final class ProcessDbgConditionalBpTest extends ProcessDbgCommon {
         StackCall cont_ = conditionalStdLogsErr("1/0==1/0","pkg.Ex","exmeth",111,files_);
         assertEq(2,cont_.nbPages());
         assertEq(1, ((ErrorStruct)((CustomFoundExc)cont_.getBreakPointInfo().getBreakPointOutputInfo().getCallingStateSub()).getStruct()).getStack().getLength());
-    }
-    @Test
-    public void test13() {
-        assertFalse(new AllAccessedTypes().isTypeHidden(null));
     }
 }

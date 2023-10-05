@@ -691,9 +691,6 @@ public final class AnalyzedPageEl {
     }
 
     public void setImportingAcces(AccessingImportingBlock _importingAcces) {
-        if (isDynamic() && importingAcces instanceof AllAccessedTypes) {
-            return;
-        }
         this.importingAcces = _importingAcces;
     }
 
