@@ -28,14 +28,7 @@ public final class RenderPointPair {
     private int pref;
     private final StringMap<Integer> prefs = new StringMap<Integer>();
     private boolean enableExpand;
-    private String aliasIterableTable = "";
-    private String aliasIteratorTableMethod = "";
-    private String aliasIteratorTableType = "";
-    private String aliasHasNextPair = "";
-    private String aliasNextPair = "";
-    private String aliasPairType = "";
-    private String aliasGetFirst = "";
-    private String aliasGetSecond = "";
+    private boolean expandFirst;
 
     public RenderPointPair(int _ex, String _cl, AbstractInterceptorStdCaller _v, boolean _en, boolean _exp) {
         excPointBlockPair = new ExcPointBlockPair(_ex,_cl,_v, _en);
@@ -44,48 +37,9 @@ public final class RenderPointPair {
 
     public void analyze(String _exp, String _it, ResultContext _curr, AbsLightContextGenerator _gene) {
         render.result(ResultContextLambda.dynamicAnalyzeExc(_exp, excPointBlockPair, _curr, _curr.getPageEl().getAliasString(), _gene), _exp);
-        aliasIterableTable = _curr.getPageEl().getAliasIterableTable();
-        aliasIteratorTableMethod = _curr.getContext().getStandards().getPredefTypes().getAliasIteratorTable();
-        aliasIteratorTableType = _curr.getContext().getStandards().getPredefTypes().getAliasIteratorTableType();
-        aliasHasNextPair = _curr.getContext().getStandards().getPredefTypes().getAliasHasNextPair();
-        aliasNextPair = _curr.getContext().getStandards().getPredefTypes().getAliasNextPair();
-        aliasPairType = _curr.getContext().getStandards().getPredefTypes().getAliasPairType();
-        aliasGetFirst = _curr.getContext().getStandards().getPredefTypes().getAliasGetFirst();
-        aliasGetSecond = _curr.getContext().getStandards().getPredefTypes().getAliasGetSecond();
-        String b_ = aliasIterableTable +"<"+_curr.getPageEl().getAliasString()+",?>";
+        String it_ = _curr.getPageEl().getAliasIterableTable();
+        String b_ = it_ +"<"+_curr.getPageEl().getAliasString()+",?>";
         expand.result(ResultContextLambda.dynamicAnalyzeExc(_it, excPointBlockPair, _curr, b_, _gene), _it);
-    }
-
-    public String getAliasIterableTable() {
-        return aliasIterableTable;
-    }
-
-    public String getAliasIteratorTableMethod() {
-        return aliasIteratorTableMethod;
-    }
-
-    public String getAliasIteratorTableType() {
-        return aliasIteratorTableType;
-    }
-
-    public String getAliasHasNextPair() {
-        return aliasHasNextPair;
-    }
-
-    public String getAliasNextPair() {
-        return aliasNextPair;
-    }
-
-    public String getAliasPairType() {
-        return aliasPairType;
-    }
-
-    public String getAliasGetFirst() {
-        return aliasGetFirst;
-    }
-
-    public String getAliasGetSecond() {
-        return aliasGetSecond;
     }
 
     public StrResultContextLambda getRender() {
@@ -186,6 +140,14 @@ public final class RenderPointPair {
 
     public void setEnableExpand(boolean _e) {
         this.enableExpand = _e;
+    }
+
+    public boolean isExpandFirst() {
+        return expandFirst;
+    }
+
+    public void setExpandFirst(boolean _e) {
+        this.expandFirst = _e;
     }
 
     public int getPref() {

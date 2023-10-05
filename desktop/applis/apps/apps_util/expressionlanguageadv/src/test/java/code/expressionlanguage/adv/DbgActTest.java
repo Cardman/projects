@@ -5632,6 +5632,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
                 "        }\n" +
                 "    ");
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExpand().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getExpandFirst().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         addRendOk(b_);
         resNode(i_, b_);
@@ -5786,6 +5787,105 @@ public final class DbgActTest extends EquallableElAdvUtil {
         resNode(i_, b_);
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(0,chsSec_.size());
+    }
+    @Test
+    public void i50() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public int a;public int b;public static int exmeth(String[] v){var i=new Ex();i.a=3;i.b=4;return 0;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(118,118);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getExpandText().setText("" +
+                "        new IterableTable<String,Object>(this){\n" +
+                "            public Ex e;\n" +
+                "            public(Ex e){\n" +
+                "                this.e=e;\n" +
+                "            }\n" +
+                "            public IteratorTable<String,Object> iteratorTable(){\n" +
+                "                return new IteratorTable<String,Object>(e){\n" +
+                "                    public Ex e;\n" +
+                "                    public int i;\n" +
+                "                    public(Ex e){\n" +
+                "                        this.e=e;\n" +
+                "                    }\n" +
+                "                    public boolean hasNextPair(){\n" +
+                "                        return i < 2;\n" +
+                "                    }\n" +
+                "                    public Pair<String,Object> nextPair(){\n" +
+                "                        if (i == 0){\n" +
+                "                            i++;\n" +
+                "                            return new Pair<String,Object>(e){\n" +
+                "                                Ex e;\n" +
+                "                                public(Ex e){\n" +
+                "                                    this.e=e;\n" +
+                "                                }\n" +
+                "                                public String getFirst(){\n" +
+                "                                    return \"1:\";\n" +
+                "                                }\n" +
+                "                                public Object getSecond(){\n" +
+                "                                    return e.a;\n" +
+                "                                }\n" +
+                "                            };\n" +
+                "                        }\n" +
+                "                        i++;\n" +
+                "                        return new Pair<String,Object>(e){\n" +
+                "                            Ex e;\n" +
+                "                            public(Ex e){\n" +
+                "                                this.e=e;\n" +
+                "                            }\n" +
+                "                            public String getFirst(){\n" +
+                "                                return \"2:\";\n" +
+                "                            }\n" +
+                "                            public Object getSecond(){\n" +
+                "                                return e.b;\n" +
+                "                            }\n" +
+                "                        };\n" +
+                "                    }\n" +
+                "                };\n" +
+                "            }\n" +
+                "        }\n" +
+                "    ");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExpand().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getExpandFirst().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        addRendOk(b_);
+        resNode(i_, b_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
+        assertEq(2,chsSec_.size());
+        assertEq("1:",chsSec_.get(0).info().str());
+        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq("2:",chsSec_.get(1).info().str());
+        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
     }
     @Test
     public void ir1() {

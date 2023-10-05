@@ -209,8 +209,11 @@ public final class ResultContextLambda {
         return eval(context.getClasses().getDebugMapping().getStopper(),_addon,_page);
     }
     public StackCallReturnValue eval(AbsStackStopper _logger,CheckedMethodInfos _addon, AbstractPageEl _page) {
-        prepare(_logger);
-        return evalStack(_logger,_addon,_page);
+        return eval(context,_logger,_addon,_page);
+    }
+    public StackCallReturnValue eval(ContextEl _ctx,AbsStackStopper _logger,CheckedMethodInfos _addon, AbstractPageEl _page) {
+        prepare(_logger, _ctx);
+        return evalStack(_logger,_addon,_page, _ctx);
     }
     public CustList<String> evalLog(CheckedMethodInfos _addon, AbstractPageEl _page) {
         return evalStr(eval(_addon, _page));
@@ -228,7 +231,7 @@ public final class ResultContextLambda {
             e_.add(ExecCatOperation.getString(arg_,context));
             return e_;
         }
-        StackCallReturnValue ret_ = loop(st_, page_);
+        StackCallReturnValue ret_ = loop(st_, page_, context);
         CallingState state_ = ret_.getStack().getCallingState();
         if (state_ != null) {
             return traceView(ret_.getStack(), context);
@@ -257,22 +260,22 @@ public final class ResultContextLambda {
         return e_;
     }
 
-    private void prepare(AbsStackStopper _st) {
+    private void prepare(AbsStackStopper _st, ContextEl _ctx) {
         if (!initTypes) {
             initTypes = true;
-            ExecClassesUtil.forwardClassesMetaInfos(context);
-            DefaultLockingClass dl_ = context.getLocks();
-            dl_.init(context);
-            context.setExiting(new DefaultExiting(context));
-            StackCall st_ = newInstance(_st, context, InitPhase.LIST);
+            ExecClassesUtil.forwardClassesMetaInfos(_ctx);
+            DefaultLockingClass dl_ = _ctx.getLocks();
+            dl_.init(_ctx);
+            _ctx.setExiting(new DefaultExiting(_ctx));
+            StackCall st_ = newInstance(_st, _ctx, InitPhase.LIST);
             st_.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
             endOrder(st_);
-            ExecClassesUtil.updateAfter(context);
+            ExecClassesUtil.updateAfter(_ctx);
         } else {
-            context.getClasses().getCommon().getStaticFields().putAllMap(original.getClasses().getStaticFields());
+            _ctx.getClasses().getCommon().getStaticFields().putAllMap(original.getClasses().getStaticFields());
         }
         for (EntryCust<ExecRootBlock, InitClassState> c: original.getLocks().getClasses().entryList()) {
-            context.getLocks().state(c.getKey(),c.getValue());
+            _ctx.getLocks().state(c.getKey(),c.getValue());
         }
     }
 
@@ -292,37 +295,37 @@ public final class ResultContextLambda {
             if (ProcessMethod.stateMismatch(r_, context, InitClassState.SUCCESS)) {
                 context.getLocks().initClass(r_);
                 AbstractPageEl page_ = new NotInitializedClass(new ExecFormattedRootBlock(r_,c),r_,null).processAfterOperation(context,_st);
-                loop(_st, page_);
+                loop(_st, page_, context);
             }
         }
         _st.getInitializingTypeInfos().resetInitEnums(_st);
     }
 
-    public StackCallReturnValue evalStack(AbsStackStopper _lg,CheckedMethodInfos _addon, AbstractPageEl _page) {
-        StackCall stackCall_ = newInstance(_lg, context, InitPhase.NOTHING);
+    public StackCallReturnValue evalStack(AbsStackStopper _lg, CheckedMethodInfos _addon, AbstractPageEl _page, ContextEl _ctx) {
+        StackCall stackCall_ = newInstance(_lg, _ctx, InitPhase.NOTHING);
         if (_addon != null) {
-            AbstractPageEl page_ = new CustomFoundMethod(new Argument(_addon.getInstance()),_addon.getDeclaring(),lambda, _addon.getParameters()).processAfterOperation(context,stackCall_);
-            return loop(stackCall_, page_);
+            AbstractPageEl page_ = new CustomFoundMethod(new Argument(_addon.getInstance()),_addon.getDeclaring(),lambda, _addon.getParameters()).processAfterOperation(_ctx,stackCall_);
+            return loop(stackCall_, page_, _ctx);
         }
         Parameters p_ = new Parameters();
         p_.getRefParameters().addAllEntries(_page.getRefParams());
         p_.setCache(_page.getCache());
-        AbstractPageEl page_ = new CustomFoundMethod(_page.getGlobalArgument(),_page.getGlobalClass(),lambda, p_).processAfterOperation(context,stackCall_);
+        AbstractPageEl page_ = new CustomFoundMethod(_page.getGlobalArgument(),_page.getGlobalClass(),lambda, p_).processAfterOperation(_ctx,stackCall_);
         page_.getVars().addAllEntries(_page.getVars());
-        return loop(stackCall_, page_);
+        return loop(stackCall_, page_, _ctx);
     }
 
-    private StackCallReturnValue loop(StackCall _stack, AbstractPageEl _page) {
+    private StackCallReturnValue loop(StackCall _stack, AbstractPageEl _page, ContextEl _ctx) {
         ExecLambdaMethodContent m_ = new ExecLambdaMethodContent(lda.getMethod(), lambda);
         ExecFormattedRootBlock f_ = _page.getGlobalClass();
         MethodMetaInfo meth_ = new MethodMetaInfo(ExecAbstractLambdaOperation.build(m_, f_), _page.getCache(), new ExecLambdaCommonContent(lda.getLambdaCommonContent(), f_), m_);
         _stack.setGlobalLda(meth_);
         _stack.setCallCondition(delta);
         ExecutingUtil.addPage(_page, _stack);
-        Initializer i_ = context.getInit();
-        AbstractInterceptorStdCaller c_ = context.getCaller();
+        Initializer i_ = _ctx.getInit();
+        AbstractInterceptorStdCaller c_ = _ctx.getCaller();
         while (true) {
-            if (c_.stopNormal(i_, context, _stack)) {
+            if (c_.stopNormal(i_, _ctx, _stack)) {
                 _stack.setReturnedArgument(ArgumentListCall.toStr(_page.getReturnedArgument()));
                 _stack.setWrapper(null);
                 return new StackCallReturnValue(_stack, new CustList<ViewPage>());
