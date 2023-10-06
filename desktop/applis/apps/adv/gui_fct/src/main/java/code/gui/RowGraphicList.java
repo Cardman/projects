@@ -12,8 +12,9 @@ public final class RowGraphicList<T> {
     private boolean selected;
     private boolean focused;
     private boolean dirty;
-    public RowGraphicList(T _i, int _index, AbsCompoFactory _compo, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g, ColorsGroupList _cs) {
+    public RowGraphicList(ScrollCustomGraphicList<T> _list,T _i, int _index, AbsCompoFactory _compo, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g, ColorsGroupList _cs) {
         label = _compo.newPreparedLabel(_imgFact.newImageRgb(1,1));
+        label.setFont(_list.getElements().getMetaFont());
         info = _i;
         updated(_index,_imgFact,_g,_i,_cs);
     }

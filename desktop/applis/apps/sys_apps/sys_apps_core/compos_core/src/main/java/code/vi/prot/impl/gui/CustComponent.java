@@ -1,6 +1,7 @@
 package code.vi.prot.impl.gui;
 
 import code.gui.AbsCustComponent;
+import code.gui.AbsFocusListener;
 import code.gui.GuiConstants;
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
@@ -19,6 +20,7 @@ public abstract class CustComponent implements AbsCustComponent {
 
     public static final String NO_RICH_TEXT = "html.disable";
     private AbsCustComponent parent;
+    private final IdMap<AbsFocusListener, WrFocusListener> mapFocus = new IdMap<AbsFocusListener, WrFocusListener>();
     private final IdMap<AbsKeyListener, WrKeyListener> mapKey = new IdMap<AbsKeyListener, WrKeyListener>();
     private final IdMap<AbsMouseListener, WrMouseListener> mapMouse = new IdMap<AbsMouseListener, WrMouseListener>();
     private final IdMap<AbsMouseMotionListener, WrMouseMotionListener> mapMouseMotion = new IdMap<AbsMouseMotionListener, WrMouseMotionListener>();
@@ -34,6 +36,13 @@ public abstract class CustComponent implements AbsCustComponent {
     }
     public void setAutoscrolls(boolean _autoscrolls) {
         getNatComponent().setAutoscrolls(_autoscrolls);
+    }
+
+    @Override
+    public void addFocusListener(AbsFocusListener _mouseListener) {
+        WrFocusListener wr_ = new WrFocusListener(_mouseListener);
+        getNatComponent().addFocusListener(wr_);
+        mapFocus.addEntry(_mouseListener,wr_);
     }
 
     @Override
@@ -114,6 +123,13 @@ public abstract class CustComponent implements AbsCustComponent {
         getNatComponent().addKeyListener(wr_);
     }
 
+    @Override
+    public void removeFocusListener(AbsFocusListener _mouseListener) {
+        WrFocusListener wr_ = mapFocus.getVal(_mouseListener);
+        getNatComponent().removeFocusListener(wr_);
+        mapFocus.removeKey(_mouseListener);
+    }
+
     public void removeMouseListener(AbsMouseListener _mouseListener) {
         WrMouseListener wr_ = mapMouse.getVal(_mouseListener);
         getNatComponent().removeMouseListener(wr_);
@@ -156,6 +172,11 @@ public abstract class CustComponent implements AbsCustComponent {
     @Override
     public StringMap<AbsEnabledAction> getActionsMap() {
         return actions;
+    }
+
+    @Override
+    public CustList<AbsFocusListener> getFocusListeners() {
+        return mapFocus.getKeys();
     }
 
     public CustList<AbsMouseListener> getMouseListeners() {

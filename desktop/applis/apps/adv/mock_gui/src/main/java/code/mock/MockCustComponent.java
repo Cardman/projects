@@ -1,6 +1,7 @@
 package code.mock;
 
 import code.gui.AbsCustComponent;
+import code.gui.AbsFocusListener;
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
@@ -31,6 +32,7 @@ public abstract class MockCustComponent implements AbsCustComponent {
     private int background;
     private String border="";
     private final CustList<AbsCustComponent> children = new CustList<AbsCustComponent>();
+    private final IdList<AbsFocusListener> focusListeners = new IdList<AbsFocusListener>();
     private final IdList<AbsMouseListener> mouseListeners = new IdList<AbsMouseListener>();
     private final IdList<AbsMouseListenerPresRel> mousePresRelListeners = new IdList<AbsMouseListenerPresRel>();
     private final IdList<AbsMouseListenerIntRel> mouseIntRelListeners = new IdList<AbsMouseListenerIntRel>();
@@ -53,6 +55,11 @@ public abstract class MockCustComponent implements AbsCustComponent {
     @Override
     public void setAutoscrolls(boolean _b) {
         autoscrolls = _b;
+    }
+
+    @Override
+    public void addFocusListener(AbsFocusListener _l) {
+        focusListeners.add(_l);
     }
 
     @Override
@@ -121,6 +128,11 @@ public abstract class MockCustComponent implements AbsCustComponent {
     }
 
     @Override
+    public void removeFocusListener(AbsFocusListener _l) {
+        focusListeners.removeObj(_l);
+    }
+
+    @Override
     public void removeMouseListener(AbsMouseListener _l) {
         mouseListeners.removeObj(_l);
     }
@@ -174,6 +186,11 @@ public abstract class MockCustComponent implements AbsCustComponent {
 
     public IdList<AbsKeyListenerReleased> getKeyReleasedListeners() {
         return keyReleasedListeners;
+    }
+
+    @Override
+    public IdList<AbsFocusListener> getFocusListeners() {
+        return focusListeners;
     }
 
     @Override

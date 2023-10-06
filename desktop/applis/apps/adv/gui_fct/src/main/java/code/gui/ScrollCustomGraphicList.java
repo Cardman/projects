@@ -43,6 +43,7 @@ public final class ScrollCustomGraphicList<T> {
         elements = _compo.newPageBox();
         elements.setAutoscrolls(true);
         elements.setFocusable(true);
+        elements.addFocusListener(new RefreshFocusEvent<T>(this));
         elements.addMouseListener(new SelectingGraphicListEvent<T>(this));
         moveDownAction = compoFactory.wrap(new MoveGraphicSelectDownEvent<T>(this));
         elements.registerKeyboardAction(moveDownAction,GuiConstants.VK_DOWN,0);
@@ -96,7 +97,7 @@ public final class ScrollCustomGraphicList<T> {
     }
     public void add(T _i) {
         int s_ = size();
-        RowGraphicList<T> elt_ = new RowGraphicList<T>(_i, s_, compoFactory, imageFactory, custCellRenderGene, colorGroup());
+        RowGraphicList<T> elt_ = new RowGraphicList<T>(this,_i, s_, compoFactory, imageFactory, custCellRenderGene, colorGroup());
         append(elt_);
         elements.add(elt_.getLabel());
     }
@@ -104,7 +105,7 @@ public final class ScrollCustomGraphicList<T> {
         if (_index < 0) {
             return;
         }
-        RowGraphicList<T> elt_ = new RowGraphicList<T>(_i, _index, compoFactory, imageFactory, custCellRenderGene, colorGroup());
+        RowGraphicList<T> elt_ = new RowGraphicList<T>(this,_i, _index, compoFactory, imageFactory, custCellRenderGene, colorGroup());
         RowGraphicList<T> next_ = getRow(_index);
         if (next_ != null) {
             RowGraphicList<T> pr_ = next_.getPrevious();
@@ -702,7 +703,7 @@ public final class ScrollCustomGraphicList<T> {
         }
         focused = _f;
         if (_f.getRow() != null) {
-            _f.getRow().focus(true);
+            _f.getRow().focus(elements.isFocused());
         }
     }
 
@@ -730,6 +731,14 @@ public final class ScrollCustomGraphicList<T> {
 
     private void refresh(RowGraphicList<T> _elt, int _i) {
         _elt.select(_i, imageFactory,custCellRenderGene, colorGroup());
+    }
+
+    void refreshFocused() {
+        RowGraphicList<T> r_ = focused.getRow();
+        if (r_ != null) {
+            r_.focus(elements.isFocused());
+            r_.select(focused.getIndex(),imageFactory,custCellRenderGene,colorGroup());
+        }
     }
 
 

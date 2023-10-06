@@ -24,7 +24,10 @@ public final class CustCellRenderString implements AbsCustCellRenderGene<String>
             img_.setColor(_colors.getFg());
         }
         img_.drawString(_info,0,img_.getHeight()-2);
-        img_.drawLine(0,img_.getHeight()-1,img_.getWidth(),img_.getHeight()-1);
+        if (_cellHasFocus) {
+            img_.drawLine(0,0,img_.getWidth(),0);
+            img_.drawLine(0,img_.getHeight()-1,img_.getWidth(),img_.getHeight()-1);
+        }
         return img_;
     }
 }

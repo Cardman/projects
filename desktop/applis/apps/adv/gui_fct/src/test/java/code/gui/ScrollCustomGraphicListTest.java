@@ -1,6 +1,7 @@
 package code.gui;
 
 import code.gui.events.MockProgramInfosSecSample;
+import code.gui.images.MetaFont;
 import code.gui.images.MetaRect;
 import code.mock.*;
 import code.util.Ints;
@@ -1678,6 +1679,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t130() {
         MockProgramInfosSecSample pr_ = init();
         ScrollCustomGraphicList<String> gene_ = GuiBaseUtil.standard(pr_.getCompoFactory(),pr_.getImageFactory(),true);
+        gene_.getElements().setFont(new MetaFont("",0,8));
         gene_.add("ONE");
         gene_.add("TWO");
         gene_.select(1);
@@ -1687,10 +1689,53 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t131() {
         MockProgramInfosSecSample pr_ = init();
         ScrollCustomGraphicList<String> gene_ = GuiBaseUtil.standard(pr_.getCompoFactory(),pr_.getImageFactory(),false);
+        gene_.getElements().setFont(new MetaFont("",0,8));
         gene_.add("ONE");
         gene_.add("TWO");
         gene_.select(1);
         assertEq(1,gene_.getFocused().getIndex());
+    }
+    @Test
+    public void t132() {
+        MockProgramInfosSecSample pr_ = init();
+        ScrollCustomGraphicList<String> gene_ = GuiBaseUtil.standard(pr_.getCompoFactory(),pr_.getImageFactory(),false);
+        gene_.getElements().setFont(new MetaFont("",0,8));
+        gene_.add("ONE");
+        gene_.select(0);
+        ((MockCustComponent)gene_.getElements()).setFocused(true);
+        gene_.getElements().getFocusListeners().get(0).focusGained();
+        assertEq(0,gene_.getFocused().getIndex());
+    }
+    @Test
+    public void t133() {
+        MockProgramInfosSecSample pr_ = init();
+        ScrollCustomGraphicList<String> gene_ = GuiBaseUtil.standard(pr_.getCompoFactory(),pr_.getImageFactory(),false);
+        gene_.getElements().setFont(new MetaFont("",0,8));
+        gene_.add("ONE");
+        gene_.select(0);
+        ((MockCustComponent)gene_.getElements()).setFocused(false);
+        gene_.getElements().getFocusListeners().get(0).focusLost();
+        assertEq(0,gene_.getFocused().getIndex());
+    }
+    @Test
+    public void t134() {
+        MockProgramInfosSecSample pr_ = init();
+        ScrollCustomGraphicList<String> gene_ = GuiBaseUtil.standard(pr_.getCompoFactory(),pr_.getImageFactory(),false);
+        gene_.getElements().setFont(new MetaFont("",0,8));
+        gene_.add("ONE");
+        ((MockCustComponent)gene_.getElements()).setFocused(true);
+        gene_.getElements().getFocusListeners().get(0).focusGained();
+        assertEq(-1,gene_.getFocused().getIndex());
+    }
+    @Test
+    public void t135() {
+        MockProgramInfosSecSample pr_ = init();
+        ScrollCustomGraphicList<String> gene_ = GuiBaseUtil.standard(pr_.getCompoFactory(),pr_.getImageFactory(),false);
+        gene_.getElements().setFont(new MetaFont("",0,8));
+        gene_.add("ONE");
+        ((MockCustComponent)gene_.getElements()).setFocused(false);
+        gene_.getElements().getFocusListeners().get(0).focusLost();
+        assertEq(-1,gene_.getFocused().getIndex());
     }
     private void action(ScrollCustomGraphicList<String> _gene, int _a, int _b) {
         ((MockAbstractAction)GuiBaseUtil.getAction(_gene.getElements(),_a,_b)).action();
@@ -1705,7 +1750,9 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     }
 
     private static ScrollCustomGraphicList<String> gene(boolean _simple, MockProgramInfosSecSample _pr) {
-        return new ScrollCustomGraphicList<String>(_pr.getCompoFactory(), _pr.getImageFactory(), new CustCellRenderGeneSample(), _simple);
+        ScrollCustomGraphicList<String> str_ = new ScrollCustomGraphicList<String>(_pr.getCompoFactory(), _pr.getImageFactory(), new CustCellRenderString(_pr.getCompoFactory(), _pr.getImageFactory()), _simple);
+        str_.getElements().setFont(new MetaFont("",0,8));
+        return str_;
     }
 
     private void located(ScrollCustomGraphicList<String> _gene) {

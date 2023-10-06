@@ -9,6 +9,7 @@ import code.util.StringMap;
 public interface AbsCustComponent {
     boolean isAutoscrolls();
     void setAutoscrolls(boolean _autoscrolls);
+    void addFocusListener(AbsFocusListener _mouseListener);
     void addMouseListener(AbsMouseListener _mouseListener);
 
     void addMouseListener(AbsMouseListenerPresRel _mouseListener);
@@ -23,10 +24,12 @@ public interface AbsCustComponent {
     void addKeyListener(AbsKeyListener _l);
     void addKeyListener(AbsKeyListenerPress _l);
     void addKeyListener(AbsKeyListenerReleased _l);
+    void removeFocusListener(AbsFocusListener _mouseListener);
     void removeMouseListener(AbsMouseListener _mouseListener);
     void removeMouseMotionListener(AbsMouseMotionListener _mouseListener);
     void removeMouseWheelListener(AbsMouseWheelListener _l);
     void removeKeyListener(AbsKeyListener _l);
+    CustList<AbsFocusListener> getFocusListeners();
     CustList<AbsMouseListener> getMouseListeners();
     CustList<AbsMouseMotionListener> getMouseMotionListeners();
     CustList<AbsMouseWheelListener> getMouseWheelListeners();
