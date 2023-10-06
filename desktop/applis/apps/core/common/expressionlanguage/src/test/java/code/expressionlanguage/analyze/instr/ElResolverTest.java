@@ -17,7 +17,6 @@ import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.sample.CustLgNames;
-import code.expressionlanguage.stds.LgNames;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringMap;
@@ -4848,7 +4847,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
     }
 
     private static void setGlobalType(AnalyzedPageEl _conf, String _globalClass) {
-        _conf.setGlobalType(new AnaFormattedRootBlock(_conf,_globalClass));
+        _conf.globalType(new AnaFormattedRootBlock(_conf,_globalClass));
     }
 
     private static RootBlock getAnaClassBody(AnalyzedPageEl _classes, String _className) {

@@ -2223,8 +2223,11 @@ public final class ClassesUtil {
     }
 
     public static void globalType(AnalyzedPageEl _page, AccessedBlock _c) {
+        globalType(false,_page,_c);
+    }
+    public static void globalType(boolean _dynamic,AnalyzedPageEl _page, AccessedBlock _c) {
         if (_c instanceof RootBlock) {
-            _page.setGlobalType(new AnaFormattedRootBlock((RootBlock) _c));
+            _page.globalType(_dynamic,new AnaFormattedRootBlock((RootBlock) _c));
             _page.setCurrentFile(_c.getFile());
             _page.setImporting(_c);
             _page.setImportingTypes(_c);
@@ -2560,7 +2563,7 @@ public final class ClassesUtil {
     }
 
     public static void globalType(AnalyzedPageEl _page) {
-        _page.setGlobalType(AnaFormattedRootBlock.defValue());
+        _page.globalType(AnaFormattedRootBlock.defValue());
     }
 
     private static void tryAnalyseAssign(AssignedVariablesBlock _assVars, AssBlock _pr, AnalyzingEl _anAss, AssMemberCallingsBlock _assign, AnalyzedPageEl _page) {

@@ -73,6 +73,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
 //
 //    private final CustList<ResultExpression> resListSupp = new CustList<ResultExpression>();
     private ResultParsedAnnots annotationsSupp = new ResultParsedAnnots();
+    private final boolean dynamic;
 
     public NamedCalledFunctionBlock(ParsedFctHeader _header, OffsetAccessInfo _access, OffsetStringInfo _retType, OffsetStringInfo _defaultValue, OffsetStringInfo _fctName, int _offset, int _rightPar) {
         super(_header, _access, _retType, _fctName, _offset);
@@ -86,6 +87,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         defaultValue = _defaultValue.getInfo();
         defaultValueOffset = _defaultValue.getOffset();
         rightPar = _rightPar;
+        dynamic = false;
     }
     public NamedCalledFunctionBlock(ParsedFctHeader _header, OffsetAccessInfo _access,
                                     OffsetStringInfo _retType, OffsetStringInfo _fctName,
@@ -110,8 +112,12 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         defaultValue = "";
         defaultValueOffset = 0;
         rightPar = 0;
+        dynamic = false;
     }
-    public NamedCalledFunctionBlock(int _fctName, int _offset, MethodAccessKind _stat, KeyWords _keyWords) {
+    public NamedCalledFunctionBlock(int _fctName, int _offset, FileResolverContext _res) {
+        this(_fctName,_offset,_res.getStat(),_res.getKeys(), _res.isDynamic());
+    }
+    public NamedCalledFunctionBlock(int _fctName, int _offset, MethodAccessKind _stat, KeyWords _keyWords, boolean _dynamic) {
         super(_fctName, _offset, _keyWords);
         normalMethod = false;
         abstractMethod = false;
@@ -123,6 +129,11 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         defaultValue = "";
         defaultValueOffset = 0;
         rightPar = 0;
+        dynamic = _dynamic;
+    }
+
+    public boolean isDynamic() {
+        return dynamic;
     }
 
     public void setDefinition(String _definition) {

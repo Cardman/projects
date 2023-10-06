@@ -1385,6 +1385,62 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
         assertEq(12, NumParsers.convertToNumber(WatchResults.dynamicAnalyze("((Ex)this).v",stack_,cont_,new DefContextGenerator()).getWatchedObject()).intStruct());
         assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
+    @Test
+    public void test59() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T> {public static int exmeth(){try{throw new Ex<?int>[]{new Ex<int>(5)};} catch (Object e) {return 1;}}public final T v;public(T v){this.v=v;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdParamConditionThrownWcSub(cont_, "this[0].v+0==5");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(61, nowTrace(stack_));
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test60() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T> {public static int exmeth(){try{throw new Ex<!int>[]{new Ex<int>(5)};} catch (Object e) {return 1;}}public T v;public(T v){this.v=v;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdParamConditionThrownWcSup(cont_, "(this[0].v=6)==6");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(61, nowTrace(stack_));
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test61() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T> {public static int exmeth(){try{throw new Ex<?int>[]{new Ex<int>(5)};} catch (Object e) {return 1;}}public final T v;public(T v){this.v=v;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdParamConditionThrownWcSub(cont_, "{static class ExSub{int v;}return this[0].v+new ExSub().v==5;}");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(61, nowTrace(stack_));
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test62() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T> {public static int exmeth(){try{throw new Ex<!int>[]{new Ex<int>(5)};} catch (Object e) {return 1;}}public T v;public(T v){this.v=v;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        stdParamConditionThrownWcSup(cont_, "{static class ExSub{int v;}return (this[0].v=6+new ExSub().v)==6;}");
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(61, nowTrace(stack_));
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
     private void stdThrownCondition(ResultContext _cont, String _condition) {
         std(_cont);
         ExcPointBlockPair p_ = _cont.getPairExc("pkg.Ex", ExcPointBlockKey.SAME);
@@ -1445,6 +1501,20 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
 //        wp_.getResultThrown().result(res_, _condition);
     }
 
+    private void stdParamConditionThrownWcSub(ResultContext _cont, String _condition) {
+        stdParamWcSub(_cont);
+        ExcPointBlockPair p_ = _cont.getPairExc("[pkg.Ex<?int>", ExcPointBlockKey.SAME);
+        ExcPoint wp_ = p_.getValue();
+        wp_.getResultThrown().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
+        assertEq(_condition,wp_.getResultThrown().getResultStr());
+    }
+    private void stdParamConditionThrownWcSup(ResultContext _cont, String _condition) {
+        stdParamWcSup(_cont);
+        ExcPointBlockPair p_ = _cont.getPairExc("[pkg.Ex<!int>", ExcPointBlockKey.SAME);
+        ExcPoint wp_ = p_.getValue();
+        wp_.getResultThrown().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
+        assertEq(_condition,wp_.getResultThrown().getResultStr());
+    }
     private void nbeCaughtCondition(ResultContext _cont, String _condition) {
         nbe(_cont);
         String cf_ = _cont.getContext().getStandards().getNbAlias().getAliasInteger();
@@ -1607,6 +1677,21 @@ public final class ProcessDbgExceptionTest extends ProcessDbgCommon {
     private void stdInheritInt2(ResultContext _cont) {
         _cont.toggleExcPoint("pkg.Ex2",ExcPointBlockKey.INHERIT);
         ExcPoint val_ = _cont.getPairExc("pkg.Ex2", ExcPointBlockKey.INHERIT).getValue();
+        val_.setThrown(true);
+        val_.setCaught(false);
+        val_.setPropagated(false);
+    }
+
+    private void stdParamWcSub(ResultContext _cont) {
+        _cont.toggleExcPoint("[pkg.Ex<?int>",ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cont.getPairExc("[pkg.Ex<?int>", ExcPointBlockKey.SAME).getValue();
+        val_.setThrown(true);
+        val_.setCaught(false);
+        val_.setPropagated(false);
+    }
+    private void stdParamWcSup(ResultContext _cont) {
+        _cont.toggleExcPoint("[pkg.Ex<!int>",ExcPointBlockKey.SAME);
+        ExcPoint val_ = _cont.getPairExc("[pkg.Ex<!int>", ExcPointBlockKey.SAME).getValue();
         val_.setThrown(true);
         val_.setCaught(false);
         val_.setPropagated(false);

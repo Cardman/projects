@@ -87,12 +87,12 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         RootBlock rootBlock_ = declClass.getRootBlock();
         if (rootBlock_ != null) {
             _page.setAccessStaticContext(MethodAccessKind.INSTANCE);
-            _page.setGlobalType(declClass);
+            _page.globalType(declClass);
             _page.setImporting(rootBlock_);
             _page.setImportingTypes(this);
             _page.setImportingAcces(new TypeAccessor(rootBlock_));
         } else {
-            _page.setGlobalType(AnaFormattedRootBlock.defValue());
+            _page.globalType(AnaFormattedRootBlock.defValue());
             _page.setImporting(this);
             _page.setImportingTypes(this);
             _page.setImportingAcces(new OperatorAccessor());

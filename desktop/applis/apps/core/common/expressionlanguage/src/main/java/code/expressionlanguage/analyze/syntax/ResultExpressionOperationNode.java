@@ -96,9 +96,12 @@ public final class ResultExpressionOperationNode {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);
         a_.setCurrentPkg(a_.getDefaultPkg());
-        RootBlock r_ = _original.getAnaClassBody(StringExpUtil.getIdFromAllTypes(_id));
+        DimComp dc_ = StringExpUtil.getQuickComponentBaseType(StringExpUtil.getIdFromAllTypes(_id));
+        RootBlock r_ = _original.getAnaClassBody(dc_.getComponent());
         if (r_ != null) {
             field(a_,r_,false);
+        }
+        if (r_ != null && dc_.getDim() == 0) {
             if (_exact == ExcPointBlockKey.SAME) {
                 a_.setOriginalGlobalType(new AnaFormattedRootBlock(r_,_id));
             }
@@ -135,6 +138,11 @@ public final class ResultExpressionOperationNode {
         a_.setCurrentPkg(a_.getDefaultPkg());
         a_.setAccessStaticContext(MethodAccessKind.INSTANCE);
         if (_flag != ArrPoint.BPC_INIT) {
+            DimComp dc_ = StringExpUtil.getQuickComponentBaseType(StringExpUtil.getIdFromAllTypes(_id));
+            RootBlock r_ = _original.getAnaClassBody(dc_.getComponent());
+            if (r_ != null) {
+                field(a_,r_,false);
+            }
             a_.setOriginalGlobalType(new AnaFormattedRootBlock((RootBlock)null,_id));
         }
         if (_flag == ArrPoint.BPC_INIT || _flag == ArrPoint.BPC_INT_GET || _flag == ArrPoint.BPC_INT_SET || _flag == ArrPoint.BPC_INT_COMPOUND_GET || _flag == ArrPoint.BPC_INT_COMPOUND_SET || _flag == ArrPoint.BPC_INT_COMPOUND_SET_ERR || _flag == ArrPoint.BPC_INT_GET_SET) {

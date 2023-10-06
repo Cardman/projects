@@ -6047,7 +6047,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 
         String globalClass_ = _analyzing.getGlobalClass();
         setupAna(_analyzing);
-        _analyzing.setGlobalType(new AnaFormattedRootBlock(_analyzing,globalClass_));
+        _analyzing.globalType(new AnaFormattedRootBlock(_analyzing,globalClass_));
         AnaLocalVariable a_ = new AnaLocalVariable();
         a_.setClassName(_type);
         a_.setConstType(ConstType.LOC_VAR);
@@ -6067,7 +6067,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
 
     private static void setGlobalType(DualNavigationContext _context, String _clasName) {
-        _context.getDualAnalyzedContext().getAnalyzed().setGlobalType(new AnaFormattedRootBlock(_context.getDualAnalyzedContext().getAnalyzed(),_clasName));
+        _context.getDualAnalyzedContext().getAnalyzed().globalType(new AnaFormattedRootBlock(_context.getDualAnalyzedContext().getAnalyzed(),_clasName));
     }
 
 

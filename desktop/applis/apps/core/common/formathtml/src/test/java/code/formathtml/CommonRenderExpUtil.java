@@ -62,7 +62,7 @@ public abstract class CommonRenderExpUtil extends CommonRender {
     protected static void setupAnalyzing(DualNavigationContext _analyzing) {
         String globalClass_ = _analyzing.getDualAnalyzedContext().getAnalyzed().getGlobalClass();
         setupAna(_analyzing.getDualAnalyzedContext().getAnalyzed());
-        _analyzing.getDualAnalyzedContext().getAnalyzed().setGlobalType(new AnaFormattedRootBlock(_analyzing.getDualAnalyzedContext().getAnalyzed(),globalClass_));
+        _analyzing.getDualAnalyzedContext().getAnalyzed().globalType(new AnaFormattedRootBlock(_analyzing.getDualAnalyzedContext().getAnalyzed(),globalClass_));
     }
     protected static void setLocalVars(StringMap<LocalVariable> _localVars, StringMap<LocalVariable> _localVariables) {
 //        for (EntryCust<String, LocalVariable> e: _localVars.entryList()) {

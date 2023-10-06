@@ -25,7 +25,7 @@ public final class RendSplitExpressionUtil {
     public static CustList<IntermediaryResults> getNextResults(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, CustList<AnaRendDocumentBlock> _docs) {
         IntermediaryResults int_ = new IntermediaryResults();
         for (AnaRendDocumentBlock o: _docs) {
-            _page.setGlobalType(AnaFormattedRootBlock.defValue());
+            _page.globalType(AnaFormattedRootBlock.defValue());
             _page.setCurrentPkg(_page.getDefaultPkg());
             _page.setCurrentFile(o.getFile());
             processFunction(_analyzingDoc,_page,int_,o, o.getDeclClass().getRootBlock());

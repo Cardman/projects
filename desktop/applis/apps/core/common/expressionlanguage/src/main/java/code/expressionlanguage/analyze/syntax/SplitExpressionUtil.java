@@ -26,13 +26,13 @@ public final class SplitExpressionUtil {
             processType(_page, int_, c);
         }
         for (OperatorBlock o: _page.getAllOperators()) {
-            _page.setGlobalType(AnaFormattedRootBlock.defValue());
+            _page.globalType(AnaFormattedRootBlock.defValue());
             _page.setCurrentPkg(_page.getDefaultPkg());
             _page.setCurrentFile(o.getFile());
             processFunction(_page,int_,o, o);
         }
         for (OperatorBlock o: _page.getAllOperators()) {
-            _page.setGlobalType(AnaFormattedRootBlock.defValue());
+            _page.globalType(AnaFormattedRootBlock.defValue());
             _page.setCurrentPkg(_page.getDefaultPkg());
             _page.setCurrentFile(o.getFile());
             processAnnotFct(_page, int_, o, o);

@@ -543,11 +543,18 @@ public final class AnalyzedPageEl {
         return globalType;
     }
 
-    public void setGlobalType(AnaFormattedRootBlock _globalType) {
-        if (isDynamic() && (_globalType.getFormatted().isEmpty() || _globalType.getRootBlock() == originalGlobalType.getRootBlock())) {
+    public void globalType(AnaFormattedRootBlock _globalType) {
+        globalType(false,_globalType);
+    }
+    public void globalType(boolean _dynamic, AnaFormattedRootBlock _globalType) {
+        if (isDynamic() && (_globalType.getFormatted().isEmpty() || _globalType.getRootBlock() == originalGlobalType.getRootBlock() || _dynamic && !originalGlobalType.getFormatted().isEmpty())) {
             globalType = originalGlobalType;
             return;
         }
+        globalType = _globalType;
+    }
+
+    public void setGlobalType(AnaFormattedRootBlock _globalType) {
         globalType = _globalType;
     }
 
@@ -556,18 +563,18 @@ public final class AnalyzedPageEl {
     }
 
     public void setupFctChars(NamedCalledFunctionBlock _fct) {
-        setFctChars(_fct.getAccessedBlock(), _fct.getFile());
+        setFctChars(_fct.isDynamic(),_fct.getAccessedBlock(), _fct.getFile());
     }
 
     public void setupFctChars(SwitchMethodBlock _fct) {
-        setFctChars(_fct.getAccessedBlock(), _fct.getFile());
+        setFctChars(false,_fct.getAccessedBlock(), _fct.getFile());
     }
 
-    private void setFctChars(AccessedBlock _acc, FileBlock _file) {
+    private void setFctChars(boolean _dynamic,AccessedBlock _acc, FileBlock _file) {
         ClassesUtil.globalType(this);
         setImporting(_acc);
         setImportingAcces(acc(_acc));
-        ClassesUtil.globalType(this, _acc);
+        ClassesUtil.globalType(_dynamic,this, _acc);
         setCurrentPkg(pkg(_acc));
         setCurrentFile(_file);
     }

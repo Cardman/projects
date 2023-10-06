@@ -73,7 +73,7 @@ public final class FileResolver {
             return;
         }
         InputTypeCreation input_ = new InputTypeCreation();
-        input_.setCont(new FileResolverContext(_page.getCountElts(),_page.getKeyWords(),_page.getStaticContext(), _page.getDefaultAccess(),_page.fileAliases()));
+        input_.setCont(new FileResolverContext(_page));
         input_.setNextIndex(i_);
         input_.setType(OuterBlockEnum.OUTER_TYPE);
         input_.setStringParts(stringParts_);
@@ -706,7 +706,7 @@ public final class FileResolver {
         }
         if (_input.getType() == OuterBlockEnum.ANON_FCT) {
             NamedCalledFunctionBlock typeBlock_ = new NamedCalledFunctionBlock(_input.getNextIndexBef() + _input.getOffset(),
-                    instructionTrimLocation_ + _input.getOffset(), _input.getCont().getStat(), _input.getCont().getKeys());
+                    instructionTrimLocation_ + _input.getOffset(), _input.getCont());
             typeBlock_.setPlace(_input.getBegin()+_input.getOffset());
             anonHeader(_input, instructionTrimLocation_, typeBlock_);
             typeBlock_.setAnnotations(_input.getAnnotations());
@@ -3297,7 +3297,7 @@ public final class FileResolver {
         String part_ = _string.substring(_indAfterArrow, _k);
         int begAnon_ = _indBeforeArrow + instrLoc_;
         int begImplRet_ = _indAfterArrow + instrLoc_;
-        NamedCalledFunctionBlock block_ = new NamedCalledFunctionBlock(begAnon_, begImplRet_, _curElts.getCont().getStat(), _curElts.getCont().getKeys());
+        NamedCalledFunctionBlock block_ = new NamedCalledFunctionBlock(begAnon_, begImplRet_, _curElts.getCont());
         block_.setPlace(_i+instrLoc_);
         block_.setAnnotations(_parse.getAnnotations());
         block_.getAnnotationsParams().addAllElts(_parse.getAnnotationsParams());
