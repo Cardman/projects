@@ -146,8 +146,8 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.add("THREE");
         gene_.select(1);
         gene_.remove(1);
-        assertEq(1, gene_.getFocused().getIndex());
-        assertEq("THREE", gene_.getFocused().getRow().getInfo());
+        assertEq(0, gene_.getFocused().getIndex());
+        assertEq("ONE", gene_.getFocused().getRow().getInfo());
     }
     @Test
     public void t17() {

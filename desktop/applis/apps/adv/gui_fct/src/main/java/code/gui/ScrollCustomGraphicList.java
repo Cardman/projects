@@ -220,15 +220,13 @@ public final class ScrollCustomGraphicList<T> {
                 next_.setPrevious(null);
             }
         } else {
+            updateAnchor(current_, pre_, _index, focused.getIndex()-1);
+            updateFocus(current_, pre_, _index, focused.getIndex()-1);
             if (next_ == null) {
-                updateAnchor(current_, pre_, _index, focused.getIndex()-1);
-                updateFocus(current_, pre_, _index, focused.getIndex()-1);
                 last = pre_;
                 current_.setPrevious(null);
                 pre_.setNext(null);
             } else {
-                updateAnchor(current_, next_, _index, focused.getIndex());
-                updateFocus(current_, next_, _index, focused.getIndex());
                 pre_.setNext(next_);
                 next_.setPrevious(pre_);
                 current_.setPrevious(null);
