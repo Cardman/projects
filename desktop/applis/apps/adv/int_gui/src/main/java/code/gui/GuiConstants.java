@@ -70,6 +70,7 @@ public final class GuiConstants {
     public static final int VK_PAGE_DOWN = 34;
     public static final int VK_END = 35;
     public static final int VK_HOME = 36;
+    public static final int VK_SPACE = 32;
     public static final int BOLD = 1;
     public static final int ITALIC = 2;
     public static final int PLAIN = 0;

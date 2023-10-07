@@ -18,7 +18,7 @@ public final class SelectingGraphicListEvent<T> implements AbsMouseListenerIntRe
         int y_ = _location.getYcoord();
         if (_keyState.isControlDown()) {
             if (_keyState.isShiftDown()) {
-                component.focusChange(y_);
+                component.extendFromAnchor(y_);
             } else {
                 component.addOrRemoveToSelectCoords(y_);
             }
