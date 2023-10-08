@@ -135,7 +135,7 @@ public final class ScrollCustomGraphicList<T> {
         focusPageEndAction.setEnabled(_en);
         movePageShiftHomeAction.setEnabled(_en);
         movePageShiftEndAction.setEnabled(_en);
-        selectAllAction.setEnabled(_en && !single);
+        selectAllAction.setEnabled(_en);
         deselectAllAction.setEnabled(_en);
         addToSelection.setEnabled(_en);
         toggleSelection.setEnabled(_en);
@@ -440,6 +440,10 @@ public final class ScrollCustomGraphicList<T> {
         refreshAll();
     }
     public void selectAll() {
+        if (single) {
+            select(focused.getIndex());
+            return;
+        }
         RowGraphicList<T> c_ = first;
         int s_ = 0;
         while (c_ != null) {

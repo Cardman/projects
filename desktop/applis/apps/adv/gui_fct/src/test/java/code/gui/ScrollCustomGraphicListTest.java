@@ -2773,6 +2773,19 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(-1,gene_.getFocused().getIndex());
         assertFalse(gene_.getRow(0).isSelected());
     }
+    @Test
+    public void t171() {
+        ScrollCustomGraphicList<String> gene_ = gene(true);
+        gene_.add("ONE");
+        gene_.add("TWO");
+        click(gene_, 5, false, false);
+        click(gene_, 5, true, false);
+        action(gene_,GuiConstants.VK_A,GuiConstants.CTRL_DOWN_MASK);
+        gene_.getScrollPane().recalculate();
+        assertEq(0,gene_.getFocused().getIndex());
+        assertTrue(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+    }
     private void action(ScrollCustomGraphicList<String> _gene, int _a, int _b) {
         ((MockAbstractAction)GuiBaseUtil.getAction(_gene.getElements(),_a,_b)).action();
     }
