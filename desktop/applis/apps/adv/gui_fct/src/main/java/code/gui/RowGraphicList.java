@@ -37,18 +37,22 @@ public final class RowGraphicList<T> {
         dirty = false;
     }
 
-    public void select(boolean _s) {
+    public boolean select(boolean _s) {
         if (selected != _s) {
             dirty = true;
+            selected = _s;
+            return true;
         }
-        selected = _s;
+        return false;
     }
 
-    public void focus(boolean _s) {
+    public boolean focus(boolean _s) {
         if (focused != _s) {
             dirty = true;
+            focused = _s;
+            return true;
         }
-        focused = _s;
+        return false;
     }
 
     public boolean isSelected() {
