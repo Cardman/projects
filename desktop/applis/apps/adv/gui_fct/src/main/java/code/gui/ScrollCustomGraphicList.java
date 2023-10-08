@@ -30,6 +30,7 @@ public final class ScrollCustomGraphicList<T> {
     private final AbsEnabledAction movePageShiftHomeAction;
     private final AbsEnabledAction movePageShiftEndAction;
     private final AbsEnabledAction selectAllAction;
+    private final AbsEnabledAction deselectAllAction;
     private final AbsEnabledAction addToSelection;
     private final AbsEnabledAction toggleSelection;
     private final AbsEnabledAction extendToSelection;
@@ -96,6 +97,8 @@ public final class ScrollCustomGraphicList<T> {
         elements.registerKeyboardAction(movePageShiftEndAction,GuiConstants.VK_END,GuiConstants.SHIFT_DOWN_MASK);
         selectAllAction = compoFactory.wrap(new MoveGraphicSelectSelectAllEvent<T>(this));
         elements.registerKeyboardAction(selectAllAction,GuiConstants.VK_A,GuiConstants.CTRL_DOWN_MASK);
+        deselectAllAction = compoFactory.wrap(new MoveGraphicSelectDeSelectAllEvent<T>(this));
+        elements.registerKeyboardAction(deselectAllAction,GuiConstants.VK_W,GuiConstants.CTRL_DOWN_MASK);
         addToSelection = compoFactory.wrap(new MoveGraphicSelectAddIntervalEvent<T>(this));
         elements.registerKeyboardAction(addToSelection,GuiConstants.VK_SPACE,0);
         toggleSelection = compoFactory.wrap(new MoveGraphicSelectToggleIntervalEvent<T>(this));
@@ -133,6 +136,7 @@ public final class ScrollCustomGraphicList<T> {
         movePageShiftHomeAction.setEnabled(_en);
         movePageShiftEndAction.setEnabled(_en);
         selectAllAction.setEnabled(_en && !single);
+        deselectAllAction.setEnabled(_en);
         addToSelection.setEnabled(_en);
         toggleSelection.setEnabled(_en);
         extendToSelection.setEnabled(_en);
@@ -430,6 +434,11 @@ public final class ScrollCustomGraphicList<T> {
         }
     }
 
+    public void deselectAllAction() {
+        deselectAll();
+        fireEvents(false);
+        refreshAll();
+    }
     public void selectAll() {
         RowGraphicList<T> c_ = first;
         int s_ = 0;

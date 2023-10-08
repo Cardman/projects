@@ -579,7 +579,16 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.getElements().setLocation(0,0);
         gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 5, true, true);
-        assertEq(2,gene_.nextIndex(1).getIndex());
+        action(gene_,GuiConstants.VK_PAGE_DOWN,0);
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertTrue(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
+        assertEq(2,gene_.getFocused().getIndex());
     }
     @Test
     public void t47() {
@@ -595,7 +604,16 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.getElements().setLocation(0,-10);
         gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 15, true, true);
-        assertEq(3,gene_.nextIndex(1).getIndex());
+        action(gene_,GuiConstants.VK_PAGE_DOWN,0);
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertTrue(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
+        assertEq(3,gene_.getFocused().getIndex());
     }
     @Test
     public void t48() {
@@ -611,7 +629,16 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.getElements().setLocation(0,0);
         gene_.getScrollPane().setPreferredSize(new MetaDimension(10,50));
         click(gene_, 45, true, true);
-        assertEq(7,gene_.nextIndex(1).getIndex());
+        action(gene_,GuiConstants.VK_PAGE_DOWN,0);
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertTrue(gene_.getRow(7).isSelected());
+        assertEq(7,gene_.getFocused().getIndex());
     }
     @Test
     public void t49() {
@@ -627,7 +654,16 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.getElements().setLocation(0,-60);
         gene_.getScrollPane().setPreferredSize(new MetaDimension(10,20));
         click(gene_, 75, true, true);
-        assertEq(6,gene_.nextIndex(-1).getIndex());
+        action(gene_,GuiConstants.VK_PAGE_UP,0);
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertTrue(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
+        assertEq(6,gene_.getFocused().getIndex());
     }
     @Test
     public void t50() {
@@ -643,7 +679,16 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.getElements().setLocation(0,-50);
         gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 75, true, true);
-        assertEq(5,gene_.nextIndex(-1).getIndex());
+        action(gene_,GuiConstants.VK_PAGE_UP,0);
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertTrue(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
+        assertEq(5,gene_.getFocused().getIndex());
     }
     @Test
     public void t51() {
@@ -659,17 +704,28 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.getElements().setLocation(0,-20);
         gene_.getScrollPane().setPreferredSize(new MetaDimension(10,50));
         click(gene_, 25, true, true);
-        assertEq(0,gene_.nextIndex(-1).getIndex());
+        action(gene_,GuiConstants.VK_PAGE_UP,0);
+        assertTrue(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
+        assertEq(0,gene_.getFocused().getIndex());
     }
     @Test
     public void t52() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
-        assertEq(-1,gene_.nextIndex(-1).getIndex());
+        action(gene_,GuiConstants.VK_PAGE_UP,0);
+        assertEq(-1,gene_.getFocused().getIndex());
     }
     @Test
     public void t53() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
-        assertEq(-1,gene_.nextIndex(1).getIndex());
+        action(gene_,GuiConstants.VK_PAGE_DOWN,0);
+        assertEq(-1,gene_.getFocused().getIndex());
     }
     @Test
     public void t54() {
@@ -791,6 +847,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(1,gene_.getFocused().getIndex());
         assertFalse(gene_.getRow(0).isSelected());
         assertTrue(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
     }
     @Test
     public void t61() {
@@ -809,6 +871,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
     }
     @Test
     public void t62() {
@@ -826,6 +894,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
     }
     @Test
     public void t63() {
@@ -841,6 +915,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         click(gene_, 75, false, false);
         action(gene_,GuiConstants.VK_UP,0);
         assertEq(6,gene_.getFocused().getIndex());
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
         assertFalse(gene_.getRow(7).isSelected());
         assertTrue(gene_.getRow(6).isSelected());
     }
@@ -859,6 +939,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         action(gene_,GuiConstants.VK_UP,0);
         action(gene_,GuiConstants.VK_DOWN,0);
         assertEq(7,gene_.getFocused().getIndex());
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
         assertTrue(gene_.getRow(7).isSelected());
         assertFalse(gene_.getRow(6).isSelected());
     }
@@ -876,6 +962,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         click(gene_, 75, false, false);
         action(gene_,GuiConstants.VK_DOWN,0);
         assertEq(7,gene_.getFocused().getIndex());
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
         assertTrue(gene_.getRow(7).isSelected());
         assertFalse(gene_.getRow(6).isSelected());
     }
@@ -892,6 +984,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.add("EIGHT");
         action(gene_,GuiConstants.VK_UP,0);
         assertEq(7,gene_.getFocused().getIndex());
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
         assertTrue(gene_.getRow(7).isSelected());
         assertFalse(gene_.getRow(6).isSelected());
     }
@@ -910,6 +1008,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
     }
     @Test
     public void t68() {
@@ -927,6 +1031,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(1,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertTrue(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
     }
     @Test
     public void t69() {
@@ -945,6 +1055,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
     }
     @Test
     public void t70() {
@@ -960,6 +1076,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         click(gene_, 75, false, false);
         action(gene_,GuiConstants.VK_UP,GuiConstants.SHIFT_DOWN_MASK);
         assertEq(6,gene_.getFocused().getIndex());
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
         assertTrue(gene_.getRow(7).isSelected());
         assertTrue(gene_.getRow(6).isSelected());
     }
@@ -978,6 +1100,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         action(gene_,GuiConstants.VK_UP,GuiConstants.SHIFT_DOWN_MASK);
         action(gene_,GuiConstants.VK_DOWN,GuiConstants.SHIFT_DOWN_MASK);
         assertEq(7,gene_.getFocused().getIndex());
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
         assertTrue(gene_.getRow(7).isSelected());
         assertFalse(gene_.getRow(6).isSelected());
     }
@@ -997,6 +1125,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
     }
     @Test
     public void t73() {
@@ -1012,6 +1146,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         click(gene_, 75, false, false);
         action(gene_,GuiConstants.VK_DOWN,GuiConstants.SHIFT_DOWN_MASK);
         assertEq(7,gene_.getFocused().getIndex());
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
         assertTrue(gene_.getRow(7).isSelected());
         assertFalse(gene_.getRow(6).isSelected());
     }
@@ -1028,6 +1168,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.add("EIGHT");
         action(gene_,GuiConstants.VK_UP,GuiConstants.SHIFT_DOWN_MASK);
         assertEq(7,gene_.getFocused().getIndex());
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
         assertTrue(gene_.getRow(7).isSelected());
         assertFalse(gene_.getRow(6).isSelected());
     }
@@ -1046,6 +1192,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
     }
     @Test
     public void t76() {
@@ -1063,6 +1215,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(1,gene_.getFocused().getIndex());
         assertFalse(gene_.getRow(0).isSelected());
         assertTrue(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
     }
     @Test
     public void t77() {
@@ -1078,6 +1236,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         click(gene_, 75, false, false);
         action(gene_,GuiConstants.VK_UP,GuiConstants.SHIFT_DOWN_MASK);
         assertEq(6,gene_.getFocused().getIndex());
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
         assertFalse(gene_.getRow(7).isSelected());
         assertTrue(gene_.getRow(6).isSelected());
     }
@@ -1097,6 +1261,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(7,gene_.getFocused().getIndex());
         assertFalse(gene_.getRow(0).isSelected());
         assertTrue(gene_.getRow(7).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
     }
     @Test
     public void t79() {
@@ -1115,6 +1285,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(7).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
     }
     @Test
     public void t80() {
@@ -1132,6 +1308,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(7).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
     }
     @Test
     public void t81() {
@@ -1149,6 +1331,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertFalse(gene_.getRow(7).isSelected());
         assertTrue(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
     }
     @Test
     public void t82() {
@@ -1167,6 +1355,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(7,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(7).isSelected());
         assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
     }
     @Test
     public void t83() {
@@ -1184,6 +1378,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(7,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(7).isSelected());
         assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
     }
     @Test
     public void t84() {
@@ -1200,6 +1400,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(7).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
     }
     @Test
     public void t85() {
@@ -1216,6 +1422,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(7,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(7).isSelected());
         assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
     }
     @Test
     public void t86() {
@@ -1245,6 +1457,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(7,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertTrue(gene_.getRow(7).isSelected());
+        assertTrue(gene_.getRow(1).isSelected());
+        assertTrue(gene_.getRow(2).isSelected());
+        assertTrue(gene_.getRow(3).isSelected());
+        assertTrue(gene_.getRow(4).isSelected());
+        assertTrue(gene_.getRow(5).isSelected());
+        assertTrue(gene_.getRow(6).isSelected());
     }
     @Test
     public void t89() {
@@ -1263,6 +1481,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(7).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
     }
     @Test
     public void t90() {
@@ -1280,6 +1504,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(7).isSelected());
         assertTrue(gene_.getRow(0).isSelected());
+        assertTrue(gene_.getRow(1).isSelected());
+        assertTrue(gene_.getRow(2).isSelected());
+        assertTrue(gene_.getRow(3).isSelected());
+        assertTrue(gene_.getRow(4).isSelected());
+        assertTrue(gene_.getRow(5).isSelected());
+        assertTrue(gene_.getRow(6).isSelected());
     }
     @Test
     public void t91() {
@@ -1298,6 +1528,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(7,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(7).isSelected());
         assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
     }
     @Test
     public void t92() {
@@ -1315,6 +1551,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
     }
     @Test
     public void t93() {
@@ -1332,6 +1574,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(7,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(7).isSelected());
         assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
     }
     @Test
     public void t94() {
@@ -1348,6 +1596,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(7,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(7).isSelected());
         assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
     }
     @Test
     public void t95() {
@@ -1364,6 +1618,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
     }
     @Test
     public void t96() {
@@ -1381,6 +1641,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(7,gene_.getFocused().getIndex());
         assertFalse(gene_.getRow(0).isSelected());
         assertTrue(gene_.getRow(7).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
     }
     @Test
     public void t97() {
@@ -1398,6 +1664,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertFalse(gene_.getRow(7).isSelected());
         assertTrue(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
     }
     @Test
     public void t98() {
@@ -1427,6 +1699,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(7,gene_.getFocused().getIndex());
         assertFalse(gene_.getRow(0).isSelected());
         assertTrue(gene_.getRow(7).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
     }
     @Test
     public void t101() {
@@ -1444,6 +1722,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertFalse(gene_.getRow(7).isSelected());
         assertTrue(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
     }
     @Test
     public void t102() {
@@ -1456,6 +1740,11 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertTrue(gene_.getRow(0).isSelected());
         assertTrue(gene_.getRow(1).isSelected());
         assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
     }
     @Test
     public void t103() {
@@ -1468,6 +1757,11 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertTrue(gene_.getRow(7).isSelected());
         assertTrue(gene_.getRow(6).isSelected());
         assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
     }
     @Test
     public void t104() {
@@ -1493,6 +1787,11 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(1).isSelected());
         assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
     }
     @Test
     public void t107() {
@@ -1504,6 +1803,11 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertTrue(gene_.getRow(7).isSelected());
         assertFalse(gene_.getRow(6).isSelected());
         assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
     }
     @Test
     public void t108() {
@@ -1515,6 +1819,11 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(1).isSelected());
         assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
     }
     @Test
     public void t109() {
@@ -1526,6 +1835,11 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertTrue(gene_.getRow(7).isSelected());
         assertFalse(gene_.getRow(6).isSelected());
         assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
     }
     @Test
     public void t110() {
@@ -1538,6 +1852,11 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertFalse(gene_.getRow(0).isSelected());
         assertTrue(gene_.getRow(1).isSelected());
         assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
     }
     @Test
     public void t111() {
@@ -1550,6 +1869,11 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertFalse(gene_.getRow(7).isSelected());
         assertTrue(gene_.getRow(6).isSelected());
         assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
     }
     @Test
     public void t112() {
@@ -1576,6 +1900,11 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertTrue(gene_.getRow(7).isSelected());
         assertTrue(gene_.getRow(6).isSelected());
         assertTrue(gene_.getRow(5).isSelected());
+        assertTrue(gene_.getRow(0).isSelected());
+        assertTrue(gene_.getRow(1).isSelected());
+        assertTrue(gene_.getRow(2).isSelected());
+        assertTrue(gene_.getRow(3).isSelected());
+        assertTrue(gene_.getRow(4).isSelected());
     }
     @Test
     public void t115() {
@@ -1930,6 +2259,14 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.add("SEVEN");
         gene_.add("EIGHT");
         action(gene_,GuiConstants.VK_UP,GuiConstants.CTRL_DOWN_MASK);
+        assertFalse(gene_.getRow(0).isSelected());
+        assertFalse(gene_.getRow(1).isSelected());
+        assertFalse(gene_.getRow(2).isSelected());
+        assertFalse(gene_.getRow(3).isSelected());
+        assertFalse(gene_.getRow(4).isSelected());
+        assertFalse(gene_.getRow(5).isSelected());
+        assertFalse(gene_.getRow(6).isSelected());
+        assertFalse(gene_.getRow(7).isSelected());
         assertEq(7,gene_.getFocused().getIndex());
     }
     @Test
@@ -2425,6 +2762,16 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertFalse(gene_.getRow(6).isSelected());
         assertFalse(gene_.getRow(7).isSelected());
         assertEq(1,gene_.getFocused().getIndex());
+    }
+    @Test
+    public void t170() {
+        ScrollCustomGraphicList<String> gene_ = gene(false);
+        gene_.add("ONE");
+        action(gene_,GuiConstants.VK_A,GuiConstants.CTRL_DOWN_MASK);
+        action(gene_,GuiConstants.VK_W,GuiConstants.CTRL_DOWN_MASK);
+        gene_.getScrollPane().recalculate();
+        assertEq(-1,gene_.getFocused().getIndex());
+        assertFalse(gene_.getRow(0).isSelected());
     }
     private void action(ScrollCustomGraphicList<String> _gene, int _a, int _b) {
         ((MockAbstractAction)GuiBaseUtil.getAction(_gene.getElements(),_a,_b)).action();
