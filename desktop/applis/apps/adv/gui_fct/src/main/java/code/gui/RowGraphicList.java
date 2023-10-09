@@ -11,6 +11,7 @@ public final class RowGraphicList<T> {
     private final AbsPreparedLabel label;
     private boolean selected;
     private boolean focused;
+    private boolean anchored;
     private boolean dirty;
     public RowGraphicList(ScrollCustomGraphicList<T> _list,T _i, int _index, AbsCompoFactory _compo, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g, ColorsGroupList _cs) {
         label = _compo.newPreparedLabel(_imgFact.newImageRgb(1,1));
@@ -32,7 +33,7 @@ public final class RowGraphicList<T> {
         updated(_index, _imgFact, _g, info,_cs);
     }
     private void updated(int _index, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g, T _inf, ColorsGroupList _cs) {
-        AbstractImage img_ = _g.getListCellRendererComponent(_index, _inf, selected, focused, label,_cs);
+        AbstractImage img_ = _g.getListCellRendererComponent(_index, _inf, selected, focused, anchored, label,_cs);
         label.setIcon(_imgFact, img_);
         dirty = false;
     }
@@ -55,12 +56,25 @@ public final class RowGraphicList<T> {
         return false;
     }
 
+    public boolean anchor(boolean _s) {
+        if (anchored != _s) {
+            dirty = true;
+            anchored = _s;
+            return true;
+        }
+        return false;
+    }
+
     public boolean isSelected() {
         return selected;
     }
 
     public boolean isFocused() {
         return focused;
+    }
+
+    public boolean isAnchored() {
+        return anchored;
     }
 
     public AbsCustComponent getLabel() {
