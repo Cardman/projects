@@ -27,17 +27,20 @@ public final class OkRenderFormEvent implements AbsActionListener {
                 return;
             }
             ExcPointBlockKey ep_ = added_.getEp();
-            RenderPointPair r_ = new RenderPointPair(ep_.isExact(), ep_.getClName(), window.getCaller(), false, false);
+            RenderPointPair r_ = new RenderPointPair(ep_.isExact(), ep_.getClName(), window.getCaller());
             window.getRenderList().add(r_);
             exc_ = r_;
         }
         exc_.getExcPointBlockPair().getValue().setEnabled(frameExcFormContent.getEnabledExc().isSelected());
         exc_.setEnableExpand(frameExcFormContent.getEnabledExpand().isSelected());
+        exc_.setEnableBothExpand(frameExcFormContent.getEnabledExpandRender().isSelected());
+        exc_.setEnableBothRender(frameExcFormContent.getEnabledRenderExpand().isSelected());
         exc_.setExpandFirst(frameExcFormContent.getExpandFirst().isSelected());
+        exc_.setExpandRenderFirst(frameExcFormContent.getExpandRenderChoice().isSelected());
         exc_.setGlobalEnabled(frameExcFormContent.getEnabledExcGlobal().isSelected());
         exc_.setPref(frameExcFormContent.getPref().getValue());
         exc_.prefsMap(frameExcFormContent.getPrefs().getList());
-        exc_.analyze(frameExcFormContent.getRenderText().getText(),frameExcFormContent.getExpandText().getText(),currentResult, window.getResultContextNext().generateAdv(currentResult.getContext().getInterrupt()));
+        exc_.analyze(frameExcFormContent.getRenderText().getText(),frameExcFormContent.getExpandText().getText(),frameExcFormContent.getRenderExpandText().getText(),frameExcFormContent.getExpandRenderText().getText(), currentResult, window.getResultContextNext().generateAdv(currentResult.getContext().getInterrupt()));
 //        exc_.getValue().setThrown(frameExcFormContent.getThrown().isSelected());
 //        exc_.getValue().setCaught(frameExcFormContent.getCaught().isSelected());
 //        exc_.getValue().setPropagated(frameExcFormContent.getPropagated().isSelected());

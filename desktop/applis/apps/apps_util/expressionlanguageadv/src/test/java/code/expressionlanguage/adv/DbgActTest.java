@@ -5888,6 +5888,1298 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
     }
     @Test
+    public void i51() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public int a;public int b;public static int exmeth(String[] v){var i=new Ex();i.a=3;i.b=4;return 0;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(118,118);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderExpandText().setText("" +
+                "    new Pair<String,IterableTable<String,Object>>(this){\n" +
+                "      public Ex re;\n" +
+                "      public(Ex e){\n" +
+                "          this.re=e;\n" +
+                "      }\n" +
+                "      public String getFirst(){\n" +
+                "          return re.a+\",\"+re.b;\n" +
+                "      }\n" +
+                "      public IterableTable<String,Object> getSecond(){\n" +
+                "        return new IterableTable<String,Object>(re){\n" +
+                "            public Ex e;\n" +
+                "            public(Ex e){\n" +
+                "                this.e=e;\n" +
+                "            }\n" +
+                "            public IteratorTable<String,Object> iteratorTable(){\n" +
+                "                return new IteratorTable<String,Object>(e){\n" +
+                "                    public Ex e;\n" +
+                "                    public int i;\n" +
+                "                    public(Ex e){\n" +
+                "                        this.e=e;\n" +
+                "                    }\n" +
+                "                    public boolean hasNextPair(){\n" +
+                "                        return i < 2;\n" +
+                "                    }\n" +
+                "                    public Pair<String,Object> nextPair(){\n" +
+                "                        if (i == 0){\n" +
+                "                            i++;\n" +
+                "                            return new Pair<String,Object>(e){\n" +
+                "                                Ex e;\n" +
+                "                                public(Ex e){\n" +
+                "                                    this.e=e;\n" +
+                "                                }\n" +
+                "                                public String getFirst(){\n" +
+                "                                    return \"1:\";\n" +
+                "                                }\n" +
+                "                                public Object getSecond(){\n" +
+                "                                    return e.a;\n" +
+                "                                }\n" +
+                "                            };\n" +
+                "                        }\n" +
+                "                        i++;\n" +
+                "                        return new Pair<String,Object>(e){\n" +
+                "                            Ex e;\n" +
+                "                            public(Ex e){\n" +
+                "                                this.e=e;\n" +
+                "                            }\n" +
+                "                            public String getFirst(){\n" +
+                "                                return \"2:\";\n" +
+                "                            }\n" +
+                "                            public Object getSecond(){\n" +
+                "                                return e.b;\n" +
+                "                            }\n" +
+                "                        };\n" +
+                "                    }\n" +
+                "                };\n" +
+                "            }\n" +
+                "        };\n" +
+                "      }\n" +
+                "    }\n" +
+                "    ");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExpandRender().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderChoice().setSelected(true);
+        addRendOk(b_);
+        Struct str_ = resNode(i_, b_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
+        assertEq(2,chsSec_.size());
+        assertEq("1:",chsSec_.get(0).info().str());
+        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq("2:",chsSec_.get(1).info().str());
+        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq("3,4",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i52() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public int a;public int b;public static int exmeth(String[] v){var i=new Ex();i.a=3;i.b=4;return 0;}}public @class pkg.MyPair<S,T>:Pair<S,T>{public S first;public T second;public S getFirst(){return first;}public T getSecond(){return second;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(118,118);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderExpandText().setText("" +
+                "    new MyPair<String,IterableTable<String,Object>>(first:(++a)+\",\"+(++b),second:" +
+                "        new IterableTable<String,Object>(this){\n" +
+                "            public Ex e;\n" +
+                "            public(Ex e){\n" +
+                "                this.e=e;\n" +
+                "            }\n" +
+                "            public IteratorTable<String,Object> iteratorTable(){\n" +
+                "                return new IteratorTable<String,Object>(e){\n" +
+                "                    public Ex e;\n" +
+                "                    public int i;\n" +
+                "                    public(Ex e){\n" +
+                "                        this.e=e;\n" +
+                "                    }\n" +
+                "                    public boolean hasNextPair(){\n" +
+                "                        return i < 2;\n" +
+                "                    }\n" +
+                "                    public Pair<String,Object> nextPair(){\n" +
+                "                        if (i == 0){\n" +
+                "                            i++;\n" +
+                "                            return new Pair<String,Object>(e){\n" +
+                "                                Ex e;\n" +
+                "                                public(Ex e){\n" +
+                "                                    this.e=e;\n" +
+                "                                }\n" +
+                "                                public String getFirst(){\n" +
+                "                                    return \"1:\";\n" +
+                "                                }\n" +
+                "                                public Object getSecond(){\n" +
+                "                                    return e.a+=2;\n" +
+                "                                }\n" +
+                "                            };\n" +
+                "                        }\n" +
+                "                        i++;\n" +
+                "                        return new Pair<String,Object>(e){\n" +
+                "                            Ex e;\n" +
+                "                            public(Ex e){\n" +
+                "                                this.e=e;\n" +
+                "                            }\n" +
+                "                            public String getFirst(){\n" +
+                "                                return \"2:\";\n" +
+                "                            }\n" +
+                "                            public Object getSecond(){\n" +
+                "                                return e.b+=2;\n" +
+                "                            }\n" +
+                "                        };\n" +
+                "                    }\n" +
+                "                };\n" +
+                "            }\n" +
+                "        })\n" +
+                "    ");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExpandRender().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderChoice().setSelected(true);
+        addRendOk(b_);
+        Struct str_ = resNode(i_, b_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
+        assertEq(2,chsSec_.size());
+        assertEq("1:",chsSec_.get(0).info().str());
+        assertEq(6,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq("2:",chsSec_.get(1).info().str());
+        assertEq(7,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq("4,5",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i53() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public int a;public int b;public static int exmeth(String[] v){var i=new Ex();i.a=3;i.b=4;return 0;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(118,118);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderExpandText().setText("" +
+                "    new Pair<String,IterableTable<String,Object>>(this){\n" +
+                "      public Ex re;\n" +
+                "      public(Ex e){\n" +
+                "          this.re=e;\n" +
+                "      }\n" +
+                "      public String getFirst(){\n" +
+                "          return re.a+\",\"+re.b;\n" +
+                "      }\n" +
+                "      public IterableTable<String,Object> getSecond(){\n" +
+                "        return new IterableTable<String,Object>(re){\n" +
+                "            public Ex e;\n" +
+                "            public(Ex e){\n" +
+                "                this.e=e;\n" +
+                "            }\n" +
+                "            public IteratorTable<String,Object> iteratorTable(){\n" +
+                "                return new IteratorTable<String,Object>(e){\n" +
+                "                    public Ex e;\n" +
+                "                    public int i;\n" +
+                "                    public(Ex e){\n" +
+                "                        this.e=e;\n" +
+                "                    }\n" +
+                "                    public boolean hasNextPair(){\n" +
+                "                        return i < 2;\n" +
+                "                    }\n" +
+                "                    public Pair<String,Object> nextPair(){\n" +
+                "                        if (i == 0){\n" +
+                "                            i++;\n" +
+                "                            return new Pair<String,Object>(e){\n" +
+                "                                Ex e;\n" +
+                "                                public(Ex e){\n" +
+                "                                    this.e=e;\n" +
+                "                                }\n" +
+                "                                public String getFirst(){\n" +
+                "                                    return \"1:\";\n" +
+                "                                }\n" +
+                "                                public Object getSecond(){\n" +
+                "                                    return e.a;\n" +
+                "                                }\n" +
+                "                            };\n" +
+                "                        }\n" +
+                "                        i++;\n" +
+                "                        return new Pair<String,Object>(e){\n" +
+                "                            Ex e;\n" +
+                "                            public(Ex e){\n" +
+                "                                this.e=e;\n" +
+                "                            }\n" +
+                "                            public String getFirst(){\n" +
+                "                                return \"2:\";\n" +
+                "                            }\n" +
+                "                            public Object getSecond(){\n" +
+                "                                return e.b;\n" +
+                "                            }\n" +
+                "                        };\n" +
+                "                    }\n" +
+                "                };\n" +
+                "            }\n" +
+                "        };\n" +
+                "      }\n" +
+                "    }\n" +
+                "    ");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExpandRender().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderChoice().setSelected(true);
+        addRendOk(b_);
+        Struct str_ = resNode(i_, b_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
+        assertEq(2,chsSec_.size());
+        assertEq("pkg.Ex|a",chsSec_.get(0).info().str());
+        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq("pkg.Ex|b",chsSec_.get(1).info().str());
+        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertNull(str_);
+    }
+    @Test
+    public void i54() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public int a;public int b;public static int exmeth(String[] v){var i=new Ex();i.a=3;i.b=4;return 0;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(118,118);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderText().setText("" +
+                "    new Pair<IterableTable<String,Object>,String>(this){\n" +
+                "      public Ex re;\n" +
+                "      public(Ex e){\n" +
+                "          this.re=e;\n" +
+                "      }\n" +
+                "      public String getSecond(){\n" +
+                "          return re.a+\",\"+re.b;\n" +
+                "      }\n" +
+                "      public IterableTable<String,Object> getFirst(){\n" +
+                "        return new IterableTable<String,Object>(re){\n" +
+                "            public Ex e;\n" +
+                "            public(Ex e){\n" +
+                "                this.e=e;\n" +
+                "            }\n" +
+                "            public IteratorTable<String,Object> iteratorTable(){\n" +
+                "                return new IteratorTable<String,Object>(e){\n" +
+                "                    public Ex e;\n" +
+                "                    public int i;\n" +
+                "                    public(Ex e){\n" +
+                "                        this.e=e;\n" +
+                "                    }\n" +
+                "                    public boolean hasNextPair(){\n" +
+                "                        return i < 2;\n" +
+                "                    }\n" +
+                "                    public Pair<String,Object> nextPair(){\n" +
+                "                        if (i == 0){\n" +
+                "                            i++;\n" +
+                "                            return new Pair<String,Object>(e){\n" +
+                "                                Ex e;\n" +
+                "                                public(Ex e){\n" +
+                "                                    this.e=e;\n" +
+                "                                }\n" +
+                "                                public String getFirst(){\n" +
+                "                                    return \"1:\";\n" +
+                "                                }\n" +
+                "                                public Object getSecond(){\n" +
+                "                                    return e.a;\n" +
+                "                                }\n" +
+                "                            };\n" +
+                "                        }\n" +
+                "                        i++;\n" +
+                "                        return new Pair<String,Object>(e){\n" +
+                "                            Ex e;\n" +
+                "                            public(Ex e){\n" +
+                "                                this.e=e;\n" +
+                "                            }\n" +
+                "                            public String getFirst(){\n" +
+                "                                return \"2:\";\n" +
+                "                            }\n" +
+                "                            public Object getSecond(){\n" +
+                "                                return e.b;\n" +
+                "                            }\n" +
+                "                        };\n" +
+                "                    }\n" +
+                "                };\n" +
+                "            }\n" +
+                "        };\n" +
+                "      }\n" +
+                "    }\n" +
+                "    ");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledRenderExpand().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderChoice().setSelected(true);
+        addRendOk(b_);
+        Struct str_ = resNode(i_, b_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
+        assertEq(2,chsSec_.size());
+        assertEq("1:",chsSec_.get(0).info().str());
+        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq("2:",chsSec_.get(1).info().str());
+        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq("3,4",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i55() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public int a;public int b;public static int exmeth(String[] v){var i=new Ex();i.a=3;i.b=4;return 0;}}public @class pkg.MyPair<S,T>:Pair<S,T>{public S first;public T second;public S getFirst(){return first;}public T getSecond(){return second;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(118,118);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderText().setText("" +
+                "    new MyPair<IterableTable<String,Object>,String>(second:(++a)+\",\"+(++b),first:" +
+                "        new IterableTable<String,Object>(this){\n" +
+                "            public Ex e;\n" +
+                "            public(Ex e){\n" +
+                "                this.e=e;\n" +
+                "            }\n" +
+                "            public IteratorTable<String,Object> iteratorTable(){\n" +
+                "                return new IteratorTable<String,Object>(e){\n" +
+                "                    public Ex e;\n" +
+                "                    public int i;\n" +
+                "                    public(Ex e){\n" +
+                "                        this.e=e;\n" +
+                "                    }\n" +
+                "                    public boolean hasNextPair(){\n" +
+                "                        return i < 2;\n" +
+                "                    }\n" +
+                "                    public Pair<String,Object> nextPair(){\n" +
+                "                        if (i == 0){\n" +
+                "                            i++;\n" +
+                "                            return new Pair<String,Object>(e){\n" +
+                "                                Ex e;\n" +
+                "                                public(Ex e){\n" +
+                "                                    this.e=e;\n" +
+                "                                }\n" +
+                "                                public String getFirst(){\n" +
+                "                                    return \"1:\";\n" +
+                "                                }\n" +
+                "                                public Object getSecond(){\n" +
+                "                                    return e.a+=2;\n" +
+                "                                }\n" +
+                "                            };\n" +
+                "                        }\n" +
+                "                        i++;\n" +
+                "                        return new Pair<String,Object>(e){\n" +
+                "                            Ex e;\n" +
+                "                            public(Ex e){\n" +
+                "                                this.e=e;\n" +
+                "                            }\n" +
+                "                            public String getFirst(){\n" +
+                "                                return \"2:\";\n" +
+                "                            }\n" +
+                "                            public Object getSecond(){\n" +
+                "                                return e.b+=2;\n" +
+                "                            }\n" +
+                "                        };\n" +
+                "                    }\n" +
+                "                };\n" +
+                "            }\n" +
+                "        })\n" +
+                "    ");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledRenderExpand().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderChoice().setSelected(true);
+        addRendOk(b_);
+        Struct str_ = resNode(i_, b_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
+        assertEq(2,chsSec_.size());
+        assertEq("1:",chsSec_.get(0).info().str());
+        assertEq(6,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq("2:",chsSec_.get(1).info().str());
+        assertEq(7,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq("4,5",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i56() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public int a;public int b;public static int exmeth(String[] v){var i=new Ex();i.a=3;i.b=4;return 0;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(118,118);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderText().setText("" +
+                "    new Pair<IterableTable<String,Object>,String>(this){\n" +
+                "      public Ex re;\n" +
+                "      public(Ex e){\n" +
+                "          this.re=e;\n" +
+                "      }\n" +
+                "      public String getSecond(){\n" +
+                "          return re.a+\",\"+re.b;\n" +
+                "      }\n" +
+                "      public IterableTable<String,Object> getFirst(){\n" +
+                "        return new IterableTable<String,Object>(re){\n" +
+                "            public Ex e;\n" +
+                "            public(Ex e){\n" +
+                "                this.e=e;\n" +
+                "            }\n" +
+                "            public IteratorTable<String,Object> iteratorTable(){\n" +
+                "                return new IteratorTable<String,Object>(e){\n" +
+                "                    public Ex e;\n" +
+                "                    public int i;\n" +
+                "                    public(Ex e){\n" +
+                "                        this.e=e;\n" +
+                "                    }\n" +
+                "                    public boolean hasNextPair(){\n" +
+                "                        return i < 2;\n" +
+                "                    }\n" +
+                "                    public Pair<String,Object> nextPair(){\n" +
+                "                        if (i == 0){\n" +
+                "                            i++;\n" +
+                "                            return new Pair<String,Object>(e){\n" +
+                "                                Ex e;\n" +
+                "                                public(Ex e){\n" +
+                "                                    this.e=e;\n" +
+                "                                }\n" +
+                "                                public String getFirst(){\n" +
+                "                                    return \"1:\";\n" +
+                "                                }\n" +
+                "                                public Object getSecond(){\n" +
+                "                                    return e.a;\n" +
+                "                                }\n" +
+                "                            };\n" +
+                "                        }\n" +
+                "                        i++;\n" +
+                "                        return new Pair<String,Object>(e){\n" +
+                "                            Ex e;\n" +
+                "                            public(Ex e){\n" +
+                "                                this.e=e;\n" +
+                "                            }\n" +
+                "                            public String getFirst(){\n" +
+                "                                return \"2:\";\n" +
+                "                            }\n" +
+                "                            public Object getSecond(){\n" +
+                "                                return e.b;\n" +
+                "                            }\n" +
+                "                        };\n" +
+                "                    }\n" +
+                "                };\n" +
+                "            }\n" +
+                "        };\n" +
+                "      }\n" +
+                "    }\n" +
+                "    ");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledRenderExpand().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderChoice().setSelected(true);
+        addRendOk(b_);
+        Struct str_ = resNode(i_, b_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
+        assertEq(2,chsSec_.size());
+        assertEq("pkg.Ex|a",chsSec_.get(0).info().str());
+        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq("pkg.Ex|b",chsSec_.get(1).info().str());
+        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertNull(str_);
+    }
+    @Test
+    public void i57() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public int a;public int b;public static int exmeth(String[] v){var i=new Ex();i.a=3;i.b=4;return 0;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(118,118);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderExpandText().setText("" +
+                "    new Pair<String,IterableTable<String,Object>>(this){\n" +
+                "      public Ex re;\n" +
+                "      public(Ex e){\n" +
+                "          this.re=e;\n" +
+                "      }\n" +
+                "      public String getFirst(){\n" +
+                "          return re.a+\",\"+re.b;\n" +
+                "      }\n" +
+                "      public IterableTable<String,Object> getSecond(){\n" +
+                "        return new IterableTable<String,Object>(re){\n" +
+                "            public Ex e;\n" +
+                "            public(Ex e){\n" +
+                "                this.e=e;\n" +
+                "            }\n" +
+                "            public IteratorTable<String,Object> iteratorTable(){\n" +
+                "                return new IteratorTable<String,Object>(e){\n" +
+                "                    public Ex e;\n" +
+                "                    public int i;\n" +
+                "                    public(Ex e){\n" +
+                "                        this.e=e;\n" +
+                "                    }\n" +
+                "                    public boolean hasNextPair(){\n" +
+                "                        return i < 2;\n" +
+                "                    }\n" +
+                "                    public Pair<String,Object> nextPair(){\n" +
+                "                        if (i == 0){\n" +
+                "                            i++;\n" +
+                "                            return new Pair<String,Object>(e){\n" +
+                "                                Ex e;\n" +
+                "                                public(Ex e){\n" +
+                "                                    this.e=e;\n" +
+                "                                }\n" +
+                "                                public String getFirst(){\n" +
+                "                                    return \"1:\";\n" +
+                "                                }\n" +
+                "                                public Object getSecond(){\n" +
+                "                                    return e.a;\n" +
+                "                                }\n" +
+                "                            };\n" +
+                "                        }\n" +
+                "                        i++;\n" +
+                "                        return new Pair<String,Object>(e){\n" +
+                "                            Ex e;\n" +
+                "                            public(Ex e){\n" +
+                "                                this.e=e;\n" +
+                "                            }\n" +
+                "                            public String getFirst(){\n" +
+                "                                return \"2:\";\n" +
+                "                            }\n" +
+                "                            public Object getSecond(){\n" +
+                "                                return e.b;\n" +
+                "                            }\n" +
+                "                        };\n" +
+                "                    }\n" +
+                "                };\n" +
+                "            }\n" +
+                "        };\n" +
+                "      }\n" +
+                "    }\n" +
+                "    ");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExpandRender().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderChoice().setSelected(false);
+        addRendOk(b_);
+        Struct str_ = resNode(i_, b_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
+        assertEq(2,chsSec_.size());
+        assertEq("1:",chsSec_.get(0).info().str());
+        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq("2:",chsSec_.get(1).info().str());
+        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq("3,4",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i58() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public int a;public int b;public static int exmeth(String[] v){var i=new Ex();i.a=3;i.b=4;return 0;}}public @class pkg.MyPair<S,T>:Pair<S,T>{public S first;public T second;public S getFirst(){return first;}public T getSecond(){return second;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(118,118);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderExpandText().setText("" +
+                "    new MyPair<String,IterableTable<String,Object>>(first:(++a)+\",\"+(++b),second:" +
+                "        new IterableTable<String,Object>(this){\n" +
+                "            public Ex e;\n" +
+                "            public(Ex e){\n" +
+                "                this.e=e;\n" +
+                "            }\n" +
+                "            public IteratorTable<String,Object> iteratorTable(){\n" +
+                "                return new IteratorTable<String,Object>(e){\n" +
+                "                    public Ex e;\n" +
+                "                    public int i;\n" +
+                "                    public(Ex e){\n" +
+                "                        this.e=e;\n" +
+                "                    }\n" +
+                "                    public boolean hasNextPair(){\n" +
+                "                        return i < 2;\n" +
+                "                    }\n" +
+                "                    public Pair<String,Object> nextPair(){\n" +
+                "                        if (i == 0){\n" +
+                "                            i++;\n" +
+                "                            return new Pair<String,Object>(e){\n" +
+                "                                Ex e;\n" +
+                "                                public(Ex e){\n" +
+                "                                    this.e=e;\n" +
+                "                                }\n" +
+                "                                public String getFirst(){\n" +
+                "                                    return \"1:\";\n" +
+                "                                }\n" +
+                "                                public Object getSecond(){\n" +
+                "                                    return e.a+=2;\n" +
+                "                                }\n" +
+                "                            };\n" +
+                "                        }\n" +
+                "                        i++;\n" +
+                "                        return new Pair<String,Object>(e){\n" +
+                "                            Ex e;\n" +
+                "                            public(Ex e){\n" +
+                "                                this.e=e;\n" +
+                "                            }\n" +
+                "                            public String getFirst(){\n" +
+                "                                return \"2:\";\n" +
+                "                            }\n" +
+                "                            public Object getSecond(){\n" +
+                "                                return e.b+=2;\n" +
+                "                            }\n" +
+                "                        };\n" +
+                "                    }\n" +
+                "                };\n" +
+                "            }\n" +
+                "        })\n" +
+                "    ");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExpandRender().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderChoice().setSelected(false);
+        addRendOk(b_);
+        Struct str_ = resNode(i_, b_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
+        assertEq(2,chsSec_.size());
+        assertEq("1:",chsSec_.get(0).info().str());
+        assertEq(6,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq("2:",chsSec_.get(1).info().str());
+        assertEq(7,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq("4,5",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i59() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public int a;public int b;public static int exmeth(String[] v){var i=new Ex();i.a=3;i.b=4;return 0;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(118,118);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getRenderExpandText().setText("" +
+                "    new Pair<String,IterableTable<String,Object>>(this){\n" +
+                "      public Ex re;\n" +
+                "      public(Ex e){\n" +
+                "          this.re=e;\n" +
+                "      }\n" +
+                "      public String getFirst(){\n" +
+                "          return re.a+\",\"+re.b;\n" +
+                "      }\n" +
+                "      public IterableTable<String,Object> getSecond(){\n" +
+                "        return new IterableTable<String,Object>(re){\n" +
+                "            public Ex e;\n" +
+                "            public(Ex e){\n" +
+                "                this.e=e;\n" +
+                "            }\n" +
+                "            public IteratorTable<String,Object> iteratorTable(){\n" +
+                "                return new IteratorTable<String,Object>(e){\n" +
+                "                    public Ex e;\n" +
+                "                    public int i;\n" +
+                "                    public(Ex e){\n" +
+                "                        this.e=e;\n" +
+                "                    }\n" +
+                "                    public boolean hasNextPair(){\n" +
+                "                        return i < 2;\n" +
+                "                    }\n" +
+                "                    public Pair<String,Object> nextPair(){\n" +
+                "                        if (i == 0){\n" +
+                "                            i++;\n" +
+                "                            return new Pair<String,Object>(e){\n" +
+                "                                Ex e;\n" +
+                "                                public(Ex e){\n" +
+                "                                    this.e=e;\n" +
+                "                                }\n" +
+                "                                public String getFirst(){\n" +
+                "                                    return \"1:\";\n" +
+                "                                }\n" +
+                "                                public Object getSecond(){\n" +
+                "                                    return e.a;\n" +
+                "                                }\n" +
+                "                            };\n" +
+                "                        }\n" +
+                "                        i++;\n" +
+                "                        return new Pair<String,Object>(e){\n" +
+                "                            Ex e;\n" +
+                "                            public(Ex e){\n" +
+                "                                this.e=e;\n" +
+                "                            }\n" +
+                "                            public String getFirst(){\n" +
+                "                                return \"2:\";\n" +
+                "                            }\n" +
+                "                            public Object getSecond(){\n" +
+                "                                return e.b;\n" +
+                "                            }\n" +
+                "                        };\n" +
+                "                    }\n" +
+                "                };\n" +
+                "            }\n" +
+                "        };\n" +
+                "      }\n" +
+                "    }\n" +
+                "    ");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExpandRender().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderChoice().setSelected(false);
+        addRendOk(b_);
+        Struct str_ = resNode(i_, b_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
+        assertEq(2,chsSec_.size());
+        assertEq("pkg.Ex|a",chsSec_.get(0).info().str());
+        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq("pkg.Ex|b",chsSec_.get(1).info().str());
+        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertNull(str_);
+    }
+    @Test
+    public void i60() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public int a;public int b;public static int exmeth(String[] v){var i=new Ex();i.a=3;i.b=4;return 0;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(118,118);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderText().setText("" +
+                "    new Pair<IterableTable<String,Object>,String>(this){\n" +
+                "      public Ex re;\n" +
+                "      public(Ex e){\n" +
+                "          this.re=e;\n" +
+                "      }\n" +
+                "      public String getSecond(){\n" +
+                "          return re.a+\",\"+re.b;\n" +
+                "      }\n" +
+                "      public IterableTable<String,Object> getFirst(){\n" +
+                "        return new IterableTable<String,Object>(re){\n" +
+                "            public Ex e;\n" +
+                "            public(Ex e){\n" +
+                "                this.e=e;\n" +
+                "            }\n" +
+                "            public IteratorTable<String,Object> iteratorTable(){\n" +
+                "                return new IteratorTable<String,Object>(e){\n" +
+                "                    public Ex e;\n" +
+                "                    public int i;\n" +
+                "                    public(Ex e){\n" +
+                "                        this.e=e;\n" +
+                "                    }\n" +
+                "                    public boolean hasNextPair(){\n" +
+                "                        return i < 2;\n" +
+                "                    }\n" +
+                "                    public Pair<String,Object> nextPair(){\n" +
+                "                        if (i == 0){\n" +
+                "                            i++;\n" +
+                "                            return new Pair<String,Object>(e){\n" +
+                "                                Ex e;\n" +
+                "                                public(Ex e){\n" +
+                "                                    this.e=e;\n" +
+                "                                }\n" +
+                "                                public String getFirst(){\n" +
+                "                                    return \"1:\";\n" +
+                "                                }\n" +
+                "                                public Object getSecond(){\n" +
+                "                                    return e.a;\n" +
+                "                                }\n" +
+                "                            };\n" +
+                "                        }\n" +
+                "                        i++;\n" +
+                "                        return new Pair<String,Object>(e){\n" +
+                "                            Ex e;\n" +
+                "                            public(Ex e){\n" +
+                "                                this.e=e;\n" +
+                "                            }\n" +
+                "                            public String getFirst(){\n" +
+                "                                return \"2:\";\n" +
+                "                            }\n" +
+                "                            public Object getSecond(){\n" +
+                "                                return e.b;\n" +
+                "                            }\n" +
+                "                        };\n" +
+                "                    }\n" +
+                "                };\n" +
+                "            }\n" +
+                "        };\n" +
+                "      }\n" +
+                "    }\n" +
+                "    ");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledRenderExpand().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderChoice().setSelected(false);
+        addRendOk(b_);
+        Struct str_ = resNode(i_, b_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
+        assertEq(2,chsSec_.size());
+        assertEq("1:",chsSec_.get(0).info().str());
+        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq("2:",chsSec_.get(1).info().str());
+        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq("3,4",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i61() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public int a;public int b;public static int exmeth(String[] v){var i=new Ex();i.a=3;i.b=4;return 0;}}public @class pkg.MyPair<S,T>:Pair<S,T>{public S first;public T second;public S getFirst(){return first;}public T getSecond(){return second;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(118,118);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderText().setText("" +
+                "    new MyPair<IterableTable<String,Object>,String>(second:(++a)+\",\"+(++b),first:" +
+                "        new IterableTable<String,Object>(this){\n" +
+                "            public Ex e;\n" +
+                "            public(Ex e){\n" +
+                "                this.e=e;\n" +
+                "            }\n" +
+                "            public IteratorTable<String,Object> iteratorTable(){\n" +
+                "                return new IteratorTable<String,Object>(e){\n" +
+                "                    public Ex e;\n" +
+                "                    public int i;\n" +
+                "                    public(Ex e){\n" +
+                "                        this.e=e;\n" +
+                "                    }\n" +
+                "                    public boolean hasNextPair(){\n" +
+                "                        return i < 2;\n" +
+                "                    }\n" +
+                "                    public Pair<String,Object> nextPair(){\n" +
+                "                        if (i == 0){\n" +
+                "                            i++;\n" +
+                "                            return new Pair<String,Object>(e){\n" +
+                "                                Ex e;\n" +
+                "                                public(Ex e){\n" +
+                "                                    this.e=e;\n" +
+                "                                }\n" +
+                "                                public String getFirst(){\n" +
+                "                                    return \"1:\";\n" +
+                "                                }\n" +
+                "                                public Object getSecond(){\n" +
+                "                                    return e.a+=2;\n" +
+                "                                }\n" +
+                "                            };\n" +
+                "                        }\n" +
+                "                        i++;\n" +
+                "                        return new Pair<String,Object>(e){\n" +
+                "                            Ex e;\n" +
+                "                            public(Ex e){\n" +
+                "                                this.e=e;\n" +
+                "                            }\n" +
+                "                            public String getFirst(){\n" +
+                "                                return \"2:\";\n" +
+                "                            }\n" +
+                "                            public Object getSecond(){\n" +
+                "                                return e.b+=2;\n" +
+                "                            }\n" +
+                "                        };\n" +
+                "                    }\n" +
+                "                };\n" +
+                "            }\n" +
+                "        })\n" +
+                "    ");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledRenderExpand().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderChoice().setSelected(false);
+        addRendOk(b_);
+        Struct str_ = resNode(i_, b_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
+        assertEq(2,chsSec_.size());
+        assertEq("1:",chsSec_.get(0).info().str());
+        assertEq(6,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq("2:",chsSec_.get(1).info().str());
+        assertEq(7,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq("4,5",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void i62() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public int a;public int b;public static int exmeth(String[] v){var i=new Ex();i.a=3;i.b=4;return 0;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(118,118);
+        toggleBp(b_);
+        vararg(b_).setSelected(false);
+        retVal(b_).setSelected(false);
+        param(b_).setSelected(false);
+        AutoCompleteDocument cl_ = classesFilter(b_);
+        cl_.getTextField().setText("pkg.Ex");
+        cl_.enterEvent();
+        AutoCompleteDocument meths_ = methodFilter(b_);
+        meths_.getTextField().setText("exm");
+        meths_.enterEvent();
+        FormInputDebugLines f_ = formArgs(b_);
+        addRow(f_);
+        f_.getCommentsRows().get(0).getValueArea().setText("Arg");
+        //validValues(f_);
+        assertFalse(methods(b_).isEmpty());
+        launch(b_);
+        DbgRootStruct root_ = b_.getRoot();
+        assertEq("",root_.str());
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
+        assertEq(3,chs_.size());
+        AbsTreeGui trDetail_ = b_.getTreeDetail();
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
+        DbgAbsNodeStruct i_ = b_.getRoot().getNode().simular(node_).info();
+        addRend(b_);
+        b_.getFramePoints().getFrameRenderFormContent().getClName().setText("pkg.Ex");
+        checkInehrit(b_.getFramePoints().getFrameRenderFormContent().getExactForm());
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderText().setText("" +
+                "    new Pair<IterableTable<String,Object>,String>(this){\n" +
+                "      public Ex re;\n" +
+                "      public(Ex e){\n" +
+                "          this.re=e;\n" +
+                "      }\n" +
+                "      public String getSecond(){\n" +
+                "          return re.a+\",\"+re.b;\n" +
+                "      }\n" +
+                "      public IterableTable<String,Object> getFirst(){\n" +
+                "        return new IterableTable<String,Object>(re){\n" +
+                "            public Ex e;\n" +
+                "            public(Ex e){\n" +
+                "                this.e=e;\n" +
+                "            }\n" +
+                "            public IteratorTable<String,Object> iteratorTable(){\n" +
+                "                return new IteratorTable<String,Object>(e){\n" +
+                "                    public Ex e;\n" +
+                "                    public int i;\n" +
+                "                    public(Ex e){\n" +
+                "                        this.e=e;\n" +
+                "                    }\n" +
+                "                    public boolean hasNextPair(){\n" +
+                "                        return i < 2;\n" +
+                "                    }\n" +
+                "                    public Pair<String,Object> nextPair(){\n" +
+                "                        if (i == 0){\n" +
+                "                            i++;\n" +
+                "                            return new Pair<String,Object>(e){\n" +
+                "                                Ex e;\n" +
+                "                                public(Ex e){\n" +
+                "                                    this.e=e;\n" +
+                "                                }\n" +
+                "                                public String getFirst(){\n" +
+                "                                    return \"1:\";\n" +
+                "                                }\n" +
+                "                                public Object getSecond(){\n" +
+                "                                    return e.a;\n" +
+                "                                }\n" +
+                "                            };\n" +
+                "                        }\n" +
+                "                        i++;\n" +
+                "                        return new Pair<String,Object>(e){\n" +
+                "                            Ex e;\n" +
+                "                            public(Ex e){\n" +
+                "                                this.e=e;\n" +
+                "                            }\n" +
+                "                            public String getFirst(){\n" +
+                "                                return \"2:\";\n" +
+                "                            }\n" +
+                "                            public Object getSecond(){\n" +
+                "                                return e.b;\n" +
+                "                            }\n" +
+                "                        };\n" +
+                "                    }\n" +
+                "                };\n" +
+                "            }\n" +
+                "        };\n" +
+                "      }\n" +
+                "    }\n" +
+                "    ");
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledRenderExpand().setSelected(false);
+        b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
+        b_.getFramePoints().getFrameRenderFormContent().getExpandRenderChoice().setSelected(false);
+        addRendOk(b_);
+        Struct str_ = resNode(i_, b_);
+        IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
+        assertEq(2,chsSec_.size());
+        assertEq("pkg.Ex|a",chsSec_.get(0).info().str());
+        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq("pkg.Ex|b",chsSec_.get(1).info().str());
+        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertNull(str_);
+    }
+    @Test
     public void ir1() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);

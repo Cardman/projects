@@ -75,6 +75,25 @@ public final class TreeNodeRenderUtil {
         _node.panel(_compo.newVerticalSplitPane(_compo.newAbsScrollPane(ta_), stop_));
         AdvLogDbg logger_ = new AdvLogDbg(ta_);
         RenderPointPair rp_ = _renderPointPairs.getBreakPointCondition();
+        if (rp_.isExpandRenderFirst()) {
+            ResultContextLambda er_ = stopCurrent(rp_.getExpandRender());
+            if (okExpandRend(er_, rp_)) {
+                return expandRender(er_,_renderPointPairs,_node,_compo,_th,stop_,logger_);
+            }
+            ResultContextLambda re_ = stopCurrent(rp_.getRenderExpand());
+            if (okRendExp(re_, rp_)) {
+                return renderExpand(re_,_renderPointPairs,_node,_compo,_th,stop_,logger_);
+            }
+        } else {
+            ResultContextLambda re_ = stopCurrent(rp_.getRenderExpand());
+            if (okRendExp(re_, rp_)) {
+                return renderExpand(re_,_renderPointPairs,_node,_compo,_th,stop_,logger_);
+            }
+            ResultContextLambda er_ = stopCurrent(rp_.getExpandRender());
+            if (okExpandRend(er_, rp_)) {
+                return expandRender(er_,_renderPointPairs,_node,_compo,_th,stop_,logger_);
+            }
+        }
         Struct res_;
         if (rp_.isExpandFirst()) {
             expand(_renderPointPairs, _node, _compo, _th, stop_, logger_);
@@ -86,6 +105,59 @@ public final class TreeNodeRenderUtil {
         return res_;
     }
 
+    private static boolean okRendExp(ResultContextLambda _re, RenderPointPair _rp) {
+        return _re != null && _rp.isEnableBothExpand();
+    }
+
+    private static boolean okExpandRend(ResultContextLambda _re, RenderPointPair _rp) {
+        return _re != null && _rp.isEnableBothRender();
+    }
+
+    private static Struct renderExpand(ResultContextLambda _re,RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th, AbsPlainButton _stop, AdvLogDbg _logger) {
+        GuiBaseUtil.removeActionListeners(_stop);
+        ContextEl ctx_ = _re.getContext();
+        ContextEl ctxExp_ = generate(_th, ctx_);
+        _stop.addActionListener(new DbgStopRenderEvent(ctxExp_));
+        DefStackStopper stopper_ = new DefStackStopper(_logger);
+        StackCallReturnValue result_ = _re.eval(ctxExp_, stopper_,_renderPointPairs.build(), null);
+        logTrace(result_.getStack(), ctxExp_, _logger);
+        StackCall st_ = ResultContextLambda.newInstance(stopper_, ctxExp_, InitPhase.NOTHING);
+        String pairType_ = ctxExp_.getStandards().getPredefTypes().getAliasPairType();
+        String firstMethod_ = ctxExp_.getStandards().getPredefTypes().getAliasGetFirst();
+        Struct pair_ = ArgumentListCall.toStr(result_.getStack().aw().getValue());
+        getOrRedirect(pair_, ctxExp_, st_,pairType_,firstMethod_);
+        Struct repr_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), ctxExp_, st_).getValue());
+        logTrace(st_, ctxExp_, _logger);
+        String secondMethod_ = ctxExp_.getStandards().getPredefTypes().getAliasGetSecond();
+        getOrRedirect(pair_, ctxExp_, st_,pairType_,secondMethod_);
+        Struct map_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), ctxExp_, st_).getValue());
+        logTrace(st_, ctxExp_, _logger);
+        retrieveChildren(_node, _compo, ctxExp_, _logger, st_, map_);
+        return repr_;
+    }
+
+    private static Struct expandRender(ResultContextLambda _re,RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th, AbsPlainButton _stop, AdvLogDbg _logger) {
+        GuiBaseUtil.removeActionListeners(_stop);
+        ContextEl ctx_ = _re.getContext();
+        ContextEl ctxExp_ = generate(_th, ctx_);
+        _stop.addActionListener(new DbgStopRenderEvent(ctxExp_));
+        DefStackStopper stopper_ = new DefStackStopper(_logger);
+        StackCallReturnValue result_ = _re.eval(ctxExp_, stopper_,_renderPointPairs.build(), null);
+        logTrace(result_.getStack(), ctxExp_, _logger);
+        StackCall st_ = ResultContextLambda.newInstance(stopper_, ctxExp_, InitPhase.NOTHING);
+        String pairType_ = ctxExp_.getStandards().getPredefTypes().getAliasPairType();
+        String firstMethod_ = ctxExp_.getStandards().getPredefTypes().getAliasGetFirst();
+        Struct pair_ = ArgumentListCall.toStr(result_.getStack().aw().getValue());
+        getOrRedirect(pair_, ctxExp_, st_,pairType_,firstMethod_);
+        Struct map_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), ctxExp_, st_).getValue());
+        logTrace(st_, ctxExp_, _logger);
+        retrieveChildren(_node, _compo, ctxExp_, _logger, st_, map_);
+        String secondMethod_ = ctxExp_.getStandards().getPredefTypes().getAliasGetSecond();
+        getOrRedirect(pair_, ctxExp_, st_,pairType_,secondMethod_);
+        Struct repr_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), ctxExp_, st_).getValue());
+        logTrace(st_, ctxExp_, _logger);
+        return repr_;
+    }
     private static Struct computeStr(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbstractThreadFactory _th, AbsPlainButton _stop, AdvLogDbg _logger) {
         GuiBaseUtil.removeActionListeners(_stop);
         ResultContextLambda rend_ = checkExc(_renderPointPairs);
@@ -134,33 +206,37 @@ public final class TreeNodeRenderUtil {
         logTrace(result_.getStack(), _ctx, _logger);
         StackCall st_ = ResultContextLambda.newInstance(stopper_, _ctx, InitPhase.NOTHING);
 
+        retrieveChildren(_node, _compo, _ctx, _logger, st_, ArgumentListCall.toStr(result_.getStack().aw().getValue()));
+    }
+
+    private static void retrieveChildren(DbgNodeStruct _node, AbsCompoFactory _compo, ContextEl _ctx, AdvLogDbg _logger, StackCall _st, Struct _iterable) {
         String table_ = _ctx.getStandards().getPredefTypes().getAliasIterableTable();
         String iteratorMethod_ = _ctx.getStandards().getPredefTypes().getAliasIteratorTable();
-        getOrRedirect(ArgumentListCall.toStr(result_.getStack().aw().getValue()), _ctx,st_,table_,iteratorMethod_);
-        Struct map_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), _ctx, st_).getValue());
-        logTrace(st_, _ctx, _logger);
+        getOrRedirect(_iterable, _ctx, _st,table_,iteratorMethod_);
+        Struct map_ = ArgumentListCall.toStr(ProcessMethod.calculate(_st.getCallingState(), _ctx, _st).getValue());
+        logTrace(_st, _ctx, _logger);
         while (true) {
             String iteratorType_ = _ctx.getStandards().getPredefTypes().getAliasIteratorTableType();
             String hasNextMethod_ = _ctx.getStandards().getPredefTypes().getAliasHasNextPair();
-            getOrRedirect(map_, _ctx,st_,iteratorType_,hasNextMethod_);
-            Struct has_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), _ctx, st_).getValue());
-            logTrace(st_, _ctx, _logger);
-            if (_ctx.callsOrException(st_) || BooleanStruct.isFalse(has_)) {
+            getOrRedirect(map_, _ctx, _st,iteratorType_,hasNextMethod_);
+            Struct has_ = ArgumentListCall.toStr(ProcessMethod.calculate(_st.getCallingState(), _ctx, _st).getValue());
+            logTrace(_st, _ctx, _logger);
+            if (_ctx.callsOrException(_st) || BooleanStruct.isFalse(has_)) {
                 break;
             }
             String nextMethod_ = _ctx.getStandards().getPredefTypes().getAliasNextPair();
-            getOrRedirect(map_, _ctx,st_,iteratorType_,nextMethod_);
-            Struct pair_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), _ctx, st_).getValue());
-            logTrace(st_, _ctx, _logger);
+            getOrRedirect(map_, _ctx, _st,iteratorType_,nextMethod_);
+            Struct pair_ = ArgumentListCall.toStr(ProcessMethod.calculate(_st.getCallingState(), _ctx, _st).getValue());
+            logTrace(_st, _ctx, _logger);
             String pairType_ = _ctx.getStandards().getPredefTypes().getAliasPairType();
             String first_ = _ctx.getStandards().getPredefTypes().getAliasGetFirst();
-            getOrRedirect(pair_, _ctx,st_,pairType_,first_);
-            Struct prefix_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), _ctx, st_).getValue());
-            logTrace(st_, _ctx, _logger);
+            getOrRedirect(pair_, _ctx, _st,pairType_,first_);
+            Struct prefix_ = ArgumentListCall.toStr(ProcessMethod.calculate(_st.getCallingState(), _ctx, _st).getValue());
+            logTrace(_st, _ctx, _logger);
             String second_ = _ctx.getStandards().getPredefTypes().getAliasGetSecond();
-            getOrRedirect(pair_, _ctx,st_,pairType_,second_);
-            Struct value_ = ArgumentListCall.toStr(ProcessMethod.calculate(st_.getCallingState(), _ctx, st_).getValue());
-            logTrace(st_, _ctx, _logger);
+            getOrRedirect(pair_, _ctx, _st,pairType_,second_);
+            Struct value_ = ArgumentListCall.toStr(ProcessMethod.calculate(_st.getCallingState(), _ctx, _st).getValue());
+            logTrace(_st, _ctx, _logger);
             _node.append(_compo, NumParsers.getString(prefix_).getInstance(),value_);
         }
     }
@@ -230,8 +306,12 @@ public final class TreeNodeRenderUtil {
 
     private static ContextEl local(ContextEl _orig, AbstractThreadFactory _compo, ResultContextLambda _lda) {
         ContextEl ctx_ = localCtx(_orig, _lda);
-        return new InterruptibleContextEl(_compo.newAtomicBoolean(), ctx_.getExecutionInfos());
-//        return new GuiContextEl(_compo.newAtomicBoolean(), null, ctx_.getExecutionInfos(), new StringList());
+        return generate(_compo, ctx_);
+    }
+
+    private static InterruptibleContextEl generate(AbstractThreadFactory _compo, ContextEl _ctx) {
+        return new InterruptibleContextEl(_compo.newAtomicBoolean(), _ctx.getExecutionInfos());
+//        return new GuiContextEl(_compo.newAtomicBoolean(), null, _ctx.getExecutionInfos(), new StringList());
     }
 
     private static ContextEl localCtx(ContextEl _orig, ResultContextLambda _lda) {

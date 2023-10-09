@@ -13,12 +13,17 @@ import code.util.comparators.NaturalComparator;
 public final class FrameRenderFormContent {
     private AbsTextArea renderText;
     private AbsTextArea expandText;
+    private AbsTextArea renderExpandText;
+    private AbsTextArea expandRenderText;
     private RenderPointPair selectedExc;
     private AbsTextField clName;
     private final ExactMatchingTypeForm exactForm = new ExactMatchingTypeForm();
     private AbsCustCheckBox enabledExc;
     private AbsCustCheckBox enabledExpand;
+    private AbsCustCheckBox enabledExpandRender;
+    private AbsCustCheckBox enabledRenderExpand;
     private AbsCustCheckBox expandFirst;
+    private AbsCustCheckBox expandRenderChoice;
     private AbsCustCheckBox enabledExcGlobal;
     private AbsPlainButton ok;
     private AbsPlainButton remove;
@@ -34,7 +39,10 @@ public final class FrameRenderFormContent {
         pref.setVisible(false);
         enabledExc = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled custom render");
         enabledExpand = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled expand");
+        enabledExpandRender = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled both (expand first)");
+        enabledRenderExpand = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled both (render first)");
         expandFirst = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("expand first");
+        expandRenderChoice = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("expand render order");
         enabledExcGlobal = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled global");
         ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
         remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
@@ -42,6 +50,8 @@ public final class FrameRenderFormContent {
         exactForm.guiBuild(_d);
         renderText = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
         expandText = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
+        renderExpandText = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
+        expandRenderText = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
         AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         bpForm_.add(pref);
         bpForm_.add(prefs.getGroup());
@@ -49,10 +59,15 @@ public final class FrameRenderFormContent {
         bpForm_.add(clName);
         bpForm_.add(enabledExc);
         bpForm_.add(enabledExpand);
+        bpForm_.add(enabledExpandRender);
+        bpForm_.add(enabledRenderExpand);
         bpForm_.add(expandFirst);
+        bpForm_.add(expandRenderChoice);
         bpForm_.add(enabledExcGlobal);
         bpForm_.add(_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(renderText));
         bpForm_.add(_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(expandText));
+        bpForm_.add(_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(renderExpandText));
+        bpForm_.add(_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(expandRenderText));
         bpForm_.add(ok);
         bpForm_.add(remove);
         contentPane = bpForm_;
@@ -73,15 +88,23 @@ public final class FrameRenderFormContent {
             clName.setText(exc_.getExcPointBlockPair().getEp().getClName());
             getEnabledExc().setSelected(exc_.getExcPointBlockPair().getValue().isEnabled());
             getEnabledExpand().setSelected(exc_.isEnableExpand());
+            getEnabledExpandRender().setSelected(exc_.isEnableBothExpand());
             getExpandFirst().setSelected(exc_.isExpandFirst());
+            getExpandRenderChoice().setSelected(exc_.isExpandRenderFirst());
+            getEnabledRenderExpand().setSelected(exc_.isEnableBothRender());
             getEnabledExcGlobal().setSelected(exc_.isGlobalEnabled());
             renderText.setText(exc_.getRender().getResultStr());
             expandText.setText(exc_.getExpand().getResultStr());
+            renderExpandText.setText(exc_.getRenderExpand().getResultStr());
+            expandRenderText.setText(exc_.getExpandRender().getResultStr());
         } else {
             updatePref(_bpc,_c,_r);
             getEnabledExc().setSelected(true);
             getEnabledExpand().setSelected(true);
+            getEnabledExpandRender().setSelected(true);
             getExpandFirst().setSelected(true);
+            getExpandRenderChoice().setSelected(true);
+            getEnabledRenderExpand().setSelected(true);
             getEnabledExcGlobal().setSelected(true);
             clName.setEnabled(true);
         }
@@ -148,8 +171,20 @@ public final class FrameRenderFormContent {
         return enabledExpand;
     }
 
+    public AbsCustCheckBox getEnabledExpandRender() {
+        return enabledExpandRender;
+    }
+
     public AbsCustCheckBox getExpandFirst() {
         return expandFirst;
+    }
+
+    public AbsCustCheckBox getEnabledRenderExpand() {
+        return enabledRenderExpand;
+    }
+
+    public AbsCustCheckBox getExpandRenderChoice() {
+        return expandRenderChoice;
     }
 
     public AbsCustCheckBox getEnabledExcGlobal() {
@@ -162,6 +197,14 @@ public final class FrameRenderFormContent {
 
     public AbsTextArea getExpandText() {
         return expandText;
+    }
+
+    public AbsTextArea getRenderExpandText() {
+        return renderExpandText;
+    }
+
+    public AbsTextArea getExpandRenderText() {
+        return expandRenderText;
     }
 
     public AbsPlainButton getOk() {

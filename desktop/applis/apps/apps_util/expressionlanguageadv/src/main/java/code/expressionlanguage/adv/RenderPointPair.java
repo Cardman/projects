@@ -24,22 +24,31 @@ public final class RenderPointPair {
     private final ExcPointBlockPair excPointBlockPair;
     private final StrResultContextLambda render = new StrResultContextLambda();
     private final StrResultContextLambda expand = new StrResultContextLambda();
+    private final StrResultContextLambda renderExpand = new StrResultContextLambda();
+    private final StrResultContextLambda expandRender = new StrResultContextLambda();
     private boolean globalEnabled;
     private int pref;
     private final StringMap<Integer> prefs = new StringMap<Integer>();
     private boolean enableExpand;
+    private boolean enableBothExpand;
+    private boolean enableBothRender;
     private boolean expandFirst;
+    private boolean expandRenderFirst;
 
-    public RenderPointPair(int _ex, String _cl, AbstractInterceptorStdCaller _v, boolean _en, boolean _exp) {
-        excPointBlockPair = new ExcPointBlockPair(_ex,_cl,_v, _en);
-        enableExpand = _exp;
+    public RenderPointPair(int _ex, String _cl, AbstractInterceptorStdCaller _v) {
+        excPointBlockPair = new ExcPointBlockPair(_ex,_cl,_v, false);
     }
 
-    public void analyze(String _exp, String _it, ResultContext _curr, AbsLightContextGenerator _gene) {
+    public void analyze(String _exp, String _it, String _bothRender, String _bothExpand, ResultContext _curr, AbsLightContextGenerator _gene) {
         render.result(ResultContextLambda.dynamicAnalyzeExc(_exp, excPointBlockPair, _curr, _curr.getPageEl().getAliasString(), _gene), _exp);
         String it_ = _curr.getPageEl().getAliasIterableTable();
+        String pair_ = _curr.getContext().getStandards().getPredefTypes().getAliasPairType();
         String b_ = it_ +"<"+_curr.getPageEl().getAliasString()+",?>";
         expand.result(ResultContextLambda.dynamicAnalyzeExc(_it, excPointBlockPair, _curr, b_, _gene), _it);
+        String allRender_ = pair_+"<"+_curr.getPageEl().getAliasString()+",?"+b_+">";
+        renderExpand.result(ResultContextLambda.dynamicAnalyzeExc(_bothRender,excPointBlockPair, _curr, allRender_, _gene), _bothRender);
+        String allExpand_ = pair_+"<?"+b_+","+_curr.getPageEl().getAliasString()+">";
+        expandRender.result(ResultContextLambda.dynamicAnalyzeExc(_bothExpand,excPointBlockPair, _curr, allExpand_, _gene), _bothExpand);
     }
 
     public StrResultContextLambda getRender() {
@@ -48,6 +57,14 @@ public final class RenderPointPair {
 
     public StrResultContextLambda getExpand() {
         return expand;
+    }
+
+    public StrResultContextLambda getRenderExpand() {
+        return renderExpand;
+    }
+
+    public StrResultContextLambda getExpandRender() {
+        return expandRender;
     }
 
     public ExcPointBlockPair getExcPointBlockPair() {
@@ -142,12 +159,36 @@ public final class RenderPointPair {
         this.enableExpand = _e;
     }
 
+    public boolean isEnableBothExpand() {
+        return enableBothExpand;
+    }
+
+    public void setEnableBothExpand(boolean _e) {
+        this.enableBothExpand = _e;
+    }
+
+    public boolean isEnableBothRender() {
+        return enableBothRender;
+    }
+
+    public void setEnableBothRender(boolean _e) {
+        this.enableBothRender = _e;
+    }
+
     public boolean isExpandFirst() {
         return expandFirst;
     }
 
     public void setExpandFirst(boolean _e) {
         this.expandFirst = _e;
+    }
+
+    public boolean isExpandRenderFirst() {
+        return expandRenderFirst;
+    }
+
+    public void setExpandRenderFirst(boolean _e) {
+        this.expandRenderFirst = _e;
     }
 
     public int getPref() {
