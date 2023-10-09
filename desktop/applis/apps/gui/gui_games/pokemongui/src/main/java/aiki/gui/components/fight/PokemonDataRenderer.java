@@ -65,6 +65,7 @@ public class PokemonDataRenderer extends CustCellRenderPk<String> {
     public void paintComponent(AbstractImage _g) {
         if (!name.isEmpty()) {
             _g.drawImage(pkImage, 0, 0);
+            _g.setColor(GuiConstants.BLACK);
             _g.drawString(name, sideLength, getHeight());
         } else {
             _g.setColor(GuiConstants.WHITE);

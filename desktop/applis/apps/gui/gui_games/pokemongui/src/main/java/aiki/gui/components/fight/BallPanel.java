@@ -35,10 +35,11 @@ public final class BallPanel {
         container.add(title, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
-        listeBall.setVisibleRowCount(_nb);
+        int s_ = _facade.getData().getMap().getSideLength();
+        listeBall.scroll().setPreferredSize(new MetaDimension(100,s_*_nb));
         initBalls();
-        container.add(listeBall.self(),GuiConstants.BORDER_LAYOUT_CENTER);
-        container.setPreferredSize(new MetaDimension(100,32*_nb));
+        container.add(listeBall.scroll(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container.setPreferredSize(new MetaDimension(100,s_*_nb+16));
     }
 
     public void setPanelTitle(String _title) {

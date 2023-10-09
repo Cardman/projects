@@ -1,6 +1,7 @@
 package code.gui;
 
 import code.gui.events.*;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.Ints;
 import code.util.StringList;
@@ -36,7 +37,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
         popup.setVisible(false);
         AbsGraphicList<String> comp_ = _abs.getGeneGraphicList().createStrList(_abs.getImageFactory(),new StringList(), _abs.getCompoFactory());
         list = comp_;
-        popup.add(_abs.getCompoFactory().newAbsScrollPane(comp_.self()));
+        popup.add(comp_.scroll());
         textField.addAutoComplete(this);
         upAction = _abs.getCompoFactory().wrap(new AutoCompleteUpEvent(this));
         textField.registerKeyboardAction(upAction,GuiConstants.VK_UP,0);
@@ -131,7 +132,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
             hideAutocompletePopup();
             return;
         }
-        list.setVisibleRowCount(NumberUtil.min(r_.size(),10));
+        list.scroll().setPreferredSize(new MetaDimension(list.scroll().getPreferredSizeValue().getWidth(),16*NumberUtil.min(r_.size(),10)));
 
         // Selecting first result
         list.setSelectedIndice(0);

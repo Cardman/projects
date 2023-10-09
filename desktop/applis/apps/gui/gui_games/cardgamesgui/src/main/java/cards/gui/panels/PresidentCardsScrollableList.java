@@ -30,9 +30,9 @@ public final class PresidentCardsScrollableList extends CardsScrollableList {
         getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
-        liste.setVisibleRowCount(_nb);
+        liste.scroll().setPreferredSize(new MetaDimension(100,10* _nb));
         setNbCartesRestantes(_pmax);
-        getContainer().add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
+        getContainer().add(liste.scroll(), GuiConstants.BORDER_LAYOUT_CENTER);
         remCards = _parent.getCompoFactory().newPlainLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
         getContainer().add(remCards, GuiConstants.BORDER_LAYOUT_SOUTH);
         getContainer().setPreferredSize(new MetaDimension(100,10*(_nb+4)));

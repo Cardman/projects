@@ -33,10 +33,11 @@ public final class FighterPanel {
         container.add(title, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
-        liste.setVisibleRowCount(_nb+1);
+        int s_ = _facade.getData().getMap().getSideLength();
+        liste.scroll().setPreferredSize(new MetaDimension(150,s_*_nb));
         initFighters(_fighters);
-        container.add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
-        container.setPreferredSize(new MetaDimension(150,64*_nb));
+        container.add(liste.scroll(), GuiConstants.BORDER_LAYOUT_CENTER);
+        container.setPreferredSize(new MetaDimension(150,s_*_nb+16));
     }
 
     public void initFighters(CustList<Fighter> _fighters) {

@@ -491,11 +491,6 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     }
 
     @Override
-    public AbsCustComponent self() {
-        return this;
-    }
-
-    @Override
     public AbsCustComponent scroll() {
         return scroll;
     }

@@ -34,12 +34,12 @@ public final class TmPanel {
         container.add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
-        liste.setVisibleRowCount(_nb+1);
-        initItems();
         int side_ = facade.getMap().getSideLength();
-        container.add(liste.self(),GuiConstants.BORDER_LAYOUT_CENTER);
+        liste.scroll().setPreferredSize(new MetaDimension(150,2*side_*_nb));
+        initItems();
+        container.add(liste.scroll(),GuiConstants.BORDER_LAYOUT_CENTER);
         container.add(amount, GuiConstants.BORDER_LAYOUT_SOUTH);
-        container.setPreferredSize(new MetaDimension(150,2*side_*_nb));
+        container.setPreferredSize(new MetaDimension(150,2*side_*_nb+32));
     }
 
     public void initItems() {

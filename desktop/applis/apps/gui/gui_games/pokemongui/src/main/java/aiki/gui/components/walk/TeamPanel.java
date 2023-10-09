@@ -56,15 +56,15 @@ public final class TeamPanel {
         container.add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
-        liste.setVisibleRowCount(_nb+1);
+        int side_ = facade.getMap().getSideLength();
+        liste.scroll().setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb));
         renderer = render_;
         nbRemainPlaces = compoFactory.newPlainLabel("");
         initFighters(_team,_mess);
-        int side_ = facade.getMap().getSideLength();
-        container.add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
+        container.add(liste.scroll(), GuiConstants.BORDER_LAYOUT_CENTER);
         translate(_mess);
         container.add(nbRemainPlaces,GuiConstants.BORDER_LAYOUT_SOUTH);
-        container.setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb));
+        container.setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb+32));
     }
 
     public void initFighters(ByteTreeMap<UsablePokemon> _fighters, StringMap<String> _mess) {

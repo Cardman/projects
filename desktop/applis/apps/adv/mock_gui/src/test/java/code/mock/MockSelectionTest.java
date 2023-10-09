@@ -165,7 +165,7 @@ public final class MockSelectionTest extends EquallableMockGuiUtil {
         AbsGraphicList<String> graphicListString_ = f_.getGraphicListString();
         graphicListString_.setVisibleRowCount(4);
         assertEq(4, ((AbsGraphicListDef)graphicListString_).getVisibleRowCount());
-        assertSame(graphicListString_.self(), graphicListString_.visible());
+        assertSame(graphicListString_.scroll(), graphicListString_.visible());
         ListSelection fi_ = ((AbsGraphicListDef) graphicListString_).getListeners().first();
         ((AbsGraphicListDef) graphicListString_).removeListener(fi_);
         assertEq(0, ((AbsGraphicListDef) graphicListString_).getListeners().size());
@@ -257,7 +257,7 @@ public final class MockSelectionTest extends EquallableMockGuiUtil {
         AbsGraphicList<String> graphicListString_ = f_.getInput();
         graphicListString_.setVisibleRowCount(4);
         assertSame(graphicListString_.scroll(), graphicListString_.visible());
-        assertSame(graphicListString_.self(), graphicListString_.getGlobal());
+        assertSame(graphicListString_.scroll(), graphicListString_.getGlobal());
     }
     @Test
     public void m32() {

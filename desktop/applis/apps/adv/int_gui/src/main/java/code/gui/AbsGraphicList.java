@@ -30,7 +30,6 @@ public interface AbsGraphicList<T> extends Input {
 
     T last();
 
-    AbsCustComponent self();
     AbsCustComponent scroll();
     AbsCustComponent visible();
 

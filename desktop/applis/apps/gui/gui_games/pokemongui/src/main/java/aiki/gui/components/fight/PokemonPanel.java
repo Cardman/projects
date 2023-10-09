@@ -37,11 +37,12 @@ public final class PokemonPanel {
         container.add(title, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
-        liste.setVisibleRowCount(_nb);
+        int s_ = _facade.getData().getMap().getSideLength();
+        liste.scroll().setPreferredSize(new MetaDimension(100,s_*(_nb+1)));
         noEvo = _noEvo;
         initEvos();
-        container.add(liste.self(),GuiConstants.BORDER_LAYOUT_CENTER);
-        container.setPreferredSize(new MetaDimension(100,32*(_nb+1)));
+        container.add(liste.scroll(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container.setPreferredSize(new MetaDimension(100,s_*(_nb+1)+16));
     }
 
     public void setNoEvoMessage(String _message) {

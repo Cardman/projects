@@ -129,11 +129,6 @@ public class MockCustGrList<T> extends MockInput implements AbsGraphicList<T>, A
     }
 
     @Override
-    public AbsCustComponent self() {
-        return this;
-    }
-
-    @Override
     public AbsCustComponent scroll() {
         return this;
     }

@@ -9,6 +9,7 @@ import cards.gui.labels.selection.SuitCellRenderer;
 import code.gui.AbsGraphicList;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
+import code.gui.images.MetaDimension;
 import code.util.IdList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -34,8 +35,8 @@ public final class SuitsScrollableList extends ScrollableList {
         }
         //On peut selectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
-        liste.setVisibleRowCount(_nb);
-        getContainer().add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
+        liste.scroll().setPreferredSize(new MetaDimension(100,10* _nb));
+        getContainer().add(liste.scroll(), GuiConstants.BORDER_LAYOUT_CENTER);
     }
     public IdList<Suit> getCouleurs() {
         int s_ = liste.size();
