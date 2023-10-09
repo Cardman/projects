@@ -11,7 +11,9 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     @Test
     public void t1() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
+        gene_.applyRows();
         assertEq(0, gene_.size());
+        assertTrue(gene_.isEmpty());
     }
     @Test
     public void t2() {
@@ -19,6 +21,10 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.add("ONE");
         assertEq(1, gene_.size());
         assertEq("ONE", gene_.get(0));
+        assertFalse(gene_.isEmpty());
+        assertEq(1,gene_.getList().size());
+        assertEq("ONE",gene_.getList().get(0));
+        assertEq("ONE",gene_.last());
     }
     @Test
     public void t3() {
@@ -37,6 +43,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t5() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
         assertNull(gene_.get(0));
+        assertNull(gene_.last());
     }
     @Test
     public void t6() {
@@ -1910,15 +1917,24 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t115() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
         gene_.add("ONE");
-        gene_.rowCount(1);
+        gene_.setVisibleRowCount(1);
+        gene_.applyRows();
         MockWithListSelectionSample w_ = new MockWithListSelectionSample(init(), "");
-        gene_.getSelections().add(new MockListSelection(0, w_));
+        MockListSelection ls_ = new MockListSelection(0, w_);
+        gene_.addListener(ls_);
+        assertEq(1,gene_.getSelections().size());
         action(gene_,GuiConstants.VK_A,GuiConstants.CTRL_DOWN_MASK);
         gene_.getScrollPane().recalculate();
         assertEq(-1,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertEq(1,w_.getGraphicComboGrInt().getSelectedIndex());
         assertEq(1,gene_.getVisibleRowCount());
+        gene_.removeListener(ls_);
+        assertEq(0,gene_.getSelections().size());
+        gene_.setListener(ls_);
+        assertEq(1,gene_.getSelections().size());
+        gene_.setListener(null);
+        assertEq(0,gene_.getSelections().size());
     }
     @Test
     public void t116() {
@@ -2785,6 +2801,44 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(1).isSelected());
+    }
+    @Test
+    public void t172() {
+        ScrollCustomGraphicList<String> gene_ = gene(false);
+        gene_.add("ONE");
+        gene_.clearRevalidate();
+        assertEq(0, gene_.size());
+        assertEq(0, gene_.getSelectedValuesLsLen());
+    }
+    @Test
+    public void t173() {
+        ScrollCustomGraphicList<String> gene_ = gene(false);
+        gene_.add("ONE");
+        gene_.add("TWO");
+        gene_.add("THREE");
+        gene_.add("FOUR");
+        gene_.add("FIVE");
+        gene_.add("SIX");
+        gene_.add("SEVEN");
+        gene_.add("EIGHT");
+        click(gene_, 15, false, false);
+        click(gene_, 25, true, false);
+        assertEq(1,gene_.getSelectedIndex());
+        assertFalse(gene_.isSelectionEmpty());
+    }
+    @Test
+    public void t174() {
+        ScrollCustomGraphicList<String> gene_ = gene(false);
+        gene_.add("ONE");
+        gene_.add("TWO");
+        gene_.add("THREE");
+        gene_.add("FOUR");
+        gene_.add("FIVE");
+        gene_.add("SIX");
+        gene_.add("SEVEN");
+        gene_.add("EIGHT");
+        assertEq(-1,gene_.getSelectedIndex());
+        assertTrue(gene_.isSelectionEmpty());
     }
     private void action(ScrollCustomGraphicList<String> _gene, int _a, int _b) {
         ((MockAbstractAction)GuiBaseUtil.getAction(_gene.getElements(),_a,_b)).action();

@@ -4,6 +4,7 @@ import code.gui.events.AbsEnabledAction;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaRect;
 import code.gui.initialize.AbsCompoFactory;
+import code.util.CustList;
 import code.util.IdList;
 import code.util.Ints;
 import code.util.core.NumberUtil;
@@ -187,14 +188,27 @@ public final class ScrollCustomGraphicList<T> {
         }
     }
 
+    public boolean isEmpty() {
+        return size() == 0;
+    }
     public int size() {
-        int s_ = 0;
+        return elements.getComponentCount();
+    }
+    public CustList<T> getList(){
+        CustList<T> elts_ = new CustList<T>();
         RowGraphicList<T> c_ = first;
         while (c_ != null) {
-            s_++;
+            elts_.add(c_.getInfo());
             c_ = c_.getNext();
         }
-        return s_;
+        return elts_;
+    }
+
+    public T last() {
+        if (last == null) {
+            return null;
+        }
+        return last.getInfo();
     }
 
     public T get(int _index) {
@@ -251,6 +265,18 @@ public final class ScrollCustomGraphicList<T> {
         fireEvents(true);
         scrollPane.recalculateViewport();
     }
+    public void clearRevalidate() {
+        clear();
+        scrollPane.recalculateViewport();
+    }
+    public void clear() {
+        anchor = new RowGraphicListIndex<T>(null,-1);
+        focused = new RowGraphicListIndex<T>(null,-1);
+        first = null;
+        last = null;
+        elements.removeAll();
+        fireEvents(true);
+    }
 
     private void updateAnchor(RowGraphicList<T> _current, RowGraphicList<T> _repl, int _index, int _i) {
         if (anchor.getRow() == _current) {
@@ -271,7 +297,7 @@ public final class ScrollCustomGraphicList<T> {
 
     private void possibleFocus(RowGraphicList<T> _next) {
         if (_next != null && _next.focus(elements.isFocused())) {
-            minChange = NumberUtil.min(minChange, focused.getIndex());
+            updateMin(focused.getIndex());
             maxChange = NumberUtil.max(maxChange, focused.getIndex());
         }
     }
@@ -803,7 +829,7 @@ public final class ScrollCustomGraphicList<T> {
             deselectAll();
         }
         if (_index != focused.getIndex()) {
-            minChange = NumberUtil.min(minChange,_index);
+            updateMin(_index);
             maxChange = NumberUtil.max(maxChange,_index);
         }
         anchor = new RowGraphicListIndex<T>(_n,_index);
@@ -822,7 +848,7 @@ public final class ScrollCustomGraphicList<T> {
             return;
         }
         if (focused.getRow() != null && focused.getRow().focus(false)) {
-            minChange = NumberUtil.min(minChange, focused.getIndex());
+            updateMin(focused.getIndex());
             maxChange = NumberUtil.max(maxChange, focused.getIndex());
         }
         focused = _f;
@@ -844,9 +870,16 @@ public final class ScrollCustomGraphicList<T> {
     }
     private void select(RowGraphicList<T> _r, boolean _v, int _i) {
         if (_r.select(_v)) {
-            minChange = NumberUtil.min(minChange,_i);
+            updateMin(_i);
             maxChange = NumberUtil.min(maxChange,_i);
         }
+    }
+    private void updateMin(int _i) {
+        if (minChange < 0) {
+            minChange = _i;
+            return;
+        }
+        minChange = NumberUtil.min(minChange,_i);
     }
 
     private void refreshAll() {
@@ -871,6 +904,9 @@ public final class ScrollCustomGraphicList<T> {
         }
     }
 
+    public int getSelectedValuesLsLen() {
+        return getSelectedIndexes().size();
+    }
 
     public Ints getSelectedIndexes() {
         int s_ = 0;
@@ -885,11 +921,43 @@ public final class ScrollCustomGraphicList<T> {
         }
         return arr_;
     }
-    public void rowCount(int _r) {
-        setVisibleRowCount(_r);
-        scrollPane.setPreferredSize(GuiBaseUtil.dimension(elements,_r));
+
+    public boolean isSelectionEmpty() {
+        return getSelectedIndex()==-1;
+    }
+    public int getSelectedIndex() {
+        int s_ = 0;
+        RowGraphicList<T> c_ = first;
+        while (c_ != null) {
+            if (c_.isSelected()) {
+                return s_;
+            }
+            s_++;
+            c_ = c_.getNext();
+        }
+        return -1;
     }
 
+    public void applyRows(){
+        scrollPane.setPreferredSize(GuiBaseUtil.dimension(elements,scrollPane.getPreferredSizeValue().getWidth(),visibleRowCount));
+    }
+
+    public void addListener(ListSelection _listener){
+        selections.add(_listener);
+    }
+
+
+    public void setListener(ListSelection _listener){
+        selections.clear();
+        if (_listener == null) {
+            return;
+        }
+        selections.add(_listener);
+    }
+
+    public void removeListener(ListSelection _listener){
+        selections.removeObj(_listener);
+    }
     private ColorsGroupList colorGroup() {
         return new ColorsGroupList(elements.getBackgroundValue(), elements.getForegroundValue(), getSelectedBg(), getSelectedFg());
     }

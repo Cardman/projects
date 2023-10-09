@@ -317,24 +317,11 @@ public final class GuiBaseUtil {
         return new ScrollCustomGraphicList<String>(_compo,_img,new CustCellRenderString(_compo, _img),_simple);
     }
 
-    public static MetaDimension dimension(AbsPanel _curr, int _visible) {
-        int width_ = 0;
-        width_ = getBasicMaxWidth(width_, _curr);
-        int h_ = 0;
-        int c_ = 0;
-        for (AbsCustComponent c: _curr.getChildren()) {
-            h_ = c.getPreferredSizeValue().getHeight();
-            c_++;
+    public static MetaDimension dimension(AbsPanel _curr, int _prefWidth, int _visible) {
+        CustList<AbsCustComponent> chs_ = _curr.getChildren();
+        if (chs_.isEmpty()) {
+            return new MetaDimension(256,_visible * 16);
         }
-        return new MetaDimension(width_ + 24, (h_ + 2) * NumberUtil.min(c_, _visible));
-    }
-
-
-    public static int getBasicMaxWidth(int _width, AbsPanel _curr) {
-        int width_ = _width;
-        for (AbsCustComponent c: _curr.getChildren()) {
-            width_ = NumberUtil.max(width_, c.getPreferredSizeValue().getWidth());
-        }
-        return width_;
+        return new MetaDimension(_prefWidth, chs_.get(0).getHeight() * NumberUtil.min(chs_.size(), _visible));
     }
 }
