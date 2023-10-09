@@ -31,15 +31,14 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class CustAliases {
+    public static final String SPACES_4 = "    ";
     public static final String KW_PUBLIC = "{public}";
-    public static final String KW_INTERFACE = "{interface}";
     public static final String KW_ABSTRACT = "{abstract}";
     public static final String KW_CAST = "{cast}";
     public static final String KW_STATIC = "{static}";
     public static final String KW_RETURN = "{return}";
     public static final String KW_NEW = "{new}";
     public static final String KW_THIS = "{this}";
-    public static final String KW_ID = "{id}";
     public static final String KW_PRIVATE = "{private}";
     public static final String KW_CLASS = "{class}";
     public static final String KW_FINAL = "{final}";
@@ -108,7 +107,6 @@ public final class CustAliases {
     public static final String TYPE_PARAM_B = "{B}";
     public static final String TYPE_PARAM_F = "{F}";
     public static final String METHOD_RUN = "{run}";
-    public static final String METHOD_RUNNER = "{runner}";
     public static final String METHOD_CALL = "{call}";
     public static final String METHOD_ITERATOR_TYPE = "{iteratorType}";
     public static final String METHOD_ITERABLE = "{iterable}";
@@ -230,8 +228,6 @@ public final class CustAliases {
     public static final String METHOD_PRINT = "{print}";
     public static final String METHOD_FORMAT = "{format}";
     public static final String FIELD_INSTANT = "{instant}";
-    public static final String PARAM_001 = "r01";
-    public static final String PARAM_002 = "r02";
     public static final String PARAM_003 = "itCtr";
     public static final String PARAM_004 = "liCtr1";
     public static final String PARAM_005 = "liCtr2";
@@ -399,7 +395,6 @@ public final class CustAliases {
     public static final String YYYY_MM_DD_HH_MM_SS_SSS_DASH = "----_--_--_--_--_--_---";
     public static final String OTHERS = "...";
 
-    public static final String RESOURCES_LG_THREADS_RUNNABLE_TXT = "resources_lg/threads/runnable.txt";
     public static final String RESOURCES_LG_COLLECTIONS_LIST_TXT = "resources_lg/collections/list.txt";
     public static final String RESOURCES_LG_COLLECTIONS_TABLE_TXT = "resources_lg/collections/table.txt";
     public static final String RESOURCES_LG_TESTS_RUN_TXT = "resources_lg/tests/run.txt";
@@ -1413,7 +1408,6 @@ public final class CustAliases {
             return stds_;
         }
         StringMap<String> properties_ = MessCdmBaseGr.ms();
-        String content_ = properties_.getVal(RESOURCES_LG_THREADS_RUNNABLE_TXT);
         StringMap<PrimitiveType> primitiveTypes_ = _content.getPrimTypes().getPrimitiveTypes();
         AliasCore coreNames_ = _content.getCoreNames();
         PrimitiveTypes primTypes_ = _content.getPrimTypes();
@@ -1425,7 +1419,6 @@ public final class CustAliases {
         AliasNumberType nbAlias_ = _content.getNbAlias();
         String public_ = _keyWords.getKeyWordPublic();
         String private_ = _keyWords.getKeyWordPrivate();
-        String interface_ = _keyWords.getKeyWordInterface();
         String int_ = primTypes_.getAliasPrimInteger();
         String boolean_ = primTypes_.getAliasPrimBoolean();
         String class_ = _keyWords.getKeyWordClass();
@@ -1436,27 +1429,8 @@ public final class CustAliases {
         String value_ = _keyWords.getKeyWordValue();
         String abstract_ = _keyWords.getKeyWordAbstract();
         StringMap<String> map_;
-        map_ = new StringMap<String>();
-        map_.put(KW_PUBLIC, public_);
-        map_.put(KW_INTERFACE, interface_);
-        map_.put(TYPE_RUNNABLE, aliasRunnable);
-        map_.put(KW_ABSTRACT, abstract_);
-        map_.put(KW_VOID, coreNames_.getAliasVoid());
-        map_.put(METHOD_RUN, aliasRun);
-        map_.put(KW_CAST, _keyWords.getKeyWordCast());
-        map_.put(KW_STATIC, _keyWords.getKeyWordStatic());
-        map_.put(TYPE_FCT, reflect_.getAliasFct());
-        map_.put(KW_RETURN, _keyWords.getKeyWordReturn());
-        map_.put(KW_NEW, _keyWords.getKeyWordNew());
-        map_.put(KW_THIS, _keyWords.getKeyWordThis());
-        map_.put(KW_ID, _keyWords.getKeyWordId());
-        map_.put(METHOD_RUNNER, getAliasRunnableImplicit0Runner());
-        map_.put(METHOD_CALL, reflect_.getAliasCall());
-        map_.put(wrap(PARAM_001), custAliasParameters.getAliasRunnableImplicit0Implicit0());
-        map_.put(wrap(PARAM_002), custAliasParameters.getAliasRunnableImplicit0Implicit1());
-        content_ = StringUtil.formatQuote(content_, map_);
-        stds_.put(aliasRunnable, content_);
-        content_ = properties_.getVal(RESOURCES_LG_COLLECTIONS_LIST_TXT);
+        stds_.put(aliasRunnable, runnableType(_keyWords, _content));
+        String content_ = properties_.getVal(RESOURCES_LG_COLLECTIONS_LIST_TXT);
         map_ = new StringMap<String>();
         map_.put(KW_PUBLIC, public_);
         map_.put(KW_PRIVATE, private_);
@@ -3045,6 +3019,29 @@ public final class CustAliases {
         return ref_;
     }
 
+    public String runnableType(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        String th_ = _kw.getKeyWordThis();
+        String vd_ = _content.getCoreNames().getAliasVoid();
+        String fct_ = _content.getReflect().getAliasFct();
+        String fctVd_ = fct_+"<"+vd_+">";
+        String parCast_ = custAliasParameters.getAliasRunnableImplicit0Implicit0();
+        String parInner_ = custAliasParameters.getAliasRunnableImplicit0Implicit1();
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasRunnable+"{\n"
+                +SPACES_4+pub_+" "+_kw.getKeyWordAbstract()+" "+vd_+" "+aliasRun+"();\n"
+                +SPACES_4+pub_+" "+_kw.getKeyWordStatic()+" "+aliasRunnable+" "+_kw.getKeyWordCast()+"("+fctVd_+ parCast_ +"){\n"
+                +SPACES_4+SPACES_4+_kw.getKeyWordReturn()+" "+_kw.getKeyWordNew()+"("+ parCast_ +"){\n"
+                +SPACES_4+SPACES_4+SPACES_4+pub_+" "+fctVd_+" "+aliasRunnableImplicit0Runner+";\n"
+                +SPACES_4+SPACES_4+SPACES_4+pub_+"("+fctVd_+ parInner_ +"){\n"
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+th_+"."+aliasRunnableImplicit0Runner+"="+ parInner_ +";\n"
+                +SPACES_4+SPACES_4+SPACES_4+"}\n"
+                +SPACES_4+SPACES_4+SPACES_4+pub_+" "+vd_+" "+aliasRun+"(){\n"
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+th_+"."+aliasRunnableImplicit0Runner+"."+_content.getReflect().getAliasCall()+"();\n"
+                +SPACES_4+SPACES_4+SPACES_4+"}\n"
+                +SPACES_4+SPACES_4+"};\n"
+                +SPACES_4+"}\n"
+                +"}\n";
+    }
     public static String getStandarString(ContextEl _cont, Struct _struct) {
         if (_struct instanceof DisplayableStruct) {
             return ((DisplayableStruct)_struct).getDisplayedString(_cont).getInstance();

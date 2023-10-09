@@ -12,7 +12,6 @@ private static final String CODE_0_1_7="resources_lg/collections/list.txt";
 private static final String CODE_0_1_8="resources_lg/collections/table.txt";
 private static final String CODE_0_1_9="resources_lg/tests/run.txt";
 private static final String CODE_0_1_10="resources_lg/threads/formatting.txt";
-private static final String CODE_0_1_11="resources_lg/threads/runnable.txt";
 private static final String CODE_0_9_0="{public} {class} {Iter}<{T}> :{iteratorType}<{T}>'{'\n";
 private static final String CODE_0_9_1=" {private} {List}<{T}> {listItr};\n";
 private static final String CODE_0_9_2=" {private} {int} {lengthItrLi};\n";
@@ -898,21 +897,6 @@ private static final String CODE_0_12_8="        '}'\n";
 private static final String CODE_0_12_9="        {static}({Thread}).{print}(({fo2}).{format}({as}));\n";
 private static final String CODE_0_12_10="    '}'\n";
 private static final String CODE_0_12_11="'}'\n";
-private static final String CODE_0_13_0="\n";
-private static final String CODE_0_13_1="{public} {interface} {Runnable} '{'\n";
-private static final String CODE_0_13_2="    {public} {abstract} {void} {run}();\n";
-private static final String CODE_0_13_2_0="    {public} {static} {Runnable} {cast}({Fct}<{void}> {r01})'{'\n";
-private static final String CODE_0_13_2_1="        {return} {new} ({r01})'{'\n";
-private static final String CODE_0_13_2_2="            {public} {Fct}<{void}> {runner};\n";
-private static final String CODE_0_13_2_3="            {public}({Fct}<{void}> {r02})'{'\n";
-private static final String CODE_0_13_2_4="                {this}.{runner} = {r02};\n";
-private static final String CODE_0_13_2_5="            '}'\n";
-private static final String CODE_0_13_2_6="            {public} {void} {run}()'{'\n";
-private static final String CODE_0_13_2_7="                {this}.{runner}.{call}();\n";
-private static final String CODE_0_13_2_8="            '}'\n";
-private static final String CODE_0_13_2_9="        '}';\n";
-private static final String CODE_0_13_2_10="    '}'\n";
-private static final String CODE_0_13_3="'}'\n";
 private MessCdmBaseGr(){}
 public static StringMap<String> ms(){
 StringMap<String> m = new StringMap<String>();
@@ -926,7 +910,6 @@ m.addEntry(CODE_0_1_7,resourcesLgCollectionsList());
 m.addEntry(CODE_0_1_8,resourcesLgCollectionsTable());
 m.addEntry(CODE_0_1_9,resourcesLgTestsRun());
 m.addEntry(CODE_0_1_10,resourcesLgThreadsFormatting());
-m.addEntry(CODE_0_1_11,resourcesLgThreadsRunnable());
 return m;
 }
 static String resourcesLgCollectionsList(){
@@ -1824,24 +1807,6 @@ f+=CODE_0_12_8;
 f+=CODE_0_12_9;
 f+=CODE_0_12_10;
 f+=CODE_0_12_11;
-return f;
-}
-static String resourcesLgThreadsRunnable(){
-String f=CODE_0_13_0;
-f+=CODE_0_13_1;
-f+=CODE_0_13_2;
-f+=CODE_0_13_2_0;
-f+=CODE_0_13_2_1;
-f+=CODE_0_13_2_2;
-f+=CODE_0_13_2_3;
-f+=CODE_0_13_2_4;
-f+=CODE_0_13_2_5;
-f+=CODE_0_13_2_6;
-f+=CODE_0_13_2_7;
-f+=CODE_0_13_2_8;
-f+=CODE_0_13_2_9;
-f+=CODE_0_13_2_10;
-f+=CODE_0_13_3;
 return f;
 }
 }
