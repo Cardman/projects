@@ -299,7 +299,7 @@ public final class ScrollCustomGraphicList<T> {
     }
     public void clearRevalidate() {
         clear();
-        scrollPane.recalculateViewport();
+        revalidate();
     }
     public void clear() {
         anchor = new RowGraphicListIndex<T>(null,-1);
@@ -382,7 +382,7 @@ public final class ScrollCustomGraphicList<T> {
             selectRange(sel_.getRow(),sel_.getIndex(),anchor.getRow(), true);
             focus(sel_);
             fireEvents(false);
-            refreshAll();
+            repaint();
         }
     }
 
@@ -393,7 +393,7 @@ public final class ScrollCustomGraphicList<T> {
             selectRange(sel_.getRow(),sel_.getIndex(),anchor.getRow(),ancSel_);
             focus(sel_);
             fireEvents(false);
-            refreshAll();
+            repaint();
         }
     }
 
@@ -435,7 +435,9 @@ public final class ScrollCustomGraphicList<T> {
         updateFocus(_next, _index);
         select(_next,true,_index);
         fireEvents(_meth);
-        refreshAll();
+        if (!_meth) {
+            refreshAll();
+        }
     }
 
     public void select(Ints _indices) {
@@ -451,7 +453,6 @@ public final class ScrollCustomGraphicList<T> {
             RowGraphicListIndex<T> row_ = getRowOrEmpty(valid_);
             if (row_.getRow() == null) {
                 fireEvents(true);
-                refreshAll();
                 return;
             }
             int index_ = valid_.last();
@@ -459,7 +460,6 @@ public final class ScrollCustomGraphicList<T> {
             updateAnchor(row_.getRow(), index_);
             updateFocus(row_.getRow(), index_);
             fireEvents(true);
-            refreshAll();
             return;
         }
         RowGraphicList<T> c_ = first;
@@ -481,7 +481,6 @@ public final class ScrollCustomGraphicList<T> {
             c_ = c_.getNext();
         }
         fireEvents(true);
-        refreshAll();
     }
 
     private void fireEvents(boolean _meth) {
@@ -504,7 +503,7 @@ public final class ScrollCustomGraphicList<T> {
     public void deselectAllAction() {
         deselectAll();
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
     public void selectAll() {
         if (single) {
@@ -519,7 +518,7 @@ public final class ScrollCustomGraphicList<T> {
             s_++;
         }
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
 
     public void move(int _down) {
@@ -539,7 +538,7 @@ public final class ScrollCustomGraphicList<T> {
         select(prev_,true,focused.getIndex());
         scrollPage(_down, scrollPane.viewRect(), focused);
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
 
     public void moveShift(int _down) {
@@ -564,7 +563,7 @@ public final class ScrollCustomGraphicList<T> {
         updateFocus(next_, ind_+ _down);
         scrollPage(_down, scrollPane.viewRect(), focused);
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
 
     private void possibleUpdate() {
@@ -616,7 +615,7 @@ public final class ScrollCustomGraphicList<T> {
         updateFocus(next_.getRow(), ind_);
         scrollPage(_down, scrollPane.viewRect(), focused);
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
 
 
@@ -686,7 +685,7 @@ public final class ScrollCustomGraphicList<T> {
         updateFocus(b_, ind_);
         scrollPage(_down, scrollPane.viewRect(), focused);
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
     public void addToSelection() {
         if (single) {
@@ -700,7 +699,7 @@ public final class ScrollCustomGraphicList<T> {
         int ind_ = focused.getIndex();
         selectRange(f_, ind_, focused.getRow(), true);
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
 
     public void addIntToSelection(boolean _v) {
@@ -716,7 +715,7 @@ public final class ScrollCustomGraphicList<T> {
         possibleUpdate();
         selectRange(f_, ind_, anchor.getRow(), _v);
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
     public void extendTo() {
         RowGraphicList<T> foc_ = this.focused.getRow();
@@ -731,7 +730,7 @@ public final class ScrollCustomGraphicList<T> {
         deselectAll();
         selectRange(foc_,focused.getIndex(),anchor.getRow(),ancSel_);
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
     public void changeSelection() {
         select(focused.getIndex());
@@ -749,7 +748,7 @@ public final class ScrollCustomGraphicList<T> {
         selectRange(f_, ind_, focused.getRow(), !f_.isSelected());
         anchor = focused;
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
     public void goBound(int _down) {
         deselectAll();
@@ -760,7 +759,7 @@ public final class ScrollCustomGraphicList<T> {
             select(b_,true,focused.getIndex());
             scrollBound(_down);
             fireEvents(false);
-            refreshAll();
+            repaint();
         }
     }
     private void scrollBound(int _down) {
@@ -784,7 +783,7 @@ public final class ScrollCustomGraphicList<T> {
         select(prev_.getRow(),true,prev_.getIndex());
         scrollPage(_down, rect_, focused);
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
 
     public void moveFocus(int _down) {
@@ -805,7 +804,7 @@ public final class ScrollCustomGraphicList<T> {
         updateFocus(prev_, ind_+ _down);
         scrollPage(_down, scrollPane.viewRect(), focused);
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
 
     public void moveAnchor(int _down) {
@@ -826,7 +825,7 @@ public final class ScrollCustomGraphicList<T> {
         updateAnchor(prev_, ind_+ _down);
         scrollPage(_down, scrollPane.viewRect(), anchor);
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
 
     public void movePageFocus(int _down) {
@@ -842,7 +841,7 @@ public final class ScrollCustomGraphicList<T> {
         focus(prev_);
         scrollPage(_down, rect_, focused);
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
 
     public void movePageAnchor(int _down) {
@@ -858,7 +857,7 @@ public final class ScrollCustomGraphicList<T> {
         anchor(prev_);
         scrollPage(_down, rect_, anchor);
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
 
     public void focusBound(int _down) {
@@ -871,7 +870,7 @@ public final class ScrollCustomGraphicList<T> {
             updateFocus(b_, boundIndex(_down));
             scrollBound(_down);
             fireEvents(false);
-            refreshAll();
+            repaint();
         }
     }
 
@@ -885,7 +884,7 @@ public final class ScrollCustomGraphicList<T> {
             updateAnchor(b_, boundIndex(_down));
             scrollBound(_down);
             fireEvents(false);
-            refreshAll();
+            repaint();
         }
     }
     private RowGraphicListIndex<T> nextIndex(int _down, RowGraphicListIndex<T> _fr) {
@@ -943,7 +942,7 @@ public final class ScrollCustomGraphicList<T> {
         updateFocus(_n, _index);
         select(_n,_selected,_index);
         fireEvents(false);
-        refreshAll();
+        repaint();
     }
 
     private void updateAnchor(RowGraphicList<T> _n, int _index) {
@@ -1014,6 +1013,12 @@ public final class ScrollCustomGraphicList<T> {
             return;
         }
         minChange = NumberUtil.min(minChange,_i);
+    }
+    public void repaint() {
+        refreshAll();
+    }
+    public void revalidate() {
+        scrollPane.recalculateViewport();
     }
 
     private void refreshAll() {
