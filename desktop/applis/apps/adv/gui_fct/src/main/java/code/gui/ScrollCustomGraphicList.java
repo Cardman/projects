@@ -295,7 +295,6 @@ public final class ScrollCustomGraphicList<T> {
         }
         elements.remove(current_.getLabel());
         fireEvents(true);
-        scrollPane.recalculateViewport();
     }
     public void clearRevalidate() {
         clear();
