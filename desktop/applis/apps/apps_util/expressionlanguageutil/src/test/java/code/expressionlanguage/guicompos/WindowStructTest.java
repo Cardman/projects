@@ -57,6 +57,7 @@ public final class WindowStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         call(new DfFrame(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,st_);
         assertFalse(st_.isFailInit());
@@ -69,6 +70,7 @@ public final class WindowStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         call(new FctFrame(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_);
         assertFalse(st_.isFailInit());
@@ -97,6 +99,7 @@ public final class WindowStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         call(new FctWindowSetMenuBar(),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
@@ -136,6 +139,7 @@ public final class WindowStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         call(new FctWindowSetVisible(),null,ctx_,d_,one(BooleanStruct.of(false)),st_);
@@ -148,6 +152,7 @@ public final class WindowStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         call(new FctWindowSetVisible(),null,ctx_,d_,one(BooleanStruct.of(true)),st_);
@@ -173,6 +178,7 @@ public final class WindowStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         call(new FctWindowPack(),null,ctx_,d_,null,st_);
@@ -186,6 +192,7 @@ public final class WindowStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct d_ = call(new FctDialog(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         Struct w_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
@@ -225,6 +232,7 @@ public final class WindowStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         call(new FctWindowContentPane(),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
@@ -242,6 +250,7 @@ public final class WindowStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
@@ -268,6 +277,7 @@ public final class WindowStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
@@ -298,6 +308,7 @@ public final class WindowStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
@@ -332,11 +343,12 @@ public final class WindowStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
         Struct l_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
-        ((FrameStruct)d_).addWindowListener((AbsWindowListener)null);
+        ((FrameStruct)d_).addWindowListener((AbsWindowListener)new MockWindowListener());
         call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(l_),st_);
         call(new FctWindowRemoveList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
         call(new FctWindowRemoveList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(l_),st_);

@@ -274,4 +274,10 @@ public final class MockSelectionTest extends EquallableMockGuiUtil {
         assertTrue(graphicListString_.isSelectionEmpty());
         assertFalse(graphicListString_.isEmpty());
     }
+    @Test
+    public void m34() {
+        MockListSampleSelection f_ = new MockListSampleSelection();
+        f_.valueChanged(null);
+        assertEq(1,NumberUtil.signum(f_.getState()));
+    }
 }

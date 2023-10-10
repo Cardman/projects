@@ -415,8 +415,8 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
-        ((CustComponentStruct)i_).getComponent().addMouseListener((AbsMouseListener) null);
-        ((CustComponentStruct)i_).getComponent().addMouseMotionListener(null);
+        ((CustComponentStruct)i_).getComponent().addMouseListener((AbsMouseListener) new MockMouseListener());
+        ((CustComponentStruct)i_).getComponent().addMouseMotionListener(new MockMouseListener());
         ArrayStruct a_ = (ArrayStruct) call(new FctCompoGetMouseListeners(), null, ctx_, i_, null, st_);
         assertEq(0,a_.getLength());
     }
@@ -495,7 +495,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
-        ((CustComponentStruct)i_).getComponent().addKeyListener(null);
+        ((CustComponentStruct)i_).getComponent().addKeyListener(new MockKeyListener());
         ArrayStruct a_ = (ArrayStruct) call(new FctCompoGetKeyListeners(), null, ctx_, i_, null, st_);
         assertEq(0,a_.getLength());
     }
@@ -653,7 +653,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
-        ((CustComponentStruct)i_).getComponent().addMouseWheelListener(null);
+        ((CustComponentStruct)i_).getComponent().addMouseWheelListener(new MockMouseListener());
         ArrayStruct a_ = (ArrayStruct) call(new FctCompoGetWheelListeners(), null, ctx_, i_, null, st_);
         assertEq(0,a_.getLength());
     }

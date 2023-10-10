@@ -89,7 +89,7 @@ public final class GuiExecutingBlocks {
 //    }
     public void forwardAndClear(GuiAliases _guiAliases, LgNamesContent _content, GuiContextEl _ctx, Classes _classes) {
 //        initEventParts(_guiInit,_ctx);
-        eventClose = new DefaultClosingMainWindow(_ctx);
+        initEventClose(_ctx);
         String aliasActListener_ = _guiAliases.getAliasActionListener();
         actionListener = _classes.getClassBody(aliasActListener_);
         String actionEvent_ = _guiAliases.getAliasActionEvent();
@@ -217,6 +217,10 @@ public final class GuiExecutingBlocks {
                 _guiAliases.getAliasPaintSet(),new StringList(_guiAliases.getAliasGrList(),_content.getPrimTypes().getAliasPrimInteger(),_content.getCoreNames().getAliasObject()));
         ExecNamedFunctionBlock paintSet_ = ExecClassesUtil.getMethodBodiesById(paint_,fct_).first();
         pairPaintSet = new ExecTypeFunction(paint_, paintSet_);
+    }
+
+    public void initEventClose(GuiContextEl _ctx) {
+        eventClose = new DefaultClosingMainWindow(_ctx);
     }
 
     public ExecRootBlock getActionListener() {

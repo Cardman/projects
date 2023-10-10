@@ -120,6 +120,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -156,6 +157,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -195,6 +197,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -233,6 +236,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -269,6 +273,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
@@ -300,6 +305,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());

@@ -2,6 +2,7 @@ package code.mock;
 
 import code.gui.events.AbsMouseListener;
 import code.gui.events.AbsMouseListenerCl;
+import code.util.core.NumberUtil;
 import org.junit.Test;
 
 public final class MockTableGuiTest extends EquallableMockGuiUtil{
@@ -199,9 +200,13 @@ public final class MockTableGuiTest extends EquallableMockGuiUtil{
     @Test
     public void t16() {
         MockTableGui ta_ = new MockTableGui("0");
-        ta_.addHeaderListener((AbsMouseListener) null);
-        ta_.addHeaderListener((AbsMouseListenerCl) null);
-        ta_.addListSelectionListener(null);
+        MockMouseListener mm_ = new MockMouseListener();
+        ta_.addHeaderListener((AbsMouseListener) mm_);
+        ta_.addHeaderListener((AbsMouseListenerCl) mm_);
+        MockListSelectionListener l_ = new MockListSelectionListener();
+        l_.valueChanged(0, 0);
+        assertEq(1, NumberUtil.signum(l_.getState()));
+        ta_.addListSelectionListener(l_);
         assertEq(1, ta_.getHeadersCl().size());
         assertEq(1, ta_.getHeaders().size());
         assertEq(1, ta_.getSelection().size());

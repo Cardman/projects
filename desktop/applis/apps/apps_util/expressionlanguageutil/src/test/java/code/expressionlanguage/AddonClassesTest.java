@@ -251,6 +251,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
         StackCall st_ = stack(ctx_);
         stds_.getGuiAliases().setAliasFrame("");
         assertEq(stds_.getGuiAliases().getAliasFrame(),call(new FctFrame(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));

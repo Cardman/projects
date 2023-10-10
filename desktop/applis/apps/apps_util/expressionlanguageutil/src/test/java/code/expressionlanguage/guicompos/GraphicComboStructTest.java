@@ -282,7 +282,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
-        ((GraphicComboStruct)ls_).getGraphicCombo().addListener(null);
+        ((GraphicComboStruct)ls_).getGraphicCombo().addListener(new MockListSampleSelection());
         ArrayStruct a_ = (ArrayStruct) call(new FctComboGetListeners(), null, ctx_, ls_, null, st_);
         assertEq(0,a_.getLength());
     }

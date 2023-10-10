@@ -328,6 +328,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
         StringMap<String> keys_ = TranslationsFile.extractKeys(en_);
         stds_.getExecContent().getCustAliases().getMathAdvAliases().build(mapp_,new StringMap<String>(), keys_);
         stds_.getCoreNames().setObjType(new StandardClass("_._",new CustList<CstFieldInfo>(),new CustList<StandardConstructor>(),new CustList<StandardMethod>(),"", MethodModifier.NORMAL));
+        stds_.getContent().getCharSeq().setAliasString("");
         stds_.buildOther();
         stds_.forwardAndClear(null,null, null, null);
         stds_.getExecContent().forwardAndClear(null,null);

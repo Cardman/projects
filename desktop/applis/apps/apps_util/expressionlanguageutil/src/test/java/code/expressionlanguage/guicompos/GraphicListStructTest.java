@@ -303,7 +303,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
-        ((GraphicListStruct)ls_).getGrList().addListener(null);
+        ((GraphicListStruct)ls_).getGrList().addListener(new MockListSampleSelection());
         ArrayStruct a_ = (ArrayStruct) call(new FctGrListGetSelections(), null, ctx_, ls_, null, st_);
         assertEq(0,a_.getLength());
     }
