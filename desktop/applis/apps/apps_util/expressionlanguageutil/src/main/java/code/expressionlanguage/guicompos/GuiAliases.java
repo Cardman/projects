@@ -258,8 +258,11 @@ public final class GuiAliases {
     private static final String COMPONENT_SET_VISIBLE="858";
     private static final String COMPONENT_INVOKE_LATER="_____1288";
     private static final String ADD_KEY_LISTENER="_____1289";
+    private static final String ADD_FOCUS_LISTENER="_____1289_";
     private static final String REMOVE_KEY_LISTENER="_____1290";
+    private static final String REMOVE_FOCUS_LISTENER="_____1290_";
     private static final String GET_KEY_LISTENERS="_____1291";
+    private static final String GET_FOCUS_LISTENERS="_____1291_";
     private static final String ADD_WHEEL_LISTENER="___1101";
     private static final String REMOVE_WHEEL_LISTENER="___1102";
     private static final String GET_WHEEL_LISTENERS="___1103";
@@ -676,6 +679,9 @@ public final class GuiAliases {
     private String aliasAddKeyListener;
     private String aliasRemoveKeyListener;
     private String aliasGetKeyListeners;
+    private String aliasAddFocusListener;
+    private String aliasRemoveFocusListener;
+    private String aliasGetFocusListeners;
     private String aliasKeyListener;
     private String aliasKeyPressed;
     private String aliasKeyTyped;
@@ -1820,6 +1826,15 @@ public final class GuiAliases {
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetListeners, params_, StringExpUtil.getPrettyArrayType(aliasMouseListener), false, MethodModifier.FINAL,new StringList(), new FctCompoGetMouseListeners());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasFocusListener);
+        method_ = new StandardMethod(aliasAddFocusListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0AddFocusListener0()), new FctCompoAddFocusListener());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasFocusListener);
+        method_ = new StandardMethod(aliasRemoveFocusListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0RemoveFocusListener0()), new FctCompoRemoveFocusListener());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetFocusListeners, params_, StringExpUtil.getPrettyArrayType(aliasFocusListener), false, MethodModifier.FINAL,new StringList(), new FctCompoGetFocusListeners());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasRequestFocus, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctCompoRequestFocus());
@@ -3596,6 +3611,9 @@ public final class GuiAliases {
         setAliasKeyEventIsAlt(LgNamesContent.get(_util,_cust,_mapping.getVal(KEY_EVENT_IS_ALT)));
         setAliasKeyListener(LgNamesContent.get(_util,_cust,_mapping.getVal(KEY_LISTENER)));
         setAliasFocusListener(LgNamesContent.get(_util,_cust,_mapping.getVal(FOCUS_LISTENER)));
+        setAliasAddFocusListener(LgNamesContent.get(_util,_cust,_mapping.getVal(ADD_FOCUS_LISTENER)));
+        setAliasRemoveFocusListener(LgNamesContent.get(_util,_cust,_mapping.getVal(REMOVE_FOCUS_LISTENER)));
+        setAliasGetFocusListeners(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_FOCUS_LISTENERS)));
         setAliasKeyEventChar(LgNamesContent.get(_util,_cust,_mapping.getVal(KEY_EVENT_CHAR)));
         setAliasWindowListener(LgNamesContent.get(_util,_cust,_mapping.getVal(WINDOW_LISTENER)));
         setAliasWheelMove(LgNamesContent.get(_util,_cust,_mapping.getVal(WHEEL_MOVE)));
@@ -3873,6 +3891,9 @@ public final class GuiAliases {
         _en.add(ADD_KEY_LISTENER,"AddKeyListener=addKey");
         _en.add(REMOVE_KEY_LISTENER,"RemoveKeyListener=removeKey");
         _en.add(GET_KEY_LISTENERS,"GetKeyListeners=getKeys");
+        _en.add(ADD_FOCUS_LISTENER,"AddFocusListener=addFocus");
+        _en.add(REMOVE_FOCUS_LISTENER,"RemoveFocusListener=removeFocus");
+        _en.add(GET_FOCUS_LISTENERS,"GetFocusListeners=getFocus");
         _en.add(ADD_WHEEL_LISTENER,"AddWheelListener=addWheel");
         _en.add(REMOVE_WHEEL_LISTENER,"RemoveWheelListener=removeWheel");
         _en.add(GET_WHEEL_LISTENERS,"GetWheelListeners=getWheels");
@@ -4306,6 +4327,9 @@ public final class GuiAliases {
         _fr.add(ADD_KEY_LISTENER,"AddKeyListener=ajClavier");
         _fr.add(REMOVE_KEY_LISTENER,"RemoveKeyListener=supprClavier");
         _fr.add(GET_KEY_LISTENERS,"GetKeyListeners=valClaviers");
+        _fr.add(ADD_FOCUS_LISTENER,"AddFocusListener=ajFocus");
+        _fr.add(REMOVE_FOCUS_LISTENER,"RemoveFocusListener=supprFocus");
+        _fr.add(GET_FOCUS_LISTENERS,"GetFocusListeners=valFocus");
         _fr.add(ADD_WHEEL_LISTENER,"AddWheelListener=ajMolette");
         _fr.add(REMOVE_WHEEL_LISTENER,"RemoveWheelListener=supprMolette");
         _fr.add(GET_WHEEL_LISTENERS,"GetWheelListeners=valMolettes");
@@ -5076,6 +5100,9 @@ public final class GuiAliases {
                 new KeyValueMemberName(_mapping.getVal(ADD_KEY_LISTENER),getAliasAddKeyListener()),
                 new KeyValueMemberName(_mapping.getVal(REMOVE_KEY_LISTENER),getAliasRemoveKeyListener()),
                 new KeyValueMemberName(_mapping.getVal(GET_KEY_LISTENERS),getAliasGetKeyListeners()),
+                new KeyValueMemberName(_mapping.getVal(ADD_FOCUS_LISTENER),getAliasAddFocusListener()),
+                new KeyValueMemberName(_mapping.getVal(REMOVE_FOCUS_LISTENER),getAliasRemoveFocusListener()),
+                new KeyValueMemberName(_mapping.getVal(GET_FOCUS_LISTENERS),getAliasGetFocusListeners()),
                 new KeyValueMemberName(_mapping.getVal(ADD_WHEEL_LISTENER),getAliasAddWheelListener()),
                 new KeyValueMemberName(_mapping.getVal(REMOVE_WHEEL_LISTENER),getAliasRemoveWheelListener()),
                 new KeyValueMemberName(_mapping.getVal(GET_WHEEL_LISTENERS),getAliasGetWheelListeners()),
@@ -7388,6 +7415,30 @@ public final class GuiAliases {
 
     public void setAliasGetKeyListeners(String _v) {
         this.aliasGetKeyListeners = _v;
+    }
+
+    public String getAliasAddFocusListener() {
+        return aliasAddFocusListener;
+    }
+
+    public void setAliasAddFocusListener(String _v) {
+        this.aliasAddFocusListener = _v;
+    }
+
+    public String getAliasRemoveFocusListener() {
+        return aliasRemoveFocusListener;
+    }
+
+    public void setAliasRemoveFocusListener(String _v) {
+        this.aliasRemoveFocusListener = _v;
+    }
+
+    public String getAliasGetFocusListeners() {
+        return aliasGetFocusListeners;
+    }
+
+    public void setAliasGetFocusListeners(String _v) {
+        this.aliasGetFocusListeners = _v;
     }
 
     public String getAliasAddWheelListener() {

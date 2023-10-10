@@ -332,6 +332,8 @@ public final class EventStructTest extends EquallableElUtUtil {
         ((EventStruct)ev_).valueChanged(0,0);
         ((EventStruct)ev_).valueChanged(new SelectionInfo(0,0,true));
         ((EventStruct)ev_).stateChanged();
+        ((EventStruct)ev_).focusGained();
+        ((EventStruct)ev_).focusLost();
         ((EventStruct)ev_).windowActivated();
         ((EventStruct)ev_).windowClosed();
         ((EventStruct)ev_).windowClosing();
@@ -394,6 +396,8 @@ public final class EventStructTest extends EquallableElUtUtil {
         ((EventFunctionalInstance)ev_).valueChanged(0,0);
         ((EventFunctionalInstance)ev_).valueChanged(new SelectionInfo(0,0,true));
         ((EventFunctionalInstance)ev_).stateChanged();
+        ((EventFunctionalInstance)ev_).focusGained();
+        ((EventFunctionalInstance)ev_).focusLost();
         ((EventFunctionalInstance)ev_).windowActivated();
         ((EventFunctionalInstance)ev_).windowClosed();
         ((EventFunctionalInstance)ev_).windowClosing();

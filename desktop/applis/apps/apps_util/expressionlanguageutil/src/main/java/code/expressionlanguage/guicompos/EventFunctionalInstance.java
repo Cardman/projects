@@ -12,7 +12,7 @@ import code.util.*;
 
 public final class EventFunctionalInstance extends LaunchableFunctionalStruct implements
         AbsAdvActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
-        AbsKeyListener,AbsChangeListener,AbsShortListTree,AbsListSelectionListener,
+        AbsKeyListener,AbsFocusListener,AbsChangeListener,AbsShortListTree,AbsListSelectionListener,
         AbsMouseMotionListener, AbsMouseWheelListener,FieldableStruct {
 
     public EventFunctionalInstance(String _className, LambdaStruct _functional,
@@ -56,6 +56,21 @@ public final class EventFunctionalInstance extends LaunchableFunctionalStruct im
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasKeyEvent();
         KeyEventStruct a_ = new KeyEventStruct(_keyState, actEv_, _keyChar, _keyCode);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(getInterrupt(),this, getExecutionInfos(), getArgs()), getFunctional(), args_);
+    }
+
+    @Override
+    public void focusGained() {
+        focus();
+    }
+
+    @Override
+    public void focusLost() {
+        focus();
+    }
+
+    private void focus() {
+        CustList<Argument> args_ = new CustList<Argument>();
         RunnableFunctionalInstance.callMethod(new GuiContextEl(getInterrupt(),this, getExecutionInfos(), getArgs()), getFunctional(), args_);
     }
 

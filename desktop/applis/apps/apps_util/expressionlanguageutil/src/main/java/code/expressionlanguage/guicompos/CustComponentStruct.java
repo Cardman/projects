@@ -5,6 +5,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.AbsCustComponent;
+import code.gui.AbsFocusListener;
 import code.gui.GuiBaseUtil;
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
@@ -190,6 +191,12 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
         }
 
     }
+
+    public void addFocusListener(Struct _l) {
+        if (_l instanceof AbsFocusListener) {
+            getVisibleComponent().addFocusListener((AbsFocusListener)_l);
+        }
+    }
     public void registerKeyboardAction(Struct _action, Struct _a, Struct _b) {
         int first_ = ((NumberStruct) _a).intStruct();
         int second_ = ((NumberStruct) _b).intStruct();
@@ -221,6 +228,12 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
 
     }
 
+    public void removeFocusListener(Struct _l) {
+        if (_l instanceof AbsFocusListener) {
+            getVisibleComponent().removeFocusListener((AbsFocusListener)_l);
+        }
+
+    }
     public void unregisterKeyboardAction(Struct _a, Struct _b) {
         int first_ = ((NumberStruct) _a).intStruct();
         int second_ = ((NumberStruct) _b).intStruct();
@@ -269,6 +282,18 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
             }
         }
         return nulls(aliasKeyListener_, res_);
+    }
+    public ArrayStruct getFocusListeners(ContextEl _ctx) {
+        String aliasFocusListener_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasFocusListener();
+        CustList<AbsFocusListener> focusListeners_ = getVisibleComponent().getFocusListeners();
+        CustList<Struct> res_ = new CustList<Struct>();
+        int lenBase_ = focusListeners_.size();
+        for (int i = 0; i < lenBase_; i++) {
+            if (focusListeners_.get(i) instanceof Struct) {
+                res_.add((Struct)focusListeners_.get(i));
+            }
+        }
+        return nulls(aliasFocusListener_, res_);
     }
     public ArrayStruct getCommands(ContextEl _ctx) {
         String aliasCommand_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasCommand();

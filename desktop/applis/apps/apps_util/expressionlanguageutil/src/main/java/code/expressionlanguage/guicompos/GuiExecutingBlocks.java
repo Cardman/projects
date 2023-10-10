@@ -58,6 +58,9 @@ public final class GuiExecutingBlocks {
     private ExecNamedFunctionBlock keyPressed;
     private ExecNamedFunctionBlock keyTyped;
     private ExecNamedFunctionBlock keyReleased;
+    private ExecRootBlock focusListener;
+    private ExecNamedFunctionBlock focusGained;
+    private ExecNamedFunctionBlock focusLost;
     private ExecTypeFunction pairPaintRefresh;
     private ExecTypeFunction pairPaintRefreshOne;
     private ExecTypeFunction pairPaintMethod;
@@ -180,6 +183,14 @@ public final class GuiExecutingBlocks {
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
                 _guiAliases.getAliasKeyTyped(),new StringList(keyEvent_));
         keyTyped = ExecClassesUtil.getMethodBodiesById(keyListener,fct_).first();
+        String aliasFocusListener_ = _guiAliases.getAliasFocusListener();
+        focusListener = _classes.getClassBody(aliasFocusListener_);
+        fct_ = new MethodId(MethodAccessKind.INSTANCE,
+                _guiAliases.getAliasFocusGained(),new StringList());
+        focusGained = ExecClassesUtil.getMethodBodiesById(focusListener,fct_).first();
+        fct_ = new MethodId(MethodAccessKind.INSTANCE,
+                _guiAliases.getAliasFocusLost(),new StringList());
+        focusLost = ExecClassesUtil.getMethodBodiesById(focusListener,fct_).first();
         String aliasPaint_ = _guiAliases.getAliasPaint();
         ExecRootBlock paint_ = _classes.getClassBody(aliasPaint_);
         fct_ = new MethodId(MethodAccessKind.STATIC,
@@ -334,6 +345,18 @@ public final class GuiExecutingBlocks {
 
     public ExecNamedFunctionBlock getKeyTyped() {
         return keyTyped;
+    }
+
+    public ExecRootBlock getFocusListener() {
+        return focusListener;
+    }
+
+    public ExecNamedFunctionBlock getFocusGained() {
+        return focusGained;
+    }
+
+    public ExecNamedFunctionBlock getFocusLost() {
+        return focusLost;
     }
 
     public ExecTypeFunction getPairPaintRefresh() {

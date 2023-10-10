@@ -12,7 +12,7 @@ import code.util.*;
 
 public final class EventStruct extends LaunchableStruct implements
         AbsAdvActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
-        AbsKeyListener,AbsChangeListener,AbsShortListTree,AbsListSelectionListener,
+        AbsKeyListener,AbsFocusListener,AbsChangeListener,AbsShortListTree,AbsListSelectionListener,
         AbsMouseMotionListener, AbsMouseWheelListener{
 
     public EventStruct(RunnableContextEl _original, String _className,
@@ -204,6 +204,20 @@ public final class EventStruct extends LaunchableStruct implements
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyReleased(),args_);
+    }
+
+    @Override
+    public void focusGained() {
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>();
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getFocusListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getFocusGained(),args_);
+    }
+
+    @Override
+    public void focusLost() {
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>();
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getFocusListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getFocusLost(),args_);
     }
 
     @Override
