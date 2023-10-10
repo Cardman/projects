@@ -30,6 +30,17 @@ public final class MutableTreeNodeUtil {
         }
         return ls_;
     }
+    public static AbstractMutableTreeNodeCore<String> parent(AbsTreeGui _tr) {
+        AbsTreePath path_ = _tr.selectedPath();
+        while (path_ != null) {
+            AbstractMutableTreeNodeCore<String> d_ = path_.data();
+            if (d_.getParent() != null) {
+                return d_;
+            }
+            path_ = path_.parent(_tr);
+        }
+        return _tr.getRoot();
+    }
 
     public static CustList<AbstractMutableTreeNodeCore<String>> listPaths(AbsTreeGui _tr,AbsTreePath _path) {
         int len_ = _path.getLength();

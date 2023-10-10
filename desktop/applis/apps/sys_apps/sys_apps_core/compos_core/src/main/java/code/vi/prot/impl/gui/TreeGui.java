@@ -138,17 +138,13 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
     @Override
     public void reloadRoot() {
         tree.repaint();
-        CustList<AbsShortListTree> ls_ = GuiBaseUtil.removeTreeSelectionListeners(this);
         model.reload();
-        GuiBaseUtil.addTreeSelectionListeners(this,ls_);
     }
 
     @Override
     public void reload(AbstractMutableTreeNodeCore<String> _node) {
         tree.repaint();
-        CustList<AbsShortListTree> ls_ = GuiBaseUtil.removeTreeSelectionListeners(this);
         model.reload(((DefMutableTreeNode)_node).node());
-        GuiBaseUtil.addTreeSelectionListeners(this,ls_);
     }
 
     @Override

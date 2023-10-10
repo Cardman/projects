@@ -80,4 +80,29 @@ public final class MutableTreeNodeUtilTest extends EquallableGuiFctUtil {
         assertEq(1,nodes_.getLength());
         assertSame(ch_,nodes_.elt(0).data());
     }
+    @Test
+    public void parent1() {
+        MockProgramInfosSecSample init_ = init();
+        AbsCompoFactory c_ = init_.getCompoFactory();
+        AbstractMutableTreeNodeCore<String> r_ = c_.newMutableTreeNode("0");
+        AbstractMutableTreeNodeCore<String> ch_ = c_.newMutableTreeNode("1");
+        r_.add(ch_);
+        AbsTreeGui tr_ = c_.newTreeGui(r_);
+        tr_.select(ch_);
+        assertSame(ch_,MutableTreeNodeUtil.parent(tr_));
+    }
+    @Test
+    public void parent2() {
+        MockProgramInfosSecSample init_ = init();
+        AbsCompoFactory c_ = init_.getCompoFactory();
+        AbstractMutableTreeNodeCore<String> r_ = c_.newMutableTreeNode("0");
+        AbstractMutableTreeNodeCore<String> ch_ = c_.newMutableTreeNode("1");
+        AbstractMutableTreeNodeCore<String> chSub_ = c_.newMutableTreeNode("2");
+        r_.add(ch_);
+        ch_.add(chSub_);
+        AbsTreeGui tr_ = c_.newTreeGui(r_);
+        tr_.select(ch_);
+        ch_.removeFromParent();
+        assertSame(r_,MutableTreeNodeUtil.parent(tr_));
+    }
 }
