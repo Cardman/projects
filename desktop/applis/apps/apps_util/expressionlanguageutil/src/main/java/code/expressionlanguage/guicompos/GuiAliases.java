@@ -23,21 +23,11 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class GuiAliases {
-    public static final String RESOURCES_LG_GUI_CHANGE_EVENT_TXT = "resources_lg_gui/change_event.txt";
-    public static final String RESOURCES_LG_GUI_TREE_EVENT_TXT = "resources_lg_gui/tree_event.txt";
-    public static final String RESOURCES_LG_GUI_TABLE_EVENT_TXT = "resources_lg_gui/table_event.txt";
-    public static final String RESOURCES_LG_GUI_MOUSE_EVENT_TXT = "resources_lg_gui/mouse_event.txt";
-    public static final String RESOURCES_LG_GUI_WHEEL_EVENT_TXT = "resources_lg_gui/wheel_event.txt";
-    public static final String RESOURCES_LG_GUI_KEY_EVENT_TXT = "resources_lg_gui/key_event.txt";
-    public static final String RESOURCES_LG_GUI_WINDOW_EVENT_TXT = "resources_lg_gui/window_event.txt";
-    public static final String RESOURCES_LG_GUI_ACTION_EVENT_TXT = "resources_lg_gui/action_event.txt";
-    public static final String RESOURCES_LG_GUI_LIST_EVENT_TXT = "resources_lg_gui/list_event.txt";
+    public static final String SPACES_4 = "    ";
     public static final String RESOURCES_LG_GUI_REPAINT_TXT = "resources_lg_gui/repaint.txt";
 
     public static final String KW_PUBLIC = "{public}";
-    public static final String KW_INTERFACE = "{interface}";
     public static final String KW_VOID = "{void}";
-    public static final String METHOD_VALUE_CHANGED = "{valueChanged}";
     public static final String TYPE_INT = "{int}";
     public static final String TYPE_BOOLEAN = "{boolean}";
     public static final String KW_ABSTRACT = "{abstract}";
@@ -134,48 +124,8 @@ public final class GuiAliases {
     public static final String TYPE_GR_LIST = "{GrList}";
     public static final String TYPE_OBJECT = "{Object}";
     public static final String METHOD_DISPOSE = "{dispose}";
-    public static final String TYPE_ACTION_LISTENER = "{ActionListener}";
-    public static final String METHOD_ACTION_PERFORMED = "{actionPerformed}";
-    public static final String TYPE_ACTION_EVENT = "{ActionEvent}";
-    public static final String TYPE_CHANGE_LISTENER = "{ChangeListener}";
-    public static final String METHOD_STATE_CHANGED = "{stateChanged}";
-    public static final String TYPE_TREE_LISTENER = "{TreeListener}";
-    public static final String TYPE_TREE_NODE = "{TreeNode}";
-    public static final String TYPE_TABLE_LISTENER = "{TableListener}";
-    public static final String TYPE_MOUSE_LISTENER = "{MouseListener}";
-    public static final String METHOD_MOUSE_CLICKED = "{mouseClicked}";
-    public static final String METHOD_MOUSE_PRESSED = "{mousePressed}";
-    public static final String METHOD_MOUSE_RELEASED = "{mouseReleased}";
-    public static final String METHOD_MOUSE_ENTERED = "{mouseEntered}";
-    public static final String METHOD_MOUSE_EXITED = "{mouseExited}";
-    public static final String METHOD_MOUSE_DRAGGED = "{mouseDragged}";
-    public static final String METHOD_MOUSE_MOVED = "{mouseMoved}";
-    public static final String TYPE_MOUSE_EVENT = "{MouseEvent}";
-    public static final String TYPE_WHEEL_LISTENER = "{WheelListener}";
-    public static final String METHOD_MOUSE_MOVE_WHEEL = "{mouseMoveWheel}";
-    public static final String TYPE_MOUSE_WHEEL_EVENT = "{MouseWheelEvent}";
-    public static final String TYPE_KEY_LISTENER = "{KeyListener}";
-    public static final String METHOD_KEY_PRESSED = "{keyPressed}";
-    public static final String METHOD_KEY_TYPED = "{keyTyped}";
-    public static final String METHOD_KEY_RELEASED = "{keyReleased}";
-    public static final String TYPE_KEY_EVENT = "{KeyEvent}";
-    public static final String TYPE_WINDOW_LISTENER = "{WindowListener}";
-    public static final String METHOD_WINDOW_OPENED = "{windowOpened}";
-    public static final String METHOD_WINDOW_CLOSING = "{windowClosing}";
-    public static final String METHOD_WINDOW_CLOSED = "{windowClosed}";
-    public static final String METHOD_WINDOW_ICONIFIED = "{windowIconified}";
-    public static final String METHOD_WINDOW_DEICONIFIED = "{windowDeiconified}";
-    public static final String METHOD_WINDOW_ACTIVATED = "{windowActivated}";
-    public static final String METHOD_WINDOW_DEACTIVATED = "{windowDeactivated}";
-    public static final String TYPE_WINDOW_EVENT = "{WindowEvent}";
-    public static final String TYPE_LIST_SELECTION = "{ListSelection}";
-    public static final String PARAM_1 = "{a}";
-    public static final String PARAM_2 = "{b}";
     public static final String PARAM_3 = "c";
-    public static final String PARAM_4 = "{d}";
-    public static final String PARAM_5 = "{e}";
     public static final String PARAM_6 = "{f}";
-    public static final String PARAM_7 = "{g}";
 
     private static final String WINDOW_SET="_____1272";
     private static final String FRAME="825";
@@ -1042,12 +992,10 @@ public final class GuiAliases {
             return stds_;
         }
         StringMap<String> propertiesGui_ = MessCdmGuiGr.ms();
-        String content_ = res(RESOURCES_LG_GUI_ACTION_EVENT_TXT, propertiesGui_);
         PrimitiveTypes primTypes_ = _content.getPrimTypes();
         StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
         AliasCore co_ = _content.getCoreNames();
         String public_ = _keyWords.getKeyWordPublic();
-        String interface_ = _keyWords.getKeyWordInterface();
         String class_ = _keyWords.getKeyWordClass();
         String abstract_ = _keyWords.getKeyWordAbstract();
         String static_ = _keyWords.getKeyWordStatic();
@@ -1065,135 +1013,17 @@ public final class GuiAliases {
         String true_ = _keyWords.getKeyWordTrue();
         String false_ = _keyWords.getKeyWordFalse();
         String is_ = _keyWords.getKeyWordInstanceof();
-        StringMap<String> map_;
-        map_ = new StringMap<String>();
-        map_.put(KW_PUBLIC, public_);
-        map_.put(KW_INTERFACE, interface_);
-        map_.put(TYPE_ACTION_LISTENER, aliasActionListener);
-        map_.put(METHOD_ACTION_PERFORMED, aliasActionPerformed);
-        map_.put(TYPE_ACTION_EVENT, aliasActionEvent);
-        map_.put(KW_VOID, co_.getAliasVoid());
-        map_.put(PARAM_5, guiAliasParameters.getAliasActionListener0ActionPerformed0());
-        content_ = StringUtil.formatQuote(content_, map_);
-        stds_.put(aliasActionListener, content_);
-        content_ = res(RESOURCES_LG_GUI_CHANGE_EVENT_TXT, propertiesGui_);
-        map_ = new StringMap<String>();
-        map_.put(KW_PUBLIC, public_);
-        map_.put(KW_INTERFACE, interface_);
-        map_.put(TYPE_CHANGE_LISTENER, aliasChangeListener);
-        map_.put(METHOD_STATE_CHANGED, aliasStateChanged);
-        map_.put(KW_VOID, co_.getAliasVoid());
-        content_ = StringUtil.formatQuote(content_, map_);
-        stds_.put(aliasChangeListener, content_);
-        content_ = res(RESOURCES_LG_GUI_TREE_EVENT_TXT, propertiesGui_);
-        map_ = new StringMap<String>();
-        map_.put(KW_PUBLIC, public_);
-        map_.put(KW_INTERFACE, interface_);
-        map_.put(TYPE_TREE_LISTENER, aliasTreeListener);
-        map_.put(METHOD_VALUE_CHANGED, aliasTreeListenerValueChanged);
-        map_.put(TYPE_TREE_NODE, aliasTreeNode);
-        map_.put(KW_VOID, co_.getAliasVoid());
-        map_.put(PARAM_5, guiAliasParameters.getAliasTreeListener0TreeListenerValueChanged0());
-        content_ = StringUtil.formatQuote(content_, map_);
-        stds_.put(aliasTreeListener, content_);
-        content_ = res(RESOURCES_LG_GUI_TABLE_EVENT_TXT, propertiesGui_);
-        map_ = new StringMap<String>();
-        map_.put(KW_PUBLIC, public_);
-        map_.put(KW_INTERFACE, interface_);
-        map_.put(TYPE_TABLE_LISTENER, aliasTableListener);
-        map_.put(METHOD_VALUE_CHANGED, aliasTableValueTableChanged);
-        map_.put(TYPE_INT, primTypes_.getAliasPrimInteger());
-        map_.put(KW_VOID, co_.getAliasVoid());
-        map_.put(PARAM_5, guiAliasParameters.getAliasTableListener0TableValueTableChanged0());
-        map_.put(PARAM_6, guiAliasParameters.getAliasTableListener0TableValueTableChanged1());
-        content_ = StringUtil.formatQuote(content_, map_);
-        stds_.put(aliasTableListener, content_);
-        content_ = res(RESOURCES_LG_GUI_MOUSE_EVENT_TXT, propertiesGui_);
-        map_ = new StringMap<String>();
-        map_.put(KW_PUBLIC, public_);
-        map_.put(KW_INTERFACE, interface_);
-        map_.put(TYPE_MOUSE_LISTENER, aliasMouseListener);
-        map_.put(METHOD_MOUSE_CLICKED, aliasMouseClicked);
-        map_.put(METHOD_MOUSE_PRESSED, aliasMousePressed);
-        map_.put(METHOD_MOUSE_RELEASED, aliasMouseReleased);
-        map_.put(METHOD_MOUSE_ENTERED, aliasMouseEntered);
-        map_.put(METHOD_MOUSE_EXITED, aliasMouseExited);
-        map_.put(METHOD_MOUSE_DRAGGED, aliasMouseDragged);
-        map_.put(METHOD_MOUSE_MOVED, aliasMouseMoved);
-        map_.put(TYPE_MOUSE_EVENT, aliasMouseEvent);
-        map_.put(KW_VOID, co_.getAliasVoid());
-        map_.put(PARAM_1, guiAliasParameters.getAliasMouseListener0MouseClicked0());
-        map_.put(PARAM_2, guiAliasParameters.getAliasMouseListener0MousePressed0());
-        map_.put(wrap(PARAM_3), guiAliasParameters.getAliasMouseListener0MouseReleased0());
-        map_.put(PARAM_4, guiAliasParameters.getAliasMouseListener0MouseEntered0());
-        map_.put(PARAM_5, guiAliasParameters.getAliasMouseListener0MouseExited0());
-        map_.put(PARAM_6, guiAliasParameters.getAliasMouseListener0MouseDragged0());
-        map_.put(PARAM_7, guiAliasParameters.getAliasMouseListener0MouseMoved0());
-        content_ = StringUtil.formatQuote(content_, map_);
-        stds_.put(aliasMouseListener, content_);
-        content_ = res(RESOURCES_LG_GUI_WHEEL_EVENT_TXT, propertiesGui_);
-        map_ = new StringMap<String>();
-        map_.put(KW_PUBLIC, public_);
-        map_.put(KW_INTERFACE, interface_);
-        map_.put(TYPE_WHEEL_LISTENER, aliasWheelListener);
-        map_.put(METHOD_MOUSE_MOVE_WHEEL, aliasWheelMove);
-        map_.put(TYPE_MOUSE_WHEEL_EVENT, aliasWheelEvent);
-        map_.put(PARAM_5, guiAliasParameters.getAliasWheelListener0WheelMove0());
-        map_.put(KW_VOID, co_.getAliasVoid());
-        content_ = StringUtil.formatQuote(content_, map_);
-        stds_.put(aliasWheelListener, content_);
-        content_ = res(RESOURCES_LG_GUI_KEY_EVENT_TXT, propertiesGui_);
-        map_ = new StringMap<String>();
-        map_.put(KW_PUBLIC, public_);
-        map_.put(KW_INTERFACE, interface_);
-        map_.put(TYPE_KEY_LISTENER, aliasKeyListener);
-        map_.put(METHOD_KEY_PRESSED, aliasKeyPressed);
-        map_.put(METHOD_KEY_TYPED, aliasKeyTyped);
-        map_.put(METHOD_KEY_RELEASED, aliasKeyReleased);
-        map_.put(TYPE_KEY_EVENT, aliasKeyEvent);
-        map_.put(KW_VOID, co_.getAliasVoid());
-        map_.put(PARAM_1, guiAliasParameters.getAliasKeyListener0KeyPressed0());
-        map_.put(PARAM_2, guiAliasParameters.getAliasKeyListener0KeyTyped0());
-        map_.put(wrap(PARAM_3), guiAliasParameters.getAliasKeyListener0KeyReleased0());
-        content_ = StringUtil.formatQuote(content_, map_);
-        stds_.put(aliasKeyListener, content_);
-        content_ = res(RESOURCES_LG_GUI_WINDOW_EVENT_TXT, propertiesGui_);
-        map_ = new StringMap<String>();
-        map_.put(KW_PUBLIC, public_);
-        map_.put(KW_INTERFACE, interface_);
-        map_.put(TYPE_WINDOW_LISTENER, aliasWindowListener);
-        map_.put(METHOD_WINDOW_OPENED, aliasWindowOpened);
-        map_.put(METHOD_WINDOW_CLOSING, aliasWindowClosing);
-        map_.put(METHOD_WINDOW_CLOSED, aliasWindowClosed);
-        map_.put(METHOD_WINDOW_ICONIFIED, aliasWindowIconified);
-        map_.put(METHOD_WINDOW_DEICONIFIED, aliasWindowDeiconified);
-        map_.put(METHOD_WINDOW_ACTIVATED, aliasWindowActivated);
-        map_.put(METHOD_WINDOW_DEACTIVATED, aliasWindowDeactivated);
-        map_.put(TYPE_WINDOW_EVENT, aliasWindowEvent);
-        map_.put(KW_VOID, co_.getAliasVoid());
-        map_.put(PARAM_1, guiAliasParameters.getAliasWindowListener0WindowOpened0());
-        map_.put(PARAM_2, guiAliasParameters.getAliasWindowListener0WindowClosing0());
-        map_.put(wrap(PARAM_3), guiAliasParameters.getAliasWindowListener0WindowClosed0());
-        map_.put(PARAM_4, guiAliasParameters.getAliasWindowListener0WindowIconified0());
-        map_.put(PARAM_5, guiAliasParameters.getAliasWindowListener0WindowDeiconified0());
-        map_.put(PARAM_6, guiAliasParameters.getAliasWindowListener0WindowActivated0());
-        map_.put(PARAM_7, guiAliasParameters.getAliasWindowListener0WindowDeactivated0());
-        content_ = StringUtil.formatQuote(content_, map_);
-        stds_.put(aliasWindowListener, content_);
-        content_ = res(RESOURCES_LG_GUI_LIST_EVENT_TXT, propertiesGui_);
-        map_ = new StringMap<String>();
-        map_.put(KW_PUBLIC, public_);
-        map_.put(KW_INTERFACE, interface_);
-        map_.put(TYPE_LIST_SELECTION, aliasListSelection);
-        map_.put(METHOD_VALUE_CHANGED, aliasValueChanged);
-        map_.put(TYPE_INT, primTypes_.getAliasPrimInteger());
-        map_.put(KW_VOID, co_.getAliasVoid());
-        map_.put(PARAM_5, guiAliasParameters.getAliasListSelection0ValueChanged0());
-        map_.put(PARAM_6, guiAliasParameters.getAliasListSelection0ValueChanged1());
-        content_ = StringUtil.formatQuote(content_, map_);
-        stds_.put(aliasListSelection, content_);
-        content_ = res(RESOURCES_LG_GUI_REPAINT_TXT, propertiesGui_);
-        map_ = new StringMap<String>();
+        stds_.addEntry(aliasActionListener, actionListener(_keyWords, _content));
+        stds_.addEntry(aliasChangeListener, changeListener(_keyWords, _content));
+        stds_.addEntry(aliasTreeListener, treeListener(_keyWords, _content));
+        stds_.addEntry(aliasTableListener, tableListener(_keyWords, _content));
+        stds_.addEntry(aliasMouseListener, mouseListener(_keyWords, _content));
+        stds_.addEntry(aliasWheelListener, wheelListener(_keyWords, _content));
+        stds_.addEntry(aliasKeyListener, keyListener(_keyWords, _content));
+        stds_.addEntry(aliasWindowListener, windowListener(_keyWords, _content));
+        stds_.addEntry(aliasListSelection, listSelection(_keyWords, _content));
+        String content_ = res(RESOURCES_LG_GUI_REPAINT_TXT, propertiesGui_);
+        StringMap<String> map_ = new StringMap<String>();
         map_.put(KW_PUBLIC, public_);
         map_.put(KW_ABSTRACT, abstract_);
         map_.put(KW_FINAL, final_);
@@ -1599,8 +1429,86 @@ public final class GuiAliases {
         map_.put(METHOD_DISPOSE,aliasImageDispose);
         map_.put(TYPE_BOOLEAN,primTypes_.getAliasPrimBoolean());
         content_ = StringUtil.formatQuote(content_, map_);
-        stds_.put(aliasPaint, content_);
+        stds_.addEntry(aliasPaint, content_);
         return stds_;
+    }
+    public String actionListener(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasActionListener+"{\n"
+                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasActionPerformed+"("+aliasActionEvent+" "+guiAliasParameters.getAliasActionListener0ActionPerformed0()+");\n"
+                +"}\n";
+    }
+    public String changeListener(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasChangeListener+"{\n"
+                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasStateChanged+"();\n"
+                +"}\n";
+    }
+    public String treeListener(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasTreeListener+"{\n"
+                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasTreeListenerValueChanged+"("+aliasTreeNode+" "+guiAliasParameters.getAliasTreeListener0TreeListenerValueChanged0()+");\n"
+                +"}\n";
+    }
+
+    public String tableListener(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        String i_ = _content.getPrimTypes().getAliasPrimInteger();
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasTableListener+"{\n"
+                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasTableValueTableChanged+"("+i_+" "+guiAliasParameters.getAliasTableListener0TableValueTableChanged0()+","+i_+" "+guiAliasParameters.getAliasTableListener0TableValueTableChanged1()+");\n"
+                +"}\n";
+    }
+    public String mouseListener(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        String vd_ = _content.getCoreNames().getAliasVoid();
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasMouseListener+"{\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseClicked+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseClicked0()+");\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasMousePressed+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MousePressed0()+");\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseReleased+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseReleased0()+");\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseEntered+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseEntered0()+");\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseExited+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseExited0()+");\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseDragged+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseDragged0()+");\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseMoved+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseMoved0()+");\n"
+                +"}\n";
+    }
+
+    public String wheelListener(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasWheelListener+"{\n"
+                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasWheelMove+"("+aliasWheelEvent+" "+guiAliasParameters.getAliasWheelListener0WheelMove0()+");\n"
+                +"}\n";
+    }
+
+    public String keyListener(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        String vd_ = _content.getCoreNames().getAliasVoid();
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasKeyListener+"{\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasKeyPressed+"("+aliasKeyEvent+" "+guiAliasParameters.getAliasKeyListener0KeyPressed0()+");\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasKeyTyped+"("+aliasKeyEvent+" "+guiAliasParameters.getAliasKeyListener0KeyTyped0()+");\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasKeyReleased+"("+aliasKeyEvent+" "+guiAliasParameters.getAliasKeyListener0KeyReleased0()+");\n"
+                +"}\n";
+    }
+
+    public String windowListener(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        String vd_ = _content.getCoreNames().getAliasVoid();
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasWindowListener+"{\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowOpened+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowOpened0()+");\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowClosing+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowClosing0()+");\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowClosed+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowClosed0()+");\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowIconified+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowIconified0()+");\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowDeiconified+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowDeiconified0()+");\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowActivated+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowActivated0()+");\n"
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowDeactivated+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowDeactivated0()+");\n"
+                +"}\n";
+    }
+
+    public String listSelection(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        String i_ = _content.getPrimTypes().getAliasPrimInteger();
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasListSelection+"{\n"
+                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasValueChanged+"("+i_+" "+guiAliasParameters.getAliasListSelection0ValueChanged0()+","+i_+" "+guiAliasParameters.getAliasListSelection0ValueChanged1()+");\n"
+                +"}\n";
     }
     private static String wrap(String _element) {
         return '{'+_element+'}';
