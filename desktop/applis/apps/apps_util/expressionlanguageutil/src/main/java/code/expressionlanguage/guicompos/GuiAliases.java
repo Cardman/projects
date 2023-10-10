@@ -271,6 +271,7 @@ public final class GuiAliases {
     private static final String GET_LISTENERS="___1058";
     private static final String REQUEST_FOCUS="___1081";
     private static final String FOCUSED="___1081_";
+    private static final String ACTION_LISTENER_IMPLICIT_0_RUNNER="___1081__";
     private static final String COMP_BACK="859";
     private static final String COMPO_REL_LEFT="860";
     private static final String COMPO_REL_RIGHT="861";
@@ -655,6 +656,7 @@ public final class GuiAliases {
     private String aliasValueChanged;
     private String aliasRequestFocus;
     private String aliasFocused;
+    private String aliasActionListenerImplicit0Runner;
     private String aliasCompToolTip;
     private String aliasCompFocusable;
     private String aliasCompOpaque;
@@ -1448,8 +1450,26 @@ public final class GuiAliases {
     }
     public String actionListener(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
+        String th_ = _kw.getKeyWordThis();
+        String vd_ = _content.getCoreNames().getAliasVoid();
+        String fct_ = _content.getReflect().getAliasFct();
+        String fctAcVd_ = fct_+"<"+aliasActionEvent+","+vd_+">";
+        String apPar_ = guiAliasParameters.getAliasActionListener0ActionPerformed0();
+        String parCast_ = guiAliasParameters.getAliasActionListenerImplicit0Implicit0();
+        String parInner_ = guiAliasParameters.getAliasActionListenerImplicit0Implicit1();
         return pub_+" "+_kw.getKeyWordInterface()+" "+aliasActionListener+"{"+LR
-                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasActionPerformed+"("+aliasActionEvent+" "+guiAliasParameters.getAliasActionListener0ActionPerformed0()+");"+LR
+                +SPACES_4+pub_+" "+vd_+" "+aliasActionPerformed+"("+aliasActionEvent+" "+ apPar_ +");"+LR
+                +SPACES_4+pub_+" "+_kw.getKeyWordStatic()+" "+aliasActionListener+" "+_kw.getKeyWordCast()+"("+fctAcVd_+ parCast_ +"){"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordReturn()+" "+_kw.getKeyWordNew()+"("+ parCast_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+pub_+" "+fctAcVd_+" "+aliasActionListenerImplicit0Runner+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+pub_+"("+fctAcVd_+ parInner_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+th_+"."+aliasActionListenerImplicit0Runner+"="+ parInner_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+pub_+" "+vd_+" "+aliasActionPerformed+"("+aliasActionEvent+" "+ apPar_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+th_+"."+aliasActionListenerImplicit0Runner+"."+_content.getReflect().getAliasCall()+"("+apPar_+");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"};"+LR
+                +SPACES_4+"}"+LR
                 +"}"+LR;
     }
     public String changeListener(KeyWords _kw, LgNamesContent _content) {
@@ -3600,6 +3620,7 @@ public final class GuiAliases {
         setAliasKeyEventCode(LgNamesContent.get(_util,_cust,_mapping.getVal(KEY_EVENT_CODE)));
         setAliasRequestFocus(LgNamesContent.get(_util,_cust,_mapping.getVal(REQUEST_FOCUS)));
         setAliasFocused(LgNamesContent.get(_util,_cust,_mapping.getVal(FOCUSED)));
+        setAliasActionListenerImplicit0Runner(LgNamesContent.get(_util,_cust,_mapping.getVal(ACTION_LISTENER_IMPLICIT_0_RUNNER)));
         setAliasCompBorRaise(LgNamesContent.get(_util,_cust,_mapping.getVal(COMP_BOR_RAISE)));
         setAliasWheelEvent(LgNamesContent.get(_util,_cust,_mapping.getVal(WHEEL_EVENT)));
         setAliasKeyEventIsShift(LgNamesContent.get(_util,_cust,_mapping.getVal(KEY_EVENT_IS_SHIFT)));
@@ -3902,6 +3923,7 @@ public final class GuiAliases {
         _en.add(GET_LISTENERS,"GetListeners=getLists");
         _en.add(REQUEST_FOCUS,"RequestFocus=requestFocus");
         _en.add(FOCUSED,"Focused=focused");
+        _en.add(ACTION_LISTENER_IMPLICIT_0_RUNNER,"ActionListenerImplicit0Runner=runner");
         _en.add(COMP_BACK,"CompBack=back");
         _en.add(COMPO_REL_LEFT,"CompoRelLeft=left");
         _en.add(COMPO_REL_RIGHT,"CompoRelRight=right");
@@ -4338,6 +4360,7 @@ public final class GuiAliases {
         _fr.add(GET_LISTENERS,"GetListeners=valEcouts");
         _fr.add(REQUEST_FOCUS,"RequestFocus=demanderFocus");
         _fr.add(FOCUSED,"Focused=afocus");
+        _fr.add(ACTION_LISTENER_IMPLICIT_0_RUNNER,"ActionListenerImplicit0Runner=exec");
         _fr.add(COMP_BACK,"CompBack=arriere");
         _fr.add(COMPO_REL_LEFT,"CompoRelLeft=gauche");
         _fr.add(COMPO_REL_RIGHT,"CompoRelRight=droite");
@@ -4677,6 +4700,9 @@ public final class GuiAliases {
                 new KeyValueMemberName(_mapping.getVal(PANEL_BORDER_NORTH),getAliasPanelBorderNorth()),
                 new KeyValueMemberName(_mapping.getVal(PANEL_BORDER_SOUTH),getAliasPanelBorderSouth()),
                 new KeyValueMemberName(_mapping.getVal(PANEL_BORDER_CENTER),getAliasPanelBorderCenter())
+        ));
+        f_.addEntry(getAliasActionListener(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(ACTION_LISTENER_IMPLICIT_0_RUNNER),getAliasActionListenerImplicit0Runner())
         ));
         return f_;
     }
@@ -7247,6 +7273,14 @@ public final class GuiAliases {
 
     public void setAliasFocused(String _v) {
         this.aliasFocused = _v;
+    }
+
+    public String getAliasActionListenerImplicit0Runner() {
+        return aliasActionListenerImplicit0Runner;
+    }
+
+    public void setAliasActionListenerImplicit0Runner(String _v) {
+        this.aliasActionListenerImplicit0Runner = _v;
     }
 
     public String getAliasCompToolTip() {
