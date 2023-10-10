@@ -31,6 +31,7 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class CustAliases {
+    public static final String LR = "\n";
     public static final String SPACES_4 = "    ";
     public static final String KW_PUBLIC = "{public}";
     public static final String KW_ABSTRACT = "{abstract}";
@@ -3027,20 +3028,20 @@ public final class CustAliases {
         String fctVd_ = fct_+"<"+vd_+">";
         String parCast_ = custAliasParameters.getAliasRunnableImplicit0Implicit0();
         String parInner_ = custAliasParameters.getAliasRunnableImplicit0Implicit1();
-        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasRunnable+"{\n"
-                +SPACES_4+pub_+" "+_kw.getKeyWordAbstract()+" "+vd_+" "+aliasRun+"();\n"
-                +SPACES_4+pub_+" "+_kw.getKeyWordStatic()+" "+aliasRunnable+" "+_kw.getKeyWordCast()+"("+fctVd_+ parCast_ +"){\n"
-                +SPACES_4+SPACES_4+_kw.getKeyWordReturn()+" "+_kw.getKeyWordNew()+"("+ parCast_ +"){\n"
-                +SPACES_4+SPACES_4+SPACES_4+pub_+" "+fctVd_+" "+aliasRunnableImplicit0Runner+";\n"
-                +SPACES_4+SPACES_4+SPACES_4+pub_+"("+fctVd_+ parInner_ +"){\n"
-                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+th_+"."+aliasRunnableImplicit0Runner+"="+ parInner_ +";\n"
-                +SPACES_4+SPACES_4+SPACES_4+"}\n"
-                +SPACES_4+SPACES_4+SPACES_4+pub_+" "+vd_+" "+aliasRun+"(){\n"
-                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+th_+"."+aliasRunnableImplicit0Runner+"."+_content.getReflect().getAliasCall()+"();\n"
-                +SPACES_4+SPACES_4+SPACES_4+"}\n"
-                +SPACES_4+SPACES_4+"};\n"
-                +SPACES_4+"}\n"
-                +"}\n";
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasRunnable+"{"+LR
+                +SPACES_4+pub_+" "+_kw.getKeyWordAbstract()+" "+vd_+" "+aliasRun+"();"+LR
+                +SPACES_4+pub_+" "+_kw.getKeyWordStatic()+" "+aliasRunnable+" "+_kw.getKeyWordCast()+"("+fctVd_+ parCast_ +"){"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordReturn()+" "+_kw.getKeyWordNew()+"("+ parCast_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+pub_+" "+fctVd_+" "+aliasRunnableImplicit0Runner+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+pub_+"("+fctVd_+ parInner_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+th_+"."+aliasRunnableImplicit0Runner+"="+ parInner_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+pub_+" "+vd_+" "+aliasRun+"(){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+th_+"."+aliasRunnableImplicit0Runner+"."+_content.getReflect().getAliasCall()+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"};"+LR
+                +SPACES_4+"}"+LR
+                +"}"+LR;
     }
     public static String getStandarString(ContextEl _cont, Struct _struct) {
         if (_struct instanceof DisplayableStruct) {

@@ -24,6 +24,7 @@ import code.util.core.StringUtil;
 
 public final class GuiAliases {
     public static final String SPACES_4 = "    ";
+    public static final String LR = "\n";
     public static final String RESOURCES_LG_GUI_REPAINT_TXT = "resources_lg_gui/repaint.txt";
 
     public static final String KW_PUBLIC = "{public}";
@@ -164,6 +165,7 @@ public final class GuiAliases {
     private static final String POPUP_MENU="_____1248";
     private static final String DIMENSION="835";
     private static final String KEY_LISTENER="_____1249";
+    private static final String FOCUS_LISTENER="_____1249_";
     private static final String MOUSE_LISTENER="___1031";
     private static final String WHEEL_LISTENER="___1106";
     private static final String WHEEL_EVENT="___1107";
@@ -485,6 +487,8 @@ public final class GuiAliases {
     private static final String KEY_TYPED="_____1439";
     private static final String KEY_RELEASED="_____1440";
     private static final String KEY_PRESSED="_____1441";
+    private static final String FOCUS_GAINED="_____1441_";
+    private static final String FOCUS_LOST="_____1441__";
     private static final String WINDOW_ACTIVATED="_____1442";
     private static final String WINDOW_ICONIFIED="_____1443";
     private static final String WINDOW_DEACTIVATED="_____1444";
@@ -682,6 +686,9 @@ public final class GuiAliases {
     private String aliasKeyEventIsShift;
     private String aliasKeyEventIsAlt;
     private String aliasKeyEventIsCtrl;
+    private String aliasFocusListener;
+    private String aliasFocusGained;
+    private String aliasFocusLost;
 
     private String aliasConfirm;
     private String aliasConfirmMessage;
@@ -1022,6 +1029,7 @@ public final class GuiAliases {
         stds_.addEntry(aliasKeyListener, keyListener(_keyWords, _content));
         stds_.addEntry(aliasWindowListener, windowListener(_keyWords, _content));
         stds_.addEntry(aliasListSelection, listSelection(_keyWords, _content));
+        stds_.addEntry(aliasFocusListener, focusListener(_keyWords, _content));
         String content_ = res(RESOURCES_LG_GUI_REPAINT_TXT, propertiesGui_);
         StringMap<String> map_ = new StringMap<String>();
         map_.put(KW_PUBLIC, public_);
@@ -1434,81 +1442,90 @@ public final class GuiAliases {
     }
     public String actionListener(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
-        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasActionListener+"{\n"
-                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasActionPerformed+"("+aliasActionEvent+" "+guiAliasParameters.getAliasActionListener0ActionPerformed0()+");\n"
-                +"}\n";
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasActionListener+"{"+LR
+                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasActionPerformed+"("+aliasActionEvent+" "+guiAliasParameters.getAliasActionListener0ActionPerformed0()+");"+LR
+                +"}"+LR;
     }
     public String changeListener(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
-        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasChangeListener+"{\n"
-                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasStateChanged+"();\n"
-                +"}\n";
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasChangeListener+"{"+LR
+                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasStateChanged+"();"+LR
+                +"}"+LR;
     }
     public String treeListener(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
-        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasTreeListener+"{\n"
-                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasTreeListenerValueChanged+"("+aliasTreeNode+" "+guiAliasParameters.getAliasTreeListener0TreeListenerValueChanged0()+");\n"
-                +"}\n";
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasTreeListener+"{"+LR
+                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasTreeListenerValueChanged+"("+aliasTreeNode+" "+guiAliasParameters.getAliasTreeListener0TreeListenerValueChanged0()+");"+LR
+                +"}"+LR;
     }
 
     public String tableListener(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
         String i_ = _content.getPrimTypes().getAliasPrimInteger();
-        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasTableListener+"{\n"
-                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasTableValueTableChanged+"("+i_+" "+guiAliasParameters.getAliasTableListener0TableValueTableChanged0()+","+i_+" "+guiAliasParameters.getAliasTableListener0TableValueTableChanged1()+");\n"
-                +"}\n";
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasTableListener+"{"+LR
+                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasTableValueTableChanged+"("+i_+" "+guiAliasParameters.getAliasTableListener0TableValueTableChanged0()+","+i_+" "+guiAliasParameters.getAliasTableListener0TableValueTableChanged1()+");"+LR
+                +"}"+LR;
     }
     public String mouseListener(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
         String vd_ = _content.getCoreNames().getAliasVoid();
-        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasMouseListener+"{\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseClicked+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseClicked0()+");\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasMousePressed+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MousePressed0()+");\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseReleased+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseReleased0()+");\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseEntered+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseEntered0()+");\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseExited+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseExited0()+");\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseDragged+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseDragged0()+");\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseMoved+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseMoved0()+");\n"
-                +"}\n";
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasMouseListener+"{"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseClicked+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseClicked0()+");"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasMousePressed+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MousePressed0()+");"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseReleased+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseReleased0()+");"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseEntered+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseEntered0()+");"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseExited+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseExited0()+");"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseDragged+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseDragged0()+");"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasMouseMoved+"("+aliasMouseEvent+" "+guiAliasParameters.getAliasMouseListener0MouseMoved0()+");"+LR
+                +"}"+LR;
     }
 
     public String wheelListener(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
-        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasWheelListener+"{\n"
-                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasWheelMove+"("+aliasWheelEvent+" "+guiAliasParameters.getAliasWheelListener0WheelMove0()+");\n"
-                +"}\n";
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasWheelListener+"{"+LR
+                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasWheelMove+"("+aliasWheelEvent+" "+guiAliasParameters.getAliasWheelListener0WheelMove0()+");"+LR
+                +"}"+LR;
     }
 
     public String keyListener(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
         String vd_ = _content.getCoreNames().getAliasVoid();
-        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasKeyListener+"{\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasKeyPressed+"("+aliasKeyEvent+" "+guiAliasParameters.getAliasKeyListener0KeyPressed0()+");\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasKeyTyped+"("+aliasKeyEvent+" "+guiAliasParameters.getAliasKeyListener0KeyTyped0()+");\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasKeyReleased+"("+aliasKeyEvent+" "+guiAliasParameters.getAliasKeyListener0KeyReleased0()+");\n"
-                +"}\n";
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasKeyListener+"{"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasKeyPressed+"("+aliasKeyEvent+" "+guiAliasParameters.getAliasKeyListener0KeyPressed0()+");"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasKeyTyped+"("+aliasKeyEvent+" "+guiAliasParameters.getAliasKeyListener0KeyTyped0()+");"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasKeyReleased+"("+aliasKeyEvent+" "+guiAliasParameters.getAliasKeyListener0KeyReleased0()+");"+LR
+                +"}"+LR;
     }
 
     public String windowListener(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
         String vd_ = _content.getCoreNames().getAliasVoid();
-        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasWindowListener+"{\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowOpened+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowOpened0()+");\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowClosing+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowClosing0()+");\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowClosed+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowClosed0()+");\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowIconified+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowIconified0()+");\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowDeiconified+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowDeiconified0()+");\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowActivated+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowActivated0()+");\n"
-                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowDeactivated+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowDeactivated0()+");\n"
-                +"}\n";
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasWindowListener+"{"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowOpened+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowOpened0()+");"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowClosing+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowClosing0()+");"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowClosed+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowClosed0()+");"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowIconified+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowIconified0()+");"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowDeiconified+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowDeiconified0()+");"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowActivated+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowActivated0()+");"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasWindowDeactivated+"("+aliasWindowEvent+" "+guiAliasParameters.getAliasWindowListener0WindowDeactivated0()+");"+LR
+                +"}"+LR;
     }
 
     public String listSelection(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
         String i_ = _content.getPrimTypes().getAliasPrimInteger();
-        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasListSelection+"{\n"
-                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasValueChanged+"("+i_+" "+guiAliasParameters.getAliasListSelection0ValueChanged0()+","+i_+" "+guiAliasParameters.getAliasListSelection0ValueChanged1()+");\n"
-                +"}\n";
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasListSelection+"{"+LR
+                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasValueChanged+"("+i_+" "+guiAliasParameters.getAliasListSelection0ValueChanged0()+","+i_+" "+guiAliasParameters.getAliasListSelection0ValueChanged1()+");"+LR
+                +"}"+LR;
+    }
+
+    public String focusListener(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        String vd_ = _content.getCoreNames().getAliasVoid();
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasFocusListener+"{"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasFocusGained+"();"+LR
+                +SPACES_4+pub_+" "+ vd_ +" "+aliasFocusLost+"();"+LR
+                +"}"+LR;
     }
     private static String wrap(String _element) {
         return '{'+_element+'}';
@@ -3339,6 +3356,8 @@ public final class GuiAliases {
         setAliasFont(LgNamesContent.get(_util,_cust,_mapping.getVal(FONT)));
         setAliasCompFore(LgNamesContent.get(_util,_cust,_mapping.getVal(COMP_FORE)));
         setAliasKeyTyped(LgNamesContent.get(_util,_cust,_mapping.getVal(KEY_TYPED)));
+        setAliasFocusGained(LgNamesContent.get(_util,_cust,_mapping.getVal(FOCUS_GAINED)));
+        setAliasFocusLost(LgNamesContent.get(_util,_cust,_mapping.getVal(FOCUS_LOST)));
         setAliasColorRed(LgNamesContent.get(_util,_cust,_mapping.getVal(COLOR_RED)));
         setAliasTextArea(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA)));
         setAliasFontGetSize(LgNamesContent.get(_util,_cust,_mapping.getVal(FONT_GET_SIZE)));
@@ -3576,6 +3595,7 @@ public final class GuiAliases {
         setAliasGetKeyListeners(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_KEY_LISTENERS)));
         setAliasKeyEventIsAlt(LgNamesContent.get(_util,_cust,_mapping.getVal(KEY_EVENT_IS_ALT)));
         setAliasKeyListener(LgNamesContent.get(_util,_cust,_mapping.getVal(KEY_LISTENER)));
+        setAliasFocusListener(LgNamesContent.get(_util,_cust,_mapping.getVal(FOCUS_LISTENER)));
         setAliasKeyEventChar(LgNamesContent.get(_util,_cust,_mapping.getVal(KEY_EVENT_CHAR)));
         setAliasWindowListener(LgNamesContent.get(_util,_cust,_mapping.getVal(WINDOW_LISTENER)));
         setAliasWheelMove(LgNamesContent.get(_util,_cust,_mapping.getVal(WHEEL_MOVE)));
@@ -3758,6 +3778,7 @@ public final class GuiAliases {
         _en.add(POPUP_MENU,"PopupMenu=$core.Popup");
         _en.add(DIMENSION,"Dimension=$core.Dimension");
         _en.add(KEY_LISTENER,"KeyListener=$core.KeyListener");
+        _en.add(FOCUS_LISTENER,"FocusListener=$core.FocusListener");
         _en.add(MOUSE_LISTENER,"MouseListener=$core.MouseListener");
         _en.add(WHEEL_LISTENER,"WheelListener=$core.MouseWheelListener");
         _en.add(WHEEL_EVENT,"WheelEvent=$core.MouseWheelEvent");
@@ -4079,6 +4100,8 @@ public final class GuiAliases {
         _en.add(KEY_TYPED,"KeyTyped=keyTyped");
         _en.add(KEY_RELEASED,"KeyReleased=keyReleased");
         _en.add(KEY_PRESSED,"KeyPressed=keyPressed");
+        _en.add(FOCUS_GAINED,"FocusGained=focusGained");
+        _en.add(FOCUS_LOST,"FocusLost=focusLost");
         _en.add(WINDOW_ACTIVATED,"WindowActivated=activated");
         _en.add(WINDOW_ICONIFIED,"WindowIconified=iconified");
         _en.add(WINDOW_DEACTIVATED,"WindowDeactivated=deactivated");
@@ -4188,6 +4211,7 @@ public final class GuiAliases {
         _fr.add(POPUP_MENU,"PopupMenu=$coeur.MenuContextuel");
         _fr.add(DIMENSION,"Dimension=$coeur.Dimension");
         _fr.add(KEY_LISTENER,"KeyListener=$coeur.ClavierEcouteur");
+        _fr.add(FOCUS_LISTENER,"FocusListener=$coeur.FocusEcouteur");
         _fr.add(MOUSE_LISTENER,"MouseListener=$coeur.SourisEcouteur");
         _fr.add(WHEEL_LISTENER,"WheelListener=$coeur.MoletteSourisEcouteur");
         _fr.add(WHEEL_EVENT,"WheelEvent=$coeur.MoletteSourisEvt");
@@ -4509,6 +4533,8 @@ public final class GuiAliases {
         _fr.add(KEY_TYPED,"KeyTyped=tape");
         _fr.add(KEY_RELEASED,"KeyReleased=touRelache");
         _fr.add(KEY_PRESSED,"KeyPressed=touPresse");
+        _fr.add(FOCUS_GAINED,"FocusGained=focusGagne");
+        _fr.add(FOCUS_LOST,"FocusLost=focusPerdu");
         _fr.add(WINDOW_ACTIVATED,"WindowActivated=active");
         _fr.add(WINDOW_ICONIFIED,"WindowIconified=iconifie");
         _fr.add(WINDOW_DEACTIVATED,"WindowDeactivated=desactive");
@@ -4585,6 +4611,8 @@ public final class GuiAliases {
                 new KeyValueMemberName(_mapping.getVal(KEY_TYPED),getAliasKeyTyped()),
                 new KeyValueMemberName(_mapping.getVal(KEY_PRESSED),getAliasKeyPressed()),
                 new KeyValueMemberName(_mapping.getVal(KEY_RELEASED),getAliasKeyReleased()),
+                new KeyValueMemberName(_mapping.getVal(FOCUS_GAINED),getAliasFocusGained()),
+                new KeyValueMemberName(_mapping.getVal(FOCUS_LOST),getAliasFocusLost()),
                 new KeyValueMemberName(_mapping.getVal(VALUE_CHANGED),getAliasValueChanged()),
                 new KeyValueMemberName(_mapping.getVal(TABLE_VALUE_TABLE_CHANGED),getAliasTableValueTableChanged()),
                 new KeyValueMemberName(_mapping.getVal(MOUSE_CLICKED),getAliasMouseClicked()),
@@ -4710,6 +4738,10 @@ public final class GuiAliases {
                 new KeyValueMemberName(_mapping.getVal(KEY_TYPED),getAliasKeyTyped()),
                 new KeyValueMemberName(_mapping.getVal(KEY_RELEASED),getAliasKeyReleased()),
                 new KeyValueMemberName(_mapping.getVal(KEY_PRESSED),getAliasKeyPressed()))
+        );
+        m_.addEntry(getAliasFocusListener(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(FOCUS_GAINED),getAliasFocusGained()),
+                new KeyValueMemberName(_mapping.getVal(FOCUS_LOST),getAliasFocusLost()))
         );
         m_.addEntry(getAliasWindowListener(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(WINDOW_ACTIVATED),getAliasWindowActivated()),
@@ -5206,6 +5238,7 @@ public final class GuiAliases {
         ref_.addEntry(_mapping.getVal(POPUP_MENU),getAliasPopupMenu());
         ref_.addEntry(_mapping.getVal(DIMENSION),getAliasDimension());
         ref_.addEntry(_mapping.getVal(KEY_LISTENER),getAliasKeyListener());
+        ref_.addEntry(_mapping.getVal(FOCUS_LISTENER),getAliasFocusListener());
         ref_.addEntry(_mapping.getVal(MOUSE_LISTENER),getAliasMouseListener());
         ref_.addEntry(_mapping.getVal(WHEEL_LISTENER),getAliasWheelListener());
         ref_.addEntry(_mapping.getVal(WHEEL_EVENT),getAliasWheelEvent());
@@ -7459,6 +7492,30 @@ public final class GuiAliases {
 
     public void setAliasKeyEventIsCtrl(String _v) {
         this.aliasKeyEventIsCtrl = _v;
+    }
+
+    public String getAliasFocusListener() {
+        return aliasFocusListener;
+    }
+
+    public void setAliasFocusListener(String _v) {
+        this.aliasFocusListener = _v;
+    }
+
+    public String getAliasFocusGained() {
+        return aliasFocusGained;
+    }
+
+    public void setAliasFocusGained(String _v) {
+        this.aliasFocusGained = _v;
+    }
+
+    public String getAliasFocusLost() {
+        return aliasFocusLost;
+    }
+
+    public void setAliasFocusLost(String _v) {
+        this.aliasFocusLost = _v;
     }
 
     public String getAliasWindowListener() {
