@@ -314,10 +314,6 @@ public final class ClassesUtil {
         validateEl(copy_);
         copy_.getSortedOperators().addAllElts(copy_.getAllOperators());
         copy_.getSortedOperators().sortElts(new AnaOperatorCmp());
-        CustList<OperatorBlock> sortedOperators_ = getOperatorBlocks(copy_);
-        for (OperatorBlock o: sortedOperators_) {
-            nbTypesOpers(copy_, o);
-        }
         copy_.getPrevFoundTypes().addAllElts(copy_.getFoundTypes());
         copy_.getFoundTypes().clear();
         StringList basePkgFound_ = copy_.getBasePackagesFound();
@@ -371,7 +367,7 @@ public final class ClassesUtil {
         return copy_;
     }
 
-    private static void nbTypesOpers(AnalyzedPageEl _page, OperatorBlock _o) {
+    public static void nbTypesOpers(AnalyzedPageEl _page, AccessedBlockMembers _o) {
         for (RootBlock c: _page.getCountElts().getAnonTypes().get(_o.getAccessMemNb())) {
             incre(c, _page.getCountsAnon(), c.getName(), "*");
         }
@@ -389,16 +385,6 @@ public final class ClassesUtil {
             _map.put(_name,val_+1);
             _r.setSuffix(_pref +(val_+1));
         }
-    }
-
-    private static CustList<OperatorBlock> getOperatorBlocks(AnalyzedPageEl _page) {
-        CustList<OperatorBlock> sortedOperators_;
-        if (_page.isSortNbOperators()) {
-            sortedOperators_ = _page.getSortedNbOperators();
-        } else {
-            sortedOperators_ = _page.getSortedOperators();
-        }
-        return sortedOperators_;
     }
 
     public static void processAnonymous(AnalyzedPageEl _page) {
@@ -833,6 +819,10 @@ public final class ClassesUtil {
         }
         _page.setNextResults(SplitExpressionUtil.getNextResults(_page));
         trySortNbOpers(_page);
+        CustList<OperatorBlock> sortedOperators_ = _page.getSortedNbOperators();
+        for (OperatorBlock o: sortedOperators_) {
+            nbTypesOpers(_page, o);
+        }
         StringList basePkgFound_ = _page.getBasePackagesFound();
         StringList pkgFound_ = _page.getPackagesFound();
         for (EntryCust<String,FileBlock> f: files_.entryList()) {
@@ -868,12 +858,25 @@ public final class ClassesUtil {
             }
         }
         if (opCountNb_ != opCount_ || list_.hasDuplicates()) {
+            defaultSort(_page);
             return;
         }
         feedNb(_page);
     }
 
+    private static void defaultSort(AnalyzedPageEl _page) {
+        CustList<OperatorBlock> opers_ = operators(_page);
+        opers_.sortElts(new AnaOperatorHeadCmp());
+        _page.getSortedNbOperators().addAllElts(opers_);
+    }
+
     private static void feedNb(AnalyzedPageEl _page) {
+        CustList<OperatorBlock> opers_ = operators(_page);
+        opers_.sortElts(new AnaOperatorLabelCmp());
+        _page.getSortedNbOperators().addAllElts(opers_);
+    }
+
+    private static CustList<OperatorBlock> operators(AnalyzedPageEl _page) {
         StringMap<FileBlock> files_ = _page.getFilesBodies();
         CustList<OperatorBlock> opers_ = new CustList<OperatorBlock>();
         for (EntryCust<String,FileBlock> f: files_.entryList()) {
@@ -885,9 +888,7 @@ public final class ClassesUtil {
                 }
             }
         }
-        opers_.sortElts(new AnaOperatorLabelCmp());
-        _page.getSortedNbOperators().addAllElts(opers_);
-        _page.setSortNbOperators(true);
+        return opers_;
     }
 
     public static void fetchOuterTypesCountOpers(AnalyzedPageEl _page, FileBlock _value) {

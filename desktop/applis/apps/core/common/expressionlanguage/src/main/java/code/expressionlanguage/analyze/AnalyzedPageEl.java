@@ -158,7 +158,6 @@ public final class AnalyzedPageEl {
     private LoggableLgNames logErr;
     private AbsLineDeclarator lineDeclarator;
     private final CustList<OperatorBlock> sortedNbOperators = new CustList<OperatorBlock>();
-    private boolean sortNbOperators;
     private Ints currentAnnotDelNew = new Ints();
     private Ints currentAnnotDelSwitch = new Ints();
     private AbstractSymbolFactory abstractSymbolFactory;
@@ -1389,14 +1388,6 @@ public final class AnalyzedPageEl {
 
     public CustList<OperatorBlock> getSortedNbOperators() {
         return sortedNbOperators;
-    }
-
-    public boolean isSortNbOperators() {
-        return sortNbOperators;
-    }
-
-    public void setSortNbOperators(boolean _sortNbOperators) {
-        this.sortNbOperators = _sortNbOperators;
     }
 
     public Ints getCurrentAnnotDelNew() {

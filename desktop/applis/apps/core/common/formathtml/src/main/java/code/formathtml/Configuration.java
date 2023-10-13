@@ -159,6 +159,9 @@ public final class Configuration {
         }
         _page.backupFiles();
         _page.setNextResults(RendSplitExpressionUtil.getNextResults(_analyzingDoc,_page,_d.values()));
+        for (EntryCust<String,AnaRendDocumentBlock> s: _d.entryList()) {
+            ClassesUtil.nbTypesOpers(_page,s.getValue());
+        }
         for (AnaRendDocumentBlock v : _d.values()) {
             v.buildFctInstructions(_analyzingDoc, _page);
         }
