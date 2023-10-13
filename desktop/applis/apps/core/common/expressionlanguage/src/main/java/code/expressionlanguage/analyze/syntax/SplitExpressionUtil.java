@@ -175,6 +175,9 @@ public final class SplitExpressionUtil {
                 if (_a instanceof AccessedBlockMembers) {
                     _current.setAccessedBlock(_a);
                     _page.getCountElts().getLocalTypes().get(((AccessedBlockMembers)_a).getAccessMemNb()).add(_current);
+                } else {
+                    String s_ = _current.getName();
+                    ClassesUtil.incre(_current,_page.getCountElts().getCountLocalType(),s_,"+");
                 }
             }
         }

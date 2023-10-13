@@ -1043,7 +1043,6 @@ public final class ClassesUtil {
     }
     private static void proc(StringList _basePkgFound, RootBlock _r,StringList _allReservedInnersRoot,StringList _simpleNames, boolean _addPkg, AnalyzedPageEl _page) {
         boolean addPkg_ = _addPkg;
-        boolean add_ = true;
         for (RootBlock r:accessedClassMembers(_r)){
             _r.getAllReservedInners().add(r.getName());
         }
@@ -1070,9 +1069,7 @@ public final class ClassesUtil {
             parFullName_ = possibleParent_.getFullName();
             parGenericString_ = possibleParent_.getGenericString();
         }
-        if (operator_ != null) {
-            add_ = addElt(_r, _allReservedInnersRoot, _page, outerFuntion_, reverv_, parFullName_, parGenericString_);
-        }
+        boolean add_ = addElt(_r, _allReservedInnersRoot, _page, outerFuntion_, reverv_, parFullName_, parGenericString_);
         String s_ = _r.getName();
         if (StringUtil.contains(_basePkgFound, s_)) {
             //ERROR
