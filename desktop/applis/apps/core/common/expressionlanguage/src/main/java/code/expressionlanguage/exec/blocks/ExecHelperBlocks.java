@@ -22,7 +22,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
-import code.util.IdList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -60,18 +59,27 @@ public final class ExecHelperBlocks {
             }
             if (bl_ instanceof IfBlockStack) {
                 ExecBlock forLoopLoc_ = ((IfBlockStack)bl_).getLastBlock();
+                ((IfBlockStack)bl_).setEntered(true);
                 _ip.setBlock(forLoopLoc_);
             }
             if (bl_ instanceof TryBlockStack) {
+                enter((TryBlockStack) bl_, bl_.getCurrentVisitedBlock());
                 _ip.setBlock(((TryBlockStack)bl_).getBlock());
             }
             if (bl_ instanceof SwitchBlockStack) {
                 ExecBlock forLoopLoc_ = ((SwitchBlockStack)bl_).getBlock();
+                ((SwitchBlockStack) bl_).enter();
                 _ip.setBlock(forLoopLoc_);
             }
             return null;
         }
         return bl_;
+    }
+
+    private static void enter(TryBlockStack _bl, ExecBracedBlock _v) {
+        if (_v instanceof ExecElseCondition) {
+            _bl.setEntered(true);
+        }
     }
 
     public static AbstractStask hasBlockContinue(StackCall _stackCall, AbstractPageEl _ip, String _label) {
@@ -152,7 +160,7 @@ public final class ExecHelperBlocks {
     }
 
     private static void entered(ContextEl _cont, StackCall _stack, ExecBracedBlock _block, SwitchBlockStack _abs, ExecResultCase _res, ExecBlock _c) {
-        _abs.enter();
+//        _abs.enter();
         AbstractPageEl ip_ = _stack.getLastPage();
         coverSw(_cont, _stack, _abs, _res);
         ip_.setBlock(_c);
@@ -183,11 +191,10 @@ public final class ExecHelperBlocks {
             processBlockAndRemove(_block, _stackCall);
             return;
         }
-        enterIfBlock(_block, ip_, (EnteredStack) ts_);
+        enterIfBlock(_block, ip_);
     }
 
-    private static void enterIfBlock(ExecBracedBlock _block, AbstractPageEl _ip, EnteredStack _ts) {
-        _ts.setEntered(true);
+    private static void enterIfBlock(ExecBracedBlock _block, AbstractPageEl _ip) {
         _ip.setBlock(_block.getFirstChild());
     }
 
@@ -203,19 +210,16 @@ public final class ExecHelperBlocks {
         }
         ExecBracedBlock lastBlock_ = _cond;
         ExecBlock n_ = _cond.getNextSibling();
-        IdList<ExecBracedBlock> l_ = new IdList<ExecBracedBlock>();
-        l_.add(_cond);
         while (isNextIfParts(n_)) {
-            l_.add((ExecBracedBlock) n_);
             lastBlock_ = (ExecBracedBlock) n_;
             n_ = n_.getNextSibling();
         }
-        IfBlockStack if_ = new IfBlockStack(_cond,lastBlock_,l_);
+        IfBlockStack if_ = new IfBlockStack(_cond,lastBlock_);
         if_.setLabel(_label);
         if_.setCurrentVisitedBlock(_cond);
         ip_.addBlock(if_);
         if (assert_ == ConditionReturn.YES) {
-            enterIfBlock(_cond, ip_, if_);
+            enterIfBlock(_cond, ip_);
         } else {
             ExecBlock next_ = _cond.getNextSibling();
             if (isNextIfParts(next_)) {
@@ -237,7 +241,7 @@ public final class ExecHelperBlocks {
                 return;
             }
             if (assert_ == ConditionReturn.YES) {
-                enterIfBlock(_cond, ip_, (EnteredStack) if_);
+                enterIfBlock(_cond, ip_);
                 return;
             }
         }
@@ -369,15 +373,12 @@ public final class ExecHelperBlocks {
             return;
         }
         ExecBlock n_ = _block.getNextSibling();
-        IdList<ExecBracedBlock> l_ = new IdList<ExecBracedBlock>();
-        l_.add(_block);
         ExecBracedBlock last_ = null;
         while (isNextTryParts(n_)) {
-            l_.add((ExecBracedBlock) n_);
             last_ = (ExecBracedBlock) n_;
             n_ = n_.getNextSibling();
         }
-        TryBlockStack tryStack_ = new TryBlockStack(last_,_block,l_);
+        TryBlockStack tryStack_ = new TryBlockStack(last_,_block);
         tryStack_.setLabel(_label);
         tryStack_.setCurrentVisitedBlock(_block);
         ip_.addBlock(tryStack_);
@@ -1060,13 +1061,11 @@ public final class ExecHelperBlocks {
         if (checkBp(_stack,ip_,_bl)) {
             return;
         }
-        IdList<ExecBracedBlock> l_ = new IdList<ExecBracedBlock>();
-        l_.add(_bl);
-        IfBlockStack if_ = new IfBlockStack(_bl,_bl,l_);
+        IfBlockStack if_ = new IfBlockStack(_bl,_bl);
         if_.setLabel("");
         if_.setCurrentVisitedBlock(_bl);
         ip_.addBlock(if_);
-        enterIfBlock(_bl,ip_,if_);
+        enterIfBlock(_bl,ip_);
     }
 
     public static boolean checkBp(StackCall _stack,AbstractPageEl _ip, ExecBlock _bl) {
@@ -1157,12 +1156,15 @@ public final class ExecHelperBlocks {
                 ((LoopBlockStack) lastStack_).getContent().setEvaluatingKeepLoop(true);
             }
             if (lastStack_ instanceof IfBlockStack) {
+                ((IfBlockStack) lastStack_).setEntered(true);
                 nextIfStack(ip_, par_, (IfBlockStack) lastStack_);
             }
             if (lastStack_ instanceof TryBlockStack) {
+                enter((TryBlockStack)lastStack_, par_);
                 nextTryStack(_stackCall, ip_, par_, (TryBlockStack) lastStack_);
             }
             if (lastStack_ instanceof SwitchBlockStack) {
+                ((SwitchBlockStack) lastStack_).enter();
                 nextSwitchBlock(ip_, par_, (SwitchBlockStack) lastStack_);
             }
             return;

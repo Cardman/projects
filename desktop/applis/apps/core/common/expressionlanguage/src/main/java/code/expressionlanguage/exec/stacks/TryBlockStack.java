@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.stacks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 import code.expressionlanguage.structs.Struct;
-import code.util.IdList;
 
 public final class TryBlockStack extends AbstractStask implements EnteredStack {
 
@@ -16,12 +15,10 @@ public final class TryBlockStack extends AbstractStask implements EnteredStack {
     private boolean entered;
     private boolean enteredCatch;
     private final ExecBracedBlock block;
-    private final IdList<ExecBracedBlock> allBlocks;
 
-    public TryBlockStack(ExecBracedBlock _execLastBlock, ExecBracedBlock _first, IdList<ExecBracedBlock> _a) {
+    public TryBlockStack(ExecBracedBlock _execLastBlock, ExecBracedBlock _first) {
         execLastBlock = _execLastBlock;
         block = _first;
-        allBlocks = _a;
     }
 
     public ExecBracedBlock getBlock() {
@@ -48,11 +45,6 @@ public final class TryBlockStack extends AbstractStask implements EnteredStack {
         return execLastBlock;
     }
 
-
-    @Override
-    public IdList<ExecBracedBlock> getAllBlocks() {
-        return allBlocks;
-    }
 
     @Override
     public ExecBracedBlock getCurrentVisitedBlock() {
