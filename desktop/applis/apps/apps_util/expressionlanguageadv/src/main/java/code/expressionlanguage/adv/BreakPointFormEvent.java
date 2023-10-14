@@ -38,6 +38,8 @@ public final class BreakPointFormEvent implements AbsActionListener {
             }
             MethodPointBlockPair mp_ = currentResult.getPair(MemberCallingsBlock.clName(id_));
             if (mp_ != null) {
+                window.getFramePoints().init(window, currentResult);
+                window.getFramePoints().guiContentBuild(mp_,currentResult);
                 methodAction(mp_, window.getFramePoints().getFrameFormContent(), window.getFramePoints().getCommonFrame(),currentResult);
                 return;
             }
@@ -46,6 +48,8 @@ public final class BreakPointFormEvent implements AbsActionListener {
         if (bp_ == null) {
             return;
         }
+        window.getFramePoints().init(window, currentResult);
+        window.getFramePoints().guiContentBuild(bp_,currentResult);
         bpAction(bp_, window.getFramePoints().getCommonFrame(), window.getFramePoints().getFrameBpFormContent(), currentResult);
     }
 
