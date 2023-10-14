@@ -484,7 +484,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         String acc_ = _man.getEx().getAccess();
         return acc_+ StreamTextFile.SEPARATEUR;
     }
-    public void update(final ResultContext _res,final StringMap<String> _src) {
+    public void update(ResultContext _res, StringMap<String> _src) {
         getCompoFactory().invokeNow(new AnalysisDebugLater(this, _res, _src));
     }
     public void coreUpdate(ResultContext _res, StringMap<String> _src) {

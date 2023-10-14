@@ -62,6 +62,9 @@ public final class ToggleBreakPointEvent implements AbsActionListener {
             return;
         }
         FileBlock file_ = _r.getPageEl().getPreviousFilesBodies().getVal(_tab.getFullPath());
+        if (file_ == null) {
+            return;
+        }
         String cont_ = file_.getContent();
         colors(new SegmentFindPart(0,cont_.length()), _tab.getCompoFactory(), _tab.getCenter(), GuiConstants.BLACK);
         for (SegmentReadOnlyPart s: DbgSyntaxColoring.partsBpMpWp(_r, file_)) {

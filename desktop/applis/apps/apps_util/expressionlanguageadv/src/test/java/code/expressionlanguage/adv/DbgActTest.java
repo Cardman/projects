@@ -22,6 +22,19 @@ import org.junit.Test;
 
 public final class DbgActTest extends EquallableElAdvUtil {
     @Test
+    public void bpRes() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
+        save(b_,src_,"file2.txt","[({)}><]");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(55,55);
+        toggleBp(b_);
+        assertTrue(curRet(b_).is(file(curRet(b_)),55));
+    }
+    @Test
     public void bp0() {
         AbsDebuggerGui b_ = build();
         ManageOptions o_ = opt(b_);
