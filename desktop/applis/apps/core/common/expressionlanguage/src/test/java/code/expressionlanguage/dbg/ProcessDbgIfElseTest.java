@@ -414,6 +414,35 @@ public final class ProcessDbgIfElseTest extends ProcessDbgCommon {
         assertEq(77, now(stack_));
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
+    @Test
+    public void test18() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;if (t > u) {if (t > u) {u += Math.mod(t,u);}} else {t += Math.mod(t,u);}return Math.mod(t,u);}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en", files_);
+        cont_.toggleBreakPoint("pkg/Ex",84);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(84, now(stack_));
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
+    @Test
+    public void test19() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;if (t > u) {if (t > u) {u += Math.mod(t,u);}} else {t += Math.mod(t,u);}return Math.mod(t,u);}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en", files_);
+        cont_.toggleBreakPoint("pkg/Ex",84);
+        analyze(cont_,"t > u","pkg/Ex",84);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(84, now(stack_));
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
     static void analyze(ResultContext _cont, String _cond, String _file, int _caret) {
         FileBlock bl_ = _cont.getPageEl().getPreviousFilesBodies().getVal(_file);
         BreakPointBlockPair pair_ = _cont.getPair(_cont.getFiles().getVal(bl_), _caret);

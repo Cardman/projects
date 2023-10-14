@@ -1,18 +1,21 @@
 package code.expressionlanguage.exec.stacks;
 import code.expressionlanguage.exec.blocks.ExecBracedBlock;
+import code.util.IdList;
 
 
 public final class IfBlockStack extends AbstractStask implements ConditionBlockStack,EnteredStack {
 
     private final ExecBracedBlock execBlock;
     private final ExecBracedBlock execLastBlock;
+    private final IdList<ExecBracedBlock> allBlocks;
     private ExecBracedBlock execCurentVisitedBlock;
 
     private boolean entered;
 
-    public IfBlockStack(ExecBracedBlock _execBlock, ExecBracedBlock _execLastBlock) {
+    public IfBlockStack(ExecBracedBlock _execBlock, ExecBracedBlock _execLastBlock, IdList<ExecBracedBlock> _a) {
         execBlock = _execBlock;
         execLastBlock = _execLastBlock;
+        allBlocks = _a;
     }
     public boolean isEntered() {
         return entered;
@@ -20,6 +23,11 @@ public final class IfBlockStack extends AbstractStask implements ConditionBlockS
 
     public void setEntered(boolean _entered) {
         entered = _entered;
+    }
+
+    @Override
+    public IdList<ExecBracedBlock> getAllBlocks() {
+        return allBlocks;
     }
 
     public ExecBracedBlock getBlock() {

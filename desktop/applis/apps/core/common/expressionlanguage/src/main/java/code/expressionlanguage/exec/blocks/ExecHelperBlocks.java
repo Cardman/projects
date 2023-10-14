@@ -22,6 +22,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
+import code.util.IdList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -202,11 +203,14 @@ public final class ExecHelperBlocks {
         }
         ExecBracedBlock lastBlock_ = _cond;
         ExecBlock n_ = _cond.getNextSibling();
+        IdList<ExecBracedBlock> l_ = new IdList<ExecBracedBlock>();
+        l_.add(_cond);
         while (isNextIfParts(n_)) {
+            l_.add((ExecBracedBlock) n_);
             lastBlock_ = (ExecBracedBlock) n_;
             n_ = n_.getNextSibling();
         }
-        IfBlockStack if_ = new IfBlockStack(_cond,lastBlock_);
+        IfBlockStack if_ = new IfBlockStack(_cond,lastBlock_,l_);
         if_.setLabel(_label);
         if_.setCurrentVisitedBlock(_cond);
         ip_.addBlock(if_);
@@ -365,12 +369,15 @@ public final class ExecHelperBlocks {
             return;
         }
         ExecBlock n_ = _block.getNextSibling();
+        IdList<ExecBracedBlock> l_ = new IdList<ExecBracedBlock>();
+        l_.add(_block);
         ExecBracedBlock last_ = null;
         while (isNextTryParts(n_)) {
+            l_.add((ExecBracedBlock) n_);
             last_ = (ExecBracedBlock) n_;
             n_ = n_.getNextSibling();
         }
-        TryBlockStack tryStack_ = new TryBlockStack(last_,_block);
+        TryBlockStack tryStack_ = new TryBlockStack(last_,_block,l_);
         tryStack_.setLabel(_label);
         tryStack_.setCurrentVisitedBlock(_block);
         ip_.addBlock(tryStack_);
@@ -1053,7 +1060,9 @@ public final class ExecHelperBlocks {
         if (checkBp(_stack,ip_,_bl)) {
             return;
         }
-        IfBlockStack if_ = new IfBlockStack(_bl,_bl);
+        IdList<ExecBracedBlock> l_ = new IdList<ExecBracedBlock>();
+        l_.add(_bl);
+        IfBlockStack if_ = new IfBlockStack(_bl,_bl,l_);
         if_.setLabel("");
         if_.setCurrentVisitedBlock(_bl);
         ip_.addBlock(if_);

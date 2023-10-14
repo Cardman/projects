@@ -61,6 +61,8 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     private int limitSymbol;
     private final AbstractBaseExecutorService finderSymbol;
     private final CustList<ResultRowSrcLocationList> symbols = new CustList<ResultRowSrcLocationList>();
+    private AbsSplitPane projectPart;
+
     protected WindowWithTreeImpl(AbsResultContextNext _a,String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a,_lg,_list);
         factory = _fact;
@@ -270,7 +272,8 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         panelSymbols.removeAll();
         lastCount = frs_.getCompoFactory().newPlainLabel("0");
         panelSymbols.add(lastCount);
-        AbsSplitPane elt_ = frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), getScrollDialog()), editors),
+        projectPart = frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), getScrollDialog());
+        AbsSplitPane elt_ = frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newHorizontalSplitPane(projectPart, editors),
                 events);
         panel.add(elt_);
     }
@@ -298,7 +301,8 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         cancelDialog.addActionListener(new CloseTreeDialog(this));
         panel_.add(cancelDialog);
         scrollDialog.setViewportView(panel_);
-        GuiBaseUtil.recalculate(getCommonFrame().getPane());
+        GuiBaseUtil.recalculate(scrollDialog);
+        projectPart.setDividerLocation(projectPart.getHeight()-scrollDialog.getHeight());
     }
 
     public void fileOrFolder() {

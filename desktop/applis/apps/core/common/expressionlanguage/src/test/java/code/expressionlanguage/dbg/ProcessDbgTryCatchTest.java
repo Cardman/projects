@@ -432,6 +432,20 @@ public final class ProcessDbgTryCatchTest extends ProcessDbgCommon {
         assertEq(94, now(stack_));
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
     }
+    @Test
+    public void test20() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){int t=2;try{try{throw 10;}catch(8){t=3;}catch(:){t=3;}}catch(8){t=3;}catch(:){t=3;}return t;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleBreakPoint("pkg/Ex",60);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(1, stack_.nbPages());
+        assertEq(60, now(stack_));
+        assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
+    }
     static void analyze(ResultContext _cont, String _cond, String _file, int _caret) {
         FileBlock bl_ = _cont.getPageEl().getPreviousFilesBodies().getVal(_file);
         BreakPointBlockPair pair_ = _cont.getPair(_cont.getFiles().getVal(bl_), _caret);

@@ -891,6 +891,9 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             return true;
         }
         if (st_ instanceof EnteredStack) {
+            if (!((EnteredStack) st_).getAllBlocks().containsObj((ExecBracedBlock) bl_)) {
+                return true;
+            }
             return !((EnteredStack) st_).isEntered();
         }
         if (st_ instanceof LoopBlockStack) {
