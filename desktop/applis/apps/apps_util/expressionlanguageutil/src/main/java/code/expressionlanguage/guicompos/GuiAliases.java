@@ -1088,13 +1088,13 @@ public final class GuiAliases {
         map_.put(METHOD_GET_PARENT, aliasGetParentCompo);
         map_.put(METHOD_GET_PAINTING, aliasComponentGetPaint);
         map_.put(wrap(PARAM_3), tr(PARAM_3, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1105,13 +1105,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_23), tr(PARAM_23, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1122,13 +1122,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_24), tr(PARAM_24, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1139,13 +1139,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_25), tr(PARAM_25, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1156,13 +1156,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_26), tr(PARAM_26, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1173,13 +1173,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_27), tr(PARAM_27, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1190,13 +1190,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_28), tr(PARAM_28, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1207,13 +1207,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_29), tr(PARAM_29, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1224,13 +1224,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_30), tr(PARAM_30, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1241,13 +1241,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_31), tr(PARAM_31, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1258,13 +1258,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_32), tr(PARAM_32, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1275,13 +1275,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_33), tr(PARAM_33, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1292,13 +1292,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_34), tr(PARAM_34, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1309,13 +1309,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_35), tr(PARAM_35, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1326,13 +1326,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_36), tr(PARAM_36, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1343,13 +1343,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_37), tr(PARAM_37, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1360,13 +1360,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_38), tr(PARAM_38, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1377,13 +1377,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_39), tr(PARAM_39, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1394,13 +1394,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put(wrap(PARAM_40), tr(PARAM_40, _keyWords, pr_, co_,
-                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                
+                
+                
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0(),
@@ -1445,7 +1445,8 @@ public final class GuiAliases {
         map_.put(METHOD_DISPOSE,aliasImageDispose);
         map_.put(TYPE_BOOLEAN,primTypes_.getAliasPrimBoolean());
         content_ = StringUtil.formatQuote(content_, map_);
-        stds_.addEntry(aliasPaint, content_);
+        String header_ = _keyWords.getKeyWordPublic() +" "+ _keyWords.getKeyWordAbstract()+" "+_keyWords.getKeyWordFinal()+" "+_keyWords.getKeyWordClass()+" "+aliasPaint+" {"+LR;
+        stds_.addEntry(aliasPaint, header_+paintMethod(_keyWords,_content)+add3(_keyWords,_content)+content_+"}");
         return stds_;
     }
     public String actionListener(KeyWords _kw, LgNamesContent _content) {
@@ -1552,6 +1553,184 @@ public final class GuiAliases {
                 +SPACES_4+pub_+" "+ vd_ +" "+aliasFocusGained+"();"+LR
                 +SPACES_4+pub_+" "+ vd_ +" "+aliasFocusLost+"();"+LR
                 +"}"+LR;
+    }
+    public String paintMethod(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        String stat_ = _kw.getKeyWordStatic();
+        String vd_ = _content.getCoreNames().getAliasVoid();
+        String fct_ = _content.getReflect().getAliasFct();
+        String ret_ = _kw.getKeyWordReturn();
+        String nul_ = _kw.getKeyWordNull();
+        String is_ = _kw.getKeyWordInstanceof();
+        String ifk_ = _kw.getKeyWordIf();
+        String wh_ = _kw.getKeyWordWhile();
+        String paPar_ = guiAliasParameters.getAliasPaint0PaintMethod0();
+        String callFct_ = _content.getReflect().getAliasCall();
+        String tr_ = _kw.getKeyWordTrue();
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore co_ = _content.getCoreNames();
+        String fv_ = tr("fct", _kw, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0());
+        String cvar_ = tr("z", _kw, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0());
+        String pvar_ = tr("p", _kw, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0());
+        String pan_ = tr( "pan", _kw, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0());
+        String cont_ = _kw.getKeyWordContinue();
+        String br_ = _kw.getKeyWordBreak();
+        String par_ = tr( "par", _kw, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0());
+        String elsif_ = _kw.getKeyWordElseif();
+        String cast_ = _kw.getKeyWordCast();
+        return SPACES_4+ pub_ +" "+ stat_ +" "+ vd_ +" "+aliasPaintMethod+"("+ aliasComponent +" "+ paPar_ +"){"+LR
+                +SPACES_4+SPACES_4+ ifk_ +" ("+ paPar_ +" == "+ nul_ +") {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ ifk_ +" (!("+ paPar_ +" "+ is_ +" "+aliasPanel+")) {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ fct_ +"<"+ aliasComponent +",?> "+ fv_ +" = "+ paPar_ +"."+ aliasComponentGetPaint +"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ifk_ +" ("+ fv_ +" != "+ nul_ +") {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ fv_ +"."+ callFct_ +"("+ paPar_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ aliasComponent +" "+ cvar_ +" = "+ paPar_ +";"+LR
+                +SPACES_4+SPACES_4+ wh_ +" ("+ tr_ +") {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ fct_ +"<"+ aliasComponent +",?> "+ fv_ +" = "+ cvar_ +"."+ aliasComponentGetPaint +"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ifk_ +" ("+ fv_ +" != "+ nul_ +") {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ fv_ +"."+ callFct_ +"("+ cvar_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ifk_ +" ("+ cvar_ +" "+ is_ +" "+aliasPanel+") {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+aliasPanel+" "+ pan_ +" = "+ cast_ +"("+aliasPanel+")"+ cvar_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ aliasComponent +" "+ pvar_ +" = "+ pan_ +"."+aliasGetIndexCompo+"("+"0"+");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ ifk_ +" ("+ pvar_ +" != "+ nul_ +") {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ cvar_ +" = "+ pvar_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ cont_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+ elsif_ +" ("+ cvar_ +" == "+ paPar_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ wh_ +" ("+ tr_ +") {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ aliasComponent +" "+ pvar_ +" = "+ cvar_ +"."+aliasGetNextCompo+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ ifk_ +" ("+ pvar_ +" != "+ nul_ +") {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ cvar_ +" = "+ pvar_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ br_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ aliasComponent +" "+ par_ +" = "+ cvar_ +"."+aliasGetParentCompo+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ ifk_ +" ("+ par_ +" == "+ paPar_ +") {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ cvar_ +" = "+ par_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+"}"+LR;
+    }
+    public String add3(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        String stat_ = _kw.getKeyWordStatic();
+        String vd_ = _content.getCoreNames().getAliasVoid();
+        String obj_ = _content.getCoreNames().getAliasObject();
+        String mat_ = _content.getMathRef().getAliasMath();
+        String chUt_ = _content.getCoreNames().getAliasStringUtil();
+        String ret_ = _kw.getKeyWordReturn();
+        String nul_ = _kw.getKeyWordNull();
+        String ifk_ = _kw.getKeyWordIf();
+        String callFct_ = _content.getReflect().getAliasCall();
+        String tr_ = _kw.getKeyWordTrue();
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore co_ = _content.getCoreNames();
+        String p1_ = guiAliasParameters.getAliasPaint0TabbedPaneAdd0();
+        String p2_ = guiAliasParameters.getAliasPaint0TabbedPaneAdd1();
+        String p3_ = guiAliasParameters.getAliasPaint0TabbedPaneAdd2();
+        String cvar_ = tr("z", _kw, pr_, co_, p1_, p2_, p3_);
+        String br_ = _kw.getKeyWordBreak();
+        String ipr_ = primTypes_.getAliasPrimInteger();
+        String kwvar_ = _kw.getKeyWordVar();
+        String rvar_ = tr("r", _kw, pr_, co_, p1_, p2_, p3_);
+        String ft_ = tr("ft", _kw, pr_, co_, p1_, p2_, p3_);
+        String mw_ = tr("mw", _kw, pr_, co_, p1_, p2_, p3_);
+        String max_ = _content.getMathRef().getAliasMax();
+        String pour_ = _kw.getKeyWordFor();
+        String text_ = tr("text", _kw, pr_, co_, p1_, p2_, p3_);
+        String o_ =  tr("o", _kw, pr_, co_, p1_, p2_, p3_);
+        String vof_ = _content.getCoreNames().getAliasStringUtilValueOf();
+        String h_ = tr("h", _kw, pr_, co_, p1_, p2_, p3_);
+        String la_ = tr("la", _kw, pr_, co_, p1_, p2_, p3_);
+        String newKeyWord_ = _kw.getKeyWordNew();
+        String img_ = tr("img", _kw, pr_, co_, p1_, p2_, p3_);
+        String hf_ = tr("hf", _kw, pr_, co_, p1_, p2_, p3_);
+        String lf_ = tr("lf", _kw, pr_, co_, p1_, p2_, p3_);
+        String pf_ = tr("pf", _kw, pr_, co_, p1_, p2_, p3_);
+        String nb_ = tr("nb", _kw, pr_, co_, p1_, p2_, p3_);
+        String fal_ = _kw.getKeyWordFalse();
+        return SPACES_4+ pub_ +" "+ stat_ +" "+ vd_ +" "+aliasPaintAdd+"("+aliasGrList+" "+ p1_ +", "+ ipr_ +" "+ p2_ +","+ obj_ +" "+ p3_ +"){"+LR
+                +SPACES_4+SPACES_4+ kwvar_ +" "+ rvar_ +" = "+ p1_ +"."+ aliasGrListGetRender+"();"+LR
+                +SPACES_4+SPACES_4+ ifk_ +" ("+ rvar_ +" == "+ nul_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ ft_ +" = "+ p1_ +"."+aliasGetFont+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ipr_ +" "+ mw_ +" = "+ stat_ +"("+ mat_ +")."+ max_ +"("+"4"+", "+ p1_ +"."+aliasRenderGetWidth+"());"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ pour_ +" ("+ kwvar_ +" "+ o_ +": "+ p1_ +"."+aliasGrListGetListView+"()){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ text_ +" = "+ stat_ +"("+ chUt_ +")."+ vof_ +"("+ o_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ mw_ +" = "+ stat_ +"("+ mat_ +")."+ max_ +"("+ mw_ +", "+ ft_ +"."+ aliasFontStringWidth+"("+ text_ +"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ h_ +" = "+ ft_ +"."+aliasFontGetSize+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ text_ +" = "+ stat_ +"("+ chUt_ +")."+ vof_ +"("+ p3_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ la_ +" = "+ stat_ +"("+ mat_ +")."+ max_ +"("+ mw_ +","+ ft_ +"."+aliasFontStringWidth+"("+ text_ +"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ img_ +" = "+ newKeyWord_ +" "+aliasImage+"("+ la_ +","+ h_ +","+ tr_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageSetFont+"("+ ft_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageSetColor+"("+ newKeyWord_ +"("+"255"+","+"255"+","+"255"+"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageFillRect+"("+"0"+", "+"0"+", "+ la_ +" + "+"2"+", "+ h_ +" + "+"2"+");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageSetColor+"("+ newKeyWord_ +"("+"0"+","+"0"+","+"0"+"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageDraw+"("+ text_ +", "+"1"+","+ h_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ p1_ +"."+aliasGrListAdd+"("+ p2_ +","+ newKeyWord_ +" "+aliasImageLabel+"("+ img_ +"),"+ p3_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageDispose+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+aliasPaintRefresh+"("+ p1_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ kwvar_ +" "+ hf_ +" = "+ rvar_ +"."+aliasRenderGetHeight+"();"+LR
+                +SPACES_4+SPACES_4+ kwvar_ +" "+ lf_ +" = "+ rvar_ +"."+aliasRenderGetWidth+"();"+LR
+                +SPACES_4+SPACES_4+ kwvar_ +" "+ pf_ +" = "+ rvar_ +"."+ aliasComponentGetPaint +"();"+LR
+                +SPACES_4+SPACES_4+ ifk_ +" ("+ hf_ +" == "+ nul_ +" || "+ lf_ +" == "+ nul_ +" || "+ pf_ +" == "+ nul_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ ft_ +" = "+ p1_ +"."+aliasGetFont+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ipr_ +" "+ mw_ +" = "+ stat_ +"("+ mat_ +")."+ max_ +"("+"4"+", "+ p1_ +"."+aliasRenderGetWidth+"());"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ pour_ +" ("+ kwvar_ +" "+ o_ +": "+ p1_ +"."+aliasGrListGetListView+"()){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ text_ +" = "+ stat_ +"("+ chUt_ +")."+ vof_ +"("+ o_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ mw_ +" = "+ stat_ +"("+ mat_ +")."+ max_ +"("+ mw_ +", "+ ft_ +"."+aliasFontStringWidth+"("+ text_ +"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ h_ +" = "+ ft_ +"."+aliasFontGetSize+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ text_ +" = "+ stat_ +"("+ chUt_ +")."+ vof_ +"("+ p3_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ la_ +" = "+ stat_ +"("+ mat_ +")."+ max_ +"("+ mw_ +","+ ft_ +"."+aliasFontStringWidth+"("+ text_ +"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ img_ +" = "+ newKeyWord_ +" "+aliasImage+"("+ la_ +","+ h_ +","+ tr_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageSetFont+"("+ ft_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageSetColor+"("+ newKeyWord_ +"("+"255"+","+"255"+","+"255"+"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageFillRect+"("+"0"+", "+"0"+", "+ la_ +" + "+"2"+", "+ h_ +" + "+"2"+");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageSetColor+"("+ newKeyWord_ +"("+"0"+","+"0"+","+"0"+"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageDraw+"("+ text_ +", "+"1"+","+ h_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ p1_ +"."+aliasGrListAdd+"("+ p2_ +","+ newKeyWord_ +" "+aliasImageLabel+"("+ img_ +"),"+ p3_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageDispose+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+aliasPaintRefresh+"("+ p1_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ kwvar_ +" "+ h_ +" = "+ hf_ +"."+ callFct_ +"("+ p1_ +","+ p3_ +","+ p2_ +","+ fal_ +","+"0"+");"+LR
+                +SPACES_4+SPACES_4+ kwvar_ +" "+ la_ +" = "+"0"+";"+LR
+                +SPACES_4+SPACES_4+ pour_ +" ("+ kwvar_ +" "+ o_ +": "+ p1_ +"."+aliasGrListGetListView+"()){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ nb_ +" = "+ fal_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ pour_ +" ("+ kwvar_ +" "+ cvar_ +":"+ p1_ +"."+aliasGrListGetSelectedIndexes+"()){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ ifk_ +" ("+ cvar_ +" == (["+ o_ +"])){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ nb_ +" = "+ tr_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ br_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ la_ +" = "+ lf_ +"."+ callFct_ +"("+ p1_ +","+ o_ +",(["+ o_ +"]),"+ nb_ +","+ la_ +");"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ la_ +" = "+ lf_ +"."+ callFct_ +"("+ p1_ +","+ p3_ +","+ p2_ +","+ fal_ +","+ la_ +");"+LR
+                +SPACES_4+SPACES_4+ kwvar_ +" "+ img_ +" = "+ newKeyWord_ +" "+aliasImage+"("+ la_ +","+ h_ +","+ tr_ +");"+LR
+                +SPACES_4+SPACES_4+ pf_ +"."+ callFct_ +"("+ p1_ +","+ p3_ +","+ p2_ +","+ fal_ +","+ img_ +");"+LR
+                +SPACES_4+SPACES_4+ p1_ +"."+aliasGrListAdd+"("+ p2_ +","+ newKeyWord_ +" "+aliasImageLabel+"("+ img_ +"),"+ p3_ +");"+LR
+                +SPACES_4+SPACES_4+ img_ +"."+aliasImageDispose+"();"+LR
+                +SPACES_4+SPACES_4+aliasPaintRefresh+"("+ p1_ +");"+LR
+                +SPACES_4+"}"+LR;
     }
     private static String wrap(String _element) {
         return '{'+_element+'}';
