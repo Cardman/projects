@@ -9,7 +9,7 @@ import code.util.IdList;
 import code.util.Ints;
 import code.util.core.NumberUtil;
 
-public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T> {
+public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, Input,SelectableIndexes{
     private final AbsScrollPane scrollPane;
     private final AbsPanel elements;
     private final CustList<AbsEnabledAction> actions = new CustList<AbsEnabledAction>();
@@ -1105,6 +1105,11 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T> {
     }
 
     public AbsScrollPane getScrollPane() {
+        return (AbsScrollPane) getGlobal();
+    }
+
+    @Override
+    public AbsCustComponent getGlobal() {
         return scrollPane;
     }
 

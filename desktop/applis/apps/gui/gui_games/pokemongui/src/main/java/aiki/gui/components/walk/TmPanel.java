@@ -1,12 +1,14 @@
 package aiki.gui.components.walk;
 
 
-
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
-import code.gui.*;
+import aiki.main.AikiFactory;
+import code.gui.AbsPanel;
+import code.gui.AbsPlainLabel;
+import code.gui.GuiConstants;
+import code.gui.ScrollCustomGraphicList;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -15,7 +17,7 @@ public final class TmPanel {
 
     private static final String SPACE = " ";
 
-    private final AbsGraphicList<String> liste;
+    private final ScrollCustomGraphicList<String> liste;
 
     private final StringList items = new StringList();
 
@@ -25,7 +27,7 @@ public final class TmPanel {
 
     private final AbsPanel container;
     public TmPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade) {
-        liste = _window.getAikiFactory().getGeneTmPanel().createSimple(_window.getImageFactory(),new TmRenderer(_window.getFrames().getImageFactory(),_facade));
+        liste = AikiFactory.str(_window.getCompoFactory(), _window.getImageFactory(),new TmRenderer(_window.getFrames().getImageFactory(),_facade));
         facade = _facade;
         amount = _window.getFrames().getCompoFactory().newPlainLabel("");
         container = _window.getFrames().getCompoFactory().newBorder();
@@ -35,9 +37,9 @@ public final class TmPanel {
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         int side_ = facade.getMap().getSideLength();
-        liste.scroll().setPreferredSize(new MetaDimension(150,2*side_*_nb));
+        liste.getScrollPane().setPreferredSize(new MetaDimension(150,2*side_*_nb));
         initItems();
-        container.add(liste.scroll(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container.add(liste.getScrollPane(),GuiConstants.BORDER_LAYOUT_CENTER);
         container.add(amount, GuiConstants.BORDER_LAYOUT_SOUTH);
         container.setPreferredSize(new MetaDimension(150,2*side_*_nb+32));
     }
@@ -65,7 +67,7 @@ public final class TmPanel {
     }
 
     public void deselect() {
-        liste.clearSelection();
+        liste.deselectAll();
     }
 
     public AbsPanel getContainer() {

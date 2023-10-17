@@ -1,40 +1,42 @@
 package cards.gui.labels.selection;
 
 
-
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
-import cards.gui.labels.CustCellRenderCards;
 import cards.president.enumerations.CardPresident;
-import code.gui.*;
+import code.gui.AbsCustCellRenderGene;
+import code.gui.ColorsGroupList;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.gui.images.MetaDimension;
+import code.gui.images.MetaFont;
 import code.util.core.NumberUtil;
 
 /**
  */
-public class CardPresidentCellRenderer extends CustCellRenderCards<CardPresident> {
+public class CardPresidentCellRenderer implements AbsCustCellRenderGene<CardPresident> {
     private CardPresident card;
     private boolean selectionne;
     private final WindowCardsInt window;
     public CardPresidentCellRenderer(WindowCardsInt _window) {
         window = _window;
     }
-    @Override
-    public void getListCellRendererComponent(AbsPreparedLabel _currentLab,
-                                             int _index, boolean _isSelected, boolean _cellHasFocus) {
-        card= get(_index);
-        selectionne=_isSelected;
-        _currentLab.setPreferredSize(new MetaDimension(50,10));
-    }
 
     @Override
+    public AbstractImage getListCellRendererComponent(int _index, CardPresident _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
+        card = _info;
+        selectionne=_isSelected;
+        AbstractImage img_ = window.getImageFactory().newImageRgb(50, 10);
+        img_.setFont(_lab);
+        paintComponent(img_);
+        return img_;
+    }
+
     public AbstractImageFactory getImageFactory() {
         return window.getImageFactory();
     }
-    @Override
+
     public void paintComponent(AbstractImage _g) {
         if(!selectionne) {
             _g.setColor(GuiConstants.WHITE);
@@ -88,13 +90,5 @@ public class CardPresidentCellRenderer extends CustCellRenderCards<CardPresident
         }
         String lg_ = window.getLanguageKey();
         _g.drawString(Games.getSymbol(card,lg_),10,10);
-    }
-    @Override
-    public int getHeight() {
-        return 10;
-    }
-    @Override
-    public int getWidth() {
-        return 50;
     }
 }

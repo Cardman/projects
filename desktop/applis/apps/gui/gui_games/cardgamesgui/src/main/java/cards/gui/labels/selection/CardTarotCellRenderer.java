@@ -5,17 +5,16 @@ package cards.gui.labels.selection;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
-import cards.gui.labels.CustCellRenderCards;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.gui.images.MetaDimension;
+import code.gui.images.MetaFont;
 import code.util.core.NumberUtil;
 
 /**
  */
-public class CardTarotCellRenderer extends CustCellRenderCards<CardTarot> {
+public class CardTarotCellRenderer implements AbsCustCellRenderGene<CardTarot> {
     private CardTarot card;
     private boolean selectionne;
     private final WindowCardsInt window;
@@ -23,18 +22,20 @@ public class CardTarotCellRenderer extends CustCellRenderCards<CardTarot> {
         window = _window;
     }
 
-    @Override
     public AbstractImageFactory getImageFactory() {
         return window.getImageFactory();
     }
+
     @Override
-    public void getListCellRendererComponent(AbsPreparedLabel _currentLab,
-                                             int _index, boolean _isSelected, boolean _cellHasFocus) {
-        card= get(_index);
+    public AbstractImage getListCellRendererComponent(int _index, CardTarot _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
+        card = _info;
         selectionne=_isSelected;
-        _currentLab.setPreferredSize(new MetaDimension(50,10));
+        AbstractImage img_ = window.getImageFactory().newImageRgb(50, 10);
+        img_.setFont(_lab);
+        paintComponent(img_);
+        return img_;
     }
-    @Override
+
     public void paintComponent(AbstractImage _g) {
         if(!selectionne) {
             _g.setColor(GuiConstants.WHITE);
@@ -98,12 +99,5 @@ public class CardTarotCellRenderer extends CustCellRenderCards<CardTarot> {
         String lg_ = window.getLanguageKey();
         _g.drawString(Games.getSymbol(card,lg_),10,10);
     }
-    @Override
-    public int getHeight() {
-        return 10;
-    }
-    @Override
-    public int getWidth() {
-        return 50;
-    }
+
 }

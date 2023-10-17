@@ -22,11 +22,8 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "pokemon";
 
-    private final AikiFactory aikiFactory;
-
-    public LaunchingPokemon(AbstractProgramInfos _frames, AikiFactory _aikiFactory) {
+    public LaunchingPokemon(AbstractProgramInfos _frames) {
         super(_frames);
-        aikiFactory = _aikiFactory;
     }
 
     protected static void loadLaungage(String[] _args, LaunchingPokemon _soft) {
@@ -101,7 +98,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
 //        path_ = Constants.getInitFolder();
 //        CreateMainWindow create_ = new CreateMainWindow(param_, false, path_, topLeft_);
 //        create_.start();
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowAiki(param_, args_, path_, topLeft_, _language, getFrames(), aikiFactory), getFrames());
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowAiki(param_, args_, path_, topLeft_, _language, getFrames()), getFrames());
     }
 
     protected StringList getFile(String[] _args) {

@@ -443,11 +443,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     public WindowCards(String _lg, AbstractProgramInfos _list,
                        StringMap<StringMap<PreparedPagesCards>> _belote,
                        StringMap<StringMap<PreparedPagesCards>> _president,
-                       StringMap<StringMap<PreparedPagesCards>> _tarot,
-                       CardFactories _cardFactories) {
+                       StringMap<StringMap<PreparedPagesCards>> _tarot) {
         super(_lg, _list);
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
-        core = new WindowCardsCore(_lg, _list, _belote, _president, _tarot, _cardFactories);
+        core = new WindowCardsCore(_lg, _list, _belote, _president, _tarot);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
 //        dialogDisplayingPresident = new DialogDisplayingPresident(_list);
@@ -2326,10 +2325,6 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //    public DialogServerCards getDialogServer() {
 //        return dialogServer;
 //    }
-
-    public CardFactories getCardFactories() {
-        return core.getCardFactories();
-    }
 
     public StringMap<StringMap<String>> getImages() {
         return core.getImages();

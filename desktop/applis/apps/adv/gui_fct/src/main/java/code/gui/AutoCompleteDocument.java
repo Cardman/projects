@@ -19,7 +19,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
 
     private final AbsPopupMenu popup;
 
-    private final AbsGraphicList<String> list;
+    private final ScrollCustomGraphicList<String> list;
 
     private final AbsTxtComponent textField;
     private final AfterValidateText afterValidateText;
@@ -35,9 +35,8 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
         popup = _abs.getCompoFactory().newAbsPopupMenu();
         popup.setFocusable(false);
         popup.setVisible(false);
-        AbsGraphicList<String> comp_ = _abs.getGeneGraphicList().createStrList(_abs.getImageFactory(),new StringList(), _abs.getCompoFactory());
-        list = comp_;
-        popup.add(comp_.scroll());
+        list = GuiBaseUtil.standard(_abs.getCompoFactory(), _abs.getImageFactory(), true);
+        popup.add(list.getScrollPane());
         textField.addAutoComplete(this);
         upAction = _abs.getCompoFactory().wrap(new AutoCompleteUpEvent(this));
         textField.registerKeyboardAction(upAction,GuiConstants.VK_UP,0);
@@ -71,7 +70,9 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
         }
         String text_ = list.get(ind_.first()).trim();
         list.clear();
-        list.setSelectedIndice(-1);
+        list.select(-1);
+        list.revalidate();
+        list.repaint();
         hideAutocompletePopup();
         applying = true;
         afterValidateText.act(textField,text_);
@@ -81,16 +82,18 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
     public void downEvent() {
         int index_ = list.getSelectedIndex();
         if (index_ != -1 && list.getList().size() > index_ + 1) {
-            list.clearAllRange();
-            list.setSelectedIndice(index_ + 1);
+            list.select(index_ + 1);
+            list.revalidate();
+            list.repaint();
         }
     }
 
     public void upEvent() {
         int index_ = list.getSelectedIndex();
         if (index_ > 0) {
-            list.clearAllRange();
-            list.setSelectedIndice(index_ - 1);
+            list.select(index_ - 1);
+            list.revalidate();
+            list.repaint();
         }
     }
 
@@ -129,13 +132,17 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
             list.add(s);
         }
         if (list.getList().isEmpty()) {
+            list.repaint();
+            list.revalidate();
             hideAutocompletePopup();
             return;
         }
-        list.scroll().setPreferredSize(new MetaDimension(list.scroll().getPreferredSizeValue().getWidth(),16*NumberUtil.min(r_.size(),10)));
+        list.getScrollPane().setPreferredSize(new MetaDimension(list.getScrollPane().getPreferredSizeValue().getWidth(),32*NumberUtil.min(r_.size(),10)));
 
         // Selecting first result
-        list.setSelectedIndice(0);
+        list.select(0);
+        list.revalidate();
+        list.repaint();
 
         showAutocompletePopup();
     }
@@ -145,7 +152,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
         dictionary.addAllElts(_dictionary);
     }
 
-    public AbsGraphicList<String> getList() {
+    public ScrollCustomGraphicList<String> getList() {
         return list;
     }
 

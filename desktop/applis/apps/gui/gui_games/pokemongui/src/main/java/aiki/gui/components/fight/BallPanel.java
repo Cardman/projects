@@ -5,6 +5,7 @@ package aiki.gui.components.fight;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
 import aiki.gui.WindowAiki;
+import aiki.main.AikiFactory;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.*;
@@ -15,7 +16,7 @@ public final class BallPanel {
 
     private final AbsPlainLabel title;
 
-    private final AbsGraphicList<BallNumberRate> listeBall;
+    private final ScrollCustomGraphicList<BallNumberRate> listeBall;
 
     private final FacadeGame facade;
 
@@ -26,7 +27,7 @@ public final class BallPanel {
 
     public BallPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade) {
         renderer = new BallRenderer(_window.getFrames().getImageFactory(),_facade);
-        listeBall = _window.getAikiFactory().getGeneBallNumberRate().createSimple(_window.getImageFactory(),renderer);
+        listeBall = AikiFactory.ballPanel(_window.getCompoFactory(), _window.getImageFactory(),renderer);
         facade = _facade;
         compoFactory = _window.getFrames().getCompoFactory();
         container = compoFactory.newBorder();
@@ -36,9 +37,9 @@ public final class BallPanel {
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         int s_ = _facade.getData().getMap().getSideLength();
-        listeBall.scroll().setPreferredSize(new MetaDimension(100,s_*_nb));
+        listeBall.getScrollPane().setPreferredSize(new MetaDimension(100,s_*_nb));
         initBalls();
-        container.add(listeBall.scroll(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container.add(listeBall.getScrollPane(),GuiConstants.BORDER_LAYOUT_CENTER);
         container.setPreferredSize(new MetaDimension(100,s_*_nb+16));
     }
 

@@ -4,14 +4,10 @@ package aiki.gui.components.fight;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
-import aiki.gui.components.CustCellRenderPk;
 import code.gui.*;
-import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
-import code.gui.images.ConverterGraphicBufferedImage;
-import code.gui.images.MetaDimension;
+import code.gui.images.*;
 
-public class PokemonDataRenderer extends CustCellRenderPk<String> {
+public class PokemonDataRenderer implements AbsCustCellRenderGene<String> {
 
     private final int sideLength;
     private int height;
@@ -39,14 +35,11 @@ public class PokemonDataRenderer extends CustCellRenderPk<String> {
     }
 
     @Override
-    public void getListCellRendererComponent(AbsPreparedLabel _currentLab,
-                                             int _index,
-                                             boolean _isSelected, boolean _cellHasFocus) {
+    public AbstractImage getListCellRendererComponent(int _index, String _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
         selected = _isSelected;
-        String key_ = get(_index);
-        if (!key_.isEmpty()) {
-            name = facade.translatePokemon(key_);
-            int[][] img_ = facade.getData().getMiniPk().getVal(key_);
+        if (!_info.isEmpty()) {
+            name = facade.translatePokemon(_info);
+            int[][] img_ = facade.getData().getMiniPk().getVal(_info);
             pkImage = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
             height = pkImage.getHeight();
         } else {
@@ -54,14 +47,15 @@ public class PokemonDataRenderer extends CustCellRenderPk<String> {
             pkImage = null;
             height = sideLength;
         }
-        _currentLab.setPreferredSize(new MetaDimension(100, height));
+        AbstractImage i_ = fact.newImageRgb(100, height);
+        paintComponent(i_);
+        return i_;
     }
 
-    @Override
     public AbstractImageFactory getImageFactory() {
         return fact;
     }
-    @Override
+
     public void paintComponent(AbstractImage _g) {
         if (!name.isEmpty()) {
             _g.drawImage(pkImage, 0, 0);
@@ -69,23 +63,18 @@ public class PokemonDataRenderer extends CustCellRenderPk<String> {
             _g.drawString(name, sideLength, getHeight());
         } else {
             _g.setColor(GuiConstants.WHITE);
-            _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
+            _g.fillRect(0, 0, 100 - 1, getHeight() - 1);
             _g.setColor(GuiConstants.BLACK);
             _g.drawString(noEvo, 0, getHeight());
         }
         if (selected) {
             _g.setColor(GuiConstants.RED);
-            _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+            _g.drawRect(0, 0, 100 - 1, getHeight() - 1);
         }
     }
 
-    @Override
     public int getHeight() {
         return height;
     }
 
-    @Override
-    public int getWidth() {
-        return 100;
-    }
 }

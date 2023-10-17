@@ -5,33 +5,34 @@ package cards.gui.labels.selection;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
-import cards.gui.labels.CustCellRenderCards;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.gui.images.MetaDimension;
+import code.gui.images.MetaFont;
 import code.util.core.NumberUtil;
 
 /**
     */
 
-public class SuitCellRenderer extends CustCellRenderCards<Suit> {
+public class SuitCellRenderer implements AbsCustCellRenderGene<Suit> {
     private Suit couleur;
     private boolean selectionne;
     private final WindowCardsInt window;
     public SuitCellRenderer(WindowCardsInt _window) {
         window = _window;
     }
+
+
     /**Donne la facon de presenter une couleur dans une liste avec un symbole et un nom*/
     @Override
-    public void getListCellRendererComponent(AbsPreparedLabel _currentLab,
-                                             int _index, boolean _isSelected, boolean _cellHasFocus) {
-        couleur= get(_index);
+    public AbstractImage getListCellRendererComponent(int _index, Suit _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
+        couleur= _info;
         selectionne=_isSelected;
-        _currentLab.setPreferredSize(new MetaDimension(100,10));
+        AbstractImage img_ = window.getImageFactory().newImageRgb(100,10);
+        img_.setFont(_lab);
+        paintComponent(img_);
+        return img_;
     }
-
-    @Override
     public void paintComponent(AbstractImage _g) {
         if(!selectionne) {
             _g.setColor(GuiConstants.WHITE);
@@ -93,16 +94,8 @@ public class SuitCellRenderer extends CustCellRenderCards<Suit> {
         }
     }
 
-    @Override
     public AbstractImageFactory getImageFactory() {
         return window.getImageFactory();
     }
-    @Override
-    public int getHeight() {
-        return 10;
-    }
-    @Override
-    public int getWidth() {
-        return 100;
-    }
+
 }

@@ -21,18 +21,16 @@ public class ProgramInfosBase {
     private final String homePath;
     private final String tmpUserFolder;
     private final AbstractGenerator generator;
-    private final AbstractGraphicStringListGenerator geneGraphicList;
     private final AbstractGraphicComboBoxGenerator geneComboBox;
     private final CompoundedInitParts compoundedInitParts;
     private StringList languages = new StringList();
     private String language = "";
     private StringMap<String> common = new StringMap<String>();
 
-    public ProgramInfosBase(String _h, String _t, AbstractGenerator _g, AbstractGraphicStringListGenerator _l, AbstractGraphicComboBoxGenerator _c, CompoundedInitParts _parts) {
+    public ProgramInfosBase(String _h, String _t, AbstractGenerator _g, AbstractGraphicComboBoxGenerator _c, CompoundedInitParts _parts) {
         this.homePath = _h;
         this.tmpUserFolder = _t;
         this.generator = _g;
-        this.geneGraphicList = _l;
         this.geneComboBox = _c;
         this.compoundedInitParts = _parts;
     }
@@ -84,9 +82,6 @@ public class ProgramInfosBase {
         return geneComboBox;
     }
 
-    public AbstractGraphicStringListGenerator getGeneGraphicList() {
-        return geneGraphicList;
-    }
     public AbstractThreadFactory getThreadFactory() {
         return compoundedInitParts.getThreadFactory();
     }

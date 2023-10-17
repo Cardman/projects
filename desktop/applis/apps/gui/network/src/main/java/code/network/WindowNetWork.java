@@ -450,7 +450,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private ResultCardsServerInteract resultCardsServerInteract;
 //    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
     private final NetAiki netAiki = new NetAiki();
-    private final AikiFactory aikiFactory;
     private StringMap<String> messagesAiki = new StringMap<String>();
     private final FacadeGame facade;
     private final ScenePanelMulti scenePanel;
@@ -471,12 +470,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private boolean cards;
     private AbsButton buttonClick;
     public WindowNetWork(String _lg, AbstractProgramInfos _list,
-                       StringMap<StringMap<PreparedPagesCards>> _belote,
-                       StringMap<StringMap<PreparedPagesCards>> _president,
-                       StringMap<StringMap<PreparedPagesCards>> _tarot,
-                       CardFactories _cardFactories, AikiFactory _aikiFactory) {
+                         StringMap<StringMap<PreparedPagesCards>> _belote,
+                         StringMap<StringMap<PreparedPagesCards>> _president,
+                         StringMap<StringMap<PreparedPagesCards>> _tarot) {
         super(_lg, _list);
-        netg = new WindowCardsCore(_lg, _list, _belote, _president, _tarot, _cardFactories);
+        netg = new WindowCardsCore(_lg, _list, _belote, _president, _tarot);
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
         facade = new FacadeGame();
         StringList lgs_ = Constants.getAvailableLanguages();
@@ -574,8 +572,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            ((ContainerSingle)containerGame).modify();
 //        }
 //        exitMode(_list);
-        aikiFactory = _aikiFactory;
-//        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
+        //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
     }
     public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
@@ -2699,10 +2696,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return dialogServer;
     }
 
-    public CardFactories getCardFactories() {
-        return netg.getCardFactories();
-    }
-
     public StringMap<StringMap<String>> getImages() {
         return netg.getImages();
     }
@@ -2790,10 +2783,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        }
 //        exporting = getThreadFactory().newThread(new ExportRomThread(facade,loadingConf,getThreadFactory(), getFileCoreStream(),getStreams()));
 //        exporting.start();
-    }
-    @Override
-    public AikiFactory getAikiFactory() {
-        return aikiFactory;
     }
 
     public DialogServerAiki getDialogServerAiki() {

@@ -29,15 +29,13 @@ public final class LaunchingGame implements Runnable {
     private final String language;
 
     private final TopLeftFrame topLeft;
-    private final CardFactories cardFactories;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public LaunchingGame(StringList _args, String _language, TopLeftFrame _topLeft, AbstractProgramInfos _list, CardFactories _cardFactories) {
+    public LaunchingGame(StringList _args, String _language, TopLeftFrame _topLeft, AbstractProgramInfos _list) {
         args = _args;
         language = _language;
         topLeft = _topLeft;
         list = _list;
-        cardFactories = _cardFactories;
     }
 
     @Override
@@ -46,7 +44,7 @@ public final class LaunchingGame implements Runnable {
         StringMap<StringMap<PreparedPagesCards>> belote_ = generateAnalyzedBelote(lgs_);
         StringMap<StringMap<PreparedPagesCards>> president_ = generateAnalyzedPresident(lgs_);
         StringMap<StringMap<PreparedPagesCards>> tarot_ = generateAnalyzedTarot(lgs_);
-        WindowCards window_ = new WindowCards(language, list, belote_,president_,tarot_,cardFactories);
+        WindowCards window_ = new WindowCards(language, list, belote_,president_,tarot_);
 //        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
         SoftApplicationCore.setLocation(window_.getCommonFrame(), topLeft);
         window_.pack();

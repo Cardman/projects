@@ -3,33 +3,30 @@ package code.network;
 import aiki.beans.DetPkGameInit;
 import aiki.beans.PkInd;
 import aiki.gui.threads.PreparedRenderedPages;
-import aiki.main.*;
 import aiki.sml.Resources;
-import cards.gui.animations.*;
+import cards.gui.animations.PreparedPagesCards;
 import cards.gui.interfaces.ResultCardsServerInteractImpl;
-import cards.main.*;
+import cards.main.LaunchingGame;
 import code.gui.AbsButton;
-import code.gui.initialize.*;
-import code.scripts.imgs.cards.*;
-import code.scripts.pages.aiki.*;
+import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.imgs.cards.CardsInit;
+import code.scripts.pages.aiki.CssInit;
+import code.scripts.pages.aiki.MessagesInit;
+import code.scripts.pages.aiki.PagesInit;
 import code.sml.NavigationCore;
-import code.util.*;
-import code.util.consts.*;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.consts.Constants;
 
 public final class LaunchNetwork implements Runnable {
     private final AbstractProgramInfos list;
 
     private final String language;
 
-    private final CardFactories cardFactories;
-
-    private final AikiFactory aikiFactory;
     private final AbsButton button;
-    public LaunchNetwork(String _language, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, AbsButton _b) {
+    public LaunchNetwork(String _language, AbstractProgramInfos _list, AbsButton _b) {
         language = _language;
         list = _list;
-        cardFactories = _cardFactories;
-        aikiFactory = _aikiFactory;
         button = _b;
     }
     @Override
@@ -44,7 +41,7 @@ public final class LaunchNetwork implements Runnable {
         StringMap<String> builtOther_ = CssInit.ms();
         PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), builtMessages_, builtOther_, new PkInd());
         pkNet_.run();
-        WindowNetWork window_ = new WindowNetWork(language, list, belote_,president_,tarot_,cardFactories,aikiFactory);
+        WindowNetWork window_ = new WindowNetWork(language, list, belote_,president_,tarot_);
         window_.setButtonClick(button);
         window_.setPreparedPkNetTask(pkNet_);
         window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());

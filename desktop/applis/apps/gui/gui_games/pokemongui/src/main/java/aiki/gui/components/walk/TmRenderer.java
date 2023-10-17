@@ -3,14 +3,13 @@ package aiki.gui.components.walk;
 
 
 import aiki.facade.FacadeGame;
-import aiki.gui.components.CustCellRenderPk;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.gui.images.MetaDimension;
+import code.gui.images.MetaFont;
 import code.maths.LgInt;
 
-public class TmRenderer extends CustCellRenderPk<String> {
+public class TmRenderer implements AbsCustCellRenderGene<String> {
 
     private final int sideLength;
 
@@ -30,39 +29,33 @@ public class TmRenderer extends CustCellRenderPk<String> {
     }
 
     @Override
-    public void getListCellRendererComponent(
-            AbsPreparedLabel _currentLab, int _arg2,
-            boolean _selected, boolean _arg4) {
-        selected = _selected;
-        name = get(_arg2);
+    public AbstractImage getListCellRendererComponent(int _index, String _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
+        selected = _isSelected;
+        name = _info;
 //        short tm_ = facade.getData().getTm().getKeys(name).first();
         short tm_ = facade.getData().getTmByMove(name).first();
         price = facade.getData().getTmPrice().getVal(tm_);
-        _currentLab.setPreferredSize(new MetaDimension(150,sideLength));
+        AbstractImage i_ = fact.newImageRgb(150,sideLength);
+        paintComponent(i_);
+        return i_;
     }
 
-    @Override
     public void paintComponent(AbstractImage _g) {
         _g.setColor(GuiConstants.BLACK);
         _g.drawString(facade.translateMove(name), 0, getHeight());
         _g.drawString(price.toNumberString(), 100, getHeight());
         if (selected) {
             _g.setColor(GuiConstants.RED);
-            _g.drawRect(0,0,getWidth()-1,getHeight()-1);
+            _g.drawRect(0,0, 150 -1,getHeight()-1);
         }
     }
 
-    @Override
     public AbstractImageFactory getImageFactory() {
         return fact;
     }
-    @Override
+
     public int getHeight() {
         return sideLength;
     }
 
-    @Override
-    public int getWidth() {
-        return 150;
-    }
 }

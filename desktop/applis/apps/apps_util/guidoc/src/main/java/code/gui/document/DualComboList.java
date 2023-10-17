@@ -3,6 +3,9 @@ package code.gui.document;
 import code.formathtml.render.IntComboList;
 import code.formathtml.render.MetaComboList;
 import code.gui.AbsCustComponent;
+import code.gui.GuiBaseUtil;
+import code.gui.ScrollCustomGraphicList;
+import code.gui.SelectableIndexes;
 import code.util.Ints;
 import code.util.StringList;
 
@@ -12,11 +15,21 @@ public final class DualComboList extends DualInput implements IntComboList {
 
     public DualComboList(DualContainer _container, MetaComboList _component,
                          RenderedPage _page) {
-        super(_container, _component, _page.getGene().getGeneGraphicList().createMultStrList(_page.getGene().getImageFactory(),_page.getGene().getCompoFactory(), new StringList(_component.getChoicesStrings()), _component.getSelected(),_component.getVisible()), _page);
+        super(_container, _component, combo(_page,_component), _page);
         choicesValues = _component.getChoicesValues();
         updateGraphics(getSelect().getGlobal(),_component);
     }
 
+    private static ScrollCustomGraphicList<String> combo(RenderedPage _page, MetaComboList _component) {
+        ScrollCustomGraphicList<String> std_ = GuiBaseUtil.standard(_page.getGene().getCompoFactory(), _page.getGene().getImageFactory(), false);
+        for (String s: _component.getChoicesStrings()) {
+            std_.add(s);
+        }
+        std_.select(_component.getSelected());
+        std_.setVisibleRowCount(_component.getVisible());
+        std_.applyRows();
+        return std_;
+    }
     @Override
     public AbsCustComponent getGraphic() {
         return getSelect().getGlobal();
@@ -31,4 +44,7 @@ public final class DualComboList extends DualInput implements IntComboList {
         return values_;
     }
 
+    public void setSelectedIndexes(Ints _l) {
+        ((SelectableIndexes)getSelect()).select(_l);
+    }
 }

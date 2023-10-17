@@ -1,6 +1,5 @@
 package aiki.gui;
 
-import aiki.main.AikiFactory;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
 
@@ -10,7 +9,6 @@ public interface WindowAikiInt {
     void loadGame();
 
     void saveGame();
-    AikiFactory getAikiFactory();
 
     AbstractProgramInfos getFrames();
     AbstractImageFactory getImageFactory();

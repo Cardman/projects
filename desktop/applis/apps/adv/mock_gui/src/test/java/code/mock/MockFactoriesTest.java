@@ -66,8 +66,6 @@ public final class MockFactoriesTest extends EquallableMockGuiUtil {
         roots_.setCursor(pr_.getCompoFactory().newAbsolute(),0,0,new int[0]);
         pr_.getGenerator().pick();
 //        assertTrue(pr_.getGeneStrCompo().isCust());
-        new MockAdvGraphicListGeneratorGene<String>().createMult(pr_.getImageFactory(),null);
-        new MockAdvGraphicListGeneratorGene<String>().createSimple(pr_.getImageFactory(),null);
         pr_.getThreadFactory().newStartedThread(new MockRunnable());
         pr_.getThreadFactory().newStartedThread(new MockRunnable(),true);
         pr_.getThreadFactory().newThread();

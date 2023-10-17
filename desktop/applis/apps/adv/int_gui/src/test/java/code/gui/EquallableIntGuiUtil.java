@@ -3,9 +3,7 @@ package code.gui;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
-//import code.gui.initialize.AbstractAdvGraphicListGenerator;
 import code.gui.initialize.AbstractGraphicComboBoxGenerator;
-import code.gui.initialize.AbstractGraphicStringListGenerator;
 import code.maths.montecarlo.AbstractGenerator;
 import code.stream.core.AbstractBinFact;
 import code.stream.core.AbstractTextFact;
@@ -27,9 +25,7 @@ public abstract class EquallableIntGuiUtil {
     public static void assertNull(AbstractNameValidating _expected) {
         Assert.assertNull(_expected);
     }
-    public static void assertNull(AbstractGraphicStringListGenerator _expected) {
-        Assert.assertNull(_expected);
-    }
+
     public static void assertNull(AbstractGraphicComboBoxGenerator _expected) {
         Assert.assertNull(_expected);
     }

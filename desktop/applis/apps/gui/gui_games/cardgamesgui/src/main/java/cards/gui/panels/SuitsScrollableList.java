@@ -6,9 +6,10 @@ import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.selection.SuitCellRenderer;
-import code.gui.AbsGraphicList;
+import cards.main.CardFactories;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
+import code.gui.ScrollCustomGraphicList;
 import code.gui.images.MetaDimension;
 import code.util.IdList;
 import code.util.StringMap;
@@ -21,7 +22,7 @@ public final class SuitsScrollableList extends ScrollableList {
     private static final String SUITS = "suits";
     private StringMap<String> messages = new StringMap<String>();
 //    private EnumList<Suit> suits;
-    private final AbsGraphicList<Suit> liste;
+    private final ScrollCustomGraphicList<Suit> liste;
     public SuitsScrollableList(IdList<Suit> _couleurs, int _nb, WindowCardsInt _window) {
         super(_window.getCompoFactory());
         String lg_ = _window.getLanguageKey();
@@ -29,14 +30,14 @@ public final class SuitsScrollableList extends ScrollableList {
         AbsPlainLabel titrePanneau_ = _window.getCompoFactory().newPlainLabel(messages.getVal(SUITS));
         getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
 //        suits = _couleurs;
-        liste= _window.getCardFactories().getGeneSuit().createMult(_window.getImageFactory(),new SuitCellRenderer(_window));
+        liste= CardFactories.suit(_window.getCompoFactory(), _window.getImageFactory(),new SuitCellRenderer(_window));
         for (Suit couleur_ : _couleurs) {
             liste.add(couleur_);
         }
         //On peut selectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
-        liste.scroll().setPreferredSize(new MetaDimension(100,10* _nb));
-        getContainer().add(liste.scroll(), GuiConstants.BORDER_LAYOUT_CENTER);
+        liste.getScrollPane().setPreferredSize(new MetaDimension(100,10* _nb));
+        getContainer().add(liste.getScrollPane(), GuiConstants.BORDER_LAYOUT_CENTER);
     }
     public IdList<Suit> getCouleurs() {
         int s_ = liste.size();

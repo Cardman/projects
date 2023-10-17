@@ -479,7 +479,7 @@ public final class RenderedPageTest extends EquallableGuiDocUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
         RenderedPage r_ = withDoc(withStd(withFrame(newRenderedPage(pr_))),"<html><body><form n-f='0'><input type='submit' name='myradio' value='0'/><select name='myradio' n-i='0' multiple=''><option value='0' selected='selected'>ZERO</option><option value='1'>ZERO</option><option value='2'>TWO</option><option value='3'>THREE</option></select></form><img src='AAABAAAA;AAABAAAA;AAABAAAA'/></body></html>");
         CustList<DualComponent> list_ = r_.allMainComponents();
-        ((AbsGraphicListDef)list_.get(1).getGraphic()).setSelectedIndexes(Ints.newList(1,3));
+        ((DualComboList)list_.get(1)).setSelectedIndexes(Ints.newList(1,3));
         form(r_.getStandards().getPage(), 0L,0L);
         ((MockPlainButton)list_.get(0).getGraphic()).getMouseIntRelListeners().get(0).mouseReleased(null,null,null);
         assertEq(2,r_.getStandards().getPage().getContainer(0,0).getValue().size());

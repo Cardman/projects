@@ -249,11 +249,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private final DialogHtmlData dialogHtmlData;
     private final DialogSoftParams softParams;
 //    private final DialogServerAiki dialogServer;
-    private final AikiFactory aikiFactory;
     private final WindowAikiCore core = new WindowAikiCore();
     private final AbstractBaseExecutorService expThread;
 
-    public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
+    public WindowAiki(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         expThread = _list.getThreadFactory().newExecutorService();
@@ -270,7 +269,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         softParams = new DialogSoftParams(_list);
 //        dialogServer = new DialogServerAiki(_list);
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
-        aikiFactory = _aikiFactory;
         setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
         setFocusableWindowState(true);
@@ -1777,10 +1775,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //    public DialogServerAiki getDialogServer() {
 //        return dialogServer;
 //    }
-
-    public AikiFactory getAikiFactory() {
-        return aikiFactory;
-    }
 
     public FrontBattle getBattle() {
         return battle;

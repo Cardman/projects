@@ -19,10 +19,10 @@ public final class MockWithListSelectionSample extends MockAbsCommonFrame implem
         graphicComboGrInt = _f.getGeneComboBox().createCombo(_f.getImageFactory(),new StringList("0","1","2","3"),1, _f.getCompoFactory());
         graphicComboGrInt.addListener(new MockListSelection(0,this));
         getContentPane().add(graphicComboGrInt.getGlobal());
-        graphicListString = _f.getGeneGraphicList().createStrList(_f.getImageFactory(),new StringList("4","5","6","7"), _f.getCompoFactory());
+        graphicListString = new MockGraphicStringListGenerator().createStrList(new StringList("4","5","6","7"));
         graphicListString.setListener(new MockListSelection(1, this));
         getContentPane().add(graphicListString.scroll());
-        input = _f.getGeneGraphicList().createMultStrList(_f.getImageFactory(),_f.getCompoFactory(),new StringList("8","9","10","11"),new Ints(),2);
+        input = new MockGraphicStringListGenerator().createMultStrList(new StringList("8","9","10","11"),new Ints());
         input.setListener(new MockListSelection(2, this));
         getContentPane().add(input.getGlobal());
 //        multList=_f.getGeneStrCompo().createMult(null, _f.getCompoFactory());

@@ -12,7 +12,9 @@ public final class AutoCompleteEscapeEvent implements AbsActionListener {
     @Override
     public void action() {
         autoCompleteDocument.getList().clear();
-        autoCompleteDocument.getList().setSelectedIndice(-1);
+        autoCompleteDocument.getList().select(-1);
+        autoCompleteDocument.getList().repaint();
+        autoCompleteDocument.getList().revalidate();
         autoCompleteDocument.hideAutocompletePopup();
     }
 }

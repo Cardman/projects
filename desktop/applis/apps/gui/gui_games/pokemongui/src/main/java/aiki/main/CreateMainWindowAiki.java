@@ -31,16 +31,14 @@ public final class CreateMainWindowAiki implements Runnable {
 
     private final String lg;
 
-    private final AikiFactory aikiFactory;
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, String _path, TopLeftFrame _topLeft, String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
+    public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, String _path, TopLeftFrame _topLeft, String _lg, AbstractProgramInfos _list) {
         load = _load;
         withParam = _withParam;
         path = _path;
         topLeft = _topLeft;
         lg = _lg;
         list = _list;
-        aikiFactory = _aikiFactory;
     }
 
     @Override
@@ -54,7 +52,7 @@ public final class CreateMainWindowAiki implements Runnable {
         PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), builtMessages_, builtOther_, new PkInd());
         PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), PagesInit.buildDiff(), builtMessages_, builtOther_, new PkDiff());
         PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), PagesInit.buildProg(), builtMessages_, builtOther_, new PkProg());
-        WindowAiki window_ = new WindowAiki(lg, list,aikiFactory);
+        WindowAiki window_ = new WindowAiki(lg, list);
         dataWeb_.run();
         fight_.run();
         pk_.run();

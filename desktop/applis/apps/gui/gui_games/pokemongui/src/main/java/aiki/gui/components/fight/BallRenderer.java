@@ -4,18 +4,14 @@ package aiki.gui.components.fight;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
-import aiki.gui.components.CustCellRenderPk;
 import code.gui.*;
-import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
-import code.gui.images.ConverterGraphicBufferedImage;
-import code.gui.images.MetaDimension;
+import code.gui.images.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.maths.Rate;
 import code.util.NatStringTreeMap;
 import code.util.core.StringUtil;
 
-public class BallRenderer extends CustCellRenderPk<BallNumberRate> {
+public class BallRenderer implements AbsCustCellRenderGene<BallNumberRate> {
 
     private static final String PERCENT = " %";
 
@@ -63,19 +59,19 @@ public class BallRenderer extends CustCellRenderPk<BallNumberRate> {
     }
 
     @Override
-    public void getListCellRendererComponent(AbsPreparedLabel _currentLab, int _index,
-                                             boolean _isSelected, boolean _cellHasFocus) {
+    public AbstractImage getListCellRendererComponent(int _index, BallNumberRate _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
         selected = _isSelected;
-        ball = get(_index);
+        ball = _info;
         int[][] img_ = facade.getData().getMiniItems().getVal(ball.getName());
         ballImage = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
-        _currentLab.setPreferredSize(new MetaDimension(100, ballImage.getHeight()));
+        AbstractImage i_ = fact.newImageRgb(100, ballImage.getHeight());
+        paintComponent(i_);
+        return i_;
     }
 
-    @Override
     public void paintComponent(AbstractImage _g) {
         _g.setColor(GuiConstants.WHITE);
-        _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
+        _g.fillRect(0, 0, 100 - 1, getHeight() - 1);
         _g.drawImage(ballImage, 0, 0);
         _g.setColor(GuiConstants.BLACK);
         _g.drawString(ball.getNumber().toNumberString(), maxWidthImage, ballImage.getHeight());
@@ -83,22 +79,16 @@ public class BallRenderer extends CustCellRenderPk<BallNumberRate> {
         _g.drawString(StringUtil.concat(ball.getPercent(),PERCENT), maxWidthImage +20+ maxWidthNumber+maxWidthRate, ballImage.getHeight());
         if (selected) {
             _g.setColor(GuiConstants.RED);
-            _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+            _g.drawRect(0, 0, 100 - 1, getHeight() - 1);
         }
     }
 
-    @Override
     public AbstractImageFactory getImageFactory() {
         return fact;
     }
 
-    @Override
     public int getHeight() {
         return ballImage.getHeight();
     }
 
-    @Override
-    public int getWidth() {
-        return 100;
-    }
 }

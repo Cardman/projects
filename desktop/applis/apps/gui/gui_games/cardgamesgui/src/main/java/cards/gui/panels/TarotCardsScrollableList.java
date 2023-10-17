@@ -1,15 +1,15 @@
 package cards.gui.panels;
 
 
-
 import cards.consts.Suit;
 import cards.gui.WindowCardsInt;
 import cards.gui.labels.selection.CardTarotCellRenderer;
+import cards.main.CardFactories;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
-import code.gui.AbsGraphicList;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
+import code.gui.ScrollCustomGraphicList;
 import code.gui.images.MetaDimension;
 import code.util.IdList;
 import code.util.core.IndexConstants;
@@ -19,20 +19,20 @@ public final class TarotCardsScrollableList extends CardsScrollableList {
 
     private IdList<Suit> couleurs;
     private boolean decroissant;
-    private final AbsGraphicList<CardTarot> liste;
+    private final ScrollCustomGraphicList<CardTarot> liste;
     private final AbsPlainLabel remCards;
 
     public TarotCardsScrollableList(WindowCardsInt _window, int _nb, int _pmax, String _titre) {
         super(_window.getCompoFactory());
-        liste = _window.getCardFactories().getGeneTarot().createMult(_window.getImageFactory(),new CardTarotCellRenderer(_window));
+        liste = CardFactories.tarot(_window.getCompoFactory(), _window.getImageFactory(),new CardTarotCellRenderer(_window));
         setMax(_pmax);
         AbsPlainLabel titrePanneau_ = _window.getCompoFactory().newPlainLabel(_titre);
         getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
-        liste.scroll().setPreferredSize(new MetaDimension(100,10* _nb));
+        liste.getScrollPane().setPreferredSize(new MetaDimension(100,10* _nb));
         setNbCartesRestantes(_pmax);
-        getContainer().add(liste.scroll(), GuiConstants.BORDER_LAYOUT_CENTER);
+        getContainer().add(liste.getScrollPane(), GuiConstants.BORDER_LAYOUT_CENTER);
         remCards = _window.getCompoFactory().newPlainLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
         getContainer().add(remCards, GuiConstants.BORDER_LAYOUT_SOUTH);
         getContainer().setPreferredSize(new MetaDimension(100,10*(_nb+4)));
@@ -120,7 +120,7 @@ public final class TarotCardsScrollableList extends CardsScrollableList {
     public int nombreCartesSelectionnees() {
         return liste.getSelectedValuesLsLen();
     }
-    public AbsGraphicList<CardTarot> getListe() {
+    public ScrollCustomGraphicList<CardTarot> getListe() {
         return liste;
     }
     @Override

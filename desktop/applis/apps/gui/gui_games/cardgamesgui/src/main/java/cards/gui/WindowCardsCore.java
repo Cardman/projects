@@ -72,13 +72,11 @@ public final class WindowCardsCore {
     private final DialogTricksTarot dialogTricksTarot;
     private final DialogTeamsPlayers dialogTeamsPlayers;
     private final DialogSoft dialogSoft;
-    private final CardFactories cardFactories;
     private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
     public WindowCardsCore(String _lg, AbstractProgramInfos _list,
                            StringMap<StringMap<PreparedPagesCards>> _belote,
                            StringMap<StringMap<PreparedPagesCards>> _president,
-                           StringMap<StringMap<PreparedPagesCards>> _tarot,
-                           CardFactories _cardFactories) {
+                           StringMap<StringMap<PreparedPagesCards>> _tarot) {
         dialogDisplayingBelote = new DialogDisplayingBelote(_list);
         dialogDisplayingTarot = new DialogDisplayingTarot(_list);
         dialogDisplayingPresident = new DialogDisplayingPresident(_list);
@@ -93,7 +91,6 @@ public final class WindowCardsCore {
         dialogTricksTarot = new DialogTricksTarot(_list);
         dialogTeamsPlayers = new DialogTeamsPlayers(_list);
         dialogSoft = new DialogSoft(_list);
-        cardFactories = _cardFactories;
         preparedBelote = _belote;
         preparedPresident = _president;
         preparedTarot = _tarot;
@@ -395,9 +392,6 @@ public final class WindowCardsCore {
         return dialogTricksTarot;
     }
 
-    public CardFactories getCardFactories() {
-        return cardFactories;
-    }
     public StringMap<StringMap<String>> getImages() {
         return images;
     }

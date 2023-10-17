@@ -2,18 +2,19 @@ package applications.main;
 
 import aiki.facade.SexListImpl;
 import aiki.game.Game;
-import aiki.main.AikiFactory;
 import aiki.main.LaunchingPokemon;
 import aiki.sml.DocumentReaderAikiCoreUtil;
 import aiki.sml.LoadingGame;
 import applications.gui.WindowApps;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
-import cards.main.CardFactories;
 import cards.main.LaunchingCards;
+import code.converterimages.main.LaunchingConverter;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.expressionlanguage.guicompos.LaunchingFull;
-import code.gui.*;
+import code.gui.CdmFactory;
+import code.gui.SoftApplicationCore;
+import code.gui.TopLeftFrame;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
@@ -28,7 +29,6 @@ import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
-import code.converterimages.main.LaunchingConverter;
 import code.util.core.StringUtil;
 
 public class LaunchingApplications extends SoftApplicationCore {
@@ -37,14 +37,10 @@ public class LaunchingApplications extends SoftApplicationCore {
 
     private static final String TEMP_FOLDER = "applications";
 
-    private final CardFactories cardFactories;
-    private final AikiFactory aikiFactory;
     private final CdmFactory cdmFactory;
 
-    public LaunchingApplications(AbstractProgramInfos _infos,CardFactories _cardFactories, AikiFactory _aikiFactory, CdmFactory _cdm) {
+    public LaunchingApplications(AbstractProgramInfos _infos, CdmFactory _cdm) {
         super(_infos);
-        cardFactories = _cardFactories;
-        aikiFactory = _aikiFactory;
         cdmFactory = _cdm;
     }
 
@@ -52,8 +48,8 @@ public class LaunchingApplications extends SoftApplicationCore {
         LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
     }
 
-    private static WindowApps getWindow(String _lg, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, CdmFactory _cdm) {
-        return new WindowApps(_lg, _list, _cardFactories, _aikiFactory,_cdm);
+    private static WindowApps getWindow(String _lg, AbstractProgramInfos _list, CdmFactory _cdm) {
+        return new WindowApps(_lg, _list, _cdm);
     }
 
     @Override
@@ -64,7 +60,7 @@ public class LaunchingApplications extends SoftApplicationCore {
             if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_.getBytes())) {
                 AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes());
                 if (img_ != null) {
-                    launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
+                    launchWindow(_language, getFrames(), cdmFactory);
                     LaunchingConverter launch_ = new LaunchingConverter(getFrames());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
@@ -75,16 +71,16 @@ public class LaunchingApplications extends SoftApplicationCore {
                 return;
             }
             if (DocumentReaderCardsUnionUtil.isContentObject(file_)) {
-                launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
-                LaunchingCards launch_ = new LaunchingCards(getFrames(),cardFactories);
+                launchWindow(_language, getFrames(), cdmFactory);
+                LaunchingCards launch_ = new LaunchingCards(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
             }
             Game gameOrNull_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_,new SexListImpl());
             LoadingGame loadingGameOrNull_ = DocumentReaderAikiCoreUtil.getLoadingGameOrNull(file_);
             if (loadingGameOrNull_ != null || gameOrNull_ != null) {
-                launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
-                LaunchingPokemon launch_ = new LaunchingPokemon(getFrames(), aikiFactory);
+                launchWindow(_language, getFrames(), cdmFactory);
+                LaunchingPokemon launch_ = new LaunchingPokemon(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
             }
@@ -93,18 +89,18 @@ public class LaunchingApplications extends SoftApplicationCore {
                 if (StringUtil.quickEq("smil",  doc_.getDocumentElement().getTagName())) {
                     SongList list_ = new SongList();
                     list_.addSongs(doc_);
-                    launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
+                    launchWindow(_language, getFrames(), cdmFactory);
                     LaunchingPlayer launch_ = new LaunchingPlayer(getFrames());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
-                launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
+                launchWindow(_language, getFrames(), cdmFactory);
                 LaunchingDemo launch_ = new LaunchingDemo(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
             }
             if (file_.indexOf('\n') < 0) {
-                launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
+                launchWindow(_language, getFrames(), cdmFactory);
                 LaunchingConverter launch_ = new LaunchingConverter(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
@@ -123,31 +119,31 @@ public class LaunchingApplications extends SoftApplicationCore {
                     return;
                 }
                 if (linesFiles_.size() < 3) {
-                    launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
+                    launchWindow(_language, getFrames(), cdmFactory);
                     LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFrames(),cdmFactory);
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 String possibleMethod_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
                 if (possibleMethod_.startsWith("initDb=")) {
-                    launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
+                    launchWindow(_language, getFrames(), cdmFactory);
                     LaunchingRenders launch_ = new LaunchingRenders(getFrames(),cdmFactory);
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 if (possibleMethod_.startsWith("main=")) {
-                    launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
+                    launchWindow(_language, getFrames(), cdmFactory);
                     LaunchingFull launch_ = new LaunchingFull(getFrames(),cdmFactory);
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
-                launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
+                launchWindow(_language, getFrames(), cdmFactory);
                 LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFrames(),cdmFactory);
                 launch_.launchWithoutLanguage(_language, _args);
             }
             return;
         }
-        launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
+        launchWindow(_language, getFrames(), cdmFactory);
     }
 
     protected StringList getFile(String[] _args) {
@@ -159,9 +155,9 @@ public class LaunchingApplications extends SoftApplicationCore {
         }
         return files_;
     }
-    private static void launchWindow(String _language, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, CdmFactory _cdm) {
+    private static void launchWindow(String _language, AbstractProgramInfos _list, CdmFactory _cdm) {
         TopLeftFrame topLeft_ = loadCoords(getTempFolder(_list),COORDS, _list.getFileCoreStream(), _list.getStreams());
-        WindowApps w_ = getWindow(_language, _list, _cardFactories, _aikiFactory,_cdm);
+        WindowApps w_ = getWindow(_language, _list, _cdm);
         setLocation(w_.getCommonFrame(), topLeft_);
     }
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {

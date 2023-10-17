@@ -1,9 +1,7 @@
 package applications.gui;
 
-import aiki.main.AikiFactory;
 import aiki.main.LaunchingPokemon;
 import applications.main.LaunchingApplications;
-import cards.main.CardFactories;
 import cards.main.LaunchingCards;
 import code.converterimages.main.LaunchingConverter;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
@@ -47,7 +45,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 
     private final CustList<AbsRadioButton> radios = new CustList<AbsRadioButton>();
 
-    public WindowApps(String _lg, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, CdmFactory _cdmFactory) {
+    public WindowApps(String _lg, AbstractProgramInfos _list, CdmFactory _cdmFactory) {
         super(_lg, _list);
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         setFocusableWindowState(true);
@@ -58,7 +56,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         AbstractAtomicInteger at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingPokemon.getMainWindowClass(), at_);
         _list.getButtons().addEntry(LaunchingPokemon.getMainWindowClass(), buttonPokemon);
-        buttonPokemon.addMouseList(new PokemonEvent(this,at_, _aikiFactory));
+        buttonPokemon.addMouseList(new PokemonEvent(this,at_));
         linePokemon_.add(buttonPokemon);
         panel_.add(linePokemon_);
         AbsPanel lineCards_ = getCompoFactory().newLineBox();
@@ -66,7 +64,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingCards.getMainWindowClass(),at_);
         _list.getButtons().addEntry(LaunchingCards.getMainWindowClass(), buttonCards);
-        buttonCards.addMouseList(new CardsEvent(this,at_,_cardFactories));
+        buttonCards.addMouseList(new CardsEvent(this,at_));
         lineCards_.add(buttonCards);
         panel_.add(lineCards_);
         AbsPanel lineTests_ = getCompoFactory().newLineBox();
@@ -122,7 +120,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingNetwork.getMainWindowClass(),at_);
         _list.getButtons().addEntry(LaunchingNetwork.getMainWindowClass(), buttonNet);
-        buttonNet.addActionListener(new NetWorkEvent(this,at_,_cardFactories,_aikiFactory,buttonNet));
+        buttonNet.addActionListener(new NetWorkEvent(this,at_, buttonNet));
         lineNet_.add(buttonNet);
         panel_.add(lineNet_);
         panel_.add(new Clock(_list));

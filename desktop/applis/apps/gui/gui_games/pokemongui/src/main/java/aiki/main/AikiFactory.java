@@ -3,46 +3,31 @@ package aiki.main;
 import aiki.game.fight.BallNumberRate;
 import aiki.game.fight.Fighter;
 import aiki.map.pokemon.UsablePokemon;
-import code.gui.initialize.AbstractGraphicListGenerator;
+import code.gui.AbsCustCellRenderGene;
+import code.gui.DefScrollCustomGraphicList;
+import code.gui.ScrollCustomGraphicList;
+import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsCompoFactory;
 
 public final class AikiFactory {
-    private final AbstractGraphicListGenerator<BallNumberRate> geneBallNumberRate;
-    private final AbstractGraphicListGenerator<Fighter> geneFighter;
-    private final AbstractGraphicListGenerator<String> genePkPanel;
-    private final AbstractGraphicListGenerator<String> geneItPanel;
-    private final AbstractGraphicListGenerator<String> geneTmPanel;
-    private final AbstractGraphicListGenerator<UsablePokemon> geneUsPkPanel;
 
-    public AikiFactory(AbstractGraphicListGenerator<BallNumberRate> _geneBallNumberRate, AbstractGraphicListGenerator<Fighter> _geneFighter, AbstractGraphicListGenerator<String> _genePkPanel, AbstractGraphicListGenerator<String> _geneItPanel, AbstractGraphicListGenerator<String> _geneTmPanel, AbstractGraphicListGenerator<UsablePokemon> _geneUsPkPanel) {
-        geneBallNumberRate = _geneBallNumberRate;
-        geneFighter = _geneFighter;
-        genePkPanel = _genePkPanel;
-        geneItPanel = _geneItPanel;
-        geneTmPanel = _geneTmPanel;
-        geneUsPkPanel = _geneUsPkPanel;
+    private AikiFactory() {
     }
 
-    public AbstractGraphicListGenerator<BallNumberRate> getGeneBallNumberRate() {
-        return geneBallNumberRate;
+    public static ScrollCustomGraphicList<BallNumberRate> ballPanel(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<BallNumberRate> _rend) {
+        return new DefScrollCustomGraphicList<BallNumberRate>(_compo,_img,_rend,true);
     }
 
-    public AbstractGraphicListGenerator<Fighter> getGeneFighter() {
-        return geneFighter;
+    public static ScrollCustomGraphicList<Fighter> fighter(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<Fighter> _rend) {
+        return new DefScrollCustomGraphicList<Fighter>(_compo,_img,_rend,true);
     }
 
-    public AbstractGraphicListGenerator<String> getGenePkPanel() {
-        return genePkPanel;
+    public static ScrollCustomGraphicList<UsablePokemon> usable(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<UsablePokemon> _rend) {
+        return new DefScrollCustomGraphicList<UsablePokemon>(_compo,_img,_rend,true);
     }
 
-    public AbstractGraphicListGenerator<String> getGeneItPanel() {
-        return geneItPanel;
+    public static ScrollCustomGraphicList<String> str(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<String> _rend) {
+        return new DefScrollCustomGraphicList<String>(_compo,_img,_rend,true);
     }
 
-    public AbstractGraphicListGenerator<String> getGeneTmPanel() {
-        return geneTmPanel;
-    }
-
-    public AbstractGraphicListGenerator<UsablePokemon> getGeneUsPkPanel() {
-        return geneUsPkPanel;
-    }
 }

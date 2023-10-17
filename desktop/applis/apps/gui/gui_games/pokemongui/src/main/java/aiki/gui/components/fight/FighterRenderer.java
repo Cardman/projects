@@ -4,18 +4,14 @@ package aiki.gui.components.fight;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
-import aiki.gui.components.CustCellRenderPk;
 import code.gui.*;
-import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
-import code.gui.images.ConverterGraphicBufferedImage;
-import code.gui.images.MetaDimension;
+import code.gui.images.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class FighterRenderer extends CustCellRenderPk<Fighter> {
+public class FighterRenderer implements AbsCustCellRenderGene<Fighter> {
 
     private static final String CST_KO = "KO";
     private static final String PER_CENT = " %";
@@ -44,9 +40,8 @@ public class FighterRenderer extends CustCellRenderPk<Fighter> {
     }
 
     @Override
-    public void getListCellRendererComponent(AbsPreparedLabel _currentLab, int _index,
-                                             boolean _isSelected, boolean _cellHasFocus) {
-        fighter = get(_index);
+    public AbstractImage getListCellRendererComponent(int _index, Fighter _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
+        fighter = _info;
         ko = fighter.estKo();
         intRate = fighter.rateRemainHp();
         selected = _isSelected;
@@ -58,21 +53,22 @@ public class FighterRenderer extends CustCellRenderPk<Fighter> {
         } else {
             enabled = facade.isChosableForLearningAndEvolving((byte) _index);
         }
-        _currentLab.setPreferredSize(new MetaDimension(150, sideLength));
+        AbstractImage i_ = fact.newImageRgb(150, sideLength);
+        paintComponent(i_);
+        return i_;
     }
 
-    @Override
     public AbstractImageFactory getImageFactory() {
         return fact;
     }
-    @Override
+
     public void paintComponent(AbstractImage _g) {
         if (!enabled) {
             _g.setColor(GuiConstants.newColor(127, 127, 127));
-            _g.fillRect(0, 0, getWidth() - 1, getHeight() -1);
+            _g.fillRect(0, 0, 150 - 1, getHeight() -1);
         } else {
             _g.setColor(GuiConstants.WHITE);
-            _g.fillRect(0, 0, getWidth() - 1, getHeight() -1);
+            _g.fillRect(0, 0, 150 - 1, getHeight() -1);
         }
         _g.drawImage(pkImage, 0, 0);
         _g.setColor(GuiConstants.BLACK);
@@ -92,17 +88,12 @@ public class FighterRenderer extends CustCellRenderPk<Fighter> {
         }
         if (selected) {
             _g.setColor(GuiConstants.RED);
-            _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+            _g.drawRect(0, 0, 150 - 1, getHeight() - 1);
         }
     }
 
-    @Override
     public int getHeight() {
         return sideLength;
     }
 
-    @Override
-    public int getWidth() {
-        return 150;
-    }
 }

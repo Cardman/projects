@@ -4,6 +4,7 @@ package aiki.gui.components.walk;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
+import aiki.main.AikiFactory;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.util.StringList;
@@ -14,7 +15,7 @@ public final class ItemsPanel {
 
     private static final String SPACE = " ";
 
-    private final AbsGraphicList<String> liste;
+    private final ScrollCustomGraphicList<String> liste;
 
     private final StringList items = new StringList();
 
@@ -25,7 +26,7 @@ public final class ItemsPanel {
     private final AbsPanel container;
 
     public ItemsPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade) {
-        liste = _window.getAikiFactory().getGeneItPanel().createSimple(_window.getImageFactory(),new ItemRenderer(_window.getFrames().getImageFactory(),_window.getFrames().getCompoFactory(),_facade));
+        liste = AikiFactory.str(_window.getCompoFactory(), _window.getImageFactory(),new ItemRenderer(_window.getFrames().getImageFactory(),_window.getFrames().getCompoFactory(),_facade));
         facade = _facade;
         container = _window.getFrames().getCompoFactory().newBorder();
         amount = _window.getFrames().getCompoFactory().newPlainLabel("");
@@ -35,9 +36,9 @@ public final class ItemsPanel {
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         int side_ = facade.getMap().getSideLength();
-        liste.scroll().setPreferredSize(new MetaDimension(100,2*side_*_nb));
+        liste.getScrollPane().setPreferredSize(new MetaDimension(100,2*side_*_nb));
         initItems();
-        container.add(liste.scroll(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container.add(liste.getScrollPane(),GuiConstants.BORDER_LAYOUT_CENTER);
         container.add(amount, GuiConstants.BORDER_LAYOUT_SOUTH);
         container.setPreferredSize(new MetaDimension(100,2*side_*_nb+32));
     }
@@ -52,7 +53,7 @@ public final class ItemsPanel {
         }
         amount.setText(StringUtil.concat(facade.amount().toNumberString(),SPACE,facade.getPlayer().getMoney().toNumberString()));
         if (index_ != IndexConstants.INDEX_NOT_FOUND_ELT) {
-            liste.setSelectedIndice(index_);
+            liste.select(index_);
         }
     }
 
@@ -69,7 +70,7 @@ public final class ItemsPanel {
     }
 
     public void deselect() {
-        liste.clearSelection();
+        liste.deselectAll();
     }
 
     public AbsPanel getContainer() {

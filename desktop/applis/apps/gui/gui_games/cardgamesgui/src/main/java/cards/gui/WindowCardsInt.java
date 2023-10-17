@@ -7,7 +7,6 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.animations.PreparedPagesCards;
 import cards.gui.containers.ContainerNoGame;
 import cards.gui.dialogs.*;
-import cards.main.CardFactories;
 import cards.president.DisplayingPresident;
 import cards.president.RulesPresident;
 import cards.tarot.DisplayingTarot;
@@ -85,8 +84,6 @@ public interface WindowCardsInt {
     DisplayingTarot getDisplayingTarot();
     DisplayingPresident getDisplayingPresident();
     DisplayingBelote getDisplayingBelote();
-
-    CardFactories getCardFactories();
 
     ContainerNoGame noGame();
     RulesBelote getReglesBelote();

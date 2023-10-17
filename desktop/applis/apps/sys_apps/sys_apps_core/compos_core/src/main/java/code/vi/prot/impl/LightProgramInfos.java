@@ -10,8 +10,8 @@ public abstract class LightProgramInfos extends ProgramInfosBase implements Abst
 
     private final AbsLightFrameFactory lightFrameFactory;
 
-    protected LightProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator, AbstractGenerator _gene) {
-        super("","",_gene,_graphicStringListGenerator,_graphicComboBoxGenerator,
+    protected LightProgramInfos(AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator, AbstractGenerator _gene) {
+        super("","",_gene, _graphicComboBoxGenerator,
                 new CompoundedInitParts(new DefaultThreadFactory(),new DefZipFact(new DefZipFactory()),new DefaultNameValidating(new StringList()),new DefCompoFactory(),new DefImageFactory()));
         lightFrameFactory = new DefLigFrameFactory();
     }

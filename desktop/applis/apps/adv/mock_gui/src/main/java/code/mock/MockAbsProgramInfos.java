@@ -28,7 +28,7 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
         this(_h,_t,new DefaultGenerator(_se.getSe()),_se, _set);
     }
     private MockAbsProgramInfos(String _h, String _t, AbstractGenerator _gene, MockEventListIncr _se, MockFileSet _set) {
-        super(_h,_t,_gene,new MockGraphicStringListGenerator(),new MockGraphicComboBoxGenerator(),
+        super(_h,_t,_gene, new MockGraphicComboBoxGenerator(),
                 new CompoundedInitParts(new MockThreadFactory(_gene, _set),new MockZipFact(),_set.getValidating(),new MockCompoFactory(),new MockImageFactory()));
         mockFileSet = _set;
         fileCoreStream = new MockFileCoreStream(_set);

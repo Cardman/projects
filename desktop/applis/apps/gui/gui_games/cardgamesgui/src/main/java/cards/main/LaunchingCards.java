@@ -30,11 +30,9 @@ public class LaunchingCards extends AdvSoftApplicationCore {
     private static final String TEMP_FOLDER = "cards";
 
     //private static final Image ICON = getImage(FileConst.RESOURCES_IMAGES, FileConst.SUITS_TXT, FileConst.SUITS_PNG);
-    private final CardFactories factories;
 
-    public LaunchingCards(AbstractProgramInfos _frames, CardFactories _factories) {
+    public LaunchingCards(AbstractProgramInfos _frames) {
         super(_frames);
-        factories = _factories;
     }
 
     @Override
@@ -68,7 +66,7 @@ public class LaunchingCards extends AdvSoftApplicationCore {
             StreamTextFile.saveTextFile(f.getAbsolutePath(), StringUtil.join(dealsNumbers_, LINE_RETURN), getFrames().getStreams());
         }
         TopLeftFrame coordonnees_=loadCoords(getTempFolder(getFrames()), FileConst.COORDS, getFrames().getFileCoreStream(), getFrames().getStreams());
-        GuiBaseUtil.invokeLater(new LaunchingGame(getFile(_args), _language,coordonnees_, getFrames(),factories), getFrames());
+        GuiBaseUtil.invokeLater(new LaunchingGame(getFile(_args), _language,coordonnees_, getFrames()), getFrames());
     }
 
     protected StringList getFile(String[] _args) {

@@ -19,7 +19,7 @@ public interface AbstractLightProgramInfos {
     AbstractThreadFactory getThreadFactory();
     AbstractZipFact getZipFact();
     AbstractNameValidating getValidator();
-    AbstractGraphicStringListGenerator getGeneGraphicList();
+
     AbsCompoFactory getCompoFactory();
     AbstractImageFactory getImageFactory();
     AbstractGraphicComboBoxGenerator getGeneComboBox();

@@ -1,17 +1,17 @@
 package aiki.gui.components.walk;
 
 
-
 import aiki.facade.FacadeGame;
-import aiki.gui.components.CustCellRenderPk;
-import code.gui.*;
+import code.gui.AbsCustCellRenderGene;
+import code.gui.ColorsGroupList;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
-import code.gui.images.MetaDimension;
+import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
 
-public class ItemRenderer extends CustCellRenderPk<String> {
+public class ItemRenderer implements AbsCustCellRenderGene<String> {
 
     private final int sideLength;
 
@@ -39,11 +39,9 @@ public class ItemRenderer extends CustCellRenderPk<String> {
     }
 
     @Override
-    public void getListCellRendererComponent(
-            AbsPreparedLabel _currentLab, int _arg2,
-            boolean _selected, boolean _arg4) {
-        selected = _selected;
-        name = get(_arg2);
+    public AbstractImage getListCellRendererComponent(int _index, String _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
+        selected = _isSelected;
+        name = _info;
         displayName = facade.translateItem(name);
         price = facade.getData().getItem(name).getPrice();
         int[][] img_ = facade.getData().getMiniItems().getVal(name);
@@ -51,19 +49,20 @@ public class ItemRenderer extends CustCellRenderPk<String> {
         maxWordWidth = 0;
         for (String i: facade.getChosenItemsForBuyOrSell().getKeys()) {
             String disp_ = facade.translateItem(i);
-            int w_ = compo.stringWidth(_currentLab.getMetaFont(),disp_);
+            int w_ = compo.stringWidth(_lab,disp_);
             if (w_ > maxWordWidth) {
                 maxWordWidth = w_;
             }
         }
-        _currentLab.setPreferredSize(new MetaDimension(maxWordWidth+sideLength *2,sideLength));
+        AbstractImage i_ = fact.newImageRgb(maxWordWidth+sideLength *2,sideLength);
+        paintComponent(i_);
+        return i_;
     }
 
-    @Override
     public AbstractImageFactory getImageFactory() {
         return fact;
     }
-    @Override
+
     public void paintComponent(AbstractImage _g) {
         _g.drawImage(miniItem, 0, 0);
         _g.setColor(GuiConstants.BLACK);
@@ -76,12 +75,10 @@ public class ItemRenderer extends CustCellRenderPk<String> {
         }
     }
 
-    @Override
     public int getHeight() {
         return sideLength;
     }
 
-    @Override
     public int getWidth() {
         return maxWordWidth+sideLength *2;
     }

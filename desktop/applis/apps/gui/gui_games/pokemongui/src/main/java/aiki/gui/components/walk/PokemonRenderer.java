@@ -1,24 +1,24 @@
 package aiki.gui.components.walk;
 
 
-
 import aiki.facade.FacadeGame;
-import aiki.gui.components.CustCellRenderPk;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
-import code.gui.*;
+import code.gui.AbsCustCellRenderGene;
+import code.gui.ColorsGroupList;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
-import code.gui.images.MetaDimension;
+import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class PokemonRenderer extends CustCellRenderPk<UsablePokemon> {
+public class PokemonRenderer implements AbsCustCellRenderGene<UsablePokemon> {
 
     private static final String PER_CENT = " %";
 
@@ -69,11 +69,9 @@ public class PokemonRenderer extends CustCellRenderPk<UsablePokemon> {
     }
 
     @Override
-    public void getListCellRendererComponent(
-            AbsPreparedLabel _currentLab,
-            int _index, boolean _selected, boolean _arg4) {
-        pokemon = get(_index);
-        selected = _selected;
+    public AbstractImage getListCellRendererComponent(int _index, UsablePokemon _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
+        pokemon = _info;
+        selected = _isSelected;
         if (pokemon instanceof PokemonPlayer) {
             PokemonPlayer pk_ = (PokemonPlayer) pokemon;
             int[][] img_ = facade.getData().getMiniPk().getVal(pk_.getName());
@@ -103,18 +101,19 @@ public class PokemonRenderer extends CustCellRenderPk<UsablePokemon> {
             miniImagePk = ConverterGraphicBufferedImage.decodeToImage(fact.getImageFactory(),img_);
             remainSteps = (int) (facade.getData().getPokemon(egg_.getName()).getHatchingSteps().ll() - egg_.getSteps());
         }
-        _currentLab.setPreferredSize(new MetaDimension(coords * 2 + sideLength * 2, sideLength));
+        AbstractImage i_ = fact.getImageFactory().newImageRgb(coords * 2 + sideLength * 2, sideLength);
+        paintComponent(i_);
+        return i_;
     }
 
     public AbstractProgramInfos getFact() {
         return fact;
     }
 
-    @Override
     public AbstractImageFactory getImageFactory() {
         return fact.getImageFactory();
     }
-    @Override
+
     public void paintComponent(AbstractImage _g) {
         _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
@@ -161,12 +160,10 @@ public class PokemonRenderer extends CustCellRenderPk<UsablePokemon> {
         }
     }
 
-    @Override
     public int getHeight() {
         return sideLength;
     }
 
-    @Override
     public int getWidth() {
         return coords * 2 + sideLength * 2;
     }

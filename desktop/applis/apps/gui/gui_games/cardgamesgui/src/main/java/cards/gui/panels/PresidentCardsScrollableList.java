@@ -1,15 +1,15 @@
 package cards.gui.panels;
 
 
-
 import cards.consts.Suit;
 import cards.gui.WindowCardsInt;
 import cards.gui.labels.selection.CardPresidentCellRenderer;
+import cards.main.CardFactories;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
-import code.gui.AbsGraphicList;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
+import code.gui.ScrollCustomGraphicList;
 import code.gui.images.MetaDimension;
 import code.util.IdList;
 import code.util.core.IndexConstants;
@@ -19,20 +19,20 @@ public final class PresidentCardsScrollableList extends CardsScrollableList {
 
     private IdList<Suit> couleurs;
     private boolean decroissant;
-    private final AbsGraphicList<CardPresident> liste;
+    private final ScrollCustomGraphicList<CardPresident> liste;
     private final AbsPlainLabel remCards;
 
     public PresidentCardsScrollableList(WindowCardsInt _parent, int _nb, int _pmax, String _titre) {
         super(_parent.getCompoFactory());
-        liste = _parent.getCardFactories().getGenePresident().createMult(_parent.getImageFactory(),new CardPresidentCellRenderer(_parent));
+        liste = CardFactories.president(_parent.getCompoFactory(), _parent.getImageFactory(),new CardPresidentCellRenderer(_parent));
         setMax(_pmax);
         AbsPlainLabel titrePanneau_ = _parent.getCompoFactory().newPlainLabel(_titre);
         getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
-        liste.scroll().setPreferredSize(new MetaDimension(100,10* _nb));
+        liste.getScrollPane().setPreferredSize(new MetaDimension(100,10* _nb));
         setNbCartesRestantes(_pmax);
-        getContainer().add(liste.scroll(), GuiConstants.BORDER_LAYOUT_CENTER);
+        getContainer().add(liste.getScrollPane(), GuiConstants.BORDER_LAYOUT_CENTER);
         remCards = _parent.getCompoFactory().newPlainLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
         getContainer().add(remCards, GuiConstants.BORDER_LAYOUT_SOUTH);
         getContainer().setPreferredSize(new MetaDimension(100,10*(_nb+4)));
@@ -119,7 +119,7 @@ public final class PresidentCardsScrollableList extends CardsScrollableList {
     public int nombreCartesSelectionnees() {
         return liste.getSelectedValuesLsLen();
     }
-    public AbsGraphicList<CardPresident> getListe() {
+    public ScrollCustomGraphicList<CardPresident> getListe() {
         return liste;
     }
     @Override

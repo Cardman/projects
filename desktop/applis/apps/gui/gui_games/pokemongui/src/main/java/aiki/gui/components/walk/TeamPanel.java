@@ -10,12 +10,10 @@ import aiki.gui.listeners.PokemonSelectionMoveTutor;
 import aiki.gui.listeners.PokemonSelectionStorage;
 import aiki.gui.listeners.PokemonSelectionTeam;
 import aiki.gui.listeners.PokemonSelectionTm;
+import aiki.main.AikiFactory;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
-import code.gui.AbsGraphicList;
-import code.gui.AbsPanel;
-import code.gui.AbsPlainLabel;
-import code.gui.GuiConstants;
+import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.*;
@@ -34,7 +32,7 @@ public final class TeamPanel {
 
     private final PokemonRenderer renderer;
 
-    private final AbsGraphicList<UsablePokemon> liste;
+    private final ScrollCustomGraphicList<UsablePokemon> liste;
 
     private final Bytes indexes = new Bytes();
 
@@ -48,7 +46,7 @@ public final class TeamPanel {
     public TeamPanel(WindowAikiInt _parent, int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, StringMap<String> _mess, boolean _single) {
         facade = _facade;
         PokemonRenderer render_ = new PokemonRenderer(_parent.getFrames(), facade, _single);
-        liste = _parent.getAikiFactory().getGeneUsPkPanel().createSimple(_parent.getImageFactory(), render_);
+        liste = AikiFactory.usable(_parent.getFrames().getCompoFactory(), _parent.getImageFactory(), render_);
         compoFactory = render_.getFact().getCompoFactory();
         container = compoFactory.newBorder();
         container.setLoweredBorder();
@@ -57,11 +55,11 @@ public final class TeamPanel {
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         int side_ = facade.getMap().getSideLength();
-        liste.scroll().setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb));
+        liste.getScrollPane().setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb));
         renderer = render_;
         nbRemainPlaces = compoFactory.newPlainLabel("");
         initFighters(_team,_mess);
-        container.add(liste.scroll(), GuiConstants.BORDER_LAYOUT_CENTER);
+        container.add(liste.getScrollPane(), GuiConstants.BORDER_LAYOUT_CENTER);
         translate(_mess);
         container.add(nbRemainPlaces,GuiConstants.BORDER_LAYOUT_SOUTH);
         container.setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb+32));
@@ -137,7 +135,7 @@ public final class TeamPanel {
         liste.setListener(new PokemonSelectionStorage(_window));
     }
 
-    public AbsGraphicList<UsablePokemon> getListe() {
+    public ScrollCustomGraphicList<UsablePokemon> getListe() {
         return liste;
     }
 
@@ -165,7 +163,7 @@ public final class TeamPanel {
     }
 
     public void deselect() {
-        liste.clearSelection();
+        liste.deselectAll();
     }
 
     public void addListenerTm(ScenePanel _mainWindow) {
