@@ -20,10 +20,10 @@ public final class StructScrollCustomGraphicList extends ScrollCustomGraphicList
     private final CustList<ActionGraphicListenerStruct> actionGraphicListenerStructs = new CustList<ActionGraphicListenerStruct>();
     public StructScrollCustomGraphicList(AbsCompoFactory _compo, AbstractImageFactory _img, String _actionListener, boolean _s, GraphicListStruct _f) {
         super(_compo, _img, _s);
+        actionList = _actionListener;
+        first = _f;
         buildActions();
         setEnabled(true);
-        first = _f;
-        actionList = _actionListener;
     }
 
     @Override
