@@ -1,14 +1,12 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.errors.*;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.*;
-import code.expressionlanguage.fwd.*;
 import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.guicompos.stds.*;
@@ -18,9 +16,7 @@ import code.expressionlanguage.utilcompo.stds.*;
 import code.gui.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
-import code.threads.*;
 import code.util.*;
-import code.util.core.*;
 import org.junit.Test;
 
 public final class ExecutingOptionsTest extends EquallableElUtUtil {
@@ -48,7 +44,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         String logFolder_ = exec_.getLogFolder();
         String mainThread_ = exec_.getMainThread();
@@ -60,7 +56,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals2() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("log=0>1"));
         assertEq("0",exec_.getLogFolder());
@@ -70,7 +66,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals3() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("lgs=0,,1"));
         assertEq(2,exec_.getLgs().size());
@@ -85,7 +81,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals4() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("comments=\\\\=,=\\\\;\\\\-,-\\\\"));
         assertEq(2,opt_.getComments().size());
@@ -98,7 +94,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals5() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("args="));
         assertTrue(exec_.isHasArg());
@@ -109,7 +105,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals6() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("args=a\\ b c"));
         assertTrue(exec_.isHasArg());
@@ -121,7 +117,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals7() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("invokeDirect="));
         assertTrue(exec_.isInvokeDirect());
@@ -130,7 +126,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals8() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         int tabWidth_ = opt_.getTabWidth();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("tabWidth=-1"));
@@ -140,7 +136,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals9() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("tabWidth=1"));
         assertEq(1,opt_.getTabWidth());
@@ -149,7 +145,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals10() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         String tabWidth_ = exec_.getOutputZip();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("out="));
@@ -159,7 +155,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals11() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("out=0"));
         assertEq("0",exec_.getOutputZip());
@@ -168,7 +164,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals12() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("out=0/"));
         assertEq("0",exec_.getOutputZip());
@@ -177,7 +173,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals13() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         String tabWidth_ = exec_.getFiles();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("files="));
@@ -187,7 +183,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals14() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("files=0/"));
         assertEq("0",exec_.getFiles());
@@ -196,7 +192,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals15() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         String tabWidth_ = exec_.getResources();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("res="));
@@ -206,7 +202,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals16() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("res=0/"));
         assertEq("0",exec_.getResources());
@@ -215,7 +211,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals17() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("keyWords=Key","keyWords=If=0,KeyElse=","keyWords=1,","keyWords=KeyElseIf=","keyWords=2,","keyWords=KeyElsIf","keyWords==3","keyWords=,","keyWords=KeyElIf","keyWords==4"));
         assertEq(5,exec_.getKeyWords().size());
@@ -229,7 +225,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals18() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("aliases=Key","aliases=If=0,KeyElse=","aliases=1,","aliases=KeyElseIf=","aliases=2,","aliases=KeyElsIf","aliases==3","aliases=,","aliases=KeyElIf","aliases==4"));
         assertEq(5,exec_.getAliases().size());
@@ -243,7 +239,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals19() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("messages=Key","messages=If=0,KeyElse=","messages=1,","messages=KeyElseIf=","messages=2,","messages=KeyElsIf","messages==3","messages=,","messages=KeyElIf","messages==4"));
         assertEq(5,exec_.getMessages().size());
@@ -257,7 +253,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals20() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("warn=","warn=0,","warn=1,","warn=","warn=2,","warn=","warn=3","warn=,","warn=","warn=4"));
         assertEq(5,exec_.getWarns().size());
@@ -272,7 +268,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals21() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("classes=","classes=0 ","classes=1 ","classes=","classes=2 ","classes=","classes=3","classes= ","classes=","classes=4"));
         assertEq(5,opt_.getTypesInit().size());
@@ -286,7 +282,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals22() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("impl="));
         assertTrue(opt_.getOptionsReport().isDisplayImplicit());
@@ -295,7 +291,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals23() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("seed=0.5"));
         assertEq("0.5",opt_.getSeedElts());
@@ -304,7 +300,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals24() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         String srcFolder_ = exec_.getSrcFolder();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("src="));
@@ -317,7 +313,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals25() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("src=0"));
         assertEq("0",exec_.getSrcFolder());
@@ -329,7 +325,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals26() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         String coverFolder_ = exec_.getCoverFolder();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("cover="));
@@ -341,7 +337,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals27() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("cover=0"));
         assertEq("0",exec_.getCoverFolder());
@@ -352,7 +348,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals28() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         String errFolder_ = exec_.getErrorsFolder();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("err="));
@@ -363,7 +359,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals29() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("err=0"));
         assertEq("0",exec_.getErrorsFolder());
@@ -373,7 +369,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals30() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("files=0"));
         assertEq("0",exec_.getFiles());
@@ -382,7 +378,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals31() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("res=0"));
         assertEq("0",exec_.getResources());
@@ -391,7 +387,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals32() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("src=0/"));
         assertEq("0",exec_.getSrcFolder());
@@ -403,7 +399,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals33() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_, new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines());
         assertFalse(opt_.isCovering());
@@ -424,7 +420,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void setupOptionals34() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("impl_label="));
         assertTrue(opt_.getOptionsReport().isDisplayImplicitLabel());
@@ -507,7 +503,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void invokeLater1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
@@ -518,7 +514,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void invokeLater2() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -530,7 +526,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void invokeLater3() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         ((RunnableContextEl)ctx_).getExecutingOptions().setInvokeDirect(true);
@@ -544,7 +540,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void invokeLater4() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         ((RunnableContextEl)ctx_).getExecutingOptions().setInvokeDirect(false);

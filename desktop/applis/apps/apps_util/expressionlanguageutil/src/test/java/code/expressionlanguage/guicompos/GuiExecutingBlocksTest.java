@@ -1,26 +1,14 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.*;
-import code.expressionlanguage.analyze.errors.*;
-import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.util.*;
-import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.blocks.*;
-import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.guicompos.stds.*;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.utilcompo.stds.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
-import code.threads.*;
 import code.util.*;
-import code.util.core.*;
 import org.junit.Test;
 
 public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
@@ -28,7 +16,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
@@ -39,7 +27,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message2() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
@@ -50,7 +38,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message3() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
@@ -61,7 +49,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message4() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
@@ -72,7 +60,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message5() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
@@ -83,7 +71,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message6() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
@@ -94,7 +82,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message7() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
@@ -105,7 +93,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message8() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
@@ -116,7 +104,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message9() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
@@ -127,7 +115,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message10() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
@@ -138,7 +126,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message11() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -150,7 +138,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message12() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
@@ -164,7 +152,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message13() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -176,7 +164,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message14() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
@@ -190,7 +178,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message15() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -202,7 +190,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message16() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
@@ -216,7 +204,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message17() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -228,7 +216,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message18() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
@@ -242,7 +230,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message19() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -254,7 +242,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message20() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
@@ -268,7 +256,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message21() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -280,7 +268,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message22() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
@@ -294,7 +282,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message23() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -306,7 +294,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message24() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
@@ -320,7 +308,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message25() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -332,7 +320,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message26() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
@@ -346,7 +334,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message27() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -358,7 +346,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message28() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
@@ -372,7 +360,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message29() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -384,7 +372,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message30() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
@@ -398,7 +386,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message31() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -411,7 +399,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message32() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
@@ -426,7 +414,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message33() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -439,7 +427,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message34() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
@@ -454,7 +442,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message35() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -467,7 +455,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message36() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
@@ -482,7 +470,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message37() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -495,7 +483,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message38() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
@@ -510,7 +498,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message39() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
@@ -523,7 +511,7 @@ public final class GuiExecutingBlocksTest extends EquallableElUtUtil {
     public void message40() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);

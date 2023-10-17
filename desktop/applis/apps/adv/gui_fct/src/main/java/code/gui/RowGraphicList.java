@@ -2,7 +2,6 @@ package code.gui;
 
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.gui.initialize.AbsCompoFactory;
 
 public final class RowGraphicList<T> {
     private T info;
@@ -13,28 +12,14 @@ public final class RowGraphicList<T> {
     private boolean focused;
     private boolean anchored;
     private boolean dirty;
-    public RowGraphicList(ScrollCustomGraphicList<T> _list,T _i, int _index, AbsCompoFactory _compo, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g, ColorsGroupList _cs) {
-        label = _compo.newPreparedLabel(_imgFact.newImageRgb(1,1));
-        label.setFont(_list.getElements().getMetaFont());
+
+    public RowGraphicList(AbsPreparedLabel _label,T _i) {
+        label = _label;
         info = _i;
-        updated(_index,_imgFact,_g,_i,_cs);
     }
-    public void update(int _index, T _info, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g, ColorsGroupList _cs) {
-        info = _info;
-        updated(_index, _imgFact, _g, _info,_cs);
-    }
-    public void select(int _index, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g, ColorsGroupList _cs) {
-        if (!dirty) {
-            return;
-        }
-        updated(_index, _imgFact, _g, info,_cs);
-    }
-    public void forceRefresh(int _index, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g, ColorsGroupList _cs) {
-        updated(_index, _imgFact, _g, info,_cs);
-    }
-    private void updated(int _index, AbstractImageFactory _imgFact, AbsCustCellRenderGene<T> _g, T _inf, ColorsGroupList _cs) {
-        AbstractImage img_ = _g.getListCellRendererComponent(_index, _inf, selected, focused, anchored, label,_cs);
-        label.setIcon(_imgFact, img_);
+
+    public void refresh(AbstractImageFactory _imgFact, AbstractImage _img) {
+        label.setIcon(_imgFact, _img);
         dirty = false;
     }
 
@@ -77,7 +62,11 @@ public final class RowGraphicList<T> {
         return anchored;
     }
 
-    public AbsCustComponent getLabel() {
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    public AbsPreparedLabel getLabel() {
         return label;
     }
 
@@ -99,5 +88,9 @@ public final class RowGraphicList<T> {
 
     public T getInfo() {
         return info;
+    }
+
+    public void setInfo(T _i) {
+        this.info = _i;
     }
 }

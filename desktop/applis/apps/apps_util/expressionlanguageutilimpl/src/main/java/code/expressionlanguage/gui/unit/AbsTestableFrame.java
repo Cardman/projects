@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
-import code.gui.AbstractAdvGraphicListGeneratorStruct;
 import code.gui.CdmFactory;
 import code.gui.initialize.*;
 import code.threads.AbstractThreadFactory;
@@ -16,10 +15,10 @@ public abstract class AbsTestableFrame implements TestableFrame {
     private final CdmFactory interceptor;
     private final CommonExecution commonExecution;
 
-    protected AbsTestableFrame(AbstractLightProgramInfos _frames, AbstractIssuer _issuer, AbstractInterceptor _inter, AbstractAdvGraphicListGenerator _adv, AbstractAdvGraphicListGeneratorStruct _cr, ProgTestBarInt _b) {
+    protected AbsTestableFrame(AbstractLightProgramInfos _frames, AbstractIssuer _issuer, AbstractInterceptor _inter, ProgTestBarInt _b) {
         this.frames = _frames;
         this.issuer = _issuer;
-        interceptor = new CdmFactory(_frames,_inter,_adv,_cr);
+        interceptor = new CdmFactory(_frames,_inter);
         commonExecution = new CommonExecution(_b);
     }
 

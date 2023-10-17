@@ -37,7 +37,7 @@ public final class ExecutingOptions {
     private StringMap<String> keyWords = new StringMap<String>();
     private StringMap<String> aliases = new StringMap<String>();
     private AbstractLightProgramInfos lightProgramInfos;
-    private CdmFactory listGenerator;
+    private AbstractInterceptor interceptor;
     private FileSystemParameterizing fileSystemParameterizing;
 
     public ExecutingOptions() {
@@ -446,12 +446,16 @@ public final class ExecutingOptions {
         this.lightProgramInfos = _l;
     }
 
-    public CdmFactory getListGenerator() {
-        return listGenerator;
+    public void setListGenerator(CdmFactory _l) {
+        setInterceptor(_l.getInterceptor());
     }
 
-    public void setListGenerator(CdmFactory _l) {
-        this.listGenerator = _l;
+    public AbstractInterceptor getInterceptor() {
+        return interceptor;
+    }
+
+    public void setInterceptor(AbstractInterceptor _i) {
+        this.interceptor = _i;
     }
 
     public FileSystemParameterizing getFileSystemParameterizing() {

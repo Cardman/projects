@@ -61,22 +61,19 @@ public final class GuiExecutingBlocks {
     private ExecRootBlock focusListener;
     private ExecNamedFunctionBlock focusGained;
     private ExecNamedFunctionBlock focusLost;
-    private ExecTypeFunction pairPaintRefresh;
-    private ExecTypeFunction pairPaintRefreshOne;
+    private ExecRootBlock defCellRender;
+    private ExecRootBlock cellRender;
+    private ExecNamedFunctionBlock cellRenderGenerate;
     private ExecTypeFunction pairPaintMethod;
-    private ExecTypeFunction pairPaintAdd;
-    private ExecTypeFunction pairPaintSet;
     private DefaultClosingMainWindow eventClose;
     private AbsCompoFactory compoFactory;
-    private CdmFactory cdmFactory;
 
-    public void initApplicationParts(StringList _mainArgs, AbstractLightProgramInfos _currentElements, CdmFactory _cdm) {
+    public void initApplicationParts(StringList _mainArgs, AbstractLightProgramInfos _currentElements) {
         mainArgs = _mainArgs;
         guiInterpreterElements = _currentElements;
 //        AbstractLightProgramInfos programInfos_ = guiInterpreterElements.getProgramInfos();
         compoFactory = _currentElements.getCompoFactory();
         confirm = new OtherConfirmDialog(_currentElements);
-        cdmFactory = _cdm;
     }
 //    private void initEventParts(GuiInitializer _guiInit, GuiContextEl _context) {
 ////        eventClose = new DefaultClosingMainWindow(_context);
@@ -150,12 +147,7 @@ public final class GuiExecutingBlocks {
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
                 _guiAliases.getAliasWindowDeiconified(),new StringList(windowEvent_));
         windowDeiconified = ExecClassesUtil.getMethodBodiesById(windowListener,fct_).first();
-        String aliasListSelection_ = _guiAliases.getAliasListSelection();
-        listSelection = _classes.getClassBody(aliasListSelection_);
-        String ind_ = _content.getPrimTypes().getAliasPrimInteger();
-        fct_ = new MethodId(MethodAccessKind.INSTANCE,
-                _guiAliases.getAliasValueChanged(),new StringList(ind_,ind_));
-        valueChanged = ExecClassesUtil.getMethodBodiesById(listSelection,fct_).first();
+        listSelection(_guiAliases, _content, _classes);
         String aliasChangeListener_ = _guiAliases.getAliasChangeListener();
         changeListener = _classes.getClassBody(aliasChangeListener_);
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
@@ -166,6 +158,7 @@ public final class GuiExecutingBlocks {
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
                 _guiAliases.getAliasTreeListenerValueChanged(),new StringList(_guiAliases.getAliasTreeNode()));
         treeListenerValueChanged = ExecClassesUtil.getMethodBodiesById(treeListener,fct_).first();
+        String ind_ = _content.getPrimTypes().getAliasPrimInteger();
         String aliasTableListener_ = _guiAliases.getAliasTableListener();
         tableListener = _classes.getClassBody(aliasTableListener_);
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
@@ -191,32 +184,36 @@ public final class GuiExecutingBlocks {
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
                 _guiAliases.getAliasFocusLost(),new StringList());
         focusLost = ExecClassesUtil.getMethodBodiesById(focusListener,fct_).first();
+        cellRender(_guiAliases, _content, _classes);
+        paintMethod(_guiAliases, _classes);
+    }
+
+    public void listSelection(GuiAliases _guiAliases, LgNamesContent _content, Classes _classes) {
+        MethodId fct_;
+        String aliasListSelection_ = _guiAliases.getAliasListSelection();
+        listSelection = _classes.getClassBody(aliasListSelection_);
+        String ind_ = _content.getPrimTypes().getAliasPrimInteger();
+        String b_ = _content.getPrimTypes().getAliasPrimBoolean();
+        fct_ = new MethodId(MethodAccessKind.INSTANCE,
+                _guiAliases.getAliasValueChanged(),new StringList(ind_,ind_,b_));
+        valueChanged = ExecClassesUtil.getMethodBodiesById(listSelection,fct_).first();
+    }
+
+    public void cellRender(GuiAliases _guiAliases, LgNamesContent _content, Classes _classes) {
+        defCellRender = _classes.getClassBody(_guiAliases.getAliasDefCellRender());
+        cellRender = _classes.getClassBody(_guiAliases.getAliasCellRender());
+        cellRenderGenerate = ExecClassesUtil.getMethodBodiesById(cellRender,new MethodId(MethodAccessKind.INSTANCE,
+                _guiAliases.getAliasCellRenderGenerate(),new StringList(_content.getPrimTypes().getAliasPrimInteger(), _content.getCoreNames().getAliasObject(), _content.getPrimTypes().getAliasPrimBoolean(), _content.getPrimTypes().getAliasPrimBoolean(), _content.getPrimTypes().getAliasPrimBoolean(), _guiAliases.getAliasFont(), _guiAliases.getAliasGrList()))).first();
+    }
+
+    public void paintMethod(GuiAliases _guiAliases, Classes _classes) {
+        MethodId fct_;
         String aliasPaint_ = _guiAliases.getAliasPaint();
         ExecRootBlock paint_ = _classes.getClassBody(aliasPaint_);
-        fct_ = new MethodId(MethodAccessKind.STATIC,
-                _guiAliases.getAliasPaintRefresh(),new StringList(_guiAliases.getAliasGrList()));
-        ExecNamedFunctionBlock paintRefresh_ = ExecClassesUtil.getMethodBodiesById(paint_, fct_).first();
-        pairPaintRefresh = new ExecTypeFunction(paint_, paintRefresh_);
-        fct_ = new MethodId(MethodAccessKind.STATIC,
-                _guiAliases.getAliasPaintRefreshOne(),new StringList(_guiAliases.getAliasGrList(),
-                _content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),
-                _content.getCoreNames().getAliasObject(),
-                _content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimBoolean()
-        ));
-        ExecNamedFunctionBlock paintRefreshOne_ = ExecClassesUtil.getMethodBodiesById(paint_, fct_).first();
-        pairPaintRefreshOne = new ExecTypeFunction(paint_, paintRefreshOne_);
         fct_ = new MethodId(MethodAccessKind.STATIC,
                 _guiAliases.getAliasPaintMethod(),new StringList(_guiAliases.getAliasComponent()));
         ExecNamedFunctionBlock paintMethod_ = ExecClassesUtil.getMethodBodiesById(paint_,fct_).first();
         pairPaintMethod = new ExecTypeFunction(paint_, paintMethod_);
-        fct_ = new MethodId(MethodAccessKind.STATIC,
-                _guiAliases.getAliasPaintAdd(),new StringList(_guiAliases.getAliasGrList(),_content.getPrimTypes().getAliasPrimInteger(),_content.getCoreNames().getAliasObject()));
-        ExecNamedFunctionBlock paintAdd_ = ExecClassesUtil.getMethodBodiesById(paint_,fct_).first();
-        pairPaintAdd = new ExecTypeFunction(paint_, paintAdd_);
-        fct_ = new MethodId(MethodAccessKind.STATIC,
-                _guiAliases.getAliasPaintSet(),new StringList(_guiAliases.getAliasGrList(),_content.getPrimTypes().getAliasPrimInteger(),_content.getCoreNames().getAliasObject()));
-        ExecNamedFunctionBlock paintSet_ = ExecClassesUtil.getMethodBodiesById(paint_,fct_).first();
-        pairPaintSet = new ExecTypeFunction(paint_, paintSet_);
     }
 
     public void initEventClose(GuiContextEl _ctx) {
@@ -363,24 +360,20 @@ public final class GuiExecutingBlocks {
         return focusLost;
     }
 
-    public ExecTypeFunction getPairPaintRefresh() {
-        return pairPaintRefresh;
+    public ExecRootBlock getDefCellRender() {
+        return defCellRender;
     }
 
-    public ExecTypeFunction getPairPaintRefreshOne() {
-        return pairPaintRefreshOne;
+    public ExecRootBlock getCellRender() {
+        return cellRender;
+    }
+
+    public ExecNamedFunctionBlock getCellRenderGenerate() {
+        return cellRenderGenerate;
     }
 
     public ExecTypeFunction getPairPaintMethod() {
         return pairPaintMethod;
-    }
-
-    public ExecTypeFunction getPairPaintAdd() {
-        return pairPaintAdd;
-    }
-
-    public ExecTypeFunction getPairPaintSet() {
-        return pairPaintSet;
     }
 
     public Struct showTextField(Struct _img, Struct _frame, Struct _value, Struct _message, Struct _title, Struct _ok, Struct _cancel) {
@@ -569,12 +562,7 @@ public final class GuiExecutingBlocks {
     public AbsLightFrameFactory getLightFrameFactory() {
         return guiInterpreterElements.getLightFrameFactory();
     }
-    public AbstractAdvGraphicListGenerator getGraphicListGenerator(){
-        return cdmFactory.getFact();
-    }
-    public AbstractAdvGraphicListGeneratorStruct getGrFact(){
-        return cdmFactory.getGrFact();
-    }
+
 //    public FrameStruct getFrame() {
 //        return frame;
 //    }

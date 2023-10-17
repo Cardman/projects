@@ -9,44 +9,12 @@ import code.util.IdList;
 import code.util.Ints;
 import code.util.core.NumberUtil;
 
-public final class ScrollCustomGraphicList<T> {
+public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T> {
     private final AbsScrollPane scrollPane;
     private final AbsPanel elements;
-    private final AbsEnabledAction moveDownAction;
-    private final AbsEnabledAction moveUpAction;
-    private final AbsEnabledAction focusDownAction;
-    private final AbsEnabledAction focusUpAction;
-    private final AbsEnabledAction anchorDownAction;
-    private final AbsEnabledAction anchorUpAction;
-    private final AbsEnabledAction moveShiftDownAction;
-    private final AbsEnabledAction moveShiftUpAction;
-    private final AbsEnabledAction movePageUpAction;
-    private final AbsEnabledAction movePageDownAction;
-    private final AbsEnabledAction focusPageUpAction;
-    private final AbsEnabledAction focusPageDownAction;
-    private final AbsEnabledAction anchorPageUpAction;
-    private final AbsEnabledAction anchorPageDownAction;
-    private final AbsEnabledAction movePageShiftUpAction;
-    private final AbsEnabledAction movePageShiftDownAction;
-    private final AbsEnabledAction movePageHomeAction;
-    private final AbsEnabledAction movePageEndAction;
-    private final AbsEnabledAction anchorPageHomeAction;
-    private final AbsEnabledAction anchorPageEndAction;
-    private final AbsEnabledAction focusPageHomeAction;
-    private final AbsEnabledAction focusPageEndAction;
-    private final AbsEnabledAction movePageShiftHomeAction;
-    private final AbsEnabledAction movePageShiftEndAction;
-    private final AbsEnabledAction selectAllAction;
-    private final AbsEnabledAction deselectAllAction;
-    private final AbsEnabledAction addToSelection;
-    private final AbsEnabledAction addIntToSelection;
-    private final AbsEnabledAction remIntToSelection;
-    private final AbsEnabledAction toggleSelection;
-    private final AbsEnabledAction extendToSelection;
-    private final AbsEnabledAction changeSelection;
+    private final CustList<AbsEnabledAction> actions = new CustList<AbsEnabledAction>();
     private RowGraphicList<T> first;
     private RowGraphicList<T> last;
-    private final AbsCustCellRenderGene<T> custCellRenderGene;
     private final IdList<ListSelection> selections = new IdList<ListSelection>();
     private final AbsCompoFactory compoFactory;
     private final AbstractImageFactory imageFactory;
@@ -60,7 +28,7 @@ public final class ScrollCustomGraphicList<T> {
     private int selectedBg;
     private int minChange=-1;
     private int maxChange=-1;
-    public ScrollCustomGraphicList(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<T> _render, boolean _s) {
+    protected ScrollCustomGraphicList(AbsCompoFactory _compo, AbstractImageFactory _img, boolean _s) {
         compoFactory = _compo;
         imageFactory = _img;
         elements = _compo.newPageBox();
@@ -68,116 +36,138 @@ public final class ScrollCustomGraphicList<T> {
         elements.setFocusable(true);
         elements.addFocusListener(new RefreshFocusEvent<T>(this));
         elements.addMouseListener(new SelectingGraphicListEvent<T>(this));
-        moveDownAction = compoFactory.wrap(new MoveGraphicSelectEvent<T>(this,1));
-        elements.registerKeyboardAction(moveDownAction,GuiConstants.VK_DOWN,0);
-        moveUpAction = compoFactory.wrap(new MoveGraphicSelectEvent<T>(this, -1));
-        elements.registerKeyboardAction(moveUpAction,GuiConstants.VK_UP,0);
-        focusDownAction = compoFactory.wrap(new MoveGraphicFocusEvent<T>(this,1));
-        elements.registerKeyboardAction(focusDownAction,GuiConstants.VK_DOWN,GuiConstants.CTRL_DOWN_MASK);
-        focusUpAction = compoFactory.wrap(new MoveGraphicFocusEvent<T>(this, -1));
-        elements.registerKeyboardAction(focusUpAction,GuiConstants.VK_UP,GuiConstants.CTRL_DOWN_MASK);
-        anchorDownAction = compoFactory.wrap(new MoveGraphicAnchorEvent<T>(this,1));
-        elements.registerKeyboardAction(anchorDownAction,GuiConstants.VK_DOWN,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
-        anchorUpAction = compoFactory.wrap(new MoveGraphicAnchorEvent<T>(this, -1));
-        elements.registerKeyboardAction(anchorUpAction,GuiConstants.VK_UP,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
-        moveShiftDownAction = compoFactory.wrap(new MoveGraphicSelectShiftEvent<T>(this, 1));
-        elements.registerKeyboardAction(moveShiftDownAction,GuiConstants.VK_DOWN,GuiConstants.SHIFT_DOWN_MASK);
-        moveShiftUpAction = compoFactory.wrap(new MoveGraphicSelectShiftEvent<T>(this, -1));
-        elements.registerKeyboardAction(moveShiftUpAction,GuiConstants.VK_UP,GuiConstants.SHIFT_DOWN_MASK);
-        movePageUpAction = compoFactory.wrap(new MoveGraphicSelectPageEvent<T>(this,1));
-        elements.registerKeyboardAction(movePageUpAction,GuiConstants.VK_PAGE_DOWN,0);
-        movePageDownAction = compoFactory.wrap(new MoveGraphicSelectPageEvent<T>(this,-1));
-        elements.registerKeyboardAction(movePageDownAction,GuiConstants.VK_PAGE_UP,0);
-        focusPageUpAction = compoFactory.wrap(new MoveGraphicFocusPageEvent<T>(this,1));
-        elements.registerKeyboardAction(focusPageUpAction,GuiConstants.VK_PAGE_DOWN,GuiConstants.CTRL_DOWN_MASK);
-        focusPageDownAction = compoFactory.wrap(new MoveGraphicFocusPageEvent<T>(this,-1));
-        elements.registerKeyboardAction(focusPageDownAction,GuiConstants.VK_PAGE_UP,GuiConstants.CTRL_DOWN_MASK);
-        anchorPageUpAction = compoFactory.wrap(new MoveGraphicAnchorPageEvent<T>(this,1));
-        elements.registerKeyboardAction(anchorPageUpAction,GuiConstants.VK_PAGE_DOWN,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
-        anchorPageDownAction = compoFactory.wrap(new MoveGraphicAnchorPageEvent<T>(this,-1));
-        elements.registerKeyboardAction(anchorPageDownAction,GuiConstants.VK_PAGE_UP,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
-        movePageShiftUpAction = compoFactory.wrap(new MoveGraphicSelectShiftPageEvent<T>(this,1));
-        elements.registerKeyboardAction(movePageShiftUpAction,GuiConstants.VK_PAGE_DOWN,GuiConstants.SHIFT_DOWN_MASK);
-        movePageShiftDownAction = compoFactory.wrap(new MoveGraphicSelectShiftPageEvent<T>(this,-1));
-        elements.registerKeyboardAction(movePageShiftDownAction,GuiConstants.VK_PAGE_UP,GuiConstants.SHIFT_DOWN_MASK);
-        movePageHomeAction = compoFactory.wrap(new MoveGraphicSelectBoundEvent<T>(this, -1));
-        elements.registerKeyboardAction(movePageHomeAction,GuiConstants.VK_HOME,0);
-        movePageEndAction = compoFactory.wrap(new MoveGraphicSelectBoundEvent<T>(this,1));
-        elements.registerKeyboardAction(movePageEndAction,GuiConstants.VK_END,0);
-        focusPageHomeAction = compoFactory.wrap(new MoveGraphicFocusBoundEvent<T>(this, -1));
-        elements.registerKeyboardAction(focusPageHomeAction,GuiConstants.VK_HOME,GuiConstants.CTRL_DOWN_MASK);
-        focusPageEndAction = compoFactory.wrap(new MoveGraphicFocusBoundEvent<T>(this,1));
-        elements.registerKeyboardAction(focusPageEndAction,GuiConstants.VK_END,GuiConstants.CTRL_DOWN_MASK);
-        anchorPageHomeAction = compoFactory.wrap(new MoveGraphicAnchorBoundEvent<T>(this, -1));
-        elements.registerKeyboardAction(anchorPageHomeAction,GuiConstants.VK_HOME,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
-        anchorPageEndAction = compoFactory.wrap(new MoveGraphicAnchorBoundEvent<T>(this,1));
-        elements.registerKeyboardAction(anchorPageEndAction,GuiConstants.VK_END,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
-        movePageShiftHomeAction = compoFactory.wrap(new MoveGraphicSelectShiftBoundEvent<T>(this, -1));
-        elements.registerKeyboardAction(movePageShiftHomeAction,GuiConstants.VK_HOME,GuiConstants.SHIFT_DOWN_MASK);
-        movePageShiftEndAction = compoFactory.wrap(new MoveGraphicSelectShiftBoundEvent<T>(this,1));
-        elements.registerKeyboardAction(movePageShiftEndAction,GuiConstants.VK_END,GuiConstants.SHIFT_DOWN_MASK);
-        selectAllAction = compoFactory.wrap(new MoveGraphicSelectSelectAllEvent<T>(this));
-        elements.registerKeyboardAction(selectAllAction,GuiConstants.VK_A,GuiConstants.CTRL_DOWN_MASK);
-        deselectAllAction = compoFactory.wrap(new MoveGraphicSelectDeSelectAllEvent<T>(this));
-        elements.registerKeyboardAction(deselectAllAction,GuiConstants.VK_W,GuiConstants.CTRL_DOWN_MASK);
-        addIntToSelection = compoFactory.wrap(new MoveGraphicSelectAddAncIntervalEvent<T>(this,true));
-        elements.registerKeyboardAction(addIntToSelection,GuiConstants.VK_B,GuiConstants.CTRL_DOWN_MASK);
-        remIntToSelection = compoFactory.wrap(new MoveGraphicSelectAddAncIntervalEvent<T>(this,false));
-        elements.registerKeyboardAction(remIntToSelection,GuiConstants.VK_N,GuiConstants.CTRL_DOWN_MASK);
-        addToSelection = compoFactory.wrap(new MoveGraphicSelectAddIntervalEvent<T>(this));
-        elements.registerKeyboardAction(addToSelection,GuiConstants.VK_SPACE,0);
-        toggleSelection = compoFactory.wrap(new MoveGraphicSelectToggleIntervalEvent<T>(this));
-        elements.registerKeyboardAction(toggleSelection,GuiConstants.VK_SPACE,GuiConstants.CTRL_DOWN_MASK);
-        extendToSelection = compoFactory.wrap(new MoveGraphicSelectExtendToEvent<T>(this));
-        elements.registerKeyboardAction(extendToSelection,GuiConstants.VK_SPACE,GuiConstants.SHIFT_DOWN_MASK);
-        changeSelection = compoFactory.wrap(new MoveGraphicSelectChangeEvent<T>(this));
-        elements.registerKeyboardAction(changeSelection,GuiConstants.VK_SPACE,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
         scrollPane = _compo.newAbsScrollPane(elements);
-        custCellRenderGene = _render;
         this.single = _s;
-        enable(enabled);
         elements.setBackground(GuiConstants.WHITE);
         elements.setForeground(GuiConstants.BLACK);
         setSelectedBg(GuiConstants.BLUE);
         setSelectedFg(GuiConstants.WHITE);
     }
+    protected void buildActions() {
+        AbsEnabledAction moveDownAction_ = moveGraphicSelectEvent(1);
+        actions.add(moveDownAction_);
+        elements.registerKeyboardAction(moveDownAction_,GuiConstants.VK_DOWN,0);
+        AbsEnabledAction moveUpAction_ = moveGraphicSelectEvent(-1);
+        actions.add(moveUpAction_);
+        elements.registerKeyboardAction(moveUpAction_,GuiConstants.VK_UP,0);
+        AbsEnabledAction focusDownAction_ = moveGraphicFocusEvent(1);
+        actions.add(focusDownAction_);
+        elements.registerKeyboardAction(focusDownAction_,GuiConstants.VK_DOWN,GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction focusUpAction_ = moveGraphicFocusEvent(-1);
+        actions.add(focusUpAction_);
+        elements.registerKeyboardAction(focusUpAction_,GuiConstants.VK_UP,GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction anchorDownAction_ = moveGraphicAnchorEvent(1);
+        actions.add(anchorDownAction_);
+        elements.registerKeyboardAction(anchorDownAction_,GuiConstants.VK_DOWN,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction anchorUpAction_ = moveGraphicAnchorEvent(-1);
+        actions.add(anchorUpAction_);
+        elements.registerKeyboardAction(anchorUpAction_,GuiConstants.VK_UP,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction moveShiftDownAction_ = moveGraphicSelectShiftEvent(1);
+        actions.add(moveShiftDownAction_);
+        elements.registerKeyboardAction(moveShiftDownAction_,GuiConstants.VK_DOWN,GuiConstants.SHIFT_DOWN_MASK);
+        AbsEnabledAction moveShiftUpAction_ = moveGraphicSelectShiftEvent(-1);
+        actions.add(moveShiftUpAction_);
+        elements.registerKeyboardAction(moveShiftUpAction_,GuiConstants.VK_UP,GuiConstants.SHIFT_DOWN_MASK);
+        AbsEnabledAction movePageUpAction_ = moveGraphicSelectPageEvent(1);
+        actions.add(movePageUpAction_);
+        elements.registerKeyboardAction(movePageUpAction_,GuiConstants.VK_PAGE_DOWN,0);
+        AbsEnabledAction movePageDownAction_ = moveGraphicSelectPageEvent(-1);
+        actions.add(movePageDownAction_);
+        elements.registerKeyboardAction(movePageDownAction_,GuiConstants.VK_PAGE_UP,0);
+        AbsEnabledAction focusPageUpAction_ = moveGraphicFocusPageEvent(1);
+        actions.add(focusPageUpAction_);
+        elements.registerKeyboardAction(focusPageUpAction_,GuiConstants.VK_PAGE_DOWN,GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction focusPageDownAction_ = moveGraphicFocusPageEvent(-1);
+        actions.add(focusPageDownAction_);
+        elements.registerKeyboardAction(focusPageDownAction_,GuiConstants.VK_PAGE_UP,GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction anchorPageUpAction_ = moveGraphicAnchorPageEvent(1);
+        actions.add(anchorPageUpAction_);
+        elements.registerKeyboardAction(anchorPageUpAction_,GuiConstants.VK_PAGE_DOWN,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction anchorPageDownAction_ = moveGraphicAnchorPageEvent(-1);
+        actions.add(anchorPageDownAction_);
+        elements.registerKeyboardAction(anchorPageDownAction_,GuiConstants.VK_PAGE_UP,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction movePageShiftUpAction_ = moveGraphicSelectShiftPageEvent(1);
+        actions.add(movePageShiftUpAction_);
+        elements.registerKeyboardAction(movePageShiftUpAction_,GuiConstants.VK_PAGE_DOWN,GuiConstants.SHIFT_DOWN_MASK);
+        AbsEnabledAction movePageShiftDownAction_ = moveGraphicSelectShiftPageEvent(-1);
+        actions.add(movePageShiftDownAction_);
+        elements.registerKeyboardAction(movePageShiftDownAction_,GuiConstants.VK_PAGE_UP,GuiConstants.SHIFT_DOWN_MASK);
+        AbsEnabledAction movePageHomeAction_ = moveGraphicSelectBoundEvent(-1);
+        actions.add(movePageHomeAction_);
+        elements.registerKeyboardAction(movePageHomeAction_,GuiConstants.VK_HOME,0);
+        AbsEnabledAction movePageEndAction_ = moveGraphicSelectBoundEvent(1);
+        actions.add(movePageEndAction_);
+        elements.registerKeyboardAction(movePageEndAction_,GuiConstants.VK_END,0);
+        AbsEnabledAction focusPageHomeAction_ = moveGraphicFocusBoundEvent(-1);
+        actions.add(focusPageHomeAction_);
+        elements.registerKeyboardAction(focusPageHomeAction_,GuiConstants.VK_HOME,GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction focusPageEndAction_ = moveGraphicFocusBoundEvent(1);
+        actions.add(focusPageEndAction_);
+        elements.registerKeyboardAction(focusPageEndAction_,GuiConstants.VK_END,GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction anchorPageHomeAction_ = moveGraphicAnchorBoundEvent(-1);
+        actions.add(anchorPageHomeAction_);
+        elements.registerKeyboardAction(anchorPageHomeAction_,GuiConstants.VK_HOME,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction anchorPageEndAction_ = moveGraphicAnchorBoundEvent(1);
+        actions.add(anchorPageEndAction_);
+        elements.registerKeyboardAction(anchorPageEndAction_,GuiConstants.VK_END,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction movePageShiftHomeAction_ = moveGraphicSelectShiftBoundEvent(-1);
+        actions.add(movePageShiftHomeAction_);
+        elements.registerKeyboardAction(movePageShiftHomeAction_,GuiConstants.VK_HOME,GuiConstants.SHIFT_DOWN_MASK);
+        AbsEnabledAction movePageShiftEndAction_ = moveGraphicSelectShiftBoundEvent(1);
+        actions.add(movePageShiftEndAction_);
+        elements.registerKeyboardAction(movePageShiftEndAction_,GuiConstants.VK_END,GuiConstants.SHIFT_DOWN_MASK);
+        AbsEnabledAction selectAllAction_ = moveGraphicSelectAllAction();
+        actions.add(selectAllAction_);
+        elements.registerKeyboardAction(selectAllAction_,GuiConstants.VK_A,GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction deselectAllAction_ = moveGraphicDeselectAllAction();
+        actions.add(deselectAllAction_);
+        elements.registerKeyboardAction(deselectAllAction_,GuiConstants.VK_W,GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction addIntToSelection_ = moveGraphicSelectAddAncIntervalEvent(true);
+        actions.add(addIntToSelection_);
+        elements.registerKeyboardAction(addIntToSelection_,GuiConstants.VK_B,GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction remIntToSelection_ = moveGraphicSelectAddAncIntervalEvent(false);
+        actions.add(remIntToSelection_);
+        elements.registerKeyboardAction(remIntToSelection_,GuiConstants.VK_N,GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction addToSelection_ = moveGraphicAddTo();
+        actions.add(addToSelection_);
+        elements.registerKeyboardAction(addToSelection_,GuiConstants.VK_SPACE,0);
+        AbsEnabledAction toggleSelection_ = moveGraphicToggle();
+        actions.add(toggleSelection_);
+        elements.registerKeyboardAction(toggleSelection_,GuiConstants.VK_SPACE,GuiConstants.CTRL_DOWN_MASK);
+        AbsEnabledAction extendToSelection_ = moveGraphicExtend();
+        actions.add(extendToSelection_);
+        elements.registerKeyboardAction(extendToSelection_,GuiConstants.VK_SPACE,GuiConstants.SHIFT_DOWN_MASK);
+        AbsEnabledAction changeSelection_ = moveGraphicChange();
+        actions.add(changeSelection_);
+        elements.registerKeyboardAction(changeSelection_,GuiConstants.VK_SPACE,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
+    }
+    protected abstract AbsEnabledAction moveGraphicSelectEvent(int _d);
+    protected abstract AbsEnabledAction moveGraphicSelectShiftEvent(int _d);
+    protected abstract AbsEnabledAction moveGraphicSelectPageEvent(int _d);
+    protected abstract AbsEnabledAction moveGraphicSelectBoundEvent(int _d);
+    protected abstract AbsEnabledAction moveGraphicSelectShiftBoundEvent(int _d);
+    protected abstract AbsEnabledAction moveGraphicAnchorBoundEvent(int _d);
+    protected abstract AbsEnabledAction moveGraphicFocusBoundEvent(int _d);
+    protected abstract AbsEnabledAction moveGraphicSelectShiftPageEvent(int _d);
+    protected abstract AbsEnabledAction moveGraphicAnchorPageEvent(int _d);
+    protected abstract AbsEnabledAction moveGraphicFocusPageEvent(int _d);
+    protected abstract AbsEnabledAction moveGraphicFocusEvent(int _d);
+    protected abstract AbsEnabledAction moveGraphicAnchorEvent(int _d);
+    protected abstract AbsEnabledAction moveGraphicSelectAddAncIntervalEvent(boolean _d);
+    protected abstract AbsEnabledAction moveGraphicSelectAllAction();
+    protected abstract AbsEnabledAction moveGraphicDeselectAllAction();
+    protected abstract AbsEnabledAction moveGraphicAddTo();
+    protected abstract AbsEnabledAction moveGraphicToggle();
+    protected abstract AbsEnabledAction moveGraphicExtend();
+    protected abstract AbsEnabledAction moveGraphicChange();
     private void enable(boolean _en) {
-        moveDownAction.setEnabled(_en);
-        moveUpAction.setEnabled(_en);
-        focusDownAction.setEnabled(_en);
-        focusUpAction.setEnabled(_en);
-        anchorDownAction.setEnabled(_en);
-        anchorUpAction.setEnabled(_en);
-        moveShiftDownAction.setEnabled(_en);
-        moveShiftUpAction.setEnabled(_en);
-        movePageUpAction.setEnabled(_en);
-        movePageDownAction.setEnabled(_en);
-        focusPageUpAction.setEnabled(_en);
-        focusPageDownAction.setEnabled(_en);
-        anchorPageUpAction.setEnabled(_en);
-        anchorPageDownAction.setEnabled(_en);
-        movePageShiftUpAction.setEnabled(_en);
-        movePageShiftDownAction.setEnabled(_en);
-        movePageHomeAction.setEnabled(_en);
-        movePageEndAction.setEnabled(_en);
-        focusPageHomeAction.setEnabled(_en);
-        focusPageEndAction.setEnabled(_en);
-        anchorPageHomeAction.setEnabled(_en);
-        anchorPageEndAction.setEnabled(_en);
-        movePageShiftHomeAction.setEnabled(_en);
-        movePageShiftEndAction.setEnabled(_en);
-        selectAllAction.setEnabled(_en);
-        deselectAllAction.setEnabled(_en);
-        addIntToSelection.setEnabled(_en);
-        remIntToSelection.setEnabled(_en);
-        addToSelection.setEnabled(_en);
-        toggleSelection.setEnabled(_en);
-        extendToSelection.setEnabled(_en);
-        changeSelection.setEnabled(_en);
+        for (AbsEnabledAction a: actions) {
+            a.setEnabled(_en);
+        }
     }
     public void add(T _i) {
         int s_ = size();
-        RowGraphicList<T> elt_ = new RowGraphicList<T>(this,_i, s_, compoFactory, imageFactory, custCellRenderGene, colorGroup());
+        RowGraphicList<T> elt_ = new RowGraphicList<T>(generate(s_,_i,false,false,false),_i);
         append(elt_);
         elements.add(elt_.getLabel());
     }
@@ -185,7 +175,12 @@ public final class ScrollCustomGraphicList<T> {
         if (_index < 0) {
             return;
         }
-        RowGraphicList<T> elt_ = new RowGraphicList<T>(this,_i, _index, compoFactory, imageFactory, custCellRenderGene, colorGroup());
+        add(_index,generate(_index,_i,false,false,false),_i);
+    }
+    public void add(int _index, AbsPreparedLabel _label, T _i) {
+        add(_index, new RowGraphicList<T>(_label, _i));
+    }
+    public void add(int _index, RowGraphicList<T> _i) {
         RowGraphicList<T> next_ = getRow(_index);
         if (next_ != null) {
             if (focused.getIndex() > -1 && _index <= focused.getIndex()) {
@@ -196,17 +191,35 @@ public final class ScrollCustomGraphicList<T> {
             }
             RowGraphicList<T> pr_ = next_.getPrevious();
             if (pr_ != null) {
-                elt_.setPrevious(pr_);
-                pr_.setNext(elt_);
+                _i.setPrevious(pr_);
+                pr_.setNext(_i);
             } else {
-                first = elt_;
+                first = _i;
             }
-            elt_.setNext(next_);
-            next_.setPrevious(elt_);
+            _i.setNext(next_);
+            next_.setPrevious(_i);
         } else {
-            append(elt_);
+            append(_i);
         }
-        elements.add(elt_.getLabel(), _index);
+        elements.add(_i.getLabel(), _index);
+    }
+    public AbsPreparedLabel generate(int _index, T _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored) {
+        AbsPreparedLabel lab_ = preparedLabel();
+        lab_.setFont(getElements().getMetaFont());
+        lab_.setIcon(getImageFactory(), generateImg(getElements().getMetaFont(), _index, _info, _isSelected, _cellHasFocus, _cellIsAnchored));
+        return lab_;
+    }
+
+    public AbsPreparedLabel preparedLabel() {
+        return compoFactory.newPreparedLabel(imageFactory.newImageRgb(1, 1));
+    }
+
+    public AbsCompoFactory getCompoFactory() {
+        return compoFactory;
+    }
+
+    public AbstractImageFactory getImageFactory() {
+        return imageFactory;
     }
 
     private void append(RowGraphicList<T> _e) {
@@ -256,7 +269,8 @@ public final class ScrollCustomGraphicList<T> {
         if (next_ == null) {
             return;
         }
-        next_.update(_index,_i, imageFactory,custCellRenderGene, colorGroup());
+        next_.setInfo(_i);
+        next_.refresh(imageFactory, generateImg(next_.getLabel().getMetaFont(), _index, next_.getInfo(), next_.isSelected(), next_.isFocused(), next_.isAnchored()));
     }
 
     public void remove(int _index) {
@@ -294,7 +308,6 @@ public final class ScrollCustomGraphicList<T> {
             }
         }
         elements.remove(current_.getLabel());
-        fireEvents(true);
     }
     public void clearRevalidate() {
         clear();
@@ -306,7 +319,6 @@ public final class ScrollCustomGraphicList<T> {
         first = null;
         last = null;
         elements.removeAll();
-        fireEvents(true);
     }
 
     private void updateAnchor(RowGraphicList<T> _current, RowGraphicList<T> _repl, int _index, int _i) {
@@ -343,9 +355,7 @@ public final class ScrollCustomGraphicList<T> {
     }
 
     public void select(int _index) {
-        RowGraphicList<T> next_ = getRow(_index);
-        select(_index, next_, true);
-
+        select(Ints.newList(_index));
     }
 
     public RowGraphicListIndex<T> getRowOrEmpty(Ints _index) {
@@ -380,8 +390,7 @@ public final class ScrollCustomGraphicList<T> {
             deselectAll();
             selectRange(sel_.getRow(),sel_.getIndex(),anchor.getRow(), true);
             focus(sel_);
-            fireEvents(false);
-            repaint();
+            events();
         }
     }
 
@@ -391,8 +400,7 @@ public final class ScrollCustomGraphicList<T> {
             boolean ancSel_ = ancSet();
             selectRange(sel_.getRow(),sel_.getIndex(),anchor.getRow(),ancSel_);
             focus(sel_);
-            fireEvents(false);
-            repaint();
+            events();
         }
     }
 
@@ -404,7 +412,7 @@ public final class ScrollCustomGraphicList<T> {
 
     public void selectCoords(int _y) {
         RowGraphicListIndex<T> sel_ = selectedCoords(_y);
-        select(sel_.getIndex(), sel_.getRow(), false);
+        select(sel_.getIndex(), sel_.getRow());
     }
     private RowGraphicListIndex<T> selectedCoords(int _y) {
         int s_ = 0;
@@ -425,7 +433,7 @@ public final class ScrollCustomGraphicList<T> {
         return new RowGraphicListIndex<T>(null,-1);
     }
 
-    private void select(int _index, RowGraphicList<T> _next, boolean _meth) {
+    private void select(int _index, RowGraphicList<T> _next) {
         if (_next == null) {
             return;
         }
@@ -433,10 +441,7 @@ public final class ScrollCustomGraphicList<T> {
         updateAnchor(_next, _index);
         updateFocus(_next, _index);
         select(_next,true,_index);
-        fireEvents(_meth);
-        if (!_meth) {
-            refreshAll();
-        }
+        events();
     }
 
     public void select(Ints _indices) {
@@ -451,14 +456,12 @@ public final class ScrollCustomGraphicList<T> {
             }
             RowGraphicListIndex<T> row_ = getRowOrEmpty(valid_);
             if (row_.getRow() == null) {
-                fireEvents(true);
                 return;
             }
             int index_ = valid_.last();
             select(row_.getRow(),true,index_);
             updateAnchor(row_.getRow(), index_);
             updateFocus(row_.getRow(), index_);
-            fireEvents(true);
             return;
         }
         RowGraphicList<T> c_ = first;
@@ -479,17 +482,23 @@ public final class ScrollCustomGraphicList<T> {
             s_++;
             c_ = c_.getNext();
         }
-        fireEvents(true);
     }
 
+//    public void fireEventsProg() {
+//        fireEvents(true);
+//    }
     private void fireEvents(boolean _meth) {
+        SelectionInfo s_ = generateAndSet(_meth);
+        for (ListSelection l: selections) {
+            l.valueChanged(s_);
+        }
+    }
+    public SelectionInfo generateAndSet(boolean _meth) {
         int min_ = NumberUtil.min(minChange,maxChange);
         int max_ = NumberUtil.max(minChange,maxChange);
         minChange = -1;
         maxChange = -1;
-        for (ListSelection l: selections) {
-            l.valueChanged(new SelectionInfo(min_, max_, _meth));
-        }
+        return new SelectionInfo(min_, max_, _meth);
     }
 
     public void addOrRemoveToSelectCoords(int _y) {
@@ -501,8 +510,7 @@ public final class ScrollCustomGraphicList<T> {
 
     public void deselectAllAction() {
         deselectAll();
-        fireEvents(false);
-        repaint();
+        events();
     }
     public void selectAll() {
         if (single) {
@@ -516,8 +524,7 @@ public final class ScrollCustomGraphicList<T> {
             c_ = c_.getNext();
             s_++;
         }
-        fireEvents(false);
-        repaint();
+        events();
     }
 
     public void move(int _down) {
@@ -536,8 +543,7 @@ public final class ScrollCustomGraphicList<T> {
         updateFocus(prev_, ind_+ _down);
         select(prev_,true,focused.getIndex());
         scrollPage(_down, scrollPane.viewRect(), focused);
-        fireEvents(false);
-        repaint();
+        events();
     }
 
     public void moveShift(int _down) {
@@ -561,8 +567,7 @@ public final class ScrollCustomGraphicList<T> {
         selectRange(next_, ni_, anchor.getRow(), true);
         updateFocus(next_, ind_+ _down);
         scrollPage(_down, scrollPane.viewRect(), focused);
-        fireEvents(false);
-        repaint();
+        events();
     }
 
     private void possibleUpdate() {
@@ -613,8 +618,7 @@ public final class ScrollCustomGraphicList<T> {
         selectRange(next_.getRow(), ind_, anchor.getRow(), true);
         updateFocus(next_.getRow(), ind_);
         scrollPage(_down, scrollPane.viewRect(), focused);
-        fireEvents(false);
-        repaint();
+        events();
     }
 
 
@@ -645,7 +649,7 @@ public final class ScrollCustomGraphicList<T> {
         RowGraphicList<T> cu_ = first;
         int s_ = 0;
         while (cu_ != null) {
-            cu_.forceRefresh(s_,imageFactory,custCellRenderGene, colorGroup());
+            cu_.refresh(imageFactory, this.generateImg(cu_.getLabel().getMetaFont(), s_, cu_.getInfo(), cu_.isSelected(), cu_.isFocused(), cu_.isAnchored()));
             cu_ = cu_.getNext();
             s_++;
         }
@@ -683,8 +687,7 @@ public final class ScrollCustomGraphicList<T> {
         selectRange(next_.getRow(), ind_, anchor.getRow(), true);
         updateFocus(b_, ind_);
         scrollPage(_down, scrollPane.viewRect(), focused);
-        fireEvents(false);
-        repaint();
+        events();
     }
     public void addToSelection() {
         if (single) {
@@ -697,8 +700,7 @@ public final class ScrollCustomGraphicList<T> {
         }
         int ind_ = focused.getIndex();
         selectRange(f_, ind_, focused.getRow(), true);
-        fireEvents(false);
-        repaint();
+        events();
     }
 
     public void addIntToSelection(boolean _v) {
@@ -713,6 +715,10 @@ public final class ScrollCustomGraphicList<T> {
         int ind_ = focused.getIndex();
         possibleUpdate();
         selectRange(f_, ind_, anchor.getRow(), _v);
+        events();
+    }
+
+    private void events() {
         fireEvents(false);
         repaint();
     }
@@ -728,8 +734,7 @@ public final class ScrollCustomGraphicList<T> {
         boolean ancSel_ = ancSet();
         deselectAll();
         selectRange(foc_,focused.getIndex(),anchor.getRow(),ancSel_);
-        fireEvents(false);
-        repaint();
+        events();
     }
     public void changeSelection() {
         select(focused.getIndex());
@@ -746,8 +751,7 @@ public final class ScrollCustomGraphicList<T> {
         int ind_ = focused.getIndex();
         selectRange(f_, ind_, focused.getRow(), !f_.isSelected());
         anchor = focused;
-        fireEvents(false);
-        repaint();
+        events();
     }
     public void goBound(int _down) {
         deselectAll();
@@ -757,8 +761,7 @@ public final class ScrollCustomGraphicList<T> {
             updateFocus(b_, boundIndex(_down));
             select(b_,true,focused.getIndex());
             scrollBound(_down);
-            fireEvents(false);
-            repaint();
+            events();
         }
     }
     private void scrollBound(int _down) {
@@ -781,8 +784,7 @@ public final class ScrollCustomGraphicList<T> {
         focus(prev_);
         select(prev_.getRow(),true,prev_.getIndex());
         scrollPage(_down, rect_, focused);
-        fireEvents(false);
-        repaint();
+        events();
     }
 
     public void moveFocus(int _down) {
@@ -802,8 +804,7 @@ public final class ScrollCustomGraphicList<T> {
         int ind_ = this.focused.getIndex();
         updateFocus(prev_, ind_+ _down);
         scrollPage(_down, scrollPane.viewRect(), focused);
-        fireEvents(false);
-        repaint();
+        events();
     }
 
     public void moveAnchor(int _down) {
@@ -823,8 +824,7 @@ public final class ScrollCustomGraphicList<T> {
         int ind_ = this.anchor.getIndex();
         updateAnchor(prev_, ind_+ _down);
         scrollPage(_down, scrollPane.viewRect(), anchor);
-        fireEvents(false);
-        repaint();
+        events();
     }
 
     public void movePageFocus(int _down) {
@@ -839,8 +839,7 @@ public final class ScrollCustomGraphicList<T> {
         }
         focus(prev_);
         scrollPage(_down, rect_, focused);
-        fireEvents(false);
-        repaint();
+        events();
     }
 
     public void movePageAnchor(int _down) {
@@ -855,8 +854,7 @@ public final class ScrollCustomGraphicList<T> {
         }
         anchor(prev_);
         scrollPage(_down, rect_, anchor);
-        fireEvents(false);
-        repaint();
+        events();
     }
 
     public void focusBound(int _down) {
@@ -868,8 +866,7 @@ public final class ScrollCustomGraphicList<T> {
         if (b_ != null) {
             updateFocus(b_, boundIndex(_down));
             scrollBound(_down);
-            fireEvents(false);
-            repaint();
+            events();
         }
     }
 
@@ -882,8 +879,7 @@ public final class ScrollCustomGraphicList<T> {
         if (b_ != null) {
             updateAnchor(b_, boundIndex(_down));
             scrollBound(_down);
-            fireEvents(false);
-            repaint();
+            events();
         }
     }
     private RowGraphicListIndex<T> nextIndex(int _down, RowGraphicListIndex<T> _fr) {
@@ -940,8 +936,7 @@ public final class ScrollCustomGraphicList<T> {
         updateAnchor(_n, _index);
         updateFocus(_n, _index);
         select(_n,_selected,_index);
-        fireEvents(false);
-        repaint();
+        events();
     }
 
     private void updateAnchor(RowGraphicList<T> _n, int _index) {
@@ -991,7 +986,7 @@ public final class ScrollCustomGraphicList<T> {
         return anchor;
     }
 
-    private void deselectAll() {
+    public void deselectAll() {
         RowGraphicList<T> c_ = first;
         int s_ = 0;
         while (c_ != null) {
@@ -1018,6 +1013,7 @@ public final class ScrollCustomGraphicList<T> {
     }
     public void revalidate() {
         scrollPane.recalculateViewport();
+        elements.recalculate();
     }
 
     private void refreshAll() {
@@ -1031,19 +1027,22 @@ public final class ScrollCustomGraphicList<T> {
     }
 
     private void refresh(RowGraphicList<T> _elt, int _i) {
-        _elt.select(_i, imageFactory,custCellRenderGene, colorGroup());
+        if (!_elt.isDirty()) {
+            return;
+        }
+        _elt.refresh(imageFactory, generateImg(_elt.getLabel().getMetaFont(), _i, _elt.getInfo(), _elt.isSelected(), _elt.isFocused(), _elt.isAnchored()));
     }
 
     void refreshFocused() {
         RowGraphicList<T> r_ = focused.getRow();
         if (r_ != null) {
             r_.focus(elements.isFocused());
-            r_.select(focused.getIndex(),imageFactory,custCellRenderGene,colorGroup());
+            refresh(r_,focused.getIndex());
         }
         RowGraphicList<T> a_ = anchor.getRow();
         if (a_ != null) {
             a_.anchor(elements.isFocused());
-            a_.select(anchor.getIndex(),imageFactory,custCellRenderGene,colorGroup());
+            refresh(a_,anchor.getIndex());
         }
     }
 
@@ -1101,7 +1100,7 @@ public final class ScrollCustomGraphicList<T> {
     public void removeListener(ListSelection _listener){
         selections.removeObj(_listener);
     }
-    private ColorsGroupList colorGroup() {
+    protected ColorsGroupList colorGroup() {
         return new ColorsGroupList(elements.getBackgroundValue(), elements.getForegroundValue(), getSelectedBg(), getSelectedFg());
     }
 

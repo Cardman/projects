@@ -314,7 +314,7 @@ public final class GuiBaseUtil {
         _f.initForm(_c,new StringIntDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),new GeneComponentModelInt(_f.getFactory()),new NaturalComparator(),_m);
     }
     public static ScrollCustomGraphicList<String> standard(AbsCompoFactory _compo, AbstractImageFactory _img, boolean _simple) {
-        return new ScrollCustomGraphicList<String>(_compo,_img,new CustCellRenderString(_compo, _img),_simple);
+        return new DefScrollCustomGraphicList<String>(_compo,_img,new CustCellRenderString(_compo, _img),_simple);
     }
 
     public static MetaDimension dimension(AbsPanel _curr, int _prefWidth, int _visible) {

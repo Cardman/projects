@@ -29,10 +29,6 @@ public final class PreparedLabelStruct extends CustComponentStruct {
         return _fact.newImageArgb(1,1);
     }
 
-    public AbsPreparedLabel getTextLabel() {
-        return textLabel;
-    }
-
     @Override
     protected AbsCustComponent getComponent() {
         return textLabel;

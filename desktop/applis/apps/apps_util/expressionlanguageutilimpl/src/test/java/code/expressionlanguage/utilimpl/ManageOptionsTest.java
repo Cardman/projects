@@ -5,11 +5,9 @@ import code.expressionlanguage.gui.unit.MemoryProgressingTests;
 import code.expressionlanguage.gui.unit.ProgTestBar;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.MemInputFiles;
-import code.gui.AdvGraphicListGeneratorStruct;
 import code.gui.GuiConstants;
 import code.gui.initialize.AbsCompoFactory;
 import code.maths.montecarlo.CustomSeedGene;
-import code.mock.MockAdvGraphicListGenerator;
 import code.mock.MockFileSet;
 import code.mock.MockInterceptor;
 import code.mock.MockProgramInfos;
@@ -27,7 +25,7 @@ public final class ManageOptionsTest extends EquallableElUtImplUtil {
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
-        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),mem_, bar_));
+        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         ManageOptions man_ = new ManageOptions(new StringList("_"), new StringList("", "__"), progTest_);
         assertEq("",man_.getLanguage());
     }
@@ -39,7 +37,7 @@ public final class ManageOptionsTest extends EquallableElUtImplUtil {
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
-        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),mem_, bar_));
+        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         ManageOptions man_ = new ManageOptions(new StringList("_"), new StringList("", "_"), progTest_);
         assertEq("_",man_.getLanguage());
     }

@@ -11,9 +11,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.*;
-import code.gui.AbstractAdvGraphicListGeneratorStruct;
 import code.gui.CdmFactory;
-import code.gui.initialize.AbstractAdvGraphicListGenerator;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.stream.BytesInfo;
 import code.stream.core.OutputType;
@@ -92,14 +90,14 @@ public final class RunningTest implements Runnable {
         return true;
     }
 
-    public static ResultContext baseValidateMemoDef(String _lg, AbstractInterceptor _interceptor, AbstractLightProgramInfos _factories, AbstractAdvGraphicListGenerator _adv, AbstractAdvGraphicListGeneratorStruct _cr) {
+    public static ResultContext baseValidateMemoDef(String _lg, AbstractInterceptor _interceptor, AbstractLightProgramInfos _factories) {
         FileInfos file_ = MemoResultContextNext.fileInfos(_factories, null, new MemInputFiles(new byte[0], new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true)));
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
         Options opts_ = new Options();
         opts_.setReadOnly(true);
-        ExecutingOptions ex_ = exec(_factories, _interceptor, _adv, _cr, _lg);
-        LgNamesGui stds_ = new LgNamesGui(file_, ex_.getListGenerator().getInterceptor());
+        ExecutingOptions ex_ = exec(_factories, _interceptor, _lg);
+        LgNamesGui stds_ = new LgNamesGui(file_, ex_.getInterceptor());
         CustContextFactory.preinit(opts_, ex_, mess_, kwl_, stds_);
         CustContextFactory.parts(ex_,stds_,new StringList());
         AnalyzedPageEl page_ = CustContextFactory.mapping(stds_);
@@ -109,20 +107,20 @@ public final class RunningTest implements Runnable {
         return new ResultContext(page_, forwards_);
     }
 
-    public static ResultContext baseValidateMemo(String _lg, StringList _otherLines, AbstractInterceptor _interceptor, AbstractLightProgramInfos _factories, AbstractAdvGraphicListGenerator _adv, AbstractAdvGraphicListGeneratorStruct _cr, AbstractIssuer _issuer) {
+    public static ResultContext baseValidateMemo(String _lg, StringList _otherLines, AbstractInterceptor _interceptor, AbstractLightProgramInfos _factories, AbstractIssuer _issuer) {
         StringList ls_ = new StringList();
         ls_.add("");
         ls_.add(_lg);
         ls_.addAllElts(_otherLines);
         FileInfos file_ = MemoResultContextNext.fileInfos(_factories, _issuer, new MemInputFiles(StringUtil.encode(StringUtil.join(ls_, '\n')), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true)));
         Options opts_ = new Options();
-        ExecutingOptions ex_ = exec(_factories, _interceptor, _adv, _cr, _lg);
+        ExecutingOptions ex_ = exec(_factories, _interceptor, _lg);
         ExecutingOptions.setupOptionals(0,opts_,ex_,_otherLines);
         return CustContextFactory.stds(file_, ex_, opts_);
     }
 
-    private static ExecutingOptions exec(AbstractLightProgramInfos _factories, AbstractInterceptor _interceptor, AbstractAdvGraphicListGenerator _adv, AbstractAdvGraphicListGeneratorStruct _cr, String _lg) {
-        CdmFactory cdmFactory_ = new CdmFactory(_factories, _interceptor, _adv, _cr);
+    private static ExecutingOptions exec(AbstractLightProgramInfos _factories, AbstractInterceptor _interceptor, String _lg) {
+        CdmFactory cdmFactory_ = new CdmFactory(_factories, _interceptor);
         ExecutingOptions ex_ = new ExecutingOptions();
         ex_.setLightProgramInfos(_factories);
         ex_.setLg(_lg);

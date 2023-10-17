@@ -1,16 +1,13 @@
 package code.expressionlanguage.utilimpl;
 
 import code.expressionlanguage.gui.unit.*;
-import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.MemInputFiles;
 import code.gui.AbsTableGui;
-import code.gui.AdvGraphicListGeneratorStruct;
 import code.gui.GuiConstants;
 import code.gui.initialize.AbsCompoFactory;
 import code.maths.montecarlo.CustomSeedGene;
-import code.mock.MockAdvGraphicListGenerator;
 import code.mock.MockFileSet;
 import code.mock.MockInterceptor;
 import code.mock.MockProgramInfos;
@@ -32,7 +29,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
-        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),mem_, bar_));
+        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         assertEq("__",RunningTest.newFromContent(Constants.getAvailableLanguages(),"",progTest_,infos_).retrieve());
     }
     @Test
@@ -43,7 +40,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
-        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),mem_, bar_));
+        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         assertEq("__",RunningTest.newFromFile(Constants.getAvailableLanguages(),"",progTest_,infos_).retrieve());
     }
     @Test
@@ -66,7 +63,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
-        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),mem_, bar_));
+        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         assertFalse(RunningTest.launchByConfContent(new StringList(),";\n;\nout=//",progTest_,infos_));
     }
     @Test
@@ -77,7 +74,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
-        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),mem_, bar_));
+        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         assertTrue(RunningTest.launchByConfContent(new StringList(),";\n;",progTest_,infos_));
     }
     @Test
@@ -88,7 +85,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
-        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),mem_, bar_));
+        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         assertTrue(RunningTest.launchByConfContent(new StringList("en"),";\nen\nerr=",progTest_,infos_));
         StringMap<ContentTime> reported_ = pr_.getZipFact().zippedBinaryFiles(progTest_.getExportedReport());
         assertEq("<html><head><meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"/><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Sample</a>{}</span></pre></body></html>",StringUtil.decode(reported_.getVal("errors/src/folder/file.txt.html").getContent()));
@@ -102,7 +99,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         AbsTableGui t_ = compo_.newTableGui("0", "1", "2", "3");
         t_.setRowCount(2);
         ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), t_, compo_.newTextArea(), compo_.newAbsProgressBar());
-        AbsTestableFrame fr_ = new LightTestableFrame(pr_, null, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(), mem_, bar_);
+        AbsTestableFrame fr_ = new LightTestableFrame(pr_, null, new MockInterceptor(), mem_, bar_);
 //        fr_.ok("");
         fr_.getTxtConf();
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(fr_);
@@ -128,20 +125,20 @@ public final class RunTest extends EquallableElUtImplUtil {
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
-        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),mem_, bar_));
+        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         assertTrue(RunningTest.launchByConfContent(new StringList("en"),";\nen\nerr=",progTest_,infos_));
     }
     @Test
     public void splitMemo1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
-        ResultContext res_ = together(RunningTest.baseValidateMemo("en", new StringList("keyWords=If=;"), new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null), null);
+        ResultContext res_ = together(RunningTest.baseValidateMemo("en", new StringList("keyWords=If=;"), new MockInterceptor(), pr_.light(), null), null);
         assertTrue(res_.getPageEl().notAllEmptyErrors());
     }
     @Test
     public void splitMemo2() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         StringList lines_ = new StringList("","en","out=//");
-        ResultContext res_ = together(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null), new MemInputFiles(new byte[0],new BytesInfo(new byte[0],false),new BytesInfo(new byte[0],false)));
+        ResultContext res_ = together(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), null), new MemInputFiles(new byte[0],new BytesInfo(new byte[0],false),new BytesInfo(new byte[0],false)));
         assertFalse(res_.getPageEl().isCustomAna());
     }
     @Test
@@ -149,7 +146,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         StringList lines_ = new StringList("","en");
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt",""));
-        ResultContext res_ = together(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null), new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)));
+        ResultContext res_ = together(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), null), new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)));
         assertTrue(res_.getPageEl().isCustomAna());
         assertTrue(res_.getPageEl().notAllEmptyErrors());
     }
@@ -158,7 +155,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         StringList lines_ = new StringList("","en");
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{}"));
-        ResultContext res_ = together(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null), new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)));
+        ResultContext res_ = together(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), null), new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)));
         assertTrue(res_.getPageEl().isCustomAna());
         assertFalse(res_.getPageEl().notAllEmptyErrors());
     }
@@ -166,10 +163,8 @@ public final class RunTest extends EquallableElUtImplUtil {
     public void memoDef() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         MockInterceptor inter_ = new MockInterceptor();
-        MockAdvGraphicListGenerator adv_ = new MockAdvGraphicListGenerator(true);
-        AdvGraphicListGeneratorStruct cr_ = new AdvGraphicListGeneratorStruct();
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "\n"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{}"));
-        ResultContext res_ = together(RunningTest.baseValidateMemoDef("en", inter_, pr_.light(), adv_, cr_), new MemInputFiles(StringUtil.encode("\n"), new BytesInfo(zipped_, false), new BytesInfo(new byte[0], false)));
+        ResultContext res_ = together(RunningTest.baseValidateMemoDef("en", inter_, pr_.light()), new MemInputFiles(StringUtil.encode("\n"), new BytesInfo(zipped_, false), new BytesInfo(new byte[0], false)));
         assertTrue(res_.getPageEl().isCustomAna());
         assertFalse(res_.getPageEl().notAllEmptyErrors());
     }
@@ -181,14 +176,14 @@ public final class RunTest extends EquallableElUtImplUtil {
     @Test
     public void splitMemoQuick1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
-        ResultContext res_ = RunningTest.nextValidateMemoQuick(RunningTest.baseValidateMemo("en", new StringList("keyWords=If=;"), new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null),null,null);
+        ResultContext res_ = RunningTest.nextValidateMemoQuick(RunningTest.baseValidateMemo("en", new StringList("keyWords=If=;"), new MockInterceptor(), pr_.light(), null),null,null);
         assertTrue(res_.getPageEl().notAllEmptyErrors());
     }
     @Test
     public void splitMemoQuick2() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         StringList lines_ = new StringList("","en","out=//");
-        ResultContext res_ = RunningTest.nextValidateMemoQuick(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null),new MemInputFiles(new byte[0],new BytesInfo(new byte[0],false),new BytesInfo(new byte[0],false)),null);
+        ResultContext res_ = RunningTest.nextValidateMemoQuick(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), null),new MemInputFiles(new byte[0],new BytesInfo(new byte[0],false),new BytesInfo(new byte[0],false)),null);
         assertFalse(res_.getPageEl().isCustomAna());
     }
     @Test
@@ -196,7 +191,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         StringList lines_ = new StringList("","en");
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt",""));
-        ResultContext res_ = RunningTest.nextValidateMemoQuick(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null),new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)),null);
+        ResultContext res_ = RunningTest.nextValidateMemoQuick(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), null),new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)),null);
         assertTrue(res_.getPageEl().isCustomAna());
         assertTrue(res_.getPageEl().notAllEmptyErrors());
     }
@@ -205,7 +200,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         StringList lines_ = new StringList("","en");
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{}"));
-        ResultContext res_ = RunningTest.nextValidateMemoQuick(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null),new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)),null);
+        ResultContext res_ = RunningTest.nextValidateMemoQuick(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), null),new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)),null);
         assertTrue(res_.getPageEl().isCustomAna());
         assertFalse(res_.getPageEl().notAllEmptyErrors());
     }
@@ -216,7 +211,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt",""));
         StringMap<String> added_ = new StringMap<String>();
         added_.addEntry("src/folder/file.txt", "public class pkg.Sample{}");
-        ResultContext res_ = RunningTest.nextValidateMemoQuick(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null),new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)),null, added_);
+        ResultContext res_ = RunningTest.nextValidateMemoQuick(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), null),new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)),null, added_);
         assertTrue(res_.getPageEl().isCustomAna());
         assertFalse(res_.getPageEl().notAllEmptyErrors());
     }

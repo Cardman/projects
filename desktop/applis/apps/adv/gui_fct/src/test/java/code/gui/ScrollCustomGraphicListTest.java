@@ -3263,7 +3263,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     }
 
     private static ScrollCustomGraphicList<String> gene(boolean _simple, MockProgramInfosSecSample _pr) {
-        ScrollCustomGraphicList<String> str_ = new ScrollCustomGraphicList<String>(_pr.getCompoFactory(), _pr.getImageFactory(), new CustCellRenderString(_pr.getCompoFactory(), _pr.getImageFactory()), _simple);
+        ScrollCustomGraphicList<String> str_ = new DefScrollCustomGraphicList<String>(_pr.getCompoFactory(), _pr.getImageFactory(), new CustCellRenderString(_pr.getCompoFactory(), _pr.getImageFactory()), _simple);
         str_.getElements().setFont(new MetaFont("",0,8));
         return str_;
     }

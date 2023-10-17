@@ -13,7 +13,7 @@ import code.util.*;
 public final class EventStruct extends LaunchableStruct implements
         AbsAdvActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
         AbsKeyListener,AbsFocusListener,AbsChangeListener,AbsShortListTree,AbsListSelectionListener,
-        AbsMouseMotionListener, AbsMouseWheelListener{
+        AbsMouseMotionListener, AbsMouseWheelListener, StructCellRender{
 
     public EventStruct(RunnableContextEl _original, String _className,
                        String _name, int _ordinal,
@@ -175,7 +175,7 @@ public final class EventStruct extends LaunchableStruct implements
     @Override
     public void valueChanged(SelectionInfo _e) {
         GuiContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_e.getFirstIndex())),new Argument(new IntStruct(_e.getLastIndex())));
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_e.getFirstIndex())),new Argument(new IntStruct(_e.getLastIndex())),new Argument(BooleanStruct.of(_e.isMethodAction())));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getListSelection(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getValueChanged(),args_);
     }
 
@@ -243,9 +243,23 @@ public final class EventStruct extends LaunchableStruct implements
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTableListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTableValueTableChanged(),args_);
     }
 
-    private void invoke(RunnableContextEl _r, ExecRootBlock _typeName, ExecNamedFunctionBlock _methName, CustList<Argument> _args) {
+    @Override
+    public Struct generateImg(Struct _index, Struct _info, Struct _isSelected, Struct _cellHasFocus, Struct _cellIsAnchored, Struct _lab, Struct _compo) {
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(new Argument(_index));
+        args_.add(new Argument(_info));
+        args_.add(new Argument(_isSelected));
+        args_.add(new Argument(_cellHasFocus));
+        args_.add(new Argument(_cellIsAnchored));
+        args_.add(new Argument(_lab));
+        args_.add(new Argument(_compo));
+        return invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getCellRender(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getCellRenderGenerate(),args_);
+    }
+
+    private Struct invoke(RunnableContextEl _r, ExecRootBlock _typeName, ExecNamedFunctionBlock _methName, CustList<Argument> _args) {
         ArgumentListCall argList_ = ArgumentListCall.wrapCall(_args);
-        RunnableStruct.invoke(this,_r,_typeName,_methName, argList_);
+        return RunnableStruct.invoke(this,_r,_typeName,_methName, argList_);
     }
     private GuiContextEl newCtx() {
         GuiContextEl r_ = new GuiContextEl(getInterrupt(),this, getExecutionInfos(), getArgs());

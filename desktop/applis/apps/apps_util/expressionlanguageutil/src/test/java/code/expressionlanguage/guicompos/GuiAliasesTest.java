@@ -5,28 +5,22 @@ import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.*;
 import code.expressionlanguage.analyze.files.*;
-import code.expressionlanguage.analyze.files.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.*;
-import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.guicompos.stds.*;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.AdvSymbolFactory;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
-import code.expressionlanguage.utilcompo.stds.*;
 import code.expressionlanguage.utilimpl.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
-import code.threads.*;
 import code.util.*;
-import code.util.core.*;
 import org.junit.Test;
 
 public final class GuiAliasesTest extends EquallableElUtUtil {
@@ -35,7 +29,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void cst1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         stds_.getGuiAliases().setAliasConfirm("_");
         stds_.getGuiAliases().setAliasConfirmFieldOk("_");
         assertEq(OtherConfirmDialog.OK_OPTION,toLong(new AdvancedConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_"))));
@@ -45,7 +39,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void cst2() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         stds_.getGuiAliases().setAliasConfirm("_");
         stds_.getGuiAliases().setAliasConfirmFieldOk("");
         stds_.getGuiAliases().setAliasConfirmFieldYes("_");
@@ -56,7 +50,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void cst3() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         stds_.getGuiAliases().setAliasConfirm("_");
         stds_.getGuiAliases().setAliasConfirmFieldOk("");
         stds_.getGuiAliases().setAliasConfirmFieldYes("");
@@ -68,7 +62,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void cst4() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         stds_.getGuiAliases().setAliasConfirm("_");
         stds_.getGuiAliases().setAliasConfirmFieldOk("");
         stds_.getGuiAliases().setAliasConfirmFieldYes("");
@@ -81,7 +75,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void cst5() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         stds_.getGuiAliases().setAliasConfirm("");
         stds_.getGuiAliases().setAliasPanelBorder("_");
         stds_.getGuiAliases().setAliasPanelBorderNorth("_");
@@ -92,7 +86,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void cst6() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         stds_.getGuiAliases().setAliasConfirm("");
         stds_.getGuiAliases().setAliasPanelBorder("_");
         stds_.getGuiAliases().setAliasPanelBorderNorth("");
@@ -104,7 +98,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void cst7() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         stds_.getGuiAliases().setAliasConfirm("");
         stds_.getGuiAliases().setAliasPanelBorder("_");
         stds_.getGuiAliases().setAliasPanelBorderNorth("");
@@ -117,7 +111,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void cst8() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         stds_.getGuiAliases().setAliasConfirm("");
         stds_.getGuiAliases().setAliasPanelBorder("_");
         stds_.getGuiAliases().setAliasPanelBorderNorth("");
@@ -131,7 +125,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void cst9() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         stds_.getGuiAliases().setAliasConfirm("");
         stds_.getGuiAliases().setAliasPanelBorder("_");
         stds_.getGuiAliases().setAliasPanelBorderNorth("");
@@ -145,7 +139,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void cst10() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         stds_.getGuiAliases().setAliasConfirm("");
         stds_.getGuiAliases().setAliasPanelBorder("_");
         stds_.getGuiAliases().setAliasPanelBorderNorth("");
@@ -160,7 +154,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void cst11() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         stds_.getGuiAliases().setAliasConfirm("");
         stds_.getGuiAliases().setAliasPanelBorder("_");
         stds_.getGuiAliases().setAliasPanelBorderNorth("");
@@ -176,7 +170,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void cst12() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         stds_.getGuiAliases().setAliasConfirm("");
         stds_.getGuiAliases().setAliasPanelBorder("_");
         stds_.getGuiAliases().setAliasPanelBorderNorth("");
@@ -193,7 +187,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void cst13() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         stds_.getGuiAliases().setAliasConfirm("");
         stds_.getGuiAliases().setAliasPanelBorder("_");
         stds_.getGuiAliases().setAliasPanelBorderNorth("");
@@ -211,7 +205,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void cst14() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         stds_.getGuiAliases().setAliasConfirm("");
         stds_.getGuiAliases().setAliasPanelBorder("");
         stds_.getNbAlias().setAliasBoolean("1");
@@ -233,7 +227,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void str1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
@@ -243,7 +237,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void str2() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         ExecEnumBlock ex_ = new ExecEnumBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC);
@@ -255,7 +249,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void str3() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         stds_.getNbAlias().setAliasInteger("_");
@@ -345,7 +339,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
         StringMap<String> keys_ = LgNamesGui.extractAliasesKeys(stds_.getExecContent().getCustAliases());
         stds_.getGuiAliases().otherAliasGui(LgNamesGui.addon(stds_.getExecContent().getCustAliases()),e_.getAliases(),keys_);
         stds_.getExecContent().setExecutingOptions(e_);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), e_.getLightProgramInfos(),e_.getListGenerator());
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), e_.getLightProgramInfos());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(stds_.getExecContent().getCustAliases().getMathAdvAliases()));
         StringMap<String> m_ = stds_.getExecContent().getCustAliases().extractAliasesKeys();

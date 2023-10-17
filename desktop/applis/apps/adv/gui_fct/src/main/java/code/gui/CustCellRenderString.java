@@ -2,6 +2,7 @@ package code.gui;
 
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class CustCellRenderString implements AbsCustCellRenderGene<String> {
@@ -12,8 +13,9 @@ public final class CustCellRenderString implements AbsCustCellRenderGene<String>
         imageFactory = _img;
     }
     @Override
-    public AbstractImage getListCellRendererComponent(int _index, String _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, AbsPreparedLabel _lab, ColorsGroupList _colors) {
-        AbstractImage img_ = imageFactory.newImageRgb(compoFactory.stringWidth(_lab.getMetaFont(), _info), compoFactory.heightFont(_lab.getMetaFont()) + 2, _lab);
+    public AbstractImage getListCellRendererComponent(int _index, String _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
+        AbstractImage img_ = imageFactory.newImageRgb(compoFactory.stringWidth(_lab, _info), compoFactory.heightFont(_lab) + 2);
+        img_.setFont(_lab);
         if (_isSelected) {
             img_.setColor(_colors.getBgSel());
             img_.fillRect(0,0,img_.getWidth(),img_.getHeight());

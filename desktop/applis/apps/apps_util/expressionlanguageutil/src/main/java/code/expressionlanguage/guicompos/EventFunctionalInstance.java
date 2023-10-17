@@ -4,6 +4,7 @@ import code.expressionlanguage.*;
 
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.*;
@@ -13,7 +14,7 @@ import code.util.*;
 public final class EventFunctionalInstance extends LaunchableFunctionalStruct implements
         AbsAdvActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
         AbsKeyListener,AbsFocusListener,AbsChangeListener,AbsShortListTree,AbsListSelectionListener,
-        AbsMouseMotionListener, AbsMouseWheelListener,FieldableStruct {
+        AbsMouseMotionListener, AbsMouseWheelListener,FieldableStruct, StructCellRender {
 
     public EventFunctionalInstance(String _className, LambdaStruct _functional,
                                    CustList<ClassFieldStruct> _fields, RunnableContextEl _contextEl, ExecNamedFunctionBlock _named) {
@@ -22,7 +23,7 @@ public final class EventFunctionalInstance extends LaunchableFunctionalStruct im
 
     @Override
     public void valueChanged(SelectionInfo _e) {
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_e.getFirstIndex())),new Argument(new IntStruct(_e.getLastIndex())));
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_e.getFirstIndex())),new Argument(new IntStruct(_e.getLastIndex())),new Argument(BooleanStruct.of(_e.isMethodAction())));
         RunnableFunctionalInstance.callMethod(new GuiContextEl(getInterrupt(),this, getExecutionInfos(), getArgs()), getFunctional(), args_);
     }
 
@@ -188,5 +189,18 @@ public final class EventFunctionalInstance extends LaunchableFunctionalStruct im
         Struct arg_ = TreeNodeStruct.nodeOrNull(_e);
         args_.add(new Argument(arg_));
         RunnableFunctionalInstance.callMethod(new GuiContextEl(getInterrupt(),this, getExecutionInfos(), getArgs()), getFunctional(), args_);
+    }
+
+    @Override
+    public Struct generateImg(Struct _index, Struct _info, Struct _isSelected, Struct _cellHasFocus, Struct _cellIsAnchored, Struct _lab, Struct _compo) {
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(new Argument(_index));
+        args_.add(new Argument(_info));
+        args_.add(new Argument(_isSelected));
+        args_.add(new Argument(_cellHasFocus));
+        args_.add(new Argument(_cellIsAnchored));
+        args_.add(new Argument(_lab));
+        args_.add(new Argument(_compo));
+        return ArgumentListCall.toStr(RunnableFunctionalInstance.callMethod(new GuiContextEl(getInterrupt(),this, getExecutionInfos(), getArgs()), getFunctional(),args_));
     }
 }

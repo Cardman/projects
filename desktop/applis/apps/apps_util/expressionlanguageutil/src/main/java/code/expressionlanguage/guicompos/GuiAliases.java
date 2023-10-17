@@ -15,7 +15,6 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.gui.OtherConfirmDialog;
-import code.scripts.messages.gui.MessCdmGuiGr;
 import code.sml.util.TranslationsFile;
 import code.util.CustList;
 import code.util.StringList;
@@ -25,108 +24,6 @@ import code.util.core.StringUtil;
 public final class GuiAliases {
     public static final String SPACES_4 = "    ";
     public static final String LR = "\n";
-    public static final String RESOURCES_LG_GUI_REPAINT_TXT = "resources_lg_gui/repaint.txt";
-
-    public static final String KW_PUBLIC = "{public}";
-    public static final String KW_VOID = "{void}";
-    public static final String TYPE_INT = "{int}";
-    public static final String TYPE_BOOLEAN = "{boolean}";
-    public static final String KW_ABSTRACT = "{abstract}";
-    public static final String KW_FINAL = "{final}";
-    public static final String KW_CLASS = "{class}";
-    public static final String TYPE_PAINT = "{Paint}";
-    public static final String METHOD_PAINT = "{paint}";
-    public static final String PARAM_8 = "{paintPar}";
-    public static final String METHOD_ADD = "{add}";
-    public static final String METHOD_SET = "{set}";
-    public static final String PARAM_9 = "{setPar0}";
-    public static final String PARAM_10 = "{setPar1}";
-    public static final String PARAM_11 = "{setPar2}";
-    public static final String PARAM_12 = "{addPar00}";
-    public static final String PARAM_13 = "{addPar01}";
-    public static final String PARAM_14 = "{addPar02}";
-    public static final String PARAM_15 = "{addPar10}";
-    public static final String PARAM_16 = "{addPar11}";
-    public static final String PARAM_17 = "{refreshPar}";
-    public static final String METHOD_REFRESH = "{refresh}";
-    public static final String METHOD_REFRESH_ONE = "{refreshOne}";
-    public static final String PARAM_18 = "{refreshPar0}";
-    public static final String PARAM_19 = "{w}";
-    public static final String PARAM_20 = "{h0}";
-    public static final String PARAM_21 = "{o0}";
-    public static final String PARAM_22 = "{s}";
-    public static final String KW_STATIC = "{static}";
-    public static final String KW_IF = "{if}";
-    public static final String KW_ELSEIF = "{elseif}";
-    public static final String KW_TRUE = "{true}";
-    public static final String KW_FALSE = "{false}";
-    public static final String KW_RETURN = "{return}";
-    public static final String KW_BREAK = "{break}";
-    public static final String KW_CONTINUE = "{continue}";
-    public static final String KW_IS = "{is}";
-    public static final String KW_WHILE = "{while}";
-    public static final String KW_NULL = "{null}";
-    public static final String KW_CAST = "{cast}";
-    public static final String TYPE_COMPONENT = "{Component}";
-    public static final String TYPE_PANEL = "{Panel}";
-    public static final String TYPE_FCT = "{Fct}";
-    public static final String METHOD_CALL = "{call}";
-    public static final String METHOD_GET_COMPONENT = "{getComponent}";
-    public static final String METHOD_NEXT = "{next}";
-    public static final String METHOD_GET_PARENT = "{getParent}";
-    public static final String METHOD_GET_PAINTING = "{getPainting}";
-    public static final String PARAM_23 = "p";
-    public static final String PARAM_24 = "r";
-    public static final String PARAM_25 = "o";
-    public static final String PARAM_26 = "la";
-    public static final String PARAM_27 = "h";
-    public static final String PARAM_28 = "hf";
-    public static final String PARAM_29 = "lf";
-    public static final String PARAM_30 = "pf";
-    public static final String PARAM_31 = "par";
-    public static final String PARAM_32 = "pan";
-    public static final String PARAM_33 = "fct";
-    public static final String PARAM_34 = "nb";
-    public static final String PARAM_35 = "img";
-    public static final String PARAM_36 = "ha";
-    public static final String PARAM_37 = "ft";
-    public static final String PARAM_38 = "text";
-    public static final String PARAM_39 = "mw";
-    public static final String PARAM_40 = "er";
-    public static final String METHOD_GET_RENDER = "{getRender}";
-    public static final String TYPE_MATH = "{Math}";
-    public static final String METHOD_MAX = "{max}";
-    public static final String TYPE_STRING_UTIL = "{StringUtil}";
-    public static final String METHOD_VALUE_OF = "{valueOf}";
-    public static final String METHOD_WIDTH_STR = "{widthStr}";
-    public static final String METHOD_SET_COLOR = "{setColor}";
-    public static final String METHOD_FILL_RECT = "{fillRect}";
-    public static final String METHOD_DRAW_STRING = "{drawString}";
-    public static final String METHOD_GET_FONT = "{getFont}";
-    public static final String METHOD_SIZE = "{size}";
-    public static final String TYPE_COLOR = "{Color}";
-    public static final String METHOD_GET_COMP_WIDTH = "{getCompWidth}";
-    public static final String KW_ELSE = "{else}";
-    public static final String METHOD_SET_FONT = "{setFont}";
-    public static final String METHOD_GET_HEIGHT = "{getHeight}";
-    public static final String METHOD_GET_WIDTH = "{getWidth}";
-    public static final String METHOD_GET_PAINT = "{getPaint}";
-    public static final String TYPE_IMAGE = "{Image}";
-    public static final String TYPE_IMAGE_LABEL = "{ImageLabel}";
-    public static final String METHOD_ADD_COMPO = "{addCompo}";
-    public static final String METHOD_SET_COMPO = "{setCompo}";
-    public static final String METHOD_GET_VIEW = "{getView}";
-    public static final String METHOD_GET_SELECTED = "{getSelected}";
-    public static final String METHOD_UPDATE_GRAPHICS = "{updateGraphics}";
-    public static final String METHOD_LENGTH = "{length}";
-    public static final String KW_FOR = "{for}";
-    public static final String KW_NEW = "{new}";
-    public static final String KW_VAR = "{var}";
-    public static final String TYPE_GR_LIST = "{GrList}";
-    public static final String TYPE_OBJECT = "{Object}";
-    public static final String METHOD_DISPOSE = "{dispose}";
-    public static final String PARAM_3 = "c";
-    public static final String PARAM_6 = "{f}";
 
     private static final String WINDOW_SET="_____1272";
     private static final String FRAME="825";
@@ -166,6 +63,9 @@ public final class GuiAliases {
     private static final String DIMENSION="835";
     private static final String KEY_LISTENER="_____1249";
     private static final String FOCUS_LISTENER="_____1249_";
+    private static final String CELL_RENDER="_____1249__";
+    private static final String DEF_CELL_RENDER="_____1249___";
+    private static final String CELL_RENDER_GENERATE="_____1249____";
     private static final String MOUSE_LISTENER="___1031";
     private static final String WHEEL_LISTENER="___1106";
     private static final String WHEEL_EVENT="___1107";
@@ -272,6 +172,7 @@ public final class GuiAliases {
     private static final String REQUEST_FOCUS="___1081";
     private static final String FOCUSED="___1081_";
     private static final String ACTION_LISTENER_IMPLICIT_0_RUNNER="___1081__";
+    private static final String CELL_RENDER_IMPLICIT_0_RUNNER="___1081___";
     private static final String COMP_BACK="859";
     private static final String COMPO_REL_LEFT="860";
     private static final String COMPO_REL_RIGHT="861";
@@ -389,6 +290,7 @@ public final class GuiAliases {
     private static final String GR_LIST_CLEAR_SELECTION="_____1381";
     private static final String GR_LIST_GET_LIST_VIEW="_____1382";
     private static final String GR_LIST_GET_RENDER="_____1383";
+    private static final String GR_LIST_GET_PANEL_WIDTH="_____1383_";
     private static final String GR_LIST_GET_SELECTED_INDEXES="_____1384";
     private static final String GR_LIST_GET_SELECTIONS="_____1385";
     private static final String GR_LIST_GET_VISIBLE_ROW_COUNT="_____1386";
@@ -657,6 +559,7 @@ public final class GuiAliases {
     private String aliasRequestFocus;
     private String aliasFocused;
     private String aliasActionListenerImplicit0Runner;
+    private String aliasCellRenderImplicit0Runner;
     private String aliasCompToolTip;
     private String aliasCompFocusable;
     private String aliasCompOpaque;
@@ -695,6 +598,9 @@ public final class GuiAliases {
     private String aliasKeyEventIsAlt;
     private String aliasKeyEventIsCtrl;
     private String aliasFocusListener;
+    private String aliasCellRender;
+    private String aliasDefCellRender;
+    private String aliasCellRenderGenerate;
     private String aliasFocusGained;
     private String aliasFocusLost;
 
@@ -883,6 +789,7 @@ public final class GuiAliases {
     private String aliasGrListRemoveSelection;
     private String aliasGrListGetVisibleRowCount;
     private String aliasGrListSetVisibleRowCount;
+    private String aliasGrListGetPanelWidth;
 
     private String aliasCombo;
     private String aliasComboGetSelectedItem;
@@ -1006,28 +913,6 @@ public final class GuiAliases {
         if (light) {
             return stds_;
         }
-        StringMap<String> propertiesGui_ = MessCdmGuiGr.ms();
-        PrimitiveTypes primTypes_ = _content.getPrimTypes();
-        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
-        AliasCore co_ = _content.getCoreNames();
-        String public_ = _keyWords.getKeyWordPublic();
-        String class_ = _keyWords.getKeyWordClass();
-        String abstract_ = _keyWords.getKeyWordAbstract();
-        String static_ = _keyWords.getKeyWordStatic();
-        String if_ = _keyWords.getKeyWordIf();
-        String elseif_ = _keyWords.getKeyWordElseif();
-        String while_ = _keyWords.getKeyWordWhile();
-        String final_ = _keyWords.getKeyWordFinal();
-        String return_ = _keyWords.getKeyWordReturn();
-        String continue_ = _keyWords.getKeyWordContinue();
-        String break_ = _keyWords.getKeyWordBreak();
-        String for_ = _keyWords.getKeyWordFor();
-        String new_ = _keyWords.getKeyWordNew();
-        String null_ = _keyWords.getKeyWordNull();
-        String cast_ = _keyWords.getKeyWordCast();
-        String true_ = _keyWords.getKeyWordTrue();
-        String false_ = _keyWords.getKeyWordFalse();
-        String is_ = _keyWords.getKeyWordInstanceof();
         stds_.addEntry(aliasActionListener, actionListener(_keyWords, _content));
         stds_.addEntry(aliasChangeListener, changeListener(_keyWords, _content));
         stds_.addEntry(aliasTreeListener, treeListener(_keyWords, _content));
@@ -1038,415 +923,10 @@ public final class GuiAliases {
         stds_.addEntry(aliasWindowListener, windowListener(_keyWords, _content));
         stds_.addEntry(aliasListSelection, listSelection(_keyWords, _content));
         stds_.addEntry(aliasFocusListener, focusListener(_keyWords, _content));
-        String content_ = res(RESOURCES_LG_GUI_REPAINT_TXT, propertiesGui_);
-        StringMap<String> map_ = new StringMap<String>();
-        map_.put(KW_PUBLIC, public_);
-        map_.put(KW_ABSTRACT, abstract_);
-        map_.put(KW_FINAL, final_);
-        map_.put(KW_CLASS, class_);
-        map_.put(TYPE_PAINT, aliasPaint);
-        map_.put(METHOD_PAINT, aliasPaintMethod);
-        map_.put(PARAM_8, guiAliasParameters.getAliasPaint0PaintMethod0());
-        map_.put(METHOD_ADD, aliasPaintAdd);
-        map_.put(METHOD_SET, aliasPaintSet);
-        map_.put(PARAM_9, guiAliasParameters.getAliasPaint0TabbedPaneSet0());
-        map_.put(PARAM_10, guiAliasParameters.getAliasPaint0TabbedPaneSet1());
-        map_.put(PARAM_11, guiAliasParameters.getAliasPaint0TabbedPaneSet2());
-        map_.put(PARAM_12, guiAliasParameters.getAliasPaint0TabbedPaneAdd0());
-        map_.put(PARAM_13, guiAliasParameters.getAliasPaint0TabbedPaneAdd1());
-        map_.put(PARAM_14, guiAliasParameters.getAliasPaint0TabbedPaneAdd2());
-        map_.put(PARAM_15, guiAliasParameters.getAliasPaint1TabbedPaneAdd0());
-        map_.put(PARAM_16, guiAliasParameters.getAliasPaint1TabbedPaneAdd1());
-        map_.put(PARAM_17, guiAliasParameters.getAliasPaint0PaintRefresh0());
-        map_.put(METHOD_REFRESH, aliasPaintRefresh);
-        map_.put(METHOD_REFRESH_ONE, aliasPaintRefreshOne);
-        map_.put(PARAM_18, guiAliasParameters.getAliasPaint0PaintRefreshOne0());
-        map_.put(PARAM_19, guiAliasParameters.getAliasPaint0PaintRefreshOne1());
-        map_.put(PARAM_20, guiAliasParameters.getAliasPaint0PaintRefreshOne2());
-        map_.put(PARAM_21, guiAliasParameters.getAliasPaint0PaintRefreshOne3());
-        map_.put(PARAM_6, guiAliasParameters.getAliasPaint0PaintRefreshOne4());
-        map_.put(PARAM_22, guiAliasParameters.getAliasPaint0PaintRefreshOne5());
-        map_.put(KW_STATIC, static_);
-        map_.put(KW_IF, if_);
-        map_.put(KW_ELSEIF, elseif_);
-        map_.put(KW_TRUE, true_);
-        map_.put(KW_FALSE, false_);
-        map_.put(KW_RETURN, return_);
-        map_.put(KW_BREAK, break_);
-        map_.put(KW_CONTINUE, continue_);
-        map_.put(KW_IS, is_);
-        map_.put(KW_WHILE, while_);
-        map_.put(KW_NULL, null_);
-        map_.put(KW_CAST, cast_);
-        map_.put(TYPE_COMPONENT, aliasComponent);
-        map_.put(TYPE_PANEL, aliasPanel);
-        map_.put(TYPE_FCT, _content.getReflect().getAliasFct());
-        map_.put(KW_VOID, co_.getAliasVoid());
-        map_.put(METHOD_CALL, _content.getReflect().getAliasCall());
-        map_.put(METHOD_GET_COMPONENT, aliasGetIndexCompo);
-        map_.put(METHOD_NEXT, aliasGetNextCompo);
-        map_.put(METHOD_GET_PARENT, aliasGetParentCompo);
-        map_.put(METHOD_GET_PAINTING, aliasComponentGetPaint);
-        map_.put(wrap(PARAM_3), tr(PARAM_3, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_23), tr(PARAM_23, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_24), tr(PARAM_24, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_25), tr(PARAM_25, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_26), tr(PARAM_26, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_27), tr(PARAM_27, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_28), tr(PARAM_28, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_29), tr(PARAM_29, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_30), tr(PARAM_30, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_31), tr(PARAM_31, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_32), tr(PARAM_32, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_33), tr(PARAM_33, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_34), tr(PARAM_34, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_35), tr(PARAM_35, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_36), tr(PARAM_36, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_37), tr(PARAM_37, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_38), tr(PARAM_38, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_39), tr(PARAM_39, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(wrap(PARAM_40), tr(PARAM_40, _keyWords, pr_, co_,
-                
-                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
-                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
-                
-                
-                
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
-                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
-                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put(METHOD_GET_RENDER,aliasGrListGetRender);
-        map_.put(TYPE_MATH,_content.getMathRef().getAliasMath());
-        map_.put(METHOD_MAX,_content.getMathRef().getAliasMax());
-        map_.put(TYPE_STRING_UTIL,_content.getCoreNames().getAliasStringUtil());
-        map_.put(METHOD_VALUE_OF,_content.getCoreNames().getAliasStringUtilValueOf());
-        map_.put(METHOD_WIDTH_STR,aliasFontStringWidth);
-        map_.put(METHOD_SET_COLOR,aliasImageSetColor);
-        map_.put(METHOD_FILL_RECT,aliasImageFillRect);
-        map_.put(METHOD_DRAW_STRING,aliasImageDraw);
-        map_.put(METHOD_GET_FONT,aliasGetFont);
-        map_.put(METHOD_SIZE,aliasFontGetSize);
-        map_.put(TYPE_COLOR,aliasColor);
-        map_.put(METHOD_GET_COMP_WIDTH,aliasComponentGetWidth);
-        map_.put(KW_ELSE,_keyWords.getKeyWordElse());
-        map_.put(METHOD_SET_FONT,aliasImageSetFont);
-        map_.put(METHOD_GET_HEIGHT,aliasRenderGetHeight);
-        map_.put(METHOD_GET_WIDTH,aliasRenderGetWidth);
-        map_.put(METHOD_GET_PAINT,aliasRenderGetPaint);
-        map_.put(TYPE_IMAGE,aliasImage);
-        map_.put(TYPE_IMAGE_LABEL,aliasImageLabel);
-        map_.put(METHOD_ADD_COMPO,aliasGrListAdd);
-        map_.put(METHOD_SET_COMPO,aliasGrListSet);
-        map_.put(METHOD_GET_VIEW,aliasGrListGetListView);
-        map_.put(METHOD_GET_SELECTED,aliasGrListGetSelectedIndexes);
-        map_.put(METHOD_UPDATE_GRAPHICS,aliasGrListUpdateGraphics);
-        map_.put(METHOD_LENGTH,_content.getCharSeq().getAliasLength());
-        map_.put(KW_FOR,for_);
-        map_.put(KW_NEW,new_);
-        map_.put(KW_VAR, _keyWords.getKeyWordVar());
-        map_.put(TYPE_INT,primTypes_.getAliasPrimInteger());
-        map_.put(TYPE_GR_LIST,aliasGrList);
-        map_.put(TYPE_OBJECT,co_.getAliasObject());
-        map_.put(METHOD_DISPOSE,aliasImageDispose);
-        map_.put(TYPE_BOOLEAN,primTypes_.getAliasPrimBoolean());
-        content_ = StringUtil.formatQuote(content_, map_);
-        String header_ = _keyWords.getKeyWordPublic() +" "+ _keyWords.getKeyWordAbstract()+" "+_keyWords.getKeyWordFinal()+" "+_keyWords.getKeyWordClass()+" "+aliasPaint+" {"+LR;
-        stds_.addEntry(aliasPaint, header_+paintMethod(_keyWords,_content)+add3(_keyWords,_content)+content_+"}");
+        stds_.addEntry(aliasCellRender, renderInterface(_keyWords, _content));
+        stds_.addEntry(aliasDefCellRender, renderDefault(_keyWords, _content));
+        String header_ = _keyWords.getKeyWordPublic() +" "+ _keyWords.getKeyWordAbstract()+" "+ _keyWords.getKeyWordFinal()+" "+ _keyWords.getKeyWordClass()+" "+aliasPaint+" {"+LR;
+        stds_.addEntry(aliasPaint, header_+paintMethod(_keyWords, _content)+"}");
         return stds_;
     }
     public String actionListener(KeyWords _kw, LgNamesContent _content) {
@@ -1541,8 +1021,9 @@ public final class GuiAliases {
     public String listSelection(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
         String i_ = _content.getPrimTypes().getAliasPrimInteger();
+        String b_ = _content.getPrimTypes().getAliasPrimBoolean();
         return pub_+" "+_kw.getKeyWordInterface()+" "+aliasListSelection+"{"+LR
-                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasValueChanged+"("+i_+" "+guiAliasParameters.getAliasListSelection0ValueChanged0()+","+i_+" "+guiAliasParameters.getAliasListSelection0ValueChanged1()+");"+LR
+                +SPACES_4+pub_+" "+_content.getCoreNames().getAliasVoid()+" "+aliasValueChanged+"("+i_+" "+guiAliasParameters.getAliasListSelection0ValueChanged0()+","+i_+" "+guiAliasParameters.getAliasListSelection0ValueChanged1()+","+b_+" "+guiAliasParameters.getAliasListSelection0ValueChanged2()+");"+LR
                 +"}"+LR;
     }
 
@@ -1553,6 +1034,137 @@ public final class GuiAliases {
                 +SPACES_4+pub_+" "+ vd_ +" "+aliasFocusGained+"();"+LR
                 +SPACES_4+pub_+" "+ vd_ +" "+aliasFocusLost+"();"+LR
                 +"}"+LR;
+    }
+
+    public String renderInterface(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        String th_ = _kw.getKeyWordThis();
+        String fct_ = _content.getReflect().getAliasFct();
+        String iprim_ = _content.getPrimTypes().getAliasPrimInteger();
+        String bprim_ = _content.getPrimTypes().getAliasPrimBoolean();
+        String obj_ = _content.getCoreNames().getAliasObject();
+        String ret_ = _kw.getKeyWordReturn();
+        String gene1_ = guiAliasParameters.getAliasCellRender0Generate0();
+        String gene2_ = guiAliasParameters.getAliasCellRender0Generate1();
+        String gene3_ = guiAliasParameters.getAliasCellRender0Generate2();
+        String gene4_ = guiAliasParameters.getAliasCellRender0Generate3();
+        String gene5_ = guiAliasParameters.getAliasCellRender0Generate4();
+        String gene6_ = guiAliasParameters.getAliasCellRender0Generate5();
+        String gene7_ = guiAliasParameters.getAliasCellRender0Generate6();
+        String implPar_ = guiAliasParameters.getAliasCellRenderImplicit0Implicit0();
+        String anonCtorPar_ = guiAliasParameters.getAliasCellRenderImplicit0Implicit1();
+        String fa_ = fct_ +"<"+ iprim_ +","+ obj_ +","+ bprim_ +","+ bprim_ +","+ bprim_ +","+aliasFont+","+aliasGrList+","+aliasImage+">";
+        return pub_ +" "+_kw.getKeyWordInterface()+" "+ aliasCellRender +"{"+LR
+                +SPACES_4+ pub_ +" "+aliasImage+" "+ aliasCellRenderGenerate +"("+ iprim_ +" "+ gene1_ +","+ obj_ +" "+ gene2_ +","+ bprim_ +" "+ gene3_ +","+ bprim_ +" "+ gene4_ +","+ bprim_ +" "+ gene5_ +","+aliasFont+" "+ gene6_ +","+aliasGrList+" "+ gene7_ +");"+LR
+                +SPACES_4+ pub_ +" "+_kw.getKeyWordStatic()+" "+ aliasCellRender +" "+_kw.getKeyWordCast()+"("+ fa_+ implPar_ +"){"+LR
+                +SPACES_4+SPACES_4+ ret_ +" "+_kw.getKeyWordNew()+"("+ implPar_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ pub_ +" "+ fa_+ aliasCellRenderImplicit0Runner +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ pub_ +"("+ fa_+ anonCtorPar_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ th_ +"."+ aliasCellRenderImplicit0Runner +"="+ anonCtorPar_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ pub_ +" "+aliasImage+" "+ aliasCellRenderGenerate +"("+ iprim_ +" "+ gene1_ +","+ obj_ +" "+ gene2_ +","+ bprim_ +" "+ gene3_ +","+ bprim_ +" "+ gene4_ +","+ bprim_ +" "+ gene5_ +","+aliasFont+" "+ gene6_ +","+aliasGrList+" "+ gene7_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ ret_ +" "+ th_ +"."+ aliasCellRenderImplicit0Runner +"."+_content.getReflect().getAliasCall()+"("+ gene1_ +","+ gene2_ +","+ gene3_ +","+ gene4_ +","+ gene5_ +","+ gene6_ +","+ gene7_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"};"+LR
+                +SPACES_4+"}"+LR
+                +"}";
+    }
+    public String renderDefault(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        String iprim_ = _content.getPrimTypes().getAliasPrimInteger();
+        String bprim_ = _content.getPrimTypes().getAliasPrimBoolean();
+        String obj_ = _content.getCoreNames().getAliasObject();
+        String gene1_ = guiAliasParameters.getAliasCellRender0Generate0();
+        String gene2_ = guiAliasParameters.getAliasCellRender0Generate1();
+        String gene3_ = guiAliasParameters.getAliasCellRender0Generate2();
+        String gene4_ = guiAliasParameters.getAliasCellRender0Generate3();
+        String gene5_ = guiAliasParameters.getAliasCellRender0Generate4();
+        String gene6_ = guiAliasParameters.getAliasCellRender0Generate5();
+        String gene7_ = guiAliasParameters.getAliasCellRender0Generate6();
+        String vark_ = _kw.getKeyWordVar();
+        String ifk_ = _kw.getKeyWordIf();
+        String newKeyWord_ = _kw.getKeyWordNew();
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore co_ = _content.getCoreNames();
+        String h_ = tr( "h", _kw, pr_, co_,
+                gene1_,
+                gene2_,
+                gene3_,
+                gene4_,
+                gene5_,
+                gene6_,
+                gene7_);
+        String vd_ = _content.getCoreNames().getAliasVoid();
+        String elseKw_ = _kw.getKeyWordElse();
+        String i_ = tr( "i", _kw, pr_, co_,
+                gene1_,
+                gene2_,
+                gene3_,
+                gene4_,
+                gene5_,
+                gene6_,
+                gene7_);
+        String s_ = tr("s", _kw, pr_, co_,
+                gene1_,
+                gene2_,
+                gene3_,
+                gene4_,
+                gene5_,
+                gene6_,
+                gene7_);
+        String c0_ = guiAliasParameters.getAliasCellRender0Generate00();
+        String i0_ = guiAliasParameters.getAliasCellRender0Generate01();
+        String is_ = _kw.getKeyWordInstanceof();
+        String call_ = _content.getReflect().getAliasCall();
+        String string_ = _content.getCharSeq().getAliasString();
+        String ret_ = _kw.getKeyWordReturn();
+        String fal_ = _kw.getKeyWordFalse();
+        String sta_ = _kw.getKeyWordStatic();
+        String strUt_ = _content.getCoreNames().getAliasStringUtil();
+        String strUtVal_ = _content.getCoreNames().getAliasStringUtilValueOf();
+        String mat_ = _content.getMathRef().getAliasMath();
+        String max_ = _content.getMathRef().getAliasMax();
+        String width_ = mat_+"."+max_+"("+gene6_ +"."+aliasFontStringWidth+"("+s_+"),"+gene7_+"."+aliasGrListGetPanelWidth+"())";
+        return pub_ +" "+_kw.getKeyWordClass()+" "+aliasDefCellRender+":"+aliasCellRender+"{"+LR
+                +SPACES_4+ pub_ +" "+aliasImage+" "+aliasCellRenderGenerate+"("+ iprim_ +" "+ gene1_ +", "+ obj_ +" "+ gene2_ +", "+ bprim_ +" "+ gene3_ +", "+ bprim_ +" "+ gene4_ +", "+ bprim_ +" "+ gene5_ +", "+aliasFont+" "+ gene6_ +","+aliasGrList+" "+ gene7_ +"){"+LR
+                +SPACES_4+SPACES_4+ vark_ +" "+ h_ +"=("+ bprim_ +" "+ c0_ +","+aliasImage+" "+ i0_ +":"+ vd_ +")->{"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ifk_ +" ("+ c0_ +") {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ i0_ +"."+aliasImageSetColor+"("+ newKeyWord_ +"("+"0"+","+"0"+","+"255"+"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ i0_ +"."+aliasImageFillRect+"("+"0"+","+"0"+","+ i0_ +"."+aliasImageGetWidth+"(),"+ i0_ +"."+aliasImageGetHeight+"());"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ i0_ +"."+aliasImageSetColor+"("+ newKeyWord_ +"("+"255"+","+"255"+","+"255"+"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"} "+ elseKw_ +" {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ i0_ +"."+aliasImageSetColor+"("+ newKeyWord_ +"("+"255"+","+"255"+","+"255"+"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ i0_ +"."+aliasImageFillRect+"("+"0"+","+"0"+","+ i0_ +"."+aliasImageGetWidth+"(),"+ i0_ +"."+aliasImageGetHeight+"());"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ i0_ +"."+aliasImageSetColor+"("+ newKeyWord_ +"("+"0"+","+"0"+","+"0"+"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"};"+LR
+                +SPACES_4+SPACES_4+aliasImage+" "+ i_ +";"+LR
+                +SPACES_4+SPACES_4+ ifk_ +" ("+ gene2_ +" "+ is_ +" "+aliasImage+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+aliasImage+" "+ s_ +" = ("+aliasImage+")"+ gene2_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ i_ +" = "+ newKeyWord_ +" "+aliasImage+"("+ s_ +"."+aliasImageGetWidth+"(), "+ s_ +"."+aliasImageGetHeight+"(), "+ s_ +"."+ aliasImageIsWithAlpha+"());"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ h_ +"."+ call_ +"("+ gene3_ +","+ i_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ i_ +"."+aliasImageDraw+"("+ s_ +","+"0"+","+"0"+");"+LR
+                +SPACES_4+SPACES_4+"} "+ elseKw_ +" {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ string_ +" "+ s_ +" = "+ sta_ +"("+ strUt_ +")."+ strUtVal_ +"("+ gene2_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ i_ +" = "+ newKeyWord_ +" "+aliasImage+"("+width_ +", "+ gene6_ +"."+aliasFontStringHeight+"() + "+"2"+", "+ fal_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ i_ +"."+aliasImageSetFont+"("+ gene6_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ h_ +"."+ call_ +"("+ gene3_ +","+ i_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ i_ +"."+aliasImageDraw+"("+ s_ +","+"0"+","+ i_ +"."+aliasImageGetHeight+"()-"+"2"+");"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ ifk_ +" ("+ gene4_ +") {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ i_ +"."+aliasImageSetColor+"("+ newKeyWord_ +"("+"255"+","+"0"+","+"0"+"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ i_ +"."+aliasImageDrawLine+"("+"0"+","+"0"+","+ i_ +"."+aliasImageGetWidth+"(),"+"0"+");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ i_ +"."+aliasImageDrawLine+"("+"0"+","+ i_ +"."+aliasImageGetHeight+"()-"+"1"+","+ i_ +"."+aliasImageGetWidth+"(),"+ i_ +"."+aliasImageGetHeight+"()-"+"1"+");"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ ifk_ +" ("+ gene5_ +") {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ i_ +"."+aliasImageSetColor+"("+ newKeyWord_ +"("+"255"+","+"0"+","+"0"+"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ i_ +"."+aliasImageDrawLine+"("+"0"+","+"0"+","+"0"+","+ i_ +"."+aliasImageGetHeight+"());"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ i_ +"."+aliasImageDrawLine+"("+ i_ +"."+aliasImageGetWidth+"()-"+"1"+","+"0"+","+ i_ +"."+aliasImageGetWidth+"()-"+"1"+","+ i_ +"."+aliasImageGetHeight+"());"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ ret_ +" "+ i_ +";"+LR
+                +SPACES_4+"}"+LR
+                +"}";
     }
     public String paintMethod(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
@@ -1625,119 +1237,6 @@ public final class GuiAliases {
                 +SPACES_4+SPACES_4+SPACES_4+"}"+LR
                 +SPACES_4+SPACES_4+"}"+LR
                 +SPACES_4+"}"+LR;
-    }
-    public String add3(KeyWords _kw, LgNamesContent _content) {
-        String pub_ = _kw.getKeyWordPublic();
-        String stat_ = _kw.getKeyWordStatic();
-        String vd_ = _content.getCoreNames().getAliasVoid();
-        String obj_ = _content.getCoreNames().getAliasObject();
-        String mat_ = _content.getMathRef().getAliasMath();
-        String chUt_ = _content.getCoreNames().getAliasStringUtil();
-        String ret_ = _kw.getKeyWordReturn();
-        String nul_ = _kw.getKeyWordNull();
-        String ifk_ = _kw.getKeyWordIf();
-        String callFct_ = _content.getReflect().getAliasCall();
-        String tr_ = _kw.getKeyWordTrue();
-        PrimitiveTypes primTypes_ = _content.getPrimTypes();
-        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
-        AliasCore co_ = _content.getCoreNames();
-        String p1_ = guiAliasParameters.getAliasPaint0TabbedPaneAdd0();
-        String p2_ = guiAliasParameters.getAliasPaint0TabbedPaneAdd1();
-        String p3_ = guiAliasParameters.getAliasPaint0TabbedPaneAdd2();
-        String cvar_ = tr("z", _kw, pr_, co_, p1_, p2_, p3_);
-        String br_ = _kw.getKeyWordBreak();
-        String ipr_ = primTypes_.getAliasPrimInteger();
-        String kwvar_ = _kw.getKeyWordVar();
-        String rvar_ = tr("r", _kw, pr_, co_, p1_, p2_, p3_);
-        String ft_ = tr("ft", _kw, pr_, co_, p1_, p2_, p3_);
-        String mw_ = tr("mw", _kw, pr_, co_, p1_, p2_, p3_);
-        String max_ = _content.getMathRef().getAliasMax();
-        String pour_ = _kw.getKeyWordFor();
-        String text_ = tr("text", _kw, pr_, co_, p1_, p2_, p3_);
-        String o_ =  tr("o", _kw, pr_, co_, p1_, p2_, p3_);
-        String vof_ = _content.getCoreNames().getAliasStringUtilValueOf();
-        String h_ = tr("h", _kw, pr_, co_, p1_, p2_, p3_);
-        String la_ = tr("la", _kw, pr_, co_, p1_, p2_, p3_);
-        String newKeyWord_ = _kw.getKeyWordNew();
-        String img_ = tr("img", _kw, pr_, co_, p1_, p2_, p3_);
-        String hf_ = tr("hf", _kw, pr_, co_, p1_, p2_, p3_);
-        String lf_ = tr("lf", _kw, pr_, co_, p1_, p2_, p3_);
-        String pf_ = tr("pf", _kw, pr_, co_, p1_, p2_, p3_);
-        String nb_ = tr("nb", _kw, pr_, co_, p1_, p2_, p3_);
-        String fal_ = _kw.getKeyWordFalse();
-        return SPACES_4+ pub_ +" "+ stat_ +" "+ vd_ +" "+aliasPaintAdd+"("+aliasGrList+" "+ p1_ +", "+ ipr_ +" "+ p2_ +","+ obj_ +" "+ p3_ +"){"+LR
-                +SPACES_4+SPACES_4+ kwvar_ +" "+ rvar_ +" = "+ p1_ +"."+ aliasGrListGetRender+"();"+LR
-                +SPACES_4+SPACES_4+ ifk_ +" ("+ rvar_ +" == "+ nul_ +"){"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ ft_ +" = "+ p1_ +"."+aliasGetFont+"();"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ ipr_ +" "+ mw_ +" = "+ stat_ +"("+ mat_ +")."+ max_ +"("+"4"+", "+ p1_ +"."+aliasRenderGetWidth+"());"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ pour_ +" ("+ kwvar_ +" "+ o_ +": "+ p1_ +"."+aliasGrListGetListView+"()){"+LR
-                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ text_ +" = "+ stat_ +"("+ chUt_ +")."+ vof_ +"("+ o_ +");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ mw_ +" = "+ stat_ +"("+ mat_ +")."+ max_ +"("+ mw_ +", "+ ft_ +"."+ aliasFontStringWidth+"("+ text_ +"));"+LR
-                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ h_ +" = "+ ft_ +"."+aliasFontGetSize+"();"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ text_ +" = "+ stat_ +"("+ chUt_ +")."+ vof_ +"("+ p3_ +");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ la_ +" = "+ stat_ +"("+ mat_ +")."+ max_ +"("+ mw_ +","+ ft_ +"."+aliasFontStringWidth+"("+ text_ +"));"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ img_ +" = "+ newKeyWord_ +" "+aliasImage+"("+ la_ +","+ h_ +","+ tr_ +");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageSetFont+"("+ ft_ +");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageSetColor+"("+ newKeyWord_ +"("+"255"+","+"255"+","+"255"+"));"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageFillRect+"("+"0"+", "+"0"+", "+ la_ +" + "+"2"+", "+ h_ +" + "+"2"+");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageSetColor+"("+ newKeyWord_ +"("+"0"+","+"0"+","+"0"+"));"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageDraw+"("+ text_ +", "+"1"+","+ h_ +");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ p1_ +"."+aliasGrListAdd+"("+ p2_ +","+ newKeyWord_ +" "+aliasImageLabel+"("+ img_ +"),"+ p3_ +");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageDispose+"();"+LR
-                +SPACES_4+SPACES_4+SPACES_4+aliasPaintRefresh+"("+ p1_ +");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
-                +SPACES_4+SPACES_4+"}"+LR
-                +SPACES_4+SPACES_4+ kwvar_ +" "+ hf_ +" = "+ rvar_ +"."+aliasRenderGetHeight+"();"+LR
-                +SPACES_4+SPACES_4+ kwvar_ +" "+ lf_ +" = "+ rvar_ +"."+aliasRenderGetWidth+"();"+LR
-                +SPACES_4+SPACES_4+ kwvar_ +" "+ pf_ +" = "+ rvar_ +"."+ aliasComponentGetPaint +"();"+LR
-                +SPACES_4+SPACES_4+ ifk_ +" ("+ hf_ +" == "+ nul_ +" || "+ lf_ +" == "+ nul_ +" || "+ pf_ +" == "+ nul_ +"){"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ ft_ +" = "+ p1_ +"."+aliasGetFont+"();"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ ipr_ +" "+ mw_ +" = "+ stat_ +"("+ mat_ +")."+ max_ +"("+"4"+", "+ p1_ +"."+aliasRenderGetWidth+"());"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ pour_ +" ("+ kwvar_ +" "+ o_ +": "+ p1_ +"."+aliasGrListGetListView+"()){"+LR
-                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ text_ +" = "+ stat_ +"("+ chUt_ +")."+ vof_ +"("+ o_ +");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ mw_ +" = "+ stat_ +"("+ mat_ +")."+ max_ +"("+ mw_ +", "+ ft_ +"."+aliasFontStringWidth+"("+ text_ +"));"+LR
-                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ h_ +" = "+ ft_ +"."+aliasFontGetSize+"();"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ text_ +" = "+ stat_ +"("+ chUt_ +")."+ vof_ +"("+ p3_ +");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ la_ +" = "+ stat_ +"("+ mat_ +")."+ max_ +"("+ mw_ +","+ ft_ +"."+aliasFontStringWidth+"("+ text_ +"));"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ img_ +" = "+ newKeyWord_ +" "+aliasImage+"("+ la_ +","+ h_ +","+ tr_ +");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageSetFont+"("+ ft_ +");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageSetColor+"("+ newKeyWord_ +"("+"255"+","+"255"+","+"255"+"));"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageFillRect+"("+"0"+", "+"0"+", "+ la_ +" + "+"2"+", "+ h_ +" + "+"2"+");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageSetColor+"("+ newKeyWord_ +"("+"0"+","+"0"+","+"0"+"));"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageDraw+"("+ text_ +", "+"1"+","+ h_ +");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ p1_ +"."+aliasGrListAdd+"("+ p2_ +","+ newKeyWord_ +" "+aliasImageLabel+"("+ img_ +"),"+ p3_ +");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ img_ +"."+aliasImageDispose+"();"+LR
-                +SPACES_4+SPACES_4+SPACES_4+aliasPaintRefresh+"("+ p1_ +");"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
-                +SPACES_4+SPACES_4+"}"+LR
-                +SPACES_4+SPACES_4+ kwvar_ +" "+ h_ +" = "+ hf_ +"."+ callFct_ +"("+ p1_ +","+ p3_ +","+ p2_ +","+ fal_ +","+"0"+");"+LR
-                +SPACES_4+SPACES_4+ kwvar_ +" "+ la_ +" = "+"0"+";"+LR
-                +SPACES_4+SPACES_4+ pour_ +" ("+ kwvar_ +" "+ o_ +": "+ p1_ +"."+aliasGrListGetListView+"()){"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ kwvar_ +" "+ nb_ +" = "+ fal_ +";"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ pour_ +" ("+ kwvar_ +" "+ cvar_ +":"+ p1_ +"."+aliasGrListGetSelectedIndexes+"()){"+LR
-                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ ifk_ +" ("+ cvar_ +" == (["+ o_ +"])){"+LR
-                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ nb_ +" = "+ tr_ +";"+LR
-                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ br_ +";"+LR
-                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
-                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ la_ +" = "+ lf_ +"."+ callFct_ +"("+ p1_ +","+ o_ +",(["+ o_ +"]),"+ nb_ +","+ la_ +");"+LR
-                +SPACES_4+SPACES_4+"}"+LR
-                +SPACES_4+SPACES_4+ la_ +" = "+ lf_ +"."+ callFct_ +"("+ p1_ +","+ p3_ +","+ p2_ +","+ fal_ +","+ la_ +");"+LR
-                +SPACES_4+SPACES_4+ kwvar_ +" "+ img_ +" = "+ newKeyWord_ +" "+aliasImage+"("+ la_ +","+ h_ +","+ tr_ +");"+LR
-                +SPACES_4+SPACES_4+ pf_ +"."+ callFct_ +"("+ p1_ +","+ p3_ +","+ p2_ +","+ fal_ +","+ img_ +");"+LR
-                +SPACES_4+SPACES_4+ p1_ +"."+aliasGrListAdd+"("+ p2_ +","+ newKeyWord_ +" "+aliasImageLabel+"("+ img_ +"),"+ p3_ +");"+LR
-                +SPACES_4+SPACES_4+ img_ +"."+aliasImageDispose+"();"+LR
-                +SPACES_4+SPACES_4+aliasPaintRefresh+"("+ p1_ +");"+LR
-                +SPACES_4+"}"+LR;
-    }
-    private static String wrap(String _element) {
-        return '{'+_element+'}';
-    }
-
-    public String res(String _file, StringMap<String> _prop) {
-        return StringUtil.nullToEmpty(_prop.getVal(_file));
     }
 
     public void buildOther(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
@@ -2587,46 +2086,23 @@ public final class GuiAliases {
         std_ = stdcl_;
         StandardType.addType(_content.getStandards(), aliasImageLabel, std_);
 
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasFont, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfFont());
-        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasFontGetName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctFontGetName());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasFontGetSize, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctFontGetSize());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasFontIsBold, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctFontIsBold());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasFontIsItalic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctFontIsItalic());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFontStringWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasFont0FontStringWidth0()), new FctFontStringWidth1(_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasImage,_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFontStringWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasFont1FontStringWidth0(),guiAliasParameters.getAliasFont1FontStringWidth1()), new FctFontStringWidth0(_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasFontStringHeight, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctFontStringHeight1(_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasImage);
-        method_ = new StandardMethod(aliasFontStringHeight, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasFont0FontStringHeight0()), new FctFontStringHeight0(_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false, new FctFont0());
-        StandardNamedFunction.addFct(constructors_, ctor_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasFont0Font0()), new FctFont1());
-        StandardNamedFunction.addFct(constructors_, ctor_);
-        params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasFont1Font0(),guiAliasParameters.getAliasFont1Font1(),guiAliasParameters.getAliasFont1Font2(),guiAliasParameters.getAliasFont1Font3()), new FctFont2());
-        StandardNamedFunction.addFct(constructors_, ctor_);
-        StandardType.addType(_content.getStandards(), aliasFont, stdcl_);
+        font(_content, _guiEx);
 
+        color(_content);
+
+        image(_content, _guiEx);
+        buildInputs(_content,_cust,_guiEx, component_, input_);
+        buildMenus(_content,_cust,_guiEx);
+    }
+
+    public void color(LgNamesContent _content) {
+        StringList params_;
+        CustList<CstFieldInfo> fields_;
+        CustList<StandardMethod> methods_;
+        StandardMethod method_;
+        StandardClass stdcl_;
+        StandardConstructor ctor_;
+        CustList<StandardConstructor> constructors_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
@@ -2650,24 +2126,67 @@ public final class GuiAliases {
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor0Color0()),new FctColor0());
         StandardNamedFunction.addFct(constructors_, ctor_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimBoolean());
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(), _content.getPrimTypes().getAliasPrimBoolean());
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor1Color0(),guiAliasParameters.getAliasColor1Color1()), new FctColor1());
         StandardNamedFunction.addFct(constructors_, ctor_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(), _content.getPrimTypes().getAliasPrimInteger(), _content.getPrimTypes().getAliasPrimInteger());
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor2Color0(),guiAliasParameters.getAliasColor2Color1(),guiAliasParameters.getAliasColor2Color2()), new FctColor2());
         StandardNamedFunction.addFct(constructors_, ctor_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(), _content.getPrimTypes().getAliasPrimInteger(), _content.getPrimTypes().getAliasPrimInteger(), _content.getPrimTypes().getAliasPrimInteger());
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor3Color0(),guiAliasParameters.getAliasColor3Color1(),guiAliasParameters.getAliasColor3Color2(),guiAliasParameters.getAliasColor3Color3()), new FctColor3());
         StandardNamedFunction.addFct(constructors_, ctor_);
         StandardType.addType(_content.getStandards(), aliasColor, stdcl_);
+    }
 
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasImage, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+    public void font(LgNamesContent _content, GuiExecutingBlocks _guiEx) {
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass stdcl_ = new StandardClass(aliasFont, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfFont());
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        StringList params_ = new StringList();
+        StandardMethod method_ = new StandardMethod(aliasFontGetName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctFontGetName());
+        StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasImageIsWithAlpha, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctImageIsWithAlpha());
+        method_ = new StandardMethod(aliasFontGetSize, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctFontGetSize());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasFontIsBold, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctFontIsBold());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasFontIsItalic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctFontIsItalic());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasFontStringWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasFont0FontStringWidth0()), new FctFontStringWidth1(_guiEx));
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasImage,_content.getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasFontStringWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasFont1FontStringWidth0(),guiAliasParameters.getAliasFont1FontStringWidth1()), new FctFontStringWidth0(_guiEx));
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasFontStringHeight, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctFontStringHeight1(_guiEx));
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasImage);
+        method_ = new StandardMethod(aliasFontStringHeight, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasFont0FontStringHeight0()), new FctFontStringHeight0(_guiEx));
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        StandardConstructor ctor_ = new StandardConstructor(params_,false, new FctFont0());
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasFont0Font0()), new FctFont1());
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasFont1Font0(),guiAliasParameters.getAliasFont1Font1(),guiAliasParameters.getAliasFont1Font2(),guiAliasParameters.getAliasFont1Font3()), new FctFont2());
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        StandardType.addType(_content.getStandards(), aliasFont, stdcl_);
+    }
+    public void image(LgNamesContent _content, GuiExecutingBlocks _guiEx) {
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass stdcl_ = new StandardClass(aliasImage, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        StringList params_ = new StringList();
+        StandardMethod method_ = new StandardMethod(aliasImageIsWithAlpha, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctImageIsWithAlpha());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasImageGetHeight, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctImageGetHeight());
@@ -2731,11 +2250,9 @@ public final class GuiAliases {
         StandardNamedFunction.addFct(methods_, method_);
 
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimBoolean());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasImage0Image0(),guiAliasParameters.getAliasImage0Image1(),guiAliasParameters.getAliasImage0Image2()), new FctImage(_guiEx));
+        StandardConstructor ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasImage0Image0(),guiAliasParameters.getAliasImage0Image1(),guiAliasParameters.getAliasImage0Image2()), new FctImage(_guiEx));
         StandardNamedFunction.addFct(constructors_, ctor_);
         StandardType.addType(_content.getStandards(), aliasImage, stdcl_);
-        buildInputs(_content,_cust,_guiEx, component_, input_);
-        buildMenus(_content,_cust,_guiEx);
     }
     private void buildEvents(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
@@ -3052,75 +2569,7 @@ public final class GuiAliases {
         StandardNamedFunction.addFct(constructors_, ctor_);
         StandardType.addType(_content.getStandards(), aliasRender, stdcl_);
 
-
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasGrList, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL, new DfGrList(_cust,_guiEx,aliasGrList));
-        stdcl_.addSuperStdTypes(_input);
-        stdcl_.addSuperStdTypes(_component);
-        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListGetRender, params_, aliasRender, false, MethodModifier.FINAL, new FctGrListGetRender());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasRender);
-        method_ = new StandardMethod(aliasGrListSetRender, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetRender0()), new FctGrListSetRender());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListGetSelections, params_, StringExpUtil.getPrettyArrayType(aliasListSelection), false, MethodModifier.FINAL, new FctGrListGetSelections());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasListSelection);
-        method_ = new StandardMethod(aliasGrListAddSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListAddSelection0()), new FctGrListAddSelection());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasListSelection);
-        method_ = new StandardMethod(aliasGrListRemoveSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListRemoveSelection0()), new FctGrListRemoveSelection());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListGetVisibleRowCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctGrListGetVisibleRowCount());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasGrListSetVisibleRowCount, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetVisibleRowCount0()), new FctGrListSetVisibleRowCount());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList2TabbedPaneAdd0()), new FctGrListAdd2(this,_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0TabbedPaneAdd0(),guiAliasParameters.getAliasGrList0TabbedPaneAdd1()), new FctGrListAdd0(this,_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),aliasImageLabel,_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList1TabbedPaneAdd0(),guiAliasParameters.getAliasGrList1TabbedPaneAdd1(),guiAliasParameters.getAliasGrList1TabbedPaneAdd2()), new FctGrListAdd1());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasGrListSet, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList1TreeNodeSetUserObject0(),guiAliasParameters.getAliasGrList1TreeNodeSetUserObject1()), new FctGrListSet0(this,_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),aliasImageLabel,_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasGrListSet, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0TreeNodeSetUserObject0(),guiAliasParameters.getAliasGrList0TreeNodeSetUserObject1(),guiAliasParameters.getAliasGrList0TreeNodeSetUserObject2()), new FctGrListSet1());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListGetListView, params_, StringExpUtil.getPrettyArrayType(_content.getCoreNames().getAliasObject()), false, MethodModifier.FINAL, new FctGrListGetListView());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListGetSelectedIndexes, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimInteger()), false, MethodModifier.FINAL, new FctGrListGetSelectedIndexes());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasGrListSetSelectedIndexes, params_, _content.getCoreNames().getAliasVoid(), true, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetSelectedIndexes0()), new FctGrListSetSelectedIndexes(this,_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListClearSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctGrListClearSelection(this,_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListUpdateGraphics, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctGrListUpdateGraphics());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasGrListRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0RemoveCompo0()), new FctGrListRemove());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListClear, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctGrListClear());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasGrList0GrList0()), new FctGrList(_cust,_guiEx,aliasGrList));
-        StandardNamedFunction.addFct(constructors_, ctor_);
-        StandardType.addType(_content.getStandards(), aliasGrList, stdcl_);
+        buildGrList(_content, _cust, _guiEx, _component, _input);
 
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -3465,6 +2914,79 @@ public final class GuiAliases {
         StandardNamedFunction.addFct(constructors_, ctor_);
         StandardType.addType(_content.getStandards(), aliasSlider, stdcl_);
     }
+    public void buildGrList(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx, StandardType _component, StandardType _input) {
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass stdcl_ = new StandardClass(aliasGrList, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL, new DfGrList(_cust,_guiEx,aliasGrList));
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        StringList params_ = new StringList();
+        StandardMethod method_ = new StandardMethod(aliasGrListGetRender, params_, aliasCellRender, false, MethodModifier.FINAL, new FctGrListGetRender());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasCellRender);
+        method_ = new StandardMethod(aliasGrListSetRender, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetRender0()), new FctGrListSetRender());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListGetSelections, params_, StringExpUtil.getPrettyArrayType(aliasListSelection), false, MethodModifier.FINAL, new FctGrListGetSelections());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasListSelection);
+        method_ = new StandardMethod(aliasGrListAddSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListAddSelection0()), new FctGrListAddSelection());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasListSelection);
+        method_ = new StandardMethod(aliasGrListRemoveSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListRemoveSelection0()), new FctGrListRemoveSelection());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListGetVisibleRowCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctGrListGetVisibleRowCount());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasGrListSetVisibleRowCount, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetVisibleRowCount0()), new FctGrListSetVisibleRowCount());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getCoreNames().getAliasObject());
+        method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList2TabbedPaneAdd0()), new FctGrListAdd2());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getCoreNames().getAliasObject());
+        method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0TabbedPaneAdd0(),guiAliasParameters.getAliasGrList0TabbedPaneAdd1()), new FctGrListAdd0());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),aliasImage,_content.getCoreNames().getAliasObject());
+        method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList1TabbedPaneAdd0(),guiAliasParameters.getAliasGrList1TabbedPaneAdd1(),guiAliasParameters.getAliasGrList1TabbedPaneAdd2()), new FctGrListAdd1());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getCoreNames().getAliasObject());
+        method_ = new StandardMethod(aliasGrListSet, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList1TreeNodeSetUserObject0(),guiAliasParameters.getAliasGrList1TreeNodeSetUserObject1()), new FctGrListSet0());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),aliasImage,_content.getCoreNames().getAliasObject());
+        method_ = new StandardMethod(aliasGrListSet, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0TreeNodeSetUserObject0(),guiAliasParameters.getAliasGrList0TreeNodeSetUserObject1(),guiAliasParameters.getAliasGrList0TreeNodeSetUserObject2()), new FctGrListSet1());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListGetListView, params_, StringExpUtil.getPrettyArrayType(_content.getCoreNames().getAliasObject()), false, MethodModifier.FINAL, new FctGrListGetListView());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListGetSelectedIndexes, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimInteger()), false, MethodModifier.FINAL, new FctGrListGetSelectedIndexes());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasGrListSetSelectedIndexes, params_, _content.getCoreNames().getAliasVoid(), true, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetSelectedIndexes0()), new FctGrListSetSelectedIndexes());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListClearSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctGrListClearSelection());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListUpdateGraphics, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctGrListUpdateGraphics());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasGrListRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0RemoveCompo0()), new FctGrListRemove());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListClear, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctGrListClear());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListGetPanelWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctGrListGetPanelWidth());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
+        StandardConstructor ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasGrList0GrList0()), new FctGrList(_cust,_guiEx,aliasGrList));
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        StandardType.addType(_content.getStandards(), aliasGrList, stdcl_);
+    }
 
     public Struct getInnerSimpleResult(ClassField _classField,LgNamesContent _content) {
         if (StringUtil.quickEq(_classField.getClassName(),aliasConfirm)) {
@@ -3800,6 +3322,7 @@ public final class GuiAliases {
         setAliasRequestFocus(LgNamesContent.get(_util,_cust,_mapping.getVal(REQUEST_FOCUS)));
         setAliasFocused(LgNamesContent.get(_util,_cust,_mapping.getVal(FOCUSED)));
         setAliasActionListenerImplicit0Runner(LgNamesContent.get(_util,_cust,_mapping.getVal(ACTION_LISTENER_IMPLICIT_0_RUNNER)));
+        setAliasCellRenderImplicit0Runner(LgNamesContent.get(_util,_cust,_mapping.getVal(CELL_RENDER_IMPLICIT_0_RUNNER)));
         setAliasCompBorRaise(LgNamesContent.get(_util,_cust,_mapping.getVal(COMP_BOR_RAISE)));
         setAliasWheelEvent(LgNamesContent.get(_util,_cust,_mapping.getVal(WHEEL_EVENT)));
         setAliasKeyEventIsShift(LgNamesContent.get(_util,_cust,_mapping.getVal(KEY_EVENT_IS_SHIFT)));
@@ -3811,6 +3334,9 @@ public final class GuiAliases {
         setAliasKeyEventIsAlt(LgNamesContent.get(_util,_cust,_mapping.getVal(KEY_EVENT_IS_ALT)));
         setAliasKeyListener(LgNamesContent.get(_util,_cust,_mapping.getVal(KEY_LISTENER)));
         setAliasFocusListener(LgNamesContent.get(_util,_cust,_mapping.getVal(FOCUS_LISTENER)));
+        setAliasCellRender(LgNamesContent.get(_util,_cust,_mapping.getVal(CELL_RENDER)));
+        setAliasDefCellRender(LgNamesContent.get(_util,_cust,_mapping.getVal(DEF_CELL_RENDER)));
+        setAliasCellRenderGenerate(LgNamesContent.get(_util,_cust,_mapping.getVal(CELL_RENDER_GENERATE)));
         setAliasAddFocusListener(LgNamesContent.get(_util,_cust,_mapping.getVal(ADD_FOCUS_LISTENER)));
         setAliasRemoveFocusListener(LgNamesContent.get(_util,_cust,_mapping.getVal(REMOVE_FOCUS_LISTENER)));
         setAliasGetFocusListeners(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_FOCUS_LISTENERS)));
@@ -3859,6 +3385,7 @@ public final class GuiAliases {
         setAliasRenderSetPaint(LgNamesContent.get(_util,_cust,_mapping.getVal(RENDER_SET_PAINT)));
         setAliasGrListAdd(LgNamesContent.get(_util,_cust,_mapping.getVal(GR_LIST_ADD)));
         setAliasGrListGetRender(LgNamesContent.get(_util,_cust,_mapping.getVal(GR_LIST_GET_RENDER)));
+        setAliasGrListGetPanelWidth(LgNamesContent.get(_util,_cust,_mapping.getVal(GR_LIST_GET_PANEL_WIDTH)));
         setAliasGrListSetSelectedIndexes(LgNamesContent.get(_util,_cust,_mapping.getVal(GR_LIST_SET_SELECTED_INDEXES)));
         setAliasGrListSetVisibleRowCount(LgNamesContent.get(_util,_cust,_mapping.getVal(GR_LIST_SET_VISIBLE_ROW_COUNT)));
         setAliasComboGetSelectedItem(LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_GET_SELECTED_ITEM)));
@@ -3997,6 +3524,9 @@ public final class GuiAliases {
         _en.add(DIMENSION,"Dimension=$core.Dimension");
         _en.add(KEY_LISTENER,"KeyListener=$core.KeyListener");
         _en.add(FOCUS_LISTENER,"FocusListener=$core.FocusListener");
+        _en.add(CELL_RENDER,"CellRender=$core.CellRender");
+        _en.add(DEF_CELL_RENDER,"DefCellRender=$core.DefCellRender");
+        _en.add(CELL_RENDER_GENERATE,"CellRenderGenerate=generate");
         _en.add(MOUSE_LISTENER,"MouseListener=$core.MouseListener");
         _en.add(WHEEL_LISTENER,"WheelListener=$core.MouseWheelListener");
         _en.add(WHEEL_EVENT,"WheelEvent=$core.MouseWheelEvent");
@@ -4103,6 +3633,7 @@ public final class GuiAliases {
         _en.add(REQUEST_FOCUS,"RequestFocus=requestFocus");
         _en.add(FOCUSED,"Focused=focused");
         _en.add(ACTION_LISTENER_IMPLICIT_0_RUNNER,"ActionListenerImplicit0Runner=runner");
+        _en.add(CELL_RENDER_IMPLICIT_0_RUNNER,"CellRenderImplicit0Runner=runner");
         _en.add(COMP_BACK,"CompBack=back");
         _en.add(COMPO_REL_LEFT,"CompoRelLeft=left");
         _en.add(COMPO_REL_RIGHT,"CompoRelRight=right");
@@ -4220,6 +3751,7 @@ public final class GuiAliases {
         _en.add(GR_LIST_CLEAR_SELECTION,"GrListClearSelection=clearSelection");
         _en.add(GR_LIST_GET_LIST_VIEW,"GrListGetListView=getView");
         _en.add(GR_LIST_GET_RENDER,"GrListGetRender=getRender");
+        _en.add(GR_LIST_GET_PANEL_WIDTH,"GrListGetPanelWidth=getPanelWidth");
         _en.add(GR_LIST_GET_SELECTED_INDEXES,"GrListGetSelectedIndexes=getSelectedIndexes");
         _en.add(GR_LIST_GET_SELECTIONS,"GrListGetSelections=getSelections");
         _en.add(GR_LIST_GET_VISIBLE_ROW_COUNT,"GrListGetVisibleRowCount=getVisibleRowCount");
@@ -4434,6 +3966,9 @@ public final class GuiAliases {
         _fr.add(DIMENSION,"Dimension=$coeur.Dimension");
         _fr.add(KEY_LISTENER,"KeyListener=$coeur.ClavierEcouteur");
         _fr.add(FOCUS_LISTENER,"FocusListener=$coeur.FocusEcouteur");
+        _fr.add(CELL_RENDER,"CellRender=$coeur.RenduCellule");
+        _fr.add(DEF_CELL_RENDER,"DefCellRender=$coeur.DefRenduCellule");
+        _fr.add(CELL_RENDER_GENERATE,"CellRenderGenerate=generer");
         _fr.add(MOUSE_LISTENER,"MouseListener=$coeur.SourisEcouteur");
         _fr.add(WHEEL_LISTENER,"WheelListener=$coeur.MoletteSourisEcouteur");
         _fr.add(WHEEL_EVENT,"WheelEvent=$coeur.MoletteSourisEvt");
@@ -4540,6 +4075,7 @@ public final class GuiAliases {
         _fr.add(REQUEST_FOCUS,"RequestFocus=demanderFocus");
         _fr.add(FOCUSED,"Focused=afocus");
         _fr.add(ACTION_LISTENER_IMPLICIT_0_RUNNER,"ActionListenerImplicit0Runner=exec");
+        _fr.add(CELL_RENDER_IMPLICIT_0_RUNNER,"CellRenderImplicit0Runner=exec");
         _fr.add(COMP_BACK,"CompBack=arriere");
         _fr.add(COMPO_REL_LEFT,"CompoRelLeft=gauche");
         _fr.add(COMPO_REL_RIGHT,"CompoRelRight=droite");
@@ -4657,6 +4193,7 @@ public final class GuiAliases {
         _fr.add(GR_LIST_CLEAR_SELECTION,"GrListClearSelection=supprimerSelection");
         _fr.add(GR_LIST_GET_LIST_VIEW,"GrListGetListView=valVue");
         _fr.add(GR_LIST_GET_RENDER,"GrListGetRender=valRendu");
+        _fr.add(GR_LIST_GET_PANEL_WIDTH,"GrListGetPanelWidth=valPanneauLargeur");
         _fr.add(GR_LIST_GET_SELECTED_INDEXES,"GrListGetSelectedIndexes=valIndicesSelection");
         _fr.add(GR_LIST_GET_SELECTIONS,"GrListGetSelections=valSelections");
         _fr.add(GR_LIST_GET_VISIBLE_ROW_COUNT,"GrListGetVisibleRowCount=valNbLignesVisible");
@@ -4839,6 +4376,7 @@ public final class GuiAliases {
                 new KeyValueMemberName(_mapping.getVal(KEY_RELEASED),getAliasKeyReleased()),
                 new KeyValueMemberName(_mapping.getVal(FOCUS_GAINED),getAliasFocusGained()),
                 new KeyValueMemberName(_mapping.getVal(FOCUS_LOST),getAliasFocusLost()),
+                new KeyValueMemberName(_mapping.getVal(CELL_RENDER_GENERATE),getAliasCellRenderGenerate()),
                 new KeyValueMemberName(_mapping.getVal(VALUE_CHANGED),getAliasValueChanged()),
                 new KeyValueMemberName(_mapping.getVal(TABLE_VALUE_TABLE_CHANGED),getAliasTableValueTableChanged()),
                 new KeyValueMemberName(_mapping.getVal(MOUSE_CLICKED),getAliasMouseClicked()),
@@ -4882,6 +4420,9 @@ public final class GuiAliases {
         ));
         f_.addEntry(getAliasActionListener(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(ACTION_LISTENER_IMPLICIT_0_RUNNER),getAliasActionListenerImplicit0Runner())
+        ));
+        f_.addEntry(getAliasCellRender(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(CELL_RENDER_IMPLICIT_0_RUNNER),getAliasCellRenderImplicit0Runner())
         ));
         return f_;
     }
@@ -4971,6 +4512,9 @@ public final class GuiAliases {
         m_.addEntry(getAliasFocusListener(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(FOCUS_GAINED),getAliasFocusGained()),
                 new KeyValueMemberName(_mapping.getVal(FOCUS_LOST),getAliasFocusLost()))
+        );
+        m_.addEntry(getAliasCellRenderGenerate(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(CELL_RENDER_GENERATE),getAliasCellRenderGenerate()))
         );
         m_.addEntry(getAliasWindowListener(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(WINDOW_ACTIVATED),getAliasWindowActivated()),
@@ -5221,6 +4765,7 @@ public final class GuiAliases {
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_CLEAR_SELECTION),getAliasGrListClearSelection()),
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_GET_LIST_VIEW),getAliasGrListGetListView()),
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_GET_RENDER),getAliasGrListGetRender()),
+                new KeyValueMemberName(_mapping.getVal(GR_LIST_GET_PANEL_WIDTH),getAliasGrListGetPanelWidth()),
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_GET_SELECTED_INDEXES),getAliasGrListGetSelectedIndexes()),
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_GET_SELECTIONS),getAliasGrListGetSelections()),
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_GET_VISIBLE_ROW_COUNT),getAliasGrListGetVisibleRowCount()),
@@ -5471,6 +5016,8 @@ public final class GuiAliases {
         ref_.addEntry(_mapping.getVal(DIMENSION),getAliasDimension());
         ref_.addEntry(_mapping.getVal(KEY_LISTENER),getAliasKeyListener());
         ref_.addEntry(_mapping.getVal(FOCUS_LISTENER),getAliasFocusListener());
+        ref_.addEntry(_mapping.getVal(CELL_RENDER),getAliasCellRender());
+        ref_.addEntry(_mapping.getVal(DEF_CELL_RENDER),getAliasDefCellRender());
         ref_.addEntry(_mapping.getVal(MOUSE_LISTENER),getAliasMouseListener());
         ref_.addEntry(_mapping.getVal(WHEEL_LISTENER),getAliasWheelListener());
         ref_.addEntry(_mapping.getVal(WHEEL_EVENT),getAliasWheelEvent());
@@ -7462,6 +7009,14 @@ public final class GuiAliases {
         this.aliasActionListenerImplicit0Runner = _v;
     }
 
+    public String getAliasCellRenderImplicit0Runner() {
+        return aliasCellRenderImplicit0Runner;
+    }
+
+    public void setAliasCellRenderImplicit0Runner(String _v) {
+        this.aliasCellRenderImplicit0Runner = _v;
+    }
+
     public String getAliasCompToolTip() {
         return aliasCompToolTip;
     }
@@ -7764,6 +7319,30 @@ public final class GuiAliases {
 
     public void setAliasFocusListener(String _v) {
         this.aliasFocusListener = _v;
+    }
+
+    public String getAliasCellRender() {
+        return aliasCellRender;
+    }
+
+    public void setAliasCellRender(String _v) {
+        this.aliasCellRender = _v;
+    }
+
+    public String getAliasDefCellRender() {
+        return aliasDefCellRender;
+    }
+
+    public void setAliasDefCellRender(String _v) {
+        this.aliasDefCellRender = _v;
+    }
+
+    public String getAliasCellRenderGenerate() {
+        return aliasCellRenderGenerate;
+    }
+
+    public void setAliasCellRenderGenerate(String _v) {
+        this.aliasCellRenderGenerate = _v;
     }
 
     public String getAliasFocusGained() {
@@ -8085,6 +7664,14 @@ public final class GuiAliases {
 
     public void setAliasGrListRemove(String _v) {
         this.aliasGrListRemove = _v;
+    }
+
+    public String getAliasGrListGetPanelWidth() {
+        return aliasGrListGetPanelWidth;
+    }
+
+    public void setAliasGrListGetPanelWidth(String _v) {
+        this.aliasGrListGetPanelWidth = _v;
     }
 
     public String getAliasCombo() {

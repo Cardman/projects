@@ -300,7 +300,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     @Test
     public void cdmFactory() {
         MockProgramInfos pr_ = prs();
-        CdmFactory f_ = new CdmFactory(pr_, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct());
+        CdmFactory f_ = new CdmFactory(pr_, new MockInterceptor());
         assertTrue(f_.getInterceptor().newMapStringStruct().isEmpty());
         f_.getProgramInfos().getZipFact();
         new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getThreadFactory().sleep(0);

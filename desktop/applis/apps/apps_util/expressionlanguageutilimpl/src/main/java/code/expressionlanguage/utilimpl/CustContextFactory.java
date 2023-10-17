@@ -137,7 +137,7 @@ public final class CustContextFactory {
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
         _opts.setReadOnly(true);
-        LgNamesGui stds_ = new LgNamesGui(_file, _ex.getListGenerator().getInterceptor(),_light);
+        LgNamesGui stds_ = new LgNamesGui(_file, _ex.getInterceptor(),_light);
         CustContextFactory.preinit(_opts, _ex, mess_, kwl_, stds_);
         CustContextFactory.parts(_ex,stds_,new StringList());
         AnalyzedPageEl page_ = CustContextFactory.mapping(stds_);
@@ -151,7 +151,7 @@ public final class CustContextFactory {
     }
     public static void parts(ExecutingOptions _exec, LgNamesGui _definedLgNames, StringList _mainArgs) {
         _definedLgNames.getExecContent().setExecutingOptions(_exec);
-        _definedLgNames.getGuiExecutingBlocks().initApplicationParts(_mainArgs, _exec.getLightProgramInfos(),_exec.getListGenerator());
+        _definedLgNames.getGuiExecutingBlocks().initApplicationParts(_mainArgs, _exec.getLightProgramInfos());
     }
 
     public static Forwards builder(Options _options, LgNamesGui _definedLgNames, AnalyzedPageEl _page) {

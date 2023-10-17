@@ -111,7 +111,7 @@ public abstract class EquallableElAdvUtil {
         pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
         pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
         MockResultContextNext m_ = new MockResultContextNext("src");
-        return new InitDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_,"en",pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        return new InitDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_,"en",pr_,new CdmFactory(pr_,new MockInterceptor()));
     }
 
     public static AbsDebuggerGui buildExp() {
@@ -130,7 +130,7 @@ public abstract class EquallableElAdvUtil {
         pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
         pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
         MockResultContextNext m_ = new MockResultContextNext("src");
-        return new ExpDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_,"en",pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        return new ExpDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_,"en",pr_,new CdmFactory(pr_,new MockInterceptor()));
     }
 
     public static MockProgramInfos genePr() {
@@ -155,7 +155,7 @@ public abstract class EquallableElAdvUtil {
     public static AbsDebuggerGui buildWindow(MockProgramInfos _pr) {
         _pr.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
         _pr.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
-        return new ExpDebGuiImpl(new ExpMenuFrameInteract(_pr.getCompoFactory().newMenuItem()),new MockResultContextNext("src"),"en", _pr, new CdmFactory(_pr, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct()));
+        return new ExpDebGuiImpl(new ExpMenuFrameInteract(_pr.getCompoFactory().newMenuItem()),new MockResultContextNext("src"),"en", _pr, new CdmFactory(_pr, new MockInterceptor()));
     }
     public static ManageOptions opt(AbsDebuggerGui _pr) {
         AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
@@ -689,7 +689,7 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static WindowCdmEditor window(AbstractProgramInfos _pr) {
-        CdmFactory fact_ = new CdmFactory(_pr, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct());
+        CdmFactory fact_ = new CdmFactory(_pr, new MockInterceptor());
         _pr.getCounts().addEntry(WindowCdmEditor.CDM_EDITOR,_pr.getThreadFactory().newAtomicInteger());
         WindowCdmEditor w_ = new WindowCdmEditor("en", _pr,fact_);
 //        w_.getTabEditor().getWholeWord().setSelected(false);

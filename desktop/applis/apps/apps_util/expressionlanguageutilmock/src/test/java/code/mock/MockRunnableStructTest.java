@@ -22,7 +22,6 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.AbsAdvContextGenerator;
-import code.gui.AbsGraphicListStr;
 import code.sml.util.TranslationsFile;
 import code.threads.AbstractConcurrentMap;
 import code.threads.AbstractThread;
@@ -76,27 +75,6 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         assertEq(0,m_.size());
     }
 
-    @Test
-    public void m34() {
-        MockAdvGraphicListGenerator g_ = new MockAdvGraphicListGenerator(true);
-        assertTrue(g_.isCust());
-        MockAdvGraphicListGenerator h_ = new MockAdvGraphicListGenerator(false);
-        assertFalse(h_.isCust());
-        AbsGraphicListStr f_ = g_.createMult(null,null);
-        f_.add(NullStruct.NULL_VALUE);
-        f_.setSelectedIndice(0);
-        f_.setCustCell(null,null,null,null);
-        f_.setDefCell(null,null);
-        f_.updateGraphics();
-        assertTrue(f_.isCust());
-        AbsGraphicListStr e_ = g_.createSimple(null,null);
-        e_.add(NullStruct.NULL_VALUE);
-        e_.setSelectedIndice(0);
-        e_.setCustCell(null,null,null,null);
-        e_.setDefCell(null,null);
-        e_.updateGraphics();
-        assertTrue(e_.isCust());
-    }
     @Test
     public void bs1() {
         MockMouseButtons m_ = new MockMouseButtons(false,false,false,0);

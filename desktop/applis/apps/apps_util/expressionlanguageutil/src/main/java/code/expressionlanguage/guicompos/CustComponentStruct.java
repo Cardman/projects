@@ -308,6 +308,10 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
         return nulls(aliasCommand_, res_);
     }
 
+    public StringMap<EnabledActionStruct> getActions() {
+        return actions;
+    }
+
     public static ArrayStruct nulls(String _cl, CustList<Struct> _ls) {
         int len_ = _ls.size();
         ArrayStruct arr_ = new ArrayStruct(len_, StringExpUtil.getPrettyArrayType(_cl));

@@ -12,7 +12,9 @@ import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.guicompos.GuiFileBuilder;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.ContextFactory;
@@ -369,20 +371,8 @@ public abstract class EquallableElUtUtil {
     }
 
     public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
-        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage(),"en");
-        _definedLgNames.getExecContent().getCustAliases().messages(_mess, _exec.getMessages());
-        _definedLgNames.getExecContent().getCustAliases().keyWord(_definedKw, _exec.getKeyWords());
-        _definedKw.initSupplDigits();
-        _definedLgNames.getExecContent().getCustAliases().otherAlias(_definedLgNames.getContent(), _exec.getAliases());
-        StringMap<String> keys_ = LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases());
-        _definedLgNames.getGuiAliases().otherAliasGui(LgNamesGui.addon(_definedLgNames.getExecContent().getCustAliases()),_exec.getAliases(),keys_);
-        _definedLgNames.getExecContent().setExecutingOptions(_exec);
-        _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos(),_exec.getListGenerator());
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames.getExecContent().getCustAliases().getMathAdvAliases()));
-        StringMap<String> m_ = _definedLgNames.getExecContent().getCustAliases().extractAliasesKeys();
-        m_.addAllEntries(LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases()));
-        page_.setMappingAliases(m_);
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
         forwards_.getResources().addAllEntries(_files);
@@ -422,6 +412,46 @@ public abstract class EquallableElUtUtil {
         ResultContext.fwd(res_, new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()));
         Classes.tryInit(res_);
         return res_;
+    }
+
+    public static void preBuild(LgNamesGui _definedLgNames, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw) {
+        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(), _exec.getLightProgramInfos().getLanguage(),"en");
+        _definedLgNames.getExecContent().getCustAliases().messages(_mess, _exec.getMessages());
+        _definedLgNames.getExecContent().getCustAliases().keyWord(_definedKw, _exec.getKeyWords());
+        _definedKw.initSupplDigits();
+        _definedLgNames.getExecContent().getCustAliases().otherAlias(_definedLgNames.getContent(), _exec.getAliases());
+        StringMap<String> keys_ = LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases());
+        _definedLgNames.getGuiAliases().otherAliasGui(LgNamesGui.addon(_definedLgNames.getExecContent().getCustAliases()), _exec.getAliases(),keys_);
+        _definedLgNames.getExecContent().setExecutingOptions(_exec);
+        _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos());
+    }
+
+    public static ResultContext commonMock(ExecutingOptions _exec, LgNamesGui _definedLgNames, StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
+        ResultContext r_ = new ResultContext(_page, _forwards);
+        ResultContext res_ = ResultContext.def(r_, _files,  _exec.getSrcFolder());
+        assertTrue(res_.getPageEl().getMessages().isAllEmptyErrors());
+        ForwardInfos.generalForward(res_);
+        ContextEl ctx_ = ((AbsLightContextGenerator) new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean())).gene(res_.getForwards());
+        res_.setContext(ctx_);
+        return res_;
+    }
+
+    public static Forwards nextBuild(Options _options, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, StringMap<String> _predef, AnalyzedPageEl _page) {
+        MockFileBuilder fileBuilder_ = new MockFileBuilder(_definedLgNames.getContent(), new DefaultAliasGroups(_definedLgNames.getContent()), _definedLgNames.getStrAlias(), _predef);
+        Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
+        forwards_.getResources().addAllEntries(_files);
+        _page.setLogErr(forwards_);
+        ContextFactory.beforeBuild(forwards_, new AnalysisMessages(), _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(),_page);
+        return forwards_;
+    }
+
+    public static AnalyzedPageEl beginBuild(LgNamesGui _definedLgNames) {
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames.getExecContent().getCustAliases().getMathAdvAliases()));
+        StringMap<String> m_ = _definedLgNames.getExecContent().getCustAliases().extractAliasesKeys();
+        m_.addAllEntries(LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases()));
+        page_.setMappingAliases(m_);
+        return page_;
     }
 
     public static ResultContext build(Options _options, ExecutingOptions _exec, StringMap<String> _files) {

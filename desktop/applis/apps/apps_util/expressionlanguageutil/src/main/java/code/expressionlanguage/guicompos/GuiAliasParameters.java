@@ -33,6 +33,7 @@ public final class GuiAliasParameters {
     private static final String WINDOW_LISTENER_0_WINDOW_DEACTIVATED_0="_____1509";
     private static final String LIST_SELECTION_0_VALUE_CHANGED_0="_____1510";
     private static final String LIST_SELECTION_0_VALUE_CHANGED_1="_____1511";
+    private static final String LIST_SELECTION_0_VALUE_CHANGED_2="_____1511_";
     private static final String PAINT_0_PAINT_METHOD_0="_____1512";
     private static final String PAINT_0_TABBED_PANE_SET_0="_____1513";
     private static final String PAINT_0_TABBED_PANE_SET_1="_____1514";
@@ -442,6 +443,17 @@ public final class GuiAliasParameters {
     private static final String COMPONENT_0_UNBIND_1="___1100";
     private static final String ACTION_LISTENER_IMPLICIT_0_IMPLICIT_0="____1227_";
     private static final String ACTION_LISTENER_IMPLICIT_0_IMPLICIT_1="____1228_";
+    private static final String CELL_RENDER_0_GENERATE_0="____1228__";
+    private static final String CELL_RENDER_0_GENERATE_1="____1228___";
+    private static final String CELL_RENDER_0_GENERATE_2="____1228____";
+    private static final String CELL_RENDER_0_GENERATE_3="____1228_____";
+    private static final String CELL_RENDER_0_GENERATE_4="____1228______";
+    private static final String CELL_RENDER_0_GENERATE_5="____1228_______";
+    private static final String CELL_RENDER_0_GENERATE_6="____1228________";
+    private static final String CELL_RENDER_IMPLICIT_0_IMPLICIT_0="____1228_________";
+    private static final String CELL_RENDER_IMPLICIT_0_IMPLICIT_1="____1228__________";
+    private static final String CELL_RENDER_0_GENERATE_0_0="____1228___________";
+    private static final String CELL_RENDER_0_GENERATE_0_1="____1228____________";
 
     private String aliasActionListener0ActionPerformed0;
     private String aliasAction0Wrap0;
@@ -469,6 +481,7 @@ public final class GuiAliasParameters {
     private String aliasWindowListener0WindowDeactivated0;
     private String aliasListSelection0ValueChanged0;
     private String aliasListSelection0ValueChanged1;
+    private String aliasListSelection0ValueChanged2;
     private String aliasPaint0PaintMethod0;
     private String aliasPaint0TabbedPaneSet0;
     private String aliasPaint0TabbedPaneSet1;
@@ -879,6 +892,17 @@ public final class GuiAliasParameters {
     private String aliasComponent0Unbind1;
     private String aliasActionListenerImplicit0Implicit0;
     private String aliasActionListenerImplicit0Implicit1;
+    private String aliasCellRender0Generate0;
+    private String aliasCellRender0Generate1;
+    private String aliasCellRender0Generate2;
+    private String aliasCellRender0Generate3;
+    private String aliasCellRender0Generate4;
+    private String aliasCellRender0Generate5;
+    private String aliasCellRender0Generate6;
+    private String aliasCellRenderImplicit0Implicit0;
+    private String aliasCellRenderImplicit0Implicit1;
+    private String aliasCellRender0Generate00;
+    private String aliasCellRender0Generate01;
 
     public void build(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
         aliasActionListener0ActionPerformed0=LgNamesContent.get(_util,_cust,_mapping.getVal(ACTION_LISTENER_0_ACTION_PERFORMED_0));
@@ -907,6 +931,7 @@ public final class GuiAliasParameters {
         aliasWindowListener0WindowDeactivated0=LgNamesContent.get(_util,_cust,_mapping.getVal(WINDOW_LISTENER_0_WINDOW_DEACTIVATED_0));
         aliasListSelection0ValueChanged0=LgNamesContent.get(_util,_cust,_mapping.getVal(LIST_SELECTION_0_VALUE_CHANGED_0));
         aliasListSelection0ValueChanged1=LgNamesContent.get(_util,_cust,_mapping.getVal(LIST_SELECTION_0_VALUE_CHANGED_1));
+        aliasListSelection0ValueChanged2=LgNamesContent.get(_util,_cust,_mapping.getVal(LIST_SELECTION_0_VALUE_CHANGED_2));
         aliasPaint0PaintMethod0=LgNamesContent.get(_util,_cust,_mapping.getVal(PAINT_0_PAINT_METHOD_0));
         aliasPaint0TabbedPaneSet0=LgNamesContent.get(_util,_cust,_mapping.getVal(PAINT_0_TABBED_PANE_SET_0));
         aliasPaint0TabbedPaneSet1=LgNamesContent.get(_util,_cust,_mapping.getVal(PAINT_0_TABBED_PANE_SET_1));
@@ -1316,6 +1341,17 @@ public final class GuiAliasParameters {
         aliasComponent0Unbind1=LgNamesContent.get(_util,_cust,_mapping.getVal(COMPONENT_0_UNBIND_1));
         aliasActionListenerImplicit0Implicit0= LgNamesContent.get(_util,_cust,_mapping.getVal(ACTION_LISTENER_IMPLICIT_0_IMPLICIT_0));
         aliasActionListenerImplicit0Implicit1= LgNamesContent.get(_util,_cust,_mapping.getVal(ACTION_LISTENER_IMPLICIT_0_IMPLICIT_1));
+        aliasCellRender0Generate0 = LgNamesContent.get(_util,_cust,_mapping.getVal(CELL_RENDER_0_GENERATE_0));
+        aliasCellRender0Generate1 = LgNamesContent.get(_util,_cust,_mapping.getVal(CELL_RENDER_0_GENERATE_1));
+        aliasCellRender0Generate2 = LgNamesContent.get(_util,_cust,_mapping.getVal(CELL_RENDER_0_GENERATE_2));
+        aliasCellRender0Generate3 = LgNamesContent.get(_util,_cust,_mapping.getVal(CELL_RENDER_0_GENERATE_3));
+        aliasCellRender0Generate4 = LgNamesContent.get(_util,_cust,_mapping.getVal(CELL_RENDER_0_GENERATE_4));
+        aliasCellRender0Generate5 = LgNamesContent.get(_util,_cust,_mapping.getVal(CELL_RENDER_0_GENERATE_5));
+        aliasCellRender0Generate6 = LgNamesContent.get(_util,_cust,_mapping.getVal(CELL_RENDER_0_GENERATE_6));
+        aliasCellRenderImplicit0Implicit0 = LgNamesContent.get(_util,_cust,_mapping.getVal(CELL_RENDER_IMPLICIT_0_IMPLICIT_0));
+        aliasCellRenderImplicit0Implicit1 = LgNamesContent.get(_util,_cust,_mapping.getVal(CELL_RENDER_IMPLICIT_0_IMPLICIT_1));
+        aliasCellRender0Generate00 = LgNamesContent.get(_util,_cust,_mapping.getVal(CELL_RENDER_0_GENERATE_0_0));
+        aliasCellRender0Generate01 = LgNamesContent.get(_util,_cust,_mapping.getVal(CELL_RENDER_0_GENERATE_0_1));
     }
     public static void en(TranslationsFile _en){
         _en.add(ACTION_LISTENER_0_ACTION_PERFORMED_0,"ActionListener0ActionPerformed0=a");
@@ -1344,6 +1380,7 @@ public final class GuiAliasParameters {
         _en.add(WINDOW_LISTENER_0_WINDOW_DEACTIVATED_0,"WindowListener0WindowDeactivated0=a");
         _en.add(LIST_SELECTION_0_VALUE_CHANGED_0,"ListSelection0ValueChanged0=a");
         _en.add(LIST_SELECTION_0_VALUE_CHANGED_1,"ListSelection0ValueChanged1=b");
+        _en.add(LIST_SELECTION_0_VALUE_CHANGED_2,"ListSelection0ValueChanged2=c");
         _en.add(PAINT_0_PAINT_METHOD_0,"Paint0PaintMethod0=a");
         _en.add(PAINT_0_TABBED_PANE_SET_0,"Paint0TabbedPaneSet0=a");
         _en.add(PAINT_0_TABBED_PANE_SET_1,"Paint0TabbedPaneSet1=b");
@@ -1753,6 +1790,17 @@ public final class GuiAliasParameters {
         _en.add(COMPONENT_0_UNBIND_1,"Component0Unbind1=b");
         _en.add(ACTION_LISTENER_IMPLICIT_0_IMPLICIT_0,"ActionListenerImplicit0Implicit0=a");
         _en.add(ACTION_LISTENER_IMPLICIT_0_IMPLICIT_1,"ActionListenerImplicit0Implicit1=a");
+        _en.add(CELL_RENDER_IMPLICIT_0_IMPLICIT_0,"CellRenderImplicit0Implicit0=a");
+        _en.add(CELL_RENDER_IMPLICIT_0_IMPLICIT_1,"CellRenderImplicit0Implicit1=a");
+        _en.add(CELL_RENDER_0_GENERATE_0,"CellRender0Generate0=a");
+        _en.add(CELL_RENDER_0_GENERATE_1,"CellRender0Generate1=b");
+        _en.add(CELL_RENDER_0_GENERATE_2,"CellRender0Generate2=c");
+        _en.add(CELL_RENDER_0_GENERATE_3,"CellRender0Generate3=d");
+        _en.add(CELL_RENDER_0_GENERATE_4,"CellRender0Generate4=e");
+        _en.add(CELL_RENDER_0_GENERATE_5,"CellRender0Generate5=f");
+        _en.add(CELL_RENDER_0_GENERATE_6,"CellRender0Generate6=g");
+        _en.add(CELL_RENDER_0_GENERATE_0_0,"CellRender0Generate00=a0");
+        _en.add(CELL_RENDER_0_GENERATE_0_1,"CellRender0Generate01=b0");
     }
     public static void fr(TranslationsFile _fr){
         _fr.add(ACTION_LISTENER_0_ACTION_PERFORMED_0,"ActionListener0ActionPerformed0=a");
@@ -1781,6 +1829,7 @@ public final class GuiAliasParameters {
         _fr.add(WINDOW_LISTENER_0_WINDOW_DEACTIVATED_0,"WindowListener0WindowDeactivated0=a");
         _fr.add(LIST_SELECTION_0_VALUE_CHANGED_0,"ListSelection0ValueChanged0=a");
         _fr.add(LIST_SELECTION_0_VALUE_CHANGED_1,"ListSelection0ValueChanged1=b");
+        _fr.add(LIST_SELECTION_0_VALUE_CHANGED_2,"ListSelection0ValueChanged2=c");
         _fr.add(PAINT_0_PAINT_METHOD_0,"Paint0PaintMethod0=a");
         _fr.add(PAINT_0_TABBED_PANE_SET_0,"Paint0TabbedPaneSet0=a");
         _fr.add(PAINT_0_TABBED_PANE_SET_1,"Paint0TabbedPaneSet1=b");
@@ -2190,6 +2239,17 @@ public final class GuiAliasParameters {
         _fr.add(COMPONENT_0_UNBIND_1,"Component0Unbind1=b");
         _fr.add(ACTION_LISTENER_IMPLICIT_0_IMPLICIT_0,"ActionListenerImplicit0Implicit0=a");
         _fr.add(ACTION_LISTENER_IMPLICIT_0_IMPLICIT_1,"ActionListenerImplicit0Implicit1=a");
+        _fr.add(CELL_RENDER_IMPLICIT_0_IMPLICIT_0,"CellRenderImplicit0Implicit0=a");
+        _fr.add(CELL_RENDER_IMPLICIT_0_IMPLICIT_1,"CellRenderImplicit0Implicit1=a");
+        _fr.add(CELL_RENDER_0_GENERATE_0,"CellRender0Generate0=a");
+        _fr.add(CELL_RENDER_0_GENERATE_1,"CellRender0Generate1=b");
+        _fr.add(CELL_RENDER_0_GENERATE_2,"CellRender0Generate2=c");
+        _fr.add(CELL_RENDER_0_GENERATE_3,"CellRender0Generate3=d");
+        _fr.add(CELL_RENDER_0_GENERATE_4,"CellRender0Generate4=e");
+        _fr.add(CELL_RENDER_0_GENERATE_5,"CellRender0Generate5=f");
+        _fr.add(CELL_RENDER_0_GENERATE_6,"CellRender0Generate6=g");
+        _fr.add(CELL_RENDER_0_GENERATE_0_0,"CellRender0Generate00=a0");
+        _fr.add(CELL_RENDER_0_GENERATE_0_1,"CellRender0Generate01=b0");
     }
     public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(StringMap<String> _mapping) {
         CustList<CustList<KeyValueMemberName>> m_ = new CustList<CustList<KeyValueMemberName>>();
@@ -2216,7 +2276,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(WINDOW_LISTENER_0_WINDOW_DEICONIFIED_0),aliasWindowListener0WindowDeiconified0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(WINDOW_LISTENER_0_WINDOW_ACTIVATED_0),aliasWindowListener0WindowActivated0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(WINDOW_LISTENER_0_WINDOW_DEACTIVATED_0),aliasWindowListener0WindowDeactivated0)));
-        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(LIST_SELECTION_0_VALUE_CHANGED_0),aliasListSelection0ValueChanged0),new KeyValueMemberName(_mapping.getVal(LIST_SELECTION_0_VALUE_CHANGED_1),aliasListSelection0ValueChanged1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(LIST_SELECTION_0_VALUE_CHANGED_0),aliasListSelection0ValueChanged0),new KeyValueMemberName(_mapping.getVal(LIST_SELECTION_0_VALUE_CHANGED_1),aliasListSelection0ValueChanged1),new KeyValueMemberName(_mapping.getVal(LIST_SELECTION_0_VALUE_CHANGED_2),aliasListSelection0ValueChanged2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(PAINT_0_PAINT_METHOD_0),aliasPaint0PaintMethod0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(PAINT_0_TABBED_PANE_SET_0),aliasPaint0TabbedPaneSet0),new KeyValueMemberName(_mapping.getVal(PAINT_0_TABBED_PANE_SET_1),aliasPaint0TabbedPaneSet1),new KeyValueMemberName(_mapping.getVal(PAINT_0_TABBED_PANE_SET_2),aliasPaint0TabbedPaneSet2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(PAINT_0_TABBED_PANE_ADD_0),aliasPaint0TabbedPaneAdd0),new KeyValueMemberName(_mapping.getVal(PAINT_0_TABBED_PANE_ADD_1),aliasPaint0TabbedPaneAdd1),new KeyValueMemberName(_mapping.getVal(PAINT_0_TABBED_PANE_ADD_2),aliasPaint0TabbedPaneAdd2)));
@@ -2455,6 +2515,10 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(COMPONENT_0_UNBIND_0),aliasComponent0Unbind0),new KeyValueMemberName(_mapping.getVal(COMPONENT_0_UNBIND_1),aliasComponent0Unbind1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ACTION_LISTENER_IMPLICIT_0_IMPLICIT_0),aliasActionListenerImplicit0Implicit0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ACTION_LISTENER_IMPLICIT_0_IMPLICIT_1),aliasActionListenerImplicit0Implicit1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CELL_RENDER_IMPLICIT_0_IMPLICIT_0),aliasCellRenderImplicit0Implicit0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CELL_RENDER_IMPLICIT_0_IMPLICIT_1),aliasCellRenderImplicit0Implicit1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CELL_RENDER_0_GENERATE_0),aliasCellRender0Generate0),new KeyValueMemberName(_mapping.getVal(CELL_RENDER_0_GENERATE_1),aliasCellRender0Generate1),new KeyValueMemberName(_mapping.getVal(CELL_RENDER_0_GENERATE_2),aliasCellRender0Generate2),new KeyValueMemberName(_mapping.getVal(CELL_RENDER_0_GENERATE_3),aliasCellRender0Generate3),new KeyValueMemberName(_mapping.getVal(CELL_RENDER_0_GENERATE_4),aliasCellRender0Generate4),new KeyValueMemberName(_mapping.getVal(CELL_RENDER_0_GENERATE_5),aliasCellRender0Generate5),new KeyValueMemberName(_mapping.getVal(CELL_RENDER_0_GENERATE_6),aliasCellRender0Generate6)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CELL_RENDER_0_GENERATE_0_0),aliasCellRender0Generate00),new KeyValueMemberName(_mapping.getVal(CELL_RENDER_0_GENERATE_0_1),aliasCellRender0Generate01)));
         return m_;
     }
 
@@ -2562,68 +2626,12 @@ public final class GuiAliasParameters {
         return aliasListSelection0ValueChanged1;
     }
 
+    public String getAliasListSelection0ValueChanged2() {
+        return aliasListSelection0ValueChanged2;
+    }
+
     public String getAliasPaint0PaintMethod0() {
         return aliasPaint0PaintMethod0;
-    }
-
-    public String getAliasPaint0TabbedPaneSet0() {
-        return aliasPaint0TabbedPaneSet0;
-    }
-
-    public String getAliasPaint0TabbedPaneSet1() {
-        return aliasPaint0TabbedPaneSet1;
-    }
-
-    public String getAliasPaint0TabbedPaneSet2() {
-        return aliasPaint0TabbedPaneSet2;
-    }
-
-    public String getAliasPaint0TabbedPaneAdd0() {
-        return aliasPaint0TabbedPaneAdd0;
-    }
-
-    public String getAliasPaint0TabbedPaneAdd1() {
-        return aliasPaint0TabbedPaneAdd1;
-    }
-
-    public String getAliasPaint0TabbedPaneAdd2() {
-        return aliasPaint0TabbedPaneAdd2;
-    }
-
-    public String getAliasPaint1TabbedPaneAdd0() {
-        return aliasPaint1TabbedPaneAdd0;
-    }
-
-    public String getAliasPaint1TabbedPaneAdd1() {
-        return aliasPaint1TabbedPaneAdd1;
-    }
-
-    public String getAliasPaint0PaintRefresh0() {
-        return aliasPaint0PaintRefresh0;
-    }
-
-    public String getAliasPaint0PaintRefreshOne0() {
-        return aliasPaint0PaintRefreshOne0;
-    }
-
-    public String getAliasPaint0PaintRefreshOne1() {
-        return aliasPaint0PaintRefreshOne1;
-    }
-
-    public String getAliasPaint0PaintRefreshOne2() {
-        return aliasPaint0PaintRefreshOne2;
-    }
-
-    public String getAliasPaint0PaintRefreshOne3() {
-        return aliasPaint0PaintRefreshOne3;
-    }
-
-    public String getAliasPaint0PaintRefreshOne4() {
-        return aliasPaint0PaintRefreshOne4;
-    }
-
-    public String getAliasPaint0PaintRefreshOne5() {
-        return aliasPaint0PaintRefreshOne5;
     }
 
     public String getAliasWindowType0SetContent0() {
@@ -4196,5 +4204,49 @@ public final class GuiAliasParameters {
 
     public String getAliasActionListenerImplicit0Implicit1() {
         return aliasActionListenerImplicit0Implicit1;
+    }
+
+    public String getAliasCellRender0Generate0() {
+        return aliasCellRender0Generate0;
+    }
+
+    public String getAliasCellRender0Generate1() {
+        return aliasCellRender0Generate1;
+    }
+
+    public String getAliasCellRender0Generate2() {
+        return aliasCellRender0Generate2;
+    }
+
+    public String getAliasCellRender0Generate3() {
+        return aliasCellRender0Generate3;
+    }
+
+    public String getAliasCellRender0Generate4() {
+        return aliasCellRender0Generate4;
+    }
+
+    public String getAliasCellRender0Generate5() {
+        return aliasCellRender0Generate5;
+    }
+
+    public String getAliasCellRender0Generate6() {
+        return aliasCellRender0Generate6;
+    }
+
+    public String getAliasCellRenderImplicit0Implicit0() {
+        return aliasCellRenderImplicit0Implicit0;
+    }
+
+    public String getAliasCellRenderImplicit0Implicit1() {
+        return aliasCellRenderImplicit0Implicit1;
+    }
+
+    public String getAliasCellRender0Generate00() {
+        return aliasCellRender0Generate00;
+    }
+
+    public String getAliasCellRender0Generate01() {
+        return aliasCellRender0Generate01;
     }
 }
