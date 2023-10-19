@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -122,7 +121,7 @@ public final class GuiProcess implements GuiRunnable {
     }
     @Override
     public void run() {
-        RunnableStruct.setupThread(context);
+        EventStruct.setupThread(context);
         String folder_ = executingOptions.getLogFolder();
         StreamFolderFile.makeParent(folder_, programInfos.getFileCoreStream());
         MethodId id_ = new MethodId(MethodAccessKind.STATIC, mName, new StringList());
@@ -142,10 +141,9 @@ public final class GuiProcess implements GuiRunnable {
                 context.interrupt();
                 return;
             }
-            CustList<Argument> args_ = new CustList<Argument>();
             Argument arg_ = new Argument();
             ExecNamedFunctionBlock fct_ = methods_.first();
-            Argument i_ = RunnableStruct.invoke(arg_, new ExecFormattedRootBlock(classBody_, clName), context, new ExecTypeFunction(classBody_, fct_), st_, new ArgumentListCall());
+            Argument i_ = EventStruct.invoke(arg_, context, new ExecTypeFunction(classBody_, fct_), st_, new ArgumentListCall());
             if (i_ == null) {
                 context.interrupt();
             }

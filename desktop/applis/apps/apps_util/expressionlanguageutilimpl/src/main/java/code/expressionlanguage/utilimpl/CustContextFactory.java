@@ -16,6 +16,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.guicompos.EventStruct;
 import code.expressionlanguage.guicompos.GuiAliases;
 import code.expressionlanguage.guicompos.GuiFileBuilder;
 import code.expressionlanguage.guicompos.LgNamesGui;
@@ -92,9 +93,7 @@ public final class CustContextFactory {
         Argument argGlLoc_ = new Argument();
         Argument argMethod_ = new Argument(infoStruct_);
         ArgumentListCall argList_ = new ArgumentListCall(argMethod_);
-        ExecFormattedRootBlock aClass_ = ExecFormattedRootBlock.build(_definedLgNames.getExecContent().getCustAliases().getAliasExecute(),rCont_.getClasses());
-        Argument arg_ = RunnableStruct.invoke(argGlLoc_,
-                aClass_,
+        Argument arg_ = EventStruct.invoke(argGlLoc_,
                 (RunnableContextEl) rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_), argList_);
         abstractFuture_.cancel(false);
         sch_.shutdown();

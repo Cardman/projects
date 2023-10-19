@@ -468,7 +468,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         stds_.getGuiAliases().setAliasTextFieldAuto(stds_.getGuiAliases().getAliasTextFieldAuto());
         stds_.getGuiAliases().setAliasTextFieldAddDocument(stds_.getGuiAliases().getAliasTextFieldAddDocument());
-        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        EventStruct.setupThread((RunnableContextEl) ctx_);
         Struct arr_ = call(new FctCoverage(""), null, ctx_, null, null, st_);
         assertEq(3,((ArrayStruct)arr_).getLength());
         assertEq("src/sample.txt.html", call(new FctEntryTextName(),null,ctx_,((ArrayStruct) arr_).get(0),null,st_));

@@ -27,6 +27,9 @@ public class RunnableContextEl extends InterruptibleContextEl implements Locking
         zipFact = standards_.getExecContent().getInfos().getZipFact();
     }
 
+    public RunnableContextEl copy(Struct _state) {
+        return new RunnableContextEl(getInterrupt(),_state,getExecutionInfos(),args);
+    }
     public StringList getArgs() {
         return args;
     }

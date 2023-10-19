@@ -150,7 +150,7 @@ public final class ThreadSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
-        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        EventStruct.setupThread((RunnableContextEl) ctx_);
         ThreadSetStruct arr_ = (ThreadSetStruct) call(new FctThreadSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(1, arr_.toSnapshotArray(ctx_,st_).getLength());
         assertFalse(st_.isFailInit());
@@ -163,7 +163,7 @@ public final class ThreadSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
-        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        EventStruct.setupThread((RunnableContextEl) ctx_);
         call(new FctThreadSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertTrue(st_.isFailInit());
     }

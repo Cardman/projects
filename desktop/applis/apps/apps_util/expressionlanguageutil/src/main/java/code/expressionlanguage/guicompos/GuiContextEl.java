@@ -16,6 +16,10 @@ public final class GuiContextEl extends RunnableContextEl {
     }
 
     @Override
+    public RunnableContextEl copy(Struct _state) {
+        return new GuiContextEl(getInterrupt(),_state,getExecutionInfos(), getArgs());
+    }
+    @Override
     public void forwardAndClear() {
         super.forwardAndClear();
         LgNamesGui standards_ = (LgNamesGui) getStandards();

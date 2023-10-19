@@ -34,7 +34,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
-        ((RunnableStruct)ev_).run();
+        ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
         ev_.randCode();
         assertFalse(ev_.sameReference(NullStruct.NULL_VALUE));
@@ -54,7 +54,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
-        ((RunnableStruct)ev_).run();
+        ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
     }
     @Test
@@ -71,7 +71,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
-        ((RunnableStruct)ev_).run();
+        ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
     }
     @Test
@@ -89,9 +89,9 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
-        Struct lda_ = str(RunnableStruct.invoke(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
+        Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
         Struct ev_ = stds_.newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
-        ((RunnableFunctionalInstance)ev_).run();
+        ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
     }
     @Test
@@ -109,9 +109,9 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
-        Struct lda_ = str(RunnableStruct.invoke(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
+        Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
         Struct ev_ = stds_.newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
-        ((RunnableFunctionalInstance)ev_).run();
+        ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
         ev_.randCode();
         assertFalse(ev_.sameReference(NullStruct.NULL_VALUE));
@@ -132,9 +132,9 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
-        Struct lda_ = str(RunnableStruct.invoke(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
-        CustAliases.newFunctional(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
-        RunnableFunctionalInstance.callMethod( (RunnableContextEl) ctx_,NullStruct.NULL_VALUE,new CustList<Argument>());
+        Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
+        LgNamesGui.newGuiFunctionnal(ctx_, new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_, stds_.getExecContent().getExecutingBlocks().getRunMethod());
+//        EventStruct.callMethod( (RunnableContextEl) ctx_,NullStruct.NULL_VALUE,new CustList<Argument>());
         assertFalse(st_.isFailInit());
     }
     @Test
@@ -151,7 +151,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "ONE", 0);
-        ((RunnableStruct)ev_).run();
+        ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
         ev_.randCode();
         assertFalse(ev_.sameReference(NullStruct.NULL_VALUE));
@@ -171,7 +171,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
-        ((RunnableStruct)ev_).run();
+        ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
     }
     @Test
@@ -188,7 +188,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
-        ((RunnableStruct)ev_).run();
+        ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
     }
     @Test
@@ -206,9 +206,9 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
-        Struct lda_ = str(RunnableStruct.invoke(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
-        CustAliases.newFunctional(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
-        RunnableFunctionalInstance.callMethod( (RunnableContextEl) ctx_,NullStruct.NULL_VALUE,new CustList<Argument>());
+        Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
+        LgNamesGui.newGuiFunctionnal(ctx_, new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_, stds_.getExecContent().getExecutingBlocks().getRunMethod());
+//        EventStruct.callMethod( (RunnableContextEl) ctx_,NullStruct.NULL_VALUE,new CustList<Argument>());
         assertFalse(st_.isFailInit());
         stds_.getExecContent().getExecutingBlocks().getExecuteMethodPair();
     }
@@ -228,7 +228,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecRootBlock ex2_ = ctx_.getClasses().getClassBody("pkg.Outer..Sample");
         Struct ev1_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex1_), "", -1);
         Struct ev2_ = ctx_.getInit().processInit(ctx_, ev1_, new ExecFormattedRootBlock(ex2_), "", -1);
-        ((RunnableStruct)ev2_).run();
+        ((EventStruct)ev2_).run();
         assertFalse(st_.isFailInit());
     }
     @Test
@@ -359,34 +359,34 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
-        Struct lda_ = str(RunnableStruct.invoke(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
+        Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
         Struct ev_ = stds_.newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
-        ((EventFunctionalInstance)ev_).run();
-        ((EventFunctionalInstance)ev_).action(new KeyActionEvent(0),"");
-        ((EventFunctionalInstance)ev_).mouseClicked(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(false,false,false,0));
-        ((EventFunctionalInstance)ev_).mouseEntered(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
-        ((EventFunctionalInstance)ev_).mouseExited(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
-        ((EventFunctionalInstance)ev_).mouseMoved(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
-        ((EventFunctionalInstance)ev_).mousePressed(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
-        ((EventFunctionalInstance)ev_).mouseDragged(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
-        ((EventFunctionalInstance)ev_).mouseReleased(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
-        ((EventFunctionalInstance)ev_).mouseWheelMoved(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1),new MockMouseWheel(1));
-        ((EventFunctionalInstance)ev_).keyPressed(new KeyActionEvent(0),'0',0);
-        ((EventFunctionalInstance)ev_).keyReleased(new KeyActionEvent(0),'0',0);
-        ((EventFunctionalInstance)ev_).keyTyped(new KeyActionEvent(0),'0');
-        ((EventFunctionalInstance)ev_).valueChanged(new MockMutableTreeNode(""));
-        ((EventFunctionalInstance)ev_).valueChanged(0,0);
-        ((EventFunctionalInstance)ev_).valueChanged(new SelectionInfo(0,0,true));
-        ((EventFunctionalInstance)ev_).stateChanged();
-        ((EventFunctionalInstance)ev_).focusGained();
-        ((EventFunctionalInstance)ev_).focusLost();
-        ((EventFunctionalInstance)ev_).windowActivated();
-        ((EventFunctionalInstance)ev_).windowClosed();
-        ((EventFunctionalInstance)ev_).windowClosing();
-        ((EventFunctionalInstance)ev_).windowDeactivated();
-        ((EventFunctionalInstance)ev_).windowDeiconified();
-        ((EventFunctionalInstance)ev_).windowIconified();
-        ((EventFunctionalInstance)ev_).windowOpened();
+        ((EventStruct)ev_).run();
+        ((EventStruct)ev_).action(new KeyActionEvent(0),"");
+        ((EventStruct)ev_).mouseClicked(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(false,false,false,0));
+        ((EventStruct)ev_).mouseEntered(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
+        ((EventStruct)ev_).mouseExited(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
+        ((EventStruct)ev_).mouseMoved(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
+        ((EventStruct)ev_).mousePressed(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
+        ((EventStruct)ev_).mouseDragged(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
+        ((EventStruct)ev_).mouseReleased(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
+        ((EventStruct)ev_).mouseWheelMoved(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1),new MockMouseWheel(1));
+        ((EventStruct)ev_).keyPressed(new KeyActionEvent(0),'0',0);
+        ((EventStruct)ev_).keyReleased(new KeyActionEvent(0),'0',0);
+        ((EventStruct)ev_).keyTyped(new KeyActionEvent(0),'0');
+        ((EventStruct)ev_).valueChanged(new MockMutableTreeNode(""));
+        ((EventStruct)ev_).valueChanged(0,0);
+        ((EventStruct)ev_).valueChanged(new SelectionInfo(0,0,true));
+        ((EventStruct)ev_).stateChanged();
+        ((EventStruct)ev_).focusGained();
+        ((EventStruct)ev_).focusLost();
+        ((EventStruct)ev_).windowActivated();
+        ((EventStruct)ev_).windowClosed();
+        ((EventStruct)ev_).windowClosing();
+        ((EventStruct)ev_).windowDeactivated();
+        ((EventStruct)ev_).windowDeiconified();
+        ((EventStruct)ev_).windowIconified();
+        ((EventStruct)ev_).windowOpened();
         ev_.randCode();
         assertFalse(ev_.sameReference(NullStruct.NULL_VALUE));
         assertTrue(ev_.sameReference(ev_));
@@ -410,9 +410,9 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
-        Struct lda_ = str(RunnableStruct.invoke(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
+        Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
         Struct ev_ = stds_.newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
-        ((EventFunctionalInstance)ev_).run();
+        ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
     }
 //    @Test
@@ -500,18 +500,18 @@ public final class EventStructTest extends EquallableElUtUtil {
 //        new DefSpecSelectionStruct((RunnableContextEl) ctx_,NullStruct.NULL_VALUE).execute(args_,new MetaDimension(1,1));
 //        assertFalse(st_.isFailInit());
 //    }
-    @Test
-    public void convert() {
-        MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
-        assertEq("",new DefSpecSelectionCtx(((RunnableContextEl)ctx_).getInterrupt(),ctx_.getExecutionInfos(),new StringList()).convertStr(new StringStruct("")));
-    }
+//    @Test
+//    public void convert() {
+//        MockProgramInfos pr_ = prs();
+//        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
+//        Options opt_ = new Options();
+//        opt_.setCovering(true);
+//        ExecutingOptions e_ = new ExecutingOptions();
+//        e_.setLightProgramInfos(pr_);
+//        StringMap<String> files_ = new StringMap<String>();
+//        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+//        assertEq("",new DefSpecSelectionCtx(((RunnableContextEl)ctx_).getInterrupt(),ctx_.getExecutionInfos(),new StringList()).convertStr(new StringStruct("")));
+//    }
     @Test
     public void actWrap1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));

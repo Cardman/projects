@@ -15,13 +15,17 @@ import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
+import code.expressionlanguage.guicompos.EventStruct;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.stds.*;
 import code.scripts.messages.gui.MessCdmBaseGr;
-import code.sml.util.*;
+import code.sml.util.Translations;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
+import code.sml.util.TranslationsLg;
 import code.threads.AbstractDate;
 import code.threads.AbstractDateFactory;
 import code.threads.AbstractThreadFactory;
@@ -849,9 +853,9 @@ public final class CustAliases {
         return ExecCatOperation.getStringOfObjectBase(_cont, _arg);
     }
 
-    public static AbstractFunctionalInstance newFunctional(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
+    public static EventStruct newFunctional(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
         CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
-        return new RunnableFunctionalInstance(_className.getFormatted(),_functional,fs_, (RunnableContextEl) _contextEl, _named);
+        return new EventStruct((RunnableContextEl) _contextEl, _className.getFormatted(), fs_,_functional, _named);
     }
 
     public void buildOther(LgNamesContent _content, ExecutingBlocks _executingBlocks) {

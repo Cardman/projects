@@ -3,26 +3,22 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.CommonExecutionInfos;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNamesContent;
-import code.expressionlanguage.structs.AbstractFunctionalInstance;
-import code.expressionlanguage.structs.LambdaStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.*;
+import code.expressionlanguage.utilcompo.AbstractInterceptor;
+import code.expressionlanguage.utilcompo.CustAliases;
+import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicBoolean;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -63,16 +59,6 @@ public class LgNamesGui extends LgNamesUtils {
     @Override
     public StringStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         return CustAliases.getStringOfObjectUtil(_cont, _arg);
-    }
-
-    @Override
-    public AbstractFunctionalInstance newFullFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
-        return newGuiFunctionnal(_contextEl, _className, _functional, _named);
-    }
-
-    static EventFunctionalInstance newGuiFunctionnal(ContextEl _contextEl, ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named) {
-        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
-        return new EventFunctionalInstance(_className.getFormatted(), _functional, fs_, (RunnableContextEl) _contextEl, _named);
     }
 
     public static StringMap<String> addon(CustAliases _cust) {

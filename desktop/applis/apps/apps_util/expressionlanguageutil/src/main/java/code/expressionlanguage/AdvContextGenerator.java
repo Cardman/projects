@@ -1,10 +1,10 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.guicompos.EventStruct;
 import code.expressionlanguage.utilcompo.AbsAdvContextGenerator;
 import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
-import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.threads.AbstractAtomicBoolean;
 
 public final class AdvContextGenerator implements AbsAdvContextGenerator {
@@ -22,7 +22,7 @@ public final class AdvContextGenerator implements AbsAdvContextGenerator {
     @Override
     public ContextEl geneWith(Forwards _f) {
         ContextEl c_ = gene(_f);
-        RunnableStruct.setupThread((RunnableContextEl) c_);
+        EventStruct.setupThread((RunnableContextEl) c_);
         return c_;
     }
 

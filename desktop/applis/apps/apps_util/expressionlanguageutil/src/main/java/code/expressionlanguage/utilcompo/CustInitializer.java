@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.*;
 
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.guicompos.EventStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.stds.FctThreadPrint0;
 import code.threads.AbstractAtomicLong;
@@ -24,10 +25,8 @@ public class CustInitializer extends DefaultInitializer {
 //        hooks = new ThreadSetStruct(_concurrent);
     }
     @Override
-    protected Struct init(ContextEl _context, Struct _parent,
-                          ExecFormattedRootBlock _className, String _fieldName, int _ordinal,
-                          CustList<ClassFieldStruct> _fields) {
-        return new RunnableStruct((RunnableContextEl) _context, _className.getFormatted(), _fieldName, _ordinal, _fields, _parent, _parent.getClassName(_context));
+    protected Struct init(ContextEl _context, Struct _parent, ExecFormattedRootBlock _className, String _fieldName, int _ordinal, CustList<ClassFieldStruct> _fields) {
+        return new EventStruct((RunnableContextEl) _context,_className.getFormatted(),_fieldName,_ordinal,_fields,_parent, _parent.getClassName(_context));
     }
 
     String getCurrentTreadIdDate(RunnableContextEl _ctx) {
@@ -99,7 +98,7 @@ public class CustInitializer extends DefaultInitializer {
 //            t_.join();
 //        }
 //    }
-    void putNewCustTreadIdDate(RunnableContextEl _id, String _value) {
+    public void putNewCustTreadIdDate(RunnableContextEl _id, String _value) {
         _id.setIdDate(_value);
         threadSet.add(_id.getThread());
 	}
@@ -112,7 +111,7 @@ public class CustInitializer extends DefaultInitializer {
 //        hooks.add(_id);
 //    }
 
-    long increment() {
+    public long increment() {
     	return countThreads.getAndIncrement();
     }
 }

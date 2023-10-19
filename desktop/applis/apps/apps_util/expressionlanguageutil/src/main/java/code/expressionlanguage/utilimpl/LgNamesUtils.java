@@ -5,6 +5,7 @@ import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.guicompos.EventStruct;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.LgNames;
@@ -65,6 +66,10 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
 
     @Override
     public AbstractFunctionalInstance newFullFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
+        return newGuiFunctionnal(_contextEl, _className, _functional, _named);
+    }
+
+    public static EventStruct newGuiFunctionnal(ContextEl _contextEl, ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named) {
         return CustAliases.newFunctional(_className, _functional, _named, _contextEl);
     }
 
