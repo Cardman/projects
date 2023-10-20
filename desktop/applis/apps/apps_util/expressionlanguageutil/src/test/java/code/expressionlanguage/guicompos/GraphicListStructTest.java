@@ -361,7 +361,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
         ExecFormattedRootBlock form_ = new ExecFormattedRootBlock(ex_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC, "run", new StringList());
-        return ArgumentListCall.toStr(EventStruct.invoke(new Argument(), (RunnableContextEl) ctx_, new ExecTypeFunction(form_, ExecClassesUtil.getMethodBodiesById(ex_, id_).first()), resSt_, new ArgumentListCall()));
+        return ArgumentListCall.toStr(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, new ExecTypeFunction(form_, ExecClassesUtil.getMethodBodiesById(ex_, id_).first()), resSt_, new ArgumentListCall()));
     }
     private ContextEl ctx(MockProgramInfos _p) {
         return ctx(_p,new StringMap<String>());

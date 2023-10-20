@@ -36,6 +36,11 @@ public abstract class ContextEl {
         interrupt = _i;
         executionInfos = _executionInfos;
     }
+    public abstract ContextEl copy(AbstractAtomicBoolean _i,Struct _state);
+    public abstract ContextEl copy(Struct _state);
+    public String errorMessage(StackCall _stackCall) {
+        return ProcessMethod.error(this,_stackCall);
+    }
 
     public AbstractAtomicBoolean getInterrupt() {
         return interrupt;

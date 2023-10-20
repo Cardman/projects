@@ -2,8 +2,11 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecClassesUtil;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.structs.FullFunctionalInstance;
+import code.expressionlanguage.structs.AbstractFunctionalInstance;
+import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.StringMap;
@@ -29,8 +32,8 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertTrue(ret_.getStruct() instanceof FullFunctionalInstance);
-        assertEq(0, ((FullFunctionalInstance)ret_.getStruct()).getFields().size());
+        checkFct(cont_, ret_);
+        assertEq(0, ((FieldableStruct)ret_.getStruct()).getFields().size());
     }
     @Test
     public void calculateObj1Test() {
@@ -53,8 +56,8 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertTrue(ret_.getStruct() instanceof FullFunctionalInstance);
-        assertEq(0, ((FullFunctionalInstance)ret_.getStruct()).getFields().size());
+        checkFct(cont_, ret_);
+        assertEq(0, ((FieldableStruct)ret_.getStruct()).getFields().size());
     }
     @Test
     public void calculateObj2Test() {
@@ -144,8 +147,8 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertTrue(ret_.getStruct() instanceof FullFunctionalInstance);
-        assertEq(0, ((FullFunctionalInstance)ret_.getStruct()).getFields().size());
+        checkFct(cont_, ret_);
+        assertEq(0, ((FieldableStruct)ret_.getStruct()).getFields().size());
     }
     @Test
     public void calculateObj6Test() {
@@ -168,8 +171,8 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertTrue(ret_.getStruct() instanceof FullFunctionalInstance);
-        assertEq(0, ((FullFunctionalInstance)ret_.getStruct()).getFields().size());
+        checkFct(cont_, ret_);
+        assertEq(0, ((FieldableStruct)ret_.getStruct()).getFields().size());
     }
     @Test
     public void calculateRetTest() {
@@ -945,4 +948,9 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(hasErrReadOnly(files_));
     }
+
+    private void checkFct(ContextEl _cont, Argument _ret) {
+        assertSame(ExecClassesUtil.getMethodBodiesById(_cont.getClasses().getClassBody("pkg.Interface"),new MethodId(MethodAccessKind.INSTANCE,"opTwo",new CustList<String>("$int","$int"))).get(0),((AbstractFunctionalInstance) _ret.getStruct()).getNamed());
+    }
+
 }

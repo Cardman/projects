@@ -27,6 +27,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
 import code.threads.AbstractAtomicBoolean;
@@ -90,11 +91,10 @@ public final class CustContextFactory {
         ShowUpdates showUpdates_ = new ShowUpdates(infoStruct_,(RunnableContextEl) rCont_,_progressingTests,_definedLgNames);
         AbstractFuture abstractFuture_ = sch_.scheduleAtFixedRateNanos(showUpdates_, 0, 1);
         ExecTypeFunction pair_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecContent().getExecutingBlocks().getExecuteMethodPair();
-        Argument argGlLoc_ = new Argument();
         Argument argMethod_ = new Argument(infoStruct_);
         ArgumentListCall argList_ = new ArgumentListCall(argMethod_);
-        Argument arg_ = EventStruct.invoke(argGlLoc_,
-                (RunnableContextEl) rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_), argList_);
+        Argument arg_ = EventStruct.invoke(NullStruct.NULL_VALUE,
+                rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_), argList_);
         abstractFuture_.cancel(false);
         sch_.shutdown();
         _progressingTests.finish(((RunnableContextEl) rCont_),infoStruct_, _definedLgNames);

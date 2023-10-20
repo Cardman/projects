@@ -56,7 +56,7 @@ public abstract class LgNames implements BuildableLgNames {
 
     public AbstractFunctionalInstance newFullFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
         CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
-        return new FullFunctionalInstance(_className.getFormatted(),_functional,fs_, _named);
+        return new InnerCustStruct(_className.getFormatted(),fs_, _named, _functional);
     }
     public StringMap<StandardType> getStandards() {
         return content.getStandards();

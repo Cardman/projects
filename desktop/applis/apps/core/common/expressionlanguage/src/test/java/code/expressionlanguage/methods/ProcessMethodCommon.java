@@ -83,7 +83,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         assertTrue(_args.isEmpty());
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
         ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_,_class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_);
-        return ProcessMethod.error(_cont,stackCall_);
+        return _cont.errorMessage(stackCall_);
     }
 
     protected static Argument calculateNormal(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {

@@ -24,20 +24,20 @@ import org.junit.Test;
 public  final class InterruptibleContextElTest extends EquallableElIntUtil {
     @Test
     public void callsOrException1() {
-        InterruptibleContextEl ctx_ = new InterruptibleContextEl(new ConcreteBoolean(),null);
+        ContextEl ctx_ = new InterruptibleContextEl(new ConcreteBoolean(),null).copy(null);
         StackCall st_ = stack(ctx_);
         assertFalse(ctx_.callsOrException(st_));
     }
     @Test
     public void callsOrException2() {
-        InterruptibleContextEl ctx_ = new InterruptibleContextEl(new ConcreteBoolean(),null);
+        ContextEl ctx_ = new InterruptibleContextEl(new ConcreteBoolean(),null).copy(null);
         StackCall st_ = stack(ctx_);
         st_.setCallingState(new CustomFoundExc(NullStruct.NULL_VALUE));
         assertTrue(ctx_.callsOrException(st_));
     }
     @Test
     public void callsOrException3() {
-        InterruptibleContextEl ctx_ = new InterruptibleContextEl(new ConcreteBoolean(),null);
+        ContextEl ctx_ = new InterruptibleContextEl(new ConcreteBoolean(),null).copy(null);
         StackCall st_ = stack(ctx_);
         call(new FctInterrupt(),null,ctx_,null,null,st_);
         assertTrue(ctx_.getInterrupt().get());

@@ -23,7 +23,6 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.utilcompo.InterruptibleContextEl;
 import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.threads.AbstractThreadFactory;
@@ -309,8 +308,9 @@ public final class TreeNodeRenderUtil {
         return generate(_compo, ctx_);
     }
 
-    private static InterruptibleContextEl generate(AbstractThreadFactory _compo, ContextEl _ctx) {
-        return new InterruptibleContextEl(_compo.newAtomicBoolean(), _ctx.getExecutionInfos());
+    private static ContextEl generate(AbstractThreadFactory _compo, ContextEl _ctx) {
+        return _ctx.copy(_compo.newAtomicBoolean(), NullStruct.NULL_VALUE);
+//        return new InterruptibleContextEl(_compo.newAtomicBoolean(), _ctx.getExecutionInfos());
 //        return new GuiContextEl(_compo.newAtomicBoolean(), null, _ctx.getExecutionInfos(), new StringList());
     }
 

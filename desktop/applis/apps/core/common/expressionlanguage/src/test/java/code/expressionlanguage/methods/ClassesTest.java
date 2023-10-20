@@ -19,6 +19,9 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.inherits.AbstractFormatParamChecker;
+import code.expressionlanguage.exec.inherits.AbstractParamChecker;
 import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -92,6 +95,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertEq(0, getMethodId("").look(lgName_.getCoreNames().getErrType()).size());
 //        assertEq(1, StandardConstructor.look(lgName_.getCoreNames().getObjType(),getConstructorId("")).size());
         assertEq(0, getConstructorId(false,"").look(lgName_.getCoreNames().getObjType()).size());
+        assertSame(NullStruct.NULL_VALUE, NullStruct.defNullValue(AbstractFormatParamChecker.matchAbstract(null,(ExecNamedFunctionBlock) null)));
     }
 
     @Test

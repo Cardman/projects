@@ -1,5 +1,6 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.guicompos.stds.FctWindowCloseAll;
 import code.expressionlanguage.structs.Struct;
@@ -16,8 +17,10 @@ public final class GuiContextEl extends RunnableContextEl {
     }
 
     @Override
-    public RunnableContextEl copy(Struct _state) {
-        return new GuiContextEl(getInterrupt(),_state,getExecutionInfos(), getArgs());
+    public ContextEl copy(Struct _state) {
+        GuiContextEl c_ = new GuiContextEl(getInterrupt(), _state, getExecutionInfos(), getArgs());
+        EventStruct.setupThread(c_);
+        return c_;
     }
     @Override
     public void forwardAndClear() {

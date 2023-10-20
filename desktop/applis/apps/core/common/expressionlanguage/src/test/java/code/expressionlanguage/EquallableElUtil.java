@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.StopDbgEnum;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -120,6 +121,9 @@ public abstract class EquallableElUtil {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(AccessEnum _expected, AccessEnum _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(ExecBlock _expected, ExecBlock _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(AbsBk _expected, AbsBk _result) {

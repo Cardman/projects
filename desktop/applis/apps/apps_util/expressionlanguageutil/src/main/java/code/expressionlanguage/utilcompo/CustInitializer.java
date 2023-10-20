@@ -26,26 +26,14 @@ public class CustInitializer extends DefaultInitializer {
     }
     @Override
     protected Struct init(ContextEl _context, Struct _parent, ExecFormattedRootBlock _className, String _fieldName, int _ordinal, CustList<ClassFieldStruct> _fields) {
-        return new EventStruct((RunnableContextEl) _context,_className.getFormatted(),_fieldName,_ordinal,_fields,_parent, _parent.getClassName(_context));
+        return new EventStruct(_context,_className.getFormatted(),_fieldName,_ordinal,_fields,_parent, _parent.getClassName(_context));
     }
 
     String getCurrentTreadIdDate(RunnableContextEl _ctx) {
     	return _ctx.getIdDate();
 	}
-    public boolean prExc(RunnableContextEl _cont, StackCall _stackCall) {
-        String error_ = ProcessMethod.error(_cont, _stackCall);
-        boolean er_;
-        if (error_ != null) {
-            log(_cont,error_);
-            er_ = true;
-        } else {
-            er_ = false;
-        }
-        removeThreadFromList(_cont);
-        return er_;
-    }
 
-    private static void log(RunnableContextEl _cont, String _txt) {
+    public static void log(RunnableContextEl _cont, String _txt) {
         String text_ = StringUtil.concat(CustAliases.getDateTimeText(_cont.getCurrentThreadFactory()),":",_txt);
         FctThreadPrint0.log(((LgNamesWithNewAliases)_cont.getStandards()).getExecContent().getCustAliases().getInfos(), text_,_cont);
     }

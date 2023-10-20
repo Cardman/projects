@@ -18,6 +18,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.gui.unit.CommonExecution;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
@@ -137,13 +138,12 @@ public final class GuiProcess implements GuiRunnable {
             StackCall st_ = StackCall.newInstance(InitPhase.NOTHING,context);
             ProcessMethod.initializeClass(clName, classBody_,context, st_);
             if (context.callsOrException(st_)) {
-                context.getCustInit().prExc(context, st_);
+                context.errorMessage(st_);
                 context.interrupt();
                 return;
             }
-            Argument arg_ = new Argument();
             ExecNamedFunctionBlock fct_ = methods_.first();
-            Argument i_ = EventStruct.invoke(arg_, context, new ExecTypeFunction(classBody_, fct_), st_, new ArgumentListCall());
+            Argument i_ = EventStruct.invoke(NullStruct.NULL_VALUE, context, new ExecTypeFunction(classBody_, fct_), st_, new ArgumentListCall());
             if (i_ == null) {
                 context.interrupt();
             }

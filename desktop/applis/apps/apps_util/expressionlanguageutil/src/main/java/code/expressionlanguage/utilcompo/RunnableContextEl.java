@@ -1,6 +1,9 @@
 package code.expressionlanguage.utilcompo;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.CommonExecutionInfos;
+import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.guicompos.EventStruct;
 import code.expressionlanguage.structs.Struct;
 import code.stream.core.AbstractZipFact;
 import code.threads.AbstractAtomicBoolean;
@@ -27,8 +30,21 @@ public class RunnableContextEl extends InterruptibleContextEl implements Locking
         zipFact = standards_.getExecContent().getInfos().getZipFact();
     }
 
-    public RunnableContextEl copy(Struct _state) {
-        return new RunnableContextEl(getInterrupt(),_state,getExecutionInfos(),args);
+    @Override
+    public String errorMessage(StackCall _stackCall) {
+        String err_ = super.errorMessage(_stackCall);
+        if (err_ != null) {
+            CustInitializer.log(this,err_);
+        }
+        getCustInit().removeThreadFromList(this);
+        return err_;
+    }
+
+    @Override
+    public ContextEl copy(Struct _state) {
+        RunnableContextEl c_ = new RunnableContextEl(getInterrupt(), _state, getExecutionInfos(), args);
+        EventStruct.setupThread(c_);
+        return c_;
     }
     public StringList getArgs() {
         return args;
