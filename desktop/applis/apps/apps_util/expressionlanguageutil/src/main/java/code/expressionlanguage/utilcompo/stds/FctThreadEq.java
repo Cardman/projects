@@ -31,7 +31,7 @@ public final class FctThreadEq implements StdCaller {
         Struct two_ = argumentWrappers_.get(1).getValue().getStruct();
         if (one_ instanceof ThreadStruct) {
             if (two_ instanceof ThreadStruct) {
-                return new ArgumentWrapper(BooleanStruct.of(((ThreadStruct)one_).getThread().getThread() == ((ThreadStruct)two_).getThread().getThread()));
+                return new ArgumentWrapper(BooleanStruct.of(((ThreadStruct)one_).getRunnable() == ((ThreadStruct)two_).getRunnable()));
             }
             return new ArgumentWrapper(BooleanStruct.of(false));
         }
