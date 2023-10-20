@@ -12,7 +12,6 @@ import code.expressionlanguage.guicompos.GuiContextEl;
 import code.expressionlanguage.guicompos.GuiExecutingBlocks;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.utilcompo.CustAliases;
-import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.util.CustList;
 
 public final class DfGrList extends DfCompoCtor {
@@ -25,7 +24,7 @@ public final class DfGrList extends DfCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        EventStruct rend_ = new EventStruct((RunnableContextEl) _cont, _guiEx.getDefCellRender().getGenericString(), "", -1, new CustList<ClassFieldStruct>(), NullStruct.NULL_VALUE, "");
+        EventStruct rend_ = new EventStruct(_cont, _guiEx.getDefCellRender().getGenericString(), "", -1, new CustList<ClassFieldStruct>(), NullStruct.NULL_VALUE, "");
         return new ArgumentWrapper(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,true, rend_));
     }
 }
