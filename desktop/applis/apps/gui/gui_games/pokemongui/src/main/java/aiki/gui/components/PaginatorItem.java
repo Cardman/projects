@@ -75,10 +75,10 @@ public final class PaginatorItem extends Paginator {
 
     public PaginatorItem(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d, boolean _buy) {
         super(_window, ACCESS_ITEM,_p);
-        cmpNamePrio = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
-        cmpNumberPrio = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
-        cmpPricePrio = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
-        cmpDescriptionPrio = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
+        cmpNamePrio = new NumComboBox(_window.getFrames());
+        cmpNumberPrio = new NumComboBox(_window.getFrames());
+        cmpPricePrio = new NumComboBox(_window.getFrames());
+        cmpDescriptionPrio = new NumComboBox(_window.getFrames());
         setWindow(_w);
         setFacade(_d);
         buy = _buy;
@@ -88,22 +88,22 @@ public final class PaginatorItem extends Paginator {
         order.add(SearchingMode.BEGIN);
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
-        modeName = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
+        modeName = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
-        modeDescription = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
+        modeDescription = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         modeDescription.setWithDefaultValue(false);
         modeDescription.refresh(order, getMessagesSearchMode());
-        cmpNameSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
+        cmpNameSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpDescriptionSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
+        cmpDescriptionSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         cmpDescriptionSorting.setWithDefaultValue(false);
         cmpDescriptionSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPriceSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
+        cmpPriceSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         cmpPriceSorting.setWithDefaultValue(false);
         cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpNumberSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
+        cmpNumberSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         cmpNumberSorting.setWithDefaultValue(false);
         cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationItem.NB_CMPARATORS;

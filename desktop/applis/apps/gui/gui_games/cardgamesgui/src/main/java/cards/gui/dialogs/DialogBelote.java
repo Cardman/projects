@@ -63,7 +63,7 @@ public abstract class DialogBelote extends DialogCards {
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
         dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(MIX_CARDS)));
-        listeChoix=new ComboBox<MixCardsChoice>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(), new StringList(), -1, _window.getCompoFactory()));
+        listeChoix=new ComboBox<MixCardsChoice>(GuiBaseUtil.combo(_window.getImageFactory(), new StringList(), -1, _window.getCompoFactory()));
         Listable<MixCardsChoice> mix_;
         mix_ = new IdList<MixCardsChoice>(MixCardsChoice.values());
         IdMap<MixCardsChoice, String> trMix_;
@@ -125,7 +125,7 @@ public abstract class DialogBelote extends DialogCards {
         AbsPlainLabel trumpingLabel_ = getCompoFactory().newPlainLabel(getMessages().getVal(TRUMPING));
         trumpingLabel_.setToolTipText(getMessages().getVal(TRUMPING_DESCRIPTION));
         sousPanneau_.add(trumpingLabel_);
-        listChoiceTwo=new ComboBoxEnumCards<BeloteTrumpPartner>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
+        listChoiceTwo=new ComboBoxEnumCards<BeloteTrumpPartner>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
         BeloteTrumpPartner curOne_ = getReglesBelote().getGestionCoupePartenaire();
         int index_ = 0;
         int i_ = -1;
@@ -139,6 +139,7 @@ public abstract class DialogBelote extends DialogCards {
         if (i_ > -1) {
             listChoiceTwo.selectItem(i_);
         }
+        listChoiceTwo.getCombo().repaint();
         sousPanneau_.add(listChoiceTwo.self());
         underTrumpingFoe=getCompoFactory().newCustCheckBox(getMessages().getVal(UNDER_TRUMPING_FOE));
         underTrumpingFoe.setSelected(getReglesBelote().getSousCoupeAdv());

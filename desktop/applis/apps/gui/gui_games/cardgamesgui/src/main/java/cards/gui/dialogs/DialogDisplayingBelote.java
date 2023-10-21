@@ -84,7 +84,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         jt_.add(messages.getVal(DEALING),panneau_);
         //Panneau Tri avant enchere
         panneau_=_window.getCompoFactory().newGrid(0,4);
-        listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
+        listeChoix=new ComboBox<Suit>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         IdMap<Suit,String> trSuit_;
         trSuit_ = new IdMap<Suit,String>();
         Listable<Suit> ls_ = Suit.couleursOrdinaires();
@@ -142,6 +142,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         }
         orderedSuits.ajouterCouleur(current_);
         listeChoix.removeItem(listeChoix.getSelectedIndex());
+        listeChoix.getCombo().repaint();
     }
 
     @Override
@@ -154,6 +155,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
             for(Suit couleur_:couleurs_) {
                 listeChoix.addItem(couleur_, Games.toString(couleur_, lg_));
             }
+            listeChoix.getCombo().repaint();
         } else {
             orderedSuits.toutSupprimer();
         }

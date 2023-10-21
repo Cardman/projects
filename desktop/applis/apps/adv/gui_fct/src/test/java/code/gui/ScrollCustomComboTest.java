@@ -238,6 +238,18 @@ public final class ScrollCustomComboTest extends EquallableGuiFctUtil {
         assertFalse(gene_.getList().getRow(2).isSelected());
     }
     @Test
+    public void t25() {
+        MockProgramInfosSecSample pr_ = init();
+        ScrollCustomCombo gene_ = GuiBaseUtil.combo(pr_.getImageFactory(),new StringList("ONE","TWO","THREE"),1, pr_.getCompoFactory());
+        assertEq("TWO",GuiBaseUtil.getSelectedItem(gene_));
+    }
+    @Test
+    public void t26() {
+        MockProgramInfosSecSample pr_ = init();
+        ScrollCustomCombo gene_ = GuiBaseUtil.combo(pr_.getImageFactory(),new StringList(),-1, pr_.getCompoFactory());
+        assertEq("",GuiBaseUtil.getSelectedItem(gene_));
+    }
+    @Test
     public void t27() {
         ScrollCustomCombo gene_ = gene();
         gene_.add("ONE");

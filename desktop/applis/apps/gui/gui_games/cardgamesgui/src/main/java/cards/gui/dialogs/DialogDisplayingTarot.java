@@ -81,7 +81,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         jt_.add(messages.getVal(DEALING),panneau_);
         //Panneau Tri
         AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,3);
-        listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
+        listeChoix=new ComboBox<Suit>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         IdMap<Suit,String> trSuit_;
         trSuit_ = new IdMap<Suit,String>();
         Listable<Suit> ls_ = new IdList<Suit>(Suit.toutesCouleurs());
@@ -137,6 +137,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         }
         orderedSuits.ajouterCouleur(current_);
         listeChoix.removeItem(listeChoix.getSelectedIndex());
+        listeChoix.getCombo().repaint();
     }
     @Override
     public void removeSuit(WindowCardsInt _window) {
@@ -148,6 +149,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
             for (Suit couleur_:couleurs_) {
                 listeChoix.addItem(couleur_, Games.toString(couleur_, lg_));
             }
+            listeChoix.getCombo().repaint();
         } else {
             orderedSuits.toutSupprimer();
         }

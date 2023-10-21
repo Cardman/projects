@@ -72,7 +72,7 @@ public final class DialogSoft extends DialogCards {
         if(StringUtil.quickEq(menu, WindowCards.CST_LAUNCHING)) {
             //Lancement du logiciel
             AbsPanel panneau_=_fenetre.getCompoFactory().newPageBox();
-            list = new ComboBox<GameEnum>(_fenetre.getFrames().getGeneComboBox().createCombo(_fenetre.getImageFactory(),new StringList(), -1, _fenetre.getCompoFactory()));
+            list = new ComboBox<GameEnum>(GuiBaseUtil.combo(_fenetre.getImageFactory(),new StringList(), -1, _fenetre.getCompoFactory()));
             IdMap<GameEnum,String> mess_;
             IdList<GameEnum> order_;
             mess_ = new IdMap<GameEnum,String>();

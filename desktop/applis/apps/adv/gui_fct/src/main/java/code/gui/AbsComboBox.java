@@ -1,10 +1,8 @@
 package code.gui;
 
-import code.util.core.StringUtil;
-
 public abstract class AbsComboBox {
-    private final GraphicComboGrInt combo;
-    protected AbsComboBox(GraphicComboGrInt _combo) {
+    private final ScrollCustomCombo combo;
+    protected AbsComboBox(ScrollCustomCombo _combo) {
         combo = _combo;
     }
 
@@ -13,19 +11,19 @@ public abstract class AbsComboBox {
     }
 
     public String getSelectedItem() {
-        return StringUtil.nullToEmpty(combo.getSelectedItem());
+        return GuiBaseUtil.getSelectedItem(combo);
     }
 
     public int getItemCount() {
-        return combo.getItemCount();
+        return combo.size();
     }
 
     public void selectItem(int _index) {
-        combo.selectItem(_index);
+        combo.select(_index);
     }
 
     public void addItem(String _object) {
-        combo.addItem(_object);
+        combo.add(_object);
     }
 
     public void setListener(ListSelection _listener) {
@@ -33,10 +31,10 @@ public abstract class AbsComboBox {
     }
 
     public AbsCustComponent self() {
-        return combo.self();
+        return combo.getGlobal();
     }
 
-    public GraphicComboGrInt getCombo() {
+    public ScrollCustomCombo getCombo() {
         return combo;
     }
 }

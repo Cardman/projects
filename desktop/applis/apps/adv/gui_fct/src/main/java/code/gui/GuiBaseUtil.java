@@ -332,4 +332,11 @@ public final class GuiBaseUtil {
         }
         return new MetaDimension(_prefWidth, chs_.get(0).getHeight() * NumberUtil.min(chs_.size(), _visible));
     }
+    public static String getSelectedItem(ScrollCustomCombo _c) {
+        RowGraphicList<String> r_ = _c.getList().getRow(_c.getSelectedIndex());
+        if (r_ == null) {
+            return "";
+        }
+        return StringUtil.nullToEmpty(r_.getInfo());
+    }
 }

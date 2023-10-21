@@ -156,7 +156,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 //            pile_.ajouterCartes(HandPresident.pileBase());
 //        }
         panneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(DEALER)));
-        liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
+        liste=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         liste.addItem(nickNames.getPseudo());
         for(String n: nickNames.getPseudosPresident()) {
             if (liste.getItemCount() == nbPlayers_) {
@@ -165,6 +165,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             liste.addItem(n);
         }
         liste.addItem(getMessages().getVal(RANDOM));
+        liste.getCombo().repaint();
         panneau_.add(liste.self());
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_NORTH);
         pile_.sortCards(displayingPresident.getDisplaying().isDecreasing(), false);
@@ -207,7 +208,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addActionListener(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
-        listeTwo=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
+        listeTwo=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         listeTwo.addItem(getMessages().getVal(DEALING_STACK));
         listeTwo.addItem(getMessages().getVal(USER_HAND));
         for(String n: nickNames.getPseudosPresident()) {
@@ -218,6 +219,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             message_ = StringUtil.simpleStringsFormat(message_, n);
             listeTwo.addItem(message_);
         }
+        listeTwo.getCombo().repaint();
         sousPanneau_.add(listeTwo.self());
         labelSelectCards = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);

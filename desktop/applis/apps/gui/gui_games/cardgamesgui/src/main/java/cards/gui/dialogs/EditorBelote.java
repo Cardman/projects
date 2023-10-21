@@ -157,7 +157,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         AbsPanel c=_parent.getCompoFactory().newBorder();
         AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
         panneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(DEALER)));
-        liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
+        liste=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         liste.addItem(nickNames.getPseudo());
         int nbPlayers_ = getReglesBelote().getDealing().getId().getNombreJoueurs();
         for(String n: nickNames.getPseudosBelote()) {
@@ -167,6 +167,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             liste.addItem(n);
         }
         liste.addItem(getMessages().getVal(RANDOM));
+        liste.getCombo().repaint();
         panneau_.add(liste.self());
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_NORTH);
         panneau_=_parent.getCompoFactory().newBorder();
@@ -219,7 +220,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addActionListener(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
-        listeTwo=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
+        listeTwo=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         listeTwo.addItem(getMessages().getVal(DEALING_STACK));
         listeTwo.addItem(getMessages().getVal(USER_HAND));
         for(String n: nickNames.getPseudosBelote()) {
@@ -231,6 +232,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             listeTwo.addItem(message_);
         }
         listeTwo.addItem(getMessages().getVal(CST_REMAINING));
+        listeTwo.getCombo().repaint();
         sousPanneau_.add(listeTwo.self());
         labelSelectCards = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);

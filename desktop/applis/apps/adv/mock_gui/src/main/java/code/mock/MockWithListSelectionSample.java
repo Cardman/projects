@@ -16,7 +16,7 @@ public final class MockWithListSelectionSample extends MockAbsCommonFrame implem
 
     public MockWithListSelectionSample(AbstractProgramInfos _f, String _lgKey) {
         super(_f, _lgKey);
-        graphicComboGrInt = _f.getGeneComboBox().createCombo(_f.getImageFactory(),new StringList("0","1","2","3"),1, _f.getCompoFactory());
+        graphicComboGrInt = new MockGraphicComboBoxGenerator().createCombo(_f.getImageFactory(),new StringList("0","1","2","3"),1, _f.getCompoFactory());
         graphicComboGrInt.addListener(new MockListSelection(0,this));
         getContentPane().add(graphicComboGrInt.getGlobal());
         graphicListString = new MockGraphicStringListGenerator().createStrList(new StringList("4","5","6","7"));

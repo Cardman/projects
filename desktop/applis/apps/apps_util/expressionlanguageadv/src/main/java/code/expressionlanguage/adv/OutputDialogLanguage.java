@@ -7,7 +7,7 @@ import code.util.core.StringUtil;
 
 public final class OutputDialogLanguage implements WithFrame {
     private final AbsPlainButton val;
-    private final GraphicComboGrInt chosenLanguage;
+    private final ScrollCustomCombo chosenLanguage;
     private final AbsCommonFrame frame;
     private final AbsMenuItem associated;
 
@@ -18,8 +18,8 @@ public final class OutputDialogLanguage implements WithFrame {
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         StringList lgs_ = new StringList(factories_.getTranslations().getMapping().getKeys());
         lgs_.add("");
-        chosenLanguage = factories_.getGeneComboBox().createCombo(factories_.getImageFactory(), lgs_, StringUtil.indexOf(lgs_,_w.getUsedLg()), factories_.getCompoFactory());
-        all_.add(chosenLanguage.self());
+        chosenLanguage = GuiBaseUtil.combo(factories_.getImageFactory(), lgs_, StringUtil.indexOf(lgs_,_w.getUsedLg()), factories_.getCompoFactory());
+        all_.add(chosenLanguage.getGlobal());
         val = factories_.getCompoFactory().newPlainButton("OK");
         val.addActionListener(new ValidateUsedLanguage(chosenLanguage,_w));
         all_.add(val);
@@ -33,11 +33,11 @@ public final class OutputDialogLanguage implements WithFrame {
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
         StringList lgs_ = new StringList(factories_.getTranslations().getMapping().getKeys());
         lgs_.add("");
-        chosenLanguage.selectItem(StringUtil.indexOf(lgs_,_w.getUsedLg()));
+        chosenLanguage.select(StringUtil.indexOf(lgs_,_w.getUsedLg()));
         frame.setVisible(true);
         associated.setEnabled(false);
     }
-    public GraphicComboGrInt getChosenLanguage() {
+    public ScrollCustomCombo getChosenLanguage() {
         return chosenLanguage;
     }
 

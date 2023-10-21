@@ -97,7 +97,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         AbsPanel container_ = getOwner().getCompoFactory().newPageBox();
         AbsPanel panel_ = getOwner().getCompoFactory().newGrid(0, 2);
         panel_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowNetWork.PLACE)));
-        choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames(),getOwner().getFrames().getGeneComboBox());
+        choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames());
         choiceOfPlaceForPlayingGame.setItems(nbChoosenPlayers);
         choiceOfPlaceForPlayingGame.setSelectedItem(_players.getPseudos()
                 .size() - 1);

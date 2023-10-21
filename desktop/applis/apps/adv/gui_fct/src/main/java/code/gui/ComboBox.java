@@ -14,7 +14,7 @@ public final class ComboBox<T> extends AbsComboBox {
 
     private boolean withDefaultValue;
 
-    public ComboBox(GraphicComboGrInt _combo) {
+    public ComboBox(ScrollCustomCombo _combo) {
         super(_combo);
     }
     TreeMap<T, String> getElements() {
@@ -31,6 +31,7 @@ public final class ComboBox<T> extends AbsComboBox {
         for (T e: elements.getKeys()) {
             addItem(_tr.getVal(e));
         }
+        getCombo().repaint();
     }
 
     public void refresh(AbsMap<T,String> _tr) {
@@ -41,6 +42,7 @@ public final class ComboBox<T> extends AbsComboBox {
         for (T e: elements.getKeys()) {
             addItem(_tr.getVal(e));
         }
+        getCombo().repaint();
     }
 
     private IdMap<T,String> createMap(AbsMap<T,String> _tr) {
@@ -60,7 +62,7 @@ public final class ComboBox<T> extends AbsComboBox {
         }
         T e_ = tr_.getKey(_anIndex);
         tr_.removeKey(e_);
-        getCombo().removeItem(_anIndex);
+        getCombo().remove(_anIndex);
     }
 
     public void addItem(T _t, String _dis) {
@@ -80,7 +82,7 @@ public final class ComboBox<T> extends AbsComboBox {
 //    @Override
     public void removeAllItems() {
         getElements().clear();
-        getCombo().removeAllItems();
+        getCombo().clear();
     }
     public T getCurrent() {
         int index_ = getSelectedIndex();

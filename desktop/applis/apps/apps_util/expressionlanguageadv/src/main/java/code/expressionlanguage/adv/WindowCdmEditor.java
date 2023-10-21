@@ -57,7 +57,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final AbsPlainButton createFile;
     private final AbsPlainLabel chosenFolder;
     private final AbsTextField srcFolder;
-    private final GraphicComboGrInt chosenLanguage;
+    private final ScrollCustomCombo chosenLanguage;
     private CdmParameterSoftModel softParams;
     private final CustList<WindowExpressionEditor> expressionEditors = new CustList<WindowExpressionEditor>();
     private String confGlobal="";
@@ -126,7 +126,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         srcFolder = getCommonFrame().getFrames().getCompoFactory().newTextField(32);
         StringList lgs_ = new StringList(_list.getTranslations().getMapping().getKeys());
         lgs_.add("");
-        chosenLanguage = getCommonFrame().getFrames().getGeneComboBox().createCombo(getCommonFrame().getFrames().getImageFactory(), lgs_, -1, getCommonFrame().getFrames().getCompoFactory());
+        chosenLanguage = GuiBaseUtil.combo(getCommonFrame().getFrames().getImageFactory(), lgs_, -1, getCommonFrame().getFrames().getCompoFactory());
         createFile = getCommonFrame().getFrames().getCompoFactory().newPlainButton("create");
         createFile.addActionListener(new CreateInitialFile(this));
         setEditors(getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane());
@@ -177,8 +177,8 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
             getPanel().add(srcFolder);
             StringList lgs_ = new StringList(getCommonFrame().getFrames().getTranslations().getMapping().getKeys());
             lgs_.add("");
-            chosenLanguage.selectItem(StringUtil.indexOf(lgs_, getCommonFrame().getLanguageKey()));
-            getPanel().add(chosenLanguage.self());
+            chosenLanguage.select(StringUtil.indexOf(lgs_, getCommonFrame().getLanguageKey()));
+            getPanel().add(chosenLanguage.getGlobal());
             getPanel().add(createFile);
             createFile.setEnabled(false);
             getCommonFrame().setContentPane(getPanel());
@@ -224,7 +224,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         softParams.setExecConf(_fileName);
         getManageOptions().getEx().setSrcFolder(srcFolder.getText());
 //        usedLg = StringUtil.nullToEmpty(chosenLanguage.getSelectedItem());
-        getManageOptions().getEx().setLg(StringUtil.nullToEmpty(chosenLanguage.getSelectedItem()));
+        getManageOptions().getEx().setLg(StringUtil.nullToEmpty(GuiBaseUtil.getSelectedItem(chosenLanguage)));
         updateDoc();
         updateComments(getManageOptions().getOptions().getComments());
         saveConf();

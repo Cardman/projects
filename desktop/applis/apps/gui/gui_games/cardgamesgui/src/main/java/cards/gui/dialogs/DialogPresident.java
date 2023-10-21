@@ -73,7 +73,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
         dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(MIX_CARDS)));
-        listeChoix=new ComboBox<MixCardsChoice>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
+        listeChoix=new ComboBox<MixCardsChoice>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         Listable<MixCardsChoice> mix_;
         mix_ = new IdList<MixCardsChoice>(MixCardsChoice.values());
         IdMap<MixCardsChoice, String> trMix_;
@@ -97,7 +97,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
 
         AbsPanel rules_=_window.getCompoFactory().newGrid(0,2);
         rules_.add(getCompoFactory().newPlainLabel(getMessages().getVal(CST_EQUALITY)));
-        equality = new ComboBoxEnumCards<EqualtyPlaying>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
+        equality = new ComboBoxEnumCards<EqualtyPlaying>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
         EqualtyPlaying curThree_ = getReglesPresident().getEqualty();
         int index_ = 0;
         int i_ = -1;
@@ -111,6 +111,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         if (i_ > -1) {
             equality.selectItem(i_);
         }
+        equality.getCombo().repaint();
         equality.setListener(new ListenerEqualityPlaying(this));
         rules_.add(equality.self());
         rules_.add(getCompoFactory().newPlainLabel(""));

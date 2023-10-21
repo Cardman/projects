@@ -1,13 +1,12 @@
 package cards.gui.comboboxes;
 
 import code.gui.AbsComboBox;
-import code.gui.GraphicComboGrInt;
-import code.util.core.StringUtil;
+import code.gui.ScrollCustomCombo;
 
 
 public class StringComboBox extends AbsComboBox {
 
-    public StringComboBox(GraphicComboGrInt _combo) {
+    public StringComboBox(ScrollCustomCombo _combo) {
         super(_combo);
     }
 
@@ -20,6 +19,6 @@ public class StringComboBox extends AbsComboBox {
 //    }
 
     public String getSelectedComboItem() {
-        return StringUtil.nullToEmpty(getCombo().getSelectedItem());
+        return getSelectedItem();
     }
 }

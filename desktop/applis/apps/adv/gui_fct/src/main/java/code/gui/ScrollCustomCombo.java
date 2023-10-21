@@ -10,6 +10,7 @@ import code.util.CustList;
 import code.util.IdList;
 import code.util.Ints;
 import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public abstract class ScrollCustomCombo implements Input, SelectableIndexes {
     public static final int DEF_MIN_WIDTH = 128;
@@ -98,7 +99,7 @@ public abstract class ScrollCustomCombo implements Input, SelectableIndexes {
     }
     public void add(String _i) {
         boolean was_ = list.isEmpty();
-        list.add(_i);
+        list.add(StringUtil.nullToEmpty(_i));
         resize();
         if (was_) {
             list.select(0);

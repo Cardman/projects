@@ -93,7 +93,7 @@ public abstract class Paginator {
         main = _window;
         delta =_window.getCompoFactory().newTextField(4);
         nbResults = _window.getCompoFactory().newSpinner(0,Integer.MIN_VALUE,Integer.MAX_VALUE,1);
-        pages = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
+        pages = new NumComboBox(_window.getFrames());
         container = _dest;
         initMessages(_access);
         header = new Header(_window.getCompoFactory());

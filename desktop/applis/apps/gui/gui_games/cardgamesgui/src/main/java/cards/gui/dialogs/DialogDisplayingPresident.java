@@ -87,7 +87,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
 //        for (Suit couleur_:Suit.couleursOrdinaires()) {
 //            listeChoix.addItem(couleur_);
 //        }
-        listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
+        listeChoix=new ComboBox<Suit>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         IdMap<Suit,String> trSuit_;
         trSuit_ = new IdMap<Suit,String>();
         Listable<Suit> ls_ = Suit.couleursOrdinaires();
@@ -142,6 +142,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         }
         orderedSuits.ajouterCouleur(current_);
         listeChoix.removeItem(listeChoix.getSelectedIndex());
+        listeChoix.getCombo().repaint();
     }
 
     @Override
@@ -154,6 +155,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
             for(Suit couleur_:couleurs_) {
                 listeChoix.addItem(couleur_, Games.toString(couleur_, lg_));
             }
+            listeChoix.getCombo().repaint();
         } else {
             orderedSuits.toutSupprimer();
         }

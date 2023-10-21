@@ -151,7 +151,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         HandTarot pile_=HandTarot.pileBase();
         panneau_=_parent.getCompoFactory().newLineBox();
         panneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(DEALER)));
-        liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
+        liste=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         liste.addItem(nickNames.getPseudo());
         int nbPlayers_ = getReglesTarot().getDealing().getId().getNombreJoueurs();
         for(String n: nickNames.getPseudosTarot()) {
@@ -161,6 +161,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
             liste.addItem(n);
         }
         liste.addItem(getMessages().getVal(RANDOM));
+        liste.getCombo().repaint();
         panneau_.add(liste.self());
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_NORTH);
         pile_.trier(displayingTarot.getDisplaying().getSuits(), displayingTarot.getDisplaying().isDecreasing());
@@ -205,7 +206,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addActionListener(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
-        listeTwo=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
+        listeTwo=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         listeTwo.addItem(getMessages().getVal(DEALING_STACK));
         listeTwo.addItem(getMessages().getVal(USER_HAND));
         for(String n: nickNames.getPseudosTarot()) {
@@ -217,6 +218,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
             listeTwo.addItem(message_);
         }
         listeTwo.addItem(getMessages().getVal(REMAINING));
+        listeTwo.getCombo().repaint();
         sousPanneau_.add(listeTwo.self());
         labelSelectCards = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);

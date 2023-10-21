@@ -126,7 +126,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 //        list_.add(null);
 //        numerosPlis_[nbNumbers_ - 1] = CURRENT_TRICK;
 //        trickNumber=new NumComboBox(numerosPlis_);
-        trickNumber=new IntTreeComboBox(window.getFrames().getGeneComboBox().createCombo(window.getImageFactory(),new StringList(),-1, window.getCompoFactory()));
+        trickNumber=new IntTreeComboBox(GuiBaseUtil.combo(window.getImageFactory(),new StringList(),-1, window.getCompoFactory()));
         trickNumber.refresh(map_);
         trickNumber.setListener(new ListenerTricks(this));
         selectionGameState_.add(trickNumber.self());
@@ -144,7 +144,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 //        } else {
 //            cardNumberTrick=new JComboBox<>();
 //        }
-        cardNumberTrick=new IntTreeComboBox(window.getFrames().getGeneComboBox().createCombo(window.getImageFactory(),new StringList(),-1, window.getCompoFactory()));
+        cardNumberTrick=new IntTreeComboBox(GuiBaseUtil.combo(window.getImageFactory(),new StringList(),-1, window.getCompoFactory()));
 //        Integer[] numerosJoueurs_=new Integer[_numberPlayers];
 //        for(byte indiceJoueur_=CustList.FIRST_INDEX;indiceJoueur_<_numberPlayers;indiceJoueur_++) {
 //            numerosJoueurs_[indiceJoueur_]=indiceJoueur_+1;

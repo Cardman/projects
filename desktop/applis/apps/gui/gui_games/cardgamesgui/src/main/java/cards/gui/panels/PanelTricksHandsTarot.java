@@ -134,7 +134,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         for(byte indicePli_ = IndexConstants.FIRST_INDEX; indicePli_<nbTricksNumbers_; indicePli_++) {
             numerosPlis_[indicePli_]=indicePli_-1;
         }
-        trickNumber=new NumComboBox(window.getFrames(),window.getFrames().getGeneComboBox(), numerosPlis_);
+        trickNumber=new NumComboBox(window.getFrames(), numerosPlis_);
         trickNumber.setListener(new ListenerTricks(this));
         selectionGameState_.add(trickNumber.self());
         selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages.getVal(CARD)));
@@ -142,7 +142,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<_numberPlayers; indiceJoueur_++) {
             numerosJoueurs_[indiceJoueur_]=indiceJoueur_+1;
         }
-        cardNumberTrick=new NumComboBox(window.getFrames(),window.getFrames().getGeneComboBox(), numerosJoueurs_);
+        cardNumberTrick=new NumComboBox(window.getFrames(), numerosJoueurs_);
         cardNumberTrick.setListener(new ListenerCards(this));
         selectionGameState_.add(cardNumberTrick.self());
         container.add(selectionGameState_,GuiConstants.BORDER_LAYOUT_SOUTH);

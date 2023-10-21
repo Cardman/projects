@@ -8,25 +8,25 @@ import org.junit.Test;
 public final class AbsComboBoxTest extends EquallableGuiFctUtil {
     @Test
     public void c1() {
-        NumComboBox n_ = new NumComboBox(init(),new MockGraphicComboBoxGenerator(),-1,0,1,2);
+        NumComboBox n_ = new NumComboBox(init(), -1,0,1,2);
         n_.setSelectedItem(-2);
         assertEq(0, n_.getSelectedIndex());
     }
     @Test
     public void c2() {
-        NumComboBox n_ = new NumComboBox(init(),new MockGraphicComboBoxGenerator(),-1,0,1,2);
+        NumComboBox n_ = new NumComboBox(init(), -1,0,1,2);
         n_.setSelectedItem(1);
         assertEq(2, n_.getSelectedIndex());
     }
     @Test
     public void c3() {
-        NumComboBox n_ = new NumComboBox(init(),new MockGraphicComboBoxGenerator());
+        NumComboBox n_ = new NumComboBox(init());
         n_.addItem(2);
         assertEq(1,n_.getItemCount());
     }
     @Test
     public void c4() {
-        IntTreeComboBox i_ = new IntTreeComboBox(new MockComboBox(new StringList(),-1));
+        IntTreeComboBox i_ = new IntTreeComboBox(getCombo());
         IntMap<String> map_ = new IntMap<String>();
         map_.addEntry(-2,"");
         map_.addEntry(-1,"-1");
@@ -39,7 +39,7 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
     }
     @Test
     public void c5() {
-        IntTreeComboBox i_ = new IntTreeComboBox(new MockComboBox(new StringList(),-1));
+        IntTreeComboBox i_ = new IntTreeComboBox(getCombo());
         i_.setItems(NumberUtil.wrapIntArray(0,1,2,3));
         assertEq(4,i_.getElements().size());
         i_.selectItem(2);
@@ -47,7 +47,7 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
     }
     @Test
     public void c6() {
-        IntTreeComboBox i_ = new IntTreeComboBox(new MockComboBox(new StringList(),-1));
+        IntTreeComboBox i_ = new IntTreeComboBox(getCombo());
         IntMap<String> map_ = new IntMap<String>();
         map_.addEntry(-2,"");
         map_.addEntry(-1,"-1");
@@ -61,7 +61,7 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
     }
     @Test
     public void c7() {
-        ComboBox<Ints> b_ = new ComboBox<Ints>(new MockComboBox(new StringList(),-1));
+        ComboBox<Ints> b_ = new ComboBox<Ints>(getCombo());
         b_.getCurrent();
         b_.setWithDefaultValue(true);
         IdMap<Ints,String> m_ = new IdMap<Ints, String>();
@@ -74,7 +74,7 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
     }
     @Test
     public void c8() {
-        ComboBox<Ints> b_ = new ComboBox<Ints>(new MockComboBox(new StringList(),-1));
+        ComboBox<Ints> b_ = new ComboBox<Ints>(getCombo());
         b_.getCurrent();
         b_.setWithDefaultValue(false);
         IdMap<Ints,String> m_ = new IdMap<Ints, String>();
@@ -94,7 +94,7 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
     }
     @Test
     public void c9() {
-        ComboBox<Ints> b_ = new ComboBox<Ints>(new MockComboBox(new StringList(),-1));
+        ComboBox<Ints> b_ = new ComboBox<Ints>(getCombo());
         b_.getCurrent();
         b_.setWithDefaultValue(false);
         IdMap<Ints,String> m_ = new IdMap<Ints, String>();
@@ -112,7 +112,7 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
     }
     @Test
     public void c10() {
-        ComboBox<Ints> b_ = new ComboBox<Ints>(new MockComboBox(new StringList(),-1));
+        ComboBox<Ints> b_ = new ComboBox<Ints>(getCombo());
         b_.getCurrent();
         b_.setWithDefaultValue(false);
         IdMap<Ints,String> m_ = new IdMap<Ints, String>();
@@ -128,7 +128,7 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
     }
     @Test
     public void c11() {
-        ComboBox<Ints> b_ = new ComboBox<Ints>(new MockComboBox(new StringList(),-1));
+        ComboBox<Ints> b_ = new ComboBox<Ints>(getCombo());
         b_.getCurrent();
         b_.setWithDefaultValue(false);
         IdMap<Ints,String> m_ = new IdMap<Ints, String>();
@@ -151,8 +151,7 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
     }
     @Test
     public void c12() {
-        MockComboBox cb_ = new MockComboBox(new StringList(), -1);
-        ComboBox<Ints> b_ = new ComboBox<Ints>(cb_);
+        ComboBox<Ints> b_ = new ComboBox<Ints>(getCombo());
         Ints one_ = Ints.newList();
         Ints two_ = Ints.newList();
         CustList<Ints> ls_ = new CustList<Ints>();
@@ -163,15 +162,14 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
         b_.addItem(two_,"2");
         assertEq(2,b_.getElements().size());
         b_.self();
-        ComboSelection list_ = new ComboSelection(new MockPopupMenu(), new MockComboBox(new StringList(),-1));
+        MockListSampleSelection list_ = new MockListSampleSelection();
         b_.setListener(list_);
         list_.valueChanged(new SelectionInfo(0,0, true));
         list_.valueChanged(new SelectionInfo(0,0, false));
-        new Popup(cb_).mouseReleased(null,null,null);
     }
     @Test
     public void c13() {
-        NumComboBox n_ = new NumComboBox(init(),new MockGraphicComboBoxGenerator());
+        NumComboBox n_ = new NumComboBox(init());
         n_.addItem(2);
         n_.addItem(3);
         n_.selectItem(1);
@@ -181,10 +179,14 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
     }
     @Test
     public void c14() {
-        NumComboBox n_ = new NumComboBox(init(),new MockGraphicComboBoxGenerator());
+        NumComboBox n_ = new NumComboBox(init());
         n_.setItems(3);
         assertEq(3,n_.getItemCount());
         n_.selectItem(2);
         assertEq(2, n_.getSelectedIndex());
+    }
+
+    private ScrollCustomCombo getCombo() {
+        return GuiBaseUtil.combo(new MockImageFactory(), new StringList(), -1, new MockCompoFactory());
     }
 }

@@ -1,18 +1,19 @@
 package code.gui;
-import code.gui.initialize.AbstractGraphicComboBoxGenerator;
+
 import code.gui.initialize.AbstractProgramInfos;
-import code.util.*;
+import code.util.IntTreeMap;
+import code.util.StringList;
 import code.util.core.NumberUtil;
 
 
 public class NumComboBox extends TreeComboBox {
 
-    public NumComboBox(AbstractProgramInfos _fact, AbstractGraphicComboBoxGenerator _gene) {
-        super(new IntTreeMap<String>(), _gene.createCombo(_fact.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _fact.getCompoFactory()));
+    public NumComboBox(AbstractProgramInfos _fact) {
+        super(new IntTreeMap<String>(), GuiBaseUtil.combo(_fact.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _fact.getCompoFactory()));
     }
 
-    public NumComboBox(AbstractProgramInfos _fact, AbstractGraphicComboBoxGenerator _gene, int... _numerosPlis) {
-        super(getTree(_numerosPlis), _gene.createCombo(_fact.getImageFactory(),new StringList(getTree(_numerosPlis).values()), 0, _fact.getCompoFactory()));
+    public NumComboBox(AbstractProgramInfos _fact, int... _numerosPlis) {
+        super(getTree(_numerosPlis), GuiBaseUtil.combo(_fact.getImageFactory(),new StringList(getTree(_numerosPlis).values()), 0, _fact.getCompoFactory()));
     }
 
     public void setItems(int _count) {
@@ -20,6 +21,7 @@ public class NumComboBox extends TreeComboBox {
         for (int i = 0; i < _count; i++) {
             addItem(i);
         }
+        getCombo().repaint();
     }
     public void addItem(int _item) {
         getElements().put(_item, Integer.toString(_item));

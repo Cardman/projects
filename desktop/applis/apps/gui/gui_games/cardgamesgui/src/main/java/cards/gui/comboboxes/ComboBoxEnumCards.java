@@ -1,15 +1,16 @@
 package cards.gui.comboboxes;
-import code.gui.GraphicComboGrInt;
+
+import code.gui.ScrollCustomCombo;
 import code.gui.TreeComboBox;
 import code.util.AbsMap;
 import code.util.CustList;
-import code.util.*;
+import code.util.IntTreeMap;
 
 public final class ComboBoxEnumCards<E> extends TreeComboBox {
 
     private final CustList<E> real = new CustList<E>();
 
-    public ComboBoxEnumCards(GraphicComboGrInt _combo) {
+    public ComboBoxEnumCards(ScrollCustomCombo _combo) {
         super(new IntTreeMap<String>(), _combo);
     }
 

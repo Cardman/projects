@@ -16,7 +16,7 @@ public abstract class TreeComboBox extends AbsComboBox {
 
     private final AbsMap<Integer,String> elements;
 
-    protected TreeComboBox(AbsMap<Integer, String> _tr, GraphicComboGrInt _combo){
+    protected TreeComboBox(AbsMap<Integer, String> _tr, ScrollCustomCombo _combo){
         super(_combo);
         elements = _tr;
     }
@@ -37,7 +37,7 @@ public abstract class TreeComboBox extends AbsComboBox {
 //    @Override
     public void removeAllItems() {
         getElements().clear();
-        getCombo().removeAllItems();
+        getCombo().clear();
     }
     public int getCurrent() {
         return NumberUtil.parseInt(getSelectedItem());

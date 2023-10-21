@@ -10,7 +10,7 @@ public final class OutputDialogExpresion {
     private final AbsPlainButton chooseFolder;
     private final AbsPlainLabel chosenFolder;
     private final AbsTextField srcFolder;
-    private final GraphicComboGrInt chosenLanguage;
+    private final ScrollCustomCombo chosenLanguage;
     private final AbsPlainButton createEnv;
     private String folderExp = "";
     public OutputDialogExpresion(WindowCdmEditor _w) {
@@ -23,15 +23,15 @@ public final class OutputDialogExpresion {
         srcFolder = frs_.getCompoFactory().newTextField(32);
         StringList lgs_ = new StringList(frs_.getTranslations().getMapping().getKeys());
         lgs_.add("");
-        chosenLanguage = frs_.getGeneComboBox().createCombo(frs_.getImageFactory(), lgs_, -1, frs_.getCompoFactory());
+        chosenLanguage = GuiBaseUtil.combo(frs_.getImageFactory(), lgs_, -1, frs_.getCompoFactory());
         createEnv = frs_.getCompoFactory().newPlainButton("create");
         createEnv.addActionListener(new ValidateExpressionEnvEvent(this));
         createEnv.setEnabled(false);
         panel_.add(chooseFolder);
         panel_.add(chosenFolder);
         panel_.add(srcFolder);
-        chosenLanguage.selectItem(StringUtil.indexOf(lgs_,_w.getCommonFrame().getLanguageKey()));
-        panel_.add(chosenLanguage.self());
+        chosenLanguage.select(StringUtil.indexOf(lgs_,_w.getCommonFrame().getLanguageKey()));
+        panel_.add(chosenLanguage.getGlobal());
         panel_.add(createEnv);
         _w.getDialogFolderExpression().setContentPane(panel_);
         _w.getDialogFolderExpression().pack();
@@ -59,7 +59,7 @@ public final class OutputDialogExpresion {
     public void apply() {
         StringList def_ = new StringList();
         def_.add(folderExp);
-        def_.add(StringUtil.nullToEmpty(chosenLanguage.getSelectedItem()));
+        def_.add(StringUtil.nullToEmpty(GuiBaseUtil.getSelectedItem(chosenLanguage)));
         if (!srcFolder.getText().isEmpty()) {
             def_.add("src="+ srcFolder.getText());
         }

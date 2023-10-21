@@ -57,8 +57,8 @@ public final class PaginatorEgg extends Paginator {
 
     public PaginatorEgg(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d) {
         super(_window, ACCESS_EGG,_p);
-        cmpNamePrio = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
-        cmpStepsPrio = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
+        cmpNamePrio = new NumComboBox(_window.getFrames());
+        cmpStepsPrio = new NumComboBox(_window.getFrames());
         setWindow(_w);
         setFacade(_d);
         order.add(SearchingMode.WHOLE_STRING);
@@ -67,13 +67,13 @@ public final class PaginatorEgg extends Paginator {
         order.add(SearchingMode.BEGIN);
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
-        modeName = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
+        modeName = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
-        cmpNameSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
+        cmpNameSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpStepsSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
+        cmpStepsSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         cmpStepsSorting.setWithDefaultValue(false);
         cmpStepsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nbCmp_ = PaginationEgg.NB_COMPARATORS;

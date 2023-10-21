@@ -99,7 +99,7 @@ public class ThreadsTest extends EquallableIntGuiUtil {
         assertNull(t_.getThreadFactory());
         assertNull(t_.getCompoFactory());
         assertNull(t_.getGenerator());
-        assertNull(t_.getGeneComboBox());
+        t_.getGeneComboBox();
 //        assertNull(t_.getGeneStrCompo());
         assertNull(t_.getValidator());
         assertNull(t_.getZipFact());

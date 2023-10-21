@@ -1,5 +1,9 @@
 package code.gui;
-import code.util.*;
+
+import code.util.AbsMap;
+import code.util.EntryCust;
+import code.util.IntMap;
+import code.util.IntTreeMap;
 
 public final class IntTreeComboBox extends AbsComboBox {
     //implements GraphicComboGrIntBase
@@ -13,7 +17,7 @@ public final class IntTreeComboBox extends AbsComboBox {
 
     private final IntMap<String> elements;
 
-    public IntTreeComboBox(GraphicComboGrInt _combo){
+    public IntTreeComboBox(ScrollCustomCombo _combo){
         super(_combo);
         elements = new IntMap<String>();
     }
@@ -28,6 +32,7 @@ public final class IntTreeComboBox extends AbsComboBox {
         for (EntryCust<Integer,String> e: _tr.entryList()) {
             addItem(e.getValue());
         }
+        getCombo().repaint();
     }
 
 //    @Override
@@ -36,7 +41,7 @@ public final class IntTreeComboBox extends AbsComboBox {
         tr_ = getElements();
         Integer e_ = tr_.getKey(_anIndex);
         tr_.removeKey(e_);
-        getCombo().removeItem(_anIndex);
+        getCombo().remove(_anIndex);
     }
 
     public void setItems(int[] _numerosPlis) {
@@ -57,7 +62,7 @@ public final class IntTreeComboBox extends AbsComboBox {
 //    @Override
     public void removeAllItems() {
         getElements().clear();
-        getCombo().removeAllItems();
+        getCombo().clear();
     }
 
 //    public void setCurrent(T _current) {

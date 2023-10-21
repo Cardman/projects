@@ -122,7 +122,7 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
         assertEq("/folder/exp",((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getFolderExp());
         ((MockPlainButton)((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getCreateEnv()).getActionListeners().get(0).action();
         ((MockMenuItem)w_.getExpressionEditors().get(0).getLanguageMenu()).getActionListeners().get(0).action();
-        w_.getExpressionEditors().get(0).getLanguageFrames().get(0).getChosenLanguage().selectItem(StringUtil.indexOf(w_.getCommonFrame().getFrames().getLanguages(),"fr"));
+        w_.getExpressionEditors().get(0).getLanguageFrames().get(0).getChosenLanguage().select(StringUtil.indexOf(w_.getCommonFrame().getFrames().getLanguages(),"fr"));
         ((MockPlainButton)w_.getExpressionEditors().get(0).getLanguageFrames().get(0).getVal()).getActionListeners().get(0).action();
         WindowCdmEditor w2_=quickCreate(newMockProgramInfosInitConfExpFolder("/folder/exp"));
         String name_ = w_.getConfGlobal();
