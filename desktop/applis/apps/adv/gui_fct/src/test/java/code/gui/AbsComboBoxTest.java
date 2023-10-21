@@ -179,4 +179,12 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
         n_.removeAllItems();
         assertEq(0,n_.getItemCount());
     }
+    @Test
+    public void c14() {
+        NumComboBox n_ = new NumComboBox(init(),new MockGraphicComboBoxGenerator());
+        n_.setItems(3);
+        assertEq(3,n_.getItemCount());
+        n_.selectItem(2);
+        assertEq(2, n_.getSelectedIndex());
+    }
 }

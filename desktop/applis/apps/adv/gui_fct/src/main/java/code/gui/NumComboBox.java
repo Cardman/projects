@@ -15,6 +15,12 @@ public class NumComboBox extends TreeComboBox {
         super(getTree(_numerosPlis), _gene.createCombo(_fact.getImageFactory(),new StringList(getTree(_numerosPlis).values()), 0, _fact.getCompoFactory()));
     }
 
+    public void setItems(int _count) {
+        removeAllItems();
+        for (int i = 0; i < _count; i++) {
+            addItem(i);
+        }
+    }
     public void addItem(int _item) {
         getElements().put(_item, Integer.toString(_item));
         addItem(Integer.toString(_item));

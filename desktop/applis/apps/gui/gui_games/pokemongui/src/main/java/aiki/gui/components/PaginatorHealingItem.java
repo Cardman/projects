@@ -224,18 +224,16 @@ public final class PaginatorHealingItem extends Paginator {
         cmpNbStatusSorting.setWithDefaultValue(false);
         cmpNbStatusSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationHealingItem.NB_COMPARATORS;
-        for (int i = IndexConstants.FIRST_INDEX; i <= nb_; i++) {
-            cmpNamePrio.addItem(i);
-            cmpDescriptionPrio.addItem(i);
-            cmpPricePrio.addItem(i);
-            cmpNumberPrio.addItem(i);
-            cmpPpPrio.addItem(i);
-            cmpRelativePpPrio.addItem(i);
-            cmpHpPrio.addItem(i);
-            cmpRelativeHpPrio.addItem(i);
-            cmpNbStatisticsPrio.addItem(i);
-            cmpNbStatusPrio.addItem(i);
-        }
+        cmpNamePrio.setItems(nb_+1);
+        cmpDescriptionPrio.setItems(nb_+1);
+        cmpPricePrio.setItems(nb_+1);
+        cmpNumberPrio.setItems(nb_+1);
+        cmpPpPrio.setItems(nb_+1);
+        cmpRelativePpPrio.setItems(nb_+1);
+        cmpHpPrio.setItems(nb_+1);
+        cmpRelativeHpPrio.setItems(nb_+1);
+        cmpNbStatisticsPrio.setItems(nb_+1);
+        cmpNbStatusPrio.setItems(nb_+1);
         getFacade().setSearchModeNameHealingItem(SearchingMode.WHOLE_STRING);
         getFacade().setSearchModeDescriptionHealingItem(SearchingMode.WHOLE_STRING);
         getFacade().setSearchModeStatusHealingItem(SearchingMode.WHOLE_STRING);
@@ -807,11 +805,8 @@ public final class PaginatorHealingItem extends Paginator {
     }
     private void changePages() {
         setAdding(true);
-        getPages().removeAllItems();
         int nbPages_ = getFacade().pagesHealingItem();
-        for (int i = IndexConstants.FIRST_INDEX; i < nbPages_; i++) {
-            getPages().addItem(i);
-        }
+        getPages().setItems(nbPages_);
         getEnd().setText(Long.toString(nbPages_ - 1L));
         setAdding(false);
     }

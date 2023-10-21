@@ -107,12 +107,10 @@ public final class PaginatorItem extends Paginator {
         cmpNumberSorting.setWithDefaultValue(false);
         cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationItem.NB_CMPARATORS;
-        for (int i = IndexConstants.FIRST_INDEX; i <= nb_; i++) {
-            cmpNamePrio.addItem(i);
-            cmpDescriptionPrio.addItem(i);
-            cmpPricePrio.addItem(i);
-            cmpNumberPrio.addItem(i);
-        }
+        cmpNamePrio.setItems(nb_+1);
+        cmpDescriptionPrio.setItems(nb_+1);
+        cmpPricePrio.setItems(nb_+1);
+        cmpNumberPrio.setItems(nb_+1);
         getFacade().setSearchModeNameItem(SearchingMode.WHOLE_STRING);
         getFacade().setSearchModeDescriptionItem(SearchingMode.WHOLE_STRING);
         StringList it_ = new StringList();
@@ -437,11 +435,8 @@ public final class PaginatorItem extends Paginator {
     }
     private void changePages() {
         setAdding(true);
-        getPages().removeAllItems();
         int nbPages_ = getFacade().pagesItem();
-        for (int i = IndexConstants.FIRST_INDEX; i < nbPages_; i++) {
-            getPages().addItem(i);
-        }
+        getPages().setItems(nbPages_);
         getEnd().setText(Long.toString(nbPages_ - 1L));
         setAdding(false);
     }

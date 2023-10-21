@@ -157,14 +157,12 @@ public final class PaginatorMove extends Paginator {
         cmpPriceSorting.setWithDefaultValue(false);
         cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationMove.NB_CMPARATORS;
-        for (int i = IndexConstants.FIRST_INDEX; i <= nb_; i++) {
-            cmpNamePrio.addItem(i);
-            cmpTargetsPrio.addItem(i);
-            cmpDamagingPrio.addItem(i);
-            cmpPrioPrio.addItem(i);
-            cmpPpPrio.addItem(i);
-            cmpPricePrio.addItem(i);
-        }
+        cmpNamePrio.setItems(nb_ + 1);
+        cmpTargetsPrio.setItems(nb_ + 1);
+        cmpDamagingPrio.setItems(nb_ + 1);
+        cmpPrioPrio.setItems(nb_ + 1);
+        cmpPpPrio.setItems(nb_ + 1);
+        cmpPricePrio.setItems(nb_ + 1);
         getFacade().setSearchModeNameMove(SearchingMode.WHOLE_STRING);
         StringList mvs_ = new StringList();
         for (String p: getFacade().getData().getMoves().getKeys()) {
@@ -650,11 +648,8 @@ public final class PaginatorMove extends Paginator {
     }
     private void changePages() {
         setAdding(true);
-        getPages().removeAllItems();
         int nbPages_ = getFacade().pagesMove();
-        for (int i = IndexConstants.FIRST_INDEX; i < nbPages_; i++) {
-            getPages().addItem(i);
-        }
+        getPages().setItems(nbPages_);
         getEnd().setText(Long.toString(nbPages_ - 1L));
         setAdding(false);
     }

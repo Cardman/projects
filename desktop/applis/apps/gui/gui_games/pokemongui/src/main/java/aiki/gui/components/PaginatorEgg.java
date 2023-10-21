@@ -77,10 +77,8 @@ public final class PaginatorEgg extends Paginator {
         cmpStepsSorting.setWithDefaultValue(false);
         cmpStepsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nbCmp_ = PaginationEgg.NB_COMPARATORS;
-        for (int i = IndexConstants.FIRST_INDEX; i <= nbCmp_; i++) {
-            cmpNamePrio.addItem(i);
-            cmpStepsPrio.addItem(i);
-        }
+        cmpNamePrio.setItems(nbCmp_+1);
+        cmpStepsPrio.setItems(nbCmp_+1);
         getFacade().setSearchModeNameEgg(SearchingMode.WHOLE_STRING);
         StringList pk_ = new StringList();
         for (String p: getFacade().getData().getPokedex().getKeys()) {
@@ -351,11 +349,8 @@ public final class PaginatorEgg extends Paginator {
     }
     private void changePages() {
         setAdding(true);
-        getPages().removeAllItems();
         int nbPages_ = getFacade().pagesEgg();
-        for (int i = IndexConstants.FIRST_INDEX; i < nbPages_; i++) {
-            getPages().addItem(i);
-        }
+        getPages().setItems(nbPages_);
         getEnd().setText(Long.toString(nbPages_ - 1L));
         setAdding(false);
     }

@@ -225,9 +225,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         AbsPanel panel_ = getOwner().getCompoFactory().newGrid(0, 2);
         panel_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowNetWork.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames(),getOwner().getFrames().getGeneComboBox());
-        for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
-            choiceOfPlaceForPlayingGame.addItem(i);
-        }
+        choiceOfPlaceForPlayingGame.setItems(nbChoosenPlayers);
         choiceOfPlaceForPlayingGame.setSelectedItem(_players.getPseudos()
                 .size() - 1);
         indexInGame = (byte) NumberUtil.parseInt(choiceOfPlaceForPlayingGame
