@@ -18,13 +18,6 @@ public final class MockImageFactory implements AbstractImageFactory {
     }
 
     @Override
-    public AbstractImage newImageRgb(int _i, int _j, AbsPreparedLabel _component) {
-        MockImage m_ = new MockImage(new int[_j][_i]);
-        m_.setFont(_component);
-        return m_;
-    }
-
-    @Override
     public AbstractImage setIcon(AbsPreparedLabel _c, AbstractImage _i) {
         return _i;
     }

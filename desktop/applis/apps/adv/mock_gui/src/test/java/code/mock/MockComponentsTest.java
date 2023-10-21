@@ -237,7 +237,6 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         b_.add(prep_);
         b_.add(ab_.newPreparedLabel(pr_.getImageFactory().newImageArgb(1,1)));
         b_.add(pr_.getImageFactory().newImageArgb(1,1).newAbsPreparedLabel());
-        b_.add(pr_.getImageFactory().newImageRgb(1,1,new MockPreparedLabel()).newAbsPreparedLabel());
         assertEq(1,prep_.getHeight());
         assertEq(1,prep_.getWidth());
         ab_.newCustCheckBox();
