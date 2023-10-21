@@ -46,6 +46,7 @@ public final class ExecHelperBlocks {
             }
             if (bl_ instanceof SwitchBlockStack) {
                 ExecBlock forLoopLoc_ = ((SwitchBlockStack)bl_).getBlock();
+                ((SwitchBlockStack) bl_).enter();
                 _ip.setBlock(forLoopLoc_);
                 return null;
             }

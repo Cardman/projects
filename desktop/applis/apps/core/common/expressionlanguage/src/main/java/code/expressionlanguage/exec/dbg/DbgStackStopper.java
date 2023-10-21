@@ -900,6 +900,9 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             return !((LoopBlockStack) st_).getContent().isFinished();
         }
         if (st_ instanceof SwitchBlockStack) {
+            if (!((SwitchBlockStack) st_).getInfos().getChildren().containsObj(bl_)) {
+                return true;
+            }
             return !((SwitchBlockStack) st_).isEntered();
         }
         return true;

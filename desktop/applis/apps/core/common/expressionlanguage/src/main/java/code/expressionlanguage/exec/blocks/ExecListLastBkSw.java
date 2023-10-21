@@ -4,11 +4,13 @@ import code.util.IdList;
 
 public final class ExecListLastBkSw {
     private final IdList<ExecBracedBlock> childrenNonDef;
+    private final IdList<ExecBlock> children;
     private final ExecBracedBlock firstNonDef;
     private final ExecBracedBlock firstDef;
     public ExecListLastBkSw(ExecBracedBlock _braced) {
         ExecBlock n_ = _braced.getFirstChild();
         childrenNonDef = new IdList<ExecBracedBlock>();
+        children = new IdList<ExecBlock>();
         ExecBracedBlock firstDef_ = null;
         ExecBracedBlock firstNonDef_ = null;
         while (n_ instanceof ExecBracedBlock) {
@@ -21,6 +23,7 @@ public final class ExecListLastBkSw {
             if (n_ instanceof ExecAbstractCaseCondition) {
                 childrenNonDef.add((ExecBracedBlock) n_);
             }
+            children.add(n_);
             n_ = n_.getNextSibling();
         }
         firstNonDef = firstNonDef_;
@@ -42,6 +45,10 @@ public final class ExecListLastBkSw {
             return childrenNonDef.get(i_);
         }
         return null;
+    }
+
+    public IdList<ExecBlock> getChildren() {
+        return children;
     }
 
     public ExecBracedBlock getFirstNonDef() {
