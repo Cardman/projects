@@ -4,6 +4,8 @@ import code.gui.events.MockProgramInfosSecSample;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.mock.*;
+import code.util.CustList;
+import code.util.StringList;
 import org.junit.Test;
 
 public final class ScrollCustomComboTest extends EquallableGuiFctUtil {
@@ -224,6 +226,15 @@ public final class ScrollCustomComboTest extends EquallableGuiFctUtil {
         gene_.select(-1);
         assertFalse(gene_.getList().getRow(0).isSelected());
         assertFalse(gene_.getList().getRow(1).isSelected());
+        assertFalse(gene_.getList().getRow(2).isSelected());
+    }
+    @Test
+    public void t24() {
+        MockProgramInfosSecSample pr_ = init();
+        ScrollCustomCombo gene_ = GuiBaseUtil.combo(pr_.getImageFactory(),new StringList("ONE","TWO","THREE"),1, pr_.getCompoFactory());
+        assertEq(3,gene_.size());
+        assertFalse(gene_.getList().getRow(0).isSelected());
+        assertTrue(gene_.getList().getRow(1).isSelected());
         assertFalse(gene_.getList().getRow(2).isSelected());
     }
     @Test

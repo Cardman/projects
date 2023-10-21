@@ -1,15 +1,30 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.*;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.StdClassModifier;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.guicompos.stds.*;
 import code.expressionlanguage.options.*;
+import code.expressionlanguage.stds.StandardClass;
+import code.expressionlanguage.stds.StandardConstructor;
+import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.utilcompo.AbstractIssuer;
+import code.expressionlanguage.utilcompo.ExecutingOptions;
+import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.*;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.montecarlo.*;
 import code.mock.*;
 import code.util.*;
@@ -114,26 +129,82 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
     @Test
     public void addItem1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
-        Options opt_ = new Options();
-        ContextEl ctx_ = gene(stds_,opt_);
-        StackCall st_ = stack(ctx_);
-        Struct combo_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        call(new FctComboAddItem(),null,ctx_,combo_,one(NullStruct.NULL_VALUE),st_);
-        assertEq(0,toLong(call(new FctComboGetItemCount(),null,ctx_,combo_,null,st_)));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static int run(){var g = new ComboBox();g.addItem(null);return g.getItemCount();}}");
+        Struct combo_ = ctxStr(pr_,files_);
+        assertEq(0,((NumberStruct)combo_).intStruct());
     }
     @Test
     public void addItem2() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
-        Options opt_ = new Options();
-        ContextEl ctx_ = gene(stds_,opt_);
-        StackCall st_ = stack(ctx_);
-        Struct combo_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        call(new FctComboAddItem(),null,ctx_,combo_,one(new StringStruct("")),st_);
-        assertEq(1,toLong(call(new FctComboGetItemCount(),null,ctx_,combo_,null,st_)));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static int run(){var g = new ComboBox();g.addItem(\"\");return g.getItemCount();}}");
+        Struct combo_ = ctxStr(pr_,files_);
+        assertEq(1,((NumberStruct)combo_).intStruct());
+    }
+    @Test
+    public void addItem3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static int run(){var g = new ComboBox();g.addItem(\"0\");g.addItem(\"1\");return g.getSelectedIndex();}}");
+        Struct combo_ = ctxStr(pr_,files_);
+        assertEq(0,((NumberStruct)combo_).intStruct());
+    }
+    @Test
+    public void addItem4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new ComboBox();var s=new StringBuilder();g.addListener((ListSelection)(int a,int b,boolean c:void)->{s.append(\"EVT\"+g.getItemCount());});g.addItem(\"0\");g.addItem(\"1\");return \"\"+s;}}");
+        Struct combo_ = ctxStr(pr_,files_);
+        assertEq("EVT1",combo_);
+    }
+    @Test
+    public void addItem5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new ComboBox();var s=new StringBuilder();g.addListener((ListSelection)(int a,int b,boolean c:void)->{s.append(\"EVT\"+g.getSelectedIndex());});g.addItem(\"0\");g.addItem(\"1\");g.selectItem(1);return \"\"+s;}}");
+        Struct combo_ = ctxStr(pr_,files_);
+        assertEq("EVT0EVT1",combo_);
+    }
+    @Test
+    public void addItem6() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new ComboBox();var s=new StringBuilder();g.addItem(\"0\");g.addItem(\"1\");g.addListener((ListSelection)(int a,int b,boolean c:void)->{s.append(\"EVT\"+g.getItemCount());});g.removeItem(1);return \"\"+s;}}");
+        Struct combo_ = ctxStr(pr_,files_);
+        assertEq("",combo_);
+    }
+    @Test
+    public void addItem7() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new ComboBox();var s=new StringBuilder();g.addItem(\"0\");g.addItem(\"1\");g.addListener((ListSelection)(int a,int b,boolean c:void)->{s.append(\"EVT\"+g.getSelectedIndex());});g.selectItem(1);g.removeItem(1);return \"\"+s;}}");
+        Struct combo_ = ctxStr(pr_,files_);
+        assertEq("EVT1EVT0",combo_);
+    }
+    @Test
+    public void addItem8() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new ComboBox();var s=new StringBuilder();g.addItem(\"0\");g.addItem(\"1\");g.addListener((ListSelection)(int a,int b,boolean c:void)->{s.append(\"EVT\"+g.getItemCount());});g.removeAllItems();s.clear();g.removeAllItems();return \"\"+s;}}");
+        Struct combo_ = ctxStr(pr_,files_);
+        assertEq("",combo_);
+    }
+    @Test
+    public void addItem9() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new ComboBox();var s=new StringBuilder();g.addItem(\"0\");g.addItem(\"1\");g.addListener((ListSelection)(int a,int b,boolean c:void)->{s.append(\"EVT\"+g.getItemCount());});g.removeAllItems();return \"\"+s;}}");
+        Struct combo_ = ctxStr(pr_,files_);
+        assertEq("EVT0",combo_);
+    }
+    @Test
+    public void addItem10() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static int run(){var g = new ComboBox();g.addItem(\"0\");g.setVisibleRowCount(1);g.updateGraphics();return g.getVisibleRowCount();}}");
+        Struct combo_ = ctxStr(pr_,files_);
+        assertEq(1,((NumberStruct)combo_).intStruct());
     }
     @Test
     public void selectItem() {
@@ -200,7 +271,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         call(new FctComboAddListener(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
-        assertEq(0,((GraphicComboStruct)ls_).getGraphicCombo().getListeners().size());
+        assertEq(0,((GraphicComboStruct)ls_).getGraphicCombo().getSelections().size());
     }
     @Test
     public void addList2() {
@@ -212,7 +283,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         call(new FctComboAddListener(),null,ctx_,ls_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
-        assertEq(1,((GraphicComboStruct)ls_).getGraphicCombo().getListeners().size());
+        assertEq(1,((GraphicComboStruct)ls_).getGraphicCombo().getSelections().size());
     }
     @Test
     public void removeList1() {
@@ -225,7 +296,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         call(new FctComboAddListener(),null,ctx_,ls_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         call(new FctComboRemoveListener(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
-        assertEq(1,((GraphicComboStruct)ls_).getGraphicCombo().getListeners().size());
+        assertEq(1,((GraphicComboStruct)ls_).getGraphicCombo().getSelections().size());
     }
     @Test
     public void removeList2() {
@@ -239,7 +310,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctComboAddListener(),null,ctx_,ls_,one(list_),st_);
         call(new FctComboRemoveListener(),null,ctx_,ls_,one(list_),st_);
-        assertEq(0,((GraphicComboStruct)ls_).getGraphicCombo().getListeners().size());
+        assertEq(0,((GraphicComboStruct)ls_).getGraphicCombo().getSelections().size());
     }
     @Test
     public void lists1() {
@@ -370,5 +441,78 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Struct combo_ = call(new FctCombo1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(arr_), st_);
         call(new FctComboRemoveAllItems(),null,ctx_,combo_,null,st_);
         assertEq(0,toLong(call(new FctComboGetItemCount(),null,ctx_,combo_,null,st_)));
+    }
+    private Struct ctxStr(MockProgramInfos _pr, StringMap<String> _p) {
+        ContextEl ctx_ = ctx(_pr,_p);
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
+        ExecFormattedRootBlock form_ = new ExecFormattedRootBlock(ex_);
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC, "run", new StringList());
+        return ArgumentListCall.toStr(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, new ExecTypeFunction(form_, ExecClassesUtil.getMethodBodiesById(ex_, id_).first()), resSt_, new ArgumentListCall()));
+    }
+    private ContextEl ctx(MockProgramInfos _p) {
+        return ctx(_p,new StringMap<String>());
+    }
+    private ContextEl ctx(MockProgramInfos _p, StringMap<String> _files) {
+        update(_p);
+        LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+        return buildMock(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
+    }
+    public static ResultContext buildMock(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        StringMap<String> s_ = new StringMap<String>();
+//        s_.addEntry("0",_definedLgNames.getGuiAliases().renderInterface(_definedKw, _definedLgNames.getContent()));
+//        s_.addEntry("1",_definedLgNames.getGuiAliases().renderDefault(_definedKw, _definedLgNames.getContent()));
+        s_.addEntry("0",_definedLgNames.getGuiAliases().listSelection(_definedKw, _definedLgNames.getContent()));
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
+        Forwards forwards_ = nextBuild(_options, _definedKw, _definedLgNames, _files, s_, page_);
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _definedLgNames.buildBase();
+
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass component_ = new StandardClass(_definedLgNames.getGuiAliases().getAliasComponent(), fields_, constructors_, methods_, _definedLgNames.getContent().getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
+        component_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
+//        StringList params_ = new StringList();
+//        StandardMethod method_ = new StandardMethod(_definedLgNames.getGuiAliases().getAliasComponentGetWidth(), params_, _definedLgNames.getContent().getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctCompoGetWidth());
+//        StandardNamedFunction.addFct(methods_, method_);
+        StandardType.addType(_definedLgNames.getContent().getStandards(), _definedLgNames.getGuiAliases().getAliasComponent(), component_);
+
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<CstFieldInfo>();
+        StandardClass input_ = new StandardClass(_definedLgNames.getGuiAliases().getAliasInput(), fields_, constructors_, methods_, _definedLgNames.getGuiAliases().getAliasComponent(), StdClassModifier.ABSTRACT);
+        input_.addSuperStdTypes(component_);
+        input_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
+        StandardType.addType(_definedLgNames.getContent().getStandards(), _definedLgNames.getGuiAliases().getAliasInput(), input_);
+
+//        _definedLgNames.getGuiAliases().color(_definedLgNames.getContent());
+//        _definedLgNames.getGuiAliases().image(_definedLgNames.getContent(), _definedLgNames.getGuiExecutingBlocks());
+//        _definedLgNames.getGuiAliases().font(_definedLgNames.getContent(), _definedLgNames.getGuiExecutingBlocks());
+        _definedLgNames.getGuiAliases().buildCombo(_definedLgNames.getContent(),_definedLgNames.getExecContent().getCustAliases(),_definedLgNames.getGuiExecutingBlocks(),component_,input_);
+        ValidatorStandard.setupOverrides(page_);
+        ResultContext res_ = commonMock(_exec, _definedLgNames, _files, page_, forwards_);
+        LgNamesGui stds_ = (LgNamesGui) res_.getContext().getStandards();
+//        stds_.getGuiExecutingBlocks().cellRender(stds_.getGuiAliases(), stds_.getContent(),res_.getContext().getClasses());
+        stds_.getGuiExecutingBlocks().listSelection(stds_.getGuiAliases(), stds_.getContent(),res_.getContext().getClasses());
+        Classes.tryInit(res_);
+        return res_;
+    }
+
+    public static LgNamesGui newLgNamesGuiSampleGr(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
+        LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
+        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),"en");
+        return stds_;
     }
 }

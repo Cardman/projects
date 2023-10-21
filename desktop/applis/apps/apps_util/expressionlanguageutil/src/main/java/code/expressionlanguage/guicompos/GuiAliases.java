@@ -2980,6 +2980,15 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasComboRemoveAllItems, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctComboRemoveAllItems());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListGetVisibleRowCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctComboGetVisibleRowCount());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasGrListSetVisibleRowCount, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetVisibleRowCount0()), new FctComboSetVisibleRowCount());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListUpdateGraphics, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctComboUpdateGraphics());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
         StandardConstructor ctor_ = new StandardConstructor(params_,false, new FctCombo0(_cust,_guiEx,aliasCombo));
         StandardNamedFunction.addFct(constructors_, ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
@@ -4759,6 +4768,9 @@ public final class GuiAliases {
                 new KeyValueMemberName(_mapping.getVal(COMBO_REMOVE_ALL_ITEMS),getAliasComboRemoveAllItems()),
                 new KeyValueMemberName(_mapping.getVal(COMBO_REMOVE_ITEM),getAliasComboRemoveItem()),
                 new KeyValueMemberName(_mapping.getVal(COMBO_SELECT_ITEM),getAliasComboSelectItem()),
+                new KeyValueMemberName(_mapping.getVal(GR_LIST_GET_VISIBLE_ROW_COUNT),getAliasGrListGetVisibleRowCount()),
+                new KeyValueMemberName(_mapping.getVal(GR_LIST_SET_VISIBLE_ROW_COUNT),getAliasGrListSetVisibleRowCount()),
+                new KeyValueMemberName(_mapping.getVal(GR_LIST_UPDATE_GRAPHICS),getAliasGrListUpdateGraphics()),
                 new KeyValueMemberName(_mapping.getVal(COMBO_ADD_LISTENER),getAliasComboAddListener()),
                 new KeyValueMemberName(_mapping.getVal(COMBO_REMOVE_LISTENER),getAliasComboRemoveListener())),names_)
         );

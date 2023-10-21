@@ -317,6 +317,14 @@ public final class GuiBaseUtil {
         return new DefScrollCustomGraphicList<String>(_compo,_img,new CustCellRenderString(_compo, _img),_simple);
     }
 
+    public static ScrollCustomCombo combo(AbstractImageFactory _fact, StringList _elts, int _index, AbsCompoFactory _compo) {
+        ScrollCustomCombo scr_ = new DefScrollCustomCombo(_compo,_fact);
+        for (String s: _elts) {
+            scr_.add(s);
+        }
+        scr_.select(_index);
+        return scr_;
+    }
     public static MetaDimension dimension(AbsPanel _curr, int _prefWidth, int _visible) {
         CustList<AbsCustComponent> chs_ = _curr.getChildren();
         if (chs_.isEmpty()) {

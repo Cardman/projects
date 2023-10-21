@@ -126,12 +126,14 @@ public abstract class ScrollCustomCombo implements Input, SelectableIndexes {
         return list;
     }
 
-    public void remove(int _index) {
+    public boolean remove(int _index) {
         if (_index < 0) {
-            return;
+            return false;
         }
+        boolean sel_;
         int index_ = list.getSelectedIndex();
         if (index_ == _index) {
+            sel_ = true;
             if (_index == 0) {
                 if (list.size() == 1) {
                     list.deselectAll();
@@ -141,10 +143,13 @@ public abstract class ScrollCustomCombo implements Input, SelectableIndexes {
             } else {
                 list.select(_index - 1);
             }
+        } else {
+            sel_ = false;
         }
         list.remove(_index);
         resize();
         list.revalidate();
+        return sel_;
     }
     public void clearRevalidate() {
         list.clearRevalidate();

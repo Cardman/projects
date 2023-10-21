@@ -8,8 +8,8 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.guicompos.GraphicComboStruct;
 import code.expressionlanguage.guicompos.GuiExecutingBlocks;
 import code.expressionlanguage.guicompos.LgNamesGui;
+import code.expressionlanguage.guicompos.StructScrollCustomComboList;
 import code.expressionlanguage.utilcompo.CustAliases;
-import code.gui.initialize.AbstractGraphicComboBoxGenerator;
 import code.util.StringList;
 
 public final class DfCombo extends DfCompoCtor {
@@ -22,8 +22,16 @@ public final class DfCombo extends DfCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        GuiExecutingBlocks guiEx_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks();
-        AbstractGraphicComboBoxGenerator geneComboBox_ = guiEx_.getFrames().getGeneComboBox();
-        return new ArgumentWrapper(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(guiEx_.getImageFactory(),new StringList(),-1, guiEx_.getCompoFactory())));
+        return new ArgumentWrapper(new GraphicComboStruct(aliasCombo,_cont,gene((LgNamesGui) _cont.getStandards(),new StringList(),-1)));
+    }
+
+    public static StructScrollCustomComboList gene(LgNamesGui _guiEx, StringList _elts, int _index) {
+        GuiExecutingBlocks guiEx_ = _guiEx.getGuiExecutingBlocks();
+        StructScrollCustomComboList scr_ = new StructScrollCustomComboList(guiEx_.getCompoFactory(),guiEx_.getImageFactory(),_guiEx.getGuiAliases().getAliasActionListener());
+        for (String s: _elts) {
+            scr_.add(s);
+        }
+        scr_.select(_index);
+        return scr_;
     }
 }

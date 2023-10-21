@@ -1,18 +1,27 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.ActionGraphicListenerStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.structs.*;
 import code.gui.*;
+import code.gui.events.AbsEnabledAction;
 import code.util.CustList;
 
 
 public final class GraphicComboStruct extends InputStruct {
-    private final GraphicComboGrInt graphicCombo;
+    private final StructScrollCustomComboList graphicCombo;
 
-    public GraphicComboStruct(String _className, GraphicComboGrInt _graphicCombo) {
+    public GraphicComboStruct(String _className, ContextEl _ctx, StructScrollCustomComboList _graphicCombo) {
         super(_className);
         graphicCombo = _graphicCombo;
+        CustList<ActionGraphicListenerStruct> ls_ = _graphicCombo.getActionGraphicListenerStructs();
+        int s_ = ls_.size();
+        for (int i = 0; i < s_; i++) {
+            String k_ = _graphicCombo.getSelected().getActionsMap().getKey(i);
+            AbsEnabledAction ac_ = _graphicCombo.getSelected().getActionsMap().getValue(i);
+            getActions().addEntry(k_,new EnabledActionStruct(((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasAction(),ls_.get(i),ac_));
+        }
     }
 
     @Override
@@ -26,27 +35,22 @@ public final class GraphicComboStruct extends InputStruct {
     }
 
     public Struct getSelectedItem() {
-        String s_ = graphicCombo.getSelectedItem();
+        int index_ = graphicCombo.getSelectedIndex();
+        ScrollCustomGraphicList<String> ls_ = graphicCombo.getList();
+        RowGraphicList<String> s_ = ls_.getRow(index_);
         if (s_ == null) {
             return NullStruct.NULL_VALUE;
         }
-        return new StringStruct(s_);
-    }
-
-    public void addItem(Struct _object) {
-        if (!(_object instanceof StringStruct)) {
-            return;
-        }
-        graphicCombo.addItem(((StringStruct)_object).getInstance());
+        return new StringStruct(s_.getInfo());
     }
 
     public IntStruct getItemCount() {
-        return new IntStruct(graphicCombo.getItemCount());
+        return new IntStruct(graphicCombo.size());
     }
 
     public void selectItem(NumberStruct _index) {
         int index_ = _index.intStruct();
-        graphicCombo.selectItem(index_);
+        graphicCombo.select(index_);
     }
     public void addListener(Struct _arg) {
         if (!(_arg instanceof ListSelection)) {
@@ -62,7 +66,7 @@ public final class GraphicComboStruct extends InputStruct {
         graphicCombo.removeListener((ListSelection) _arg);
     }
     public ArrayStruct getListeners(ContextEl _ctx) {
-        CustList<ListSelection> listeners_ = graphicCombo.getListeners();
+        CustList<ListSelection> listeners_ = graphicCombo.getSelections();
         CustList<Struct> res_ = new CustList<Struct>();
         int len_ = listeners_.size();
         for (int i = 0; i < len_; i++) {
@@ -91,21 +95,23 @@ public final class GraphicComboStruct extends InputStruct {
         int selectedIndex_ = graphicCombo.getSelectedIndex();
         return new IntStruct(selectedIndex_);
     }
-    public void removeAllItems() {
-        graphicCombo.simpleRemoveAllItems();
+    public boolean removeAllItems() {
+        boolean empty_ = graphicCombo.isEmpty();
+        graphicCombo.clear();
+        return !empty_;
     }
-    public void removeItem(Struct _index) {
+    public boolean removeItem(Struct _index) {
         int index_ = ((NumberStruct)_index).intStruct();
-        graphicCombo.simpleRemoveItem(index_);
+        return graphicCombo.remove(index_);
     }
 
-    public GraphicComboGrInt getGraphicCombo() {
+    public StructScrollCustomComboList getGraphicCombo() {
         return graphicCombo;
     }
 
     @Override
     protected AbsCustComponent getVisibleComponent() {
-        return graphicCombo.getCurrentSelected();
+        return graphicCombo.getSelected();
     }
 
     @Override

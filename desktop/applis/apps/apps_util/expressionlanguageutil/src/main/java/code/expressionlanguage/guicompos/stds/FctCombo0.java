@@ -7,9 +7,9 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.guicompos.GraphicComboStruct;
 import code.expressionlanguage.guicompos.GuiExecutingBlocks;
+import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.CustAliases;
-import code.gui.initialize.AbstractGraphicComboBoxGenerator;
 import code.util.StringList;
 
 public final class FctCombo0 extends FctCompoCtor {
@@ -21,7 +21,6 @@ public final class FctCombo0 extends FctCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        AbstractGraphicComboBoxGenerator geneComboBox_ = _guiEx.getFrames().getGeneComboBox();
-        return new ArgumentWrapper(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getImageFactory(),new StringList(),-1, _guiEx.getCompoFactory())));
+        return new ArgumentWrapper(new GraphicComboStruct(aliasCombo, _cont,DfCombo.gene((LgNamesGui) _cont.getStandards(),new StringList(),-1)));
     }
 }
