@@ -6,7 +6,7 @@ import code.threads.AbstractFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public final class DefaultExecutorService implements AbstractBaseExecutorService {
+public class DefaultExecutorService implements AbstractBaseExecutorService {
     private final ExecutorService timer;
 
     public DefaultExecutorService() {
@@ -34,5 +34,9 @@ public final class DefaultExecutorService implements AbstractBaseExecutorService
     @Override
     public AbstractFuture submit(Runnable _command) {
         return new DefaultFuture(timer.submit(_command));
+    }
+
+    public ExecutorService getTimer() {
+        return timer;
     }
 }
