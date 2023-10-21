@@ -487,8 +487,8 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
 //    public void fireEventsProg() {
 //        fireEvents(true);
 //    }
-    private void fireEvents(boolean _meth) {
-        SelectionInfo s_ = generateAndSet(_meth);
+    public void fireEvents() {
+        SelectionInfo s_ = generateAndSet(false);
         for (ListSelection l: selections) {
             l.valueChanged(s_);
         }
@@ -719,7 +719,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
     }
 
     private void events() {
-        fireEvents(false);
+        fireEvents();
         repaint();
     }
     public void extendTo() {
@@ -1105,12 +1105,12 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
     }
 
     public AbsScrollPane getScrollPane() {
-        return (AbsScrollPane) getGlobal();
+        return scrollPane;
     }
 
     @Override
     public AbsCustComponent getGlobal() {
-        return scrollPane;
+        return getScrollPane();
     }
 
     public int getVisibleRowCount() {

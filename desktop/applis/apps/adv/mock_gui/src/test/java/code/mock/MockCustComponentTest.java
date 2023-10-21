@@ -257,11 +257,13 @@ public final class MockCustComponentTest extends EquallableMockGuiUtil {
         assertFalse(m_.isGained());
         f_.removeFocusListener(m_);
         f_.removeMouseListener(mm_);
+        f_.removeMouseListener((AbsMouseListenerIntRel) mm_);
         f_.removeMouseMotionListener(mm_);
         f_.removeMouseWheelListener(mm_);
         f_.removeKeyListener(k_);
         assertEq(0,f_.getFocusListeners().size());
         assertEq(0,f_.getMouseListeners().size());
+        assertEq(0,f_.getMouseListenersRel().size());
         assertEq(0,f_.getMouseMotionListeners().size());
         assertEq(0,f_.getMouseWheelListeners().size());
         assertEq(0,f_.getKeyListeners().size());

@@ -23,6 +23,7 @@ public abstract class CustComponent implements AbsCustComponent {
     private final IdMap<AbsFocusListener, WrFocusListener> mapFocus = new IdMap<AbsFocusListener, WrFocusListener>();
     private final IdMap<AbsKeyListener, WrKeyListener> mapKey = new IdMap<AbsKeyListener, WrKeyListener>();
     private final IdMap<AbsMouseListener, WrMouseListener> mapMouse = new IdMap<AbsMouseListener, WrMouseListener>();
+    private final IdMap<AbsMouseListenerIntRel, WrMouseListenerRel> mapMouseRel = new IdMap<AbsMouseListenerIntRel, WrMouseListenerRel>();
     private final IdMap<AbsMouseMotionListener, WrMouseMotionListener> mapMouseMotion = new IdMap<AbsMouseMotionListener, WrMouseMotionListener>();
     private final IdMap<AbsMouseWheelListener, WrMouseWheelListener> mapMouseWheel = new IdMap<AbsMouseWheelListener, WrMouseWheelListener>();
     private final StringMap<AbsEnabledAction> actions = new StringMap<AbsEnabledAction>();
@@ -55,6 +56,7 @@ public abstract class CustComponent implements AbsCustComponent {
     public void addMouseListener(AbsMouseListenerIntRel _mouseListener) {
         WrMouseListenerRel wr_ = new WrMouseListenerRel(_mouseListener);
         getNatComponent().addMouseListener(wr_);
+        mapMouseRel.addEntry(_mouseListener,wr_);
     }
 
     @Override
@@ -136,6 +138,13 @@ public abstract class CustComponent implements AbsCustComponent {
         mapMouse.removeKey(_mouseListener);
     }
 
+    @Override
+    public void removeMouseListener(AbsMouseListenerIntRel _mouseListener) {
+        WrMouseListenerRel wr_ = mapMouseRel.getVal(_mouseListener);
+        getNatComponent().removeMouseListener(wr_);
+        mapMouseRel.removeKey(_mouseListener);
+    }
+
     public void removeMouseMotionListener(AbsMouseMotionListener _mouseListener) {
         WrMouseMotionListener wr_ = mapMouseMotion.getVal(_mouseListener);
         getNatComponent().removeMouseMotionListener(wr_);
@@ -181,6 +190,11 @@ public abstract class CustComponent implements AbsCustComponent {
 
     public CustList<AbsMouseListener> getMouseListeners() {
         return mapMouse.getKeys();
+    }
+
+    @Override
+    public CustList<AbsMouseListenerIntRel> getMouseListenersRel() {
+        return mapMouseRel.getKeys();
     }
 
     public CustList<AbsMouseMotionListener> getMouseMotionListeners() {

@@ -138,6 +138,11 @@ public abstract class MockCustComponent implements AbsCustComponent {
     }
 
     @Override
+    public void removeMouseListener(AbsMouseListenerIntRel _l) {
+        mouseIntRelListeners.removeObj(_l);
+    }
+
+    @Override
     public void removeMouseMotionListener(AbsMouseMotionListener _l) {
         mouseMotionListeners.removeObj(_l);
     }
@@ -196,6 +201,11 @@ public abstract class MockCustComponent implements AbsCustComponent {
     @Override
     public CustList<AbsMouseListener> getMouseListeners() {
         return mouseListeners;
+    }
+
+    @Override
+    public CustList<AbsMouseListenerIntRel> getMouseListenersRel() {
+        return getMouseIntRelListeners();
     }
 
     @Override

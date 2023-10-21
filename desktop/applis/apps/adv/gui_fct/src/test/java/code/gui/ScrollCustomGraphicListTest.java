@@ -584,7 +584,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.add("SEVEN");
         gene_.add("EIGHT");
         gene_.getElements().setLocation(0,0);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 5, true, true);
         action(gene_,GuiConstants.VK_PAGE_DOWN,0);
         assertFalse(gene_.getRow(0).isSelected());
@@ -609,7 +609,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.add("SEVEN");
         gene_.add("EIGHT");
         gene_.getElements().setLocation(0,-10);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 15, true, true);
         action(gene_,GuiConstants.VK_PAGE_DOWN,0);
         assertFalse(gene_.getRow(0).isSelected());
@@ -634,7 +634,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.add("SEVEN");
         gene_.add("EIGHT");
         gene_.getElements().setLocation(0,0);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,50));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,50));
         click(gene_, 45, true, true);
         action(gene_,GuiConstants.VK_PAGE_DOWN,0);
         assertFalse(gene_.getRow(0).isSelected());
@@ -659,7 +659,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.add("SEVEN");
         gene_.add("EIGHT");
         gene_.getElements().setLocation(0,-60);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,20));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,20));
         click(gene_, 75, true, true);
         action(gene_,GuiConstants.VK_PAGE_UP,0);
         assertFalse(gene_.getRow(0).isSelected());
@@ -684,7 +684,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.add("SEVEN");
         gene_.add("EIGHT");
         gene_.getElements().setLocation(0,-50);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 75, true, true);
         action(gene_,GuiConstants.VK_PAGE_UP,0);
         assertFalse(gene_.getRow(0).isSelected());
@@ -709,7 +709,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.add("SEVEN");
         gene_.add("EIGHT");
         gene_.getElements().setLocation(0,-20);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,50));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,50));
         click(gene_, 25, true, true);
         action(gene_,GuiConstants.VK_PAGE_UP,0);
         assertTrue(gene_.getRow(0).isSelected());
@@ -1740,7 +1740,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t102() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,20));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,20));
         click(gene_,5,false,false);
         gene_.getElements().setLocation(0,0);
         action(gene_,GuiConstants.VK_PAGE_DOWN,GuiConstants.SHIFT_DOWN_MASK);
@@ -1757,7 +1757,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t103() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,20));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,20));
         click(gene_,75,false,false);
         gene_.getElements().setLocation(0,-60);
         action(gene_,GuiConstants.VK_PAGE_UP,GuiConstants.SHIFT_DOWN_MASK);
@@ -1852,7 +1852,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t110() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,20));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,20));
         click(gene_,5,false,false);
         gene_.getElements().setLocation(0,0);
         action(gene_,GuiConstants.VK_PAGE_DOWN,0);
@@ -1869,7 +1869,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t111() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,20));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,20));
         click(gene_,75,false,false);
         gene_.getElements().setLocation(0,-60);
         action(gene_,GuiConstants.VK_PAGE_UP,0);
@@ -1900,7 +1900,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t114() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,90));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,90));
         click(gene_,5,false,false);
         gene_.getElements().setLocation(0,0);
         action(gene_,GuiConstants.VK_PAGE_DOWN,GuiConstants.SHIFT_DOWN_MASK);
@@ -1924,7 +1924,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.addListener(ls_);
         assertEq(1,gene_.getSelections().size());
         action(gene_,GuiConstants.VK_A,GuiConstants.CTRL_DOWN_MASK);
-        gene_.getScrollPane().recalculate();
+        gene_.getGlobal().recalculate();
         assertEq(-1,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertEq(1,w_.getGraphicComboGrInt().getSelectedIndex());
@@ -2316,7 +2316,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t146() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 5, false, false);
         action(gene_,GuiConstants.VK_PAGE_DOWN,GuiConstants.CTRL_DOWN_MASK);
         assertTrue(gene_.getRow(0).isSelected());
@@ -2333,7 +2333,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t147() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 75, false, false);
         action(gene_,GuiConstants.VK_PAGE_DOWN,GuiConstants.CTRL_DOWN_MASK);
         assertFalse(gene_.getRow(0).isSelected());
@@ -2349,7 +2349,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     @Test
     public void t148() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 5, false, false);
         action(gene_,GuiConstants.VK_PAGE_DOWN,GuiConstants.CTRL_DOWN_MASK);
         assertEq(-1,gene_.getFocused().getIndex());
@@ -2358,7 +2358,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t149() {
         ScrollCustomGraphicList<String> gene_ = gene(true);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 5, false, false);
         action(gene_,GuiConstants.VK_PAGE_DOWN,GuiConstants.CTRL_DOWN_MASK);
         assertFalse(gene_.getRow(0).isSelected());
@@ -2375,7 +2375,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t150() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 5, false, false);
         action(gene_,GuiConstants.VK_END,GuiConstants.CTRL_DOWN_MASK);
         assertTrue(gene_.getRow(0).isSelected());
@@ -2392,7 +2392,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t151() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 75, false, false);
         action(gene_,GuiConstants.VK_END,GuiConstants.CTRL_DOWN_MASK);
         assertFalse(gene_.getRow(0).isSelected());
@@ -2408,7 +2408,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     @Test
     public void t152() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 5, false, false);
         action(gene_,GuiConstants.VK_END,GuiConstants.CTRL_DOWN_MASK);
         assertEq(-1,gene_.getFocused().getIndex());
@@ -2417,7 +2417,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t153() {
         ScrollCustomGraphicList<String> gene_ = gene(true);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 5, false, false);
         action(gene_,GuiConstants.VK_END,GuiConstants.CTRL_DOWN_MASK);
         assertFalse(gene_.getRow(0).isSelected());
@@ -2789,7 +2789,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.add("ONE");
         action(gene_,GuiConstants.VK_A,GuiConstants.CTRL_DOWN_MASK);
         action(gene_,GuiConstants.VK_W,GuiConstants.CTRL_DOWN_MASK);
-        gene_.getScrollPane().recalculate();
+        gene_.getGlobal().recalculate();
         assertEq(-1,gene_.getFocused().getIndex());
         assertFalse(gene_.getRow(0).isSelected());
     }
@@ -2801,7 +2801,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         click(gene_, 5, false, false);
         click(gene_, 5, true, false);
         action(gene_,GuiConstants.VK_A,GuiConstants.CTRL_DOWN_MASK);
-        gene_.getScrollPane().recalculate();
+        gene_.getGlobal().recalculate();
         assertEq(0,gene_.getFocused().getIndex());
         assertTrue(gene_.getRow(0).isSelected());
         assertFalse(gene_.getRow(1).isSelected());
@@ -2939,7 +2939,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t179() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 5, false, false);
         action(gene_,GuiConstants.VK_PAGE_DOWN,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
         assertTrue(gene_.getRow(0).isSelected());
@@ -2956,7 +2956,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t180() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 75, false, false);
         action(gene_,GuiConstants.VK_PAGE_DOWN,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
         assertFalse(gene_.getRow(0).isSelected());
@@ -2972,7 +2972,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     @Test
     public void t181() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 5, false, false);
         action(gene_,GuiConstants.VK_PAGE_DOWN,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
         assertEq(-1,gene_.getAnchor().getIndex());
@@ -2981,7 +2981,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t182() {
         ScrollCustomGraphicList<String> gene_ = gene(true);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 5, false, false);
         action(gene_,GuiConstants.VK_PAGE_DOWN,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
         assertFalse(gene_.getRow(0).isSelected());
@@ -2999,7 +2999,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t183() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 5, false, false);
         action(gene_,GuiConstants.VK_END,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
         assertTrue(gene_.getRow(0).isSelected());
@@ -3016,7 +3016,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t184() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 75, false, false);
         action(gene_,GuiConstants.VK_END,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
         assertFalse(gene_.getRow(0).isSelected());
@@ -3032,7 +3032,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     @Test
     public void t185() {
         ScrollCustomGraphicList<String> gene_ = gene(false);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 5, false, false);
         action(gene_,GuiConstants.VK_END,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
         assertEq(-1,gene_.getAnchor().getIndex());
@@ -3041,7 +3041,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     public void t186() {
         ScrollCustomGraphicList<String> gene_ = gene(true);
         located(gene_);
-        gene_.getScrollPane().setPreferredSize(new MetaDimension(10,30));
+        gene_.getGlobal().setPreferredSize(new MetaDimension(10,30));
         click(gene_, 5, false, false);
         action(gene_,GuiConstants.VK_END,GuiConstants.SHIFT_DOWN_MASK+GuiConstants.CTRL_DOWN_MASK);
         assertFalse(gene_.getRow(0).isSelected());

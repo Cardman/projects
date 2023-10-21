@@ -26,11 +26,13 @@ public interface AbsCustComponent {
     void addKeyListener(AbsKeyListenerReleased _l);
     void removeFocusListener(AbsFocusListener _mouseListener);
     void removeMouseListener(AbsMouseListener _mouseListener);
+    void removeMouseListener(AbsMouseListenerIntRel _mouseListener);
     void removeMouseMotionListener(AbsMouseMotionListener _mouseListener);
     void removeMouseWheelListener(AbsMouseWheelListener _l);
     void removeKeyListener(AbsKeyListener _l);
     CustList<AbsFocusListener> getFocusListeners();
     CustList<AbsMouseListener> getMouseListeners();
+    CustList<AbsMouseListenerIntRel> getMouseListenersRel();
     CustList<AbsMouseMotionListener> getMouseMotionListeners();
     CustList<AbsMouseWheelListener> getMouseWheelListeners();
     CustList<AbsKeyListener> getKeyListeners();
