@@ -60,8 +60,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
     private final FileSaveDialogAbs fileSaveDialogInt;
     private final SetterLanguage setterLanguage;
 
-    protected ProgramInfos(AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
-        super(StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME)),StringUtil.concat(initialize(),SEPARATEUR),new AdvancedGenerator(), _graphicComboBoxGenerator,
+    protected ProgramInfos() {
+        super(StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME)),StringUtil.concat(initialize(),SEPARATEUR),new AdvancedGenerator(),
                 new CompoundedInitParts(new DefaultThreadFactory(),new DefZipFact(new DefZipFactory()),new DefaultNameValidating(new StringList()),new DefCompoFactory(),new DefImageFactory()));
         fileCoreStream = new DefaultFileCoreStream();
         DefFrameFactory frameFactory_ = new DefFrameFactory();

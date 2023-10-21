@@ -14,10 +14,7 @@
 	<modules>
 		<module>infos_core</module>
 		<module>infos_deps</module>
-		<module>other</module>
 		<module>def_fact</module>
-		<module>other_fact</module>
 		<module>def</module>
-		<module>def_back</module>
 	</modules>
 </project>

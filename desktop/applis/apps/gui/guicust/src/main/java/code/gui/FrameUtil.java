@@ -1,10 +1,7 @@
 package code.gui;
 
-import code.gui.images.AbstractImage;
-import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 import code.util.Ints;
-import code.util.StringList;
 
 
 public final class FrameUtil {
@@ -82,18 +79,6 @@ public final class FrameUtil {
 //            ((AbsPaintableLabel) _c).repaintLabel(_fact);
 //        }
 //    }
-
-    public static void removeListeners(AbsGraphicListDef _compo) {
-        for (ListSelection l: _compo.getListeners()) {
-            _compo.removeListener(l);
-        }
-    }
-
-    public static void removeListeners(GraphicComboInt _compo) {
-        for (ListSelection l: _compo.getListeners()) {
-            _compo.removeListener(l);
-        }
-    }
 
     public static void remAllFromPanel(CustList<AbsCustComponent> _children) {
         for (AbsCustComponent c: _children) {
@@ -185,17 +170,6 @@ public final class FrameUtil {
         _curr.innerRight(_scroll);
     }
 
-    public static void feed(AbsGraphicList<String> _gr, StringList _list) {
-        for (String l: _list) {
-            _gr.add(l);
-        }
-    }
-
-    public static void feed(GraphicComboInt _gr, StringList _list) {
-        for (String l: _list) {
-            _gr.addItem(l);
-        }
-    }
     public static Ints toList(int[] _ints) {
         Ints ints_ = new Ints();
         for (int i: _ints) {
@@ -216,15 +190,6 @@ public final class FrameUtil {
         _dest[_i] = _ints.get(_i);
     }
 
-    public static void paintLabel(int _render, AbstractImage _g, AbsPreparedLabel _label, String _text, boolean _selected, AbsCompoFactory _compo) {
-        int h_ = _compo.heightFont(_label.getMetaFont());
-        int w_ = _compo.stringWidth(_label.getMetaFont(),_text);
-        if (_selected) {
-            LabelButtonUtil.paintDefaultLabel(_g, _text, w_, _render, h_, GuiConstants.WHITE, GuiConstants.BLUE);
-        } else {
-            LabelButtonUtil.paintDefaultLabel(_g, _text, w_, _render, h_, GuiConstants.BLACK, GuiConstants.WHITE);
-        }
-    }
     public static void act(ListSelection _list,SelectionInfo _e, boolean _skip) {
         if (_skip) {
             return;

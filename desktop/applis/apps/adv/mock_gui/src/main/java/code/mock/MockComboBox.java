@@ -1,7 +1,6 @@
 package code.mock;
 
 import code.gui.AbsCustComponent;
-import code.gui.GraphicComboGrInt;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 import code.util.CustList;
@@ -10,7 +9,7 @@ import code.util.Ints;
 import code.util.StringList;
 import code.util.core.NumberUtil;
 
-public final class MockComboBox extends MockInput implements GraphicComboGrInt {
+public final class MockComboBox extends MockInput {
 
     private final IdList<ListSelection> listSelections = new IdList<ListSelection>();
     private int selectedIndex = -1;
@@ -22,12 +21,10 @@ public final class MockComboBox extends MockInput implements GraphicComboGrInt {
         selectItem(_selectedIndex);
     }
 
-    @Override
     public AbsCustComponent getCurrentSelected() {
         return this;
     }
 
-    @Override
     public void simpleSelectItem(int _index) {
         int index_ = NumberUtil.min(getItemCount()-1,_index);
         index_ = NumberUtil.max(index_,-1);
@@ -36,7 +33,6 @@ public final class MockComboBox extends MockInput implements GraphicComboGrInt {
     }
 
 
-    @Override
     public String getSelectedItem() {
         int selectedIndex_ = getSelectedIndex();
         if (!items.isValidIndex(selectedIndex_)) {
@@ -45,12 +41,10 @@ public final class MockComboBox extends MockInput implements GraphicComboGrInt {
         return items.get(selectedIndex_);
     }
 
-    @Override
     public void simpleRemoveAllItems() {
         clearFire();
     }
 
-    @Override
     public void simpleRemoveItem(int _index) {
         remFire(_index);
     }
@@ -65,32 +59,26 @@ public final class MockComboBox extends MockInput implements GraphicComboGrInt {
         }
     }
 
-    @Override
     public AbsCustComponent self() {
         return this;
     }
 
-    @Override
     public int getSelectedIndex() {
         return selectedIndex;
     }
 
-    @Override
     public int getItemCount() {
         return items.size();
     }
 
-    @Override
     public void removeItem(int _index) {
         remFire(_index);
     }
 
-    @Override
     public void selectItem(int _index) {
         simpleSelectItem(_index);
     }
 
-    @Override
     public void removeAllItems() {
         clearFire();
     }
@@ -101,7 +89,6 @@ public final class MockComboBox extends MockInput implements GraphicComboGrInt {
         fireEvent();
     }
 
-    @Override
     public void addItem(String _object) {
         items.add(_object);
         if (items.size() == 1) {
@@ -110,33 +97,27 @@ public final class MockComboBox extends MockInput implements GraphicComboGrInt {
         }
     }
 
-    @Override
     public void setListener(ListSelection _l) {
         listSelections.clear();
         listSelections.add(_l);
     }
 
-    @Override
     public CustList<ListSelection> getListeners() {
         return listSelections;
     }
 
-    @Override
     public void addListener(ListSelection _l) {
         listSelections.add(_l);
     }
 
-    @Override
     public void removeListener(ListSelection _l) {
         listSelections.removeObj(_l);
     }
 
-    @Override
     public AbsCustComponent getGlobal() {
         return this;
     }
 
-    @Override
     public Ints getSelectedIndexes() {
         return Ints.singleOrEmpty(getSelectedIndex());
     }
@@ -146,7 +127,6 @@ public final class MockComboBox extends MockInput implements GraphicComboGrInt {
             l.valueChanged(new SelectionInfo(selectedIndex, selectedIndex,true));
         }
     }
-    @Override
     public void popup() {
         popuped = true;
     }

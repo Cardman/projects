@@ -13,9 +13,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>def_main</module>
-		<module>other_main</module>
 		<module>standalones</module>
-		<module>young</module>
 		<module>infos</module>
 	</modules>
 </project>

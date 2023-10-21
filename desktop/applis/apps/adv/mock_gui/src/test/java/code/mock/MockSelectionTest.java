@@ -1,7 +1,5 @@
 package code.mock;
 
-import code.gui.AbsGraphicList;
-import code.gui.AbsGraphicListDef;
 import code.gui.ListSelection;
 import code.util.Ints;
 import code.util.core.NumberUtil;
@@ -81,10 +79,10 @@ public final class MockSelectionTest extends EquallableMockGuiUtil {
     @Test
     public void m10() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getGraphicListString();
-        ((AbsGraphicListDef) graphicListString_).setSelectedIndexes(MockWithListSelectionSample.wrap(NumberUtil.wrapIntArray(2,3,5)));
+        MockCustGrList<String> graphicListString_ = f_.getGraphicListString();
+        graphicListString_.setSelectedIndexes(MockWithListSelectionSample.wrap(NumberUtil.wrapIntArray(2,3,5)));
         assertEq("2,3",f_.getText());
-        Ints inds_ = ((AbsGraphicListDef) graphicListString_).getSelectedIndexes();
+        Ints inds_ = graphicListString_.getSelectedIndexes();
         assertEq(2, inds_.size());
         assertEq(2, inds_.get(0));
         assertEq(3, inds_.get(1));
@@ -95,56 +93,56 @@ public final class MockSelectionTest extends EquallableMockGuiUtil {
     @Test
     public void m11() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        ((AbsGraphicListDef)f_.getGraphicListString()).setSelectedIndice(2);
+        f_.getGraphicListString().setSelectedIndice(2);
         assertEq("2",f_.getText());
-        assertEq(2, ((AbsGraphicListDef) f_.getGraphicListString()).getSelectedIndex());
+        assertEq(2, f_.getGraphicListString().getSelectedIndex());
     }
     @Test
     public void m12() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        ((AbsGraphicListDef)f_.getGraphicListString()).setSelectedIndice(-1);
+        f_.getGraphicListString().setSelectedIndice(-1);
         assertEq("",f_.getText());
-        assertEq(-1, ((AbsGraphicListDef) f_.getGraphicListString()).getSelectedIndex());
+        assertEq(-1, f_.getGraphicListString().getSelectedIndex());
     }
     @Test
     public void m13() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getGraphicListString();
+        MockCustGrList<String> graphicListString_ = f_.getGraphicListString();
         graphicListString_.add(0,"-1");
         assertEq(5, graphicListString_.size());
     }
     @Test
     public void m14() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getGraphicListString();
-        graphicListString_.add(0,null,"-1");
+        MockCustGrList<String> graphicListString_ = f_.getGraphicListString();
+        graphicListString_.add(0,"-1");
         assertEq(5, graphicListString_.size());
     }
     @Test
     public void m15() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getGraphicListString();
+        MockCustGrList<String> graphicListString_ = f_.getGraphicListString();
         graphicListString_.set(0,"-1");
         assertEq(4, graphicListString_.size());
     }
     @Test
     public void m16() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getGraphicListString();
-        graphicListString_.set(0,null,"-1");
+        MockCustGrList<String> graphicListString_ = f_.getGraphicListString();
+        graphicListString_.set(0,"-1");
         assertEq(4, graphicListString_.size());
     }
     @Test
     public void m17() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getGraphicListString();
+        MockCustGrList<String> graphicListString_ = f_.getGraphicListString();
         graphicListString_.clearRevalidate();
         assertTrue(graphicListString_.isEmpty());
     }
     @Test
     public void m18() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getGraphicListString();
+        MockCustGrList<String> graphicListString_ = f_.getGraphicListString();
         graphicListString_.clearSelection();
         assertTrue(graphicListString_.isSelectionEmpty());
         assertFalse(graphicListString_.isEmpty());
@@ -152,7 +150,7 @@ public final class MockSelectionTest extends EquallableMockGuiUtil {
     @Test
     public void m19() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getGraphicListString();
+        MockCustGrList<String> graphicListString_ = f_.getGraphicListString();
         graphicListString_.remove(0);
         assertEq(3, graphicListString_.size());
         assertEq("5", graphicListString_.get(0));
@@ -162,19 +160,19 @@ public final class MockSelectionTest extends EquallableMockGuiUtil {
     @Test
     public void m20() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getGraphicListString();
+        MockCustGrList<String> graphicListString_ = f_.getGraphicListString();
         graphicListString_.setVisibleRowCount(4);
-        assertEq(4, ((AbsGraphicListDef)graphicListString_).getVisibleRowCount());
+        assertEq(4, graphicListString_.getVisibleRowCount());
         assertSame(graphicListString_.scroll(), graphicListString_.visible());
-        ListSelection fi_ = ((AbsGraphicListDef) graphicListString_).getListeners().first();
-        ((AbsGraphicListDef) graphicListString_).removeListener(fi_);
-        assertEq(0, ((AbsGraphicListDef) graphicListString_).getListeners().size());
-        ((AbsGraphicListDef) graphicListString_).addListener(fi_);
+        ListSelection fi_ = graphicListString_.getListeners().first();
+        graphicListString_.removeListener(fi_);
+        assertEq(0, graphicListString_.getListeners().size());
+        graphicListString_.addListener(fi_);
     }
     @Test
     public void m21() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getInput();
+        MockCustGrList<String> graphicListString_ = f_.getInput();
         graphicListString_.setSelectedIndice(2);
         assertEq("2",f_.getText());
         Ints inds_ = graphicListString_.getSelectedIndexes();
@@ -201,42 +199,42 @@ public final class MockSelectionTest extends EquallableMockGuiUtil {
     @Test
     public void m24() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getInput();
+        MockCustGrList<String> graphicListString_ = f_.getInput();
         graphicListString_.add(0,"-1");
         assertEq(5, graphicListString_.size());
     }
     @Test
     public void m25() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getInput();
-        graphicListString_.add(0,null,"-1");
+        MockCustGrList<String> graphicListString_ = f_.getInput();
+        graphicListString_.add(0,"-1");
         assertEq(5, graphicListString_.size());
     }
     @Test
     public void m26() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getInput();
+        MockCustGrList<String> graphicListString_ = f_.getInput();
         graphicListString_.set(0,"-1");
         assertEq(4, graphicListString_.size());
     }
     @Test
     public void m27() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getInput();
-        graphicListString_.set(0,null,"-1");
+        MockCustGrList<String> graphicListString_ = f_.getInput();
+        graphicListString_.set(0,"-1");
         assertEq(4, graphicListString_.size());
     }
     @Test
     public void m28() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getInput();
+        MockCustGrList<String> graphicListString_ = f_.getInput();
         graphicListString_.clearRevalidate();
         assertTrue(graphicListString_.isEmpty());
     }
     @Test
     public void m29() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getInput();
+        MockCustGrList<String> graphicListString_ = f_.getInput();
         graphicListString_.clearSelection();
         assertTrue(graphicListString_.isSelectionEmpty());
         assertFalse(graphicListString_.isEmpty());
@@ -244,7 +242,7 @@ public final class MockSelectionTest extends EquallableMockGuiUtil {
     @Test
     public void m30() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getInput();
+        MockCustGrList<String> graphicListString_ = f_.getInput();
         graphicListString_.remove(0);
         assertEq(3, graphicListString_.size());
         assertEq("9", graphicListString_.get(0));
@@ -254,7 +252,7 @@ public final class MockSelectionTest extends EquallableMockGuiUtil {
     @Test
     public void m31() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getInput();
+        MockCustGrList<String> graphicListString_ = f_.getInput();
         graphicListString_.setVisibleRowCount(4);
         assertSame(graphicListString_.scroll(), graphicListString_.visible());
         assertSame(graphicListString_.scroll(), graphicListString_.getGlobal());
@@ -262,14 +260,14 @@ public final class MockSelectionTest extends EquallableMockGuiUtil {
     @Test
     public void m32() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getInput();
+        MockCustGrList<String> graphicListString_ = f_.getInput();
         graphicListString_.clear();
         assertTrue(graphicListString_.isEmpty());
     }
     @Test
     public void m33() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        AbsGraphicList<String> graphicListString_ = f_.getInput();
+        MockCustGrList<String> graphicListString_ = f_.getInput();
         graphicListString_.clearAllRange();
         assertTrue(graphicListString_.isSelectionEmpty());
         assertFalse(graphicListString_.isEmpty());

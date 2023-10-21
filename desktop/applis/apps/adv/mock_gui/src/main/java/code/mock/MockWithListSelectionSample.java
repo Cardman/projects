@@ -8,15 +8,15 @@ import code.util.core.StringUtil;
 
 public final class MockWithListSelectionSample extends MockAbsCommonFrame implements MockWithListSelection {
 
-    private final GraphicComboGrInt graphicComboGrInt;
-    private final AbsGraphicList<String> graphicListString;
-    private final AbsGraphicList<String> input;
+    private final MockComboBox graphicComboGrInt;
+    private final MockCustGrList<String> graphicListString;
+    private final MockCustGrList<String> input;
 //    private final AbsGraphicListStr multList;
     private final AbsTextField textField;
 
     public MockWithListSelectionSample(AbstractProgramInfos _f, String _lgKey) {
         super(_f, _lgKey);
-        graphicComboGrInt = new MockGraphicComboBoxGenerator().createCombo(_f.getImageFactory(),new StringList("0","1","2","3"),1, _f.getCompoFactory());
+        graphicComboGrInt = new MockGraphicComboBoxGenerator().createCombo(new StringList("0","1","2","3"),1);
         graphicComboGrInt.addListener(new MockListSelection(0,this));
         getContentPane().add(graphicComboGrInt.getGlobal());
         graphicListString = new MockGraphicStringListGenerator().createStrList(new StringList("4","5","6","7"));
@@ -69,15 +69,15 @@ public final class MockWithListSelectionSample extends MockAbsCommonFrame implem
         setVisible(isVisible());
     }
 
-    public GraphicComboGrInt getGraphicComboGrInt() {
+    public MockComboBox getGraphicComboGrInt() {
         return graphicComboGrInt;
     }
 
-    public AbsGraphicList<String> getGraphicListString() {
+    public MockCustGrList<String> getGraphicListString() {
         return graphicListString;
     }
 
-    public AbsGraphicList<String> getInput() {
+    public MockCustGrList<String> getInput() {
         return input;
     }
 

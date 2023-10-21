@@ -1,6 +1,5 @@
 package code.vi.sys.impl.deps;
 
-import code.gui.initialize.AbstractGraphicComboBoxGenerator;
 import code.stream.AbsClipStream;
 import code.vi.sys.impl.ProgramInfos;
 import javazoom.jl.decoder.Bitstream;
@@ -10,8 +9,8 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 import java.io.ByteArrayInputStream;
 
 public abstract class ProgramInfosDeps extends ProgramInfos {
-    protected ProgramInfosDeps(AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
-        super(_graphicComboBoxGenerator);
+    protected ProgramInfosDeps() {
+        super();
     }
 
     @Override

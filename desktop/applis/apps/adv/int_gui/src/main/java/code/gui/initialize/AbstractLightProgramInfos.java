@@ -22,7 +22,6 @@ public interface AbstractLightProgramInfos {
 
     AbsCompoFactory getCompoFactory();
     AbstractImageFactory getImageFactory();
-    AbstractGraphicComboBoxGenerator getGeneComboBox();
     StringList getLanguages();
     void setLanguages(StringList _lgs);
     String getLanguage();

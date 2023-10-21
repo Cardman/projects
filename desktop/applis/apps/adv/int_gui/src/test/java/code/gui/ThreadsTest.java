@@ -89,7 +89,7 @@ public class ThreadsTest extends EquallableIntGuiUtil {
     }
     @Test
     public void ls6() {
-        ProgramInfosBase t_ = new ProgramInfosBase("","",null, null, new CompoundedInitParts(null,null,null,null,null));
+        ProgramInfosBase t_ = new ProgramInfosBase("","",null, new CompoundedInitParts(null,null,null,null,null));
         t_.setLanguages(new StringList());
         t_.setTranslations(new Translations());
         t_.getTranslations().getMapping().clear();
@@ -99,7 +99,6 @@ public class ThreadsTest extends EquallableIntGuiUtil {
         assertNull(t_.getThreadFactory());
         assertNull(t_.getCompoFactory());
         assertNull(t_.getGenerator());
-        t_.getGeneComboBox();
 //        assertNull(t_.getGeneStrCompo());
         assertNull(t_.getValidator());
         assertNull(t_.getZipFact());
