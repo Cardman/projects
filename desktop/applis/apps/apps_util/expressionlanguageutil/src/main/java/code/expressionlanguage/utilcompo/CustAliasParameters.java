@@ -149,7 +149,9 @@ public final class CustAliasParameters {
     private static final String EXECUTOR_SERVICE_0_SCHEDULE_NANOS_2="____1224";
     private static final String EXECUTOR_SERVICE_1_EXECUTOR_SERVICE_0="____1225";
     private static final String RUNNABLE_IMPLICIT_0_IMPLICIT_0="____1227";
+    private static final String CALLABLE_IMPLICIT_0_IMPLICIT_0="____1227_";
     private static final String RUNNABLE_IMPLICIT_0_IMPLICIT_1="____1228";
+    private static final String CALLABLE_IMPLICIT_0_IMPLICIT_1="____1228_";
     private static final String ASSERT_0_ASSERT_ASSERT_0="35";
     private static final String ASSERT_0_ASSERT_ASSERT_1="36";
     private static final String ASSERT_1_ASSERT_ASSERT_0="37";
@@ -378,6 +380,8 @@ public final class CustAliasParameters {
 //    private String aliasRunnableImplicit0Runner;
     private String aliasRunnableImplicit0Implicit0;
     private String aliasRunnableImplicit0Implicit1;
+    private String aliasCallableImplicit0Implicit0;
+    private String aliasCallableImplicit0Implicit1;
     private String aliasAssert0AssertAssert0;
     private String aliasAssert0AssertAssert1;
     private String aliasAssert1AssertAssert0;
@@ -575,6 +579,8 @@ public final class CustAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_1_EXECUTOR_SERVICE_0),aliasExecutorService1ExecutorService0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(RUNNABLE_IMPLICIT_0_IMPLICIT_0),aliasRunnableImplicit0Implicit0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(RUNNABLE_IMPLICIT_0_IMPLICIT_1),aliasRunnableImplicit0Implicit1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CALLABLE_IMPLICIT_0_IMPLICIT_0),aliasCallableImplicit0Implicit0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CALLABLE_IMPLICIT_0_IMPLICIT_1),aliasCallableImplicit0Implicit1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ASSERT_0_ASSERT_ASSERT_0),aliasAssert0AssertAssert0),new KeyValueMemberName(_mapping.getVal(ASSERT_0_ASSERT_ASSERT_1),aliasAssert0AssertAssert1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ASSERT_1_ASSERT_ASSERT_0),aliasAssert1AssertAssert0),new KeyValueMemberName(_mapping.getVal(ASSERT_1_ASSERT_ASSERT_1),aliasAssert1AssertAssert1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ASSERT_2_ASSERT_ASSERT_0),aliasAssert2AssertAssert0),new KeyValueMemberName(_mapping.getVal(ASSERT_2_ASSERT_ASSERT_1),aliasAssert2AssertAssert1)));
@@ -761,6 +767,8 @@ public final class CustAliasParameters {
         aliasExecutorService0ScheduleNanos2= LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_0_SCHEDULE_NANOS_2));
         aliasRunnableImplicit0Implicit0= LgNamesContent.get(_util,_cust,_mapping.getVal(RUNNABLE_IMPLICIT_0_IMPLICIT_0));
         aliasRunnableImplicit0Implicit1= LgNamesContent.get(_util,_cust,_mapping.getVal(RUNNABLE_IMPLICIT_0_IMPLICIT_1));
+        aliasCallableImplicit0Implicit0= LgNamesContent.get(_util,_cust,_mapping.getVal(CALLABLE_IMPLICIT_0_IMPLICIT_0));
+        aliasCallableImplicit0Implicit1= LgNamesContent.get(_util,_cust,_mapping.getVal(CALLABLE_IMPLICIT_0_IMPLICIT_1));
         aliasAssert0AssertAssert0= LgNamesContent.get(_util,_cust,_mapping.getVal(ASSERT_0_ASSERT_ASSERT_0));
         aliasAssert0AssertAssert1= LgNamesContent.get(_util,_cust,_mapping.getVal(ASSERT_0_ASSERT_ASSERT_1));
         aliasAssert1AssertAssert0= LgNamesContent.get(_util,_cust,_mapping.getVal(ASSERT_1_ASSERT_ASSERT_0));
@@ -988,6 +996,8 @@ public final class CustAliasParameters {
         _en.add(EXECUTOR_SERVICE_1_EXECUTOR_SERVICE_0,"ExecutorService1ExecutorService0=a");
         _en.add(RUNNABLE_IMPLICIT_0_IMPLICIT_0,"RunnableImplicit0Implicit0=a");
         _en.add(RUNNABLE_IMPLICIT_0_IMPLICIT_1,"RunnableImplicit0Implicit1=a");
+        _en.add(CALLABLE_IMPLICIT_0_IMPLICIT_0,"CallableImplicit0Implicit0=a");
+        _en.add(CALLABLE_IMPLICIT_0_IMPLICIT_1,"CallableImplicit0Implicit1=a");
         _en.add(ASSERT_0_ASSERT_ASSERT_0,"Assert0AssertAssert0=a");
         _en.add(ASSERT_0_ASSERT_ASSERT_1,"Assert0AssertAssert1=b");
         _en.add(ASSERT_1_ASSERT_ASSERT_0,"Assert1AssertAssert0=a");
@@ -1215,6 +1225,8 @@ public final class CustAliasParameters {
         _fr.add(EXECUTOR_SERVICE_1_EXECUTOR_SERVICE_0,"ExecutorService1ExecutorService0=a");
         _fr.add(RUNNABLE_IMPLICIT_0_IMPLICIT_0,"RunnableImplicit0Implicit0=a");
         _fr.add(RUNNABLE_IMPLICIT_0_IMPLICIT_1,"RunnableImplicit0Implicit1=a");
+        _fr.add(CALLABLE_IMPLICIT_0_IMPLICIT_0,"CallableImplicit0Implicit0=a");
+        _fr.add(CALLABLE_IMPLICIT_0_IMPLICIT_1,"CallableImplicit0Implicit1=a");
         _fr.add(ASSERT_0_ASSERT_ASSERT_0,"Assert0AssertAssert0=a");
         _fr.add(ASSERT_0_ASSERT_ASSERT_1,"Assert0AssertAssert1=b");
         _fr.add(ASSERT_1_ASSERT_ASSERT_0,"Assert1AssertAssert0=a");
@@ -1865,6 +1877,14 @@ public final class CustAliasParameters {
 
     public String getAliasRunnableImplicit0Implicit1() {
         return aliasRunnableImplicit0Implicit1;
+    }
+
+    public String getAliasCallableImplicit0Implicit0() {
+        return aliasCallableImplicit0Implicit0;
+    }
+
+    public String getAliasCallableImplicit0Implicit1() {
+        return aliasCallableImplicit0Implicit1;
     }
 
     public String getAliasAssert0AssertAssert0() {

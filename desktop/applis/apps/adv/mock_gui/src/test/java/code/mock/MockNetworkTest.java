@@ -1,10 +1,9 @@
 package code.mock;
 
 import code.gui.initialize.*;
-import code.threads.AbstractBaseExecutorService;
-import code.threads.AbstractFuture;
-import code.threads.AbstractScheduledExecutorService;
+import code.threads.*;
 import code.util.CustList;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class MockNetworkTest extends EquallableMockGuiUtil {
@@ -142,6 +141,92 @@ public final class MockNetworkTest extends EquallableMockGuiUtil {
         assertTrue(f_.attendre());
         assertFalse(r_.isStarted());
         assertTrue(f_.cancel(false));
+        assertTrue(f_.cancel(true));
+    }
+    @Test
+    public void n15() {
+        MockCallable<String> r_ = new MockCallable<String>("RES");
+        assertFalse(r_.isStarted());
+    }
+    @Test
+    public void n16() {
+        AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
+        MockCallable<String> r_ = new MockCallable<String>("RES");
+        AbstractFutureParam<String> f_ = s_.submitCallable(r_);
+        assertTrue(r_.isStarted());
+        assertEq("RES",f_.attendreResultat());
+    }
+    @Test
+    public void n17() {
+        AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
+        MockCallable<String> r_ = new MockCallable<String>("RES");
+        AbstractFutureParam<String> f_ = s_.submitLater(r_);
+        assertFalse(r_.isStarted());
+        assertEq("RES",f_.attendreResultat());
+        assertTrue(r_.isStarted());
+    }
+    @Test
+    public void n18() {
+        AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
+        MockCallable<String> r_ = new MockCallable<String>("RES");
+        s_.shutdown();
+        AbstractFutureParam<String> f_ = s_.submitLater(r_);
+        assertFalse(r_.isStarted());
+        assertEq("", StringUtil.nullToEmpty(f_.attendreResultat()));
+        assertFalse(r_.isStarted());
+    }
+    @Test
+    public void n19() {
+        AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
+        MockCallable<String> r_ = new MockCallable<String>("RES");
+        s_.shutdown();
+        AbstractFutureParam<String> f_ = s_.submitCallable(r_);
+        assertFalse(r_.isStarted());
+        assertEq("", StringUtil.nullToEmpty(f_.attendreResultat()));
+        assertFalse(r_.isStarted());
+    }
+    @Test
+    public void n20() {
+        AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
+        MockCallable<String> r_ = new MockCallable<String>("RES");
+        AbstractFutureParam<String> f_ = s_.submitCallable(r_);
+        assertTrue(r_.isStarted());
+        assertFalse(f_.attendre());
+    }
+    @Test
+    public void n21() {
+        AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
+        MockCallable<String> r_ = new MockCallable<String>("RES");
+        s_.shutdown();
+        AbstractFutureParam<String> f_ = s_.submitCallable(r_);
+        assertFalse(r_.isStarted());
+        assertTrue(f_.attendre());
+    }
+    @Test
+    public void n22() {
+        AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
+        AbstractFutureParam<String> f_ = s_.submitCallable(null);
+        assertEq("", StringUtil.nullToEmpty(f_.attendreResultat()));
+    }
+    @Test
+    public void n23() {
+        AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
+        MockCallable<String> r_ = new MockCallable<String>("RES");
+        AbstractFutureParam<String> f_ = s_.submitLater(r_);
+        assertFalse(r_.isStarted());
+        assertFalse(f_.attendre());
+        assertTrue(r_.isStarted());
+        assertFalse(f_.cancel(true));
+    }
+    @Test
+    public void n24() {
+        AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
+        MockCallable<String> r_ = new MockCallable<String>("RES");
+        s_.shutdown();
+        AbstractFutureParam<String> f_ = s_.submitLater(r_);
+        assertFalse(r_.isStarted());
+        assertTrue(f_.attendre());
+        assertFalse(r_.isStarted());
         assertTrue(f_.cancel(true));
     }
 }

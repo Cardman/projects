@@ -17,6 +17,8 @@ public final class ExecutingBlocks {
     private ExecTypeFunction formatObjectTwoPair;
     private ExecRootBlock runnableType;
     private ExecNamedFunctionBlock runMethod;
+    private ExecRootBlock callableType;
+    private ExecNamedFunctionBlock callMethod;
     public void forwardAndClear(LgNamesContent _content, CustAliases _aliases, Classes _classes) {
         String aliasExecute_ = _aliases.getAliasExecute();
         ExecRootBlock executeType_ = _classes.getClassBody(aliasExecute_);
@@ -32,6 +34,12 @@ public final class ExecutingBlocks {
         formatObjectTwoPair = new ExecTypeFunction(formatType_, formatObjectTwo_);
         runnableType = _classes.getClassBody(_aliases.getAliasRunnable());
         runMethod = ExecClassesUtil.getMethodBodiesById(runnableType,new MethodId(MethodAccessKind.INSTANCE, _aliases.getAliasRun(),new StringList())).first();
+        callable(_aliases, _classes);
+    }
+
+    public void callable(CustAliases _aliases, Classes _classes) {
+        callableType = _classes.getClassBody(_aliases.getAliasCallable());
+        callMethod = ExecClassesUtil.getMethodBodiesById(callableType,new MethodId(MethodAccessKind.INSTANCE, _aliases.getAliasCallableMethod(),new StringList())).first();
     }
 
     public ExecRootBlock getRunnableType() {
@@ -40,6 +48,14 @@ public final class ExecutingBlocks {
 
     public ExecNamedFunctionBlock getRunMethod() {
         return runMethod;
+    }
+
+    public ExecRootBlock getCallableType() {
+        return callableType;
+    }
+
+    public ExecNamedFunctionBlock getCallMethod() {
+        return callMethod;
     }
 
     public ExecTypeFunction getFormatObjectPair() {

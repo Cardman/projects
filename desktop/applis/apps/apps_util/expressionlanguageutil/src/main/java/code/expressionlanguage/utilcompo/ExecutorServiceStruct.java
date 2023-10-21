@@ -1,21 +1,20 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
-import code.threads.AbstractBaseExecutorService;
-import code.threads.AbstractShutdownExecutorService;
-import code.threads.AbstractThreadFactory;
+import code.threads.*;
 
 public final class ExecutorServiceStruct extends WithoutParentIdStruct implements AbsExecutorServiceStruct {
-    private final AbstractBaseExecutorService executorService;
+    private final AbstractBaseExecutorServiceParam<Struct> executorService;
 
-    public ExecutorServiceStruct(AbstractThreadFactory _e) {
+    public ExecutorServiceStruct(AbstractInterceptor _e) {
         this.executorService = _e.newExecutorService();
     }
 
-    public ExecutorServiceStruct(AbstractThreadFactory _e, int _nbThreads) {
+    public ExecutorServiceStruct(AbstractInterceptor _e, int _nbThreads) {
         this.executorService = _e.newExecutorService(_nbThreads);
     }
 
@@ -25,6 +24,13 @@ public final class ExecutorServiceStruct extends WithoutParentIdStruct implement
 
     public Struct submit(Runnable _command) {
         return new FutureStruct(executorService.submit(_command));
+    }
+
+    public Struct submit(AbstractInterceptor _i, Struct _command) {
+        if (!(_command instanceof StructCallable)) {
+            return NullStruct.NULL_VALUE;
+        }
+        return new FutureObjStruct(executorService.submitCallable(_i.wrap((StructCallable) _command)));
     }
 
     public static void shutdown(AbstractShutdownExecutorService _ex) {

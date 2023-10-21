@@ -20,13 +20,16 @@ import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.AbsAdvContextGenerator;
+import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.sml.util.TranslationsFile;
 import code.threads.AbstractConcurrentMap;
 import code.threads.AbstractThread;
 import code.threads.ConcreteLong;
 import code.util.CustList;
+import code.util.IntWrapCallable;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -75,6 +78,14 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         assertEq(0,m_.size());
     }
 
+    @Test
+    public void call() {
+        AbstractInterceptor i_ = new MockInterceptor();
+        i_.newExecutorService();
+        i_.newExecutorService(1);
+        IntWrapCallable<Struct> m_ = i_.wrap(new MockStrSample());
+        assertEq("RESULT", ((StringStruct)m_.wrap()).getInstance());
+    }
     @Test
     public void bs1() {
         MockMouseButtons m_ = new MockMouseButtons(false,false,false,0);

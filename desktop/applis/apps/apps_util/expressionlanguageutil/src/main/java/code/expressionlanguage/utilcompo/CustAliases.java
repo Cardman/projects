@@ -424,6 +424,7 @@ public final class CustAliases {
     private static final String CUST_ITERATOR="731";
     private static final String LIST="732";
     private static final String RUNNABLE="____1121";
+    private static final String CALLABLE="____1121_";
     private static final String FORMAT_TYPE="_________1865";
     private static final String CUST_PAIR="733";
     private static final String CUST_ITER_TABLE="734";
@@ -477,6 +478,7 @@ public final class CustAliases {
     private static final String THREAD_SET_REMOVE="________1818";
     private static final String THREAD_SET_SNAPSHOT="________1819";
     private static final String RUN="____1143";
+    private static final String CALLABLE_METHOD="____1143_";
     private static final String GET_ATOMIC="____1144";
     private static final String SET_ATOMIC="____1145";
     private static final String COMPARE_AND_SET_ATOMIC="____1146";
@@ -573,6 +575,7 @@ public final class CustAliases {
     private static final String DIFFERENCE_STACK_DIFF="120";
     private static final String INDEX="122";
     private static final String RUNNABLE_IMPLICIT_0_RUNNER="____1226";
+    private static final String CALLABLE_IMPLICIT_0_RUNNER="____1226_";
     private static final String INFO_TEST_COUNT="___________2101";
     private static final String INFO_TEST_CALLS="___________2102";
     private static final String INFO_TEST_CURRENT_METHOD="___________2103";
@@ -604,6 +607,7 @@ public final class CustAliases {
     private static final String SECOND="767";
     private static final String LIST_TA="768";
     private static final String LIST_VAR="777";
+    private static final String CALLABLE_VAR="777_";
     private static final String CUST_ITERATOR_VAR="778";
     private static final String TABLE_VAR_FIRST="779";
     private static final String TABLE_VAR_SECOND="780";
@@ -612,6 +616,7 @@ public final class CustAliases {
     private static final String PAIR_VAR_FIRST="783";
     private static final String PAIR_VAR_SECOND="784";
     private String aliasRunnable;
+    private String aliasCallable;
     private String aliasThreadSet;
     private String aliasThreadSetAll;
     private String aliasThreadSetAdd;
@@ -631,6 +636,7 @@ public final class CustAliases {
     private String aliasExecutorServiceExecute;
     private String aliasExecutorServiceSubmit;
     private String aliasRunnableImplicit0Runner;
+    private String aliasCallableImplicit0Runner;
     private String aliasFuture;
     private String aliasFutureWait;
     private String aliasFutureCancel;
@@ -645,6 +651,7 @@ public final class CustAliases {
     private String aliasJoinOthers;
     private String aliasSleep;
     private String aliasRun;
+    private String aliasCallableMethod;
     private String aliasIsAlive;
     private String aliasIsEnded;
     private String aliasEnd;
@@ -738,6 +745,7 @@ public final class CustAliases {
     private String aliasArrayLi;
     private String aliasCustIteratorVar;
     private String aliasListVar;
+    private String aliasCallableVar;
 
     private String aliasCustPair;
     private String aliasFirst;
@@ -855,7 +863,7 @@ public final class CustAliases {
 
     public static EventStruct newFunctional(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
         CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
-        return new EventStruct((RunnableContextEl) _contextEl, _className.getFormatted(), fs_,_functional, _named);
+        return new EventStruct(_contextEl, _className.getFormatted(), fs_,_functional, _named);
     }
 
     public void buildOther(LgNamesContent _content, ExecutingBlocks _executingBlocks) {
@@ -972,7 +980,7 @@ public final class CustAliases {
         methods_ = new CustList<StandardMethod>();
         fields_ = new CustList<CstFieldInfo>();
         constructors_ = new CustList<StandardConstructor>();
-        stdcl_ = new StandardClass(aliasExecutorService, fields_, constructors_, methods_, aliasExecutorServiceBase, MethodModifier.FINAL, new DfExecutorService(infos.getThreadFactory()));
+        stdcl_ = new StandardClass(aliasExecutorService, fields_, constructors_, methods_, aliasExecutorServiceBase, MethodModifier.FINAL, new DfExecutorService(interceptor));
         stdcl_.addSuperStdTypes(service_);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasRunnable);
@@ -981,11 +989,14 @@ public final class CustAliases {
         params_ = new StringList(aliasRunnable);
         method_ = new StandardMethod(aliasExecutorServiceSubmit, params_, aliasFuture, false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Submit0()),new FctExecutorServiceSubmit0());
         StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasCallable+"<?>");
+        method_ = new StandardMethod(aliasExecutorServiceSubmit, params_, aliasFuture, false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Submit0()),new FctExecutorServiceSubmit1(interceptor));
+        StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false,new FctExecutorService0(infos.getThreadFactory()));
+        ctor_ = new StandardConstructor(params_,false,new FctExecutorService0(interceptor));
         StandardNamedFunction.addFct(constructors_, ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasExecutorService1ExecutorService0()),new FctExecutorService1(infos.getThreadFactory()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasExecutorService1ExecutorService0()),new FctExecutorService1(interceptor));
         StandardNamedFunction.addFct(constructors_, ctor_);
         std_ = stdcl_;
         StandardType.addType(_content.getStandards(), aliasExecutorService, std_);
@@ -1006,19 +1017,7 @@ public final class CustAliases {
         StandardNamedFunction.addFct(constructors_, ctor_);
         std_ = stdcl_;
         StandardType.addType(_content.getStandards(), aliasScheduledExecutorService, std_);
-        methods_ = new CustList<StandardMethod>();
-        fields_ = new CustList<CstFieldInfo>();
-        constructors_ = new CustList<StandardConstructor>();
-        stdcl_ = new StandardClass(aliasFuture, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
-        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasFutureWait, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new FctFutureAttendre());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasFutureCancel, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctFutureCancel());
-        StandardNamedFunction.addFct(methods_, method_);
-        std_ = stdcl_;
-        StandardType.addType(_content.getStandards(), aliasFuture, std_);
+        future(_content);
 //        methods_ = new CustList<StandardMethod>();
 //        constructors_ = new CustList<StandardConstructor>();
 //        fields_ = new CustList<CstFieldInfo>();
@@ -1407,6 +1406,20 @@ public final class CustAliases {
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         StandardType.addType(_content.getStandards(), aliasConcurrentError, stdcl_);
     }
+    public void future(LgNamesContent _content) {
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        StandardClass stdcl_ = new StandardClass(aliasFuture, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        StringList params_ = new StringList();
+        StandardMethod method_ = new StandardMethod(aliasFutureWait, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new FctFutureAttendre());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasFutureCancel, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctFutureCancel());
+        StandardNamedFunction.addFct(methods_, method_);
+        StandardType.addType(_content.getStandards(), aliasFuture, stdcl_);
+    }
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content) {
         StringMap<String> stds_ = new StringMap<String>();
         if (light) {
@@ -1435,6 +1448,7 @@ public final class CustAliases {
         String abstract_ = _keyWords.getKeyWordAbstract();
         StringMap<String> map_;
         stds_.put(aliasRunnable, runnableType(_keyWords, _content));
+        stds_.put(aliasCallable, callableType(_keyWords, _content));
         String content_ = properties_.getVal(RESOURCES_LG_COLLECTIONS_LIST_TXT);
         map_ = new StringMap<String>();
         map_.put(KW_PUBLIC, public_);
@@ -2182,6 +2196,7 @@ public final class CustAliases {
         setAliasInfoTestContainer(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_CONTAINER)));
         setAliasInfoTestExecuted(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_EXECUTED)));
         setAliasRunnable(LgNamesContent.get(_util,_cust,_mapping.getVal(RUNNABLE)));
+        setAliasCallable(LgNamesContent.get(_util,_cust,_mapping.getVal(CALLABLE)));
         setAliasThread(LgNamesContent.get(_util,_cust,_mapping.getVal(THREAD)));
         setAliasThreadSet(LgNamesContent.get(_util,_cust,_mapping.getVal(THREAD_SET)));
         setAliasExecutorServiceBase(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_BASE)));
@@ -2193,6 +2208,7 @@ public final class CustAliases {
         setAliasExecutorServiceScheduleMillis(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_SCHEDULE_MILLIS)));
         setAliasExecutorServiceScheduleNanos(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_SCHEDULE_NANOS)));
         setAliasRunnableImplicit0Runner(LgNamesContent.get(_util,_cust,_mapping.getVal(RUNNABLE_IMPLICIT_0_RUNNER)));
+        setAliasCallableImplicit0Runner(LgNamesContent.get(_util,_cust,_mapping.getVal(CALLABLE_IMPLICIT_0_RUNNER)));
         setAliasFuture(LgNamesContent.get(_util,_cust,_mapping.getVal(FUTURE)));
         setAliasFutureWait(LgNamesContent.get(_util,_cust,_mapping.getVal(FUTURE_WAIT)));
         setAliasFutureCancel(LgNamesContent.get(_util,_cust,_mapping.getVal(FUTURE_CANCEL)));
@@ -2208,6 +2224,7 @@ public final class CustAliases {
         setAliasArgs(LgNamesContent.get(_util,_cust,_mapping.getVal(ARGS)));
         setAliasCoverage(LgNamesContent.get(_util,_cust,_mapping.getVal(COVERAGE)));
         setAliasRun(LgNamesContent.get(_util,_cust,_mapping.getVal(RUN)));
+        setAliasCallableMethod(LgNamesContent.get(_util,_cust,_mapping.getVal(CALLABLE_METHOD)));
         setAliasLengthLi(LgNamesContent.get(_util,_cust,_mapping.getVal(LENGTH_LI)));
         setAliasCustPair(LgNamesContent.get(_util,_cust,_mapping.getVal(CUST_PAIR)));
         setAliasListTa(LgNamesContent.get(_util,_cust,_mapping.getVal(LIST_TA)));
@@ -2227,6 +2244,7 @@ public final class CustAliases {
 //        setAliasUnlock(LgNamesContent.get(_util,_cust,_mapping.getVal(UNLOCK)));
         setAliasSizeLi(LgNamesContent.get(_util,_cust,_mapping.getVal(SIZE_LI)));
         setAliasListVar(LgNamesContent.get(_util,_cust,_mapping.getVal(LIST_VAR)));
+        setAliasCallableVar(LgNamesContent.get(_util,_cust,_mapping.getVal(CALLABLE_VAR)));
         setAliasSecond(LgNamesContent.get(_util,_cust,_mapping.getVal(SECOND)));
         setAliasAddLi(LgNamesContent.get(_util,_cust,_mapping.getVal(ADD_LI)));
 //        setAliasYield(LgNamesContent.get(_util,_cust,_mapping.getVal(YIELD)));
@@ -2274,6 +2292,7 @@ public final class CustAliases {
         _en.add(CUST_ITERATOR,"CustIterator=$core.CustIterator");
         _en.add(LIST,"List=$core.List");
         _en.add(RUNNABLE,"Runnable=$core.Runnable");
+        _en.add(CALLABLE,"Callable=$core.Callable");
         _en.add(FORMAT_TYPE,"FormatType=$core.Formatting");
         _en.add(CUST_PAIR,"CustPair=$core.PairImpl");
         _en.add(CUST_ITER_TABLE,"CustIterTable=$core.CustIteratorTable");
@@ -2327,6 +2346,7 @@ public final class CustAliases {
         _en.add(THREAD_SET_REMOVE,"ThreadSetRemove=remove");
         _en.add(THREAD_SET_SNAPSHOT,"ThreadSetSnapshot=snapshot");
         _en.add(RUN,"Run=run");
+        _en.add(CALLABLE_METHOD,"CallableMethod=call");
         _en.add(GET_ATOMIC,"GetAtomic=getValue");
         _en.add(SET_ATOMIC,"SetAtomic=setValue");
         _en.add(COMPARE_AND_SET_ATOMIC,"CompareAndSetAtomic=compareAndSet");
@@ -2423,6 +2443,7 @@ public final class CustAliases {
         _en.add(DIFFERENCE_STACK_DIFF,"DifferenceStackDiff=stackDiff");
         _en.add(INDEX,"Index=index");
         _en.add(RUNNABLE_IMPLICIT_0_RUNNER,"RunnableImplicit0Runner=runner");
+        _en.add(CALLABLE_IMPLICIT_0_RUNNER,"CallableImplicit0Runner=runner");
         _en.add(INFO_TEST_COUNT,"InfoTestCount=count");
         _en.add(INFO_TEST_CALLS,"InfoTestCalls=calls");
         _en.add(INFO_TEST_CURRENT_METHOD,"InfoTestCurrentMethod=currentMethod");
@@ -2454,6 +2475,7 @@ public final class CustAliases {
         _en.add(SECOND,"Second=second");
         _en.add(LIST_TA,"ListTa=list");
         _en.add(LIST_VAR,"ListVar=T");
+        _en.add(CALLABLE_VAR,"CallableVar=T");
         _en.add(CUST_ITERATOR_VAR,"CustIteratorVar=T");
         _en.add(TABLE_VAR_FIRST,"TableVarFirst=T");
         _en.add(TABLE_VAR_SECOND,"TableVarSecond=U");
@@ -2487,6 +2509,7 @@ public final class CustAliases {
         _fr.add(CUST_ITERATOR,"CustIterator=$coeur.CustIterateur");
         _fr.add(LIST,"List=$coeur.Liste");
         _fr.add(RUNNABLE,"Runnable=$coeur.Executable");
+        _fr.add(CALLABLE,"Callable=$coeur.Appelable");
         _fr.add(FORMAT_TYPE,"FormatType=$coeur.Formattage");
         _fr.add(CUST_PAIR,"CustPair=$coeur.PaireImpl");
         _fr.add(CUST_ITER_TABLE,"CustIterTable=$coeur.CustIterateurTable");
@@ -2540,6 +2563,7 @@ public final class CustAliases {
         _fr.add(THREAD_SET_REMOVE,"ThreadSetRemove=suppr");
         _fr.add(THREAD_SET_SNAPSHOT,"ThreadSetSnapshot=tab");
         _fr.add(RUN,"Run=executer");
+        _fr.add(CALLABLE_METHOD,"CallableMethod=appeler");
         _fr.add(GET_ATOMIC,"GetAtomic=valeur");
         _fr.add(SET_ATOMIC,"SetAtomic=majValeur");
         _fr.add(COMPARE_AND_SET_ATOMIC,"CompareAndSetAtomic=compareEtMaj");
@@ -2636,6 +2660,7 @@ public final class CustAliases {
         _fr.add(DIFFERENCE_STACK_DIFF,"DifferenceStackDiff=pileDiff");
         _fr.add(INDEX,"Index=indice");
         _fr.add(RUNNABLE_IMPLICIT_0_RUNNER,"RunnableImplicit0Runner=exec");
+        _fr.add(CALLABLE_IMPLICIT_0_RUNNER,"CallableImplicit0Runner=exec");
         _fr.add(INFO_TEST_COUNT,"InfoTestCount=nb");
         _fr.add(INFO_TEST_CALLS,"InfoTestCalls=appels");
         _fr.add(INFO_TEST_CURRENT_METHOD,"InfoTestCurrentMethod=methodCourante");
@@ -2667,6 +2692,7 @@ public final class CustAliases {
         _fr.add(SECOND,"Second=deuxieme");
         _fr.add(LIST_TA,"ListTa=liste");
         _fr.add(LIST_VAR,"ListVar=T");
+        _fr.add(CALLABLE_VAR,"CallableVar=T");
         _fr.add(CUST_ITERATOR_VAR,"CustIteratorVar=T");
         _fr.add(TABLE_VAR_FIRST,"TableVarFirst=T");
         _fr.add(TABLE_VAR_SECOND,"TableVarSecond=U");
@@ -2694,6 +2720,8 @@ public final class CustAliases {
         t_.addEntry(getAliasCustPair(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(PAIR_VAR_FIRST),getAliasPairVarFirst()),
                 new KeyValueMemberName(_mapping.getVal(PAIR_VAR_SECOND),getAliasPairVarSecond())));
+        t_.addEntry(getAliasCallable(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(CALLABLE_VAR),getAliasCallableVar())));
         return t_;
     }
 
@@ -2701,6 +2729,7 @@ public final class CustAliases {
         CustList<KeyValueMemberName> list_ = new CustList<KeyValueMemberName>();
         list_.addAllElts(_content.getPredefTypes().allMergeTableTypeMethodNames(_mapping));
         list_.add(new KeyValueMemberName(_mapping.getVal(RUN),getAliasRun()));
+        list_.add(new KeyValueMemberName(_mapping.getVal(CALLABLE_METHOD),getAliasCallableMethod()));
         return list_;
     }
 
@@ -2718,6 +2747,9 @@ public final class CustAliases {
         ));
         f_.addEntry(getAliasRunnable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(RUNNABLE_IMPLICIT_0_RUNNER),getAliasRunnableImplicit0Runner())
+        ));
+        f_.addEntry(getAliasCallable(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(CALLABLE_IMPLICIT_0_RUNNER),getAliasCallableImplicit0Runner())
         ));
         f_.addEntry(getAliasInfoTest(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(INFO_TEST_COUNT),getAliasInfoTestCount()),
@@ -2825,6 +2857,8 @@ public final class CustAliases {
 //                new KeyValueMemberName(_mapping.getVal(IS_HELD_BY_CURRENT_THREAD),getAliasIsHeldByCurrentThread())));
         m_.addEntry(getAliasRunnable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(RUN),getAliasRun())));
+        m_.addEntry(getAliasCallable(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(CALLABLE_METHOD),getAliasCallableMethod())));
         m_.addEntry(getAliasFormatType(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(PRINT),getAliasPrint())));
         m_.addEntry(getAliasAtomicBoolean(), new CustList<KeyValueMemberName>(
@@ -2999,6 +3033,7 @@ public final class CustAliases {
         ref_.addEntry(_mapping.getVal(CUST_ITERATOR),getAliasCustIterator());
         ref_.addEntry(_mapping.getVal(LIST),getAliasList());
         ref_.addEntry(_mapping.getVal(RUNNABLE),getAliasRunnable());
+        ref_.addEntry(_mapping.getVal(CALLABLE),getAliasCallable());
         ref_.addEntry(_mapping.getVal(FORMAT_TYPE),getAliasFormatType());
         ref_.addEntry(_mapping.getVal(CUST_PAIR),getAliasCustPair());
         ref_.addEntry(_mapping.getVal(CUST_ITER_TABLE),getAliasCustIterTable());
@@ -3042,6 +3077,29 @@ public final class CustAliases {
                 +SPACES_4+SPACES_4+SPACES_4+"}"+LR
                 +SPACES_4+SPACES_4+SPACES_4+pub_+" "+vd_+" "+aliasRun+"(){"+LR
                 +SPACES_4+SPACES_4+SPACES_4+SPACES_4+th_+"."+aliasRunnableImplicit0Runner+"."+_content.getReflect().getAliasCall()+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"};"+LR
+                +SPACES_4+"}"+LR
+                +"}"+LR;
+    }
+
+    public String callableType(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        String th_ = _kw.getKeyWordThis();
+        String fct_ = _content.getReflect().getAliasFct();
+        String fctVd_ = fct_+"<"+aliasCallableVar+">";
+        String parCast_ = custAliasParameters.getAliasCallableImplicit0Implicit0();
+        String parInner_ = custAliasParameters.getAliasCallableImplicit0Implicit1();
+        return pub_+" "+_kw.getKeyWordInterface()+" "+aliasCallable+"<"+aliasCallableVar+">{"+LR
+                +SPACES_4+pub_+" "+_kw.getKeyWordAbstract()+" "+aliasCallableVar+" "+aliasCallableMethod+"();"+LR
+                +SPACES_4+pub_+" "+_kw.getKeyWordStatic()+" "+aliasCallable+"<"+aliasCallableVar+">"+" "+_kw.getKeyWordCast()+"("+fctVd_+ parCast_ +"){"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordReturn()+" "+_kw.getKeyWordNew()+"("+ parCast_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+pub_+" "+fctVd_+" "+aliasCallableImplicit0Runner+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+pub_+"("+fctVd_+ parInner_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+th_+"."+aliasCallableImplicit0Runner+"="+ parInner_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+pub_+" "+aliasCallableVar+" "+aliasCallableMethod+"(){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+_kw.getKeyWordReturn()+" "+th_+"."+aliasCallableImplicit0Runner+"."+_content.getReflect().getAliasCall()+"();"+LR
                 +SPACES_4+SPACES_4+SPACES_4+"}"+LR
                 +SPACES_4+SPACES_4+"};"+LR
                 +SPACES_4+"}"+LR
@@ -3093,6 +3151,14 @@ public final class CustAliases {
 
     public void setAliasRunnable(String _aliasRunnable) {
         aliasRunnable = _aliasRunnable;
+    }
+
+    public String getAliasCallable() {
+        return aliasCallable;
+    }
+
+    public void setAliasCallable(String _v) {
+        this.aliasCallable = _v;
     }
 
     public String getAliasThreadSet() {
@@ -3173,6 +3239,14 @@ public final class CustAliases {
 
     public void setAliasRunnableImplicit0Runner(String _v) {
         this.aliasRunnableImplicit0Runner = _v;
+    }
+
+    public String getAliasCallableImplicit0Runner() {
+        return aliasCallableImplicit0Runner;
+    }
+
+    public void setAliasCallableImplicit0Runner(String _v) {
+        this.aliasCallableImplicit0Runner = _v;
     }
 
     public String getAliasFuture() {
@@ -3299,6 +3373,14 @@ public final class CustAliases {
     }
     public void setAliasRun(String _aliasRun) {
         aliasRun = _aliasRun;
+    }
+
+    public String getAliasCallableMethod() {
+        return aliasCallableMethod;
+    }
+
+    public void setAliasCallableMethod(String _v) {
+        this.aliasCallableMethod = _v;
     }
 
     public String getAliasCurrentThread() {
@@ -4059,6 +4141,14 @@ public final class CustAliases {
 
     public void setAliasListVar(String _aliasListVar) {
         this.aliasListVar = _aliasListVar;
+    }
+
+    public String getAliasCallableVar() {
+        return aliasCallableVar;
+    }
+
+    public void setAliasCallableVar(String _v) {
+        this.aliasCallableVar = _v;
     }
 
     public String getAliasCustPair() {

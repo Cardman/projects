@@ -1,27 +1,23 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.WithoutParentIdStruct;
-import code.expressionlanguage.utilimpl.LgNamesUtils;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.threads.AbstractFuture;
 
-public final class FutureStruct extends WithoutParentIdStruct {
+public final class FutureStruct extends AbsFutureStruct {
     private final AbstractFuture future;
 
     public FutureStruct(AbstractFuture _f) {
         this.future = _f;
     }
 
-    public void attendre() {
+    public Struct attendre() {
         future.attendre();
-    }
-
-    public boolean cancel() {
-        return future.cancel(false);
+        return NullStruct.NULL_VALUE;
     }
 
     @Override
-    public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesUtils)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasFuture();
+    public AbstractFuture getFuture() {
+        return future;
     }
 }

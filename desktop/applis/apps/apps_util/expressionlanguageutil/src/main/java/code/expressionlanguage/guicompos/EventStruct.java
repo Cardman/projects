@@ -14,7 +14,7 @@ import code.util.*;
 public final class EventStruct extends LaunchableStruct implements
         AbsAdvActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
         AbsKeyListener,AbsFocusListener,AbsChangeListener,AbsShortListTree,AbsListSelectionListener,
-        AbsMouseMotionListener, AbsMouseWheelListener, StructCellRender{
+        AbsMouseMotionListener, AbsMouseWheelListener, StructCellRender, StructCallable{
 
     public EventStruct(ContextEl _original, String _className,
                        CustList<ClassFieldStruct> _fields, LambdaStruct _f, ExecNamedFunctionBlock _n) {
@@ -66,6 +66,13 @@ public final class EventStruct extends LaunchableStruct implements
         ContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
         invoke(r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),args_);
+    }
+
+    @Override
+    public Struct call() {
+        ContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>();
+        return invoke(r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getCallableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getCallMethod(),args_);
     }
 
     @Override

@@ -3,7 +3,7 @@ package code.mock;
 import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractFuture;
 
-public final class MockBaseExecutorService implements AbstractBaseExecutorService {
+public class MockBaseExecutorService implements AbstractBaseExecutorService {
     private boolean cancel;
     @Override
     public void execute(Runnable _run) {
@@ -13,6 +13,10 @@ public final class MockBaseExecutorService implements AbstractBaseExecutorServic
     @Override
     public void shutdown() {
         cancel = true;
+    }
+
+    public boolean isCancel() {
+        return cancel;
     }
 
     @Override

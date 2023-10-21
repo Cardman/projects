@@ -7,13 +7,13 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.expressionlanguage.utilcompo.ExecutorServiceStruct;
-import code.threads.AbstractThreadFactory;
 
 public final class FctExecutorService0 implements StdCaller {
-    private final AbstractThreadFactory executorService;
+    private final AbstractInterceptor executorService;
 
-    public FctExecutorService0(AbstractThreadFactory _e) {
+    public FctExecutorService0(AbstractInterceptor _e) {
         this.executorService = _e;
     }
 
