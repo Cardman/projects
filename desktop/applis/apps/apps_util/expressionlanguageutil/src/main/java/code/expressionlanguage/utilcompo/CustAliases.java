@@ -1958,21 +1958,9 @@ public final class CustAliases {
         map_.put(wrap(PARAM_161),custAliasParameters.getAliasExecute1ExecuteSetupError2());
         map_.put(METHOD_RUN,aliasRun);
         map_.put(KW_THIS, this_);
-        content_ = StringUtil.formatQuote(content_, map_);
-
+        content_ = StringUtil.formatQuote(content_, map_)+diff(_keyWords, _content)+eltDiff(_keyWords, _content);
         stds_.put(aliasExecute, content_);
-        content_ = properties_.getVal(RESOURCES_LG_THREADS_FORMATTING_TXT);
-        map_.put(TYPE_FORMAT,aliasFormatType);
-        map_.put(TYPE_INT, int_);
-        map_.put(wrap(PARAM_162), custAliasParameters.getAliasFormatType0Print0());
-        map_.put(wrap(PARAM_163), custAliasParameters.getAliasFormatType1Print0());
-        map_.put(wrap(PARAM_164), custAliasParameters.getAliasFormatType1Print1());
-        placeHolder(map_, PARAM_150, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasFormatType1Print0(),custAliasParameters.getAliasFormatType1Print1());
-        placeHolder(map_, PARAM_121, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasFormatType1Print0(),custAliasParameters.getAliasFormatType1Print1());
-        map_.put(METHOD_PRINT,getAliasPrint());
-        map_.put(METHOD_FORMAT,charSeq_.getAliasFormat());
-        content_ = StringUtil.formatQuote(content_, map_);
-        stds_.put(aliasFormatType, content_);
+        stds_.put(aliasFormatType, formatter(_keyWords, _content));
         return stds_;
     }
 
@@ -3104,6 +3092,109 @@ public final class CustAliases {
                 +SPACES_4+SPACES_4+"};"+LR
                 +SPACES_4+"}"+LR
                 +"}"+LR;
+    }
+    public String formatter(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        String abs_ = _kw.getKeyWordAbstract();
+        String fin_ = _kw.getKeyWordFinal();
+        String cl_ = _kw.getKeyWordClass();
+        String obj_ = _content.getCoreNames().getAliasObject();
+        String str_ = _content.getCharSeq().getAliasString();
+        String strUt_ = _content.getCoreNames().getAliasStringUtil();
+        String strUtVal_ = _content.getCoreNames().getAliasStringUtilValueOf();
+        String st_ = _kw.getKeyWordStatic();
+        String vd_ = _content.getCoreNames().getAliasVoid();
+        String prOne_ = custAliasParameters.getAliasFormatType0Print0();
+        String prTwoStr_ = custAliasParameters.getAliasFormatType1Print0();
+        String prTwoArr_ = custAliasParameters.getAliasFormatType1Print1();
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore co_ = _content.getCoreNames();
+        String as_ = tr( "as", _kw, pr_, co_,
+                prTwoStr_,
+                prTwoArr_);
+        String e_ = tr( "e", _kw, pr_, co_,
+                prTwoStr_,
+                prTwoArr_);
+        return pub_ +" "+ abs_ +" "+ fin_ +" "+ cl_ +" "+aliasFormatType+" {"+LR
+                +SPACES_4+ pub_ +" "+ st_ +" "+ vd_ +" "+aliasPrint+"("+obj_+" "+prOne_+"){"+LR
+                +SPACES_4+SPACES_4+ st_ +"("+aliasThread+")."+aliasPrint+"("+ st_ +"("+strUt_+")."+strUtVal_+"("+prOne_+"));"+LR
+                +SPACES_4+"}"+LR
+                +SPACES_4+ pub_ +" "+ st_ +" "+ vd_ +" "+aliasPrint+"("+str_+" "+prTwoStr_+","+obj_+"... "+prTwoArr_+"){"+LR
+                +SPACES_4+SPACES_4+str_+"[] "+ as_ +" = "+_kw.getKeyWordNew()+" "+str_+"["+prTwoArr_+"."+_content.getCoreNames().getAliasArrayLength()+"];"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordFor()+"("+_kw.getKeyWordVar()+" "+ e_ +":"+prTwoArr_+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ as_ +"[(["+ e_ +"])] = "+ st_ +"("+strUt_+")."+strUtVal_+"("+ e_ +");"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ st_ +"("+aliasThread+")."+aliasPrint+"("+prTwoStr_+"."+_content.getCharSeq().getAliasFormat()+"("+ as_ +"));"+LR
+                +SPACES_4+"}"+LR
+                +"}";
+    }
+    public String diff(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore co_ = _content.getCoreNames();
+        String out_ = tr("out", _kw, pr_, co_);
+        String s_ = tr("s", _kw, pr_, co_);
+        String obj_ = co_.getAliasObject();
+        String strUt_ = co_.getAliasStringUtil();
+        String strUtVal_ = co_.getAliasStringUtilValueOf();
+        String bool_ = primTypes_.getAliasPrimBoolean();
+        String strBuildConv_ = _content.getCharSeq().getAliasCharSequenceToString();
+        String th_ = _kw.getKeyWordThis();
+        String v_ = _kw.getKeyWordVar();
+        String st_ = _kw.getKeyWordStatic();
+        String i_ = _kw.getKeyWordIf();
+        String ins_ = _content.getCharSeq().getAliasInsert();
+        String ret_ = _kw.getKeyWordReturn();
+        String lrInterp_ = "\"\\"+_kw.getKeyWordEscLine()+"\"";
+        return pub_ +" "+_kw.getKeyWordClass()+" "+aliasDifference+"{"+LR
+                +SPACES_4+ pub_ +" "+ obj_ +" "+aliasDifferenceExpected+";"+LR
+                +SPACES_4+ pub_ +" "+ obj_ +" "+aliasDifferenceFound+";"+LR
+                +SPACES_4+ pub_ +" "+ bool_ +" "+aliasDifferenceFoundNull+";"+LR
+                +SPACES_4+ pub_ +" "+ bool_ +" "+aliasDifferenceFoundNotTrue+";"+LR
+                +SPACES_4+ pub_ +" "+_content.getStackElt().getAliasStackTraceElement()+"[] "+aliasDifferenceStackDiff+";"+LR
+                +SPACES_4+ pub_ +" "+_content.getCharSeq().getAliasString()+" "+_kw.getKeyWordToString()+"(){"+LR
+                +SPACES_4+SPACES_4+v_+" "+ out_ +"="+_kw.getKeyWordNew()+" "+_content.getCharSeq().getAliasStringBuilder()+"();"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordFor()+" ("+ v_ +" "+ s_ +": "+ th_ +"."+aliasDifferenceStackDiff+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ out_ +"."+_content.getCharSeq().getAliasAppend()+"("+ st_ +"("+ strUt_ +")."+ strUtVal_ +"("+ s_ +"));"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ i_ +" ("+ th_ +"."+aliasDifferenceFoundNotTrue+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ out_ +"."+ ins_ +"("+"0"+","+ lrInterp_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ out_ +"."+ ins_ +"("+"0"+","+ st_ +"("+ strUt_ +")."+ strUtVal_ +"("+ th_ +"."+aliasDifferenceFound+"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ret_ +" "+ out_ +"."+ strBuildConv_ +"();"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ i_ +" ("+ th_ +"."+aliasDifferenceFoundNull+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ out_ +"."+ ins_ +"("+"0"+","+ lrInterp_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ out_ +"."+ ins_ +"("+"0"+","+ st_ +"("+ strUt_ +")."+ strUtVal_ +"("+_kw.getKeyWordNull()+"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ret_ +" "+ out_ +"."+ strBuildConv_ +"();"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ out_ +"."+ ins_ +"("+"0"+","+ lrInterp_ +");"+LR
+                +SPACES_4+SPACES_4+ out_ +"."+ ins_ +"("+"0"+","+ st_ +"("+ strUt_ +")."+ strUtVal_ +"("+ th_ +"."+aliasDifferenceFound+"));"+LR
+                +SPACES_4+SPACES_4+ out_ +"."+ ins_ +"("+"0"+",\"!=\");"+LR
+                +SPACES_4+SPACES_4+ out_ +"."+ ins_ +"("+"0"+","+ st_ +"("+ strUt_ +")."+ strUtVal_ +"("+ th_ +"."+aliasDifferenceExpected+"));"+LR
+                +SPACES_4+SPACES_4+ ret_ +" "+ out_ +"."+ strBuildConv_ +"();"+LR
+                +SPACES_4+"}"+LR
+                +"}";
+    }
+    public String eltDiff(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore co_ = _content.getCoreNames();
+        String out_ =  tr("out", _kw, pr_, co_);
+        String append_ = _content.getCharSeq().getAliasAppend();
+        String toStr_ = _kw.getKeyWordToString();
+        return pub_ +" "+_kw.getKeyWordClass()+" "+aliasEltDifference+":"+aliasDifference+"{"+LR
+                +SPACES_4+ pub_ +" "+_content.getPrimTypes().getAliasPrimInteger()+" "+ aliasIndex +";"+LR
+                +SPACES_4+ pub_ +" "+_content.getCharSeq().getAliasString()+" "+ toStr_ +"(){"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordVar()+" "+ out_ +"="+_kw.getKeyWordNew()+" "+_content.getCharSeq().getAliasStringBuilder()+"();"+LR
+                +SPACES_4+SPACES_4+ out_ +"."+ append_ +"("+ aliasIndex +");"+LR
+                +SPACES_4+SPACES_4+ out_ +"."+ append_ +"(\":\");"+LR
+                +SPACES_4+SPACES_4+ out_ +"."+ append_ +"("+_kw.getKeyWordSuper()+"."+ toStr_ +"());"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordReturn()+" "+ out_ +"."+_content.getCharSeq().getAliasCharSequenceToString()+"();"+LR
+                +SPACES_4+"}"+LR
+                +"}";
     }
     public static String getStandarString(ContextEl _cont, Struct _struct) {
         if (_struct instanceof DisplayableStruct) {
