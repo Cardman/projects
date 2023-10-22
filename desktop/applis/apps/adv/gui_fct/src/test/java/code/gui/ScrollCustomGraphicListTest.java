@@ -1,9 +1,12 @@
 package code.gui;
 
 import code.gui.events.MockProgramInfosSecSample;
+import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
+import code.gui.initialize.AbsCompoFactory;
 import code.mock.*;
+import code.util.CustList;
 import code.util.Ints;
 import org.junit.Test;
 
@@ -2038,7 +2041,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     @Test
     public void t130() {
         MockProgramInfosSecSample pr_ = init();
-        ScrollCustomGraphicList<String> gene_ = GuiBaseUtil.standard(pr_.getCompoFactory(),pr_.getImageFactory(),true);
+        ScrollCustomGraphicList<String> gene_ = standard(pr_.getCompoFactory(),pr_.getImageFactory(),true);
         gene_.getElements().setFont(new MetaFont("",0,8));
         gene_.add("ONE");
         gene_.add("TWO");
@@ -2048,7 +2051,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     @Test
     public void t131() {
         MockProgramInfosSecSample pr_ = init();
-        ScrollCustomGraphicList<String> gene_ = GuiBaseUtil.standard(pr_.getCompoFactory(),pr_.getImageFactory(),false);
+        ScrollCustomGraphicList<String> gene_ = standard(pr_.getCompoFactory(),pr_.getImageFactory(),false);
         gene_.getElements().setFont(new MetaFont("",0,8));
         gene_.add("ONE");
         gene_.add("TWO");
@@ -2058,7 +2061,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     @Test
     public void t132() {
         MockProgramInfosSecSample pr_ = init();
-        ScrollCustomGraphicList<String> gene_ = GuiBaseUtil.standard(pr_.getCompoFactory(),pr_.getImageFactory(),false);
+        ScrollCustomGraphicList<String> gene_ = standard(pr_.getCompoFactory(),pr_.getImageFactory(),false);
         gene_.getElements().setFont(new MetaFont("",0,8));
         gene_.add("ONE");
         gene_.select(0);
@@ -2069,7 +2072,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     @Test
     public void t133() {
         MockProgramInfosSecSample pr_ = init();
-        ScrollCustomGraphicList<String> gene_ = GuiBaseUtil.standard(pr_.getCompoFactory(),pr_.getImageFactory(),false);
+        ScrollCustomGraphicList<String> gene_ = standard(pr_.getCompoFactory(),pr_.getImageFactory(),false);
         gene_.getElements().setFont(new MetaFont("",0,8));
         gene_.add("ONE");
         gene_.select(0);
@@ -2080,7 +2083,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     @Test
     public void t134() {
         MockProgramInfosSecSample pr_ = init();
-        ScrollCustomGraphicList<String> gene_ = GuiBaseUtil.standard(pr_.getCompoFactory(),pr_.getImageFactory(),false);
+        ScrollCustomGraphicList<String> gene_ = standard(pr_.getCompoFactory(),pr_.getImageFactory(),false);
         gene_.getElements().setFont(new MetaFont("",0,8));
         gene_.add("ONE");
         ((MockCustComponent)gene_.getElements()).setFocused(true);
@@ -2090,7 +2093,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
     @Test
     public void t135() {
         MockProgramInfosSecSample pr_ = init();
-        ScrollCustomGraphicList<String> gene_ = GuiBaseUtil.standard(pr_.getCompoFactory(),pr_.getImageFactory(),false);
+        ScrollCustomGraphicList<String> gene_ = standard(pr_.getCompoFactory(),pr_.getImageFactory(),false);
         gene_.getElements().setFont(new MetaFont("",0,8));
         gene_.add("ONE");
         ((MockCustComponent)gene_.getElements()).setFocused(false);
@@ -3250,6 +3253,12 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         assertEq(2,gene_.getAnchor().getIndex());
         assertEq(2,gene_.getFocused().getIndex());
     }
+    @Test
+    public void t194() {
+        MockProgramInfosSecSample pr_ = init();
+        ScrollCustomGraphicList<String> gene_ = GuiBaseUtil.standard(pr_.getCompoFactory(),pr_.getImageFactory(),false, new CustList<String>("ONE","TWO"),Ints.newList(1),8);
+        assertEq(1,gene_.getFocused().getIndex());
+    }
     private void action(ScrollCustomGraphicList<String> _gene, int _a, int _b) {
         ((MockAbstractAction)GuiBaseUtil.getAction(_gene.getElements(),_a,_b)).action();
     }
@@ -3284,4 +3293,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         _gene.getElements().getComponent(_i).setLocation(0, _y);
     }
 
+    public static ScrollCustomGraphicList<String> standard(AbsCompoFactory _compo, AbstractImageFactory _img, boolean _simple) {
+        return GuiBaseUtil.standard(_compo, _img, _simple, new CustList<String>(), Ints.newList(), 8);
+    }
 }

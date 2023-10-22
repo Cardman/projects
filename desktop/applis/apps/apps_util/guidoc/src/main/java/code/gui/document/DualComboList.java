@@ -21,14 +21,7 @@ public final class DualComboList extends DualInput implements IntComboList {
     }
 
     private static ScrollCustomGraphicList<String> combo(RenderedPage _page, MetaComboList _component) {
-        ScrollCustomGraphicList<String> std_ = GuiBaseUtil.standard(_page.getGene().getCompoFactory(), _page.getGene().getImageFactory(), false);
-        for (String s: _component.getChoicesStrings()) {
-            std_.add(s);
-        }
-        std_.select(_component.getSelected());
-        std_.setVisibleRowCount(_component.getVisible());
-        std_.applyRows();
-        return std_;
+        return GuiBaseUtil.standard(_page.getGene().getCompoFactory(), _page.getGene().getImageFactory(), false, _component.getChoicesStrings(), _component.getSelected(), _component.getVisible());
     }
     @Override
     public AbsCustComponent getGraphic() {

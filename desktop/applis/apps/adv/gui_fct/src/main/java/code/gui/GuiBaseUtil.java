@@ -14,6 +14,7 @@ import code.threads.AbstractDate;
 import code.threads.AbstractDateFactory;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.NaturalComparator;
@@ -313,6 +314,21 @@ public final class GuiBaseUtil {
     public static void initStringMapInt(AbsCommonFrame _c,CrudGeneForm<String,Integer> _f, StringMap<Integer> _m, StringList _aDictionary, AfterValidateText _after) {
         _f.initForm(_c,new StringIntDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),new GeneComponentModelInt(_f.getFactory()),new NaturalComparator(),_m);
     }
+
+    public static ScrollCustomGraphicList<String> standard(AbsCompoFactory _compo, AbstractImageFactory _img, boolean _simple, CustList<String> _elts, Ints _selected, int _rows) {
+        CustCellRenderString rend_ = new CustCellRenderString(_compo, _img);
+        ScrollCustomGraphicList<String> std_ = new DefScrollCustomGraphicList<String>(_compo, _img, rend_, _simple);
+        for (String s: _elts) {
+            std_.add(s);
+        }
+        std_.select(_selected);
+        int m_ = std_.getElements().getPreferredSizeValue().getWidth();
+        rend_.setMaxWidth(m_);
+        std_.setVisibleRowCount(_rows);
+        std_.applyRows();
+        std_.forceRefresh();
+        return std_;
+    }
     public static ScrollCustomGraphicList<String> standard(AbsCompoFactory _compo, AbstractImageFactory _img, boolean _simple) {
         return new DefScrollCustomGraphicList<String>(_compo,_img,new CustCellRenderString(_compo, _img),_simple);
     }
@@ -323,6 +339,7 @@ public final class GuiBaseUtil {
             scr_.add(s);
         }
         scr_.select(_index);
+        scr_.repaint();
         return scr_;
     }
     public static MetaDimension dimension(AbsPanel _curr, int _prefWidth, int _visible) {
