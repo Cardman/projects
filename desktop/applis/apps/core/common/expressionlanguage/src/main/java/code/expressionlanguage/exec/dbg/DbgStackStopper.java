@@ -880,32 +880,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             return true;
         }
         ExecBlock bl_ = _p.getBlock();
-        if (bl_ instanceof ExecDeclareVariable || _p.isEmptyEl()) {
-            return false;
-        }
-        if (bl_ instanceof ExecLine || bl_ instanceof ExecAbstractReturnMethod || bl_ instanceof MethodCallingFinally || bl_ instanceof ExecThrowing || bl_ instanceof ExecDoWhileCondition) {
-            return true;
-        }
-        AbstractStask st_ = _p.tryGetLastStack();
-        if (st_ instanceof TryBlockStack && bl_ instanceof ExecAbstractCatchEval) {
-            return true;
-        }
-        if (st_ instanceof EnteredStack) {
-            return !((EnteredStack) st_).isEntered();
-        }
-        if (st_ instanceof LoopBlockStack) {
-            if (simpleLoop(_p, bl_)) {
-                return true;
-            }
-            return !((LoopBlockStack) st_).getContent().isFinished();
-        }
-        if (st_ instanceof SwitchBlockStack) {
-            if (!((SwitchBlockStack) st_).getInfos().getChildren().containsObj(bl_)) {
-                return true;
-            }
-            return !((SwitchBlockStack) st_).isEntered();
-        }
-        return true;
+        return !(bl_ instanceof ExecDeclareVariable) && !_p.isEmptyEl();
     }
 
     private static boolean simpleLoop(AbstractPageEl _p, ExecBlock _bl) {

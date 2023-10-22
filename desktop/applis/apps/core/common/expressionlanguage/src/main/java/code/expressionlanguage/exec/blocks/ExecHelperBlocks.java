@@ -108,13 +108,13 @@ public final class ExecHelperBlocks {
             _stack.nullReadWrite();
             return;
         }
-        ip_.globalOffset(_block.getOff());
-        if (checkBp(_stack,ip_,_block)) {
-            return;
-        }
         if (((SwitchBlockStack) abstractStask_).isEntered()) {
             ip_.setBlock(_block.getFirstChild());
             ((SwitchBlockStack) abstractStask_).setCurrentVisitedBlock(_block);
+            return;
+        }
+        ip_.globalOffset(_block.getOff());
+        if (checkBp(_stack,ip_,_block)) {
             return;
         }
         ExecBlock ch_ = _block.getFirstChild();
@@ -184,7 +184,7 @@ public final class ExecHelperBlocks {
             _stackCall.nullReadWrite();
             return;
         }
-        if (checkBp(_stackCall,ip_,_block)) {
+        if (!((EnteredStack)ts_).isEntered()&&checkBp(_stackCall,ip_,_block)) {
             return;
         }
         ((EnteredStack)ts_).setCurrentVisitedBlock(_block);
@@ -342,7 +342,7 @@ public final class ExecHelperBlocks {
         AbstractPageEl ip_ = _stack.getLastPage();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible(_loop);
         if (c_ != null) {
-            if (!c_.getContent().isEvaluatingKeepLoop() && checkBp(_stack,ip_, _loop)) {
+            if (!c_.getContent().isEvaluatingKeepLoop() && !c_.getContent().isFinished() && checkBp(_stack,ip_, _loop)) {
                 return;
             }
             processVisitedLoop(c_, _loop, _loop.getNextSibling(), _cont, _stack, ip_);
