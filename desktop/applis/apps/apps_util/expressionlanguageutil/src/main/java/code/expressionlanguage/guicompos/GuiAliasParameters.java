@@ -1799,8 +1799,8 @@ public final class GuiAliasParameters {
         _en.add(CELL_RENDER_0_GENERATE_4,"CellRender0Generate4=e");
         _en.add(CELL_RENDER_0_GENERATE_5,"CellRender0Generate5=f");
         _en.add(CELL_RENDER_0_GENERATE_6,"CellRender0Generate6=g");
-        _en.add(CELL_RENDER_0_GENERATE_0_0,"CellRender0Generate00=a0");
-        _en.add(CELL_RENDER_0_GENERATE_0_1,"CellRender0Generate01=b0");
+        _en.add(CELL_RENDER_0_GENERATE_0_0,"CellRender0Generate00=a");
+        _en.add(CELL_RENDER_0_GENERATE_0_1,"CellRender0Generate01=b");
     }
     public static void fr(TranslationsFile _fr){
         _fr.add(ACTION_LISTENER_0_ACTION_PERFORMED_0,"ActionListener0ActionPerformed0=a");
@@ -2248,8 +2248,8 @@ public final class GuiAliasParameters {
         _fr.add(CELL_RENDER_0_GENERATE_4,"CellRender0Generate4=e");
         _fr.add(CELL_RENDER_0_GENERATE_5,"CellRender0Generate5=f");
         _fr.add(CELL_RENDER_0_GENERATE_6,"CellRender0Generate6=g");
-        _fr.add(CELL_RENDER_0_GENERATE_0_0,"CellRender0Generate00=a0");
-        _fr.add(CELL_RENDER_0_GENERATE_0_1,"CellRender0Generate01=b0");
+        _fr.add(CELL_RENDER_0_GENERATE_0_0,"CellRender0Generate00=a");
+        _fr.add(CELL_RENDER_0_GENERATE_0_1,"CellRender0Generate01=b");
     }
     public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(StringMap<String> _mapping) {
         CustList<CustList<KeyValueMemberName>> m_ = new CustList<CustList<KeyValueMemberName>>();

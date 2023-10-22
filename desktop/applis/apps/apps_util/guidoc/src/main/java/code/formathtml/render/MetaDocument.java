@@ -473,7 +473,7 @@ public final class MetaDocument {
             input_.setStyle(_styleLoc);
             currentParent.appendChild(input_);
         } else {
-            int selected_ = 0;
+            int selected_ = -1;
             Ints selInd_ = new Ints();
             StringList values_ = new StringList();
             StringList strings_ = new StringList();
