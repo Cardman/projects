@@ -46,7 +46,6 @@ public final class ExecHelperBlocks {
             }
             if (bl_ instanceof SwitchBlockStack) {
                 ExecBlock forLoopLoc_ = ((SwitchBlockStack)bl_).getBlock();
-                ((SwitchBlockStack) bl_).enter();
                 _ip.setBlock(forLoopLoc_);
                 return null;
             }
@@ -60,11 +59,9 @@ public final class ExecHelperBlocks {
             }
             if (bl_ instanceof IfBlockStack) {
                 ExecBlock forLoopLoc_ = ((IfBlockStack)bl_).getLastBlock();
-                ((IfBlockStack)bl_).setEntered(true);
                 _ip.setBlock(forLoopLoc_);
             }
             if (bl_ instanceof TryBlockStack) {
-                enter((TryBlockStack) bl_, bl_.getCurrentVisitedBlock());
                 _ip.setBlock(((TryBlockStack)bl_).getBlock());
             }
             if (bl_ instanceof SwitchBlockStack) {
@@ -75,12 +72,6 @@ public final class ExecHelperBlocks {
             return null;
         }
         return bl_;
-    }
-
-    private static void enter(TryBlockStack _bl, ExecBracedBlock _v) {
-        if (_v instanceof ExecElseCondition) {
-            _bl.setEntered(true);
-        }
     }
 
     public static AbstractStask hasBlockContinue(StackCall _stackCall, AbstractPageEl _ip, String _label) {
@@ -161,7 +152,7 @@ public final class ExecHelperBlocks {
     }
 
     private static void entered(ContextEl _cont, StackCall _stack, ExecBracedBlock _block, SwitchBlockStack _abs, ExecResultCase _res, ExecBlock _c) {
-//        _abs.enter();
+        _abs.enter();
         AbstractPageEl ip_ = _stack.getLastPage();
         coverSw(_cont, _stack, _abs, _res);
         ip_.setBlock(_c);
@@ -192,11 +183,12 @@ public final class ExecHelperBlocks {
             processBlockAndRemove(_block, _stackCall);
             return;
         }
-        enterIfBlock(_block, ip_);
+        enterIfBlock(_block, ip_, (EnteredStack)ts_);
     }
 
-    private static void enterIfBlock(ExecBracedBlock _block, AbstractPageEl _ip) {
+    private static void enterIfBlock(ExecBracedBlock _block, AbstractPageEl _ip, EnteredStack _e) {
         _ip.setBlock(_block.getFirstChild());
+        _e.setEntered(true);
     }
 
     public static void processIf(ContextEl _cont, String _label, ExecCondition _cond, StackCall _stackCall, ExecOperationNodeListOff _condition) {
@@ -220,7 +212,7 @@ public final class ExecHelperBlocks {
         if_.setCurrentVisitedBlock(_cond);
         ip_.addBlock(if_);
         if (assert_ == ConditionReturn.YES) {
-            enterIfBlock(_cond, ip_);
+            enterIfBlock(_cond, ip_, if_);
         } else {
             ExecBlock next_ = _cond.getNextSibling();
             if (isNextIfParts(next_)) {
@@ -242,7 +234,7 @@ public final class ExecHelperBlocks {
                 return;
             }
             if (assert_ == ConditionReturn.YES) {
-                enterIfBlock(_cond, ip_);
+                enterIfBlock(_cond, ip_, (EnteredStack)if_);
                 return;
             }
         }
@@ -1066,7 +1058,7 @@ public final class ExecHelperBlocks {
         if_.setLabel("");
         if_.setCurrentVisitedBlock(_bl);
         ip_.addBlock(if_);
-        enterIfBlock(_bl,ip_);
+        enterIfBlock(_bl,ip_,if_);
     }
 
     public static boolean checkBp(StackCall _stack,AbstractPageEl _ip, ExecBlock _bl) {
@@ -1157,15 +1149,12 @@ public final class ExecHelperBlocks {
                 ((LoopBlockStack) lastStack_).getContent().setEvaluatingKeepLoop(true);
             }
             if (lastStack_ instanceof IfBlockStack) {
-                ((IfBlockStack) lastStack_).setEntered(true);
                 nextIfStack(ip_, par_, (IfBlockStack) lastStack_);
             }
             if (lastStack_ instanceof TryBlockStack) {
-                enter((TryBlockStack)lastStack_, par_);
                 nextTryStack(_stackCall, ip_, par_, (TryBlockStack) lastStack_);
             }
             if (lastStack_ instanceof SwitchBlockStack) {
-                ((SwitchBlockStack) lastStack_).enter();
                 nextSwitchBlock(ip_, par_, (SwitchBlockStack) lastStack_);
             }
             return;
