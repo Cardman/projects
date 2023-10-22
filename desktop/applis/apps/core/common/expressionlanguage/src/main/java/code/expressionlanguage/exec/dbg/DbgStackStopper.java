@@ -879,7 +879,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         if (enterExit(_context, _stackCall)) {
             return true;
         }
-        return !(_p.getBlock() instanceof ExecDeclareVariable) && !_p.isEmptyEl();
+        return !_p.isEmptyEl();
     }
 
     private static boolean simpleLoop(AbstractPageEl _p, ExecBlock _bl) {

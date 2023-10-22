@@ -1421,6 +1421,38 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
     }
+
+    @Test
+    public void test101() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){Fct<int>f=((:)->0);f.call();return exmeth2();}public static int exmeth2(){return 1;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        exiting(cont_,"pkg/Ex",59);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(3, stack_.nbPages());
+        assertEq(64,now(stack_));
+        assertEq(69,stack_.getCall(0).getTraceIndex());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
+
+    @Test
+    public void test102() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){Fct<int,int>f=(a->a);f.call(1);return exmeth2();}public static int exmeth2(){return 1;}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        exiting(cont_,"pkg/Ex",63);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(3, stack_.nbPages());
+        assertEq(66,now(stack_));
+        assertEq(71,stack_.getCall(0).getTraceIndex());
+        assertEq(0,dbgContinueNormal(stack_,cont_.getContext()).nbPages());
+    }
     @Test
     public void test() {
         StringBuilder xml_ = new StringBuilder();
