@@ -175,12 +175,12 @@ public final class ExecHelperBlocks {
             _stackCall.nullReadWrite();
             return;
         }
-        if (!((EnteredStack)ts_).isEntered()&&checkBp(_stackCall,ip_,_block)) {
-            return;
-        }
         ((EnteredStack)ts_).setCurrentVisitedBlock(_block);
         if (((EnteredStack)ts_).isEntered()) {
             processBlockAndRemove(_block, _stackCall);
+            return;
+        }
+        if (checkBp(_stackCall,ip_,_block)) {
             return;
         }
         enterIfBlock(_block, ip_, (EnteredStack)ts_);
