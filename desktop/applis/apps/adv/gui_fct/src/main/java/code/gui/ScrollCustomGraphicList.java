@@ -542,7 +542,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
         updateAnchor(prev_, ind_+ _down);
         updateFocus(prev_, ind_+ _down);
         select(prev_,true,focused.getIndex());
-        scrollPage(_down, scrollPane.viewRect(), focused);
+        scrollPage(_down, focused);
         events();
     }
 
@@ -566,7 +566,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
         int ni_ = ind_+ _down;
         selectRange(next_, ni_, anchor.getRow(), true);
         updateFocus(next_, ind_+ _down);
-        scrollPage(_down, scrollPane.viewRect(), focused);
+        scrollPage(_down, focused);
         events();
     }
 
@@ -617,29 +617,39 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
         possibleUpdate();
         selectRange(next_.getRow(), ind_, anchor.getRow(), true);
         updateFocus(next_.getRow(), ind_);
-        scrollPage(_down, scrollPane.viewRect(), focused);
+        scrollPage(_down, focused);
         events();
     }
 
 
-    private void scrollPage(int _down, MetaRect _rect, RowGraphicListIndex<T> _f) {
+    public void scrollPage(int _down) {
+        scrollPage(_down, focused);
+    }
+    private void scrollPage(int _down, RowGraphicListIndex<T> _f) {
         if (_down > 0) {
-            scrollPageDown(_f.getRow(), _rect);
+            scrollPageDown(_f.getRow());
         } else {
-            scrollPageUp(_f.getRow(), _rect);
+            scrollPageUp(_f.getRow());
         }
     }
-    private void scrollPageDown(RowGraphicList<T> _dest, MetaRect _rect) {
+    private void scrollPageDown(RowGraphicList<T> _dest) {
+        if (_dest == null) {
+            return;
+        }
+        MetaRect rect_ = scrollPane.viewRect();
         int bot_ = _dest.getLabel().getYcoords()+ _dest.getLabel().getHeight();
-        int sc_ = _rect.getHeight() + _rect.getPoint().getYcoord();
+        int sc_ = rect_.getHeight() + rect_.getPoint().getYcoord();
         if (bot_ >= sc_) {
             scrollPane.setVerticalValue(scrollPane.getVerticalValue()+bot_-sc_);
         }
     }
 
-    private void scrollPageUp(RowGraphicList<T> _prev, MetaRect _rect) {
+    private void scrollPageUp(RowGraphicList<T> _prev) {
+        if (_prev == null) {
+            return;
+        }
         int top_ = _prev.getLabel().getYcoords();
-        int sc_ = _rect.getPoint().getYcoord();
+        int sc_ = scrollPane.viewRect().getPoint().getYcoord();
         if (top_ <= sc_) {
             scrollPane.setVerticalValue(scrollPane.getVerticalValue()+top_-sc_);
         }
@@ -686,7 +696,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
         possibleUpdate();
         selectRange(next_.getRow(), ind_, anchor.getRow(), true);
         updateFocus(b_, ind_);
-        scrollPage(_down, scrollPane.viewRect(), focused);
+        scrollPage(_down, focused);
         events();
     }
     public void addToSelection() {
@@ -718,7 +728,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
         events();
     }
 
-    private void events() {
+    public void events() {
         fireEvents();
         repaint();
     }
@@ -775,7 +785,6 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
     }
 
     public void movePage(int _down) {
-        MetaRect rect_ = scrollPane.viewRect();
         RowGraphicListIndex<T> prev_ = nextIndex(_down, this.focused);
         if (prev_.getRow() == null || prev_.getRow() == focused.getRow()) {
             return;
@@ -783,7 +792,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
         deselectAll();
         focus(prev_);
         select(prev_.getRow(),true,prev_.getIndex());
-        scrollPage(_down, rect_, focused);
+        scrollPage(_down, focused);
         events();
     }
 
@@ -803,7 +812,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
         }
         int ind_ = this.focused.getIndex();
         updateFocus(prev_, ind_+ _down);
-        scrollPage(_down, scrollPane.viewRect(), focused);
+        scrollPage(_down, focused);
         events();
     }
 
@@ -823,7 +832,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
         }
         int ind_ = this.anchor.getIndex();
         updateAnchor(prev_, ind_+ _down);
-        scrollPage(_down, scrollPane.viewRect(), anchor);
+        scrollPage(_down, anchor);
         events();
     }
 
@@ -832,13 +841,12 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
             movePage(_down);
             return;
         }
-        MetaRect rect_ = scrollPane.viewRect();
         RowGraphicListIndex<T> prev_ = nextIndex(_down, this.focused);
         if (prev_.getRow() == null || prev_.getRow() == focused.getRow()) {
             return;
         }
         focus(prev_);
-        scrollPage(_down, rect_, focused);
+        scrollPage(_down, focused);
         events();
     }
 
@@ -847,13 +855,12 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
             movePage(_down);
             return;
         }
-        MetaRect rect_ = scrollPane.viewRect();
         RowGraphicListIndex<T> prev_ = nextIndex(_down, this.anchor);
         if (prev_.getRow() == null || prev_.getRow() == anchor.getRow()) {
             return;
         }
         anchor(prev_);
-        scrollPage(_down, rect_, anchor);
+        scrollPage(_down, anchor);
         events();
     }
 

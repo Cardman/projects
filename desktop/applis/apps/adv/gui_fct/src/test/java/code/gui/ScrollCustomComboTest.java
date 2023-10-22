@@ -282,7 +282,32 @@ public final class ScrollCustomComboTest extends EquallableGuiFctUtil {
         assertFalse(gene_.getList().getRow(2).isSelected());
         assertEq(1,gene_.getList().getFocused().getIndex());
     }
-
+    @Test
+    public void t30() {
+        ScrollCustomCombo gene_ = gene();
+        gene_.add("ONE");
+        gene_.add("TWO");
+        gene_.add("THREE");
+        gene_.select(-1);
+        action(gene_,GuiConstants.VK_DOWN);
+        assertTrue(gene_.getList().getRow(0).isSelected());
+        assertFalse(gene_.getList().getRow(1).isSelected());
+        assertFalse(gene_.getList().getRow(2).isSelected());
+        assertEq(0,gene_.getList().getFocused().getIndex());
+    }
+    @Test
+    public void t31() {
+        ScrollCustomCombo gene_ = gene();
+        gene_.add("ONE");
+        gene_.add("TWO");
+        gene_.add("THREE");
+        gene_.select(-1);
+        action(gene_,GuiConstants.VK_PAGE_DOWN);
+        assertFalse(gene_.getList().getRow(0).isSelected());
+        assertFalse(gene_.getList().getRow(1).isSelected());
+        assertTrue(gene_.getList().getRow(2).isSelected());
+        assertEq(2,gene_.getList().getFocused().getIndex());
+    }
     @Test
     public void t32() {
         ScrollCustomCombo gene_ = gene();
@@ -301,6 +326,169 @@ public final class ScrollCustomComboTest extends EquallableGuiFctUtil {
         assertTrue(gene_.getList().getRow(1).isSelected());
         assertFalse(gene_.getList().getRow(2).isSelected());
         assertEq(1,gene_.getList().getFocused().getIndex());
+    }
+    @Test
+    public void t34() {
+        ScrollCustomCombo gene_ = gene();
+        gene_.add("ONE");
+        gene_.add("TWO");
+        gene_.add("THREE");
+        gene_.select(-1);
+        action(gene_,GuiConstants.VK_END);
+        assertFalse(gene_.getList().getRow(0).isSelected());
+        assertFalse(gene_.getList().getRow(1).isSelected());
+        assertTrue(gene_.getList().getRow(2).isSelected());
+        assertEq(2,gene_.getList().getFocused().getIndex());
+    }
+    @Test
+    public void t35() {
+        ScrollCustomCombo gene_ = gene();
+        gene_.add("ONE");
+        gene_.add("TWO");
+        gene_.add("THREE");
+        gene_.add("FOUR");
+        gene_.add("FIVE");
+        gene_.add("SIX");
+        gene_.add("SEVEN");
+        gene_.add("EIGHT");
+        gene_.add("NINE");
+        gene_.add("TEN");
+        gene_.select(-1);
+        action(gene_,GuiConstants.VK_PAGE_DOWN);
+        assertFalse(gene_.getList().getRow(0).isSelected());
+        assertFalse(gene_.getList().getRow(1).isSelected());
+        assertFalse(gene_.getList().getRow(2).isSelected());
+        assertFalse(gene_.getList().getRow(3).isSelected());
+        assertFalse(gene_.getList().getRow(4).isSelected());
+        assertFalse(gene_.getList().getRow(5).isSelected());
+        assertFalse(gene_.getList().getRow(6).isSelected());
+        assertTrue(gene_.getList().getRow(7).isSelected());
+        assertFalse(gene_.getList().getRow(8).isSelected());
+        assertFalse(gene_.getList().getRow(9).isSelected());
+        assertEq(7,gene_.getList().getFocused().getIndex());
+    }
+    @Test
+    public void t36() {
+        ScrollCustomCombo gene_ = gene();
+        gene_.add("ONE");
+        gene_.add("TWO");
+        gene_.add("THREE");
+        gene_.add("FOUR");
+        gene_.add("FIVE");
+        gene_.add("SIX");
+        gene_.add("SEVEN");
+        gene_.add("EIGHT");
+        gene_.add("NINE");
+        gene_.add("TEN");
+        gene_.select(-1);
+        action(gene_,GuiConstants.VK_END);
+        assertFalse(gene_.getList().getRow(0).isSelected());
+        assertFalse(gene_.getList().getRow(1).isSelected());
+        assertFalse(gene_.getList().getRow(2).isSelected());
+        assertFalse(gene_.getList().getRow(3).isSelected());
+        assertFalse(gene_.getList().getRow(4).isSelected());
+        assertFalse(gene_.getList().getRow(5).isSelected());
+        assertFalse(gene_.getList().getRow(6).isSelected());
+        assertFalse(gene_.getList().getRow(7).isSelected());
+        assertFalse(gene_.getList().getRow(8).isSelected());
+        assertTrue(gene_.getList().getRow(9).isSelected());
+        assertEq(9,gene_.getList().getFocused().getIndex());
+    }
+    @Test
+    public void t37() {
+        ScrollCustomCombo gene_ = gene();
+        gene_.add("ONE");
+        gene_.add("TWO");
+        gene_.add("THREE");
+        gene_.add("FOUR");
+        gene_.add("FIVE");
+        gene_.add("SIX");
+        gene_.add("SEVEN");
+        gene_.add("EIGHT");
+        gene_.add("NINE");
+        gene_.add("TEN");
+        gene_.select(-1);
+        action(gene_,GuiConstants.VK_PAGE_UP);
+        assertTrue(gene_.getList().getRow(0).isSelected());
+        assertFalse(gene_.getList().getRow(1).isSelected());
+        assertFalse(gene_.getList().getRow(2).isSelected());
+        assertFalse(gene_.getList().getRow(3).isSelected());
+        assertFalse(gene_.getList().getRow(4).isSelected());
+        assertFalse(gene_.getList().getRow(5).isSelected());
+        assertFalse(gene_.getList().getRow(6).isSelected());
+        assertFalse(gene_.getList().getRow(7).isSelected());
+        assertFalse(gene_.getList().getRow(8).isSelected());
+        assertFalse(gene_.getList().getRow(9).isSelected());
+        assertEq(0,gene_.getList().getFocused().getIndex());
+    }
+    @Test
+    public void t38() {
+        ScrollCustomCombo gene_ = gene();
+        gene_.add("ONE");
+        gene_.add("TWO");
+        gene_.add("THREE");
+        gene_.add("FOUR");
+        gene_.add("FIVE");
+        gene_.add("SIX");
+        gene_.add("SEVEN");
+        gene_.add("EIGHT");
+        gene_.add("NINE");
+        gene_.add("TEN");
+        gene_.select(-1);
+        action(gene_,GuiConstants.VK_HOME);
+        assertTrue(gene_.getList().getRow(0).isSelected());
+        assertFalse(gene_.getList().getRow(1).isSelected());
+        assertFalse(gene_.getList().getRow(2).isSelected());
+        assertFalse(gene_.getList().getRow(3).isSelected());
+        assertFalse(gene_.getList().getRow(4).isSelected());
+        assertFalse(gene_.getList().getRow(5).isSelected());
+        assertFalse(gene_.getList().getRow(6).isSelected());
+        assertFalse(gene_.getList().getRow(7).isSelected());
+        assertFalse(gene_.getList().getRow(8).isSelected());
+        assertFalse(gene_.getList().getRow(9).isSelected());
+        assertEq(0,gene_.getList().getFocused().getIndex());
+    }
+    @Test
+    public void t39() {
+        ScrollCustomCombo gene_ = gene();
+        gene_.select(-1);
+        action(gene_,GuiConstants.VK_UP);
+        assertEq(-1,gene_.getList().getFocused().getIndex());
+    }
+    @Test
+    public void t40() {
+        ScrollCustomCombo gene_ = gene();
+        gene_.select(-1);
+        action(gene_,GuiConstants.VK_DOWN);
+        assertEq(-1,gene_.getList().getFocused().getIndex());
+    }
+    @Test
+    public void t41() {
+        ScrollCustomCombo gene_ = gene();
+        gene_.select(-1);
+        action(gene_,GuiConstants.VK_END);
+        assertEq(-1,gene_.getList().getFocused().getIndex());
+    }
+    @Test
+    public void t42() {
+        ScrollCustomCombo gene_ = gene();
+        gene_.select(-1);
+        action(gene_,GuiConstants.VK_HOME);
+        assertEq(-1,gene_.getList().getFocused().getIndex());
+    }
+    @Test
+    public void t43() {
+        ScrollCustomCombo gene_ = gene();
+        gene_.select(-1);
+        action(gene_,GuiConstants.VK_PAGE_UP);
+        assertEq(-1,gene_.getList().getFocused().getIndex());
+    }
+    @Test
+    public void t44() {
+        ScrollCustomCombo gene_ = gene();
+        gene_.select(-1);
+        action(gene_,GuiConstants.VK_PAGE_DOWN);
+        assertEq(-1,gene_.getList().getFocused().getIndex());
     }
     @Test
     public void t52() {

@@ -174,6 +174,9 @@ public abstract class ScrollCustomCombo implements Input, SelectableIndexes {
     }
 
     public void move(int _down) {
+        if (possibleSelect(NumberUtil.min(0,list.size() - 1),_down)){
+            return;
+        }
         list.move(_down);
         text();
     }
@@ -185,11 +188,17 @@ public abstract class ScrollCustomCombo implements Input, SelectableIndexes {
     }
 
     public void goBound(int _down) {
+        if (possibleSelect(list.size() - 1, _down)){
+            return;
+        }
         list.goBound(_down);
         text();
     }
 
     public void movePage(int _down) {
+        if (possibleSelect(NumberUtil.min(list.getVisibleRowCount()-1,list.size() - 1), _down)){
+            return;
+        }
         list.movePage(_down);
         text();
     }
@@ -198,6 +207,21 @@ public abstract class ScrollCustomCombo implements Input, SelectableIndexes {
         list.applyRows();
         forceRefresh();
         revalidate();
+    }
+    private boolean possibleSelect(int _index, int _down) {
+        int ind_ = list.getSelectedIndex();
+        if (ind_ < 0) {
+            if (_down < 0) {
+                list.select(0);
+            } else {
+                list.select(_index);
+            }
+            list.scrollPage(_down);
+            list.events();
+            text();
+            return true;
+        }
+        return false;
     }
     public void revalidate() {
         list.revalidate();
