@@ -3301,6 +3301,405 @@ public final class CustAliases {
                 +SPACES_4+"}"+LR
                 +"}";
     }
+    public String assertType(KeyWords _kw, LgNamesContent _content) {
+        String head_= _kw.getKeyWordPublic()+" "+_kw.getKeyWordAbstract()+" "+_kw.getKeyWordFinal()+" "+_kw.getKeyWordClass()+" "+aliasAssert+"{"+LR;
+        return head_
+                +assertMethodArrObjectLongs(_kw, _content)
+                +assertMethodArrObjectDoubles(_kw, _content)
+                +assertMethodArrObjectDoublesDelta(_kw, _content)
+                +assertMethodArrObjectStrings(_kw, _content)
+                +assertMethodArrObjectStringBuilders(_kw, _content)
+                +assertMethodArrObjectBooleans(_kw, _content)
+                +assertMethodObjectLongs(_kw, _content)
+                +assertMethodObjectDoubles(_kw, _content)
+                +assertMethodObjectDoublesDelta(_kw, _content)
+                +assertMethodObjectStrings(_kw, _content)
+                +assertMethodObjectStringBuilders(_kw, _content)
+                +assertMethodObjectBooleans(_kw, _content)
+                +assertMethodNotArrObjectLongs(_kw, _content)
+                +assertMethodNotArrObjectDoubles(_kw, _content)
+                +assertMethodNotArrObjectDoublesDelta(_kw, _content)
+                +assertMethodNotArrObjectStrings(_kw, _content)
+                +assertMethodNotArrObjectStringBuilders(_kw, _content)
+                +assertMethodNotArrObjectBooleans(_kw, _content)
+                +assertMethodNotObjectLongs(_kw, _content)
+                +assertMethodNotObjectDoubles(_kw, _content)
+                +assertMethodNotObjectDoublesDelta(_kw, _content)
+                +assertMethodNotObjectStrings(_kw, _content)
+                +assertMethodNotObjectStringBuilders(_kw, _content)
+                +assertMethodNotObjectBooleans(_kw, _content)
+                +assertMethodTrue(_kw, _content)
+                +assertMethodFalse(_kw, _content)
+                +assertMethodNull(_kw, _content)
+                +assertMethodNotNull(_kw, _content)
+                +assertMethodSame(_kw, _content)
+                +assertMethodNotSame(_kw, _content)
+                +"}"+LR;
+    }
+    public String assertMethodTrue(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        String type_ = primTypes_.getAliasPrimBoolean();
+        AliasCore co_ = _content.getCoreNames();
+        String a_ = custAliasParameters.getAliasAssert0AssertAssertTrue0();
+        String d_ = tr("d", _kw, pr_, co_, a_);
+        String th_ = lancerVar(SPACES_4 + SPACES_4 + SPACES_4, _kw, _content, _kw.getKeyWordTrue(), _kw.getKeyWordFalse(), d_);
+        String head_= SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+co_.getAliasVoid()+" "+aliasAssertAssertTrue+"("+type_+" "+a_+"){"+LR;
+        String test_= SPACES_4+SPACES_4+_kw.getKeyWordIf()+"(!"+a_+"){"+LR;
+        return head_+test_+th_+SPACES_4+SPACES_4+"}"+LR+SPACES_4+"}"+LR;
+    }
+    public String assertMethodFalse(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        String type_ = primTypes_.getAliasPrimBoolean();
+        AliasCore co_ = _content.getCoreNames();
+        String a_ = custAliasParameters.getAliasAssert0AssertAssertFalse0();
+        String d_ = tr("d", _kw, pr_, co_, a_);
+        String th_ = lancerVar(SPACES_4 + SPACES_4 + SPACES_4, _kw, _content, _kw.getKeyWordFalse(), _kw.getKeyWordTrue(), d_);
+        String head_= SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+co_.getAliasVoid()+" "+aliasAssertAssertFalse+"("+type_+" "+a_+"){"+LR;
+        String test_= SPACES_4+SPACES_4+_kw.getKeyWordIf()+"("+a_+"){"+LR;
+        return head_+test_+th_+SPACES_4+SPACES_4+"}"+LR+SPACES_4+"}"+LR;
+    }
+    public String assertMethodNull(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        String type_ = primTypes_.getAliasPrimBoolean();
+        AliasCore co_ = _content.getCoreNames();
+        String a_ = custAliasParameters.getAliasAssert0AssertAssertNull0();
+        String d_ = tr("d", _kw, pr_, co_, a_);
+        String th_ = lancerVar(SPACES_4 + SPACES_4 + SPACES_4, _kw, _content, _kw.getKeyWordNull(), a_, d_);
+        String head_= SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+co_.getAliasVoid()+" "+aliasAssertAssertNull+"("+type_+" "+a_+"){"+LR;
+        String test_= SPACES_4+SPACES_4+_kw.getKeyWordIf()+"(!"+natEqStruct(_kw,_content,_kw.getKeyWordNull(), a_)+"){"+LR;
+        return head_+test_+th_+SPACES_4+SPACES_4+"}"+LR+SPACES_4+"}"+LR;
+    }
+    public String assertMethodNotNull(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        String type_ = primTypes_.getAliasPrimBoolean();
+        AliasCore co_ = _content.getCoreNames();
+        String a_ = custAliasParameters.getAliasAssert0AssertAssertNotNull0();
+        String d_ = tr("d", _kw, pr_, co_, a_);
+        String th_ = lancerNonNull(SPACES_4 + SPACES_4 + SPACES_4, _kw, _content, d_);
+        String head_= SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+co_.getAliasVoid()+" "+aliasAssertAssertNotNull+"("+type_+" "+a_+"){"+LR;
+        String test_= SPACES_4+SPACES_4+_kw.getKeyWordIf()+"("+natEqStruct(_kw,_content,_kw.getKeyWordNull(), a_)+"){"+LR;
+        return head_+test_+th_+SPACES_4+SPACES_4+"}"+LR+SPACES_4+"}"+LR;
+    }
+    public String assertMethodObjectLongs(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert0AssertAssert0();
+        String found_ = custAliasParameters.getAliasAssert0AssertAssert1();
+        return assertMethodObject(_kw, _content, primTypes_.getAliasPrimLong(),exp_,found_, aliasAssertAssert);
+    }
+    public String assertMethodObjectDoubles(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert1AssertAssert0();
+        String found_ = custAliasParameters.getAliasAssert1AssertAssert1();
+        return assertMethodObject(_kw, _content, primTypes_.getAliasPrimDouble(),exp_,found_, aliasAssertAssert);
+    }
+    public String assertMethodObjectDoublesDelta(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert5AssertAssertDouble0();
+        String found_ = custAliasParameters.getAliasAssert5AssertAssertDouble1();
+        String delta_ = custAliasParameters.getAliasAssert5AssertAssertDouble2();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore co_ = _content.getCoreNames();
+        String d_ = tr("d", _kw, pr_, co_, exp_, found_, delta_);
+        String th_ = lancerVar(SPACES_4 + SPACES_4 + SPACES_4, _kw, _content, exp_, found_, d_);
+        String dow_ = primTypes_.getAliasPrimDouble();
+        String head_= SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+co_.getAliasVoid()+" "+aliasAssertAssert+"("+dow_+" "+exp_+","+dow_+" "+found_+","+dow_+" "+delta_+"){"+LR;
+        String test_= SPACES_4+SPACES_4+_kw.getKeyWordIf()+"("+cmpStruct(_kw,_content,exp_,found_, "!=")+"&&"+deltaStruct(_kw,_content,exp_,found_,delta_, ">")+"){"+LR;
+        return head_+test_+th_+SPACES_4+SPACES_4+"}"+LR+SPACES_4+"}"+LR;
+    }
+    public String assertMethodObjectStrings(KeyWords _kw, LgNamesContent _content) {
+        String exp_ = custAliasParameters.getAliasAssert2AssertAssert0();
+        String found_ = custAliasParameters.getAliasAssert2AssertAssert1();
+        return assertMethodObject(_kw, _content, _content.getCharSeq().getAliasString(),exp_,found_, aliasAssertAssert);
+    }
+    public String assertMethodObjectStringBuilders(KeyWords _kw, LgNamesContent _content) {
+        String exp_ = custAliasParameters.getAliasAssert3AssertAssert0();
+        String found_ = custAliasParameters.getAliasAssert3AssertAssert1();
+        return assertMethodObject(_kw, _content, _content.getCharSeq().getAliasStringBuilder(),exp_,found_, aliasAssertAssert);
+    }
+    public String assertMethodObjectBooleans(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert4AssertAssert0();
+        String found_ = custAliasParameters.getAliasAssert4AssertAssert1();
+        return assertMethodObject(_kw, _content, primTypes_.getAliasPrimBoolean(),exp_,found_, aliasAssertAssert);
+    }
+    public String assertMethodSame(KeyWords _kw, LgNamesContent _content) {
+        String exp_ = custAliasParameters.getAliasAssert0AssertAssertSame0();
+        String found_ = custAliasParameters.getAliasAssert0AssertAssertSame1();
+        return assertMethodObject(_kw, _content, _content.getCoreNames().getAliasObject(),exp_,found_, aliasAssertAssertSame);
+    }
+    public String assertMethodObject(KeyWords _kw, LgNamesContent _content, String _type, String _a, String _b, String _name) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore co_ = _content.getCoreNames();
+        String d_ = tr("d", _kw, pr_, co_, _a, _b);
+        String th_ = lancerVar(SPACES_4 + SPACES_4 + SPACES_4, _kw, _content, _a, _b, d_);
+        String head_= SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+co_.getAliasVoid()+" "+ _name +"("+_type+" "+_a+","+_type+" "+_b+"){"+LR;
+        String test_= SPACES_4+SPACES_4+_kw.getKeyWordIf()+"(!"+natEqStruct(_kw,_content,_a,_b)+"){"+LR;
+        return head_+test_+th_+SPACES_4+SPACES_4+"}"+LR+SPACES_4+"}"+LR;
+    }
+    public String assertMethodArrObjectLongs(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert0AssertAssertArr0();
+        String found_ = custAliasParameters.getAliasAssert0AssertAssertArr1();
+        return assertMethodArrObject(_kw, _content, primTypes_.getAliasPrimLong(),exp_,found_, aliasAssertAssert);
+    }
+    public String assertMethodArrObjectDoubles(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert1AssertAssertArr0();
+        String found_ = custAliasParameters.getAliasAssert1AssertAssertArr1();
+        return assertMethodArrObject(_kw, _content, primTypes_.getAliasPrimDouble(),exp_,found_, aliasAssertAssert);
+    }
+    public String assertMethodArrObjectDoublesDelta(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert5AssertAssertArrDouble0();
+        String found_ = custAliasParameters.getAliasAssert5AssertAssertArrDouble1();
+        String delta_ = custAliasParameters.getAliasAssert5AssertAssertArrDouble2();
+        AliasCore co_ = _content.getCoreNames();
+        String dow_ = primTypes_.getAliasPrimDouble();
+        String head_= SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+co_.getAliasVoid()+" "+aliasAssertAssert+"("+dow_+"[] "+exp_+","+dow_+"[] "+found_+","+dow_+" "+delta_+"){"+LR;
+        return head_+checkArrDelta(_kw, _content, exp_, found_, delta_)+SPACES_4+"}"+LR;
+    }
+    public String assertMethodArrObjectStrings(KeyWords _kw, LgNamesContent _content) {
+        String exp_ = custAliasParameters.getAliasAssert2AssertAssertArr0();
+        String found_ = custAliasParameters.getAliasAssert2AssertAssertArr1();
+        return assertMethodArrObject(_kw, _content, _content.getCharSeq().getAliasString(),exp_,found_, aliasAssertAssert);
+    }
+    public String assertMethodArrObjectStringBuilders(KeyWords _kw, LgNamesContent _content) {
+        String exp_ = custAliasParameters.getAliasAssert3AssertAssertArr0();
+        String found_ = custAliasParameters.getAliasAssert3AssertAssertArr1();
+        return assertMethodArrObject(_kw, _content, _content.getCharSeq().getAliasStringBuilder(),exp_,found_, aliasAssertAssert);
+    }
+    public String assertMethodArrObjectBooleans(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert4AssertAssertArr0();
+        String found_ = custAliasParameters.getAliasAssert4AssertAssertArr1();
+        return assertMethodArrObject(_kw, _content, primTypes_.getAliasPrimBoolean(),exp_,found_, aliasAssertAssert);
+    }
+    public String assertMethodArrObject(KeyWords _kw, LgNamesContent _content, String _type, String _a, String _b, String _name) {
+        AliasCore co_ = _content.getCoreNames();
+        String head_= SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+co_.getAliasVoid()+" "+ _name +"("+_type+"[] "+_a+","+_type+"[] "+_b+"){"+LR;
+        return head_+checkArr(_kw,_content,_a,_b)+SPACES_4+"}"+LR;
+    }
+    private String checkArr(KeyWords _kw, LgNamesContent _content, String _exp, String _found) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        String si_ = _kw.getKeyWordIf();
+        String len_ = core_.getAliasArrayLength();
+        String la_ = tr("la", _kw, pr_, core_, _exp, _found);
+        String ea_ = tr("ea", _kw, pr_, core_, _exp, _found);
+        String d_ = tr("d", _kw, pr_, core_, _exp, _found);
+        return SPACES_4+SPACES_4+aliasAssertAssert+"("+_exp+"."+ len_+","+_found+"."+ len_+")"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordVar()+" "+ la_ +" = "+_exp+"."+ len_ +";"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordIter()+"("+primTypes_.getAliasPrimInteger()+" "+ ea_ +"="+"0"+";"+ la_ +";"+"1"+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ si_ +" (!"+ natEqStruct(_kw,_content,_exp+"["+ ea_+"]",_found+"["+ ea_+"]") +"){"+LR
+                + lancerElt(SPACES_4+SPACES_4+SPACES_4+SPACES_4,_kw,_content,_exp,_found,ea_,d_)
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"}"+LR;
+    }
+    private String checkArrDelta(KeyWords _kw, LgNamesContent _content, String _exp, String _found, String _delta) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        String si_ = _kw.getKeyWordIf();
+        String len_ = core_.getAliasArrayLength();
+        String la_ = tr("la", _kw, pr_, core_, _exp, _found);
+        String ea_ = tr("ea", _kw, pr_, core_, _exp, _found);
+        String d_ = tr("d", _kw, pr_, core_, _exp, _found);
+        return SPACES_4+SPACES_4+aliasAssertAssert+"("+_exp+"."+ len_+","+_found+"."+ len_+")"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordVar()+" "+ la_ +" = "+_exp+"."+ len_ +";"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordIter()+"("+primTypes_.getAliasPrimInteger()+" "+ ea_ +"="+"0"+";"+ la_ +";"+"1"+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ si_+"("+cmpStruct(_kw,_content,_exp+"["+ ea_+"]",_found+"["+ ea_+"]", "!=")+"&&"+deltaStruct(_kw,_content,_exp+"["+ ea_+"]",_found+"["+ ea_+"]",_delta, ">")+"){"+LR
+                + lancerElt(SPACES_4+SPACES_4+SPACES_4+SPACES_4,_kw,_content,_exp,_found,ea_,d_)
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"}"+LR;
+    }
+    public String assertMethodNotObjectLongs(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert0AssertAssertNot0();
+        String found_ = custAliasParameters.getAliasAssert0AssertAssertNot1();
+        return assertMethodNotObject(_kw, _content, primTypes_.getAliasPrimLong(),exp_,found_, aliasAssertAssertNot);
+    }
+    public String assertMethodNotObjectDoubles(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert1AssertAssertNot0();
+        String found_ = custAliasParameters.getAliasAssert1AssertAssertNot1();
+        return assertMethodNotObject(_kw, _content, primTypes_.getAliasPrimDouble(),exp_,found_, aliasAssertAssertNot);
+    }
+    public String assertMethodNotObjectDoublesDelta(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert5AssertAssertNotDouble0();
+        String found_ = custAliasParameters.getAliasAssert5AssertAssertNotDouble1();
+        String delta_ = custAliasParameters.getAliasAssert5AssertAssertNotDouble2();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore co_ = _content.getCoreNames();
+        String d_ = tr("d", _kw, pr_, co_, exp_, found_, delta_);
+        String th_ = lancerVar(SPACES_4 + SPACES_4 + SPACES_4, _kw, _content, exp_, found_, d_);
+        String dow_ = primTypes_.getAliasPrimDouble();
+        String head_= SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+co_.getAliasVoid()+" "+aliasAssertAssertNot+"("+dow_+" "+exp_+","+dow_+" "+found_+","+dow_+" "+delta_+"){"+LR;
+        String test_= SPACES_4+SPACES_4+_kw.getKeyWordIf()+"("+cmpStruct(_kw,_content,exp_,found_, "==")+"||"+deltaStruct(_kw,_content,exp_,found_,delta_, "<=")+"){"+LR;
+        return head_+test_+th_+SPACES_4+SPACES_4+"}"+LR+SPACES_4+"}"+LR;
+    }
+    public String assertMethodNotObjectStrings(KeyWords _kw, LgNamesContent _content) {
+        String exp_ = custAliasParameters.getAliasAssert2AssertAssertNot0();
+        String found_ = custAliasParameters.getAliasAssert2AssertAssertNot1();
+        return assertMethodNotObject(_kw, _content, _content.getCharSeq().getAliasString(),exp_,found_, aliasAssertAssertNot);
+    }
+    public String assertMethodNotObjectStringBuilders(KeyWords _kw, LgNamesContent _content) {
+        String exp_ = custAliasParameters.getAliasAssert3AssertAssertNot0();
+        String found_ = custAliasParameters.getAliasAssert3AssertAssertNot1();
+        return assertMethodNotObject(_kw, _content, _content.getCharSeq().getAliasStringBuilder(),exp_,found_, aliasAssertAssertNot);
+    }
+    public String assertMethodNotObjectBooleans(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert4AssertAssertNot0();
+        String found_ = custAliasParameters.getAliasAssert4AssertAssertNot1();
+        return assertMethodNotObject(_kw, _content, primTypes_.getAliasPrimBoolean(),exp_,found_, aliasAssertAssertNot);
+    }
+    public String assertMethodNotSame(KeyWords _kw, LgNamesContent _content) {
+        String exp_ = custAliasParameters.getAliasAssert0AssertAssertNotSame0();
+        String found_ = custAliasParameters.getAliasAssert0AssertAssertNotSame1();
+        return assertMethodNotObject(_kw, _content, _content.getCoreNames().getAliasObject(),exp_,found_, aliasAssertAssertNotSame);
+    }
+    public String assertMethodNotObject(KeyWords _kw, LgNamesContent _content, String _type, String _a, String _b, String _name) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore co_ = _content.getCoreNames();
+        String d_ = tr("d", _kw, pr_, co_, _a, _b);
+        String th_ = lancerVar(SPACES_4 + SPACES_4 + SPACES_4, _kw, _content, _a, _b, d_);
+        String head_= SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+co_.getAliasVoid()+" "+ _name +"("+_type+" "+_a+","+_type+" "+_b+"){"+LR;
+        String test_= SPACES_4+SPACES_4+_kw.getKeyWordIf()+"("+natEqStruct(_kw,_content,_a,_b)+"){"+LR;
+        return head_+test_+th_+SPACES_4+SPACES_4+"}"+LR+SPACES_4+"}"+LR;
+    }
+    public String assertMethodNotArrObjectLongs(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert0AssertAssertNotArr0();
+        String found_ = custAliasParameters.getAliasAssert0AssertAssertNotArr1();
+        return assertMethodNotArrObject(_kw, _content, primTypes_.getAliasPrimLong(),exp_,found_, aliasAssertAssertNot);
+    }
+    public String assertMethodNotArrObjectDoubles(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert1AssertAssertNotArr0();
+        String found_ = custAliasParameters.getAliasAssert1AssertAssertNotArr1();
+        return assertMethodNotArrObject(_kw, _content, primTypes_.getAliasPrimDouble(),exp_,found_, aliasAssertAssertNot);
+    }
+    public String assertMethodNotArrObjectDoublesDelta(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert5AssertAssertNotArrDouble0();
+        String found_ = custAliasParameters.getAliasAssert5AssertAssertNotArrDouble1();
+        String delta_ = custAliasParameters.getAliasAssert5AssertAssertNotArrDouble2();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore co_ = _content.getCoreNames();
+        String d_ = tr("d", _kw, pr_, co_, exp_, found_, delta_);
+        String th_ = lancerVar(SPACES_4 + SPACES_4, _kw, _content, exp_, found_, d_);
+        String dow_ = primTypes_.getAliasPrimDouble();
+        String head_= SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+co_.getAliasVoid()+" "+aliasAssertAssertNot+"("+dow_+"[] "+exp_+","+dow_+"[] "+found_+","+dow_+" "+delta_+"){"+LR;
+        return head_+checkNotArrDelta(_kw, _content, exp_,found_,delta_)+th_+SPACES_4+"}"+LR;
+    }
+    public String assertMethodNotArrObjectStrings(KeyWords _kw, LgNamesContent _content) {
+        String exp_ = custAliasParameters.getAliasAssert2AssertAssertNotArr0();
+        String found_ = custAliasParameters.getAliasAssert2AssertAssertNotArr1();
+        return assertMethodNotArrObject(_kw, _content, _content.getCharSeq().getAliasString(),exp_,found_, aliasAssertAssertNot);
+    }
+    public String assertMethodNotArrObjectStringBuilders(KeyWords _kw, LgNamesContent _content) {
+        String exp_ = custAliasParameters.getAliasAssert3AssertAssertNotArr0();
+        String found_ = custAliasParameters.getAliasAssert3AssertAssertNotArr1();
+        return assertMethodNotArrObject(_kw, _content, _content.getCharSeq().getAliasStringBuilder(),exp_,found_, aliasAssertAssertNot);
+    }
+    public String assertMethodNotArrObjectBooleans(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        String exp_ = custAliasParameters.getAliasAssert4AssertAssertNotArr0();
+        String found_ = custAliasParameters.getAliasAssert4AssertAssertNotArr1();
+        return assertMethodNotArrObject(_kw, _content, primTypes_.getAliasPrimBoolean(),exp_,found_, aliasAssertAssertNot);
+    }
+    public String assertMethodNotArrObject(KeyWords _kw, LgNamesContent _content, String _type, String _a, String _b, String _name) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore co_ = _content.getCoreNames();
+        String d_ = tr("d", _kw, pr_, co_, _a, _b);
+        String th_ = lancerVar(SPACES_4 + SPACES_4, _kw, _content, _a, _b, d_);
+        String head_= SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+co_.getAliasVoid()+" "+ _name +"("+_type+"[] "+_a+","+_type+"[] "+_b+"){"+LR;
+        return head_+checkNotArr(_kw, _content, _a, _b)+th_+SPACES_4+"}"+LR;
+    }
+    public String natEqStruct(KeyWords _kw, LgNamesContent _content, String _a, String _b) {
+        AliasCore core_ = _content.getCoreNames();
+        return _kw.getKeyWordStatic()+"("+ core_.getAliasObjectsUtil()+")."+ core_.getAliasSameRef()+"("+_a+","+_b+")";
+    }
+    public String cmpStruct(KeyWords _kw, LgNamesContent _content, String _a, String _b, String _symbol) {
+        AliasNumberType nb_ = _content.getNbAlias();
+        return _kw.getKeyWordStatic()+"("+ nb_.getAliasDouble()+")."+ nb_.getAliasCompare()+"("+_a+","+_b+")"+ _symbol +"0";
+    }
+    public String deltaStruct(KeyWords _kw, LgNamesContent _content, String _a, String _b, String _c, String _symbol) {
+        AliasMathType nb_ = _content.getMathRef();
+        return _kw.getKeyWordStatic()+"("+ nb_.getAliasMath()+")."+ nb_.getAliasAbs()+"("+_a+"-"+_b+")"+ _symbol +_c;
+    }
+
+    private String lancerVar(String _pref, KeyWords _kw, LgNamesContent _content, String _expected, String _found, String _d) {
+        return _pref + _kw.getKeyWordVar() + " " + _d + " = " + _kw.getKeyWordNew() + " " + aliasDifference + "();" + LR
+                + _pref + _d + "." + aliasDifferenceExpected + "=" + _expected + ";" + LR
+                + _pref + _d + "." + aliasDifferenceFound + "=" + _found + ";" + LR
+                + _pref + _d + "." + aliasDifferenceStackDiff + " = " + _kw.getKeyWordStatic() + "(" + _content.getStackElt().getAliasStackTraceElement() + ")." + _content.getStackElt().getAliasCurrentStack() + "();" + LR
+                + _pref + _kw.getKeyWordThrow() + " " + _d + ";" + LR;
+    }
+
+    private String lancerNonNull(String _pref, KeyWords _kw, LgNamesContent _content, String _d) {
+        return _pref + _kw.getKeyWordVar() + " " + _d + " = " + _kw.getKeyWordNew() + " " + aliasDifference + "();" + LR
+                + _pref + _d + "." + aliasDifferenceFoundNull + "=" + _kw.getKeyWordTrue() + ";" + LR
+                + _pref + _d + "." + aliasDifferenceStackDiff + " = " + _kw.getKeyWordStatic() + "(" + _content.getStackElt().getAliasStackTraceElement() + ")." + _content.getStackElt().getAliasCurrentStack() + "();" + LR
+                + _pref + _kw.getKeyWordThrow() + " " + _d + ";" + LR;
+    }
+
+    private String lancerElt(String _pref, KeyWords _kw, LgNamesContent _content, String _expected, String _found, String _index, String _d) {
+        return _pref + _kw.getKeyWordVar() +" "+_d+" = "+_kw.getKeyWordNew()+" "+aliasEltDifference+"();"+LR
+                +_pref + _d + "." + aliasIndex+"="+_index+";"+LR
+                +_pref + _d + "." + aliasDifferenceExpected+"="+_expected+"["+_index+"];"+LR
+                +_pref + _d + "." + aliasDifferenceFound+"="+_found+"["+_index+"];"+LR
+                + _pref + _d + "." + aliasDifferenceStackDiff + " = " + _kw.getKeyWordStatic() + "(" + _content.getStackElt().getAliasStackTraceElement() + ")." + _content.getStackElt().getAliasCurrentStack() + "();" + LR
+                + _pref + _kw.getKeyWordThrow() + " " + _d + ";" + LR;
+    }
+    private String checkNotArr(KeyWords _kw, LgNamesContent _content, String _exp, String _found) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        String si_ = _kw.getKeyWordIf();
+        String len_ = core_.getAliasArrayLength();
+        String ret_ = _kw.getKeyWordReturn();
+        String la_ = tr("la", _kw, pr_, core_, _exp, _found);
+        String ea_ = tr("ea", _kw, pr_, core_, _exp, _found);
+        return SPACES_4+SPACES_4+ si_ +" (!"+ natEqStruct(_kw,_content,_exp+"."+ len_,_found+"."+ len_) +")){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordVar()+" "+ la_ +" = "+_exp+"."+ len_ +";"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordIter()+"("+primTypes_.getAliasPrimInteger()+" "+ ea_ +"="+"0"+";"+ la_ +";"+"1"+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ si_ +" (!"+ natEqStruct(_kw,_content,_exp+"["+ ea_+"]",_found+"["+ ea_+"]") +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"}"+LR;
+    }
+
+    private String checkNotArrDelta(KeyWords _kw, LgNamesContent _content, String _exp, String _found, String _delta) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        String si_ = _kw.getKeyWordIf();
+        String len_ = core_.getAliasArrayLength();
+        String ret_ = _kw.getKeyWordReturn();
+        String la_ = tr("la", _kw, pr_, core_, _exp, _found);
+        String ea_ = tr("ea", _kw, pr_, core_, _exp, _found);
+        return SPACES_4+SPACES_4+ si_ +" (!"+ natEqStruct(_kw,_content,_exp+"."+ len_,_found+"."+ len_) +")){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordVar()+" "+ la_ +" = "+_exp+"."+ len_ +";"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordIter()+"("+primTypes_.getAliasPrimInteger()+" "+ ea_ +"="+"0"+";"+ la_ +";"+"1"+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ si_+"("+cmpStruct(_kw,_content,_exp,_found, "!=")+"&&"+deltaStruct(_kw,_content,_exp,_found,_delta, ">")+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"}"+LR;
+    }
     public String formatter(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
         String abs_ = _kw.getKeyWordAbstract();

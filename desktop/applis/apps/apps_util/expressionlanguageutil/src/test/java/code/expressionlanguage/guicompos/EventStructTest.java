@@ -1,19 +1,29 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.*;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
+import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.StdClassModifier;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.guicompos.stds.*;
 import code.expressionlanguage.options.*;
+import code.expressionlanguage.stds.StandardClass;
+import code.expressionlanguage.stds.StandardConstructor;
+import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilimpl.*;
 import code.gui.*;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.montecarlo.*;
 import code.mock.*;
 import code.util.*;
@@ -324,6 +334,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ((EventStruct)ev_).windowIconified();
         ((EventStruct)ev_).windowOpened();
         assertFalse(st_.isFailInit());
+        stds_.getGuiExecutingBlocks().getEventClose().windowClosing();
     }
     @Test
     public void evt5() {
@@ -354,46 +365,18 @@ public final class EventStructTest extends EquallableElUtUtil {
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctx(pr_,files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
         Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
         Struct ev_ = stds_.newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
-        ((EventStruct)ev_).run();
-        ((EventStruct)ev_).action(new KeyActionEvent(0),"");
-        ((EventStruct)ev_).mouseClicked(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(false,false,false,0));
-        ((EventStruct)ev_).mouseEntered(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
-        ((EventStruct)ev_).mouseExited(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
-        ((EventStruct)ev_).mouseMoved(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
-        ((EventStruct)ev_).mousePressed(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
-        ((EventStruct)ev_).mouseDragged(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
-        ((EventStruct)ev_).mouseReleased(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
-        ((EventStruct)ev_).mouseWheelMoved(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1),new MockMouseWheel(1));
-        ((EventStruct)ev_).keyPressed(new KeyActionEvent(0),'0',0);
-        ((EventStruct)ev_).keyReleased(new KeyActionEvent(0),'0',0);
-        ((EventStruct)ev_).keyTyped(new KeyActionEvent(0),'0');
-        ((EventStruct)ev_).valueChanged(new MockMutableTreeNode(""));
-        ((EventStruct)ev_).valueChanged(0,0);
-        ((EventStruct)ev_).valueChanged(new SelectionInfo(0,0,true));
-        ((EventStruct)ev_).stateChanged();
-        ((EventStruct)ev_).focusGained();
-        ((EventStruct)ev_).focusLost();
-        ((EventStruct)ev_).windowActivated();
-        ((EventStruct)ev_).windowClosed();
-        ((EventStruct)ev_).windowClosing();
-        ((EventStruct)ev_).windowDeactivated();
-        ((EventStruct)ev_).windowDeiconified();
-        ((EventStruct)ev_).windowIconified();
-        ((EventStruct)ev_).windowOpened();
-        ev_.randCode();
         assertFalse(ev_.sameReference(NullStruct.NULL_VALUE));
         assertTrue(ev_.sameReference(ev_));
         assertFalse(st_.isFailInit());
         stds_.getGuiExecutingBlocks().getPairPaintMethod();
         stds_.getGuiExecutingBlocks().getMainArgs();
-        stds_.getGuiExecutingBlocks().getEventClose().windowClosing();
     }
     @Test
     public void evt7() {
@@ -581,5 +564,51 @@ public final class EventStructTest extends EquallableElUtUtil {
         update(prs_);
         return prs_;
     }
+    private Struct ctxStr(MockProgramInfos _pr, StringMap<String> _p) {
+        ContextEl ctx_ = ctx(_pr,_p);
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
+        ExecFormattedRootBlock form_ = new ExecFormattedRootBlock(ex_);
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC, "run", new StringList());
+        return ArgumentListCall.toStr(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, new ExecTypeFunction(form_, ExecClassesUtil.getMethodBodiesById(ex_, id_).first()), resSt_, new ArgumentListCall()));
+    }
+    private ContextEl ctx(MockProgramInfos _p) {
+        return ctx(_p,new StringMap<String>());
+    }
+    private ContextEl ctx(MockProgramInfos _p, StringMap<String> _files) {
+        update(_p);
+        LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+        return buildMock(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
+    }
 
+    public static ResultContext buildMock(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        StringMap<String> s_ = new StringMap<String>();
+        s_.addEntry("0",_definedLgNames.getExecContent().getCustAliases().runnableType(_definedKw, _definedLgNames.getContent())+_definedLgNames.getExecContent().getCustAliases().assertType(_definedKw, _definedLgNames.getContent())+_definedLgNames.getExecContent().getCustAliases().diff(_definedKw, _definedLgNames.getContent())+_definedLgNames.getExecContent().getCustAliases().eltDiff(_definedKw, _definedLgNames.getContent()));
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
+        Forwards forwards_ = nextBuild(_options, _definedKw, _definedLgNames, _files, s_, page_);
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _definedLgNames.buildBase();
+
+        ValidatorStandard.setupOverrides(page_);
+        ResultContext res_ = commonMock(_exec, _definedLgNames, _files, page_, forwards_);
+        Classes.tryInit(res_);
+        return res_;
+    }
+
+    public static LgNamesGui newLgNamesGuiSampleGr(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
+        LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
+        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),"en");
+        return stds_;
+    }
 }
