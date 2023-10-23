@@ -103,7 +103,6 @@ public final class CustAliases {
     public static final String TYPE_INFO_TEST = "{InfoTest}";
     public static final String TYPE_ELT_DIFFERENCE = "{EltDifference}";
     public static final String TYPE_DOUBLE = "{Double}";
-    public static final String TYPE_FORMAT = "{Format}";
     public static final String TYPE_PARAM_T = "{T}";
     public static final String TYPE_PARAM_E = "{E}";
     public static final String TYPE_PARAM_U = "{U}";
@@ -230,8 +229,6 @@ public final class CustAliases {
     public static final String FIELD_RESULT_ARGS = "{resultArgs}";
     public static final String FIELD_CONTAINER = "{container}";
     public static final String FIELD_EXECUTED = "{executed}";
-    public static final String METHOD_PRINT = "{print}";
-    public static final String METHOD_FORMAT = "{format}";
     public static final String FIELD_INSTANT = "{instant}";
     public static final String PARAM_003 = "itCtr";
     public static final String PARAM_004 = "liCtr1";
@@ -392,18 +389,13 @@ public final class CustAliases {
     public static final String PARAM_159 = "tps1";
     public static final String PARAM_160 = "tps2";
     public static final String PARAM_161 = "tps3";
-    public static final String PARAM_162 = "fo1";
-    public static final String PARAM_163 = "fo2";
-    public static final String PARAM_164 = "fo3";
 
     public static final String YYYY_MM_DD_HH_MM_SS_SSS = "yyyy_MM_dd_HH_mm_ss_SSS";
     public static final String YYYY_MM_DD_HH_MM_SS_SSS_DASH = "----_--_--_--_--_--_---";
     public static final String OTHERS = "...";
 
-    public static final String RESOURCES_LG_COLLECTIONS_LIST_TXT = "resources_lg/collections/list.txt";
     public static final String RESOURCES_LG_COLLECTIONS_TABLE_TXT = "resources_lg/collections/table.txt";
     public static final String RESOURCES_LG_TESTS_RUN_TXT = "resources_lg/tests/run.txt";
-    public static final String RESOURCES_LG_THREADS_FORMATTING_TXT = "resources_lg/threads/formatting.txt";
 //    public static final String RESOURCES_LG_ALIASES = "resources_lg/aliases";
 //    public static final String FILE_MESSAGES = "messages";
 //    public static final String FILE_KEYWORDS = "keywords";
@@ -1449,7 +1441,6 @@ public final class CustAliases {
         StringMap<String> map_;
         stds_.put(aliasRunnable, runnableType(_keyWords, _content));
         stds_.put(aliasCallable, callableType(_keyWords, _content));
-        String content_ = properties_.getVal(RESOURCES_LG_COLLECTIONS_LIST_TXT);
         map_ = new StringMap<String>();
         map_.put(KW_PUBLIC, public_);
         map_.put(KW_PRIVATE, private_);
@@ -1494,9 +1485,8 @@ public final class CustAliases {
         map_.put(METHOD_REMOVE, aliasRemoveLi);
         map_.put(METHOD_ITERATOR, predefTypes_.getAliasIterator());
         map_.put(METHOD_CLEAR,aliasListClear);
-        content_ = StringUtil.formatQuote(content_, map_);
-        stds_.put(aliasList, content_);
-        content_ = properties_.getVal(RESOURCES_LG_COLLECTIONS_TABLE_TXT);
+        stds_.put(aliasList, iteratorType(_keyWords, _content)+listType(_keyWords, _content));
+        String content_ = properties_.getVal(RESOURCES_LG_COLLECTIONS_TABLE_TXT);
         map_.put(TYPE_CUST_PAIR,aliasCustPair);
         map_.put(TYPE_PAIR,predefTypes_.getAliasPairType());
         map_.put(TYPE_PARAM_U,aliasPairVarFirst);
@@ -3093,6 +3083,127 @@ public final class CustAliases {
                 +SPACES_4+"}"+LR
                 +"}"+LR;
     }
+    public String iteratorType(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore co_ = _content.getCoreNames();
+        String in_ = primTypes_.getAliasPrimInteger();
+        String pri_ = _kw.getKeyWordPrivate();
+        String a_ = custAliasParameters.getAliasCustIterator0CustIterator0();
+        String th_ = _kw.getKeyWordThis();
+        AliasPredefinedTypes pred_ = _content.getPredefTypes();
+        String o_ = tr("out", _kw, pr_, co_);
+        String ret_ = _kw.getKeyWordReturn();
+        return pub_ +" "+_kw.getKeyWordClass()+" "+aliasCustIterator+"<"+ aliasCustIteratorVar +"> :"+ pred_.getAliasIteratorType()+"<"+ aliasCustIteratorVar +">{"+LR
+                +SPACES_4+ pri_ +" "+aliasList+"<"+ aliasCustIteratorVar +"> "+ aliasListItr+";"+LR
+                +SPACES_4+ pri_ +" "+ in_ +" "+aliasLengthItrLi+";"+LR
+                +SPACES_4+ pri_ +" "+ in_ +" "+aliasIndexItrLi+";"+LR
+                +SPACES_4+ pub_ +" ("+aliasList+"<"+ aliasCustIteratorVar +"> "+ a_ +"){"+LR
+                +SPACES_4+SPACES_4+ th_ +"."+aliasListItr+"="+ a_ +";"+LR
+                +SPACES_4+SPACES_4+ th_ +"."+aliasLengthItrLi+"="+ th_ +"."+aliasListItr+"."+aliasSizeLi+"();"+LR
+                +SPACES_4+"}"+LR
+                +SPACES_4+ pub_ +" "+ aliasCustIteratorVar +" "+pred_.getAliasNext()+"(){"+LR
+                +SPACES_4+SPACES_4+ aliasCustIteratorVar +" "+ o_ +"="+ th_ +"."+aliasListItr+"["+th_ +"."+aliasIndexItrLi+"];"+LR
+                +SPACES_4+SPACES_4+ th_ +"."+aliasIndexItrLi+"++;"+LR
+                +SPACES_4+SPACES_4+ ret_ +" "+ o_ +";"+LR
+                +SPACES_4+"}"+LR
+                +SPACES_4+ pub_ +" "+primTypes_.getAliasPrimBoolean()+" "+pred_.getAliasHasNext()+"(){"+LR
+                +SPACES_4+SPACES_4+ ret_ +" "+aliasIndexItrLi+"<"+aliasLengthItrLi+";"+LR
+                +SPACES_4+"}"+LR
+                +"}";
+    }
+    public String listType(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore co_ = _content.getCoreNames();
+        String pri_ = _kw.getKeyWordPrivate();
+        String th_ =  _kw.getKeyWordThis();
+        String fieldLen_ = th_ + "." + aliasLengthLi;
+        String in_ = primTypes_.getAliasPrimInteger();
+        String nw_ = _kw.getKeyWordNew();
+        String parCtrCp_ = custAliasParameters.getAliasList0List0();
+        String parCtr_ = custAliasParameters.getAliasList1List0();
+        String parAppend_ = custAliasParameters.getAliasList0AddLi0();
+        String parInsIndex_ = custAliasParameters.getAliasList1AddLi0();
+        String parInsElt_ = custAliasParameters.getAliasList1AddLi1();
+        String parGet_ = custAliasParameters.getAliasList0This0();
+        String parSet_ = custAliasParameters.getAliasList1This0();
+        String arrLg_ = co_.getAliasArrayLength();
+        String arrClone_ = co_.getAliasClone();
+        String vd_ = co_.getAliasVoid();
+        String iterKw_ = _kw.getKeyWordIter();
+        String outIns_ = tr("out", _kw, pr_, co_,
+                parInsIndex_,
+                parInsElt_);
+        String indIns_ = tr("i", _kw, pr_, co_,
+                parInsIndex_,
+                parInsElt_);
+        String ret_ = _kw.getKeyWordReturn();
+        String parRem_ = custAliasParameters.getAliasList0RemoveLi0();
+        String outRem_ = tr("out", _kw, pr_, co_,parRem_);
+        String indRem_ = tr("i", _kw, pr_, co_,parRem_);
+        AliasPredefinedTypes pred_ = _content.getPredefTypes();
+        return pub_ +" "+_kw.getKeyWordClass()+" "+aliasList+"<"+aliasListVar+"> :"+pred_.getAliasIterable()+"<"+aliasListVar+">{"+LR
+                +SPACES_4+ pri_ +" "+aliasListVar+"[] "+ aliasArrayLi+";"+LR
+                +SPACES_4+ pri_ +" "+ in_ +" "+aliasLengthLi+";"+LR
+                +SPACES_4+ pub_ +" (){"+LR
+                +SPACES_4+SPACES_4+aliasArrayLi+"="+ nw_ +" "+aliasListVar+"["+"0"+"];"+LR
+                +SPACES_4+"}"+LR
+                +SPACES_4+ pub_ +" ("+aliasList+"<"+aliasListVar+"> "+parCtrCp_+"){"+LR
+                +SPACES_4+SPACES_4+ th_ +"."+aliasArrayLi+"="+parCtrCp_+"."+aliasArrayLi+"."+ arrClone_ +"();"+LR
+                +SPACES_4+SPACES_4+ fieldLen_ +"="+ th_ +"."+aliasArrayLi+"."+ arrLg_ +";"+LR
+                +SPACES_4+"}"+LR
+                +SPACES_4+ pub_ +" ("+aliasListVar+"... "+parCtr_+"){"+LR
+                +SPACES_4+SPACES_4+ th_ +"."+aliasArrayLi+"="+parCtr_+"."+ arrClone_ +"();"+LR
+                +SPACES_4+SPACES_4+ fieldLen_ +"="+ th_ +"."+aliasArrayLi+"."+ arrLg_ +";"+LR
+                +SPACES_4+"}"+LR
+                +SPACES_4+ pub_ +" "+ vd_ +" "+aliasAddLi+"("+aliasListVar+" "+parAppend_+"){"+LR
+                +SPACES_4+SPACES_4+aliasAddLi+"("+ fieldLen_ +","+parAppend_+");"+LR
+                +SPACES_4+"}"+LR
+                +SPACES_4+ pub_ +" "+ vd_ +" "+aliasAddLi+"("+ in_ +" "+parInsIndex_+","+aliasListVar+" "+parInsElt_+"){"+LR
+                +SPACES_4+SPACES_4+aliasListVar+"[] "+outIns_+"="+ nw_ +" "+aliasListVar+"["+ fieldLen_ +"+"+"1"+"];"+LR
+                +SPACES_4+SPACES_4+ iterKw_ +"("+ in_ +" "+indIns_+"="+"0"+";"+parInsIndex_+";"+"1"+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+outIns_+"["+indIns_+"]="+ th_ +"."+aliasArrayLi+"["+indIns_+"];"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+outIns_+"["+parInsIndex_+"]="+parInsElt_+";"+LR
+                +SPACES_4+SPACES_4+ iterKw_ +"("+ in_ +" "+indIns_+"="+parInsIndex_+"+"+"1"+";"+fieldLen_+"+"+"1"+";"+"1"+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+outIns_+"["+indIns_+"]="+ th_ +"."+aliasArrayLi+"["+indIns_+"-"+"1"+"];"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ fieldLen_ +"++;"+LR
+                +SPACES_4+SPACES_4+ th_ +"."+aliasArrayLi+"="+outIns_+";"+LR
+                +SPACES_4+"}"+LR
+                +SPACES_4+ pub_ +" "+ in_ +" "+aliasSizeLi+"(){"+LR
+                +SPACES_4+SPACES_4+ ret_ +" "+ fieldLen_ +";"+LR
+                +SPACES_4+"}"+LR
+                +SPACES_4+ pub_ +" "+aliasListVar+" "+ th_ +"("+ in_ +" "+parGet_+"){"+LR
+                +SPACES_4+SPACES_4+ ret_ +" "+ th_ +"."+aliasArrayLi+"["+parGet_+"];"+LR
+                +SPACES_4+"}"+LR
+                +SPACES_4+ pub_ +" "+ vd_ +" "+ th_ +"("+ in_ +" "+parSet_+"){"+LR
+                +SPACES_4+SPACES_4+ th_ +"."+aliasArrayLi+"["+parSet_+"]="+_kw.getKeyWordValue()+";"+LR
+                +SPACES_4+"}"+LR
+                +SPACES_4+ pub_ +" "+ vd_ +" "+aliasRemoveLi+"("+ in_ +" "+ parRem_ +"){"+LR
+                +SPACES_4+SPACES_4+aliasListVar+"[] "+ outRem_ +"="+ nw_ +" "+aliasListVar+"["+ fieldLen_ +"-"+"1"+"];"+LR
+                +SPACES_4+SPACES_4+ iterKw_ +"("+ in_ +" "+ indRem_ +"="+"0"+";"+ parRem_ +";"+"1"+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ outRem_ +"["+ indRem_ +"]="+ th_ +"."+aliasArrayLi+"["+ indRem_ +"];"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ iterKw_ +"("+ in_ +" "+ indRem_ +"="+ parRem_ +"+"+"1"+";"+ fieldLen_ +";"+"1"+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ outRem_ +"["+ indRem_ +"-"+"1"+"]="+ th_ +"."+aliasArrayLi+"["+ indRem_ +"];"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ th_ +"."+aliasArrayLi+" = "+ outRem_ +";"+LR
+                +SPACES_4+SPACES_4+fieldLen_+"--;"+LR
+                +SPACES_4+"}"+LR
+                +SPACES_4+ pub_ +" "+ vd_ +" "+aliasListClear+"(){"+LR
+                +SPACES_4+SPACES_4+fieldLen_+"="+"0"+";"+LR
+                +SPACES_4+SPACES_4+ th_ +"."+aliasArrayLi+"="+ nw_ +" "+aliasListVar+"["+"0"+"];"+LR
+                +SPACES_4+"}"+LR
+                +SPACES_4+ pub_ +" "+pred_.getAliasIteratorType()+"<"+aliasListVar+"> "+pred_.getAliasIterator()+"(){"+LR
+                +SPACES_4+SPACES_4+ ret_ +" "+ nw_ +" "+aliasCustIterator+"<"+aliasListVar+">("+ th_ +");"+LR
+                +SPACES_4+"}"+LR
+                +"}"+LR
+                +"";
+    }
     public String formatter(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
         String abs_ = _kw.getKeyWordAbstract();
@@ -3189,7 +3300,7 @@ public final class CustAliases {
                 +SPACES_4+ pub_ +" "+_content.getPrimTypes().getAliasPrimInteger()+" "+ aliasIndex +";"+LR
                 +SPACES_4+ pub_ +" "+_content.getCharSeq().getAliasString()+" "+ toStr_ +"(){"+LR
                 +SPACES_4+SPACES_4+_kw.getKeyWordVar()+" "+ out_ +"="+_kw.getKeyWordNew()+" "+_content.getCharSeq().getAliasStringBuilder()+"();"+LR
-                +SPACES_4+SPACES_4+ out_ +"."+ append_ +"("+ aliasIndex +");"+LR
+                +SPACES_4+SPACES_4+ out_ +"."+ append_ +"("+ _kw.getKeyWordThis()+"."+aliasIndex +");"+LR
                 +SPACES_4+SPACES_4+ out_ +"."+ append_ +"(\":\");"+LR
                 +SPACES_4+SPACES_4+ out_ +"."+ append_ +"("+_kw.getKeyWordSuper()+"."+ toStr_ +"());"+LR
                 +SPACES_4+SPACES_4+_kw.getKeyWordReturn()+" "+ out_ +"."+_content.getCharSeq().getAliasCharSequenceToString()+"();"+LR
