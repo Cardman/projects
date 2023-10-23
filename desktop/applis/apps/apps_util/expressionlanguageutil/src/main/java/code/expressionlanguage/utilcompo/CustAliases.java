@@ -35,6 +35,7 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class CustAliases {
+    public static final String ANY_PAIR = "<?,?,";
     public static final String LR = "\n";
     public static final String SPACES_4 = "    ";
     public static final String KW_PUBLIC = "{public}";
@@ -103,12 +104,6 @@ public final class CustAliases {
     public static final String TYPE_INFO_TEST = "{InfoTest}";
     public static final String TYPE_ELT_DIFFERENCE = "{EltDifference}";
     public static final String TYPE_DOUBLE = "{Double}";
-    public static final String TYPE_PARAM_E = "{E}";
-    public static final String TYPE_PARAM_U = "{U}";
-    public static final String TYPE_PARAM_V = "{V}";
-    public static final String TYPE_PARAM_A = "{A}";
-    public static final String TYPE_PARAM_B = "{B}";
-    public static final String TYPE_PARAM_F = "{F}";
     public static final String METHOD_RUN = "{run}";
     public static final String METHOD_CALL = "{call}";
     public static final String METHOD_ITERATOR_TYPE = "{iteratorType}";
@@ -254,89 +249,6 @@ public final class CustAliases {
     public static final String PARAM_034 = "r";
     public static final String PARAM_035 = "b";
     public static final String PARAM_036 = "c";
-    public static final String PARAM_037 = "a11";
-    public static final String PARAM_038 = "a12";
-    public static final String PARAM_039 = "a21";
-    public static final String PARAM_040 = "a22";
-    public static final String PARAM_041 = "a31";
-    public static final String PARAM_042 = "a32";
-    public static final String PARAM_043 = "a41";
-    public static final String PARAM_044 = "a42";
-    public static final String PARAM_045 = "a51";
-    public static final String PARAM_046 = "a52";
-    public static final String PARAM_047 = "a211";
-    public static final String PARAM_048 = "a212";
-    public static final String PARAM_049 = "a213";
-    public static final String PARAM_050 = "at11";
-    public static final String PARAM_051 = "at12";
-    public static final String PARAM_052 = "at21";
-    public static final String PARAM_053 = "at22";
-    public static final String PARAM_054 = "at31";
-    public static final String PARAM_055 = "at32";
-    public static final String PARAM_056 = "at41";
-    public static final String PARAM_057 = "at42";
-    public static final String PARAM_058 = "at51";
-    public static final String PARAM_059 = "at52";
-    public static final String PARAM_060 = "at211";
-    public static final String PARAM_061 = "at212";
-    public static final String PARAM_062 = "at213";
-    public static final String PARAM_063 = "an11";
-    public static final String PARAM_064 = "an12";
-    public static final String PARAM_065 = "an21";
-    public static final String PARAM_066 = "an22";
-    public static final String PARAM_067 = "an31";
-    public static final String PARAM_068 = "an32";
-    public static final String PARAM_069 = "an41";
-    public static final String PARAM_070 = "an42";
-    public static final String PARAM_071 = "an51";
-    public static final String PARAM_072 = "an52";
-    public static final String PARAM_073 = "an211";
-    public static final String PARAM_074 = "an212";
-    public static final String PARAM_075 = "an213";
-    public static final String PARAM_076 = "ant11";
-    public static final String PARAM_077 = "ant12";
-    public static final String PARAM_078 = "ant21";
-    public static final String PARAM_079 = "ant22";
-    public static final String PARAM_080 = "ant31";
-    public static final String PARAM_081 = "ant32";
-    public static final String PARAM_082 = "ant41";
-    public static final String PARAM_083 = "ant42";
-    public static final String PARAM_084 = "ant51";
-    public static final String PARAM_085 = "ant52";
-    public static final String PARAM_086 = "ant211";
-    public static final String PARAM_087 = "ant212";
-    public static final String PARAM_088 = "ant213";
-    public static final String PARAM_089 = "a6";
-    public static final String PARAM_090 = "a61";
-    public static final String PARAM_091 = "a7";
-    public static final String PARAM_092 = "a8";
-    public static final String PARAM_093 = "a91";
-    public static final String PARAM_094 = "a92";
-    public static final String PARAM_095 = "an91";
-    public static final String PARAM_096 = "an92";
-    public static final String PARAM_097 = "a101";
-    public static final String PARAM_098 = "a102";
-    public static final String PARAM_099 = "a103";
-    public static final String PARAM_100 = "a111";
-    public static final String PARAM_101 = "a112";
-    public static final String PARAM_102 = "at101";
-    public static final String PARAM_103 = "at102";
-    public static final String PARAM_104 = "at103";
-    public static final String PARAM_105 = "at111";
-    public static final String PARAM_106 = "at112";
-    public static final String PARAM_107 = "an101";
-    public static final String PARAM_108 = "an102";
-    public static final String PARAM_109 = "an103";
-    public static final String PARAM_110 = "an111";
-    public static final String PARAM_111 = "an112";
-    public static final String PARAM_112 = "ant101";
-    public static final String PARAM_113 = "ant102";
-    public static final String PARAM_114 = "ant103";
-    public static final String PARAM_115 = "ant111";
-    public static final String PARAM_116 = "ant112";
-    public static final String PARAM_117 = "d";
-    public static final String PARAM_118 = "la";
-    public static final String PARAM_119 = "ea";
     public static final String PARAM_120 = "co";
     public static final String PARAM_121 = "e";
     public static final String PARAM_122 = "l";
@@ -1436,12 +1348,9 @@ public final class CustAliases {
         map_.put(KW_CLASS, class_);
         map_.put(TYPE_ITER, aliasCustIterator);
         map_.put(TYPE_LIST, aliasList);
-        map_.put(TYPE_PARAM_E, aliasListVar);
         map_.put(TYPE_INT, int_);
         map_.put(TYPE_BOOLEAN, boolean_);
-        placeHolder(map_, PARAM_012, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasList0RemoveLi0(),custAliasParameters.getAliasList1AddLi0(),custAliasParameters.getAliasList1AddLi1());
         placeHolder(map_, PARAM_013, _keyWords, primitiveTypes_, coreNames_);
-        placeHolder(map_, PARAM_014, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasList0RemoveLi0(),custAliasParameters.getAliasList1AddLi0(),custAliasParameters.getAliasList1AddLi1());
         map_.put(METHOD_ITERATOR_TYPE, predefTypes_.getAliasIteratorType());
         map_.put(METHOD_ITERABLE, predefTypes_.getAliasIterable());
         map_.put(METHOD_LIST_ITR, aliasListItr);
@@ -1467,8 +1376,6 @@ public final class CustAliases {
         stds_.put(aliasList, iteratorType(_keyWords, _content)+listType(_keyWords, _content));
         map_.put(TYPE_CUST_PAIR,aliasCustPair);
         map_.put(TYPE_PAIR,predefTypes_.getAliasPairType());
-        map_.put(TYPE_PARAM_U,aliasPairVarFirst);
-        map_.put(TYPE_PARAM_V,aliasPairVarSecond);
         map_.put(FIELD_FIRST,aliasFirst);
         map_.put(FIELD_SECOND,aliasSecond);
         map_.put(METHOD_GET_FIRST,predefTypes_.getAliasGetFirst());
@@ -1498,15 +1405,11 @@ public final class CustAliases {
         map_.put(METHOD_LIST_ITR_TA, aliasListIterTable);
         map_.put(METHOD_LENGTH_ITR_TA, aliasLengthItrTa);
         map_.put(METHOD_INDEX_ITR_TA, aliasIndexItrTa);
-        map_.put(TYPE_PARAM_A,aliasIterTaVarFirst);
-        map_.put(TYPE_PARAM_B,aliasIterTaVarSecond);
         map_.put(METHOD_NEXT_PAIR,predefTypes_.getAliasNextPair());
         map_.put(METHOD_HAS_NEXT_PAIR,predefTypes_.getAliasHasNextPair());
         map_.put(TYPE_TABLE,aliasTable);
         map_.put(FIELD_LIST_TA,aliasListTa);
         map_.put(METHOD_ITERABLE_TABLE,predefTypes_.getAliasIterableTable());
-        map_.put(TYPE_PARAM_E,aliasTableVarFirst);
-        map_.put(TYPE_PARAM_F,aliasTableVarSecond);
         map_.put(METHOD_ADD_TA,aliasAddTa);
         map_.put(METHOD_SIZE_TA,aliasSizeTa);
         map_.put(METHOD_GET_TA,aliasGetTa);
@@ -1525,203 +1428,6 @@ public final class CustAliases {
                 custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
         );
         placeHolder(map_, PARAM_036, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        map_.put(wrap(PARAM_037),custAliasParameters.getAliasAssert0AssertAssert0());
-        map_.put(wrap(PARAM_038),custAliasParameters.getAliasAssert0AssertAssert1());
-        map_.put(wrap(PARAM_039),custAliasParameters.getAliasAssert1AssertAssert0());
-        map_.put(wrap(PARAM_040),custAliasParameters.getAliasAssert1AssertAssert1());
-        map_.put(wrap(PARAM_041),custAliasParameters.getAliasAssert2AssertAssert0());
-        map_.put(wrap(PARAM_042),custAliasParameters.getAliasAssert2AssertAssert1());
-        map_.put(wrap(PARAM_043),custAliasParameters.getAliasAssert3AssertAssert0());
-        map_.put(wrap(PARAM_044),custAliasParameters.getAliasAssert3AssertAssert1());
-        map_.put(wrap(PARAM_045),custAliasParameters.getAliasAssert4AssertAssert0());
-        map_.put(wrap(PARAM_046),custAliasParameters.getAliasAssert4AssertAssert1());
-        map_.put(wrap(PARAM_047),custAliasParameters.getAliasAssert5AssertAssertDouble0());
-        map_.put(wrap(PARAM_048),custAliasParameters.getAliasAssert5AssertAssertDouble1());
-        map_.put(wrap(PARAM_049),custAliasParameters.getAliasAssert5AssertAssertDouble2());
-        map_.put(wrap(PARAM_050),custAliasParameters.getAliasAssert0AssertAssertArr0());
-        map_.put(wrap(PARAM_051),custAliasParameters.getAliasAssert0AssertAssertArr1());
-        map_.put(wrap(PARAM_052),custAliasParameters.getAliasAssert1AssertAssertArr0());
-        map_.put(wrap(PARAM_053),custAliasParameters.getAliasAssert1AssertAssertArr1());
-        map_.put(wrap(PARAM_054),custAliasParameters.getAliasAssert2AssertAssertArr0());
-        map_.put(wrap(PARAM_055),custAliasParameters.getAliasAssert2AssertAssertArr1());
-        map_.put(wrap(PARAM_056),custAliasParameters.getAliasAssert3AssertAssertArr0());
-        map_.put(wrap(PARAM_057),custAliasParameters.getAliasAssert3AssertAssertArr1());
-        map_.put(wrap(PARAM_058),custAliasParameters.getAliasAssert4AssertAssertArr0());
-        map_.put(wrap(PARAM_059),custAliasParameters.getAliasAssert4AssertAssertArr1());
-        map_.put(wrap(PARAM_060),custAliasParameters.getAliasAssert5AssertAssertArrDouble0());
-        map_.put(wrap(PARAM_061),custAliasParameters.getAliasAssert5AssertAssertArrDouble1());
-        map_.put(wrap(PARAM_062),custAliasParameters.getAliasAssert5AssertAssertArrDouble2());
-        map_.put(wrap(PARAM_063),custAliasParameters.getAliasAssert0AssertAssertNot0());
-        map_.put(wrap(PARAM_064),custAliasParameters.getAliasAssert0AssertAssertNot1());
-        map_.put(wrap(PARAM_065),custAliasParameters.getAliasAssert1AssertAssertNot0());
-        map_.put(wrap(PARAM_066),custAliasParameters.getAliasAssert1AssertAssertNot1());
-        map_.put(wrap(PARAM_067),custAliasParameters.getAliasAssert2AssertAssertNot0());
-        map_.put(wrap(PARAM_068),custAliasParameters.getAliasAssert2AssertAssertNot1());
-        map_.put(wrap(PARAM_069),custAliasParameters.getAliasAssert3AssertAssertNot0());
-        map_.put(wrap(PARAM_070),custAliasParameters.getAliasAssert3AssertAssertNot1());
-        map_.put(wrap(PARAM_071),custAliasParameters.getAliasAssert4AssertAssertNot0());
-        map_.put(wrap(PARAM_072),custAliasParameters.getAliasAssert4AssertAssertNot1());
-        map_.put(wrap(PARAM_073),custAliasParameters.getAliasAssert5AssertAssertNotDouble0());
-        map_.put(wrap(PARAM_074),custAliasParameters.getAliasAssert5AssertAssertNotDouble1());
-        map_.put(wrap(PARAM_075),custAliasParameters.getAliasAssert5AssertAssertNotDouble2());
-        map_.put(wrap(PARAM_076),custAliasParameters.getAliasAssert0AssertAssertNotArr0());
-        map_.put(wrap(PARAM_077),custAliasParameters.getAliasAssert0AssertAssertNotArr1());
-        map_.put(wrap(PARAM_078),custAliasParameters.getAliasAssert1AssertAssertNotArr0());
-        map_.put(wrap(PARAM_079),custAliasParameters.getAliasAssert1AssertAssertNotArr1());
-        map_.put(wrap(PARAM_080),custAliasParameters.getAliasAssert2AssertAssertNotArr0());
-        map_.put(wrap(PARAM_081),custAliasParameters.getAliasAssert2AssertAssertNotArr1());
-        map_.put(wrap(PARAM_082),custAliasParameters.getAliasAssert3AssertAssertNotArr0());
-        map_.put(wrap(PARAM_083),custAliasParameters.getAliasAssert3AssertAssertNotArr1());
-        map_.put(wrap(PARAM_084),custAliasParameters.getAliasAssert4AssertAssertNotArr0());
-        map_.put(wrap(PARAM_085),custAliasParameters.getAliasAssert4AssertAssertNotArr1());
-        map_.put(wrap(PARAM_086),custAliasParameters.getAliasAssert5AssertAssertNotArrDouble0());
-        map_.put(wrap(PARAM_087),custAliasParameters.getAliasAssert5AssertAssertNotArrDouble1());
-        map_.put(wrap(PARAM_088),custAliasParameters.getAliasAssert5AssertAssertNotArrDouble2());
-        map_.put(wrap(PARAM_089),custAliasParameters.getAliasAssert0AssertAssertTrue0());
-        map_.put(wrap(PARAM_090),custAliasParameters.getAliasAssert0AssertAssertFalse0());
-        map_.put(wrap(PARAM_091),custAliasParameters.getAliasAssert0AssertAssertNull0());
-        map_.put(wrap(PARAM_092),custAliasParameters.getAliasAssert0AssertAssertNotNull0());
-        map_.put(wrap(PARAM_093),custAliasParameters.getAliasAssert0AssertAssertSame0());
-        map_.put(wrap(PARAM_094),custAliasParameters.getAliasAssert0AssertAssertSame1());
-        map_.put(wrap(PARAM_095),custAliasParameters.getAliasAssert0AssertAssertNotSame0());
-        map_.put(wrap(PARAM_096),custAliasParameters.getAliasAssert0AssertAssertNotSame1());
-        map_.put(wrap(PARAM_097),custAliasParameters.getAliasAssert5AssertAssert0());
-        map_.put(wrap(PARAM_098),custAliasParameters.getAliasAssert5AssertAssert1());
-        map_.put(wrap(PARAM_099),custAliasParameters.getAliasAssert5AssertAssert2());
-        map_.put(wrap(PARAM_100),custAliasParameters.getAliasAssert6AssertAssert0());
-        map_.put(wrap(PARAM_101),custAliasParameters.getAliasAssert6AssertAssert1());
-        map_.put(wrap(PARAM_102),custAliasParameters.getAliasAssert5AssertAssertArr0());
-        map_.put(wrap(PARAM_103),custAliasParameters.getAliasAssert5AssertAssertArr1());
-        map_.put(wrap(PARAM_104),custAliasParameters.getAliasAssert5AssertAssertArr2());
-        map_.put(wrap(PARAM_105),custAliasParameters.getAliasAssert6AssertAssertArr0());
-        map_.put(wrap(PARAM_106),custAliasParameters.getAliasAssert6AssertAssertArr1());
-        map_.put(wrap(PARAM_107),custAliasParameters.getAliasAssert5AssertAssertNot0());
-        map_.put(wrap(PARAM_108),custAliasParameters.getAliasAssert5AssertAssertNot1());
-        map_.put(wrap(PARAM_109),custAliasParameters.getAliasAssert5AssertAssertNot2());
-        map_.put(wrap(PARAM_110),custAliasParameters.getAliasAssert6AssertAssertNot0());
-        map_.put(wrap(PARAM_111),custAliasParameters.getAliasAssert6AssertAssertNot1());
-        map_.put(wrap(PARAM_112),custAliasParameters.getAliasAssert5AssertAssertNotArr0());
-        map_.put(wrap(PARAM_113),custAliasParameters.getAliasAssert5AssertAssertNotArr1());
-        map_.put(wrap(PARAM_114),custAliasParameters.getAliasAssert5AssertAssertNotArr2());
-        map_.put(wrap(PARAM_115),custAliasParameters.getAliasAssert6AssertAssertNotArr0());
-        map_.put(wrap(PARAM_116),custAliasParameters.getAliasAssert6AssertAssertNotArr1());
-        placeHolder(map_, PARAM_117, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasAssert0AssertAssert0(),custAliasParameters.getAliasAssert0AssertAssert1(),
-                custAliasParameters.getAliasAssert1AssertAssert0(),custAliasParameters.getAliasAssert1AssertAssert1(),
-                custAliasParameters.getAliasAssert2AssertAssert0(),custAliasParameters.getAliasAssert2AssertAssert1(),
-                custAliasParameters.getAliasAssert3AssertAssert0(),custAliasParameters.getAliasAssert3AssertAssert1(),
-                custAliasParameters.getAliasAssert4AssertAssert0(),custAliasParameters.getAliasAssert4AssertAssert1(),
-                custAliasParameters.getAliasAssert5AssertAssertDouble0(),custAliasParameters.getAliasAssert5AssertAssertDouble1(),custAliasParameters.getAliasAssert5AssertAssertDouble2(),
-                custAliasParameters.getAliasAssert0AssertAssertArr0(),custAliasParameters.getAliasAssert0AssertAssertArr1(),
-                custAliasParameters.getAliasAssert1AssertAssertArr0(),custAliasParameters.getAliasAssert1AssertAssertArr1(),
-                custAliasParameters.getAliasAssert2AssertAssertArr0(),custAliasParameters.getAliasAssert2AssertAssertArr1(),
-                custAliasParameters.getAliasAssert3AssertAssertArr0(),custAliasParameters.getAliasAssert3AssertAssertArr1(),
-                custAliasParameters.getAliasAssert4AssertAssertArr0(),custAliasParameters.getAliasAssert4AssertAssertArr1(),
-                custAliasParameters.getAliasAssert5AssertAssertArrDouble0(),custAliasParameters.getAliasAssert5AssertAssertArrDouble1(),custAliasParameters.getAliasAssert5AssertAssertArrDouble2(),
-                custAliasParameters.getAliasAssert0AssertAssertNot0(),custAliasParameters.getAliasAssert0AssertAssertNot1(),
-                custAliasParameters.getAliasAssert1AssertAssertNot0(),custAliasParameters.getAliasAssert1AssertAssertNot1(),
-                custAliasParameters.getAliasAssert2AssertAssertNot0(),custAliasParameters.getAliasAssert2AssertAssertNot1(),
-                custAliasParameters.getAliasAssert3AssertAssertNot0(),custAliasParameters.getAliasAssert3AssertAssertNot1(),
-                custAliasParameters.getAliasAssert4AssertAssertNot0(),custAliasParameters.getAliasAssert4AssertAssertNot1(),
-                custAliasParameters.getAliasAssert5AssertAssertNotDouble0(),custAliasParameters.getAliasAssert5AssertAssertNotDouble1(),custAliasParameters.getAliasAssert5AssertAssertNotDouble2(),
-                custAliasParameters.getAliasAssert0AssertAssertNotArr0(),custAliasParameters.getAliasAssert0AssertAssertNotArr1(),
-                custAliasParameters.getAliasAssert1AssertAssertNotArr0(),custAliasParameters.getAliasAssert1AssertAssertNotArr1(),
-                custAliasParameters.getAliasAssert2AssertAssertNotArr0(),custAliasParameters.getAliasAssert2AssertAssertNotArr1(),
-                custAliasParameters.getAliasAssert3AssertAssertNotArr0(),custAliasParameters.getAliasAssert3AssertAssertNotArr1(),
-                custAliasParameters.getAliasAssert4AssertAssertNotArr0(),custAliasParameters.getAliasAssert4AssertAssertNotArr1(),
-                custAliasParameters.getAliasAssert5AssertAssertNotArrDouble0(),custAliasParameters.getAliasAssert5AssertAssertNotArrDouble1(),custAliasParameters.getAliasAssert5AssertAssertNotArrDouble2(),
-                custAliasParameters.getAliasAssert0AssertAssertTrue0(),
-                custAliasParameters.getAliasAssert0AssertAssertFalse0(),
-                custAliasParameters.getAliasAssert0AssertAssertNull0(),
-                custAliasParameters.getAliasAssert0AssertAssertNotNull0(),
-                custAliasParameters.getAliasAssert0AssertAssertSame0(),custAliasParameters.getAliasAssert0AssertAssertSame1(),
-                custAliasParameters.getAliasAssert0AssertAssertNotSame0(),custAliasParameters.getAliasAssert0AssertAssertNotSame1(),
-                custAliasParameters.getAliasAssert5AssertAssert0(),custAliasParameters.getAliasAssert5AssertAssert1(),custAliasParameters.getAliasAssert5AssertAssert2(),
-                custAliasParameters.getAliasAssert6AssertAssert0(),custAliasParameters.getAliasAssert6AssertAssert1(),
-                custAliasParameters.getAliasAssert5AssertAssertArr0(),custAliasParameters.getAliasAssert5AssertAssertArr1(),custAliasParameters.getAliasAssert5AssertAssertArr2(),
-                custAliasParameters.getAliasAssert6AssertAssertArr0(),custAliasParameters.getAliasAssert6AssertAssertArr1(),
-                custAliasParameters.getAliasAssert5AssertAssertNot0(),custAliasParameters.getAliasAssert5AssertAssertNot1(),custAliasParameters.getAliasAssert5AssertAssertNot2(),
-                custAliasParameters.getAliasAssert6AssertAssertNot0(),custAliasParameters.getAliasAssert6AssertAssertNot1(),
-                custAliasParameters.getAliasAssert5AssertAssertNotArr0(),custAliasParameters.getAliasAssert5AssertAssertNotArr1(),custAliasParameters.getAliasAssert5AssertAssertNotArr2(),
-                custAliasParameters.getAliasAssert6AssertAssertNotArr0(),custAliasParameters.getAliasAssert6AssertAssertNotArr1());
-        placeHolder(map_, PARAM_118, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasAssert0AssertAssert0(),custAliasParameters.getAliasAssert0AssertAssert1(),
-                custAliasParameters.getAliasAssert1AssertAssert0(),custAliasParameters.getAliasAssert1AssertAssert1(),
-                custAliasParameters.getAliasAssert2AssertAssert0(),custAliasParameters.getAliasAssert2AssertAssert1(),
-                custAliasParameters.getAliasAssert3AssertAssert0(),custAliasParameters.getAliasAssert3AssertAssert1(),
-                custAliasParameters.getAliasAssert4AssertAssert0(),custAliasParameters.getAliasAssert4AssertAssert1(),
-                custAliasParameters.getAliasAssert5AssertAssertDouble0(),custAliasParameters.getAliasAssert5AssertAssertDouble1(),custAliasParameters.getAliasAssert5AssertAssertDouble2(),
-                custAliasParameters.getAliasAssert0AssertAssertArr0(),custAliasParameters.getAliasAssert0AssertAssertArr1(),
-                custAliasParameters.getAliasAssert1AssertAssertArr0(),custAliasParameters.getAliasAssert1AssertAssertArr1(),
-                custAliasParameters.getAliasAssert2AssertAssertArr0(),custAliasParameters.getAliasAssert2AssertAssertArr1(),
-                custAliasParameters.getAliasAssert3AssertAssertArr0(),custAliasParameters.getAliasAssert3AssertAssertArr1(),
-                custAliasParameters.getAliasAssert4AssertAssertArr0(),custAliasParameters.getAliasAssert4AssertAssertArr1(),
-                custAliasParameters.getAliasAssert5AssertAssertArrDouble0(),custAliasParameters.getAliasAssert5AssertAssertArrDouble1(),custAliasParameters.getAliasAssert5AssertAssertArrDouble2(),
-                custAliasParameters.getAliasAssert0AssertAssertNot0(),custAliasParameters.getAliasAssert0AssertAssertNot1(),
-                custAliasParameters.getAliasAssert1AssertAssertNot0(),custAliasParameters.getAliasAssert1AssertAssertNot1(),
-                custAliasParameters.getAliasAssert2AssertAssertNot0(),custAliasParameters.getAliasAssert2AssertAssertNot1(),
-                custAliasParameters.getAliasAssert3AssertAssertNot0(),custAliasParameters.getAliasAssert3AssertAssertNot1(),
-                custAliasParameters.getAliasAssert4AssertAssertNot0(),custAliasParameters.getAliasAssert4AssertAssertNot1(),
-                custAliasParameters.getAliasAssert5AssertAssertNotDouble0(),custAliasParameters.getAliasAssert5AssertAssertNotDouble1(),custAliasParameters.getAliasAssert5AssertAssertNotDouble2(),
-                custAliasParameters.getAliasAssert0AssertAssertNotArr0(),custAliasParameters.getAliasAssert0AssertAssertNotArr1(),
-                custAliasParameters.getAliasAssert1AssertAssertNotArr0(),custAliasParameters.getAliasAssert1AssertAssertNotArr1(),
-                custAliasParameters.getAliasAssert2AssertAssertNotArr0(),custAliasParameters.getAliasAssert2AssertAssertNotArr1(),
-                custAliasParameters.getAliasAssert3AssertAssertNotArr0(),custAliasParameters.getAliasAssert3AssertAssertNotArr1(),
-                custAliasParameters.getAliasAssert4AssertAssertNotArr0(),custAliasParameters.getAliasAssert4AssertAssertNotArr1(),
-                custAliasParameters.getAliasAssert5AssertAssertNotArrDouble0(),custAliasParameters.getAliasAssert5AssertAssertNotArrDouble1(),custAliasParameters.getAliasAssert5AssertAssertNotArrDouble2(),
-                custAliasParameters.getAliasAssert0AssertAssertTrue0(),
-                custAliasParameters.getAliasAssert0AssertAssertFalse0(),
-                custAliasParameters.getAliasAssert0AssertAssertNull0(),
-                custAliasParameters.getAliasAssert0AssertAssertNotNull0(),
-                custAliasParameters.getAliasAssert0AssertAssertSame0(),custAliasParameters.getAliasAssert0AssertAssertSame1(),
-                custAliasParameters.getAliasAssert0AssertAssertNotSame0(),custAliasParameters.getAliasAssert0AssertAssertNotSame1(),
-                custAliasParameters.getAliasAssert5AssertAssert0(),custAliasParameters.getAliasAssert5AssertAssert1(),custAliasParameters.getAliasAssert5AssertAssert2(),
-                custAliasParameters.getAliasAssert6AssertAssert0(),custAliasParameters.getAliasAssert6AssertAssert1(),
-                custAliasParameters.getAliasAssert5AssertAssertArr0(),custAliasParameters.getAliasAssert5AssertAssertArr1(),custAliasParameters.getAliasAssert5AssertAssertArr2(),
-                custAliasParameters.getAliasAssert6AssertAssertArr0(),custAliasParameters.getAliasAssert6AssertAssertArr1(),
-                custAliasParameters.getAliasAssert5AssertAssertNot0(),custAliasParameters.getAliasAssert5AssertAssertNot1(),custAliasParameters.getAliasAssert5AssertAssertNot2(),
-                custAliasParameters.getAliasAssert6AssertAssertNot0(),custAliasParameters.getAliasAssert6AssertAssertNot1(),
-                custAliasParameters.getAliasAssert5AssertAssertNotArr0(),custAliasParameters.getAliasAssert5AssertAssertNotArr1(),custAliasParameters.getAliasAssert5AssertAssertNotArr2(),
-                custAliasParameters.getAliasAssert6AssertAssertNotArr0(),custAliasParameters.getAliasAssert6AssertAssertNotArr1());
-        placeHolder(map_, PARAM_119, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasAssert0AssertAssert0(),custAliasParameters.getAliasAssert0AssertAssert1(),
-                custAliasParameters.getAliasAssert1AssertAssert0(),custAliasParameters.getAliasAssert1AssertAssert1(),
-                custAliasParameters.getAliasAssert2AssertAssert0(),custAliasParameters.getAliasAssert2AssertAssert1(),
-                custAliasParameters.getAliasAssert3AssertAssert0(),custAliasParameters.getAliasAssert3AssertAssert1(),
-                custAliasParameters.getAliasAssert4AssertAssert0(),custAliasParameters.getAliasAssert4AssertAssert1(),
-                custAliasParameters.getAliasAssert5AssertAssertDouble0(),custAliasParameters.getAliasAssert5AssertAssertDouble1(),custAliasParameters.getAliasAssert5AssertAssertDouble2(),
-                custAliasParameters.getAliasAssert0AssertAssertArr0(),custAliasParameters.getAliasAssert0AssertAssertArr1(),
-                custAliasParameters.getAliasAssert1AssertAssertArr0(),custAliasParameters.getAliasAssert1AssertAssertArr1(),
-                custAliasParameters.getAliasAssert2AssertAssertArr0(),custAliasParameters.getAliasAssert2AssertAssertArr1(),
-                custAliasParameters.getAliasAssert3AssertAssertArr0(),custAliasParameters.getAliasAssert3AssertAssertArr1(),
-                custAliasParameters.getAliasAssert4AssertAssertArr0(),custAliasParameters.getAliasAssert4AssertAssertArr1(),
-                custAliasParameters.getAliasAssert5AssertAssertArrDouble0(),custAliasParameters.getAliasAssert5AssertAssertArrDouble1(),custAliasParameters.getAliasAssert5AssertAssertArrDouble2(),
-                custAliasParameters.getAliasAssert0AssertAssertNot0(),custAliasParameters.getAliasAssert0AssertAssertNot1(),
-                custAliasParameters.getAliasAssert1AssertAssertNot0(),custAliasParameters.getAliasAssert1AssertAssertNot1(),
-                custAliasParameters.getAliasAssert2AssertAssertNot0(),custAliasParameters.getAliasAssert2AssertAssertNot1(),
-                custAliasParameters.getAliasAssert3AssertAssertNot0(),custAliasParameters.getAliasAssert3AssertAssertNot1(),
-                custAliasParameters.getAliasAssert4AssertAssertNot0(),custAliasParameters.getAliasAssert4AssertAssertNot1(),
-                custAliasParameters.getAliasAssert5AssertAssertNotDouble0(),custAliasParameters.getAliasAssert5AssertAssertNotDouble1(),custAliasParameters.getAliasAssert5AssertAssertNotDouble2(),
-                custAliasParameters.getAliasAssert0AssertAssertNotArr0(),custAliasParameters.getAliasAssert0AssertAssertNotArr1(),
-                custAliasParameters.getAliasAssert1AssertAssertNotArr0(),custAliasParameters.getAliasAssert1AssertAssertNotArr1(),
-                custAliasParameters.getAliasAssert2AssertAssertNotArr0(),custAliasParameters.getAliasAssert2AssertAssertNotArr1(),
-                custAliasParameters.getAliasAssert3AssertAssertNotArr0(),custAliasParameters.getAliasAssert3AssertAssertNotArr1(),
-                custAliasParameters.getAliasAssert4AssertAssertNotArr0(),custAliasParameters.getAliasAssert4AssertAssertNotArr1(),
-                custAliasParameters.getAliasAssert5AssertAssertNotArrDouble0(),custAliasParameters.getAliasAssert5AssertAssertNotArrDouble1(),custAliasParameters.getAliasAssert5AssertAssertNotArrDouble2(),
-                custAliasParameters.getAliasAssert0AssertAssertTrue0(),
-                custAliasParameters.getAliasAssert0AssertAssertFalse0(),
-                custAliasParameters.getAliasAssert0AssertAssertNull0(),
-                custAliasParameters.getAliasAssert0AssertAssertNotNull0(),
-                custAliasParameters.getAliasAssert0AssertAssertSame0(),custAliasParameters.getAliasAssert0AssertAssertSame1(),
-                custAliasParameters.getAliasAssert0AssertAssertNotSame0(),custAliasParameters.getAliasAssert0AssertAssertNotSame1(),
-                custAliasParameters.getAliasAssert5AssertAssert0(),custAliasParameters.getAliasAssert5AssertAssert1(),custAliasParameters.getAliasAssert5AssertAssert2(),
-                custAliasParameters.getAliasAssert6AssertAssert0(),custAliasParameters.getAliasAssert6AssertAssert1(),
-                custAliasParameters.getAliasAssert5AssertAssertArr0(),custAliasParameters.getAliasAssert5AssertAssertArr1(),custAliasParameters.getAliasAssert5AssertAssertArr2(),
-                custAliasParameters.getAliasAssert6AssertAssertArr0(),custAliasParameters.getAliasAssert6AssertAssertArr1(),
-                custAliasParameters.getAliasAssert5AssertAssertNot0(),custAliasParameters.getAliasAssert5AssertAssertNot1(),custAliasParameters.getAliasAssert5AssertAssertNot2(),
-                custAliasParameters.getAliasAssert6AssertAssertNot0(),custAliasParameters.getAliasAssert6AssertAssertNot1(),
-                custAliasParameters.getAliasAssert5AssertAssertNotArr0(),custAliasParameters.getAliasAssert5AssertAssertNotArr1(),custAliasParameters.getAliasAssert5AssertAssertNotArr2(),
-                custAliasParameters.getAliasAssert6AssertAssertNotArr0(),custAliasParameters.getAliasAssert6AssertAssertNotArr1());
         map_.put(wrap(PARAM_120),custAliasParameters.getAliasExecute0ExecuteConvert0());
         placeHolder(map_, PARAM_121, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0(),custAliasParameters.getAliasExecute0ExecuteConvert0());
         placeHolder(map_, PARAM_031, _keyWords, primitiveTypes_, coreNames_);
@@ -1925,7 +1631,7 @@ public final class CustAliases {
         map_.put(wrap(PARAM_161),custAliasParameters.getAliasExecute1ExecuteSetupError2());
         map_.put(METHOD_RUN,aliasRun);
         map_.put(KW_THIS, this_);
-        content_ = StringUtil.formatQuote(content_, map_)+diff(_keyWords, _content)+eltDiff(_keyWords, _content);
+        content_ = StringUtil.formatQuote(content_, map_)+assertType(_keyWords, _content)+diff(_keyWords, _content)+eltDiff(_keyWords, _content);
         stds_.put(aliasExecute, content_);
         stds_.put(aliasFormatType, formatter(_keyWords, _content));
         return stds_;
@@ -3334,6 +3040,14 @@ public final class CustAliases {
                 +assertMethodNotNull(_kw, _content)
                 +assertMethodSame(_kw, _content)
                 +assertMethodNotSame(_kw, _content)
+                +checkArrsLda(_kw, _content)
+                +checkArrLda(_kw, _content)
+                +checkPairLda(_kw, _content)
+                +checkSingleLda(_kw, _content)
+                +checkArrsNotLda(_kw, _content)
+                +checkArrNotLda(_kw, _content)
+                +checkPairNotLda(_kw, _content)
+                +checkSingleNotLda(_kw, _content)
                 +"}"+LR;
     }
     public String assertMethodTrue(KeyWords _kw, LgNamesContent _content) {
@@ -3493,7 +3207,7 @@ public final class CustAliases {
         String la_ = tr("la", _kw, pr_, core_, _exp, _found);
         String ea_ = tr("ea", _kw, pr_, core_, _exp, _found);
         String d_ = tr("d", _kw, pr_, core_, _exp, _found);
-        return SPACES_4+SPACES_4+aliasAssertAssert+"("+_exp+"."+ len_+","+_found+"."+ len_+")"+LR
+        return SPACES_4+SPACES_4+aliasAssertAssert+"("+_exp+"."+ len_+","+_found+"."+ len_+");"+LR
                 +SPACES_4+SPACES_4+_kw.getKeyWordVar()+" "+ la_ +" = "+_exp+"."+ len_ +";"+LR
                 +SPACES_4+SPACES_4+_kw.getKeyWordIter()+"("+primTypes_.getAliasPrimInteger()+" "+ ea_ +"="+"0"+";"+ la_ +";"+"1"+"){"+LR
                 +SPACES_4+SPACES_4+SPACES_4+ si_ +" (!"+ natEqStruct(_kw,_content,_exp+"["+ ea_+"]",_found+"["+ ea_+"]") +"){"+LR
@@ -3510,7 +3224,7 @@ public final class CustAliases {
         String la_ = tr("la", _kw, pr_, core_, _exp, _found);
         String ea_ = tr("ea", _kw, pr_, core_, _exp, _found);
         String d_ = tr("d", _kw, pr_, core_, _exp, _found);
-        return SPACES_4+SPACES_4+aliasAssertAssert+"("+_exp+"."+ len_+","+_found+"."+ len_+")"+LR
+        return SPACES_4+SPACES_4+aliasAssertAssert+"("+_exp+"."+ len_+","+_found+"."+ len_+");"+LR
                 +SPACES_4+SPACES_4+_kw.getKeyWordVar()+" "+ la_ +" = "+_exp+"."+ len_ +";"+LR
                 +SPACES_4+SPACES_4+_kw.getKeyWordIter()+"("+primTypes_.getAliasPrimInteger()+" "+ ea_ +"="+"0"+";"+ la_ +";"+"1"+"){"+LR
                 +SPACES_4+SPACES_4+SPACES_4+ si_+"("+cmpStruct(_kw,_content,_exp+"["+ ea_+"]",_found+"["+ ea_+"]", "!=")+"&&"+deltaStruct(_kw,_content,_exp+"["+ ea_+"]",_found+"["+ ea_+"]",_delta, ">")+"){"+LR
@@ -3637,7 +3351,171 @@ public final class CustAliases {
         AliasMathType nb_ = _content.getMathRef();
         return _kw.getKeyWordStatic()+"("+ nb_.getAliasMath()+")."+ nb_.getAliasAbs()+"("+_a+"-"+_b+")"+ _symbol +_c;
     }
+    public String checkArrsLda(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        String si_ = _kw.getKeyWordIf();
+        String len_ = core_.getAliasArrayLength();
+        String exp_ = custAliasParameters.getAliasAssert5AssertAssertArr0();
+        String found_ = custAliasParameters.getAliasAssert5AssertAssertArr1();
+        String f_ = custAliasParameters.getAliasAssert5AssertAssertArr2();
+        String la_ = tr("la", _kw, pr_, core_, exp_, found_);
+        String ea_ = tr("ea", _kw, pr_, core_, exp_, found_);
+        String d_ = tr("d", _kw, pr_, core_, exp_, found_);
+        String type_ = core_.getAliasObject()+"[]";
+        String fct_ = _content.getReflect().getAliasFct()+ ANY_PAIR +primTypes_.getAliasPrimBoolean()+">";
+        return SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+core_.getAliasVoid()+" "+aliasAssertAssert+"("+type_+" "+exp_+","+type_+" "+found_+","+ fct_+" "+f_+"){"+LR
+                +SPACES_4+SPACES_4+aliasAssertAssert+"("+exp_+"."+ len_+","+found_+"."+ len_+");"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordVar()+" "+ la_ +" = "+exp_+"."+ len_ +";"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordIter()+"("+primTypes_.getAliasPrimInteger()+" "+ ea_ +"="+"0"+";"+ la_ +";"+"1"+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ si_ +" (!"+ lambdaStruct(_content,f_, exp_+"["+ ea_+"]",found_+"["+ ea_+"]") +"){"+LR
+                + lancerElt(SPACES_4+SPACES_4+SPACES_4+SPACES_4,_kw,_content,exp_,found_,ea_,d_)
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+"}"+LR;
+    }
+    public String checkArrLda(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        String si_ = _kw.getKeyWordIf();
+        String exp_ = custAliasParameters.getAliasAssert6AssertAssertArr0();
+        String f_ = custAliasParameters.getAliasAssert6AssertAssertArr1();
+        String ea_ = tr("ea", _kw, pr_, core_, exp_);
+        String d_ = tr("d", _kw, pr_, core_, exp_);
+        String type_ = core_.getAliasObject()+"[]";
+        String fct_ = _content.getReflect().getAliasFct()+"<?,"+primTypes_.getAliasPrimBoolean()+">";
+        return SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+core_.getAliasVoid()+" "+aliasAssertAssert+"("+type_+" "+exp_+","+ fct_+" "+f_+"){"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordFor()+"("+_kw.getKeyWordVar()+" "+ ea_ +":"+ exp_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ si_ +" (!"+ lambdaStruct(_content,f_, exp_+"[(["+ ea_+"])]") +"){"+LR
+                + lancerElt(SPACES_4+SPACES_4+SPACES_4+SPACES_4,_kw,_content,exp_,"(["+ea_+"])",d_)
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+"}"+LR;
+    }
+    public String checkPairLda(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        String si_ = _kw.getKeyWordIf();
+        String exp_ = custAliasParameters.getAliasAssert5AssertAssert0();
+        String found_ = custAliasParameters.getAliasAssert5AssertAssert1();
+        String f_ = custAliasParameters.getAliasAssert5AssertAssert2();
+        String d_ = tr("d", _kw, pr_, core_, exp_, found_);
+        String type_ = core_.getAliasObject();
+        String fct_ = _content.getReflect().getAliasFct()+ ANY_PAIR +primTypes_.getAliasPrimBoolean()+">";
+        return SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+core_.getAliasVoid()+" "+aliasAssertAssert+"("+type_+" "+exp_+","+type_+" "+found_+","+ fct_+" "+f_+"){"+LR
+                +SPACES_4+SPACES_4+ si_ +" (!"+ lambdaStruct(_content,f_, exp_,found_) +"){"+LR
+                + lancerVar(SPACES_4+SPACES_4+SPACES_4,_kw,_content,exp_,found_,d_)
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+"}"+LR;
+    }
+    public String checkSingleLda(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        String si_ = _kw.getKeyWordIf();
+        String exp_ = custAliasParameters.getAliasAssert6AssertAssert0();
+        String f_ = custAliasParameters.getAliasAssert6AssertAssert1();
+        String d_ = tr("d", _kw, pr_, core_, exp_);
+        String type_ = core_.getAliasObject();
+        String fct_ = _content.getReflect().getAliasFct()+"<?,"+primTypes_.getAliasPrimBoolean()+">";
+        return SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+core_.getAliasVoid()+" "+aliasAssertAssert+"("+type_+" "+exp_+","+ fct_+" "+f_+"){"+LR
+                +SPACES_4+SPACES_4+ si_ +" (!"+ lambdaStruct(_content,f_, exp_) +"){"+LR
+                + lancerVarNotTrue(SPACES_4+SPACES_4+SPACES_4,_kw,_content,exp_,d_)
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+"}"+LR;
+    }
+    public String checkArrsNotLda(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        String si_ = _kw.getKeyWordIf();
+        String len_ = core_.getAliasArrayLength();
+        String exp_ = custAliasParameters.getAliasAssert5AssertAssertNotArr0();
+        String found_ = custAliasParameters.getAliasAssert5AssertAssertNotArr1();
+        String f_ = custAliasParameters.getAliasAssert5AssertAssertNotArr2();
+        String la_ = tr("la", _kw, pr_, core_, exp_, found_);
+        String ea_ = tr("ea", _kw, pr_, core_, exp_, found_);
+        String d_ = tr("d", _kw, pr_, core_, exp_, found_);
+        String type_ = core_.getAliasObject()+"[]";
+        String fct_ = _content.getReflect().getAliasFct()+ ANY_PAIR +primTypes_.getAliasPrimBoolean()+">";
+        String ret_ = _kw.getKeyWordReturn();
+        return SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+core_.getAliasVoid()+" "+aliasAssertAssertNot+"("+type_+" "+exp_+","+type_+" "+found_+","+ fct_+" "+f_+"){"+LR
+                +SPACES_4+SPACES_4+ si_ +" (!"+ natEqStruct(_kw,_content, exp_+"."+ len_,found_+"."+ len_) +"){"+LR
+                +SPACES_4+SPACES_4+ SPACES_4+ ret_ +";"+LR
+                +SPACES_4+SPACES_4+ "}"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordVar()+" "+ la_ +" = "+exp_+"."+ len_ +";"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordIter()+"("+primTypes_.getAliasPrimInteger()+" "+ ea_ +"="+"0"+";"+ la_ +";"+"1"+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ si_ +" (!"+ lambdaStruct(_content,f_, exp_+"["+ ea_+"]",found_+"["+ ea_+"]") +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ret_+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +lancerVarNotExpect(SPACES_4+SPACES_4,_kw,_content,exp_,d_)
+                +SPACES_4+"}"+LR;
+    }
+    public String checkArrNotLda(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        String si_ = _kw.getKeyWordIf();
+        String exp_ = custAliasParameters.getAliasAssert6AssertAssertNotArr0();
+        String f_ = custAliasParameters.getAliasAssert6AssertAssertNotArr1();
+        String ea_ = tr("ea", _kw, pr_, core_, exp_);
+        String d_ = tr("d", _kw, pr_, core_, exp_);
+        String type_ = core_.getAliasObject()+"[]";
+        String fct_ = _content.getReflect().getAliasFct()+"<?,"+primTypes_.getAliasPrimBoolean()+">";
+        String ret_ = _kw.getKeyWordReturn();
+        return SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+core_.getAliasVoid()+" "+aliasAssertAssertNot+"("+type_+" "+exp_+","+ fct_+" "+f_+"){"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordFor()+"("+_kw.getKeyWordVar()+" "+ ea_ +":"+ exp_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ si_ +" (!"+ lambdaStruct(_content,f_, exp_+"[(["+ ea_+"])]") +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ret_+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +lancerVarNotExpect(SPACES_4+SPACES_4,_kw,_content,exp_,d_)
+                +SPACES_4+"}"+LR;
+    }
+    public String checkPairNotLda(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        String si_ = _kw.getKeyWordIf();
+        String exp_ = custAliasParameters.getAliasAssert5AssertAssertNot0();
+        String found_ = custAliasParameters.getAliasAssert5AssertAssertNot1();
+        String f_ = custAliasParameters.getAliasAssert5AssertAssertNot2();
+        String d_ = tr("d", _kw, pr_, core_, exp_, found_);
+        String type_ = core_.getAliasObject();
+        String fct_ = _content.getReflect().getAliasFct()+ ANY_PAIR +primTypes_.getAliasPrimBoolean()+">";
+        return SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+core_.getAliasVoid()+" "+aliasAssertAssertNot+"("+type_+" "+exp_+","+type_+" "+found_+","+ fct_+" "+f_+"){"+LR
+                +SPACES_4+SPACES_4+ si_ +" ("+ lambdaStruct(_content,f_, exp_,found_) +"){"+LR
+                + lancerVar(SPACES_4+SPACES_4+SPACES_4,_kw,_content,exp_,found_,d_)
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+"}"+LR;
+    }
+    public String checkSingleNotLda(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        String si_ = _kw.getKeyWordIf();
+        String exp_ = custAliasParameters.getAliasAssert6AssertAssertNot0();
+        String f_ = custAliasParameters.getAliasAssert6AssertAssertNot1();
+        String d_ = tr("d", _kw, pr_, core_, exp_);
+        String type_ = core_.getAliasObject();
+        String fct_ = _content.getReflect().getAliasFct()+"<?,"+primTypes_.getAliasPrimBoolean()+">";
+        return SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+core_.getAliasVoid()+" "+aliasAssertAssertNot+"("+type_+" "+exp_+","+ fct_+" "+f_+"){"+LR
+                +SPACES_4+SPACES_4+ si_ +" ("+ lambdaStruct(_content,f_, exp_) +"){"+LR
+                + lancerVarNotTrue(SPACES_4+SPACES_4+SPACES_4,_kw,_content,exp_,d_)
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+"}"+LR;
+    }
+    public String lambdaStruct(LgNamesContent _content, String _f, String _a) {
+        return _f+"."+_content.getReflect().getAliasCall()+"("+ _a+")";
+    }
 
+    public String lambdaStruct(LgNamesContent _content, String _f, String _a, String _b) {
+        return _f+"."+_content.getReflect().getAliasCall()+"("+ _a+","+_b+")";
+    }
     private String lancerVar(String _pref, KeyWords _kw, LgNamesContent _content, String _expected, String _found, String _d) {
         return _pref + _kw.getKeyWordVar() + " " + _d + " = " + _kw.getKeyWordNew() + " " + aliasDifference + "();" + LR
                 + _pref + _d + "." + aliasDifferenceExpected + "=" + _expected + ";" + LR
@@ -3646,6 +3524,19 @@ public final class CustAliases {
                 + _pref + _kw.getKeyWordThrow() + " " + _d + ";" + LR;
     }
 
+    private String lancerVarNotExpect(String _pref, KeyWords _kw, LgNamesContent _content, String _found, String _d) {
+        return _pref + _kw.getKeyWordVar() + " " + _d + " = " + _kw.getKeyWordNew() + " " + aliasDifference + "();" + LR
+                + _pref + _d + "." + aliasDifferenceFound + "=" + _found + ";" + LR
+                + _pref + _d + "." + aliasDifferenceStackDiff + " = " + _kw.getKeyWordStatic() + "(" + _content.getStackElt().getAliasStackTraceElement() + ")." + _content.getStackElt().getAliasCurrentStack() + "();" + LR
+                + _pref + _kw.getKeyWordThrow() + " " + _d + ";" + LR;
+    }
+    private String lancerVarNotTrue(String _pref, KeyWords _kw, LgNamesContent _content, String _found, String _d) {
+        return _pref + _kw.getKeyWordVar() + " " + _d + " = " + _kw.getKeyWordNew() + " " + aliasDifference + "();" + LR
+                + _pref + _d + "." + aliasDifferenceFoundNotTrue + "=" + _kw.getKeyWordTrue() + ";" + LR
+                + _pref + _d + "." + aliasDifferenceFound + "=" + _found + ";" + LR
+                + _pref + _d + "." + aliasDifferenceStackDiff + " = " + _kw.getKeyWordStatic() + "(" + _content.getStackElt().getAliasStackTraceElement() + ")." + _content.getStackElt().getAliasCurrentStack() + "();" + LR
+                + _pref + _kw.getKeyWordThrow() + " " + _d + ";" + LR;
+    }
     private String lancerNonNull(String _pref, KeyWords _kw, LgNamesContent _content, String _d) {
         return _pref + _kw.getKeyWordVar() + " " + _d + " = " + _kw.getKeyWordNew() + " " + aliasDifference + "();" + LR
                 + _pref + _d + "." + aliasDifferenceFoundNull + "=" + _kw.getKeyWordTrue() + ";" + LR
@@ -3661,6 +3552,14 @@ public final class CustAliases {
                 + _pref + _d + "." + aliasDifferenceStackDiff + " = " + _kw.getKeyWordStatic() + "(" + _content.getStackElt().getAliasStackTraceElement() + ")." + _content.getStackElt().getAliasCurrentStack() + "();" + LR
                 + _pref + _kw.getKeyWordThrow() + " " + _d + ";" + LR;
     }
+
+    private String lancerElt(String _pref, KeyWords _kw, LgNamesContent _content, String _expected, String _index, String _d) {
+        return _pref + _kw.getKeyWordVar() +" "+_d+" = "+_kw.getKeyWordNew()+" "+aliasEltDifference+"();"+LR
+                +_pref + _d + "." + aliasIndex+"="+_index+";"+LR
+                +_pref + _d + "." + aliasDifferenceExpected+"="+_expected+"["+_index+"];"+LR
+                + _pref + _d + "." + aliasDifferenceStackDiff + " = " + _kw.getKeyWordStatic() + "(" + _content.getStackElt().getAliasStackTraceElement() + ")." + _content.getStackElt().getAliasCurrentStack() + "();" + LR
+                + _pref + _kw.getKeyWordThrow() + " " + _d + ";" + LR;
+    }
     private String checkNotArr(KeyWords _kw, LgNamesContent _content, String _exp, String _found) {
         PrimitiveTypes primTypes_ = _content.getPrimTypes();
         StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
@@ -3670,7 +3569,7 @@ public final class CustAliases {
         String ret_ = _kw.getKeyWordReturn();
         String la_ = tr("la", _kw, pr_, core_, _exp, _found);
         String ea_ = tr("ea", _kw, pr_, core_, _exp, _found);
-        return SPACES_4+SPACES_4+ si_ +" (!"+ natEqStruct(_kw,_content,_exp+"."+ len_,_found+"."+ len_) +")){"+LR
+        return SPACES_4+SPACES_4+ si_ +" (!"+ natEqStruct(_kw,_content,_exp+"."+ len_,_found+"."+ len_) +"){"+LR
                 +SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
                 +SPACES_4+SPACES_4+"}"+LR
                 +SPACES_4+SPACES_4+_kw.getKeyWordVar()+" "+ la_ +" = "+_exp+"."+ len_ +";"+LR
@@ -3690,12 +3589,12 @@ public final class CustAliases {
         String ret_ = _kw.getKeyWordReturn();
         String la_ = tr("la", _kw, pr_, core_, _exp, _found);
         String ea_ = tr("ea", _kw, pr_, core_, _exp, _found);
-        return SPACES_4+SPACES_4+ si_ +" (!"+ natEqStruct(_kw,_content,_exp+"."+ len_,_found+"."+ len_) +")){"+LR
+        return SPACES_4+SPACES_4+ si_ +" (!"+ natEqStruct(_kw,_content,_exp+"."+ len_,_found+"."+ len_) +"){"+LR
                 +SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
                 +SPACES_4+SPACES_4+"}"+LR
                 +SPACES_4+SPACES_4+_kw.getKeyWordVar()+" "+ la_ +" = "+_exp+"."+ len_ +";"+LR
                 +SPACES_4+SPACES_4+_kw.getKeyWordIter()+"("+primTypes_.getAliasPrimInteger()+" "+ ea_ +"="+"0"+";"+ la_ +";"+"1"+"){"+LR
-                +SPACES_4+SPACES_4+SPACES_4+ si_+"("+cmpStruct(_kw,_content,_exp,_found, "!=")+"&&"+deltaStruct(_kw,_content,_exp,_found,_delta, ">")+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ si_+"("+cmpStruct(_kw,_content,_exp+"["+ ea_+"]",_found+"["+ ea_+"]", "!=")+"&&"+deltaStruct(_kw,_content,_exp+"["+ ea_+"]",_found+"["+ ea_+"]",_delta, ">")+"){"+LR
                 +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
                 +SPACES_4+SPACES_4+SPACES_4+"}"+LR
                 +SPACES_4+SPACES_4+"}"+LR;
