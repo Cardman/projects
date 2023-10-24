@@ -1631,7 +1631,7 @@ public final class CustAliases {
         map_.put(wrap(PARAM_161),custAliasParameters.getAliasExecute1ExecuteSetupError2());
         map_.put(METHOD_RUN,aliasRun);
         map_.put(KW_THIS, this_);
-        content_ = StringUtil.formatQuote(content_, map_)+assertType(_keyWords, _content)+diff(_keyWords, _content)+eltDiff(_keyWords, _content);
+        content_ = StringUtil.formatQuote(content_, map_)+annotations(_keyWords, _content)+assertType(_keyWords, _content)+diff(_keyWords, _content)+eltDiff(_keyWords, _content);
         stds_.put(aliasExecute, content_);
         stds_.put(aliasFormatType, formatter(_keyWords, _content));
         return stds_;
@@ -3006,6 +3006,57 @@ public final class CustAliases {
                 +SPACES_4+SPACES_4+ ret_ +" "+ nv_ +" "+aliasCustIterTable+"<"+aliasTableVarFirst+","+aliasTableVarSecond+">("+ th_ +");"+LR
                 +SPACES_4+"}"+LR
                 +"}";
+    }
+    public String annotations(KeyWords _kw, LgNamesContent _content) {
+        String pub_ = _kw.getKeyWordPublic();
+        String cl_ = _kw.getKeyWordClass();
+        String ann_ = _kw.getKeyWordAnnotation();
+        String nu_ = _kw.getKeyWordNull();
+        String i_ = _content.getPrimTypes().getAliasPrimInteger();
+        String l_ = _content.getPrimTypes().getAliasPrimLong();
+        String m_ = _content.getReflect().getAliasMethod();
+        String str_ = _content.getCharSeq().getAliasString();
+        String b_ = _content.getPrimTypes().getAliasPrimBoolean();
+        String c_ = _content.getReflect().getAliasClassType();
+        String anType_ = _content.getReflect().getAliasAnnotationType();
+        return pub_ +" "+ cl_ +" "+aliasInfoTest+"{"+LR
+                +SPACES_4+ pub_ +" "+ i_ +" "+aliasInfoTestCount+";"+LR
+                +SPACES_4+ pub_ +" "+aliasAtomicInteger+" "+aliasInfoTestDone+"="+_kw.getKeyWordNew()+"();"+LR
+                +SPACES_4+ pub_ +" "+ i_ +" "+aliasInfoTestNbThreads+";"+LR
+                +SPACES_4+ pub_ +" "+ l_ +" "+aliasInfoTestCalls+";"+LR
+                +SPACES_4+ pub_ +" "+ m_ +" "+aliasInfoTestCurrentMethod+";"+LR
+                +SPACES_4+ pub_ +" "+ str_ +" "+aliasInfoTestCurrentParams+";"+LR
+                +"}"+LR
+                + pub_ +" "+ cl_ +" "+aliasResult+"{"+LR
+                +SPACES_4+ pub_ +" "+ l_ +" "+aliasResultTime+" = -1"+";"+LR
+                +SPACES_4+ pub_ +" "+ b_ +" "+aliasResultSuccess+" = "+_kw.getKeyWordTrue()+";"+LR
+                +SPACES_4+ pub_ +" "+ str_ +" "+aliasResultParams+" = \"\";"+LR
+                +SPACES_4+ pub_ +" "+ str_ +" "+aliasResultFailMessage+" = \"\";"+LR
+                +SPACES_4+ pub_ +" "+ c_ +" "+aliasInfoTestContainer+";"+LR
+                +SPACES_4+ pub_ +" "+aliasExecutedTest+" "+aliasInfoTestExecuted+";"+LR
+                +SPACES_4+ pub_ +" "+_content.getCoreNames().getAliasObject()+"[] "+aliasInfoTestArgs+" = {};"+LR
+                +"}"+LR
+                + pub_ +" "+ cl_ +" "+aliasExecutedTest+"{"+LR
+                +SPACES_4+ pub_ +" "+aliasList+"<"+ m_ +"> "+aliasExecutedTestBefore+";"+LR
+                +SPACES_4+ pub_ +" "+ m_ +" "+aliasExecutedTestTest+";"+LR
+                +SPACES_4+ pub_ +" "+ anType_ +"[] "+aliasExecutedTestAnnotations+";"+LR
+                +SPACES_4+ pub_ +" "+ anType_ +"[] "+aliasExecutedTestArgsAnnot+";"+LR
+                +SPACES_4+ pub_ +" "+aliasList+"<"+ m_ +"> "+aliasExecutedTestAfter+";"+LR
+                +SPACES_4+ pub_ +" "+ m_ +" "+aliasExecutedTestMethod+";"+LR
+                +"}"+LR
+                + pub_ +" "+ ann_ +" "+aliasBefore+"{}"+LR
+                + pub_ +" "+ ann_ +" "+aliasAfter+"{}"+LR
+                + pub_ +" "+ ann_ +" "+aliasParameters+"{"+LR
+                +SPACES_4+ str_ +" "+aliasParametersMethod+"();"+LR
+                +SPACES_4+ c_ +" "+aliasParametersLocation+"()"+ nu_ +";"+LR
+                +"}"+LR
+                + pub_ +" "+ ann_ +" "+aliasTest+"{"+LR
+                +SPACES_4+ c_ +" "+aliasTestException+"()"+nu_+";"+LR
+                +SPACES_4+ b_ +" "+aliasTestNullException+"()"+_kw.getKeyWordFalse()+";"+LR
+                +"}"+LR
+                + pub_ +" "+ ann_ +" "+aliasArgsTest+"{"+LR
+                +SPACES_4+ str_ +"[] "+aliasArgsTestArgsValue+"(){};"+LR
+                +"}"+LR;
     }
     public String assertType(KeyWords _kw, LgNamesContent _content) {
         String head_= _kw.getKeyWordPublic()+" "+_kw.getKeyWordAbstract()+" "+_kw.getKeyWordFinal()+" "+_kw.getKeyWordClass()+" "+aliasAssert+"{"+LR;
