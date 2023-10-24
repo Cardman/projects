@@ -474,9 +474,9 @@ public final class CustAliases {
     private static final String INFO_TEST_CURRENT_METHOD="___________2103";
     private static final String INFO_TEST_DONE="___________2104";
     private static final String INFO_TEST_NB_THREADS="___________2105";
-    private static final String INFO_TEST_ARGS="___________2106";
-    private static final String INFO_TEST_CONTAINER="___________2107";
-    private static final String INFO_TEST_EXECUTED="___________2108";
+    private static final String RESULT_ARGS ="___________2106";
+    private static final String RESULT_CONTAINER ="___________2107";
+    private static final String RESULT_EXECUTED ="___________2108";
     private static final String INFO_TEST_CURRENT_PARAMS="___________2109";
     private static final String RESULT_FAIL_MESSAGE="___________2110";
     private static final String RESULT_PARAMS="___________2111";
@@ -727,9 +727,9 @@ public final class CustAliases {
     private String aliasInfoTestCurrentClass;
     private String aliasInfoTestCurrentMethod;
     private String aliasInfoTestCurrentParams;
-    private String aliasInfoTestArgs;
-    private String aliasInfoTestContainer;
-    private String aliasInfoTestExecuted;
+    private String aliasResultArgs;
+    private String aliasResultContainer;
+    private String aliasResultExecuted;
 
     private String aliasConcurrentError;
     private final StringViewReplaceAliases stringViewReplaceAliases = new StringViewReplaceAliases();
@@ -1615,9 +1615,9 @@ public final class CustAliases {
         map_.put(FIELD_NB_THREADS,aliasInfoTestNbThreads);
         map_.put(FIELD_CURRENT_CLASS,aliasInfoTestCurrentClass);
         map_.put(FIELD_CURRENT_METHOD,aliasInfoTestCurrentMethod);
-        map_.put(FIELD_RESULT_ARGS,aliasInfoTestArgs);
-        map_.put(FIELD_CONTAINER,aliasInfoTestContainer);
-        map_.put(FIELD_EXECUTED,aliasInfoTestExecuted);
+        map_.put(FIELD_RESULT_ARGS, aliasResultArgs);
+        map_.put(FIELD_CONTAINER, aliasResultContainer);
+        map_.put(FIELD_EXECUTED, aliasResultExecuted);
         map_.put(FIELD_CURRENT_PARAMS,aliasInfoTestCurrentParams);
         placeHolder(map_, PARAM_157, _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
@@ -1853,9 +1853,9 @@ public final class CustAliases {
         setAliasExecuteTests(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_TESTS)));
         setAliasDifferenceExpected(LgNamesContent.get(_util,_cust,_mapping.getVal(DIFFERENCE_EXPECTED)));
         setAliasInfoTestCurrentParams(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_CURRENT_PARAMS)));
-        setAliasInfoTestArgs(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_ARGS)));
-        setAliasInfoTestContainer(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_CONTAINER)));
-        setAliasInfoTestExecuted(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_EXECUTED)));
+        setAliasResultArgs(LgNamesContent.get(_util,_cust,_mapping.getVal(RESULT_ARGS)));
+        setAliasResultContainer(LgNamesContent.get(_util,_cust,_mapping.getVal(RESULT_CONTAINER)));
+        setAliasResultExecuted(LgNamesContent.get(_util,_cust,_mapping.getVal(RESULT_EXECUTED)));
         setAliasRunnable(LgNamesContent.get(_util,_cust,_mapping.getVal(RUNNABLE)));
         setAliasCallable(LgNamesContent.get(_util,_cust,_mapping.getVal(CALLABLE)));
         setAliasThread(LgNamesContent.get(_util,_cust,_mapping.getVal(THREAD)));
@@ -2110,9 +2110,9 @@ public final class CustAliases {
         _en.add(INFO_TEST_CURRENT_METHOD,"InfoTestCurrentMethod=currentMethod");
         _en.add(INFO_TEST_DONE,"InfoTestDone=done");
         _en.add(INFO_TEST_NB_THREADS,"InfoTestNbThreads=nbThreads");
-        _en.add(INFO_TEST_ARGS,"InfoTestArgs=args");
-        _en.add(INFO_TEST_CONTAINER,"InfoTestContainer=container");
-        _en.add(INFO_TEST_EXECUTED,"InfoTestExecuted=executed");
+        _en.add(RESULT_ARGS,"ResultArgs=args");
+        _en.add(RESULT_CONTAINER,"ResultContainer=container");
+        _en.add(RESULT_EXECUTED,"ResultExecuted=executed");
         _en.add(INFO_TEST_CURRENT_PARAMS,"InfoTestCurrentParams=currentParams");
         _en.add(RESULT_FAIL_MESSAGE,"ResultFailMessage=failMessage");
         _en.add(RESULT_PARAMS,"ResultParams=params");
@@ -2327,9 +2327,9 @@ public final class CustAliases {
         _fr.add(INFO_TEST_CURRENT_METHOD,"InfoTestCurrentMethod=methodCourante");
         _fr.add(INFO_TEST_DONE,"InfoTestDone=fait");
         _fr.add(INFO_TEST_NB_THREADS,"InfoTestNbThreads=nbTaches");
-        _fr.add(INFO_TEST_ARGS,"InfoTestArgs=args");
-        _fr.add(INFO_TEST_CONTAINER,"InfoTestContainer=conteneur");
-        _fr.add(INFO_TEST_EXECUTED,"InfoTestExecuted=execute");
+        _fr.add(RESULT_ARGS,"ResultArgs=args");
+        _fr.add(RESULT_CONTAINER,"ResultContainer=conteneur");
+        _fr.add(RESULT_EXECUTED,"ResultExecuted=execute");
         _fr.add(INFO_TEST_CURRENT_PARAMS,"InfoTestCurrentParams=paramsCourants");
         _fr.add(RESULT_FAIL_MESSAGE,"ResultFailMessage=messageErreur");
         _fr.add(RESULT_PARAMS,"ResultParams=params");
@@ -2418,16 +2418,16 @@ public final class CustAliases {
                 new KeyValueMemberName(_mapping.getVal(INFO_TEST_CURRENT_METHOD),getAliasInfoTestCurrentMethod()),
                 new KeyValueMemberName(_mapping.getVal(INFO_TEST_DONE),getAliasInfoTestDone()),
                 new KeyValueMemberName(_mapping.getVal(INFO_TEST_NB_THREADS),getAliasInfoTestNbThreads()),
-                new KeyValueMemberName(_mapping.getVal(INFO_TEST_ARGS),getAliasInfoTestArgs()),
-                new KeyValueMemberName(_mapping.getVal(INFO_TEST_CONTAINER),getAliasInfoTestContainer()),
-                new KeyValueMemberName(_mapping.getVal(INFO_TEST_EXECUTED),getAliasInfoTestExecuted()),
                 new KeyValueMemberName(_mapping.getVal(INFO_TEST_CURRENT_PARAMS),getAliasInfoTestCurrentParams())
         ));
         f_.addEntry(getAliasResult(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(RESULT_FAIL_MESSAGE),getAliasResultFailMessage()),
                 new KeyValueMemberName(_mapping.getVal(RESULT_PARAMS),getAliasResultParams()),
                 new KeyValueMemberName(_mapping.getVal(RESULT_TIME),getAliasResultTime()),
-                new KeyValueMemberName(_mapping.getVal(RESULT_SUCCESS),getAliasResultSuccess())
+                new KeyValueMemberName(_mapping.getVal(RESULT_SUCCESS),getAliasResultSuccess()),
+                new KeyValueMemberName(_mapping.getVal(RESULT_ARGS), getAliasResultArgs()),
+                new KeyValueMemberName(_mapping.getVal(RESULT_CONTAINER), getAliasResultContainer()),
+                new KeyValueMemberName(_mapping.getVal(RESULT_EXECUTED), getAliasResultExecuted())
         ));
         f_.addEntry(getAliasExecutedTest(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(EXECUTED_TEST_AFTER),getAliasExecutedTestAfter()),
@@ -3032,9 +3032,9 @@ public final class CustAliases {
                 +SPACES_4+ pub_ +" "+ b_ +" "+aliasResultSuccess+" = "+_kw.getKeyWordTrue()+";"+LR
                 +SPACES_4+ pub_ +" "+ str_ +" "+aliasResultParams+" = \"\";"+LR
                 +SPACES_4+ pub_ +" "+ str_ +" "+aliasResultFailMessage+" = \"\";"+LR
-                +SPACES_4+ pub_ +" "+ c_ +" "+aliasInfoTestContainer+";"+LR
-                +SPACES_4+ pub_ +" "+aliasExecutedTest+" "+aliasInfoTestExecuted+";"+LR
-                +SPACES_4+ pub_ +" "+_content.getCoreNames().getAliasObject()+"[] "+aliasInfoTestArgs+" = {};"+LR
+                +SPACES_4+ pub_ +" "+ c_ +" "+ aliasResultContainer +";"+LR
+                +SPACES_4+ pub_ +" "+aliasExecutedTest+" "+ aliasResultExecuted +";"+LR
+                +SPACES_4+ pub_ +" "+_content.getCoreNames().getAliasObject()+"[] "+ aliasResultArgs +" = {};"+LR
                 +"}"+LR
                 + pub_ +" "+ cl_ +" "+aliasExecutedTest+"{"+LR
                 +SPACES_4+ pub_ +" "+aliasList+"<"+ m_ +"> "+aliasExecutedTestBefore+";"+LR
@@ -5431,28 +5431,28 @@ public final class CustAliases {
         this.aliasInfoTestCurrentParams = _aliasInfoTestCurrentParams;
     }
 
-    public String getAliasInfoTestArgs() {
-        return aliasInfoTestArgs;
+    public String getAliasResultArgs() {
+        return aliasResultArgs;
     }
 
-    public void setAliasInfoTestArgs(String _v) {
-        this.aliasInfoTestArgs = _v;
+    public void setAliasResultArgs(String _v) {
+        this.aliasResultArgs = _v;
     }
 
-    public String getAliasInfoTestContainer() {
-        return aliasInfoTestContainer;
+    public String getAliasResultContainer() {
+        return aliasResultContainer;
     }
 
-    public void setAliasInfoTestContainer(String _v) {
-        this.aliasInfoTestContainer = _v;
+    public void setAliasResultContainer(String _v) {
+        this.aliasResultContainer = _v;
     }
 
-    public String getAliasInfoTestExecuted() {
-        return aliasInfoTestExecuted;
+    public String getAliasResultExecuted() {
+        return aliasResultExecuted;
     }
 
-    public void setAliasInfoTestExecuted(String _v) {
-        this.aliasInfoTestExecuted = _v;
+    public void setAliasResultExecuted(String _v) {
+        this.aliasResultExecuted = _v;
     }
 
     public String getAliasConcurrentError() {
