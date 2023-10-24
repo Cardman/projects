@@ -14,7 +14,8 @@ public enum Statistic {
     ACCURACY(true, "ACCURACY"),
     EVASINESS(true, "EVASINESS"),
     CRITICAL_HIT(false, "CRITICAL_HIT"),
-    PV_RESTANTS(true, "PV_RESTANTS");
+    PV_RESTANTS(true, "PV_RESTANTS"),
+    NOTHING(true, "");
     private final boolean special;
     private final String statName;
     Statistic(boolean _special, String _s) {

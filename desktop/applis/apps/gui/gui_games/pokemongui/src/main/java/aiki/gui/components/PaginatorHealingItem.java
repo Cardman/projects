@@ -18,6 +18,7 @@ import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.util.CustList;
 import code.util.IdList;
+import code.util.IdMap;
 import code.util.StringList;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
@@ -167,13 +168,10 @@ public final class PaginatorHealingItem extends Paginator {
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
         modeName = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
         modeDescription = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        modeDescription.setWithDefaultValue(false);
         modeDescription.refresh(order, getMessagesSearchMode());
         modeStatus = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        modeStatus.setWithDefaultValue(false);
         modeStatus.refresh(order, getMessagesSearchMode());
         relativeHpCheck = getMain().getCompoFactory().newCustCheckBox();
         relativeHpCheck.setText(getMessages().getVal(RELATIVE_HP));
@@ -181,47 +179,33 @@ public final class PaginatorHealingItem extends Paginator {
 //        relativeHp.setWithDefaultValue(false);
 //        relativeHp.refresh(getFacade().getData().getTranslatedBooleans().getVal(Constants.getLanguage()));
         relativePp = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        relativePp.setWithDefaultValue(false);
         relativePp.refresh(getFacade().getTranslatedBooleansCurLanguage());
         healMove = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        healMove.setWithDefaultValue(false);
         healMove.refresh(getFacade().getTranslatedBooleansCurLanguage());
         healFromKo = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        healFromKo.setWithDefaultValue(false);
         healFromKo.refresh(getFacade().getTranslatedBooleansCurLanguage());
         statis = new ComboBox<Statistic>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        statis.setWithDefaultValue(true);
         String lg_ = getMain().getLanguageKey();
-        statis.refresh(getFacade().getData().getTranslatedStatistics().getVal(lg_));
+        statis.refresh(stats(lg_));
         cmpNameSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpDescriptionSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpDescriptionSorting.setWithDefaultValue(false);
         cmpDescriptionSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpPriceSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpPriceSorting.setWithDefaultValue(false);
         cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpNumberSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpNumberSorting.setWithDefaultValue(false);
         cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpPpSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpPpSorting.setWithDefaultValue(false);
         cmpPpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpRelativePpSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpRelativePpSorting.setWithDefaultValue(false);
         cmpRelativePpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpHpSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpHpSorting.setWithDefaultValue(false);
         cmpHpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpRelativeHpSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpRelativeHpSorting.setWithDefaultValue(false);
         cmpRelativeHpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpNbStatisticsSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpNbStatisticsSorting.setWithDefaultValue(false);
         cmpNbStatisticsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpNbStatusSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpNbStatusSorting.setWithDefaultValue(false);
         cmpNbStatusSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationHealingItem.NB_COMPARATORS;
         cmpNamePrio.setItems(nb_+1);
@@ -609,6 +593,13 @@ public final class PaginatorHealingItem extends Paginator {
         changeNav();
     }
 
+    private IdMap<Statistic, String> stats(String _lg) {
+        IdMap<Statistic,String> id_ = new IdMap<Statistic, String>();
+        id_.addEntry(Statistic.NOTHING,"");
+        id_.addAllEntries(getFacade().getData().getTranslatedStatistics().getVal(_lg));
+        return id_;
+    }
+
     @Override
     public void changeNbResults() {
         int int_ = getNbResults().getValue();
@@ -654,7 +645,7 @@ public final class PaginatorHealingItem extends Paginator {
         //relativeHp.refresh(getFacade().getData().getTranslatedBooleans().getVal(Constants.getLanguage()));
         relativePp.refresh(getFacade().getTranslatedBooleansCurLanguage());
         String lg_ = getMain().getLanguageKey();
-        statis.refresh(getFacade().getData().getTranslatedStatistics().getVal(lg_));
+        statis.refresh(stats(lg_));
         healMove.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpDescriptionSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());

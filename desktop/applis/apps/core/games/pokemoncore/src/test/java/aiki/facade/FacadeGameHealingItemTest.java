@@ -3,6 +3,7 @@ package aiki.facade;
 import aiki.db.DataBase;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
+import aiki.fight.enums.Statistic;
 import aiki.game.Game;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
@@ -46,7 +47,7 @@ public final class FacadeGameHealingItemTest extends InitializationDataBase {
         facadeGame_.setKoHealingItem(SelectedBoolean.YES_AND_NO);
         facadeGame_.setRelativeRateHpHealingItem(SelectedBoolean.YES_AND_NO);
         facadeGame_.setRelativeRatePpHealingItem(SelectedBoolean.YES_AND_NO);
-        facadeGame_.setStatisticHealingItem(null);
+        facadeGame_.setStatisticHealingItem(Statistic.NOTHING);
         facadeGame_.setMinPriceHealingItem(null);
         facadeGame_.setMaxPriceHealingItem(null);
         facadeGame_.setMinNumberHealingItem(null);

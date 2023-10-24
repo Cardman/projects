@@ -59,7 +59,7 @@ public final class FacadeGamePokemonPlayerTest extends InitializationDataBase {
         facadeGame_.setMaxLevelFirstBox(null);
         facadeGame_.setMinNbPossEvolsFirstBox(null);
         facadeGame_.setMaxNbPossEvolsFirstBox(null);
-        facadeGame_.setGenderFirstBox(null);
+        facadeGame_.setGenderFirstBox(Gender.NONE);
         facadeGame_.setNbResultsPerPageFirstBox(1);
         facadeGame_.setDeltaFirstBox(1);
         facadeGame_.setCmpAbilityIncreasingFirstBox(SelectedBoolean.YES_AND_NO);

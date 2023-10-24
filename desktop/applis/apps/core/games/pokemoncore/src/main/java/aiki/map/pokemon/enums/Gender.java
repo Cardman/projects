@@ -5,7 +5,7 @@ import code.util.IdList;
 import code.util.core.StringUtil;
 
 public enum Gender {
-    FEMALE("FEMALE"),MALE("MALE"),NO_GENDER("NO_GENDER");
+    FEMALE("FEMALE"),MALE("MALE"),NO_GENDER("NO_GENDER"),NONE("");
     private final String genderName;
     Gender(String _g) {
         genderName = _g;

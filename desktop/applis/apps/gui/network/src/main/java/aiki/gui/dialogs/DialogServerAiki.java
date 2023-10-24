@@ -69,7 +69,6 @@ public final class DialogServerAiki implements AbstractDialogServer{
         panel_.add(ipOrHostName);
         IdList<IpType> list_ = new IdList<IpType>(IpType.values());
         ipType = new ComboBox<IpType>(GuiBaseUtil.combo(_fenetre.getImageFactory(),new StringList(), -1, _fenetre.getCompoFactory()));
-        ipType.setWithDefaultValue(false);
         ipType.refresh(list_, messagesIpEnum);
         ipType.setSelectedItem(IpType.HOST_NAME);
         panel_.add(ipType.self());

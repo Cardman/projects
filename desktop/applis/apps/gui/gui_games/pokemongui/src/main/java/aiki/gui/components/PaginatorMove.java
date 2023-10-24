@@ -123,38 +123,28 @@ public final class PaginatorMove extends Paginator {
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
         modeName = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
         modeTypes = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        modeTypes.setWithDefaultValue(false);
         modeTypes.refresh(order, getMessagesSearchMode());
         damaging = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        damaging.setWithDefaultValue(false);
         damaging.refresh(getFacade().getTranslatedBooleansCurLanguage());
         targets = new ComboBox<TargetChoice>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        targets.setWithDefaultValue(true);
         String lg_ = getMain().getLanguageKey();
-        targets.refresh(getFacade().getData().getTranslatedTargets().getVal(lg_));
+        targets.refresh(targets(lg_));
         cmpNameSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpTargetsSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpTargetsSorting.setWithDefaultValue(false);
         cmpTargetsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
 //        cmpTypesSorting = new ComboBox<SelectedBoolean>();
 //        cmpTypesSorting.setWithDefaultValue(false);
 //        cmpTypesSorting.refresh(getFacade().getData().getTranslatedBooleans().getVal(Constants.getLanguage()));
         cmpDamagingSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpDamagingSorting.setWithDefaultValue(false);
         cmpDamagingSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpPrioSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpPrioSorting.setWithDefaultValue(false);
         cmpPrioSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpPpSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpPpSorting.setWithDefaultValue(false);
         cmpPpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpPriceSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpPriceSorting.setWithDefaultValue(false);
         cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationMove.NB_CMPARATORS;
         cmpNamePrio.setItems(nb_ + 1);
@@ -421,6 +411,13 @@ public final class PaginatorMove extends Paginator {
         bottom_.add(getDelta());
         _p.add(bottom_);
         changeNav();
+    }
+
+    private IdMap<TargetChoice, String> targets(String _lg) {
+        IdMap<TargetChoice, String> id_ = new IdMap<TargetChoice, String>();
+        id_.addEntry(TargetChoice.NONE,"");
+        id_.addAllEntries(getFacade().getData().getTranslatedTargets().getVal(_lg));
+        return id_;
     }
 
     @Override

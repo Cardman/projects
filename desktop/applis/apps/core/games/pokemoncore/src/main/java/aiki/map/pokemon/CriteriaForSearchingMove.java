@@ -33,7 +33,7 @@ public final class CriteriaForSearchingMove extends CriteriaForSearching {
 
     private Long maxPrio;
 
-    private TargetChoice targetChoice;
+    private TargetChoice targetChoice = TargetChoice.NONE;
 
     private SwitchType switchType;
 
@@ -73,7 +73,7 @@ public final class CriteriaForSearchingMove extends CriteriaForSearching {
     }
 
     private static boolean match(TargetChoice _enum, TargetChoice _element) {
-        if (_enum == null) {
+        if (_enum == TargetChoice.NONE) {
             return true;
         }
         return _enum == _element;

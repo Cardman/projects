@@ -119,40 +119,28 @@ public final class PaginatorPokemon extends Paginator {
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
         modeName = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
         modeAbility = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        modeAbility.setWithDefaultValue(false);
         modeAbility.refresh(order, getMessagesSearchMode());
         modeItem = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        modeItem.setWithDefaultValue(false);
         modeItem.refresh(order, getMessagesSearchMode());
         withItem = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        withItem.setWithDefaultValue(false);
         withItem.refresh(getFacade().getTranslatedBooleansCurLanguage());
         modeMoves = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        modeMoves.setWithDefaultValue(false);
         modeMoves.refresh(order, getMessagesSearchMode());
         gender = new ComboBox<Gender>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        gender.setWithDefaultValue(true);
-        gender.refresh(getFacade().getTranslatedGendersCurLanguage());
+        gender.refresh(genders());
         cmpNameSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpAbilitySorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpAbilitySorting.setWithDefaultValue(false);
         cmpAbilitySorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpItemSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpItemSorting.setWithDefaultValue(false);
         cmpItemSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpLevelSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpLevelSorting.setWithDefaultValue(false);
         cmpLevelSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpGenderSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpGenderSorting.setWithDefaultValue(false);
         cmpGenderSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpPossEvosSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpPossEvosSorting.setWithDefaultValue(false);
         cmpPossEvosSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationPokemonPlayer.NB_COMPARATORS;
         cmpNamePrio.setItems(nb_ + 1);
@@ -446,6 +434,13 @@ public final class PaginatorPokemon extends Paginator {
         changeNav();
     }
 
+    private IdMap<Gender, String> genders() {
+        IdMap<Gender, String> id_ = new IdMap<Gender, String>();
+        id_.addEntry(Gender.NONE,"");
+        id_.addAllEntries(getFacade().getTranslatedGendersCurLanguage());
+        return id_;
+    }
+
     @Override
     public void changeNbResults() {
         int int_ = getNbResults().getValue();
@@ -485,7 +480,7 @@ public final class PaginatorPokemon extends Paginator {
 
     public void refreshLang() {
         initMessages(ACCESS_POKEMON);
-        gender.refresh(getFacade().getTranslatedGendersCurLanguage());
+        gender.refresh(genders());
         modeName.refresh(order, getMessagesSearchMode());
         modeAbility.refresh(order, getMessagesSearchMode());
         modeItem.refresh(order, getMessagesSearchMode());
@@ -598,7 +593,7 @@ public final class PaginatorPokemon extends Paginator {
         for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
             PokemonLabel l_ = new PokemonLabel(rendered_.get(i), getMain().getCompoFactory());
             l_.setImagesResults(getMain().getImageFactory(), getFacade());
-            l_.refresh(getFacade().getTranslatedGendersCurLanguage());
+            l_.refresh(genders());
             l_.addMouseListener(new PaginatorEvent(this,i));
             //l_.setPreferredSize(new Dimension(100,10));
             list_.add(l_);

@@ -765,7 +765,7 @@ public class FacadeGame {
         setMaxLevelFirstBox(null);
         setContentOfMoveFirstBox(null);
         setSearchModeMoveFirstBox(SearchingMode.WHOLE_STRING);
-        setGenderFirstBox(null);
+        setGenderFirstBox(Gender.NONE);
         setMinNbPossEvolsFirstBox(null);
         setMaxNbPossEvolsFirstBox(null);
     }
@@ -1554,7 +1554,7 @@ public class FacadeGame {
         setMaxPrioMove(null);
         setMinPriceMove(null);
         setMaxPriceMove(null);
-        setTargetChoiceMove(null);
+        setTargetChoiceMove(TargetChoice.NONE);
     }
 
     public void clearSortingMove() {
@@ -2205,7 +2205,7 @@ public class FacadeGame {
         setRelativeRatePpHealingItem(SelectedBoolean.YES_AND_NO);
         setHealOneMoveHealingItem(SelectedBoolean.YES_AND_NO);
         setKoHealingItem(SelectedBoolean.YES_AND_NO);
-        setStatisticHealingItem(null);
+        setStatisticHealingItem(Statistic.NOTHING);
 
         setMinHpHealingItem(null);
         setMaxHpHealingItem(null);

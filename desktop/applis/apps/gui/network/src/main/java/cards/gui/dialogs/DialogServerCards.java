@@ -105,7 +105,6 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
         panel_.add(ipOrHostName);
         IdList<IpType> list_ = new IdList<IpType>(IpType.values());
         ipType = new ComboBox<IpType>(GuiBaseUtil.combo(_fenetre.getImageFactory(),new StringList(), -1, _fenetre.getCompoFactory()));
-        ipType.setWithDefaultValue(false);
         ipType.refresh(list_, messagesIpEnum);
         ipType.setSelectedItem(IpType.HOST_NAME);
 //        ipType = new JComboBox<>(IpType.values());

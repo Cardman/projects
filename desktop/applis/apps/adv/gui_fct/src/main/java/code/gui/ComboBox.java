@@ -6,13 +6,10 @@ import code.util.ints.Listable;
 
 public final class ComboBox<T> extends AbsComboBox {
 // implements GraphicComboGrIntBase
-    private static final String EMPTY_STRING = "";
 
     private final IdList<T> order = new IdList<T>();
 
     private TreeMap<T,String> elements = new TreeMap<T,String>(new ComparatorIndexes<T>(order));
-
-    private boolean withDefaultValue;
 
     public ComboBox(ScrollCustomCombo _combo) {
         super(_combo);
@@ -26,8 +23,7 @@ public final class ComboBox<T> extends AbsComboBox {
         order.addAllElts(_order);
         removeAllItems();
         elements = new TreeMap<T,String>(new ComparatorIndexes<T>(order));
-        IdMap<T,String> m_ = createMap(_tr);
-        elements.putAllMap(m_);
+        elements.putAllMap(_tr);
         for (T e: elements.getKeys()) {
             addItem(_tr.getVal(e));
         }
@@ -36,21 +32,12 @@ public final class ComboBox<T> extends AbsComboBox {
 
     public void refresh(AbsMap<T,String> _tr) {
         removeAllItems();
-        IdMap<T,String> m_ = createMap(_tr);
-        elements = new TreeMap<T,String>(new ComparatorMapValue<T>(m_));
-        elements.putAllMap(m_);
+        elements = new TreeMap<T,String>(new ComparatorMapValue<T>(_tr));
+        elements.putAllMap(_tr);
         for (T e: elements.getKeys()) {
             addItem(_tr.getVal(e));
         }
         getCombo().repaint();
-    }
-
-    private IdMap<T,String> createMap(AbsMap<T,String> _tr) {
-        IdMap<T,String> m_ = new IdMap<T,String>(_tr);
-        if (withDefaultValue) {
-            m_.put(null, EMPTY_STRING);
-        }
-        return m_;
     }
 
 //    @Override
@@ -90,10 +77,6 @@ public final class ComboBox<T> extends AbsComboBox {
             return null;
         }
         return elements.getKey(index_);
-    }
-
-    public void setWithDefaultValue(boolean _withDefaultValue) {
-        withDefaultValue = _withDefaultValue;
     }
 
 }

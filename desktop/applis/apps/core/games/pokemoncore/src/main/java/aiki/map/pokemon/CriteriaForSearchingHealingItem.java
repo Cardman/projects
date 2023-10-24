@@ -38,7 +38,7 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
 
     private Long maxPp;
 
-    private Statistic statistic;
+    private Statistic statistic = Statistic.NOTHING;
 
     private SelectedBoolean ko = SelectedBoolean.YES_AND_NO;
 
@@ -241,7 +241,7 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
     }
 
     public boolean matchStatistic(Item _item) {
-        if (statistic == null) {
+        if (statistic == Statistic.NOTHING) {
             return true;
         }
         CustList<Statistic> statistics_;

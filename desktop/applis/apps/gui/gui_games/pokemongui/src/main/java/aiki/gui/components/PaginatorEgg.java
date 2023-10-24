@@ -68,13 +68,10 @@ public final class PaginatorEgg extends Paginator {
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
         modeName = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
         cmpNameSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpStepsSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpStepsSorting.setWithDefaultValue(false);
         cmpStepsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nbCmp_ = PaginationEgg.NB_COMPARATORS;
         cmpNamePrio.setItems(nbCmp_+1);

@@ -17,7 +17,8 @@ public enum TargetChoice {
     PSEUDO_GLOBALE(false, "PSEUDO_GLOBALE"),
     TOUS_ADV(false, "TOUS_ADV"),
     UNIQUE_IMPORTE(true, "UNIQUE_IMPORTE"),
-    NOTHING(false, "NOTHING");
+    NOTHING(false, "NOTHING"),
+    NONE(false, "");
 
     private final boolean withChoice;
     private final String targetName;

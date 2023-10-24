@@ -63,7 +63,6 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
     public void c7() {
         ComboBox<Ints> b_ = new ComboBox<Ints>(getCombo());
         b_.getCurrent();
-        b_.setWithDefaultValue(true);
         IdMap<Ints,String> m_ = new IdMap<Ints, String>();
         Ints one_ = Ints.newList();
         Ints two_ = Ints.newList();
@@ -76,7 +75,6 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
     public void c8() {
         ComboBox<Ints> b_ = new ComboBox<Ints>(getCombo());
         b_.getCurrent();
-        b_.setWithDefaultValue(false);
         IdMap<Ints,String> m_ = new IdMap<Ints, String>();
         Ints one_ = Ints.newList();
         Ints two_ = Ints.newList();
@@ -96,7 +94,6 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
     public void c9() {
         ComboBox<Ints> b_ = new ComboBox<Ints>(getCombo());
         b_.getCurrent();
-        b_.setWithDefaultValue(false);
         IdMap<Ints,String> m_ = new IdMap<Ints, String>();
         Ints one_ = Ints.newList();
         Ints two_ = Ints.newList();
@@ -114,7 +111,6 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
     public void c10() {
         ComboBox<Ints> b_ = new ComboBox<Ints>(getCombo());
         b_.getCurrent();
-        b_.setWithDefaultValue(false);
         IdMap<Ints,String> m_ = new IdMap<Ints, String>();
         Ints one_ = Ints.newList();
         Ints two_ = Ints.newList();
@@ -130,7 +126,6 @@ public final class AbsComboBoxTest extends EquallableGuiFctUtil {
     public void c11() {
         ComboBox<Ints> b_ = new ComboBox<Ints>(getCombo());
         b_.getCurrent();
-        b_.setWithDefaultValue(false);
         IdMap<Ints,String> m_ = new IdMap<Ints, String>();
         Ints one_ = Ints.newList();
         Ints two_ = Ints.newList();

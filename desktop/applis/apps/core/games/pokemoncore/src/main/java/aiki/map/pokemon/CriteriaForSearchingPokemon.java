@@ -29,7 +29,7 @@ public final class CriteriaForSearchingPokemon extends CriteriaForSearching {
 
     private Long maxLevel;
 
-    private Gender gender;
+    private Gender gender = Gender.NONE;
 
     private Long minNbPossEvols;
 
@@ -61,7 +61,7 @@ public final class CriteriaForSearchingPokemon extends CriteriaForSearching {
     }
 
     private static boolean match(Gender _enum, Gender _element) {
-        if (_enum == null) {
+        if (_enum == Gender.NONE) {
             return true;
         }
         return _enum == _element;

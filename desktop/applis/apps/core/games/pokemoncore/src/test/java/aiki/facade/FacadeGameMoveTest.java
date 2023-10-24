@@ -3,6 +3,7 @@ package aiki.facade;
 import aiki.db.DataBase;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
+import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.Game;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
@@ -47,7 +48,7 @@ public final class FacadeGameMoveTest extends InitializationDataBase {
         facadeGame_.setMinPrioMove(null);
         facadeGame_.setMaxPrioMove(null);
         facadeGame_.setSelectedClassMove(NULL_REF);
-        facadeGame_.setTargetChoiceMove(null);
+        facadeGame_.setTargetChoiceMove(TargetChoice.NONE);
         facadeGame_.setNbResultsPerPageMove(1);
         facadeGame_.setDeltaMove(1);
         facadeGame_.setCmpPriceIncreasingMove(SelectedBoolean.YES_AND_NO);
