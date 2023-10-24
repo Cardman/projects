@@ -388,7 +388,7 @@ public final class Coverage {
 
     private static void standardCoverage(Forwards _fwd, OperationNode _op, CustList<AbstractCoverageResult> _instr) {
         String prim_ = _fwd.getAliasPrimBoolean();
-        if ((_op.getResultClass().matchClass(prim_) || !_op.getResultClass().getImplicitsTest().isEmpty())&& _op.getArgument() == null) {
+        if ((_op.getResultClass().matchClass(prim_) || !_op.getResultClass().getImplicitsTest().isEmpty())&& _op.getArgument() == null&&!_op.getResultClass().isConvertToString()) {
             _instr.add(new BooleanCoverageResult());
         } else {
             _instr.add(new StandardCoverageResult());
