@@ -39,7 +39,6 @@ public final class ScriptsTest extends EquallableScriptsUtil {
     }
     @Test
     public void global(){
-        assertNotNull(MessCdmBaseGr.ms());
         assertNotNull(MessCdmGuiGr.ms());
         assertNotNull(MessGuiCardsGr.ms());
         assertNotNull(MessGuiPkGr.ms());

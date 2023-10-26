@@ -139,6 +139,12 @@ public final class CustAliasParameters {
     private static final String EXECUTE_1_EXECUTE_SETUP_ERROR_0="___________2132";
     private static final String EXECUTE_1_EXECUTE_SETUP_ERROR_1="___________2133";
     private static final String EXECUTE_1_EXECUTE_SETUP_ERROR_2="___________2134";
+    private static final String EXECUTE_0_GROUP_CLASS_0="___________2134_";
+    private static final String EXECUTE_0_GROUP_CLASS_METHOD_0="___________2134__";
+    private static final String EXECUTE_0_GROUP_CLASS_METHOD_1="___________2134___";
+    private static final String EXECUTE_0_FLAT_0="___________2134____";
+    private static final String EXECUTE_0_LAUNCH_0="___________2134_____";
+    private static final String EXECUTE_0_LAUNCH_1="___________2134______";
     private static final String EXECUTOR_SERVICE_0_EXECUTE_0="____1217";
     private static final String EXECUTOR_SERVICE_0_SUBMIT_0="____1218";
     private static final String EXECUTOR_SERVICE_0_SCHEDULE_MILLIS_0="____1219";
@@ -368,6 +374,12 @@ public final class CustAliasParameters {
     private String aliasExecute1ExecuteSetupError0;
     private String aliasExecute1ExecuteSetupError1;
     private String aliasExecute1ExecuteSetupError2;
+    private String aliasExecute0GroupClass0;
+    private String aliasExecute0GroupClassMethod0;
+    private String aliasExecute0GroupClassMethod1;
+    private String aliasExecute0Flat0;
+    private String aliasExecute0Launch0;
+    private String aliasExecute0Launch1;
     private String aliasExecutorService0Execute0;
     private String aliasExecutorService0Submit0;
     private String aliasExecutorService0ScheduleMillis0;
@@ -572,6 +584,10 @@ public final class CustAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(EXECUTE_0_EXECUTE_SETUP_NO_EXCEPTION_0),aliasExecute0ExecuteSetupNoException0),new KeyValueMemberName(_mapping.getVal(EXECUTE_0_EXECUTE_SETUP_NO_EXCEPTION_1),aliasExecute0ExecuteSetupNoException1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(EXECUTE_0_EXECUTE_SETUP_ERROR_0),aliasExecute0ExecuteSetupError0),new KeyValueMemberName(_mapping.getVal(EXECUTE_0_EXECUTE_SETUP_ERROR_1),aliasExecute0ExecuteSetupError1),new KeyValueMemberName(_mapping.getVal(EXECUTE_0_EXECUTE_SETUP_ERROR_2),aliasExecute0ExecuteSetupError2),new KeyValueMemberName(_mapping.getVal(EXECUTE_0_EXECUTE_SETUP_ERROR_3),aliasExecute0ExecuteSetupError3)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(EXECUTE_1_EXECUTE_SETUP_ERROR_0),aliasExecute1ExecuteSetupError0),new KeyValueMemberName(_mapping.getVal(EXECUTE_1_EXECUTE_SETUP_ERROR_1),aliasExecute1ExecuteSetupError1),new KeyValueMemberName(_mapping.getVal(EXECUTE_1_EXECUTE_SETUP_ERROR_2),aliasExecute1ExecuteSetupError2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(EXECUTE_0_GROUP_CLASS_0),aliasExecute0GroupClass0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(EXECUTE_0_GROUP_CLASS_METHOD_0),aliasExecute0GroupClassMethod0),new KeyValueMemberName(_mapping.getVal(EXECUTE_0_GROUP_CLASS_METHOD_1),aliasExecute0GroupClassMethod1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(EXECUTE_0_FLAT_0),aliasExecute0Flat0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(EXECUTE_0_LAUNCH_0),aliasExecute0Launch0),new KeyValueMemberName(_mapping.getVal(EXECUTE_0_LAUNCH_1),aliasExecute0Launch1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_0_EXECUTE_0),aliasExecutorService0Execute0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_0_SUBMIT_0),aliasExecutorService0Submit0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_0_SCHEDULE_MILLIS_0),aliasExecutorService0ScheduleMillis0),new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_0_SCHEDULE_MILLIS_1),aliasExecutorService0ScheduleMillis1),new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_0_SCHEDULE_MILLIS_2),aliasExecutorService0ScheduleMillis2)));
@@ -756,6 +772,12 @@ public final class CustAliasParameters {
         aliasExecute1ExecuteSetupError0= LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_1_EXECUTE_SETUP_ERROR_0));
         aliasExecute1ExecuteSetupError1= LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_1_EXECUTE_SETUP_ERROR_1));
         aliasExecute1ExecuteSetupError2= LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_1_EXECUTE_SETUP_ERROR_2));
+        aliasExecute0GroupClass0 = LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_0_GROUP_CLASS_0));
+        aliasExecute0GroupClassMethod0 = LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_0_GROUP_CLASS_METHOD_0));
+        aliasExecute0GroupClassMethod1 = LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_0_GROUP_CLASS_METHOD_1));
+        aliasExecute0Flat0 = LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_0_FLAT_0));
+        aliasExecute0Launch0 = LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_0_LAUNCH_0));
+        aliasExecute0Launch1 = LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_0_LAUNCH_1));
         aliasExecutorService0Execute0= LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_0_EXECUTE_0));
         aliasExecutorService0Submit0= LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_0_SUBMIT_0));
         aliasExecutorService1ExecutorService0= LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_1_EXECUTOR_SERVICE_0));
@@ -985,6 +1007,12 @@ public final class CustAliasParameters {
         _en.add(EXECUTE_1_EXECUTE_SETUP_ERROR_0,"Execute1ExecuteSetupError0=a");
         _en.add(EXECUTE_1_EXECUTE_SETUP_ERROR_1,"Execute1ExecuteSetupError1=b");
         _en.add(EXECUTE_1_EXECUTE_SETUP_ERROR_2,"Execute1ExecuteSetupError2=c");
+        _en.add(EXECUTE_0_GROUP_CLASS_0,"Execute0GroupClass0=a");
+        _en.add(EXECUTE_0_GROUP_CLASS_METHOD_0,"Execute0GroupClassMethod0=a");
+        _en.add(EXECUTE_0_GROUP_CLASS_METHOD_1,"Execute0GroupClassMethod1=b");
+        _en.add(EXECUTE_0_FLAT_0,"Execute0Flat0=a");
+        _en.add(EXECUTE_0_LAUNCH_0,"Execute0Launch0=a");
+        _en.add(EXECUTE_0_LAUNCH_1,"Execute0Launch1=b");
         _en.add(EXECUTOR_SERVICE_0_EXECUTE_0,"ExecutorService0Execute0=a");
         _en.add(EXECUTOR_SERVICE_0_SUBMIT_0,"ExecutorService0Submit0=a");
         _en.add(EXECUTOR_SERVICE_0_SCHEDULE_MILLIS_0,"ExecutorService0ScheduleMillis0=a");
@@ -1214,6 +1242,12 @@ public final class CustAliasParameters {
         _fr.add(EXECUTE_1_EXECUTE_SETUP_ERROR_0,"Execute1ExecuteSetupError0=a");
         _fr.add(EXECUTE_1_EXECUTE_SETUP_ERROR_1,"Execute1ExecuteSetupError1=b");
         _fr.add(EXECUTE_1_EXECUTE_SETUP_ERROR_2,"Execute1ExecuteSetupError2=c");
+        _fr.add(EXECUTE_0_GROUP_CLASS_0,"Execute0GroupClass0=a");
+        _fr.add(EXECUTE_0_GROUP_CLASS_METHOD_0,"Execute0GroupClassMethod0=a");
+        _fr.add(EXECUTE_0_GROUP_CLASS_METHOD_1,"Execute0GroupClassMethod1=b");
+        _fr.add(EXECUTE_0_FLAT_0,"Execute0Flat0=a");
+        _fr.add(EXECUTE_0_LAUNCH_0,"Execute0Launch0=a");
+        _fr.add(EXECUTE_0_LAUNCH_1,"Execute0Launch1=b");
         _fr.add(EXECUTOR_SERVICE_0_EXECUTE_0,"ExecutorService0Execute0=a");
         _fr.add(EXECUTOR_SERVICE_0_SUBMIT_0,"ExecutorService0Submit0=a");
         _fr.add(EXECUTOR_SERVICE_0_SCHEDULE_MILLIS_0,"ExecutorService0ScheduleMillis0=a");
@@ -1833,6 +1867,30 @@ public final class CustAliasParameters {
 
     public String getAliasExecute1ExecuteSetupError2() {
         return aliasExecute1ExecuteSetupError2;
+    }
+
+    public String getAliasExecute0GroupClass0() {
+        return aliasExecute0GroupClass0;
+    }
+
+    public String getAliasExecute0GroupClassMethod0() {
+        return aliasExecute0GroupClassMethod0;
+    }
+
+    public String getAliasExecute0GroupClassMethod1() {
+        return aliasExecute0GroupClassMethod1;
+    }
+
+    public String getAliasExecute0Flat0() {
+        return aliasExecute0Flat0;
+    }
+
+    public String getAliasExecute0Launch0() {
+        return aliasExecute0Launch0;
+    }
+
+    public String getAliasExecute0Launch1() {
+        return aliasExecute0Launch1;
     }
 
     public String getAliasExecutorService0Execute0() {

@@ -21,7 +21,6 @@ import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.stds.*;
-import code.scripts.messages.gui.MessCdmBaseGr;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
@@ -38,265 +37,11 @@ public final class CustAliases {
     public static final String ANY_PAIR = "<?,?,";
     public static final String LR = "\n";
     public static final String SPACES_4 = "    ";
-    public static final String KW_PUBLIC = "{public}";
-    public static final String KW_ABSTRACT = "{abstract}";
-    public static final String KW_CAST = "{cast}";
-    public static final String KW_STATIC = "{static}";
-    public static final String KW_RETURN = "{return}";
-    public static final String KW_NEW = "{new}";
-    public static final String KW_THIS = "{this}";
-    public static final String KW_PRIVATE = "{private}";
-    public static final String KW_CLASS = "{class}";
-    public static final String KW_FINAL = "{final}";
-    public static final String KW_FOR = "{for}";
-    public static final String KW_IF = "{if}";
-    public static final String KW_ELSE = "{else}";
-    public static final String KW_VAR = "{var}";
-    public static final String KW_ANNOTATION = "{annotation}";
-    public static final String KW_NULL = "{null}";
-    public static final String KW_THROW = "{throw}";
-    public static final String KW_CONTINUE = "{continue}";
-    public static final String KW_BREAK = "{break}";
-    public static final String KW_INSTANCEOF = "{instanceof}";
-    public static final String KW_TRUE = "{true}";
-    public static final String KW_FALSE = "{false}";
-    public static final String KW_TRY = "{try}";
-    public static final String KW_CATCH = "{catch}";
-    public static final String KW_VOID = "{void}";
-    public static final String KW_SUPER = "{super}";
-    public static final String KW_ITER = "{iter}";
-    public static final String KW_VALUE = "{value}";
-    public static final String TYPE_RUNNABLE = "{Runnable}";
-    public static final String TYPE_ITER = "{Iter}";
-    public static final String TYPE_LIST = "{List}";
-    public static final String TYPE_INT = "{int}";
-    public static final String TYPE_BOOLEAN = "{boolean}";
-    public static final String TYPE_FCT = "{Fct}";
-    public static final String TYPE_CUST_PAIR = "{CustPair}";
-    public static final String TYPE_PAIR = "{Pair}";
-    public static final String TYPE_CUST_ITER_TABLE = "{CustIterTable}";
-    public static final String TYPE_ITER_TYPE_TABLE = "{IterTypeTable}";
-    public static final String TYPE_TABLE = "{Table}";
-    public static final String TYPE_FUTURE = "{Future}";
-    public static final String TYPE_ARGS = "{Args}";
-    public static final String TYPE_EXECUTOR_SERVICE = "{ExecutorService}";
-    public static final String TYPE_CLASS = "{Class}";
-    public static final String TYPE_INVOKE_TARGET = "{InvokeTarget}";
-    public static final String TYPE_STACK = "{Stack}";
-    public static final String TYPE_OBJECT = "{Object}";
-    public static final String TYPE_STRING = "{String}";
-    public static final String TYPE_STRING_BUILDER = "{StringBuilder}";
-    public static final String TYPE_METHOD = "{Method}";
-    public static final String TYPE_ANNOTATION = "{Annotation}";
-    public static final String TYPE_THREAD = "{Thread}";
-    public static final String TYPE_OBJECTS_UTIL = "{ObjectsUtil}";
-    public static final String TYPE_MATH = "{Math}";
-    public static final String TYPE_STRING_UTIL = "{StringUtil}";
-    public static final String TYPE_EXECUTE = "{Execute}";
-    public static final String TYPE_RESULT = "{Result}";
-    public static final String TYPE_EXECUTED_TEST = "{ExecutedTest}";
-    public static final String TYPE_TEST = "{Test}";
-    public static final String TYPE_AFTER = "{After}";
-    public static final String TYPE_BEFORE = "{Before}";
-    public static final String TYPE_PARAMETERS = "{Parameters}";
-    public static final String TYPE_ASSERT = "{Assert}";
-    public static final String TYPE_DIFFERENCE = "{Difference}";
-    public static final String TYPE_INFO_TEST = "{InfoTest}";
-    public static final String TYPE_ELT_DIFFERENCE = "{EltDifference}";
-    public static final String TYPE_DOUBLE = "{Double}";
-    public static final String METHOD_RUN = "{run}";
-    public static final String METHOD_CALL = "{call}";
-    public static final String METHOD_ITERATOR_TYPE = "{iteratorType}";
-    public static final String METHOD_ITERABLE = "{iterable}";
-    public static final String METHOD_LIST_ITR = "{listItr}";
-    public static final String METHOD_LENGTH_ITR_LI = "{lengthItrLi}";
-    public static final String METHOD_INDEX_ITR_LI = "{indexItrLi}";
-    public static final String METHOD_SIZE_LI = "{sizeLi}";
-    public static final String METHOD_NEXT = "{next}";
-    public static final String METHOD_HAS_NEXT = "{hasNext}";
-    public static final String FIELD_ARRAY = "{array}";
-    public static final String FIELD_LENGTH_LI = "{lengthLi}";
-    public static final String METHOD_CLONE = "{clone}";
-    public static final String METHOD_LENGTH = "{length}";
-    public static final String METHOD_ADD = "{add}";
-    public static final String METHOD_REMOVE = "{remove}";
-    public static final String METHOD_ITERATOR = "{iterator}";
-    public static final String METHOD_CLEAR = "{clear}";
-    public static final String FIELD_FIRST = "{first}";
-    public static final String FIELD_SECOND = "{second}";
-    public static final String METHOD_GET_FIRST = "{getFirst}";
-    public static final String METHOD_GET_SECOND = "{getSecond}";
-    public static final String METHOD_SET_FIRST = "{setFirst}";
-    public static final String METHOD_SET_SECOND = "{setSecond}";
-    public static final String METHOD_NEXT_PAIR = "{nextPair}";
-    public static final String METHOD_HAS_NEXT_PAIR = "{hasNextPair}";
-    public static final String METHOD_ITERABLE_TABLE = "{iterableTable}";
-    public static final String METHOD_ITERATOR_TABLE = "{iteratorTable}";
-    public static final String FIELD_LIST_TA = "{listTa}";
-    public static final String METHOD_LIST_ITR_TA = "{listItrTa}";
-    public static final String METHOD_LENGTH_ITR_TA = "{lengthItrTa}";
-    public static final String METHOD_INDEX_ITR_TA = "{indexItrTa}";
-    public static final String METHOD_ADD_TA = "{addTa}";
-    public static final String METHOD_SIZE_TA = "{sizeTa}";
-    public static final String METHOD_GET_TA = "{getTa}";
-    public static final String METHOD_GET_FIRST_TA = "{getFirstTa}";
-    public static final String METHOD_GET_SECOND_TA = "{getSecondTa}";
-    public static final String METHOD_SET_FIRST_TA = "{setFirstTa}";
-    public static final String METHOD_SET_SECOND_TA = "{setSecondTa}";
-    public static final String METHOD_REMOVE_TA = "{removeTa}";
-    public static final String METHOD_EX_SER_EX = "{exSerEx}";
-    public static final String METHOD_SHUTDOWN = "{shutdown}";
-    public static final String METHOD_WAIT = "{wait}";
-    public static final String METHOD_INCR_GET = "{incrGet}";
-    public static final String FIELD_ARGS = "{args}";
-    public static final String FIELD_ARGS_VALUE = "{argsValue}";
-    public static final String FIELD_ARGS_ANNOT = "{argsAnnot}";
-    public static final String TYPE_AT_INT = "{atInt}";
-    public static final String TYPE_LONG = "{long}";
-    public static final String TYPE_PRIM_DOUBLE = "{double}";
-    public static final String KW_TO_SPEC_STRING = "{toSpecString}";
-    public static final String METHOD_GET_ALL_CLASSES = "{getAllClasses}";
-    public static final String METHOD_GET_DECLARED_METHODS = "{getDeclaredMethods}";
-    public static final String METHOD_GET_ANNOTATIONS = "{getAnnotations}";
-    public static final String METHOD_GET_METHOD_NAME = "{getMethodName}";
-    public static final String METHOD_GET_CLASS_NAME = "{getClassName}";
-    public static final String METHOD_GET_CLASS = "{getClass}";
-    public static final String METHOD_IS_STATIC = "{isStatic}";
-    public static final String METHOD_GET_PARAMETER_TYPES = "{getParameterTypes}";
-    public static final String METHOD_GET_DECLARED_CONSTRUCTORS = "{getDeclaredConstructors}";
-    public static final String METHOD_INVOKE = "{invoke}";
-    public static final String METHOD_NEW_INSTANCE = "{newInstance}";
-    public static final String METHOD_GET_CAUSE = "{getCause}";
-    public static final String METHOD_JOIN_OTHERS = "{joinOthers}";
-    public static final String METHOD_IS_ASSIGNABLE_FROM = "{isAssignableFrom}";
-    public static final String METHOD_CURRENT = "{current}";
-    public static final String METHOD_EQ = "{eq}";
-    public static final String METHOD_VALUE_OF = "{valueOf}";
-    public static final String METHOD_APPEND = "{append}";
-    public static final String METHOD_INSERT = "{insert}";
-    public static final String METHOD_TO_STRING = "{toString}";
-    public static final String METHOD_PLUS = "{plus}";
-    public static final String METHOD_MINUS = "{minus}";
-    public static final String METHOD_LT = "{lt}";
-    public static final String METHOD_GT = "{gt}";
-    public static final String FIELD_EXCEPTION = "{exception}";
-    public static final String FIELD_NULL_EXCEPTION = "{nullException}";
-    public static final String FIELD_ANNOTATIONS = "{annotations}";
-    public static final String FIELD_TEST = "{test}";
-    public static final String FIELD_BEFORE = "{before}";
-    public static final String FIELD_AFTER = "{after}";
-    public static final String FIELD_METHOD_PARAM = "{methodParam}";
-    public static final String FIELD_METHOD = "{method}";
-    public static final String FIELD_LOCATION = "{location}";
-    public static final String FIELD_PF = "{pf}";
-    public static final String FIELD_CONVERT = "{convert}";
-    public static final String FIELD_EXECUTE = "{execute}";
-    public static final String FIELD_SETUP_ERROR = "{setupError}";
-    public static final String FIELD_SETUP_NO_EXCEPTION = "{setupNoException}";
-    public static final String FIELD_FAIL_MESSAGE = "{failMessage}";
-    public static final String FIELD_EXPECTED = "{expected}";
-    public static final String FIELD_FOUND = "{found}";
-    public static final String FIELD_STACK_DIFF = "{stackDiff}";
-    public static final String FIELD_FOUND_NULL = "{foundNull}";
-    public static final String FIELD_FOUND_NOT_TRUE = "{foundNotTrue}";
-    public static final String METHOD_ASSERT = "{assert}";
-    public static final String METHOD_ASSERT_NOT = "{assertNot}";
-    public static final String METHOD_ASSERT_TRUE = "{assertTrue}";
-    public static final String METHOD_ASSERT_FALSE = "{assertFalse}";
-    public static final String METHOD_ASSERT_NULL = "{assertNull}";
-    public static final String METHOD_ASSERT_NOT_NULL = "{assertNotNull}";
-    public static final String METHOD_ASSERT_SAME = "{assertSame}";
-    public static final String METHOD_ASSERT_NOT_SAME = "{assertNotSame}";
-    public static final String METHOD_ABS = "{abs}";
-    public static final String METHOD_COMPARE = "{compare}";
-    public static final String FIELD_INDEX = "{index}";
-    public static final String FIELD_SUCCESS = "{success}";
-    public static final String FIELD_TIME = "{time}";
-    public static final String FIELD_TESTS = "{tests}";
-    public static final String FIELD_COUNT = "{count}";
-    public static final String FIELD_CALLS = "{calls}";
-    public static final String FIELD_DONE = "{done}";
-    public static final String FIELD_NB_THREADS = "{nbThreads}";
-    public static final String FIELD_CURRENT_CLASS = "{currentClass}";
-    public static final String FIELD_CURRENT_METHOD = "{currentMethod}";
-    public static final String FIELD_CURRENT_PARAMS = "{currentParams}";
-    public static final String FIELD_RESULT_ARGS = "{resultArgs}";
-    public static final String FIELD_CONTAINER = "{container}";
-    public static final String FIELD_EXECUTED = "{executed}";
-    public static final String FIELD_INSTANT = "{instant}";
-    public static final String PARAM_012 = "i";
-    public static final String PARAM_013 = "p";
-    public static final String PARAM_014 = "out";
-    public static final String PARAM_015 = "p1";
-    public static final String PARAM_016 = "p2";
-    public static final String PARAM_017 = "p3";
-    public static final String PARAM_018 = "p4";
-    public static final String PARAM_019 = "ti";
-    public static final String PARAM_020 = "p5";
-    public static final String PARAM_021 = "p6";
-    public static final String PARAM_022 = "p7";
-    public static final String PARAM_023 = "p8";
-    public static final String PARAM_024 = "p9";
-    public static final String PARAM_025 = "p10";
-    public static final String PARAM_026 = "p11";
-    public static final String PARAM_027 = "p12";
-    public static final String PARAM_028 = "p13";
-    public static final String PARAM_029 = "p14";
-    public static final String PARAM_030 = "p15";
-    public static final String PARAM_031 = "f";
-    public static final String PARAM_032 = "s";
-    public static final String PARAM_033 = "a";
-    public static final String PARAM_034 = "r";
-    public static final String PARAM_035 = "b";
-    public static final String PARAM_036 = "c";
-    public static final String PARAM_120 = "co";
-    public static final String PARAM_121 = "e";
-    public static final String PARAM_122 = "l";
-    public static final String PARAM_123 = "m";
-    public static final String PARAM_124 = "o";
-    public static final String PARAM_125 = "r1";
-    public static final String PARAM_126 = "r2";
-    public static final String PARAM_127 = "r3";
-    public static final String PARAM_128 = "t";
-    public static final String PARAM_129 = "tt";
-    public static final String PARAM_130 = "tt0";
-    public static final String PARAM_131 = "tt1";
-    public static final String PARAM_132 = "tts0";
-    public static final String PARAM_133 = "ex";
-    public static final String PARAM_134 = "et2";
-    public static final String PARAM_135 = "et3";
-    public static final String PARAM_136 = "et4";
-    public static final String PARAM_137 = "et";
-    public static final String PARAM_138 = "er";
-    public static final String PARAM_139 = "et1";
-    public static final String PARAM_140 = "info";
-    public static final String PARAM_141 = "res";
-    public static final String PARAM_142 = "processEx";
-    public static final String PARAM_143 = "ctor";
-    public static final String PARAM_144 = "classTest";
-    public static final String PARAM_145 = "results";
-    public static final String PARAM_146 = "exc";
-    public static final String PARAM_147 = "nbParams";
-    public static final String PARAM_148 = "params";
-    public static final String PARAM_149 = "arr";
-    public static final String PARAM_150 = "as";
-    public static final String PARAM_151 = "bs";
-    public static final String PARAM_152 = "tts";
-    public static final String PARAM_153 = "locType";
-    public static final String PARAM_154 = "loc";
-    public static final String PARAM_155 = "paramAnn";
-    public static final String PARAM_156 = "aParam";
-    public static final String PARAM_157 = "stTime";
-    public static final String PARAM_158 = "diff";
-    public static final String PARAM_159 = "tps1";
-    public static final String PARAM_160 = "tps2";
-    public static final String PARAM_161 = "tps3";
 
     public static final String YYYY_MM_DD_HH_MM_SS_SSS = "yyyy_MM_dd_HH_mm_ss_SSS";
     public static final String YYYY_MM_DD_HH_MM_SS_SSS_DASH = "----_--_--_--_--_--_---";
     public static final String OTHERS = "...";
 
-    public static final String RESOURCES_LG_TESTS_RUN_TXT = "resources_lg/tests/run.txt";
 //    public static final String RESOURCES_LG_ALIASES = "resources_lg/aliases";
 //    public static final String FILE_MESSAGES = "messages";
 //    public static final String FILE_KEYWORDS = "keywords";
@@ -448,6 +193,10 @@ public final class CustAliases {
     private static final String EXECUTE_SETUP_ERROR="___________2093";
     private static final String EXECUTE_SETUP_NO_EXCEPTION="___________2094";
     private static final String EXECUTE_EXECUTE="___________2095";
+    private static final String EXECUTE_GROUP_CLASS="___________2095_";
+    private static final String EXECUTE_GROUP_CLASS_METHOD="___________2095__";
+    private static final String EXECUTE_FLAT="___________2095___";
+    private static final String EXECUTE_LAUNCH="___________2095____";
     private static final String PARAMETERS_LOCATION="___________2096";
     private static final String PARAMETERS_METHOD="___________2097";
     private static final String TEST_EXCEPTION="___________2098";
@@ -508,6 +257,7 @@ public final class CustAliases {
     private static final String ITER_TA_VAR_SECOND="782";
     private static final String PAIR_VAR_FIRST="783";
     private static final String PAIR_VAR_SECOND="784";
+    private static final String MILLION = "1000000";
     private String aliasRunnable;
     private String aliasCallable;
     private String aliasThreadSet;
@@ -704,6 +454,10 @@ public final class CustAliases {
     private String aliasExecuteConvert;
     private String aliasExecuteSetupNoException;
     private String aliasExecuteSetupError;
+    private String aliasExecuteGroupClass;
+    private String aliasExecuteGroupClassMethod;
+    private String aliasExecuteFlat;
+    private String aliasExecuteLaunch;
 
     private String aliasAssertAssert;
     private String aliasAssertAssertNot;
@@ -1318,320 +1072,11 @@ public final class CustAliases {
         if (light) {
             return stds_;
         }
-        StringMap<String> properties_ = MessCdmBaseGr.ms();
-        StringMap<PrimitiveType> primitiveTypes_ = _content.getPrimTypes().getPrimitiveTypes();
-        AliasCore coreNames_ = _content.getCoreNames();
-        PrimitiveTypes primTypes_ = _content.getPrimTypes();
-        AliasPredefinedTypes predefTypes_ = _content.getPredefTypes();
-        AliasCharSequenceType charSeq_ = _content.getCharSeq();
-        AliasReflection reflect_ = _content.getReflect();
-        AliasMathType mathRef_ = _content.getMathRef();
-        AliasStackTraceElementType stackElt_ = _content.getStackElt();
-        AliasNumberType nbAlias_ = _content.getNbAlias();
-        String public_ = _keyWords.getKeyWordPublic();
-        String private_ = _keyWords.getKeyWordPrivate();
-        String int_ = primTypes_.getAliasPrimInteger();
-        String boolean_ = primTypes_.getAliasPrimBoolean();
-        String class_ = _keyWords.getKeyWordClass();
-        String this_ = _keyWords.getKeyWordThis();
-        String new_ = _keyWords.getKeyWordNew();
-        String return_ = _keyWords.getKeyWordReturn();
-        String iter_ = _keyWords.getKeyWordIter();
-        String value_ = _keyWords.getKeyWordValue();
-        String abstract_ = _keyWords.getKeyWordAbstract();
-        StringMap<String> map_;
         stds_.put(aliasRunnable, runnableType(_keyWords, _content));
         stds_.put(aliasCallable, callableType(_keyWords, _content));
-        map_ = new StringMap<String>();
-        map_.put(KW_PUBLIC, public_);
-        map_.put(KW_PRIVATE, private_);
-        map_.put(KW_CLASS, class_);
-        map_.put(TYPE_ITER, aliasCustIterator);
-        map_.put(TYPE_LIST, aliasList);
-        map_.put(TYPE_INT, int_);
-        map_.put(TYPE_BOOLEAN, boolean_);
-        placeHolder(map_, PARAM_013, _keyWords, primitiveTypes_, coreNames_);
-        map_.put(METHOD_ITERATOR_TYPE, predefTypes_.getAliasIteratorType());
-        map_.put(METHOD_ITERABLE, predefTypes_.getAliasIterable());
-        map_.put(METHOD_LIST_ITR, aliasListItr);
-        map_.put(METHOD_LENGTH_ITR_LI, aliasLengthItrLi);
-        map_.put(METHOD_INDEX_ITR_LI, aliasIndexItrLi);
-        map_.put(KW_VOID, coreNames_.getAliasVoid());
-        map_.put(KW_THIS, this_);
-        map_.put(METHOD_SIZE_LI, aliasSizeLi);
-        map_.put(METHOD_NEXT, predefTypes_.getAliasNext());
-        map_.put(METHOD_HAS_NEXT, predefTypes_.getAliasHasNext());
-        map_.put(KW_RETURN, return_);
-        map_.put(FIELD_ARRAY, aliasArrayLi);
-        map_.put(FIELD_LENGTH_LI, aliasLengthLi);
-        map_.put(KW_NEW, new_);
-        map_.put(METHOD_CLONE, coreNames_.getAliasClone());
-        map_.put(METHOD_LENGTH, coreNames_.getAliasArrayLength());
-        map_.put(METHOD_ADD, aliasAddLi);
-        map_.put(KW_ITER, iter_);
-        map_.put(KW_VALUE, value_);
-        map_.put(METHOD_REMOVE, aliasRemoveLi);
-        map_.put(METHOD_ITERATOR, predefTypes_.getAliasIterator());
-        map_.put(METHOD_CLEAR,aliasListClear);
         stds_.put(aliasList, iteratorType(_keyWords, _content)+listType(_keyWords, _content));
-        map_.put(TYPE_CUST_PAIR,aliasCustPair);
-        map_.put(TYPE_PAIR,predefTypes_.getAliasPairType());
-        map_.put(FIELD_FIRST,aliasFirst);
-        map_.put(FIELD_SECOND,aliasSecond);
-        map_.put(METHOD_GET_FIRST,predefTypes_.getAliasGetFirst());
-        map_.put(METHOD_GET_SECOND,predefTypes_.getAliasGetSecond());
-        map_.put(METHOD_SET_FIRST,aliasSetFirst);
-        map_.put(METHOD_SET_SECOND,aliasSetSecond);
-        map_.put(wrap(PARAM_015), custAliasParameters.getAliasCustPair0CustPair0());
-        map_.put(wrap(PARAM_016), custAliasParameters.getAliasCustPair0CustPair1());
-        map_.put(wrap(PARAM_017), custAliasParameters.getAliasCustPair0SetFirst0());
-        map_.put(wrap(PARAM_018), custAliasParameters.getAliasCustPair0SetSecond0());
-        map_.put(wrap(PARAM_019), custAliasParameters.getAliasCustIterTable0CustIterTable0());
-        map_.put(wrap(PARAM_020), custAliasParameters.getAliasTable0AddLi0());
-        map_.put(wrap(PARAM_021), custAliasParameters.getAliasTable0AddLi1());
-        map_.put(wrap(PARAM_022), custAliasParameters.getAliasTable1AddLi0());
-        map_.put(wrap(PARAM_023), custAliasParameters.getAliasTable0GetTa0());
-        map_.put(wrap(PARAM_024), custAliasParameters.getAliasTable0GetFirstTa0());
-        map_.put(wrap(PARAM_025), custAliasParameters.getAliasTable0GetSecondTa0());
-        map_.put(wrap(PARAM_026), custAliasParameters.getAliasTable0SetFirst0());
-        map_.put(wrap(PARAM_027), custAliasParameters.getAliasTable0SetFirst1());
-        map_.put(wrap(PARAM_028), custAliasParameters.getAliasTable0SetSecond0());
-        map_.put(wrap(PARAM_029), custAliasParameters.getAliasTable0SetSecond1());
-        map_.put(wrap(PARAM_030), custAliasParameters.getAliasTable0RemoveLi0());
-        placeHolder(map_, PARAM_031, _keyWords, primitiveTypes_, coreNames_);
-        placeHolder(map_, PARAM_032, _keyWords, primitiveTypes_, coreNames_);
-        map_.put(TYPE_CUST_ITER_TABLE, aliasCustIterTable);
-        map_.put(TYPE_ITER_TYPE_TABLE, predefTypes_.getAliasIteratorTableType());
-        map_.put(METHOD_LIST_ITR_TA, aliasListIterTable);
-        map_.put(METHOD_LENGTH_ITR_TA, aliasLengthItrTa);
-        map_.put(METHOD_INDEX_ITR_TA, aliasIndexItrTa);
-        map_.put(METHOD_NEXT_PAIR,predefTypes_.getAliasNextPair());
-        map_.put(METHOD_HAS_NEXT_PAIR,predefTypes_.getAliasHasNextPair());
-        map_.put(TYPE_TABLE,aliasTable);
-        map_.put(FIELD_LIST_TA,aliasListTa);
-        map_.put(METHOD_ITERABLE_TABLE,predefTypes_.getAliasIterableTable());
-        map_.put(METHOD_ADD_TA,aliasAddTa);
-        map_.put(METHOD_SIZE_TA,aliasSizeTa);
-        map_.put(METHOD_GET_TA,aliasGetTa);
-        map_.put(METHOD_GET_FIRST_TA,aliasGetFirstTa);
-        map_.put(METHOD_GET_SECOND_TA,aliasGetSecondTa);
-        map_.put(METHOD_SET_FIRST_TA,aliasSetFirstTa);
-        map_.put(METHOD_SET_SECOND_TA,aliasSetSecondTa);
-        map_.put(METHOD_REMOVE_TA,aliasRemoveTa);
-        map_.put(METHOD_ITERATOR_TABLE,predefTypes_.getAliasIteratorTable());
         stds_.put(aliasTable, pair(_keyWords, _content)+iteratorTableType(_keyWords, _content)+tableType(_keyWords, _content));
-
-        String content_ = properties_.getVal(RESOURCES_LG_TESTS_RUN_TXT);
-        placeHolder(map_, PARAM_033, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_034, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_035, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
-        );
-        placeHolder(map_, PARAM_036, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        map_.put(wrap(PARAM_120),custAliasParameters.getAliasExecute0ExecuteConvert0());
-        placeHolder(map_, PARAM_121, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0(),custAliasParameters.getAliasExecute0ExecuteConvert0());
-        placeHolder(map_, PARAM_031, _keyWords, primitiveTypes_, coreNames_);
-        placeHolder(map_, PARAM_012, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_122, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_123, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_124, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
-        );
-        map_.put(wrap(PARAM_125),custAliasParameters.getAliasExecute0Run0());
-        map_.put(wrap(PARAM_126),custAliasParameters.getAliasExecute0Run1());
-        map_.put(wrap(PARAM_127),custAliasParameters.getAliasExecute0Run2());
-        placeHolder(map_, PARAM_013, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_032, _keyWords, primitiveTypes_, coreNames_);
-        placeHolder(map_, PARAM_128, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_129, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasExecute0ExecuteSetupError0(),custAliasParameters.getAliasExecute0ExecuteSetupError1(),custAliasParameters.getAliasExecute0ExecuteSetupError2(),
-                custAliasParameters.getAliasExecute0ExecuteSetupNoException0());
-        placeHolder(map_, PARAM_130, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasExecute0ExecuteSetupError0(),custAliasParameters.getAliasExecute0ExecuteSetupError1(),custAliasParameters.getAliasExecute0ExecuteSetupError2(),
-                custAliasParameters.getAliasExecute0ExecuteSetupNoException0());
-        placeHolder(map_, PARAM_131, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasExecute0ExecuteSetupError0(),custAliasParameters.getAliasExecute0ExecuteSetupError1(),custAliasParameters.getAliasExecute0ExecuteSetupError2(),
-                custAliasParameters.getAliasExecute0ExecuteSetupNoException0());
-        placeHolder(map_, PARAM_132, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasExecute0ExecuteSetupError0(),custAliasParameters.getAliasExecute0ExecuteSetupError1(),custAliasParameters.getAliasExecute0ExecuteSetupError2(),
-                custAliasParameters.getAliasExecute0ExecuteSetupNoException0());
-        map_.put(METHOD_EX_SER_EX,getAliasExecutorServiceSubmit());
-        map_.put(METHOD_SHUTDOWN,getAliasExecutorServiceShutdown());
-        map_.put(METHOD_WAIT,getAliasFutureWait());
-        map_.put(TYPE_FUTURE,getAliasFuture());
-        map_.put(TYPE_ARGS,getAliasArgsTest());
-        map_.put(FIELD_ARGS,getAliasArgs());
-        map_.put(FIELD_ARGS_VALUE,getAliasArgsTestArgsValue());
-        map_.put(FIELD_ARGS_ANNOT,getAliasExecutedTestArgsAnnot());
-        map_.put(TYPE_EXECUTOR_SERVICE,getAliasExecutorService());
-        map_.put(TYPE_RUNNABLE,getAliasRunnable());
-        placeHolder(map_, PARAM_133, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasExecute0ExecuteSetupError0(),custAliasParameters.getAliasExecute0ExecuteSetupError1(),custAliasParameters.getAliasExecute0ExecuteSetupError2());
-        map_.put(wrap(PARAM_134),custAliasParameters.getAliasExecute0ExecuteSetupError0());
-        map_.put(wrap(PARAM_135),custAliasParameters.getAliasExecute0ExecuteSetupError1());
-        map_.put(wrap(PARAM_136),custAliasParameters.getAliasExecute0ExecuteSetupError2());
-        map_.put(wrap(PARAM_137),custAliasParameters.getAliasExecute1ExecuteSetupError0());
-        map_.put(wrap(PARAM_138),custAliasParameters.getAliasExecute1ExecuteSetupError1());
-        map_.put(wrap(PARAM_139),custAliasParameters.getAliasExecute0ExecuteSetupNoException0());
-        map_.put(wrap(PARAM_140),custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_141, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasExecute0ExecuteSetupError0(),custAliasParameters.getAliasExecute0ExecuteSetupError1(),custAliasParameters.getAliasExecute0ExecuteSetupError2(),
-                custAliasParameters.getAliasExecute1ExecuteSetupError0(),custAliasParameters.getAliasExecute1ExecuteSetupError1(),
-                custAliasParameters.getAliasExecute0ExecuteSetupNoException0(),custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_014, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_142, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
-        );
-        placeHolder(map_, PARAM_143, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
-        );
-        placeHolder(map_, PARAM_144, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
-        );
-        placeHolder(map_, PARAM_145, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_146, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_147, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_148, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_149, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_150, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_151, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_152, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_153, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_154, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_155, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        placeHolder(map_, PARAM_156, _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0());
-        map_.put(KW_FINAL, _keyWords.getKeyWordFinal());
-        map_.put(KW_STATIC, _keyWords.getKeyWordStatic());
-        map_.put(KW_FOR, _keyWords.getKeyWordFor());
-        map_.put(KW_IF, _keyWords.getKeyWordIf());
-        map_.put(KW_ELSE, _keyWords.getKeyWordElse());
-        map_.put(KW_VAR, _keyWords.getKeyWordVar());
-        map_.put(KW_ANNOTATION, _keyWords.getKeyWordAnnotation());
-        map_.put(KW_NULL, _keyWords.getKeyWordNull());
-        map_.put(KW_THROW, _keyWords.getKeyWordThrow());
-        map_.put(KW_CONTINUE, _keyWords.getKeyWordContinue());
-        map_.put(KW_BREAK, _keyWords.getKeyWordBreak());
-        map_.put(KW_INSTANCEOF, _keyWords.getKeyWordInstanceof());
-        map_.put(KW_TRUE, _keyWords.getKeyWordTrue());
-        map_.put(KW_FALSE, _keyWords.getKeyWordFalse());
-        map_.put(KW_TRY, _keyWords.getKeyWordTry());
-        map_.put(KW_CATCH, _keyWords.getKeyWordCatch());
-        map_.put(KW_CAST, _keyWords.getKeyWordCast());
-        map_.put(KW_ABSTRACT, abstract_);
-        map_.put(TYPE_LONG,primTypes_.getAliasPrimLong());
-        map_.put(TYPE_PRIM_DOUBLE,primTypes_.getAliasPrimDouble());
-        map_.put(KW_TO_SPEC_STRING, _keyWords.getKeyWordToString());
-        map_.put(TYPE_CLASS, reflect_.getAliasClassType());
-        map_.put(TYPE_INVOKE_TARGET,reflect_.getAliasInvokeTarget());
-        map_.put(TYPE_STACK,stackElt_.getAliasStackTraceElement());
-        map_.put(TYPE_OBJECT,coreNames_.getAliasObject());
-        map_.put(TYPE_STRING,charSeq_.getAliasString());
-        map_.put(TYPE_STRING_BUILDER,charSeq_.getAliasStringBuilder());
-        map_.put(TYPE_METHOD,reflect_.getAliasMethod());
-        map_.put(TYPE_ANNOTATION, reflect_.getAliasAnnotationType());
-        map_.put(TYPE_THREAD,getAliasThread());
-        map_.put(TYPE_OBJECTS_UTIL,coreNames_.getAliasObjectsUtil());
-        map_.put(TYPE_FCT,reflect_.getAliasFct());
-        map_.put(TYPE_MATH,mathRef_.getAliasMath());
-        map_.put(TYPE_STRING_UTIL,coreNames_.getAliasStringUtil());
-        map_.put(METHOD_GET_ALL_CLASSES,reflect_.getAliasGetAllClasses());
-        map_.put(METHOD_GET_DECLARED_METHODS,reflect_.getAliasGetDeclaredMethods());
-        map_.put(METHOD_GET_ANNOTATIONS,reflect_.getAliasGetAnnotations());
-        map_.put(METHOD_LENGTH,coreNames_.getAliasArrayLength());
-        map_.put(METHOD_GET_METHOD_NAME,reflect_.getAliasGetName());
-        map_.put(METHOD_GET_CLASS_NAME,reflect_.getAliasGetName());
-        map_.put(METHOD_GET_CLASS,reflect_.getAliasGetClass());
-        map_.put(METHOD_IS_STATIC,reflect_.getAliasIsStatic());
-        map_.put(METHOD_GET_PARAMETER_TYPES,reflect_.getAliasGetParameterTypes());
-        map_.put(METHOD_GET_DECLARED_CONSTRUCTORS,reflect_.getAliasGetDeclaredConstructors());
-        map_.put(METHOD_INVOKE,reflect_.getAliasInvoke());
-        map_.put(METHOD_NEW_INSTANCE,reflect_.getAliasNewInstance());
-        map_.put(METHOD_GET_CAUSE,coreNames_.getAliasGetCause());
-        map_.put(METHOD_JOIN_OTHERS,getAliasJoinOthers());
-        map_.put(METHOD_IS_ASSIGNABLE_FROM,reflect_.getAliasIsAssignableFrom());
-        map_.put(METHOD_CURRENT,stackElt_.getAliasCurrentStack());
-        map_.put(METHOD_EQ,coreNames_.getAliasSameRef());
-        map_.put(METHOD_CALL,reflect_.getAliasCall());
-        map_.put(METHOD_VALUE_OF,coreNames_.getAliasStringUtilValueOf());
-        map_.put(METHOD_APPEND,charSeq_.getAliasAppend());
-        map_.put(METHOD_INSERT,charSeq_.getAliasInsert());
-        map_.put(METHOD_TO_STRING,charSeq_.getAliasCharSequenceToString());
-        map_.put(METHOD_PLUS,mathRef_.getAliasPlus());
-        map_.put(METHOD_MINUS,mathRef_.getAliasMinus());
-        map_.put(METHOD_LT,mathRef_.getAliasLt());
-        map_.put(METHOD_GT,mathRef_.getAliasGt());
-        map_.put(TYPE_EXECUTE,aliasExecute);
-        map_.put(TYPE_RESULT,aliasResult);
-        map_.put(TYPE_EXECUTED_TEST,aliasExecutedTest);
-        map_.put(TYPE_TEST,aliasTest);
-        map_.put(TYPE_AFTER,aliasAfter);
-        map_.put(TYPE_BEFORE,aliasBefore);
-        map_.put(TYPE_PARAMETERS,aliasParameters);
-        map_.put(TYPE_ASSERT,aliasAssert);
-        map_.put(TYPE_DIFFERENCE,aliasDifference);
-        map_.put(TYPE_AT_INT,aliasAtomicInteger);
-        map_.put(METHOD_INCR_GET,aliasIncrementAndGetAtomic);
-        map_.put(TYPE_INFO_TEST,aliasInfoTest);
-        map_.put(FIELD_EXCEPTION,aliasTestException);
-        map_.put(FIELD_NULL_EXCEPTION,aliasTestNullException);
-        map_.put(FIELD_ANNOTATIONS,aliasExecutedTestAnnotations);
-        map_.put(FIELD_TEST,aliasExecutedTestTest);
-        map_.put(FIELD_BEFORE,aliasExecutedTestBefore);
-        map_.put(FIELD_AFTER,aliasExecutedTestAfter);
-        map_.put(FIELD_METHOD_PARAM,aliasParametersMethod);
-        map_.put(FIELD_METHOD,aliasExecutedTestMethod);
-        map_.put(FIELD_LOCATION,aliasParametersLocation);
-        map_.put(FIELD_PF,aliasResultParams);
-        map_.put(FIELD_CONVERT,aliasExecuteConvert);
-        map_.put(FIELD_EXECUTE,aliasExecuteExecute);
-        map_.put(FIELD_SETUP_ERROR,aliasExecuteSetupError);
-        map_.put(FIELD_SETUP_NO_EXCEPTION,aliasExecuteSetupNoException);
-        map_.put(FIELD_FAIL_MESSAGE,aliasResultFailMessage);
-        map_.put(FIELD_EXPECTED,aliasDifferenceExpected);
-        map_.put(FIELD_FOUND,aliasDifferenceFound);
-        map_.put(FIELD_STACK_DIFF,aliasDifferenceStackDiff);
-        map_.put(FIELD_FOUND_NULL,aliasDifferenceFoundNull);
-        map_.put(FIELD_FOUND_NOT_TRUE,aliasDifferenceFoundNotTrue);
-        map_.put(METHOD_ASSERT,aliasAssertAssert);
-        map_.put(METHOD_ASSERT_NOT,aliasAssertAssertNot);
-        map_.put(METHOD_ASSERT_TRUE,aliasAssertAssertTrue);
-        map_.put(METHOD_ASSERT_FALSE,aliasAssertAssertFalse);
-        map_.put(METHOD_ASSERT_NULL,aliasAssertAssertNull);
-        map_.put(METHOD_ASSERT_NOT_NULL,aliasAssertAssertNotNull);
-        map_.put(METHOD_ASSERT_SAME,aliasAssertAssertSame);
-        map_.put(METHOD_ASSERT_NOT_SAME,aliasAssertAssertNotSame);
-        map_.put(TYPE_ELT_DIFFERENCE,aliasEltDifference);
-        map_.put(KW_SUPER,_keyWords.getKeyWordSuper());
-        map_.put(FIELD_INDEX,aliasIndex);
-        map_.put(TYPE_DOUBLE,nbAlias_.getAliasDouble());
-        map_.put(METHOD_ABS,mathRef_.getAliasAbs());
-        map_.put(METHOD_COMPARE,nbAlias_.getAliasCompare());
-        map_.put(FIELD_SUCCESS,aliasResultSuccess);
-        map_.put(FIELD_TIME,aliasResultTime);
-        map_.put(FIELD_TESTS,aliasExecuteTests);
-        map_.put(FIELD_COUNT,aliasInfoTestCount);
-        map_.put(FIELD_CALLS,aliasInfoTestCalls);
-        map_.put(FIELD_DONE,aliasInfoTestDone);
-        map_.put(FIELD_NB_THREADS,aliasInfoTestNbThreads);
-        map_.put(FIELD_CURRENT_CLASS,aliasInfoTestCurrentClass);
-        map_.put(FIELD_CURRENT_METHOD,aliasInfoTestCurrentMethod);
-        map_.put(FIELD_RESULT_ARGS, aliasResultArgs);
-        map_.put(FIELD_CONTAINER, aliasResultContainer);
-        map_.put(FIELD_EXECUTED, aliasResultExecuted);
-        map_.put(FIELD_CURRENT_PARAMS,aliasInfoTestCurrentParams);
-        placeHolder(map_, PARAM_157, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
-        );
-        map_.put(FIELD_INSTANT,aliasThreadCurrentNanoTime);
-        placeHolder(map_, PARAM_158, _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
-        );
-        map_.put(wrap(PARAM_159),custAliasParameters.getAliasExecute0ExecuteSetupNoException1());
-        map_.put(wrap(PARAM_160),custAliasParameters.getAliasExecute0ExecuteSetupError3());
-        map_.put(wrap(PARAM_161),custAliasParameters.getAliasExecute1ExecuteSetupError2());
-        map_.put(METHOD_RUN,aliasRun);
-        map_.put(KW_THIS, this_);
-        content_ = StringUtil.formatQuote(content_, map_)+annotations(_keyWords, _content)+assertType(_keyWords, _content)+diff(_keyWords, _content)+eltDiff(_keyWords, _content);
+        String content_ = executeType(_keyWords, _content)+annotations(_keyWords, _content)+assertType(_keyWords, _content)+diff(_keyWords, _content)+eltDiff(_keyWords, _content);
         stds_.put(aliasExecute, content_);
         stds_.put(aliasFormatType, formatter(_keyWords, _content));
         return stds_;
@@ -1639,13 +1084,6 @@ public final class CustAliases {
 
     public boolean isLight() {
         return light;
-    }
-
-    private static void placeHolder(StringMap<String> _map, String _va, KeyWords _keyWords, StringMap<PrimitiveType> _primitiveTypes, AliasCore _coreNames, String... _args) {
-        _map.put(wrap(_va),tr(_va,_keyWords,_primitiveTypes,_coreNames,_args));
-    }
-    private static String wrap(String _element) {
-        return '{'+_element+'}';
     }
 
     public void messages(AnalysisMessages _mess, StringMap<String> _cust) {
@@ -1840,6 +1278,10 @@ public final class CustAliases {
         setAliasResultParams(LgNamesContent.get(_util,_cust,_mapping.getVal(RESULT_PARAMS)));
         setAliasParametersMethod(LgNamesContent.get(_util,_cust,_mapping.getVal(PARAMETERS_METHOD)));
         setAliasExecuteSetupError(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_SETUP_ERROR)));
+        setAliasExecuteGroupClass(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_GROUP_CLASS)));
+        setAliasExecuteGroupClassMethod(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_GROUP_CLASS_METHOD)));
+        setAliasExecuteFlat(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_FLAT)));
+        setAliasExecuteLaunch(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_LAUNCH)));
         setAliasAssertAssertSame(LgNamesContent.get(_util,_cust,_mapping.getVal(ASSERT_ASSERT_SAME)));
         setAliasDifferenceFound(LgNamesContent.get(_util,_cust,_mapping.getVal(DIFFERENCE_FOUND)));
         setAliasDifferenceFoundNotTrue(LgNamesContent.get(_util,_cust,_mapping.getVal(DIFFERENCE_FOUND_NOT_TRUE)));
@@ -2084,6 +1526,10 @@ public final class CustAliases {
         _en.add(EXECUTE_SETUP_ERROR,"ExecuteSetupError=setupError");
         _en.add(EXECUTE_SETUP_NO_EXCEPTION,"ExecuteSetupNoException=setupNoException");
         _en.add(EXECUTE_EXECUTE,"ExecuteExecute=execute");
+        _en.add(EXECUTE_GROUP_CLASS,"ExecuteGroupClass=groupClass");
+        _en.add(EXECUTE_GROUP_CLASS_METHOD,"ExecuteGroupClassMethod=groupClassMethod");
+        _en.add(EXECUTE_FLAT,"ExecuteFlat=flat");
+        _en.add(EXECUTE_LAUNCH,"ExecuteLaunch=launch");
         _en.add(PARAMETERS_LOCATION,"ParametersLocation=location");
         _en.add(PARAMETERS_METHOD,"ParametersMethod=method");
         _en.add(TEST_EXCEPTION,"TestException=exception");
@@ -2301,6 +1747,10 @@ public final class CustAliases {
         _fr.add(EXECUTE_SETUP_ERROR,"ExecuteSetupError=majErreur");
         _fr.add(EXECUTE_SETUP_NO_EXCEPTION,"ExecuteSetupNoException=majSansException");
         _fr.add(EXECUTE_EXECUTE,"ExecuteExecute=executer");
+        _fr.add(EXECUTE_GROUP_CLASS,"ExecuteGroupClass=groupClass");
+        _fr.add(EXECUTE_GROUP_CLASS_METHOD,"ExecuteGroupClassMethod=groupClassMethod");
+        _fr.add(EXECUTE_FLAT,"ExecuteFlat=reunir");
+        _fr.add(EXECUTE_LAUNCH,"ExecuteLaunch=lanc");
         _fr.add(PARAMETERS_LOCATION,"ParametersLocation=location");
         _fr.add(PARAMETERS_METHOD,"ParametersMethod=methode");
         _fr.add(TEST_EXCEPTION,"TestException=exception");
@@ -2637,7 +2087,11 @@ public final class CustAliases {
                 new KeyValueMemberName(_mapping.getVal(EXECUTE_CONVERT),getAliasExecuteConvert()),
                 new KeyValueMemberName(_mapping.getVal(EXECUTE_SETUP_ERROR),getAliasExecuteSetupError()),
                 new KeyValueMemberName(_mapping.getVal(EXECUTE_SETUP_NO_EXCEPTION),getAliasExecuteSetupNoException()),
-                new KeyValueMemberName(_mapping.getVal(EXECUTE_EXECUTE),getAliasExecuteExecute())
+                new KeyValueMemberName(_mapping.getVal(EXECUTE_EXECUTE),getAliasExecuteExecute()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTE_GROUP_CLASS),getAliasExecuteGroupClass()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTE_GROUP_CLASS_METHOD),getAliasExecuteGroupClassMethod()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTE_FLAT),getAliasExecuteFlat()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTE_LAUNCH),getAliasExecuteLaunch())
         ));
         m_.addEntry(getAliasParameters(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(PARAMETERS_LOCATION),getAliasParametersLocation()),
@@ -3006,6 +2460,495 @@ public final class CustAliases {
                 +SPACES_4+SPACES_4+ ret_ +" "+ nv_ +" "+aliasCustIterTable+"<"+aliasTableVarFirst+","+aliasTableVarSecond+">("+ th_ +");"+LR
                 +SPACES_4+"}"+LR
                 +"}";
+    }
+    public String executeType(KeyWords _kw, LgNamesContent _content) {
+        String head_= _kw.getKeyWordPublic()+" "+_kw.getKeyWordAbstract()+" "+_kw.getKeyWordFinal()+" "+_kw.getKeyWordClass()+" "+aliasExecute+"{"+LR;
+        String par_ = custAliasParameters.getAliasExecute0ExecuteTests0();
+        return head_
+                +SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+aliasTable+"<"+_content.getReflect().getAliasMethod()+","+aliasResult+"> "+aliasExecuteTests+"("+aliasInfoTest+" "+ par_ +"){"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordReturn()+" "+aliasExecuteLaunch+"("+par_+","+aliasExecuteFlat+"("+aliasExecuteGroupClassMethod+"("+par_+","+aliasExecuteGroupClass+"("+par_+"))));"+LR
+                +SPACES_4+"}"+LR
+                +groupClass(_kw, _content)
+                +groupClassMethod(_kw, _content)
+                +flat(_kw, _content)
+                +launch(_kw, _content)
+                +execute(_kw, _content)
+                +convert(_kw, _content)
+                +updateWithoutExc(_kw, _content)
+                +updateErrInvoke(_kw, _content)
+                +updateErr(_kw, _content)
+                +"}"+LR;
+    }
+    public String groupClass(KeyWords _kw, LgNamesContent _content) {
+        String st_ = _kw.getKeyWordStatic();
+        AliasReflection ref_ = _content.getReflect();
+        String cl_ = ref_.getAliasClassType();
+        String par_ = custAliasParameters.getAliasExecute0GroupClass0();
+        String nv_ = _kw.getKeyWordNew();
+        String met_ = ref_.getAliasMethod();
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        String len_ = core_.getAliasArrayLength();
+        String c_ = tr("c", _kw, pr_, core_, par_);
+        String out_ = tr("out", _kw, pr_, core_, par_);
+        String si_ = _kw.getKeyWordIf();
+        String pour_ = _kw.getKeyWordFor();
+        String v_ = _kw.getKeyWordVar();
+        String m_ = tr("m", _kw, pr_, core_, par_);
+        String e_ = tr("e", _kw, pr_, core_, par_);
+        String cls_ = ref_.getAliasGetAllClasses();
+        String bs_ = tr("bs", _kw, pr_, core_, par_);
+        String as_ = tr("as", _kw, pr_, core_, par_);
+        String tts_ = tr("tts", _kw, pr_, core_, par_);
+        String decl_ = ref_.getAliasGetDeclaredMethods();
+        String a0_ = tr("a0", _kw, pr_, core_, par_);
+        String annots_ = ref_.getAliasGetAnnotations();
+        String clKw_ = _kw.getKeyWordClass();
+        String r_ = tr("r", _kw, pr_, core_, par_);
+        String cast_ = _kw.getKeyWordCast();
+        String nul_ = _kw.getKeyWordNull();
+        String aParam_ = tr("aPar", _kw, pr_, core_, par_);
+        String obUt_ = core_.getAliasObjectsUtil();
+        String eq_ = core_.getAliasSameRef();
+        String paramAnn_ = tr("ann", _kw, pr_, core_, par_);
+        String loc_ = tr("loc", _kw, pr_, core_, par_);
+        String locType_ = tr("lTy", _kw, pr_, core_, par_);
+        String p_ = tr("p", _kw, pr_, core_, par_);
+        String iterer_ = _kw.getKeyWordContinue();
+        AliasMathType mref_ = _content.getMathRef();
+        String math_ = mref_.getAliasMath();
+        String gt_ = mref_.getAliasGt();
+        return SPACES_4+_kw.getKeyWordPublic()+" "+ st_ +" "+aliasTable+"<"+ cl_ +","+aliasList+"<"+aliasExecutedTest+">> "+aliasExecuteGroupClass+"("+aliasInfoTest+" "+ par_ +") {"+LR
+                +SPACES_4+SPACES_4+aliasTable+"<"+ cl_ +","+aliasList+"<"+aliasExecutedTest+">> "+ out_ +" = "+ nv_ +"();"+LR
+                +SPACES_4+SPACES_4+ pour_ +" ("+ v_ +" "+ c_ +": "+ st_ +"("+ cl_ +")."+ cls_ +"()){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+aliasList+"<"+ met_ +"> "+ bs_ +" = "+ nv_ +"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+aliasList+"<"+ met_ +"> "+ as_ +" = "+ nv_ +"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+aliasList+"<"+aliasExecutedTest+"> "+ tts_ +" = "+ nv_ +"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ pour_ +" ("+ v_ +" "+ m_ +": "+ c_ +"."+ decl_ +"()){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ v_ +" "+ e_ +" = "+ nv_ +" "+aliasExecutedTest+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ v_ +" "+ a0_ +" = "+ m_ +"."+ annots_ +"("+ clKw_ +"("+aliasTest+"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ v_ +" "+ r_ +" = "+ m_ +"."+ annots_ +"("+ clKw_ +"("+aliasArgsTest+"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ si_ +" ("+ st_ +"("+ obUt_ +")."+ eq_ +"("+ a0_+"."+len_ +",1)){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ e_ +"."+aliasExecutedTestTest+" = "+ m_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ e_ +"."+aliasExecutedTestAnnotations+" = "+ a0_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ e_ +"."+aliasExecutedTestArgsAnnot+" = "+ r_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ e_ +"."+aliasExecutedTestBefore+" = "+ bs_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ e_ +"."+aliasExecutedTestAfter+" = "+ as_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ v_ +" "+ aParam_ +" = "+ m_ +"."+ annots_ +"("+ clKw_ +"("+aliasParameters+"));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ si_ +" ("+ st_ +"("+ obUt_ +")."+ eq_ +"("+ aParam_ +"."+len_+", "+"1"+")){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ v_ +" "+ paramAnn_ +" = "+ cast_ +"("+aliasParameters+")"+ aParam_ +"["+"0"+"];"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ v_ +" "+ loc_ +" = "+ paramAnn_ +"."+aliasParametersMethod+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ v_ +" "+ locType_ +" = "+ paramAnn_ +"."+aliasParametersLocation+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ si_ +" ("+ st_ +"("+ obUt_ +")."+ eq_ +"("+ locType_ +","+ nul_ +")){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ locType_ +" = "+ c_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ pour_ +" ("+ v_ +" "+ p_ +": "+ locType_ +"."+ decl_ +"()){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ si_ +" (!"+ st_ +"("+ obUt_ +")."+ eq_ +"("+ p_ +"."+ref_.getAliasGetName()+"(), "+ loc_ +")){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ iterer_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ si_ +" (!"+ p_ +"."+ref_.getAliasIsStatic()+"()){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ iterer_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ si_ +" (!"+ st_ +"("+ obUt_ +")."+ eq_ +"("+ p_ +"."+ref_.getAliasGetParameterTypes()+"()."+len_+","+"0"+")){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ iterer_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ e_ +"."+aliasExecutedTestMethod+" = "+ p_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+_kw.getKeyWordBreak()+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ par_ +"."+aliasInfoTestCount+" = "+ st_ +"("+ math_ +")."+mref_.getAliasPlus()+"("+ par_ +"."+aliasInfoTestCount+","+"1"+");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ tts_ +"."+aliasAddLi+"("+ e_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ si_ +" ("+ st_ +"("+ math_ +")."+ gt_ +"("+ m_ +"."+ annots_ +"("+ clKw_ +"("+aliasBefore+"))."+len_+","+"0"+")){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ bs_ +"."+aliasAddLi+"("+ m_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ si_ +" ("+ st_ +"("+ math_ +")."+ gt_ +"("+ m_ +"."+ annots_ +"("+ clKw_ +"("+aliasAfter+"))."+len_+","+"0"+")){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ as_ +"."+aliasAddLi+"("+ m_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ si_ +" ("+ st_ +"("+ math_ +")."+gt_+"("+ tts_ +"."+aliasSizeLi+"(),"+"0"+")){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ out_ +"."+aliasAddTa+"("+ c_ +","+ tts_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordReturn()+" "+ out_ +";"+LR
+                +SPACES_4+"}"+LR;
+    }
+    public String groupClassMethod(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        AliasReflection ref_ = _content.getReflect();
+        String st_ = _kw.getKeyWordStatic();
+        String cl_ = ref_.getAliasClassType();
+        String met_ = ref_.getAliasMethod();
+        String nv_ = _kw.getKeyWordNew();
+        String parInfo_ =  custAliasParameters.getAliasExecute0GroupClassMethod0();
+        String out_ = custAliasParameters.getAliasExecute0GroupClassMethod1();
+        String results_ = tr("results", _kw,pr_,core_, parInfo_, out_);
+        String pour_ = _kw.getKeyWordFor();
+        String v_ = _kw.getKeyWordVar();
+        String c_ = tr("c", _kw,pr_,core_, parInfo_, out_);
+        String tts_ = tr("tts", _kw, pr_, core_, parInfo_, out_);
+        String e_ = tr("e", _kw, pr_, core_, parInfo_, out_);
+        String l_ = tr("l", _kw, pr_, core_, parInfo_, out_);
+        String tt_ = tr("tt", _kw, pr_, core_, parInfo_, out_);
+        String nul_ = _kw.getKeyWordNull();
+        String obj_ = core_.getAliasObject();
+        String si_ = _kw.getKeyWordIf();
+        String arr_ = tr("arr", _kw, pr_, core_, parInfo_, out_);
+        String exc_ = tr("exc", _kw, pr_, core_, parInfo_, out_);
+        String tr_ = _kw.getKeyWordTry();
+        String capt_ = _kw.getKeyWordCatch();
+        String els_ = _kw.getKeyWordElse();
+        String tarExc_ = ref_.getAliasInvokeTarget();
+        String inv_ = ref_.getAliasInvoke();
+        String o_ = tr("o", _kw, pr_, core_, parInfo_, out_);
+        String instancede_ = _kw.getKeyWordInstanceof();
+        String cast_ = _kw.getKeyWordCast();
+        String p_ = tr("p", _kw, pr_, core_, parInfo_, out_);
+        AliasCharSequenceType charSeq_ = _content.getCharSeq();
+        String strBuil_ = charSeq_.getAliasStringBuilder();
+        String append_ = charSeq_.getAliasAppend();
+        String params_ = tr("params", _kw, pr_, core_, parInfo_, out_);
+        String nbParams_ = tr("nbParams", _kw, pr_, core_, parInfo_, out_);
+        String i_ = tr("i", _kw, pr_, core_, parInfo_, out_);
+        AliasMathType mathRef_ = _content.getMathRef();
+        String math_ = mathRef_.getAliasMath();
+        String minus_ = mathRef_.getAliasMinus();
+        String gq_ = mathRef_.getAliasGt();
+        String res_ =  tr("res", _kw, pr_, core_, parInfo_, out_);
+        String plus_ = mathRef_.getAliasPlus();
+        return SPACES_4+_kw.getKeyWordPublic()+" "+ st_ +" "+aliasTable+"<"+ cl_ +","+aliasTable+"<"+ met_ +","+aliasResult+">> "+aliasExecuteGroupClassMethod+"("+aliasInfoTest+" "+ parInfo_ +","+aliasTable+"<"+ cl_ +","+aliasList+"<"+aliasExecutedTest+">> "+ out_ +") {"+LR
+                +SPACES_4+SPACES_4+aliasTable+"<"+ cl_ +","+aliasTable+"<"+ met_ +","+aliasResult+">> "+ results_ +" = "+ nv_ +"();"+LR
+                +SPACES_4+SPACES_4+ pour_ +" ("+ v_ +" "+ c_ +", "+ v_ +" "+ l_ +": "+ out_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+aliasTable+"<"+ met_ +","+aliasResult+"> "+ tts_ +" = "+ nv_ +"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ pour_ +" ("+ v_ +" "+ e_ +": "+ l_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ v_ +" "+ tt_ +" = "+ e_ +"."+aliasExecutedTestTest+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ si_ +" (!"+ st_ +"("+ core_.getAliasObjectsUtil()+")."+core_.getAliasSameRef()+"("+ e_ +"."+aliasExecutedTestMethod+","+ nul_ +")){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ obj_ +" "+ arr_ +" = "+ nul_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ obj_ +" "+ exc_ +" = "+ nul_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ tr_ +" {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ arr_ +" = "+ e_ +"."+aliasExecutedTestMethod+"."+ inv_ +"("+ nul_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+"} "+ capt_ +" ("+ tarExc_ +" "+ o_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ exc_ +" = "+ o_ +"."+ core_.getAliasGetCause()+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ si_ +" ("+ arr_ +" "+ instancede_ +" "+ obj_ +"[][]){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ pour_ +" ("+ v_ +" "+ p_ +": "+ cast_ +"("+ obj_ +"[][])"+ arr_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ v_ +" "+ params_ +" = "+ nv_ +" "+ strBuil_ +"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ v_ +" "+ nbParams_ +" = "+ p_ +"."+core_.getAliasArrayLength()+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+_kw.getKeyWordIter()+" ("+primTypes_.getAliasPrimInteger()+" "+ i_ +" = "+"0"+"; "+ st_ +"("+ math_ +")."+ minus_ +"("+ nbParams_ +","+"1"+"); "+"1"+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ params_ +"."+append_+"("+aliasExecuteConvert+"("+ p_ +"["+ i_ +"]))."+append_+"(\",\");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ si_ +" ("+ st_ +"("+ math_ +")."+ gq_ +"("+ nbParams_ +","+"0"+")){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ params_ +"."+append_+"("+aliasExecuteConvert+"("+ p_ +"["+ st_ +"("+ math_ +")."+ minus_ +"("+ nbParams_ +","+"1"+")]));"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+aliasResult+" "+ res_ +" = "+ nv_ +"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ res_ +"."+ params_ +" = "+ params_ +"."+charSeq_.getAliasCharSequenceToString()+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ parInfo_ +"."+aliasInfoTestCurrentParams+" = "+ res_ +"."+ params_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ res_ +"."+aliasResultContainer+" = "+ c_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ res_ +"."+aliasResultExecuted+" = "+ e_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ res_ +"."+aliasResultArgs+" = "+ p_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ tts_ +"."+aliasAddTa+"("+ tt_ +","+ res_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ parInfo_ +"."+aliasInfoTestCalls+" = "+ st_ +"("+ math_ +")."+ plus_ +"("+ parInfo_ +"."+aliasInfoTestCalls+","+"1"+");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+"} "+ els_ +" {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ v_ +" "+ res_ +" = "+aliasExecuteSetupError+"("+ e_ +","+ exc_ +",-"+"1"+");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ res_ +"."+aliasResultContainer+" = "+ c_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ res_ +"."+aliasResultExecuted+" = "+ e_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ res_ +"."+aliasResultArgs+" = "+ nul_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ tts_ +"."+aliasAddTa+"("+ tt_ +","+ res_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ parInfo_ +"."+aliasInfoTestCalls+" = "+ st_ +"("+ math_ +")."+ plus_ +"("+ parInfo_ +"."+aliasInfoTestCalls+","+"1"+");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"} "+ els_ +" {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+aliasResult+" "+ res_ +" = "+ nv_ +"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ res_ +"."+aliasResultContainer+" = "+ c_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ res_ +"."+aliasResultExecuted+" = "+ e_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ tts_ +"."+aliasAddTa+"("+ tt_ +","+ res_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ parInfo_ +"."+aliasInfoTestCalls+" = "+ st_ +"("+ math_ +")."+ plus_ +"("+ parInfo_ +"."+aliasInfoTestCalls+","+"1"+");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ si_ +" ("+ st_ +"("+ math_ +")."+ gq_ +"("+ tts_ +"."+aliasSizeTa+"(),"+"0"+")){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ results_ +"."+aliasAddTa+"("+ c_ +","+ tts_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordReturn()+" "+ results_ +";"+LR
+                +SPACES_4+"}"+LR;
+    }
+    public String flat(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        AliasReflection ref_ = _content.getReflect();
+        String st_ = _kw.getKeyWordStatic();
+        String cl_ = ref_.getAliasClassType();
+        String met_ = ref_.getAliasMethod();
+        String nv_ = _kw.getKeyWordNew();
+        String par_ = custAliasParameters.getAliasExecute0Flat0();
+        String gp_ = tr("res", _kw, pr_, core_, par_);
+        String c_ = tr("c", _kw, pr_, core_, par_);
+        String v_ = _kw.getKeyWordVar();
+        String f_ = _kw.getKeyWordFor();
+        String l_ = tr("l", _kw, pr_, core_, par_);
+        String m_ = tr("m", _kw, pr_, core_, par_);
+        String r_ = tr("r", _kw, pr_, core_, par_);
+        return SPACES_4+_kw.getKeyWordPublic()+" "+st_+" "+aliasTable+"<"+ met_ +","+aliasResult+"> "+aliasExecuteFlat+"("+aliasTable+"<"+ cl_ +","+aliasTable+"<"+ met_ +","+aliasResult+">> "+par_+"){"+LR
+                +SPACES_4+SPACES_4+aliasTable+"<"+ met_ +","+aliasResult+"> "+ gp_ +" = "+nv_+"();"+LR
+                +SPACES_4+SPACES_4+ f_ +" ("+ v_ +" "+c_+", "+ v_ +" "+ l_ +": "+par_+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ f_ +" ("+ v_ +" "+m_+", "+ v_ +" "+r_+": "+ l_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ gp_ +"."+aliasAddTa+"("+m_+","+r_+");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordReturn()+" "+ gp_ +";"+LR
+                +SPACES_4+"}"+LR;
+    }
+    public String launch(KeyWords _kw, LgNamesContent _content) {
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        AliasCore core_ = _content.getCoreNames();
+        String st_ = _kw.getKeyWordStatic();
+        String nv_ = _kw.getKeyWordNew();
+        String met_ = _content.getReflect().getAliasMethod();
+        String parInfo_ = custAliasParameters.getAliasExecute0Launch0();
+        String parRes_ = custAliasParameters.getAliasExecute0Launch1();
+        String cast_ = _kw.getKeyWordCast();
+        String tts0_ = tr("tts0", _kw, pr_, core_, parInfo_, parRes_);
+        String tt0_ = tr("tt0", _kw, pr_, core_, parInfo_, parRes_);
+        String pour_ = _kw.getKeyWordFor();
+        String v_ = _kw.getKeyWordVar();
+        String m_ = tr("m", _kw, pr_, core_, parInfo_, parRes_);
+        String tt1_ = tr("tt1", _kw, pr_, core_, parInfo_, parRes_);
+        String cap_ = _kw.getKeyWordCatch();
+        String o_ = tr("o", _kw, pr_, core_, parInfo_, parRes_);
+        String l_ = tr("l", _kw, pr_, core_, parInfo_, parRes_);
+        String ret_ = _kw.getKeyWordReturn();
+        String res_ = tr("res", _kw, pr_, core_, parInfo_, parRes_);
+        return SPACES_4+_kw.getKeyWordPublic()+" "+ st_ +" "+aliasTable+"<"+ met_ +","+aliasResult+"> "+aliasExecuteLaunch+"("+ aliasInfoTest+" "+parInfo_+","+aliasTable+"<"+ met_ +","+aliasResult+"> "+parRes_+"){"+LR
+                +SPACES_4+SPACES_4+aliasList+"<"+aliasFuture+"> "+ tts0_ +" = "+ nv_ +"();"+LR
+                +SPACES_4+SPACES_4+aliasExecutorService+" "+ tt0_ +" = "+ nv_ +"("+parInfo_+"."+aliasInfoTestNbThreads+");"+LR
+                +SPACES_4+SPACES_4+ pour_ +" ("+ v_ +" "+ m_ +", "+ v_ +" "+ l_ +": "+parRes_+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+aliasRunnable+" "+ tt1_ +" = () -> {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ _kw.getKeyWordTry()+" {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ st_ +"("+aliasThread+")."+aliasArgs+"(("+ cast_ +"("+aliasArgsTest+")"+ l_ +"."+aliasResultExecuted+"."+aliasExecutedTestArgsAnnot+"["+"0"+"])."+aliasArgsTestArgsValue+"());"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"} "+ cap_ +" ("+core_.getAliasObject()+" "+ o_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ st_ +"("+aliasThread+")."+aliasArgs+"("+ nv_ +"["+"0"+"]);"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"} "+ cap_ +" {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ st_ +"("+aliasThread+")."+aliasArgs+"("+ nv_ +"["+"0"+"]);"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+parInfo_+"."+aliasInfoTestCurrentMethod+" = "+ l_ +"."+aliasResultExecuted+"."+aliasExecutedTestTest+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+parInfo_+"."+aliasInfoTestCurrentParams+" = "+ l_ +"."+aliasResultParams+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+_kw.getKeyWordIf()+" ("+ st_ +"("+core_.getAliasObjectsUtil()+")."+core_.getAliasSameRef()+"("+ l_ +"."+aliasResultArgs+","+_kw.getKeyWordNull()+")) {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+parInfo_+"."+aliasInfoTestDone+"."+aliasIncrementAndGetAtomic+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+ ret_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ v_ +" "+ res_ +" = "+aliasExecuteExecute+"("+ l_ +"."+aliasResultExecuted+","+ l_ +"."+aliasResultContainer+","+ l_ +"."+aliasResultArgs+");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ l_ +"."+aliasResultTime+" = "+ res_ +"."+aliasResultTime+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ l_ +"."+aliasResultSuccess+" = "+ res_ +"."+aliasResultSuccess+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ l_ +"."+aliasResultFailMessage+" = "+ res_ +"."+aliasResultFailMessage+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+parInfo_+"."+aliasInfoTestDone+"."+aliasIncrementAndGetAtomic+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"};"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ tts0_ +"."+aliasAddLi+"("+ tt0_ +"."+aliasExecutorServiceSubmit+"("+ tt1_ +"));"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ pour_ +" ("+ v_ +" "+ m_ +": "+ tts0_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ m_ +"."+aliasFutureWait+"();"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ tt0_ +"."+aliasExecutorServiceShutdown+"();"+LR
+                +SPACES_4+SPACES_4+ st_ +"("+aliasThread+")."+aliasJoinOthers+"();"+LR
+                +SPACES_4+SPACES_4+ ret_ +" "+parRes_+";"+LR
+                +SPACES_4+"}"+LR;
+    }
+    public String execute(KeyWords _kw, LgNamesContent _content) {
+        String st_ = _kw.getKeyWordStatic();
+        AliasReflection ref_ = _content.getReflect();
+        String cl_ = ref_.getAliasClassType();
+        AliasCore core_ = _content.getCoreNames();
+        String obj_ = core_.getAliasObject();
+        String execTest_ = custAliasParameters.getAliasExecute0Run0();
+        String type_ = custAliasParameters.getAliasExecute0Run1();
+        String args_ = custAliasParameters.getAliasExecute0Run2();
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        String faux_ = _kw.getKeyWordFalse();
+        String v_ = _kw.getKeyWordVar();
+        String processEx_ = tr("processEx", _kw, pr_, core_, execTest_, type_, args_);
+        String stTime_ = tr("stTime", _kw, pr_, core_, execTest_, type_, args_);
+        String diff_ = tr("diff", _kw, pr_, core_, execTest_, type_, args_);
+        String ctor_ = tr("ctor", _kw, pr_, core_, execTest_, type_, args_);
+        String classTest_ = tr("classTest", _kw, pr_, core_, execTest_, type_, args_);
+        String pour_ = _kw.getKeyWordFor();
+        String b0_ = tr("b0", _kw, pr_, core_, execTest_, type_, args_);
+        String inv_ = ref_.getAliasInvoke();
+        String ret_ = _kw.getKeyWordReturn();
+        String o_ = tr("o", _kw, pr_, core_, execTest_, type_, args_);
+        String capt_ = _kw.getKeyWordCatch();
+        return SPACES_4+_kw.getKeyWordPublic()+" "+ st_ +" "+aliasResult+" "+aliasExecuteExecute+"("+aliasExecutedTest+" "+ execTest_ +","+ cl_ +" "+ type_ +","+ obj_ +"[] "+ args_ +"){"+LR
+                +SPACES_4+SPACES_4+ v_ +" "+ processEx_ +" = "+ faux_ +";"+LR
+                +SPACES_4+SPACES_4+ v_ +" "+ stTime_ +" = "+ st_ +"("+aliasThread+")."+aliasThreadCurrentNanoTime+"();"+LR
+                +SPACES_4+SPACES_4+primTypes_.getAliasPrimLong()+" "+ diff_ +" = -"+"1"+";"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordTry()+" {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ v_ +" "+ ctor_ +" = "+ type_ +"."+ref_.getAliasGetDeclaredConstructors()+"("+ faux_ +")["+"0"+"];"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ processEx_ +" = "+_kw.getKeyWordTrue()+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ v_ +" "+ classTest_ +" = "+ ctor_ +"."+ref_.getAliasNewInstance()+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ pour_ +" ("+ v_ +" "+ b0_ +": "+ execTest_ +"."+aliasExecutedTestBefore+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ b0_ +"."+ inv_ +"("+ classTest_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ stTime_ +" = "+ st_ +"("+aliasThread+")."+aliasThreadCurrentNanoTime+"();"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ execTest_ +"."+aliasExecutedTestTest+"."+ inv_ +"("+ classTest_ +", "+ args_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ diff_ +" = "+ st_ +"("+aliasThread+")."+aliasThreadCurrentNanoTime+"()-"+ stTime_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ pour_ +" ("+ v_ +" "+ b0_ +": "+ execTest_ +"."+aliasExecutedTestAfter+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+ b0_ +"."+ inv_ +"("+ classTest_ +");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ret_ +" "+aliasExecuteSetupNoException+"("+ execTest_ +","+ diff_ +");"+LR
+                +SPACES_4+SPACES_4+"} "+ capt_ +" ("+ ref_.getAliasInvokeTarget()+" "+ o_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ diff_ +" = "+ diff_ +"==-"+"1"+" ? "+ st_ +"("+aliasThread+")."+aliasThreadCurrentNanoTime+"()-"+ stTime_ +" : "+ diff_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ret_ +" "+aliasExecuteSetupError+"("+ execTest_ +","+ o_ +","+ processEx_ +","+ diff_ +");"+LR
+                +SPACES_4+SPACES_4+"} "+ capt_ +" ("+ obj_ +" "+ o_ +"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ diff_ +" = "+ diff_ +"==-"+"1"+" ? "+ st_ +"("+aliasThread+")."+aliasThreadCurrentNanoTime+"()-"+ stTime_ +" : "+ diff_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ret_ +" "+aliasExecuteSetupError+"("+ execTest_ +","+ o_ +","+ diff_ +");"+LR
+                +SPACES_4+SPACES_4+"} "+ capt_ +" {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ diff_ +" = "+ diff_ +"==-"+"1"+" ? "+ st_ +"("+aliasThread+")."+aliasThreadCurrentNanoTime+"()-"+ stTime_ +" : "+ diff_ +";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ ret_ +" "+aliasExecuteSetupError+"("+ execTest_ +","+_kw.getKeyWordNull()+","+ diff_ +");"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+"}"+LR;
+    }
+    public String convert(KeyWords _kw, LgNamesContent _content) {
+        String st_ = _kw.getKeyWordStatic();
+        AliasReflection ref_ = _content.getReflect();
+        String cl_ = ref_.getAliasClassType();
+        AliasCore core_ = _content.getCoreNames();
+        String obj_ = core_.getAliasObject();
+        String elt_ = custAliasParameters.getAliasExecute0ExecuteConvert0();
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        String ret_ = _kw.getKeyWordReturn();
+        String e_ = tr("e", _kw, pr_, core_, elt_);
+        String capt_ = _kw.getKeyWordCatch();
+        String gCl_ = ref_.getAliasGetClass();
+        String clName_ = ref_.getAliasGetName();
+        return SPACES_4+_kw.getKeyWordPublic()+" "+st_+" "+_content.getCharSeq().getAliasString()+" "+aliasExecuteConvert+"("+obj_+" "+elt_+"){"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordTry()+" {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ret_+" "+st_+"("+core_.getAliasStringUtil()+")."+core_.getAliasStringUtilValueOf()+"("+elt_+");"+LR
+                +SPACES_4+SPACES_4+"} "+capt_+" ("+obj_+" "+e_+"){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ret_+" "+st_+"("+cl_+")."+ gCl_ +"("+elt_+")."+ clName_ +"();"+LR
+                +SPACES_4+SPACES_4+"} "+capt_+" {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+ret_+" "+st_+"("+cl_+")."+ gCl_ +"("+elt_+")."+ clName_ +"();"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+"}"+LR;
+    }
+    public String updateWithoutExc(KeyWords _kw, LgNamesContent _content) {
+        String st_ = _kw.getKeyWordStatic();
+        AliasCore core_ = _content.getCoreNames();
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        String faux_ = _kw.getKeyWordFalse();
+        String v_ = _kw.getKeyWordVar();
+        String ret_ = _kw.getKeyWordReturn();
+        String curTest_ = custAliasParameters.getAliasExecute0ExecuteSetupNoException0();
+        String tps_ = custAliasParameters.getAliasExecute0ExecuteSetupNoException1();
+        String res_ = tr("res", _kw, pr_, core_, curTest_, tps_);
+        String nv_ = _kw.getKeyWordNew();
+        String tt_ = tr("tt", _kw, pr_, core_, curTest_, tps_);
+        String cast_ = _kw.getKeyWordCast();
+        String lg_ = primTypes_.getAliasPrimLong();
+        String si_ = _kw.getKeyWordIf();
+        String nul_ = _kw.getKeyWordNull();
+        AliasCharSequenceType charSeq_ = _content.getCharSeq();
+        String strBui_ = charSeq_.getAliasStringBuilder();
+        String append_ = charSeq_.getAliasAppend();
+        String chaine_ = charSeq_.getAliasCharSequenceToString();
+        return SPACES_4+_kw.getKeyWordPublic()+" "+ st_ +" "+aliasResult+" "+aliasExecuteSetupNoException+"("+aliasExecutedTest+" "+ curTest_ +","+ lg_ +" "+ tps_ +"){"+LR
+                +SPACES_4+SPACES_4+v_+" "+res_+" = "+ nv_ +" "+aliasResult+"();"+LR
+                +SPACES_4+SPACES_4+res_+"."+aliasResultTime+" = "+ tps_ +"/"+ MILLION +";"+LR
+                +SPACES_4+SPACES_4+v_+" "+ tt_ +" = "+ cast_ +"("+aliasTest+")"+ curTest_ +"."+aliasExecutedTestAnnotations+"["+"0"+"];"+LR
+                +SPACES_4+SPACES_4+ si_ +" ("+ tt_ +"."+aliasTestNullException+"()){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+res_+"."+aliasResultSuccess+" = "+faux_+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+res_+"."+aliasResultFailMessage+" = "+ nv_ +" "+ strBui_ +"(\"!=\")."+ append_ +"("+ st_ +"("+core_.getAliasStringUtil()+")."+core_.getAliasStringUtilValueOf()+"("+ nul_ +"))."+ chaine_ +"();"+LR
+                +SPACES_4+SPACES_4+"} "+_kw.getKeyWordElse()+" "+si_+" (!"+ st_ +"("+core_.getAliasObjectsUtil()+")."+core_.getAliasSameRef()+"("+ tt_ +"."+aliasTestException+"(),"+ nul_ +")){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+res_+"."+aliasResultSuccess+" = "+faux_+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+res_+"."+aliasResultFailMessage+" = "+ nv_ +" "+ strBui_ +"(\"!=\")."+ append_ +"("+ tt_ +"."+aliasTestException+"()."+_content.getReflect().getAliasGetName()+"())."+ chaine_ +"();"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ret_+" "+res_+";"+LR
+                +SPACES_4+"}"+LR;
+    }
+    public String updateErrInvoke(KeyWords _kw, LgNamesContent _content) {
+        String st_ = _kw.getKeyWordStatic();
+        AliasCore core_ = _content.getCoreNames();
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        String faux_ = _kw.getKeyWordFalse();
+        String v_ = _kw.getKeyWordVar();
+        String ret_ = _kw.getKeyWordReturn();
+        String curTest_ = custAliasParameters.getAliasExecute0ExecuteSetupError0();
+        String err_ = custAliasParameters.getAliasExecute0ExecuteSetupError1();
+        String spec_ = custAliasParameters.getAliasExecute0ExecuteSetupError2();
+        String tps_ = custAliasParameters.getAliasExecute0ExecuteSetupError3();
+        String res_ = tr("res", _kw, pr_, core_, curTest_, err_, spec_, tps_);
+        String nv_ = _kw.getKeyWordNew();
+        String ex_ = tr("ex", _kw, pr_, core_, curTest_, err_, spec_, tps_);
+        String tt_ = tr("tt", _kw, pr_, core_, curTest_, err_, spec_, tps_);
+        String cast_ = _kw.getKeyWordCast();
+        String lg_ = primTypes_.getAliasPrimLong();
+        String si_ = _kw.getKeyWordIf();
+        String els_ = _kw.getKeyWordElse();
+        String nul_ = _kw.getKeyWordNull();
+        AliasReflection ref_ = _content.getReflect();
+        String strUt_ = core_.getAliasStringUtil();
+        String objUt_ = core_.getAliasObjectsUtil();
+        String eq_ = core_.getAliasSameRef();
+        String valeurDe_ = core_.getAliasStringUtilValueOf();
+        String cl_ = ref_.getAliasClassType();
+        String estAssignableDe_ = ref_.getAliasIsAssignableFrom();
+        String gCl_ = ref_.getAliasGetClass();
+        return SPACES_4+_kw.getKeyWordPublic()+" "+ st_ +" "+aliasResult+" "+aliasExecuteSetupError+"("+aliasExecutedTest+" "+curTest_+", "+ ref_.getAliasInvokeTarget()+" "+err_+", "+primTypes_.getAliasPrimBoolean()+" "+spec_+", "+lg_+" "+tps_+"){"+LR
+                +SPACES_4+SPACES_4+v_+" "+res_+" = "+nv_+" "+aliasResult+"();"+LR
+                +SPACES_4+SPACES_4+res_+"."+aliasResultTime+" = "+tps_+"/"+ MILLION +";"+LR
+                +SPACES_4+SPACES_4+v_+" "+ex_+" = "+err_+"."+core_.getAliasGetCause()+"();"+LR
+                +SPACES_4+SPACES_4+si_+" ("+spec_+") {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+v_+" "+tt_+" = "+cast_+"("+aliasTest+")"+curTest_+"."+aliasExecutedTestAnnotations+"["+"0"+"];"+LR
+                +SPACES_4+SPACES_4+SPACES_4+si_+" ("+tt_+"."+aliasTestNullException+"()){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+si_+" (!"+ st_ +"("+ objUt_ +")."+ eq_ +"("+ex_+","+nul_+")){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+res_+"."+aliasResultSuccess+" = "+faux_+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+res_+"."+aliasResultFailMessage+" = "+ st_ +"("+ strUt_ +")."+ valeurDe_ +"("+ex_+");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"} "+els_+" "+si_+" (!"+ st_ +"("+ objUt_ +")."+ eq_ +"("+tt_+"."+aliasTestException+"(),"+nul_+")) {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+si_+" (!"+tt_+"."+aliasTestException+"()."+ estAssignableDe_ +"("+ st_ +"("+ cl_ +")."+ gCl_ +"("+ex_+"))){"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+res_+"."+aliasResultSuccess+" = "+faux_+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+SPACES_4+res_+"."+aliasResultFailMessage+" = "+ st_ +"("+ strUt_ +")."+ valeurDe_ +"("+ex_+");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"} "+els_+" {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+res_+"."+aliasResultSuccess+" = "+faux_+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+SPACES_4+res_+"."+aliasResultFailMessage+" = "+ st_ +"("+ strUt_ +")."+ valeurDe_ +"("+ex_+");"+LR
+                +SPACES_4+SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+"} "+els_+" {"+LR
+                +SPACES_4+SPACES_4+SPACES_4+res_+"."+aliasResultSuccess+" = "+faux_+";"+LR
+                +SPACES_4+SPACES_4+SPACES_4+res_+"."+aliasResultFailMessage+" = "+ st_ +"("+ strUt_ +")."+ valeurDe_ +"("+ex_+");"+LR
+                +SPACES_4+SPACES_4+"}"+LR
+                +SPACES_4+SPACES_4+ret_+" "+res_+";"+LR
+                +SPACES_4+"}"+LR;
+    }
+    public String updateErr(KeyWords _kw, LgNamesContent _content) {
+        String st_ = _kw.getKeyWordStatic();
+        AliasCore core_ = _content.getCoreNames();
+        PrimitiveTypes primTypes_ = _content.getPrimTypes();
+        StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
+        String faux_ = _kw.getKeyWordFalse();
+        String v_ = _kw.getKeyWordVar();
+        String ret_ = _kw.getKeyWordReturn();
+        String curTest_ = custAliasParameters.getAliasExecute1ExecuteSetupError0();
+        String err_ = custAliasParameters.getAliasExecute1ExecuteSetupError1();
+        String time_ = custAliasParameters.getAliasExecute1ExecuteSetupError2();
+        String res_ = tr("res", _kw, pr_, core_, curTest_, err_, time_);
+        String nv_ = _kw.getKeyWordNew();
+        String lg_ = primTypes_.getAliasPrimLong();
+        String strUt_ = core_.getAliasStringUtil();
+        String valeurDe_ = core_.getAliasStringUtilValueOf();
+        return SPACES_4+_kw.getKeyWordPublic()+" "+st_+" "+aliasResult+" "+aliasExecuteSetupError+"("+aliasExecutedTest+" "+curTest_+", "+core_.getAliasObject()+" "+err_+", "+lg_+" "+time_+"){"+LR
+                +SPACES_4+SPACES_4+v_+" "+res_+" = "+nv_+" "+aliasResult+"();"+LR
+                +SPACES_4+SPACES_4+res_+"."+aliasResultTime+" = "+time_+"/"+ MILLION +";"+LR
+                +SPACES_4+SPACES_4+res_+"."+aliasResultSuccess+" = "+faux_+";"+LR
+                +SPACES_4+SPACES_4+res_+"."+aliasResultFailMessage+" = "+st_+"("+strUt_+")."+valeurDe_+"("+err_+");"+LR
+                +SPACES_4+SPACES_4+ret_+" "+res_+";"+LR
+                +SPACES_4+"}"+LR;
     }
     public String annotations(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
@@ -5261,6 +5204,38 @@ public final class CustAliases {
 
     public void setAliasExecuteSetupError(String _aliasExecuteSetupError) {
         this.aliasExecuteSetupError = _aliasExecuteSetupError;
+    }
+
+    public String getAliasExecuteGroupClass() {
+        return aliasExecuteGroupClass;
+    }
+
+    public void setAliasExecuteGroupClass(String _v) {
+        this.aliasExecuteGroupClass = _v;
+    }
+
+    public String getAliasExecuteGroupClassMethod() {
+        return aliasExecuteGroupClassMethod;
+    }
+
+    public void setAliasExecuteGroupClassMethod(String _v) {
+        this.aliasExecuteGroupClassMethod = _v;
+    }
+
+    public String getAliasExecuteFlat() {
+        return aliasExecuteFlat;
+    }
+
+    public void setAliasExecuteFlat(String _v) {
+        this.aliasExecuteFlat = _v;
+    }
+
+    public String getAliasExecuteLaunch() {
+        return aliasExecuteLaunch;
+    }
+
+    public void setAliasExecuteLaunch(String _v) {
+        this.aliasExecuteLaunch = _v;
     }
 
     public String getAliasAssertAssert() {
