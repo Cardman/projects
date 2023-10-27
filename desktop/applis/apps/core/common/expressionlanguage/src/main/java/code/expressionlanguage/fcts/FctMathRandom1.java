@@ -27,14 +27,14 @@ public final class FctMathRandom1 extends FctMath {
         Classes classes_ = _cont.getClasses();
         NumberStruct numberStruct_ = NumParsers.convertToNumber(_args);
         if (matchNotNull(_cont, seedSpec_, lgNames_.getContent().getPredefTypes().getAliasSeedGenerator())) {
-            ExecTemplates.prepare(_cont,_stackCall,seedSpec_,classes_.getSeedGeneratorPair().getType(),classes_.getSeedGeneratorPair().getFct(),new CustList<Argument>(new Argument(_args)),numberStruct_.getClassName(_cont));
+            ExecTemplates.prepare(_cont,_stackCall,seedSpec_,classes_.getSeedGeneratorPair(),new CustList<Argument>(new Argument(_args)));
         }
         if (_cont.callsOrException(_stackCall)) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         Struct seed_ = _stackCall.getSeed();
         if (matchNotNull(_cont, seed_, lgNames_.getContent().getPredefTypes().getAliasSeedGenerator())) {
-            ExecTemplates.prepare(_cont,_stackCall,seed_,classes_.getSeedGeneratorPair().getType(),classes_.getSeedGeneratorPair().getFct(),new CustList<Argument>(new Argument(_args)),numberStruct_.getClassName(_cont));
+            ExecTemplates.prepare(_cont,_stackCall,seed_,classes_.getSeedGeneratorPair(),new CustList<Argument>(new Argument(_args)));
         }
         if (_cont.callsOrException(_stackCall)) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);

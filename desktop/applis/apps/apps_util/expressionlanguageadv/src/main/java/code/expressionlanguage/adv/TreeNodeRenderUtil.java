@@ -248,7 +248,7 @@ public final class TreeNodeRenderUtil {
             return;
         }
         ExecTypeFunction valBody_ = newCall(_cl,_m, _conf.getClasses());
-        ExecTemplates.prepare(_conf,_stackCall,_argument,valBody_.getType(),valBody_.getFct(),new CustList<Argument>(),"");
+        ExecTemplates.prepare(_conf,_stackCall,_argument,valBody_,new CustList<Argument>());
     }
 
     private static ExecTypeFunction newCall(String _cl, String _m,

@@ -33,7 +33,7 @@ public final class EventStruct extends LaunchableStruct implements
     }
 
     public static Argument invoke(Struct _global, ContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
-        ExecTemplates.prepare(_cont,_stackCall,_global, _pair.getType(), _pair.getFct(), _argList.getArguments(),_cont.getStandards().getCoreNames().getAliasObject());
+        ExecTemplates.prepare(_cont,_stackCall,_global, _pair, _argList.getArguments());
         Argument arg_ = ProcessMethod.calculate(_stackCall.getCallingState(), _cont, _stackCall).getValue();
         String err_ = _cont.errorMessage(_stackCall);
         if (err_ != null) {

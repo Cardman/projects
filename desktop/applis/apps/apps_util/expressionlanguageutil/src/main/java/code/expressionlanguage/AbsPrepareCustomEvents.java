@@ -1,10 +1,9 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public abstract class AbsPrepareCustomEvents {
@@ -18,7 +17,7 @@ public abstract class AbsPrepareCustomEvents {
             return false;
         }
         eventIndex = _i + 1;
-        ExecTemplates.prepare(_context, _stack, _inst, type(_context), fct(_context), args(),_context.getStandards().getCoreNames().getAliasObject());
+        ExecTemplates.prepare(_context, _stack, _inst, pair(_context), args());
         return true;
     }
 
@@ -28,9 +27,7 @@ public abstract class AbsPrepareCustomEvents {
 
     protected abstract boolean excluded();
 
-    protected abstract ExecRootBlock type(ContextEl _ctx);
-
-    protected abstract ExecNamedFunctionBlock fct(ContextEl _ctx);
+    protected abstract ExecTypeFunction pair(ContextEl _ctx);
 
     protected abstract CustList<Argument> args();
 }

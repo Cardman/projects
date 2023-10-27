@@ -23,14 +23,14 @@ public final class FctMathRandom0 extends FctMath {
         Struct seedSpec_ = _stackCall.getSeedSpecDoubleGenerator();
         Classes classes_ = _cont.getClasses();
         if (matchNotNull(_cont, seedSpec_, lgNames_.getContent().getPredefTypes().getAliasSeedDoubleGenerator())) {
-            ExecTemplates.prepare(_cont,_stackCall,seedSpec_,classes_.getSeedDoubleGeneratorPair().getType(),classes_.getSeedDoubleGeneratorPair().getFct(),new CustList<Argument>(),"");
+            ExecTemplates.prepare(_cont,_stackCall,seedSpec_,classes_.getSeedDoubleGeneratorPair(),new CustList<Argument>());
         }
         if (_cont.callsOrException(_stackCall)) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         Struct seed_ = _stackCall.getSeed();
         if (matchNotNull(_cont, seed_, lgNames_.getContent().getPredefTypes().getAliasSeedDoubleGenerator())) {
-            ExecTemplates.prepare(_cont,_stackCall,seed_,classes_.getSeedDoubleGeneratorPair().getType(),classes_.getSeedDoubleGeneratorPair().getFct(),new CustList<Argument>(),"");
+            ExecTemplates.prepare(_cont,_stackCall,seed_,classes_.getSeedDoubleGeneratorPair(),new CustList<Argument>());
         }
         if (_cont.callsOrException(_stackCall)) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);

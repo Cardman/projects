@@ -1,7 +1,6 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.guicompos.FontStruct;
 import code.expressionlanguage.guicompos.GraphicListStruct;
 import code.expressionlanguage.guicompos.LgNamesGui;
@@ -41,13 +40,8 @@ public abstract class CommonCellPrepareCustomEvents extends AbsPrepareCustomEven
     }
 
     @Override
-    protected ExecRootBlock type(ContextEl _ctx) {
-        return ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks().getCellRender();
-    }
-
-    @Override
-    protected ExecNamedFunctionBlock fct(ContextEl _ctx) {
-        return ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks().getCellRenderGenerate();
+    protected ExecTypeFunction pair(ContextEl _ctx) {
+        return new ExecTypeFunction(((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks().getCellRender(),((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks().getCellRenderGenerate());
     }
 
     @Override

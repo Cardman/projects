@@ -40,7 +40,7 @@ public final class IndirectCalledFctUtil {
         String idCl_ = StringExpUtil.getIdFromAllTypes(argClassName_);
         ExecTypeFunction valBody_ = _redir.getVal(idCl_);
         if (valBody_ != null) {
-            ExecTemplates.prepare(_conf,_stackCall,struct_,valBody_.getType(),valBody_.getFct(),new CustList<Argument>(),"");
+            ExecTemplates.prepare(_conf,_stackCall,struct_,valBody_,new CustList<Argument>());
         }
         if (_conf.callsOrException(_stackCall)) {
             return Argument.createVoid();

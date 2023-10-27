@@ -1,7 +1,6 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
@@ -16,13 +15,8 @@ public final class EvtPrepareCustomEvents extends AbsPrepareCustomEvents {
     }
 
     @Override
-    protected ExecRootBlock type(ContextEl _ctx) {
-        return ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks().getListSelection();
-    }
-
-    @Override
-    protected ExecNamedFunctionBlock fct(ContextEl _ctx) {
-        return ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks().getValueChanged();
+    protected ExecTypeFunction pair(ContextEl _ctx) {
+        return new ExecTypeFunction(((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks().getListSelection(),((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks().getValueChanged());
     }
 
     @Override

@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.blocks.ExecSwitchInstanceMethod;
 import code.expressionlanguage.exec.calls.PageElContent;
 import code.expressionlanguage.exec.calls.util.ArrayRefState;
@@ -283,12 +282,11 @@ public final class ExecTemplates {
         return c_;
     }
 
-    public static void prepare(ContextEl _context, StackCall _stack, Struct _inst, ExecRootBlock _type, ExecNamedFunctionBlock _fct, CustList<Argument> _args, String _eltType) {
-        ExecTypeFunction pair_ = new ExecTypeFunction(_type, _fct);
-        ExecOverrideInfo poly_ = ExecInvokingOperation.polymorph(_context, _inst, pair_);
+    public static void prepare(ContextEl _context, StackCall _stack, Struct _inst, ExecTypeFunction _pair, CustList<Argument> _args) {
+        ExecOverrideInfo poly_ = ExecInvokingOperation.polymorph(_context, _inst, _pair);
         LambdaStruct lda_ = AbstractFormatParamChecker.matchAbstract(_inst, poly_);
         if (lda_ != null) {
-            ExecInvokingOperation.prepareCallDynReflect(new Argument(lda_), ArrayStruct.instance(StringExpUtil.getPrettyArrayType(_eltType), _args),0, _context, _stack);
+            ExecInvokingOperation.prepareCallDynReflect(new Argument(lda_), ArrayStruct.instance(StringExpUtil.getPrettyArrayType(""), _args),0, _context, _stack);
         } else {
             ExecTemplates.wrapAndCall(poly_, new Argument(_inst), _context, _stack, ArgumentListCall.wrapCall(_args));
         }
