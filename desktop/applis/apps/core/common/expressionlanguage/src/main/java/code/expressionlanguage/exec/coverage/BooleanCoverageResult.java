@@ -8,6 +8,11 @@ import code.util.StringList;
 public final class BooleanCoverageResult extends AbstractCoverageResult {
     private boolean coverBcTrue;
     private boolean coverBcFalse;
+    private final boolean fullIfCover;
+
+    public BooleanCoverageResult(boolean _f) {
+        this.fullIfCover = _f;
+    }
 
     @Override
     public StringList getCoversFoundReport(VariablesOffsets _vars) {
@@ -43,6 +48,11 @@ public final class BooleanCoverageResult extends AbstractCoverageResult {
 
     @Override
     public void cover(Argument _bc) {
+        if (fullIfCover) {
+            coverBcTrue = true;
+            coverBcFalse = true;
+            return;
+        }
         if (BooleanStruct.isTrue(_bc.getStruct())) {
             coverBcTrue = true;
         }

@@ -112,7 +112,7 @@ public final class Coverage {
         }
         FunctionCoverageResult fctRes_ = getFctResBl(_block);
         _block.setConditionNb(fctRes_.getCoverLoops().size());
-        fctRes_.getCoverLoops().addEntry(_exec,new BooleanCoverageResult());
+        fctRes_.getCoverLoops().addEntry(_exec,new BooleanCoverageResult(false));
     }
 
     public void putBlockOperationsConditions(AbsBk _block, WithConditionPart _bk, ExecBlock _exec) {
@@ -121,7 +121,7 @@ public final class Coverage {
         }
         FunctionCoverageResult fctRes_ = getFctResBl(_block);
         _bk.setConditionNb(fctRes_.getCoversConditions().size());
-        fctRes_.getCoversConditions().addEntry(_exec,new BooleanCoverageResult());
+        fctRes_.getCoversConditions().addEntry(_exec,new BooleanCoverageResult(false));
     }
 
     public void putBlockOperationsSwitchs(SwitchBlock _block, ExecBlock _exec) {
@@ -388,8 +388,8 @@ public final class Coverage {
 
     private static void standardCoverage(Forwards _fwd, OperationNode _op, CustList<AbstractCoverageResult> _instr) {
         String prim_ = _fwd.getAliasPrimBoolean();
-        if ((_op.getResultClass().matchClass(prim_) || !_op.getResultClass().getImplicitsTest().isEmpty())&& _op.getArgument() == null&&!_op.getResultClass().isConvertToString()) {
-            _instr.add(new BooleanCoverageResult());
+        if ((_op.getResultClass().matchClass(prim_) || !_op.getResultClass().getImplicitsTest().isEmpty())&& _op.getArgument() == null) {
+            _instr.add(new BooleanCoverageResult(_op.getResultClass().isConvertToString() || !_op.getResultClass().getImplicits().isEmpty()));
         } else {
             _instr.add(new StandardCoverageResult());
         }
