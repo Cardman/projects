@@ -15644,7 +15644,7 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\"m44\">exmeth</a>(){\n" +
                 "  <b title=\"boolean\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m60\">b</a></span>=<span class=\"f\">false</span></span>;\n" +
-                "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>+<span class=\"f\"><a href=\"#m60\">b</a></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>+<span class=\"p\"><a href=\"#m60\">b</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -15668,7 +15668,7 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\"m44\">exmeth</a>(){\n" +
                 "  <b title=\"boolean\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m60\">b</a></span>=<span class=\"f\">true</span></span>;\n" +
-                "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>+<span class=\"f\"><a href=\"#m60\">b</a></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>+<span class=\"p\"><a href=\"#m60\">b</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -15703,6 +15703,36 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
                 " }\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <a name=\"m134\">$</a>(boolean <a name=\"m144\">b</a>){\n" +
                 "  return <span class=\"f\">new()</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage760Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  var s=\"\";\n");
+        xml_.append("  for(boolean b:{true,false}){\n");
+        xml_.append("   s+=b;\n");
+        xml_.append("  }\n");
+        xml_.append("  return s;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_, true);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static String <a name=\"m44\">exmeth</a>(){\n" +
+                "  <b title=\"$core.String\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m60\">s</a></span>=<span class=\"f\"><span class=\"s\">\"\"</span></span></span>;\n" +
+                "  <span class=\"f\">for(boolean <a name=\"m80\">b</a></span>:<span class=\"f\">{<span class=\"f\">true</span>,<span class=\"f\">false</span>}</span>)<a name=\"m95\"> </a>{\n" +
+                "   <span class=\"f\"><span class=\"f\"><a href=\"#m60\">s</a></span>+=<span class=\"f\"><a href=\"#m80\">b</a></span></span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m60\">s</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

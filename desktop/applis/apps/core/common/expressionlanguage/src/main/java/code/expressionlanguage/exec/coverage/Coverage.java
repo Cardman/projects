@@ -17,6 +17,7 @@ import code.expressionlanguage.exec.calls.ReflectGetDefaultValuePageEl;
 import code.expressionlanguage.exec.opers.CompoundedOperator;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
@@ -112,7 +113,7 @@ public final class Coverage {
         }
         FunctionCoverageResult fctRes_ = getFctResBl(_block);
         _block.setConditionNb(fctRes_.getCoverLoops().size());
-        fctRes_.getCoverLoops().addEntry(_exec,new BooleanCoverageResult(false));
+        fctRes_.getCoverLoops().addEntry(_exec,new BooleanCoverageResult());
     }
 
     public void putBlockOperationsConditions(AbsBk _block, WithConditionPart _bk, ExecBlock _exec) {
@@ -121,7 +122,7 @@ public final class Coverage {
         }
         FunctionCoverageResult fctRes_ = getFctResBl(_block);
         _bk.setConditionNb(fctRes_.getCoversConditions().size());
-        fctRes_.getCoversConditions().addEntry(_exec,new BooleanCoverageResult(false));
+        fctRes_.getCoversConditions().addEntry(_exec,new BooleanCoverageResult());
     }
 
     public void putBlockOperationsSwitchs(SwitchBlock _block, ExecBlock _exec) {
@@ -389,7 +390,7 @@ public final class Coverage {
     private static void standardCoverage(Forwards _fwd, OperationNode _op, CustList<AbstractCoverageResult> _instr) {
         String prim_ = _fwd.getAliasPrimBoolean();
         if ((_op.getResultClass().matchClass(prim_) || !_op.getResultClass().getImplicitsTest().isEmpty())&& _op.getArgument() == null) {
-            _instr.add(new BooleanCoverageResult(_op.getResultClass().isConvertToString() || !_op.getResultClass().getImplicits().isEmpty()));
+            _instr.add(new BooleanCoverageResult());
         } else {
             _instr.add(new StandardCoverageResult());
         }
@@ -517,7 +518,7 @@ public final class Coverage {
         if (_full) {
             result_.fullCover();
         } else {
-            Struct valueStruct_ = getValueStruct(_exec,ana_, _pair);
+            Struct valueStruct_ = getValueStruct(result_,_exec,ana_, _pair);
             result_.cover(new Argument(valueStruct_));
         }
     }
@@ -573,9 +574,14 @@ public final class Coverage {
         FunctionCoverageResult fctRes_ = getFctRes(_lastPage);
         return fctRes_.getMappingBlocks().getVal(en_);
     }
-    private static Struct getValueStruct(ExecOperationNode _oper, OperationNode _ana, ArgumentsPair _v) {
-        Argument res_ = Argument.getNullableValue(_v.getArgument());
-        Struct v_ = res_.getStruct();
+    private static Struct getValueStruct(AbstractCoverageResult _res,ExecOperationNode _oper, OperationNode _ana, ArgumentsPair _v) {
+        Struct o_ = Argument.getNullableValue(_v.getArgument()).getStruct();
+        Struct v_;
+        if (_res instanceof BooleanCoverageResult && !(o_ instanceof BooleanStruct)) {
+            v_ = ArgumentListCall.toStr(_v.getArgumentBeforeImpl());
+        } else {
+            v_ = o_;
+        }
         ExecMethodOperation par_ = _oper.getParent();
         if (par_ instanceof CompoundedOperator){
             CompoundedOperator p_ = (CompoundedOperator) par_;
