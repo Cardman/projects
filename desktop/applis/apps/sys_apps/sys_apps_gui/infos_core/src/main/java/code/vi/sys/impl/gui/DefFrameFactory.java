@@ -8,6 +8,8 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.vi.prot.impl.gui.CustComponent;
 
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
 import java.awt.image.MemoryImageSource;
 
 public final class DefFrameFactory implements AbsFrameFactory, AbsLightFrameFactory {
@@ -42,5 +44,19 @@ public final class DefFrameFactory implements AbsFrameFactory, AbsLightFrameFact
         Toolkit tool_ = Toolkit.getDefaultToolkit();
         Image b_ = tool_.createImage(new MemoryImageSource(_wCurs, _hCurs, _pixels, 0, _wCurs));
         ((CustComponent)_comp).getNatComponent().setCursor(tool_.createCustomCursor(b_, new Point(0, 0),SELECT));
+    }
+    @Override
+    public void copy(String _c) {
+        StringSelection str_ = new StringSelection(_c);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(str_,str_);
+    }
+
+    @Override
+    public String paste() {
+        try {
+            return (String) Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null).getTransferData(DataFlavor.stringFlavor);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
