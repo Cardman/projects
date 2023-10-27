@@ -2547,7 +2547,7 @@ public final class RateStructTest extends EquallableElUtUtil {
     }
 
     public static void invoke(Argument _global, ExecFormattedRootBlock _class, ContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
-        ExecTemplates.wrapAndCall(_pair, _class, _global, _cont, _stackCall, _argList);
+        ExecTemplates.wrapAndCall(new ExecOverrideInfo(_class,_pair), _global, _cont, _stackCall, _argList);
         ProcessMethod.calculate(_stackCall.getCallingState(), _cont, _stackCall);
     }
 
@@ -2566,9 +2566,9 @@ public final class RateStructTest extends EquallableElUtUtil {
         String base_ = StringExpUtil.getIdFromAllTypes(_inst.getClassName(_ctx));
         ExecRootBlock cl_ = _ctx.getExecutionInfos().getClasses().getClassBody("pkg.Runnable");
         ExecOverridableBlock a_ = ExecClassesUtil.getMethodBodiesById(cl_, new MethodId(MethodAccessKind.INSTANCE, "run", new CustList<String>())).first();
-        ExecOverrideInfo mId_ = _ctx.getClasses().getRedirections().get(cl_.getNumberType()).getVal(a_,base_);
+        ExecOverrideInfo mId_ = _ctx.getClasses().getRedirection(cl_.getNumberType(), a_.getMem(),base_);
         Argument arg_ = new Argument(_inst);
-        ExecTemplates.wrapAndCall(mId_.getPair(), mId_.getClassName(), arg_, _ctx, _stack, new ArgumentListCall());
+        ExecTemplates.wrapAndCall(mId_, arg_, _ctx, _stack, new ArgumentListCall());
         ProcessMethod.calculate(_stack.getCallingState(), _ctx, _stack);
     }
 
@@ -2585,6 +2585,6 @@ public final class RateStructTest extends EquallableElUtUtil {
     private ExecOverrideInfo getRedirections(ContextEl _r, String _id) {
         ExecRootBlock cl_ = _r.getExecutionInfos().getClasses().getClassBody("pkg.Runnable");
         ExecOverridableBlock a_ = ExecClassesUtil.getMethodBodiesById(cl_, new MethodId(MethodAccessKind.INSTANCE, "run", new CustList<String>())).first();
-        return _r.getClasses().getRedirections().get(cl_.getNumberType()).getVal(a_,_id);
+        return _r.getClasses().getRedirection(cl_.getNumberType(),a_.getMem(),_id);
     }
 }

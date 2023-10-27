@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -34,7 +35,7 @@ public final class FctThreadPrint2 extends FctThreadPrintAbs {
         CustList<Argument> arguments_ = new CustList<Argument>(arg_, argArr_);
         ArgumentListCall argList_ = ArgumentListCall.wrapCall(arguments_);
         ExecTypeFunction formatObjectTwoPair_ = execBlocks.getFormatObjectTwoPair();
-        ExecTemplates.wrapAndCall(formatObjectTwoPair_, new ExecFormattedRootBlock(formatObjectTwoPair_.getType(), aliasFormatType),Argument.createVoid(), _cont, _stackCall, argList_);
+        ExecTemplates.wrapAndCall(new ExecOverrideInfo(new ExecFormattedRootBlock(formatObjectTwoPair_.getType(), aliasFormatType),formatObjectTwoPair_), Argument.createVoid(), _cont, _stackCall, argList_);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

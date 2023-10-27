@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -40,19 +39,13 @@ public final class IndirectCalledFctUtil {
         String argClassName_ = struct_.getClassName(_conf);
         String idCl_ = StringExpUtil.getIdFromAllTypes(argClassName_);
         ExecTypeFunction valBody_ = _redir.getVal(idCl_);
-        ExecFormattedRootBlock clCall_ = ExecFormattedRootBlock.defValue();
-        ExecTypeFunction p_ = new ExecTypeFunction((ExecRootBlock) null,null);
         if (valBody_ != null) {
-            ExecOverrideInfo polymorphMethod_ = ExecInvokingOperation.polymorph(_conf, struct_, valBody_);
-            p_ = polymorphMethod_.getPair();
-            clCall_ = ExecFormattedRootBlock.getFullObject(argClassName_, polymorphMethod_.getClassName(), _conf);
+            ExecTemplates.prepare(_conf,_stackCall,struct_,valBody_.getType(),valBody_.getFct(),new CustList<Argument>(),"");
         }
-        if (p_.getFct() == null) {
-            return new Argument(_nat.compute(_argument, _conf));
+        if (_conf.callsOrException(_stackCall)) {
+            return Argument.createVoid();
         }
-        Argument out_ = new Argument(struct_);
-        ExecTemplates.wrapAndCall(p_, clCall_,out_, _conf, _stackCall, new ArgumentListCall());
-        return out_;
+        return new Argument(_nat.compute(_argument, _conf));
     }
 
     public static Argument tryGetEnumValues(AbstractExiting _exit, ContextEl _cont, ExecRootBlock _r, ClassCategory _category, StackCall _stackCall) {

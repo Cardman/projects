@@ -17,7 +17,6 @@ import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -248,12 +247,8 @@ public final class TreeNodeRenderUtil {
         if (_stackCall.getCallingState() != null) {
             return;
         }
-        String argClassName_ = _argument.getClassName(_conf);
         ExecTypeFunction valBody_ = newCall(_cl,_m, _conf.getClasses());
-        ExecOverrideInfo polymorphMethod_ = ExecInvokingOperation.polymorph(_conf, _argument, valBody_);
-        ExecTypeFunction p_ = polymorphMethod_.getPair();
-        ExecFormattedRootBlock clCall_ = ExecFormattedRootBlock.getFullObject(argClassName_, polymorphMethod_.getClassName(), _conf);
-        ExecTemplates.wrapAndCall(p_, clCall_,new Argument(_argument), _conf, _stackCall, new ArgumentListCall());
+        ExecTemplates.prepare(_conf,_stackCall,_argument,valBody_.getType(),valBody_.getFct(),new CustList<Argument>(),"");
     }
 
     private static ExecTypeFunction newCall(String _cl, String _m,

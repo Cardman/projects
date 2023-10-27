@@ -3,6 +3,7 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.*;
@@ -32,7 +33,7 @@ public final class EventStruct extends LaunchableStruct implements
     }
 
     public static Argument invoke(Struct _global, ContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
-        AbsPrepareCustomEvents.prepare(_cont,_stackCall,_global, _pair.getType(), _pair.getFct(), _argList.getArguments());
+        ExecTemplates.prepare(_cont,_stackCall,_global, _pair.getType(), _pair.getFct(), _argList.getArguments(),_cont.getStandards().getCoreNames().getAliasObject());
         Argument arg_ = ProcessMethod.calculate(_stackCall.getCallingState(), _cont, _stackCall).getValue();
         String err_ = _cont.errorMessage(_stackCall);
         if (err_ != null) {

@@ -13,10 +13,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
 import code.expressionlanguage.exec.opers.CompoundedOperator;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.util.ImplicitMethods;
-import code.expressionlanguage.exec.util.NativeFct;
+import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -247,7 +244,7 @@ public abstract class RendDynOperationNode {
         if (_context.callsOrException(_rend.getStackCall())) {
             return null;
         }
-        ExecTemplates.wrapAndCall(c_,format_,Argument.createVoid(),_context,_rend.getStackCall(),ArgumentListCall.wrapCall(args_));
+        ExecTemplates.wrapAndCall(new ExecOverrideInfo(format_,c_), Argument.createVoid(),_context,_rend.getStackCall(),ArgumentListCall.wrapCall(args_));
         Argument out_ = ProcessMethod.calculate(_rend.getStackCall().getCallingState(), _context, _rend.getStackCall()).getValue();
         if (_context.callsOrException(_rend.getStackCall())) {
             return null;

@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.dbg.DebugMapping;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ClassMethodIdOverrides;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.ClassMetaInfo;
@@ -54,6 +55,17 @@ public final class Classes {
         debugMapping = _d;
     }
 
+    public ExecOverrideInfo getRedirection(ExecTypeFunction _pair, String _base) {
+        return getRedirection(_pair.getTypeNb(), _pair.getFctNb(), _base);
+    }
+
+    public ExecOverrideInfo getRedirection(int _t, int _m, String _base) {
+        return getRedirection(getRedirections().get(_t), _m,_base);
+    }
+
+    public static ExecOverrideInfo getRedirection(ClassMethodIdOverrides _t, int _m, String _base) {
+        return _t.getVal(_m,_base);
+    }
     public CustList<ClassMethodIdOverrides> getRedirections() {
         return redirections;
     }

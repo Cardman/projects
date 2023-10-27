@@ -7,25 +7,20 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.blocks.ExecSwitchInstanceMethod;
 import code.expressionlanguage.exec.calls.PageElContent;
 import code.expressionlanguage.exec.calls.util.ArrayRefState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundSwitch;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.Cache;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.util.HiddenCache;
+import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.BoolVal;
@@ -287,8 +282,29 @@ public final class ExecTemplates {
         }
         return c_;
     }
-    public static void wrapAndCall(ExecTypeFunction _pair, ExecFormattedRootBlock _formatted, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList) {
-        new WrapParamChecker(_pair,_argList).checkParams(_formatted,_previous,null,_conf,_stackCall);
+
+    public static void prepare(ContextEl _context, StackCall _stack, Struct _inst, ExecRootBlock _type, ExecNamedFunctionBlock _fct, CustList<Argument> _args, String _eltType) {
+        ExecTypeFunction pair_ = new ExecTypeFunction(_type, _fct);
+        ExecOverrideInfo poly_ = ExecInvokingOperation.polymorph(_context, _inst, pair_);
+        LambdaStruct lda_ = AbstractFormatParamChecker.matchAbstract(_inst, poly_);
+        if (lda_ != null) {
+            ExecInvokingOperation.prepareCallDynReflect(new Argument(lda_), ArrayStruct.instance(StringExpUtil.getPrettyArrayType(_eltType), _args),0, _context, _stack);
+        } else {
+            ExecTemplates.wrapAndCall(poly_, new Argument(_inst), _context, _stack, ArgumentListCall.wrapCall(_args));
+        }
+    }
+    public static void wrapAndCall(ExecOverrideInfo _pair, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList) {
+        Struct str_ = ArgumentListCall.toStr(_previous);
+        if (str_ == NullStruct.NULL_VALUE) {
+            simpleWrapAndCall(_pair, _previous, _conf, _stackCall, _argList, _pair.getClassName());
+            return;
+        }
+        ExecFormattedRootBlock cl_ = ExecFormattedRootBlock.getFullObject(str_.getClassName(_conf), _pair.getClassName(), _conf);
+        simpleWrapAndCall(_pair, _previous, _conf, _stackCall, _argList, cl_);
+    }
+
+    public static void simpleWrapAndCall(ExecOverrideInfo _pair, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList, ExecFormattedRootBlock _cl) {
+        new WrapParamChecker(_pair.getPair(), _argList).checkParams(_cl, _previous,null, _conf, _stackCall);
     }
 
     public static AbstractWrapper getWrap(AbstractWrapper _w) {

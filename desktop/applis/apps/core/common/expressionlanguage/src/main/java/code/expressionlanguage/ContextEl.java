@@ -13,7 +13,6 @@ import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
-import code.expressionlanguage.exec.util.ClassMethodIdOverride;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
@@ -65,14 +64,12 @@ public abstract class ContextEl {
             int nb_ = nb(i_);
             int pr_ = b.getValue().result(_exit).pref(base_);
             if (getClasses().getRedirections().isValidIndex(nb_)) {
-                ClassMethodIdOverride v_ = getClasses().getRedirections().get(nb_).getVal(MemberCallingsBlock.clName(i_));
-                if (v_ != null) {
-                    ExecOverrideInfo ov_ = v_.getVal(base_);
-                    if (ov_ != null && ov_.getPair().getFct() == _id) {
-                        String formatted_ = ExecInherits.getQuickFullTypeByBases(argClassName_, v_.getRoot().getFullName(), this);
-                        out_.add(new MethodPointBlockPairRootBlock(b, pr_,new ExecFormattedRootBlock(v_.getRoot(),formatted_)));
-                        continue;
-                    }
+                ExecRootBlock ovs_ = getClasses().getRedirections().get(nb_).getRoot();
+                ExecOverrideInfo ov_ = getClasses().getRedirection(nb_,i_.getAccessedFctNb(),base_);
+                if (ov_ != null && ov_.getPair().getFct() == _id) {
+                    String formatted_ = ExecInherits.getQuickFullTypeByBases(argClassName_, ovs_.getFullName(), this);
+                    out_.add(new MethodPointBlockPairRootBlock(b, pr_, new ExecFormattedRootBlock(ovs_, formatted_)));
+                    continue;
                 }
             }
             if (StringUtil.quickEq(MemberCallingsBlock.clName(i_),id_)) {

@@ -4,19 +4,11 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.inherits.AbstractFormatParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.util.ExecOverrideInfo;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.maths.montecarlo.AbstractGenerator;
@@ -32,52 +24,19 @@ public final class FctMathRandom1 extends FctMath {
     private static ArgumentWrapper randomParam(ContextEl _cont, Struct _args, StackCall _stackCall) {
         LgNames lgNames_ = _cont.getStandards();
         Struct seedSpec_ = _stackCall.getSeedSpecGenerator();
-        Argument argSeedSpec_ = new Argument(seedSpec_);
-        ExecTypeFunction p_ = new ExecTypeFunction((ExecRootBlock)null,null);
-        CustList<Argument> argsToPass_ = new CustList<Argument>();
-        ExecFormattedRootBlock cl_ = new ExecFormattedRootBlock((ExecRootBlock) null,"");
+        Classes classes_ = _cont.getClasses();
         NumberStruct numberStruct_ = NumParsers.convertToNumber(_args);
         if (matchNotNull(_cont, seedSpec_, lgNames_.getContent().getPredefTypes().getAliasSeedGenerator())) {
-            String argClassName_ = seedSpec_.getClassName(_cont);
-            Classes classes_ = _cont.getClasses();
-            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seedSpec_, classes_.getSeedGeneratorPair());
-            p_ = polymorphMeth_.getPair();
-            cl_ = ExecFormattedRootBlock.getFullObject(argClassName_, polymorphMeth_.getClassName(), _cont);
-            argsToPass_.add(new Argument(_args));
+            ExecTemplates.prepare(_cont,_stackCall,seedSpec_,classes_.getSeedGeneratorPair().getType(),classes_.getSeedGeneratorPair().getFct(),new CustList<Argument>(new Argument(_args)),numberStruct_.getClassName(_cont));
         }
-        if (p_.getFct() instanceof ExecOverridableBlock) {
-            ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
-            LambdaStruct lda_ = AbstractFormatParamChecker.matchAbstract(seedSpec_, meth_);
-            if (lda_ != null) {
-                Argument fct_ = new Argument(lda_);
-                ExecInvokingOperation.prepareCallDynReflect(fct_,ArrayStruct.instance(StringExpUtil.getPrettyArrayType(numberStruct_.getClassName(_cont)),argsToPass_),0,_cont, _stackCall);
-                return new ArgumentWrapper(NullStruct.NULL_VALUE);
-            }
-            ArgumentListCall argList_ = ArgumentListCall.wrapCall(argsToPass_);
-            ExecTemplates.wrapAndCall(p_, cl_,argSeedSpec_, _cont, _stackCall, argList_);
+        if (_cont.callsOrException(_stackCall)) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        argsToPass_.clear();
         Struct seed_ = _stackCall.getSeed();
-        Argument argSeed_ = new Argument(seed_);
         if (matchNotNull(_cont, seed_, lgNames_.getContent().getPredefTypes().getAliasSeedGenerator())) {
-            String argClassName_ = seed_.getClassName(_cont);
-            Classes classes_ = _cont.getClasses();
-            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, classes_.getSeedGeneratorPair());
-            p_ = polymorphMeth_.getPair();
-            cl_ = ExecFormattedRootBlock.getFullObject(argClassName_, polymorphMeth_.getClassName(), _cont);
-            argsToPass_.add(new Argument(_args));
+            ExecTemplates.prepare(_cont,_stackCall,seed_,classes_.getSeedGeneratorPair().getType(),classes_.getSeedGeneratorPair().getFct(),new CustList<Argument>(new Argument(_args)),numberStruct_.getClassName(_cont));
         }
-        if (p_.getFct() instanceof ExecOverridableBlock) {
-            ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
-            LambdaStruct lda_ = AbstractFormatParamChecker.matchAbstract(seed_, meth_);
-            if (lda_ != null) {
-                Argument fct_ = new Argument(lda_);
-                ExecInvokingOperation.prepareCallDynReflect(fct_,ArrayStruct.instance(StringExpUtil.getPrettyArrayType(numberStruct_.getClassName(_cont)),argsToPass_),0,_cont, _stackCall);
-                return new ArgumentWrapper(NullStruct.NULL_VALUE);
-            }
-            ArgumentListCall argList_ = ArgumentListCall.wrapCall(argsToPass_);
-            ExecTemplates.wrapAndCall(p_, cl_,argSeed_, _cont, _stackCall, argList_);
+        if (_cont.callsOrException(_stackCall)) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();

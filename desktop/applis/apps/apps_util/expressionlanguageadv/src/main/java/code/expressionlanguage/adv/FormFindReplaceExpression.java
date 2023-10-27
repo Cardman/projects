@@ -62,7 +62,7 @@ public final class FormFindReplaceExpression {
         if (!(_type instanceof ExecClassBlock) || ((ExecClassBlock)_type).isAbstractType() || !_type.withoutInstance()) {
             return null;
         }
-        ExecOverrideInfo o_ = _ctx.getClasses().getRedirections().get(_look.getNumberType()).getVal(_method, _k);
+        ExecOverrideInfo o_ = _ctx.getClasses().getRedirection(_look.getNumberType(), _method.getMem(), _k);
         if (o_ == null) {
             return null;
         }

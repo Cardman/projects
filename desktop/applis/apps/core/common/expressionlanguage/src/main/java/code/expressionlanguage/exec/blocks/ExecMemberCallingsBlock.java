@@ -7,6 +7,16 @@ public abstract class ExecMemberCallingsBlock extends ExecBracedBlock implements
     private final CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
     private final CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
     private final CustList<ExecAbstractSwitchMethod> switchMethods = new CustList<ExecAbstractSwitchMethod>();
+    private int mem;
+
+    public int getMem() {
+        return mem;
+    }
+
+    public void setMem(int _a) {
+        this.mem = _a;
+    }
+
 
     public CustList<ExecRootBlock> getReserved() {
         return reserved;

@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.AbsContextGenerator;
@@ -94,7 +95,7 @@ public final class DefaultInitialization {
                 ExecNamedFunctionBlock method_ = methods_.first();
                 ExecTypeFunction pair_ = new ExecTypeFunction(classBody_, method_);
                 ArgumentListCall argList_ = ArgumentListCall.wrapCall(args_);
-                ExecTemplates.wrapAndCall(pair_, new ExecFormattedRootBlock(classBody_, classDbName),arg_, ctx_, rendStackCall_.getStackCall(), argList_);
+                ExecTemplates.wrapAndCall(new ExecOverrideInfo(new ExecFormattedRootBlock(classBody_, classDbName),pair_), arg_, ctx_, rendStackCall_.getStackCall(), argList_);
                 Argument out_ = ProcessMethod.calculate(rendStackCall_.getStackCall().getCallingState(), ctx_, rendStackCall_.getStackCall()).getValue();
                 if (ctx_.callsOrException(rendStackCall_.getStackCall())) {
                     return afterActionWithoutRemove(ctx_, rendStackCall_);

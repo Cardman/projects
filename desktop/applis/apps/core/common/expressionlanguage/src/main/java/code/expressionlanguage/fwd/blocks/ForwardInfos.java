@@ -74,6 +74,7 @@ public final class ForwardInfos {
             ExecOperatorBlock e_ = new ExecOperatorBlock(cl_,o.getAccess(), new ExecExecNamedFunctionContent(o.getName(), o.getImportedParametersTypes(), o.getParametersRef(), o.getParametersNames(), o.isRetRef(), o.isVarargs()));
             e_.setImportedReturnType(o.getImportedReturnType());
             e_.setFile(exFile_);
+            e_.setMem(o.getAccessedFctNb());
             _forwards.addOperator(o,e_);
             coverage_.putOperator(o);
         }
@@ -236,14 +237,14 @@ public final class ForwardInfos {
         for (FwdRootBlockMembers e: _forwards.getAllMapMembers()) {
             RootBlock root_ = e.getRootBlock();
             Members mem_ = e.getMembers();
-            ClassMethodIdOverrides redirections_ = new ClassMethodIdOverrides();
+            ClassMethodIdOverrides redirections_ = new ClassMethodIdOverrides(mem_.getRootBlock());
             for (NamedCalledFunctionBlock o: root_.getOverridableBlocks()) {
                 if (o.hiddenInstance() || o.isFinalMethod()) {
                     continue;
                 }
                 StringMap<GeneStringOverridable> map_ = OverridesTypeUtil.getConcreteMethodsToCall(root_, o, _page);
                 map_.putAllMap(o.getOverrides());
-                ClassMethodIdOverride override_ = new ClassMethodIdOverride(e.getMembers().getRootBlock(),mem_.getOvNamed(o));
+                ClassMethodIdOverride override_ = new ClassMethodIdOverride(mem_.getOvNamed(o));
                 for (EntryCust<String,GeneStringOverridable> g: map_.entryList()) {
                     GeneStringOverridable value_ = g.getValue();
                     Members memTarget_ = _forwards.getMember(value_.getType());
@@ -294,7 +295,7 @@ public final class ForwardInfos {
                 Members mem_ = _forwards.getMember(rootBlock_);
                 ExecRootBlock ex_ = mem_.getRootBlock();
                 ExecOverridableBlock value_ = mem_.getOvNamed(b);
-                ExecOverrideInfo val_ = _forwards.getClasses().getRedirections().get(ex_.getNumberType()).getVal(value_, _e.getRootBlock().getFullName());
+                ExecOverrideInfo val_ = _forwards.getClasses().getRedirection(ex_.getNumberType(), value_.getMem(), _e.getRootBlock().getFullName());
                 if (val_ == null) {
                     String ret_ = b.getImportedReturnType();
                     _e.getMembers().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(FetchMemberUtil.formatType(_s,value_.getId()),FetchMemberUtil.formatType(_s,ret_), value_,FetchMemberUtil.formatType(_s,value_.getImportedReturnType()), _aliasFct));
@@ -640,6 +641,7 @@ public final class ForwardInfos {
             String cl_ = MemberCallingsBlock.clName(b);
             ExecOverridableBlock val_ = new ExecOverridableBlock(cl_,b.getAccess(), b.getModifier(), toExecMethodKind(kind_), new ExecExecNamedFunctionContent(b.getName(), b.getImportedParametersTypes(), b.getParametersRef(), b.getParametersNames(), b.isRetRef(), b.isVarargs()));
             val_.setFile(_current.getFile());
+            val_.setMem(b.getAccessedFctNb());
             _mem.addOvNamed(b,val_);
             val_.setImportedReturnType(b.getImportedReturnType());
             String returnTypeGet_ = b.getReturnTypeGet();
@@ -651,6 +653,7 @@ public final class ForwardInfos {
             ExecAnnotationMethodBlock val_ = new ExecAnnotationMethodBlock(b.getName(), b.isVarargs(), b.getAccess(), b.getParametersNames(), b.getDefaultValueOffset());
             val_.setFile(_current.getFile());
             _mem.addAnnotMethod(b,val_);
+            val_.setMem(b.getAccessedFctNb());
             _mem.addNamed(b,val_);
             val_.setImportedReturnType(b.getImportedReturnType());
             val_.getImportedParametersTypes().addAllElts(b.getImportedParametersTypes());
@@ -659,6 +662,7 @@ public final class ForwardInfos {
             String cl_ = MemberCallingsBlock.clName(b);
             ExecConstructorBlock val_ = new ExecConstructorBlock(cl_,b.getName(), b.isVarargs(), b.getAccess(), b.getParametersNames(), b.getImportedParametersTypes(), b.getParametersRef());
             val_.setFile(_current.getFile());
+            val_.setMem(b.getAccessedFctNb());
             _mem.addCtor(b,val_);
             fwdInstancingStep(b, val_);
             val_.setImportedReturnType(b.getImportedReturnType());
@@ -668,6 +672,7 @@ public final class ForwardInfos {
             ExecInstanceBlock val_ = new ExecInstanceBlock(cl_,b.getOffset());
             val_.setFile(_current.getFile());
             val_.setNumber(b.getNumber());
+            val_.setMem(b.getAccessedFctNb());
             _mem.addInstInitBody(b,val_);
             _current.getAllInstanceInits().add(val_);
         }
@@ -676,6 +681,7 @@ public final class ForwardInfos {
             ExecStaticBlock val_ = new ExecStaticBlock(cl_,b.getOffset());
             val_.setFile(_current.getFile());
             val_.setNumber(b.getNumber());
+            val_.setMem(b.getAccessedFctNb());
             _mem.addStatInitBody(b,val_);
             _current.getAllStaticInits().add(val_);
         }
@@ -821,6 +827,7 @@ public final class ForwardInfos {
         block_.setNumberLambda(_forwards.countAnonLambda());
         String cl_ = MemberCallingsBlock.clName(block_);
         ExecAnonymousFunctionBlock fct_ = new ExecAnonymousFunctionBlock(cl_,block_.getAccess(), block_.getModifier(), new ExecAnonFctContent(block_.getAnaAnonFctContent()), new ExecExecNamedFunctionContent(block_.getName(), block_.getImportedParametersTypes(), block_.getParametersRef(), block_.getParametersNames(), block_.isRetRef(), block_.isVarargs()));
+        fct_.setMem(block_.getAccessedFctNb());
         _forwards.addAnonLambda(block_,fct_);
         fct_.setImportedReturnType(block_.getImportedReturnType());
         return fct_;
@@ -842,6 +849,7 @@ public final class ForwardInfos {
         } else {
             fct_ = new ExecSwitchValueMethod(cl_,retRef_, name_, kind_, parType_, retType_, anonFctContent_);
         }
+        fct_.setMem(block_.getAccessedFctNb());
         _forwards.addSwitchMethod(block_,fct_);
         return fct_;
     }

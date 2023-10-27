@@ -13,10 +13,7 @@ import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.Cache;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.util.HiddenCache;
+import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -1367,7 +1364,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArgumentListCall argList_ = new ArgumentListCall(new Argument());
         ArgumentWrapper.helpArg(null);
         ExecHelper.getArgumentWrapper(new CustList<ArgumentWrapper>(),0);
-        ExecTemplates.wrapAndCall(new ExecTypeFunction(_classBody, _first), new ExecFormattedRootBlock(_classBody,"pkg.Ex"),Argument.createVoid(), _cont, _stackCall, argList_);
+        ExecTemplates.wrapAndCall(new ExecOverrideInfo(new ExecFormattedRootBlock(_classBody,"pkg.Ex"),new ExecTypeFunction(_classBody, _first)), Argument.createVoid(), _cont, _stackCall, argList_);
 //        new ReflectGetFieldPageEl(null,null, false).receive(null,null,_cont, _stackCall);
 //        new ReflectSetFieldPageEl(null,null,null, false).receive(null,null,_cont, _stackCall);
     }

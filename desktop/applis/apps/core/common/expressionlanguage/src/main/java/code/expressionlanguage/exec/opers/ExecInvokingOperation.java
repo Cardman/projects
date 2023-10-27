@@ -6,7 +6,6 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.*;
@@ -165,12 +164,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     public static ExecOverrideInfo polymorph(ContextEl _conf, Struct _previous, ExecTypeFunction _named) {
         String argClassName_ = Argument.getNull(_previous).getClassName(_conf);
         String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);
-        ExecRootBlock type_ = _named.getType();
-        ExecNamedFunctionBlock fct_ = _named.getFct();
-        ExecOverrideInfo res_ = _conf.getClasses().getRedirections().get(type_.getNumberType()).getVal(fct_,base_);
+        ExecOverrideInfo res_ = _conf.getClasses().getRedirection(_named,base_);
         if (res_ != null) {
             return res_;
         }
+        ExecRootBlock type_ = _named.getType();
         return new ExecOverrideInfo(new ExecFormattedRootBlock(type_),_named);
     }
 
