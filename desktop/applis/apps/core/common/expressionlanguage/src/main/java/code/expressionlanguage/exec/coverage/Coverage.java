@@ -2,10 +2,7 @@ package code.expressionlanguage.exec.coverage;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
-import code.expressionlanguage.analyze.opers.NullSafeOperation;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.opers.SafeDotOperation;
+import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.common.OptionsReport;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.ReflectingType;
@@ -17,7 +14,6 @@ import code.expressionlanguage.exec.calls.ReflectGetDefaultValuePageEl;
 import code.expressionlanguage.exec.opers.CompoundedOperator;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
@@ -518,8 +514,12 @@ public final class Coverage {
         if (_full) {
             result_.fullCover();
         } else {
-            Struct valueStruct_ = getValueStruct(result_,_exec,ana_, _pair);
-            result_.cover(new Argument(valueStruct_));
+            Struct valueStruct_ = getValueStruct(_exec,ana_, _pair);
+            if (result_ instanceof BooleanCoverageResult && !(valueStruct_ instanceof BooleanStruct)) {
+                result_.cover(Argument.getNullableValue(_pair.getArgumentBeforeImpl()));
+            } else {
+                result_.cover(new Argument(valueStruct_));
+            }
         }
     }
 
@@ -574,25 +574,19 @@ public final class Coverage {
         FunctionCoverageResult fctRes_ = getFctRes(_lastPage);
         return fctRes_.getMappingBlocks().getVal(en_);
     }
-    private static Struct getValueStruct(AbstractCoverageResult _res,ExecOperationNode _oper, OperationNode _ana, ArgumentsPair _v) {
+    private static Struct getValueStruct(ExecOperationNode _oper, OperationNode _ana, ArgumentsPair _v) {
         Struct o_ = Argument.getNullableValue(_v.getArgument()).getStruct();
-        Struct v_;
-        if (_res instanceof BooleanCoverageResult && !(o_ instanceof BooleanStruct)) {
-            v_ = ArgumentListCall.toStr(_v.getArgumentBeforeImpl());
-        } else {
-            v_ = o_;
-        }
         ExecMethodOperation par_ = _oper.getParent();
         if (par_ instanceof CompoundedOperator){
             CompoundedOperator p_ = (CompoundedOperator) par_;
             if (ExecOperationNode.andEq(p_)) {
-                return value(_oper, _ana, v_, !_v.isArgumentTest());
+                return value(_oper, _ana, o_, !_v.isArgumentTest());
             }
             if (ExecOperationNode.orEq(p_)) {
-                return value(_oper, _ana, v_, _v.isArgumentTest());
+                return value(_oper, _ana, o_, _v.isArgumentTest());
             }
         }
-        return v_;
+        return o_;
     }
 
     private static Struct value(ExecOperationNode _oper, OperationNode _ana, Struct _original, boolean _v) {
