@@ -352,6 +352,14 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         GraphicListStruct bs_ = (GraphicListStruct) ctxStr(pr_,files_);
         assertEq(0,bs_.getGrList().getSelectedValuesLsLen());
     }
+    @Test
+    public void widths() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static boolean run(){var g = new GrList(false);return g.getPanelWidth()*g.getPanelPreferredWidth()>=0;}}");
+        Struct bs_ = ctxStr(pr_,files_);
+        assertTrue(bs_);
+    }
     private void action(ScrollCustomGraphicList<Struct> _gene, int _a, int _b) {
         ((MockAbstractAction)GuiBaseUtil.getAction(_gene.getElements(),_a,_b)).action();
     }

@@ -10,6 +10,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.RowGraphicList;
 import code.util.CustList;
+import code.util.core.NumberUtil;
 
 public final class AfterChangingGraphicListInfoPageEl extends AbstractBasicReflectPageEl {
     private final GraphicListStruct instance;
@@ -31,7 +32,7 @@ public final class AfterChangingGraphicListInfoPageEl extends AbstractBasicRefle
             callEvts = new EvtPrepareCustomEvents(instance.getGrList().generateAndSet(true));
         }
         int l_ = selections.getLength();
-        for (int i = 0; i < l_; i++) {
+        for (int i = NumberUtil.max(0,callEvts.getEventIndex()-1); i < l_; i++) {
             Struct inst_ = selections.get(i);
             if (callEvts.call(_context,_stack,inst_,i)) {
                 return false;
@@ -44,24 +45,22 @@ public final class AfterChangingGraphicListInfoPageEl extends AbstractBasicRefle
             callRefs = new CellPrepareCustomEvents(null,-1,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,instance);
         }
         int count_ = rows.size();
-        for (int i = 0; i < count_; i++) {
+        for (int i = NumberUtil.max(0,callRefs.getEventIndex()-1); i < count_; i++) {
             RowGraphicList<Struct> current_ = rows.get(i);
             callRefs.rowSet(current_,i);
             if (callRefs.call(_context,_stack,instance.getCellRender(),i)) {
                 return false;
             }
             if (current_.isDirty()) {
-                applyImage(i, current_, ArgumentListCall.toStr(getReturnedArgument()), callRefs, instance);
+                applyImage(current_, ArgumentListCall.toStr(getReturnedArgument()), instance);
             }
         }
         setReturnedArgument(Argument.createVoid());
         return true;
     }
 
-    static void applyImage(int _i, RowGraphicList<Struct> _current, Struct _str, AbsPrepareCustomEvents _state, GraphicListStruct _instance) {
-        if (_i >= _state.getEventIndex() -1) {
-            _current.refresh(_instance.getGrList().getImageFactory(), PreparedLabelStruct.builImage(_instance.getGrList().getImageFactory(), _str));
-        }
+    static void applyImage(RowGraphicList<Struct> _current, Struct _str, GraphicListStruct _instance) {
+        _current.refresh(_instance.getGrList().getImageFactory(), PreparedLabelStruct.builImage(_instance.getGrList().getImageFactory(), _str));
     }
 
     private CustList<RowGraphicList<Struct>> retrieve() {

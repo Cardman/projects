@@ -6,6 +6,7 @@ import code.expressionlanguage.guicompos.GraphicComboStruct;
 import code.expressionlanguage.guicompos.GraphicListStruct;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
+import code.util.core.NumberUtil;
 
 public final class AddRowComboPageEl extends AbstractBasicReflectPageEl {
     private final GraphicComboStruct instance;
@@ -40,7 +41,7 @@ public final class AddRowComboPageEl extends AbstractBasicReflectPageEl {
             return true;
         }
         int l_ = selections.getLength();
-        for (int i = 0; i < l_; i++) {
+        for (int i = NumberUtil.max(0,callEvts.getEventIndex()-1); i < l_; i++) {
             Struct inst_ = selections.get(i);
             if (callEvts.call(_context,_stack,inst_,i)) {
                 return false;

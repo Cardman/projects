@@ -291,6 +291,7 @@ public final class GuiAliases {
     private static final String GR_LIST_GET_LIST_VIEW="_____1382";
     private static final String GR_LIST_GET_RENDER="_____1383";
     private static final String GR_LIST_GET_PANEL_WIDTH="_____1383_";
+    private static final String GR_LIST_GET_PANEL_PREFERRED_WIDTH="_____1383__";
     private static final String GR_LIST_GET_SELECTED_INDEXES="_____1384";
     private static final String GR_LIST_GET_SELECTIONS="_____1385";
     private static final String GR_LIST_GET_VISIBLE_ROW_COUNT="_____1386";
@@ -790,6 +791,7 @@ public final class GuiAliases {
     private String aliasGrListGetVisibleRowCount;
     private String aliasGrListSetVisibleRowCount;
     private String aliasGrListGetPanelWidth;
+    private String aliasGrListGetPanelPreferredWidth;
 
     private String aliasCombo;
     private String aliasComboGetSelectedItem;
@@ -2933,6 +2935,9 @@ public final class GuiAliases {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGrListGetPanelWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctGrListGetPanelWidth());
         StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListGetPanelPreferredWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctGrListGetPanelPreferredWidth());
+        StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
         StandardConstructor ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasGrList0GrList0()), new FctGrList(_cust,_guiEx,aliasGrList));
         StandardNamedFunction.addFct(constructors_, ctor_);
@@ -3398,6 +3403,7 @@ public final class GuiAliases {
         setAliasGrListAdd(LgNamesContent.get(_util,_cust,_mapping.getVal(GR_LIST_ADD)));
         setAliasGrListGetRender(LgNamesContent.get(_util,_cust,_mapping.getVal(GR_LIST_GET_RENDER)));
         setAliasGrListGetPanelWidth(LgNamesContent.get(_util,_cust,_mapping.getVal(GR_LIST_GET_PANEL_WIDTH)));
+        setAliasGrListGetPanelPreferredWidth(LgNamesContent.get(_util,_cust,_mapping.getVal(GR_LIST_GET_PANEL_PREFERRED_WIDTH)));
         setAliasGrListSetSelectedIndexes(LgNamesContent.get(_util,_cust,_mapping.getVal(GR_LIST_SET_SELECTED_INDEXES)));
         setAliasGrListSetVisibleRowCount(LgNamesContent.get(_util,_cust,_mapping.getVal(GR_LIST_SET_VISIBLE_ROW_COUNT)));
         setAliasComboGetSelectedItem(LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_GET_SELECTED_ITEM)));
@@ -3764,6 +3770,7 @@ public final class GuiAliases {
         _en.add(GR_LIST_GET_LIST_VIEW,"GrListGetListView=getView");
         _en.add(GR_LIST_GET_RENDER,"GrListGetRender=getRender");
         _en.add(GR_LIST_GET_PANEL_WIDTH,"GrListGetPanelWidth=getPanelWidth");
+        _en.add(GR_LIST_GET_PANEL_PREFERRED_WIDTH,"GrListGetPanelPreferredWidth=getPanelPreferredWidth");
         _en.add(GR_LIST_GET_SELECTED_INDEXES,"GrListGetSelectedIndexes=getSelectedIndexes");
         _en.add(GR_LIST_GET_SELECTIONS,"GrListGetSelections=getSelections");
         _en.add(GR_LIST_GET_VISIBLE_ROW_COUNT,"GrListGetVisibleRowCount=getVisibleRowCount");
@@ -4206,6 +4213,7 @@ public final class GuiAliases {
         _fr.add(GR_LIST_GET_LIST_VIEW,"GrListGetListView=valVue");
         _fr.add(GR_LIST_GET_RENDER,"GrListGetRender=valRendu");
         _fr.add(GR_LIST_GET_PANEL_WIDTH,"GrListGetPanelWidth=valPanneauLargeur");
+        _fr.add(GR_LIST_GET_PANEL_PREFERRED_WIDTH,"GrListGetPanelPreferredWidth=valPanneauLargeurPrefere");
         _fr.add(GR_LIST_GET_SELECTED_INDEXES,"GrListGetSelectedIndexes=valIndicesSelection");
         _fr.add(GR_LIST_GET_SELECTIONS,"GrListGetSelections=valSelections");
         _fr.add(GR_LIST_GET_VISIBLE_ROW_COUNT,"GrListGetVisibleRowCount=valNbLignesVisible");
@@ -4781,6 +4789,7 @@ public final class GuiAliases {
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_GET_LIST_VIEW),getAliasGrListGetListView()),
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_GET_RENDER),getAliasGrListGetRender()),
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_GET_PANEL_WIDTH),getAliasGrListGetPanelWidth()),
+                new KeyValueMemberName(_mapping.getVal(GR_LIST_GET_PANEL_PREFERRED_WIDTH),getAliasGrListGetPanelPreferredWidth()),
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_GET_SELECTED_INDEXES),getAliasGrListGetSelectedIndexes()),
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_GET_SELECTIONS),getAliasGrListGetSelections()),
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_GET_VISIBLE_ROW_COUNT),getAliasGrListGetVisibleRowCount()),
@@ -7687,6 +7696,14 @@ public final class GuiAliases {
 
     public void setAliasGrListGetPanelWidth(String _v) {
         this.aliasGrListGetPanelWidth = _v;
+    }
+
+    public String getAliasGrListGetPanelPreferredWidth() {
+        return aliasGrListGetPanelPreferredWidth;
+    }
+
+    public void setAliasGrListGetPanelPreferredWidth(String _v) {
+        this.aliasGrListGetPanelPreferredWidth = _v;
     }
 
     public String getAliasCombo() {

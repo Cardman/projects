@@ -8,6 +8,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.RowGraphicList;
 import code.util.CustList;
+import code.util.core.NumberUtil;
 
 public final class AfterRepaintGraphicListInfoPageEl extends AbstractBasicReflectPageEl {
     private final GraphicListStruct instance;
@@ -28,13 +29,13 @@ public final class AfterRepaintGraphicListInfoPageEl extends AbstractBasicReflec
             callRefs = new ForceCellPrepareCustomEvents(null,-1,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,instance);
         }
         int count_ = rows.size();
-        for (int i = 0; i < count_; i++) {
+        for (int i = NumberUtil.max(0,callRefs.getEventIndex()-1); i < count_; i++) {
             RowGraphicList<Struct> current_ = rows.get(i);
             callRefs.rowSet(current_,i);
             if (callRefs.call(_context,_stack,instance.getCellRender(),i)) {
                 return false;
             }
-            AfterChangingGraphicListInfoPageEl.applyImage(i, current_, ArgumentListCall.toStr(getReturnedArgument()), callRefs, instance);
+            AfterChangingGraphicListInfoPageEl.applyImage(current_, ArgumentListCall.toStr(getReturnedArgument()), instance);
         }
         instance.getGrList().revalidate();
         setReturnedArgument(Argument.createVoid());
