@@ -87,12 +87,13 @@ public final class GuiExecutingBlocks {
     public void forwardAndClear(GuiAliases _guiAliases, LgNamesContent _content, GuiContextEl _ctx, Classes _classes) {
 //        initEventParts(_guiInit,_ctx);
         initEventClose(_ctx);
-        String aliasActListener_ = _guiAliases.getAliasActionListener();
-        actionListener = _classes.getClassBody(aliasActListener_);
-        String actionEvent_ = _guiAliases.getAliasActionEvent();
-        MethodId fct_ = new MethodId(MethodAccessKind.INSTANCE,
-                _guiAliases.getAliasActionPerformed(),new StringList(actionEvent_));
-        actionPerformed = ExecClassesUtil.getMethodBodiesById(actionListener,fct_).first();
+        allInts(_guiAliases, _content, _classes);
+        paintMethod(_guiAliases, _classes);
+    }
+
+    public void allInts(GuiAliases _guiAliases, LgNamesContent _content, Classes _classes) {
+        action(_guiAliases, _classes);
+        MethodId fct_;
         String aliasMouseListener_ = _guiAliases.getAliasMouseListener();
         mouseListener = _classes.getClassBody(aliasMouseListener_);
         String mouseEvent_ = _guiAliases.getAliasMouseEvent();
@@ -185,7 +186,15 @@ public final class GuiExecutingBlocks {
                 _guiAliases.getAliasFocusLost(),new StringList());
         focusLost = ExecClassesUtil.getMethodBodiesById(focusListener,fct_).first();
         cellRender(_guiAliases, _content, _classes);
-        paintMethod(_guiAliases, _classes);
+    }
+
+    public void action(GuiAliases _guiAliases, Classes _classes) {
+        String aliasActListener_ = _guiAliases.getAliasActionListener();
+        actionListener = _classes.getClassBody(aliasActListener_);
+        String actionEvent_ = _guiAliases.getAliasActionEvent();
+        MethodId fct_ = new MethodId(MethodAccessKind.INSTANCE,
+                _guiAliases.getAliasActionPerformed(),new StringList(actionEvent_));
+        actionPerformed = ExecClassesUtil.getMethodBodiesById(actionListener,fct_).first();
     }
 
     public void listSelection(GuiAliases _guiAliases, LgNamesContent _content, Classes _classes) {

@@ -2,6 +2,7 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultAliasGroups;
 import code.expressionlanguage.analyze.errors.*;
 import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.common.CstFieldInfo;
@@ -10,17 +11,19 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.guicompos.stds.*;
 import code.expressionlanguage.options.*;
-import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardMethod;
-import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
+import code.expressionlanguage.utilcompo.stds.FctInterrupt;
+import code.expressionlanguage.utilcompo.stds.FctThreadCurrent;
+import code.expressionlanguage.utilcompo.stds.FctThreadEnd;
+import code.expressionlanguage.utilcompo.stds.FctThreadPrint0;
 import code.expressionlanguage.utilimpl.*;
 import code.gui.*;
 import code.gui.initialize.AbstractLightProgramInfos;
@@ -33,14 +36,9 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void run1() {
         MockProgramInfos pr_ = prs();
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){}}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
@@ -53,14 +51,9 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void run2() {
         MockProgramInfos pr_ = prs();
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
@@ -70,14 +63,9 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void run3() {
         MockProgramInfos pr_ = prs();
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){throw null;}}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ =ctxRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
@@ -87,40 +75,30 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void run4() {
         MockProgramInfos pr_ = prs();
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
         Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
-        Struct ev_ = stds_.newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
+        Struct ev_ = ctx_.getStandards().newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,((LgNamesGui)ctx_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
         ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
     }
     @Test
     public void run5() {
         MockProgramInfos pr_ = prs();
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){throw null;} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
         Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
-        Struct ev_ = stds_.newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
+        Struct ev_ = ctx_.getStandards().newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,((LgNamesGui)ctx_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
         ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
         ev_.randCode();
@@ -130,34 +108,24 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void run6() {
         MockProgramInfos pr_ = prs();
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){throw null;} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
         Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
-        LgNamesGui.newGuiFunctionnal(ctx_, new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_, stds_.getExecContent().getExecutingBlocks().getRunMethod());
+        LgNamesGui.newGuiFunctionnal(ctx_, new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_, ((LgNamesGui)ctx_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod());
 //        EventStruct.callMethod( (RunnableContextEl) ctx_,NullStruct.NULL_VALUE,new CustList<Argument>());
         assertFalse(st_.isFailInit());
     }
     @Test
     public void run7() {
         MockProgramInfos pr_ = prs();
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public enum pkg.Sample:Runnable{ONE;public int i=2;(){i=i;name();ordinal();ObjectsUtil.getParent(this);ObjectsUtil.setParent(this,this);}public void run(){}}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "ONE", 0);
@@ -170,14 +138,9 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void run8() {
         MockProgramInfos pr_ = prs();
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){Thread.interrupt();}}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxThreadRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
@@ -187,14 +150,9 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void run9() {
         MockProgramInfos pr_ = prs();
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){Thread.currentThread().end();}}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxThreadRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
@@ -204,35 +162,25 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void run10() {
         MockProgramInfos pr_ = prs();
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){} public static Fct fct(){Thread.print(\"\");return new Sample().$lambda(Runnable,run);}}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxThreadRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
         Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
-        LgNamesGui.newGuiFunctionnal(ctx_, new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_, stds_.getExecContent().getExecutingBlocks().getRunMethod());
+        LgNamesGui.newGuiFunctionnal(ctx_, new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_, ((LgNamesGui)ctx_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod());
 //        EventStruct.callMethod( (RunnableContextEl) ctx_,NullStruct.NULL_VALUE,new CustList<Argument>());
         assertFalse(st_.isFailInit());
-        stds_.getExecContent().getExecutingBlocks().getExecuteMethodPair();
+        ((LgNamesGui)ctx_.getStandards()).getExecContent().getExecutingBlocks().getExecuteMethodPair();
     }
     @Test
     public void run11() {
         MockProgramInfos pr_ = prs();
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Outer{public class Sample:Runnable{public int i=2;(){i=i;ObjectsUtil.getParent(this);}public void run(){ObjectsUtil.setParent(this,Outer.this);}}}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxRunnableUt(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex1_ = ctx_.getClasses().getClassBody("pkg.Outer");
         ExecRootBlock ex2_ = ctx_.getClasses().getClassBody("pkg.Outer..Sample");
@@ -244,14 +192,9 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void evt1() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
@@ -261,14 +204,9 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void evt2() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxAction(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
@@ -281,14 +219,10 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void evt3() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public enum pkg.Sample:Runnable{ONE;public int i=2;(){i=i;name();ordinal();ObjectsUtil.getParent(this);ObjectsUtil.setParent(this,this);} public void run(){}}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        files_.addEntry("src/0","public interface pkg.Runnable{public void run();}");
+        ContextEl ctx_ = ctxAction(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
@@ -298,14 +232,9 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void evt4() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxAllInts(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
@@ -334,19 +263,14 @@ public final class EventStructTest extends EquallableElUtUtil {
         ((EventStruct)ev_).windowIconified();
         ((EventStruct)ev_).windowOpened();
         assertFalse(st_.isFailInit());
-        stds_.getGuiExecutingBlocks().getEventClose().windowClosing();
+        ((LgNamesGui)ctx_.getStandards()).getGuiExecutingBlocks().getEventClose().windowClosing();
     }
     @Test
     public void evt5() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Outer{public class Sample:Runnable{public int i=2;(){i=i;ObjectsUtil.getParent(this);}public void run(){ObjectsUtil.setParent(this,Outer.this);}}}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxRunnable(pr_,files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex1_ = ctx_.getClasses().getClassBody("pkg.Outer");
         ExecRootBlock ex2_ = ctx_.getClasses().getClassBody("pkg.Outer..Sample");
@@ -381,20 +305,15 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void evt7() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
         Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
-        Struct ev_ = stds_.newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
+        Struct ev_ = ctx_.getStandards().newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,((LgNamesGui)ctx_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
         ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
     }
@@ -509,53 +428,38 @@ public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void actWrap2() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
-        Struct ae_ = call(new FctActionWrap("", stds_.getGuiExecutingBlocks().getCompoFactory()), null, ctx_, null, one(ev_), st_);
+        Struct ae_ = call(new FctActionWrap("", ((LgNamesGui)ctx_.getStandards()).getGuiExecutingBlocks().getCompoFactory()), null, ctx_, null, one(ev_), st_);
         assertSame(ev_,call(new FctActionArg(),null,ctx_,ae_,null,st_));
     }
     @Test
     public void enabled1() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
-        Struct ae_ = call(new FctActionWrap("", stds_.getGuiExecutingBlocks().getCompoFactory()), null, ctx_, null, one(ev_), st_);
+        Struct ae_ = call(new FctActionWrap("", ((LgNamesGui)ctx_.getStandards()).getGuiExecutingBlocks().getCompoFactory()), null, ctx_, null, one(ev_), st_);
         call(new FctActionEnabled1(),null,ctx_,ae_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctActionEnabled0(),null,ctx_,ae_,null,st_));
     }
     @Test
     public void enabled2() {
         MockProgramInfos pr_ = prs();
-        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
-        Struct ae_ = call(new FctActionWrap("", stds_.getGuiExecutingBlocks().getCompoFactory()), null, ctx_, null, one(ev_), st_);
+        Struct ae_ = call(new FctActionWrap("", ((LgNamesGui)ctx_.getStandards()).getGuiExecutingBlocks().getCompoFactory()), null, ctx_, null, one(ev_), st_);
         call(new FctActionEnabled1(),null,ctx_,ae_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctActionEnabled0(),null,ctx_,ae_,null,st_));
     }
@@ -589,7 +493,79 @@ public final class EventStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         return buildMock(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
     }
+    private ContextEl ctxRunnable(MockProgramInfos _p, StringMap<String> _files) {
+        update(_p);
+        LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+        return buildMockRunnable(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
+    }
 
+    private ContextEl ctxRunnableUt(MockProgramInfos _p, StringMap<String> _files) {
+        update(_p);
+        LgNamesUtils stds_ = newLgNamesGuiSampleUt(_p, null);
+//        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+//        new CustFileBuilder(stds_.getContent(), stds_.getExecContent().getCustAliases(), new CustAliasGroups(stds_.getExecContent().getCustAliases(),stds_.getContent())).getDefaultAliasGroups().allMergeTableTypeMethodNames(new StringMap<String>());
+        return buildMockRunnable(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
+    }
+    private ContextEl ctxAction(MockProgramInfos _p, StringMap<String> _files) {
+        update(_p);
+        LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+        return buildMockAction(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
+    }
+
+    private ContextEl ctxAllInts(MockProgramInfos _p, StringMap<String> _files) {
+        update(_p);
+        LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+        return buildMockAllInts(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
+    }
+    private ContextEl ctxThreadRunnable(MockProgramInfos _p, StringMap<String> _files) {
+        update(_p);
+        LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+        return buildMockThreadRunnable(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
+    }
     public static ResultContext buildMock(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
         preBuild(_definedLgNames, _exec, _mess, _definedKw);
         StringMap<String> s_ = new StringMap<String>();
@@ -605,8 +581,107 @@ public final class EventStructTest extends EquallableElUtUtil {
         return res_;
     }
 
+    public static ResultContext buildMockRunnable(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files) {
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        StringMap<String> s_ = new StringMap<String>();
+        s_.addEntry("0",_definedLgNames.getExecContent().getCustAliases().runnableType(_definedKw, _definedLgNames.getContent()));
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
+        Forwards forwards_ = nextBuild(_options, _definedKw, _definedLgNames, _files, s_, page_);
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _definedLgNames.buildBase();
+
+        ValidatorStandard.setupOverrides(page_);
+        ResultContext res_ = commonMock(_exec, _definedLgNames, _files, page_, forwards_);
+        _definedLgNames.getExecContent().getExecutingBlocks().runnable(_definedLgNames.getExecContent().getCustAliases(), res_.getContext().getClasses());
+        Classes.tryInit(res_);
+        return res_;
+    }
+
+    public static ResultContext buildMockAction(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        StringMap<String> s_ = new StringMap<String>();
+        s_.addEntry("0",_definedLgNames.getGuiAliases().actionListener(_definedKw, _definedLgNames.getContent()));
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
+        Forwards forwards_ = nextBuild(_options, _definedKw, _definedLgNames, _files, s_, page_);
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _definedLgNames.buildBase();
+        _definedLgNames.getGuiAliases().actionEvent(_definedLgNames.getContent(), _definedLgNames.getExecContent().getCustAliases(), _definedLgNames.getGuiExecutingBlocks());
+
+        ValidatorStandard.setupOverrides(page_);
+        ResultContext res_ = commonMock(_exec, _definedLgNames, _files, page_, forwards_);
+        _definedLgNames.getGuiExecutingBlocks().action(_definedLgNames.getGuiAliases(), res_.getContext().getClasses());
+        Classes.tryInit(res_);
+        return res_;
+    }
+
+    public static ResultContext buildMockAllInts(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        StringMap<String> s_ = new StringMap<String>();
+        _definedLgNames.getGuiAliases().feedInts(_definedKw, _definedLgNames.getContent(),s_);
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
+        Forwards forwards_ = nextBuild(_options, _definedKw, _definedLgNames, _files, s_, page_);
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _definedLgNames.buildBase();
+        _definedLgNames.getGuiAliases().buildEvents(_definedLgNames.getContent(), _definedLgNames.getExecContent().getCustAliases(), _definedLgNames.getGuiExecutingBlocks());
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass stdcl_ = new StandardClass(_definedLgNames.getGuiAliases().getAliasTreeNode(),fields_, constructors_, methods_, _definedLgNames.getContent().getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
+        StandardType.addType(_definedLgNames.getStandards(), _definedLgNames.getGuiAliases().getAliasTreeNode(), stdcl_);
+        StandardClass stdcl2_ = new StandardClass(_definedLgNames.getGuiAliases().getAliasGrList(),fields_, constructors_, methods_, _definedLgNames.getContent().getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl2_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
+        StandardType.addType(_definedLgNames.getStandards(), _definedLgNames.getGuiAliases().getAliasGrList(), stdcl2_);
+        _definedLgNames.getGuiAliases().color(_definedLgNames.getContent());
+        _definedLgNames.getGuiAliases().image(_definedLgNames.getContent(), _definedLgNames.getGuiExecutingBlocks());
+        _definedLgNames.getGuiAliases().font(_definedLgNames.getContent(), _definedLgNames.getGuiExecutingBlocks());
+
+        ValidatorStandard.setupOverrides(page_);
+        ResultContext res_ = commonMock(_exec, _definedLgNames, _files, page_, forwards_);
+        _definedLgNames.getGuiExecutingBlocks().initEventClose((GuiContextEl) res_.getContext());
+        _definedLgNames.getGuiExecutingBlocks().allInts(_definedLgNames.getGuiAliases(), _definedLgNames.getContent(), res_.getContext().getClasses());
+        Classes.tryInit(res_);
+        return res_;
+    }
+    public static ResultContext buildMockThreadRunnable(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        StringMap<String> s_ = new StringMap<String>();
+        s_.addEntry("0",_definedLgNames.getExecContent().getCustAliases().runnableType(_definedKw, _definedLgNames.getContent()));
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
+        Forwards forwards_ = nextBuild(_options, _definedKw, _definedLgNames, _files, s_, page_);
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _definedLgNames.buildBase();
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass stdcl_ = new StandardClass(_definedLgNames.getExecContent().getCustAliases().getAliasThread(), fields_, constructors_, methods_, _definedLgNames.getContent().getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
+        StandardMethod method_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasInterrupt(), new StringList(), _definedLgNames.getContent().getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new FctInterrupt());
+        StandardNamedFunction.addFct(methods_, method_);
+        method_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasEnd(), new StringList(), _definedLgNames.getContent().getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new FctThreadEnd());
+        StandardNamedFunction.addFct(methods_, method_);
+        method_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasCurrentThread(), new StringList(), _definedLgNames.getExecContent().getCustAliases().getAliasThread(), false, MethodModifier.STATIC,new FctThreadCurrent(_definedLgNames.getExecContent().getCustAliases()));
+        StandardNamedFunction.addFct(methods_, method_);
+        StringList params_ = new StringList(_definedLgNames.getContent().getCharSeq().getAliasString());
+        method_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasPrint(), params_, _definedLgNames.getContent().getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(""),new FctThreadPrint0(_definedLgNames.getExecContent().getCustAliases()));
+        StandardNamedFunction.addFct(methods_, method_);
+        StandardType.addType(_definedLgNames.getStandards(), _definedLgNames.getExecContent().getCustAliases().getAliasThread(), stdcl_);
+
+        ValidatorStandard.setupOverrides(page_);
+        ResultContext res_ = commonMock(_exec, _definedLgNames, _files, page_, forwards_);
+        _definedLgNames.getExecContent().getExecutingBlocks().runnable(_definedLgNames.getExecContent().getCustAliases(), res_.getContext().getClasses());
+        Classes.tryInit(res_);
+        return res_;
+    }
     public static LgNamesGui newLgNamesGuiSampleGr(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
+        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),"en");
+        return stds_;
+    }
+
+    public static LgNamesUtils newLgNamesGuiSampleUt(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
+        LgNamesUtils stds_ = newLgNamesUt(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
         stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
         stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),"en");
         return stds_;

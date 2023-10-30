@@ -1,13 +1,17 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.*;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.stds.*;
 import code.gui.*;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.montecarlo.*;
 import code.mock.*;
 import code.threads.*;
@@ -493,28 +497,20 @@ public final class ThreadStructTest extends EquallableElUtUtil {
     public void print4() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         update(pr_);
-        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
-        Options opt_ = new Options();
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_,new StringMap<String>()).getContext();
+        ContextEl ctx_ = ctxRunnable(pr_);
         StackCall st_ = stack(ctx_);
         EventStruct.setupThread((RunnableContextEl) ctx_);
-        call(new FctThreadPrint1(stds_.getExecContent().getCustAliases(),stds_.getExecContent().getExecutingBlocks(),""),null,ctx_,null,one(new StringStruct("")),st_);
+        call(new FctThreadPrint1(((LgNamesGui)ctx_.getStandards()).getExecContent().getCustAliases(),((LgNamesGui)ctx_.getStandards()).getExecContent().getExecutingBlocks(),""),null,ctx_,null,one(new StringStruct("")),st_);
         assertFalse(st_.isFailInit());
     }
     @Test
     public void print5() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         update(pr_);
-        Options opt_ = new Options();
-        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_,new StringMap<String>()).getContext();
+        ContextEl ctx_ = ctxRunnable(pr_);
         StackCall st_ = stack(ctx_);
         EventStruct.setupThread((RunnableContextEl) ctx_);
-        call(new FctThreadPrint2(stds_.getExecContent().getCustAliases(),stds_.getExecContent().getExecutingBlocks(),""),null,ctx_,null,two(new StringStruct(""),new StringStruct("")),st_);
+        call(new FctThreadPrint2(((LgNamesGui)ctx_.getStandards()).getExecContent().getCustAliases(),((LgNamesGui)ctx_.getStandards()).getExecContent().getExecutingBlocks(),""),null,ctx_,null,two(new StringStruct(""),new StringStruct("")),st_);
         assertFalse(st_.isFailInit());
     }
     @Test
@@ -560,5 +556,41 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         EventStruct.setupThread((RunnableContextEl) ctx_);
         call(new FctThreadMillis(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
+    }
+    private ContextEl ctxRunnable(MockProgramInfos _p) {
+        update(_p);
+        LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+        return buildMockFormat(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,new StringMap<String>()).getContext();
+    }
+    public static ResultContext buildMockFormat(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        StringMap<String> s_ = new StringMap<String>();
+        s_.addEntry("0",_definedLgNames.getExecContent().getCustAliases().formatter(_definedKw, _definedLgNames.getContent()));
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
+        Forwards forwards_ = nextBuild(_options, _definedKw, _definedLgNames, _files, s_, page_);
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _definedLgNames.buildBase();
+
+        ValidatorStandard.setupOverrides(page_);
+        ResultContext res_ = commonMock(_exec, _definedLgNames, _files, page_, forwards_);
+        _definedLgNames.getExecContent().getExecutingBlocks().formatter(_definedLgNames.getContent(), _definedLgNames.getExecContent().getCustAliases(), res_.getContext().getClasses());
+        Classes.tryInit(res_);
+        return res_;
+    }
+
+    public static LgNamesGui newLgNamesGuiSampleGr(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
+        LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
+        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),"en");
+        return stds_;
     }
 }

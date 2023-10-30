@@ -5,19 +5,27 @@ import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.*;
 import code.expressionlanguage.analyze.files.*;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.*;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.guicompos.stds.*;
 import code.expressionlanguage.options.*;
+import code.expressionlanguage.stds.StandardClass;
+import code.expressionlanguage.stds.StandardConstructor;
+import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.utilcompo.AbstractIssuer;
 import code.expressionlanguage.utilcompo.AdvSymbolFactory;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilimpl.*;
 import code.gui.*;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.montecarlo.*;
 import code.mock.*;
 import code.util.*;
@@ -301,17 +309,12 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     public void paint() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         update(pr_);
-        LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ContextEl ctx_ = ctxPaint(pr_, files_);
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
-        call(new FctCompoRepaint(stds_.getGuiExecutingBlocks(), ""),null,ctx_,i_,null,st_);
+        Struct i_ = call(new FctImageLabel1(((LgNamesGui)ctx_.getStandards()).getExecContent().getCustAliases(), ((LgNamesGui)ctx_.getStandards()).getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(((LgNamesGui)ctx_.getStandards()).getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        call(new FctCompoRepaint(((LgNamesGui)ctx_.getStandards()).getGuiExecutingBlocks(), ""),null,ctx_,i_,null,st_);
         assertFalse(st_.isFailInit());
     }
 
@@ -321,6 +324,50 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
         assertTrue(a_.isEmptyStdError());
     }
 
+    private ContextEl ctxPaint(MockProgramInfos _p, StringMap<String> _files) {
+        update(_p);
+        LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+        return buildMockPaint(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
+    }
+    public static ResultContext buildMockPaint(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        StringMap<String> s_ = new StringMap<String>();
+        String header_ = _definedKw.getKeyWordPublic() +" "+ _definedKw.getKeyWordAbstract()+" "+ _definedKw.getKeyWordFinal()+" "+ _definedKw.getKeyWordClass()+" "+ _definedLgNames.getGuiAliases().getAliasPaint() +" {\n";
+        s_.addEntry("0", header_+_definedLgNames.getGuiAliases().paintMethod(_definedKw, _definedLgNames.getContent())+"}");
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
+        Forwards forwards_ = nextBuild(_options, _definedKw, _definedLgNames, _files, s_, page_);
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _definedLgNames.buildBase();
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass stdcl_ = new StandardClass(_definedLgNames.getGuiAliases().getAliasComponent(),fields_, constructors_, methods_, _definedLgNames.getContent().getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
+        StandardType.addType(_definedLgNames.getStandards(), _definedLgNames.getGuiAliases().getAliasComponent(), stdcl_);
+
+        ValidatorStandard.setupOverrides(page_);
+        ResultContext res_ = commonMock(_exec, _definedLgNames, _files, page_, forwards_);
+        _definedLgNames.getGuiExecutingBlocks().initEventClose((GuiContextEl) res_.getContext());
+        _definedLgNames.getGuiExecutingBlocks().paintMethod(_definedLgNames.getGuiAliases(), res_.getContext().getClasses());
+        Classes.tryInit(res_);
+        return res_;
+    }
+
+    public static LgNamesGui newLgNamesGuiSampleGr(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
+        LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
+        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),"en");
+        return stds_;
+    }
     public AnalyzedPageEl buildTmp() {
         MockProgramInfos pr_ = prs();
         LgNamesGui stds_ = newLgNamesGuiSampleFull(pr_, null);

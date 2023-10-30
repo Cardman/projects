@@ -915,22 +915,27 @@ public final class GuiAliases {
         if (light) {
             return stds_;
         }
-        stds_.addEntry(aliasActionListener, actionListener(_keyWords, _content));
-        stds_.addEntry(aliasChangeListener, changeListener(_keyWords, _content));
-        stds_.addEntry(aliasTreeListener, treeListener(_keyWords, _content));
-        stds_.addEntry(aliasTableListener, tableListener(_keyWords, _content));
-        stds_.addEntry(aliasMouseListener, mouseListener(_keyWords, _content));
-        stds_.addEntry(aliasWheelListener, wheelListener(_keyWords, _content));
-        stds_.addEntry(aliasKeyListener, keyListener(_keyWords, _content));
-        stds_.addEntry(aliasWindowListener, windowListener(_keyWords, _content));
-        stds_.addEntry(aliasListSelection, listSelection(_keyWords, _content));
-        stds_.addEntry(aliasFocusListener, focusListener(_keyWords, _content));
-        stds_.addEntry(aliasCellRender, renderInterface(_keyWords, _content));
+        feedInts(_keyWords, _content, stds_);
         stds_.addEntry(aliasDefCellRender, renderDefault(_keyWords, _content));
         String header_ = _keyWords.getKeyWordPublic() +" "+ _keyWords.getKeyWordAbstract()+" "+ _keyWords.getKeyWordFinal()+" "+ _keyWords.getKeyWordClass()+" "+aliasPaint+" {"+LR;
         stds_.addEntry(aliasPaint, header_+paintMethod(_keyWords, _content)+"}");
         return stds_;
     }
+
+    public void feedInts(KeyWords _keyWords, LgNamesContent _content, StringMap<String> _stds) {
+        _stds.addEntry(aliasActionListener, actionListener(_keyWords, _content));
+        _stds.addEntry(aliasChangeListener, changeListener(_keyWords, _content));
+        _stds.addEntry(aliasTreeListener, treeListener(_keyWords, _content));
+        _stds.addEntry(aliasTableListener, tableListener(_keyWords, _content));
+        _stds.addEntry(aliasMouseListener, mouseListener(_keyWords, _content));
+        _stds.addEntry(aliasWheelListener, wheelListener(_keyWords, _content));
+        _stds.addEntry(aliasKeyListener, keyListener(_keyWords, _content));
+        _stds.addEntry(aliasWindowListener, windowListener(_keyWords, _content));
+        _stds.addEntry(aliasListSelection, listSelection(_keyWords, _content));
+        _stds.addEntry(aliasFocusListener, focusListener(_keyWords, _content));
+        _stds.addEntry(aliasCellRender, renderInterface(_keyWords, _content));
+    }
+
     public String actionListener(KeyWords _kw, LgNamesContent _content) {
         String pub_ = _kw.getKeyWordPublic();
         String th_ = _kw.getKeyWordThis();
@@ -2256,29 +2261,16 @@ public final class GuiAliases {
         StandardNamedFunction.addFct(constructors_, ctor_);
         StandardType.addType(_content.getStandards(), aliasImage, stdcl_);
     }
-    private void buildEvents(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
-        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
-        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
-        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
-        StandardClass stdcl_ = new StandardClass(aliasActionEvent, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
-        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
-        StringList params_ = new StringList();
-        StandardMethod method_ = new StandardMethod(aliasActionEventIsAlt, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctActionEventIsAlt());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasActionEventIsCtrl, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctActionEventIsCtrl());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasActionEventIsShift, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctActionEventIsShift());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasActionEventCommand, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctActionEventCommand());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getCharSeq().getAliasString());
-        StandardConstructor ctor_ = new StandardConstructor(params_, false, new StringList(guiAliasParameters.getAliasActionEvent0ActionEvent0(), guiAliasParameters.getAliasActionEvent0ActionEvent1(), guiAliasParameters.getAliasActionEvent0ActionEvent2(), guiAliasParameters.getAliasActionEvent0ActionEvent3()), new FctActionEvent(_cust, _guiEx, aliasActionEvent));
-        StandardNamedFunction.addFct(constructors_, ctor_);
-        StandardClass std_ = stdcl_;
-        StandardType.addType(_content.getStandards(), aliasActionEvent, std_);
+    public void buildEvents(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
+        actionEvent(_content, _cust, _guiEx);
+        StandardConstructor ctor_;
+        CustList<StandardMethod> methods_;
+        StandardClass std_;
+        StringList params_;
+        CustList<StandardConstructor> constructors_;
+        CustList<CstFieldInfo> fields_;
+        StandardMethod method_;
+        StandardClass stdcl_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
@@ -2417,6 +2409,32 @@ public final class GuiAliases {
         std_ = stdcl_;
         StandardType.addType(_content.getStandards(), aliasKeyEvent, std_);
     }
+
+    public void actionEvent(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass stdcl_ = new StandardClass(aliasActionEvent, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        StringList params_ = new StringList();
+        StandardMethod method_ = new StandardMethod(aliasActionEventIsAlt, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctActionEventIsAlt());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasActionEventIsCtrl, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctActionEventIsCtrl());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasActionEventIsShift, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctActionEventIsShift());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasActionEventCommand, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctActionEventCommand());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean(), _content.getPrimTypes().getAliasPrimBoolean(), _content.getPrimTypes().getAliasPrimBoolean(), _content.getCharSeq().getAliasString());
+        StandardConstructor ctor_ = new StandardConstructor(params_, false, new StringList(guiAliasParameters.getAliasActionEvent0ActionEvent0(), guiAliasParameters.getAliasActionEvent0ActionEvent1(), guiAliasParameters.getAliasActionEvent0ActionEvent2(), guiAliasParameters.getAliasActionEvent0ActionEvent3()), new FctActionEvent(_cust, _guiEx, aliasActionEvent));
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        StandardClass std_ = stdcl_;
+        StandardType.addType(_content.getStandards(), aliasActionEvent, std_);
+    }
+
     private void buildMenus(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();

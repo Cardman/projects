@@ -426,7 +426,16 @@ public abstract class EquallableElUtUtil {
         _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos());
     }
 
-    public static ResultContext commonMock(ExecutingOptions _exec, LgNamesGui _definedLgNames, StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
+    public static void preBuild(LgNamesUtils _definedLgNames, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw) {
+        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(), _exec.getLightProgramInfos().getLanguage(),"en");
+        _definedLgNames.getExecContent().getCustAliases().messages(_mess, _exec.getMessages());
+        _definedLgNames.getExecContent().getCustAliases().keyWord(_definedKw, _exec.getKeyWords());
+        _definedKw.initSupplDigits();
+        _definedLgNames.getExecContent().getCustAliases().otherAlias(_definedLgNames.getContent(), _exec.getAliases());
+        _definedLgNames.getExecContent().setExecutingOptions(_exec);
+    }
+
+    public static ResultContext commonMock(ExecutingOptions _exec, LgNamesUtils _definedLgNames, StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
         ResultContext r_ = new ResultContext(_page, _forwards);
         ResultContext res_ = ResultContext.def(r_, _files,  _exec.getSrcFolder());
         assertTrue(res_.getPageEl().getMessages().isAllEmptyErrors());
@@ -436,7 +445,11 @@ public abstract class EquallableElUtUtil {
         return res_;
     }
 
-    public static Forwards nextBuild(Options _options, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, StringMap<String> _predef, AnalyzedPageEl _page) {
+    public static ResultContext commonMockErr(ExecutingOptions _exec, LgNamesUtils _definedLgNames, StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
+        ResultContext r_ = new ResultContext(_page, _forwards);
+        return ResultContext.def(r_, _files,  _exec.getSrcFolder());
+    }
+    public static Forwards nextBuild(Options _options, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, StringMap<String> _predef, AnalyzedPageEl _page) {
         MockFileBuilder fileBuilder_ = new MockFileBuilder(_definedLgNames.getContent(), new DefaultAliasGroups(_definedLgNames.getContent()), _definedLgNames.getStrAlias(), _predef);
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
         forwards_.getResources().addAllEntries(_files);
@@ -445,7 +458,7 @@ public abstract class EquallableElUtUtil {
         return forwards_;
     }
 
-    public static AnalyzedPageEl beginBuild(LgNamesGui _definedLgNames) {
+    public static AnalyzedPageEl beginBuild(LgNamesUtils _definedLgNames) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames.getExecContent().getCustAliases().getMathAdvAliases()));
         StringMap<String> m_ = _definedLgNames.getExecContent().getCustAliases().extractAliasesKeys();

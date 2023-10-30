@@ -27,14 +27,22 @@ public final class ExecutingBlocks {
                 _aliases.getAliasExecuteTests(),new StringList(infoTest_));
         ExecNamedFunctionBlock executeMethod_ = ExecClassesUtil.getMethodBodiesById(executeType_, fct_).first();
         executeMethodPair = new ExecTypeFunction(executeType_, executeMethod_);
+        formatter(_content, _aliases, _classes);
+        runnable(_aliases, _classes);
+        callable(_aliases, _classes);
+    }
+
+    public void formatter(LgNamesContent _content, CustAliases _aliases, Classes _classes) {
         ExecRootBlock formatType_ = _classes.getClassBody(_aliases.getAliasFormatType());
         ExecNamedFunctionBlock formatObject_ = ExecClassesUtil.getMethodBodiesById(formatType_, new MethodId(MethodAccessKind.STATIC, _aliases.getAliasPrint(), new StringList(_content.getCoreNames().getAliasObject()))).first();
         formatObjectPair = new ExecTypeFunction(formatType_, formatObject_);
         ExecNamedFunctionBlock formatObjectTwo_ = ExecClassesUtil.getMethodBodiesById(formatType_, new MethodId(MethodAccessKind.STATIC, _aliases.getAliasPrint(), new StringList(_content.getCharSeq().getAliasString(), _content.getCoreNames().getAliasObject()), true)).first();
         formatObjectTwoPair = new ExecTypeFunction(formatType_, formatObjectTwo_);
+    }
+
+    public void runnable(CustAliases _aliases, Classes _classes) {
         runnableType = _classes.getClassBody(_aliases.getAliasRunnable());
         runMethod = ExecClassesUtil.getMethodBodiesById(runnableType,new MethodId(MethodAccessKind.INSTANCE, _aliases.getAliasRun(),new StringList())).first();
-        callable(_aliases, _classes);
     }
 
     public void callable(CustAliases _aliases, Classes _classes) {
