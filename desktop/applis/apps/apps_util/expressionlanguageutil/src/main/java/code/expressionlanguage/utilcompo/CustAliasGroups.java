@@ -14,10 +14,6 @@ public class CustAliasGroups extends DefaultAliasGroups {
         custAlias = _custAliases;
     }
 
-    public CustAliases getCustAlias() {
-        return custAlias;
-    }
-
     @Override
     public StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes(StringMap<String> _mapping) {
         StringMap<CustList<KeyValueMemberName>> t_ = super.allTableTypeVarTypes(_mapping);

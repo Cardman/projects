@@ -17,7 +17,9 @@ public class GuiAliasGroups extends CustAliasGroups {
 
     @Override
     public CustList<KeyValueMemberName> allMergeTableTypeMethodNames(StringMap<String> _mapping) {
-        return guiAliases.allMergeTableTypeMethodNames(_mapping,getCustAlias(),getContent());
+        CustList<KeyValueMemberName> val_ = super.allMergeTableTypeMethodNames(_mapping);
+        val_.addAllElts(guiAliases.allMergeTableTypeMethodNames(_mapping));
+        return val_;
     }
 
     @Override

@@ -4403,10 +4403,8 @@ public final class GuiAliases {
         GuiAliasParameters.fr(_fr);
     }
 
-    public CustList<KeyValueMemberName> allMergeTableTypeMethodNames(StringMap<String> _mapping, CustAliases _custAliases, LgNamesContent _content) {
-        CustList<KeyValueMemberName> list_ = new CustList<KeyValueMemberName>();
-        list_.addAllElts(_custAliases.allMergeTableTypeMethodNames(_mapping,_content));
-        list_.addAllElts(new CustList<KeyValueMemberName>(
+    public CustList<KeyValueMemberName> allMergeTableTypeMethodNames(StringMap<String> _mapping) {
+        return new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(ACTION_PERFORMED),getAliasActionPerformed()),
                 new KeyValueMemberName(_mapping.getVal(STATE_CHANGED),getAliasStateChanged()),
                 new KeyValueMemberName(_mapping.getVal(KEY_TYPED),getAliasKeyTyped()),
@@ -4433,8 +4431,7 @@ public final class GuiAliases {
                 new KeyValueMemberName(_mapping.getVal(WINDOW_DEICONIFIED),getAliasWindowDeiconified()),
                 new KeyValueMemberName(_mapping.getVal(WINDOW_ICONIFIED),getAliasWindowIconified()),
                 new KeyValueMemberName(_mapping.getVal(WINDOW_OPENED),getAliasWindowOpened())
-        ));
-        return list_;
+        );
     }
 
     public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames(StringMap<String> _mapping) {

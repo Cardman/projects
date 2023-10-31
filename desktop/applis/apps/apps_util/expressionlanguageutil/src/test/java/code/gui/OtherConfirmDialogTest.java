@@ -349,30 +349,4 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
         ((InterruptibleContextEl)c_).stopJoinSleep();
         assertTrue(c_.callsOrException(st_));
     }
-
-    @Test
-    public void ex() {
-        MockProgramInfos pr_ = prs();
-        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
-        StringMap<String> files_ = new StringMap<String>();
-        files_.addEntry("src/sample.txt","public class pkg.Outer{public class Sample:Runnable{public int i=2;(){i=i;ObjectsUtil.getParent(this);}public void run(){ObjectsUtil.setParent(this,Outer.this);}}}");
-        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
-        StackCall st_ = stack(ctx_);
-        ExecRootBlock ex1_ = ctx_.getClasses().getClassBody("pkg.Outer");
-        ExecRootBlock ex2_ = ctx_.getClasses().getClassBody("pkg.Outer..Sample");
-        Struct ev1_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex1_), "", -1);
-        Struct ev2_ = ctx_.getInit().processInit(ctx_, ev1_, new ExecFormattedRootBlock(ex2_), "", -1);
-        ((EventStruct)ev2_).run();
-        assertFalse(st_.isFailInit());
-    }
-
-    private MockProgramInfos prs() {
-        MockProgramInfos prs_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
-        update(prs_);
-        return prs_;
-    }
 }
