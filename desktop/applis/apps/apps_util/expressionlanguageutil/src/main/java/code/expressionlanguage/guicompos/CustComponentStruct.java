@@ -2,6 +2,7 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.AbsCustComponent;
@@ -172,12 +173,20 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     public boolean isFocused() {
         return getVisibleComponent().isFocused();
     }
-    public void addMouse(Struct _mouseListener) {
+    public void addMouse(Struct _mouseListener, StackCall _stackCall) {
         if (_mouseListener instanceof AbsMouseListener) {
-            getVisibleComponent().addMouseListener((AbsMouseListener) _mouseListener);
+            if (_stackCall.getStopper().getLogger() != null) {
+                getVisibleComponent().addMouseListenerMap((AbsMouseListener) _mouseListener);
+            } else {
+                getVisibleComponent().addMouseListener((AbsMouseListener) _mouseListener);
+            }
         }
         if (_mouseListener instanceof AbsMouseMotionListener) {
-            getVisibleComponent().addMouseMotionListener((AbsMouseMotionListener) _mouseListener);
+            if (_stackCall.getStopper().getLogger() != null) {
+                getVisibleComponent().addMouseMotionListenerMap((AbsMouseMotionListener) _mouseListener);
+            } else {
+                getVisibleComponent().addMouseMotionListener((AbsMouseMotionListener) _mouseListener);
+            }
         }
     }
     public void addWheel(Struct _wheelListener) {
@@ -192,9 +201,13 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
 
     }
 
-    public void addFocusListener(Struct _l) {
+    public void addFocusListener(Struct _l, StackCall _stackCall) {
         if (_l instanceof AbsFocusListener) {
-            getVisibleComponent().addFocusListener((AbsFocusListener)_l);
+            if (_stackCall.getStopper().getLogger() != null) {
+                getVisibleComponent().addFocusListenerMap((AbsFocusListener)_l);
+            } else {
+                getVisibleComponent().addFocusListener((AbsFocusListener)_l);
+            }
         }
     }
     public void registerKeyboardAction(Struct _action, Struct _a, Struct _b) {
@@ -208,12 +221,20 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
             actions.removeKey(first_+","+second_);
         }
     }
-    public void removeMouse(Struct _mouseListener) {
+    public void removeMouse(Struct _mouseListener, StackCall _stackCall) {
         if (_mouseListener instanceof AbsMouseListener) {
-            getVisibleComponent().removeMouseListener((AbsMouseListener) _mouseListener);
+            if (_stackCall.getStopper().getLogger() != null) {
+                getVisibleComponent().removeMouseListenerMap((AbsMouseListener) _mouseListener);
+            } else {
+                getVisibleComponent().removeMouseListener((AbsMouseListener) _mouseListener);
+            }
         }
         if (_mouseListener instanceof AbsMouseMotionListener) {
-            getVisibleComponent().removeMouseMotionListener((AbsMouseMotionListener) _mouseListener);
+            if (_stackCall.getStopper().getLogger() != null) {
+                getVisibleComponent().removeMouseMotionListenerMap((AbsMouseMotionListener) _mouseListener);
+            } else {
+                getVisibleComponent().removeMouseMotionListener((AbsMouseMotionListener) _mouseListener);
+            }
         }
     }
     public void removeWheel(Struct _wheelListener) {
@@ -228,9 +249,13 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
 
     }
 
-    public void removeFocusListener(Struct _l) {
+    public void removeFocusListener(Struct _l, StackCall _stackCall) {
         if (_l instanceof AbsFocusListener) {
-            getVisibleComponent().removeFocusListener((AbsFocusListener)_l);
+            if (_stackCall.getStopper().getLogger() != null) {
+                getVisibleComponent().removeFocusListenerMap((AbsFocusListener)_l);
+            } else {
+                getVisibleComponent().removeFocusListener((AbsFocusListener)_l);
+            }
         }
 
     }

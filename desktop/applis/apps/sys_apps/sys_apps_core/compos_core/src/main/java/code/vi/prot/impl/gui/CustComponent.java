@@ -47,6 +47,12 @@ public abstract class CustComponent implements AbsCustComponent {
     }
 
     @Override
+    public void addFocusListenerMap(AbsFocusListener _mouseListener) {
+        WrFocusListener wr_ = new WrFocusListener(_mouseListener);
+        mapFocus.addEntry(_mouseListener,wr_);
+    }
+
+    @Override
     public void addMouseListener(AbsMouseListenerPresRel _mouseListener) {
         WrMouseListenerPresRel wr_ = new WrMouseListenerPresRel(_mouseListener);
         getNatComponent().addMouseListener(wr_);
@@ -95,9 +101,21 @@ public abstract class CustComponent implements AbsCustComponent {
         mapMouse.addEntry(_mouseListener,wr_);
     }
 
+    @Override
+    public void addMouseListenerMap(AbsMouseListener _mouseListener) {
+        WrMouseListener wr_ = new WrMouseListener(_mouseListener);
+        mapMouse.addEntry(_mouseListener,wr_);
+    }
+
     public void addMouseMotionListener(AbsMouseMotionListener _mouseListener) {
         WrMouseMotionListener wr_ = new WrMouseMotionListener(_mouseListener);
         getNatComponent().addMouseMotionListener(wr_);
+        mapMouseMotion.addEntry(_mouseListener,wr_);
+    }
+
+    @Override
+    public void addMouseMotionListenerMap(AbsMouseMotionListener _mouseListener) {
+        WrMouseMotionListener wr_ = new WrMouseMotionListener(_mouseListener);
         mapMouseMotion.addEntry(_mouseListener,wr_);
     }
 
@@ -132,9 +150,19 @@ public abstract class CustComponent implements AbsCustComponent {
         mapFocus.removeKey(_mouseListener);
     }
 
+    @Override
+    public void removeFocusListenerMap(AbsFocusListener _mouseListener) {
+        mapFocus.removeKey(_mouseListener);
+    }
+
     public void removeMouseListener(AbsMouseListener _mouseListener) {
         WrMouseListener wr_ = mapMouse.getVal(_mouseListener);
         getNatComponent().removeMouseListener(wr_);
+        mapMouse.removeKey(_mouseListener);
+    }
+
+    @Override
+    public void removeMouseListenerMap(AbsMouseListener _mouseListener) {
         mapMouse.removeKey(_mouseListener);
     }
 
@@ -148,6 +176,11 @@ public abstract class CustComponent implements AbsCustComponent {
     public void removeMouseMotionListener(AbsMouseMotionListener _mouseListener) {
         WrMouseMotionListener wr_ = mapMouseMotion.getVal(_mouseListener);
         getNatComponent().removeMouseMotionListener(wr_);
+        mapMouseMotion.removeKey(_mouseListener);
+    }
+
+    @Override
+    public void removeMouseMotionListenerMap(AbsMouseMotionListener _mouseListener) {
         mapMouseMotion.removeKey(_mouseListener);
     }
 

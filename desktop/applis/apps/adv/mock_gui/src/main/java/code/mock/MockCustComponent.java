@@ -59,11 +59,21 @@ public abstract class MockCustComponent implements AbsCustComponent {
 
     @Override
     public void addFocusListener(AbsFocusListener _l) {
+        addFocusListenerMap(_l);
+    }
+
+    @Override
+    public void addFocusListenerMap(AbsFocusListener _l) {
         focusListeners.add(_l);
     }
 
     @Override
     public void addMouseListener(AbsMouseListener _l) {
+        addMouseListenerMap(_l);
+    }
+
+    @Override
+    public void addMouseListenerMap(AbsMouseListener _l) {
         mouseListeners.add(_l);
     }
 
@@ -104,6 +114,11 @@ public abstract class MockCustComponent implements AbsCustComponent {
 
     @Override
     public void addMouseMotionListener(AbsMouseMotionListener _l) {
+        addMouseMotionListenerMap(_l);
+    }
+
+    @Override
+    public void addMouseMotionListenerMap(AbsMouseMotionListener _l) {
         mouseMotionListeners.add(_l);
     }
 
@@ -129,11 +144,21 @@ public abstract class MockCustComponent implements AbsCustComponent {
 
     @Override
     public void removeFocusListener(AbsFocusListener _l) {
+        removeFocusListenerMap(_l);
+    }
+
+    @Override
+    public void removeFocusListenerMap(AbsFocusListener _l) {
         focusListeners.removeObj(_l);
     }
 
     @Override
     public void removeMouseListener(AbsMouseListener _l) {
+        removeMouseListenerMap(_l);
+    }
+
+    @Override
+    public void removeMouseListenerMap(AbsMouseListener _l) {
         mouseListeners.removeObj(_l);
     }
 
@@ -144,6 +169,11 @@ public abstract class MockCustComponent implements AbsCustComponent {
 
     @Override
     public void removeMouseMotionListener(AbsMouseMotionListener _l) {
+        removeMouseMotionListenerMap(_l);
+    }
+
+    @Override
+    public void removeMouseMotionListenerMap(AbsMouseMotionListener _l) {
         mouseMotionListeners.removeObj(_l);
     }
 

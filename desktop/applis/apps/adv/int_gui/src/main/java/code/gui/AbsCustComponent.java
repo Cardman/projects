@@ -10,7 +10,9 @@ public interface AbsCustComponent {
     boolean isAutoscrolls();
     void setAutoscrolls(boolean _autoscrolls);
     void addFocusListener(AbsFocusListener _mouseListener);
+    void addFocusListenerMap(AbsFocusListener _mouseListener);
     void addMouseListener(AbsMouseListener _mouseListener);
+    void addMouseListenerMap(AbsMouseListener _mouseListener);
 
     void addMouseListener(AbsMouseListenerPresRel _mouseListener);
     void addMouseListener(AbsMouseListenerIntRel _mouseListener);
@@ -20,14 +22,18 @@ public interface AbsCustComponent {
     void addMouseListener(AbsMouseListenerWithoutClickPr _mouseListener);
     void addMouseListener(AbsMouseListenerEer _mouseListener);
     void addMouseMotionListener(AbsMouseMotionListener _mouseListener);
+    void addMouseMotionListenerMap(AbsMouseMotionListener _mouseListener);
     void addMouseWheelListener(AbsMouseWheelListener _l);
     void addKeyListener(AbsKeyListener _l);
     void addKeyListener(AbsKeyListenerPress _l);
     void addKeyListener(AbsKeyListenerReleased _l);
     void removeFocusListener(AbsFocusListener _mouseListener);
+    void removeFocusListenerMap(AbsFocusListener _mouseListener);
     void removeMouseListener(AbsMouseListener _mouseListener);
+    void removeMouseListenerMap(AbsMouseListener _mouseListener);
     void removeMouseListener(AbsMouseListenerIntRel _mouseListener);
     void removeMouseMotionListener(AbsMouseMotionListener _mouseListener);
+    void removeMouseMotionListenerMap(AbsMouseMotionListener _mouseListener);
     void removeMouseWheelListener(AbsMouseWheelListener _l);
     void removeKeyListener(AbsKeyListener _l);
     CustList<AbsFocusListener> getFocusListeners();

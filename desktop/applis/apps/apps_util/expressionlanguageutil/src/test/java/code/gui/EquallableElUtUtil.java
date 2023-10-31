@@ -10,6 +10,8 @@ import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.dbg.AbsLogDbg;
+import code.expressionlanguage.exec.dbg.DefLogDbg;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
@@ -17,10 +19,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.guicompos.GuiFileBuilder;
 import code.expressionlanguage.guicompos.LgNamesGui;
-import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
-import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.options.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
@@ -313,6 +312,9 @@ public abstract class EquallableElUtUtil {
     }
     public static StackCall stack(ContextEl _phase) {
         return StackCall.newInstance(InitPhase.NOTHING,_phase);
+    }
+    public static StackCall stackLogger(ContextEl _phase) {
+        return ResultContextLambda.newInstance(new DefStackStopper(new DefLogDbg()),_phase,InitPhase.NOTHING);
     }
     public static StringMap<ContentTime> init() {
         return new StringMap<ContentTime>();
