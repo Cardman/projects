@@ -274,9 +274,9 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         paint_.setVerticalAlignment(2);
         assertEq(2,paint_.getHorizontalAlignment());
         assertEq(2,paint_.getVerticalAlignment());
-        AbsImgButton img_ = ab_.newImgButton(pr_.getImageFactory().newImageArgb(1, 1));
-        img_.addMouseList(new MockAction(0,new MockWithActionSample()));
-        assertEq(1,((MockImgButton)img_).getAbsActionListeners().size());
+        AbsPlainButton img_ = ab_.newImgButton(pr_.getImageFactory().newImageArgb(1, 1));
+        img_.addActionListener(new MockAction(0,new MockWithActionSample()));
+        assertEq(1,((MockPlainButton)img_).getActionListeners().size());
         AbstractImage ig_ = pr_.getImageFactory().newImageArgb(1, 1);
         pr_.getImageFactory().setIcon(new MockPreparedLabel(),ig_);
         ig_.drawLine(0,0,0,0);

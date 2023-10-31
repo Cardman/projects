@@ -47,9 +47,9 @@ public final class MockCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsImgButton newImgButton(AbstractImage _imageIcon) {
+    public AbsPlainButton newImgButton(AbstractImage _imageIcon) {
         _imageIcon.getWidth();
-        return new MockImgButton();
+        return new MockPlainButton();
     }
 
     @Override

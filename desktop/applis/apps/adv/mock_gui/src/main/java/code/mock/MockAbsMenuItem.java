@@ -21,11 +21,21 @@ public abstract class MockAbsMenuItem extends MockEnabledMenu implements AbsMenu
 
     @Override
     public void addActionListener(AbsActionListener _l) {
+        addActionListenerMap(_l);
+    }
+
+    @Override
+    public void addActionListenerMap(AbsActionListener _l) {
         actionListeners.add(_l);
     }
 
     @Override
     public void removeActionListener(AbsActionListener _list) {
+        removeActionListenerMap(_list);
+    }
+
+    @Override
+    public void removeActionListenerMap(AbsActionListener _list) {
         actionListeners.removeObj(_list);
     }
 

@@ -18,6 +18,11 @@ public final class MockPlainButton extends MockInput implements AbsPlainButton {
     }
     @Override
     public void addActionListener(AbsActionListener _l) {
+        addActionListenerMap(_l);
+    }
+
+    @Override
+    public void addActionListenerMap(AbsActionListener _l) {
         actionListeners.add(_l);
     }
 
@@ -27,8 +32,14 @@ public final class MockPlainButton extends MockInput implements AbsPlainButton {
     }
 
     public void removeActionListener(AbsActionListener _mouseListener) {
+        removeActionListenerMap(_mouseListener);
+    }
+
+    @Override
+    public void removeActionListenerMap(AbsActionListener _mouseListener) {
         actionListeners.removeObj(_mouseListener);
     }
+
     public CustList<AbsActionListener> getActionListeners() {
         return actionListeners;
     }

@@ -82,10 +82,21 @@ public abstract class AbsMenuItemImpl extends CustComponent implements AbsMenuIt
         mapAction.removeKey(_list);
     }
 
+    @Override
+    public void removeActionListenerMap(AbsActionListener _list) {
+        mapAction.removeKey(_list);
+    }
+
     public void addActionListener(AbsActionListener _pauseEvent) {
         WrActionListener wr_ = new WrActionListener(_pauseEvent);
         menu.addActionListener(wr_);
         mapAction.addEntry(_pauseEvent,wr_);
+    }
+
+    @Override
+    public void addActionListenerMap(AbsActionListener _list) {
+        WrActionListener wr_ = new WrActionListener(_list);
+        mapAction.addEntry(_list,wr_);
     }
 
     public void addActionListener(AbsAdvActionListener _pauseEvent) {

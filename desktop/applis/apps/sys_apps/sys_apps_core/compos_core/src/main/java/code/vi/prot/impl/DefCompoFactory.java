@@ -56,8 +56,8 @@ public final class DefCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsImgButton newImgButton(AbstractImage _imageIcon) {
-        return new ImgButton(_imageIcon);
+    public AbsPlainButton newImgButton(AbstractImage _imageIcon) {
+        return new PlainButton(_imageIcon);
     }
 
     @Override

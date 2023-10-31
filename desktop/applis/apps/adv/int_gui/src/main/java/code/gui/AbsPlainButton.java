@@ -11,6 +11,8 @@ public interface AbsPlainButton extends AbsButton {
 
     CustList<AbsActionListener> getActionListeners();
     void addActionListener(AbsActionListener _list);
+    void addActionListenerMap(AbsActionListener _list);
     void removeActionListener(AbsActionListener _list);
+    void removeActionListenerMap(AbsActionListener _list);
     void addActionListener(AbsAdvActionListener _list);
 }

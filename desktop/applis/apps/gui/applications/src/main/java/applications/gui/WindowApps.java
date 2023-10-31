@@ -30,14 +30,14 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 
     private static final String APPLICATIONS = "Applications";
 
-    private final AbsImgButton buttonPokemon;
+    private final AbsPlainButton buttonPokemon;
 
-    private final AbsImgButton buttonCards;
+    private final AbsPlainButton buttonCards;
     private final AbsPlainButton buttonApps;
     private final AbsPlainButton buttonTests;
     private final AbsPlainButton buttonRenders;
     private final AbsPlainButton buttonDemo;
-    private final AbsImgButton buttonPlayer;
+    private final AbsPlainButton buttonPlayer;
     private final AbsPlainButton buttonConverter;
     private final AbsPlainButton buttonNet;
 
@@ -56,7 +56,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         AbstractAtomicInteger at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingPokemon.getMainWindowClass(), at_);
         _list.getButtons().addEntry(LaunchingPokemon.getMainWindowClass(), buttonPokemon);
-        buttonPokemon.addMouseList(new PokemonEvent(this,at_));
+        buttonPokemon.addActionListener(new PokemonEvent(this,at_));
         linePokemon_.add(buttonPokemon);
         panel_.add(linePokemon_);
         AbsPanel lineCards_ = getCompoFactory().newLineBox();
@@ -64,7 +64,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingCards.getMainWindowClass(),at_);
         _list.getButtons().addEntry(LaunchingCards.getMainWindowClass(), buttonCards);
-        buttonCards.addMouseList(new CardsEvent(this,at_));
+        buttonCards.addActionListener(new CardsEvent(this,at_));
         lineCards_.add(buttonCards);
         panel_.add(lineCards_);
         AbsPanel lineTests_ = getCompoFactory().newLineBox();
@@ -96,7 +96,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingPlayer.getMainWindowClass(),at_);
         _list.getButtons().addEntry(LaunchingPlayer.getMainWindowClass(), buttonPlayer);
-        buttonPlayer.addMouseList(new PlayerEvent(this,at_));
+        buttonPlayer.addActionListener(new PlayerEvent(this,at_));
         linePlayer_.add(buttonPlayer);
         panel_.add(linePlayer_);
         AbsPanel lineConverter_ = getCompoFactory().newLineBox();
