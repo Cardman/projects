@@ -68,7 +68,6 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _c.getLanguageKey(), getAbsDialog().getAccessFile());
         String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
-        getFileName().addActionListener(new SubmitKeyEvent(this));
         AbsPlainButton action_ = getCompoFactory().newPlainButton(messages.getVal(OPEN));
         action_.addActionListener(new SubmitMouseEvent(this));
         getButtons().add(action_);

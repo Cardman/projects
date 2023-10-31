@@ -42,7 +42,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
         textField.registerKeyboardAction(upAction,GuiConstants.VK_UP,0);
         downAction = _abs.getCompoFactory().wrap(new AutoCompleteDownEvent(this));
         textField.registerKeyboardAction(downAction,GuiConstants.VK_DOWN,0);
-        enterAction = _abs.getCompoFactory().wrap(new AutoCompleteEnterEvent(this));
+        enterAction = _abs.getCompoFactory().wrap(new AutoCompleteEnterEvent(this,_after));
         textField.registerKeyboardAction(enterAction,GuiConstants.VK_ENTER,0);
         escapeAction = _abs.getCompoFactory().wrap(new AutoCompleteEscapeEvent(this));
         textField.registerKeyboardAction(escapeAction,GuiConstants.VK_ESCAPE,0);

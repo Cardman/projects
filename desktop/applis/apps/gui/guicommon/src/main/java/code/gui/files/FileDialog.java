@@ -19,7 +19,7 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public abstract class FileDialog implements ChangeableTitle {
+public abstract class FileDialog implements ChangeableTitle,SingleFileSelection {
     private static final String DIALOG_ACCESS = "gui.filedialog";
 
     private static final String FILES_PARAM = "filesParam";
@@ -157,7 +157,7 @@ public abstract class FileDialog implements ChangeableTitle {
         fileTable.addListSelectionListener(new ClickRowEvent(this));
         AbsPanel openSaveFile_ = programInfos.getCompoFactory().newPageBox();
         fileName = programInfos.getCompoFactory().newTextField(NB_COLS);
-        auto = new AutoCompleteDocument(fileName,new StringList(), programInfos);
+        auto = new AutoCompleteDocument(fileName,new StringList(), programInfos,new SubmitKeyEvent(this, fileName));
         if (addTypingFileName) {
             AbsPanel fieldFile_ = programInfos.getCompoFactory().newLineBox();
             fieldFile_.add(programInfos.getCompoFactory().newPlainLabel(messages.getVal(NAME)));
