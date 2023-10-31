@@ -189,14 +189,22 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
             }
         }
     }
-    public void addWheel(Struct _wheelListener) {
+    public void addWheel(Struct _wheelListener, StackCall _stackCall) {
         if (_wheelListener instanceof AbsMouseWheelListener) {
-            getVisibleComponent().addMouseWheelListener((AbsMouseWheelListener) _wheelListener);
+            if (_stackCall.getStopper().getLogger() != null) {
+                getVisibleComponent().addMouseWheelListenerMap((AbsMouseWheelListener) _wheelListener);
+            } else {
+                getVisibleComponent().addMouseWheelListener((AbsMouseWheelListener) _wheelListener);
+            }
         }
     }
-    public void addKeyListener(Struct _l) {
+    public void addKeyListener(Struct _l, StackCall _stackCall) {
         if (_l instanceof AbsKeyListener) {
-            getVisibleComponent().addKeyListener((AbsKeyListener)_l);
+            if (_stackCall.getStopper().getLogger() != null) {
+                getVisibleComponent().addKeyListenerMap((AbsKeyListener)_l);
+            } else {
+                getVisibleComponent().addKeyListener((AbsKeyListener)_l);
+            }
         }
 
     }
@@ -210,9 +218,17 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
             }
         }
     }
-    public void registerKeyboardAction(Struct _action, Struct _a, Struct _b) {
+    public void registerKeyboardAction(Struct _action, Struct _a, Struct _b, StackCall _stackCall) {
         int first_ = ((NumberStruct) _a).intStruct();
         int second_ = ((NumberStruct) _b).intStruct();
+        if (_stackCall.getStopper().getLogger() != null) {
+            if (_action instanceof EnabledActionStruct) {
+                actions.put(first_+","+second_,(EnabledActionStruct)_action);
+            } else {
+                actions.removeKey(first_+","+second_);
+            }
+            return;
+        }
         if (_action instanceof EnabledActionStruct) {
             getVisibleComponent().registerKeyboardAction(((EnabledActionStruct) _action).getController(),first_,second_);
             actions.put(first_+","+second_,(EnabledActionStruct)_action);
@@ -237,14 +253,22 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
             }
         }
     }
-    public void removeWheel(Struct _wheelListener) {
+    public void removeWheel(Struct _wheelListener, StackCall _stackCall) {
         if (_wheelListener instanceof AbsMouseWheelListener) {
-            getVisibleComponent().removeMouseWheelListener((AbsMouseWheelListener) _wheelListener);
+            if (_stackCall.getStopper().getLogger() != null) {
+                getVisibleComponent().removeMouseWheelListenerMap((AbsMouseWheelListener) _wheelListener);
+            } else {
+                getVisibleComponent().removeMouseWheelListener((AbsMouseWheelListener) _wheelListener);
+            }
         }
     }
-    public void removeKeyListener(Struct _l) {
+    public void removeKeyListener(Struct _l, StackCall _stackCall) {
         if (_l instanceof AbsKeyListener) {
-            getVisibleComponent().removeKeyListener((AbsKeyListener)_l);
+            if (_stackCall.getStopper().getLogger() != null) {
+                getVisibleComponent().removeKeyListenerMap((AbsKeyListener)_l);
+            } else {
+                getVisibleComponent().removeKeyListener((AbsKeyListener)_l);
+            }
         }
 
     }
@@ -259,10 +283,12 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
         }
 
     }
-    public void unregisterKeyboardAction(Struct _a, Struct _b) {
+    public void unregisterKeyboardAction(Struct _a, Struct _b, StackCall _stackCall) {
         int first_ = ((NumberStruct) _a).intStruct();
         int second_ = ((NumberStruct) _b).intStruct();
-        getVisibleComponent().unregisterKeyboardAction(first_,second_);
+        if (_stackCall.getStopper().getLogger() == null) {
+            getVisibleComponent().unregisterKeyboardAction(first_,second_);
+        }
         actions.removeKey(first_+","+second_);
     }
     public ArrayStruct getMouses(ContextEl _ctx) {

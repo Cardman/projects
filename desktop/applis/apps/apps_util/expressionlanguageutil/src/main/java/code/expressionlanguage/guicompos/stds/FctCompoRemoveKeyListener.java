@@ -14,7 +14,7 @@ public final class FctCompoRemoveKeyListener implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustComponentStruct inst_ = (CustComponentStruct)_instance;
-        inst_.removeKeyListener(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        inst_.removeKeyListener(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_stackCall);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

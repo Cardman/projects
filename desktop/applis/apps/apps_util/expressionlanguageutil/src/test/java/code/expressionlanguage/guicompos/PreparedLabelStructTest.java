@@ -462,6 +462,18 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         assertEq(1,((CustComponentStruct)i_).getComponent().getKeyListeners().size());
     }
     @Test
+    public void addKey3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stackLogger(ctx_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        call(new FctCompoAddKeyListener(),null,ctx_,i_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
+        assertEq(1,((CustComponentStruct)i_).getComponent().getKeyListeners().size());
+    }
+    @Test
     public void removeKey1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
@@ -482,6 +494,20 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
+        call(new FctCompoAddKeyListener(),null,ctx_,i_,one(list_),st_);
+        call(new FctCompoRemoveKeyListener(),null,ctx_,i_,one(list_),st_);
+        assertEq(0,((CustComponentStruct)i_).getComponent().getKeyListeners().size());
+    }
+    @Test
+    public void removeKey3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stackLogger(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctCompoAddKeyListener(),null,ctx_,i_,one(list_),st_);
@@ -631,7 +657,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddWheelListener(),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
-        assertEq(0,((CustComponentStruct)i_).getComponent().getKeyListeners().size());
+        assertEq(0,((CustComponentStruct)i_).getComponent().getMouseWheelListeners().size());
     }
     @Test
     public void addWheel2() {
@@ -641,6 +667,18 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        call(new FctCompoAddWheelListener(),null,ctx_,i_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
+        assertEq(1,((CustComponentStruct)i_).getComponent().getMouseWheelListeners().size());
+    }
+    @Test
+    public void addWheel3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stackLogger(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddWheelListener(),null,ctx_,i_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         assertEq(1,((CustComponentStruct)i_).getComponent().getMouseWheelListeners().size());
@@ -666,6 +704,20 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
+        call(new FctCompoAddWheelListener(),null,ctx_,i_,one(list_),st_);
+        call(new FctCompoRemoveWheelListener(),null,ctx_,i_,one(list_),st_);
+        assertEq(0,((CustComponentStruct)i_).getComponent().getMouseWheelListeners().size());
+    }
+    @Test
+    public void removeWheel3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stackLogger(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctCompoAddWheelListener(),null,ctx_,i_,one(list_),st_);
@@ -712,6 +764,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctCompoBind(),null,ctx_,i_,three(call(new FctActionWrap("", pr_.getCompoFactory()),null,ctx_,null,one(list_),st_),new IntStruct(1),new IntStruct(2)),st_);
         assertEq(1,((CustComponentStruct)i_).getComponent().getActionsMap().size());
+        assertEq(1,((CustComponentStruct)i_).getActions().size());
     }
     @Test
     public void bind2() {
@@ -724,10 +777,37 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoBind(),null,ctx_,i_,three(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1),new IntStruct(1),new IntStruct(2)),st_);
         call(new FctCompoBind(),null,ctx_,i_,three(NullStruct.NULL_VALUE,new IntStruct(1),new IntStruct(2)),st_);
-        assertEq(0,((CustComponentStruct)i_).getComponent().getKeyListeners().size());
+        assertEq(0,((CustComponentStruct)i_).getComponent().getActionsMap().size());
+        assertEq(0,((CustComponentStruct)i_).getActions().size());
     }
     @Test
-    public void unbind() {
+    public void bind3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stackLogger(ctx_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
+        call(new FctCompoBind(),null,ctx_,i_,three(call(new FctActionWrap("", pr_.getCompoFactory()),null,ctx_,null,one(list_),st_),new IntStruct(1),new IntStruct(2)),st_);
+        assertEq(1,((CustComponentStruct)i_).getActions().size());
+    }
+    @Test
+    public void bind4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stackLogger(ctx_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        call(new FctCompoBind(),null,ctx_,i_,three(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1),new IntStruct(1),new IntStruct(2)),st_);
+        call(new FctCompoBind(),null,ctx_,i_,three(NullStruct.NULL_VALUE,new IntStruct(1),new IntStruct(2)),st_);
+        assertEq(0,((CustComponentStruct)i_).getActions().size());
+    }
+    @Test
+    public void unbind1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
@@ -737,7 +817,21 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoBind(),null,ctx_,i_,three(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1),new IntStruct(1),new IntStruct(2)),st_);
         call(new FctCompoUnbind(),null,ctx_,i_,two(new IntStruct(1),new IntStruct(2)),st_);
-        assertEq(0,((CustComponentStruct)i_).getComponent().getKeyListeners().size());
+        assertEq(0,((CustComponentStruct)i_).getComponent().getActionsMap().size());
+        assertEq(0,((CustComponentStruct)i_).getActions().size());
+    }
+    @Test
+    public void unbind2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stackLogger(ctx_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        call(new FctCompoBind(),null,ctx_,i_,three(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1),new IntStruct(1),new IntStruct(2)),st_);
+        call(new FctCompoUnbind(),null,ctx_,i_,two(new IntStruct(1),new IntStruct(2)),st_);
+        assertEq(0,((CustComponentStruct)i_).getActions().size());
     }
     @Test
     public void commands() {
