@@ -125,9 +125,21 @@ public abstract class CustComponent implements AbsCustComponent {
         mapMouseWheel.addEntry(_l,wr_);
     }
 
+    @Override
+    public void addMouseWheelListenerMap(AbsMouseWheelListener _l) {
+        WrMouseWheelListener wr_ = new WrMouseWheelListener(_l);
+        mapMouseWheel.addEntry(_l,wr_);
+    }
+
     public void addKeyListener(AbsKeyListener _l) {
         WrKeyListener wr_ = new WrKeyListener(_l);
         getNatComponent().addKeyListener(wr_);
+        mapKey.addEntry(_l,wr_);
+    }
+
+    @Override
+    public void addKeyListenerMap(AbsKeyListener _l) {
+        WrKeyListener wr_ = new WrKeyListener(_l);
         mapKey.addEntry(_l,wr_);
     }
 
@@ -190,9 +202,19 @@ public abstract class CustComponent implements AbsCustComponent {
         mapMouseWheel.removeKey(_l);
     }
 
+    @Override
+    public void removeMouseWheelListenerMap(AbsMouseWheelListener _l) {
+        mapMouseWheel.removeKey(_l);
+    }
+
     public void removeKeyListener(AbsKeyListener _l) {
         WrKeyListener wr_ = mapKey.getVal(_l);
         getNatComponent().removeKeyListener(wr_);
+        mapKey.removeKey(_l);
+    }
+
+    @Override
+    public void removeKeyListenerMap(AbsKeyListener _l) {
         mapKey.removeKey(_l);
     }
 
@@ -205,9 +227,20 @@ public abstract class CustComponent implements AbsCustComponent {
     }
 
     @Override
+    public void registerKeyboardActionMap(AbsEnabledAction _action, int _a, int _b) {
+        WrAbstractAction w_ = (WrAbstractAction)_action;
+        actions.put(_a+","+_b,w_);
+    }
+
+    @Override
     public void unregisterKeyboardAction(int _a, int _b) {
         getNatComponent().getActionMap().remove(_a+","+_b);
         getNatComponent().getInputMap(JComponent.WHEN_FOCUSED).remove(KeyStroke.getKeyStroke(_a,_b));
+        actions.removeKey(_a+","+_b);
+    }
+
+    @Override
+    public void unregisterKeyboardActionMap(int _a, int _b) {
         actions.removeKey(_a+","+_b);
     }
 

@@ -24,7 +24,9 @@ public interface AbsCustComponent {
     void addMouseMotionListener(AbsMouseMotionListener _mouseListener);
     void addMouseMotionListenerMap(AbsMouseMotionListener _mouseListener);
     void addMouseWheelListener(AbsMouseWheelListener _l);
+    void addMouseWheelListenerMap(AbsMouseWheelListener _l);
     void addKeyListener(AbsKeyListener _l);
+    void addKeyListenerMap(AbsKeyListener _l);
     void addKeyListener(AbsKeyListenerPress _l);
     void addKeyListener(AbsKeyListenerReleased _l);
     void removeFocusListener(AbsFocusListener _mouseListener);
@@ -35,7 +37,9 @@ public interface AbsCustComponent {
     void removeMouseMotionListener(AbsMouseMotionListener _mouseListener);
     void removeMouseMotionListenerMap(AbsMouseMotionListener _mouseListener);
     void removeMouseWheelListener(AbsMouseWheelListener _l);
+    void removeMouseWheelListenerMap(AbsMouseWheelListener _l);
     void removeKeyListener(AbsKeyListener _l);
+    void removeKeyListenerMap(AbsKeyListener _l);
     CustList<AbsFocusListener> getFocusListeners();
     CustList<AbsMouseListener> getMouseListeners();
     CustList<AbsMouseListenerIntRel> getMouseListenersRel();
@@ -43,7 +47,9 @@ public interface AbsCustComponent {
     CustList<AbsMouseWheelListener> getMouseWheelListeners();
     CustList<AbsKeyListener> getKeyListeners();
     void registerKeyboardAction(AbsEnabledAction _action, int _a, int _b);
+    void registerKeyboardActionMap(AbsEnabledAction _action, int _a, int _b);
     void unregisterKeyboardAction(int _a, int _b);
+    void unregisterKeyboardActionMap(int _a, int _b);
 
     StringMap<AbsEnabledAction> getActionsMap();
 

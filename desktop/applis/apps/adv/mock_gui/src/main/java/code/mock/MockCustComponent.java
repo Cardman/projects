@@ -124,11 +124,21 @@ public abstract class MockCustComponent implements AbsCustComponent {
 
     @Override
     public void addMouseWheelListener(AbsMouseWheelListener _l) {
+        addMouseWheelListenerMap(_l);
+    }
+
+    @Override
+    public void addMouseWheelListenerMap(AbsMouseWheelListener _l) {
         mouseWheelListeners.add(_l);
     }
 
     @Override
     public void addKeyListener(AbsKeyListener _l) {
+        addKeyListenerMap(_l);
+    }
+
+    @Override
+    public void addKeyListenerMap(AbsKeyListener _l) {
         keyListeners.add(_l);
     }
 
@@ -179,11 +189,21 @@ public abstract class MockCustComponent implements AbsCustComponent {
 
     @Override
     public void removeMouseWheelListener(AbsMouseWheelListener _l) {
+        removeMouseWheelListenerMap(_l);
+    }
+
+    @Override
+    public void removeMouseWheelListenerMap(AbsMouseWheelListener _l) {
         mouseWheelListeners.removeObj(_l);
     }
 
     @Override
     public void removeKeyListener(AbsKeyListener _l) {
+        removeKeyListenerMap(_l);
+    }
+
+    @Override
+    public void removeKeyListenerMap(AbsKeyListener _l) {
         keyListeners.removeObj(_l);
     }
 
@@ -255,11 +275,21 @@ public abstract class MockCustComponent implements AbsCustComponent {
 
     @Override
     public void registerKeyboardAction(AbsEnabledAction _action, int _a, int _b) {
+        registerKeyboardActionMap(_action, _a, _b);
+    }
+
+    @Override
+    public void registerKeyboardActionMap(AbsEnabledAction _action, int _a, int _b) {
         actions.put(_a+","+_b,_action);
     }
 
     @Override
     public void unregisterKeyboardAction(int _a, int _b) {
+        unregisterKeyboardActionMap(_a, _b);
+    }
+
+    @Override
+    public void unregisterKeyboardActionMap(int _a, int _b) {
         actions.removeKey(_a+","+_b);
     }
 
