@@ -1,8 +1,10 @@
 package code.vi.prot.impl.gui;
 
 import code.gui.AbsTextField;
+import code.gui.GuiConstants;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsAdvActionListener;
+import code.vi.prot.impl.gui.events.WrAbstractAction;
 import code.vi.prot.impl.gui.events.WrActionListener;
 import code.vi.prot.impl.gui.events.WrAdvActionListener;
 
@@ -36,14 +38,18 @@ public final class TextField extends TxtComponent implements AbsTextField {
     }
 
     public void addActionListener(AbsActionListener _l) {
-        field.addActionListener(new WrActionListener(_l));
+        registerKeyboardAction(new WrAbstractAction(new WrActionListener(_l)), GuiConstants.VK_ENTER,0);
     }
 
     @Override
     public void addActionListener(AbsAdvActionListener _list) {
-        field.addActionListener(new WrAdvActionListener(_list));
+        registerKeyboardAction(new WrAbstractAction(new WrAdvActionListener(_list)), GuiConstants.VK_ENTER,0);
     }
 
+    @Override
+    public void addActionListenerMap(AbsAdvActionListener _list) {
+        registerKeyboardActionMap(new WrAbstractAction(new WrAdvActionListener(_list)), GuiConstants.VK_ENTER,0);
+    }
 
     @Override
     public JComponent getNatComponent() {

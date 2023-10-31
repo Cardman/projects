@@ -31,6 +31,11 @@ public final class MockTextField extends MockTxtComponent implements AbsTextFiel
 
     @Override
     public void addActionListener(AbsAdvActionListener _l) {
+        addActionListenerMap(_l);
+    }
+
+    @Override
+    public void addActionListenerMap(AbsAdvActionListener _l) {
         absAdvActionListeners.add(_l);
     }
 

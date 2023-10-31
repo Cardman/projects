@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -55,9 +56,13 @@ public final class TextFieldStruct extends InputStruct {
         return textField;
     }
 
-    public void addActionListener(Struct _arg) {
+    public void addActionListener(Struct _arg, StackCall _stackCall) {
         if (_arg instanceof AbsAdvActionListener) {
-            textField.addActionListener((AbsAdvActionListener)_arg);
+            if (_stackCall.getStopper().getLogger() != null) {
+                textField.addActionListenerMap((AbsAdvActionListener)_arg);
+            } else {
+                textField.addActionListener((AbsAdvActionListener)_arg);
+            }
         }
     }
 }
