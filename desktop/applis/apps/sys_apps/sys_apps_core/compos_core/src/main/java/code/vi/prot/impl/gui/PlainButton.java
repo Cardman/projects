@@ -55,8 +55,15 @@ public final class PlainButton extends CustComponent implements AbsPlainButton {
     }
 
     @Override
-    public void removeActionListenerMap(AbsActionListener _list) {
-        mapAction.removeKey(_list);
+    public void removeActionListener(AbsAdvActionListener _list) {
+        WrAdvActionListener wr_ = mapAdvAction.getVal(_list);
+        button.removeActionListener(wr_);
+        mapAdvAction.removeKey(_list);
+    }
+
+    @Override
+    public void removeActionListenerMap(AbsAdvActionListener _list) {
+        mapAdvAction.removeKey(_list);
     }
 
     @Override
@@ -71,9 +78,9 @@ public final class PlainButton extends CustComponent implements AbsPlainButton {
     }
 
     @Override
-    public void addActionListenerMap(AbsActionListener _l) {
-        WrActionListener wr_ = new WrActionListener(_l);
-        mapAction.addEntry(_l,wr_);
+    public void addActionListenerMap(AbsAdvActionListener _l) {
+        WrAdvActionListener wr_ = new WrAdvActionListener(_l);
+        mapAdvAction.addEntry(_l,wr_);
     }
 
     public void addActionListener(AbsAdvActionListener _l) {

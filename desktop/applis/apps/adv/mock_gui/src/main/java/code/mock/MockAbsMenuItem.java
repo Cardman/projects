@@ -8,7 +8,7 @@ import code.util.IdList;
 
 public abstract class MockAbsMenuItem extends MockEnabledMenu implements AbsMenuItem {
     private final IdList<AbsActionListener> actionListeners = new IdList<AbsActionListener>();
-    private final CustList<AbsAdvActionListener> advActionListeners = new CustList<AbsAdvActionListener>();
+    private final IdList<AbsAdvActionListener> advActionListeners = new IdList<AbsAdvActionListener>();
 
     protected MockAbsMenuItem(String _s) {
         super(_s);
@@ -21,22 +21,27 @@ public abstract class MockAbsMenuItem extends MockEnabledMenu implements AbsMenu
 
     @Override
     public void addActionListener(AbsActionListener _l) {
-        addActionListenerMap(_l);
-    }
-
-    @Override
-    public void addActionListenerMap(AbsActionListener _l) {
         actionListeners.add(_l);
     }
 
     @Override
+    public void addActionListenerMap(AbsAdvActionListener _l) {
+        advActionListeners.add(_l);
+    }
+
+    @Override
     public void removeActionListener(AbsActionListener _list) {
+        actionListeners.removeObj(_list);
+    }
+
+    @Override
+    public void removeActionListener(AbsAdvActionListener _list) {
         removeActionListenerMap(_list);
     }
 
     @Override
-    public void removeActionListenerMap(AbsActionListener _list) {
-        actionListeners.removeObj(_list);
+    public void removeActionListenerMap(AbsAdvActionListener _list) {
+        advActionListeners.removeObj(_list);
     }
 
     public CustList<AbsActionListener> getActionListeners() {
@@ -45,7 +50,7 @@ public abstract class MockAbsMenuItem extends MockEnabledMenu implements AbsMenu
 
     @Override
     public void addActionListener(AbsAdvActionListener _l) {
-        advActionListeners.add(_l);
+        addActionListenerMap(_l);
     }
 
     public CustList<AbsAdvActionListener> getAdvActionListeners() {

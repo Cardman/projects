@@ -18,26 +18,31 @@ public final class MockPlainButton extends MockInput implements AbsPlainButton {
     }
     @Override
     public void addActionListener(AbsActionListener _l) {
-        addActionListenerMap(_l);
-    }
-
-    @Override
-    public void addActionListenerMap(AbsActionListener _l) {
         actionListeners.add(_l);
     }
 
     @Override
-    public void addActionListener(AbsAdvActionListener _l) {
+    public void addActionListenerMap(AbsAdvActionListener _l) {
         advActionListeners.add(_l);
     }
 
+    @Override
+    public void addActionListener(AbsAdvActionListener _l) {
+        addActionListenerMap(_l);
+    }
+
     public void removeActionListener(AbsActionListener _mouseListener) {
-        removeActionListenerMap(_mouseListener);
+        actionListeners.removeObj(_mouseListener);
     }
 
     @Override
-    public void removeActionListenerMap(AbsActionListener _mouseListener) {
-        actionListeners.removeObj(_mouseListener);
+    public void removeActionListener(AbsAdvActionListener _list) {
+        removeActionListenerMap(_list);
+    }
+
+    @Override
+    public void removeActionListenerMap(AbsAdvActionListener _mouseListener) {
+        advActionListeners.removeObj(_mouseListener);
     }
 
     public CustList<AbsActionListener> getActionListeners() {

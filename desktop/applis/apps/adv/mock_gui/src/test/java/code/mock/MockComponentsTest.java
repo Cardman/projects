@@ -166,11 +166,14 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         i_.setAccelerator(0,0);
         MockAction l_ = new MockAction(0, new MockWithActionSample());
         i_.addActionListener(l_);
-        i_.addActionListener(new MockAdvAction(0,new MockWithAdvActionSample()));
+        MockAdvAction adv_ = new MockAdvAction(0, new MockWithAdvActionSample());
+        i_.addActionListener(adv_);
         assertEq(1, ((MockMenuItem)i_).getActionListeners().size());
         assertEq(1, ((MockMenuItem)i_).getAdvActionListeners().size());
         i_.removeActionListener(l_);
+        i_.removeActionListener(adv_);
         assertEq(0, ((MockMenuItem)i_).getActionListeners().size());
+        assertEq(0, ((MockMenuItem)i_).getAdvActionListeners().size());
     }
     @Test
     public void c13() {
@@ -228,11 +231,14 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         assertEq("",but_.getText());
         MockAction act_ = new MockAction(0, new MockWithActionSample());
         but_.addActionListener(act_);
-        but_.addActionListener(new MockAdvAction(0,new MockWithAdvActionSample()));
+        MockAdvAction advAc_ = new MockAdvAction(0, new MockWithAdvActionSample());
+        but_.addActionListener(advAc_);
         assertEq(1, ((MockPlainButton)but_).getActionListeners().size());
         assertEq(1, ((MockPlainButton)but_).getAdvActionListeners().size());
         but_.removeActionListener(act_);
+        but_.removeActionListener(advAc_);
         assertEq(0, ((MockPlainButton)but_).getActionListeners().size());
+        assertEq(0, ((MockPlainButton)but_).getAdvActionListeners().size());
         AbsPreparedLabel prep_ = ab_.newPreparedLabel("");
         prep_.setIcon(pr_.getImageFactory(),pr_.getImageFactory().newImageArgb(1,1));
         b_.add(prep_);
