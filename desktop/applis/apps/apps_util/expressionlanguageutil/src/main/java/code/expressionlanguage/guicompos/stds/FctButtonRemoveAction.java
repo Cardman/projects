@@ -10,12 +10,12 @@ import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
-public final class FctButtonAddAction implements StdCaller {
+public final class FctButtonRemoveAction implements StdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         PlainButtonStruct pl_ = (PlainButtonStruct) _instance;
-        pl_.addActionListener(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_stackCall);
+        pl_.removeActionListener(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_stackCall);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

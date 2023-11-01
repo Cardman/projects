@@ -2014,6 +2014,12 @@ public final class GuiAliases {
         params_ = new StringList(aliasActionListener);
         method_ = new StandardMethod(aliasAddListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButton0AddListener0()), new FctButtonAddAction());
         StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasActionListener);
+        method_ = new StandardMethod(aliasRemoveListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButton0RemoveListener0()), new FctButtonRemoveAction());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetListeners, params_, StringExpUtil.getPrettyArrayType(aliasActionListener), false, MethodModifier.FINAL,new StringList(), new FctButtonGetActions());
+        StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false, new FctButton0(_cust,_guiEx,aliasButton));
         StandardNamedFunction.addFct(constructors_, ctor_);

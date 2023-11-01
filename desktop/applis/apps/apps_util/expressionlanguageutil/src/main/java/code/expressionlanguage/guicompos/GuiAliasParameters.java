@@ -246,6 +246,7 @@ public final class GuiAliasParameters {
     private static final String SPLIT_PANE_0_SPLIT_PANE_2="_____1658";
     private static final String INPUT_0_INPUT_SET_ENABLED_0="__1027";
     private static final String BUTTON_0_ADD_LISTENER_0="___1071";
+    private static final String BUTTON_0_REMOVE_LISTENER_0="___1071_";
     private static final String BUTTON_0_BUTTON_0="__1028";
     private static final String PROG_BAR_0_PROG_BAR_MIN_0="_____1659";
     private static final String PROG_BAR_0_TREE_NODE_GET_USER_OBJECT_0="_____1660";
@@ -695,6 +696,7 @@ public final class GuiAliasParameters {
     private String aliasSplitPane0SplitPane2;
     private String aliasInput0InputSetEnabled0;
     private String aliasButton0AddListener0;
+    private String aliasButton0RemoveListener0;
     private String aliasButton0Button0;
     private String aliasProgBar0ProgBarMin0;
     private String aliasProgBar0TreeNodeGetUserObject0;
@@ -1144,6 +1146,7 @@ public final class GuiAliasParameters {
         aliasSplitPane0SplitPane2=LgNamesContent.get(_util,_cust,_mapping.getVal(SPLIT_PANE_0_SPLIT_PANE_2));
         aliasInput0InputSetEnabled0=LgNamesContent.get(_util,_cust,_mapping.getVal(INPUT_0_INPUT_SET_ENABLED_0));
         aliasButton0AddListener0=LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON_0_ADD_LISTENER_0));
+        aliasButton0RemoveListener0=LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON_0_REMOVE_LISTENER_0));
         aliasButton0Button0=LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON_0_BUTTON_0));
         aliasProgBar0ProgBarMin0=LgNamesContent.get(_util,_cust,_mapping.getVal(PROG_BAR_0_PROG_BAR_MIN_0));
         aliasProgBar0TreeNodeGetUserObject0=LgNamesContent.get(_util,_cust,_mapping.getVal(PROG_BAR_0_TREE_NODE_GET_USER_OBJECT_0));
@@ -1593,6 +1596,7 @@ public final class GuiAliasParameters {
         _en.add(SPLIT_PANE_0_SPLIT_PANE_2,"SplitPane0SplitPane2=c");
         _en.add(INPUT_0_INPUT_SET_ENABLED_0,"Input0InputSetEnabled0=a");
         _en.add(BUTTON_0_ADD_LISTENER_0,"Button0AddListener0=a");
+        _en.add(BUTTON_0_REMOVE_LISTENER_0,"Button0RemoveListener0=a");
         _en.add(BUTTON_0_BUTTON_0,"Button0Button0=a");
         _en.add(PROG_BAR_0_PROG_BAR_MIN_0,"ProgBar0ProgBarMin0=a");
         _en.add(PROG_BAR_0_TREE_NODE_GET_USER_OBJECT_0,"ProgBar0TreeNodeGetUserObject0=a");
@@ -2042,6 +2046,7 @@ public final class GuiAliasParameters {
         _fr.add(SPLIT_PANE_0_SPLIT_PANE_2,"SplitPane0SplitPane2=c");
         _fr.add(INPUT_0_INPUT_SET_ENABLED_0,"Input0InputSetEnabled0=a");
         _fr.add(BUTTON_0_ADD_LISTENER_0,"Button0AddListener0=a");
+        _fr.add(BUTTON_0_REMOVE_LISTENER_0,"Button0RemoveListener0=a");
         _fr.add(BUTTON_0_BUTTON_0,"Button0Button0=a");
         _fr.add(PROG_BAR_0_PROG_BAR_MIN_0,"ProgBar0ProgBarMin0=a");
         _fr.add(PROG_BAR_0_TREE_NODE_GET_USER_OBJECT_0,"ProgBar0TreeNodeGetUserObject0=a");
@@ -2389,6 +2394,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SPLIT_PANE_0_SPLIT_PANE_0),aliasSplitPane0SplitPane0),new KeyValueMemberName(_mapping.getVal(SPLIT_PANE_0_SPLIT_PANE_1),aliasSplitPane0SplitPane1),new KeyValueMemberName(_mapping.getVal(SPLIT_PANE_0_SPLIT_PANE_2),aliasSplitPane0SplitPane2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(INPUT_0_INPUT_SET_ENABLED_0),aliasInput0InputSetEnabled0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(BUTTON_0_ADD_LISTENER_0),aliasButton0AddListener0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(BUTTON_0_REMOVE_LISTENER_0),aliasButton0RemoveListener0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(BUTTON_0_BUTTON_0),aliasButton0Button0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(PROG_BAR_0_PROG_BAR_MIN_0),aliasProgBar0ProgBarMin0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(PROG_BAR_0_TREE_NODE_GET_USER_OBJECT_0),aliasProgBar0TreeNodeGetUserObject0)));
@@ -3416,6 +3422,10 @@ public final class GuiAliasParameters {
 
     public String getAliasButton0AddListener0() {
         return aliasButton0AddListener0;
+    }
+
+    public String getAliasButton0RemoveListener0() {
+        return aliasButton0RemoveListener0;
     }
 
     public String getAliasButton0Button0() {
