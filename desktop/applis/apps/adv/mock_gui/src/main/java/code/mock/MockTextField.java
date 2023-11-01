@@ -4,10 +4,11 @@ import code.gui.AbsTextField;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsAdvActionListener;
 import code.util.CustList;
+import code.util.IdList;
 
 public final class MockTextField extends MockTxtComponent implements AbsTextField {
     private final CustList<AbsActionListener> absActionListeners = new CustList<AbsActionListener>();
-    private final CustList<AbsAdvActionListener> absAdvActionListeners = new CustList<AbsAdvActionListener>();
+    private final IdList<AbsAdvActionListener> absAdvActionListeners = new IdList<AbsAdvActionListener>();
     private int cols;
     public MockTextField() {
         this("");
@@ -25,25 +26,30 @@ public final class MockTextField extends MockTxtComponent implements AbsTextFiel
     }
 
     @Override
-    public void addActionListener(AbsActionListener _l) {
-        absActionListeners.add(_l);
-    }
-
-    @Override
     public void addActionListener(AbsAdvActionListener _l) {
         addActionListenerMap(_l);
     }
 
     @Override
     public void addActionListenerMap(AbsAdvActionListener _l) {
-        absAdvActionListeners.add(_l);
+        getAbsAdvActionListeners().add(_l);
+    }
+
+    @Override
+    public void removeActionListener(AbsAdvActionListener _list) {
+        removeActionListenerMap(_list);
+    }
+
+    @Override
+    public void removeActionListenerMap(AbsAdvActionListener _list) {
+        getAbsAdvActionListeners().removeObj(_list);
     }
 
     public CustList<AbsActionListener> getAbsActionListeners() {
         return absActionListeners;
     }
 
-    public CustList<AbsAdvActionListener> getAbsAdvActionListeners() {
+    public IdList<AbsAdvActionListener> getAbsAdvActionListeners() {
         return absAdvActionListeners;
     }
 

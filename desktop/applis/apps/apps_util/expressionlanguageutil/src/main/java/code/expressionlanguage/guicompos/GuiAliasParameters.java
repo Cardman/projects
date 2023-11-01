@@ -369,6 +369,7 @@ public final class GuiAliasParameters {
     private static final String CHECK_BOX_1_CHECK_BOX_1="_____1712";
     private static final String TEXT_FIELD_0_SET_LABEL_TEXT_0="_____1713";
     private static final String TEXT_FIELD_0_TEXT_FIELD_ADD_ACTION_0="_____1714";
+    private static final String TEXT_FIELD_0_TEXT_FIELD_REMOVE_ACTION_0="_____1714_";
     private static final String TEXT_FIELD_0_TEXT_FIELD_0="_____1715";
     private static final String TEXT_FIELD_1_TEXT_FIELD_0="_____1716";
     private static final String TEXT_FIELD_2_TEXT_FIELD_0="_____1717";
@@ -819,6 +820,7 @@ public final class GuiAliasParameters {
     private String aliasCheckBox1CheckBox1;
     private String aliasTextField0SetLabelText0;
     private String aliasTextField0TextFieldAddAction0;
+    private String aliasTextField0TextFieldRemoveAction0;
     private String aliasTextField0TextField0;
     private String aliasTextField1TextField0;
     private String aliasTextField2TextField0;
@@ -1269,6 +1271,7 @@ public final class GuiAliasParameters {
         aliasCheckBox1CheckBox1=LgNamesContent.get(_util,_cust,_mapping.getVal(CHECK_BOX_1_CHECK_BOX_1));
         aliasTextField0SetLabelText0=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD_0_SET_LABEL_TEXT_0));
         aliasTextField0TextFieldAddAction0=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD_0_TEXT_FIELD_ADD_ACTION_0));
+        aliasTextField0TextFieldRemoveAction0=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD_0_TEXT_FIELD_REMOVE_ACTION_0));
         aliasTextField0TextField0=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD_0_TEXT_FIELD_0));
         aliasTextField1TextField0=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD_1_TEXT_FIELD_0));
         aliasTextField2TextField0=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD_2_TEXT_FIELD_0));
@@ -1719,6 +1722,7 @@ public final class GuiAliasParameters {
         _en.add(CHECK_BOX_1_CHECK_BOX_1,"CheckBox1CheckBox1=b");
         _en.add(TEXT_FIELD_0_SET_LABEL_TEXT_0,"TextField0SetLabelText0=a");
         _en.add(TEXT_FIELD_0_TEXT_FIELD_ADD_ACTION_0,"TextField0TextFieldAddAction0=a");
+        _en.add(TEXT_FIELD_0_TEXT_FIELD_REMOVE_ACTION_0,"TextField0TextFieldRemoveAction0=a");
         _en.add(TEXT_FIELD_0_TEXT_FIELD_0,"TextField0TextField0=a");
         _en.add(TEXT_FIELD_1_TEXT_FIELD_0,"TextField1TextField0=a");
         _en.add(TEXT_FIELD_2_TEXT_FIELD_0,"TextField2TextField0=a");
@@ -2169,6 +2173,7 @@ public final class GuiAliasParameters {
         _fr.add(CHECK_BOX_1_CHECK_BOX_1,"CheckBox1CheckBox1=b");
         _fr.add(TEXT_FIELD_0_SET_LABEL_TEXT_0,"TextField0SetLabelText0=a");
         _fr.add(TEXT_FIELD_0_TEXT_FIELD_ADD_ACTION_0,"TextField0TextFieldAddAction0=a");
+        _fr.add(TEXT_FIELD_0_TEXT_FIELD_REMOVE_ACTION_0,"TextField0TextFieldRemoveAction0=a");
         _fr.add(TEXT_FIELD_0_TEXT_FIELD_0,"TextField0TextField0=a");
         _fr.add(TEXT_FIELD_1_TEXT_FIELD_0,"TextField1TextField0=a");
         _fr.add(TEXT_FIELD_2_TEXT_FIELD_0,"TextField2TextField0=a");
@@ -2469,6 +2474,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CHECK_BOX_1_CHECK_BOX_0),aliasCheckBox1CheckBox0),new KeyValueMemberName(_mapping.getVal(CHECK_BOX_1_CHECK_BOX_1),aliasCheckBox1CheckBox1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_0_SET_LABEL_TEXT_0),aliasTextField0SetLabelText0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_0_TEXT_FIELD_ADD_ACTION_0),aliasTextField0TextFieldAddAction0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_0_TEXT_FIELD_REMOVE_ACTION_0),aliasTextField0TextFieldRemoveAction0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_0_TEXT_FIELD_0),aliasTextField0TextField0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_1_TEXT_FIELD_0),aliasTextField1TextField0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_2_TEXT_FIELD_0),aliasTextField2TextField0),new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_2_TEXT_FIELD_1),aliasTextField2TextField1)));
@@ -3914,6 +3920,10 @@ public final class GuiAliasParameters {
 
     public String getAliasTextField0TextFieldAddAction0() {
         return aliasTextField0TextFieldAddAction0;
+    }
+
+    public String getAliasTextField0TextFieldRemoveAction0() {
+        return aliasTextField0TextFieldRemoveAction0;
     }
 
     public String getAliasTextField0TextField0() {

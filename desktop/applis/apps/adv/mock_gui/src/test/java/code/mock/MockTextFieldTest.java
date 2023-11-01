@@ -49,14 +49,17 @@ public final class MockTextFieldTest extends EquallableMockGuiUtil {
     @Test
     public void f7() {
         MockTextField t_ = new MockTextField("",16);
-        t_.addActionListener(new MockAction(0,null));
-        assertEq(1,t_.getAbsActionListeners().size());
+        t_.addActionListener(new MockAdvAction(0,null));
+        assertEq(1,t_.getAbsAdvActionListeners().size());
     }
     @Test
     public void f8() {
         MockTextField t_ = new MockTextField("",16);
-        t_.addActionListener(new MockAdvAction(0,null));
-        assertEq(1,t_.getAbsAdvActionListeners().size());
+        MockAdvAction adv_ = new MockAdvAction(0, null);
+        t_.addActionListener(adv_);
+        t_.removeActionListener(adv_);
+        assertEq(0,t_.getAbsAdvActionListeners().size());
+        assertEq(0,t_.getAbsActionListeners().size());
     }
     @Test
     public void f9() {

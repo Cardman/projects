@@ -1,18 +1,18 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.gui.AbsCustComponent;
 import code.gui.AbsTextField;
 import code.gui.events.AbsAdvActionListener;
 import code.gui.initialize.AbsCompoFactory;
+import code.util.IdList;
 
 public final class TextFieldStruct extends InputStruct {
-    private AbsTextField textField;
+    private final AbsTextField textField;
+    private final IdList<Struct> actionsField = new IdList<Struct>();
     public TextFieldStruct(String _className, AbsCompoFactory _compo) {
         super(_className);
         textField = _compo.newTextField();
@@ -63,6 +63,26 @@ public final class TextFieldStruct extends InputStruct {
             } else {
                 textField.addActionListener((AbsAdvActionListener)_arg);
             }
+            actionsField.add(_arg);
         }
+    }
+
+    public void removeActionListener(Struct _arg, StackCall _stackCall) {
+        if (_arg instanceof AbsAdvActionListener) {
+            if (_stackCall.getStopper().getLogger() != null) {
+                textField.removeActionListenerMap((AbsAdvActionListener)_arg);
+            } else {
+                textField.removeActionListener((AbsAdvActionListener)_arg);
+            }
+            actionsField.removeObj(_arg);
+        }
+    }
+
+    public ArrayStruct getActions(ContextEl _ctx) {
+        String aliasMouseListener_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasActionListener();
+        return nulls(aliasMouseListener_, actionsField);
+    }
+    public IdList<Struct> getActionsField() {
+        return actionsField;
     }
 }

@@ -258,6 +258,8 @@ public final class GuiAliases {
     private static final String RADIO_IS_SELECTED="_____1349";
     private static final String RADIO_SET_SELECTED="_____1350";
     private static final String TEXT_FIELD_ADD_ACTION="_____1351";
+    private static final String TEXT_FIELD_REMOVE_ACTION="_____1351_";
+    private static final String TEXT_FIELD_GET_ACTIONS="_____1351__";
     private static final String TEXT_FIELD_ADD_POPUP="_____1352";
     private static final String TEXT_FIELD_GET_TEXT="_____1353";
     private static final String TEXT_FIELD_SET_TEXT="_____1354";
@@ -828,6 +830,8 @@ public final class GuiAliases {
     private String aliasTextFieldSetText;
     private String aliasTextFieldAuto;
     private String aliasTextFieldAddAction;
+    private String aliasTextFieldRemoveAction;
+    private String aliasTextFieldGetActions;
     private String aliasTextFieldAddDocument;
     private String aliasTextFieldAddPopup;
     private String aliasTextArea;
@@ -2724,6 +2728,12 @@ public final class GuiAliases {
         params_ = new StringList(aliasActionListener);
         method_ = new StandardMethod(aliasTextFieldAddAction, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextField0TextFieldAddAction0()), new FctTextFieldAddAction());
         StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasActionListener);
+        method_ = new StandardMethod(aliasTextFieldRemoveAction, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextField0TextFieldRemoveAction0()), new FctTextFieldRemoveAction());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTextFieldGetActions, params_, StringExpUtil.getPrettyArrayType(aliasActionListener), false, MethodModifier.FINAL, new FctTextFieldGetActions());
+        StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false, new FctTextField0(_cust,_guiEx,aliasTextField));
         StandardNamedFunction.addFct(constructors_, ctor_);
@@ -3459,6 +3469,8 @@ public final class GuiAliases {
 //        setAliasTextFieldAddDocument(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD_ADD_DOCUMENT)));
         setAliasComboGetSelectedIndexes(LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_GET_SELECTED_INDEXES)));
         setAliasTextFieldAddAction(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD_ADD_ACTION)));
+        setAliasTextFieldRemoveAction(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD_REMOVE_ACTION)));
+        setAliasTextFieldGetActions(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD_GET_ACTIONS)));
         setAliasTextAreaGetText(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_GET_TEXT)));
         setAliasRadioSetText(LgNamesContent.get(_util,_cust,_mapping.getVal(RADIO_SET_TEXT)));
         setAliasComboSelectItem(LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_SELECT_ITEM)));
@@ -3761,6 +3773,8 @@ public final class GuiAliases {
         _en.add(RADIO_IS_SELECTED,"RadioIsSelected=isSelected");
         _en.add(RADIO_SET_SELECTED,"RadioSetSelected=setSelected");
         _en.add(TEXT_FIELD_ADD_ACTION,"TextFieldAddAction=addAction");
+        _en.add(TEXT_FIELD_REMOVE_ACTION,"TextFieldRemoveAction=removeAction");
+        _en.add(TEXT_FIELD_GET_ACTIONS,"TextFieldGetActions=getActions");
         _en.add(TEXT_FIELD_ADD_POPUP,"TextFieldAddPopup=add");
         _en.add(TEXT_FIELD_GET_TEXT,"TextFieldGetText=getText");
         _en.add(TEXT_FIELD_SET_TEXT,"TextFieldSetText=setText");
@@ -4204,6 +4218,8 @@ public final class GuiAliases {
         _fr.add(RADIO_IS_SELECTED,"RadioIsSelected=estSelect");
         _fr.add(RADIO_SET_SELECTED,"RadioSetSelected=majSelect");
         _fr.add(TEXT_FIELD_ADD_ACTION,"TextFieldAddAction=ajoutAction");
+        _fr.add(TEXT_FIELD_REMOVE_ACTION,"TextFieldRemoveAction=supprAction");
+        _fr.add(TEXT_FIELD_GET_ACTIONS,"TextFieldGetActions=valActions");
         _fr.add(TEXT_FIELD_ADD_POPUP,"TextFieldAddPopup=ajout");
         _fr.add(TEXT_FIELD_GET_TEXT,"TextFieldGetText=valTexte");
         _fr.add(TEXT_FIELD_SET_TEXT,"TextFieldSetText=majTexte");
@@ -4768,6 +4784,8 @@ public final class GuiAliases {
         );
         _m.addEntry(getAliasTextField(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_ADD_ACTION),getAliasTextFieldAddAction()),
+                new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_REMOVE_ACTION),getAliasTextFieldRemoveAction()),
+                new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_GET_ACTIONS),getAliasTextFieldGetActions()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_ADD_POPUP),getAliasTextFieldAddPopup()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_GET_TEXT),getAliasTextFieldGetText()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_SET_TEXT),getAliasTextFieldSetText())),names_)
@@ -7997,6 +8015,22 @@ public final class GuiAliases {
 
     public void setAliasTextFieldAddAction(String _v) {
         this.aliasTextFieldAddAction = _v;
+    }
+
+    public String getAliasTextFieldRemoveAction() {
+        return aliasTextFieldRemoveAction;
+    }
+
+    public void setAliasTextFieldRemoveAction(String _v) {
+        this.aliasTextFieldRemoveAction = _v;
+    }
+
+    public String getAliasTextFieldGetActions() {
+        return aliasTextFieldGetActions;
+    }
+
+    public void setAliasTextFieldGetActions(String _v) {
+        this.aliasTextFieldGetActions = _v;
     }
 
     public String getAliasTextFieldAddDocument() {

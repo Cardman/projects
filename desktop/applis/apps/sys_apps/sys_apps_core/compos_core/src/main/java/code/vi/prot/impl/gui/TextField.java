@@ -1,11 +1,8 @@
 package code.vi.prot.impl.gui;
 
 import code.gui.AbsTextField;
-import code.gui.GuiConstants;
-import code.gui.events.AbsActionListener;
 import code.gui.events.AbsAdvActionListener;
-import code.vi.prot.impl.gui.events.WrAbstractAction;
-import code.vi.prot.impl.gui.events.WrActionListener;
+import code.util.IdMap;
 import code.vi.prot.impl.gui.events.WrAdvActionListener;
 
 import javax.swing.*;
@@ -15,6 +12,7 @@ import java.awt.*;
 public final class TextField extends TxtComponent implements AbsTextField {
 
     private final JTextField field;
+    private final IdMap<AbsAdvActionListener, WrAdvActionListener> actionsField = new IdMap<AbsAdvActionListener, WrAdvActionListener>();
 
     public TextField() {
         field = new JTextField();
@@ -37,18 +35,29 @@ public final class TextField extends TxtComponent implements AbsTextField {
 //        field.addFocusListener(new FocusKeepEvent(field));
     }
 
-    public void addActionListener(AbsActionListener _l) {
-        registerKeyboardAction(new WrAbstractAction(new WrActionListener(_l)), GuiConstants.VK_ENTER,0);
-    }
-
     @Override
     public void addActionListener(AbsAdvActionListener _list) {
-        registerKeyboardAction(new WrAbstractAction(new WrAdvActionListener(_list)), GuiConstants.VK_ENTER,0);
+        WrAdvActionListener wr_ = new WrAdvActionListener(_list);
+        actionsField.addEntry(_list,wr_);
+        field.addActionListener(wr_);
     }
 
     @Override
     public void addActionListenerMap(AbsAdvActionListener _list) {
-        registerKeyboardActionMap(new WrAbstractAction(new WrAdvActionListener(_list)), GuiConstants.VK_ENTER,0);
+        WrAdvActionListener wr_ = new WrAdvActionListener(_list);
+        actionsField.addEntry(_list,wr_);
+    }
+
+    @Override
+    public void removeActionListener(AbsAdvActionListener _list) {
+        WrAdvActionListener wr_ = actionsField.getVal(_list);
+        field.removeActionListener(wr_);
+        actionsField.removeKey(_list);
+    }
+
+    @Override
+    public void removeActionListenerMap(AbsAdvActionListener _list) {
+        actionsField.removeKey(_list);
     }
 
     @Override
