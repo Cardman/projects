@@ -195,7 +195,7 @@ public final class TableStructTest extends EquallableElUtUtil {
         arr_.set(3,new StringStruct("3"));
         Struct t_ = call(new FctTableGrid(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(arr_), st_);
         call(new FctTableSetRowCount(),null,ctx_,t_,one(new IntStruct(8)),st_);
-        call(new FctTableApplyChanges(),null,ctx_,t_,null,st_);
+//        call(new FctTableApplyChanges(),null,ctx_,t_,null,st_);
         assertEq(4,toLong(call(new FctTableGetRowAtPoint(),null,ctx_,t_,two(new IntStruct(3),new IntStruct(4)),st_)));
         assertEq(3,toLong(call(new FctTableGetColumnAtPoint(),null,ctx_,t_,two(new IntStruct(3),new IntStruct(4)),st_)));
     }

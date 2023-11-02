@@ -43,8 +43,6 @@ public interface AbsTableGui extends AbsCustComponent {
 
     void setReorderingAllowed(boolean _value);
 
-    void applyChanges();
-
     void addHeaderListener(AbsMouseListener _list);
     void addHeaderListener(AbsMouseListenerCl _list);
 

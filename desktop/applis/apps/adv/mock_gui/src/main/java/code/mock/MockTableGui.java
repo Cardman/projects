@@ -189,11 +189,6 @@ public final class MockTableGui extends MockCustComponent implements AbsTableGui
     }
 
     @Override
-    public void applyChanges() {
-        getSelectedRowCount();
-    }
-
-    @Override
     public void addHeaderListener(AbsMouseListener _l) {
         headers.add(_l);
     }

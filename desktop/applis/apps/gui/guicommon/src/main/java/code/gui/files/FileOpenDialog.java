@@ -260,10 +260,6 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         return typedString.getText();
     }
 
-    protected void applyChanges() {
-        getFileModel().applyChanges();
-    }
-
     protected void init(String _folder, String _extension) {
         getFileModel().init(_folder, _extension);
     }

@@ -195,7 +195,6 @@ public final class MockTableGuiTest extends EquallableMockGuiUtil{
         MockTableGui ta_ = new MockTableGui("0");
         ta_.setReorderingAllowed(true);
         assertTrue(ta_.isReorderingAllowed());
-        ta_.applyChanges();
     }
     @Test
     public void t16() {

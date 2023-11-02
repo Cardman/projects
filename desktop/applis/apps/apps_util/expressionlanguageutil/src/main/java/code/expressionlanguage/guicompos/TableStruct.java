@@ -104,10 +104,6 @@ public final class TableStruct extends CustComponentStruct {
         return new IntStruct(table.rowAtPoint(((NumberStruct)_x).intStruct(),((NumberStruct)_y).intStruct()));
     }
 
-    public void applyChanges() {
-        table.applyChanges();
-    }
-
     public BooleanStruct isMultiSelect() {
         return BooleanStruct.of(table.isMultiSelect());
     }

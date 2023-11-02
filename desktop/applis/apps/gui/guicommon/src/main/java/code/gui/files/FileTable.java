@@ -99,7 +99,6 @@ public final class FileTable {
             cols_[i] = getColumnName(i);
         }
         table.setColumnIdentifiers(cols_);
-        applyChanges();
     }
 
     public String getColumnName(int _columnIndex) {
@@ -170,7 +169,6 @@ public final class FileTable {
                 table.setValueAt(getValueAt(j, i), j, i);
             }
         }
-        applyChanges();
     }
 
     public void setupFile(AbstractFile _file) {
@@ -180,7 +178,6 @@ public final class FileTable {
         for (int i = 0; i < cols_; i++) {
             table.setValueAt(getValueAt(files.size() - 1, i), files.size() - 1, i);
         }
-        applyChanges();
     }
 
     public void init(String _folder, String _extension) {
@@ -200,10 +197,6 @@ public final class FileTable {
         }
         files.clear();
         table.setRowCount(files.size());
-        applyChanges();
-    }
-    public void applyChanges() {
-        table.applyChanges();
     }
 
     public CustList<AbstractFile> getFiles() {

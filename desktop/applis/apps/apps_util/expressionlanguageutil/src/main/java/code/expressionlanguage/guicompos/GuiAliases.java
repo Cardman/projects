@@ -1765,9 +1765,6 @@ public final class GuiAliases {
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
         method_ = new StandardMethod(aliasTableRemoveInterval, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableRemoveInterval0(),guiAliasParameters.getAliasTableGui0TableRemoveInterval1()), new FctTableRemoveInterval());
         StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasTableApplyChanges, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctTableApplyChanges());
-        StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
         method_ = new StandardMethod(aliasTableSetValue, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TreeNodeSetUserObject0(),guiAliasParameters.getAliasTableGui0TreeNodeSetUserObject1(),guiAliasParameters.getAliasTableGui0TreeNodeSetUserObject2()), new FctTableSetValue());
         StandardNamedFunction.addFct(methods_, method_);

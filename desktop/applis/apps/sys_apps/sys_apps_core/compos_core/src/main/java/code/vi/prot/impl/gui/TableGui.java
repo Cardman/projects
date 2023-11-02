@@ -92,11 +92,6 @@ public final class TableGui extends CustComponent implements AbsTableGui {
         return table.rowAtPoint(new Point(_x,_y));
     }
 
-    public void applyChanges() {
-        model.fireTableDataChanged();
-        model.fireTableStructureChanged();
-    }
-
     public boolean isMultiSelect() {
         return multiSelect;
     }
