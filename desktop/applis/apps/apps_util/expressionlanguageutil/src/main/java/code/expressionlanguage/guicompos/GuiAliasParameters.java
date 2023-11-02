@@ -155,6 +155,7 @@ public final class GuiAliasParameters {
     private static final String TREE_NODE_0_TREE_NODE_IS_DESCENDANT_0="_____1600";
     private static final String TREE_NODE_0_TREE_NODE_0="_____1601";
     private static final String TREE_0_TREE_ADD_TREE_LISTENER_0="_____1602";
+    private static final String TREE_0_TREE_REMOVE_TREE_LISTENER_0="_____1602_";
     private static final String TREE_0_TREE_SET_ROOT_VISIBLE_0="_____1603";
     private static final String TREE_0_TREE_GET_SELECTED_0="_____1604";
     private static final String TREE_0_TREE_0="_____1605";
@@ -606,6 +607,7 @@ public final class GuiAliasParameters {
     private String aliasTreeNode0TreeNodeIsDescendant0;
     private String aliasTreeNode0TreeNode0;
     private String aliasTree0TreeAddTreeListener0;
+    private String aliasTree0TreeRemoveTreeListener0;
     private String aliasTree0TreeSetRootVisible0;
     private String aliasTree0TreeGetSelected0;
     private String aliasTree0Tree0;
@@ -1057,6 +1059,7 @@ public final class GuiAliasParameters {
         aliasTreeNode0TreeNodeIsDescendant0=LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_NODE_0_TREE_NODE_IS_DESCENDANT_0));
         aliasTreeNode0TreeNode0=LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_NODE_0_TREE_NODE_0));
         aliasTree0TreeAddTreeListener0=LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_0_TREE_ADD_TREE_LISTENER_0));
+        aliasTree0TreeRemoveTreeListener0=LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_0_TREE_REMOVE_TREE_LISTENER_0));
         aliasTree0TreeSetRootVisible0=LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_0_TREE_SET_ROOT_VISIBLE_0));
         aliasTree0TreeGetSelected0=LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_0_TREE_GET_SELECTED_0));
         aliasTree0Tree0=LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_0_TREE_0));
@@ -1508,6 +1511,7 @@ public final class GuiAliasParameters {
         _en.add(TREE_NODE_0_TREE_NODE_IS_DESCENDANT_0,"TreeNode0TreeNodeIsDescendant0=a");
         _en.add(TREE_NODE_0_TREE_NODE_0,"TreeNode0TreeNode0=a");
         _en.add(TREE_0_TREE_ADD_TREE_LISTENER_0,"Tree0TreeAddTreeListener0=a");
+        _en.add(TREE_0_TREE_REMOVE_TREE_LISTENER_0,"Tree0TreeRemoveTreeListener0=a");
         _en.add(TREE_0_TREE_SET_ROOT_VISIBLE_0,"Tree0TreeSetRootVisible0=a");
         _en.add(TREE_0_TREE_GET_SELECTED_0,"Tree0TreeGetSelected0=a");
         _en.add(TREE_0_TREE_0,"Tree0Tree0=a");
@@ -1959,6 +1963,7 @@ public final class GuiAliasParameters {
         _fr.add(TREE_NODE_0_TREE_NODE_IS_DESCENDANT_0,"TreeNode0TreeNodeIsDescendant0=a");
         _fr.add(TREE_NODE_0_TREE_NODE_0,"TreeNode0TreeNode0=a");
         _fr.add(TREE_0_TREE_ADD_TREE_LISTENER_0,"Tree0TreeAddTreeListener0=a");
+        _fr.add(TREE_0_TREE_REMOVE_TREE_LISTENER_0,"Tree0TreeRemoveTreeListener0=a");
         _fr.add(TREE_0_TREE_SET_ROOT_VISIBLE_0,"Tree0TreeSetRootVisible0=a");
         _fr.add(TREE_0_TREE_GET_SELECTED_0,"Tree0TreeGetSelected0=a");
         _fr.add(TREE_0_TREE_0,"Tree0Tree0=a");
@@ -2348,6 +2353,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TREE_NODE_0_TREE_NODE_IS_DESCENDANT_0),aliasTreeNode0TreeNodeIsDescendant0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TREE_NODE_0_TREE_NODE_0),aliasTreeNode0TreeNode0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TREE_0_TREE_ADD_TREE_LISTENER_0),aliasTree0TreeAddTreeListener0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TREE_0_TREE_REMOVE_TREE_LISTENER_0),aliasTree0TreeRemoveTreeListener0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TREE_0_TREE_SET_ROOT_VISIBLE_0),aliasTree0TreeSetRootVisible0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TREE_0_TREE_GET_SELECTED_0),aliasTree0TreeGetSelected0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TREE_0_TREE_0),aliasTree0Tree0)));
@@ -3064,6 +3070,10 @@ public final class GuiAliasParameters {
 
     public String getAliasTree0TreeAddTreeListener0() {
         return aliasTree0TreeAddTreeListener0;
+    }
+
+    public String getAliasTree0TreeRemoveTreeListener0() {
+        return aliasTree0TreeRemoveTreeListener0;
     }
 
     public String getAliasTree0TreeSetRootVisible0() {

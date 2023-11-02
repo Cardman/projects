@@ -115,13 +115,23 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
 
     @Override
     public void addTreeSelectionListener(AbsShortListTree _l) {
-        list.add(_l);
+        addTreeSelectionListenerMap(_l);
+    }
+
+    @Override
+    public void addTreeSelectionListenerMap(AbsShortListTree _sel) {
+        list.add(_sel);
     }
 
     @Override
     public int removeTreeSelectionListener(AbsShortListTree _l) {
-        int index_ = list.indexOfObj(_l);
-        list.removeObj(_l);
+        return removeTreeSelectionListenerMap(_l);
+    }
+
+    @Override
+    public int removeTreeSelectionListenerMap(AbsShortListTree _sel) {
+        int index_ = list.indexOfObj(_sel);
+        list.removeObj(_sel);
         return index_;
     }
 

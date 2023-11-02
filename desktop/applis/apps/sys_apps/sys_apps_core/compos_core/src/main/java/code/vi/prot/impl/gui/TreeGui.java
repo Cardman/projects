@@ -118,6 +118,12 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
     }
 
     @Override
+    public void addTreeSelectionListenerMap(AbsShortListTree _sel) {
+        DefTreeSelectionListener value_ = new DefTreeSelectionListener(_sel,root);
+        list.addEntry(_sel,value_);
+    }
+
+    @Override
     public int removeTreeSelectionListener(AbsShortListTree _sel) {
         try {
             int index_ = list.indexOfEntry(_sel);
@@ -128,6 +134,13 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
         } catch (Exception e) {
             return -1;
         }
+    }
+
+    @Override
+    public int removeTreeSelectionListenerMap(AbsShortListTree _sel) {
+        int index_ = list.indexOfEntry(_sel);
+        list.removeKey(_sel);
+        return index_;
     }
 
     @Override

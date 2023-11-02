@@ -15,7 +15,9 @@ public interface AbsTreeGui extends AbsCustComponent {
     void setRootVisible(boolean _value);
 
     void addTreeSelectionListener(AbsShortListTree _sel);
+    void addTreeSelectionListenerMap(AbsShortListTree _sel);
     int removeTreeSelectionListener(AbsShortListTree _sel);
+    int removeTreeSelectionListenerMap(AbsShortListTree _sel);
     CustList<AbsShortListTree> getTreeSelectionListeners();
     AbstractMutableTreeNodeCore<String> translate(AbsTreePath _tr);
     AbsTreePath translate(AbstractMutableTreeNodeCore<String> _tr);

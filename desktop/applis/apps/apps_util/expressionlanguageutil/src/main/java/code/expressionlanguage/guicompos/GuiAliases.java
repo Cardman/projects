@@ -315,6 +315,8 @@ public final class GuiAliases {
     private static final String POPUP_MENU_NB_MENU="_____1402";
     private static final String POPUP_MENU_SHOW="_____1403";
     private static final String TREE_ADD_TREE_LISTENER="_____1404";
+    private static final String TREE_REMOVE_TREE_LISTENER="_____1404_";
+    private static final String TREE_GET_TREE_LISTENERS="_____1404__";
     private static final String TREE_GET_SELECTED="_____1405";
     private static final String TREE_IS_ROOT_VISIBLE="_____1406";
     private static final String TREE_SET_ROOT_VISIBLE="_____1407";
@@ -502,6 +504,8 @@ public final class GuiAliases {
     private String aliasTreeIsRootVisible;
     private String aliasTreeGetSelected;
     private String aliasTreeAddTreeListener;
+    private String aliasTreeRemoveTreeListener;
+    private String aliasTreeGetTreeListeners;
     private String aliasTreeReload;
     private String aliasTableListener;
     private String aliasTableValueTableChanged;
@@ -1679,6 +1683,12 @@ public final class GuiAliases {
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasTreeListener);
         method_ = new StandardMethod(aliasTreeAddTreeListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTree0TreeAddTreeListener0()), new FctTreeAddTreeListener());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasTreeListener);
+        method_ = new StandardMethod(aliasTreeRemoveTreeListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTree0TreeRemoveTreeListener0()), new FctTreeRemoveTreeListener());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTreeGetTreeListeners, params_, StringExpUtil.getPrettyArrayType(aliasTreeListener), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTree0TreeRemoveTreeListener0()), new FctTreeGetTreeListeners());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
         method_ = new StandardMethod(aliasTreeSetRootVisible, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTree0TreeSetRootVisible0()), new FctTreeSetRootVisible());
@@ -3182,6 +3192,8 @@ public final class GuiAliases {
         setAliasTreeNodeSetUserObject(LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_NODE_SET_USER_OBJECT)));
         setAliasTreeReload(LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_RELOAD)));
         setAliasTreeAddTreeListener(LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_ADD_TREE_LISTENER)));
+        setAliasTreeRemoveTreeListener(LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_REMOVE_TREE_LISTENER)));
+        setAliasTreeGetTreeListeners(LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_GET_TREE_LISTENERS)));
         setAliasTreeNodeEq(LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_NODE_EQ)));
         setAliasTreeNodeNb(LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_NODE_NB)));
         setAliasTableIsMultiple(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_IS_MULTIPLE)));
@@ -3827,6 +3839,8 @@ public final class GuiAliases {
         _en.add(POPUP_MENU_NB_MENU,"PopupMenuNbMenu=nbMenus");
         _en.add(POPUP_MENU_SHOW,"PopupMenuShow=show");
         _en.add(TREE_ADD_TREE_LISTENER,"TreeAddTreeListener=addTreeListener");
+        _en.add(TREE_REMOVE_TREE_LISTENER,"TreeRemoveTreeListener=removeTreeListener");
+        _en.add(TREE_GET_TREE_LISTENERS,"TreeGetTreeListeners=getTreeListeners");
         _en.add(TREE_GET_SELECTED,"TreeGetSelected=selected");
         _en.add(TREE_IS_ROOT_VISIBLE,"TreeIsRootVisible=isRootVisible");
         _en.add(TREE_SET_ROOT_VISIBLE,"TreeSetRootVisible=setRootVisible");
@@ -4272,6 +4286,8 @@ public final class GuiAliases {
         _fr.add(POPUP_MENU_NB_MENU,"PopupMenuNbMenu=nbMenus");
         _fr.add(POPUP_MENU_SHOW,"PopupMenuShow=afficher");
         _fr.add(TREE_ADD_TREE_LISTENER,"TreeAddTreeListener=ajArbreEcout");
+        _fr.add(TREE_REMOVE_TREE_LISTENER,"TreeRemoveTreeListener=supprArbreEcout");
+        _fr.add(TREE_GET_TREE_LISTENERS,"TreeGetTreeListeners=valArbreEcouts");
         _fr.add(TREE_GET_SELECTED,"TreeGetSelected=select");
         _fr.add(TREE_IS_ROOT_VISIBLE,"TreeIsRootVisible=estRacVisible");
         _fr.add(TREE_SET_ROOT_VISIBLE,"TreeSetRootVisible=majRacVisible");
@@ -4851,6 +4867,8 @@ public final class GuiAliases {
         );
         _m.addEntry(getAliasTree(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(TREE_ADD_TREE_LISTENER),getAliasTreeAddTreeListener()),
+                new KeyValueMemberName(_mapping.getVal(TREE_REMOVE_TREE_LISTENER),getAliasTreeRemoveTreeListener()),
+                new KeyValueMemberName(_mapping.getVal(TREE_GET_TREE_LISTENERS),getAliasTreeGetTreeListeners()),
                 new KeyValueMemberName(_mapping.getVal(TREE_GET_SELECTED),getAliasTreeGetSelected()),
                 new KeyValueMemberName(_mapping.getVal(TREE_IS_ROOT_VISIBLE),getAliasTreeIsRootVisible()),
                 new KeyValueMemberName(_mapping.getVal(TREE_SET_ROOT_VISIBLE),getAliasTreeSetRootVisible()),
@@ -5411,6 +5429,22 @@ public final class GuiAliases {
 
     public void setAliasTreeAddTreeListener(String _v) {
         this.aliasTreeAddTreeListener = _v;
+    }
+
+    public String getAliasTreeRemoveTreeListener() {
+        return aliasTreeRemoveTreeListener;
+    }
+
+    public void setAliasTreeRemoveTreeListener(String _v) {
+        this.aliasTreeRemoveTreeListener = _v;
+    }
+
+    public String getAliasTreeGetTreeListeners() {
+        return aliasTreeGetTreeListeners;
+    }
+
+    public void setAliasTreeGetTreeListeners(String _v) {
+        this.aliasTreeGetTreeListeners = _v;
     }
 
     public String getAliasTreeReload() {

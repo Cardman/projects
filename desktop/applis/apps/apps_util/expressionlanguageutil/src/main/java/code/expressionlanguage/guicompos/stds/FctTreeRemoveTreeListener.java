@@ -10,11 +10,11 @@ import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
-public final class FctTreeAddTreeListener implements StdCaller {
+public final class FctTreeRemoveTreeListener implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         TreeStruct inst_ = (TreeStruct) _instance;
-        inst_.addTreeSelectionListener(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_stackCall);
+        inst_.removeTreeSelectionListener(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_stackCall);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }
