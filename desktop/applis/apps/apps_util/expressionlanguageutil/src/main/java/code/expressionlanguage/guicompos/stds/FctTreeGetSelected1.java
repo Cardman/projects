@@ -2,6 +2,7 @@ package code.expressionlanguage.guicompos.stds;
 
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.SelectTreeNodeState;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -14,7 +15,11 @@ public final class FctTreeGetSelected1 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         TreeStruct inst_ = (TreeStruct) _instance;
-        inst_.select(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        inst_.select(arg_);
+        if (_stackCall.getStopper().getLogger() != null) {
+            _stackCall.setCallingState(new SelectTreeNodeState(inst_,arg_));
+        }
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.dbg.AbsLogDbg;
+import code.expressionlanguage.exec.dbg.DbgStackStopper;
 import code.expressionlanguage.exec.dbg.DefLogDbg;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -440,6 +441,16 @@ public abstract class EquallableElUtUtil {
     public static ResultContext commonMock(ExecutingOptions _exec, LgNamesUtils _definedLgNames, StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
         ResultContext r_ = new ResultContext(_page, _forwards);
         ResultContext res_ = ResultContext.def(r_, _files,  _exec.getSrcFolder());
+        assertTrue(res_.getPageEl().getMessages().isAllEmptyErrors());
+        ForwardInfos.generalForward(res_);
+        ContextEl ctx_ = ((AbsLightContextGenerator) new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean())).gene(res_.getForwards());
+        res_.setContext(ctx_);
+        return res_;
+    }
+
+    public static ResultContext commonMockDbg(ExecutingOptions _exec, LgNamesUtils _definedLgNames, StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
+        ResultContext r_ = new ResultContext(_page, _forwards);
+        ResultContext res_ = ResultContext.def(r_, _files,  _exec.getSrcFolder(),new DbgStackStopper(new DefLogDbg()));
         assertTrue(res_.getPageEl().getMessages().isAllEmptyErrors());
         ForwardInfos.generalForward(res_);
         ContextEl ctx_ = ((AbsLightContextGenerator) new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean())).gene(res_.getForwards());
