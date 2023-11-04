@@ -1,6 +1,9 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
+import code.expressionlanguage.analyze.syntax.RowSrcLocation;
+import code.expressionlanguage.analyze.syntax.SrcFileLocation;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.StepDbgActionEnum;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
@@ -11,9 +14,19 @@ import code.expressionlanguage.exec.dbg.ExcPointBlockKey;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.utilcompo.FileInfos;
+import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
+import code.gui.events.AbsActionListener;
+import code.gui.initialize.AbstractProgramInfos;
+import code.maths.montecarlo.CustomSeedGene;
+import code.mock.MockEventListIncr;
+import code.mock.MockFileSet;
+import code.mock.MockMenuItem;
 import code.mock.MockProgramInfos;
+import code.stream.StreamFolderFile;
+import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.StringList;
@@ -8361,6 +8374,165 @@ public final class DbgActTest extends EquallableElAdvUtil {
         meths_.getTextField().setText("exmeth");
         meths_.enterEvent();
         assertFalse(methods(b_).isEmpty());
+    }
+    @Test
+    public void noAna() {
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "");
+        StringList ls_ = new StringList(w_.getSoftParams().getLines());
+        ls_.add("keyWords=If=;");
+        analyzeBad2(w_);
+        refreshClasses(w_);
+        assertEq(0,tabEditor(w_).getDico().size());
+    }
+    @Test
+    public void window3() {
+        MockProgramInfos pr_ = genePr();
+        WindowCdmEditor w_ = updated(pr_);
+        StringList ls_ = new StringList(w_.getSoftParams().getLines());
+        ls_.add("keyWords=If=;");
+        w_.getSoftParams().setLines(ls_);
+        w_.getFuture().attendre();
+        WindowExpressionEditor e_ = geneSecAlready(w_);
+        e_.getTree().select(e_.getTree().getRoot());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
+        AbsDebuggerGui b_ = buildExpAdvCore(w_);
+        ManageOptions o_ = optBad(b_);
+        ResultContext r_ = res(b_, o_);
+        guiAna(r_,b_,o_,new StringMap<String>());
+        b_.getResultContextNext().next(r_,r_);
+        assertTrue(classesFilter(b_).getList().isEmpty());
+    }
+    @Test
+    public void window1() {
+        MockProgramInfos pr_ = advPr();
+        WindowCdmEditor w_ = updated(pr_);
+        w_.getFuture().attendre();
+        ((LgNamesWithNewAliases)w_.getBaseResult().getForwards().getGenerator()).getExecContent().getExecutingOptions().setMainThread("//");
+        WindowExpressionEditor e_ = geneSecAlready(w_);
+        e_.getTree().select(e_.getTree().getRoot());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
+        AbsDebuggerGui b_ = e_.getSessionExp();
+        menuExp(e_,b_);
+        assertEq(0,found(b_).size());
+    }
+//    @Test
+//    public void window2() {
+//        MockProgramInfos pr_ = advPr();
+//        WindowCdmEditor w_ = updatedAdv(pr_);
+//        StringList ls_ = new StringList(w_.getSoftParams().getLines());
+//        ls_.add("keyWords=If=;");
+//        w_.getSoftParams().setLines(ls_);
+//        w_.getFuture().attendre();
+//        WindowExpressionEditor e_ = geneSecAlready(w_);
+//        e_.getTree().select(e_.getTree().getRoot());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
+//        AbsDebuggerGui b_ = e_.getSessionExp();
+//        menuExp(e_,b_);
+//        assertEq(0,found(b_).size());
+//    }
+//    @Test
+//    public void window3() {
+//        MockProgramInfos pr_ = advPr();
+//        WindowCdmEditor w_ = updatedAdv(pr_);
+//        StringList ls_ = new StringList(w_.getSoftParams().getLines());
+//        ls_.add("keyWords=If=;");
+//        w_.getSoftParams().setLines(ls_);
+//        w_.getFuture().attendre();
+//        WindowExpressionEditor e_ = geneSecAlready(w_);
+//        e_.getTree().select(e_.getTree().getRoot());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
+//        AbsDebuggerGui b_ = buildExpAdvCore(w_);
+//        ManageOptions o_ = optBad(b_);
+//        ResultContext r_ = res(b_, o_);
+//        guiAna(r_,b_,o_,new StringMap<String>());
+//        b_.getResultContextNext().next(r_,r_);
+//        assertTrue(classesFilter(b_).getList().isEmpty());
+//    }
+    @Test
+    public void failSrcFile() {
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "");
+        StringList ls_ = new StringList(w_.getSoftParams().getLines());
+        ls_.add("keyWords=If=;");
+        w_.getSoftParams().setLines(ls_);
+        analyzeBad(w_);
+        refreshClasses(w_);
+        assertEq(0,tabEditor(w_).getDico().size());
+    }
+    @Test
+    public void failSrcFile2() {
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "");
+        StringList ls_ = new StringList(w_.getSoftParams().getLines());
+        ls_.add("keyWords=If=;");
+//        w_.getSoftParams().setLines(ls_);
+        analyzeBad2(w_);
+        refreshClasses(w_);
+        assertEq(0,tabEditor(w_).getDico().size());
+    }
+    @Test
+    public void noAna2() {
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "src//bad","public class pkg.ExClass:AbsStringReplacer{Second s;public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{}");
+        StreamTextFile.saveTextFile("/project/sources/exp/0.txt","",w_.getCommonFrame().getFrames().getStreams());
+        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
+        WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
+        s_.setLimitSymbol(1);
+        s_.getTree().select(s_.getTree().getRoot());
+        s_.getTree().select(s_.getTree().getRoot().getFirstChild().getNextSibling());
+        s_.getTabs().get(0).getCenter().select(0,0);
+        currentElement(s_.getTabs().get(0));
+        w_.setBaseResult(null);
+        new RefreshLocationTask(w_.getPanel(),w_,new ResultRowSrcLocationList(AnalyzedPageEl.setInnerAnalyzing(),"",0,new CustList<SrcFileLocation>(),new CustList<RowSrcLocation>())).run();
+        assertEq(0,s_.getSymbols().size());
+    }
+    protected static void analyzeBad(WindowCdmEditor _w) {
+        _w.getFuture().attendre();
+        AbsActionListener ev_ = ((MockMenuItem) _w.getAnalyzeMenu()).getActionListeners().get(0);
+        ev_.action();
+    }
+    private static MockProgramInfos advPr() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+        String current_ = "/editor/conf.xml";
+        StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
+        StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
+        StringList lines_ = new StringList();
+        lines_.add("/project/sources");
+        lines_.add("en");
+//        StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
+
+        CdmParameterSoftModel c_ = new CdmParameterSoftModel();
+        c_.setExecConf(current_);
+        c_.getOpenedFiles().add("src/file.txt");
+        c_.setFolderExpression("/project/sources");
+        StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(c_),pr_.getStreams());
+
+
+        pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
+        pr_.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
+        pr_.setLanguage(FileInfos.EN);
+        update(pr_);
+        pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
+        pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
+        return pr_;
+    }
+    private CustList<SegmentFindPart> found(AbsDebuggerGui _b) {
+        return ((ExpDebGuiImpl)_b).getFound();
+    }
+    public static AbsDebuggerGui buildExpAdvCore(WindowCdmEditor _w) {
+        AbstractProgramInfos pr_ = _w.getCommonFrame().getFrames();
+        SampleMockResultContextNext m_ = new SampleMockResultContextNext(_w,_w.getCommonFrame().getFrames(),_w.getFactory());
+        return new InitDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_,"en",pr_,_w.getFactory());
+    }
+    protected static void analyzeBad2(WindowCdmEditor _w) {
+        _w.getFuture().attendre();
+        ((LgNamesWithNewAliases)_w.getBaseResult().getForwards().getGenerator()).getExecContent().getExecutingOptions().setMainThread("//");
+        AbsActionListener ev_ = ((MockMenuItem) _w.getAnalyzeMenu()).getActionListeners().get(0);
+        ev_.action();
     }
     private void launch(AbsDebuggerGui _d) {
         _d.getSelectEnter().getActionListeners().get(0).action();

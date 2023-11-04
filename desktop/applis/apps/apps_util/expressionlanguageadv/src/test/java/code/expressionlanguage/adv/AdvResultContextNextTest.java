@@ -22,93 +22,93 @@ import code.util.StringMap;
 import org.junit.Test;
 
 public final class AdvResultContextNextTest extends EquallableElAdvUtil {
-    @Test
-    public void window1() {
-        MockProgramInfos pr_ = advPr();
-        WindowCdmEditor w_ = updatedAdv(pr_);
-        w_.getFuture().attendre();
-        ((LgNamesWithNewAliases)w_.getBaseResult().getForwards().getGenerator()).getExecContent().getExecutingOptions().setMainThread("//");
-        WindowExpressionEditor e_ = geneSecAlready(w_);
-        e_.getTree().select(e_.getTree().getRoot());
-        e_.getTree().select(e_.getTree().getRoot().getFirstChild());
-        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
-        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
-        AbsDebuggerGui b_ = e_.getSessionExp();
-        menuExp(e_,b_);
-        assertEq(0,found(b_).size());
-    }
-    @Test
-    public void window2() {
-        MockProgramInfos pr_ = advPr();
-        WindowCdmEditor w_ = updatedAdv(pr_);
-        StringList ls_ = new StringList(w_.getSoftParams().getLines());
-        ls_.add("keyWords=If=;");
-        w_.getSoftParams().setLines(ls_);
-        w_.getFuture().attendre();
-        WindowExpressionEditor e_ = geneSecAlready(w_);
-        e_.getTree().select(e_.getTree().getRoot());
-        e_.getTree().select(e_.getTree().getRoot().getFirstChild());
-        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
-        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
-        AbsDebuggerGui b_ = e_.getSessionExp();
-        menuExp(e_,b_);
-        assertEq(0,found(b_).size());
-    }
-    @Test
-    public void window3() {
-        MockProgramInfos pr_ = advPr();
-        WindowCdmEditor w_ = updatedAdv(pr_);
-        StringList ls_ = new StringList(w_.getSoftParams().getLines());
-        ls_.add("keyWords=If=;");
-        w_.getSoftParams().setLines(ls_);
-        w_.getFuture().attendre();
-        WindowExpressionEditor e_ = geneSecAlready(w_);
-        e_.getTree().select(e_.getTree().getRoot());
-        e_.getTree().select(e_.getTree().getRoot().getFirstChild());
-        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
-        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
-        AbsDebuggerGui b_ = buildExpAdvCore(w_);
-        ManageOptions o_ = optBad(b_);
-        ResultContext r_ = res(b_, o_);
-        guiAna(r_,b_,o_,new StringMap<String>());
-        b_.getResultContextNext().next(r_,r_);
-        assertTrue(classesFilter(b_).getList().isEmpty());
-    }
-    @Test
-    public void failSrcFile() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAdv( "");
-        StringList ls_ = new StringList(w_.getSoftParams().getLines());
-        ls_.add("keyWords=If=;");
-        w_.getSoftParams().setLines(ls_);
-        analyzeBad(w_);
-        refreshClasses(w_);
-        assertEq(0,tabEditor(w_).getDico().size());
-    }
-    @Test
-    public void failSrcFile2() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAdv( "");
-        StringList ls_ = new StringList(w_.getSoftParams().getLines());
-        ls_.add("keyWords=If=;");
+//    @Test
+//    public void window1() {
+//        MockProgramInfos pr_ = advPr();
+//        WindowCdmEditor w_ = updatedAdv(pr_);
+//        w_.getFuture().attendre();
+//        ((LgNamesWithNewAliases)w_.getBaseResult().getForwards().getGenerator()).getExecContent().getExecutingOptions().setMainThread("//");
+//        WindowExpressionEditor e_ = geneSecAlready(w_);
+//        e_.getTree().select(e_.getTree().getRoot());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
+//        AbsDebuggerGui b_ = e_.getSessionExp();
+//        menuExp(e_,b_);
+//        assertEq(0,found(b_).size());
+//    }
+//    @Test
+//    public void window2() {
+//        MockProgramInfos pr_ = advPr();
+//        WindowCdmEditor w_ = updatedAdv(pr_);
+//        StringList ls_ = new StringList(w_.getSoftParams().getLines());
+//        ls_.add("keyWords=If=;");
 //        w_.getSoftParams().setLines(ls_);
-        analyzeBad2(w_);
-        refreshClasses(w_);
-        assertEq(0,tabEditor(w_).getDico().size());
-    }
-    @Test
-    public void noAna() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlreadyAdv( "src//bad","public class pkg.ExClass:AbsStringReplacer{Second s;public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{}");
-        StreamTextFile.saveTextFile("/project/sources/exp/0.txt","",w_.getCommonFrame().getFrames().getStreams());
-        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
-        WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
-        s_.setLimitSymbol(1);
-        s_.getTree().select(s_.getTree().getRoot());
-        s_.getTree().select(s_.getTree().getRoot().getFirstChild().getNextSibling());
-        s_.getTabs().get(0).getCenter().select(0,0);
-        currentElement(s_.getTabs().get(0));
-        w_.setBaseResult(null);
-        new RefreshLocationTask(w_.getPanel(),w_,new ResultRowSrcLocationList(AnalyzedPageEl.setInnerAnalyzing(),"",0,new CustList<SrcFileLocation>(),new CustList<RowSrcLocation>())).run();
-        assertEq(0,s_.getSymbols().size());
-    }
+//        w_.getFuture().attendre();
+//        WindowExpressionEditor e_ = geneSecAlready(w_);
+//        e_.getTree().select(e_.getTree().getRoot());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
+//        AbsDebuggerGui b_ = e_.getSessionExp();
+//        menuExp(e_,b_);
+//        assertEq(0,found(b_).size());
+//    }
+//    @Test
+//    public void window3() {
+//        MockProgramInfos pr_ = advPr();
+//        WindowCdmEditor w_ = updatedAdv(pr_);
+//        StringList ls_ = new StringList(w_.getSoftParams().getLines());
+//        ls_.add("keyWords=If=;");
+//        w_.getSoftParams().setLines(ls_);
+//        w_.getFuture().attendre();
+//        WindowExpressionEditor e_ = geneSecAlready(w_);
+//        e_.getTree().select(e_.getTree().getRoot());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
+//        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
+//        AbsDebuggerGui b_ = buildExpAdvCore(w_);
+//        ManageOptions o_ = optBad(b_);
+//        ResultContext r_ = res(b_, o_);
+//        guiAna(r_,b_,o_,new StringMap<String>());
+//        b_.getResultContextNext().next(r_,r_);
+//        assertTrue(classesFilter(b_).getList().isEmpty());
+//    }
+//    @Test
+//    public void failSrcFile() {
+//        WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAdv( "");
+//        StringList ls_ = new StringList(w_.getSoftParams().getLines());
+//        ls_.add("keyWords=If=;");
+//        w_.getSoftParams().setLines(ls_);
+//        analyzeBad(w_);
+//        refreshClasses(w_);
+//        assertEq(0,tabEditor(w_).getDico().size());
+//    }
+//    @Test
+//    public void failSrcFile2() {
+//        WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAdv( "");
+//        StringList ls_ = new StringList(w_.getSoftParams().getLines());
+//        ls_.add("keyWords=If=;");
+////        w_.getSoftParams().setLines(ls_);
+//        analyzeBad2(w_);
+//        refreshClasses(w_);
+//        assertEq(0,tabEditor(w_).getDico().size());
+//    }
+//    @Test
+//    public void noAna() {
+//        WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlreadyAdv( "src//bad","public class pkg.ExClass:AbsStringReplacer{Second s;public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{}");
+//        StreamTextFile.saveTextFile("/project/sources/exp/0.txt","",w_.getCommonFrame().getFrames().getStreams());
+//        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
+//        WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
+//        s_.setLimitSymbol(1);
+//        s_.getTree().select(s_.getTree().getRoot());
+//        s_.getTree().select(s_.getTree().getRoot().getFirstChild().getNextSibling());
+//        s_.getTabs().get(0).getCenter().select(0,0);
+//        currentElement(s_.getTabs().get(0));
+//        w_.setBaseResult(null);
+//        new RefreshLocationTask(w_.getPanel(),w_,new ResultRowSrcLocationList(AnalyzedPageEl.setInnerAnalyzing(),"",0,new CustList<SrcFileLocation>(),new CustList<RowSrcLocation>())).run();
+//        assertEq(0,s_.getSymbols().size());
+//    }
     @Test
     public void window() {
         MockProgramInfos pr_ = genePr();

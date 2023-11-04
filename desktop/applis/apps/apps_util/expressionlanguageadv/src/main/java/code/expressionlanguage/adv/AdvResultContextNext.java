@@ -3,6 +3,8 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.gui.unit.UnitIssuer;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.utilcompo.FileInfos;
+import code.expressionlanguage.utilimpl.CustContextFactory;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.CdmFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -15,6 +17,11 @@ public final class AdvResultContextNext extends AdvAbsResultContextNext {
     public ResultContext init(Options _opt, boolean _light) {
         ManageOptions man_ = getMainWindow().manage(getMainWindow().getSoftParams().getLines());
         return init(_opt,man_,new UnitIssuer(getMainWindow().getStatusAnalyzeArea()),_light);
+    }
+
+    private ResultContext init(Options _opt,ManageOptions _man,UnitIssuer _issuer, boolean _light){
+        FileInfos file_ = baseInit(_man, _issuer);
+        return CustContextFactory.stds(file_, _man.getEx(),_opt,_light);
     }
 
     @Override

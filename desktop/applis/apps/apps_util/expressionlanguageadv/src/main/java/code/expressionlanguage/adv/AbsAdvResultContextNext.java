@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.gui.unit.UnitIssuer;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
@@ -29,11 +28,6 @@ public abstract class AbsAdvResultContextNext implements AbsResultContextNext {
     protected AbsAdvResultContextNext(AbstractProgramInfos _frames, CdmFactory _progressingTests) {
         frames = _frames;
         factory = _progressingTests;
-    }
-
-    protected ResultContext init(Options _opt,ManageOptions _man,UnitIssuer _issuer, boolean _light){
-        FileInfos file_ = baseInit(_man, _issuer);
-        return CustContextFactory.stds(file_, _man.getEx(),_opt,_light);
     }
 
     protected FileInfos baseInit(ManageOptions _man, UnitIssuer _issuer) {
