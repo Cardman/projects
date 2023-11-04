@@ -74,6 +74,11 @@ public final class MockResultContextNext implements AbsResultContextNext {
     }
 
     @Override
+    public void generate(ResultContext _r) {
+        ResultContext.fwdWithoutCheck(_r,generate());
+    }
+
+    @Override
     public AbsAdvContextGenerator generateAdv(AbstractAtomicBoolean _at) {
         return new MockContextGenerator(_at);
     }

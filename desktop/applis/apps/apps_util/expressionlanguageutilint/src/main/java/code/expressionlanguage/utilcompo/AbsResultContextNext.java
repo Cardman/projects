@@ -13,5 +13,6 @@ public interface AbsResultContextNext extends AbsLightResultContextNext {
     AnalyzedPageEl nextAna(ResultContext _r, StringMap<String> _files);
     ResultContext next(ResultContext _r, ResultContext _u);
     AbsAdvContextGenerator generate();
+    void generate(ResultContext _r);
     AbsAdvContextGenerator generateAdv(AbstractAtomicBoolean _at);
 }

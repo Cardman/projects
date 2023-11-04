@@ -692,6 +692,9 @@ public abstract class EquallableElAdvUtil {
         CdmFactory fact_ = new CdmFactory(_pr, new MockInterceptor());
         _pr.getCounts().addEntry(WindowCdmEditor.CDM_EDITOR,_pr.getThreadFactory().newAtomicInteger());
         WindowCdmEditor w_ = new WindowCdmEditor("en", _pr,fact_);
+        SampleMockResultContextNext res_ = new SampleMockResultContextNext(w_, _pr, fact_);
+        w_.setMainResultNext(res_);
+        w_.setResultContextNext(res_);
 //        w_.getTabEditor().getWholeWord().setSelected(false);
         return w_;
     }

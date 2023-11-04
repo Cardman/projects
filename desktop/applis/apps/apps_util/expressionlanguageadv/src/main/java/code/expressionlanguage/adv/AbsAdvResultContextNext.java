@@ -32,13 +32,18 @@ public abstract class AbsAdvResultContextNext implements AbsResultContextNext {
     }
 
     protected ResultContext init(Options _opt,ManageOptions _man,UnitIssuer _issuer, boolean _light){
+        FileInfos file_ = baseInit(_man, _issuer);
+        return CustContextFactory.stds(file_, _man.getEx(),_opt,_light);
+    }
+
+    protected FileInfos baseInit(ManageOptions _man, UnitIssuer _issuer) {
         AbstractNameValidating validator_ = frames.getValidator();
         DefaultUniformingString un_ = new DefaultUniformingString();
         FileInfos file_ = new FileInfos(new DefaultLogger(_issuer,frames.getFileCoreStream(),frames.getStreams()),
                 new DefaultFileSystem(un_,validator_,frames.getFileCoreStream(),frames.getStreams()), new DefaultReporter(factory.getProgramInfos(),validator_, un_, false,new TechInfos(frames.getThreadFactory(),frames.getStreams()),frames.getFileCoreStream()), frames.getGenerator(), frames.getStreams().getZipFact(), frames.getThreadFactory());
         _man.getEx().setLightProgramInfos(frames);
         _man.getEx().setListGenerator(factory);
-        return CustContextFactory.stds(file_, _man.getEx(),_opt,_light);
+        return file_;
     }
 
     @Override

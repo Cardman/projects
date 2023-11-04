@@ -145,7 +145,20 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         ArgumentWrapper a_ = ProcessMethod.calculate(new CustomFoundMethod(new ExecFormattedRootBlock(ex_), new ExecTypeFunction(ex_, ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "exmeth", new CustList<String>())).first()), new Parameters()), user_.getContext(), StackCall.newInstance(InitPhase.NOTHING, ctx_));
         assertEq(1,((NumberStruct) ArgumentListCall.toStr(a_.getValue())).intStruct());
     }
-
+    @Test
+    public void buildImpl() {
+        MockResultContextNext m_ = new MockResultContextNext("src");
+        ResultContext b_ = m_.init(new Options(),false);
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt","public class pkg.Ex {public static int exmeth(){return 1;}}");
+        assertEq(1,m_.files(b_,src_).size());
+        ResultContext user_ = m_.next(b_, m_.next(b_, src_, new DefStackStopper()));
+        m_.generate(user_);
+        ContextEl ctx_ = user_.getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Ex");
+        ArgumentWrapper a_ = ProcessMethod.calculate(new CustomFoundMethod(new ExecFormattedRootBlock(ex_), new ExecTypeFunction(ex_, ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "exmeth", new CustList<String>())).first()), new Parameters()), ctx_, StackCall.newInstance(InitPhase.NOTHING, ctx_));
+        assertEq(1,((NumberStruct) ArgumentListCall.toStr(a_.getValue())).intStruct());
+    }
     @Test
     public void buildLight() {
         StringMap<String> src_ = new StringMap<String>();

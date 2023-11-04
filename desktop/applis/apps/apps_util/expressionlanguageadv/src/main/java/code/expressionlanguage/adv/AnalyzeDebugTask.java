@@ -3,7 +3,6 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.exec.dbg.DbgStackStopper;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.utilcompo.AbsAdvContextGenerator;
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.gui.AbsTextArea;
 import code.util.EntryCust;
@@ -36,8 +35,7 @@ public final class AnalyzeDebugTask implements Runnable {
             gui.getAnalyzeMenu().setEnabled(true);
             return;
         }
-        AbsAdvContextGenerator gn_ = gen_.generate();
-        ResultContext.fwdWithoutCheck(ana_,gn_);
+        gen_.generate(ana_);
 //        Forwards f_ = ana_.getForwards();
 //        AnalyzedPageEl page_ = ana_.getPageEl();
 //        ForwardInfos.generalForward(page_,f_);

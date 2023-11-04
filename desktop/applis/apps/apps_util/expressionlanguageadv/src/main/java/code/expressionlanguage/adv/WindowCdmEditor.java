@@ -5,6 +5,7 @@ import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.options.CommentsUtil;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
@@ -49,7 +50,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final AbsMenuItem softParamsMenu;
     private final AbsMenuItem analyzeMenu;
     private final AbsMenuItem analyzeMenuSt;
-    private final AdvResultContextNext mainResultNext;
+    private AbsResultContextNext mainResultNext;
     private final SetterLanguage setterLanguage;
     private final StringMap<String> coreMessages;
     private final AbsMenuItem chooseFile;
@@ -78,8 +79,6 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(null,_lg, _list, _fact);
         languageEvent = new CdmGuiLanguageEvent(this);
-        mainResultNext = new AdvResultContextNext(this,_list, _fact);
-        setResultContextNext(getMainResultNext());
         service = _list.getThreadFactory().newExecutorService();
         serviceDbg = _list.getThreadFactory().newExecutorService();
         statusAnalyze = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
@@ -644,8 +643,12 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         this.futureDbgInit = _f;
     }
 
-    public AdvResultContextNext getMainResultNext() {
+    public AbsResultContextNext getMainResultNext() {
         return mainResultNext;
+    }
+
+    public void setMainResultNext(AbsResultContextNext _r) {
+        this.mainResultNext = _r;
     }
 
     public CdmGuiLanguageEvent getLanguageEvent() {

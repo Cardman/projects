@@ -20,6 +20,8 @@ public final class CreateWindowCdm implements Runnable {
     @Override
     public void run() {
         WindowCdmEditor window_ = new WindowCdmEditor(language, programInfos, list);
+        window_.setMainResultNext(new AdvResultContextNext(window_,programInfos,list));
+        window_.setResultContextNext(window_.getMainResultNext());
         window_.updateCommentsInit(args);
     }
 }
