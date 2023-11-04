@@ -8,6 +8,7 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -233,6 +234,72 @@ public final class TreeStructTest extends EquallableElUtUtil {
         files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){TreeNode n=new(\"\");TreeNode s=new(\"\");s.add(n);Tree g = new(n);g.addTreeListener((TreeListener)new MyImpl().$lambda(MyImpl,impl,TreeNode));g.selected(n);}}public class pkg.MyImpl{public void impl(TreeNode t){t.get();}}");
         ResultContext ctx_ = ctx(pr_, files_);
         ctx_.toggleBreakPoint("src/sample.txt",257);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(4,dbg_.getStack().nbPages());
+        assertEq(190,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(257,dbg_.getStack().getCall(3).getTraceIndex());
+        StackCallReturnValue n_ = dbgContinueNormalValue(dbg_.getStack(), ctx_.getContext());
+        assertEq(0,n_.getStack().nbPages());
+    }
+    @Test
+    public void selectDbg3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){TreeNode n=new(\"\");TreeNode s=new(\"\");s.add(n);Tree g = new(n);g.addTreeListener((TreeListener)(TreeNode e:void)->{e.get();});g.selected(n);}}");
+        ResultContext ctx_ = ctx(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt",144);
+        MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
+        p_.getValue().setEntry(true);
+        p_.getValue().setExit(false);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(3,dbg_.getStack().nbPages());
+        assertEq(177,dbg_.getStack().getCall(0).getTraceIndex());
+        StackCallReturnValue n_ = dbgContinueNormalValue(dbg_.getStack(), ctx_.getContext());
+        assertEq(0,n_.getStack().nbPages());
+    }
+    @Test
+    public void selectDbg4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){TreeNode n=new(\"\");TreeNode s=new(\"\");s.add(n);Tree g = new(n);g.addTreeListener((TreeListener)(TreeNode e:void)->{e.get();});g.selected(n);}}");
+        ResultContext ctx_ = ctx(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt",144);
+        MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
+        p_.getValue().setEntry(false);
+        p_.getValue().setExit(true);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(4,dbg_.getStack().nbPages());
+        assertEq(177,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(164,dbg_.getStack().getCall(3).getTraceIndex());
+        StackCallReturnValue n_ = dbgContinueNormalValue(dbg_.getStack(), ctx_.getContext());
+        assertEq(0,n_.getStack().nbPages());
+    }
+    @Test
+    public void selectDbg5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){TreeNode n=new(\"\");TreeNode s=new(\"\");s.add(n);Tree g = new(n);g.addTreeListener((TreeListener)new MyImpl().$lambda(MyImpl,impl,TreeNode));g.selected(n);}}public class pkg.MyImpl{public void impl(TreeNode t){t.get();}}");
+        ResultContext ctx_ = ctx(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt",228);
+        MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
+        p_.getValue().setEntry(true);
+        p_.getValue().setExit(false);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(3,dbg_.getStack().nbPages());
+        assertEq(190,dbg_.getStack().getCall(0).getTraceIndex());
+        StackCallReturnValue n_ = dbgContinueNormalValue(dbg_.getStack(), ctx_.getContext());
+        assertEq(0,n_.getStack().nbPages());
+    }
+    @Test
+    public void selectDbg6() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){TreeNode n=new(\"\");TreeNode s=new(\"\");s.add(n);Tree g = new(n);g.addTreeListener((TreeListener)new MyImpl().$lambda(MyImpl,impl,TreeNode));g.selected(n);}}public class pkg.MyImpl{public void impl(TreeNode t){t.get();}}");
+        ResultContext ctx_ = ctx(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt",228);
+        MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
+        p_.getValue().setEntry(false);
+        p_.getValue().setExit(true);
         StackCallReturnValue dbg_ = launchDbg(ctx_);
         assertEq(4,dbg_.getStack().nbPages());
         assertEq(190,dbg_.getStack().getCall(0).getTraceIndex());
