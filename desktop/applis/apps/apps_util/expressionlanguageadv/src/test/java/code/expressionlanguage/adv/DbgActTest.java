@@ -8413,7 +8413,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         e_.getTree().select(e_.getTree().getRoot());
         e_.getTree().select(e_.getTree().getRoot().getFirstChild());
         e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild());
-//        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
+        e_.getTree().select(e_.getTree().getRoot().getFirstChild().getFirstChild().getFirstChild());
         AbsDebuggerGui b_ = e_.getSessionExp();
         menuExp(e_,b_);
         assertEq(0,found(b_).size());
