@@ -321,6 +321,39 @@ public final class TreeStructTest extends EquallableElUtUtil {
         StackCallReturnValue n_ = dbgContinueNormalValue(dbg_.getStack(), ctx_.getContext());
         assertEq(0,n_.getStack().nbPages());
     }
+    @Test
+    public void selectDbg8() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){TreeNode n=new(\"\");TreeNode s=new(\"\");s.add(n);Tree g = new(n);g.addTreeListener((TreeListener)(TreeNode e:void)->{e.get();});g.selected(null);}}");
+        ResultContext ctx_ = ctx(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt",144);
+        MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
+        p_.getValue().setEntry(true);
+        p_.getValue().setExit(false);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(3,dbg_.getStack().nbPages());
+        assertEq(177,dbg_.getStack().getCall(0).getTraceIndex());
+        StackCallReturnValue n_ = dbgContinueNormalValue(dbg_.getStack(), ctx_.getContext());
+        assertEq(0,n_.getStack().nbPages());
+    }
+    @Test
+    public void selectDbg9() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){TreeNode n=new(\"\");TreeNode s=new(\"\");s.add(n);Tree g = new(n);g.addTreeListener((TreeListener)(TreeNode e:void)->{e.get();});g.selected(null);}}");
+        ResultContext ctx_ = ctx(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt",144);
+        MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
+        p_.getValue().setEntry(false);
+        p_.getValue().setExit(true);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(4,dbg_.getStack().nbPages());
+        assertEq(177,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(166,dbg_.getStack().getCall(3).getTraceIndex());
+        StackCallReturnValue n_ = dbgContinueNormalValue(dbg_.getStack(), ctx_.getContext());
+        assertEq(0,n_.getStack().nbPages());
+    }
     private StackCallReturnValue launchDbg(ResultContext _ctx) {
         ExecRootBlock ex_ = _ctx.getContext().getClasses().getClassBody("pkg.Sample");
         ExecFormattedRootBlock form_ = new ExecFormattedRootBlock(ex_);
