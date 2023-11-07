@@ -7,6 +7,9 @@ import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
+import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.Forwards;
@@ -360,6 +363,56 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Struct bs_ = ctxStr(pr_,files_);
         assertTrue(bs_);
     }
+    @Test
+    public void renderDbg1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new GrList(false);StringBuilder d = new StringBuilder();g.setRender((CellRender)new Sample().$lambda(Sample,[],int,Object,boolean,boolean,boolean,Font,GrList));g.add(\"1\");g.add(\"2\");return \"\"+d;}public Image this(int a,Object b,boolean c,boolean d,boolean e,Font f,GrList g){return new Image(1,1,true);}}");
+        ResultContext ctx_ = ctxRes(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt",254);
+        MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
+        p_.getValue().setEntry(true);
+        p_.getValue().setExit(false);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(3,dbg_.getStack().nbPages());
+        assertEq(221,dbg_.getStack().getCall(0).getTraceIndex());
+        dbgContinueNormalValue(dbg_.getStack(), ctx_.getContext());
+        assertEq(3,dbg_.getStack().nbPages());
+        assertEq(232,dbg_.getStack().getCall(0).getTraceIndex());
+        dbgContinueNormalValue(dbg_.getStack(), ctx_.getContext());
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    @Test
+    public void renderDbg2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new GrList(false);StringBuilder d = new StringBuilder();g.setRender((CellRender)new Sample().$lambda(Sample,[],int,Object,boolean,boolean,boolean,Font,GrList));g.add(\"1\");g.add(\"2\");return \"\"+d;}public Image this(int a,Object b,boolean c,boolean d,boolean e,Font f,GrList g){return new Image(1,1,true);}}");
+        ResultContext ctx_ = ctxRes(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt",254);
+        MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
+        p_.getValue().setEntry(false);
+        p_.getValue().setExit(true);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(4,dbg_.getStack().nbPages());
+        assertEq(221,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(341,dbg_.getStack().getCall(3).getTraceIndex());
+        dbgContinueNormalValue(dbg_.getStack(), ctx_.getContext());
+        assertEq(4,dbg_.getStack().nbPages());
+        assertEq(232,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(341,dbg_.getStack().getCall(3).getTraceIndex());
+        dbgContinueNormalValue(dbg_.getStack(), ctx_.getContext());
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    private StackCallReturnValue launchDbg(ResultContext _ctx) {
+        ExecRootBlock ex_ = _ctx.getContext().getClasses().getClassBody("pkg.Sample");
+        ExecFormattedRootBlock form_ = new ExecFormattedRootBlock(ex_);
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC, "run", new StringList());
+        return ExecClassesUtil.tryInitStaticlyTypes(_ctx.getContext(), _ctx.getForwards().getOptions(), null, new CustomFoundMethod(form_, new ExecTypeFunction(form_, ExecClassesUtil.getMethodBodiesById(ex_, id_).first()), new Parameters()), StepDbgActionEnum.DEBUG, false);
+    }
+
+    protected static StackCallReturnValue dbgContinueNormalValue(StackCall _stack, ContextEl _cont) {
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.KEEP, false);
+    }
     private void action(ScrollCustomGraphicList<Struct> _gene, int _a, int _b) {
         ((MockAbstractAction)GuiBaseUtil.getAction(_gene.getElements(),_a,_b)).action();
     }
@@ -388,7 +441,20 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         return buildMock(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
     }
-
+    private ResultContext ctxRes(MockProgramInfos _p, StringMap<String> _files) {
+        update(_p);
+        LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+        return buildMockDbg(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files);
+    }
     public static ResultContext buildMock(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
         preBuild(_definedLgNames, _exec, _mess, _definedKw);
         StringMap<String> s_ = new StringMap<String>();
@@ -424,6 +490,47 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         _definedLgNames.getGuiAliases().buildGrList(_definedLgNames.getContent(),_definedLgNames.getExecContent().getCustAliases(),_definedLgNames.getGuiExecutingBlocks(),component_,input_);
         ValidatorStandard.setupOverrides(page_);
         ResultContext res_ = commonMock(_exec, _definedLgNames, _files, page_, forwards_);
+        LgNamesGui stds_ = (LgNamesGui) res_.getContext().getStandards();
+        stds_.getGuiExecutingBlocks().cellRender(stds_.getGuiAliases(), stds_.getContent(),res_.getContext().getClasses());
+        stds_.getGuiExecutingBlocks().listSelection(stds_.getGuiAliases(), stds_.getContent(),res_.getContext().getClasses());
+        Classes.tryInit(res_);
+        return res_;
+    }
+    public static ResultContext buildMockDbg(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        StringMap<String> s_ = new StringMap<String>();
+        s_.addEntry("0",_definedLgNames.getGuiAliases().renderInterface(_definedKw, _definedLgNames.getContent()));
+        s_.addEntry("1",_definedLgNames.getGuiAliases().renderDefault(_definedKw, _definedLgNames.getContent()));
+        s_.addEntry("2",_definedLgNames.getGuiAliases().listSelection(_definedKw, _definedLgNames.getContent()));
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
+        Forwards forwards_ = nextBuild(_options, _definedKw, _definedLgNames, _files, s_, page_);
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _definedLgNames.buildBase();
+
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass component_ = new StandardClass(_definedLgNames.getGuiAliases().getAliasComponent(), fields_, constructors_, methods_, _definedLgNames.getContent().getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
+        component_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
+//        StringList params_ = new StringList();
+//        StandardMethod method_ = new StandardMethod(_definedLgNames.getGuiAliases().getAliasComponentGetWidth(), params_, _definedLgNames.getContent().getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctCompoGetWidth());
+//        StandardNamedFunction.addFct(methods_, method_);
+        StandardType.addType(_definedLgNames.getContent().getStandards(), _definedLgNames.getGuiAliases().getAliasComponent(), component_);
+
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<CstFieldInfo>();
+        StandardClass input_ = new StandardClass(_definedLgNames.getGuiAliases().getAliasInput(), fields_, constructors_, methods_, _definedLgNames.getGuiAliases().getAliasComponent(), StdClassModifier.ABSTRACT);
+        input_.addSuperStdTypes(component_);
+        input_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
+        StandardType.addType(_definedLgNames.getContent().getStandards(), _definedLgNames.getGuiAliases().getAliasInput(), input_);
+
+        _definedLgNames.getGuiAliases().color(_definedLgNames.getContent());
+        _definedLgNames.getGuiAliases().image(_definedLgNames.getContent(), _definedLgNames.getGuiExecutingBlocks());
+        _definedLgNames.getGuiAliases().font(_definedLgNames.getContent(), _definedLgNames.getGuiExecutingBlocks());
+        _definedLgNames.getGuiAliases().buildGrList(_definedLgNames.getContent(),_definedLgNames.getExecContent().getCustAliases(),_definedLgNames.getGuiExecutingBlocks(),component_,input_);
+        ValidatorStandard.setupOverrides(page_);
+        ResultContext res_ = commonMockDbg(_exec, _definedLgNames, _files, page_, forwards_);
         LgNamesGui stds_ = (LgNamesGui) res_.getContext().getStandards();
         stds_.getGuiExecutingBlocks().cellRender(stds_.getGuiAliases(), stds_.getContent(),res_.getContext().getClasses());
         stds_.getGuiExecutingBlocks().listSelection(stds_.getGuiAliases(), stds_.getContent(),res_.getContext().getClasses());
