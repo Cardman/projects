@@ -106,6 +106,12 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
         return tree.getSelectionPath();
     }
 
+    @Override
+    public void selectNull() {
+        tree.setSelectionPath(null);
+    }
+
+    @Override
     public void select(AbstractMutableTreeNodeCore<String> _node) {
         tree.setSelectionPath(getTreePath(convert(_node)));
     }

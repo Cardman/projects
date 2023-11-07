@@ -30,6 +30,8 @@ public final class TreeStruct extends CustComponentStruct {
     public void select(Struct _node) {
         if (_node instanceof TreeNodeStruct) {
             tree.select(((TreeNodeStruct) _node).getTreeNode());
+        } else {
+            tree.selectNull();
         }
     }
 

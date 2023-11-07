@@ -20,8 +20,18 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
     }
 
     @Override
+    public void selectNull() {
+        selectedPaths(new MockTreePaths(new CustList<AbsTreePath>()));
+        fireEvents(null);
+    }
+
+    @Override
     public void select(AbstractMutableTreeNodeCore<String> _m) {
         selectedPaths(new MockTreePaths(new CustList<AbsTreePath>(getTreePath((MockMutableTreeNode) _m))));
+        fireEvents(_m);
+    }
+
+    private void fireEvents(AbstractMutableTreeNodeCore<String> _m) {
         for (AbsShortListTree l: getTreeSelectionListeners()) {
             l.valueChanged(_m);
         }

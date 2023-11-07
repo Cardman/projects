@@ -377,6 +377,7 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
     public void t29() {
         MockCommonFrameTreeSample mock_ = new MockCommonFrameTreeSample(init());
         MockTreeGui tree_ = (MockTreeGui) mock_.getContentPane().getComponent(0);
+        tree_.selectNull();
         tree_.select(tree_.getRoot());
         AbstractMutableTreeNodeCore<String> root_ = tree_.selectEvt();
         tree_.select(root_.getChildAt(0));

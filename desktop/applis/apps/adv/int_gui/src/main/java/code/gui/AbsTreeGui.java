@@ -4,6 +4,7 @@ import code.util.CustList;
 
 public interface AbsTreeGui extends AbsCustComponent {
     void select(AbstractMutableTreeNodeCore<String> _node);
+    void selectNull();
     void reload(AbstractMutableTreeNodeCore<String> _node);
     void reloadRoot();
     AbstractMutableTreeNodeCore<String> getRoot();
