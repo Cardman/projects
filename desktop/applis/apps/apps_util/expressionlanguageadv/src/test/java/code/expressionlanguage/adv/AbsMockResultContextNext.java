@@ -1,6 +1,8 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.analyze.AbsAliasFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefAliasFileBuilder;
 import code.expressionlanguage.analyze.DefaultAliasGroups;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
@@ -12,9 +14,11 @@ import code.expressionlanguage.options.*;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilimpl.CustContextFactory;
+import code.expressionlanguage.utilimpl.LgNamesUtils;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.CdmFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.mock.MockAliasFileBuilder;
 import code.mock.MockFileBuilder;
 import code.util.CustList;
 import code.util.StringList;
@@ -36,7 +40,8 @@ public abstract class AbsMockResultContextNext extends AdvAbsResultContextNext {
         CustContextFactory.preinit(_opt, ex_, mess_, kwl_, stds_);
         CustContextFactory.parts(ex_,stds_,new StringList());
         AnalyzedPageEl page_ = CustContextFactory.mapping(stds_);
-        MockFileBuilder fileBuilder_ = new MockFileBuilder(stds_.getContent(), new DefaultAliasGroups(stds_.getContent()), stds_.getStrAlias(), predef());
+        MockFileBuilder fileBuilder_ = new MockFileBuilder(new DefaultAliasGroups(stds_.getContent()));
+        updateMockBuilders(stds_,page_,predef());
         Forwards forwards_ = CustContextFactory.fwd(_opt, stds_, fileBuilder_);
         page_.setLogErr(forwards_);
         ContextFactory.beforeBuild(forwards_,mess_,kwl_,new CustList<CommentDelimiters>(),_opt,stds_.getContent(),page_);
@@ -48,6 +53,15 @@ public abstract class AbsMockResultContextNext extends AdvAbsResultContextNext {
         return new ResultContext(page_, forwards_);
     }
 
+    public static void updateMockBuilders(LgNamesUtils _stds, AnalyzedPageEl _page, StringMap<String> _predef) {
+        CustList<AbsAliasFileBuilder> builders_ = new CustList<AbsAliasFileBuilder>();
+        builders_.add(new DefAliasFileBuilder());
+        builders_.add(_stds.getExecContent().getCustAliases().getStringViewReplaceAliases());
+        builders_.add(new MockAliasFileBuilder(_predef));
+        CustList<AbsAliasFileBuilder> fbs_ = _page.getFileBuilders();
+        fbs_.clear();
+        fbs_.addAllElts(builders_);
+    }
     protected abstract StringMap<String> predef();
 
     protected abstract void build(LgNamesGui _fwd);

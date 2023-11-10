@@ -7,21 +7,21 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.DfInstancer;
 import code.expressionlanguage.utilcompo.AtomicIntegerStruct;
-import code.expressionlanguage.utilcompo.FileInfos;
 import code.threads.AbstractAtomicInteger;
+import code.threads.AbstractThreadFactory;
 
 public final class DfAtomicInteger implements DfInstancer {
-    private final FileInfos infos;
+    private final AbstractThreadFactory infos;
     private final String aliasAtomicInteger;
 
-    public DfAtomicInteger(FileInfos _infos, String _aliasAtomicInteger) {
+    public DfAtomicInteger(AbstractThreadFactory _infos, String _aliasAtomicInteger) {
         this.infos = _infos;
         this.aliasAtomicInteger = _aliasAtomicInteger;
     }
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        AbstractAtomicInteger at_ = infos.getThreadFactory().newAtomicInteger();
+        AbstractAtomicInteger at_ = infos.newAtomicInteger();
         AtomicIntegerStruct std_ = new AtomicIntegerStruct(at_, aliasAtomicInteger);
         return new ArgumentWrapper(std_);
     }

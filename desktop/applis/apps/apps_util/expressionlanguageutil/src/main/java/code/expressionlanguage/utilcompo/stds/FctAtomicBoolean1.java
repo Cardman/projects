@@ -9,21 +9,21 @@ import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.AtomicBooleanStruct;
-import code.expressionlanguage.utilcompo.FileInfos;
 import code.threads.AbstractAtomicBoolean;
+import code.threads.AbstractThreadFactory;
 
 public final class FctAtomicBoolean1 implements StdCaller {
-    private final FileInfos infos;
+    private final AbstractThreadFactory infos;
     private final String aliasAtomicBoolean;
 
-    public FctAtomicBoolean1(FileInfos _infos, String _aliasAtomicBoolean) {
+    public FctAtomicBoolean1(AbstractThreadFactory _infos, String _aliasAtomicBoolean) {
         this.infos = _infos;
         this.aliasAtomicBoolean = _aliasAtomicBoolean;
     }
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        AbstractAtomicBoolean at_ = infos.getThreadFactory().newAtomicBoolean(BooleanStruct.isTrue(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
+        AbstractAtomicBoolean at_ = infos.newAtomicBoolean(BooleanStruct.isTrue(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
         AtomicBooleanStruct std_ = new AtomicBooleanStruct(at_, aliasAtomicBoolean);
         return new ArgumentWrapper(std_);
     }

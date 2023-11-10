@@ -11,7 +11,7 @@ import code.stream.core.ReadFiles;
 import code.threads.AbstractAtomicBoolean;
 import code.util.StringMap;
 
-public final class MemoResultContextNext implements AbsLightMemoResultContextNext {
+public final class MemoResultContextNext implements AbsLightResultContextNext,AbsLightMemoResultContextNext {
     private final FileInfos fileInfos;
     public MemoResultContextNext(ResultContext _base, MemInputFiles _input, AbstractIssuer _issuer) {
         LgNamesGui lg_ = (LgNamesGui) _base.getForwards().getGenerator();

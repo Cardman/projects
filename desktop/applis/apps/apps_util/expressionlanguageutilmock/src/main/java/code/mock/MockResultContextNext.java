@@ -1,8 +1,6 @@
 package code.mock;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefSymbolFactory;
-import code.expressionlanguage.analyze.DefaultAliasGroups;
+import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.exec.AbsStackStopper;
 import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.fwd.Forwards;
@@ -15,6 +13,7 @@ import code.expressionlanguage.utilcompo.StringViewReplaceAliases;
 import code.sml.util.TranslationsFile;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.ConcreteBoolean;
+import code.util.CustList;
 import code.util.StringMap;
 
 public final class MockResultContextNext implements AbsResultContextNext {
@@ -36,8 +35,11 @@ public final class MockResultContextNext implements AbsResultContextNext {
         LgNamesContent.en(en_);
         StringViewReplaceAliases.en(en_);
         stds_.getStrAlias().build(TranslationsFile.extractMap(en_),new StringMap<String>(), TranslationsFile.extractKeys(en_));
-        MockFileBuilder fileBuilder_ = new MockFileBuilder(stds_.getContent(), new DefaultAliasGroups(stds_.getContent()),stds_.getStrAlias());
-        return MockLightLgNames.resultContextCore(_opt,stds_,fileBuilder_,en_,new DefSymbolFactory());
+        AbstractFileBuilder fileBuilder_ = new MockFileBuilder(new DefaultAliasGroups(stds_.getContent()));
+        CustList<AbsAliasFileBuilder> bs_ = new CustList<AbsAliasFileBuilder>();
+        bs_.add(new DefAliasFileBuilder());
+        bs_.add(stds_.getStrAlias());
+        return MockLightLgNames.resultContextCore(_opt,stds_,fileBuilder_,en_,new DefSymbolFactory(), bs_);
     }
 
     @Override

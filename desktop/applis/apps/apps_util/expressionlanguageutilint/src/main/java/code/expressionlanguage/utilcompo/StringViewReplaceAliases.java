@@ -1,5 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
+import code.expressionlanguage.analyze.AbsAliasFileBuilder;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNamesContent;
@@ -7,7 +8,7 @@ import code.sml.util.TranslationsFile;
 import code.util.CustList;
 import code.util.StringMap;
 
-public final class StringViewReplaceAliases {
+public final class StringViewReplaceAliases implements AbsAliasFileBuilder {
     private static final String ABS_STRING_VIEW="____________2136";
     private static final String ABS_STRING_VIEW_INDEX="____________2137";
     private static final String ABS_STRING_REPLACER="____________2140";

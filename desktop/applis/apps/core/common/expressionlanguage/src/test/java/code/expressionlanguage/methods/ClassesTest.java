@@ -28,10 +28,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
-import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.options.*;
 import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.stds.ListLoggableLgNames;
@@ -111,7 +108,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Forwards fwd_ = fwd(lgName_, fileBuilder_, opts_);
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_));
+        assertFalse(ContextFactory.validateStds(new AnalysisElementsBase(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_)));
         validateAndRetWithoutInitCheck(opts_, lgName_, kw_, new StringMap<String>(), new StringMap<String>());
         assertTrue(!page_.isEmptyStdError());
         assertTrue(page_.notAllEmptyErrors());
@@ -133,7 +130,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Forwards fwd_ = fwd(lgName_, fileBuilder_, opts_);
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_));
+        assertFalse(ContextFactory.validateStds(new AnalysisElementsBase(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_)));
         validateAndRetWithoutInitCheck(opts_, lgName_, kw_, new StringMap<String>(), new StringMap<String>());
         assertTrue(!page_.isEmptyStdError());
     }
@@ -151,7 +148,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Forwards fwd_ = fwd(lgName_, null, opts_);
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_));
+        assertFalse(ContextFactory.validateStds(new AnalysisElementsBase(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_)));
         validateAndRetWithoutInitCheck(opts_, lgName_, kw_, new StringMap<String>(), new StringMap<String>());
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(page_.notAllEmptyErrors());
@@ -168,7 +165,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Forwards fwd_ = fwd(lgName_, null, opts_);
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_));
+        assertFalse(ContextFactory.validateStds(new AnalysisElementsBase(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_)));
         validateAndRetWithoutInitCheck(opts_, lgName_, kw_, new StringMap<String>(), new StringMap<String>());
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(page_.notAllEmptyErrors());
@@ -8004,7 +8001,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Forwards forwards_ = new Forwards(stds_, new ListLoggableLgNames(), fileBuilder_, opt_);
         page_.setLogErr(forwards_);
         ContextFactory.beforeBuild(forwards_,mess_,kwl_,new CustList<CommentDelimiters>(),opt_,stds_.getContent(),page_);
-        ContextFactory.build(forwards_,kwl_,opt_,page_);
+        ContextFactory.build(forwards_,kwl_,opt_,page_,new DefBuildLightResultContextNext());
         return new ResultContext(page_, forwards_);
     }
 }

@@ -1,5 +1,6 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.analyze.AbsAliasFileBuilder;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.CstFieldInfo;
@@ -21,7 +22,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class GuiAliases {
+public final class GuiAliases implements AbsAliasFileBuilder {
     public static final String SPACES_4 = "    ";
     public static final String LR = "\n";
 

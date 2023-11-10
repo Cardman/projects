@@ -167,6 +167,7 @@ public final class AnalyzedPageEl {
     private boolean customAna;
     private boolean dynamic;
     private final AnaBlockCounts countAnon = new AnaBlockCounts();
+    private final CustList<AbsAliasFileBuilder> fileBuilders = new CustList<AbsAliasFileBuilder>();
 
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
@@ -191,6 +192,7 @@ public final class AnalyzedPageEl {
         copy_.content = _original.content;
         copy_.calculator = _original.calculator;
         copy_.fileBuilder = _original.fileBuilder;
+        copy_.fileBuilders.addAllElts(_original.fileBuilders);
         copy_.resources = _original.resources;
         copy_.staticFields = _original.staticFields;
         copy_.tabWidth = _original.tabWidth;
@@ -323,8 +325,13 @@ public final class AnalyzedPageEl {
     }
 
     public StringMap<String> buildFiles(){
-        AbstractFileBuilder fileBuilder_ = getFileBuilder();
-        return fileBuilder_.buildFiles(keyWords);
+        StringMap<String> all_ = new StringMap<String>();
+        for (AbsAliasFileBuilder a: getFileBuilders()) {
+            all_.addAllEntries(a.buildFiles(keyWords,content));
+        }
+        return all_;
+//        AbstractFileBuilder fileBuilder_ = getFileBuilder();
+//        return fileBuilder_.buildFiles(keyWords);
     }
     public StringMap<StandardType> getStandardsTypes() {
         return content.getStandards();
@@ -1376,6 +1383,10 @@ public final class AnalyzedPageEl {
 
     public void setFileBuilder(AbstractFileBuilder _fileBuilder) {
         this.fileBuilder = _fileBuilder;
+    }
+
+    public CustList<AbsAliasFileBuilder> getFileBuilders() {
+        return fileBuilders;
     }
 
     public AbsLineDeclarator getLineDeclarator() {

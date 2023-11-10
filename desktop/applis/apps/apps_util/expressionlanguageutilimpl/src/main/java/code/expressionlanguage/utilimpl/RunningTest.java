@@ -5,11 +5,9 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.DefStackStopper;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.guicompos.GuiFileBuilder;
 import code.expressionlanguage.guicompos.LgNamesGui;
-import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
-import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.options.*;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.CdmFactory;
 import code.gui.initialize.AbstractLightProgramInfos;
@@ -27,31 +25,37 @@ public final class RunningTest implements Runnable {
     private boolean file;
     private FileInfos infos;
     private StringList languages;
+    private AbsBuildLightResultContextNext buildLightResultContextNext;
+    private AbsFileBuilderListGene factory;
 
     private RunningTest() {
     }
-    public static RunningTest newFromFile(StringList _lgs,String _fileConf, ProgressingTests _progressingTests, FileInfos _infos) {
+    public static RunningTest newFromFile(StringList _lgs, String _fileConf, ProgressingTests _progressingTests, FileInfos _infos, AbsBuildLightResultContextNext _b, AbsFileBuilderListGene _fact) {
         RunningTest r_ = new RunningTest();
         r_.fileConfOrContent = _fileConf;
         r_.progressingTests = _progressingTests;
         r_.file = true;
         r_.infos = _infos;
         r_.languages = _lgs;
+        r_.buildLightResultContextNext = _b;
+        r_.factory = _fact;
         return r_;
     }
 
-    public static RunningTest newFromContent(StringList _lgs,String _fileConf, ProgressingTests _progressingTests, FileInfos _infos) {
+    public static RunningTest newFromContent(StringList _lgs, String _fileConf, ProgressingTests _progressingTests, FileInfos _infos, AbsBuildLightResultContextNext _b, AbsFileBuilderListGene _fact) {
         RunningTest r_ = new RunningTest();
         r_.fileConfOrContent = _fileConf;
         r_.progressingTests = _progressingTests;
         r_.infos = _infos;
         r_.languages = _lgs;
+        r_.buildLightResultContextNext = _b;
+        r_.factory = _fact;
         return r_;
     }
     @Override
     public void run() {
         String content_ = retrieve();
-        launchByConfContent(languages,content_,progressingTests,infos);
+        launchByConfContent(languages,content_,progressingTests,infos, buildLightResultContextNext,factory);
     }
 
     public String retrieve() {
@@ -68,7 +72,7 @@ public final class RunningTest implements Runnable {
         return progressingTests;
     }
 
-    public static boolean launchByConfContent(StringList _lgs,String _content, ProgressingTests _progressingTests, FileInfos _infos) {
+    public static boolean launchByConfContent(StringList _lgs, String _content, ProgressingTests _progressingTests, FileInfos _infos, AbsBuildLightResultContextNext _lgname, AbsFileBuilderListGene _fact) {
         StringList linesFiles_ = ExecutingOptions.lines(StringUtil.nullToEmpty(_content));
         if (linesFiles_.size() < 2) {
             return false;
@@ -86,11 +90,11 @@ public final class RunningTest implements Runnable {
             return false;
         }
         opt_.setReadOnly(true);
-        CustContextFactory.executeDefKw(opt_,exec_,list_,_progressingTests, new LgNamesGui(_infos,_progressingTests.getFactory().getInterceptor()));
+        CustContextFactory.executeDefKw(opt_,exec_,list_,_progressingTests, new LgNamesGui(_infos,_progressingTests.getFactory().getInterceptor()), _lgname,_fact);
         return true;
     }
 
-    public static ResultContext baseValidateMemoDef(String _lg, AbstractInterceptor _interceptor, AbstractLightProgramInfos _factories) {
+    public static ResultContext baseValidateMemoDef(String _lg, AbstractInterceptor _interceptor, AbstractLightProgramInfos _factories, AbsFileBuilderListGene _fact, AbsBuildLightResultContextNext _b) {
         FileInfos file_ = MemoResultContextNext.fileInfos(_factories, null, new MemInputFiles(new byte[0], new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true)));
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
@@ -101,13 +105,15 @@ public final class RunningTest implements Runnable {
         CustContextFactory.preinit(opts_, ex_, mess_, kwl_, stds_);
         CustContextFactory.parts(ex_,stds_,new StringList());
         AnalyzedPageEl page_ = CustContextFactory.mapping(stds_);
-        Forwards forwards_ = CustContextFactory.builder(opts_, stds_, page_);
+        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(stds_.getContent(), stds_.getGuiAliases(), stds_.getExecContent().getCustAliases());
+        CustContextFactory.updateBuilders(stds_,page_, _fact);
+        Forwards forwards_ = CustContextFactory.fwd(opts_, stds_, page_, fileBuilder_);
         ContextFactory.beforeBuild(forwards_, mess_, kwl_,stds_.getExecContent().getCustAliases().defComments(), opts_,stds_.getContent(), page_);
-        ContextFactory.build(forwards_, kwl_, opts_,page_);
+        ContextFactory.build(forwards_, kwl_, opts_,page_, _b);
         return new ResultContext(page_, forwards_);
     }
 
-    public static ResultContext baseValidateMemo(String _lg, StringList _otherLines, AbstractInterceptor _interceptor, AbstractLightProgramInfos _factories, AbstractIssuer _issuer) {
+    public static ResultContext baseValidateMemo(String _lg, StringList _otherLines, AbstractInterceptor _interceptor, AbstractLightProgramInfos _factories, AbstractIssuer _issuer, AbsBuildLightResultContextNext _a, AbsFileBuilderListGene _fact) {
         StringList ls_ = new StringList();
         ls_.add("");
         ls_.add(_lg);
@@ -116,7 +122,7 @@ public final class RunningTest implements Runnable {
         Options opts_ = new Options();
         ExecutingOptions ex_ = exec(_factories, _interceptor, _lg);
         ExecutingOptions.setupOptionals(0,opts_,ex_,_otherLines);
-        return CustContextFactory.stds(file_, ex_, opts_);
+        return CustContextFactory.stds(file_, ex_, opts_, false, _a,_fact);
     }
 
     private static ExecutingOptions exec(AbstractLightProgramInfos _factories, AbstractInterceptor _interceptor, String _lg) {
@@ -132,8 +138,9 @@ public final class RunningTest implements Runnable {
         if (_base.getPageEl().notAllEmptyErrors()) {
             return _base;
         }
-        LgNamesGui lg_ = (LgNamesGui) _base.getForwards().getGenerator();
-        return nextValidate(_base, lg_, new MemoResultContextNext(_base,_input,_issuer));
+        LgNamesWithNewAliases lg_ = (LgNamesWithNewAliases) _base.getForwards().getGenerator();
+        MemoResultContextNext memo_ = new MemoResultContextNext(_base, _input, _issuer);
+        return nextValidate(_base, lg_, memo_,memo_);
     }
 
     public static ResultContext nextValidateMemoQuick(ResultContext _base, MemInputFiles _input, AbstractIssuer _issuer) {
@@ -147,8 +154,8 @@ public final class RunningTest implements Runnable {
     }
 
 
-    public static ResultContext nextValidate(ResultContext _base, LgNamesWithNewAliases _lg, AbsLightMemoResultContextNext _n) {
-        ResultContext res_ = _n.next(_base, new StringMap<String>(), new DefStackStopper());
+    public static ResultContext nextValidate(ResultContext _base, LgNamesWithNewAliases _lg, AbsLightResultContextNext _b, AbsLightMemoResultContextNext _n) {
+        ResultContext res_ = _b.next(_base, new StringMap<String>(), new DefStackStopper());
         if (res_ == null) {
             return _base;
         }

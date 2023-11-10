@@ -1,7 +1,9 @@
 package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AbsAliasFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefAliasFileBuilder;
 import code.expressionlanguage.analyze.DefSymbolFactory;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
@@ -1541,6 +1543,7 @@ public final class RenderInitNavTest extends CommonRender {
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         BeanFileBuilder fileBuilder_ = BeanFileBuilder.newInstance(lgNames_.getContent(), lgNames_.getBeanAliases());
+        updateMockBuilders(lgNames_,page_);
         Forwards fwd_ = fwd(lgNames_, fileBuilder_, opt_);
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
@@ -1556,6 +1559,14 @@ public final class RenderInitNavTest extends CommonRender {
         return new DualNavigationContext(nav_, new DualAnalyzedContext(fwd_,page_,lgNames_,dual_, file_));
     }
 
+    public static void updateMockBuilders(BeanCustLgNames _stds, AnalyzedPageEl _page) {
+        CustList<AbsAliasFileBuilder> builders_ = new CustList<AbsAliasFileBuilder>();
+        builders_.add(new DefAliasFileBuilder());
+        builders_.add(_stds.getBeanAliases());
+        CustList<AbsAliasFileBuilder> fbs_ = _page.getFileBuilders();
+        fbs_.clear();
+        fbs_.addAllElts(builders_);
+    }
     private static ContextEl setupRendClassesInitStdMess(DualNavigationContext _a, Navigation _n) {
         return _a.getDualAnalyzedContext().getStds().setupAll(_a,new DefRenderContextGenerator()).getContext();
     }
@@ -1576,7 +1587,10 @@ public final class RenderInitNavTest extends CommonRender {
 
     private static DualAnalyzedContext loadConfiguration(BeanCustLgNames _lgNames, String _xmlConf, Navigation _n) {
         DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(_lgNames,new ListLoggableLgNames());
-        return _n.loadConfiguration(_xmlConf, "", _lgNames, BeanFileBuilder.newInstance(_lgNames.getContent(),_lgNames.getBeanAliases()), def_);
+        CustList<AbsAliasFileBuilder> builders_ = new CustList<AbsAliasFileBuilder>();
+        builders_.add(new DefAliasFileBuilder());
+        builders_.add(_lgNames.getBeanAliases());
+        return _n.loadConfiguration(_xmlConf, "", _lgNames, BeanFileBuilder.newInstance(_lgNames.getContent(),_lgNames.getBeanAliases()), builders_, def_);
     }
     private static String initDbOkConfCtx(String _xmlConf, String _clName, String _methodName, String _brCode, String _page) {
         DefaultInitialization de_ = initDbOkConfBuild(_xmlConf, _clName, _methodName, _brCode, _page);

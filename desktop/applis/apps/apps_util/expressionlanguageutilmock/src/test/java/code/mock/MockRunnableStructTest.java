@@ -108,6 +108,15 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         assertEq(1,m_.getWheelRotation());
     }
     @Test
+    public void mockBuilder() {
+        StringMap<String> f_ = new StringMap<String>();
+        f_.addEntry("","");
+        MockAliasFileBuilder m_ = new MockAliasFileBuilder(f_);
+        StringMap<String> fs_ = m_.buildFiles(null, null);
+        assertEq(1, fs_.size());
+        assertEq("", fs_.getVal(""));
+    }
+    @Test
     public void build() {
         MockResultContextNext m_ = new MockResultContextNext("src");
         ResultContext b_ = m_.init(new Options(),false);

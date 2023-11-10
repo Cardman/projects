@@ -18,13 +18,10 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.MemInputFiles;
-import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.GuiConstants;
 import code.gui.initialize.AbsCompoFactory;
 import code.maths.montecarlo.CustomSeedGene;
-import code.mock.MockFileSet;
-import code.mock.MockInterceptor;
-import code.mock.MockProgramInfos;
+import code.mock.*;
 import code.stream.BytesInfo;
 import code.threads.AbstractAtomicBoolean;
 import code.util.StringMap;
@@ -54,12 +51,12 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         AbstractAtomicBoolean a_ = pr_.getThreadFactory().newAtomicBoolean();
         progTest_.setStop(a_);
 
-        ResultContext res_ = CustContextFactory.buildDefKw(new Options(), stds_.getExecContent().getExecutingOptions(), stds_, files_);
+        ResultContext res_ = CustContextFactory.buildDefKw(new Options(), stds_.getExecContent().getExecutingOptions(), stds_, files_, new SampleAtIntLgNames(),new SampleFileBuilderListGene(), new MockContextGenerator(stds_.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()));
         ContextEl rCont_ = res_.getContext();
         String infoTest_ = stds_.getExecContent().getCustAliases().getAliasInfoTest();
         ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(infoTest_, rCont_.getClasses());
         Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(rCont_,className_, new Argument()),rCont_, StackCall.newInstance(InitPhase.NOTHING,rCont_)).getValue());
-        ShowUpdates sh_ = new ShowUpdates(infoStruct_,(RunnableContextEl) rCont_,progTest_,stds_);
+        ShowUpdates sh_ = new ShowUpdates(infoStruct_, rCont_,progTest_,stds_);
         sh_.run();
         assertEq(0, bar_.getMin());
         assertEq(0, bar_.getMax());
@@ -89,7 +86,7 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
         AbstractAtomicBoolean a_ = pr_.getThreadFactory().newAtomicBoolean();
         progTest_.setStop(a_);
-        ResultContext res_ = CustContextFactory.buildDefKw(new Options(), stds_.getExecContent().getExecutingOptions(), stds_, files_);
+        ResultContext res_ = CustContextFactory.buildDefKw(new Options(), stds_.getExecContent().getExecutingOptions(), stds_, files_, new SampleAtIntLgNames(),new SampleFileBuilderListGene(), new MockContextGenerator(stds_.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()));
         fram_.setResults(res_.getContext(),new Argument(),stds_);
         assertEq(0, bar_.getMin());
         assertEq(0, bar_.getMax());

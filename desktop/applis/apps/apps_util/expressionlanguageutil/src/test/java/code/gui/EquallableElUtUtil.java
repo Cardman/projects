@@ -4,13 +4,10 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.AdvContextGenerator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultAliasGroups;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
+import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.dbg.AbsLogDbg;
 import code.expressionlanguage.exec.dbg.DbgStackStopper;
 import code.expressionlanguage.exec.dbg.DefLogDbg;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -38,6 +35,7 @@ import code.stream.BytesInfo;
 import code.stream.core.ContentTime;
 import code.stream.core.OutputType;
 import code.stream.core.StreamZipFile;
+import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -303,8 +301,8 @@ public abstract class EquallableElUtUtil {
     public static Struct value(ArgumentWrapper _a) {
         return _a.getValue().getStruct();
     }
-    public static FileInfos newFileInfos(AbstractLightProgramInfos _light) {
-        return FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), null, new MemInputFiles(new byte[0],new BytesInfo(new byte[0],false),new BytesInfo(new byte[0],false)), _light.getZipFact(), _light.getThreadFactory());
+    public static AbstractThreadFactory newFileInfos(AbstractLightProgramInfos _light) {
+        return _light.getThreadFactory();
     }
     public static StackCall stack(Struct _sensible, InitPhase _phase) {
         StackCall st_ = new StackCall(new DefStackStopper(),_phase,new CustomSeedGene());
@@ -330,8 +328,20 @@ public abstract class EquallableElUtUtil {
         return new Forwards(_lgName,_lgName.getExecContent(), fileBuilder_, _opt);
     }
 
+
+    public static void updateBuilders(LgNamesGui _stds, AnalyzedPageEl _page) {
+        CustList<AbsAliasFileBuilder> builders_ = new CustList<AbsAliasFileBuilder>();
+        builders_.add(new DefAliasFileBuilder());
+        builders_.add(_stds.getExecContent().getCustAliases());
+        builders_.add(_stds.getExecContent().getCustAliases().getStringViewReplaceAliases());
+        builders_.add(_stds.getGuiAliases());
+        CustList<AbsAliasFileBuilder> fbs_ = _page.getFileBuilders();
+        fbs_.clear();
+        fbs_.addAllElts(builders_);
+    }
+
     protected static Forwards getForwards(LgNamesUtils _lgName, Options _opt) {
-        CustFileBuilder fileBuilder_ = new CustFileBuilder(_lgName.getContent(), _lgName.getExecContent().getCustAliases(),new CustAliasGroups(_lgName.getExecContent().getCustAliases(), _lgName.getContent()));
+        CustFileBuilder fileBuilder_ = new CustFileBuilder(new CustAliasGroups(_lgName.getExecContent().getCustAliases(), _lgName.getContent()));
         return new Forwards(_lgName,_lgName.getExecContent(), fileBuilder_, _opt);
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
@@ -377,39 +387,15 @@ public abstract class EquallableElUtUtil {
         preBuild(_definedLgNames, _exec, _mess, _definedKw);
         AnalyzedPageEl page_ = beginBuild(_definedLgNames);
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
+        updateBuilders(_definedLgNames,page_);
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
         forwards_.getResources().addAllEntries(_files);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
         ContextFactory.beforeBuild(forwards_,_mess,_definedKw,_definedLgNames.getExecContent().getCustAliases().defComments(),_options,_definedLgNames.getContent(),page_);
-        ContextFactory.build(forwards_,_definedKw,_options,page_);
+        ContextFactory.build(forwards_,_definedKw,_options,page_,new DefBuildLightResultContextNext());
 //        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
 //        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        ResultContext r_ = new ResultContext(page_, forwards_);
-        ResultContext res_ = ResultContext.def(r_, _files,  _exec.getSrcFolder());
-        ResultContext.fwd(res_, new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()));
-        Classes.tryInit(res_);
-        return res_;
-    }
-
-    public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files) {
-        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage(),"en");
-        _definedLgNames.getExecContent().getCustAliases().messages(_mess, _exec.getMessages());
-        _definedLgNames.getExecContent().getCustAliases().keyWord(_definedKw, _exec.getKeyWords());
-        _definedKw.initSupplDigits();
-        _definedLgNames.getExecContent().getCustAliases().otherAlias(_definedLgNames.getContent(), _exec.getAliases());
-        _definedLgNames.getExecContent().setExecutingOptions(_exec);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        StringMap<String> m_ = _definedLgNames.getExecContent().getCustAliases().extractAliasesKeys();
-        m_.addAllEntries(LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases()));
-        page_.setMappingAliases(m_);
-        page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames.getExecContent().getCustAliases().getMathAdvAliases()));
-        CustFileBuilder fileBuilder_ = new CustFileBuilder(_definedLgNames.getContent(), _definedLgNames.getExecContent().getCustAliases(),new CustAliasGroups(_definedLgNames.getExecContent().getCustAliases(), _definedLgNames.getContent()));
-        Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
-        forwards_.getResources().addAllEntries(_files);
-        page_.setLogErr(forwards_);
-        AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
-        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
         ResultContext r_ = new ResultContext(page_, forwards_);
         ResultContext res_ = ResultContext.def(r_, _files,  _exec.getSrcFolder());
         ResultContext.fwd(res_, new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()));
@@ -463,12 +449,23 @@ public abstract class EquallableElUtUtil {
         return ResultContext.def(r_, _files,  _exec.getSrcFolder());
     }
     public static Forwards nextBuild(Options _options, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, StringMap<String> _predef, AnalyzedPageEl _page) {
-        MockFileBuilder fileBuilder_ = new MockFileBuilder(_definedLgNames.getContent(), new DefaultAliasGroups(_definedLgNames.getContent()), _definedLgNames.getStrAlias(), _predef);
+        MockFileBuilder fileBuilder_ = new MockFileBuilder(new DefaultAliasGroups(_definedLgNames.getContent()));
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
         forwards_.getResources().addAllEntries(_files);
         _page.setLogErr(forwards_);
+        updateMockBuilders(_definedLgNames,_page,_predef);
         ContextFactory.beforeBuild(forwards_, new AnalysisMessages(), _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(),_page);
         return forwards_;
+    }
+
+    public static void updateMockBuilders(LgNamesUtils _stds, AnalyzedPageEl _page, StringMap<String> _predef) {
+        CustList<AbsAliasFileBuilder> builders_ = new CustList<AbsAliasFileBuilder>();
+        builders_.add(new DefAliasFileBuilder());
+        builders_.add(_stds.getExecContent().getCustAliases().getStringViewReplaceAliases());
+        builders_.add(new MockAliasFileBuilder(_predef));
+        CustList<AbsAliasFileBuilder> fbs_ = _page.getFileBuilders();
+        fbs_.clear();
+        fbs_.addAllElts(builders_);
     }
 
     public static AnalyzedPageEl beginBuild(LgNamesUtils _definedLgNames) {

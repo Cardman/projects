@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AbsAliasFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
@@ -33,7 +34,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class CustAliases {
+public final class CustAliases implements AbsAliasFileBuilder {
     public static final String ANY_PAIR = "<?,?,";
     public static final String LR = "\n";
     public static final String SPACES_4 = "    ";
@@ -688,7 +689,7 @@ public final class CustAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
-        stdcl_ = new StandardClass(aliasAtomicBoolean, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicBoolean(getInfos(),aliasAtomicBoolean));
+        stdcl_ = new StandardClass(aliasAtomicBoolean, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicBoolean(getInfos().getThreadFactory(),aliasAtomicBoolean));
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         method_ = new StandardMethod(aliasGetAtomic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctAtomicBooleanGet());
         StandardNamedFunction.addFct(methods_, method_);
@@ -705,10 +706,10 @@ public final class CustAliases {
         method_ = new StandardMethod(aliasLazySetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicBoolean0LazySetAtomic0()),new FctAtomicBooleanLazy());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false,new FctAtomicBoolean0(infos,aliasAtomicBoolean));
+        ctor_ = new StandardConstructor(params_,false,new FctAtomicBoolean0(infos.getThreadFactory(),aliasAtomicBoolean));
         StandardNamedFunction.addFct(constructors_, ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasAtomicBoolean0AtomicBoolean0()),new FctAtomicBoolean1(infos,aliasAtomicBoolean));
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasAtomicBoolean0AtomicBoolean0()),new FctAtomicBoolean1(infos.getThreadFactory(),aliasAtomicBoolean));
         StandardNamedFunction.addFct(constructors_, ctor_);
         std_ = stdcl_;
         StandardType.addType(_content.getStandards(), aliasAtomicBoolean, std_);
@@ -716,7 +717,7 @@ public final class CustAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
-        stdcl_ = new StandardClass(aliasAtomicInteger, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicInteger(getInfos(),aliasAtomicInteger));
+        stdcl_ = new StandardClass(aliasAtomicInteger, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicInteger(getInfos().getThreadFactory(),aliasAtomicInteger));
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         method_ = new StandardMethod(aliasGetAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctAtomicIntegerGet());
         StandardNamedFunction.addFct(methods_, method_);
@@ -751,10 +752,10 @@ public final class CustAliases {
         method_ = new StandardMethod(aliasGetAndDecrementAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctAtomicIntegerGetDec());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false,new FctAtomicInteger0(infos,aliasAtomicInteger));
+        ctor_ = new StandardConstructor(params_,false,new FctAtomicInteger0(infos.getThreadFactory(),aliasAtomicInteger));
         StandardNamedFunction.addFct(constructors_, ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasAtomicInteger0AtomicInteger0()),new FctAtomicInteger1(infos,aliasAtomicInteger));
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasAtomicInteger0AtomicInteger0()),new FctAtomicInteger1(infos.getThreadFactory(),aliasAtomicInteger));
         StandardNamedFunction.addFct(constructors_, ctor_);
         std_ = stdcl_;
         StandardType.addType(_content.getStandards(), aliasAtomicInteger, std_);
@@ -762,7 +763,7 @@ public final class CustAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
-        stdcl_ = new StandardClass(aliasAtomicLong, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicLong(getInfos(),aliasAtomicLong));
+        stdcl_ = new StandardClass(aliasAtomicLong, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicLong(getInfos().getThreadFactory(),aliasAtomicLong));
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         method_ = new StandardMethod(aliasGetAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL, new FctAtomicLongGet());
         StandardNamedFunction.addFct(methods_, method_);
@@ -797,10 +798,10 @@ public final class CustAliases {
         method_ = new StandardMethod(aliasGetAndDecrementAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL,new FctAtomicLongGetDec());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false,new FctAtomicLong0(infos,aliasAtomicLong));
+        ctor_ = new StandardConstructor(params_,false,new FctAtomicLong0(infos.getThreadFactory(),aliasAtomicLong));
         StandardNamedFunction.addFct(constructors_, ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
-        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasAtomicLong0AtomicLong0()),new FctAtomicLong1(infos,aliasAtomicLong));
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasAtomicLong0AtomicLong0()),new FctAtomicLong1(infos.getThreadFactory(),aliasAtomicLong));
         StandardNamedFunction.addFct(constructors_, ctor_);
         std_ = stdcl_;
         StandardType.addType(_content.getStandards(), aliasAtomicLong, std_);

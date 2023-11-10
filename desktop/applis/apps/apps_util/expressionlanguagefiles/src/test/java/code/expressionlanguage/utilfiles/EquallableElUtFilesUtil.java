@@ -17,7 +17,6 @@ import code.expressionlanguage.utilimpl.LgNamesUtils;
 import code.gui.TextAnswerValue;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractLightProgramInfos;
-import code.gui.initialize.AbstractProgramInfos;
 import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
@@ -25,7 +24,6 @@ import code.sml.Node;
 import code.stream.BytesInfo;
 import code.stream.core.ContentTime;
 import code.stream.core.OutputType;
-import code.stream.core.StreamZipFile;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -235,15 +233,7 @@ public abstract class EquallableElUtFilesUtil {
         _all.put(_name,new ContentTime(null,_light.getThreadFactory().millis()));
         return _all;
     }
-    protected static Forwards getForwards(LgNamesGui _lgName, Options _opt) {
-        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_lgName.getContent(), _lgName.getGuiAliases(), _lgName.getExecContent().getCustAliases());
-        return new Forwards(_lgName,_lgName.getExecContent(), fileBuilder_, _opt);
-    }
 
-    protected static Forwards getForwards(LgNamesUtils _lgName, Options _opt) {
-        CustFileBuilder fileBuilder_ = new CustFileBuilder(_lgName.getContent(), _lgName.getExecContent().getCustAliases(),new CustAliasGroups(_lgName.getExecContent().getCustAliases(), _lgName.getContent()));
-        return new Forwards(_lgName,_lgName.getExecContent(), fileBuilder_, _opt);
-    }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(_s, new int[0], new String[0], new TextAnswerValue[0]), _set);
         pr_.setLanguages(Constants.getAvailableLanguages());

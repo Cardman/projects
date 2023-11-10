@@ -8,21 +8,21 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.AtomicIntegerStruct;
-import code.expressionlanguage.utilcompo.FileInfos;
 import code.threads.AbstractAtomicInteger;
+import code.threads.AbstractThreadFactory;
 
 public final class FctAtomicInteger0 implements StdCaller {
-    private final FileInfos infos;
+    private final AbstractThreadFactory infos;
     private final String aliasAtomicInteger;
 
-    public FctAtomicInteger0(FileInfos _infos, String _aliasAtomicInteger) {
+    public FctAtomicInteger0(AbstractThreadFactory _infos, String _aliasAtomicInteger) {
         this.infos = _infos;
         this.aliasAtomicInteger = _aliasAtomicInteger;
     }
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        AbstractAtomicInteger at_ = infos.getThreadFactory().newAtomicInteger();
+        AbstractAtomicInteger at_ = infos.newAtomicInteger();
         AtomicIntegerStruct std_ = new AtomicIntegerStruct(at_, aliasAtomicInteger);
         return new ArgumentWrapper(std_);
     }

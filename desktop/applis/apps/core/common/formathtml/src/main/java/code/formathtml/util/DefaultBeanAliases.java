@@ -1,5 +1,6 @@
 package code.formathtml.util;
 
+import code.expressionlanguage.analyze.AbsAliasFileBuilder;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.StringExpUtil;
@@ -16,7 +17,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class DefaultBeanAliases {
+public final class DefaultBeanAliases implements AbsAliasFileBuilder {
     private static final String BEAN = "Bean";
     private static final String MAP_KEYS = "MapKeys";
     private static final String MAP_VALUES = "MapValues";

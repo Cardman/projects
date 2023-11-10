@@ -1,6 +1,6 @@
 package code.expressionlanguage.gui.unit;
 
-import code.expressionlanguage.Argument;
+import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.utilcompo.*;
@@ -18,8 +18,8 @@ public final class MemoryProgressingTests extends ProgressingTestsAbs {
     }
 
     @Override
-    public void setResults(RunnableContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
-        exportedReport = exportedResults(_ctx, _res, _evolved);
+    public void setResults(ContextEl _ctx, ExecutingOptions _ex, Argument _res, LgNamesWithNewAliases _evolved) {
+        exportedReport = exportedResults(_ctx,_ex, _res, _evolved);
     }
 
     @Override

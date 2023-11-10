@@ -3,11 +3,13 @@ package code.expressionlanguage.gui.unit;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.expressionlanguage.options.DefBuildLightResultContextNext;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
 import code.expressionlanguage.utilfiles.DefaultReporter;
+import code.expressionlanguage.utilimpl.DefFileBuilderListGene;
 import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.*;
 
@@ -168,10 +170,10 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
                 if (exec_ != null) {
                     exec_.set(true);
                 }
-                RunnableContextEl c_ = progressingTests_.ctx();
+                InterruptibleContextEl c_ = progressingTests_.ctx();
                 if (c_ != null) {
                     c_.getInterrupt().set(true);
-                    c_.getThread().getThread().stopJoinSleep();
+                    c_.stopJoinSleep();
                 }
             }
         }
@@ -207,7 +209,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
 //        }
         String txt_ = _mainWindow.getTxtConf();
         RunningTest r_ = RunningTest.newFromContent(getFrames().getLanguages(),txt_, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
-                _mainWindow.getInfos());
+                _mainWindow.getInfos(), new DefBuildLightResultContextNext(),new DefFileBuilderListGene());
         running = r_;
         th = exec.submit(r_);
     }
@@ -236,7 +238,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
 //            return;
 //        }
         RunningTest r_ = RunningTest.newFromFile(getFrames().getLanguages(),_fichier, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
-                _mainWindow.getInfos());
+                _mainWindow.getInfos(), new DefBuildLightResultContextNext(),new DefFileBuilderListGene());
         running = r_;
         th = exec.submit(r_);
     }

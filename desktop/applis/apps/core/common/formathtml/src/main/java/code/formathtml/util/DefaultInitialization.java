@@ -67,7 +67,7 @@ public final class DefaultInitialization {
         DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(stds,log);
         AbstractFileBuilder fileBuilder_;
         fileBuilder_ = stds.newFileBuilder();
-        DualAnalyzedContext du_ = _nav.loadConfiguration(content_, lgCode, stds, fileBuilder_, def_);
+        DualAnalyzedContext du_ = _nav.loadConfiguration(content_, lgCode, stds, fileBuilder_, stds.newFileBuilders(), def_);
         if (du_.getContext().isKo()) {
             return "";
         }

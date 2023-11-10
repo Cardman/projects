@@ -2,6 +2,7 @@ package code.formathtml.util;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AbsAliasFileBuilder;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.FileBlock;
@@ -1282,6 +1283,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
     public abstract void buildAliases(Element _elt, String _lg, RendKeyWords _rkw, KeyWords _kw, RendAnalysisMessages _rMess, AnalysisMessages _mess);
 
     public abstract AbstractFileBuilder newFileBuilder();
+    public abstract CustList<AbsAliasFileBuilder> newFileBuilders();
     public abstract StringMap<String> mappingMessages();
     public abstract StringMap<String> mappingKeywords();
     public abstract StringMap<String> mappingAliases();

@@ -1,9 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
-import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
@@ -942,12 +940,20 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
     protected static Forwards getForwards(Options _opt, CustLgNames _lgName, KeyWords _kw, AnalyzedPageEl _page, StringMap<String> _res, AbsStackStopper _s) {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(_lgName.getContent());
+        updateBuilders(_page);
         Forwards forwards_ = fwd(_lgName, fileBuilder_, _opt, _res, _s);
 
         validatedStds(_page, forwards_, _kw, _opt, _lgName);
         return forwards_;
     }
 
+    public static void updateBuilders(AnalyzedPageEl _page) {
+        CustList<AbsAliasFileBuilder> builders_ = new CustList<AbsAliasFileBuilder>();
+        builders_.add(new DefAliasFileBuilder());
+        CustList<AbsAliasFileBuilder> fbs_ = _page.getFileBuilders();
+        fbs_.clear();
+        fbs_.addAllElts(builders_);
+    }
     protected static void validatedStds(AnalyzedPageEl _page, Forwards _forwards, KeyWords _kw, Options _opt, LgNames _lgName) {
         validatedStds(new AnalysisMessages(),_page,_forwards,_kw,_opt,_lgName);
         assertTrue(_page.isEmptyStdError());
@@ -957,7 +963,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         _kw.initSupplDigits();
 //        ContextFactory.validateStds(_forwards, _a, _kw, new CustList<CommentDelimiters>(), _opt, _lgName.getContent(), _page);
         ContextFactory.beforeBuild(_forwards,_a,_kw,new CustList<CommentDelimiters>(), _opt,_lgName.getContent(),_page);
-        ContextFactory.build(_forwards,_kw,_opt,_page);
+        ContextFactory.build(_forwards,_kw,_opt,_page,new DefBuildLightResultContextNext());
    }
 
     protected static ContextEl getContextEl(StringMap<String> _files, Options _opt, CustLgNames _lgName, KeyWords _kw) {

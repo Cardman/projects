@@ -20,6 +20,13 @@ public final class ExecutingBlocks {
     private ExecRootBlock callableType;
     private ExecNamedFunctionBlock callMethod;
     public void forwardAndClear(LgNamesContent _content, CustAliases _aliases, Classes _classes) {
+        exec(_aliases, _classes);
+        formatter(_content, _aliases, _classes);
+        runnable(_aliases, _classes);
+        callable(_aliases, _classes);
+    }
+
+    public void exec(CustAliases _aliases, Classes _classes) {
         String aliasExecute_ = _aliases.getAliasExecute();
         ExecRootBlock executeType_ = _classes.getClassBody(aliasExecute_);
         String infoTest_ = _aliases.getAliasInfoTest();
@@ -27,9 +34,6 @@ public final class ExecutingBlocks {
                 _aliases.getAliasExecuteTests(),new StringList(infoTest_));
         ExecNamedFunctionBlock executeMethod_ = ExecClassesUtil.getMethodBodiesById(executeType_, fct_).first();
         executeMethodPair = new ExecTypeFunction(executeType_, executeMethod_);
-        formatter(_content, _aliases, _classes);
-        runnable(_aliases, _classes);
-        callable(_aliases, _classes);
     }
 
     public void formatter(LgNamesContent _content, CustAliases _aliases, Classes _classes) {

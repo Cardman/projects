@@ -1,9 +1,7 @@
 package code.mock;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AbstractSymbolFactory;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
+import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.Classes;
@@ -11,10 +9,7 @@ import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
-import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
-import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.options.*;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.BuildableLgNames;
 import code.expressionlanguage.stds.LgNames;
@@ -68,7 +63,9 @@ public final class MockLightLgNames extends LgNames implements BuildableLgNames,
         return new MockInterceptorStdCaller();
     }
     public static ResultContext resultContext(Options _o,LgNames _lg, DefaultFileBuilder _d, TranslationsFile _tr, StringMap<String> _src, String _folder, AbstractSymbolFactory _a) {
-        ResultContext b_ = resultContextCore(_o, _lg, _d, _tr, _a);
+        CustList<AbsAliasFileBuilder> bs_ = new CustList<AbsAliasFileBuilder>();
+        bs_.add(new DefAliasFileBuilder());
+        ResultContext b_ = resultContextCore(_o, _lg, _d, _tr, _a, bs_);
         ResultContext user_ = ResultContext.def(b_, _src, _folder);
         return fwd(user_);
     }
@@ -82,10 +79,11 @@ public final class MockLightLgNames extends LgNames implements BuildableLgNames,
         return _user;
     }
 
-    public static ResultContext resultContextCore(Options _o,LgNames _lg, DefaultFileBuilder _d, TranslationsFile _tr,AbstractSymbolFactory _a) {
+    public static ResultContext resultContextCore(Options _o, LgNames _lg, AbstractFileBuilder _d, TranslationsFile _tr, AbstractSymbolFactory _a, CustList<AbsAliasFileBuilder> _builders) {
         AnalysisMessages mess_ = new AnalysisMessages();
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(_a);
+        page_.getFileBuilders().addAllElts(_builders);
         _lg.getContent().build(TranslationsFile.extractMap(_tr),new StringMap<String>(), TranslationsFile.extractKeys(_tr));
         _o.setReadOnly(true);
         Forwards forwards_ = new Forwards(_lg, new ListLoggableLgNames(), _d, _o);
@@ -94,7 +92,7 @@ public final class MockLightLgNames extends LgNames implements BuildableLgNames,
         KeyWords kwl_ = new KeyWords();
         kwl_.build(TranslationsFile.extractMap(k_),new StringMap<String>(), TranslationsFile.extractKeys(k_));
         ContextFactory.beforeBuild(forwards_,mess_,kwl_,new CustList<CommentDelimiters>(),_o,_lg.getContent(),page_);
-        ContextFactory.build(forwards_,kwl_,_o,page_);
+        ContextFactory.build(forwards_,kwl_,_o,page_,new DefBuildLightResultContextNext());
         return new ResultContext(page_, forwards_);
     }
 }

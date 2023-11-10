@@ -1,7 +1,9 @@
 package code.renders.utilcompo;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AbsAliasFileBuilder;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
+import code.expressionlanguage.analyze.DefAliasFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.exec.CommonExecutionInfos;
@@ -24,6 +26,7 @@ import code.scripts.messages.gui.MessCdmRenderGr;
 import code.sml.Element;
 import code.sml.util.ResourcesMessagesUtil;
 import code.threads.AbstractAtomicBoolean;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -288,6 +291,16 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     @Override
     public AbstractFileBuilder newFileBuilder() {
         return new CustBeanFileBuilder(getContent(), getBeanAliases(), execContent.getCustAliases());
+    }
+
+    @Override
+    public CustList<AbsAliasFileBuilder> newFileBuilders() {
+        CustList<AbsAliasFileBuilder> bs_ = new CustList<AbsAliasFileBuilder>();
+        bs_.add(new DefAliasFileBuilder());
+        bs_.add(getBeanAliases());
+        bs_.add(execContent.getCustAliases());
+        bs_.add(execContent.getCustAliases().getStringViewReplaceAliases());
+        return bs_;
     }
 
     @Override

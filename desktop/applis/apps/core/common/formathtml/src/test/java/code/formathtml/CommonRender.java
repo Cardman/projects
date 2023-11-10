@@ -1,7 +1,9 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AbsAliasFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefAliasFileBuilder;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
@@ -563,12 +565,13 @@ public abstract class CommonRender extends EquallableRenderUtil {
         InitializationLgNamesRender.basicStandards(lgNames_);
         lgNames_.getContent().getMathRef().setAliasMath("java.lang.$math");
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        updateBuilders(lgNames_,page_);
         Forwards forwards_ = fwd(lgNames_, BeanFileBuilder.newInstance(lgNames_.getContent(), lgNames_.getBeanAliases()), opt_);
         page_.setLogErr(forwards_);
         KeyWords kw_ = new KeyWords();
         kw_.initSupplDigits();
         ContextFactory.beforeBuild(forwards_,new AnalysisMessages(),kw_,new CustList<CommentDelimiters>(), opt_,lgNames_.getContent(),page_);
-        ContextFactory.build(forwards_,kw_,opt_,page_);
+        ContextFactory.build(forwards_,kw_,opt_,page_,new DefBuildLightResultContextNext());
         ReadConfiguration.loadContext(page_, new RendKeyWords());
         assertTrue(page_.isEmptyStdError());
         DualConfigurationContext dual_ = new DualConfigurationContext();
@@ -579,6 +582,15 @@ public abstract class CommonRender extends EquallableRenderUtil {
         FileBlock file_ = new FileBlock(0, false, "", new AdvFileEscapedCalc(new IntTreeMap<Integer>()));
         file_.metrics("");
         return new DualNavigationContext(nav_,new DualAnalyzedContext(forwards_,page_,lgNames_,dual_, file_));
+    }
+
+    public static void updateBuilders(BeanCustLgNames _stds, AnalyzedPageEl _page) {
+        CustList<AbsAliasFileBuilder> builders_ = new CustList<AbsAliasFileBuilder>();
+        builders_.add(new DefAliasFileBuilder());
+        builders_.add(_stds.getBeanAliases());
+        CustList<AbsAliasFileBuilder> fbs_ = _page.getFileBuilders();
+        fbs_.clear();
+        fbs_.addAllElts(builders_);
     }
     public static Forwards fwd(BeanCustLgNames _lgNames, BeanFileBuilder _builder, Options _opt) {
         return new Forwards(_lgNames,new ListLoggableLgNames(),_builder,_opt);

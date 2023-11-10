@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -28,21 +29,23 @@ public final class ContextFactory {
         return srcFiles_;
     }
 
-    public static boolean validateStds(Forwards _fwd, AnalysisMessages _mess, KeyWords _definedKw,
-                                    CustList<CommentDelimiters> _comments, Options _options, LgNamesContent _content, AnalyzedPageEl _page) {
-        if (!_page.isEmptyMessageError()) {
+    public static boolean validateStds(AnalysisElementsBase _a) {
+        Forwards fwd_ = _a.getFwd();
+        KeyWords definedKw_ = _a.getDefinedKw();
+        AnalyzedPageEl page_ = _a.getPage();
+        if (!page_.isEmptyMessageError()) {
             return false;
         }
-        if (validatedStds(_fwd, _mess,_definedKw,_comments,_options, _content, _page)) {
-            build(_fwd, _definedKw, _options, _page);
+        if (validatedStds(fwd_, _a.getMess(),definedKw_, _a.getComments(), _a.getOptions(), _a.getContent(), page_)) {
+            build(fwd_, definedKw_, page_.getOptions(), page_,_a.getLightResultContextNext());
             return true;
         }
         return false;
     }
 
-    public static void build(Forwards _fwd, KeyWords _definedKw, Options _options, AnalyzedPageEl _page) {
+    public static void build(Forwards _fwd, KeyWords _definedKw, Options _options, AnalyzedPageEl _page, AbsBuildLightResultContextNext _b) {
         ParsedArgument.buildCustom(_options, _definedKw);
-        _fwd.getGenerator().build();
+        _b.build((LgNames) _fwd.getGenerator());
         ValidatorStandard.setupOverrides(_page);
     }
 

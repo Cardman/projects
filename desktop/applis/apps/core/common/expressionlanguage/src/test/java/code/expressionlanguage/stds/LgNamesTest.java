@@ -2284,7 +2284,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
         Forwards forwards_ = fwd(lgName_, fileBuilder_, options_);
-        assertTrue(ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_));
+        assertTrue(ContextFactory.validateStds(new AnalysisElementsBase(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_)));
     }
     @Test
     public void success1Test() {

@@ -7,21 +7,21 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.DfInstancer;
 import code.expressionlanguage.utilcompo.AtomicLongStruct;
-import code.expressionlanguage.utilcompo.FileInfos;
 import code.threads.AbstractAtomicLong;
+import code.threads.AbstractThreadFactory;
 
 public final class DfAtomicLong implements DfInstancer {
-    private final FileInfos infos;
+    private final AbstractThreadFactory infos;
     private final String aliasAtomicLong;
 
-    public DfAtomicLong(FileInfos _infos, String _aliasAtomicLong) {
+    public DfAtomicLong(AbstractThreadFactory _infos, String _aliasAtomicLong) {
         this.infos = _infos;
         this.aliasAtomicLong = _aliasAtomicLong;
     }
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        AbstractAtomicLong at_ = infos.getThreadFactory().newAtomicLong();
+        AbstractAtomicLong at_ = infos.newAtomicLong();
         AtomicLongStruct std_ = new AtomicLongStruct(at_, aliasAtomicLong);
         return new ArgumentWrapper(std_);
     }

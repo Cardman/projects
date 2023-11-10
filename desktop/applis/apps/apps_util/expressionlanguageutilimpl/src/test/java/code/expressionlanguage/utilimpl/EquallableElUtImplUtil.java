@@ -3,7 +3,6 @@ package code.expressionlanguage.utilimpl;
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
@@ -249,15 +248,7 @@ public abstract class EquallableElUtImplUtil {
         _all.put(_name,new ContentTime(null,_light.getThreadFactory().millis()));
         return _all;
     }
-    protected static Forwards getForwards(LgNamesGui _lgName, Options _opt) {
-        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_lgName.getContent(), _lgName.getGuiAliases(), _lgName.getExecContent().getCustAliases());
-        return CustContextFactory.fwd(_opt,_lgName,fileBuilder_);
-    }
 
-    protected static Forwards getForwards(LgNamesUtils _lgName, Options _opt) {
-        CustFileBuilder fileBuilder_ = new CustFileBuilder(_lgName.getContent(), _lgName.getExecContent().getCustAliases(),new CustAliasGroups(_lgName.getExecContent().getCustAliases(), _lgName.getContent()));
-        return CustContextFactory.fwd(_opt,_lgName,fileBuilder_);
-    }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(_s, new int[0], new String[0], new TextAnswerValue[0]), _set);
         pr_.setLanguages(Constants.getAvailableLanguages());
