@@ -868,7 +868,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasCheckBoxSetText;
     private String aliasCheckBoxIsSelected;
     private String aliasCheckBoxSetSelected;
-    private String aliasCheckBoxAddAction;
     private String aliasSpinner;
     private String aliasSpinnerSetRange;
     private String aliasSpinnerSetRangeValue;
@@ -3518,7 +3517,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasPopupMenuRemoveComp(LgNamesContent.get(_util,_cust,_mapping.getVal(POPUP_MENU_REMOVE_COMP)));
         setAliasTextFieldSetText(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD_SET_TEXT)));
         setAliasCheckBoxSetSelected(LgNamesContent.get(_util,_cust,_mapping.getVal(CHECK_BOX_SET_SELECTED)));
-        setAliasCheckBoxAddAction(LgNamesContent.get(_util,_cust,_mapping.getVal(CHECK_BOX_ADD_ACTION)));
         setAliasTextAreaSetSelectionEnd(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_SET_SELECTION_END)));
         setAliasSpinnerGetValue(LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_GET_VALUE)));
         setAliasSliderGetMax(LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_GET_MAX)));
@@ -4759,7 +4757,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _m.addEntry(getAliasAbsButton(),allAbsBut_);
         _m.addEntry(getAliasInput(),allInput_);
         _m.addEntry(getAliasCheckBox(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(_mapping.getVal(CHECK_BOX_ADD_ACTION),getAliasCheckBoxAddAction()),
+                new KeyValueMemberName(_mapping.getVal(GET_ACTION_LISTENERS),getAliasGetActionListeners()),
                 new KeyValueMemberName(_mapping.getVal(CHECK_BOX_GET_TEXT),getAliasCheckBoxGetText()),
                 new KeyValueMemberName(_mapping.getVal(CHECK_BOX_SET_TEXT),getAliasCheckBoxSetText()),
                 new KeyValueMemberName(_mapping.getVal(CHECK_BOX_IS_SELECTED),getAliasCheckBoxIsSelected()),
@@ -8296,14 +8294,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
     public void setAliasCheckBoxSetSelected(String _v) {
         this.aliasCheckBoxSetSelected = _v;
-    }
-
-    public String getAliasCheckBoxAddAction() {
-        return aliasCheckBoxAddAction;
-    }
-
-    public void setAliasCheckBoxAddAction(String _v) {
-        this.aliasCheckBoxAddAction = _v;
     }
 
     public String getAliasSpinner() {
