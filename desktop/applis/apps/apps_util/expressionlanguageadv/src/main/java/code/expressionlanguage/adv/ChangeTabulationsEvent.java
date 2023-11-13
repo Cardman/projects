@@ -1,14 +1,14 @@
 package code.expressionlanguage.adv;
 
 import code.gui.AbsCommonFrame;
-import code.gui.AbsMenuItem;
+import code.gui.EnabledMenu;
 import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class ChangeTabulationsEvent implements AbsActionListener {
     private final WindowWithTreeImpl windowCdmEditor;
-    private final AbsMenuItem tabulationsMenu;
-    public ChangeTabulationsEvent(WindowWithTreeImpl _w, AbsMenuItem _m) {
+    private final EnabledMenu tabulationsMenu;
+    public ChangeTabulationsEvent(WindowWithTreeImpl _w, EnabledMenu _m) {
         this.windowCdmEditor = _w;
         tabulationsMenu = _m;
     }

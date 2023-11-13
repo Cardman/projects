@@ -56,10 +56,10 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
         pathExport = getCompoFactory().newTextField(50);
         pathExport.setText(EMPTY_STRING);
         content_.add(pathExport);
-        AbsPlainButton read_ = getCompoFactory().newPlainButton(READ);
+        AbsButton read_ = getCompoFactory().newPlainButton(READ);
         read_.addActionListener(new ReadEvent(this));
         content_.add(read_);
-        AbsPlainButton ok_ = getCompoFactory().newPlainButton(OK);
+        AbsButton ok_ = getCompoFactory().newPlainButton(OK);
         ok_.addActionListener(new ExportEvent(this));
         content_.add(ok_);
         setContentPane(content_);

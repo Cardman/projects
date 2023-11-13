@@ -30,30 +30,30 @@ public final class TabEditor implements AbsTabEditor {
     private final AbsCustCheckBox caseSens;
     private final AbsCustCheckBox wholeWord;
     private final AbsTextField replacer;
-    private final AbsPlainButton prevOcc;
-    private final AbsPlainButton nextOcc;
-    private final AbsPlainButton closeFinder;
-    private final AbsPlainButton replaceOne;
-    private final AbsPlainButton replaceAll;
-    private final AbsPlainButton replacePrevious;
-    private final AbsPlainButton replaceNext;
-    private final AbsPlainButton replaceOneExp;
-    private final AbsPlainButton replaceAllExp;
-    private final AbsPlainButton replacePreviousExp;
-    private final AbsPlainButton replaceNextExp;
-    private final AbsPlainButton applyExp;
+    private final AbsButton prevOcc;
+    private final AbsButton nextOcc;
+    private final AbsButton closeFinder;
+    private final AbsButton replaceOne;
+    private final AbsButton replaceAll;
+    private final AbsButton replacePrevious;
+    private final AbsButton replaceNext;
+    private final AbsButton replaceOneExp;
+    private final AbsButton replaceAllExp;
+    private final AbsButton replacePreviousExp;
+    private final AbsButton replaceNextExp;
+    private final AbsButton applyExp;
     private final AbsTextPane preview;
     private final AbsPanel navModifPanel;
     private final AbsPanel finderPanel;
     private final AbsPanel replacerPanel;
-    private final AbsPlainButton refreshExpression;
+    private final AbsButton refreshExpression;
     private final AbsPlainLabel lastBuild;
-    private final AbsPlainButton selectExpressionClass;
-    private final AbsPlainButton findingExpression;
-    private final AbsPlainButton findingExpressionCancel;
-    private final AbsPlainButton closeExpression;
-    private final AbsPlainButton prevOccExp;
-    private final AbsPlainButton nextOccExp;
+    private final AbsButton selectExpressionClass;
+    private final AbsButton findingExpression;
+    private final AbsButton findingExpressionCancel;
+    private final AbsButton closeExpression;
+    private final AbsButton prevOccExp;
+    private final AbsButton nextOccExp;
     private final AbsPanel panel;
     private final CustList<SegmentFindPart> parts = new CustList<SegmentFindPart>();
     private final CustList<SegmentFindPart> partsExp = new CustList<SegmentFindPart>();
@@ -78,7 +78,7 @@ public final class TabEditor implements AbsTabEditor {
     private int dest;
     private final AbsSpinner row;
     private final AbsSpinner col;
-    private final AbsPlainButton val;
+    private final AbsButton val;
     private ContextEl action;
     private Struct instance = NullStruct.NULL_VALUE;
     private final FormFindReplaceExpression findReplaceExpression;
@@ -286,7 +286,7 @@ public final class TabEditor implements AbsTabEditor {
         this.index = _i;
     }
 
-    public AbsPlainButton getVal() {
+    public AbsButton getVal() {
         return val;
     }
 
@@ -482,7 +482,7 @@ public final class TabEditor implements AbsTabEditor {
         return factories;
     }
 
-    public AbsPlainButton getCloseFinder() {
+    public AbsButton getCloseFinder() {
         return closeFinder;
     }
 
@@ -510,35 +510,35 @@ public final class TabEditor implements AbsTabEditor {
         return wholeWord;
     }
 
-    public AbsPlainButton getReplaceOne() {
+    public AbsButton getReplaceOne() {
         return replaceOne;
     }
 
-    public AbsPlainButton getReplaceAll() {
+    public AbsButton getReplaceAll() {
         return replaceAll;
     }
 
-    public AbsPlainButton getReplacePrevious() {
+    public AbsButton getReplacePrevious() {
         return replacePrevious;
     }
 
-    public AbsPlainButton getReplaceNext() {
+    public AbsButton getReplaceNext() {
         return replaceNext;
     }
 
-    public AbsPlainButton getReplaceOneExp() {
+    public AbsButton getReplaceOneExp() {
         return replaceOneExp;
     }
 
-    public AbsPlainButton getReplaceAllExp() {
+    public AbsButton getReplaceAllExp() {
         return replaceAllExp;
     }
 
-    public AbsPlainButton getReplacePreviousExp() {
+    public AbsButton getReplacePreviousExp() {
         return replacePreviousExp;
     }
 
-    public AbsPlainButton getReplaceNextExp() {
+    public AbsButton getReplaceNextExp() {
         return replaceNextExp;
     }
 
@@ -558,15 +558,15 @@ public final class TabEditor implements AbsTabEditor {
         return panel;
     }
 
-    public AbsPlainButton getPrevOcc() {
+    public AbsButton getPrevOcc() {
         return prevOcc;
     }
 
-    public AbsPlainButton getNextOcc() {
+    public AbsButton getNextOcc() {
         return nextOcc;
     }
 
-    public AbsPlainButton getRefreshExpression() {
+    public AbsButton getRefreshExpression() {
         return refreshExpression;
     }
 
@@ -574,15 +574,15 @@ public final class TabEditor implements AbsTabEditor {
         return findReplaceExpression.getFinderExpClasses();
     }
 
-    public AbsPlainButton getFindingExpression() {
+    public AbsButton getFindingExpression() {
         return findingExpression;
     }
 
-    public AbsPlainButton getFindingExpressionCancel() {
+    public AbsButton getFindingExpressionCancel() {
         return findingExpressionCancel;
     }
 
-    public AbsPlainButton getCloseExpression() {
+    public AbsButton getCloseExpression() {
         return closeExpression;
     }
 
@@ -682,7 +682,7 @@ public final class TabEditor implements AbsTabEditor {
         return findReplaceExpression.getResultContext();
     }
 
-    public AbsPlainButton getSelectExpressionClass() {
+    public AbsButton getSelectExpressionClass() {
         return selectExpressionClass;
     }
 
@@ -706,15 +706,15 @@ public final class TabEditor implements AbsTabEditor {
         return preview;
     }
 
-    public AbsPlainButton getApplyExp() {
+    public AbsButton getApplyExp() {
         return applyExp;
     }
 
-    public AbsPlainButton getPrevOccExp() {
+    public AbsButton getPrevOccExp() {
         return prevOccExp;
     }
 
-    public AbsPlainButton getNextOccExp() {
+    public AbsButton getNextOccExp() {
         return nextOccExp;
     }
 

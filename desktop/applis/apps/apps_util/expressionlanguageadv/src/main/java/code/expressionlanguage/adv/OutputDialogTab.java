@@ -4,12 +4,12 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class OutputDialogTab implements WithFrame{
-    private final AbsPlainButton val;
+    private final AbsButton val;
     private final AbsSpinner tabulation;
     private final AbsCommonFrame frame;
-    private final AbsMenuItem associated;
+    private final EnabledMenu associated;
 
-    public OutputDialogTab(WindowWithTreeImpl _w,AbsCommonFrame _fr, AbsMenuItem _c) {
+    public OutputDialogTab(WindowWithTreeImpl _w,AbsCommonFrame _fr, EnabledMenu _c) {
         frame = _fr;
         associated = _c;
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
@@ -39,10 +39,10 @@ public final class OutputDialogTab implements WithFrame{
     }
 
     @Override
-    public AbsMenuItem getMenu() {
+    public EnabledMenu getMenu() {
         return associated;
     }
-    public AbsPlainButton getVal() {
+    public AbsButton getVal() {
         return val;
     }
 }

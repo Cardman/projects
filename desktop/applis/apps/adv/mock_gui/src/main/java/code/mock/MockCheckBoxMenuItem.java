@@ -1,10 +1,8 @@
 package code.mock;
 
-import code.gui.AbsCheckBoxMenuItem;
+import code.gui.EnabledMenu;
 
-public final class MockCheckBoxMenuItem extends MockAbsMenuItem implements AbsCheckBoxMenuItem {
-
-    private boolean selected;
+public final class MockCheckBoxMenuItem extends MockEnabledMenu implements EnabledMenu {
     public MockCheckBoxMenuItem() {
         this("");
     }
@@ -13,15 +11,6 @@ public final class MockCheckBoxMenuItem extends MockAbsMenuItem implements AbsCh
     }
     public MockCheckBoxMenuItem(String _s, boolean _b) {
         super(_s);
-        selected = _b;
-    }
-    @Override
-    public boolean isSelected() {
-        return selected;
-    }
-
-    @Override
-    public void setSelected(boolean _b) {
-        selected = _b;
+        setSelected(_b);
     }
 }

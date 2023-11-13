@@ -46,16 +46,16 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     public static final String CDM_EDITOR = "cdm_editor";
     private final AbsDialog dialogSoft;
     private final AbsDialog dialogFolderExpression;
-    private final AbsMenuItem folderExpressionMenu;
-    private final AbsMenuItem softParamsMenu;
-    private final AbsMenuItem analyzeMenu;
-    private final AbsMenuItem analyzeMenuSt;
+    private final EnabledMenu folderExpressionMenu;
+    private final EnabledMenu softParamsMenu;
+    private final EnabledMenu analyzeMenu;
+    private final EnabledMenu analyzeMenuSt;
     private AbsResultContextNext mainResultNext;
     private final SetterLanguage setterLanguage;
     private final StringMap<String> coreMessages;
-    private final AbsMenuItem chooseFile;
-    private final AbsPlainButton chooseFolder;
-    private final AbsPlainButton createFile;
+    private final EnabledMenu chooseFile;
+    private final AbsButton chooseFolder;
+    private final AbsButton createFile;
     private final AbsPlainLabel chosenFolder;
     private final AbsTextField srcFolder;
     private final ScrollCustomCombo chosenLanguage;
@@ -93,7 +93,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         coreMessages = _list.getCommon();
         GuiBaseUtil.choose(_lg, this, coreMessages);
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
-        AbsMenu file_ = _list.getCompoFactory().newMenu("file");
+        EnabledMenu file_ = _list.getCompoFactory().newMenu("file");
         bar_.add(file_);
         chooseFile = getCommonFrame().getFrames().getCompoFactory().newMenuItem("open");
         chooseFile.addActionListener(new ChooseInitialFile(this));
@@ -101,7 +101,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         file_.addMenuItem(getSrcMenu());
         file_.addMenuItem(getCreate());
         file_.addMenuItem(getDelete());
-        AbsMenu menu_ = getParameters();
+        EnabledMenu menu_ = getParameters();
         bar_.add(menu_);
         folderExpressionMenu = _list.getCompoFactory().newMenuItem("folder exp");
         folderExpressionMenu.addActionListener(new FolderForExpression(this));
@@ -109,7 +109,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         softParamsMenu = _list.getCompoFactory().newMenuItem("soft conf");
         softParamsMenu.addActionListener(new CdmParameterSoftEvent(this));
         menu_.addMenuItem(softParamsMenu);
-        AbsMenu run_ = _list.getCompoFactory().newMenu("run");
+        EnabledMenu run_ = _list.getCompoFactory().newMenu("run");
         analyzeMenu = _list.getCompoFactory().newMenuItem("analyze");
         analyzeMenu.addActionListener(new AnalyzeExpressionEvent(this));
         analyzeMenu.setEnabled(false);
@@ -447,15 +447,15 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     }
 
 
-    public AbsMenuItem getChooseFile() {
+    public EnabledMenu getChooseFile() {
         return chooseFile;
     }
 
-    public AbsPlainButton getChooseFolder() {
+    public AbsButton getChooseFolder() {
         return chooseFolder;
     }
 
-    public AbsPlainButton getCreateFile() {
+    public AbsButton getCreateFile() {
         return createFile;
     }
 
@@ -478,11 +478,11 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     public StringList getOpenedFilesToInit() {
         return softParams.getOpenedFilesToInit();
     }
-    public AbsMenuItem getSoftParamsMenu() {
+    public EnabledMenu getSoftParamsMenu() {
         return softParamsMenu;
     }
 
-    public AbsMenuItem getFolderExpressionMenu() {
+    public EnabledMenu getFolderExpressionMenu() {
         return folderExpressionMenu;
     }
     public AbsDialog getDialogSoft() {
@@ -555,11 +555,11 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
 //        return false;
 //    }
 
-    public AbsMenuItem getAnalyzeMenu() {
+    public EnabledMenu getAnalyzeMenu() {
         return analyzeMenu;
     }
 
-    public AbsMenuItem getAnalyzeMenuSt() {
+    public EnabledMenu getAnalyzeMenuSt() {
         return analyzeMenuSt;
     }
 

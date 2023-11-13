@@ -1,30 +1,21 @@
 package code.vi.prot.impl.gui;
 
-import code.gui.AbsMenu;
-import code.gui.AbsMenuItem;
-import code.gui.events.AbsActionListener;
-import code.gui.events.AbsAdvActionListener;
+import code.gui.AbsCustComponent;
+import code.gui.EnabledMenu;
 import code.util.CustList;
-import code.util.IdMap;
-import code.vi.prot.impl.gui.events.WrActionListener;
-import code.vi.prot.impl.gui.events.WrAdvActionListener;
+import code.util.IdList;
 
 import javax.swing.*;
 
-public abstract class AbsMenuItemImpl extends CustComponent implements AbsMenuItem {
+public abstract class AbsMenuItemImpl extends AbsComButton implements EnabledMenu {
 
-    private AbsMenu parentMenu;
+    private final IdList<AbsCustComponent> subs = new IdList<AbsCustComponent>();
+
+    private EnabledMenu parentMenu;
     private final JMenuItem menu;
-    private final IdMap<AbsActionListener, WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
-    private final IdMap<AbsAdvActionListener, WrAdvActionListener> mapAdvAction = new IdMap<AbsAdvActionListener, WrAdvActionListener>();
 
     protected AbsMenuItemImpl(JMenuItem _inst) {
         menu = _inst;
-    }
-
-    @Override
-    public JComponent getNatComponent() {
-        return menu;
     }
 
     JMenuItem getMenu() {
@@ -32,35 +23,51 @@ public abstract class AbsMenuItemImpl extends CustComponent implements AbsMenuIt
     }
 
     @Override
-    public AbsMenu getParentMenu() {
+    public void addMenuItem(EnabledMenu _menuItem) {
+        _menuItem.setParentMenu(this);
+        getMenu().add(((AbsMenuItemImpl)_menuItem).getMenu());
+        subs.add(_menuItem);
+    }
+
+    @Override
+    public void addMenuItem(AbsCustComponent _menu) {
+        getMenu().add(((CustComponent)_menu).getNatComponent());
+        subs.add(_menu);
+    }
+
+    @Override
+    public void removeMenuItem(EnabledMenu _menuItem) {
+        _menuItem.setParentMenu(null);
+        getMenu().remove(((AbsMenuItemImpl)_menuItem).getMenu());
+        subs.removeObj(_menuItem);
+    }
+
+    @Override
+    public void removeMenuItem(AbsCustComponent _component) {
+        getMenu().remove(((CustComponent)_component).getNatComponent());
+        subs.removeObj(_component);
+    }
+
+    @Override
+    public int getItemCount() {
+        return subs.size();
+    }
+    public CustList<AbsCustComponent> getItems() {
+        return subs;
+    }
+
+    @Override
+    public EnabledMenu getParentMenu() {
         return parentMenu;
     }
 
     @Override
-    public void setParentMenu(AbsMenu _parentMenu) {
+    public void setParentMenu(EnabledMenu _parentMenu) {
         parentMenu = _parentMenu;
     }
 
     public void setEnabledMenu(boolean _b) {
         setEnabled(_b);
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return menu.isEnabled();
-    }
-
-    @Override
-    public void setEnabled(boolean _enabled) {
-        menu.setEnabled(_enabled);
-    }
-
-    @Override
-    public String getText() {
-        return menu.getText();
-    }
-    public void setText(String _val) {
-        menu.setText(_val);
     }
 
     public boolean isSelected() {
@@ -71,45 +78,8 @@ public abstract class AbsMenuItemImpl extends CustComponent implements AbsMenuIt
     }
 
     @Override
-    public CustList<AbsActionListener> getActionListeners() {
-        return mapAction.getKeys();
-    }
-
-    @Override
-    public void removeActionListener(AbsActionListener _list) {
-        WrActionListener wr_ = mapAction.getVal(_list);
-        menu.removeActionListener(wr_);
-        mapAction.removeKey(_list);
-    }
-
-    @Override
-    public void removeActionListener(AbsAdvActionListener _list) {
-        WrAdvActionListener wr_ = mapAdvAction.getVal(_list);
-        menu.removeActionListener(wr_);
-        mapAdvAction.removeKey(_list);
-    }
-
-    @Override
-    public void removeActionListenerMap(AbsAdvActionListener _list) {
-        mapAdvAction.removeKey(_list);
-    }
-
-    public void addActionListener(AbsActionListener _pauseEvent) {
-        WrActionListener wr_ = new WrActionListener(_pauseEvent);
-        menu.addActionListener(wr_);
-        mapAction.addEntry(_pauseEvent,wr_);
-    }
-
-    @Override
-    public void addActionListenerMap(AbsAdvActionListener _list) {
-        WrAdvActionListener wr_ = new WrAdvActionListener(_list);
-        mapAdvAction.addEntry(_list,wr_);
-    }
-
-    public void addActionListener(AbsAdvActionListener _pauseEvent) {
-        WrAdvActionListener wr_ = new WrAdvActionListener(_pauseEvent);
-        menu.addActionListener(wr_);
-        mapAdvAction.addEntry(_pauseEvent,wr_);
+    protected AbstractButton button() {
+        return menu;
     }
 
     public void setAccelerator(int _a, int _b) {

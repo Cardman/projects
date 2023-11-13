@@ -1,14 +1,14 @@
 package code.gui.files;
 
-import code.gui.AbsPlainButton;
+import code.gui.AbsButton;
 import code.gui.events.AbsActionListener;
 
 public class SearchingEvent implements AbsActionListener {
 
     private final FileOpenDialog dialog;
-    private final AbsPlainButton button;
+    private final AbsButton button;
 
-    public SearchingEvent(FileOpenDialog _dialog, AbsPlainButton _but) {
+    public SearchingEvent(FileOpenDialog _dialog, AbsButton _but) {
         dialog = _dialog;
         button =_but;
     }

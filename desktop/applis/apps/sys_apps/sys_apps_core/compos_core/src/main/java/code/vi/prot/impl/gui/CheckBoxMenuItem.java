@@ -1,9 +1,9 @@
 package code.vi.prot.impl.gui;
-import code.gui.AbsCheckBoxMenuItem;
+import code.gui.EnabledMenu;
 
 import javax.swing.*;
 
-public class CheckBoxMenuItem extends AbsMenuItemImpl implements AbsCheckBoxMenuItem {
+public class CheckBoxMenuItem extends AbsMenuItemImpl implements EnabledMenu {
 
     public CheckBoxMenuItem() {
         super(new JCheckBoxMenuItem());

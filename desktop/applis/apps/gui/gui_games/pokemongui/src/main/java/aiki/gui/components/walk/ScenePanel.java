@@ -198,27 +198,27 @@ public class ScenePanel {
 
     private AbsPlainLabel useKeyPad;
 
-    private AbsPlainButton team;
+    private AbsButton team;
 
-    private AbsPlainButton items;
+    private AbsButton items;
 
-    private AbsPlainButton tm;
+    private AbsButton tm;
 
-    private AbsPlainButton fish;
+    private AbsButton fish;
 
-    private AbsPlainButton seeBoxes;
+    private AbsButton seeBoxes;
 
-    private AbsPlainButton seeEggs;
+    private AbsButton seeEggs;
 
-    private AbsPlainButton host;
+    private AbsButton host;
 
-    private AbsPlainButton game;
+    private AbsButton game;
 
-    private AbsPlainButton goBack;
+    private AbsButton goBack;
 
 //    private AbsPlainButton server;
 
-    private final AbsPlainButton attract;
+    private final AbsButton attract;
     private AbsPanel movesLearnt;
 
     private AbsPanel abilities;
@@ -236,21 +236,21 @@ public class ScenePanel {
 
     private AbsCustCheckBox buy;
 
-    private AbsPlainButton selectPkBox;
+    private AbsButton selectPkBox;
 
-    private AbsPlainButton selectEggBox;
+    private AbsButton selectEggBox;
 
-    private AbsPlainButton takeItem;
+    private AbsButton takeItem;
 
-    private AbsPlainButton store;
+    private AbsButton store;
 
-    private AbsPlainButton release;
+    private AbsButton release;
 
-    private AbsPlainButton withdraw;
+    private AbsButton withdraw;
 
-    private AbsPlainButton withdrawEgg;
+    private AbsButton withdrawEgg;
 
-    private AbsPlainButton switchPk;
+    private AbsButton switchPk;
 
     private AbsPlainLabel selectedForSwitch;
 
@@ -268,7 +268,7 @@ public class ScenePanel {
 
     private AbsPanel interaction;
 
-    private AbsPlainButton buttonInteract;
+    private AbsButton buttonInteract;
 
     private Pad pad;
 
@@ -276,13 +276,13 @@ public class ScenePanel {
 
     private AbsCustCheckBox switchUsable;
 
-    private AbsPlainButton takeItemTeam;
+    private AbsButton takeItemTeam;
 
-    private AbsPlainButton detailPk;
+    private AbsButton detailPk;
 
-    private AbsPlainButton healPk;
+    private AbsButton healPk;
 
-    private AbsPlainButton nicknamePk;
+    private AbsButton nicknamePk;
 
     private boolean enabledClick = true;
 
@@ -296,7 +296,7 @@ public class ScenePanel {
 
     private final MapPanel mapPanel;
 
-    private AbsPlainButton chosenCity;
+    private AbsButton chosenCity;
 
     private final AbstractAtomicBoolean paintingScene;
 
@@ -678,7 +678,7 @@ public class ScenePanel {
         line_.add(mapPanel.getContainer());
         line_.add(window.getCompoFactory().newPlainLabel(DataBase.EMPTY_STRING));
         box_.add(line_);
-        AbsPlainButton ok_ = window.getCompoFactory().newPlainButton(WindowAiki.OK);
+        AbsButton ok_ = window.getCompoFactory().newPlainButton(WindowAiki.OK);
         ok_.addActionListener(new ChoosePlaceEvent(this));
         box_.add(ok_);
         panelOptions.add(box_, GuiConstants.BORDER_LAYOUT_CENTER);
@@ -901,14 +901,14 @@ public class ScenePanel {
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS_CT) {
             tmPanel = new TmPanel(window,5, messages.getVal(TM_TITLE), facade);
             AbsPanel set_ = compoFactory.newPageBox();
-            AbsPlainButton selectItem_ = window.getCompoFactory().newPlainButton(messages.getVal(TM_SELECT));
+            AbsButton selectItem_ = window.getCompoFactory().newPlainButton(messages.getVal(TM_SELECT));
             selectItem_.addActionListener(new AddTmEvent(this));
             set_.add(selectItem_);
-            AbsPlainButton removeItem_ = window.getCompoFactory().newPlainButton(messages.getVal(TM_REMOVE));
+            AbsButton removeItem_ = window.getCompoFactory().newPlainButton(messages.getVal(TM_REMOVE));
             removeItem_.addActionListener(new RemoveTmEvent(this));
             set_.add(removeItem_);
             set_.add(tmPanel.getContainer());
-            AbsPlainButton changeInv_ = window.getCompoFactory().newPlainButton(messages.getVal(TM_BUY));
+            AbsButton changeInv_ = window.getCompoFactory().newPlainButton(messages.getVal(TM_BUY));
             changeInv_.addActionListener(new BuyTmEvent(this));
             set_.add(changeInv_);
             panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
@@ -921,17 +921,17 @@ public class ScenePanel {
             buy.addActionListener(new BuyOrSellEvent(this));
             set_.add(buy);
             itemsPan = new ItemsPanel(window, 2, messages.getVal(ITEM_TITLE), facade);
-            AbsPlainButton selectItem_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_SELECT));
+            AbsButton selectItem_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_SELECT));
             selectItem_.addActionListener(new SelectItemForListEvent(this));
             set_.add(selectItem_);
-            AbsPlainButton addItem_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_ADD));
+            AbsButton addItem_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_ADD));
             addItem_.addActionListener(new ChangeItemListEvent(this, true));
             set_.add(addItem_);
-            AbsPlainButton removeItem_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_REMOVE));
+            AbsButton removeItem_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_REMOVE));
             removeItem_.addActionListener(new ChangeItemListEvent(this, false));
             set_.add(removeItem_);
             set_.add(itemsPan.getContainer());
-            AbsPlainButton changeInv_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_BUY_SELL));
+            AbsButton changeInv_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_BUY_SELL));
             changeInv_.addActionListener(new BuyItemsEvent(this));
             set_.add(changeInv_);
             panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
@@ -950,14 +950,14 @@ public class ScenePanel {
             AbsPanel form_ = compoFactory.newPageBox();
             int nbRemSteps_ = facade.getRemaingingSteps();
             String buttonText_= StringUtil.simpleNumberFormat(messages.getVal(GET_EGG), nbRemSteps_);
-            AbsPlainButton receiveEgg_ = window.getCompoFactory().newPlainButton(buttonText_);
+            AbsButton receiveEgg_ = window.getCompoFactory().newPlainButton(buttonText_);
             receiveEgg_.addActionListener(new ReceiveFromHostEvent(this, true));
             form_.add(receiveEgg_);
             buttonText_= StringUtil.simpleNumberFormat(messages.getVal(GET_EGG_PARENT), nbRemSteps_);
-            AbsPlainButton receiveParents_ = window.getCompoFactory().newPlainButton(buttonText_);
+            AbsButton receiveParents_ = window.getCompoFactory().newPlainButton(buttonText_);
             receiveParents_.addActionListener(new ReceiveFromHostEvent(this, false));
             form_.add(receiveParents_);
-            AbsPlainButton hostPk_ = window.getCompoFactory().newPlainButton(messages.getVal(HOST_PK));
+            AbsButton hostPk_ = window.getCompoFactory().newPlainButton(messages.getVal(HOST_PK));
             hostPk_.addActionListener(new HostPokemonEvent(this));
             form_.add(hostPk_);
             set_.add(form_);
@@ -1337,10 +1337,10 @@ public class ScenePanel {
             check_.setSelected(false);
             movesLearnt.add(check_.getComponent());
         }
-        AbsPlainButton cancel_ = window.getCompoFactory().newPlainButton(messages.getVal(CANCEL_MT));
+        AbsButton cancel_ = window.getCompoFactory().newPlainButton(messages.getVal(CANCEL_MT));
         cancel_.addActionListener(new CancelMtEvent(this));
         movesLearnt.add(cancel_);
-        AbsPlainButton ok_ = window.getCompoFactory().newPlainButton(messages.getVal(VALIDATE_MT));
+        AbsButton ok_ = window.getCompoFactory().newPlainButton(messages.getVal(VALIDATE_MT));
         ok_.addActionListener(new ValidateMtEvent(this));
         movesLearnt.add(ok_);
         window.pack();
@@ -1411,7 +1411,7 @@ public class ScenePanel {
     }
 
     private void addExit() {
-        AbsPlainButton exit_ = window.getCompoFactory().newPlainButton(messages.getVal(EXIT));
+        AbsButton exit_ = window.getCompoFactory().newPlainButton(messages.getVal(EXIT));
         exit_.addActionListener(new ExitInteractionEvent(this));
         panelOptions.add(exit_, GuiConstants.BORDER_LAYOUT_SOUTH);
     }
@@ -1534,7 +1534,7 @@ public class ScenePanel {
             }
             abilities.add(window.getCompoFactory().newAbsPaintableLabel());
         }
-        AbsPlainButton ok_ = window.getCompoFactory().newPlainButton(messages.getVal(EVOLVE));
+        AbsButton ok_ = window.getCompoFactory().newPlainButton(messages.getVal(EVOLVE));
         ok_.addActionListener(new EvolvePokemonEvent(this));
         abilities.add(ok_);
     }
@@ -1567,7 +1567,7 @@ public class ScenePanel {
         keys_.sortElts(new TrMovesComparator(facade.getData()));
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
-            AbsPlainButton check_ = window.getCompoFactory().newPlainButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
+            AbsButton check_ = window.getCompoFactory().newPlainButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
             check_.addActionListener(new HealMoveEvent(this, m));
             check_.setBackground(GuiConstants.WHITE);
             movesLearnt.add(check_);
@@ -1590,7 +1590,7 @@ public class ScenePanel {
         keys_.sortElts(new TrMovesComparator(facade.getData()));
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
-            AbsPlainButton check_ = window.getCompoFactory().newPlainButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
+            AbsButton check_ = window.getCompoFactory().newPlainButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
             check_.addActionListener(new BoostMoveEvent(this, m));
             check_.setBackground(GuiConstants.WHITE);
             movesLearnt.add(check_);
@@ -1655,7 +1655,7 @@ public class ScenePanel {
         keys_.sortElts(new TrMovesComparator(facade.getData()));
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
-            AbsPlainButton check_ = window.getCompoFactory().newPlainButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
+            AbsButton check_ = window.getCompoFactory().newPlainButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
             check_.addActionListener(new LearntMoveEvent(this, m));
             check_.setBackground(GuiConstants.WHITE);
             movesLearnt.add(check_);

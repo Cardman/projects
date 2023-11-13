@@ -56,7 +56,7 @@ public final class DefCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsPlainButton newImgButton(AbstractImage _imageIcon) {
+    public AbsButton newImgButton(AbstractImage _imageIcon) {
         return new PlainButton(_imageIcon);
     }
 
@@ -221,12 +221,12 @@ public final class DefCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsPlainButton newPlainButton() {
+    public AbsButton newPlainButton() {
         return new PlainButton();
     }
 
     @Override
-    public AbsPlainButton newPlainButton(String _t) {
+    public AbsButton newPlainButton(String _t) {
         return new PlainButton(_t);
     }
 
@@ -266,33 +266,38 @@ public final class DefCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsMenu newMenu() {
+    public EnabledMenu newMenu() {
         return new Menu();
     }
 
     @Override
-    public AbsMenu newMenu(String _value) {
+    public EnabledMenu newMenu(String _value) {
         return new Menu(_value);
     }
 
     @Override
-    public AbsCheckBoxMenuItem newCheckBoxMenuItem() {
+    public EnabledMenu newCheckBoxMenuItem() {
         return new CheckBoxMenuItem();
     }
 
     @Override
-    public AbsCheckBoxMenuItem newCheckBoxMenuItem(String _value) {
+    public EnabledMenu newCheckBoxMenuItem(String _value) {
         return new CheckBoxMenuItem(_value);
     }
 
     @Override
-    public AbsMenuItem newMenuItem() {
+    public EnabledMenu newMenuItem() {
         return new MenuItem();
     }
 
     @Override
-    public AbsMenuItem newMenuItem(String _value) {
+    public EnabledMenu newMenuItem(String _value) {
         return new MenuItem(_value);
+    }
+
+    @Override
+    public AbsSeparator newSep() {
+        return new DefSeparator();
     }
 
     @Override

@@ -62,7 +62,7 @@ public final class PlainButtonStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct r_ = call(new FctButton1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
         call(new FctButtonAddAction(),null,ctx_,r_,one(NullStruct.NULL_VALUE),st_);
-        assertEq(0,((PlainButtonStruct)r_).getActionsButton().size());
+        assertEq(0,((AbsButtonStruct)r_).getActionsButton().size());
     }
     @Test
     public void addAction2() {
@@ -74,7 +74,7 @@ public final class PlainButtonStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct r_ = call(new FctButton1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
         call(new FctButtonAddAction(),null,ctx_,r_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
-        assertEq(1,((PlainButtonStruct)r_).getActionsButton().size());
+        assertEq(1,((AbsButtonStruct)r_).getActionsButton().size());
     }
     @Test
     public void addAction3() {
@@ -86,7 +86,7 @@ public final class PlainButtonStructTest extends EquallableElUtUtil {
         StackCall st_ = stackLogger(ctx_);
         Struct r_ = call(new FctButton1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
         call(new FctButtonAddAction(),null,ctx_,r_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
-        assertEq(1,((PlainButtonStruct)r_).getActionsButton().size());
+        assertEq(1,((AbsButtonStruct)r_).getActionsButton().size());
     }
     @Test
     public void removeAction1() {
@@ -99,7 +99,7 @@ public final class PlainButtonStructTest extends EquallableElUtUtil {
         Struct r_ = call(new FctButton1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
         call(new FctButtonAddAction(),null,ctx_,r_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         call(new FctButtonRemoveAction(),null,ctx_,r_,one(NullStruct.NULL_VALUE),st_);
-        assertEq(1,((PlainButtonStruct)r_).getActionsButton().size());
+        assertEq(1,((AbsButtonStruct)r_).getActionsButton().size());
     }
     @Test
     public void removeAction2() {
@@ -113,7 +113,7 @@ public final class PlainButtonStructTest extends EquallableElUtUtil {
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctButtonAddAction(),null,ctx_,r_,one(list_),st_);
         call(new FctButtonRemoveAction(),null,ctx_,r_,one(list_),st_);
-        assertEq(0,((PlainButtonStruct)r_).getActionsButton().size());
+        assertEq(0,((AbsButtonStruct)r_).getActionsButton().size());
     }
     @Test
     public void removeAction3() {
@@ -127,7 +127,7 @@ public final class PlainButtonStructTest extends EquallableElUtUtil {
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctButtonAddAction(),null,ctx_,r_,one(list_),st_);
         call(new FctButtonRemoveAction(),null,ctx_,r_,one(list_),st_);
-        assertEq(0,((PlainButtonStruct)r_).getActionsButton().size());
+        assertEq(0,((AbsButtonStruct)r_).getActionsButton().size());
     }
     @Test
     public void actions() {

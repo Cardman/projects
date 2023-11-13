@@ -140,7 +140,7 @@ public final class OtherConfirmDialog {
         AbsPanel content_ = infos.getCompoFactory().newGrid(0,1);
         content_.add(wrapped(_message));
         AbsPanel buttons_ = infos.getCompoFactory().newLineBox();
-        AbsPlainButton button_ = infos.getCompoFactory().newPlainButton(_language);
+        AbsButton button_ = infos.getCompoFactory().newPlainButton(_language);
         button_.addActionListener(new OtherClosingDialogEvent(this));
         buttons_.add(button_);
         content_.add(buttons_);
@@ -156,7 +156,7 @@ public final class OtherConfirmDialog {
         content_.add(wrapped(_message));
         AbsPanel buttons_ = infos.getCompoFactory().newLineBox();
         buttons_.add(infos.getCompoFactory().newPreparedLabel(_img));
-        AbsPlainButton button_ = infos.getCompoFactory().newPlainButton(_language);
+        AbsButton button_ = infos.getCompoFactory().newPlainButton(_language);
         button_.addActionListener(new OtherClosingDialogEvent(this));
         buttons_.add(button_);
         content_.add(buttons_);
@@ -171,7 +171,7 @@ public final class OtherConfirmDialog {
         AbsPanel content_ = infos.getCompoFactory().newGrid(0,1);
         content_.add(wrapped(_message));
         AbsPanel buttons_ = infos.getCompoFactory().newLineBox();
-        AbsPlainButton button_ = infos.getCompoFactory().newPlainButton(_language);
+        AbsButton button_ = infos.getCompoFactory().newPlainButton(_language);
         button_.addActionListener(new OtherAnswerEvent(this, OK_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
@@ -186,7 +186,7 @@ public final class OtherConfirmDialog {
         content_.add(wrapped(_message));
         AbsPanel buttons_ = infos.getCompoFactory().newLineBox();
         buttons_.add(infos.getCompoFactory().newPreparedLabel(_img));
-        AbsPlainButton button_ = infos.getCompoFactory().newPlainButton(_language);
+        AbsButton button_ = infos.getCompoFactory().newPlainButton(_language);
         button_.addActionListener(new OtherAnswerEvent(this, OK_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
@@ -215,7 +215,7 @@ public final class OtherConfirmDialog {
     }
 
     private void yesNoCommon(String _yes, String _no, AbsPanel _content, AbsPanel _buttons) {
-        AbsPlainButton button_ = infos.getCompoFactory().newPlainButton(_yes);
+        AbsButton button_ = infos.getCompoFactory().newPlainButton(_yes);
         button_.addActionListener(new OtherAnswerEvent(this, YES_OPTION));
         _buttons.add(button_);
         button_ = infos.getCompoFactory().newPlainButton(_no);
@@ -248,7 +248,7 @@ public final class OtherConfirmDialog {
     }
 
     private void initCommon(String _yes, String _no, String _cancel, AbsPanel _content, AbsPanel _buttons) {
-        AbsPlainButton button_ = infos.getCompoFactory().newPlainButton(_yes);
+        AbsButton button_ = infos.getCompoFactory().newPlainButton(_yes);
         button_.addActionListener(new OtherAnswerEvent(this, YES_OPTION));
         _buttons.add(button_);
         button_ = infos.getCompoFactory().newPlainButton(_no);
@@ -284,7 +284,7 @@ public final class OtherConfirmDialog {
         _content.add(field);
         answer = NO_OPTION;
         AbsPanel buttons_ = infos.getCompoFactory().newLineBox();
-        AbsPlainButton button_ = infos.getCompoFactory().newPlainButton(_ok);
+        AbsButton button_ = infos.getCompoFactory().newPlainButton(_ok);
         button_.addActionListener(new OtherAnswerTextEvent(this, YES_OPTION));
         buttons_.add(button_);
         button_ = infos.getCompoFactory().newPlainButton(_cancel);

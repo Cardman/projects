@@ -148,7 +148,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(selectHomePathZip);
-        AbsPlainButton ok_ = _window.getCompoFactory().newPlainButton(WindowAiki.OK);
+        AbsButton ok_ = _window.getCompoFactory().newPlainButton(WindowAiki.OK);
         ok_.addActionListener(new ValidateSoftParams(this));
         panel_.add(ok_);
         absDialog.setContentPane(panel_);

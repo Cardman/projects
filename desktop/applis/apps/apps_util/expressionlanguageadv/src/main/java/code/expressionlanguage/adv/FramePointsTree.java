@@ -4,7 +4,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.options.ResultContext;
-import code.gui.AbsPlainButton;
+import code.gui.AbsButton;
 import code.gui.AbsTreeGui;
 import code.gui.AbstractMutableTreeNodeCore;
 import code.gui.GuiBaseUtil;
@@ -25,7 +25,7 @@ public final class FramePointsTree {
     public static final int SORT_OP = 8;
     private final AbsCompoFactory compoFactory;
     private AbsTreeGui tree;
-    private AbsPlainButton create;
+    private AbsButton create;
     private AbstractMutableTreeNodeCore<String> instruction;
     private AbstractMutableTreeNodeCore<String> watchField;
     private AbstractMutableTreeNodeCore<String> watchFieldAnnot;
@@ -417,7 +417,7 @@ public final class FramePointsTree {
         return stdList;
     }
 
-    public AbsPlainButton getCreate() {
+    public AbsButton getCreate() {
         return create;
     }
 

@@ -5,7 +5,7 @@ import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.president.RulesPresident;
 import code.gui.AbsPanel;
-import code.gui.AbsPlainButton;
+import code.gui.AbsButton;
 import code.gui.AbsTabbedPane;
 import code.gui.GuiConstants;
 import code.gui.initialize.AbstractProgramInfos;
@@ -40,7 +40,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
         initJt(null, _enabledChangingNbPlayers, _nbPlayers, _window, jt_);
 
         container_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(VALIDATE));
+        AbsButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(VALIDATE));
         bouton_.addActionListener(new ValidateRulesEvent(this));
         container_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
         getCardDialog().setContentPane(container_);

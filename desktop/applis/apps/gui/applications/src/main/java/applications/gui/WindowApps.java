@@ -30,16 +30,16 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 
     private static final String APPLICATIONS = "Applications";
 
-    private final AbsPlainButton buttonPokemon;
+    private final AbsButton buttonPokemon;
 
-    private final AbsPlainButton buttonCards;
-    private final AbsPlainButton buttonApps;
-    private final AbsPlainButton buttonTests;
-    private final AbsPlainButton buttonRenders;
-    private final AbsPlainButton buttonDemo;
-    private final AbsPlainButton buttonPlayer;
-    private final AbsPlainButton buttonConverter;
-    private final AbsPlainButton buttonNet;
+    private final AbsButton buttonCards;
+    private final AbsButton buttonApps;
+    private final AbsButton buttonTests;
+    private final AbsButton buttonRenders;
+    private final AbsButton buttonDemo;
+    private final AbsButton buttonPlayer;
+    private final AbsButton buttonConverter;
+    private final AbsButton buttonNet;
 
     private final CustButtonGroup group = new CustButtonGroup();
 

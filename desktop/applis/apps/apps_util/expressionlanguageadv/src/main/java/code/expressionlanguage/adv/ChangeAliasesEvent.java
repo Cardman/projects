@@ -1,15 +1,15 @@
 package code.expressionlanguage.adv;
 
 import code.gui.AbsCommonFrame;
-import code.gui.AbsMenuItem;
+import code.gui.EnabledMenu;
 import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class ChangeAliasesEvent implements AbsActionListener {
     private final WindowWithTreeImpl windowCdmEditor;
-    private final AbsMenuItem aliasesMenu;
+    private final EnabledMenu aliasesMenu;
 
-    public ChangeAliasesEvent(WindowWithTreeImpl _w, AbsMenuItem _m) {
+    public ChangeAliasesEvent(WindowWithTreeImpl _w, EnabledMenu _m) {
         this.windowCdmEditor = _w;
         aliasesMenu = _m;
     }

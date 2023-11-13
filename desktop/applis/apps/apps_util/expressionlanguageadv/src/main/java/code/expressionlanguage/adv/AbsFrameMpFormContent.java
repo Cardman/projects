@@ -3,7 +3,7 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.AbsCustCheckBox;
 import code.gui.AbsPanel;
-import code.gui.AbsPlainButton;
+import code.gui.AbsButton;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
@@ -13,8 +13,8 @@ public abstract class AbsFrameMpFormContent {
     private AbsCustCheckBox enterFunction;
     private AbsCustCheckBox exitFunction;
     private AbsCustCheckBox enabledMp;
-    private AbsPlainButton ok;
-    private AbsPlainButton remove;
+    private AbsButton ok;
+    private AbsButton remove;
     private AbsPanel contentPaneForm;
     private AbsPanel contentPane;
     protected AbsFrameMpFormContent(AbstractProgramInfos _c) {
@@ -38,7 +38,7 @@ public abstract class AbsFrameMpFormContent {
         contentPane = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
     }
 
-    public AbsPlainButton getRemove() {
+    public AbsButton getRemove() {
         return remove;
     }
 
@@ -67,7 +67,7 @@ public abstract class AbsFrameMpFormContent {
         return enabledMp;
     }
 
-    public AbsPlainButton getOk() {
+    public AbsButton getOk() {
         return ok;
     }
 

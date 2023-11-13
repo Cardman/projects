@@ -17,9 +17,9 @@ public final class FrameBpFormContent {
     private AbsCustCheckBox instanceType;
     private AbsCustCheckBox staticType;
     private AbsCustCheckBox enabledBp;
-    private AbsPlainButton ok;
+    private AbsButton ok;
     private AbsPlainLabel edited;
-    private AbsPlainButton remove;
+    private AbsButton remove;
     private AbsPanel contentPane;
     public FrameBpFormContent(AbstractProgramInfos _c) {
         guiStdStackForm = new GuiStackForm(_c);
@@ -67,7 +67,7 @@ public final class FrameBpFormContent {
         }
     }
 
-    public AbsPlainButton getRemove() {
+    public AbsButton getRemove() {
         return remove;
     }
 
@@ -113,7 +113,7 @@ public final class FrameBpFormContent {
         return enabledBp;
     }
 
-    public AbsPlainButton getOk() {
+    public AbsButton getOk() {
         return ok;
     }
 

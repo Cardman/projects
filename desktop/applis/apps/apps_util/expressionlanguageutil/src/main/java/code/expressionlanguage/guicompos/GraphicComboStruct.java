@@ -9,7 +9,7 @@ import code.gui.events.AbsEnabledAction;
 import code.util.CustList;
 
 
-public final class GraphicComboStruct extends InputStruct {
+public final class GraphicComboStruct extends CustComponentStruct {
     private final StructScrollCustomComboList graphicCombo;
 
     public GraphicComboStruct(String _className, ContextEl _ctx, StructScrollCustomComboList _graphicCombo) {

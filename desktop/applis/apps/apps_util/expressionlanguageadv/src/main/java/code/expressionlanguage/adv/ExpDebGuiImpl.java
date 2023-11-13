@@ -26,7 +26,7 @@ import code.util.core.NumberUtil;
 
 public final class ExpDebGuiImpl extends AbsDebuggerGui {
     private FormFindReplaceExpression findReplaceExpression;
-    private AbsPlainButton selectClass;
+    private AbsButton selectClass;
     private AbsTextArea text;
     private AbsTextArea textOutput;
     private Struct instance = NullStruct.NULL_VALUE;
@@ -224,7 +224,7 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
         return found;
     }
 
-    public AbsPlainButton getSelectClass() {
+    public AbsButton getSelectClass() {
         return selectClass;
     }
 

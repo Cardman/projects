@@ -39,8 +39,8 @@ public final class FrameArrFormContent {
     private AbsCustCheckBox initArray;
     private AbsCustCheckBox clone;
     private AbsCustCheckBox enabledExc;
-    private AbsPlainButton ok;
-    private AbsPlainButton remove;
+    private AbsButton ok;
+    private AbsButton remove;
     private AbsPanel contentPane;
 
     public FrameArrFormContent(AbstractProgramInfos _c) {
@@ -292,11 +292,11 @@ public final class FrameArrFormContent {
         return enabledExc;
     }
 
-    public AbsPlainButton getOk() {
+    public AbsButton getOk() {
         return ok;
     }
 
-    public AbsPlainButton getRemove() {
+    public AbsButton getRemove() {
         return remove;
     }
 

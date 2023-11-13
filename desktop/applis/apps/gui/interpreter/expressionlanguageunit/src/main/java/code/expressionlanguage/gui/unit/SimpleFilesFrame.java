@@ -25,9 +25,9 @@ import code.util.core.StringUtil;
 
 public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,AbsChildFrame {
     private static final String DIALOG_ACCESS = "unit.simplefilesframe";
-    private final AbsMenu menu;
-    private final AbsMenuItem open;
-    private final AbsMenuItem stop;
+    private final EnabledMenu menu;
+    private final EnabledMenu open;
+    private final EnabledMenu stop;
 
     private final AbsPanel contentPane;
     private final AbsPanel form;
@@ -37,8 +37,8 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
     private final AbsTextField filesField;
     private final AbsPlainLabel content;
     private final AbsTextArea conf;
-    private final AbsPlainButton launch;
-    private final AbsPlainButton launchByFile;
+    private final AbsButton launch;
+    private final AbsButton launchByFile;
     private final AbsPanel progressing;
     private final AbsPlainLabel doneTests;
     private final AbsPlainLabel doneTestsCount;
@@ -76,7 +76,7 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
         open.addActionListener(new FileSelectEvent(_parent, this));
         open.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
         menu.addMenuItem(open);
-        menu.addSeparator();
+        menu.addMenuItem(getCompoFactory().newSep());
         stop = parent.getCompoFactory().newMenuItem(messages.getVal("stop"));
         stop.addActionListener(new StopRunEvent(_parent));
         menu.addMenuItem(stop);
@@ -102,12 +102,12 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
         subForm.add(parent.getCompoFactory().newPlainLabel(messages.getVal("folder")));
         subForm.add(folderField);
         srcField = parent.getCompoFactory().newTextField();
-        AbsPlainButton srcButton_ = parent.getCompoFactory().newPlainButton(messages.getVal("src"));
+        AbsButton srcButton_ = parent.getCompoFactory().newPlainButton(messages.getVal("src"));
         srcButton_.addActionListener(new LoadSrcEvent(this));
         subForm.add(srcButton_);
         subForm.add(srcField);
         filesField = parent.getCompoFactory().newTextField();
-        AbsPlainButton filesButton_ = parent.getCompoFactory().newPlainButton(messages.getVal("files"));
+        AbsButton filesButton_ = parent.getCompoFactory().newPlainButton(messages.getVal("files"));
         filesButton_.addActionListener(new LoadFilesEvent(this));
         subForm.add(filesButton_);
         subForm.add(filesField);

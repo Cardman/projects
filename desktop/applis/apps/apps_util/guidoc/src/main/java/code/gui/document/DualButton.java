@@ -4,13 +4,13 @@ package code.gui.document;
 
 import code.formathtml.render.MetaButton;
 import code.gui.AbsCustComponent;
-import code.gui.AbsPlainButton;
+import code.gui.AbsButton;
 import code.gui.GuiConstants;
 
 public final class DualButton extends DualInput {
 
     private final String value;
-    private final AbsPlainButton label;
+    private final AbsButton label;
 
     public DualButton(DualContainer _container, MetaButton _component,
             RenderedPage _page) {

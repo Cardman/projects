@@ -75,17 +75,17 @@ public abstract class Paginator {
 
     private final CustList<SelectableLabel> resultsLabels = new CustList<SelectableLabel>();
 
-    private final AbsPlainButton begin;
+    private final AbsButton begin;
 
-    private final AbsPlainButton previousDelta;
+    private final AbsButton previousDelta;
 
-    private final AbsPlainButton previous;
+    private final AbsButton previous;
 
-    private final AbsPlainButton next;
+    private final AbsButton next;
 
-    private final AbsPlainButton nextDelta;
+    private final AbsButton nextDelta;
 
-    private final AbsPlainButton end;
+    private final AbsButton end;
 
     private final WindowAiki main;
 
@@ -255,27 +255,27 @@ public abstract class Paginator {
         return pages;
     }
 
-    protected AbsPlainButton getBegin() {
+    protected AbsButton getBegin() {
         return begin;
     }
 
-    protected AbsPlainButton getPreviousDelta() {
+    protected AbsButton getPreviousDelta() {
         return previousDelta;
     }
 
-    protected AbsPlainButton getPrevious() {
+    protected AbsButton getPrevious() {
         return previous;
     }
 
-    protected AbsPlainButton getNext() {
+    protected AbsButton getNext() {
         return next;
     }
 
-    protected AbsPlainButton getNextDelta() {
+    protected AbsButton getNextDelta() {
         return nextDelta;
     }
 
-    protected AbsPlainButton getEnd() {
+    protected AbsButton getEnd() {
         return end;
     }
 

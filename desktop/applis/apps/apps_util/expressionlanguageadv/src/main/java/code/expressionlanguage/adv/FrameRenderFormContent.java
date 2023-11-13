@@ -25,8 +25,8 @@ public final class FrameRenderFormContent {
     private AbsCustCheckBox expandFirst;
     private AbsCustCheckBox expandRenderChoice;
     private AbsCustCheckBox enabledExcGlobal;
-    private AbsPlainButton ok;
-    private AbsPlainButton remove;
+    private AbsButton ok;
+    private AbsButton remove;
     private AbsPanel contentPane;
     private AbsSpinner pref;
     private final CrudGeneForm<String,Integer> prefs;
@@ -124,7 +124,7 @@ public final class FrameRenderFormContent {
         return values_;
     }
     public void initPrefs(CustList<RenderPointPair> _bpc, CrudGeneForm<String, Integer> _f) {
-        AbsPlainButton pref_ = _f.getFactory().getCompoFactory().newPlainButton("pref");
+        AbsButton pref_ = _f.getFactory().getCompoFactory().newPlainButton("pref");
         pref_.addActionListener(new ValuePrefRendEvent(_f, _bpc));
         _f.getButtons().add(pref_);
     }
@@ -207,11 +207,11 @@ public final class FrameRenderFormContent {
         return expandRenderText;
     }
 
-    public AbsPlainButton getOk() {
+    public AbsButton getOk() {
         return ok;
     }
 
-    public AbsPlainButton getRemove() {
+    public AbsButton getRemove() {
         return remove;
     }
 

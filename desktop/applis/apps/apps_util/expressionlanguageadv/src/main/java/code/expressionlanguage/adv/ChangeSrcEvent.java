@@ -1,14 +1,14 @@
 package code.expressionlanguage.adv;
 
 import code.gui.AbsCommonFrame;
-import code.gui.AbsMenuItem;
+import code.gui.EnabledMenu;
 import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class ChangeSrcEvent implements AbsActionListener {
     private final WindowWithTreeImpl windowCdmEditor;
-    private final AbsMenuItem srcMenu;
-    public ChangeSrcEvent(WindowWithTreeImpl _w, AbsMenuItem _m) {
+    private final EnabledMenu srcMenu;
+    public ChangeSrcEvent(WindowWithTreeImpl _w, EnabledMenu _m) {
         this.windowCdmEditor = _w;
         srcMenu = _m;
     }

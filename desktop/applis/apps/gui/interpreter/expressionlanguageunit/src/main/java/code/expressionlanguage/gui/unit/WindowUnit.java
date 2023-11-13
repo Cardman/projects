@@ -14,7 +14,7 @@ import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.*;
 
 
-import code.gui.AbsMenuItem;
+import code.gui.EnabledMenu;
 
 
 import code.gui.events.*;
@@ -33,18 +33,18 @@ import code.util.ints.UniformingString;
 
 
 public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpenQuit {
-    private final AbsMenu menu;
-    private final AbsMenuItem open;
-    private final AbsCheckBoxMenuItem logErr;
-    private final AbsMenuItem simpleFrame;
-    private final AbsMenuItem stop;
-    private final AbsCheckBoxMenuItem memory;
+    private final EnabledMenu menu;
+    private final EnabledMenu open;
+    private final EnabledMenu logErr;
+    private final EnabledMenu simpleFrame;
+    private final EnabledMenu stop;
+    private final EnabledMenu memory;
 
     private final AbsPanel contentPane;
     private final AbsPanel form;
     private final AbsPlainLabel content;
     private final AbsTextArea conf;
-    private final AbsPlainButton launch;
+    private final AbsButton launch;
     private final AbsPanel progressing;
     private final AbsPlainLabel doneTests;
     private final AbsPlainLabel doneTestsCount;
@@ -89,11 +89,11 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
         menu.addMenuItem(logErr);
         memory = getCompoFactory().newCheckBoxMenuItem(unitMessages.getVal("memory"));
         menu.addMenuItem(memory);
-        menu.addSeparator();
+        menu.addMenuItem(getCompoFactory().newSep());
         simpleFrame = getCompoFactory().newMenuItem(unitMessages.getVal("archive"));
         simpleFrame.addActionListener(new SimpleFilesFrameOpen(this));
         menu.addMenuItem(simpleFrame);
-        menu.addSeparator();
+        menu.addMenuItem(getCompoFactory().newSep());
         stop = getCompoFactory().newMenuItem(unitMessages.getVal("stop"));
         stop.addActionListener(new StopRunEvent(this));
         menu.addMenuItem(stop);
@@ -292,7 +292,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
         commonExecution.setResults(_ctx, _res, _evolved);
     }
 
-    public AbsMenuItem getSimpleFrame() {
+    public EnabledMenu getSimpleFrame() {
         return simpleFrame;
     }
 }

@@ -30,6 +30,15 @@ public abstract class CustComponent implements AbsCustComponent {
     private final CustList<AbsCustComponent> children = new CustList<AbsCustComponent>();
     private int backGroundValue;
     private int foreGroundValue;
+
+    @Override
+    public boolean isEnabled() {
+        return getNatComponent().isEnabled();
+    }
+
+    public void setEnabled(boolean _b) {
+        getNatComponent().setEnabled(_b);
+    }
     public abstract JComponent getNatComponent();
 
     public boolean isAutoscrolls(){

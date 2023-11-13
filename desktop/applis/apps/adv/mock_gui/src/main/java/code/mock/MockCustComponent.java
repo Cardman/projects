@@ -47,6 +47,16 @@ public abstract class MockCustComponent implements AbsCustComponent {
     private final IdList<AbsKeyListenerPress> keyPressListeners = new IdList<AbsKeyListenerPress>();
     private final IdList<AbsKeyListenerReleased> keyReleasedListeners = new IdList<AbsKeyListenerReleased>();
     private final StringMap<AbsEnabledAction> actions = new StringMap<AbsEnabledAction>();
+    private boolean enabled = true;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean _en) {
+        this.enabled = _en;
+    }
+
     @Override
     public boolean isAutoscrolls() {
         return autoscrolls;

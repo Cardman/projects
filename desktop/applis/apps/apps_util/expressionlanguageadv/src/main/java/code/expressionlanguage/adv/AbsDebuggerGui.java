@@ -34,29 +34,29 @@ import code.util.core.StringUtil;
 
 public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private final CdmFactory factory;
-    private AbsMenuItem analyzeMenu;
-    private AbsMenuItem openPoints;
+    private EnabledMenu analyzeMenu;
+    private EnabledMenu openPoints;
     private final FramePoints framePoints;
     private AbsTreeGui folderSystem;
     private AbsTabbedPane tabbedPane;
     private final CustList<ReadOnlyTabEditor> tabs = new CustList<ReadOnlyTabEditor>();
     private CallingState selected;
-    private AbsPlainButton selectEnter;
-    private AbsPlainButton nextAction;
-    private AbsPlainButton nextInstruction;
-    private AbsPlainButton nextBlock;
-    private AbsPlainButton nextGoUp;
-    private AbsPlainButton nextInMethod;
-    private AbsPlainButton nextCursorInstruction;
-    private AbsPlainButton nextCursorExpression;
+    private AbsButton selectEnter;
+    private AbsButton nextAction;
+    private AbsButton nextInstruction;
+    private AbsButton nextBlock;
+    private AbsButton nextGoUp;
+    private AbsButton nextInMethod;
+    private AbsButton nextCursorInstruction;
+    private AbsButton nextCursorExpression;
     private AbsScrollPane detail;
     private AbsSplitPane detailAll;
     private StackCall stackCall;
     private StackCallReturnValue stackCallView;
     private DbgRootStruct root;
     private AbsTreeGui treeDetail;
-    private final CustList<AbsPlainButton> callButtons = new CustList<AbsPlainButton>();
-    private final CustList<AbsPlainButton> callButtonsRender = new CustList<AbsPlainButton>();
+    private final CustList<AbsButton> callButtons = new CustList<AbsButton>();
+    private final CustList<AbsButton> callButtonsRender = new CustList<AbsButton>();
     private AbsPanel callStack;
     private AbsPanel callStackRender;
     private AbstractAtomicBoolean stopDbg;
@@ -66,8 +66,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private ManageOptions manageOptions;
     private AbsAnalyzingDebugEvent event;
     private AbsCustCheckBox mute;
-    private AbsPlainButton pauseStack;
-    private AbsPlainButton stopStack;
+    private AbsButton pauseStack;
+    private AbsButton stopStack;
     private AbsTextArea statusAnalyzeArea;
     private AbsPanel navigation;
     private AbstractThread currentThreadActions;
@@ -78,16 +78,16 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbstractInterceptorStdCaller caller;
     private AbstractPageEl currentPage;
     private AbsTextArea dynamicEval;
-    private AbsPlainButton evalPage;
-    private AbsPlainButton evalNoPage;
+    private AbsButton evalPage;
+    private AbsButton evalNoPage;
     private DbgRootStruct rootStructStr;
     private CustList<AbsTreeGui> dynTrees = new CustList<AbsTreeGui>();
-    private IdList<AbsPlainButton> buttons = new IdList<AbsPlainButton>();
-    private IdList<AbsPlainButton> buttonsDynRef = new IdList<AbsPlainButton>();
+    private IdList<AbsButton> buttons = new IdList<AbsButton>();
+    private IdList<AbsButton> buttonsDynRef = new IdList<AbsButton>();
     private AbsTabbedPane watches;
 //    private AbsPanel cancelDynWatch;
     private AbstractThread dynamicAna;
-    private AbsPlainButton refreshRender;
+    private AbsButton refreshRender;
 
     protected AbsDebuggerGui(AbsOpenFrameInteract _m, AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a,_lg,_list);
@@ -159,8 +159,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         evalNoPage = getCommonFrame().getFrames().getCompoFactory().newPlainButton("eval no page");
         watches = getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
         dynTrees = new CustList<AbsTreeGui>();
-        buttons = new IdList<AbsPlainButton>();
-        buttonsDynRef = new IdList<AbsPlainButton>();
+        buttons = new IdList<AbsButton>();
+        buttonsDynRef = new IdList<AbsButton>();
 //        cancelDynWatch = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         dynPanel_.add(dynamicEval);
         dynPanel_.add(evalPage);
@@ -196,7 +196,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         getCommonFrame().setContentPane(page_);
         getCommonFrame().setVisible(true);
         AbsMenuBar bar_ = getCommonFrame().getFrames().getCompoFactory().newMenuBar();
-        AbsMenu session_ = getCommonFrame().getFrames().getCompoFactory().newMenu("session");
+        EnabledMenu session_ = getCommonFrame().getFrames().getCompoFactory().newMenu("session");
         analyzeMenu = getCommonFrame().getFrames().getCompoFactory().newMenuItem("analyze");
         analyzeMenu.addActionListener(getEvent());
         session_.addMenuItem(analyzeMenu);
@@ -302,7 +302,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             callButtonsRender.clear();
             root = new DbgRootStruct(ctx_, null);
             treeDetail = root.buildReturn(this,renderList,getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory(), view_.getStack().aw());
-            AbsPlainButton shRend_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton("show render");
+            AbsButton shRend_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton("show render");
             shRend_.addActionListener(new DbgSelectNodeLogEvent(root,treeDetail,statusDbgAreaScrollRender));
             callStackRender.add(shRend_);
             callButtonsRender.add(shRend_);
@@ -327,11 +327,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             root = r_;
             AbsTreeGui b_ = r_.build(this,renderList,getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory(), p_, stackCall.getBreakPointInfo().getBreakPointOutputInfo());
             treeDetail = b_;
-            AbsPlainButton but_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton(dis_);
+            AbsButton but_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton(dis_);
             callButtons.add(but_);
             but_.addActionListener(new SelectCallStackEvent(this,p_,b_,r_));
             callStack.add(but_);
-            AbsPlainButton shRend_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton("show render");
+            AbsButton shRend_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton("show render");
             shRend_.addActionListener(new DbgSelectNodeLogEvent(r_,b_,statusDbgAreaScrollRender));
             callStackRender.add(shRend_);
             callButtonsRender.add(shRend_);
@@ -392,7 +392,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return watches;
     }
 
-    public IdList<AbsPlainButton> getButtonsDynRef() {
+    public IdList<AbsButton> getButtonsDynRef() {
         return buttonsDynRef;
     }
 
@@ -627,7 +627,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return treeDetail;
     }
 
-    public AbsPlainButton getSelectEnter() {
+    public AbsButton getSelectEnter() {
         return selectEnter;
     }
 
@@ -656,35 +656,35 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return framePoints;
     }
 
-    public AbsPlainButton getNextAction() {
+    public AbsButton getNextAction() {
         return nextAction;
     }
 
-    public AbsPlainButton getNextInstruction() {
+    public AbsButton getNextInstruction() {
         return nextInstruction;
     }
 
-    public AbsPlainButton getNextBlock() {
+    public AbsButton getNextBlock() {
         return nextBlock;
     }
 
-    public AbsPlainButton getNextGoUp() {
+    public AbsButton getNextGoUp() {
         return nextGoUp;
     }
 
-    public AbsPlainButton getNextInMethod() {
+    public AbsButton getNextInMethod() {
         return nextInMethod;
     }
 
-    public AbsPlainButton getNextCursorInstruction() {
+    public AbsButton getNextCursorInstruction() {
         return nextCursorInstruction;
     }
 
-    public AbsPlainButton getNextCursorExpression() {
+    public AbsButton getNextCursorExpression() {
         return nextCursorExpression;
     }
 
-    public AbsPlainButton getPauseStack() {
+    public AbsButton getPauseStack() {
         return pauseStack;
     }
 
@@ -700,19 +700,19 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return callStackRender;
     }
 
-    public CustList<AbsPlainButton> getCallButtons() {
+    public CustList<AbsButton> getCallButtons() {
         return callButtons;
     }
 
-    public CustList<AbsPlainButton> getCallButtonsRender() {
+    public CustList<AbsButton> getCallButtonsRender() {
         return callButtonsRender;
     }
 
-    public AbsMenuItem getAnalyzeMenu() {
+    public EnabledMenu getAnalyzeMenu() {
         return analyzeMenu;
     }
 
-    public AbsMenuItem getOpenPoints() {
+    public EnabledMenu getOpenPoints() {
         return openPoints;
     }
 
@@ -720,7 +720,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return stopDbg;
     }
 
-    public AbsPlainButton getStopStack() {
+    public AbsButton getStopStack() {
         return stopStack;
     }
 
@@ -752,11 +752,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return dynamicEval;
     }
 
-    public AbsPlainButton getEvalPage() {
+    public AbsButton getEvalPage() {
         return evalPage;
     }
 
-    public AbsPlainButton getEvalNoPage() {
+    public AbsButton getEvalNoPage() {
         return evalNoPage;
     }
 
@@ -772,11 +772,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 //        return cancelDynWatch;
 //    }
 
-    public IdList<AbsPlainButton> getButtons() {
+    public IdList<AbsButton> getButtons() {
         return buttons;
     }
 
-    public AbsPlainButton getRefreshRender() {
+    public AbsButton getRefreshRender() {
         return refreshRender;
     }
 }

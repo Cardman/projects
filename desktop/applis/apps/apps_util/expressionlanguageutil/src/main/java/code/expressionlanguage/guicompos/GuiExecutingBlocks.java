@@ -21,7 +21,7 @@ import code.util.CustList;
 import code.util.StringList;
 
 public final class GuiExecutingBlocks {
-    private AbsPlainButton stop;
+    private AbsButton stop;
 //    private FrameStruct frame;
     private StringList mainArgs;
     private OtherConfirmDialog confirm;
@@ -605,11 +605,11 @@ public final class GuiExecutingBlocks {
         return new IntStruct(compoFactory.heightFont(_font.getFont()));
     }
 
-    public AbsPlainButton getStop() {
+    public AbsButton getStop() {
         return stop;
     }
 
-    public void setStop(AbsPlainButton _s) {
+    public void setStop(AbsButton _s) {
         this.stop = _s;
     }
 }

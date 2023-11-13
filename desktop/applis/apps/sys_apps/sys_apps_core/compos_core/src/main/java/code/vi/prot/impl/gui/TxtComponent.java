@@ -97,14 +97,6 @@ public abstract class TxtComponent extends CustComponent implements AbsTxtCompon
         return getTextComponent().getSelectedText();
     }
 
-    public void setEnabled(boolean _enabled) {
-        getTextComponent().setEnabled(_enabled);
-    }
-
-    public boolean isEnabled() {
-        return getTextComponent().isEnabled();
-    }
-
     public int viewToModel(MetaPoint _point) {
         return getTextComponent().viewToModel(new Point(_point.getXcoord(), _point.getYcoord()));
     }

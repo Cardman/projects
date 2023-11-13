@@ -6,7 +6,7 @@ import cards.gui.dialogs.help.HelpIndexes;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.analyze.NatConfigurationCore;
-import code.gui.AbsMenuItem;
+import code.gui.EnabledMenu;
 import code.gui.MenuItemUtils;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.confs.HelpScriptPages;
@@ -33,10 +33,10 @@ public final class HelpInitializer implements Runnable {
     private static final String TEXTE = "texte";
 
     private final StringMap<HelpIndexesTree> trees = new StringMap<HelpIndexesTree>();
-    private final AbsMenuItem generalHelp;
+    private final EnabledMenu generalHelp;
     private final StringMap<StringMap<String>> images;
 
-    public HelpInitializer(AbsMenuItem _generalHelp) {
+    public HelpInitializer(EnabledMenu _generalHelp) {
         generalHelp = _generalHelp;
         images = CardsInit.ms();
     }

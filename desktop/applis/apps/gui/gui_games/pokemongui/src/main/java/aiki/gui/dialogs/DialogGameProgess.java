@@ -49,7 +49,7 @@ public final class DialogGameProgess {
         AbsPlainLabel area_ = _window.getCompoFactory().newPlainLabel(TEXT);
         AbsTextField field_;
 //        LabelButton search_ = _window.getCompoFactory().newPlainButton(MainWindow.OK);
-        AbsPlainButton search_ = _window.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
+        AbsButton search_ = _window.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
         field_ = _window.getCompoFactory().newTextField(20);
 //        session.setLabel(area_);
         session.addFinder(field_,search_);

@@ -106,7 +106,7 @@ public final class DialogNicknames extends DialogCards {
         nickname=getCompoFactory().newTextField(30);
         nickname.setText(pseudos.getPseudo());
         sousPanneau_.add(nickname);
-        AbsPlainButton bouton_=getCompoFactory().newPlainButton(messages.getVal(VALIDATE));
+        AbsButton bouton_=getCompoFactory().newPlainButton(messages.getVal(VALIDATE));
         bouton_.addActionListener(new ListenerNicknames(this));
         sousPanneau_.add(bouton_);
         container_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);

@@ -17,7 +17,7 @@ public interface AbsCompoFactory {
     AbsPaintableLabel newAbsPaintableLabel();
     AbsPreparedLabel newPreparedLabel(AbstractImage _icon);
     AbsPreparedLabel newPreparedLabel(String _key);
-    AbsPlainButton newImgButton(AbstractImage _imageIcon);
+    AbsButton newImgButton(AbstractImage _imageIcon);
     void invokeLater(Runnable _r);
     void invokeNow(Runnable _r);
     AbsPanel newAbsolute();
@@ -55,8 +55,8 @@ public interface AbsCompoFactory {
     AbsCustCheckBox newCustCheckBox();
     AbsCustCheckBox newCustCheckBox(String _t);
     AbsCustCheckBox newCustCheckBox(String _t,boolean _s);
-    AbsPlainButton newPlainButton();
-    AbsPlainButton newPlainButton(String _t);
+    AbsButton newPlainButton();
+    AbsButton newPlainButton(String _t);
 
     AbsRadioButton newRadioButton();
 
@@ -68,17 +68,18 @@ public interface AbsCompoFactory {
     AbsWrappedTextArea newWrappedTextArea(int _rows, int _columns);
     AbsMenuBar newMenuBar();
 
-    AbsMenu newMenu();
+    EnabledMenu newMenu();
 
-    AbsMenu newMenu(String _value);
+    EnabledMenu newMenu(String _value);
 
-    AbsCheckBoxMenuItem newCheckBoxMenuItem();
+    EnabledMenu newCheckBoxMenuItem();
 
-    AbsCheckBoxMenuItem newCheckBoxMenuItem(String _value);
+    EnabledMenu newCheckBoxMenuItem(String _value);
 
-    AbsMenuItem newMenuItem();
+    EnabledMenu newMenuItem();
 
-    AbsMenuItem newMenuItem(String _value);
+    EnabledMenu newMenuItem(String _value);
+    AbsSeparator newSep();
     int stringWidth(MetaFont _font, String _string);
     int heightFont(MetaFont _font);
     AbsEnabledAction wrap(AbsAdvActionListener _actionListener);

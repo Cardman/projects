@@ -5,7 +5,7 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.guicompos.stds.FctWindowCloseAll;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
-import code.gui.AbsPlainButton;
+import code.gui.AbsButton;
 import code.threads.AbstractAtomicBoolean;
 import code.util.StringList;
 
@@ -53,7 +53,7 @@ public final class GuiContextEl extends RunnableContextEl {
         FctWindowCloseAll.closeAll(this,StackCall.newInstance(InitPhase.NOTHING,this));
         super.interrupt();
         LgNamesGui standards_ = (LgNamesGui) getStandards();
-        AbsPlainButton s_ = standards_.getGuiExecutingBlocks().getStop();
+        AbsButton s_ = standards_.getGuiExecutingBlocks().getStop();
         if (s_ != null) {
             s_.setEnabled(true);
         }

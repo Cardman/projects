@@ -2,7 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.options.ResultContext;
 import code.gui.AbsCustCheckBox;
-import code.gui.AbsPlainButton;
+import code.gui.AbsButton;
 import code.util.StringMap;
 
 public abstract class AdvFrameMpForm {
@@ -24,11 +24,11 @@ public abstract class AdvFrameMpForm {
         return form().getEnabledMp();
     }
 
-    public AbsPlainButton getOk() {
+    public AbsButton getOk() {
         return form().getOk();
     }
 
-    public AbsPlainButton getRemove() {
+    public AbsButton getRemove() {
         return form().getRemove();
     }
 

@@ -67,13 +67,13 @@ public final class SelectPokemon extends SelectDialog {
         AbsPanel pag_ = compo.newPageBox();
         contentPane_.add(compo.newAbsScrollPane(new PaginatorPokemon(_parent,pag_, getSelectDial(), _facade).getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
-        AbsPlainButton detail_ = _parent.getCompoFactory().newPlainButton(messages.getVal(DETAIL));
+        AbsButton detail_ = _parent.getCompoFactory().newPlainButton(messages.getVal(DETAIL));
         detail_.addActionListener(new SeePkDetailEvent(this));
         buttons_.add(detail_);
-        AbsPlainButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
+        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
         ok_.addActionListener(new ValidateSelectionEvent(this));
         buttons_.add(ok_);
-        AbsPlainButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
+        AbsButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
         cancel_.addActionListener(new ClosingDialogEvent(getSelectDial(),getBuilt()));
         buttons_.add(cancel_);
         contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);

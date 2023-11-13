@@ -8,7 +8,7 @@ import code.gui.AbsRadioButton;
 import code.gui.events.AbsChangeListener;
 import code.gui.initialize.AbsCompoFactory;
 
-public final class RadioButtonStruct extends InputStruct {
+public final class RadioButtonStruct extends CustComponentStruct {
     private final AbsRadioButton radioButton;
     public RadioButtonStruct(String _className, AbsCompoFactory _compo) {
         super(_className);
@@ -57,16 +57,6 @@ public final class RadioButtonStruct extends InputStruct {
 
     public void setSelected(Struct _b) {
         radioButton.setSelected(BooleanStruct.isTrue(_b));
-    }
-
-    @Override
-    public Struct isEnabled() {
-        return BooleanStruct.of(radioButton.isEnabled());
-    }
-
-    @Override
-    public void setEnabled(Struct _b) {
-        radioButton.setEnabled(BooleanStruct.isTrue(_b));
     }
 
     @Override

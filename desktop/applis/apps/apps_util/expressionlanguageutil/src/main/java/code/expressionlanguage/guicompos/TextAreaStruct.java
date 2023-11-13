@@ -6,7 +6,7 @@ import code.gui.AbsCustComponent;
 import code.gui.AbsTextArea;
 import code.gui.initialize.AbsCompoFactory;
 
-public final class TextAreaStruct extends InputStruct {
+public final class TextAreaStruct extends CustComponentStruct {
     private final AbsTextArea textArea;
     public TextAreaStruct(String _className, AbsCompoFactory _compo) {
         super(_className);
@@ -34,16 +34,6 @@ public final class TextAreaStruct extends InputStruct {
 
     public void append(Struct _str) {
         textArea.append(getText(_str));
-    }
-
-    @Override
-    public Struct isEnabled() {
-        return BooleanStruct.of(textArea.isEnabled());
-    }
-
-    @Override
-    public void setEnabled(Struct _enabled) {
-        textArea.setEnabled(BooleanStruct.isTrue(_enabled));
     }
 
     public void setText(Struct _t) {

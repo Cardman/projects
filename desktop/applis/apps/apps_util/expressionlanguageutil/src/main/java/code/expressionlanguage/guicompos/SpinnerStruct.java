@@ -1,6 +1,5 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
@@ -9,22 +8,12 @@ import code.gui.AbsSpinner;
 import code.gui.events.AbsChangeListener;
 import code.gui.initialize.AbsCompoFactory;
 
-public final class SpinnerStruct extends InputStruct {
+public final class SpinnerStruct extends CustComponentStruct {
     private AbsSpinner spinner;
 
     public SpinnerStruct(String _className, Struct _value, Struct _min, Struct _max, Struct _step, AbsCompoFactory _compoFactory) {
         super(_className);
         spinner = _compoFactory.newSpinner(((NumberStruct)_value).intStruct(),((NumberStruct)_min).intStruct(),((NumberStruct)_max).intStruct(),((NumberStruct)_step).intStruct());
-    }
-
-    @Override
-    public Struct isEnabled() {
-        return BooleanStruct.of(spinner.isEnabled());
-    }
-
-    @Override
-    public void setEnabled(Struct _enabled) {
-        spinner.setEnabled(BooleanStruct.isTrue(_enabled));
     }
 
     public void addChangeListener(Struct _l) {

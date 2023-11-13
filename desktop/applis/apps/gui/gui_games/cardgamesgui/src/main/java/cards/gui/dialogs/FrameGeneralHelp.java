@@ -55,10 +55,10 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
     private AbsTextField field;
 
     private AbsSplitPane separateur;
-    private AbsPlainButton search;
-    private final AbsMenuItem menuItem;
+    private AbsButton search;
+    private final EnabledMenu menuItem;
 
-    public FrameGeneralHelp(String _titre, WindowCards _fenetre, AbsMenuItem _menu) {
+    public FrameGeneralHelp(String _titre, WindowCards _fenetre, EnabledMenu _menu) {
         super(_fenetre.getLanguageKey(),_fenetre.getFrames());
         setAccessFile(DIALOG_ACCESS);
         setDialogIcon(_fenetre.getCommonFrame());

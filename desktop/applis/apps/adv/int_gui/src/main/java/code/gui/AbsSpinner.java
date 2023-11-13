@@ -8,10 +8,6 @@ public interface AbsSpinner extends AbsCustComponent {
 
     void addChangeListener(AbsChangeListener _list);
 
-    boolean isEnabled();
-
-    void setEnabled(boolean _value);
-
     void setRange(int _a, int _b);
     void range(int _min, int _max);
     void defValues();

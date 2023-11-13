@@ -552,7 +552,7 @@ public final class PaginatorHealingItem extends Paginator {
         _p.add(sorting_);
         AbsPanel top_;
         top_ = getMain().getCompoFactory().newLineBox();
-        AbsPlainButton button_;
+        AbsButton button_;
         button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(SEARCH));
         button_.addActionListener(new SearchEvent(this));
         top_.add(button_);

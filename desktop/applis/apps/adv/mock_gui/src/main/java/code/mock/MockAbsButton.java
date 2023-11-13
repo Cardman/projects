@@ -1,24 +1,21 @@
 package code.mock;
 
-import code.gui.AbsMenuItem;
+import code.gui.AbsButton;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsAdvActionListener;
 import code.util.CustList;
 import code.util.IdList;
 
-public abstract class MockAbsMenuItem extends MockEnabledMenu implements AbsMenuItem {
+public abstract class MockAbsButton extends MockInput implements AbsButton {
     private final IdList<AbsActionListener> actionListeners = new IdList<AbsActionListener>();
     private final IdList<AbsAdvActionListener> advActionListeners = new IdList<AbsAdvActionListener>();
-
-    protected MockAbsMenuItem(String _s) {
-        super(_s);
+    private String text;
+    protected MockAbsButton() {
+        this("");
     }
-
-    @Override
-    public void setAccelerator(int _a, int _b) {
-        setEnabled(isEnabled());
+    protected MockAbsButton(String _s) {
+        text=_s;
     }
-
     @Override
     public void addActionListener(AbsActionListener _l) {
         actionListeners.add(_l);
@@ -30,8 +27,12 @@ public abstract class MockAbsMenuItem extends MockEnabledMenu implements AbsMenu
     }
 
     @Override
-    public void removeActionListener(AbsActionListener _list) {
-        actionListeners.removeObj(_list);
+    public void addActionListener(AbsAdvActionListener _l) {
+        addActionListenerMap(_l);
+    }
+
+    public void removeActionListener(AbsActionListener _mouseListener) {
+        actionListeners.removeObj(_mouseListener);
     }
 
     @Override
@@ -40,20 +41,25 @@ public abstract class MockAbsMenuItem extends MockEnabledMenu implements AbsMenu
     }
 
     @Override
-    public void removeActionListenerMap(AbsAdvActionListener _list) {
-        advActionListeners.removeObj(_list);
+    public void removeActionListenerMap(AbsAdvActionListener _mouseListener) {
+        advActionListeners.removeObj(_mouseListener);
     }
 
     public CustList<AbsActionListener> getActionListeners() {
         return actionListeners;
     }
 
-    @Override
-    public void addActionListener(AbsAdvActionListener _l) {
-        addActionListenerMap(_l);
+    public IdList<AbsAdvActionListener> getAdvActionListeners() {
+        return advActionListeners;
     }
 
-    public CustList<AbsAdvActionListener> getAdvActionListeners() {
-        return advActionListeners;
+    @Override
+    public void setText(String _s) {
+        text = _s;
+    }
+
+    @Override
+    public String getText() {
+        return text;
     }
 }

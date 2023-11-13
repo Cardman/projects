@@ -1,9 +1,9 @@
 package code.expressionlanguage.adv;
 
 import code.gui.AbsCommonFrame;
-import code.gui.AbsMenuItem;
+import code.gui.EnabledMenu;
 
 public interface WithFrame {
     AbsCommonFrame getFrame();
-    AbsMenuItem getMenu();
+    EnabledMenu getMenu();
 }

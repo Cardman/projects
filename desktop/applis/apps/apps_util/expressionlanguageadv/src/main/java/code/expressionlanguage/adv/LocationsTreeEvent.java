@@ -40,7 +40,7 @@ public final class LocationsTreeEvent implements AbsShortListTree {
                 continue;
             }
             RowSrcLocation r_ = new RowSrcLocation(null, dis_, name_, locIndex_);
-            AbsPlainButton button_ = comp_.newPlainButton(dis_);
+            AbsButton button_ = comp_.newPlainButton(dis_);
             button_.disabledRichText(false);
             button_.addActionListener(new GoToDefinitionEvent(page,r_,window));
             pa_.add(button_);

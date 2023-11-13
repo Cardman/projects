@@ -7,6 +7,10 @@ import code.util.CustList;
 import code.util.StringMap;
 
 public interface AbsCustComponent {
+    boolean isEnabled();
+
+    void setEnabled(boolean _value);
+
     boolean isAutoscrolls();
     void setAutoscrolls(boolean _autoscrolls);
     void addFocusListener(AbsFocusListener _mouseListener);

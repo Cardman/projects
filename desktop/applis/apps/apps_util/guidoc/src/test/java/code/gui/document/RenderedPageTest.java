@@ -31,7 +31,7 @@ public final class RenderedPageTest extends EquallableGuiDocUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
         RenderedPage r_ = newRenderedPage(pr_);
         r_.setFinding(getMetaDocument("<html/>"));
-        AbsPlainButton b_ = pr_.getCompoFactory().newPlainButton();
+        AbsButton b_ = pr_.getCompoFactory().newPlainButton();
         r_.addFinder(pr_.getCompoFactory().newTextField(), b_);
         r_.setFinding(getMetaDocument("<html/>"));
         assertEq(1, ((MockPlainButton) b_).getActionListeners().size());

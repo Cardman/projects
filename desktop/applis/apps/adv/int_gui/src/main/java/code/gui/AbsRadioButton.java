@@ -6,15 +6,11 @@ import code.gui.events.AbsChangeListener;
 public interface AbsRadioButton extends AbsCustComponent {
     void setSelected(boolean _value);
 
-    boolean isEnabled();
-
     String getText();
 
     void setText(String _value);
 
     boolean isSelected();
-
-    void setEnabled(boolean _value);
 
     void addChangeListener(AbsChangeListener _list);
 

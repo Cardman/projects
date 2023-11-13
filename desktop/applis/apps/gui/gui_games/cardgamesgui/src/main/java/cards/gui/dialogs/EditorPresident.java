@@ -118,7 +118,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         initJt(getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window, jt_);
         container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=_window.getCompoFactory().newLineBox();
-        AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(NEXT));
+        AbsButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(NEXT));
         bouton_.addActionListener(new ValidateRulesDealEvent(this, window));
         panneau_.add(bouton_);
         container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
@@ -205,7 +205,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         panneau_=_parent.getCompoFactory().newBorder();
         panneau_.add(scroll_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel sousPanneau_=_parent.getCompoFactory().newLineBox();
-        AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(MOVE_CARDS));
+        AbsButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addActionListener(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
         listeTwo=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));

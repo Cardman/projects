@@ -14,9 +14,9 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
     private final AbsCustCheckBox signed;
     private final AbsCustCheckBox bigEndian;
     private final AbsTextField fileSave;
-    private final AbsPlainButton recordSong;
-    private final AbsPlainButton stopSong;
-    private final AbsPlainButton playSong;
+    private final AbsButton recordSong;
+    private final AbsButton stopSong;
+    private final AbsButton playSong;
     private final AbsPlainLabel status = getCompoFactory().newPlainLabel("");
     private final AbsSoundRecord soundRecord;
     private AbsPlayBack playBack;

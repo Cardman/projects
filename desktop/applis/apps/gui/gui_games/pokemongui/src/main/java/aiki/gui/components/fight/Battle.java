@@ -185,17 +185,17 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     private AbsPanel fleeWeb;
 
-    private AbsPlainButton catchBall;
+    private AbsButton catchBall;
 
-    private AbsPlainButton validateActions;
+    private AbsButton validateActions;
 
-    private AbsPlainButton flee;
+    private AbsButton flee;
 
     private AbsPlainLabel webLabel;
 
 //    private AbsPlainButton web;
 
-    private AbsPlainButton cancelCatch;
+    private AbsButton cancelCatch;
 
     private PlaceLabel plLabelBack;
 
@@ -205,7 +205,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     private final AbsPlainLabel nickname;
 
-    private AbsPlainButton nicknameLabel;
+    private AbsButton nicknameLabel;
 
     private String typedNickname = DataBase.EMPTY_STRING;
 
@@ -427,7 +427,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //            fleeWeb.add(web);
             fleeWeb.add(nicknameLabel);
             fleeWeb.add(nickname);
-            AbsPlainButton ok_ = window.getCompoFactory().newPlainButton(WindowAiki.OK);
+            AbsButton ok_ = window.getCompoFactory().newPlainButton(WindowAiki.OK);
             ok_.addActionListener(new ValidateCaughtPokemonNicknameEvent(this));
             fleeWeb.add(ok_);
 //            UPPER.add(fleeWeb);
@@ -441,7 +441,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             fleeWeb.add(nicknameLabel);
             fleeWeb.add(nickname);
             addBalls();
-            AbsPlainButton ok_ = window.getCompoFactory().newPlainButton(WindowAiki.OK);
+            AbsButton ok_ = window.getCompoFactory().newPlainButton(WindowAiki.OK);
             ok_.addActionListener(new CatchKoPokemonEvent(this));
             fleeWeb.add(ok_);
             cancelCatch = window.getCompoFactory().newPlainButton();
@@ -1284,7 +1284,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         actions.removeAll();
         actions.add(actionType);
         selectedItem = window.getCompoFactory().newPlainLabel(messages.getVal(NO_ITEM));
-        AbsPlainButton button_ = window.getCompoFactory().newPlainButton(messages.getVal(SELECT_ITEM));
+        AbsButton button_ = window.getCompoFactory().newPlainButton(messages.getVal(SELECT_ITEM));
         button_.addActionListener(new SelectHealingItemEvent(this));
         String str_ = facade.getFight().getTemp().getChosenHealingMove();
         if (!str_.isEmpty()) {

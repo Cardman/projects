@@ -13,8 +13,8 @@ import code.util.StringMap;
 
 public final class StackConstraintsForm {
     private ReadOnlyFormTabEditor readOnlyFormTabEditor;
-    private AbsPlainButton bpAddFile;
-    private AbsPlainButton bpRemoveFile;
+    private AbsButton bpAddFile;
+    private AbsButton bpRemoveFile;
     private AbsCustCheckBox singleCaret;
     private AbsTreeGui bpFolderSystem;
     private AbsPanel includedFileIndex;
@@ -97,12 +97,12 @@ public final class StackConstraintsForm {
         includedFileIndex.removeAll();
         excludedFileIndex.removeAll();
         for (AbsCallContraints l: getMustBe()) {
-            AbsPlainButton r_ = _c.getFrames().getCompoFactory().newPlainButton("+ "+l.valueStr());
+            AbsButton r_ = _c.getFrames().getCompoFactory().newPlainButton("+ "+l.valueStr());
             r_.addActionListener(new RemoveIncludeEvent(this, l, _c));
             includedFileIndex.add(r_);
         }
         for (AbsCallContraints l: getMustNotBe()) {
-            AbsPlainButton r_ = _c.getFrames().getCompoFactory().newPlainButton("- "+l.valueStr());
+            AbsButton r_ = _c.getFrames().getCompoFactory().newPlainButton("- "+l.valueStr());
             r_.addActionListener(new RemoveExcludeEvent(this, l, _c));
             excludedFileIndex.add(r_);
         }
@@ -138,11 +138,11 @@ public final class StackConstraintsForm {
         return mustNotBe;
     }
 
-    public AbsPlainButton getBpAddFile() {
+    public AbsButton getBpAddFile() {
         return bpAddFile;
     }
 
-    public AbsPlainButton getBpRemoveFile() {
+    public AbsButton getBpRemoveFile() {
         return bpRemoveFile;
     }
 

@@ -88,12 +88,12 @@ public final class ConsultHosts {
                 String gender_;
                 pk_ = host_.getFirstPokemon();
                 gender_ = facade.translateGenders(pk_.getGender());
-                AbsPlainButton first_ = _frame.getCompoFactory().newPlainButton(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACE,gender_));
+                AbsButton first_ = _frame.getCompoFactory().newPlainButton(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACE,gender_));
                 first_.addActionListener(new SelectHostedPokemon(this, true, c));
                 hostingLoc_.add(first_);
                 pk_ = host_.getSecondPokemon();
                 gender_ = facade.translateGenders(pk_.getGender());
-                AbsPlainButton second_ = _frame.getCompoFactory().newPlainButton(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACE,gender_));
+                AbsButton second_ = _frame.getCompoFactory().newPlainButton(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACE,gender_));
                 second_.addActionListener(new SelectHostedPokemon(this, false, c));
                 hostingLoc_.add(second_);
                 hosting_.add(hostingLoc_);

@@ -104,7 +104,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
     private void ajouterBoutonContratTarotMulti(String _texte,BidTarot _action) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
 //        bouton_.addActionListener(new EcouteurBoutonContratTarotMulti(_action));
         bouton_.addActionListener(new ListenerBidTarotMulti(this,_action));
         panneau_.add(bouton_);
@@ -112,7 +112,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
     private void initBoutonJeuChelemTarotMulti() {
         String lg_ = getOwner().getLanguageKey();
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(Games.toString(BidTarot.SLAM,lg_));
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(Games.toString(BidTarot.SLAM,lg_));
 //        bouton_.addActionListener(new EcouteurBoutonJeuAnnonceChelemTarotMulti());
         bouton_.addActionListener(new SlamEvent(this));
         setSlamButton(bouton_);
@@ -132,14 +132,14 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //    }
     private void addButtonTakeDogCardsTarotMulti(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new TakeDogEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
 
     private void initButtonValidateDogTarotMulti() {
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.GO_CARD_GAME));
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.GO_CARD_GAME));
         bouton_.addActionListener(new ValidateDogEvent(this));
         setValidateDog(bouton_);
     }
@@ -256,10 +256,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
 
         if (hasCreatedServer) {
-            AbsPlainButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
+            AbsButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
             buttonRules_.addActionListener(new ChangeRulesEvent(this));
             container_.add(buttonRules_);
-            AbsPlainButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_TAROT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_TAROT));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
         }
@@ -1087,7 +1087,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panneau_.add(panel_);
 
         if (hasCreatedServer) {
-            AbsPlainButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_TAROT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_TAROT));
             button_.addActionListener(new PlayNextDealEvent(this));
             panneau_.add(button_);
         }
@@ -1140,10 +1140,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         hasCreatedServer = true;
         if (!Net.isProgressingGame(window().getNet())) {
             AbsPanel container_ = getPane();
-            AbsPlainButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
+            AbsButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
             buttonRules_.addActionListener(new ChangeRulesEvent(this));
             container_.add(buttonRules_);
-            AbsPlainButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_TAROT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_TAROT));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
             pack();

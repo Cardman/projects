@@ -75,10 +75,10 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private final AbsTextArea songs = getCompoFactory().newTextArea(10, 40);
     private final SongRenderer songRend = new SongRenderer(getCompoFactory());
     private final AbsCustCheckBox random = getCompoFactory().newCustCheckBox();
-    private final AbsPlainButton play = getCompoFactory().newPlainButton(CST_PLAY);
-    private final AbsPlainButton playPrevious = getCompoFactory().newPlainButton(CST_PREVIOUS);
-    private final AbsPlainButton playNext = getCompoFactory().newPlainButton(CST_NEXT);
-    private final AbsPlainButton stop = getCompoFactory().newPlainButton(CST_STOP);
+    private final AbsButton play = getCompoFactory().newPlainButton(CST_PLAY);
+    private final AbsButton playPrevious = getCompoFactory().newPlainButton(CST_PREVIOUS);
+    private final AbsButton playNext = getCompoFactory().newPlainButton(CST_NEXT);
+    private final AbsButton stop = getCompoFactory().newPlainButton(CST_STOP);
     private final AbsPlainLabel currentNoSong = getCompoFactory().newPlainLabel(EMPTY);
     private final AbsPlainLabel currentSong = getCompoFactory().newPlainLabel(EMPTY);
     private final AbsScrollPane scroll;

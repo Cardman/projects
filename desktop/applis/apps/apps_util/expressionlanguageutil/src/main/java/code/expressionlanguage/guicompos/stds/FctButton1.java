@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.guicompos.AbsButtonStruct;
 import code.expressionlanguage.guicompos.GuiExecutingBlocks;
 import code.expressionlanguage.guicompos.PlainButtonStruct;
 import code.expressionlanguage.structs.Struct;
@@ -20,6 +21,7 @@ public final class FctButton1 extends FctCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(new PlainButtonStruct(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),aliasButton,_guiEx.getCompoFactory()));
+        String txt_ = AbsButtonStruct.getValue(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        return new ArgumentWrapper(new PlainButtonStruct(aliasButton,_guiEx.getCompoFactory().newPlainButton(txt_)));
     }
 }

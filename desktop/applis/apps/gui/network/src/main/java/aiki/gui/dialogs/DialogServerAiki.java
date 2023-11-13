@@ -74,7 +74,7 @@ public final class DialogServerAiki implements AbstractDialogServer{
         panel_.add(ipType.self());
         pane_.add(panel_);
         panel_ = _fenetre.getCompoFactory().newLineBox();
-        AbsPlainButton button_ = _fenetre.getCompoFactory().newPlainButton(messages.getVal(CREATE_SERVER));
+        AbsButton button_ = _fenetre.getCompoFactory().newPlainButton(messages.getVal(CREATE_SERVER));
         button_.addActionListener(new CreateServerEvent(this));
         panel_.add(button_);
         button_ = _fenetre.getCompoFactory().newPlainButton(messages.getVal(JOIN_SERVER));

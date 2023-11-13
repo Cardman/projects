@@ -23,9 +23,9 @@ import code.util.core.StringUtil;
 
 public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     private final CdmFactory factory;
-    private final AbsMenuItem languageMenu;
-    private final AbsMenuItem tabulationsMenu;
-    private final AbsMenu parameters;
+    private final EnabledMenu languageMenu;
+    private final EnabledMenu tabulationsMenu;
+    private final EnabledMenu parameters;
     private final AbsTabbedPane events;
     private AbsTreeGui folderSystem;
     private AbsScrollPane scrollDialog;
@@ -35,8 +35,8 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     private final CustList<OutputDialogLanguage> languageFrames = new CustList<OutputDialogLanguage>();
     private final CustList<OutputDialogAliases> aliasesFrames = new CustList<OutputDialogAliases>();
     private final CustList<OutputDialogSrc> srcFrames = new CustList<OutputDialogSrc>();
-    private final AbsMenuItem commentsMenu;
-    private final AbsMenuItem aliasesMenu;
+    private final EnabledMenu commentsMenu;
+    private final EnabledMenu aliasesMenu;
     private final AbsPanel panel;
     private final AbsPanel panelSymbols;
     private final AbsTextArea analyzeState;
@@ -44,9 +44,9 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     private final AbsScrollPane panelSymbolsScroll;
     private final AbsScrollPane panelSymbolsDetailScroll;
     private final AbsScrollPane panelSymbolsLocationScroll;
-    private final AbsMenuItem srcMenu;
-    private final AbsMenuItem create;
-    private final AbsMenuItem delete;
+    private final EnabledMenu srcMenu;
+    private final EnabledMenu create;
+    private final EnabledMenu delete;
     private final CustList<TabEditor> tabs = new CustList<TabEditor>();
     private AbsTabbedPane editors;
     private AbsEnabledAction refreshNode;
@@ -56,8 +56,8 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     private ManageOptions manageOptions;
     private boolean editing;
     private AbsTextField targetName;
-    private AbsPlainButton validateDialog;
-    private AbsPlainButton cancelDialog;
+    private AbsButton validateDialog;
+    private AbsButton cancelDialog;
     private int limitSymbol;
     private final AbstractBaseExecutorService finderSymbol;
     private final CustList<ResultRowSrcLocationList> symbols = new CustList<ResultRowSrcLocationList>();
@@ -68,7 +68,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         factory = _fact;
         finderSymbol = _list.getThreadFactory().newExecutorService();
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
-        AbsMenu file_ = _list.getCompoFactory().newMenu("file");
+        EnabledMenu file_ = _list.getCompoFactory().newMenu("file");
         bar_.add(file_);
         srcMenu = getCommonFrame().getFrames().getCompoFactory().newMenuItem("inputs output conf");
         srcMenu.addActionListener(new ChangeSrcEvent(this, srcMenu));
@@ -81,7 +81,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         delete.setAccelerator(GuiConstants.VK_DELETE,0);
         delete.setEnabled(false);
         parameters = _list.getCompoFactory().newMenu("boss");
-        AbsMenu menu_ = parameters;
+        EnabledMenu menu_ = parameters;
         bar_.add(menu_);
         languageMenu = _list.getCompoFactory().newMenuItem("language");
         languageMenu.addActionListener(new ChangeLanguageEvent(this,languageMenu));
@@ -522,20 +522,20 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         AbsCompoFactory fr_ = getCommonFrame().getFrames().getCompoFactory();
         _p.left();
         for (RowSrcLocation l: _r.getSymbols()) {
-            AbsPlainButton b_ = fr_.newPlainButton(l.getKind() + ":" + l.getDisplay());
+            AbsButton b_ = fr_.newPlainButton(l.getKind() + ":" + l.getDisplay());
             b_.addActionListener(new GoToDefinitionEvent(_r.getPage(),l,this));
             b_.left();
             _p.add(b_);
         }
-        AbsPlainButton b_ = fr_.newPlainButton("callers");
+        AbsButton b_ = fr_.newPlainButton("callers");
         b_.addActionListener(new CallersHierarchyEvent(_r,this));
         b_.left();
         _p.add(b_);
-        AbsPlainButton usagesRef_ = fr_.newPlainButton("usages only");
+        AbsButton usagesRef_ = fr_.newPlainButton("usages only");
         usagesRef_.addActionListener(new RefreshLocationEvent(_p, this, _r));
         usagesRef_.left();
         _p.add(usagesRef_);
-        AbsPlainButton usagesDefRef_ = fr_.newPlainButton("usages and def");
+        AbsButton usagesDefRef_ = fr_.newPlainButton("usages and def");
         usagesDefRef_.addActionListener(new RefreshLocationTabEvent(_p, this, _r));
         usagesDefRef_.left();
         _p.add(usagesDefRef_);
@@ -554,27 +554,27 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     public AbsTreeGui getFolderSystem() {
         return folderSystem;
     }
-    public AbsMenuItem getCreate() {
+    public EnabledMenu getCreate() {
         return create;
     }
 
-    public AbsMenuItem getDelete() {
+    public EnabledMenu getDelete() {
         return delete;
     }
 
-    public AbsMenuItem getLanguageMenu() {
+    public EnabledMenu getLanguageMenu() {
         return languageMenu;
     }
 
-    public AbsMenuItem getTabulationsMenu() {
+    public EnabledMenu getTabulationsMenu() {
         return tabulationsMenu;
     }
 
-    public AbsMenuItem getCommentsMenu() {
+    public EnabledMenu getCommentsMenu() {
         return commentsMenu;
     }
 
-    public AbsMenuItem getAliasesMenu() {
+    public EnabledMenu getAliasesMenu() {
         return aliasesMenu;
     }
 
@@ -610,11 +610,11 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         this.selectedNode = _s;
     }
 
-    public AbsPlainButton getValidateDialog() {
+    public AbsButton getValidateDialog() {
         return validateDialog;
     }
 
-    public AbsPlainButton getCancelDialog() {
+    public AbsButton getCancelDialog() {
         return cancelDialog;
     }
 
@@ -634,7 +634,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         return editing;
     }
 
-    public AbsMenu getParameters() {
+    public EnabledMenu getParameters() {
         return parameters;
     }
 
@@ -690,7 +690,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         manageOptions.getOptions().getComments().addAllElts(_c);
     }
 
-    public AbsMenuItem getSrcMenu() {
+    public EnabledMenu getSrcMenu() {
         return srcMenu;
     }
 

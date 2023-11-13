@@ -4,7 +4,7 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class CdmParameterSoftDialog {
-    private final AbsPlainButton val;
+    private final AbsButton val;
     private final AbsCustCheckBox check;
     public CdmParameterSoftDialog(WindowCdmEditor _w) {
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
@@ -21,7 +21,7 @@ public final class CdmParameterSoftDialog {
         _w.getDialogSoft().setVisible(true);
     }
 
-    public AbsPlainButton getVal() {
+    public AbsButton getVal() {
         return val;
     }
 

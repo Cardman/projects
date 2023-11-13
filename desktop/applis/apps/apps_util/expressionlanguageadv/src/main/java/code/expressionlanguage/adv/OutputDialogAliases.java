@@ -17,17 +17,17 @@ public final class OutputDialogAliases implements WithFrame{
     private final OutputDialogMapMessagesEdit messages;
     private final OutputDialogMapMessagesEdit keyWords;
     private final OutputDialogMapMessagesEdit aliases;
-    private final AbsPlainButton check;
-    private final AbsPlainButton val;
+    private final AbsButton check;
+    private final AbsButton val;
     private final AbsTextArea errors;
     private final GuiAliases guiAliases;
     private final CustAliases custAliases;
     private final LgNamesContent lgNamesContent;
 
     private final AbsCommonFrame frame;
-    private final AbsMenuItem associated;
+    private final EnabledMenu associated;
 
-    public OutputDialogAliases(WindowWithTreeImpl _w,AbsCommonFrame _fr, AbsMenuItem _c) {
+    public OutputDialogAliases(WindowWithTreeImpl _w,AbsCommonFrame _fr, EnabledMenu _c) {
         frame = _fr;
         associated = _c;
         messages = new OutputDialogMapMessagesEdit(_w,_w.getLgMessages(), keysMessages(_w));
@@ -101,7 +101,7 @@ public final class OutputDialogAliases implements WithFrame{
     }
 
     @Override
-    public AbsMenuItem getMenu() {
+    public EnabledMenu getMenu() {
         return associated;
     }
 
@@ -113,7 +113,7 @@ public final class OutputDialogAliases implements WithFrame{
         return errors;
     }
 
-    public AbsPlainButton getCheck() {
+    public AbsButton getCheck() {
         return check;
     }
 
@@ -138,7 +138,7 @@ public final class OutputDialogAliases implements WithFrame{
     }
 
 
-    public AbsPlainButton getVal() {
+    public AbsButton getVal() {
         return val;
     }
 

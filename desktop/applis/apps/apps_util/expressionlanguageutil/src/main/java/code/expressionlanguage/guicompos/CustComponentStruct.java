@@ -37,6 +37,12 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
 
         }
     }
+    public Struct isEnabled(){
+        return BooleanStruct.of(getComponent().isEnabled());
+    }
+    public void setEnabled(Struct _enabled){
+        getComponent().setEnabled(BooleanStruct.isTrue(_enabled));
+    }
 //    public static void invokeRunnable(RunnableContextEl _run,Runnable _r) {
 //        if (_r != null) {
 //            if (_run.getExecutingOptions().isInvokeDirect()) {

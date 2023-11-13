@@ -3,21 +3,21 @@ package aiki.gui;
 import aiki.gui.events.LoadGameEventAiki;
 import aiki.gui.events.LoadZipEvent;
 import aiki.gui.events.SaveGameEventAiki;
-import code.gui.AbsMenu;
-import code.gui.AbsMenuItem;
+import code.gui.EnabledMenu;
+import code.gui.EnabledMenu;
 import code.gui.GroupFrame;
 import code.gui.GuiConstants;
 
 public final class WindowAikiCore {
 
-    private AbsMenuItem zipLoad;
+    private EnabledMenu zipLoad;
 
-    private AbsMenuItem folderLoad;
+    private EnabledMenu folderLoad;
 
-    private AbsMenuItem gameLoad;
+    private EnabledMenu gameLoad;
 
-    private AbsMenuItem gameSave;
-    public void fileMenu(AbsMenu _file, WindowAikiInt _aiki, GroupFrame _gr) {
+    private EnabledMenu gameSave;
+    public void fileMenu(EnabledMenu _file, WindowAikiInt _aiki, GroupFrame _gr) {
         zipLoad = _gr.getCompoFactory().newMenuItem();
         zipLoad.addActionListener(new LoadZipEvent(_aiki,false));
         zipLoad.setAccelerator(GuiConstants.VK_M, GuiConstants.CTRL_DOWN_MASK);
@@ -36,19 +36,19 @@ public final class WindowAikiCore {
         _file.addMenuItem(gameSave);
     }
 
-    public AbsMenuItem getFolderLoad() {
+    public EnabledMenu getFolderLoad() {
         return folderLoad;
     }
 
-    public AbsMenuItem getGameLoad() {
+    public EnabledMenu getGameLoad() {
         return gameLoad;
     }
 
-    public AbsMenuItem getGameSave() {
+    public EnabledMenu getGameSave() {
         return gameSave;
     }
 
-    public AbsMenuItem getZipLoad() {
+    public EnabledMenu getZipLoad() {
         return zipLoad;
     }
 }

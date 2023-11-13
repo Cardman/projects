@@ -146,10 +146,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
             playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i) == BoolVal.TRUE);
         }
         if (hasCreatedServer) {
-            AbsPlainButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
+            AbsButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
             buttonRules_.addActionListener(new ChangeRulesEvent(this));
             container_.add(buttonRules_);
-            AbsPlainButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
         }
@@ -657,7 +657,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         panneau_.add(panel_);
         if (hasCreatedServer) {
-            AbsPlainButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
             button_.addActionListener(new PlayNextDealEvent(this));
             panneau_.add(button_);
         }
@@ -711,10 +711,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
         hasCreatedServer = true;
         if (!Net.isProgressingGame(window().getNet())) {
             AbsPanel container_ = getPane();
-            AbsPlainButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
+            AbsButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
             buttonRules_.addActionListener(new ChangeRulesEvent(this));
             container_.add(buttonRules_);
-            AbsPlainButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
             pack();

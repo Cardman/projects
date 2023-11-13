@@ -3,9 +3,9 @@ package cards.gui.containers;
 import cards.consts.CoreResourcesAccess;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
-import code.gui.AbsCheckBoxMenuItem;
-import code.gui.AbsMenu;
-import code.gui.AbsMenuItem;
+import code.gui.EnabledMenu;
+import code.gui.EnabledMenu;
+import code.gui.EnabledMenu;
 import code.gui.AbsPanel;
 import code.scripts.messages.cards.MessagesCommonCommon;
 import code.threads.AbstractAtomicBoolean;
@@ -49,23 +49,23 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         window = _window;
     }
 
-    public AbsMenuItem getChange() {
+    public EnabledMenu getChange() {
         return ((WindowCards)window).getChange();
     }
 
-    public AbsMenuItem getSave() {
+    public EnabledMenu getSave() {
         return ((WindowCards)window).getSave();
     }
 
-    public AbsMenuItem getConsulting() {
+    public EnabledMenu getConsulting() {
         return ((WindowCards)window).getConsulting();
     }
 
-    public AbsCheckBoxMenuItem getPause() {
+    public EnabledMenu getPause() {
         return ((WindowCards)window).getPause();
     }
 
-    public AbsMenuItem getHelpGame() {
+    public EnabledMenu getHelpGame() {
         return ((WindowCards)window).getHelpGame();
     }
 
@@ -90,7 +90,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
 //        return window.getEditGames();
 //    }
 
-    public AbsMenu getDemo() {
+    public EnabledMenu getDemo() {
         return ((WindowCards)window).getDemo();
     }
 

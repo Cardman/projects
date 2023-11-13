@@ -102,13 +102,6 @@ public final class CustCheckBox extends CustComponent implements AbsCustCheckBox
         return mapAction.getKeys();
     }
 
-    public boolean isEnabled() {
-        return checkBox.isEnabled();
-    }
-    public void setEnabled(boolean _b) {
-        checkBox.setEnabled(_b);
-    }
-
     @Override
     public JComponent getNatComponent() {
         return checkBox;

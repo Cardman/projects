@@ -1,14 +1,14 @@
 package code.expressionlanguage.adv;
 
 import code.gui.AbsCommonFrame;
-import code.gui.AbsMenuItem;
+import code.gui.EnabledMenu;
 import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class ChangeCommentsEvent implements AbsActionListener {
     private final WindowWithTreeImpl windowCdmEditor;
-    private final AbsMenuItem commentsMenu;
-    public ChangeCommentsEvent(WindowWithTreeImpl _w, AbsMenuItem _c) {
+    private final EnabledMenu commentsMenu;
+    public ChangeCommentsEvent(WindowWithTreeImpl _w, EnabledMenu _c) {
         this.windowCdmEditor = _w;
         commentsMenu = _c;
     }

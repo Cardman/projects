@@ -8,14 +8,14 @@ import code.util.CustList;
 public final class OutputDialogComments implements WithFrame {
     private final CustList<CommentDelimiters> comments;
     private final CustList<EditCommentRow> commentsRows;
-    private final AbsPlainButton add;
-    private final AbsPlainButton rem;
-    private final AbsPlainButton val;
+    private final AbsButton add;
+    private final AbsButton rem;
+    private final AbsButton val;
     private final AbsPanel dels;
     private final AbsScrollPane scrollPane;
     private final AbsCommonFrame frame;
-    private final AbsMenuItem associated;
-    public OutputDialogComments(WindowWithTreeImpl _w,AbsCommonFrame _fr, AbsMenuItem _c) {
+    private final EnabledMenu associated;
+    public OutputDialogComments(WindowWithTreeImpl _w,AbsCommonFrame _fr, EnabledMenu _c) {
         frame = _fr;
         associated = _c;
         comments = new CustList<CommentDelimiters>(_w.getComments());
@@ -66,7 +66,7 @@ public final class OutputDialogComments implements WithFrame {
     }
 
     @Override
-    public AbsMenuItem getMenu() {
+    public EnabledMenu getMenu() {
         return associated;
     }
 
@@ -74,12 +74,12 @@ public final class OutputDialogComments implements WithFrame {
         return comments;
     }
 
-    public AbsPlainButton getAdd() {
+    public AbsButton getAdd() {
         return add;
     }
 
 
-    public AbsPlainButton getRem() {
+    public AbsButton getRem() {
         return rem;
     }
 
@@ -87,7 +87,7 @@ public final class OutputDialogComments implements WithFrame {
         return commentsRows;
     }
 
-    public AbsPlainButton getVal() {
+    public AbsButton getVal() {
         return val;
     }
 }

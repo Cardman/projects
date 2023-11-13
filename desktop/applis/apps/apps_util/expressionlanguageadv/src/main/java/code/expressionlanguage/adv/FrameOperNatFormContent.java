@@ -19,8 +19,8 @@ public final class FrameOperNatFormContent {
     private AbsCustCheckBox simple;
     private AbsCustCheckBox compound;
     private AbsCustCheckBox enabledOperNat;
-    private AbsPlainButton ok;
-    private AbsPlainButton remove;
+    private AbsButton ok;
+    private AbsButton remove;
     private AbsPanel contentPane;
 
     public FrameOperNatFormContent(AbstractProgramInfos _c) {
@@ -121,11 +121,11 @@ public final class FrameOperNatFormContent {
         return enabledOperNat;
     }
 
-    public AbsPlainButton getOk() {
+    public AbsButton getOk() {
         return ok;
     }
 
-    public AbsPlainButton getRemove() {
+    public AbsButton getRemove() {
         return remove;
     }
 

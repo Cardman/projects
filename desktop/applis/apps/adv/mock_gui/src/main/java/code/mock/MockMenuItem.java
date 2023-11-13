@@ -1,8 +1,8 @@
 package code.mock;
 
-import code.gui.AbsMenuItem;
+import code.gui.EnabledMenu;
 
-public final class MockMenuItem extends MockAbsMenuItem implements AbsMenuItem {
+public final class MockMenuItem extends MockEnabledMenu implements EnabledMenu {
 
     public MockMenuItem() {
         this("");

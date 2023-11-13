@@ -15,7 +15,7 @@ import code.gui.images.MetaFont;
 import code.util.CustList;
 import code.util.Ints;
 
-public final class GraphicListStruct extends InputStruct {
+public final class GraphicListStruct extends CustComponentStruct {
 
     private final StructScrollCustomGraphicList grList;
     private StructCellRender cellRender;

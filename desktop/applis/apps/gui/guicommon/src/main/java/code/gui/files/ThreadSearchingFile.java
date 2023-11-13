@@ -1,6 +1,6 @@
 package code.gui.files;
 
-import code.gui.AbsPlainButton;
+import code.gui.AbsButton;
 import code.gui.GuiBaseUtil;
 import code.stream.AbstractFile;
 import code.stream.PathsUtil;
@@ -17,8 +17,8 @@ public final class ThreadSearchingFile implements Runnable {
 //    private Cursor cursor;
 
     private final AbstractFile folder;
-    private final AbsPlainButton searchButton;
-    public ThreadSearchingFile(FileOpenDialog _dialog, CustList<AbstractFile> _backup, AbstractFile _folder, AbsPlainButton _but) {
+    private final AbsButton searchButton;
+    public ThreadSearchingFile(FileOpenDialog _dialog, CustList<AbstractFile> _backup, AbstractFile _folder, AbsButton _but) {
         dialog = _dialog;
         backup = _backup;
         folder = _folder;

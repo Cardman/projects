@@ -22,7 +22,7 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
     private final ContextEl original;
     private final MutableTreeNodeNav<DbgAbsNodeStruct> node = new MutableTreeNodeNav<DbgAbsNodeStruct>();
     private AbsTextArea logger;
-    private AbsPlainButton stop;
+    private AbsButton stop;
     private AbsCustComponent group;
     private String infoStr = "";
     private AbstractMutableTreeNodeCore<String> associated;
@@ -185,7 +185,7 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
     }
 
     @Override
-    public AbsPlainButton stopButton() {
+    public AbsButton stopButton() {
         return stop;
     }
 
@@ -200,7 +200,7 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
     }
 
     @Override
-    public void stopButton(AbsPlainButton _b) {
+    public void stopButton(AbsButton _b) {
         stop = _b;
     }
 

@@ -11,7 +11,7 @@ public final class OutputDialogMapMessagesEdit {
     private final StringMap<String> messagesRows;
     private final AbsTextField key;
     private final AbsTextArea value;
-    private final AbsPlainButton valPart;
+    private final AbsButton valPart;
     private final AbsPlainLabel valPartLabel;
     private final AutoCompleteDocument auto;
     private final AbsScrollPane scroll;
@@ -74,7 +74,7 @@ public final class OutputDialogMapMessagesEdit {
         return value;
     }
 
-    public AbsPlainButton getValPart() {
+    public AbsButton getValPart() {
         return valPart;
     }
 

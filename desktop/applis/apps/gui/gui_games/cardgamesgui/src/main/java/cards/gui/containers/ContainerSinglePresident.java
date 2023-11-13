@@ -210,35 +210,35 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     public void addButtonNextTrickPresident(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new NextTrickEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     public void addButtonEndDealPresident(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new EndDealEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     private void addButtonKeepPlayingDealPresident(AbsPanel _panneau,String _texte) {
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new KeepPlayingRandomEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonKeepPlayingEditedDealPresident(AbsPanel _panneau,String _texte) {
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new KeepPlayingEditedEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonStopPlayingPresident(AbsPanel _panneau,String _texte) {
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new StopPlayingEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonReplayDealPresident(AbsPanel _panneau,String _texte) {
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new ReplayEvent(this));
         _panneau.add(bouton_);
     }

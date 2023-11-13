@@ -265,7 +265,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         }
         panel_.add(panelBids_);
         AbsPanel panelOk_ = getOwner().getCompoFactory().newLineBox();
-        AbsPlainButton buttonSuit_ = getOwner().getCompoFactory().newPlainButton(Games.toString(BidBelote.FOLD,lg_));
+        AbsButton buttonSuit_ = getOwner().getCompoFactory().newPlainButton(Games.toString(BidBelote.FOLD,lg_));
         //clickedTwo = false;
         buttonSuit_.addActionListener(new FoldEvent(this));
         panelOk_.add(buttonSuit_);
@@ -305,7 +305,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
     public void ajouterBoutonContratBelote(String _texte,BidBeloteSuit _action,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
 //        bouton_.addActionListener(new EcouteurBoutonContratBelote(_action));
         bouton_.addActionListener(new ListenerBidBeloteSingle(this,_action));
         bouton_.setEnabled(_apte);
@@ -313,35 +313,35 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
     public void addButtonNextTrickBelote(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new NextTrickEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     public void addButtonEndDealBelote(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new EndDealEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     private void addButtonKeepPlayingDealBelote(AbsPanel _panneau,String _texte) {
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new KeepPlayingRandomEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonKeepPlayingEditedDealBelote(AbsPanel _panneau,String _texte) {
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new KeepPlayingEditedEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonStopPlayingBelote(AbsPanel _panneau,String _texte) {
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new StopPlayingEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonReplayDealBelote(AbsPanel _panneau,String _texte) {
-        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new ReplayEvent(this));
         _panneau.add(bouton_);
     }

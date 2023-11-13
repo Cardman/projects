@@ -1,5 +1,5 @@
 package code.vi.prot.impl.gui;
-import code.gui.AbsMenu;
+import code.gui.EnabledMenu;
 import code.gui.AbsMenuBar;
 import code.util.CustList;
 
@@ -8,7 +8,7 @@ import javax.swing.*;
 public final class MenuBar extends CustComponent implements AbsMenuBar {
 
     private final JMenuBar meBar = new JMenuBar();
-    private final CustList<AbsMenu> menus = new CustList<AbsMenu>();
+    private final CustList<EnabledMenu> menus = new CustList<EnabledMenu>();
 
     public JMenuBar getMeBar() {
         return meBar;
@@ -19,12 +19,12 @@ public final class MenuBar extends CustComponent implements AbsMenuBar {
         return getMeBar();
     }
 
-    public void add(AbsMenu _c) {
+    public void add(EnabledMenu _c) {
         meBar.add(((Menu)_c).getMeCo());
         menus.add(_c);
     }
 
-    public AbsMenu getMenu(int _index) {
+    public EnabledMenu getMenu(int _index) {
         return menus.get(_index);
     }
 
@@ -32,7 +32,7 @@ public final class MenuBar extends CustComponent implements AbsMenuBar {
         return menus.size();
     }
 
-    public void remove(AbsMenu _component) {
+    public void remove(EnabledMenu _component) {
         meBar.remove(((Menu)_component).getMeCo());
     }
 }

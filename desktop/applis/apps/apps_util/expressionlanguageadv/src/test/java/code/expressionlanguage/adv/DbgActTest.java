@@ -2044,7 +2044,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameFormContent().getFileName().setText("src/file.txt");
         b_.getFramePoints().getFrameFormContent().getCaret().setValue(21);
         AbsPanel bs_ = b_.getFramePoints().getFrameFormContent().getGuiEnterStackForm().getPrefs().getButtons();
-        AbsPlainButton last_ = (AbsPlainButton) bs_.getComponent(bs_.getComponentCount()-1);
+        AbsButton last_ = (AbsButton) bs_.getComponent(bs_.getComponentCount()-1);
         last_.getActionListeners().get(0).action();
         b_.getFramePoints().getFrameFormContent().getGuiEnterStackForm().getPrefs().getAdd().getActionListeners().get(0).action();
         b_.getFramePoints().getFrameFormContent().getGuiEnterStackForm().getPrefs().getGeneKey().value("_");
@@ -5291,7 +5291,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getPref().setValue(0);
         AbsPanel bs_ = b_.getFramePoints().getFrameRenderFormContent().getPrefs().getButtons();
-        AbsPlainButton last_ = (AbsPlainButton) bs_.getComponent(bs_.getComponentCount()-1);
+        AbsButton last_ = (AbsButton) bs_.getComponent(bs_.getComponentCount()-1);
         last_.getActionListeners().get(0).action();
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getAdd().getActionListeners().get(0).action();
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneKey().value("pkg.Ex..Inner");
@@ -5358,7 +5358,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getPref().setValue(0);
         AbsPanel bs_ = b_.getFramePoints().getFrameRenderFormContent().getPrefs().getButtons();
-        AbsPlainButton last_ = (AbsPlainButton) bs_.getComponent(bs_.getComponentCount()-1);
+        AbsButton last_ = (AbsButton) bs_.getComponent(bs_.getComponentCount()-1);
         last_.getActionListeners().get(0).action();
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getAdd().getActionListeners().get(0).action();
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneKey().value("pkg.Ex..Inner");
@@ -5478,7 +5478,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getPref().setValue(1);
         AbsPanel bs_ = b_.getFramePoints().getFrameRenderFormContent().getPrefs().getButtons();
-        AbsPlainButton last_ = (AbsPlainButton) bs_.getComponent(bs_.getComponentCount()-1);
+        AbsButton last_ = (AbsButton) bs_.getComponent(bs_.getComponentCount()-1);
         last_.getActionListeners().get(0).action();
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getAdd().getActionListeners().get(0).action();
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneKey().value("pkg.Ex");
@@ -5545,7 +5545,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameRenderFormContent().getEnabledExcGlobal().setSelected(true);
         b_.getFramePoints().getFrameRenderFormContent().getPref().setValue(0);
         AbsPanel bs_ = b_.getFramePoints().getFrameRenderFormContent().getPrefs().getButtons();
-        AbsPlainButton last_ = (AbsPlainButton) bs_.getComponent(bs_.getComponentCount()-1);
+        AbsButton last_ = (AbsButton) bs_.getComponent(bs_.getComponentCount()-1);
         last_.getActionListeners().get(0).action();
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getAdd().getActionListeners().get(0).action();
         b_.getFramePoints().getFrameRenderFormContent().getPrefs().getGeneKey().value("pkg.Ex..Inner");

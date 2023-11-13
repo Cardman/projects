@@ -489,7 +489,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     public void interrupt2() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        AbsPlainButton b_ = pr_.getCompoFactory().newPlainButton("");
+        AbsButton b_ = pr_.getCompoFactory().newPlainButton("");
         b_.setEnabled(false);
         stds_.getGuiExecutingBlocks().setStop(b_);
         Options opt_ = new Options();

@@ -1,11 +1,11 @@
 package code.expressionlanguage.adv;
 
-import code.gui.AbsMenuItem;
+import code.gui.EnabledMenu;
 
 public final class ExpMenuFrameInteract implements AbsOpenFrameInteract {
-    private final AbsMenuItem menu;
+    private final EnabledMenu menu;
 
-    public ExpMenuFrameInteract(AbsMenuItem _m) {
+    public ExpMenuFrameInteract(EnabledMenu _m) {
         this.menu = _m;
     }
 

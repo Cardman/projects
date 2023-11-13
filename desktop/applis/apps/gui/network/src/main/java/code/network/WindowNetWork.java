@@ -374,31 +374,31 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     //file menu
 
-    private AbsMenu file;
+    private EnabledMenu file;
 //    private AbsMenuItem load;
 //    private AbsMenuItem save;
-    private AbsMenuItem change;
-    private AbsMenuItem exit;
+    private EnabledMenu change;
+    private EnabledMenu exit;
 
     //deal menu
 
-    private AbsMenu deal;
+    private EnabledMenu deal;
 //    private AbsMenuItem consulting;
 //    private AbsCheckBoxMenuItem pause;
 //    private AbsMenuItem helpGame;
-    private AbsMenuItem tricksHands;
-    private AbsMenuItem teams;
+    private EnabledMenu tricksHands;
+    private EnabledMenu teams;
 //    private AbsMenu edit;
 //    private final IdMap<GameEnum,AbsMenuItem> editGames = new IdMap<GameEnum,AbsMenuItem>();
 //    private AbsMenu demo;
 //    private final IdMap<GameEnum,AbsMenuItem> demoGames = new IdMap<GameEnum,AbsMenuItem>();
 //    private AbsMenu training;
 //    private final IdMap<ChoiceTarot,AbsMenuItem> trainingTarot = new IdMap<ChoiceTarot,AbsMenuItem>();
-    private AbsMenuItem multiStop;
+    private EnabledMenu multiStop;
 
     //parameters menu
 
-    private AbsMenu parameters;
+    private EnabledMenu parameters;
 //    private final IdMap<GameEnum,AbsMenuItem> rulesGames = new IdMap<GameEnum,AbsMenuItem>();
 //    private AbsMenuItem players;
 //    private AbsMenuItem launching;
@@ -417,7 +417,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     private AbsPlainLabel welcomeLabel;
 //    private AbsPlainButton singleModeButton;
-    private AbsPlainButton multiModeButton;
+    private AbsButton multiModeButton;
 //    private AbsPlainLabel goHelpMenu;
     private final Net net = new Net();
 
@@ -585,7 +585,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
 
     private void ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,AbsPanel _container) {
-        AbsPlainButton bouton_=getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getCompoFactory().newPlainButton(_texte);
 //        bouton_.addMouseListener(new EcouteurBoutonPrincipal(_nomJeu));
         bouton_.addActionListener(new ListenerBeginGameMulti(_nomJeu, this));
         _container.add(bouton_);
@@ -1220,7 +1220,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         container_.add(getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo())));
         /*Cree les boutons de jeu*/
         boutonsMulti(container_);
-        AbsPlainButton button_ = getCompoFactory().newPlainButton(getMessages().getVal(CST_MAIN_MENU));
+        AbsButton button_ = getCompoFactory().newPlainButton(getMessages().getVal(CST_MAIN_MENU));
         button_.addActionListener(new BackToMainMenuEvent(this));
         container_.add(button_);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
@@ -1354,7 +1354,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        gameSave.addActionListener(new SaveGameEventAiki(this));
 //        gameSave.setAccelerator(GuiConstants.VK_S, GuiConstants.CTRL_DOWN_MASK);
 //        file.addMenuItem(gameSave);
-        file.addSeparator();
+        file.addMenuItem(getCompoFactory().newSep());
         /* Fichier/Charger "accessible n'importe quand"*/
 //        load=getCompoFactory().newMenuItem(getMessages().getVal(CST_LOAD));
 //        load.addActionListener(new LoadGameEventCards(this));
@@ -1374,7 +1374,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        change.addActionListener(new ChangeGameEvent(this));
 //        change.setAccelerator(GuiConstants.VK_J, GuiConstants.CTRL_DOWN_MASK);
         file.addMenuItem(change);
-        file.addSeparator();
+        file.addMenuItem(getCompoFactory().newSep());
         exit=getCompoFactory().newMenuItem(getMessages().getVal(CST_EXIT));
         exit.addActionListener(new QuitEvent(this));
         exit.setAccelerator(GuiConstants.VK_ESCAPE,0);
@@ -2471,11 +2471,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        return save;
 //    }
 
-    public AbsMenuItem getChange() {
+    public EnabledMenu getChange() {
         return change;
     }
 
-    public AbsMenuItem getExit() {
+    public EnabledMenu getExit() {
         return exit;
     }
 
@@ -2495,11 +2495,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        return helpGame;
 //    }
 
-    public AbsMenuItem getTricksHands() {
+    public EnabledMenu getTricksHands() {
         return tricksHands;
     }
 
-    public AbsMenuItem getTeams() {
+    public EnabledMenu getTeams() {
         return teams;
     }
 
@@ -2527,7 +2527,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        return trainingTarot;
 //    }
 
-    public AbsMenuItem getMultiStop() {
+    public EnabledMenu getMultiStop() {
         return multiStop;
     }
 
@@ -2559,7 +2559,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        return language;
 //    }
 
-    public AbsMenu getDisplaying() {
+    public EnabledMenu getDisplaying() {
         return netg.getDisplaying();
     }
 
@@ -2704,7 +2704,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        return singleModeButton;
 //    }
 
-    public AbsPlainButton getMultiModeButton() {
+    public AbsButton getMultiModeButton() {
         return multiModeButton;
     }
 
@@ -2788,15 +2788,15 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public DialogServerAiki getDialogServerAiki() {
         return dialogServerAiki;
     }
-    public AbsMenuItem getFolderLoad() {
+    public EnabledMenu getFolderLoad() {
         return aiki.getFolderLoad();
     }
 
-    public AbsMenuItem getZipLoad() {
+    public EnabledMenu getZipLoad() {
         return aiki.getZipLoad();
     }
 
-    public AbsMenuItem getGameLoad() {
+    public EnabledMenu getGameLoad() {
         return aiki.getGameLoad();
     }
 

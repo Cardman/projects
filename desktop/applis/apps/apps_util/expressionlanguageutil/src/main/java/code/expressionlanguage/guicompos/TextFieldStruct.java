@@ -10,7 +10,7 @@ import code.gui.events.AbsAdvActionListener;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.IdList;
 
-public final class TextFieldStruct extends InputStruct {
+public final class TextFieldStruct extends CustComponentStruct {
     private final AbsTextField textField;
     private final IdList<Struct> actionsField = new IdList<Struct>();
     public TextFieldStruct(String _className, AbsCompoFactory _compo) {
@@ -28,15 +28,6 @@ public final class TextFieldStruct extends InputStruct {
     public TextFieldStruct(String _className,Struct _txt,Struct _cols, AbsCompoFactory _compo) {
         super(_className);
         textField = _compo.newTextField(getText(_txt),((NumberStruct)_cols).intStruct());
-    }
-    @Override
-    public Struct isEnabled() {
-        return BooleanStruct.of(textField.isEnabled());
-    }
-
-    @Override
-    public void setEnabled(Struct _enabled) {
-        textField.setEnabled(BooleanStruct.isTrue(_enabled));
     }
 
     public void setText(Struct _t) {

@@ -55,9 +55,9 @@ public interface WindowCardsInt {
     DialogHelpTarot getDialogHelpTarot();
     void setTitle(String _title);
 
-    AbsMenuItem getTricksHands();
+    EnabledMenu getTricksHands();
 
-    AbsMenuItem getTeams();
+    EnabledMenu getTeams();
 
     ConfirmDialogAnsAbs getConfirmDialogAns();
     TechStreams getStreams();

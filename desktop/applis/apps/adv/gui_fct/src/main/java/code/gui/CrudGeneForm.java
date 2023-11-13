@@ -15,10 +15,10 @@ public final class CrudGeneForm<K,V> {
     private AbsPanel elements;
     private AbsPanel element;
     private final AbsPanel group;
-    private AbsPlainButton validAddEdit;
-    private AbsPlainButton add;
-    private AbsPlainButton validRemove;
-    private AbsPlainButton cancel;
+    private AbsButton validAddEdit;
+    private AbsButton add;
+    private AbsButton validRemove;
+    private AbsButton cancel;
     private AbsPanel buttons;
     private boolean visibleSingle;
     private AbsCommonFrame frame;
@@ -42,7 +42,7 @@ public final class CrudGeneForm<K,V> {
         list = new TreeMap<K, V>(_cmp);
         list.putAllMap(_map);
         for (EntryCust<K,V> e: list.entryList()) {
-            AbsPlainButton but_ = factory.getCompoFactory().newPlainButton(_disp.display(e.getKey(), e.getValue()));
+            AbsButton but_ = factory.getCompoFactory().newPlainButton(_disp.display(e.getKey(), e.getValue()));
             but_.addActionListener(new SelectCrudGeneFormEvent<K,V>(this,e));
             elements.add(but_);
         }
@@ -85,7 +85,7 @@ public final class CrudGeneForm<K,V> {
     public void refresh() {
         elements.removeAll();
         for (EntryCust<K,V> e: list.entryList()) {
-            AbsPlainButton but_ = factory.getCompoFactory().newPlainButton(displayEntry.display(e.getKey(), e.getValue()));
+            AbsButton but_ = factory.getCompoFactory().newPlainButton(displayEntry.display(e.getKey(), e.getValue()));
             but_.addActionListener(new SelectCrudGeneFormEvent<K,V>(this,e));
             elements.add(but_);
         }
@@ -134,15 +134,15 @@ public final class CrudGeneForm<K,V> {
         frame.pack();
     }
 
-    public AbsPlainButton getAdd() {
+    public AbsButton getAdd() {
         return add;
     }
 
-    public AbsPlainButton getValidAddEdit() {
+    public AbsButton getValidAddEdit() {
         return validAddEdit;
     }
 
-    public AbsPlainButton getValidRemove() {
+    public AbsButton getValidRemove() {
         return validRemove;
     }
 
@@ -150,7 +150,7 @@ public final class CrudGeneForm<K,V> {
         return elements;
     }
 
-    public AbsPlainButton getCancel() {
+    public AbsButton getCancel() {
         return cancel;
     }
 

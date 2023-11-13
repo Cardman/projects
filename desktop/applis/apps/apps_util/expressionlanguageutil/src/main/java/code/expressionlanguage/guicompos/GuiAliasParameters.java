@@ -246,6 +246,7 @@ public final class GuiAliasParameters {
     private static final String SPLIT_PANE_0_SPLIT_PANE_1="_____1657";
     private static final String SPLIT_PANE_0_SPLIT_PANE_2="_____1658";
     private static final String INPUT_0_INPUT_SET_ENABLED_0="__1027";
+    private static final String SEPARATOR_0_SEPARATOR_SET_ORIENT_0="__1027_";
     private static final String BUTTON_0_ADD_LISTENER_0="___1071";
     private static final String BUTTON_0_REMOVE_LISTENER_0="___1071_";
     private static final String BUTTON_0_BUTTON_0="__1028";
@@ -698,6 +699,7 @@ public final class GuiAliasParameters {
     private String aliasSplitPane0SplitPane1;
     private String aliasSplitPane0SplitPane2;
     private String aliasInput0InputSetEnabled0;
+    private String aliasSeparator0SeparatorSetOrient0;
     private String aliasButton0AddListener0;
     private String aliasButton0RemoveListener0;
     private String aliasButton0Button0;
@@ -1150,6 +1152,7 @@ public final class GuiAliasParameters {
         aliasSplitPane0SplitPane1=LgNamesContent.get(_util,_cust,_mapping.getVal(SPLIT_PANE_0_SPLIT_PANE_1));
         aliasSplitPane0SplitPane2=LgNamesContent.get(_util,_cust,_mapping.getVal(SPLIT_PANE_0_SPLIT_PANE_2));
         aliasInput0InputSetEnabled0=LgNamesContent.get(_util,_cust,_mapping.getVal(INPUT_0_INPUT_SET_ENABLED_0));
+        aliasSeparator0SeparatorSetOrient0=LgNamesContent.get(_util,_cust,_mapping.getVal(SEPARATOR_0_SEPARATOR_SET_ORIENT_0));
         aliasButton0AddListener0=LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON_0_ADD_LISTENER_0));
         aliasButton0RemoveListener0=LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON_0_REMOVE_LISTENER_0));
         aliasButton0Button0=LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON_0_BUTTON_0));
@@ -1602,6 +1605,7 @@ public final class GuiAliasParameters {
         _en.add(SPLIT_PANE_0_SPLIT_PANE_1,"SplitPane0SplitPane1=b");
         _en.add(SPLIT_PANE_0_SPLIT_PANE_2,"SplitPane0SplitPane2=c");
         _en.add(INPUT_0_INPUT_SET_ENABLED_0,"Input0InputSetEnabled0=a");
+        _en.add(SEPARATOR_0_SEPARATOR_SET_ORIENT_0,"Separator0SeparatorSetOrient0=a");
         _en.add(BUTTON_0_ADD_LISTENER_0,"Button0AddListener0=a");
         _en.add(BUTTON_0_REMOVE_LISTENER_0,"Button0RemoveListener0=a");
         _en.add(BUTTON_0_BUTTON_0,"Button0Button0=a");
@@ -2054,6 +2058,7 @@ public final class GuiAliasParameters {
         _fr.add(SPLIT_PANE_0_SPLIT_PANE_1,"SplitPane0SplitPane1=b");
         _fr.add(SPLIT_PANE_0_SPLIT_PANE_2,"SplitPane0SplitPane2=c");
         _fr.add(INPUT_0_INPUT_SET_ENABLED_0,"Input0InputSetEnabled0=a");
+        _fr.add(SEPARATOR_0_SEPARATOR_SET_ORIENT_0,"Separator0SeparatorSetOrient0=a");
         _fr.add(BUTTON_0_ADD_LISTENER_0,"Button0AddListener0=a");
         _fr.add(BUTTON_0_REMOVE_LISTENER_0,"Button0RemoveListener0=a");
         _fr.add(BUTTON_0_BUTTON_0,"Button0Button0=a");
@@ -2404,6 +2409,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SPLIT_PANE_0_SPLIT_PANE_SET_CONTINUOUS_LAYOUT_0),aliasSplitPane0SplitPaneSetContinuousLayout0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SPLIT_PANE_0_SPLIT_PANE_0),aliasSplitPane0SplitPane0),new KeyValueMemberName(_mapping.getVal(SPLIT_PANE_0_SPLIT_PANE_1),aliasSplitPane0SplitPane1),new KeyValueMemberName(_mapping.getVal(SPLIT_PANE_0_SPLIT_PANE_2),aliasSplitPane0SplitPane2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(INPUT_0_INPUT_SET_ENABLED_0),aliasInput0InputSetEnabled0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SEPARATOR_0_SEPARATOR_SET_ORIENT_0),aliasSeparator0SeparatorSetOrient0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(BUTTON_0_ADD_LISTENER_0),aliasButton0AddListener0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(BUTTON_0_REMOVE_LISTENER_0),aliasButton0RemoveListener0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(BUTTON_0_BUTTON_0),aliasButton0Button0)));
@@ -3436,6 +3442,10 @@ public final class GuiAliasParameters {
         return aliasInput0InputSetEnabled0;
     }
 
+    public String getAliasSeparator0SeparatorSetOrient0() {
+        return aliasSeparator0SeparatorSetOrient0;
+    }
+
     public String getAliasButton0AddListener0() {
         return aliasButton0AddListener0;
     }
@@ -3856,18 +3866,6 @@ public final class GuiAliasParameters {
         return aliasPopupMenu0PopupMenuRemoveComp0;
     }
 
-    public String getAliasPopupMenu0PopupMenuAddMenu0() {
-        return aliasPopupMenu0PopupMenuAddMenu0;
-    }
-
-    public String getAliasPopupMenu0PopupMenuGetMenu0() {
-        return aliasPopupMenu0PopupMenuGetMenu0;
-    }
-
-    public String getAliasPopupMenu0PopupMenuRemoveMenu0() {
-        return aliasPopupMenu0PopupMenuRemoveMenu0;
-    }
-
     public String getAliasPopupMenu0PopupMenuShow0() {
         return aliasPopupMenu0PopupMenuShow0;
     }
@@ -4160,10 +4158,6 @@ public final class GuiAliasParameters {
         return aliasAbsMenu0AbsMenuSetText0;
     }
 
-    public String getAliasAbsMenu0InputSetEnabled0() {
-        return aliasAbsMenu0InputSetEnabled0;
-    }
-
     public String getAliasAbsMenu0AbsMenuSetDeepEnabled0() {
         return aliasAbsMenu0AbsMenuSetDeepEnabled0;
     }
@@ -4182,10 +4176,6 @@ public final class GuiAliasParameters {
 
     public String getAliasMenu0Menu0() {
         return aliasMenu0Menu0;
-    }
-
-    public String getAliasAbsMenuItem0TabbedPaneAdd0() {
-        return aliasAbsMenuItem0TabbedPaneAdd0;
     }
 
     public String getAliasMenuItem0MenuItem0() {

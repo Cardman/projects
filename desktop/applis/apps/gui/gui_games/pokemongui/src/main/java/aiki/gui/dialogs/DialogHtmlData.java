@@ -83,7 +83,7 @@ public final class DialogHtmlData {
         AbsPlainLabel area_ = _session.getCompoFactory().newPlainLabel(TEXT);
         AbsTextField field_;
 //        LabelButton search_ = new LabelButton(MainWindow.OK);
-        AbsPlainButton search_ = _session.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
+        AbsButton search_ = _session.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
         field_ = _session.getCompoFactory().newTextField(20);
 //        _session.setLabel(area_);
         _session.addFinder(field_,search_);

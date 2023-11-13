@@ -365,34 +365,34 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     //file menu
 
-    private AbsMenu file;
-    private AbsMenuItem load;
-    private AbsMenuItem save;
-    private AbsMenuItem change;
-    private AbsMenuItem exit;
+    private EnabledMenu file;
+    private EnabledMenu load;
+    private EnabledMenu save;
+    private EnabledMenu change;
+    private EnabledMenu exit;
 
     //deal menu
 
-    private AbsMenu deal;
-    private AbsMenuItem consulting;
-    private AbsCheckBoxMenuItem pause;
-    private AbsMenuItem helpGame;
-    private AbsMenuItem tricksHands;
-    private AbsMenuItem teams;
-    private AbsMenu edit;
-    private final IdMap<GameEnum,AbsMenuItem> editGames = new IdMap<GameEnum,AbsMenuItem>();
-    private AbsMenu demo;
-    private final IdMap<GameEnum,AbsMenuItem> demoGames = new IdMap<GameEnum,AbsMenuItem>();
-    private AbsMenu training;
-    private final IdMap<ChoiceTarot,AbsMenuItem> trainingTarot = new IdMap<ChoiceTarot,AbsMenuItem>();
+    private EnabledMenu deal;
+    private EnabledMenu consulting;
+    private EnabledMenu pause;
+    private EnabledMenu helpGame;
+    private EnabledMenu tricksHands;
+    private EnabledMenu teams;
+    private EnabledMenu edit;
+    private final IdMap<GameEnum,EnabledMenu> editGames = new IdMap<GameEnum,EnabledMenu>();
+    private EnabledMenu demo;
+    private final IdMap<GameEnum,EnabledMenu> demoGames = new IdMap<GameEnum,EnabledMenu>();
+    private EnabledMenu training;
+    private final IdMap<ChoiceTarot,EnabledMenu> trainingTarot = new IdMap<ChoiceTarot,EnabledMenu>();
 //    private AbsMenuItem multiStop;
 
     //parameters menu
 
-    private AbsMenu parameters;
-    private final IdMap<GameEnum,AbsMenuItem> rulesGames = new IdMap<GameEnum,AbsMenuItem>();
-    private AbsMenuItem players;
-    private AbsMenuItem launching;
+    private EnabledMenu parameters;
+    private final IdMap<GameEnum,EnabledMenu> rulesGames = new IdMap<GameEnum,EnabledMenu>();
+    private EnabledMenu players;
+    private EnabledMenu launching;
 //    private AbsMenuItem timing;
 //    private AbsMenuItem interact;
 //    private AbsMenuItem language;
@@ -401,14 +401,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     //parameters help
 
-    private AbsMenu help;
-    private AbsMenuItem generalHelp;
+    private EnabledMenu help;
+    private EnabledMenu generalHelp;
 
     //labels at main menu
 
     private AbsPlainLabel welcomeLabel;
-    private AbsPlainButton singleModeButton;
-    private AbsPlainButton multiModeButton;
+    private AbsButton singleModeButton;
+    private AbsButton multiModeButton;
     private AbsPlainLabel goHelpMenu;
 //    private final Net net = new Net();
 
@@ -546,7 +546,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
 
     private void ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,AbsPanel _container) {
-        AbsPlainButton bouton_=getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getCompoFactory().newPlainButton(_texte);
 //        bouton_.addMouseListener(new EcouteurBoutonPrincipal(_nomJeu));
         bouton_.addActionListener(new ListenerBeginGame(_nomJeu, this));
         _container.add(bouton_);
@@ -1081,7 +1081,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         container_.add(getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo())));
         /*Cree les boutons de jeu*/
         boutonsSolo(container_);
-        AbsPlainButton button_ = getCompoFactory().newPlainButton(getMessages().getVal(CST_MAIN_MENU));
+        AbsButton button_ = getCompoFactory().newPlainButton(getMessages().getVal(CST_MAIN_MENU));
         button_.addActionListener(new BackToMainMenuEvent(this));
         container_.add(button_);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
@@ -1121,7 +1121,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         MenuItemUtils.setEnabledMenu(getLoad(),true);
         MenuItemUtils.setEnabledMenu(getEdit(),true);
         MenuItemUtils.setEnabledMenu(getTraining(),true);
-        for (AbsMenuItem m: getRulesGames().values()) {
+        for (EnabledMenu m: getRulesGames().values()) {
             MenuItemUtils.setEnabledMenu(m,true);
         }
         core.getContainerGame().finirParties();
@@ -1182,13 +1182,13 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         save.addActionListener(new SaveGameEventCards(this));
         save.setAccelerator(GuiConstants.VK_S, GuiConstants.CTRL_DOWN_MASK);
         file.addMenuItem(save);
-        file.addSeparator();
+        file.addMenuItem(getCompoFactory().newSep());
         /* Fichier/Changer de jeu ACCESSIBLE n'importe quand sauf au menu principal,
         on y revient lorsque c'est accessible*/
         change=getCompoFactory().newMenuItem(getMessages().getVal(CST_CHANGE));
         changeMode(this, change);
         file.addMenuItem(change);
-        file.addSeparator();
+        file.addMenuItem(getCompoFactory().newSep());
         exit=getCompoFactory().newMenuItem(getMessages().getVal(CST_EXIT));
         exit.addActionListener(new QuitEvent(this));
         exit.setAccelerator(GuiConstants.VK_ESCAPE,0);
@@ -1196,7 +1196,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         getJMenuBar().add(file);
     }
 
-    public static void changeMode(WindowCardsInt _w, AbsMenuItem _change) {
+    public static void changeMode(WindowCardsInt _w, EnabledMenu _change) {
         MenuItemUtils.setEnabledMenu(_change,false);
         _change.addActionListener(new ChangeGameEvent(_w));
         _change.setAccelerator(GuiConstants.VK_J, GuiConstants.CTRL_DOWN_MASK);
@@ -1360,7 +1360,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         deal=getCompoFactory().newMenu(getMessages().getVal(CST_DEAL));
         /* Partie/Conseil "accessible uniquement en cours de partie et
         dans les jeux non solitaires"*/
-        AbsMenuItem sousMenu_;
+        EnabledMenu sousMenu_;
         consulting=getCompoFactory().newMenuItem(getMessages().getVal(CST_CONSULTING));
         consulting.setAccelerator(GuiConstants.VK_F1,0);
         consulting.addActionListener(new ConsultEvent(this));
@@ -1385,7 +1385,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         deal.addMenuItem(teams);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
         edit=getCompoFactory().newMenu(getMessages().getVal(CST_EDIT));
-        AbsMenuItem sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
+        EnabledMenu sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.BELOTE));
         edit.addMenuItem(sousSousMenu_);
         editGames.put(GameEnum.BELOTE, sousSousMenu_);
@@ -1703,7 +1703,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         /* Parametres */
         String lg_ = getLanguageKey();
         parameters=getCompoFactory().newMenu(getMessages().getVal(CST_PARAMETERS));
-        AbsMenuItem sousMenu_=getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
+        EnabledMenu sousMenu_=getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.BELOTE));
         sousMenu_.setAccelerator(GuiConstants.VK_B, GuiConstants.SHIFT_DOWN_MASK);
         parameters.addMenuItem(sousMenu_);
@@ -2095,71 +2095,71 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        single = _single;
 //    }
 
-    public AbsMenu getFile() {
+    public EnabledMenu getFile() {
         return file;
     }
 
-    public AbsMenuItem getLoad() {
+    public EnabledMenu getLoad() {
         return load;
     }
 
-    public AbsMenuItem getSave() {
+    public EnabledMenu getSave() {
         return save;
     }
 
-    public AbsMenuItem getChange() {
+    public EnabledMenu getChange() {
         return change;
     }
 
-    public AbsMenuItem getExit() {
+    public EnabledMenu getExit() {
         return exit;
     }
 
-    public AbsMenu getDeal() {
+    public EnabledMenu getDeal() {
         return deal;
     }
 
-    public AbsMenuItem getConsulting() {
+    public EnabledMenu getConsulting() {
         return consulting;
     }
 
-    public AbsCheckBoxMenuItem getPause() {
+    public EnabledMenu getPause() {
         return pause;
     }
 
-    public AbsMenuItem getHelpGame() {
+    public EnabledMenu getHelpGame() {
         return helpGame;
     }
 
-    public AbsMenuItem getTricksHands() {
+    public EnabledMenu getTricksHands() {
         return tricksHands;
     }
 
-    public AbsMenuItem getTeams() {
+    public EnabledMenu getTeams() {
         return teams;
     }
 
-    public AbsMenu getEdit() {
+    public EnabledMenu getEdit() {
         return edit;
     }
 
-    public IdMap<GameEnum,AbsMenuItem> getEditGames() {
+    public IdMap<GameEnum,EnabledMenu> getEditGames() {
         return editGames;
     }
 
-    public AbsMenu getDemo() {
+    public EnabledMenu getDemo() {
         return demo;
     }
 
-    public IdMap<GameEnum,AbsMenuItem> getDemoGames() {
+    public IdMap<GameEnum,EnabledMenu> getDemoGames() {
         return demoGames;
     }
 
-    public AbsMenu getTraining() {
+    public EnabledMenu getTraining() {
         return training;
     }
 
-    public IdMap<ChoiceTarot,AbsMenuItem> getTrainingTarot() {
+    public IdMap<ChoiceTarot,EnabledMenu> getTrainingTarot() {
         return trainingTarot;
     }
 
@@ -2167,47 +2167,47 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        return multiStop;
 //    }
 
-    public AbsMenu getParameters() {
+    public EnabledMenu getParameters() {
         return parameters;
     }
 
-    public IdMap<GameEnum,AbsMenuItem> getRulesGames() {
+    public IdMap<GameEnum,EnabledMenu> getRulesGames() {
         return rulesGames;
     }
 
-    public AbsMenuItem getPlayers() {
+    public EnabledMenu getPlayers() {
         return players;
     }
 
-    public AbsMenuItem getLaunching() {
+    public EnabledMenu getLaunching() {
         return launching;
     }
 
-    public AbsMenuItem getTiming() {
+    public EnabledMenu getTiming() {
         return core.getTiming();
     }
 
-    public AbsMenuItem getInteract() {
+    public EnabledMenu getInteract() {
         return core.getInteract();
     }
 
-    public AbsMenuItem getLanguage() {
+    public EnabledMenu getLanguage() {
         return core.getLanguage();
     }
 
-    public AbsMenu getDisplaying() {
+    public EnabledMenu getDisplaying() {
         return core.getDisplaying();
     }
 
-    public IdMap<GameEnum,AbsMenuItem> getDisplayingGames() {
+    public IdMap<GameEnum,EnabledMenu> getDisplayingGames() {
         return core.getDisplayingGames();
     }
 
-    public AbsMenu getHelp() {
+    public EnabledMenu getHelp() {
         return help;
     }
 
-    public AbsMenuItem getGeneralHelp() {
+    public EnabledMenu getGeneralHelp() {
         return generalHelp;
     }
 
@@ -2330,11 +2330,11 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         return core.getImages();
     }
 
-    public AbsPlainButton getSingleModeButton() {
+    public AbsButton getSingleModeButton() {
         return singleModeButton;
     }
 
-    public AbsPlainButton getMultiModeButton() {
+    public AbsButton getMultiModeButton() {
         return multiModeButton;
     }
 

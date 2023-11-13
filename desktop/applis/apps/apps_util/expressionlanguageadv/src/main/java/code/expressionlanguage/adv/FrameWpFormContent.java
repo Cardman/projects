@@ -24,8 +24,8 @@ public final class FrameWpFormContent {
     private AbsCustCheckBox compoundWrite;
     private AbsCustCheckBox compoundWriteErr;
     private AbsCustCheckBox enabledWp;
-    private AbsPlainButton ok;
-    private AbsPlainButton remove;
+    private AbsButton ok;
+    private AbsButton remove;
     private AbsPanel contentPane;
 
     public FrameWpFormContent(AbstractProgramInfos _c) {
@@ -118,7 +118,7 @@ public final class FrameWpFormContent {
         return fieldName;
     }
 
-    public AbsPlainButton getRemove() {
+    public AbsButton getRemove() {
         return remove;
     }
 
@@ -159,7 +159,7 @@ public final class FrameWpFormContent {
         return enabledWp;
     }
 
-    public AbsPlainButton getOk() {
+    public AbsButton getOk() {
         return ok;
     }
 

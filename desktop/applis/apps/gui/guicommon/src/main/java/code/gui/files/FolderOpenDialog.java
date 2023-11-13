@@ -2,7 +2,7 @@
     */
 package code.gui.files;
 import code.gui.AbsCommonFrame;
-import code.gui.AbsPlainButton;
+import code.gui.AbsButton;
 import code.gui.GuiConstants;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
@@ -39,7 +39,7 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
         String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
         StringMap<String> messages_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         initByFrame(_language, _currentFolderRoot, false, EMPTY_STRING, EMPTY_STRING, _commonFrame);
-        AbsPlainButton action_ = getCompoFactory().newPlainButton(messages_.getVal(OPEN));
+        AbsButton action_ = getCompoFactory().newPlainButton(messages_.getVal(OPEN));
         action_.addActionListener(new SubmitMouseEvent(this));
         getButtons().add(action_);
         action_ = getCompoFactory().newPlainButton(messages_.getVal(CANCEL));

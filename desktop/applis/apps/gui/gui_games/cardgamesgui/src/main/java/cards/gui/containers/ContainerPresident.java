@@ -14,7 +14,7 @@ import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.PresidentResoucesAccess;
 import cards.president.sml.DocumentReaderPresidentUtil;
 import code.gui.AbsPanel;
-import code.gui.AbsPlainButton;
+import code.gui.AbsButton;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
@@ -49,8 +49,8 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
     private boolean canDiscard;
     private boolean canPlay;
 
-    private AbsPlainButton noPlay;
-    private AbsPlainButton givingCardsOk;
+    private AbsButton noPlay;
+    private AbsButton givingCardsOk;
 
     private CardPresident carteSurvoleePresident;
 
@@ -169,19 +169,19 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         scores = _scores;
     }
 
-    protected AbsPlainButton getNoPlay() {
+    protected AbsButton getNoPlay() {
         return noPlay;
     }
 
-    protected void setNoPlay(AbsPlainButton _noPlay) {
+    protected void setNoPlay(AbsButton _noPlay) {
         noPlay = _noPlay;
     }
 
-    protected AbsPlainButton getGivingCardsOk() {
+    protected AbsButton getGivingCardsOk() {
         return givingCardsOk;
     }
 
-    protected void setGivingCardsOk(AbsPlainButton _givingCardsOk) {
+    protected void setGivingCardsOk(AbsButton _givingCardsOk) {
         givingCardsOk = _givingCardsOk;
     }
 

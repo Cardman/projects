@@ -15,8 +15,8 @@ public final class FrameParFormContent {
     private final ExactMatchingTypeForm exactForm = new ExactMatchingTypeForm();
     private AbsCustCheckBox get;
     private AbsCustCheckBox enabledPar;
-    private AbsPlainButton ok;
-    private AbsPlainButton remove;
+    private AbsButton ok;
+    private AbsButton remove;
     private AbsPanel contentPane;
 
     public FrameParFormContent(AbstractProgramInfos _c) {
@@ -100,11 +100,11 @@ public final class FrameParFormContent {
         return enabledPar;
     }
 
-    public AbsPlainButton getOk() {
+    public AbsButton getOk() {
         return ok;
     }
 
-    public AbsPlainButton getRemove() {
+    public AbsButton getRemove() {
         return remove;
     }
 

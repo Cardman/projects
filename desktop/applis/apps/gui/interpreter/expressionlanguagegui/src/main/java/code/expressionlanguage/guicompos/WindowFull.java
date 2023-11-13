@@ -3,7 +3,7 @@ package code.expressionlanguage.guicompos;
 import code.gui.*;
 
 
-import code.gui.AbsMenuItem;
+import code.gui.EnabledMenu;
 
 
 import code.gui.events.*;
@@ -18,16 +18,16 @@ import code.util.StringMap;
 
 
 public final class WindowFull extends GroupFrame implements AbsOpenQuit{
-    private final AbsMenu menu;
-    private final AbsMenuItem open;
+    private final EnabledMenu menu;
+    private final EnabledMenu open;
 
     private final AbsPanel contentPane;
     private final AbsPanel form;
     private final AbsPlainLabel content;
     private final AbsTextArea conf;
-    private final AbsPlainButton launch;
-    private final AbsPlainButton coverage;
-    private final AbsPlainButton stop;
+    private final AbsButton launch;
+    private final AbsButton coverage;
+    private final AbsButton stop;
 
     private final StringMap<String> messages;
     private final CdmFactory cdmFactory;

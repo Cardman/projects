@@ -142,7 +142,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     private LoadingGame loadingConf;
 
-    private AbsMenu file;
+    private EnabledMenu file;
 //
 //    private AbsMenuItem zipLoad;
 //
@@ -152,21 +152,21 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //
 //    private AbsMenuItem gameSave;
 
-    private AbsMenuItem language;
+    private EnabledMenu language;
 
-    private AbsMenuItem params;
+    private EnabledMenu params;
 
-    private AbsMenuItem quit;
+    private EnabledMenu quit;
 
-    private AbsMenu dataGame;
+    private EnabledMenu dataGame;
 
-    private AbsMenuItem dataWeb;
+    private EnabledMenu dataWeb;
 
-    private AbsMenuItem dataBattle;
+    private EnabledMenu dataBattle;
 
-    private AbsMenuItem newGame;
+    private EnabledMenu newGame;
 
-    private AbsMenuItem difficulty;
+    private EnabledMenu difficulty;
 
     private final AbsPanel mainPanel;
 
@@ -534,7 +534,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         }
         nickname_.add(nickname);
         beginGame.add(nickname_);
-        AbsPlainButton ok_ = getCompoFactory().newPlainButton(OK);
+        AbsButton ok_ = getCompoFactory().newPlainButton(OK);
         ok_.addActionListener(new ConfirmNewGameEvent(this));
         beginGame.add(ok_);
         AbsMetaLabelPk.repaintChildren(labsBegin,getImageFactory());
@@ -739,7 +739,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        gameSave.addActionListener(new SaveGameEventAiki(this));
 //        gameSave.setAccelerator(GuiConstants.VK_S, GuiConstants.CTRL_DOWN_MASK);
 //        file.addMenuItem(gameSave);
-        file.addSeparator();
+        file.addMenuItem(getCompoFactory().newSep());
         language = getCompoFactory().newMenuItem();
         language.addActionListener(new ManageLanguageEventAiki(this));
 //        if (Standalone.isStandalone()) {
@@ -750,7 +750,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         params.setAccelerator(GuiConstants.VK_L, GuiConstants.CTRL_DOWN_MASK);
         params.addActionListener(new ManageParamsEvent(this));
         file.addMenuItem(params);
-        file.addSeparator();
+        file.addMenuItem(getCompoFactory().newSep());
         quit = getCompoFactory().newMenuItem();
         quit.setAccelerator(GuiConstants.VK_ESCAPE,0);
         quit.addActionListener(new QuitEvent(this));
@@ -1586,19 +1586,19 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         return dialog;
     }
 
-    public AbsMenuItem getFolderLoad() {
+    public EnabledMenu getFolderLoad() {
         return core.getFolderLoad();
     }
 
-    public AbsMenuItem getZipLoad() {
+    public EnabledMenu getZipLoad() {
         return core.getZipLoad();
     }
 
-    public AbsMenuItem getGameLoad() {
+    public EnabledMenu getGameLoad() {
         return core.getGameLoad();
     }
 
-    public AbsMenuItem getNewGame() {
+    public EnabledMenu getNewGame() {
         return newGame;
     }
 
@@ -1780,7 +1780,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         return battle;
     }
 
-    public AbsMenuItem getDataBattle() {
+    public EnabledMenu getDataBattle() {
         return dataBattle;
     }
 }

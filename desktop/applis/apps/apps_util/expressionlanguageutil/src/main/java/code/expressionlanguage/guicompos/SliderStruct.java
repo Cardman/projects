@@ -1,6 +1,5 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
@@ -9,7 +8,7 @@ import code.gui.AbsSlider;
 import code.gui.events.AbsChangeListener;
 import code.gui.initialize.AbsCompoFactory;
 
-public final class SliderStruct extends InputStruct {
+public final class SliderStruct extends CustComponentStruct {
     private final AbsSlider slider;
     public SliderStruct(String _className, AbsCompoFactory _comp) {
         super(_className);
@@ -68,15 +67,6 @@ public final class SliderStruct extends InputStruct {
 
     public void setOrientation(Struct _orientation) {
         slider.setOrientation(((NumberStruct)_orientation).intStruct());
-    }
-    @Override
-    public Struct isEnabled() {
-        return BooleanStruct.of(slider.isEnabled());
-    }
-
-    @Override
-    public void setEnabled(Struct _enabled) {
-        slider.setEnabled(BooleanStruct.isTrue(_enabled));
     }
 
     @Override

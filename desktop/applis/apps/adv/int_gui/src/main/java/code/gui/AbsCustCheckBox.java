@@ -16,7 +16,4 @@ public interface AbsCustCheckBox extends AbsCustComponent {
 
     String getText();
 
-    boolean isEnabled();
-
-    void setEnabled(boolean _value);
 }

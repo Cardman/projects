@@ -47,14 +47,6 @@ public final class Spinner extends CustComponent implements AbsSpinner {
         sp.addChangeListener(new WrChangeListener(_listener));
     }
 
-    public boolean isEnabled() {
-        return sp.isEnabled();
-    }
-
-    public void setEnabled(boolean _enabled) {
-        sp.setEnabled(_enabled);
-    }
-
     @Override
     public JComponent getNatComponent() {
         return sp;

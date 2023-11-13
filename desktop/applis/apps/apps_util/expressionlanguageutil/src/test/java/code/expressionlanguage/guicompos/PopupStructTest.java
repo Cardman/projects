@@ -37,7 +37,7 @@ public final class PopupStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct ls_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        assertEq(0,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,ls_,null,st_)));
+        assertEq(0,toLong(call(new FctPopupMenuNbComp(),null,ctx_,ls_,null,st_)));
     }
 
     @Test
@@ -49,9 +49,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct ls_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        call(new FctPopupMenuAddMenu(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
-        assertEq(0,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,ls_,null,st_)));
-        assertSame(NullStruct.NULL_VALUE,call(new FctPopupMenuGetMenu(),null,ctx_,ls_,one(new IntStruct(0)),st_));
+        call(new FctPopupMenuAdd(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
+        assertEq(0,toLong(call(new FctPopupMenuNbComp(),null,ctx_,ls_,null,st_)));
+        assertSame(NullStruct.NULL_VALUE,call(new FctPopupMenuGetComp(),null,ctx_,ls_,one(new IntStruct(0)),st_));
     }
 
     @Test
@@ -64,9 +64,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         Struct menuItem_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
-        assertEq(1,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
-        assertSame(menuItem_,call(new FctPopupMenuGetMenu(),null,ctx_,menu_,one(new IntStruct(0)),st_));
+        call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
+        assertEq(1,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
+        assertSame(menuItem_,call(new FctPopupMenuGetComp(),null,ctx_,menu_,one(new IntStruct(0)),st_));
     }
 
     @Test
@@ -79,8 +79,8 @@ public final class PopupStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         Struct menuItem_ = call(new FctMenuItemCheck1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
-        assertEq(1,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
+        call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
+        assertEq(1,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
     }
 
     @Test
@@ -93,9 +93,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         Struct menuItem_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
-        call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
-        assertEq(1,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
+        call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
+        call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
+        assertEq(1,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
     }
 
     @Test
@@ -108,9 +108,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         Struct menuItem_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
-        call(new FctPopupMenuRemoveMenu(),null,ctx_,menu_,one(NullStruct.NULL_VALUE),st_);
-        assertEq(1,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
+        call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
+        call(new FctPopupMenuRemoveComp(),null,ctx_,menu_,one(NullStruct.NULL_VALUE),st_);
+        assertEq(1,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
     }
 
     @Test
@@ -124,9 +124,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         Struct menuItem_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         Struct menuItem2_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
-        call(new FctPopupMenuRemoveMenu(),null,ctx_,menu_,one(menuItem2_),st_);
-        assertEq(1,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
+        call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
+        call(new FctPopupMenuRemoveComp(),null,ctx_,menu_,one(menuItem2_),st_);
+        assertEq(1,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
     }
 
     @Test
@@ -139,9 +139,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         Struct menuItem_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
-        call(new FctPopupMenuRemoveMenu(),null,ctx_,menu_,one(menuItem_),st_);
-        assertEq(0,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
+        call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
+        call(new FctPopupMenuRemoveComp(),null,ctx_,menu_,one(menuItem_),st_);
+        assertEq(0,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
     }
 
     @Test
@@ -154,9 +154,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         Struct menuItem_ = call(new FctMenuItemCheck1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
-        call(new FctPopupMenuRemoveMenu(),null,ctx_,menu_,one(menuItem_),st_);
-        assertEq(0,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
+        call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
+        call(new FctPopupMenuRemoveComp(),null,ctx_,menu_,one(menuItem_),st_);
+        assertEq(0,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
     }
 
     @Test
@@ -170,9 +170,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         Struct menuItem_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         Struct menuItem2_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
-        call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem2_),st_);
-        assertEq(2,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
+        call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
+        call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem2_),st_);
+        assertEq(2,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
     }
 
     @Test
@@ -186,9 +186,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         Struct menuItem_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         Struct menuItem2_ = call(new FctMenu1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
-        call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem2_),st_);
-        assertEq(2,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
+        call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
+        call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem2_),st_);
+        assertEq(2,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
     }
     @Test
     public void count12() {
@@ -334,9 +334,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         Struct menuItem_ = call(new FctMenu1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
-        call(new FctPopupMenuRemoveMenu(),null,ctx_,menu_,one(menuItem_),st_);
-        assertEq(0,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
+        call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
+        call(new FctPopupMenuRemoveComp(),null,ctx_,menu_,one(menuItem_),st_);
+        assertEq(0,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
     }
 
     @Test
@@ -351,8 +351,8 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Struct menuItem_ = call(new FctMenu1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         Struct menuItem2_ = call(new FctMenu1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctMenuAdd(),null,ctx_,menuItem2_,one(menuItem_),st_);
-        call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
-        assertEq(0,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
+        call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
+        assertEq(0,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
     }
 
     @Test

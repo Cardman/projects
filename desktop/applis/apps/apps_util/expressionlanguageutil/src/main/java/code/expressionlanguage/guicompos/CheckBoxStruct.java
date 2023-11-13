@@ -8,7 +8,7 @@ import code.gui.AbsCustCheckBox;
 import code.gui.AbsCustComponent;
 import code.gui.initialize.AbsCompoFactory;
 
-public final class CheckBoxStruct extends InputStruct {
+public final class CheckBoxStruct extends CustComponentStruct {
     private final AbsCustCheckBox checkBox;
 
     public CheckBoxStruct(String _className, AbsCompoFactory _compo) {
@@ -49,16 +49,6 @@ public final class CheckBoxStruct extends InputStruct {
 
     public void setSelected(Struct _b) {
         checkBox.setSelected(BooleanStruct.isTrue(_b));
-    }
-
-    @Override
-    public Struct isEnabled() {
-        return BooleanStruct.of(checkBox.isEnabled());
-    }
-
-    @Override
-    public void setEnabled(Struct _enabled) {
-        checkBox.setEnabled(BooleanStruct.isTrue(_enabled));
     }
 
     @Override

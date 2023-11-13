@@ -1,10 +1,10 @@
 package code.vi.prot.impl.gui;
 
-import code.gui.AbsMenuItem;
+import code.gui.EnabledMenu;
 
 import javax.swing.*;
 
-public final class MenuItem extends AbsMenuItemImpl implements AbsMenuItem {
+public final class MenuItem extends AbsMenuItemImpl implements EnabledMenu {
 
     public MenuItem() {
         super(new JMenuItem());

@@ -68,7 +68,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _c.getLanguageKey(), getAbsDialog().getAccessFile());
         String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
-        AbsPlainButton action_ = getCompoFactory().newPlainButton(messages.getVal(OPEN));
+        AbsButton action_ = getCompoFactory().newPlainButton(messages.getVal(OPEN));
         action_.addActionListener(new SubmitMouseEvent(this));
         getButtons().add(action_);
         action_ = getCompoFactory().newPlainButton(messages.getVal(CANCEL));
@@ -76,7 +76,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         getButtons().add(action_);
         AbsPlainLabel label_;
         label_ = getCompoFactory().newPlainLabel(messages.getVal(TYPE_TEXT));
-        AbsPlainButton search_ = getCompoFactory().newPlainButton(messages.getVal(SEARCH));
+        AbsButton search_ = getCompoFactory().newPlainButton(messages.getVal(SEARCH));
         search_.addActionListener(new SearchingEvent(this,search_));
         search_.setEnabled(enabledSearch.get());
         searchingPanel.removeAll();
@@ -86,10 +86,10 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         panel_.add(typedString);
         panel_.add(search_);
         searchingPanel.add(panel_);
-        AbsPlainButton stop_ = getCompoFactory().newPlainButton(messages.getVal(STOP_SEARCHING));
+        AbsButton stop_ = getCompoFactory().newPlainButton(messages.getVal(STOP_SEARCHING));
         stop_.addActionListener(new StopSearchingEvent(this, true));
         searchingPanel.add(stop_);
-        AbsPlainButton cancelSearching_ = getCompoFactory().newPlainButton(messages.getVal(CANCEL_SEARCHING));
+        AbsButton cancelSearching_ = getCompoFactory().newPlainButton(messages.getVal(CANCEL_SEARCHING));
         cancelSearching_.addActionListener(new StopSearchingEvent(this, false));
         searchingPanel.add(cancelSearching_);
         searchedFiles = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages.getVal(FILE_COUNT), 0));
@@ -100,7 +100,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         pack();
     }
 
-    public void searchFile(AbsPlainButton _but) {
+    public void searchFile(AbsButton _but) {
         AbstractFile currentFolder_ = getProgramInfos().getFileCoreStream().newFile(getCurrentFolder());
         if (!currentFolder_.exists()) {
             AbstractMutableTreeNodeCore<String> sel_ = getFolderSystem().selectEvt();

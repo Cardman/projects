@@ -147,7 +147,7 @@ public final class DialogSoft extends DialogCards {
             panneau_.add(clickCard);
             container_.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
         }
-        AbsPlainButton bouton_=getCompoFactory().newPlainButton(messages.getVal(VALIDATE));
+        AbsButton bouton_=getCompoFactory().newPlainButton(messages.getVal(VALIDATE));
         bouton_.addActionListener(new ListenerParameters(this));
         container_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
         getCardDialog().setContentPane(container_);

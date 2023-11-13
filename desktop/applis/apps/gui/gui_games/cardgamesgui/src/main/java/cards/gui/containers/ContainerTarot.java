@@ -64,8 +64,8 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     private Handfuls choosenHandful = Handfuls.NO;
     private CardTarot carteSurvoleeTarot;
     private AbsTextArea infoCurrentHandful;
-    private AbsPlainButton validateDog;
-    private AbsPlainButton slamButton;
+    private AbsButton validateDog;
+    private AbsButton slamButton;
 
 
     ContainerTarot(WindowCardsInt _window) {
@@ -278,16 +278,16 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     public void setInfoCurrentHandful(AbsTextArea _infoCurrentHandful) {
         infoCurrentHandful = _infoCurrentHandful;
     }
-    public AbsPlainButton getValidateDog() {
+    public AbsButton getValidateDog() {
         return validateDog;
     }
-    protected void setValidateDog(AbsPlainButton _validateDog) {
+    protected void setValidateDog(AbsButton _validateDog) {
         validateDog = _validateDog;
     }
-    public AbsPlainButton getSlamButton() {
+    public AbsButton getSlamButton() {
         return slamButton;
     }
-    protected void setSlamButton(AbsPlainButton _slamButton) {
+    protected void setSlamButton(AbsButton _slamButton) {
         slamButton = _slamButton;
     }
     public String readResource() {

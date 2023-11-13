@@ -68,7 +68,7 @@ public final class TreeNodeRenderUtil {
         AbsTextArea ta_ = _compo.newTextArea();
         ta_.setEditable(false);
         _node.logs(ta_);
-        AbsPlainButton stop_ = _compo.newPlainButton("stop");
+        AbsButton stop_ = _compo.newPlainButton("stop");
         _node.stopButton(stop_);
         _node.panel(_compo.newVerticalSplitPane(_compo.newAbsScrollPane(ta_), stop_));
         AdvLogDbg logger_ = new AdvLogDbg(ta_);
@@ -111,7 +111,7 @@ public final class TreeNodeRenderUtil {
         return _re != null && _rp.isEnableBothRender();
     }
 
-    private static Struct renderExpand(ResultContextLambda _re,RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th, AbsPlainButton _stop, AdvLogDbg _logger) {
+    private static Struct renderExpand(ResultContextLambda _re,RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th, AbsButton _stop, AdvLogDbg _logger) {
         GuiBaseUtil.removeActionListeners(_stop);
         ContextEl ctx_ = _re.getContext();
         ContextEl ctxExp_ = generate(_th, ctx_);
@@ -134,7 +134,7 @@ public final class TreeNodeRenderUtil {
         return repr_;
     }
 
-    private static Struct expandRender(ResultContextLambda _re,RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th, AbsPlainButton _stop, AdvLogDbg _logger) {
+    private static Struct expandRender(ResultContextLambda _re,RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th, AbsButton _stop, AdvLogDbg _logger) {
         GuiBaseUtil.removeActionListeners(_stop);
         ContextEl ctx_ = _re.getContext();
         ContextEl ctxExp_ = generate(_th, ctx_);
@@ -156,7 +156,7 @@ public final class TreeNodeRenderUtil {
         logTrace(st_, ctxExp_, _logger);
         return repr_;
     }
-    private static Struct computeStr(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbstractThreadFactory _th, AbsPlainButton _stop, AdvLogDbg _logger) {
+    private static Struct computeStr(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbstractThreadFactory _th, AbsButton _stop, AdvLogDbg _logger) {
         GuiBaseUtil.removeActionListeners(_stop);
         ResultContextLambda rend_ = checkExc(_renderPointPairs);
         ContextEl ctxRend_ = local(_node.getResult(), _th, rend_);
@@ -164,7 +164,7 @@ public final class TreeNodeRenderUtil {
         return result(_renderPointPairs, rend_, _node, ctxRend_, _logger);
     }
 
-    private static void expand(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th, AbsPlainButton _stop, AdvLogDbg _logger) {
+    private static void expand(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th, AbsButton _stop, AdvLogDbg _logger) {
         GuiBaseUtil.removeActionListeners(_stop);
         ResultContextLambda exp_ = checkExcExp(_renderPointPairs);
         ContextEl ctxExp_ = local(_node.getResult(), _th, exp_);

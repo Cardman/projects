@@ -1,47 +1,59 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
-import code.gui.AbsMenu;
+import code.gui.AbsButton;
+import code.gui.AbsCustComponent;
 import code.gui.EnabledMenu;
-
+import code.gui.MenuItemUtils;
 import code.gui.initialize.AbsCompoFactory;
-import code.util.CustList;
 
-public final class MenuStruct extends AbsMenuStruct {
-    private final AbsMenu menu;
-    private final CustList<AbsMenuStruct> menus = new CustList<AbsMenuStruct>();
-    public MenuStruct(AbsCompoFactory _compo) {
-        menu = _compo.newMenu();
+public final class MenuStruct extends AbsButtonStruct {
+    private final EnabledMenu menu;
+    public MenuStruct(String _className, EnabledMenu _en) {
+        super(_className);
+        menu = _en;
     }
-    public MenuStruct(Struct _str,AbsCompoFactory _compo) {
-        menu = _compo.newMenu(getValue(_str));
+
+    public void setDeepEnabled(Struct _str) {
+        MenuItemUtils.setEnabledMenu(menu,BooleanStruct.isTrue(_str));
+    }
+
+    public Struct isSelected() {
+        return BooleanStruct.of(menu.isSelected());
+    }
+    public void setSelected(Struct _struct) {
+        menu.setSelected(BooleanStruct.isTrue(_struct));
+    }
+
+    public void addSeparator(String _aliasSep, AbsCompoFactory _ex) {
+        add(new SeparatorStruct(_aliasSep,_ex));
     }
 
     public void add(Struct _c) {
-        if (_c instanceof AbsMenuStruct) {
-            if (((AbsMenuStruct) _c).getParentMenu() != NullStruct.NULL_VALUE) {
+        if (_c instanceof CustComponentStruct) {
+            if (((CustComponentStruct) _c).getParentComponent() != NullStruct.NULL_VALUE) {
                 return;
             }
-            ((AbsMenuStruct) _c).setParentMenu(this);
-            if (_c instanceof MenuStruct) {
-                menu.addMenuItem(((MenuStruct)_c).getComponent());
-                menus.add((AbsMenuStruct) _c);
-            } else {
-                menu.addMenuItem(((AbsMenuItemStruct)_c).element());
-                menus.add((AbsMenuStruct) _c);
+            ((CustComponentStruct) _c).setParentComponent(this);
+            if (_c instanceof AbsButtonStruct) {
+                ((AbsButtonStruct) _c).setParentMenu(this);
             }
+            AbsCustComponent b_ = ((CustComponentStruct) _c).getComponent();
+            if (b_ instanceof EnabledMenu) {
+                ((EnabledMenu)b_).setParentMenu(menu);
+            }
+            menu.addMenuItem(b_);
+            getMenus().add(_c);
         }
     }
 
     public void remove(Struct _c) {
-        if (_c instanceof AbsMenuStruct) {
+        if (_c instanceof CustComponentStruct) {
             int i_ = 0;
             int index_ = -1;
-            for (AbsMenuStruct a: menus) {
+            for (Struct a: getMenus()) {
                 if (a.sameReference(_c)) {
                     index_ = i_;
                     break;
@@ -51,41 +63,21 @@ public final class MenuStruct extends AbsMenuStruct {
             if (index_ < 0) {
                 return;
             }
-            ((AbsMenuStruct) _c).setParentMenu(NullStruct.NULL_VALUE);
-            if (_c instanceof MenuStruct) {
-                menu.removeMenuItem(((MenuStruct)_c).getComponent());
-                menus.remove(index_);
-            } else {
-                menu.removeMenuItem(((AbsMenuItemStruct)_c).element());
-                menus.remove(index_);
+            if (_c instanceof AbsButtonStruct) {
+                ((AbsButtonStruct) _c).setParentMenu(NullStruct.NULL_VALUE);
             }
+            ((CustComponentStruct)_c).setNullParentComponent();
+            AbsCustComponent b_ = ((CustComponentStruct) _c).getComponent();
+            if (b_ instanceof EnabledMenu) {
+                ((EnabledMenu)b_).setParentMenu(null);
+            }
+            menu.removeMenuItem(b_);
+            getMenus().remove(index_);
         }
     }
 
-    public Struct getMenu(Struct _index) {
-        if (!menus.isValidIndex(((NumberStruct)_index).intStruct())) {
-            return NullStruct.NULL_VALUE;
-        }
-        return menus.get(((NumberStruct)_index).intStruct());
-    }
-
-    public IntStruct getMenuCount() {
-        return new IntStruct(menu.getItemCount());
-    }
     @Override
-    EnabledMenu getMenu() {
-        return getComponent();
-    }
-
-    AbsMenu getComponent() {
+    public AbsButton but() {
         return menu;
-    }
-    @Override
-    public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasMenu();
-    }
-
-    public void addSeparator() {
-        menu.addSeparator();
     }
 }

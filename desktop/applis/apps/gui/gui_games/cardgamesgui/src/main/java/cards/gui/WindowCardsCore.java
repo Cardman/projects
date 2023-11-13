@@ -48,12 +48,12 @@ public final class WindowCardsCore {
     private RulesTarot reglesTarot=new RulesTarot();
     private DisplayingTarot displayingTarot = new DisplayingTarot();
 
-    private AbsMenu parameters;
-    private AbsMenuItem timing;
-    private AbsMenuItem interact;
-    private AbsMenuItem language;
-    private AbsMenu displaying;
-    private final IdMap<GameEnum,AbsMenuItem> displayingGames = new IdMap<GameEnum,AbsMenuItem>();
+    private EnabledMenu parameters;
+    private EnabledMenu timing;
+    private EnabledMenu interact;
+    private EnabledMenu language;
+    private EnabledMenu displaying;
+    private final IdMap<GameEnum,EnabledMenu> displayingGames = new IdMap<GameEnum,EnabledMenu>();
 
     private final StringMap<StringMap<PreparedPagesCards>> preparedBelote;
     private final StringMap<StringMap<PreparedPagesCards>> preparedPresident;
@@ -236,7 +236,7 @@ public final class WindowCardsCore {
 //        commonParametersMenu(_inst, _cards);
 //    }
 
-    public void commonParametersMenu(AbsMenu _params,GroupFrame _inst, WindowCardsInt _cards) {
+    public void commonParametersMenu(EnabledMenu _params,GroupFrame _inst, WindowCardsInt _cards) {
         parameters = _params;
         String lg_ = _cards.getLanguageKey();
         timing= _inst.getCompoFactory().newMenuItem(_inst.getMessages().getVal(CST_TIMING));
@@ -257,7 +257,7 @@ public final class WindowCardsCore {
         parameters.addMenuItem(language);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
         displaying= _inst.getCompoFactory().newMenu(_inst.getMessages().getVal(CST_DISPLAYING));
-        AbsMenuItem sousSousMenu_ = _inst.getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
+        EnabledMenu sousSousMenu_ = _inst.getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
         sousSousMenu_.addActionListener(new DisplayingGameEvent(_cards, GameEnum.BELOTE));
         displaying.addMenuItem(sousSousMenu_);
         displayingGames.put(GameEnum.BELOTE, sousSousMenu_);
@@ -273,27 +273,27 @@ public final class WindowCardsCore {
         _inst.getJMenuBar().add(parameters);
     }
 
-    public IdMap<GameEnum, AbsMenuItem> getDisplayingGames() {
+    public IdMap<GameEnum, EnabledMenu> getDisplayingGames() {
         return displayingGames;
     }
 
-    public AbsMenu getDisplaying() {
+    public EnabledMenu getDisplaying() {
         return displaying;
     }
 
-    public AbsMenu getParameters() {
+    public EnabledMenu getParameters() {
         return parameters;
     }
 
-    public AbsMenuItem getTiming() {
+    public EnabledMenu getTiming() {
         return timing;
     }
 
-    public AbsMenuItem getInteract() {
+    public EnabledMenu getInteract() {
         return interact;
     }
 
-    public AbsMenuItem getLanguage() {
+    public EnabledMenu getLanguage() {
         return language;
     }
 

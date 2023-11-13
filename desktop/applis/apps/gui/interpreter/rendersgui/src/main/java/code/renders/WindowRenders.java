@@ -33,8 +33,8 @@ import code.util.ints.UniformingString;
 
 
 public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
-    private final AbsMenu menu;
-    private final AbsMenuItem open;
+    private final EnabledMenu menu;
+    private final EnabledMenu open;
     private final AbsTextField lgCode;
     private final AbsTextField path;
     private final RenderedPage session;
@@ -63,7 +63,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         session.setLanguage(_lg);
         session.setFrame(getCommonFrame());
         AbsTextField field_;
-        AbsPlainButton search_ = getCompoFactory().newPlainButton("search");
+        AbsButton search_ = getCompoFactory().newPlainButton("search");
         field_ = getCompoFactory().newTextField(20);
         AbsTextArea t_ = getCompoFactory().newTextArea(8, 32);
         session.setArea(t_);

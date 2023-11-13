@@ -6,12 +6,12 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class OutputDialogLanguage implements WithFrame {
-    private final AbsPlainButton val;
+    private final AbsButton val;
     private final ScrollCustomCombo chosenLanguage;
     private final AbsCommonFrame frame;
-    private final AbsMenuItem associated;
+    private final EnabledMenu associated;
 
-    public OutputDialogLanguage(WindowWithTreeImpl _w,AbsCommonFrame _fr, AbsMenuItem _c) {
+    public OutputDialogLanguage(WindowWithTreeImpl _w,AbsCommonFrame _fr, EnabledMenu _c) {
         frame = _fr;
         associated = _c;
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
@@ -46,10 +46,10 @@ public final class OutputDialogLanguage implements WithFrame {
     }
 
     @Override
-    public AbsMenuItem getMenu() {
+    public EnabledMenu getMenu() {
         return associated;
     }
-    public AbsPlainButton getVal() {
+    public AbsButton getVal() {
         return val;
     }
 }

@@ -188,7 +188,7 @@ public class ScenePanelMulti {
 //
 //    private AbsPlainButton goBack;
 
-    private AbsPlainButton server;
+    private AbsButton server;
 
 //    private final AbsPlainButton attract;
 //    private AbsPanel movesLearnt;
@@ -690,11 +690,11 @@ public class ScenePanelMulti {
 //        disableFishing();
         panelNetWork = compoFactory.newPageBox();
         panelOptions.add(panelNetWork, GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsPlainButton exit_ = window.getCompoFactory().newPlainButton(messages.getVal(EXIT));
+        AbsButton exit_ = window.getCompoFactory().newPlainButton(messages.getVal(EXIT));
         exit_.addActionListener(new ExitTradeEvent(window));
         if (window.getIndexInGame() == IndexConstants.FIRST_INDEX) {
             AbsPanel panel_ = compoFactory.newLineBox();
-            AbsPlainButton trade_ = window.getCompoFactory().newPlainButton(messages.getVal(TRADE));
+            AbsButton trade_ = window.getCompoFactory().newPlainButton(messages.getVal(TRADE));
             trade_.addActionListener(new ValidateTradingEvent(window));
             panel_.add(trade_);
             panel_.add(exit_);

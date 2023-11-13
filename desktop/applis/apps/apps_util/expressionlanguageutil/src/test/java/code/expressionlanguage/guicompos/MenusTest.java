@@ -73,7 +73,7 @@ public final class MenusTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct m_ = call(new FctMenu0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
-        call(new FctMenuAddSeparator(),null,ctx_,m_,null,st_);
+        call(new FctMenuAddSeparator(pr_.getCompoFactory(),""),null,ctx_,m_,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -110,8 +110,8 @@ public final class MenusTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct r_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
-        call(new FctAbsMenuItemAddActionListener(),null,ctx_,r_,one(NullStruct.NULL_VALUE),st_);
-        call(new FctAbsMenuItemAddActionListener(),null,ctx_,r_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
+        call(new FctButtonAddAction(),null,ctx_,r_,one(NullStruct.NULL_VALUE),st_);
+        call(new FctButtonAddAction(),null,ctx_,r_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         call(new FctAbsMenuSetText(),null,ctx_,r_,one(NullStruct.NULL_VALUE),st_);
         call(new FctAbsMenuGetText(),null,ctx_,r_,null,st_);
         call(new FctAbsMenuSetText(),null,ctx_,r_,one(new StringStruct("_")),st_);
@@ -126,8 +126,8 @@ public final class MenusTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct r_ = call(new FctMenuItemCheck0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
-        call(new FctAbsMenuItemAddActionListener(),null,ctx_,r_,one(NullStruct.NULL_VALUE),st_);
-        call(new FctAbsMenuItemAddActionListener(),null,ctx_,r_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
+        call(new FctButtonAddAction(),null,ctx_,r_,one(NullStruct.NULL_VALUE),st_);
+        call(new FctButtonAddAction(),null,ctx_,r_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         call(new FctAbsMenuSetText(),null,ctx_,r_,one(NullStruct.NULL_VALUE),st_);
         call(new FctAbsMenuGetText(),null,ctx_,r_,null,st_);
         call(new FctAbsMenuSetText(),null,ctx_,r_,one(new StringStruct("_")),st_);
@@ -520,5 +520,72 @@ public final class MenusTest extends EquallableElUtUtil {
         call(new FctMenuBarAdd(),null,ctx_,bar_,one(menu_),st_);
         call(new FctMenuBarAdd(),null,ctx_,bar_,one(menu2_),st_);
         assertEq(2,toLong(call(new FctMenuBarNb(),null,ctx_,bar_,null,st_)));
+    }
+
+    @Test
+    public void count19() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct menu_ = call(new FctMenu1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu2_ = call(new FctSeparator(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        call(new FctMenuAdd(),null,ctx_,menu_,one(menu2_),st_);
+        assertEq(1,toLong(call(new FctMenuNb(),null,ctx_,menu_,null,st_)));
+    }
+
+    @Test
+    public void count20() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct menu_ = call(new FctMenu1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu2_ = call(new FctSeparator(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        call(new FctMenuAdd(),null,ctx_,menu_,one(menu2_),st_);
+        call(new FctMenuRemove(),null,ctx_,menu_,one(menu2_),st_);
+        assertEq(0,toLong(call(new FctMenuNb(),null,ctx_,menu_,null,st_)));
+    }
+
+    @Test
+    public void count21() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct bar_ = call(new FctMenuBar(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        call(new FctCompoGetWidth(),null,ctx_,bar_,null,st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void or1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct ls_ = call(new FctSeparator(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, null, st_);
+        call(new FctSeparatorSep1(),null,ctx_,ls_,one(new IntStruct(1)),st_);
+        assertEq(1,((NumberStruct)call(new FctSeparatorSep0(),null,ctx_,ls_,null,st_)).intStruct());
+    }
+    @Test
+    public void or2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct ls_ = call(new DfSeparator(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, st_);
+        call(new FctSeparatorSep1(),null,ctx_,ls_,one(new IntStruct(1)),st_);
+        assertEq(1,((NumberStruct)call(new FctSeparatorSep0(),null,ctx_,ls_,null,st_)).intStruct());
     }
 }

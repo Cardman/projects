@@ -75,7 +75,7 @@ public final class GuiStackForm {
     }
 
     public static void initPrefs(CustList<BreakPointCondition> _bpc, CrudGeneForm<String, Integer> _f) {
-        AbsPlainButton pref_ = _f.getFactory().getCompoFactory().newPlainButton("pref");
+        AbsButton pref_ = _f.getFactory().getCompoFactory().newPlainButton("pref");
         pref_.addActionListener(new ValuePrefEvent(_f, _bpc));
         _f.getButtons().add(pref_);
     }
@@ -124,11 +124,11 @@ public final class GuiStackForm {
         return getStackConstraintsForm().getMustNotBe();
     }
 
-    public AbsPlainButton getBpAddFile() {
+    public AbsButton getBpAddFile() {
         return getStackConstraintsForm().getBpAddFile();
     }
 
-    public AbsPlainButton getBpRemoveFile() {
+    public AbsButton getBpRemoveFile() {
         return getStackConstraintsForm().getBpRemoveFile();
     }
 

@@ -45,6 +45,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private static final String TABBED_PANE="_____1238";
     private static final String PANEL_BORDER="829";
     private static final String BUTTON="__1023";
+    private static final String ABS_BUTTON="__1023_";
+    private static final String ABS_SEPARATOR="__1023__";
+    private static final String ABS_SEPARATOR_ORIENT="__1023___";
     private static final String PROG_BAR="_____1239";
     private static final String CHECK_BOX="_____1240";
     private static final String RADIO="_____1241";
@@ -170,6 +173,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private static final String ADD_LISTENER="___1029";
     private static final String REMOVE_LISTENER="___1030";
     private static final String GET_LISTENERS="___1058";
+    private static final String GET_ACTION_LISTENERS="___1058_";
     private static final String REQUEST_FOCUS="___1081";
     private static final String FOCUSED="___1081_";
     private static final String ACTION_LISTENER_IMPLICIT_0_RUNNER="___1081__";
@@ -656,6 +660,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasTabbedPaneRemove;
     private String aliasTabbedPaneIndex;
     private String aliasTabbedPaneSelIndex;
+    private String aliasAbsButton;
+    private String aliasSeparator;
+    private String aliasSeparatorOrient;
     private String aliasButton;
     private String aliasProgBar;
     private String aliasProgBarValue;
@@ -745,6 +752,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasAddListener;
     private String aliasRemoveListener;
     private String aliasGetListeners;
+    private String aliasGetActionListeners;
     private String aliasAddWindowListener;
     private String aliasSetLabelText;
     private String aliasSetLabelImage;
@@ -888,8 +896,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasMenuBarNb;
     private String aliasAbsMenu;
     private String aliasAbsMenuGetParent;
-    private String aliasAbsMenuIsEnabled;
-    private String aliasAbsMenuSetEnabled;
     private String aliasAbsMenuSetDeepEnabled;
     private String aliasAbsMenuGetText;
     private String aliasAbsMenuSetText;
@@ -1922,7 +1928,22 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasButton, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL, new DfButton(_cust,_guiEx,aliasButton));
+        stdcl_ = new StandardClass(aliasButton, fields_, constructors_, methods_, aliasAbsButton, MethodModifier.FINAL, new DfButton(_cust,_guiEx,aliasButton));
+        stdcl_.addSuperStdTypes(input_);
+        stdcl_.addSuperStdTypes(component_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false, new FctButton0(_cust,_guiEx,aliasButton));
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasButton0Button0()), new FctButton1(_cust,_guiEx,aliasButton));
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        std_ = stdcl_;
+        StandardType.addType(_content.getStandards(), aliasButton, std_);
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<CstFieldInfo>();
+        stdcl_ = new StandardClass(aliasAbsButton, fields_, constructors_, methods_, aliasInput, MethodModifier.ABSTRACT);
         stdcl_.addSuperStdTypes(input_);
         stdcl_.addSuperStdTypes(component_);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
@@ -1933,16 +1954,33 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         method_ = new StandardMethod(aliasRemoveListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButton0RemoveListener0()), new FctButtonRemoveAction());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetListeners, params_, StringExpUtil.getPrettyArrayType(aliasActionListener), false, MethodModifier.FINAL,new StringList(), new FctButtonGetActions());
+        method_ = new StandardMethod(aliasGetActionListeners, params_, StringExpUtil.getPrettyArrayType(aliasActionListener), false, MethodModifier.FINAL,new StringList(), new FctButtonGetActions());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasAbsMenuSetText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenu0AbsMenuSetText0()), new FctAbsMenuSetText());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false, new FctButton0(_cust,_guiEx,aliasButton));
-        StandardNamedFunction.addFct(constructors_, ctor_);
-        params_ = new StringList(_content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasButton0Button0()), new FctButton1(_cust,_guiEx,aliasButton));
+        method_ = new StandardMethod(aliasAbsMenuGetText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctAbsMenuGetText());
+        StandardNamedFunction.addFct(methods_, method_);
+        std_ = stdcl_;
+        StandardType.addType(_content.getStandards(), aliasAbsButton, std_);
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<CstFieldInfo>();
+        stdcl_ = new StandardClass(aliasSeparator, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL,new DfSeparator(_cust,_guiEx,aliasSeparator));
+        stdcl_.addSuperStdTypes(component_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSeparatorOrient, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(), new FctSeparatorSep0());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasSeparatorOrient, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSeparator0SeparatorSetOrient0()), new FctSeparatorSep1());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false, new FctSeparator(_cust,_guiEx,aliasSeparator));
         StandardNamedFunction.addFct(constructors_, ctor_);
         std_ = stdcl_;
-        StandardType.addType(_content.getStandards(), aliasButton, std_);
+        StandardType.addType(_content.getStandards(), aliasSeparator, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
@@ -2455,15 +2493,14 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean(), _content.getPrimTypes().getAliasPrimBoolean(), _content.getPrimTypes().getAliasPrimBoolean(), _content.getCharSeq().getAliasString());
         StandardConstructor ctor_ = new StandardConstructor(params_, false, new StringList(guiAliasParameters.getAliasActionEvent0ActionEvent0(), guiAliasParameters.getAliasActionEvent0ActionEvent1(), guiAliasParameters.getAliasActionEvent0ActionEvent2(), guiAliasParameters.getAliasActionEvent0ActionEvent3()), new FctActionEvent(_cust, _guiEx, aliasActionEvent));
         StandardNamedFunction.addFct(constructors_, ctor_);
-        StandardClass std_ = stdcl_;
-        StandardType.addType(_content.getStandards(), aliasActionEvent, std_);
+        StandardType.addType(_content.getStandards(), aliasActionEvent, stdcl_);
     }
 
     private void buildMenus(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
-        StandardClass stdcl_ = new StandardClass(aliasMenuBar, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        StandardClass stdcl_ = new StandardClass(aliasMenuBar, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         StringList params_ = new StringList(aliasMenu);
         StandardMethod method_ = new StandardMethod(aliasMenuBarAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new StringList(guiAliasParameters.getAliasMenuBar0TabbedPaneAdd0()), new FctMenuBarAdd());
@@ -2484,23 +2521,11 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasAbsMenu, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
+        stdcl_ = new StandardClass(aliasAbsMenu, fields_, constructors_, methods_, aliasAbsButton, StdClassModifier.ABSTRACT);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         StandardClass absMenu_ = stdcl_;
         params_ = new StringList();
         method_ = new StandardMethod(aliasAbsMenuGetParent, params_, aliasMenu, false, MethodModifier.FINAL, new FctAbsMenuGetParentMenu());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasAbsMenuSetText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenu0AbsMenuSetText0()), new FctAbsMenuSetText());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasAbsMenuGetText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctAbsMenuGetText());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasAbsMenuSetEnabled, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenu0InputSetEnabled0()), new FctAbsMenuSetEnabled());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasAbsMenuIsEnabled, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctAbsMenuIsEnabled());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
         method_ = new StandardMethod(aliasAbsMenuSetDeepEnabled, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenu0AbsMenuSetDeepEnabled0()), new FctAbsMenuSetDeepEnabled());
@@ -2525,7 +2550,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         method_ = new StandardMethod(aliasMenuNb, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctMenuNb());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMenuAddSeparator, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctMenuAddSeparator());
+        method_ = new StandardMethod(aliasMenuAddSeparator, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctMenuAddSeparator(_guiEx.getCompoFactory(),aliasSeparator));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false, new FctMenu0(_cust,_guiEx));
@@ -2541,9 +2566,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         stdcl_.addSuperStdTypes(absMenu_);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         StandardClass menuItem_ = stdcl_;
-        params_ = new StringList(aliasActionListener);
-        method_ = new StandardMethod(aliasAbsMenuItemAddAction, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenuItem0TabbedPaneAdd0()), new FctAbsMenuItemAddActionListener());
-        StandardNamedFunction.addFct(methods_, method_);
         StandardType.addType(_content.getStandards(), aliasAbsMenuItem, stdcl_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -2645,18 +2667,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasPopupMenuNbComp, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctPopupMenuNbComp());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasAbsMenu);
-        method_ = new StandardMethod(aliasPopupMenuAddMenu, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuAddMenu0()), new FctPopupMenuAddMenu());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasPopupMenuGetMenu, params_, aliasAbsMenu, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuGetMenu0()), new FctPopupMenuGetMenu());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasAbsMenu);
-        method_ = new StandardMethod(aliasPopupMenuRemoveMenu, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuRemoveMenu0()), new FctPopupMenuRemoveMenu());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasPopupMenuNbMenu, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctPopupMenuNbMenu());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(aliasComponent,_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
         method_ = new StandardMethod(aliasPopupMenuShow, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuShow0(),guiAliasParameters.getAliasPopupMenu0PopupMenuShow1(),guiAliasParameters.getAliasPopupMenu0PopupMenuShow2()), new FctPopupMenuShow());
@@ -3111,6 +3121,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasTree(LgNamesContent.get(_util,_cust,_mapping.getVal(TREE)));
         setAliasTableGui(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_GUI)));
         setAliasButton(LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON)));
+        setAliasAbsButton(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_BUTTON)));
+        setAliasSeparator(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_SEPARATOR)));
+        setAliasSeparatorOrient(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_SEPARATOR_ORIENT)));
         setAliasConfirm(LgNamesContent.get(_util,_cust,_mapping.getVal(CONFIRM)));
         setAliasFrame(LgNamesContent.get(_util,_cust,_mapping.getVal(FRAME)));
         setAliasDialog(LgNamesContent.get(_util,_cust,_mapping.getVal(DIALOG)));
@@ -3367,11 +3380,11 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasAddListener(LgNamesContent.get(_util,_cust,_mapping.getVal(ADD_LISTENER)));
         setAliasRemoveListener(LgNamesContent.get(_util,_cust,_mapping.getVal(REMOVE_LISTENER)));
         setAliasGetListeners(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_LISTENERS)));
+        setAliasGetActionListeners(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_ACTION_LISTENERS)));
         setAliasMenuItemCheck(LgNamesContent.get(_util,_cust,_mapping.getVal(MENU_ITEM_CHECK)));
         setAliasMenuAddSeparator(LgNamesContent.get(_util,_cust,_mapping.getVal(MENU_ADD_SEPARATOR)));
         setAliasAbsMenuItem(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_MENU_ITEM)));
         setAliasMenuItemCheckIsSelected(LgNamesContent.get(_util,_cust,_mapping.getVal(MENU_ITEM_CHECK_IS_SELECTED)));
-        setAliasAbsMenuSetEnabled(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_MENU_SET_ENABLED)));
         setAliasMenuRemove(LgNamesContent.get(_util,_cust,_mapping.getVal(MENU_REMOVE)));
         setAliasAbsMenuItemAddAction(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_MENU_ITEM_ADD_ACTION)));
         setAliasAbsMenuSetText(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_MENU_SET_TEXT)));
@@ -3528,7 +3541,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasMenuBarGet(LgNamesContent.get(_util,_cust,_mapping.getVal(MENU_BAR_GET)));
         setAliasMenuBarRemove(LgNamesContent.get(_util,_cust,_mapping.getVal(MENU_BAR_REMOVE)));
         setAliasAbsMenuGetParent(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_MENU_GET_PARENT)));
-        setAliasAbsMenuIsEnabled(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_MENU_IS_ENABLED)));
         setAliasMenuBarAdd(LgNamesContent.get(_util,_cust,_mapping.getVal(MENU_BAR_ADD)));
         setAliasGetMenuBar(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_MENU_BAR)));
         setAliasSliderGetOrientation(LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_GET_ORIENTATION)));
@@ -3575,6 +3587,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _en.add(TABBED_PANE,"TabbedPane=$core.TabbedPane");
         _en.add(PANEL_BORDER,"PanelBorder=$core.PanelBorder");
         _en.add(BUTTON,"Button=$core.Button");
+        _en.add(ABS_BUTTON,"AbsButton=$core.AbsButton");
+        _en.add(ABS_SEPARATOR,"AbsSeparator=$core.Separator");
+        _en.add(ABS_SEPARATOR_ORIENT,"AbsSeparatorOrient=orient");
         _en.add(PROG_BAR,"ProgBar=$core.ProgBar");
         _en.add(CHECK_BOX,"CheckBox=$core.CheckBox");
         _en.add(RADIO,"Radio=$core.Radio");
@@ -3700,6 +3715,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _en.add(ADD_LISTENER,"AddListener=addList");
         _en.add(REMOVE_LISTENER,"RemoveListener=removeList");
         _en.add(GET_LISTENERS,"GetListeners=getLists");
+        _en.add(GET_ACTION_LISTENERS,"GetActionListeners=getActionLists");
         _en.add(REQUEST_FOCUS,"RequestFocus=requestFocus");
         _en.add(FOCUSED,"Focused=focused");
         _en.add(ACTION_LISTENER_IMPLICIT_0_RUNNER,"ActionListenerImplicit0Runner=runner");
@@ -3966,7 +3982,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _en.add(MENU_BAR_GET,"MenuBarGet=get");
         _en.add(MENU_BAR_REMOVE,"MenuBarRemove=remove");
         _en.add(MENU_BAR_NB,"MenuBarNb=nb");
-        _en.add(ABS_MENU_GET_PARENT,"AbsMenuGetParent=getParent");
+        _en.add(ABS_MENU_GET_PARENT,"AbsMenuGetParent=getParentMenu");
         _en.add(ABS_MENU_GET_TEXT,"AbsMenuGetText=getText");
         _en.add(ABS_MENU_IS_ENABLED,"AbsMenuIsEnabled=isEnabled");
         _en.add(ABS_MENU_SET_DEEP_ENABLED,"AbsMenuSetDeepEnabled=setDeepEnabled");
@@ -4022,6 +4038,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _fr.add(TABBED_PANE,"TabbedPane=$coeur.Onglets");
         _fr.add(PANEL_BORDER,"PanelBorder=$coeur.PanneauBordure");
         _fr.add(BUTTON,"Button=$coeur.Bouton");
+        _fr.add(ABS_BUTTON,"AbsButton=$coeur.AbsBouton");
+        _fr.add(ABS_SEPARATOR,"AbsSeparator=$coeur.Separateur");
+        _fr.add(ABS_SEPARATOR_ORIENT,"AbsSeparatorOrient=orient");
         _fr.add(PROG_BAR,"ProgBar=$coeur.BarreProg");
         _fr.add(CHECK_BOX,"CheckBox=$coeur.Case");
         _fr.add(RADIO,"Radio=$coeur.Radio");
@@ -4147,6 +4166,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _fr.add(ADD_LISTENER,"AddListener=ajEcout");
         _fr.add(REMOVE_LISTENER,"RemoveListener=supprEcout");
         _fr.add(GET_LISTENERS,"GetListeners=valEcouts");
+        _fr.add(GET_ACTION_LISTENERS,"GetActionListeners=valActEcouts");
         _fr.add(REQUEST_FOCUS,"RequestFocus=demanderFocus");
         _fr.add(FOCUSED,"Focused=afocus");
         _fr.add(ACTION_LISTENER_IMPLICIT_0_RUNNER,"ActionListenerImplicit0Runner=exec");
@@ -4413,7 +4433,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _fr.add(MENU_BAR_GET,"MenuBarGet=val");
         _fr.add(MENU_BAR_REMOVE,"MenuBarRemove=suppr");
         _fr.add(MENU_BAR_NB,"MenuBarNb=nb");
-        _fr.add(ABS_MENU_GET_PARENT,"AbsMenuGetParent=valParent");
+        _fr.add(ABS_MENU_GET_PARENT,"AbsMenuGetParent=valParentMenu");
         _fr.add(ABS_MENU_GET_TEXT,"AbsMenuGetText=valText");
         _fr.add(ABS_MENU_IS_ENABLED,"AbsMenuIsEnabled=estActif");
         _fr.add(ABS_MENU_SET_DEEP_ENABLED,"AbsMenuSetDeepEnabled=majActifProfond");
@@ -4636,53 +4656,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(PAINT_REFRESH),getAliasPaintRefresh()),
                 new KeyValueMemberName(_mapping.getVal(PAINT_REFRESH_ONE),getAliasPaintRefreshOne()))
         );
-        m_.addEntry(getAliasMenuBar(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(_mapping.getVal(MENU_BAR_ADD),getAliasMenuBarAdd()),
-                new KeyValueMemberName(_mapping.getVal(MENU_BAR_GET),getAliasMenuBarGet()),
-                new KeyValueMemberName(_mapping.getVal(MENU_BAR_REMOVE),getAliasMenuBarRemove()),
-                new KeyValueMemberName(_mapping.getVal(MENU_BAR_NB),getAliasMenuBarNb())
-        ));
-        m_.addEntry(getAliasAbsMenu(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_GET_PARENT),getAliasAbsMenuGetParent()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_GET_TEXT),getAliasAbsMenuGetText()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_IS_ENABLED),getAliasAbsMenuIsEnabled()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_DEEP_ENABLED),getAliasAbsMenuSetDeepEnabled()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_ENABLED),getAliasAbsMenuSetEnabled()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_TEXT),getAliasAbsMenuSetText())
-        ));
-        m_.addEntry(getAliasMenu(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_GET_PARENT),getAliasAbsMenuGetParent()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_GET_TEXT),getAliasAbsMenuGetText()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_IS_ENABLED),getAliasAbsMenuIsEnabled()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_DEEP_ENABLED),getAliasAbsMenuSetDeepEnabled()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_ENABLED),getAliasAbsMenuSetEnabled()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_TEXT),getAliasAbsMenuSetText()),
-                new KeyValueMemberName(_mapping.getVal(MENU_ADD),getAliasMenuAdd()),
-                new KeyValueMemberName(_mapping.getVal(MENU_GET),getAliasMenuGet()),
-                new KeyValueMemberName(_mapping.getVal(MENU_REMOVE),getAliasMenuRemove()),
-                new KeyValueMemberName(_mapping.getVal(MENU_NB),getAliasMenuNb()),
-                new KeyValueMemberName(_mapping.getVal(MENU_ADD_SEPARATOR),getAliasMenuAddSeparator())
-        ));
-        m_.addEntry(getAliasAbsMenuItem(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_GET_PARENT),getAliasAbsMenuGetParent()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_GET_TEXT),getAliasAbsMenuGetText()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_IS_ENABLED),getAliasAbsMenuIsEnabled()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_DEEP_ENABLED),getAliasAbsMenuSetDeepEnabled()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_ENABLED),getAliasAbsMenuSetEnabled()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_TEXT),getAliasAbsMenuSetText()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_ITEM_ADD_ACTION),getAliasAbsMenuItemAddAction())
-        ));
-        m_.addEntry(getAliasMenuItemCheck(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_GET_PARENT),getAliasAbsMenuGetParent()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_GET_TEXT),getAliasAbsMenuGetText()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_IS_ENABLED),getAliasAbsMenuIsEnabled()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_DEEP_ENABLED),getAliasAbsMenuSetDeepEnabled()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_ENABLED),getAliasAbsMenuSetEnabled()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_TEXT),getAliasAbsMenuSetText()),
-                new KeyValueMemberName(_mapping.getVal(ABS_MENU_ITEM_ADD_ACTION),getAliasAbsMenuItemAddAction()),
-                new KeyValueMemberName(_mapping.getVal(MENU_ITEM_CHECK_IS_SELECTED),getAliasMenuItemCheckIsSelected()),
-                new KeyValueMemberName(_mapping.getVal(MENU_ITEM_CHECK_SET_SELECTED),getAliasMenuItemCheckSetSelected())
-        ));
         m_.addEntry(getAliasCommand(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(COMMAND_BINDING),getAliasCommandBinding()),
                 new KeyValueMemberName(_mapping.getVal(COMMAND_ACTION),getAliasCommandAction())
@@ -4735,7 +4708,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(SET_LABEL_TEXT),getAliasSetLabelText())),names_));
         _m.addEntry(getAliasImageLabel(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(SET_LABEL_IMAGE),getAliasSetLabelImage())),names_));
-        _m.addEntry(getAliasButton(),merge(new CustList<KeyValueMemberName>(),names_));
+        _m.addEntry(getAliasSeparator(),merge(new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(ABS_SEPARATOR_ORIENT),getAliasSeparatorOrient())
+        ),names_));
         _m.addEntry(getAliasProgBar(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(PROG_BAR_OR),getAliasProgBarOr()),
                 new KeyValueMemberName(_mapping.getVal(PROG_BAR_VALUE),getAliasProgBarValue()),
@@ -4761,15 +4736,23 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(SPLIT_PANE_IS_ONE_TOUCH_EXPANDABLE),getAliasSplitPaneIsOneTouchExpandable()),
                 new KeyValueMemberName(_mapping.getVal(SPLIT_PANE_SET_ONE_TOUCH_EXPANDABLE),getAliasSplitPaneSetOneTouchExpandable()),
                 new KeyValueMemberName(_mapping.getVal(SPLIT_PANE_VALIDATE),getAliasSplitPaneValidate())),names_));
-        _m.addEntry(getAliasInput(),merge(new CustList<KeyValueMemberName>(
+        CustList<KeyValueMemberName> absInput_ = new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(INPUT_IS_ENABLED),getAliasInputIsEnabled()),
-                new KeyValueMemberName(_mapping.getVal(INPUT_SET_ENABLED),getAliasInputSetEnabled())),names_));
+                new KeyValueMemberName(_mapping.getVal(INPUT_SET_ENABLED),getAliasInputSetEnabled()));
+        CustList<KeyValueMemberName> allInput_ = merge(absInput_,names_);
+        CustList<KeyValueMemberName> absButMet_ = new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(ABS_MENU_GET_TEXT),getAliasAbsMenuGetText()),
+                new KeyValueMemberName(_mapping.getVal(GET_ACTION_LISTENERS),getAliasGetActionListeners()),
+                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_TEXT),getAliasAbsMenuSetText()));
+        CustList<KeyValueMemberName> allAbsBut_ = merge(absButMet_,allInput_);
+        _m.addEntry(getAliasAbsButton(),allAbsBut_);
+        _m.addEntry(getAliasInput(),allInput_);
         _m.addEntry(getAliasCheckBox(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(CHECK_BOX_ADD_ACTION),getAliasCheckBoxAddAction()),
                 new KeyValueMemberName(_mapping.getVal(CHECK_BOX_GET_TEXT),getAliasCheckBoxGetText()),
                 new KeyValueMemberName(_mapping.getVal(CHECK_BOX_SET_TEXT),getAliasCheckBoxSetText()),
                 new KeyValueMemberName(_mapping.getVal(CHECK_BOX_IS_SELECTED),getAliasCheckBoxIsSelected()),
-                new KeyValueMemberName(_mapping.getVal(CHECK_BOX_SET_SELECTED),getAliasCheckBoxSetSelected())),names_)
+                new KeyValueMemberName(_mapping.getVal(CHECK_BOX_SET_SELECTED),getAliasCheckBoxSetSelected())),allInput_)
         );
         _m.addEntry(getAliasSpinner(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(SPINNER_GET_MAX),getAliasSpinnerGetMax()),
@@ -4782,7 +4765,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(SPINNER_SET_VALUE),getAliasSpinnerSetValue()),
                 new KeyValueMemberName(_mapping.getVal(SPINNER_SET_RANGE),getAliasSpinnerSetRange()),
                 new KeyValueMemberName(_mapping.getVal(SPINNER_SET_RANGE_VALUE),getAliasSpinnerSetRangeValue()),
-                new KeyValueMemberName(_mapping.getVal(ADD_CHANGE),getAliasAddChange())),names_)
+                new KeyValueMemberName(_mapping.getVal(ADD_CHANGE),getAliasAddChange())),allInput_)
         );
         _m.addEntry(getAliasSlider(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(SLIDER_GET_MAX),getAliasSliderGetMax()),
@@ -4793,14 +4776,14 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(SLIDER_SET_MIN),getAliasSliderSetMin()),
                 new KeyValueMemberName(_mapping.getVal(SLIDER_SET_ORIENTATION),getAliasSliderSetOrientation()),
                 new KeyValueMemberName(_mapping.getVal(SLIDER_SET_VALUE),getAliasSliderSetValue()),
-                new KeyValueMemberName(_mapping.getVal(ADD_CHANGE),getAliasAddChange())),names_)
+                new KeyValueMemberName(_mapping.getVal(ADD_CHANGE),getAliasAddChange())),allInput_)
         );
         _m.addEntry(getAliasRadio(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(RADIO_GET_TEXT),getAliasRadioGetText()),
                 new KeyValueMemberName(_mapping.getVal(RADIO_SET_TEXT),getAliasRadioSetText()),
                 new KeyValueMemberName(_mapping.getVal(RADIO_IS_SELECTED),getAliasRadioIsSelected()),
                 new KeyValueMemberName(_mapping.getVal(RADIO_SET_SELECTED),getAliasRadioSetSelected()),
-                new KeyValueMemberName(_mapping.getVal(ADD_CHANGE),getAliasAddChange())),names_)
+                new KeyValueMemberName(_mapping.getVal(ADD_CHANGE),getAliasAddChange())),allInput_)
         );
         _m.addEntry(getAliasTextField(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_ADD_ACTION),getAliasTextFieldAddAction()),
@@ -4808,7 +4791,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_GET_ACTIONS),getAliasTextFieldGetActions()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_ADD_POPUP),getAliasTextFieldAddPopup()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_GET_TEXT),getAliasTextFieldGetText()),
-                new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_SET_TEXT),getAliasTextFieldSetText())),names_)
+                new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_SET_TEXT),getAliasTextFieldSetText())),allInput_)
         );
         _m.addEntry(getAliasTextArea(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(TEXT_AREA_APPEND),getAliasTextAreaAppend()),
@@ -4823,7 +4806,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(TEXT_AREA_GET_TEXT),getAliasTextAreaGetText()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SET_TEXT),getAliasTextAreaSetText()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SELECT),getAliasTextAreaSelect()),
-                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SELECT_ALL),getAliasTextAreaSelectAll())),names_)
+                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SELECT_ALL),getAliasTextAreaSelectAll())),allInput_)
         );
         _m.addEntry(getAliasCombo(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(COMBO_ADD_ITEM),getAliasComboAddItem()),
@@ -4839,7 +4822,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_SET_VISIBLE_ROW_COUNT),getAliasGrListSetVisibleRowCount()),
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_UPDATE_GRAPHICS),getAliasGrListUpdateGraphics()),
                 new KeyValueMemberName(_mapping.getVal(COMBO_ADD_LISTENER),getAliasComboAddListener()),
-                new KeyValueMemberName(_mapping.getVal(COMBO_REMOVE_LISTENER),getAliasComboRemoveListener())),names_)
+                new KeyValueMemberName(_mapping.getVal(COMBO_REMOVE_LISTENER),getAliasComboRemoveListener())),allInput_)
         );
         _m.addEntry(getAliasGrList(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_ADD),getAliasGrListAdd()),
@@ -4859,7 +4842,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_ADD_SELECTION),getAliasGrListAddSelection()),
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_REMOVE_SELECTION),getAliasGrListRemoveSelection()),
                 new KeyValueMemberName(_mapping.getVal(GR_LIST_SET_VISIBLE_ROW_COUNT),getAliasGrListSetVisibleRowCount()),
-                new KeyValueMemberName(_mapping.getVal(GR_LIST_UPDATE_GRAPHICS),getAliasGrListUpdateGraphics())),names_)
+                new KeyValueMemberName(_mapping.getVal(GR_LIST_UPDATE_GRAPHICS),getAliasGrListUpdateGraphics())),allInput_)
         );
         _m.addEntry(getAliasPopupMenu(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(POPUP_MENU_ADD),getAliasPopupMenuAdd()),
@@ -4905,6 +4888,37 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(TABLE_IS_MULTIPLE),getAliasTableIsMultiple()),
                 new KeyValueMemberName(_mapping.getVal(TABLE_IS_REORDER),getAliasTableIsReorder())),names_)
         );
+        _m.addEntry(getAliasMenuBar(),merge(new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(MENU_BAR_ADD),getAliasMenuBarAdd()),
+                new KeyValueMemberName(_mapping.getVal(MENU_BAR_GET),getAliasMenuBarGet()),
+                new KeyValueMemberName(_mapping.getVal(MENU_BAR_REMOVE),getAliasMenuBarRemove()),
+                new KeyValueMemberName(_mapping.getVal(MENU_BAR_NB),getAliasMenuBarNb())
+        ),names_));
+        _m.addEntry(getAliasAbsMenu(),merge(new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(ABS_MENU_GET_PARENT),getAliasAbsMenuGetParent()),
+                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_DEEP_ENABLED),getAliasAbsMenuSetDeepEnabled())
+        ),allAbsBut_));
+        _m.addEntry(getAliasMenu(),merge(new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(ABS_MENU_GET_PARENT),getAliasAbsMenuGetParent()),
+                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_DEEP_ENABLED),getAliasAbsMenuSetDeepEnabled()),
+                new KeyValueMemberName(_mapping.getVal(MENU_ADD),getAliasMenuAdd()),
+                new KeyValueMemberName(_mapping.getVal(MENU_GET),getAliasMenuGet()),
+                new KeyValueMemberName(_mapping.getVal(MENU_REMOVE),getAliasMenuRemove()),
+                new KeyValueMemberName(_mapping.getVal(MENU_NB),getAliasMenuNb()),
+                new KeyValueMemberName(_mapping.getVal(MENU_ADD_SEPARATOR),getAliasMenuAddSeparator())
+        ),allAbsBut_));
+        _m.addEntry(getAliasAbsMenuItem(),merge(new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(ABS_MENU_GET_PARENT),getAliasAbsMenuGetParent()),
+                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_DEEP_ENABLED),getAliasAbsMenuSetDeepEnabled()),
+                new KeyValueMemberName(_mapping.getVal(ABS_MENU_ITEM_ADD_ACTION),getAliasAbsMenuItemAddAction())
+        ),allAbsBut_));
+        _m.addEntry(getAliasMenuItemCheck(),merge(new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(ABS_MENU_GET_PARENT),getAliasAbsMenuGetParent()),
+                new KeyValueMemberName(_mapping.getVal(ABS_MENU_SET_DEEP_ENABLED),getAliasAbsMenuSetDeepEnabled()),
+                new KeyValueMemberName(_mapping.getVal(ABS_MENU_ITEM_ADD_ACTION),getAliasAbsMenuItemAddAction()),
+                new KeyValueMemberName(_mapping.getVal(MENU_ITEM_CHECK_IS_SELECTED),getAliasMenuItemCheckIsSelected()),
+                new KeyValueMemberName(_mapping.getVal(MENU_ITEM_CHECK_SET_SELECTED),getAliasMenuItemCheckSetSelected())
+        ),allAbsBut_));
     }
 
     private static CustList<KeyValueMemberName> merge(CustList<KeyValueMemberName> _one, CustList<KeyValueMemberName> _two) {
@@ -5082,6 +5096,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         ref_.addEntry(_mapping.getVal(TABBED_PANE),getAliasTabbedPane());
         ref_.addEntry(_mapping.getVal(PANEL_BORDER),getAliasPanelBorder());
         ref_.addEntry(_mapping.getVal(BUTTON),getAliasButton());
+        ref_.addEntry(_mapping.getVal(ABS_BUTTON),getAliasAbsButton());
+        ref_.addEntry(_mapping.getVal(ABS_SEPARATOR),getAliasSeparator());
         ref_.addEntry(_mapping.getVal(PROG_BAR),getAliasProgBar());
         ref_.addEntry(_mapping.getVal(CHECK_BOX),getAliasCheckBox());
         ref_.addEntry(_mapping.getVal(RADIO),getAliasRadio());
@@ -5942,6 +5958,30 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         this.aliasButton = _v;
     }
 
+    public String getAliasAbsButton() {
+        return aliasAbsButton;
+    }
+
+    public void setAliasAbsButton(String _v) {
+        this.aliasAbsButton = _v;
+    }
+
+    public String getAliasSeparator() {
+        return aliasSeparator;
+    }
+
+    public void setAliasSeparator(String _v) {
+        this.aliasSeparator = _v;
+    }
+
+    public String getAliasSeparatorOrient() {
+        return aliasSeparatorOrient;
+    }
+
+    public void setAliasSeparatorOrient(String _v) {
+        this.aliasSeparatorOrient = _v;
+    }
+
     public String getAliasTextLabel() {
         return aliasTextLabel;
     }
@@ -6564,6 +6604,14 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
     public void setAliasGetListeners(String _v) {
         this.aliasGetListeners = _v;
+    }
+
+    public String getAliasGetActionListeners() {
+        return aliasGetActionListeners;
+    }
+
+    public void setAliasGetActionListeners(String _v) {
+        this.aliasGetActionListeners = _v;
     }
 
     public String getAliasAddWindowListener() {
@@ -8479,14 +8527,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         this.aliasAbsMenuGetParent = _v;
     }
 
-    public String getAliasAbsMenuIsEnabled() {
-        return aliasAbsMenuIsEnabled;
-    }
-
-    public void setAliasAbsMenuIsEnabled(String _v) {
-        this.aliasAbsMenuIsEnabled = _v;
-    }
-
     public String getAliasMenu() {
         return aliasMenu;
     }
@@ -8525,14 +8565,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
     public void setAliasMenuNb(String _v) {
         this.aliasMenuNb = _v;
-    }
-
-    public String getAliasAbsMenuSetEnabled() {
-        return aliasAbsMenuSetEnabled;
-    }
-
-    public void setAliasAbsMenuSetEnabled(String _v) {
-        this.aliasAbsMenuSetEnabled = _v;
     }
 
     public String getAliasAbsMenuSetDeepEnabled() {

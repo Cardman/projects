@@ -47,7 +47,7 @@ public final class MockCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsPlainButton newImgButton(AbstractImage _imageIcon) {
+    public AbsButton newImgButton(AbstractImage _imageIcon) {
         _imageIcon.getWidth();
         return new MockPlainButton();
     }
@@ -223,12 +223,12 @@ public final class MockCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsPlainButton newPlainButton() {
+    public AbsButton newPlainButton() {
         return new MockPlainButton();
     }
 
     @Override
-    public AbsPlainButton newPlainButton(String _t) {
+    public AbsButton newPlainButton(String _t) {
         return new MockPlainButton(_t);
     }
 
@@ -268,33 +268,38 @@ public final class MockCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsMenu newMenu() {
+    public EnabledMenu newMenu() {
         return new MockMenu();
     }
 
     @Override
-    public AbsMenu newMenu(String _value) {
+    public EnabledMenu newMenu(String _value) {
         return new MockMenu(_value);
     }
 
     @Override
-    public AbsCheckBoxMenuItem newCheckBoxMenuItem() {
+    public EnabledMenu newCheckBoxMenuItem() {
         return new MockCheckBoxMenuItem();
     }
 
     @Override
-    public AbsCheckBoxMenuItem newCheckBoxMenuItem(String _value) {
+    public EnabledMenu newCheckBoxMenuItem(String _value) {
         return new MockCheckBoxMenuItem(_value);
     }
 
     @Override
-    public AbsMenuItem newMenuItem() {
+    public EnabledMenu newMenuItem() {
         return new MockMenuItem();
     }
 
     @Override
-    public AbsMenuItem newMenuItem(String _value) {
+    public EnabledMenu newMenuItem(String _value) {
         return new MockMenuItem(_value);
+    }
+
+    @Override
+    public AbsSeparator newSep() {
+        return new MockSeparator();
     }
 
     @Override

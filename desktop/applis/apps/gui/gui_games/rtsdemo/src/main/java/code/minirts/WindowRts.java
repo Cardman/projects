@@ -33,11 +33,11 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 
 //    private final Cursor currentCursor = Cursor.getDefaultCursor();
 
-    private final AbsPlainButton animate = getCompoFactory().newPlainButton("Animate");
+    private final AbsButton animate = getCompoFactory().newPlainButton("Animate");
 
     private final AbsCustCheckBox pause = getCompoFactory().newCustCheckBox("Pause");
 
-    private final AbsPlainButton stop = getCompoFactory().newPlainButton("Stop");
+    private final AbsButton stop = getCompoFactory().newPlainButton("Stop");
 
     private final Facade facade = new Facade();
 

@@ -98,7 +98,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         listeChoix.refresh(ls_, trSuit_);
         panneau_.add(listeChoix.self());
         AbsPanel sousPanneauTwo_=_window.getCompoFactory().newGrid(0,1);
-        AbsPlainButton bouton_=getCompoFactory().newPlainButton(messages.getVal(ADD_SUIT));
+        AbsButton bouton_=getCompoFactory().newPlainButton(messages.getVal(ADD_SUIT));
         bouton_.addActionListener(new AddSuitEvent(this));
         sousPanneauTwo_.add(bouton_);
         bouton_=getCompoFactory().newPlainButton(messages.getVal(REMOVE_SUIT));

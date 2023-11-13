@@ -72,10 +72,10 @@ public final class SelectItem extends SelectDialog {
 //            });
             buttons_.add(giveCheckBox);
         }
-        AbsPlainButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
+        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
         ok_.addActionListener(new ValidateSelectionEvent(this));
         buttons_.add(ok_);
-        AbsPlainButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
+        AbsButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
         cancel_.addActionListener(new ClosingDialogEvent(getSelectDial(),getBuilt()));
         buttons_.add(cancel_);
         contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);

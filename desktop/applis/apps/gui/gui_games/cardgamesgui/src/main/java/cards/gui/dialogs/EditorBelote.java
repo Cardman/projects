@@ -127,7 +127,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         initJt(_parent,getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),lg_, jt_);
         container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
-        AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(NEXT));
+        AbsButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(NEXT));
         bouton_.addActionListener(new ValidateRulesDealEvent(this, _parent));
         panneau_.add(bouton_);
         container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
@@ -217,7 +217,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         remaining = plc_;
         panneau_.add(panelsCards,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel sousPanneau_=_parent.getCompoFactory().newLineBox();
-        AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(MOVE_CARDS));
+        AbsButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addActionListener(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
         listeTwo=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));

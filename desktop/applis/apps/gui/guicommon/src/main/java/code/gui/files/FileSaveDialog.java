@@ -61,7 +61,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _c.getLanguageKey(), getAbsDialog().getAccessFile());
         String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
-        AbsPlainButton action_ = getCompoFactory().newPlainButton(messages.getVal(SAVE));
+        AbsButton action_ = getCompoFactory().newPlainButton(messages.getVal(SAVE));
         action_.addActionListener(new SubmitMouseEvent(this));
         getButtons().add(action_);
         action_ = getCompoFactory().newPlainButton(messages.getVal(CANCEL));
@@ -71,7 +71,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
             searchingPanel.removeAll();
             AbsPlainLabel label_;
             label_ = getCompoFactory().newPlainLabel(messages.getVal(FOLDER_NAME));
-            AbsPlainButton search_ = getCompoFactory().newPlainButton(CREATE);
+            AbsButton search_ = getCompoFactory().newPlainButton(CREATE);
             search_.addActionListener(new CreateFolderEvent(this));
             searchingPanel.add(label_);
             searchingPanel.add(typedString);

@@ -31,12 +31,12 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
 
     private StringMap<String> messages;
 
-    private final AbsPlainButton search;
+    private final AbsButton search;
 
     private final ProgressingWebDialog dialog;
-    private final AbsMenuItem menuItem;
+    private final EnabledMenu menuItem;
 
-    public FrameHtmlData(WindowAiki _parent, String _title, RenderedPage _session, AbsMenuItem _m) {
+    public FrameHtmlData(WindowAiki _parent, String _title, RenderedPage _session, EnabledMenu _m) {
         super(_parent.getLanguageKey(),_parent.getFrames());
         setAccessFile(DIALOG_ACCESS);
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());

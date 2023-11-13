@@ -2,15 +2,15 @@ package code.expressionlanguage.adv;
 
 import code.gui.AbsCommonFrame;
 import code.gui.AbsPanel;
-import code.gui.AbsPlainButton;
+import code.gui.AbsButton;
 import code.gui.AbsScrollPane;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 
 public final class FormInputDebugLines {
     private final CustList<EditValueRow> commentsRows;
-    private final AbsPlainButton add;
-    private final AbsPlainButton rem;
+    private final AbsButton add;
+    private final AbsButton rem;
 //    private final AbsPlainButton val;
     private final AbsScrollPane scrollPaneGl;
 //    private final CustList<StringStruct> output = new CustList<StringStruct>();
@@ -36,7 +36,7 @@ public final class FormInputDebugLines {
         return scrollPaneGl;
     }
 
-    public AbsPlainButton getAdd() {
+    public AbsButton getAdd() {
         return add;
     }
 
@@ -44,7 +44,7 @@ public final class FormInputDebugLines {
 //        return output;
 //    }
 
-    public AbsPlainButton getRem() {
+    public AbsButton getRem() {
         return rem;
     }
 

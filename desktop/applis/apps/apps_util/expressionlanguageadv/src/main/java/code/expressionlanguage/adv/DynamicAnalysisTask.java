@@ -20,8 +20,8 @@ public final class DynamicAnalysisTask implements Runnable {
     private final AbsTreeGui tree;
     private final DbgRootStruct root;
     private final AbsTextArea textArea;
-    private final AbsPlainButton stButton;
-    private final AbsPlainButton refreshButton;
+    private final AbsButton stButton;
+    private final AbsButton refreshButton;
     private final AbsScrollPane scroll;
 
     public DynamicAnalysisTask(AbsDebuggerGui _w, AbstractPageEl _c, ResultContext _rc, AbsTreeGui _tr, DbgRootStruct _root) {
@@ -50,7 +50,7 @@ public final class DynamicAnalysisTask implements Runnable {
         window.getCommonFrame().pack();
     }
 
-    public AbsPlainButton getStButton() {
+    public AbsButton getStButton() {
         return stButton;
     }
 
@@ -58,7 +58,7 @@ public final class DynamicAnalysisTask implements Runnable {
         return scroll;
     }
 
-    public AbsPlainButton getRefreshButton() {
+    public AbsButton getRefreshButton() {
         return refreshButton;
     }
 

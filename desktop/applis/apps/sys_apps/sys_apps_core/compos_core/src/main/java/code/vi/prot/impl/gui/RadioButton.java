@@ -55,10 +55,6 @@ public final class RadioButton extends CustComponent implements AbsRadioButton {
         mapAction.addEntry(_list,wr_);
     }
 
-    public void setEnabled(boolean _b) {
-        radio.setEnabled(_b);
-    }
-
     public AbsCustButtonGroup getButtonGroup() {
         return buttonGroup;
     }
@@ -67,7 +63,4 @@ public final class RadioButton extends CustComponent implements AbsRadioButton {
         buttonGroup = _buttonGroup;
     }
 
-    public boolean isEnabled() {
-        return radio.isEnabled();
-    }
 }

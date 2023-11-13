@@ -90,7 +90,7 @@ public abstract class EquallableGuiDocUtil {
     }
     public static RenderedPage withFinder(RenderedPage _rend) {
         AbstractProgramInfos pr_ = _rend.getGene();
-        AbsPlainButton b_ = pr_.getCompoFactory().newPlainButton();
+        AbsButton b_ = pr_.getCompoFactory().newPlainButton();
         _rend.addFinder(pr_.getCompoFactory().newTextField(), b_);
         return _rend;
     }

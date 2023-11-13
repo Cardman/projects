@@ -112,7 +112,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
         panel_.add(ipType.self());
         pane_.add(panel_);
         panel_ = _fenetre.getCompoFactory().newLineBox();
-        AbsPlainButton button_ = getCompoFactory().newPlainButton(messages.getVal(CREATE_SERVER));
+        AbsButton button_ = getCompoFactory().newPlainButton(messages.getVal(CREATE_SERVER));
         button_.addActionListener(new CreateServerEvent(this));
         panel_.add(button_);
         button_ = getCompoFactory().newPlainButton(messages.getVal(JOIN_SERVER));

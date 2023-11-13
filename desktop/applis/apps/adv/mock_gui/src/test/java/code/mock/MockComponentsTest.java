@@ -94,7 +94,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
     public void c8() {
         AbsCompoFactory ab_ = init().getCompoFactory();
         AbsMenuBar b_ = ab_.newMenuBar();
-        AbsMenu m_ = ab_.newMenu();
+        EnabledMenu m_ = ab_.newMenu();
         b_.add(m_);
         m_.addMenuItem(ab_.newMenuItem());
         m_.addMenuItem(ab_.newCheckBoxMenuItem());
@@ -103,30 +103,30 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         assertEq(1,b_.getMenuCount());
         assertEq("",m_.getText());
         assertEq(4,m_.getItemCount());
-        assertEq("",m_.getItems().get(0).getText());
-        assertEq("",m_.getItems().get(1).getText());
-        assertEq("_",m_.getItems().get(2).getText());
-        assertEq("_",m_.getItems().get(3).getText());
+        assertEq("",((EnabledMenu)m_.getItems().get(0)).getText());
+        assertEq("",((EnabledMenu)m_.getItems().get(1)).getText());
+        assertEq("_",((EnabledMenu)m_.getItems().get(2)).getText());
+        assertEq("_",((EnabledMenu)m_.getItems().get(3)).getText());
     }
     @Test
     public void c9() {
         AbsCompoFactory ab_ = init().getCompoFactory();
         AbsMenuBar b_ = ab_.newMenuBar();
-        AbsMenu m_ = ab_.newMenu("_");
+        EnabledMenu m_ = ab_.newMenu("_");
         b_.add(m_);
         m_.addMenuItem(ab_.newMenu());
         m_.addMenuItem(ab_.newMenu("_"));
         assertEq(1,b_.getMenuCount());
         assertEq("_",m_.getText());
         assertEq(2,m_.getItemCount());
-        assertEq("",m_.getItems().get(0).getText());
-        assertEq("_",m_.getItems().get(1).getText());
+        assertEq("",((EnabledMenu)m_.getItems().get(0)).getText());
+        assertEq("_",((EnabledMenu)m_.getItems().get(1)).getText());
     }
     @Test
     public void c10() {
         AbsCompoFactory ab_ = init().getCompoFactory();
         AbsMenuBar b_ = ab_.newMenuBar();
-        AbsMenu m_ = ab_.newMenu("_");
+        EnabledMenu m_ = ab_.newMenu("_");
         b_.add(m_);
         b_.remove(m_);
         assertEq(0,b_.getMenuCount());
@@ -135,16 +135,18 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
     public void c11() {
         AbsCompoFactory ab_ = init().getCompoFactory();
         AbsMenuBar b_ = ab_.newMenuBar();
-        AbsMenu m_ = ab_.newMenu();
+        EnabledMenu m_ = ab_.newMenu();
         b_.add(m_);
         m_.addMenuItem(ab_.newMenu());
         m_.addMenuItem(ab_.newMenuItem());
         m_.addMenuItem(ab_.newCheckBoxMenuItem());
-        m_.removeMenuItem((AbsCheckBoxMenuItem) m_.getItems().last());
-        m_.removeMenuItem((AbsMenuItem) m_.getItems().last());
-        m_.removeMenuItem((AbsMenu) m_.getItems().last());
+        m_.removeMenuItem((EnabledMenu) m_.getItems().last());
+        m_.removeMenuItem((EnabledMenu) m_.getItems().last());
+        m_.removeMenuItem((EnabledMenu) m_.getItems().last());
         assertEq(0,m_.getItemCount());
-        m_.addSeparator();
+        MockSeparator menu_ = new MockSeparator();
+        menu_.orientation(menu_.orientation());
+        m_.addMenuItem(menu_);
         m_.setText("_");
         assertEq("_",m_.getText());
         assertNull(m_.getParentMenu());
@@ -155,9 +157,9 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
     public void c12() {
         AbsCompoFactory ab_ = init().getCompoFactory();
         AbsMenuBar b_ = ab_.newMenuBar();
-        AbsMenu m_ = ab_.newMenu();
+        EnabledMenu m_ = ab_.newMenu();
         b_.add(m_);
-        AbsMenuItem i_ = ab_.newMenuItem();
+        EnabledMenu i_ = ab_.newMenuItem();
         i_.setEnabledMenu(false);
         i_.setText("_");
         assertFalse(i_.isEnabled());
@@ -179,9 +181,9 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
     public void c13() {
         AbsCompoFactory ab_ = init().getCompoFactory();
         AbsMenuBar b_ = ab_.newMenuBar();
-        AbsMenu m_ = ab_.newMenu();
+        EnabledMenu m_ = ab_.newMenu();
         b_.add(m_);
-        AbsCheckBoxMenuItem i_ = ab_.newCheckBoxMenuItem();
+        EnabledMenu i_ = ab_.newCheckBoxMenuItem();
         i_.setSelected(true);
         assertTrue(i_.isSelected());
         i_.setEnabledMenu(false);
@@ -196,17 +198,27 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         assertEq(1, ((MockCheckBoxMenuItem)i_).getAdvActionListeners().size());
     }
     @Test
+    public void c13_() {
+        AbsCompoFactory ab_ = init().getCompoFactory();
+        EnabledMenu m_ = ab_.newMenu();
+        AbsSeparator s_ = ab_.newSep();
+        m_.addMenuItem(s_);
+        assertEq(1,m_.getItemCount());
+        m_.removeMenuItem(s_);
+        assertEq(0,m_.getItemCount());
+    }
+    @Test
     public void c14() {
         MockProgramInfosSample pr_ = init();
         AbsCompoFactory ab_ = pr_.getCompoFactory();
         AbsPopupMenu b_ = ab_.newAbsPopupMenu();
-        AbsMenu m_ = ab_.newMenu();
+        EnabledMenu m_ = ab_.newMenu();
         b_.add(m_);
-        AbsMenuItem i_ = ab_.newMenuItem();
+        EnabledMenu i_ = ab_.newMenuItem();
         b_.add(i_);
         AbsCustCheckBox c_ = ab_.newCustCheckBox();
         b_.add(c_);
-        AbsCheckBoxMenuItem o_ = ab_.newCheckBoxMenuItem();
+        EnabledMenu o_ = ab_.newCheckBoxMenuItem();
         b_.add(o_);
         b_.remove(m_);
         b_.remove(i_);
@@ -224,7 +236,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         AbsPaintableLabel g_ = ab_.newAbsPaintableLabel();
 //        g_.repaintLabel(pr_.getImageFactory());
         b_.add(g_);
-        AbsPlainButton but_ = ab_.newPlainButton();
+        AbsButton but_ = ab_.newPlainButton();
         but_.setText("");
         b_.add(but_);
         b_.add(ab_.newPlainButton("_"));
@@ -280,7 +292,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         paint_.setVerticalAlignment(2);
         assertEq(2,paint_.getHorizontalAlignment());
         assertEq(2,paint_.getVerticalAlignment());
-        AbsPlainButton img_ = ab_.newImgButton(pr_.getImageFactory().newImageArgb(1, 1));
+        AbsButton img_ = ab_.newImgButton(pr_.getImageFactory().newImageArgb(1, 1));
         img_.addActionListener(new MockAction(0,new MockWithActionSample()));
         assertEq(1,((MockPlainButton)img_).getActionListeners().size());
         AbstractImage ig_ = pr_.getImageFactory().newImageArgb(1, 1);

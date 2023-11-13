@@ -1,14 +1,14 @@
 package code.expressionlanguage.adv;
 
 import code.gui.AbsCommonFrame;
-import code.gui.AbsMenuItem;
+import code.gui.EnabledMenu;
 import code.gui.events.AbsWindowListenerClosing;
 
 public final class CloseFrame implements AbsWindowListenerClosing {
     private final AbsCommonFrame dialog;
-    private final AbsMenuItem associated;
+    private final EnabledMenu associated;
 
-    public CloseFrame(AbsCommonFrame _d, AbsMenuItem _c) {
+    public CloseFrame(AbsCommonFrame _d, EnabledMenu _c) {
         dialog = _d;
         associated = _c;
     }

@@ -47,7 +47,7 @@ public final class GuiBaseUtil {
         }
     }
 
-    public static void removeActionListeners(AbsPlainButton _tr) {
+    public static void removeActionListeners(AbsButton _tr) {
         CustList<AbsActionListener> tr_ = _tr.getActionListeners();
         int s_ = tr_.size();
         for (int i = 0; i < s_; i++) {

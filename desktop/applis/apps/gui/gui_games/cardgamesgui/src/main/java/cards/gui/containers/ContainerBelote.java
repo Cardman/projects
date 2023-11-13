@@ -20,7 +20,7 @@ import cards.gui.labels.SuitLabel;
 import cards.gui.panels.CarpetBelote;
 import cards.main.LaunchingCards;
 import code.gui.AbsPanel;
-import code.gui.AbsPlainButton;
+import code.gui.AbsButton;
 
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
@@ -62,7 +62,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     private final CustList<SuitLabel> bidsButtons = new CustList<SuitLabel>();
     private Suit suit = Suit.UNDEFINED;
     private BidBelote bidType = BidBelote.FOLD;
-    private AbsPlainButton bidOk;
+    private AbsButton bidOk;
     private CardBelote carteSurvoleeBelote;
     ContainerBelote(WindowCardsInt _window) {
         super(_window);
@@ -158,10 +158,10 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     protected void setScores(CustList<Longs> _scores) {
         scores = _scores;
     }
-    protected AbsPlainButton getBidOk() {
+    protected AbsButton getBidOk() {
         return bidOk;
     }
-    protected void setBidOk(AbsPlainButton _bidOk) {
+    protected void setBidOk(AbsButton _bidOk) {
         bidOk = _bidOk;
     }
     protected int getPts() {

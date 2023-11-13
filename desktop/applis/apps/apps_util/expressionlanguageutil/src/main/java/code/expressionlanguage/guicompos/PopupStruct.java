@@ -4,15 +4,13 @@ import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
-import code.gui.AbsCustComponent;
-import code.gui.AbsPopupMenu;
+import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 
 public final class PopupStruct extends CustComponentStruct {
     private final AbsPopupMenu popupMenu;
     private final CustList<CustComponentStruct> compo = new CustList<CustComponentStruct>();
-    private final CustList<AbsMenuStruct> menus = new CustList<AbsMenuStruct>();
     public PopupStruct(String _className, AbsCompoFactory _compoFactory) {
         super(_className);
         popupMenu = _compoFactory.newAbsPopupMenu();
@@ -59,6 +57,7 @@ public final class PopupStruct extends CustComponentStruct {
                 return;
             }
             compo.remove(index_);
+            ((CustComponentStruct) _global).setNullParentComponent();
             popupMenu.remove(((CustComponentStruct)_global).getComponent());
         }
     }
@@ -71,56 +70,6 @@ public final class PopupStruct extends CustComponentStruct {
     }
     public Struct getCompoCount() {
         return new IntStruct(compo.size());
-    }
-    public void addMenu(Struct _global) {
-        if (_global instanceof AbsMenuStruct) {
-            if (((AbsMenuStruct) _global).getParentMenu() != NullStruct.NULL_VALUE) {
-                return;
-            }
-            for (AbsMenuStruct a: menus) {
-                if (a.sameReference(_global)) {
-                    return;
-                }
-            }
-            menus.add((AbsMenuStruct) _global);
-            if (_global instanceof MenuStruct) {
-                popupMenu.add(((MenuStruct)_global).getComponent());
-            } else {
-                popupMenu.add(((AbsMenuItemStruct)_global).element());
-            }
-        }
-    }
-    public void removeMenu(Struct _global) {
-        if (_global instanceof AbsMenuStruct) {
-            int i_ = 0;
-            int index_ = -1;
-            for (AbsMenuStruct a: menus) {
-                if (a.sameReference(_global)) {
-                    index_ = i_;
-                    break;
-                }
-                i_++;
-            }
-            if (index_ < 0) {
-                return;
-            }
-            menus.remove(index_);
-            if (_global instanceof MenuStruct) {
-                popupMenu.remove(((MenuStruct)_global).getComponent());
-            } else {
-                popupMenu.remove(((AbsMenuItemStruct)_global).element());
-            }
-        }
-    }
-    public Struct getMenu(Struct _index) {
-        int index_ = ((NumberStruct)_index).intStruct();
-        if (!menus.isValidIndex(index_)) {
-            return NullStruct.NULL_VALUE;
-        }
-        return menus.get(index_);
-    }
-    public Struct getMenuCount() {
-        return new IntStruct(menus.size());
     }
     @Override
     protected AbsCustComponent getComponent() {

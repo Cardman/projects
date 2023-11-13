@@ -20,6 +20,6 @@ public final class DfButton extends DfCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(new PlainButtonStruct(aliasButton,((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getCompoFactory()));
+        return new ArgumentWrapper(new PlainButtonStruct(aliasButton,((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getCompoFactory().newPlainButton()));
     }
 }

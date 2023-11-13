@@ -24,9 +24,9 @@ public final class FramePoints {
     private final FrameRenderFormContent frameRenderFormContent;
     private AbsScrollPane view;
     private final StackConstraintsForm stackConstraintsForm;
-    private AbsPlainButton validStack;
+    private AbsButton validStack;
     private AbsTreeGui tree;
-    private AbsPlainButton create;
+    private AbsButton create;
     private final NatStringTreeMap<CustList<RenderPointPair>> renderList = new NatStringTreeMap<CustList<RenderPointPair>>();
     private AbstractInterceptorStdCaller caller;
 
@@ -228,7 +228,7 @@ public final class FramePoints {
         return tree;
     }
 
-    public AbsPlainButton getCreate() {
+    public AbsButton getCreate() {
         return create;
     }
 
@@ -280,7 +280,7 @@ public final class FramePoints {
         return stackConstraintsForm;
     }
 
-    public AbsPlainButton getValidStack() {
+    public AbsButton getValidStack() {
         return validStack;
     }
 

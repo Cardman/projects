@@ -78,12 +78,4 @@ public final class Slider extends CustComponent implements AbsSlider {
     public JComponent getNatComponent() {
         return sl;
     }
-
-    public boolean isEnabled() {
-        return sl.isEnabled();
-    }
-
-    public void setEnabled(boolean _b) {
-        sl.setEnabled(_b);
-    }
 }

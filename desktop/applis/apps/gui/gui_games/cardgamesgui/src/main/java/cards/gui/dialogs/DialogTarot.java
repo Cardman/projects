@@ -130,7 +130,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         int valeur_ = poigneesAutorisees.getVal(listeChoixFive.getCurrentElement());
         nbAtoutsPoignee = getCompoFactory().newSpinner(valeur_,0,nbCartesJoueur_,1);
         sousPanneau_.add(nbAtoutsPoignee);
-        AbsPlainButton boutonPoignees_ = getCompoFactory().newPlainButton(getMessages().getVal(VALIDATE_HANDFUL));
+        AbsButton boutonPoignees_ = getCompoFactory().newPlainButton(getMessages().getVal(VALIDATE_HANDFUL));
         boutonPoignees_.addActionListener(new ListenerHandful(this));
         sousPanneau_.add(boutonPoignees_);
         declaring_.add(sousPanneau_);

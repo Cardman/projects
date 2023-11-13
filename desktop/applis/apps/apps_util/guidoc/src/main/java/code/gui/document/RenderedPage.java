@@ -44,7 +44,7 @@ public final class RenderedPage implements ProcessingSession {
 
     private final CustList<DualAnimatedImage> anims = new CustList<DualAnimatedImage>();
 
-    private AbsPlainButton find;
+    private AbsButton find;
     private AbsTextField field;
     private final AbstractProgramInfos gene;
     private AbstractScheduledExecutorService timer;
@@ -308,7 +308,7 @@ public final class RenderedPage implements ProcessingSession {
         return anims;
     }
 
-    public void addFinder(AbsTextField _f, AbsPlainButton _s) {
+    public void addFinder(AbsTextField _f, AbsButton _s) {
         field = _f;
         find = _s;
         finding = new FindEvent(_f, this);
@@ -319,7 +319,7 @@ public final class RenderedPage implements ProcessingSession {
         return finding;
     }
 
-    public AbsPlainButton getFind() {
+    public AbsButton getFind() {
         return find;
     }
 

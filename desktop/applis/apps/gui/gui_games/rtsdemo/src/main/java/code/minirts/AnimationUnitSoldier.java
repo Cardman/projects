@@ -20,11 +20,11 @@ public final class AnimationUnitSoldier implements Runnable {
     private AbsCustCheckBox pause;
     private AbstractAtomicBoolean paused;
 
-    private AbsPlainButton stop;
+    private AbsButton stop;
     private AbstractAtomicBoolean stopped;
-    private AbsPlainButton animate;
+    private AbsButton animate;
 
-    public AnimationUnitSoldier(AbsPlainButton _animate, AbsCustCheckBox _pause, AbsPlainButton _stop, PanelBattle _conteneur, WindowRts _window) {
+    public AnimationUnitSoldier(AbsButton _animate, AbsCustCheckBox _pause, AbsButton _stop, PanelBattle _conteneur, WindowRts _window) {
         window = _window;
         animate = _animate;
         pause = _pause;

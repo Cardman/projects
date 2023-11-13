@@ -413,7 +413,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         c_.getGeneKey().value("TWO");
         c_.getGeneValue().value(20);
         c_.getValidAddEdit().getActionListeners().get(0).action();
-        ((AbsPlainButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
         c_.getGeneKey().value("ONE");
         c_.getGeneValue().value(16);
         c_.getValidAddEdit().getActionListeners().get(0).action();
@@ -432,7 +432,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         c_.getGeneKey().value("TWO");
         c_.getGeneValue().value(20);
         c_.getValidAddEdit().getActionListeners().get(0).action();
-        ((AbsPlainButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
         c_.getValidRemove().getActionListeners().get(0).action();
         assertEq(1,c_.getList().size());
         assertEq("TWO",c_.getList().getKey(0));
@@ -447,7 +447,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         c_.getGeneKey().value("TWO");
         c_.getGeneValue().value(20);
         c_.getValidAddEdit().getActionListeners().get(0).action();
-        ((AbsPlainButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
         c_.getGeneKey().value("ONE");
         c_.getGeneValue().value(16);
         c_.getCancel().getActionListeners().get(0).action();

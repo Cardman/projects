@@ -104,7 +104,7 @@ public final class ConfirmDialog {
         } else {
             buttons_.add(this.list.getCompoFactory().newPreparedLabel(ConfirmDialog.WARNING_ICON));
         }
-        AbsPlainButton button_ = this.list.getCompoFactory().newPlainButton(_messages.getVal(ConfirmDialog.OK));
+        AbsButton button_ = this.list.getCompoFactory().newPlainButton(_messages.getVal(ConfirmDialog.OK));
         button_.addActionListener(new ClosingDialogEvent(this.absDialog));
         buttons_.add(button_);
         _content.add(buttons_);
@@ -143,7 +143,7 @@ public final class ConfirmDialog {
         if (_option == GuiConstants.YES_NO_OPTION) {
             answer = GuiConstants.NO_OPTION;
             buttons_.add(list.getCompoFactory().newPreparedLabel(QUESTION_ICON));
-            AbsPlainButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(YES));
+            AbsButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(YES));
             button_.addActionListener(new AnswerEvent(this, GuiConstants.YES_OPTION));
             buttons_.add(button_);
             button_ = list.getCompoFactory().newPlainButton(messages_.getVal(NO));
@@ -152,7 +152,7 @@ public final class ConfirmDialog {
         } else if (_option == GuiConstants.YES_NO_CANCEL_OPTION) {
             answer = GuiConstants.CANCEL_OPTION;
             buttons_.add(list.getCompoFactory().newPreparedLabel(QUESTION_ICON));
-            AbsPlainButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(YES));
+            AbsButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(YES));
             button_.addActionListener(new AnswerEvent(this, GuiConstants.YES_OPTION));
             buttons_.add(button_);
             button_ = list.getCompoFactory().newPlainButton(messages_.getVal(NO));
@@ -162,7 +162,7 @@ public final class ConfirmDialog {
             button_.addActionListener(new AnswerEvent(this, GuiConstants.CANCEL_OPTION));
             buttons_.add(button_);
         } else {
-            AbsPlainButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(OK));
+            AbsButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(OK));
             button_.addActionListener(new AnswerEvent(this, GuiConstants.OK_OPTION));
             buttons_.add(button_);
         }
@@ -191,7 +191,7 @@ public final class ConfirmDialog {
         content_.add(field);
         answer = GuiConstants.NO_OPTION;
         AbsPanel buttons_ = list.getCompoFactory().newLineBox();
-        AbsPlainButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(OK));
+        AbsButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(OK));
         button_.addActionListener(new AnswerTextEvent(this, GuiConstants.YES_OPTION));
         buttons_.add(button_);
         button_ = list.getCompoFactory().newPlainButton(messages_.getVal(CANCEL));

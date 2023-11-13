@@ -7,11 +7,11 @@ import code.util.core.StringUtil;
 
 public final class OutputDialogExpresion {
     private final WindowCdmEditor owner;
-    private final AbsPlainButton chooseFolder;
+    private final AbsButton chooseFolder;
     private final AbsPlainLabel chosenFolder;
     private final AbsTextField srcFolder;
     private final ScrollCustomCombo chosenLanguage;
-    private final AbsPlainButton createEnv;
+    private final AbsButton createEnv;
     private String folderExp = "";
     public OutputDialogExpresion(WindowCdmEditor _w) {
         owner = _w;
@@ -48,7 +48,7 @@ public final class OutputDialogExpresion {
         return folderExp;
     }
 
-    public AbsPlainButton getChooseFolder() {
+    public AbsButton getChooseFolder() {
         return chooseFolder;
     }
 
@@ -73,7 +73,7 @@ public final class OutputDialogExpresion {
         return srcFolder;
     }
 
-    public AbsPlainButton getCreateEnv() {
+    public AbsButton getCreateEnv() {
         return createEnv;
     }
 }
