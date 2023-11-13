@@ -390,7 +390,12 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         ab_.newTextField("",0);
         ab_.newAbsScrollPane(ab_.newAbsScrollPane());
 //        ab_.newAbsScrollPane(new MockMetaLabel());
-        ab_.newRadioButton();
+        AbsRadioButton r_ = ab_.newRadioButton();
+        r_.setSelected(true);
+        r_.isSelected();
+        r_.setSelected(false);
+        r_.isSelected();
+        r_.removeActionListener(null);
         ab_.newRadioButton("");
         ab_.newRadioButton("",true);
         ab_.newGrid(1,1,0,0);

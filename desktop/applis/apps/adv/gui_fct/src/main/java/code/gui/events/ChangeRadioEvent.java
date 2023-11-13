@@ -6,8 +6,8 @@ import code.util.CustList;
 import code.util.core.StringUtil;
 
 public final class ChangeRadioEvent implements AbsActionListener {
-    private CustButtonGroup group;
-    private AbsRadioButton radio;
+    private final CustButtonGroup group;
+    private final AbsRadioButton radio;
     private boolean hasValue;
     private String value = "";
 
@@ -25,10 +25,10 @@ public final class ChangeRadioEvent implements AbsActionListener {
     @Override
     public void action() {
         CustList<AbsRadioButton> g_ = group.getGroup();
-        for (AbsRadioButton r: g_) {
-            r.setSelected(false);
-        }
         if (hasValue) {
+            for (AbsRadioButton r: g_) {
+                r.setSelected(false);
+            }
             int len_ = g_.size();
             for (int i = 0; i < len_; i++) {
                 AbsRadioButton r_ = g_.get(i);
@@ -37,8 +37,14 @@ public final class ChangeRadioEvent implements AbsActionListener {
                     r_.setSelected(true);
                 }
             }
+            radio.setSelected(true);
+        } else {
+            for (AbsRadioButton r: g_) {
+                if (r != radio) {
+                    r.setSelected(false);
+                }
+            }
         }
-        radio.setSelected(true);
         group.setSelected(radio);
     }
 }

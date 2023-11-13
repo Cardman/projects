@@ -351,6 +351,7 @@ public final class GuiAliasParameters {
     private static final String COMBO_1_COMBO_0="_____1690";
     private static final String COMBO_1_COMBO_1="_____1691";
     private static final String BUTTON_GROUP_0_TABBED_PANE_ADD_0="_____1692";
+    private static final String BUTTON_GROUP_0_TABBED_PANE_REMOVE_0="_____1692_";
     private static final String POPUP_MENU_0_TABBED_PANE_ADD_0="_____1693";
     private static final String POPUP_MENU_0_POPUP_MENU_GET_COMP_0="_____1694";
     private static final String POPUP_MENU_0_POPUP_MENU_REMOVE_COMP_0="_____1695";
@@ -806,6 +807,7 @@ public final class GuiAliasParameters {
     private String aliasCombo1Combo0;
     private String aliasCombo1Combo1;
     private String aliasButtonGroup0TabbedPaneAdd0;
+    private String aliasButtonGroup0TabbedPaneRemove0;
     private String aliasPopupMenu0TabbedPaneAdd0;
     private String aliasPopupMenu0PopupMenuGetComp0;
     private String aliasPopupMenu0PopupMenuRemoveComp0;
@@ -817,7 +819,6 @@ public final class GuiAliasParameters {
     private String aliasPopupMenu0PopupMenuShow2;
     private String aliasRadio0RadioSetSelected0;
     private String aliasRadio0SetLabelText0;
-    private String aliasRadio0AddChange0;
     private String aliasRadio0Radio0;
     private String aliasRadio1Radio0;
     private String aliasRadio1Radio1;
@@ -1261,6 +1262,7 @@ public final class GuiAliasParameters {
         aliasCombo1Combo0=LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_1_COMBO_0));
         aliasCombo1Combo1=LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_1_COMBO_1));
         aliasButtonGroup0TabbedPaneAdd0=LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON_GROUP_0_TABBED_PANE_ADD_0));
+        aliasButtonGroup0TabbedPaneRemove0=LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON_GROUP_0_TABBED_PANE_REMOVE_0));
         aliasPopupMenu0TabbedPaneAdd0=LgNamesContent.get(_util,_cust,_mapping.getVal(POPUP_MENU_0_TABBED_PANE_ADD_0));
         aliasPopupMenu0PopupMenuGetComp0=LgNamesContent.get(_util,_cust,_mapping.getVal(POPUP_MENU_0_POPUP_MENU_GET_COMP_0));
         aliasPopupMenu0PopupMenuRemoveComp0=LgNamesContent.get(_util,_cust,_mapping.getVal(POPUP_MENU_0_POPUP_MENU_REMOVE_COMP_0));
@@ -1272,7 +1274,6 @@ public final class GuiAliasParameters {
         aliasPopupMenu0PopupMenuShow2=LgNamesContent.get(_util,_cust,_mapping.getVal(POPUP_MENU_0_POPUP_MENU_SHOW_2));
         aliasRadio0RadioSetSelected0=LgNamesContent.get(_util,_cust,_mapping.getVal(RADIO_0_RADIO_SET_SELECTED_0));
         aliasRadio0SetLabelText0=LgNamesContent.get(_util,_cust,_mapping.getVal(RADIO_0_SET_LABEL_TEXT_0));
-        aliasRadio0AddChange0=LgNamesContent.get(_util,_cust,_mapping.getVal(RADIO_0_ADD_CHANGE_0));
         aliasRadio0Radio0=LgNamesContent.get(_util,_cust,_mapping.getVal(RADIO_0_RADIO_0));
         aliasRadio1Radio0=LgNamesContent.get(_util,_cust,_mapping.getVal(RADIO_1_RADIO_0));
         aliasRadio1Radio1=LgNamesContent.get(_util,_cust,_mapping.getVal(RADIO_1_RADIO_1));
@@ -1716,6 +1717,7 @@ public final class GuiAliasParameters {
         _en.add(COMBO_1_COMBO_0,"Combo1Combo0=a");
         _en.add(COMBO_1_COMBO_1,"Combo1Combo1=b");
         _en.add(BUTTON_GROUP_0_TABBED_PANE_ADD_0,"ButtonGroup0TabbedPaneAdd0=a");
+        _en.add(BUTTON_GROUP_0_TABBED_PANE_REMOVE_0,"ButtonGroup0TabbedPaneRemove0=a");
         _en.add(POPUP_MENU_0_TABBED_PANE_ADD_0,"PopupMenu0TabbedPaneAdd0=a");
         _en.add(POPUP_MENU_0_POPUP_MENU_GET_COMP_0,"PopupMenu0PopupMenuGetComp0=a");
         _en.add(POPUP_MENU_0_POPUP_MENU_REMOVE_COMP_0,"PopupMenu0PopupMenuRemoveComp0=a");
@@ -2171,6 +2173,7 @@ public final class GuiAliasParameters {
         _fr.add(COMBO_1_COMBO_0,"Combo1Combo0=a");
         _fr.add(COMBO_1_COMBO_1,"Combo1Combo1=b");
         _fr.add(BUTTON_GROUP_0_TABBED_PANE_ADD_0,"ButtonGroup0TabbedPaneAdd0=a");
+        _fr.add(BUTTON_GROUP_0_TABBED_PANE_REMOVE_0,"ButtonGroup0TabbedPaneRemove0=a");
         _fr.add(POPUP_MENU_0_TABBED_PANE_ADD_0,"PopupMenu0TabbedPaneAdd0=a");
         _fr.add(POPUP_MENU_0_POPUP_MENU_GET_COMP_0,"PopupMenu0PopupMenuGetComp0=a");
         _fr.add(POPUP_MENU_0_POPUP_MENU_REMOVE_COMP_0,"PopupMenu0PopupMenuRemoveComp0=a");
@@ -2480,6 +2483,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(COMBO_0_COMBO_0),aliasCombo0Combo0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(COMBO_1_COMBO_0),aliasCombo1Combo0),new KeyValueMemberName(_mapping.getVal(COMBO_1_COMBO_1),aliasCombo1Combo1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(BUTTON_GROUP_0_TABBED_PANE_ADD_0),aliasButtonGroup0TabbedPaneAdd0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(BUTTON_GROUP_0_TABBED_PANE_REMOVE_0),aliasButtonGroup0TabbedPaneRemove0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(POPUP_MENU_0_TABBED_PANE_ADD_0),aliasPopupMenu0TabbedPaneAdd0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(POPUP_MENU_0_POPUP_MENU_GET_COMP_0),aliasPopupMenu0PopupMenuGetComp0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(POPUP_MENU_0_POPUP_MENU_REMOVE_COMP_0),aliasPopupMenu0PopupMenuRemoveComp0)));
@@ -2489,7 +2493,6 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(POPUP_MENU_0_POPUP_MENU_SHOW_0),aliasPopupMenu0PopupMenuShow0),new KeyValueMemberName(_mapping.getVal(POPUP_MENU_0_POPUP_MENU_SHOW_1),aliasPopupMenu0PopupMenuShow1),new KeyValueMemberName(_mapping.getVal(POPUP_MENU_0_POPUP_MENU_SHOW_2),aliasPopupMenu0PopupMenuShow2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(RADIO_0_RADIO_SET_SELECTED_0),aliasRadio0RadioSetSelected0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(RADIO_0_SET_LABEL_TEXT_0),aliasRadio0SetLabelText0)));
-        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(RADIO_0_ADD_CHANGE_0),aliasRadio0AddChange0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(RADIO_0_RADIO_0),aliasRadio0Radio0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(RADIO_1_RADIO_0),aliasRadio1Radio0),new KeyValueMemberName(_mapping.getVal(RADIO_1_RADIO_1),aliasRadio1Radio1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CHECK_BOX_0_RADIO_SET_SELECTED_0),aliasCheckBox0RadioSetSelected0)));
@@ -3874,6 +3877,10 @@ public final class GuiAliasParameters {
         return aliasButtonGroup0TabbedPaneAdd0;
     }
 
+    public String getAliasButtonGroup0TabbedPaneRemove0() {
+        return aliasButtonGroup0TabbedPaneRemove0;
+    }
+
     public String getAliasPopupMenu0TabbedPaneAdd0() {
         return aliasPopupMenu0TabbedPaneAdd0;
     }
@@ -3904,10 +3911,6 @@ public final class GuiAliasParameters {
 
     public String getAliasRadio0SetLabelText0() {
         return aliasRadio0SetLabelText0;
-    }
-
-    public String getAliasRadio0AddChange0() {
-        return aliasRadio0AddChange0;
     }
 
     public String getAliasRadio0Radio0() {

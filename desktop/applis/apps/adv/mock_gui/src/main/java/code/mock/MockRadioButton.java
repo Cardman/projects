@@ -3,13 +3,11 @@ package code.mock;
 import code.gui.AbsCustButtonGroup;
 import code.gui.AbsRadioButton;
 import code.gui.events.AbsActionListener;
-import code.gui.events.AbsChangeListener;
 import code.util.CustList;
 import code.util.IdList;
 
 public final class MockRadioButton extends MockInput implements AbsRadioButton {
     private final IdList<AbsActionListener> actionListeners = new IdList<AbsActionListener>();
-    private final IdList<AbsChangeListener> changeListeners = new IdList<AbsChangeListener>();
     private boolean selected;
     private String text;
     private AbsCustButtonGroup buttonGroup;
@@ -29,12 +27,8 @@ public final class MockRadioButton extends MockInput implements AbsRadioButton {
     }
 
     @Override
-    public void addChangeListener(AbsChangeListener _l) {
-        changeListeners.add(_l);
-    }
-
-    public IdList<AbsChangeListener> getChangeListeners() {
-        return changeListeners;
+    public void removeActionListener(AbsActionListener _list) {
+        actionListeners.removeObj(_list);
     }
 
     public CustList<AbsActionListener> getActionListeners() {
@@ -44,9 +38,6 @@ public final class MockRadioButton extends MockInput implements AbsRadioButton {
     @Override
     public void setSelected(boolean _b) {
         selected = _b;
-        for (AbsChangeListener a: getChangeListeners()) {
-            a.stateChanged();
-        }
     }
 
     @Override

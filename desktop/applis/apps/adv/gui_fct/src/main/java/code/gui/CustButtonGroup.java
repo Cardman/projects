@@ -2,12 +2,14 @@ package code.gui;
 
 import code.gui.events.ChangeRadioEvent;
 import code.util.CustList;
+import code.util.IdList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class CustButtonGroup implements AbsCustButtonGroup {
 
-    private final CustList<AbsRadioButton> group = new CustList<AbsRadioButton>();
+    private final IdList<AbsRadioButton> group = new IdList<AbsRadioButton>();
+    private final IdList<ChangeRadioEvent> events = new IdList<ChangeRadioEvent>();
     private final StringList values = new StringList();
 
     private AbsRadioButton selected;
@@ -18,13 +20,30 @@ public final class CustButtonGroup implements AbsCustButtonGroup {
         }
         _b.setButtonGroup(this);
         if (_b.isSelected()) {
-            for (AbsRadioButton c: group) {
-                c.setSelected(false);
+            if (selected == null) {
+                selected = _b;
+            } else {
+                _b.setSelected(false);
             }
-            selected = _b;
         }
         group.add(_b);
-        _b.addActionListener(new ChangeRadioEvent(this,_b));
+        ChangeRadioEvent ev_ = new ChangeRadioEvent(this, _b);
+        events.add(ev_);
+        _b.addActionListener(ev_);
+    }
+
+    @Override
+    public void remove(AbsRadioButton _b) {
+        int ind_ = group.indexOfObj(_b);
+        if (ind_ > -1) {
+            if (selected == _b) {
+                selected = null;
+            }
+            _b.setButtonGroup(null);
+            _b.removeActionListener(events.get(ind_));
+            events.remove(ind_);
+            group.remove(ind_);
+        }
     }
 
     public void add(AbsRadioButton _b, String _value) {
@@ -48,7 +67,9 @@ public final class CustButtonGroup implements AbsCustButtonGroup {
         }
         group.add(_b);
         values.add(_value);
-        _b.addActionListener(new ChangeRadioEvent(this,_b,_value));
+        ChangeRadioEvent ev_ = new ChangeRadioEvent(this, _b, _value);
+        events.add(ev_);
+        _b.addActionListener(ev_);
     }
     public CustList<AbsRadioButton> getGroup() {
         return group;

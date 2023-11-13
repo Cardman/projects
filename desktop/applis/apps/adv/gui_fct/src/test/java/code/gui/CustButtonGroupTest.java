@@ -70,9 +70,9 @@ public final class CustButtonGroupTest extends EquallableGuiFctUtil {
         r2_.setSelected(true);
         c_.add(r2_);
         assertEq(2,c_.getGroup().size());
-        assertFalse(r1_.isSelected());
-        assertTrue(r2_.isSelected());
-        assertSame(r2_,c_.getSelected());
+        assertTrue(r1_.isSelected());
+        assertFalse(r2_.isSelected());
+        assertSame(r1_,c_.getSelected());
     }
     @Test
     public void s6() {
@@ -84,6 +84,7 @@ public final class CustButtonGroupTest extends EquallableGuiFctUtil {
         AbsRadioButton r2_ = init_.getCompoFactory().newRadioButton("1");
         r2_.setSelected(false);
         c_.add(r2_);
+        r2_.setSelected(true);
         ((MockRadioButton)r2_).getActionListeners().get(0).action();
         assertEq(2,c_.getGroup().size());
         assertFalse(r1_.isSelected());
@@ -101,6 +102,7 @@ public final class CustButtonGroupTest extends EquallableGuiFctUtil {
         r2_.setSelected(true);
         c_.add(r2_);
         assertEq(2,c_.getGroup().size());
+        r1_.setSelected(true);
         ((MockRadioButton)r1_).getActionListeners().get(0).action();
         assertEq(2,c_.getGroup().size());
         assertFalse(r2_.isSelected());
@@ -238,5 +240,38 @@ public final class CustButtonGroupTest extends EquallableGuiFctUtil {
         c_.clearSelection();
         assertFalse(r1_.isSelected());
         assertFalse(r2_.isSelected());
+    }
+    @Test
+    public void s17() {
+        MockProgramInfosSecSample init_ = init();
+        CustButtonGroup c_ = new CustButtonGroup();
+        AbsRadioButton r_ = init_.getCompoFactory().newRadioButton("0");
+        r_.setSelected(false);
+        c_.add(r_);
+        c_.remove(r_);
+        assertEq(0,c_.getGroup().size());
+        assertNull(c_.getSelected());
+    }
+    @Test
+    public void s18() {
+        MockProgramInfosSecSample init_ = init();
+        CustButtonGroup c_ = new CustButtonGroup();
+        AbsRadioButton r_ = init_.getCompoFactory().newRadioButton("0");
+        AbsRadioButton r2_ = init_.getCompoFactory().newRadioButton("0");
+        r_.setSelected(false);
+        c_.add(r_);
+        c_.remove(r2_);
+        assertEq(1,c_.getGroup().size());
+    }
+    @Test
+    public void s19() {
+        MockProgramInfosSecSample init_ = init();
+        CustButtonGroup c_ = new CustButtonGroup();
+        AbsRadioButton r_ = init_.getCompoFactory().newRadioButton("0");
+        r_.setSelected(true);
+        c_.add(r_);
+        c_.remove(r_);
+        assertEq(0,c_.getGroup().size());
+        assertNull(c_.getSelected());
     }
 }

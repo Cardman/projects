@@ -13,13 +13,13 @@ public final class MockSplitPaneTest extends EquallableMockGuiUtil {
     public void s1() {
         MockWithChangeListenerSample fr_ = new MockWithChangeListenerSample(init(), "");
         fr_.getRadioButton().setSelected(false);
-        assertEq("->0",fr_.getText());
+        assertEq("",fr_.getText());
     }
     @Test
     public void s2() {
         MockWithChangeListenerSample fr_ = new MockWithChangeListenerSample(init(), "");
         fr_.getRadioButton().setSelected(true);
-        assertEq("->1",fr_.getText());
+        assertEq("",fr_.getText());
         fr_.getRadioButton().setButtonGroup(fr_.getRadioButton().getButtonGroup());
         assertEq(1, ((MockRadioButton)fr_.getRadioButton()).getActionListeners().size());
         fr_.getRadioButton().setText("__");

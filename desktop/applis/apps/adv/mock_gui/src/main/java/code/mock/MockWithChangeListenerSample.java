@@ -22,7 +22,6 @@ public final class MockWithChangeListenerSample extends MockAbsCommonFrame imple
         slider.addChangeListener(new MockChangeListener(this,1));
         getContentPane().add(slider);
         radioButton = _f.getCompoFactory().newRadioButton();
-        radioButton.addChangeListener(new MockChangeListener(this,2));
         radioButton.addActionListener(new MockAction(3,this));
         progressBar = _f.getCompoFactory().newAbsProgressBar();
         horizontalSplitPane = _f.getCompoFactory().newHorizontalSplitPane(radioButton, progressBar);
@@ -38,12 +37,8 @@ public final class MockWithChangeListenerSample extends MockAbsCommonFrame imple
     public void action(int _nb) {
         if (_nb == 0) {
             textField.setText(Long.toString(spinner.getValue()));
-        } else if (_nb == 1){
-            textField.setText(Long.toString(slider.getValue()));
-        } else if (radioButton.isSelected()){
-            textField.setText("->1");
         } else {
-            textField.setText("->0");
+            textField.setText(Long.toString(slider.getValue()));
         }
     }
 

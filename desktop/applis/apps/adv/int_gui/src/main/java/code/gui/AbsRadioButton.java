@@ -1,7 +1,6 @@
 package code.gui;
 
 import code.gui.events.AbsActionListener;
-import code.gui.events.AbsChangeListener;
 
 public interface AbsRadioButton extends AbsCustComponent {
     void setSelected(boolean _value);
@@ -12,9 +11,8 @@ public interface AbsRadioButton extends AbsCustComponent {
 
     boolean isSelected();
 
-    void addChangeListener(AbsChangeListener _list);
-
     void addActionListener(AbsActionListener _list);
+    void removeActionListener(AbsActionListener _list);
 
     void setButtonGroup(AbsCustButtonGroup _custButtonGroup);
 

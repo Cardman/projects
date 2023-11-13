@@ -111,8 +111,6 @@ public final class RadioButtonStructTest extends EquallableElUtUtil {
         Struct r_ = call(new FctRadio1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctRadioSetText(),null,ctx_,r_,one(NullStruct.NULL_VALUE),st_);
         call(new FctRadioSetText(),null,ctx_,r_,one(new StringStruct("_")),st_);
-        call(new FctRadioAddChange(),null,ctx_,r_,one(NullStruct.NULL_VALUE),st_);
-        call(new FctRadioAddChange(),null,ctx_,r_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         assertEq("_",call(new FctRadioGetText(),null,ctx_,r_,null,st_));
     }
     @Test

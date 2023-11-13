@@ -5,7 +5,6 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
 import code.gui.AbsRadioButton;
-import code.gui.events.AbsChangeListener;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class RadioButtonStruct extends CustComponentStruct {
@@ -30,12 +29,6 @@ public final class RadioButtonStruct extends CustComponentStruct {
             radioButton = _compo.newRadioButton(null,BooleanStruct.isTrue(_s));
         }
 
-    }
-
-    public void addChangeListener(Struct _l) {
-        if (_l instanceof AbsChangeListener) {
-            radioButton.addChangeListener((AbsChangeListener) _l);
-        }
     }
 
     public Struct getText() {

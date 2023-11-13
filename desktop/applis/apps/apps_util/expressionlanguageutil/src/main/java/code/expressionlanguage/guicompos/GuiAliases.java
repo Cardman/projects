@@ -64,6 +64,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private static final String GR_LIST="_____1244";
     private static final String COMBO="_____1245";
     private static final String BUTTON_GROUP="_____1246";
+    private static final String BUTTON_GROUP_REMOVE="_____1246_";
     private static final String RENDER="_____1247";
     private static final String POPUP_MENU="_____1248";
     private static final String DIMENSION="835";
@@ -359,6 +360,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private static final String FONT_STRING_WIDTH="883";
     private static final String FONT_STRING_HEIGHT="883_";
     private static final String BUTTON_GROUP_ADD="_____1431";
+    private static final String BUTTON_GROUP_BUTTONS="_____1431_";
     private static final String RENDER_GET_HEIGHT="_____1432";
     private static final String RENDER_GET_PAINT="_____1433";
     private static final String RENDER_GET_WIDTH="_____1434";
@@ -825,6 +827,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
     private String aliasButtonGroup;
     private String aliasButtonGroupAdd;
+    private String aliasButtonGroupRemove;
+    private String aliasButtonGroupButtons;
     private String aliasRadio;
     private String aliasRadioIsSelected;
     private String aliasRadioSetSelected;
@@ -2647,6 +2651,12 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         params_ = new StringList(aliasRadio);
         method_ = new StandardMethod(aliasButtonGroupAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButtonGroup0TabbedPaneAdd0()), new FctButtonGroupAdd());
         StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasRadio);
+        method_ = new StandardMethod(aliasButtonGroupRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButtonGroup0TabbedPaneRemove0()), new FctButtonGroupRemove());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasButtonGroupRemove, params_, StringExpUtil.getPrettyArrayType(aliasRadio), false, MethodModifier.FINAL,new StringList(), new FctButtonGroupGetButtons());
+        StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false, new FctButtonGroup(_cust,_guiEx));
         StandardNamedFunction.addFct(constructors_, ctor_);
@@ -2694,9 +2704,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasRadioSetText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRadio0SetLabelText0()), new FctRadioSetText());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasChangeListener);
-        method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRadio0AddChange0()), new FctRadioAddChange());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false, new FctRadio0(_cust,_guiEx,aliasRadio));
@@ -3495,6 +3502,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 //        setAliasTextFieldAuto(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD_AUTO)));
         setAliasRadioGetText(LgNamesContent.get(_util,_cust,_mapping.getVal(RADIO_GET_TEXT)));
         setAliasButtonGroupAdd(LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON_GROUP_ADD)));
+        setAliasButtonGroupRemove(LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON_GROUP_REMOVE)));
+        setAliasButtonGroupButtons(LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON_GROUP_BUTTONS)));
         setAliasButtonGroup(LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON_GROUP)));
         setAliasPopupMenuAdd(LgNamesContent.get(_util,_cust,_mapping.getVal(POPUP_MENU_ADD)));
         setAliasRadioIsSelected(LgNamesContent.get(_util,_cust,_mapping.getVal(RADIO_IS_SELECTED)));
@@ -3613,6 +3622,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _en.add(GR_LIST,"GrList=$core.GrList");
         _en.add(COMBO,"Combo=$core.ComboBox");
         _en.add(BUTTON_GROUP,"ButtonGroup=$core.ButtonGroup");
+        _en.add(BUTTON_GROUP_REMOVE,"ButtonGroupRemove=removeButton");
+        _en.add(BUTTON_GROUP_BUTTONS,"ButtonGroupButtons=buttons");
         _en.add(RENDER,"Render=$core.Render");
         _en.add(POPUP_MENU,"PopupMenu=$core.Popup");
         _en.add(DIMENSION,"Dimension=$core.Dimension");
@@ -4064,6 +4075,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _fr.add(GR_LIST,"GrList=$coeur.GrListe");
         _fr.add(COMBO,"Combo=$coeur.ListeDeroulante");
         _fr.add(BUTTON_GROUP,"ButtonGroup=$coeur.GroupeBoutons");
+        _fr.add(BUTTON_GROUP_REMOVE,"ButtonGroupRemove=supprBouton");
+        _fr.add(BUTTON_GROUP_BUTTONS,"ButtonGroupButtons=boutons");
         _fr.add(RENDER,"Render=$coeur.Rendu");
         _fr.add(POPUP_MENU,"PopupMenu=$coeur.MenuContextuel");
         _fr.add(DIMENSION,"Dimension=$coeur.Dimension");
@@ -4549,7 +4562,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(FONT_STRING_WIDTH),getAliasFontStringWidth()),
                 new KeyValueMemberName(_mapping.getVal(FONT_STRING_HEIGHT),getAliasFontStringHeight())));
         m_.addEntry(getAliasButtonGroup(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(_mapping.getVal(BUTTON_GROUP_ADD),getAliasButtonGroupAdd()))
+                new KeyValueMemberName(_mapping.getVal(BUTTON_GROUP_ADD),getAliasButtonGroupAdd()),
+                new KeyValueMemberName(_mapping.getVal(BUTTON_GROUP_REMOVE),getAliasButtonGroupRemove()),
+                new KeyValueMemberName(_mapping.getVal(BUTTON_GROUP_BUTTONS),getAliasButtonGroupButtons()))
         );
         m_.addEntry(getAliasRender(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(RENDER_GET_HEIGHT),getAliasRenderGetHeight()),
@@ -7950,6 +7965,22 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
     public void setAliasButtonGroupAdd(String _v) {
         this.aliasButtonGroupAdd = _v;
+    }
+
+    public String getAliasButtonGroupRemove() {
+        return aliasButtonGroupRemove;
+    }
+
+    public void setAliasButtonGroupRemove(String _v) {
+        this.aliasButtonGroupRemove = _v;
+    }
+
+    public String getAliasButtonGroupButtons() {
+        return aliasButtonGroupButtons;
+    }
+
+    public void setAliasButtonGroupButtons(String _v) {
+        this.aliasButtonGroupButtons = _v;
     }
 
     public String getAliasRadio() {
