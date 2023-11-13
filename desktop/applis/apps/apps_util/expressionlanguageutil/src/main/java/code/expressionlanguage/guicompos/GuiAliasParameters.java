@@ -249,6 +249,8 @@ public final class GuiAliasParameters {
     private static final String SEPARATOR_0_SEPARATOR_SET_ORIENT_0="__1027_";
     private static final String BUTTON_0_ADD_LISTENER_0="___1071";
     private static final String BUTTON_0_REMOVE_LISTENER_0="___1071_";
+    private static final String CHECK_BOX_0_ADD_LISTENER_0="___1071__";
+    private static final String CHECK_BOX_0_REMOVE_LISTENER_0="___1071___";
     private static final String BUTTON_0_BUTTON_0="__1028";
     private static final String PROG_BAR_0_PROG_BAR_MIN_0="_____1659";
     private static final String PROG_BAR_0_TREE_NODE_GET_USER_OBJECT_0="_____1660";
@@ -702,6 +704,8 @@ public final class GuiAliasParameters {
     private String aliasSeparator0SeparatorSetOrient0;
     private String aliasButton0AddListener0;
     private String aliasButton0RemoveListener0;
+    private String aliasCheckBox0AddListener0;
+    private String aliasCheckBox0RemoveListener0;
     private String aliasButton0Button0;
     private String aliasProgBar0ProgBarMin0;
     private String aliasProgBar0TreeNodeGetUserObject0;
@@ -1155,6 +1159,8 @@ public final class GuiAliasParameters {
         aliasSeparator0SeparatorSetOrient0=LgNamesContent.get(_util,_cust,_mapping.getVal(SEPARATOR_0_SEPARATOR_SET_ORIENT_0));
         aliasButton0AddListener0=LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON_0_ADD_LISTENER_0));
         aliasButton0RemoveListener0=LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON_0_REMOVE_LISTENER_0));
+        aliasCheckBox0AddListener0=LgNamesContent.get(_util,_cust,_mapping.getVal(CHECK_BOX_0_ADD_LISTENER_0));
+        aliasCheckBox0RemoveListener0=LgNamesContent.get(_util,_cust,_mapping.getVal(CHECK_BOX_0_REMOVE_LISTENER_0));
         aliasButton0Button0=LgNamesContent.get(_util,_cust,_mapping.getVal(BUTTON_0_BUTTON_0));
         aliasProgBar0ProgBarMin0=LgNamesContent.get(_util,_cust,_mapping.getVal(PROG_BAR_0_PROG_BAR_MIN_0));
         aliasProgBar0TreeNodeGetUserObject0=LgNamesContent.get(_util,_cust,_mapping.getVal(PROG_BAR_0_TREE_NODE_GET_USER_OBJECT_0));
@@ -1608,6 +1614,8 @@ public final class GuiAliasParameters {
         _en.add(SEPARATOR_0_SEPARATOR_SET_ORIENT_0,"Separator0SeparatorSetOrient0=a");
         _en.add(BUTTON_0_ADD_LISTENER_0,"Button0AddListener0=a");
         _en.add(BUTTON_0_REMOVE_LISTENER_0,"Button0RemoveListener0=a");
+        _en.add(CHECK_BOX_0_ADD_LISTENER_0,"CheckBox0AddListener0=a");
+        _en.add(CHECK_BOX_0_REMOVE_LISTENER_0,"CheckBox0RemoveListener0=a");
         _en.add(BUTTON_0_BUTTON_0,"Button0Button0=a");
         _en.add(PROG_BAR_0_PROG_BAR_MIN_0,"ProgBar0ProgBarMin0=a");
         _en.add(PROG_BAR_0_TREE_NODE_GET_USER_OBJECT_0,"ProgBar0TreeNodeGetUserObject0=a");
@@ -2061,6 +2069,8 @@ public final class GuiAliasParameters {
         _fr.add(SEPARATOR_0_SEPARATOR_SET_ORIENT_0,"Separator0SeparatorSetOrient0=a");
         _fr.add(BUTTON_0_ADD_LISTENER_0,"Button0AddListener0=a");
         _fr.add(BUTTON_0_REMOVE_LISTENER_0,"Button0RemoveListener0=a");
+        _fr.add(CHECK_BOX_0_ADD_LISTENER_0,"CheckBox0AddListener0=a");
+        _fr.add(CHECK_BOX_0_REMOVE_LISTENER_0,"CheckBox0RemoveListener0=a");
         _fr.add(BUTTON_0_BUTTON_0,"Button0Button0=a");
         _fr.add(PROG_BAR_0_PROG_BAR_MIN_0,"ProgBar0ProgBarMin0=a");
         _fr.add(PROG_BAR_0_TREE_NODE_GET_USER_OBJECT_0,"ProgBar0TreeNodeGetUserObject0=a");
@@ -2412,6 +2422,8 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SEPARATOR_0_SEPARATOR_SET_ORIENT_0),aliasSeparator0SeparatorSetOrient0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(BUTTON_0_ADD_LISTENER_0),aliasButton0AddListener0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(BUTTON_0_REMOVE_LISTENER_0),aliasButton0RemoveListener0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CHECK_BOX_0_ADD_LISTENER_0),aliasCheckBox0AddListener0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CHECK_BOX_0_REMOVE_LISTENER_0),aliasCheckBox0RemoveListener0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(BUTTON_0_BUTTON_0),aliasButton0Button0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(PROG_BAR_0_PROG_BAR_MIN_0),aliasProgBar0ProgBarMin0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(PROG_BAR_0_TREE_NODE_GET_USER_OBJECT_0),aliasProgBar0TreeNodeGetUserObject0)));
@@ -3452,6 +3464,14 @@ public final class GuiAliasParameters {
 
     public String getAliasButton0RemoveListener0() {
         return aliasButton0RemoveListener0;
+    }
+
+    public String getAliasCheckBox0AddListener0() {
+        return aliasCheckBox0AddListener0;
+    }
+
+    public String getAliasCheckBox0RemoveListener0() {
+        return aliasCheckBox0RemoveListener0;
     }
 
     public String getAliasButton0Button0() {

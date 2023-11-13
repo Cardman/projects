@@ -267,6 +267,8 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         MockWithActionSample s_ = new MockWithActionSample();
         MockAction acList_ = new MockAction(1, s_);
         ch_.addActionListener(acList_);
+        MockAdvAction advActCh_ = new MockAdvAction(0,new MockWithAdvActionSample());
+        ch_.addActionListener(advActCh_);
         ch_.setSelected(true);
         assertTrue(ch_.isSelected());
         assertEq(0,s_.getNb());
@@ -281,6 +283,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         assertTrue(ch_.isSelected());
         assertEq(1,s_.getNb());
         ch_.removeActionListener(acList_);
+        ch_.removeActionListener(advActCh_);
         assertEq(0,ch_.getActionListeners().size());
         MockPaintableLabelAbs paint_ = (MockPaintableLabelAbs) ab_.newAbsPaintableLabel();
         paint_.setEmptyIcon();

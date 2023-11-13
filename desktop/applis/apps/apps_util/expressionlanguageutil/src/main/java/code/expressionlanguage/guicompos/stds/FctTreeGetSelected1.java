@@ -17,6 +17,10 @@ import code.util.Ints;
 import code.util.core.StringUtil;
 
 public final class FctTreeGetSelected1 implements StdCaller {
+    private final String sgn;
+    public FctTreeGetSelected1(String _id) {
+        sgn = _id;
+    }
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         TreeStruct inst_ = (TreeStruct) _instance;
@@ -31,9 +35,9 @@ public final class FctTreeGetSelected1 implements StdCaller {
                 for (int i = 0; i < l; i++) {
                     info_.add(Long.toString(ints_.get(i)));
                 }
-                logger_.log("select node:"+ StringUtil.join(info_,","));
+                logger_.log(sgn+":"+ StringUtil.join(info_,","));
             } else {
-                logger_.log("select node");
+                logger_.log(sgn);
             }
             _stackCall.setCallingState(new SelectTreeNodeState(inst_,arg_));
         }

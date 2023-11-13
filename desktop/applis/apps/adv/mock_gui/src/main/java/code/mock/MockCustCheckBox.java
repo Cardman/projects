@@ -2,11 +2,13 @@ package code.mock;
 
 import code.gui.AbsCustCheckBox;
 import code.gui.events.AbsActionListener;
+import code.gui.events.AbsAdvActionListener;
 import code.util.CustList;
 import code.util.IdList;
 
 public final class MockCustCheckBox extends MockInput implements AbsCustCheckBox {
     private final IdList<AbsActionListener> actionListeners = new IdList<AbsActionListener>();
+    private final IdList<AbsAdvActionListener> actionAdvListeners = new IdList<AbsAdvActionListener>();
     private boolean selected;
     private String text;
     public MockCustCheckBox() {
@@ -25,8 +27,28 @@ public final class MockCustCheckBox extends MockInput implements AbsCustCheckBox
     }
 
     @Override
+    public void addActionListener(AbsAdvActionListener _l) {
+        addActionListenerMap(_l);
+    }
+
+    @Override
+    public void addActionListenerMap(AbsAdvActionListener _l) {
+        actionAdvListeners.add(_l);
+    }
+
+    @Override
     public void removeActionListener(AbsActionListener _l) {
         actionListeners.removeObj(_l);
+    }
+
+    @Override
+    public void removeActionListener(AbsAdvActionListener _l) {
+        removeActionListenerMap(_l);
+    }
+
+    @Override
+    public void removeActionListenerMap(AbsAdvActionListener _l) {
+        actionAdvListeners.removeObj(_l);
     }
 
     @Override

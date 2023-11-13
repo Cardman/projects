@@ -2,15 +2,18 @@ package code.vi.prot.impl.gui;
 
 import code.gui.AbsCustCheckBox;
 import code.gui.events.AbsActionListener;
+import code.gui.events.AbsAdvActionListener;
 import code.vi.prot.impl.gui.events.WrActionListener;
 import code.util.CustList;
 import code.util.IdMap;
+import code.vi.prot.impl.gui.events.WrAdvActionListener;
 
 import javax.swing.*;
 
 public final class CustCheckBox extends CustComponent implements AbsCustCheckBox {
 
     private final IdMap<AbsActionListener,WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
+    private final IdMap<AbsAdvActionListener,WrAdvActionListener> mapAdvAction = new IdMap<AbsAdvActionListener, WrAdvActionListener>();
     private final JCheckBox checkBox;
     public CustCheckBox() {
         checkBox = new JCheckBox();
@@ -86,10 +89,35 @@ public final class CustCheckBox extends CustComponent implements AbsCustCheckBox
         return checkBox.getMultiClickThreshhold();
     }
 
+    @Override
+    public void addActionListener(AbsAdvActionListener _l) {
+        WrAdvActionListener wr_ = new WrAdvActionListener(_l);
+        checkBox.addActionListener(wr_);
+        mapAdvAction.addEntry(_l,wr_);
+    }
+
+    @Override
+    public void addActionListenerMap(AbsAdvActionListener _l) {
+        WrAdvActionListener wr_ = new WrAdvActionListener(_l);
+        mapAdvAction.addEntry(_l,wr_);
+    }
+
     public void addActionListener(AbsActionListener _l) {
         WrActionListener wr_ = new WrActionListener(_l);
         checkBox.addActionListener(wr_);
         mapAction.addEntry(_l,wr_);
+    }
+
+    @Override
+    public void removeActionListener(AbsAdvActionListener _l) {
+        WrAdvActionListener wr_ = mapAdvAction.getVal(_l);
+        checkBox.removeActionListener(wr_);
+        mapAdvAction.removeKey(_l);
+    }
+
+    @Override
+    public void removeActionListenerMap(AbsAdvActionListener _l) {
+        mapAdvAction.removeKey(_l);
     }
 
     public void removeActionListener(AbsActionListener _l) {

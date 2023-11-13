@@ -55,8 +55,8 @@ public final class TreeStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct n_ = call(new FctTreeNode1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         Struct t_ = call(new FctTree(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(n_), st_);
-        call(new FctTreeGetSelected1(),null,ctx_,t_,one(NullStruct.NULL_VALUE),st_);
-        call(new FctTreeGetSelected1(),null,ctx_,t_,one(n_),st_);
+        call(new FctTreeGetSelected1(""),null,ctx_,t_,one(NullStruct.NULL_VALUE),st_);
+        call(new FctTreeGetSelected1(""),null,ctx_,t_,one(n_),st_);
         call(new FctTreeReload(),null,ctx_,t_,null,st_);
         assertTrue(n_.sameReference(call(new FctTreeGetSelected0(),null,ctx_,t_,null,st_)));
         assertFalse(st_.isFailInit());

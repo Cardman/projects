@@ -1,15 +1,17 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.structs.*;
 import code.gui.AbsCustCheckBox;
 import code.gui.AbsCustComponent;
+import code.gui.events.AbsAdvActionListener;
 import code.gui.initialize.AbsCompoFactory;
+import code.util.IdList;
 
 public final class CheckBoxStruct extends CustComponentStruct {
     private final AbsCustCheckBox checkBox;
+    private final IdList<Struct> actionsCheck = new IdList<Struct>();
 
     public CheckBoxStruct(String _className, AbsCompoFactory _compo) {
         super(_className);
@@ -41,6 +43,35 @@ public final class CheckBoxStruct extends CustComponentStruct {
             return ((StringStruct)_txt).getInstance();
         }
         return null;
+    }
+
+    public void addActionListener(Struct _list, StackCall _stackCall) {
+        if (_list instanceof AbsAdvActionListener) {
+            if (_stackCall.getStopper().getLogger() != null) {
+                checkBox.addActionListenerMap((AbsAdvActionListener)_list);
+            } else {
+                checkBox.addActionListener((AbsAdvActionListener)_list);
+            }
+            actionsCheck.add(_list);
+        }
+    }
+    public void removeActionListener(Struct _list, StackCall _stackCall) {
+        if (_list instanceof AbsAdvActionListener) {
+            if (_stackCall.getStopper().getLogger() != null) {
+                checkBox.removeActionListenerMap((AbsAdvActionListener) _list);
+            } else {
+                checkBox.removeActionListener((AbsAdvActionListener) _list);
+            }
+            actionsCheck.removeObj(_list);
+        }
+    }
+    public ArrayStruct getActions(ContextEl _ctx) {
+        String aliasMouseListener_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasActionListener();
+        return nulls(aliasMouseListener_, actionsCheck);
+    }
+
+    public IdList<Struct> getActionsCheck() {
+        return actionsCheck;
     }
 
     public Struct isSelected() {
