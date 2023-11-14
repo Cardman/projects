@@ -1933,22 +1933,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasButton, fields_, constructors_, methods_, aliasAbsButton, MethodModifier.FINAL, new DfButton(_cust,_guiEx,aliasButton));
-        stdcl_.addSuperStdTypes(input_);
-        stdcl_.addSuperStdTypes(component_);
-        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
-        params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false, new FctButton0(_cust,_guiEx,aliasButton));
-        StandardNamedFunction.addFct(constructors_, ctor_);
-        params_ = new StringList(_content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasButton0Button0()), new FctButton1(_cust,_guiEx,aliasButton));
-        StandardNamedFunction.addFct(constructors_, ctor_);
-        std_ = stdcl_;
-        StandardType.addType(_content.getStandards(), aliasButton, std_);
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasAbsButton, fields_, constructors_, methods_, aliasInput, MethodModifier.ABSTRACT);
+        StandardClass absButType_ = new StandardClass(aliasAbsButton, fields_, constructors_, methods_, aliasInput, MethodModifier.ABSTRACT);
+        stdcl_ = absButType_;
         stdcl_.addSuperStdTypes(input_);
         stdcl_.addSuperStdTypes(component_);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
@@ -1969,6 +1955,22 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         StandardNamedFunction.addFct(methods_, method_);
         std_ = stdcl_;
         StandardType.addType(_content.getStandards(), aliasAbsButton, std_);
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<CstFieldInfo>();
+        stdcl_ = new StandardClass(aliasButton, fields_, constructors_, methods_, aliasAbsButton, MethodModifier.FINAL, new DfButton(_cust,_guiEx,aliasButton));
+        stdcl_.addSuperStdTypes(absButType_);
+        stdcl_.addSuperStdTypes(input_);
+        stdcl_.addSuperStdTypes(component_);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false, new FctButton0(_cust,_guiEx,aliasButton));
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasButton0Button0()), new FctButton1(_cust,_guiEx,aliasButton));
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        std_ = stdcl_;
+        StandardType.addType(_content.getStandards(), aliasButton, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
@@ -2063,7 +2065,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
         image(_content, _guiEx);
         buildInputs(_content,_cust,_guiEx, component_, input_);
-        buildMenus(_content,_cust,_guiEx);
+        buildMenus(_content,_cust,_guiEx, component_, absButType_, input_);
     }
 
     public void tree(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx, StandardClass _compo) {
@@ -2501,11 +2503,12 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         StandardType.addType(_content.getStandards(), aliasActionEvent, stdcl_);
     }
 
-    private void buildMenus(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
+    private void buildMenus(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx, StandardType _component, StandardType _but, StandardType _input) {
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
         StandardClass stdcl_ = new StandardClass(aliasMenuBar, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_component);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         StringList params_ = new StringList(aliasMenu);
         StandardMethod method_ = new StandardMethod(aliasMenuBarAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new StringList(guiAliasParameters.getAliasMenuBar0TabbedPaneAdd0()), new FctMenuBarAdd());
@@ -2527,6 +2530,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasAbsMenu, fields_, constructors_, methods_, aliasAbsButton, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(_but);
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         StandardClass absMenu_ = stdcl_;
         params_ = new StringList();
@@ -2540,6 +2546,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasMenu, fields_, constructors_, methods_, aliasAbsMenu, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_but);
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
         stdcl_.addSuperStdTypes(absMenu_);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasAbsMenu);
@@ -2568,6 +2577,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasAbsMenuItem, fields_, constructors_, methods_, aliasAbsMenu, StdClassModifier.ABSTRACT);
+        stdcl_.addSuperStdTypes(_but);
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
         stdcl_.addSuperStdTypes(absMenu_);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         StandardClass menuItem_ = stdcl_;
@@ -2576,6 +2588,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasMenuItem, fields_, constructors_, methods_, aliasAbsMenuItem, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_but);
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
         stdcl_.addSuperStdTypes(menuItem_);
         stdcl_.addSuperStdTypes(absMenu_);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
@@ -2590,6 +2605,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasMenuItemCheck, fields_, constructors_, methods_, aliasAbsMenuItem, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(_but);
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
         stdcl_.addSuperStdTypes(menuItem_);
         stdcl_.addSuperStdTypes(absMenu_);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
