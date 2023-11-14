@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilimpl.CustContextFactory;
+import code.expressionlanguage.utilimpl.DefFileBuilderListGene;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.util.StringList;
 import code.util.StringMap;
@@ -24,7 +25,7 @@ public final class GuiContextFactory {
 //            _undefinedLgNames.getGuiAliases().otherAliasGui(_exec.getAliases(),new StringMap<String>());
 //        }
         _options.setWarningShow(AnalysisMessages.build(_exec.getWarns(), _undefinedLgNames.getExecContent().getCustAliases().extractMessagesKeys()));
-        return CustContextFactory.customer(_exec, _files, CustContextFactory.predefined(_options, _exec, _undefinedLgNames, _files, _mainArgs, new DefBuildLightResultContextNext(), null), new AdvContextGenerator(_currentElements.getThreadFactory().newAtomicBoolean()));
+        return CustContextFactory.customer(_exec, _files, CustContextFactory.predefined(_options, _exec, _undefinedLgNames, _files, _mainArgs, new DefBuildLightResultContextNext(), new DefFileBuilderListGene()), new AdvContextGenerator(_currentElements.getThreadFactory().newAtomicBoolean()));
     }
 
 }
