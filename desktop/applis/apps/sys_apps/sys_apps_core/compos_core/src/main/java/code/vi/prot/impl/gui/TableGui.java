@@ -55,7 +55,7 @@ public final class TableGui extends CustComponent implements AbsTableGui {
     }
 
     public void removeSelectInterval(int _from, int _to) {
-        table.getSelectionModel().removeIndexInterval(_from,_to);
+        table.getSelectionModel().removeSelectionInterval(_from,_to);
     }
     public void setRowCount(int _rowCount) {
         model.setRowCount(_rowCount);
