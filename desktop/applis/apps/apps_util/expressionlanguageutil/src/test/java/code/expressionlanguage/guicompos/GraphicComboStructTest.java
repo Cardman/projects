@@ -132,7 +132,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{public static int run(){var g = new ComboBox();g.addItem(null);return g.getItemCount();}}");
         Struct combo_ = ctxStr(pr_,files_);
-        assertEq(0,((NumberStruct)combo_).intStruct());
+        assertEq(0,toLong(combo_));
     }
     @Test
     public void addItem2() {
@@ -140,7 +140,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{public static int run(){var g = new ComboBox();g.addItem(\"\");return g.getItemCount();}}");
         Struct combo_ = ctxStr(pr_,files_);
-        assertEq(1,((NumberStruct)combo_).intStruct());
+        assertEq(1,toLong(combo_));
     }
     @Test
     public void addItem3() {
@@ -148,7 +148,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{public static int run(){var g = new ComboBox();g.addItem(\"0\");g.addItem(\"1\");return g.getSelectedIndex();}}");
         Struct combo_ = ctxStr(pr_,files_);
-        assertEq(0,((NumberStruct)combo_).intStruct());
+        assertEq(0,toLong(combo_));
     }
     @Test
     public void addItem4() {
@@ -204,7 +204,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{public static int run(){var g = new ComboBox();g.addItem(\"0\");g.setVisibleRowCount(1);g.updateGraphics();return g.getVisibleRowCount();}}");
         Struct combo_ = ctxStr(pr_,files_);
-        assertEq(1,((NumberStruct)combo_).intStruct());
+        assertEq(1,toLong(combo_));
     }
     @Test
     public void selectItem() {
@@ -448,7 +448,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
         ExecFormattedRootBlock form_ = new ExecFormattedRootBlock(ex_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC, "run", new StringList());
-        return ArgumentListCall.toStr(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, new ExecTypeFunction(form_, ExecClassesUtil.getMethodBodiesById(ex_, id_).first()), resSt_, new ArgumentListCall()));
+        return ArgumentListCall.toStr(EventStruct.invoke(NullStruct.NULL_VALUE, ctx_, new ExecTypeFunction(form_, ExecClassesUtil.getMethodBodiesById(ex_, id_).first()), resSt_, new ArgumentListCall()));
     }
     private ContextEl ctx(MockProgramInfos _p) {
         return ctx(_p,new StringMap<String>());

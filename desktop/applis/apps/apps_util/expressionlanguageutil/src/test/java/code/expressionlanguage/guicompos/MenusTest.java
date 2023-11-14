@@ -574,7 +574,7 @@ public final class MenusTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct ls_ = call(new FctSeparator(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, null, st_);
         call(new FctSeparatorSep1(),null,ctx_,ls_,one(new IntStruct(1)),st_);
-        assertEq(1,((NumberStruct)call(new FctSeparatorSep0(),null,ctx_,ls_,null,st_)).intStruct());
+        assertEq(1,toLong(call(new FctSeparatorSep0(),null,ctx_,ls_,null,st_)));
     }
     @Test
     public void or2() {
@@ -586,6 +586,6 @@ public final class MenusTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct ls_ = call(new DfSeparator(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, st_);
         call(new FctSeparatorSep1(),null,ctx_,ls_,one(new IntStruct(1)),st_);
-        assertEq(1,((NumberStruct)call(new FctSeparatorSep0(),null,ctx_,ls_,null,st_)).intStruct());
+        assertEq(1,toLong(call(new FctSeparatorSep0(),null,ctx_,ls_,null,st_)));
     }
 }

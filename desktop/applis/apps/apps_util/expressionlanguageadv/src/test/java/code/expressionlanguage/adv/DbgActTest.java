@@ -3681,9 +3681,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertSame(NullStruct.NULL_VALUE,root_.getChildren().get(0).value());
         assertEq(2,root_.getChildren().get(0).getChildren().size());
         assertEq("pkg.Ex|a",root_.getChildren().get(0).getChildren().get(0).str());
-        assertEq(2,((NumberStruct)root_.getChildren().get(0).getChildren().get(0).value()).intStruct());
+        assertEq(2,toLong(root_.getChildren().get(0).getChildren().get(0).value()));
         assertEq("pkg.Ex|b",root_.getChildren().get(0).getChildren().get(1).str());
-        assertEq(4,((NumberStruct)root_.getChildren().get(0).getChildren().get(1).value()).intStruct());
+        assertEq(4,toLong(root_.getChildren().get(0).getChildren().get(1).value()));
         assertEq("-1|v|[$core.String",root_.getChildren().get(1).str());
         assertEq(1,root_.getChildren().get(1).getChildren().size());
         assertEq("[0]",root_.getChildren().get(1).getChildren().get(0).str());
@@ -3726,7 +3726,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq("pkg.Ex",root_.getChildren().get(0).value().getClassName(curRet(b_).getContext()));
         assertEq(2,root_.getChildren().get(0).getChildren().size());
         assertEq("pkg.Ex|a",root_.getChildren().get(0).getChildren().get(0).str());
-        assertEq(2,((NumberStruct)root_.getChildren().get(0).getChildren().get(0).value()).intStruct());
+        assertEq(2,toLong(root_.getChildren().get(0).getChildren().get(0).value()));
         assertEq("pkg.Ex|b",root_.getChildren().get(0).getChildren().get(1).str());
         assertSame(root_.getChildren().get(0).value(),root_.getChildren().get(0).getChildren().get(1).value());
         assertEq(0, root_.getChildren().get(0).getChildren().get(1).getChildren().size());
@@ -3769,7 +3769,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq("|",root_.getChildren().get(0).getChildren().get(0).str());
         assertEq("pkg.Ex",root_.getChildren().get(0).getChildren().get(0).value().getClassName(curRet(b_).getContext()));
         assertEq("pkg.Ex..Inner|b",root_.getChildren().get(0).getChildren().get(1).str());
-        assertEq(2,((NumberStruct)root_.getChildren().get(0).getChildren().get(1).value()).intStruct());
+        assertEq(2,toLong(root_.getChildren().get(0).getChildren().get(1).value()));
         assertEq(1,root_.getChildren().get(0).getChildren().get(0).getChildren().size());
         assertEq("pkg.Ex|a",root_.getChildren().get(0).getChildren().get(0).getChildren().get(0).str());
         assertSame(root_.getChildren().get(0).value(),root_.getChildren().get(0).getChildren().get(0).getChildren().get(0).value());
@@ -3812,10 +3812,10 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertSame(NullStruct.NULL_VALUE,root_.getChildren().get(0).value());
         assertEq(0,root_.getChildren().get(0).getChildren().size());
         assertEq("-1|i|int([0])",root_.getChildren().get(1).str());
-        assertEq(0,((NumberStruct)root_.getChildren().get(1).value()).intStruct());
+        assertEq(0,toLong(root_.getChildren().get(1).value()));
         assertEq(0,root_.getChildren().get(1).getChildren().size());
         assertEq("-1|s|int",root_.getChildren().get(2).str());
-        assertEq(0,((NumberStruct)root_.getChildren().get(2).value()).intStruct());
+        assertEq(0,toLong(root_.getChildren().get(2).value()));
         assertEq(0,root_.getChildren().get(2).getChildren().size());
         assertEq("-1|v|[$core.String",root_.getChildren().get(3).str());
         assertEq(1,root_.getChildren().get(3).getChildren().size());
@@ -3859,9 +3859,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq("pkg.Ex",root_.getChildren().get(0).value().getClassName(curRet(b_).getContext()));
         assertEq(2,root_.getChildren().get(0).getChildren().size());
         assertEq("pkg.Ex|a",root_.getChildren().get(0).getChildren().get(0).str());
-        assertEq(2,((NumberStruct)root_.getChildren().get(0).getChildren().get(0).value()).intStruct());
+        assertEq(2,toLong(root_.getChildren().get(0).getChildren().get(0).value()));
         assertEq("pkg.Super|b",root_.getChildren().get(0).getChildren().get(1).str());
-        assertEq(4,((NumberStruct)root_.getChildren().get(0).getChildren().get(1).value()).intStruct());
+        assertEq(4,toLong(root_.getChildren().get(0).getChildren().get(1).value()));
     }
     @Test
     public void i6() {
@@ -3896,7 +3896,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq("|",root_.getChildren().get(0).str());
-        assertEq(1,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
+        assertEq(1,toLong(root_.getChildren().get(0).value()));
     }
     @Test
     public void i7() {
@@ -3931,7 +3931,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq("int",root_.getChildren().get(0).str());
-        assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
+        assertEq(2,toLong(root_.getChildren().get(0).value()));
     }
     @Test
     public void i8() {
@@ -3969,7 +3969,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
         assertEq("int",root_.getChildren().get(0).str());
-        assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
+        assertEq(2,toLong(root_.getChildren().get(0).value()));
     }
     @Test
     public void i9() {
@@ -4096,7 +4096,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         selectJoin(b_, trDetail_, trDetail_.getRoot());
         selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
-        assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
+        assertEq(2,toLong(root_.getChildren().get(0).value()));
     }
     @Test
     public void i15() {
@@ -4134,7 +4134,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         selectJoin(b_, trDetail_, trDetail_.getRoot());
         selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
-        assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
+        assertEq(2,toLong(root_.getChildren().get(0).value()));
     }
     @Test
     public void i16() {
@@ -4174,7 +4174,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         selectJoin(b_, trDetail_, trDetail_.getRoot());
         selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
-        assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
+        assertEq(2,toLong(root_.getChildren().get(0).value()));
     }
     @Test
     public void i17() {
@@ -4213,7 +4213,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         selectJoin(b_, trDetail_, trDetail_.getRoot());
         selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
-        assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
+        assertEq(2,toLong(root_.getChildren().get(0).value()));
     }
     @Test
     public void i18() {
@@ -4250,7 +4250,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         selectJoin(b_, trDetail_, trDetail_.getRoot());
         assertEq(1,root_.getChildren().size());
         assertEq("|",root_.getChildren().get(0).str());
-        assertEq(1,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
+        assertEq(1,toLong(root_.getChildren().get(0).value()));
     }
     @Test
     public void i19() {
@@ -4286,7 +4286,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         selectJoin(b_, trDetail_, trDetail_.getRoot());
         selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
-        assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
+        assertEq(2,toLong(root_.getChildren().get(0).value()));
     }
     @Test
     public void i20() {
@@ -4428,7 +4428,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         selectJoin(b_, trDetail_, trDetail_.getRoot());
         selectJoin(b_, trDetail_, trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
-        assertEq(2,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
+        assertEq(2,toLong(root_.getChildren().get(0).value()));
     }
     @Test
     public void i24() {
@@ -5665,9 +5665,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(2,chsSec_.size());
         assertEq("1:",chsSec_.get(0).info().str());
-        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq(3,toLong(chsSec_.get(0).info().value()));
         assertEq("2:",chsSec_.get(1).info().str());
-        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq(4,toLong(chsSec_.get(1).info().value()));
     }
     @Test
     public void i48() {
@@ -5763,9 +5763,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(2,chsSec_.size());
         assertEq("pkg.Ex|a",chsSec_.get(0).info().str());
-        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq(3,toLong(chsSec_.get(0).info().value()));
         assertEq("pkg.Ex|b",chsSec_.get(1).info().str());
-        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq(4,toLong(chsSec_.get(1).info().value()));
     }
     @Test
     public void i49() {
@@ -5909,9 +5909,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(2,chsSec_.size());
         assertEq("1:",chsSec_.get(0).info().str());
-        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq(3,toLong(chsSec_.get(0).info().value()));
         assertEq("2:",chsSec_.get(1).info().str());
-        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq(4,toLong(chsSec_.get(1).info().value()));
     }
     @Test
     public void i51() {
@@ -6019,9 +6019,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(2,chsSec_.size());
         assertEq("1:",chsSec_.get(0).info().str());
-        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq(3,toLong(chsSec_.get(0).info().value()));
         assertEq("2:",chsSec_.get(1).info().str());
-        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq(4,toLong(chsSec_.get(1).info().value()));
         assertEq("3,4",((StringStruct)str_).getInstance());
     }
     @Test
@@ -6120,9 +6120,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(2,chsSec_.size());
         assertEq("1:",chsSec_.get(0).info().str());
-        assertEq(6,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq(6,toLong(chsSec_.get(0).info().value()));
         assertEq("2:",chsSec_.get(1).info().str());
-        assertEq(7,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq(7,toLong(chsSec_.get(1).info().value()));
         assertEq("4,5",((StringStruct)str_).getInstance());
     }
     @Test
@@ -6231,9 +6231,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(2,chsSec_.size());
         assertEq("pkg.Ex|a",chsSec_.get(0).info().str());
-        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq(3,toLong(chsSec_.get(0).info().value()));
         assertEq("pkg.Ex|b",chsSec_.get(1).info().str());
-        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq(4,toLong(chsSec_.get(1).info().value()));
         assertNull(str_);
     }
     @Test
@@ -6342,9 +6342,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(2,chsSec_.size());
         assertEq("1:",chsSec_.get(0).info().str());
-        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq(3,toLong(chsSec_.get(0).info().value()));
         assertEq("2:",chsSec_.get(1).info().str());
-        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq(4,toLong(chsSec_.get(1).info().value()));
         assertEq("3,4",((StringStruct)str_).getInstance());
     }
     @Test
@@ -6443,9 +6443,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(2,chsSec_.size());
         assertEq("1:",chsSec_.get(0).info().str());
-        assertEq(6,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq(6,toLong(chsSec_.get(0).info().value()));
         assertEq("2:",chsSec_.get(1).info().str());
-        assertEq(7,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq(7,toLong(chsSec_.get(1).info().value()));
         assertEq("4,5",((StringStruct)str_).getInstance());
     }
     @Test
@@ -6554,9 +6554,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(2,chsSec_.size());
         assertEq("pkg.Ex|a",chsSec_.get(0).info().str());
-        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq(3,toLong(chsSec_.get(0).info().value()));
         assertEq("pkg.Ex|b",chsSec_.get(1).info().str());
-        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq(4,toLong(chsSec_.get(1).info().value()));
         assertNull(str_);
     }
     @Test
@@ -6665,9 +6665,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(2,chsSec_.size());
         assertEq("1:",chsSec_.get(0).info().str());
-        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq(3,toLong(chsSec_.get(0).info().value()));
         assertEq("2:",chsSec_.get(1).info().str());
-        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq(4,toLong(chsSec_.get(1).info().value()));
         assertEq("3,4",((StringStruct)str_).getInstance());
     }
     @Test
@@ -6766,9 +6766,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(2,chsSec_.size());
         assertEq("1:",chsSec_.get(0).info().str());
-        assertEq(6,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq(6,toLong(chsSec_.get(0).info().value()));
         assertEq("2:",chsSec_.get(1).info().str());
-        assertEq(7,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq(7,toLong(chsSec_.get(1).info().value()));
         assertEq("4,5",((StringStruct)str_).getInstance());
     }
     @Test
@@ -6877,9 +6877,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(2,chsSec_.size());
         assertEq("pkg.Ex|a",chsSec_.get(0).info().str());
-        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq(3,toLong(chsSec_.get(0).info().value()));
         assertEq("pkg.Ex|b",chsSec_.get(1).info().str());
-        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq(4,toLong(chsSec_.get(1).info().value()));
         assertNull(str_);
     }
     @Test
@@ -6988,9 +6988,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(2,chsSec_.size());
         assertEq("1:",chsSec_.get(0).info().str());
-        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq(3,toLong(chsSec_.get(0).info().value()));
         assertEq("2:",chsSec_.get(1).info().str());
-        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq(4,toLong(chsSec_.get(1).info().value()));
         assertEq("3,4",((StringStruct)str_).getInstance());
     }
     @Test
@@ -7089,9 +7089,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(2,chsSec_.size());
         assertEq("1:",chsSec_.get(0).info().str());
-        assertEq(6,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq(6,toLong(chsSec_.get(0).info().value()));
         assertEq("2:",chsSec_.get(1).info().str());
-        assertEq(7,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq(7,toLong(chsSec_.get(1).info().value()));
         assertEq("4,5",((StringStruct)str_).getInstance());
     }
     @Test
@@ -7200,9 +7200,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chsSec_ = i_.getNode().children();
         assertEq(2,chsSec_.size());
         assertEq("pkg.Ex|a",chsSec_.get(0).info().str());
-        assertEq(3,((NumberStruct)chsSec_.get(0).info().value()).intStruct());
+        assertEq(3,toLong(chsSec_.get(0).info().value()));
         assertEq("pkg.Ex|b",chsSec_.get(1).info().str());
-        assertEq(4,((NumberStruct)chsSec_.get(1).info().value()).intStruct());
+        assertEq(4,toLong(chsSec_.get(1).info().value()));
         assertNull(str_);
     }
     @Test
@@ -7383,7 +7383,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         selectJoin(b_,trDetail_,trDetail_.getRoot());
         selectJoin(b_,trDetail_,trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
-        assertEq(3,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
+        assertEq(3,toLong(root_.getChildren().get(0).value()));
     }
     @Test
     public void dyn2() {
@@ -7421,7 +7421,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         selectJoin(b_,trDetail_,trDetail_.getRoot());
         selectJoin(b_,trDetail_,trDetail_.getRoot().getFirstChild());
         assertEq(1,root_.getChildren().size());
-        assertEq(3,((NumberStruct)root_.getChildren().get(0).value()).intStruct());
+        assertEq(3,toLong(root_.getChildren().get(0).value()));
     }
     @Test
     public void dynCancel() {
@@ -8479,7 +8479,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     public void noAna2() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "src//bad","public class pkg.ExClass:AbsStringReplacer{Second s;public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{}");
         StreamTextFile.saveTextFile("/project/sources/exp/0.txt","",w_.getCommonFrame().getFrames().getStreams());
-        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
+        w_.getFolderExpressionMenu().getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.setLimitSymbol(1);
         s_.getTree().select(s_.getTree().getRoot());
@@ -8492,7 +8492,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     }
     protected static void analyzeBad(WindowCdmEditor _w) {
         _w.getFuture().attendre();
-        AbsActionListener ev_ = ((MockMenuItem) _w.getAnalyzeMenu()).getActionListeners().get(0);
+        AbsActionListener ev_ = _w.getAnalyzeMenu().getActionListeners().get(0);
         ev_.action();
     }
     private static MockProgramInfos advPr() {
@@ -8531,7 +8531,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     protected static void analyzeBad2(WindowCdmEditor _w) {
         _w.getFuture().attendre();
         ((LgNamesWithNewAliases)_w.getBaseResult().getForwards().getGenerator()).getExecContent().getExecutingOptions().setMainThread("//");
-        AbsActionListener ev_ = ((MockMenuItem) _w.getAnalyzeMenu()).getActionListeners().get(0);
+        AbsActionListener ev_ = _w.getAnalyzeMenu().getActionListeners().get(0);
         ev_.action();
     }
     private void launch(AbsDebuggerGui _d) {

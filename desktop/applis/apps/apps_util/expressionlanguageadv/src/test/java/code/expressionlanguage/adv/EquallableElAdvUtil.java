@@ -6,6 +6,7 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
@@ -86,7 +87,9 @@ public abstract class EquallableElAdvUtil {
     public static void assertEq(long _expected, long _result) {
         Assert.assertEquals(_expected, _result);
     }
-
+    public static long toLong(Struct _str) {
+        return ((NumberStruct)_str).longStruct();
+    }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }
