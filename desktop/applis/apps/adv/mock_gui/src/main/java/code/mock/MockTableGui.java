@@ -18,6 +18,8 @@ public final class MockTableGui extends MockCustComponent implements AbsTableGui
     private final StringList columnNames = new StringList();
     private final CustList<StringList> rows = new CustList<StringList>();
     private final Ints selected = new Ints();
+    private int anchor;
+    private int lead;
 
     public MockTableGui(String... _cols) {
         setColumnIdentifiers(_cols);
@@ -57,6 +59,8 @@ public final class MockTableGui extends MockCustComponent implements AbsTableGui
 
     @Override
     public void addSelectInterval(int _a, int _b) {
+        anchor = _a;
+        lead = _b;
         int m_ = NumberUtil.max(0, NumberUtil.min(_a,_b));
         int p_ = NumberUtil.min(rows.size()-1, NumberUtil.max(_a,_b));
         for (int j = m_;j <= p_;j++) {
@@ -67,11 +71,23 @@ public final class MockTableGui extends MockCustComponent implements AbsTableGui
 
     @Override
     public void removeSelectInterval(int _a, int _b) {
+        anchor = _a;
+        lead = _b;
         int m_ = NumberUtil.max(0, NumberUtil.min(_a,_b));
         int p_ = NumberUtil.min(rows.size()-1, NumberUtil.max(_a,_b));
         for (int j = m_;j <= p_;j++) {
             selected.removeAllLong(j);
         }
+    }
+
+    @Override
+    public int anc() {
+        return anchor;
+    }
+
+    @Override
+    public int lea() {
+        return lead;
     }
 
     @Override

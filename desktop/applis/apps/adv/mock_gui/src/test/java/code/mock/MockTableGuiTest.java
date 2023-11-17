@@ -97,6 +97,8 @@ public final class MockTableGuiTest extends EquallableMockGuiUtil{
         assertEq("0",ta_.getColumnName(0));
         assertEq("1",ta_.getColumnName(1));
         ta_.addSelectInterval(3,6);
+        assertEq(3,ta_.anc());
+        assertEq(6,ta_.lea());
         ta_.removeSelectInterval(3,6);
         assertEq(-1, ta_.getSelectedRow());
     }

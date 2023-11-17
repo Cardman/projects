@@ -50,6 +50,16 @@ public final class TableGui extends CustComponent implements AbsTableGui {
         return table.getSelectedRowCount();
     }
 
+    @Override
+    public int anc() {
+        return table.getSelectionModel().getAnchorSelectionIndex();
+    }
+
+    @Override
+    public int lea() {
+        return table.getSelectionModel().getLeadSelectionIndex();
+    }
+
     public void addSelectInterval(int _from, int _to) {
         table.getSelectionModel().addSelectionInterval(_from,_to);
     }

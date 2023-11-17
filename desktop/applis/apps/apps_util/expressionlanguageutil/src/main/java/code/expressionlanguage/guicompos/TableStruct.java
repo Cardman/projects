@@ -9,6 +9,8 @@ import code.gui.AbsTableGui;
 import code.gui.events.AbsListSelectionListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.initialize.AbsCompoFactory;
+import code.util.Ints;
+import code.util.core.NumberUtil;
 
 public final class TableStruct extends CustComponentStruct {
     private final AbsTableGui table;
@@ -30,7 +32,142 @@ public final class TableStruct extends CustComponentStruct {
         }
         return str_;
     }
+    public static int[] retrieveBoundsAdd(int[] _selected, int _oldFirst, int _oldLast, int _newAnc, int _newLead) {
+        int[] arr_ = retrieveBoundsAdd(_selected, _newAnc, _newLead);
+        return ancLea(arr_, _oldFirst, _newAnc, _oldLast, _newLead);
+    }
 
+    public static int[] retrieveBoundsRem(int[] _selected, int _oldFirst, int _oldLast, int _newAnc, int _newLead) {
+        int[] arr_ = retrieveBoundsRem(_selected, _newAnc, _newLead);
+        return ancLea(arr_, _oldFirst, _newAnc, _oldLast, _newLead);
+    }
+
+    private static int[] ancLea(int[] _arr, int _oldFirst, int _newAnc, int _oldLast, int _newLead) {
+        Ints mins_ = new Ints();
+        Ints maxs_ = new Ints();
+        if (_arr.length > 0) {
+            mins_.add(_arr[0]);
+            maxs_.add(_arr[_arr.length-1]);
+        }
+        feed(_oldFirst, mins_, maxs_, _oldFirst != _newAnc);
+        feed(_newAnc, mins_, maxs_, _oldFirst != _newAnc);
+        feed(_oldLast, mins_, maxs_, _oldLast != _newLead);
+        feed(_newLead, mins_, maxs_, _oldLast != _newLead);
+        long max_ = maxs_.getMaximum(-1);
+        if (max_ < 0) {
+            return new int[0];
+        }
+        return new int[]{(int) mins_.getMinimum(-1), (int) max_};
+    }
+
+    private static void feed(int _previous, Ints _mins, Ints _maxs, boolean _suppCond) {
+        if (_suppCond && _previous >= 0) {
+            _mins.add(_previous);
+            _maxs.add(_previous);
+        }
+    }
+
+    public static int[] retrieveBoundsAdd(int[] _selected, int _newAnc, int _newLead) {
+        int from_ = NumberUtil.min(_newAnc,_newLead);
+        int to_ = NumberUtil.max(_newAnc,_newLead);
+        boolean wasNotSel_ = false;
+        for (int f= from_; f <= to_; f++) {
+            if (!containsSorted(_selected,f)) {
+                wasNotSel_ = true;
+                break;
+            }
+        }
+        if (!wasNotSel_) {
+            return new int[0];
+        }
+        int[] sel_ = nextSelectRangeAdd(_selected, _newAnc, _newLead);
+        int nextMin_ = sel_[0];
+        int nextMax_ = sel_[sel_.length-1];
+        return new int[]{nextMin_,nextMax_};
+    }
+
+    public static int[] retrieveBoundsRem(int[] _selected, int _newAnc, int _newLead) {
+        int from_ = NumberUtil.min(_newAnc,_newLead);
+        int to_ = NumberUtil.max(_newAnc,_newLead);
+        boolean wasSel_ = false;
+        for (int f= from_; f <= to_; f++) {
+            if (containsSorted(_selected,f)) {
+                wasSel_ = true;
+                break;
+            }
+        }
+        if (!wasSel_) {
+            return new int[0];
+        }
+        int[] sel_ = nextSelectRangeRem(_selected, _newAnc, _newLead);
+        int nextMin_ = sel_[0];
+        int nextMax_ = sel_[sel_.length-1];
+        return new int[]{nextMin_,nextMax_};
+    }
+    private static boolean containsSorted(int[] _arr, int _v) {
+        if (_arr.length <= 0) {
+            return false;
+        }
+        int l_ = 0;
+        int u_ = _arr.length-1;
+        if (_v < _arr[0] || _v > _arr[u_]) {
+            return false;
+        }
+        while (l_ <= u_) {
+            int m_ = (l_ + u_) / 2;
+            int t_ = _arr[m_];
+            if (t_ == _v) {
+                return true;
+            }
+            if (t_ < _v) {
+                l_ = m_+1;
+            } else {
+                u_ = m_-1;
+            }
+        }
+        return false;
+    }
+    private static int[] nextSelectRangeAdd(int[] _selected, int _newAnc, int _newLead) {
+        int from_ = NumberUtil.min(_newAnc,_newLead);
+        int to_ = NumberUtil.max(_newAnc,_newLead);
+        if (_selected.length <= 0) {
+            return new int[]{from_, to_};
+        }
+        int minSel_ = _selected[0];
+        int maxSel_ = _selected[_selected.length-1];
+        int nextMin_;
+        int nextMax_;
+        if (to_ < minSel_ || from_ > maxSel_ || from_ >= minSel_ && to_ <= maxSel_) {
+            nextMin_ = from_;
+            nextMax_ = to_;
+        } else if (from_ >= minSel_) {
+            nextMin_ = maxSel_+1;
+            nextMax_ = to_;
+        } else {
+            nextMin_ = from_;
+            nextMax_ = minSel_-1;
+        }
+        return new int[]{nextMin_,nextMax_};
+    }
+    private static int[] nextSelectRangeRem(int[] _selected, int _newAnc, int _newLead) {
+        int from_ = NumberUtil.min(_newAnc,_newLead);
+        int to_ = NumberUtil.max(_newAnc,_newLead);
+        int nextMin_;
+        int nextMax_;
+        int minSel_ = _selected[0];
+        int maxSel_ = _selected[_selected.length-1];
+        if (from_ >= minSel_ && to_ <= maxSel_) {
+            nextMin_ = from_;
+            nextMax_ = to_;
+        } else if (from_ >= minSel_) {
+            nextMin_ = from_;
+            nextMax_ = maxSel_+1;
+        } else {
+            nextMin_ = minSel_-1;
+            nextMax_ = to_;
+        }
+        return new int[]{nextMin_,nextMax_};
+    }
     public IntStruct getSelectedRow() {
         return new IntStruct(table.getSelectedRow());
     }

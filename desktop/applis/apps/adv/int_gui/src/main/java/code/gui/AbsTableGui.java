@@ -15,6 +15,10 @@ public interface AbsTableGui extends AbsCustComponent {
 
     int getColumnCount();
 
+    int anc();
+
+    int lea();
+
     void addSelectInterval(int _a, int _b);
 
     void removeSelectInterval(int _a, int _b);

@@ -301,4 +301,145 @@ public final class TableStructTest extends EquallableElUtUtil {
         call(new FctCompoToolTip1(),null,ctx_,t_,one(new StringStruct("_")),st_);
         assertEq("_",call(new FctCompoToolTip0(),null,ctx_,t_,null,st_));
     }
+    @Test
+    public void addSelectEvt1(){
+        int[] a_ = TableStruct.retrieveBoundsAdd(new int[]{}, -1, -1, 1, 2);
+        assertEq(2,a_.length);
+        assertEq(1,a_[0]);
+        assertEq(2,a_[1]);
+    }
+    @Test
+    public void addSelectEvt2(){
+        int[] a_ = TableStruct.retrieveBoundsAdd(new int[]{1,2}, 1, 2, 5, 6);
+        assertEq(2,a_.length);
+        assertEq(1,a_[0]);
+        assertEq(6,a_[1]);
+    }
+    @Test
+    public void addSelectEvt3(){
+        int[] a_ = TableStruct.retrieveBoundsAdd(new int[]{1,2,5,6}, 5, 6, 3, 4);
+        assertEq(2,a_.length);
+        assertEq(3,a_[0]);
+        assertEq(6,a_[1]);
+    }
+    @Test
+    public void addSelectEvt4(){
+        int[] a_ = TableStruct.retrieveBoundsAdd(new int[]{1,2,3,4,5,6}, 3, 4, 3, 4);
+        assertEq(0,a_.length);
+    }
+    @Test
+    public void addSelectEvt5(){
+        int[] a_ = TableStruct.retrieveBoundsAdd(new int[]{}, 1, 6, 8, 16);
+        assertEq(2,a_.length);
+        assertEq(1,a_[0]);
+        assertEq(16,a_[1]);
+    }
+    @Test
+    public void addSelectEvt6(){
+        int[] a_ = TableStruct.retrieveBoundsAdd(new int[]{}, -1, -1, 1, 3);
+        assertEq(2,a_.length);
+        assertEq(1,a_[0]);
+        assertEq(3,a_[1]);
+    }
+    @Test
+    public void addSelectEvt7(){
+        int[] a_ = TableStruct.retrieveBoundsAdd(new int[]{1,2,3}, 1, 3, 2, 5);
+        assertEq(2,a_.length);
+        assertEq(1,a_[0]);
+        assertEq(5,a_[1]);
+    }
+    @Test
+    public void addSelectEvt8(){
+        int[] a_ = TableStruct.retrieveBoundsAdd(new int[]{}, -1, -1, 2, 5);
+        assertEq(2,a_.length);
+        assertEq(2,a_[0]);
+        assertEq(5,a_[1]);
+    }
+    @Test
+    public void addSelectEvt9(){
+        int[] a_ = TableStruct.retrieveBoundsAdd(new int[]{2,3,4,5}, 2, 5, 1, 3);
+        assertEq(2,a_.length);
+        assertEq(1,a_[0]);
+        assertEq(5,a_[1]);
+    }
+    @Test
+    public void addSelectEvt10(){
+        int[] a_ = TableStruct.retrieveBoundsAdd(new int[]{5,6}, 5, 6, 1, 2);
+        assertEq(2,a_.length);
+        assertEq(1,a_[0]);
+        assertEq(6,a_[1]);
+    }
+    @Test
+    public void remSelectEvt1(){
+        int[] a_ = TableStruct.retrieveBoundsRem(new int[]{1,2,3,4,5,6}, 3, 4, 3, 4);
+        assertEq(2,a_.length);
+        assertEq(3,a_[0]);
+        assertEq(4,a_[1]);
+    }
+    @Test
+    public void remSelectEvt2(){
+        int[] a_ = TableStruct.retrieveBoundsRem(new int[]{1,2,5,6}, 3, 4, 3, 4);
+        assertEq(0,a_.length);
+    }
+    @Test
+    public void remSelectEvt3(){
+        int[] a_ = TableStruct.retrieveBoundsRem(new int[]{1,2,5,6}, 3, 4, 1, 2);
+        assertEq(2,a_.length);
+        assertEq(1,a_[0]);
+        assertEq(4,a_[1]);
+    }
+    @Test
+    public void remSelectEvt4(){
+        int[] a_ = TableStruct.retrieveBoundsRem(new int[]{5,6}, 1, 2, 5, 6);
+        assertEq(2,a_.length);
+        assertEq(1,a_[0]);
+        assertEq(6,a_[1]);
+    }
+    @Test
+    public void remSelectEvt5(){
+        int[] a_ = TableStruct.retrieveBoundsRem(new int[]{}, 5, 6, 1, 6);
+        assertEq(2,a_.length);
+        assertEq(1,a_[0]);
+        assertEq(5,a_[1]);
+    }
+    @Test
+    public void remSelectEvt6(){
+        int[] a_ = TableStruct.retrieveBoundsRem(new int[]{}, 1, 6, 1, 6);
+        assertEq(0,a_.length);
+    }
+    @Test
+    public void remSelectEvt7(){
+        int[] a_ = TableStruct.retrieveBoundsRem(new int[]{8,9,10,11,12,13,14,15,16}, 8, 16, 8, 16);
+        assertEq(2,a_.length);
+        assertEq(8,a_[0]);
+        assertEq(16,a_[1]);
+    }
+    @Test
+    public void remSelectEvt8(){
+        int[] a_ = TableStruct.retrieveBoundsRem(new int[]{1,2,3,4,5}, 1, 3, 3, 7);
+        assertEq(2,a_.length);
+        assertEq(1,a_[0]);
+        assertEq(7,a_[1]);
+    }
+    @Test
+    public void remSelectEvt9(){
+        int[] a_ = TableStruct.retrieveBoundsRem(new int[]{1,2,3,4,5}, 2, 5, 3, 7);
+        assertEq(2,a_.length);
+        assertEq(2,a_[0]);
+        assertEq(7,a_[1]);
+    }
+    @Test
+    public void remSelectEvt10(){
+        int[] a_ = TableStruct.retrieveBoundsRem(new int[]{1,2,3,4,5}, 1, 3, 0, 2);
+        assertEq(2,a_.length);
+        assertEq(0,a_[0]);
+        assertEq(3,a_[1]);
+    }
+    @Test
+    public void remSelectEvt11(){
+        int[] a_ = TableStruct.retrieveBoundsRem(new int[]{1,2,3,4,5}, 2, 5, 0, 2);
+        assertEq(2,a_.length);
+        assertEq(0,a_[0]);
+        assertEq(5,a_[1]);
+    }
 }
