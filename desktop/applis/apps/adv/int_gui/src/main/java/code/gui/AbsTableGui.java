@@ -3,6 +3,7 @@ package code.gui;
 import code.gui.events.AbsListSelectionListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.events.AbsMouseListenerCl;
+import code.util.CustList;
 
 public interface AbsTableGui extends AbsCustComponent {
     int[] getSelectedRows();
@@ -19,6 +20,7 @@ public interface AbsTableGui extends AbsCustComponent {
 
     int lea();
 
+    void clearSelect();
     void addSelectInterval(int _a, int _b);
 
     void removeSelectInterval(int _a, int _b);
@@ -51,6 +53,10 @@ public interface AbsTableGui extends AbsCustComponent {
     void addHeaderListener(AbsMouseListenerCl _list);
 
     void addListSelectionListener(AbsListSelectionListener _list);
+    void addListSelectionListenerMap(AbsListSelectionListener _list);
+    void removeListSelectionListener(AbsListSelectionListener _list);
+    void removeListSelectionListenerMap(AbsListSelectionListener _list);
+    CustList<AbsListSelectionListener> getListSelectionListeners();
 
     void setColumnIdentifiers(String[] _cols);
 }

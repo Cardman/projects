@@ -161,6 +161,7 @@ public final class GuiAliasParameters {
     private static final String TREE_0_TREE_0="_____1605";
     private static final String TABLE_GUI_0_TABLE_ADD_HEADER_0="_____1606";
     private static final String TABLE_GUI_0_TABLE_ADD_SELECT_0="_____1607";
+    private static final String TABLE_GUI_0_TABLE_REM_SELECT_0="_____1607_";
     private static final String TABLE_GUI_0_TABLE_SET_MULTIPLE_0="_____1608";
     private static final String TABLE_GUI_0_TABLE_SET_REORDER_0="_____1609";
     private static final String TABLE_GUI_0_TABLE_GET_COLUMN_NAME_0="_____1610";
@@ -617,6 +618,7 @@ public final class GuiAliasParameters {
     private String aliasTree0Tree0;
     private String aliasTableGui0TableAddHeader0;
     private String aliasTableGui0TableAddSelect0;
+    private String aliasTableGui0TableRemSelect0;
     private String aliasTableGui0TableSetMultiple0;
     private String aliasTableGui0TableSetReorder0;
     private String aliasTableGui0TableGetColumnName0;
@@ -1072,6 +1074,7 @@ public final class GuiAliasParameters {
         aliasTree0Tree0=LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_0_TREE_0));
         aliasTableGui0TableAddHeader0=LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_GUI_0_TABLE_ADD_HEADER_0));
         aliasTableGui0TableAddSelect0=LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_GUI_0_TABLE_ADD_SELECT_0));
+        aliasTableGui0TableRemSelect0=LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_GUI_0_TABLE_REM_SELECT_0));
         aliasTableGui0TableSetMultiple0=LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_GUI_0_TABLE_SET_MULTIPLE_0));
         aliasTableGui0TableSetReorder0=LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_GUI_0_TABLE_SET_REORDER_0));
         aliasTableGui0TableGetColumnName0=LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_GUI_0_TABLE_GET_COLUMN_NAME_0));
@@ -1527,6 +1530,7 @@ public final class GuiAliasParameters {
         _en.add(TREE_0_TREE_0,"Tree0Tree0=a");
         _en.add(TABLE_GUI_0_TABLE_ADD_HEADER_0,"TableGui0TableAddHeader0=a");
         _en.add(TABLE_GUI_0_TABLE_ADD_SELECT_0,"TableGui0TableAddSelect0=a");
+        _en.add(TABLE_GUI_0_TABLE_REM_SELECT_0,"TableGui0TableRemSelect0=a");
         _en.add(TABLE_GUI_0_TABLE_SET_MULTIPLE_0,"TableGui0TableSetMultiple0=a");
         _en.add(TABLE_GUI_0_TABLE_SET_REORDER_0,"TableGui0TableSetReorder0=a");
         _en.add(TABLE_GUI_0_TABLE_GET_COLUMN_NAME_0,"TableGui0TableGetColumnName0=a");
@@ -1983,6 +1987,7 @@ public final class GuiAliasParameters {
         _fr.add(TREE_0_TREE_0,"Tree0Tree0=a");
         _fr.add(TABLE_GUI_0_TABLE_ADD_HEADER_0,"TableGui0TableAddHeader0=a");
         _fr.add(TABLE_GUI_0_TABLE_ADD_SELECT_0,"TableGui0TableAddSelect0=a");
+        _fr.add(TABLE_GUI_0_TABLE_REM_SELECT_0,"TableGui0TableRemSelect0=a");
         _fr.add(TABLE_GUI_0_TABLE_SET_MULTIPLE_0,"TableGui0TableSetMultiple0=a");
         _fr.add(TABLE_GUI_0_TABLE_SET_REORDER_0,"TableGui0TableSetReorder0=a");
         _fr.add(TABLE_GUI_0_TABLE_GET_COLUMN_NAME_0,"TableGui0TableGetColumnName0=a");
@@ -2377,6 +2382,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TREE_0_TREE_0),aliasTree0Tree0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TABLE_GUI_0_TABLE_ADD_HEADER_0),aliasTableGui0TableAddHeader0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TABLE_GUI_0_TABLE_ADD_SELECT_0),aliasTableGui0TableAddSelect0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TABLE_GUI_0_TABLE_REM_SELECT_0),aliasTableGui0TableRemSelect0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TABLE_GUI_0_TABLE_SET_MULTIPLE_0),aliasTableGui0TableSetMultiple0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TABLE_GUI_0_TABLE_SET_REORDER_0),aliasTableGui0TableSetReorder0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TABLE_GUI_0_TABLE_GET_COLUMN_NAME_0),aliasTableGui0TableGetColumnName0)));
@@ -3115,6 +3121,10 @@ public final class GuiAliasParameters {
 
     public String getAliasTableGui0TableAddSelect0() {
         return aliasTableGui0TableAddSelect0;
+    }
+
+    public String getAliasTableGui0TableRemSelect0() {
+        return aliasTableGui0TableRemSelect0;
     }
 
     public String getAliasTableGui0TableSetMultiple0() {

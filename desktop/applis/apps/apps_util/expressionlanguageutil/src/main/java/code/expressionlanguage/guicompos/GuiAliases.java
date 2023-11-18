@@ -331,6 +331,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private static final String TREE_RELOAD="_____1408";
     private static final String TABLE_ADD_HEADER="_____1409";
     private static final String TABLE_ADD_SELECT="_____1410";
+    private static final String TABLE_REM_SELECT="_____1410_";
+    private static final String TABLE_GET_SELECTS="_____1410__";
     private static final String TABLE_APPLY_CHANGES="_____1411";
     private static final String TABLE_ADD_INTERVAL="_____1412";
     private static final String TABLE_REMOVE_INTERVAL="_____1413";
@@ -541,6 +543,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasTableApplyChanges;
     private String aliasTableAddHeader;
     private String aliasTableAddSelect;
+    private String aliasTableRemSelect;
+    private String aliasTableGetSelects;
     private String aliasChangeListener;
     private String aliasStateChanged;
     private String aliasMouseListener;
@@ -1638,6 +1642,12 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(aliasTableListener);
         method_ = new StandardMethod(aliasTableAddSelect, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableAddSelect0()), new FctTableAddSelect());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasTableListener);
+        method_ = new StandardMethod(aliasTableRemSelect, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableRemSelect0()), new FctTableRemSelect());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTableGetSelects, params_, StringExpUtil.getPrettyArrayType(aliasTableListener), false, MethodModifier.FINAL, new FctTableGetSelects());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTableIsMultiple, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctTableIsMultiple());
@@ -3288,6 +3298,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasConfirmField(LgNamesContent.get(_util,_cust,_mapping.getVal(CONFIRM_FIELD)));
         setAliasConfirmFieldNo(LgNamesContent.get(_util,_cust,_mapping.getVal(CONFIRM_FIELD_NO)));
         setAliasTableAddSelect(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_ADD_SELECT)));
+        setAliasTableRemSelect(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_REM_SELECT)));
+        setAliasTableGetSelects(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_GET_SELECTS)));
         setAliasConfirmMessage(LgNamesContent.get(_util,_cust,_mapping.getVal(CONFIRM_MESSAGE)));
         setAliasTableAddHeader(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_ADD_HEADER)));
         setAliasConfirmFull(LgNamesContent.get(_util,_cust,_mapping.getVal(CONFIRM_FULL)));
@@ -3908,6 +3920,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _en.add(TREE_RELOAD,"TreeReload=reload");
         _en.add(TABLE_ADD_HEADER,"TableAddHeader=addHeader");
         _en.add(TABLE_ADD_SELECT,"TableAddSelect=addSelect");
+        _en.add(TABLE_REM_SELECT,"TableRemSelect=removeSelect");
+        _en.add(TABLE_GET_SELECTS,"TableGetSelects=getSelects");
         _en.add(TABLE_APPLY_CHANGES,"TableApplyChanges=apply");
         _en.add(TABLE_ADD_INTERVAL,"TableAddInterval=addInterval");
         _en.add(TABLE_REMOVE_INTERVAL,"TableRemoveInterval=removeInterval");
@@ -4361,6 +4375,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _fr.add(TREE_RELOAD,"TreeReload=recharger");
         _fr.add(TABLE_ADD_HEADER,"TableAddHeader=ajEntete");
         _fr.add(TABLE_ADD_SELECT,"TableAddSelect=ajSelect");
+        _fr.add(TABLE_REM_SELECT,"TableRemSelect=supprSelect");
+        _fr.add(TABLE_GET_SELECTS,"TableGetSelects=valSelect");
         _fr.add(TABLE_APPLY_CHANGES,"TableApplyChanges=appliquer");
         _fr.add(TABLE_ADD_INTERVAL,"TableAddInterval=ajInterval");
         _fr.add(TABLE_REMOVE_INTERVAL,"TableRemoveInterval=supprInterval");
@@ -4909,6 +4925,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _m.addEntry(getAliasTableGui(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(TABLE_ADD_HEADER),getAliasTableAddHeader()),
                 new KeyValueMemberName(_mapping.getVal(TABLE_ADD_SELECT),getAliasTableAddSelect()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_REM_SELECT),getAliasTableRemSelect()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_GET_SELECTS),getAliasTableGetSelects()),
                 new KeyValueMemberName(_mapping.getVal(TABLE_APPLY_CHANGES),getAliasTableApplyChanges()),
                 new KeyValueMemberName(_mapping.getVal(TABLE_ADD_INTERVAL),getAliasTableAddInterval()),
                 new KeyValueMemberName(_mapping.getVal(TABLE_REMOVE_INTERVAL),getAliasTableRemoveInterval()),
@@ -5718,6 +5736,22 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
     public void setAliasTableAddSelect(String _v) {
         this.aliasTableAddSelect = _v;
+    }
+
+    public String getAliasTableRemSelect() {
+        return aliasTableRemSelect;
+    }
+
+    public void setAliasTableRemSelect(String _v) {
+        this.aliasTableRemSelect = _v;
+    }
+
+    public String getAliasTableGetSelects() {
+        return aliasTableGetSelects;
+    }
+
+    public void setAliasTableGetSelects(String _v) {
+        this.aliasTableGetSelects = _v;
     }
 
     public String getAliasConfirm() {

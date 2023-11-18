@@ -5,14 +5,14 @@ import code.gui.GuiBaseUtil;
 import code.gui.events.AbsListSelectionListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.events.AbsMouseListenerCl;
+import code.util.CustList;
+import code.util.IdMap;
 import code.vi.prot.impl.gui.events.WrListSelectionListener;
 import code.vi.prot.impl.gui.events.WrMouseListener;
 import code.util.core.StringUtil;
 import code.vi.prot.impl.gui.events.WrMouseListenerCl;
 
-import javax.swing.JComponent;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
@@ -20,6 +20,7 @@ import java.awt.*;
 
 public final class TableGui extends CustComponent implements AbsTableGui {
     private final JTable table;
+    private final IdMap<AbsListSelectionListener, WrListSelectionListener> mapList = new IdMap<AbsListSelectionListener, WrListSelectionListener>();
 
     private final DefaultTableModel model;
 
@@ -60,6 +61,11 @@ public final class TableGui extends CustComponent implements AbsTableGui {
         return table.getSelectionModel().getLeadSelectionIndex();
     }
 
+    @Override
+    public void clearSelect() {
+        table.getSelectionModel().clearSelection();
+    }
+
     public void addSelectInterval(int _from, int _to) {
         table.getSelectionModel().addSelectionInterval(_from,_to);
     }
@@ -87,11 +93,19 @@ public final class TableGui extends CustComponent implements AbsTableGui {
     }
 
     public void setValueAt(String _aValue, int _row, int _column) {
+        CustList<AbsListSelectionListener> ls_ = GuiBaseUtil.removeListSelectionListeners(this);
+        int[] rows_ = table.getSelectedRows();
         table.setValueAt(StringUtil.nullToEmpty(_aValue), _row, _column);
+        GuiBaseUtil.setSelectedIndices(this,rows_);
+        GuiBaseUtil.addListSelectionListeners(this,ls_);
     }
 
     public void moveColumn(int _column, int _targetColumn) {
+        CustList<AbsListSelectionListener> ls_ = GuiBaseUtil.removeListSelectionListeners(this);
+        int[] rows_ = table.getSelectedRows();
         table.moveColumn(_column, _targetColumn);
+        GuiBaseUtil.setSelectedIndices(this,rows_);
+        GuiBaseUtil.addListSelectionListeners(this,ls_);
     }
 
     public int columnAtPoint(int _x,int _y) {
@@ -131,7 +145,11 @@ public final class TableGui extends CustComponent implements AbsTableGui {
     }
 
     public void setColumnIdentifiers(String[] _cols) {
+        CustList<AbsListSelectionListener> ls_ = GuiBaseUtil.removeListSelectionListeners(this);
+        int[] rows_ = table.getSelectedRows();
         model.setColumnIdentifiers(_cols);
+        GuiBaseUtil.setSelectedIndices(this,rows_);
+        GuiBaseUtil.addListSelectionListeners(this,ls_);
     }
 
     public boolean isReorderingAllowed() {
@@ -151,7 +169,31 @@ public final class TableGui extends CustComponent implements AbsTableGui {
     }
 
     public void addListSelectionListener(AbsListSelectionListener _select) {
-        getSelectionModel().addListSelectionListener(new WrListSelectionListener(_select));
+        WrListSelectionListener wr_ = new WrListSelectionListener(_select);
+        mapList.addEntry(_select, wr_);
+        getSelectionModel().addListSelectionListener(wr_);
     }
 
+    @Override
+    public void addListSelectionListenerMap(AbsListSelectionListener _list) {
+        WrListSelectionListener wr_ = new WrListSelectionListener(_list);
+        mapList.addEntry(_list, wr_);
+    }
+
+    @Override
+    public void removeListSelectionListener(AbsListSelectionListener _list) {
+        WrListSelectionListener wr_ = mapList.getVal(_list);
+        getSelectionModel().removeListSelectionListener(wr_);
+        mapList.removeKey(_list);
+    }
+
+    @Override
+    public void removeListSelectionListenerMap(AbsListSelectionListener _list) {
+        mapList.removeKey(_list);
+    }
+
+    @Override
+    public CustList<AbsListSelectionListener> getListSelectionListeners() {
+        return mapList.getKeys();
+    }
 }

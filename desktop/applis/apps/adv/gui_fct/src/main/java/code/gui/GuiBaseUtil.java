@@ -47,6 +47,30 @@ public final class GuiBaseUtil {
         }
     }
 
+    public static CustList<AbsListSelectionListener> removeListSelectionListeners(AbsTableGui _tr) {
+        CustList<AbsListSelectionListener> tr_ = _tr.getListSelectionListeners();
+        int s_ = tr_.size();
+        for (int i = 0; i < s_; i++) {
+            _tr.removeListSelectionListener(tr_.get(i));
+        }
+        return tr_;
+    }
+
+    public static void addListSelectionListeners(AbsTableGui _tr, CustList<AbsListSelectionListener> _list) {
+        int s_ = _list.size();
+        for (int i = 0; i < s_; i++) {
+            _tr.addListSelectionListener(_list.get(i));
+        }
+    }
+    public static void setSelectedIndices(AbsTableGui _tr, int[] _vs) {
+        _tr.clearSelect();
+        int s_ = _tr.getRowCount();
+        for (int i : _vs) {
+            if (i < s_) {
+                _tr.addSelectInterval(i, i);
+            }
+        }
+    }
     public static void removeActionListeners(AbsButton _tr) {
         CustList<AbsActionListener> tr_ = _tr.getActionListeners();
         int s_ = tr_.size();

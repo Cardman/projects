@@ -5,6 +5,7 @@ import code.gui.events.AbsListSelectionListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.events.AbsMouseListenerCl;
 import code.util.CustList;
+import code.util.IdList;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.core.NumberUtil;
@@ -12,7 +13,7 @@ import code.util.core.NumberUtil;
 public final class MockTableGui extends MockCustComponent implements AbsTableGui {
     private final CustList<AbsMouseListener> headers = new CustList<AbsMouseListener>();
     private final CustList<AbsMouseListenerCl> headersCl = new CustList<AbsMouseListenerCl>();
-    private final CustList<AbsListSelectionListener> selection = new CustList<AbsListSelectionListener>();
+    private final IdList<AbsListSelectionListener> selection = new IdList<AbsListSelectionListener>();
     private boolean multiSelect = true;
     private boolean reorderingAllowed;
     private final StringList columnNames = new StringList();
@@ -55,6 +56,11 @@ public final class MockTableGui extends MockCustComponent implements AbsTableGui
     @Override
     public int getColumnCount() {
         return columnNames.size();
+    }
+
+    @Override
+    public void clearSelect() {
+        removeSelectInterval(0,getRowCount()-1);
     }
 
     @Override
@@ -224,11 +230,31 @@ public final class MockTableGui extends MockCustComponent implements AbsTableGui
 
     @Override
     public void addListSelectionListener(AbsListSelectionListener _l) {
-        selection.add(_l);
+        addListSelectionListenerMap(_l);
+    }
+
+    @Override
+    public void addListSelectionListenerMap(AbsListSelectionListener _list) {
+        selection.add(_list);
+    }
+
+    @Override
+    public void removeListSelectionListener(AbsListSelectionListener _list) {
+        removeListSelectionListenerMap(_list);
+    }
+
+    @Override
+    public void removeListSelectionListenerMap(AbsListSelectionListener _list) {
+        selection.removeObj(_list);
+    }
+
+    @Override
+    public CustList<AbsListSelectionListener> getListSelectionListeners() {
+        return selection;
     }
 
     public CustList<AbsListSelectionListener> getSelection() {
-        return selection;
+        return getListSelectionListeners();
     }
 
     @Override

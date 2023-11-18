@@ -211,5 +211,20 @@ public final class MockTableGuiTest extends EquallableMockGuiUtil{
         assertEq(1, ta_.getHeadersCl().size());
         assertEq(1, ta_.getHeaders().size());
         assertEq(1, ta_.getSelection().size());
+        ta_.removeListSelectionListener(l_);
+        assertEq(0, ta_.getSelection().size());
+    }
+    @Test
+    public void t17() {
+        MockTableGui ta_ = new MockTableGui("0", "1");
+        ta_.setRowCount(8);
+        assertEq(2,ta_.getColumnCount());
+        assertEq("0",ta_.getColumnName(0));
+        assertEq("1",ta_.getColumnName(1));
+        ta_.addSelectInterval(3,6);
+        assertEq(3,ta_.anc());
+        assertEq(6,ta_.lea());
+        ta_.clearSelect();
+        assertEq(-1, ta_.getSelectedRow());
     }
 }

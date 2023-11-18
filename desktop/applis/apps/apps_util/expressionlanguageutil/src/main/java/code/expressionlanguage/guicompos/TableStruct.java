@@ -3,12 +3,14 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.structs.*;
 import code.gui.AbsCustComponent;
 import code.gui.AbsTableGui;
 import code.gui.events.AbsListSelectionListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.initialize.AbsCompoFactory;
+import code.util.CustList;
 import code.util.Ints;
 import code.util.core.NumberUtil;
 
@@ -265,13 +267,44 @@ public final class TableStruct extends CustComponentStruct {
         }
     }
 
-    public void addListSelectionListener(Struct _select) {
+    public void addListSelectionListener(Struct _select, StackCall _stackCall) {
         if (_select instanceof AbsListSelectionListener) {
-            table.addListSelectionListener((AbsListSelectionListener) _select);
+            if (_stackCall.getStopper().getLogger() != null) {
+                table.addListSelectionListenerMap((AbsListSelectionListener) _select);
+            } else {
+                table.addListSelectionListener((AbsListSelectionListener) _select);
+            }
         }
     }
+
+    public void remListSelectionListener(Struct _select, StackCall _stackCall) {
+        if (_select instanceof AbsListSelectionListener) {
+            if (_stackCall.getStopper().getLogger() != null) {
+                table.removeListSelectionListenerMap((AbsListSelectionListener) _select);
+            } else {
+                table.removeListSelectionListener((AbsListSelectionListener) _select);
+            }
+        }
+    }
+    public ArrayStruct getListSelect(ContextEl _ctx) {
+        String aliasWheelListener_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasTableListener();
+        CustList<AbsListSelectionListener> listSel_ = table.getListSelectionListeners();
+        CustList<Struct> res_ = new CustList<Struct>();
+        int lenBase_ = listSel_.size();
+        for (int i = 0; i < lenBase_; i++) {
+            if (listSel_.get(i) instanceof Struct) {
+                res_.add((Struct)listSel_.get(i));
+            }
+        }
+        return nulls(aliasWheelListener_, res_);
+    }
+
+    public AbsTableGui getTable() {
+        return table;
+    }
+
     @Override
     protected AbsCustComponent getComponent() {
-        return table;
+        return getTable();
     }
 }

@@ -377,6 +377,34 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         GuiBaseUtil.removeActionListeners(m_);
         assertEq(0,m_.getActionListeners().size());
     }
+
+    @Test
+    public void addListEvts() {
+        MockTableGui m_ = new MockTableGui();
+        CustList<AbsListSelectionListener> ls_ = new CustList<AbsListSelectionListener>();
+        ls_.add(new MockListSelectionListener());
+        GuiBaseUtil.addListSelectionListeners(m_, ls_);
+        assertEq(1,m_.getListSelectionListeners().size());
+    }
+
+    @Test
+    public void removeListEvts() {
+        MockTableGui m_ = new MockTableGui();
+        m_.addListSelectionListener(new MockListSelectionListener());
+        GuiBaseUtil.removeListSelectionListeners(m_);
+        assertEq(0,m_.getListSelectionListeners().size());
+    }
+
+    @Test
+    public void setSelectedIndices() {
+        MockTableGui m_ = new MockTableGui();
+        m_.setRowCount(8);
+        GuiBaseUtil.setSelectedIndices(m_,new int[]{3,5,9});
+        int[] rows_ = m_.getSelectedRows();
+        assertEq(2, rows_.length);
+        assertEq(3, rows_[0]);
+        assertEq(5, rows_[1]);
+    }
     @Test
     public void crud1() {
         StringMap<Integer> m_ = new StringMap<Integer>();
