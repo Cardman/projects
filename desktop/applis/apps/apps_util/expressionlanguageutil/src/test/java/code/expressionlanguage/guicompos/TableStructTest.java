@@ -1,15 +1,31 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.*;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.StdClassModifier;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.guicompos.stds.*;
 import code.expressionlanguage.options.*;
+import code.expressionlanguage.stds.StandardClass;
+import code.expressionlanguage.stds.StandardConstructor;
+import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.utilcompo.AbstractIssuer;
+import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.gui.*;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.montecarlo.*;
 import code.mock.*;
 import code.util.*;
@@ -207,7 +223,7 @@ public final class TableStructTest extends EquallableElUtUtil {
         arr_.set(3,new StringStruct("3"));
         Struct t_ = call(new FctTableGrid(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(arr_), st_);
         call(new FctTableSetRowCount(),null,ctx_,t_,one(new IntStruct(8)),st_);
-        call(new FctTableAddInterval(),null,ctx_,t_,two(new IntStruct(2),new IntStruct(4)),st_);
+        call(new FctTableAddInterval(""),null,ctx_,t_,two(new IntStruct(2),new IntStruct(4)),st_);
         assertEq(3,toLong(call(new FctTableGetSelectedRowCount(),null,ctx_,t_,null,st_)));
         assertEq(3,((ArrayStruct)call(new FctTableGetSelectedRows(),null,ctx_,t_,null,st_)).getLength());
     }
@@ -226,8 +242,10 @@ public final class TableStructTest extends EquallableElUtUtil {
         arr_.set(3,new StringStruct("3"));
         Struct t_ = call(new FctTableGrid(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(arr_), st_);
         call(new FctTableSetRowCount(),null,ctx_,t_,one(new IntStruct(8)),st_);
-        call(new FctTableAddInterval(),null,ctx_,t_,two(new IntStruct(2),new IntStruct(4)),st_);
-        call(new FctTableRemoveInterval(),null,ctx_,t_,two(new IntStruct(2),new IntStruct(4)),st_);
+        call(new FctTableAddInterval(""),null,ctx_,t_,two(new IntStruct(-1),new IntStruct(-1)),st_);
+        call(new FctTableAddInterval(""),null,ctx_,t_,two(new IntStruct(2),new IntStruct(4)),st_);
+        call(new FctTableRemoveInterval(""),null,ctx_,t_,two(new IntStruct(-1),new IntStruct(-1)),st_);
+        call(new FctTableRemoveInterval(""),null,ctx_,t_,two(new IntStruct(2),new IntStruct(4)),st_);
         assertEq(0,toLong(call(new FctTableGetSelectedRowCount(),null,ctx_,t_,null,st_)));
         assertEq(0,((ArrayStruct)call(new FctTableGetSelectedRows(),null,ctx_,t_,null,st_)).getLength());
     }
@@ -460,6 +478,27 @@ public final class TableStructTest extends EquallableElUtUtil {
         assertEq(6,a_[1]);
     }
     @Test
+    public void addSelectEvt11(){
+        int[] a_ = TableStruct.retrieveBoundsAddSingle(new int[]{5,6}, 5, 6, 1);
+        assertEq(2,a_.length);
+        assertEq(1,a_[0]);
+        assertEq(6,a_[1]);
+    }
+    @Test
+    public void addSelectEvt12(){
+        int[] a_ = TableStruct.retrieveBoundsAddSingle(new int[]{5,6}, 5, 6, 5);
+        assertEq(2,a_.length);
+        assertEq(5,a_[0]);
+        assertEq(6,a_[1]);
+    }
+    @Test
+    public void addSelectEvt13(){
+        int[] a_ = TableStruct.retrieveBoundsAddSingle(new int[]{}, -1, -1, 1);
+        assertEq(2,a_.length);
+        assertEq(1,a_[0]);
+        assertEq(1,a_[1]);
+    }
+    @Test
     public void remSelectEvt1(){
         int[] a_ = TableStruct.retrieveBoundsRem(new int[]{1,2,3,4,5,6}, 3, 4, 3, 4);
         assertEq(2,a_.length);
@@ -531,6 +570,115 @@ public final class TableStructTest extends EquallableElUtUtil {
         assertEq(2,a_.length);
         assertEq(0,a_[0]);
         assertEq(5,a_[1]);
+    }
+    @Test
+    public void remSelectEvt12(){
+        int[] a_ = TableStruct.retrieveBoundsRemSingle(new int[]{1,2,3,4,5}, 2, 5, 0, 2);
+        assertEq(2,a_.length);
+        assertEq(0,a_[0]);
+        assertEq(5,a_[1]);
+    }
+    @Test
+    public void remSelectEvt13(){
+        int[] a_ = TableStruct.retrieveBoundsRemSingle(new int[]{1,2,3,4,5}, 2, 5, 2, 3);
+        assertEq(2,a_.length);
+        assertEq(2,a_[0]);
+        assertEq(5,a_[1]);
+    }
+    @Test
+    public void remSelectEvt14(){
+        int[] a_ = TableStruct.retrieveBoundsRemSingle(new int[]{1,2,3,4,5}, 2, 5, 3, 6);
+        assertEq(2,a_.length);
+        assertEq(2,a_[0]);
+        assertEq(6,a_[1]);
+    }
+    @Test
+    public void remSelectEvt15(){
+        int[] a_ = TableStruct.retrieveBoundsRemSingle(new int[]{1,2,3,4,5}, 2, 5, 0, 6);
+        assertEq(2,a_.length);
+        assertEq(0,a_[0]);
+        assertEq(6,a_[1]);
+    }
+    @Test
+    public void remSelectEvt16(){
+        int[] a_ = TableStruct.retrieveBoundsRemSingle(new int[]{}, -1, -1, 0, 0);
+        assertEq(2,a_.length);
+        assertEq(0,a_[0]);
+        assertEq(0,a_[1]);
+    }
+    @Test
+    public void selectDbg1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){GridTable g = new();g.setMultiple(true);g.setRowCount(8);g.addSelect((TableListener)(int a, int b:void)->{});g.addInterval(1,3);g.removeInterval(1,3);}}");
+        ResultContext ctx_ = ctx(pr_, files_);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    @Test
+    public void selectDbg2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){GridTable g = new();g.setMultiple(false);g.setRowCount(8);g.addSelect((TableListener)(int a, int b:void)->{});g.addInterval(1,3);g.removeInterval(1,3);}}");
+        ResultContext ctx_ = ctx(pr_, files_);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    private StackCallReturnValue launchDbg(ResultContext _ctx) {
+        ExecRootBlock ex_ = _ctx.getContext().getClasses().getClassBody("pkg.Sample");
+        ExecFormattedRootBlock form_ = new ExecFormattedRootBlock(ex_);
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC, "run", new StringList());
+        return ExecClassesUtil.tryInitStaticlyTypes(_ctx.getContext(), _ctx.getForwards().getOptions(), null, new CustomFoundMethod(form_, new ExecTypeFunction(form_, ExecClassesUtil.getMethodBodiesById(ex_, id_).first()), new Parameters()), StepDbgActionEnum.DEBUG, false);
+    }
+
+    protected static StackCallReturnValue dbgContinueNormalValue(StackCall _stack, ContextEl _cont) {
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.KEEP, false);
+    }
+    private ResultContext ctx(MockProgramInfos _p, StringMap<String> _files) {
+        update(_p);
+        LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+        return buildMock(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files);
+    }
+
+    public static ResultContext buildMock(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        StringMap<String> s_ = new StringMap<String>();
+        s_.addEntry("0",_definedLgNames.getGuiAliases().tableListener(_definedKw, _definedLgNames.getContent()));
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
+        Forwards forwards_ = nextBuild(_options, _definedKw, _definedLgNames, _files, s_, page_);
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _definedLgNames.buildBase();
+
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass component_ = new StandardClass(_definedLgNames.getGuiAliases().getAliasComponent(), fields_, constructors_, methods_, _definedLgNames.getContent().getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
+        component_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
+        StandardType.addType(_definedLgNames.getContent().getStandards(), _definedLgNames.getGuiAliases().getAliasComponent(), component_);
+        _definedLgNames.getGuiAliases().tableGui(_definedLgNames.getContent(), _definedLgNames.getExecContent().getCustAliases(), _definedLgNames.getGuiExecutingBlocks(), component_);
+
+        ValidatorStandard.setupOverrides(page_);
+        ResultContext res_ = commonMockDbg(_exec, _definedLgNames, _files, page_, forwards_);
+        LgNamesGui stds_ = (LgNamesGui) res_.getContext().getStandards();
+        stds_.getGuiExecutingBlocks().tableListener(stds_.getGuiAliases(), _definedLgNames.getContent(), res_.getContext().getClasses());
+        Classes.tryInit(res_);
+        return res_;
+    }
+
+    public static LgNamesGui newLgNamesGuiSampleGr(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
+        LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
+        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),"en");
+        return stds_;
     }
     private Struct arr() {
         ArrayStruct arr_ = new ArrayStruct(1,"");

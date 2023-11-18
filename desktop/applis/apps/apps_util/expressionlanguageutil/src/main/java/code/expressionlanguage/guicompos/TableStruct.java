@@ -11,7 +11,6 @@ import code.gui.events.AbsListSelectionListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
-import code.util.Ints;
 import code.util.core.NumberUtil;
 
 public final class TableStruct extends CustComponentStruct {
@@ -36,36 +35,72 @@ public final class TableStruct extends CustComponentStruct {
     }
     public static int[] retrieveBoundsAdd(int[] _selected, int _oldFirst, int _oldLast, int _newAnc, int _newLead) {
         int[] arr_ = retrieveBoundsAdd(_selected, _newAnc, _newLead);
-        return ancLea(arr_, _oldFirst, _newAnc, _oldLast, _newLead);
+        return ancLea(arr_, _oldFirst, _newAnc, _oldLast, _newLead, new long[]{Long.MAX_VALUE, -1});
+    }
+    public static int[] retrieveBoundsAddSingle(int[] _selected, int _oldFirst, int _oldLast, int _newLead) {
+        int[] addSel_ = retrieveBoundsAdd(_selected, _newLead, _newLead);
+        int[] remSel_;
+        if (_selected.length > 0) {
+            remSel_ = retrieveBoundsRem(_selected, _selected[0], _selected[_selected.length-1]);
+        } else {
+            remSel_ = new int[0];
+        }
+        long[] minMax_ = new long[]{Long.MAX_VALUE,-1};
+        feedIfDefined(remSel_,minMax_);
+        feedIfDefined(addSel_,minMax_);
+        return ancLea(addSel_, _oldFirst, _newLead, _oldLast, _newLead, minMax_);
     }
 
     public static int[] retrieveBoundsRem(int[] _selected, int _oldFirst, int _oldLast, int _newAnc, int _newLead) {
         int[] arr_ = retrieveBoundsRem(_selected, _newAnc, _newLead);
-        return ancLea(arr_, _oldFirst, _newAnc, _oldLast, _newLead);
+        return ancLea(arr_, _oldFirst, _newAnc, _oldLast, _newLead, new long[]{Long.MAX_VALUE, -1});
     }
 
-    private static int[] ancLea(int[] _arr, int _oldFirst, int _newAnc, int _oldLast, int _newLead) {
-        Ints mins_ = new Ints();
-        Ints maxs_ = new Ints();
-        if (_arr.length > 0) {
-            mins_.add(_arr[0]);
-            maxs_.add(_arr[_arr.length-1]);
+
+    public static int[] retrieveBoundsRemSingle(int[] _selected, int _oldFirst, int _oldLast, int _newAnc, int _newLead) {
+        int[] arr_;
+        int f_ = NumberUtil.min(_newAnc,_newLead);
+        int l_ = NumberUtil.max(_newAnc,_newLead);
+        if (_selected.length > 0) {
+            int maxSel_ = _selected[_selected.length - 1];
+            if (f_ > _selected[0] && l_ < maxSel_) {
+                arr_ = retrieveBoundsRem(_selected, f_, maxSel_);
+            } else {
+                arr_ = retrieveBoundsRem(_selected, f_, l_);
+            }
+        } else {
+            arr_ = retrieveBoundsRem(_selected, f_, l_);
         }
-        feed(_oldFirst, mins_, maxs_, _oldFirst != _newAnc);
-        feed(_newAnc, mins_, maxs_, _oldFirst != _newAnc);
-        feed(_oldLast, mins_, maxs_, _oldLast != _newLead);
-        feed(_newLead, mins_, maxs_, _oldLast != _newLead);
-        long max_ = maxs_.getMaximum(-1);
-        if (max_ < 0) {
+        return ancLea(arr_, _oldFirst, _newAnc, _oldLast, _newLead, new long[]{Long.MAX_VALUE, -1});
+    }
+
+    private static int[] ancLea(int[] _arr, int _oldFirst, int _newAnc, int _oldLast, int _newLead, long[] _minMax) {
+        feedIfDefined(_arr, _minMax);
+        notifAncLea(_oldFirst, _newAnc, _oldLast, _newLead, _minMax);
+        if (_minMax[0]> _minMax[1]) {
             return new int[0];
         }
-        return new int[]{(int) mins_.getMinimum(-1), (int) max_};
+        return new int[]{(int) _minMax[0], (int) _minMax[1]};
     }
 
-    private static void feed(int _previous, Ints _mins, Ints _maxs, boolean _suppCond) {
+    private static void feedIfDefined(int[] _arr, long[] _minMax) {
+        if (_arr.length > 0) {
+            _minMax[0]=NumberUtil.min(_minMax[0],_arr[0]);
+            _minMax[1]=NumberUtil.max(_minMax[1],_arr[_arr.length-1]);
+        }
+    }
+
+    private static void notifAncLea(int _oldFirst, int _newAnc, int _oldLast, int _newLead, long[] _minMax) {
+        feed(_oldFirst, _oldFirst != _newAnc,_minMax);
+        feed(_newAnc, _oldFirst != _newAnc,_minMax);
+        feed(_oldLast, _oldLast != _newLead,_minMax);
+        feed(_newLead, _oldLast != _newLead,_minMax);
+    }
+
+    private static void feed(int _previous, boolean _suppCond, long[] _minMax) {
         if (_suppCond && _previous >= 0) {
-            _mins.add(_previous);
-            _maxs.add(_previous);
+            _minMax[0]=NumberUtil.min(_minMax[0],_previous);
+            _minMax[1]=NumberUtil.max(_minMax[1],_previous);
         }
     }
 
@@ -190,12 +225,34 @@ public final class TableStruct extends CustComponentStruct {
         return new IntStruct(table.getSelectedRowCount());
     }
 
-    public void addSelectInterval(Struct _from, Struct _to) {
+    public int[] addSelectInterval(Struct _from, Struct _to, StackCall _stackCall) {
+        if (_stackCall.getStopper().getLogger() != null) {
+            if (table.isMultiSelect()) {
+                int[] rg_ = retrieveBoundsAdd(table.getSelectedRows(), table.anc(), table.lea(), ((NumberStruct) _from).intStruct(), ((NumberStruct) _to).intStruct());
+                table.addSelectInterval(((NumberStruct)_from).intStruct(),((NumberStruct)_to).intStruct());
+                return rg_;
+            }
+            int[] rg_ = retrieveBoundsAddSingle(table.getSelectedRows(), table.anc(), table.lea(), ((NumberStruct) _to).intStruct());
+            table.addSelectInterval(((NumberStruct)_from).intStruct(),((NumberStruct)_to).intStruct());
+            return rg_;
+        }
         table.addSelectInterval(((NumberStruct)_from).intStruct(),((NumberStruct)_to).intStruct());
+        return new int[0];
     }
 
-    public void removeSelectInterval(Struct _from, Struct _to) {
+    public int[] removeSelectInterval(Struct _from, Struct _to, StackCall _stackCall) {
+        if (_stackCall.getStopper().getLogger() != null) {
+            if (table.isMultiSelect()) {
+                int[] rg_ = retrieveBoundsRem(table.getSelectedRows(), table.anc(), table.lea(), ((NumberStruct) _from).intStruct(), ((NumberStruct) _to).intStruct());
+                table.removeSelectInterval(((NumberStruct)_from).intStruct(),((NumberStruct)_to).intStruct());
+                return rg_;
+            }
+            int[] rg_ = retrieveBoundsRemSingle(table.getSelectedRows(), table.anc(), table.lea(), -1, ((NumberStruct) _to).intStruct());
+            table.removeSelectInterval(((NumberStruct)_from).intStruct(),((NumberStruct)_to).intStruct());
+            return rg_;
+        }
         table.removeSelectInterval(((NumberStruct)_from).intStruct(),((NumberStruct)_to).intStruct());
+        return new int[0];
     }
     public void setRowCount(Struct _rowCount) {
         table.setRowCount(((NumberStruct)_rowCount).intStruct());
