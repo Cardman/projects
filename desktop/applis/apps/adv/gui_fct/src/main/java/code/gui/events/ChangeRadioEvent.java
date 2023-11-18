@@ -8,12 +8,14 @@ import code.util.core.StringUtil;
 public final class ChangeRadioEvent implements AbsActionListener {
     private final CustButtonGroup group;
     private final AbsRadioButton radio;
-    private boolean hasValue;
-    private String value = "";
+    private final boolean hasValue;
+    private final String value;
 
     public ChangeRadioEvent(CustButtonGroup _group, AbsRadioButton _radio) {
         group = _group;
         radio = _radio;
+        hasValue = false;
+        value = "";
     }
 
     public ChangeRadioEvent(CustButtonGroup _group, AbsRadioButton _radio, String _value) {
@@ -26,6 +28,7 @@ public final class ChangeRadioEvent implements AbsActionListener {
     public void action() {
         CustList<AbsRadioButton> g_ = group.getGroup();
         if (hasValue) {
+            boolean chg_ = radio.isSelected();
             for (AbsRadioButton r: g_) {
                 r.setSelected(false);
             }
@@ -34,17 +37,24 @@ public final class ChangeRadioEvent implements AbsActionListener {
                 AbsRadioButton r_ = g_.get(i);
                 String v_ = group.getValues().get(i);
                 if (StringUtil.quickEq(v_, value)) {
-                    r_.setSelected(true);
+                    r_.setSelected(chg_);
                 }
             }
-            radio.setSelected(true);
+            changeSelect();
         } else {
-            for (AbsRadioButton r: g_) {
-                if (r != radio) {
-                    r.setSelected(false);
-                }
+            AbsRadioButton previousSel_ = group.getSelected();
+            if (previousSel_ != null) {
+                previousSel_.setSelected(false);
             }
+            changeSelect();
         }
-        group.setSelected(radio);
+    }
+
+    private void changeSelect() {
+        if (radio.isSelected()) {
+            group.setSelected(radio);
+        } else {
+            group.setSelected(null);
+        }
     }
 }
