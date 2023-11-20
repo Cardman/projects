@@ -350,6 +350,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private static final String TABLE_SET_MULTIPLE="_____1425";
     private static final String TABLE_SET_REORDER="_____1426";
     private static final String TABLE_SET_ROW_COUNT="_____1427";
+    private static final String TABLE_CLEAR_SELECT="_____1427_";
     private static final String TABLE_SET_VALUE="_____1428";
     private static final String TABLE_IS_MULTIPLE="_____1429";
     private static final String TABLE_IS_REORDER="_____1430";
@@ -526,6 +527,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasTableGetSelectedRowCount;
     private String aliasTableGetRowCount;
     private String aliasTableSetRowCount;
+    private String aliasTableClearSelect;
     private String aliasTableGetColumnCount;
     private String aliasTableSetColumns;
     private String aliasTableGetColumnName;
@@ -2056,6 +2058,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
         method_ = new StandardMethod(aliasTableSetRowCount, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableSetRowCount0()), new FctTableSetRowCount(aliasTableGui+"."+new MethodId(MethodAccessKind.INSTANCE,aliasTableSetRowCount,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTableClearSelect, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctTableClearSelection(aliasTableGui+"."+new MethodId(MethodAccessKind.INSTANCE,aliasTableClearSelect,params_).getSignature(_content.getDisplayedStrings())));
+        StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasTableSetColumns, params_, _content.getCoreNames().getAliasVoid(), true, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableSetColumns0()), new FctTableSetColumns());
         StandardNamedFunction.addFct(methods_, method_);
@@ -3291,6 +3296,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasTableGetColumnCount(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_GET_COLUMN_COUNT)));
         setAliasTableGetRowAtPoint(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_GET_ROW_AT_POINT)));
         setAliasTableSetRowCount(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_SET_ROW_COUNT)));
+        setAliasTableClearSelect(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_CLEAR_SELECT)));
         setAliasTableGetColumnName(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_GET_COLUMN_NAME)));
         setAliasTableGetValue(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_GET_VALUE)));
         setAliasTreeNodeIsDescendant(LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_NODE_IS_DESCENDANT)));
@@ -3951,6 +3957,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _en.add(TABLE_SET_MULTIPLE,"TableSetMultiple=setMultiple");
         _en.add(TABLE_SET_REORDER,"TableSetReorder=setReorder");
         _en.add(TABLE_SET_ROW_COUNT,"TableSetRowCount=setRowCount");
+        _en.add(TABLE_CLEAR_SELECT,"TableClearSelect=clearSelect");
         _en.add(TABLE_SET_VALUE,"TableSetValue=set");
         _en.add(TABLE_IS_MULTIPLE,"TableIsMultiple=isMultiple");
         _en.add(TABLE_IS_REORDER,"TableIsReorder=isReorder");
@@ -4406,6 +4413,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _fr.add(TABLE_SET_MULTIPLE,"TableSetMultiple=majMultiple");
         _fr.add(TABLE_SET_REORDER,"TableSetReorder=majReord");
         _fr.add(TABLE_SET_ROW_COUNT,"TableSetRowCount=majLgNb");
+        _fr.add(TABLE_CLEAR_SELECT,"TableClearSelect=toutSupprSelect");
         _fr.add(TABLE_SET_VALUE,"TableSetValue=maj");
         _fr.add(TABLE_IS_MULTIPLE,"TableIsMultiple=estMultiple");
         _fr.add(TABLE_IS_REORDER,"TableIsReorder=estReord");
@@ -4956,6 +4964,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(TABLE_SET_MULTIPLE),getAliasTableSetMultiple()),
                 new KeyValueMemberName(_mapping.getVal(TABLE_SET_REORDER),getAliasTableSetReorder()),
                 new KeyValueMemberName(_mapping.getVal(TABLE_SET_ROW_COUNT),getAliasTableSetRowCount()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_CLEAR_SELECT),getAliasTableClearSelect()),
                 new KeyValueMemberName(_mapping.getVal(TABLE_SET_VALUE),getAliasTableSetValue()),
                 new KeyValueMemberName(_mapping.getVal(TABLE_IS_MULTIPLE),getAliasTableIsMultiple()),
                 new KeyValueMemberName(_mapping.getVal(TABLE_IS_REORDER),getAliasTableIsReorder())),names_)
@@ -5612,6 +5621,14 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
     public void setAliasTableSetRowCount(String _v) {
         this.aliasTableSetRowCount = _v;
+    }
+
+    public String getAliasTableClearSelect() {
+        return aliasTableClearSelect;
+    }
+
+    public void setAliasTableClearSelect(String _v) {
+        this.aliasTableClearSelect = _v;
     }
 
     public String getAliasTableGetColumnCount() {

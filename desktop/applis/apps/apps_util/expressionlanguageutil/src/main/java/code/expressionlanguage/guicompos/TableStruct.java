@@ -77,6 +77,12 @@ public final class TableStruct extends CustComponentStruct {
         long[] minMax_ = diffAllBounds(_oldSelected,_selected);
         return ancLea(_oldFirst, _newAnc, _oldLast, _newLead, minMax_);
     }
+    public static int[] retrieveBoundsClearSelection(int[] _selected) {
+        if (_selected.length == 0) {
+            return _selected;
+        }
+        return new int[]{_selected[0], _selected[_selected.length-1]};
+    }
 
     private static long[] diffAllBounds(int[] _a, int[] _b) {
         if (_a.length == 0) {
@@ -300,6 +306,15 @@ public final class TableStruct extends CustComponentStruct {
             return retrieveBoundsRowCount(oldSelected_,table.getSelectedRows(),anc_,lea_,table.anc(),table.lea());
         }
         table.setRowCount(((NumberStruct)_rowCount).intStruct());
+        return new int[0];
+    }
+    public int[] clearSelection(StackCall _stackCall) {
+        if (_stackCall.getStopper().getLogger() != null) {
+            int[] oldSelected_ = table.getSelectedRows();
+            table.clearSelect();
+            return retrieveBoundsClearSelection(oldSelected_);
+        }
+        table.clearSelect();
         return new int[0];
     }
     public IntStruct getRowCount() {
