@@ -73,9 +73,46 @@ public final class TableStruct extends CustComponentStruct {
         }
         return ancLea(arr_, _oldFirst, _newAnc, _oldLast, _newLead, new long[]{Long.MAX_VALUE, -1});
     }
+    public static int[] retrieveBoundsRowCount(int[] _oldSelected,int[] _selected, int _oldFirst, int _oldLast, int _newAnc, int _newLead) {
+        long[] minMax_ = diffAllBounds(_oldSelected,_selected);
+        return ancLea(_oldFirst, _newAnc, _oldLast, _newLead, minMax_);
+    }
+
+    private static long[] diffAllBounds(int[] _a, int[] _b) {
+        if (_a.length == 0) {
+            if (_b.length > 0) {
+                return new long[]{_b[0],_b[_b.length-1]};
+            }
+            return new long[]{Long.MAX_VALUE,-1};
+        }
+        if (_b.length == 0) {
+            return new long[]{_a[0],_a[_a.length-1]};
+        }
+        int min_ = NumberUtil.min(_a[0],_b[0]);
+        int max_ = NumberUtil.max(_a[_a.length-1],_b[_b.length-1]);
+        long minElt_ = Long.MAX_VALUE;
+        long maxElt_ = -1;
+        for (int i = min_; i <= max_; i++) {
+            if (onceOnly(_a, _b, i) || onceOnly(_b, _a, i)) {
+                if (minElt_ == Long.MAX_VALUE) {
+                    minElt_ = i;
+                }
+                maxElt_ = i;
+            }
+        }
+        return new long[]{minElt_,maxElt_};
+    }
+
+    private static boolean onceOnly(int[] _inc, int[] _exc, int _e) {
+        return containsSorted(_inc, _e) && !containsSorted(_exc, _e);
+    }
 
     private static int[] ancLea(int[] _arr, int _oldFirst, int _newAnc, int _oldLast, int _newLead, long[] _minMax) {
         feedIfDefined(_arr, _minMax);
+        return ancLea(_oldFirst, _newAnc, _oldLast, _newLead, _minMax);
+    }
+
+    private static int[] ancLea(int _oldFirst, int _newAnc, int _oldLast, int _newLead, long[] _minMax) {
         notifAncLea(_oldFirst, _newAnc, _oldLast, _newLead, _minMax);
         if (_minMax[0]> _minMax[1]) {
             return new int[0];
@@ -254,8 +291,16 @@ public final class TableStruct extends CustComponentStruct {
         table.removeSelectInterval(((NumberStruct)_from).intStruct(),((NumberStruct)_to).intStruct());
         return new int[0];
     }
-    public void setRowCount(Struct _rowCount) {
+    public int[] setRowCount(Struct _rowCount, StackCall _stackCall) {
+        if (_stackCall.getStopper().getLogger() != null) {
+            int[] oldSelected_ = table.getSelectedRows();
+            int anc_ = table.anc();
+            int lea_ = table.lea();
+            table.setRowCount(((NumberStruct)_rowCount).intStruct());
+            return retrieveBoundsRowCount(oldSelected_,table.getSelectedRows(),anc_,lea_,table.anc(),table.lea());
+        }
         table.setRowCount(((NumberStruct)_rowCount).intStruct());
+        return new int[0];
     }
     public IntStruct getRowCount() {
         return new IntStruct(table.getRowCount());

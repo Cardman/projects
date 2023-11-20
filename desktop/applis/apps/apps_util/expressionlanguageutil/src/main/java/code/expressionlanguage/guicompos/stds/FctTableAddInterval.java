@@ -1,7 +1,6 @@
 package code.expressionlanguage.guicompos.stds;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.AfterChangingTableSelectState;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
@@ -29,10 +28,8 @@ public final class FctTableAddInterval implements StdCaller {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         int[] arr_ = inst_.addSelectInterval(a_, l_, _stackCall);
-        if (arr_.length > 0) {
-            _stackCall.getStopper().getLogger().log(id+":"+((NumberStruct)a_).intStruct()+","+((NumberStruct)l_).intStruct()+"=>"+arr_[0]+","+arr_[arr_.length-1]);
-            _stackCall.setCallingState(new AfterChangingTableSelectState(inst_,arr_[0],arr_[arr_.length-1]));
-        }
+        FctTableSetRowCount.notif(_stackCall, inst_, arr_, id + ":" + ((NumberStruct) a_).intStruct() + "," + ((NumberStruct) l_).intStruct());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
+
 }

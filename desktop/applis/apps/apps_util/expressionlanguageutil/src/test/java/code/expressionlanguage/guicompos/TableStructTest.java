@@ -185,7 +185,7 @@ public final class TableStructTest extends EquallableElUtUtil {
         arr_.set(2,new StringStruct("2"));
         arr_.set(3,new StringStruct("3"));
         Struct t_ = call(new FctTableGrid(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(arr_), st_);
-        call(new FctTableSetRowCount(),null,ctx_,t_,one(new IntStruct(2)),st_);
+        call(new FctTableSetRowCount(""),null,ctx_,t_,one(new IntStruct(2)),st_);
         assertEq(2,toLong(call(new FctTableGetRowCount(),null,ctx_,t_,null,st_)));
         assertEq(4,toLong(call(new FctTableGetColumnCount(),null,ctx_,t_,null,st_)));
     }
@@ -203,7 +203,7 @@ public final class TableStructTest extends EquallableElUtUtil {
         arr_.set(2,new StringStruct("2"));
         arr_.set(3,new StringStruct("3"));
         Struct t_ = call(new FctTableGrid(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(arr_), st_);
-        call(new FctTableSetRowCount(),null,ctx_,t_,one(new IntStruct(2)),st_);
+        call(new FctTableSetRowCount(""),null,ctx_,t_,one(new IntStruct(2)),st_);
         assertEq(0,toLong(call(new FctTableGetSelectedRowCount(),null,ctx_,t_,null,st_)));
         assertEq(-1,toLong(call(new FctTableGetSelectedRow(),null,ctx_,t_,null,st_)));
         assertEq(0,((ArrayStruct)call(new FctTableGetSelectedRows(),null,ctx_,t_,null,st_)).getLength());
@@ -222,7 +222,7 @@ public final class TableStructTest extends EquallableElUtUtil {
         arr_.set(2,new StringStruct("2"));
         arr_.set(3,new StringStruct("3"));
         Struct t_ = call(new FctTableGrid(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(arr_), st_);
-        call(new FctTableSetRowCount(),null,ctx_,t_,one(new IntStruct(8)),st_);
+        call(new FctTableSetRowCount(""),null,ctx_,t_,one(new IntStruct(8)),st_);
         call(new FctTableAddInterval(""),null,ctx_,t_,two(new IntStruct(2),new IntStruct(4)),st_);
         assertEq(3,toLong(call(new FctTableGetSelectedRowCount(),null,ctx_,t_,null,st_)));
         assertEq(3,((ArrayStruct)call(new FctTableGetSelectedRows(),null,ctx_,t_,null,st_)).getLength());
@@ -241,7 +241,7 @@ public final class TableStructTest extends EquallableElUtUtil {
         arr_.set(2,new StringStruct("2"));
         arr_.set(3,new StringStruct("3"));
         Struct t_ = call(new FctTableGrid(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(arr_), st_);
-        call(new FctTableSetRowCount(),null,ctx_,t_,one(new IntStruct(8)),st_);
+        call(new FctTableSetRowCount(""),null,ctx_,t_,one(new IntStruct(8)),st_);
         call(new FctTableAddInterval(""),null,ctx_,t_,two(new IntStruct(-1),new IntStruct(-1)),st_);
         call(new FctTableAddInterval(""),null,ctx_,t_,two(new IntStruct(2),new IntStruct(4)),st_);
         call(new FctTableRemoveInterval(""),null,ctx_,t_,two(new IntStruct(-1),new IntStruct(-1)),st_);
@@ -263,7 +263,7 @@ public final class TableStructTest extends EquallableElUtUtil {
         arr_.set(2,new StringStruct("2"));
         arr_.set(3,new StringStruct("3"));
         Struct t_ = call(new FctTableGrid(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(arr_), st_);
-        call(new FctTableSetRowCount(),null,ctx_,t_,one(new IntStruct(8)),st_);
+        call(new FctTableSetRowCount(""),null,ctx_,t_,one(new IntStruct(8)),st_);
         call(new FctTableSetValue(),null,ctx_,t_,three(new StringStruct("_"),new IntStruct(4),new IntStruct(1)),st_);
         assertEq("_",call(new FctTableGetValue(),null,ctx_,t_,two(new IntStruct(4),new IntStruct(1)),st_));
     }
@@ -281,7 +281,7 @@ public final class TableStructTest extends EquallableElUtUtil {
         arr_.set(2,new StringStruct("2"));
         arr_.set(3,new StringStruct("3"));
         Struct t_ = call(new FctTableGrid(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(arr_), st_);
-        call(new FctTableSetRowCount(),null,ctx_,t_,one(new IntStruct(8)),st_);
+        call(new FctTableSetRowCount(""),null,ctx_,t_,one(new IntStruct(8)),st_);
         call(new FctTableMoveColumn(),null,ctx_,t_,two(new IntStruct(1),new IntStruct(3)),st_);
         assertEq("0",call(new FctTableGetColumnName(),null,ctx_,t_,one(new IntStruct(0)),st_));
         assertEq("2",call(new FctTableGetColumnName(),null,ctx_,t_,one(new IntStruct(1)),st_));
@@ -302,7 +302,7 @@ public final class TableStructTest extends EquallableElUtUtil {
         arr_.set(2,new StringStruct("2"));
         arr_.set(3,new StringStruct("3"));
         Struct t_ = call(new FctTableGrid(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(arr_), st_);
-        call(new FctTableSetRowCount(),null,ctx_,t_,one(new IntStruct(8)),st_);
+        call(new FctTableSetRowCount(""),null,ctx_,t_,one(new IntStruct(8)),st_);
 //        call(new FctTableApplyChanges(),null,ctx_,t_,null,st_);
         assertEq(4,toLong(call(new FctTableGetRowAtPoint(),null,ctx_,t_,two(new IntStruct(3),new IntStruct(4)),st_)));
         assertEq(3,toLong(call(new FctTableGetColumnAtPoint(),null,ctx_,t_,two(new IntStruct(3),new IntStruct(4)),st_)));
@@ -623,6 +623,55 @@ public final class TableStructTest extends EquallableElUtUtil {
         ResultContext ctx_ = ctx(pr_, files_);
         StackCallReturnValue dbg_ = launchDbg(ctx_);
         assertEq(0,dbg_.getStack().nbPages());
+    }
+    @Test
+    public void selectDbg3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){GridTable g = new();g.setMultiple(true);g.addSelect((TableListener)(int a, int b:void)->{});g.setRowCount(8);g.addInterval(1,3);g.removeInterval(1,3);}}");
+        ResultContext ctx_ = ctx(pr_, files_);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    @Test
+    public void rowCount1() {
+        int[] a_ = TableStruct.retrieveBoundsRowCount(new int[]{},new int[]{},-1,-1,-1,-1);
+        assertEq(0,a_.length);
+    }
+    @Test
+    public void rowCount2() {
+        int[] a_ = TableStruct.retrieveBoundsRowCount(new int[]{10,11,12,13},new int[]{14,15,16,17},10,13,14,17);
+        assertEq(2,a_.length);
+        assertEq(10,a_[0]);
+        assertEq(17,a_[1]);
+    }
+    @Test
+    public void rowCount3() {
+        int[] a_ = TableStruct.retrieveBoundsRowCount(new int[]{10,11,12,13,15,16,17},new int[]{14,15,16,17,19,20,21},15,17,19,21);
+        assertEq(2,a_.length);
+        assertEq(10,a_[0]);
+        assertEq(21,a_[1]);
+    }
+    @Test
+    public void rowCount4() {
+        int[] a_ = TableStruct.retrieveBoundsRowCount(new int[]{6,7,8,9,10,11,12},new int[]{6,7,8,9,10},6,12,6,10);
+        assertEq(2,a_.length);
+        assertEq(10,a_[0]);
+        assertEq(12,a_[1]);
+    }
+    @Test
+    public void rowCount5() {
+        int[] a_ = TableStruct.retrieveBoundsRowCount(new int[]{},new int[]{0,1,2,3},1,2,1,2);
+        assertEq(2,a_.length);
+        assertEq(0,a_[0]);
+        assertEq(3,a_[1]);
+    }
+    @Test
+    public void rowCount6() {
+        int[] a_ = TableStruct.retrieveBoundsRowCount(new int[]{0,1,2,3},new int[]{},1,2,1,2);
+        assertEq(2,a_.length);
+        assertEq(0,a_[0]);
+        assertEq(3,a_[1]);
     }
     private StackCallReturnValue launchDbg(ResultContext _ctx) {
         ExecRootBlock ex_ = _ctx.getContext().getClasses().getClassBody("pkg.Sample");
