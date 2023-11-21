@@ -129,4 +129,26 @@ public final class KeyActionEventTest extends EquallableIntGuiUtil {
         assertTrue(k_.isControlDown());
         assertTrue(k_.isShiftDown());
     }
+    @Test
+    public void c19() {
+        CoreMouseLocation k_ = new CoreMouseLocation(1,2);
+        assertEq(1,k_.getXcoord());
+        assertEq(2,k_.getYcoord());
+    }
+    @Test
+    public void c20() {
+        CoreMouseButtons k_ = new CoreMouseButtons(false,false,false,0);
+        assertFalse(k_.isLeftMouseButton());
+        assertFalse(k_.isMiddleMouseButton());
+        assertFalse(k_.isRightMouseButton());
+        assertEq(0,k_.getClickCount());
+    }
+    @Test
+    public void c21() {
+        CoreMouseButtons k_ = new CoreMouseButtons(true,true,true,1);
+        assertTrue(k_.isLeftMouseButton());
+        assertTrue(k_.isMiddleMouseButton());
+        assertTrue(k_.isRightMouseButton());
+        assertEq(1,k_.getClickCount());
+    }
 }

@@ -126,6 +126,8 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertEq(0,w_.getTabs().size());
         assertEq(0,w_.getEditors().getComponentCount());
         assertEq(0,w_.getOpenedFiles().size());
+        new TabValueChanged(w_).mouseReleased(new CoreMouseLocation(0,0),new KeyActionEvent(false,false,false),new CoreMouseButtons(false,false,false,0));
+        new TabValueChanged(w_).keyReleased(new KeyActionEvent(false,false,false), (char) 0,0);
     }
     @Test
     public void twoFiles() {

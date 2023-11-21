@@ -131,4 +131,15 @@ public final class MockTabbedPaneTest extends EquallableMockGuiUtil{
         t_.remove(1);
         assertEq(2,t_.getComponentCount());
     }
+    @Test
+    public void t16() {
+        MockTabbedPane t_ = new MockTabbedPane();
+        t_.add("",new MockPlainLabel(""));
+        t_.add("",new MockPlainLabel(""));
+        t_.add("",new MockPlainLabel(""));
+        MockChangeListener ls_ = new MockChangeListener(new MockWithChangeListenerSample(initDef(), ""), 0);
+        t_.addChangeListener(ls_);
+        t_.removeChangeListener(ls_);
+        assertEq(0,t_.getChangeListeners().size());
+    }
 }

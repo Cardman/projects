@@ -134,13 +134,6 @@ public final class FrameUtil {
         }
     }
 
-    public static void selectedIndex(int _index, AbsTabbedPane _tabbedPane) {
-        if (!_tabbedPane.getChildren().isValidIndex(_index)) {
-            return;
-        }
-        _tabbedPane.selectIndex(_index);
-    }
-
     public static void added(String _title, AbsCustComponent _component, AbsTabbedPane _tabbedPane) {
         if (_component.getParent() != null) {
             return;

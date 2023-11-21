@@ -1,12 +1,11 @@
-package code.mock;
+package code.gui;
 
-import code.gui.AbsMouseLocation;
+public class CoreMouseLocation implements AbsMouseLocation {
 
-public final class MockMouseCoords implements AbsMouseLocation {
     private final int xcoord;
     private final int ycoord;
 
-    public MockMouseCoords(int _x, int _y) {
+    public CoreMouseLocation(int _x, int _y) {
         this.xcoord = _x;
         this.ycoord = _y;
     }

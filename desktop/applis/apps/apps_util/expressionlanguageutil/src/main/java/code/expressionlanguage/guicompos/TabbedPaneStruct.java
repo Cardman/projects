@@ -32,7 +32,11 @@ public final class TabbedPaneStruct extends CustComponentStruct {
     }
 
     public void setSelectedIndex(Struct _index) {
-        tabbedPane.setSelectedIndex(((NumberStruct)_index).intStruct());
+        int is_ = ((NumberStruct) _index).intStruct();
+        if (!tabbedPane.getChildren().isValidIndex(is_)) {
+            return;
+        }
+        tabbedPane.selectIndex(is_);
     }
     public void add(Struct _title, CustComponentStruct _comp) {
         if (_comp.getParentComponent() != NullStruct.NULL_VALUE) {

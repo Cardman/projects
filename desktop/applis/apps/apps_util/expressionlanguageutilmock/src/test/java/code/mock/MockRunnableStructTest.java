@@ -24,6 +24,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.AbsAdvContextGenerator;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
+import code.gui.CoreMouseButtons;
 import code.sml.util.TranslationsFile;
 import code.threads.AbstractConcurrentMap;
 import code.threads.AbstractThread;
@@ -88,7 +89,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
     }
     @Test
     public void bs1() {
-        MockMouseButtons m_ = new MockMouseButtons(false,false,false,0);
+        CoreMouseButtons m_ = new CoreMouseButtons(false,false,false,0);
         assertFalse(m_.isLeftMouseButton());
         assertFalse(m_.isMiddleMouseButton());
         assertFalse(m_.isRightMouseButton());
@@ -96,7 +97,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
     }
     @Test
     public void bs2() {
-        MockMouseButtons m_ = new MockMouseButtons(true,true,true,1);
+        CoreMouseButtons m_ = new CoreMouseButtons(true,true,true,1);
         assertTrue(m_.isLeftMouseButton());
         assertTrue(m_.isMiddleMouseButton());
         assertTrue(m_.isRightMouseButton());

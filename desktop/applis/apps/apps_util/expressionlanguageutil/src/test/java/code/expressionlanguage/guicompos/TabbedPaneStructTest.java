@@ -303,7 +303,7 @@ public final class TabbedPaneStructTest extends EquallableElUtUtil {
         assertEq("_",call(new FctTabbedPaneGetTitle(),null,ctx_,panel_,one(new IntStruct(0)),st_));
     }
     @Test
-    public void selected() {
+    public void selected1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
@@ -314,6 +314,20 @@ public final class TabbedPaneStructTest extends EquallableElUtUtil {
         Struct label1_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label1_),st_);
         call(new FctTabbedPaneSelIndex1(),null,ctx_,panel_,one(new IntStruct(0)),st_);
+        assertEq(0,toLong(call(new FctTabbedPaneSelIndex0(),null,ctx_,panel_,null,st_)));
+    }
+    @Test
+    public void selected2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctTabbedPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label1_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label1_),st_);
+        call(new FctTabbedPaneSelIndex1(),null,ctx_,panel_,one(new IntStruct(-2)),st_);
         assertEq(0,toLong(call(new FctTabbedPaneSelIndex0(),null,ctx_,panel_,null,st_)));
     }
 

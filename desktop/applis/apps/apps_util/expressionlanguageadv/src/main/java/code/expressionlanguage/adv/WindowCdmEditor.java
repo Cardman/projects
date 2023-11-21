@@ -129,6 +129,10 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         createFile = getCommonFrame().getFrames().getCompoFactory().newPlainButton("create");
         createFile.addActionListener(new CreateInitialFile(this));
         setEditors(getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane());
+        TabValueChanged tvc_ = new TabValueChanged(this);
+        getEditors().addChangeListener(tvc_);
+        getEditors().addMouseListener(tvc_);
+        getEditors().addKeyListener(tvc_);
         getCommonFrame().setContentPane(getPanel());
         getCommonFrame().setJMenuBar(bar_);
         getCommonFrame().pack();
@@ -237,7 +241,10 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         getTabs().clear();
         setEditors(frs_.getCompoFactory().newAbsTabbedPane());
-        getEditors().addChangeListener(new TabValueChanged(this));
+        TabValueChanged tvc_ = new TabValueChanged(this);
+        getEditors().addChangeListener(tvc_);
+        getEditors().addMouseListener(tvc_);
+        getEditors().addKeyListener(tvc_);
         StringList src_ = softParams.getOpenedFiles();
         int len_ = src_.size();
         StringList existing_ = new StringList();

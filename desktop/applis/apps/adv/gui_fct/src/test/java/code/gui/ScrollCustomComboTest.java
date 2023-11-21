@@ -1046,11 +1046,11 @@ public final class ScrollCustomComboTest extends EquallableGuiFctUtil {
         ((MockAbstractAction)GuiBaseUtil.getAction(_gene.getSelected(),_a, 0)).action();
     }
     private void click(ScrollCustomCombo _gene, int _y) {
-        ((MockCustComponent) _gene.getSelected()).getMouseIntRelListeners().get(0).mouseReleased(new MockMouseCoords(0, 0),new KeyActionEvent(false,false, false),null);
-        ((MockCustComponent) _gene.getList().getElements()).getMouseIntRelListeners().get(0).mouseReleased(new MockMouseCoords(0, _y),new KeyActionEvent(false,false, false),null);
+        ((MockCustComponent) _gene.getSelected()).getMouseIntRelListeners().get(0).mouseReleased(new CoreMouseLocation(0, 0),new KeyActionEvent(false,false, false),null);
+        ((MockCustComponent) _gene.getList().getElements()).getMouseIntRelListeners().get(0).mouseReleased(new CoreMouseLocation(0, _y),new KeyActionEvent(false,false, false),null);
     }
     private void click(ScrollCustomCombo _gene) {
-        ((MockCustComponent) _gene.getSelected()).getMouseIntRelListeners().get(0).mouseReleased(new MockMouseCoords(0, 0),new KeyActionEvent(false,false, false),null);
+        ((MockCustComponent) _gene.getSelected()).getMouseIntRelListeners().get(0).mouseReleased(new CoreMouseLocation(0, 0),new KeyActionEvent(false,false, false),null);
     }
     private static ScrollCustomCombo gene() {
         MockProgramInfosSecSample pr_ = init();

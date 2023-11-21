@@ -402,8 +402,8 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         ab_.newAbsTabbedPane();
         ab_.newTableGui();
         AbsCustCheckBox coch_ = ab_.newCustCheckBox("", true);
-        assertEq(0,new MockMouseCoords(0,0).getXcoord());
-        assertEq(0,new MockMouseCoords(0,0).getYcoord());
+        assertEq(0,new CoreMouseLocation(0,0).getXcoord());
+        assertEq(0,new CoreMouseLocation(0,0).getYcoord());
         pr_.getExcludedFolders();
         pr_.getZipFact();
         pr_.light();

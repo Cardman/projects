@@ -1,39 +1,15 @@
 package code.vi.prot.impl.gui;
 
-import code.gui.AbsMouseButtons;
+import code.gui.CoreMouseButtons;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 
-public final class DefMouseButtons implements AbsMouseButtons {
-    private final boolean leftMouseButton;
-    private final boolean middleMouseButton;
-    private final boolean rightMouseButton;
-    private final int clickCount;
+public final class DefMouseButtons extends CoreMouseButtons {
+
     public DefMouseButtons(MouseEvent _action) {
-        leftMouseButton = SwingUtilities.isLeftMouseButton(_action);
-        middleMouseButton = SwingUtilities.isMiddleMouseButton(_action);
-        rightMouseButton = SwingUtilities.isRightMouseButton(_action);
-        clickCount = _action.getClickCount();
+        super(SwingUtilities.isLeftMouseButton(_action),SwingUtilities.isMiddleMouseButton(_action),SwingUtilities.isRightMouseButton(_action),_action.getClickCount());
+
     }
 
-    @Override
-    public boolean isLeftMouseButton() {
-        return leftMouseButton;
-    }
-
-    @Override
-    public boolean isMiddleMouseButton() {
-        return middleMouseButton;
-    }
-
-    @Override
-    public boolean isRightMouseButton() {
-        return rightMouseButton;
-    }
-
-    @Override
-    public int getClickCount() {
-        return clickCount;
-    }
 }

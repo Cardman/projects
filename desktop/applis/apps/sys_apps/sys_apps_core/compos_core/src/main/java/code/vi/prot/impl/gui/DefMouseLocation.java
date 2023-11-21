@@ -1,25 +1,13 @@
 package code.vi.prot.impl.gui;
 
-import code.gui.AbsMouseLocation;
+import code.gui.CoreMouseLocation;
 
 import java.awt.event.MouseEvent;
 
-public final class DefMouseLocation implements AbsMouseLocation {
-    private final int xcoord;
-    private final int ycoord;
+public final class DefMouseLocation extends CoreMouseLocation {
 
     public DefMouseLocation(MouseEvent _action) {
-        this.xcoord = _action.getX();
-        this.ycoord = _action.getY();
+        super(_action.getX(),_action.getY());
     }
 
-    @Override
-    public int getXcoord() {
-        return xcoord;
-    }
-
-    @Override
-    public int getYcoord() {
-        return ycoord;
-    }
 }

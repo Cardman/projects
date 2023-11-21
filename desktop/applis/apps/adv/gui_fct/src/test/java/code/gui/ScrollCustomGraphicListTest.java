@@ -3263,7 +3263,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         ((MockAbstractAction)GuiBaseUtil.getAction(_gene.getElements(),_a,_b)).action();
     }
     private void click(ScrollCustomGraphicList<String> _gene, int _y, boolean _ctrl, boolean _shift) {
-        ((MockCustComponent) _gene.getElements()).getMouseIntRelListeners().get(0).mouseReleased(new MockMouseCoords(0, _y),new KeyActionEvent(_ctrl,false, _shift),null);
+        ((MockCustComponent) _gene.getElements()).getMouseIntRelListeners().get(0).mouseReleased(new CoreMouseLocation(0, _y),new KeyActionEvent(_ctrl,false, _shift),null);
     }
 
     private static ScrollCustomGraphicList<String> gene(boolean _simple) {

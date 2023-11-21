@@ -3,6 +3,7 @@ package code.mock;
 import code.gui.AbsCustComponent;
 import code.gui.AbsTabbedPane;
 import code.gui.events.AbsChangeListener;
+import code.util.CustList;
 import code.util.IdList;
 import code.util.StringList;
 
@@ -14,10 +15,25 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
 
     @Override
     public void addChangeListener(AbsChangeListener _l) {
-        getChangeListeners().add(_l);
+        addChangeListenerMap(_l);
     }
 
-    public IdList<AbsChangeListener> getChangeListeners() {
+    @Override
+    public void addChangeListenerMap(AbsChangeListener _list) {
+        getChangeListeners().add(_list);
+    }
+
+    @Override
+    public void removeChangeListener(AbsChangeListener _list) {
+        removeChangeListenerMap(_list);
+    }
+
+    @Override
+    public void removeChangeListenerMap(AbsChangeListener _list) {
+        changeListeners.removeObj(_list);
+    }
+
+    public CustList<AbsChangeListener> getChangeListeners() {
         return changeListeners;
     }
     @Override
@@ -30,7 +46,6 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
         return selectedIndex;
     }
 
-    @Override
     public void setSelectedIndex(int _i) {
         if (getChildren().isValidIndex(_i)) {
             selectIndex(_i);
@@ -42,8 +57,13 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
         int old_ = selectedIndex;
         selectedIndex = _i;
         if (old_ != _i) {
-            stateChanged();
+            events();
         }
+    }
+
+    @Override
+    public void events() {
+        stateChanged();
     }
 
     private void stateChanged() {
@@ -134,7 +154,7 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
         } else if (select_ >= getChildren().size()) {
             selectIndex(select_-1);
         } else if (_i == select_) {
-            stateChanged();
+            events();
         }
     }
 

@@ -1,6 +1,6 @@
 package code.gui;
 
-public final class KeyActionEvent implements AbsCtrlKeyState {
+public class KeyActionEvent implements AbsCtrlKeyState {
     private final boolean control;
     private final boolean alt;
     private final boolean shift;

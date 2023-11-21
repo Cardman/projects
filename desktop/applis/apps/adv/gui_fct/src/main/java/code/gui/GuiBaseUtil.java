@@ -380,4 +380,17 @@ public final class GuiBaseUtil {
         }
         return StringUtil.nullToEmpty(r_.getInfo());
     }
+    public static boolean stateChanged(AbsTabbedPane _tab, int _previous, int _next) {
+        if (_previous != _next) {
+            stateChanged(_tab);
+            return true;
+        }
+        return false;
+    }
+
+    public static void stateChanged(AbsTabbedPane _tab) {
+        for (AbsChangeListener c: _tab.getChangeListeners()) {
+            c.stateChanged();
+        }
+    }
 }

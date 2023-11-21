@@ -406,6 +406,18 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq(5, rows_[1]);
     }
     @Test
+    public void tabbed1() {
+        MockTabbedPane m_ = new MockTabbedPane();
+        m_.addChangeListener(new MockChangeListener(new MockWithChangeListenerSample(init(),""),0));
+        assertTrue(GuiBaseUtil.stateChanged(m_,0,1));
+    }
+    @Test
+    public void tabbed2() {
+        MockTabbedPane m_ = new MockTabbedPane();
+        m_.addChangeListener(new MockChangeListener(new MockWithChangeListenerSample(init(),""),0));
+        assertFalse(GuiBaseUtil.stateChanged(m_,1,1));
+    }
+    @Test
     public void crud1() {
         StringMap<Integer> m_ = new StringMap<Integer>();
         m_.addEntry("ONE",15);

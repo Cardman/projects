@@ -1,12 +1,12 @@
 package code.expressionlanguage.adv;
 
-import code.gui.AbsAttrSet;
-import code.gui.AbsTabStops;
-import code.gui.AbsTextPane;
+import code.gui.*;
 import code.gui.events.AbsChangeListener;
+import code.gui.events.AbsKeyListenerReleased;
+import code.gui.events.AbsMouseListenerIntRel;
 import code.gui.initialize.AbsCompoFactory;
 
-public final class TabValueChanged implements AbsChangeListener {
+public final class TabValueChanged implements AbsChangeListener, AbsMouseListenerIntRel, AbsKeyListenerReleased {
     public static final int TABS = 1024;
     private final WindowWithTreeImpl window;
 
@@ -35,5 +35,15 @@ public final class TabValueChanged implements AbsChangeListener {
         tab_.getPreview().setParagraphAttributes(as_);
         DocumentTextChange.updateEditorText(tab_);
         FindExpressionTask.updatedSegColorsBase(tab_);
+    }
+
+    @Override
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+        window.getEditors().events();
+    }
+
+    @Override
+    public void keyReleased(AbsCtrlKeyState _keyState, char _keyChar, int _keyCode) {
+        window.getEditors().events();
     }
 }
