@@ -5,6 +5,7 @@ import code.gui.GuiBaseUtil;
 import code.gui.events.AbsChangeListener;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.core.NumberUtil;
 import code.vi.prot.impl.gui.events.WrChangeListener;
 
 import javax.swing.*;
@@ -21,13 +22,15 @@ public final class Slider extends CustComponent implements AbsSlider {
         setOrientation(_o);
     }
     public Slider(int _min,int _max) {
-        sl = new JSlider(_min,_max);
+        sl = new JSlider(NumberUtil.min(_min, _max),NumberUtil.max(_min, _max));
     }
     public Slider(int _min,int _max,int _v) {
-        sl = new JSlider(_min,_max,_v);
+        sl = new JSlider();
+        sl.getModel().setRangeProperties(_v,0,_min,_max,false);
     }
     public Slider(int _o,int _min,int _max,int _v) {
-        sl = new JSlider(SwingConstants.HORIZONTAL,_min,_max,_v);
+        sl = new JSlider(SwingConstants.HORIZONTAL);
+        sl.getModel().setRangeProperties(_v,0,_min,_max,false);
         setOrientation(_o);
     }
 
