@@ -1,5 +1,8 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
@@ -7,6 +10,7 @@ import code.gui.AbsCustComponent;
 import code.gui.AbsSlider;
 import code.gui.events.AbsChangeListener;
 import code.gui.initialize.AbsCompoFactory;
+import code.util.CustList;
 
 public final class SliderStruct extends CustComponentStruct {
     private final AbsSlider slider;
@@ -31,12 +35,39 @@ public final class SliderStruct extends CustComponentStruct {
         slider = _comp.newAbsSlider(((NumberStruct)_o).intStruct(),((NumberStruct)_min).intStruct(),((NumberStruct)_max).intStruct(),((NumberStruct)_value).intStruct());
     }
 
-    public void addChangeListener(Struct _l) {
+    public void addChangeListener(Struct _l, StackCall _stackCall) {
         if (_l instanceof AbsChangeListener) {
-            slider.addChangeListener((AbsChangeListener) _l);
+            if (_stackCall.getStopper().getLogger() != null) {
+                slider.addChangeListenerMap((AbsChangeListener) _l);
+            } else {
+                slider.addChangeListener((AbsChangeListener) _l);
+            }
         }
     }
 
+
+    public void removeChangeListener(Struct _l, StackCall _stackCall) {
+        if (_l instanceof AbsChangeListener) {
+            if (_stackCall.getStopper().getLogger() != null) {
+                slider.removeChangeListenerMap((AbsChangeListener) _l);
+            } else {
+                slider.removeChangeListener((AbsChangeListener) _l);
+            }
+        }
+    }
+
+    public ArrayStruct getChange(ContextEl _ctx) {
+        String aliasChgListener_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasChangeListener();
+        CustList<AbsChangeListener> listSel_ = slider.getChangeListeners();
+        CustList<Struct> res_ = new CustList<Struct>();
+        int lenBase_ = listSel_.size();
+        for (int i = 0; i < lenBase_; i++) {
+            if (listSel_.get(i) instanceof Struct) {
+                res_.add((Struct)listSel_.get(i));
+            }
+        }
+        return nulls(aliasChgListener_, res_);
+    }
     public Struct getValue() {
         return new IntStruct(slider.getValue());
     }
@@ -71,6 +102,10 @@ public final class SliderStruct extends CustComponentStruct {
 
     @Override
     protected AbsCustComponent getComponent() {
+        return getSlider();
+    }
+
+    public AbsSlider getSlider() {
         return slider;
     }
 }

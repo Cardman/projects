@@ -253,6 +253,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private static final String SPINNER_SET_RANGE="_____1336";
     private static final String SPINNER_SET_RANGE_VALUE="_____1337";
     private static final String ADD_CHANGE="_____1338";
+    private static final String REM_CHANGE="_____1338_";
+    private static final String GET_CHANGES="_____1338__";
     private static final String SLIDER_GET_MAX="_____1339";
     private static final String SLIDER_GET_MIN="_____1340";
     private static final String SLIDER_GET_ORIENTATION="_____1341";
@@ -492,6 +494,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasWheelEvent;
     private String aliasWheelRotatedClicks;
     private String aliasAddChange;
+    private String aliasRemChange;
+    private String aliasGetChanges;
     private String aliasTreeListener;
     private String aliasTreeListenerValueChanged;
     private String aliasTreeNode;
@@ -2970,6 +2974,12 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         params_ = new StringList(aliasChangeListener);
         method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0AddChange0()), new FctSliderAddChange());
         StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasChangeListener);
+        method_ = new StandardMethod(aliasRemChange, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0RemChange0()), new FctSliderRemoveChange());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetChanges, params_, StringExpUtil.getPrettyArrayType(aliasChangeListener), false, MethodModifier.FINAL, new FctSliderGetChanges());
+        StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false, new FctSlider0(_cust,_guiEx,aliasSlider));
         StandardNamedFunction.addFct(constructors_, ctor_);
@@ -3344,6 +3354,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasActionArg(LgNamesContent.get(_util,_cust,_mapping.getVal(ACTION_ARG)));
         setAliasActionPerformed(LgNamesContent.get(_util,_cust,_mapping.getVal(ACTION_PERFORMED)));
         setAliasAddChange(LgNamesContent.get(_util,_cust,_mapping.getVal(ADD_CHANGE)));
+        setAliasRemChange(LgNamesContent.get(_util,_cust,_mapping.getVal(REM_CHANGE)));
+        setAliasGetChanges(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_CHANGES)));
         setAliasStateChanged(LgNamesContent.get(_util,_cust,_mapping.getVal(STATE_CHANGED)));
         setAliasTreeNodeGetPreviousSibling(LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_NODE_GET_PREVIOUS_SIBLING)));
         setAliasComponentGetPreferredSize(LgNamesContent.get(_util,_cust,_mapping.getVal(COMPONENT_GET_PREFERRED_SIZE)));
@@ -3860,6 +3872,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _en.add(SPINNER_SET_RANGE,"SpinnerSetRange=setRange");
         _en.add(SPINNER_SET_RANGE_VALUE,"SpinnerSetRangeValue=setRangeValue");
         _en.add(ADD_CHANGE,"AddChange=addChange");
+        _en.add(REM_CHANGE,"RemChange=removeChange");
+        _en.add(GET_CHANGES,"GetChanges=getChanges");
         _en.add(SLIDER_GET_MAX,"SliderGetMax=getMax");
         _en.add(SLIDER_GET_MIN,"SliderGetMin=getMin");
         _en.add(SLIDER_GET_ORIENTATION,"SliderGetOrientation=getOrient");
@@ -4316,6 +4330,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _fr.add(SPINNER_SET_RANGE,"SpinnerSetRange=majRang");
         _fr.add(SPINNER_SET_RANGE_VALUE,"SpinnerSetRangeValue=majRangValeur");
         _fr.add(ADD_CHANGE,"AddChange=ajChange");
+        _fr.add(REM_CHANGE,"RemChange=supprChange");
+        _fr.add(GET_CHANGES,"GetChanges=valChanges");
         _fr.add(SLIDER_GET_MAX,"SliderGetMax=valMax");
         _fr.add(SLIDER_GET_MIN,"SliderGetMin=valMin");
         _fr.add(SLIDER_GET_ORIENTATION,"SliderGetOrientation=valOrient");
@@ -4854,7 +4870,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(SLIDER_SET_MIN),getAliasSliderSetMin()),
                 new KeyValueMemberName(_mapping.getVal(SLIDER_SET_ORIENTATION),getAliasSliderSetOrientation()),
                 new KeyValueMemberName(_mapping.getVal(SLIDER_SET_VALUE),getAliasSliderSetValue()),
-                new KeyValueMemberName(_mapping.getVal(ADD_CHANGE),getAliasAddChange())),allInput_)
+                new KeyValueMemberName(_mapping.getVal(ADD_CHANGE),getAliasAddChange()),
+                new KeyValueMemberName(_mapping.getVal(REM_CHANGE),getAliasRemChange()),
+                new KeyValueMemberName(_mapping.getVal(GET_CHANGES),getAliasGetChanges())),allInput_)
         );
         _m.addEntry(getAliasRadio(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(RADIO_GET_TEXT),getAliasRadioGetText()),
@@ -5325,6 +5343,22 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
     public void setAliasAddChange(String _v) {
         this.aliasAddChange = _v;
+    }
+
+    public String getAliasRemChange() {
+        return aliasRemChange;
+    }
+
+    public void setAliasRemChange(String _v) {
+        this.aliasRemChange = _v;
+    }
+
+    public String getAliasGetChanges() {
+        return aliasGetChanges;
+    }
+
+    public void setAliasGetChanges(String _v) {
+        this.aliasGetChanges = _v;
     }
 
     public String getAliasChangeListener() {

@@ -24,9 +24,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSlider0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        call(new FctSliderAddChange(),null,ctx_,sl_,one(NullStruct.NULL_VALUE),st_);
-        call(new FctSliderAddChange(),null,ctx_,sl_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
+        call(new FctSlider0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -123,6 +121,99 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.VERTICAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctSliderSetOrientation(),null,ctx_,sl_,one(new IntStruct(GuiConstants.HORIZONTAL)),st_);
         assertEq(GuiConstants.HORIZONTAL,toLong(call(new FctSliderGetOrientation(),null,ctx_,sl_,null,st_)));
+    }
+    @Test
+    public void addAction1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct t_ = call(new FctSlider0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctSliderAddChange(),null,ctx_,t_,one(NullStruct.NULL_VALUE),st_);
+        assertEq(0,((SliderStruct)t_).getSlider().getChangeListeners().size());
+    }
+    @Test
+    public void addAction2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct t_ = call(new FctSlider0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctSliderAddChange(),null,ctx_,t_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
+        assertEq(1,((SliderStruct)t_).getSlider().getChangeListeners().size());
+    }
+    @Test
+    public void addAction3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stackLogger(ctx_);
+        Struct t_ = call(new FctSlider0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctSliderAddChange(),null,ctx_,t_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
+        assertEq(1,((SliderStruct)t_).getSlider().getChangeListeners().size());
+    }
+    @Test
+    public void removeAction1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct t_ = call(new FctSlider0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctSliderAddChange(),null,ctx_,t_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
+        call(new FctSliderRemoveChange(),null,ctx_,t_,one(NullStruct.NULL_VALUE),st_);
+        assertEq(1,((SliderStruct)t_).getSlider().getChangeListeners().size());
+    }
+    @Test
+    public void removeAction2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct t_ = call(new FctSlider0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
+        call(new FctSliderAddChange(),null,ctx_,t_,one(list_),st_);
+        call(new FctSliderRemoveChange(),null,ctx_,t_,one(list_),st_);
+        assertEq(0,((SliderStruct)t_).getSlider().getChangeListeners().size());
+    }
+    @Test
+    public void removeAction3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stackLogger(ctx_);
+        Struct t_ = call(new FctSlider0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
+        call(new FctSliderAddChange(),null,ctx_,t_,one(list_),st_);
+        call(new FctSliderRemoveChange(),null,ctx_,t_,one(list_),st_);
+        assertEq(0,((SliderStruct)t_).getSlider().getChangeListeners().size());
+    }
+    @Test
+    public void actions() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct t_ = call(new FctSlider0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct li_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
+        call(new FctSliderAddChange(),null,ctx_,t_,one(li_),st_);
+        ((SliderStruct)t_).getSlider().addChangeListener(new MockChangeListener(new MockWithChangeListenerSample(pr_,""),0));
+        ArrayStruct a_ = (ArrayStruct) call(new FctSliderGetChanges(), null, ctx_, t_, null, st_);
+        assertEq(1,a_.getLength());
+        assertSame(li_,a_.get(0));
     }
     @Test
     public void min() {
