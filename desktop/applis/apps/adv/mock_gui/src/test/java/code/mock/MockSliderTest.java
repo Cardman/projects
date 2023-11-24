@@ -90,4 +90,13 @@ public final class MockSliderTest extends EquallableMockGuiUtil{
         assertEq(100,sl_.getMaximum());
         assertEq(1,sl_.getOrientation());
     }
+    @Test
+    public void s13() {
+        MockSlider sl_ = new MockSlider();
+        MockChangeListener ch_ = new MockChangeListener(new MockWithChangeListenerSample(init(), ""), 0);
+        sl_.addChangeListener(ch_);
+        assertEq(1,sl_.getChangeListeners().size());
+        sl_.removeChangeListener(ch_);
+        assertEq(0,sl_.getChangeListeners().size());
+    }
 }

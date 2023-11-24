@@ -3,11 +3,12 @@ package code.mock;
 import code.gui.AbsSlider;
 import code.gui.events.AbsChangeListener;
 import code.util.CustList;
+import code.util.IdList;
 
 public final class MockSlider extends MockInput implements AbsSlider {
     private int orientation;
     private int value;
-    private final CustList<AbsChangeListener> changeListeners = new CustList<AbsChangeListener>();
+    private final IdList<AbsChangeListener> changeListeners = new IdList<AbsChangeListener>();
     private int minimum;
     private int maximum;
     public MockSlider() {
@@ -69,7 +70,22 @@ public final class MockSlider extends MockInput implements AbsSlider {
 
     @Override
     public void addChangeListener(AbsChangeListener _l) {
+        addChangeListenerMap(_l);
+    }
+
+    @Override
+    public void addChangeListenerMap(AbsChangeListener _l) {
         changeListeners.add(_l);
+    }
+
+    @Override
+    public void removeChangeListener(AbsChangeListener _l) {
+        removeChangeListenerMap(_l);
+    }
+
+    @Override
+    public void removeChangeListenerMap(AbsChangeListener _l) {
+        changeListeners.removeObj(_l);
     }
 
     public int getMinimum() {

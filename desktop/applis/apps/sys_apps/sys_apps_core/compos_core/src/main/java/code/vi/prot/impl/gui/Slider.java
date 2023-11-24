@@ -3,12 +3,15 @@ package code.vi.prot.impl.gui;
 import code.gui.AbsSlider;
 import code.gui.GuiBaseUtil;
 import code.gui.events.AbsChangeListener;
+import code.util.CustList;
+import code.util.IdMap;
 import code.vi.prot.impl.gui.events.WrChangeListener;
 
 import javax.swing.*;
 
 public final class Slider extends CustComponent implements AbsSlider {
     private final JSlider sl;
+    private final IdMap<AbsChangeListener,WrChangeListener> changes = new IdMap<AbsChangeListener, WrChangeListener>();
 
     public Slider() {
         sl = new JSlider();
@@ -29,7 +32,32 @@ public final class Slider extends CustComponent implements AbsSlider {
     }
 
     public void addChangeListener(AbsChangeListener _l) {
-        sl.addChangeListener(new WrChangeListener(_l));
+        WrChangeListener wr_ = new WrChangeListener(_l);
+        sl.addChangeListener(wr_);
+        changes.addEntry(_l,wr_);
+    }
+
+    @Override
+    public void addChangeListenerMap(AbsChangeListener _l) {
+        WrChangeListener wr_ = new WrChangeListener(_l);
+        changes.addEntry(_l,wr_);
+    }
+
+    @Override
+    public void removeChangeListener(AbsChangeListener _l) {
+        WrChangeListener wr_ = changes.getVal(_l);
+        sl.removeChangeListener(wr_);
+        changes.removeKey(_l);
+    }
+
+    @Override
+    public void removeChangeListenerMap(AbsChangeListener _l) {
+        changes.removeKey(_l);
+    }
+
+    @Override
+    public CustList<AbsChangeListener> getChangeListeners() {
+        return changes.getKeys();
     }
 
     public int getValue() {

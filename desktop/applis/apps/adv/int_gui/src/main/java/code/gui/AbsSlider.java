@@ -1,9 +1,14 @@
 package code.gui;
 
 import code.gui.events.AbsChangeListener;
+import code.util.CustList;
 
 public interface AbsSlider extends AbsCustComponent {
     void addChangeListener(AbsChangeListener _l);
+    void addChangeListenerMap(AbsChangeListener _l);
+    void removeChangeListener(AbsChangeListener _l);
+    void removeChangeListenerMap(AbsChangeListener _l);
+    CustList<AbsChangeListener> getChangeListeners();
 
     int getValue();
 
