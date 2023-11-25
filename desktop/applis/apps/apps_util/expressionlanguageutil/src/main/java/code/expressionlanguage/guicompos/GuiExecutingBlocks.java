@@ -149,11 +149,7 @@ public final class GuiExecutingBlocks {
                 _guiAliases.getAliasWindowDeiconified(),new StringList(windowEvent_));
         windowDeiconified = ExecClassesUtil.getMethodBodiesById(windowListener,fct_).first();
         listSelection(_guiAliases, _content, _classes);
-        String aliasChangeListener_ = _guiAliases.getAliasChangeListener();
-        changeListener = _classes.getClassBody(aliasChangeListener_);
-        fct_ = new MethodId(MethodAccessKind.INSTANCE,
-                _guiAliases.getAliasStateChanged(),new StringList());
-        stateChanged = ExecClassesUtil.getMethodBodiesById(changeListener,fct_).first();
+        changeListener(_guiAliases, _classes);
         treeListener(_guiAliases, _classes);
         tableListener(_guiAliases, _content, _classes);
         String aliasKeyListener_ = _guiAliases.getAliasKeyListener();
@@ -177,6 +173,15 @@ public final class GuiExecutingBlocks {
                 _guiAliases.getAliasFocusLost(),new StringList());
         focusLost = ExecClassesUtil.getMethodBodiesById(focusListener,fct_).first();
         cellRender(_guiAliases, _content, _classes);
+    }
+
+    public void changeListener(GuiAliases _guiAliases, Classes _classes) {
+        MethodId fct_;
+        String aliasChangeListener_ = _guiAliases.getAliasChangeListener();
+        changeListener = _classes.getClassBody(aliasChangeListener_);
+        fct_ = new MethodId(MethodAccessKind.INSTANCE,
+                _guiAliases.getAliasStateChanged(),new StringList());
+        stateChanged = ExecClassesUtil.getMethodBodiesById(changeListener,fct_).first();
     }
 
     public void tableListener(GuiAliases _guiAliases, LgNamesContent _content, Classes _classes) {

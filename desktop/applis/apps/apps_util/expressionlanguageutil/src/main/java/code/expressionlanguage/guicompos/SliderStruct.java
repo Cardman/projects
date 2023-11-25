@@ -1,5 +1,6 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.AfterChangingSliderSelectState;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -11,6 +12,7 @@ import code.gui.AbsSlider;
 import code.gui.events.AbsChangeListener;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
+import code.util.core.NumberUtil;
 
 public final class SliderStruct extends CustComponentStruct {
     private final AbsSlider slider;
@@ -72,7 +74,18 @@ public final class SliderStruct extends CustComponentStruct {
         return new IntStruct(slider.getValue());
     }
 
-    public void setValue(Struct _value) {
+    public void setValue(Struct _value, StackCall _stackCall, String _intro) {
+        if (_stackCall.getStopper().getLogger() != null) {
+            int v_ = ((NumberStruct)_value).intStruct();
+            if (v_ == slider.getValue()) {
+                return;
+            }
+            int newValue_ = NumberUtil.min(NumberUtil.max(v_, slider.getMinimum()), slider.getMaximum());
+            boolean ch_ = change(newValue_, slider.getMinimum(), slider.getMaximum());
+            slider.setValue(v_);
+            notif(_stackCall,this,ch_, _intro);
+            return;
+        }
         slider.setValue(((NumberStruct)_value).intStruct());
     }
 
@@ -80,7 +93,19 @@ public final class SliderStruct extends CustComponentStruct {
         return new IntStruct(slider.getMinimum());
     }
 
-    public void setMin(Struct _min) {
+    public void setMin(Struct _min, StackCall _stackCall, String _intro) {
+        if (_stackCall.getStopper().getLogger() != null) {
+            int m_ = ((NumberStruct) _min).intStruct();
+            int newMax_ = NumberUtil.max(m_, slider.getMaximum());
+            int newValue_ = NumberUtil.max(m_, slider.getValue());
+            int newMin_  = NumberUtil.min(m_,newMax_);
+            newMax_ = NumberUtil.max(newMax_, slider.getValue());
+            newMin_ = NumberUtil.min(newMin_,slider.getValue());
+            boolean ch_ = change(newValue_, newMin_, newMax_);
+            slider.setMinimum(m_);
+            notif(_stackCall,this,ch_, _intro);
+            return;
+        }
         slider.setMinimum(((NumberStruct)_min).intStruct());
     }
 
@@ -88,8 +113,33 @@ public final class SliderStruct extends CustComponentStruct {
         return new IntStruct(slider.getMaximum());
     }
 
-    public void setMax(Struct _max) {
+    public void setMax(Struct _max, StackCall _stackCall, String _intro) {
+        if (_stackCall.getStopper().getLogger() != null) {
+            int m_ = ((NumberStruct) _max).intStruct();
+            int newMin_  = NumberUtil.min(m_,slider.getMinimum());
+            int newValue_ = NumberUtil.min(m_, slider.getValue());
+            int newMax_ = NumberUtil.max(m_, slider.getMaximum());
+            newMin_ = NumberUtil.min(newMin_,slider.getValue());
+            boolean ch_ = change(newValue_, newMin_, newMax_);
+            slider.setMaximum(m_);
+            notif(_stackCall,this,ch_, _intro);
+            return;
+        }
         slider.setMaximum(((NumberStruct)_max).intStruct());
+    }
+
+    private boolean change(int _newValue, int _newMin, int _newMax) {
+        return _newValue != slider.getValue() ||
+                _newMin != slider.getMinimum() ||
+                _newMax != slider.getMaximum();
+    }
+
+
+    static void notif(StackCall _stackCall, SliderStruct _inst, boolean _chg, String _intro) {
+        if (_chg) {
+            _stackCall.getStopper().getLogger().log(_intro);
+            _stackCall.setCallingState(new AfterChangingSliderSelectState(_inst));
+        }
     }
 
     public Struct getOrientation() {

@@ -2940,6 +2940,17 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSpinner0Spinner0(),guiAliasParameters.getAliasSpinner0Spinner1(),guiAliasParameters.getAliasSpinner0Spinner2(),guiAliasParameters.getAliasSpinner0Spinner3()), new FctSpinner(_cust,_guiEx,aliasSpinner));
         StandardNamedFunction.addFct(constructors_, ctor_);
         StandardType.addType(_content.getStandards(), aliasSpinner, stdcl_);
+        slider(_content, _cust, _guiEx, _component, _input);
+    }
+
+    public void slider(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx, StandardType _component, StandardType _input) {
+        StandardConstructor ctor_;
+        CustList<StandardMethod> methods_;
+        CustList<StandardConstructor> constructors_;
+        StandardClass stdcl_;
+        StandardMethod method_;
+        CustList<CstFieldInfo> fields_;
+        StringList params_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
@@ -2951,19 +2962,19 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         method_ = new StandardMethod(aliasSliderGetMax, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSliderGetMax());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSliderSetMax, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0SpinnerSetMax0()), new FctSliderSetMax());
+        method_ = new StandardMethod(aliasSliderSetMax, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0SpinnerSetMax0()), new FctSliderSetMax(aliasSlider+"."+new MethodId(MethodAccessKind.INSTANCE,aliasSliderSetMax,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSliderGetMin, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSliderGetMin());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSliderSetMin, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0SpinnerSetMin0()), new FctSliderSetMin());
+        method_ = new StandardMethod(aliasSliderSetMin, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0SpinnerSetMin0()), new FctSliderSetMin(aliasSlider+"."+new MethodId(MethodAccessKind.INSTANCE,aliasSliderSetMin,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSliderGetValue, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSliderGetValue());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSliderSetValue, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0TreeNodeSetUserObject0()), new FctSliderSetValue());
+        method_ = new StandardMethod(aliasSliderSetValue, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0TreeNodeSetUserObject0()), new FctSliderSetValue(aliasSlider+"."+new MethodId(MethodAccessKind.INSTANCE,aliasSliderSetValue,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSliderGetOrientation, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSliderGetOrientation());
