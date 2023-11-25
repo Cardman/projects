@@ -263,6 +263,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private static final String SLIDER_SET_MIN="_____1344";
     private static final String SLIDER_SET_ORIENTATION="_____1345";
     private static final String SLIDER_SET_VALUE="_____1346";
+    private static final String SLIDER_PROPERTIES="_____1346_";
     private static final String RADIO_GET_TEXT="_____1347";
     private static final String RADIO_SET_TEXT="_____1348";
     private static final String RADIO_IS_SELECTED="_____1349";
@@ -896,6 +897,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasSlider;
     private String aliasSliderGetValue;
     private String aliasSliderSetValue;
+    private String aliasSliderProperties;
     private String aliasSliderGetMax;
     private String aliasSliderSetMax;
     private String aliasSliderGetMin;
@@ -2991,6 +2993,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetChanges, params_, StringExpUtil.getPrettyArrayType(aliasChangeListener), false, MethodModifier.FINAL, new FctSliderGetChanges());
         StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasSliderProperties, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0Properties0(),guiAliasParameters.getAliasSlider0Properties1(),guiAliasParameters.getAliasSlider0Properties2()), new FctSliderProperties(aliasSlider+"."+new MethodId(MethodAccessKind.INSTANCE,aliasSliderProperties,params_).getSignature(_content.getDisplayedStrings())));
+        StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false, new FctSlider0(_cust,_guiEx,aliasSlider));
         StandardNamedFunction.addFct(constructors_, ctor_);
@@ -3610,6 +3615,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasSliderSetValue(LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_SET_VALUE)));
         setAliasSliderGetMin(LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_GET_MIN)));
         setAliasSliderSetMin(LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_SET_MIN)));
+        setAliasSliderProperties(LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_PROPERTIES)));
         setAliasTextAreaSetTabSize(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_SET_TAB_SIZE)));
         setAliasSpinnerGetMin(LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_GET_MIN)));
         setAliasCheckBoxSetText(LgNamesContent.get(_util,_cust,_mapping.getVal(CHECK_BOX_SET_TEXT)));
@@ -3893,6 +3899,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _en.add(SLIDER_SET_MIN,"SliderSetMin=setMin");
         _en.add(SLIDER_SET_ORIENTATION,"SliderSetOrientation=setOrient");
         _en.add(SLIDER_SET_VALUE,"SliderSetValue=setValue");
+        _en.add(SLIDER_PROPERTIES,"SliderProperties=properties");
         _en.add(RADIO_GET_TEXT,"RadioGetText=getText");
         _en.add(RADIO_SET_TEXT,"RadioSetText=setText");
         _en.add(RADIO_IS_SELECTED,"RadioIsSelected=isSelected");
@@ -4351,6 +4358,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _fr.add(SLIDER_SET_MIN,"SliderSetMin=majMin");
         _fr.add(SLIDER_SET_ORIENTATION,"SliderSetOrientation=majOrient");
         _fr.add(SLIDER_SET_VALUE,"SliderSetValue=maj");
+        _fr.add(SLIDER_PROPERTIES,"SliderProperties=proprietes");
         _fr.add(RADIO_GET_TEXT,"RadioGetText=valTexte");
         _fr.add(RADIO_SET_TEXT,"RadioSetText=majTexte");
         _fr.add(RADIO_IS_SELECTED,"RadioIsSelected=estSelect");
@@ -4881,6 +4889,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(SLIDER_SET_MIN),getAliasSliderSetMin()),
                 new KeyValueMemberName(_mapping.getVal(SLIDER_SET_ORIENTATION),getAliasSliderSetOrientation()),
                 new KeyValueMemberName(_mapping.getVal(SLIDER_SET_VALUE),getAliasSliderSetValue()),
+                new KeyValueMemberName(_mapping.getVal(SLIDER_PROPERTIES),getAliasSliderProperties()),
                 new KeyValueMemberName(_mapping.getVal(ADD_CHANGE),getAliasAddChange()),
                 new KeyValueMemberName(_mapping.getVal(REM_CHANGE),getAliasRemChange()),
                 new KeyValueMemberName(_mapping.getVal(GET_CHANGES),getAliasGetChanges())),allInput_)
@@ -8611,6 +8620,14 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
     public void setAliasSliderSetOrientation(String _v) {
         this.aliasSliderSetOrientation = _v;
+    }
+
+    public String getAliasSliderProperties() {
+        return aliasSliderProperties;
+    }
+
+    public void setAliasSliderProperties(String _v) {
+        this.aliasSliderProperties = _v;
     }
 
     public String getAliasGetMenuBar() {

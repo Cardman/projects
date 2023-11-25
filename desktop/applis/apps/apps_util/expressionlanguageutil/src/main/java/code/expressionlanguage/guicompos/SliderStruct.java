@@ -128,6 +128,21 @@ public final class SliderStruct extends CustComponentStruct {
         slider.setMaximum(((NumberStruct)_max).intStruct());
     }
 
+    public void properties(Struct _min,Struct _max,Struct _value, StackCall _stackCall, String _intro) {
+        int min_ = ((NumberStruct) _min).intStruct();
+        int max_ = ((NumberStruct) _max).intStruct();
+        int value_ = ((NumberStruct) _value).intStruct();
+        if (_stackCall.getStopper().getLogger() != null) {
+            int newMin_ = NumberUtil.min(min_,max_);
+            int newMax_ = NumberUtil.max(value_,max_);
+            newMin_ = NumberUtil.min(newMin_,value_);
+            boolean ch_ = change(value_, newMin_, newMax_);
+            slider.properties(min_,max_,value_);
+            notif(_stackCall,this,ch_, _intro);
+            return;
+        }
+        slider.properties(min_,max_,value_);
+    }
     private boolean change(int _newValue, int _newMin, int _newMax) {
         return _newValue != slider.getValue() ||
                 _newMin != slider.getMinimum() ||

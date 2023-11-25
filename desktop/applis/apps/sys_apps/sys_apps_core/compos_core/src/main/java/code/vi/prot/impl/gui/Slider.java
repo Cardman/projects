@@ -87,6 +87,11 @@ public final class Slider extends CustComponent implements AbsSlider {
         sl.setMaximum(_maximum);
     }
 
+    @Override
+    public void properties(int _min, int _max, int _value) {
+        sl.getModel().setRangeProperties(_value,0,_min,_max,sl.getModel().getValueIsAdjusting());
+    }
+
     public int getOrientation() {
         return sl.getOrientation();
     }

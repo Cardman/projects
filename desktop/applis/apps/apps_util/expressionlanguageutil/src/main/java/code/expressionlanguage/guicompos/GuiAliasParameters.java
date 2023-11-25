@@ -419,6 +419,9 @@ public final class GuiAliasParameters {
     private static final String SLIDER_0_SLIDER_SET_ORIENTATION_0="_____1755";
     private static final String SLIDER_0_ADD_CHANGE_0="_____1756";
     private static final String SLIDER_0_REM_CHANGE_0="_____1756_";
+    private static final String SLIDER_0_PROPERTIES_0="_____1756__";
+    private static final String SLIDER_0_PROPERTIES_1="_____1756___";
+    private static final String SLIDER_0_PROPERTIES_2="_____1756____";
     private static final String SLIDER_0_SLIDER_0="_____1757";
     private static final String SLIDER_1_SLIDER_0="_____1758";
     private static final String SLIDER_1_SLIDER_1="_____1759";
@@ -876,6 +879,9 @@ public final class GuiAliasParameters {
     private String aliasSlider0SliderSetOrientation0;
     private String aliasSlider0AddChange0;
     private String aliasSlider0RemChange0;
+    private String aliasSlider0Properties0;
+    private String aliasSlider0Properties1;
+    private String aliasSlider0Properties2;
     private String aliasSlider0Slider0;
     private String aliasSlider1Slider0;
     private String aliasSlider1Slider1;
@@ -1333,6 +1339,9 @@ public final class GuiAliasParameters {
         aliasSlider0SliderSetOrientation0=LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_0_SLIDER_SET_ORIENTATION_0));
         aliasSlider0AddChange0=LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_0_ADD_CHANGE_0));
         aliasSlider0RemChange0=LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_0_REM_CHANGE_0));
+        aliasSlider0Properties0=LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_0_PROPERTIES_0));
+        aliasSlider0Properties1=LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_0_PROPERTIES_1));
+        aliasSlider0Properties2=LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_0_PROPERTIES_2));
         aliasSlider0Slider0=LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_0_SLIDER_0));
         aliasSlider1Slider0=LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_1_SLIDER_0));
         aliasSlider1Slider1=LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_1_SLIDER_1));
@@ -1791,6 +1800,9 @@ public final class GuiAliasParameters {
         _en.add(SLIDER_0_SLIDER_SET_ORIENTATION_0,"Slider0SliderSetOrientation0=a");
         _en.add(SLIDER_0_ADD_CHANGE_0,"Slider0AddChange0=a");
         _en.add(SLIDER_0_REM_CHANGE_0,"Slider0RemChange0=a");
+        _en.add(SLIDER_0_PROPERTIES_0,"Slider0Properties0=a");
+        _en.add(SLIDER_0_PROPERTIES_1,"Slider0Properties1=b");
+        _en.add(SLIDER_0_PROPERTIES_2,"Slider0Properties2=c");
         _en.add(SLIDER_0_SLIDER_0,"Slider0Slider0=a");
         _en.add(SLIDER_1_SLIDER_0,"Slider1Slider0=a");
         _en.add(SLIDER_1_SLIDER_1,"Slider1Slider1=b");
@@ -2249,6 +2261,9 @@ public final class GuiAliasParameters {
         _fr.add(SLIDER_0_SLIDER_SET_ORIENTATION_0,"Slider0SliderSetOrientation0=a");
         _fr.add(SLIDER_0_ADD_CHANGE_0,"Slider0AddChange0=a");
         _fr.add(SLIDER_0_REM_CHANGE_0,"Slider0RemChange0=a");
+        _fr.add(SLIDER_0_PROPERTIES_0,"Slider0Properties0=a");
+        _fr.add(SLIDER_0_PROPERTIES_1,"Slider0Properties1=b");
+        _fr.add(SLIDER_0_PROPERTIES_2,"Slider0Properties2=c");
         _fr.add(SLIDER_0_SLIDER_0,"Slider0Slider0=a");
         _fr.add(SLIDER_1_SLIDER_0,"Slider1Slider0=a");
         _fr.add(SLIDER_1_SLIDER_1,"Slider1Slider1=b");
@@ -2542,6 +2557,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SLIDER_0_SLIDER_SET_ORIENTATION_0),aliasSlider0SliderSetOrientation0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SLIDER_0_ADD_CHANGE_0),aliasSlider0AddChange0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SLIDER_0_REM_CHANGE_0),aliasSlider0RemChange0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SLIDER_0_PROPERTIES_0),aliasSlider0Properties0),new KeyValueMemberName(_mapping.getVal(SLIDER_0_PROPERTIES_1),aliasSlider0Properties1),new KeyValueMemberName(_mapping.getVal(SLIDER_0_PROPERTIES_2),aliasSlider0Properties2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SLIDER_0_SLIDER_0),aliasSlider0Slider0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SLIDER_1_SLIDER_0),aliasSlider1Slider0),new KeyValueMemberName(_mapping.getVal(SLIDER_1_SLIDER_1),aliasSlider1Slider1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SLIDER_2_SLIDER_0),aliasSlider2Slider0),new KeyValueMemberName(_mapping.getVal(SLIDER_2_SLIDER_1),aliasSlider2Slider1),new KeyValueMemberName(_mapping.getVal(SLIDER_2_SLIDER_2),aliasSlider2Slider2)));
@@ -4143,6 +4159,18 @@ public final class GuiAliasParameters {
 
     public String getAliasSlider0RemChange0() {
         return aliasSlider0RemChange0;
+    }
+
+    public String getAliasSlider0Properties0() {
+        return aliasSlider0Properties0;
+    }
+
+    public String getAliasSlider0Properties1() {
+        return aliasSlider0Properties1;
+    }
+
+    public String getAliasSlider0Properties2() {
+        return aliasSlider0Properties2;
     }
 
     public String getAliasSlider0Slider0() {

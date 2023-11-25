@@ -99,4 +99,12 @@ public final class MockSliderTest extends EquallableMockGuiUtil{
         sl_.removeChangeListener(ch_);
         assertEq(0,sl_.getChangeListeners().size());
     }
+    @Test
+    public void s14() {
+        MockWithChangeListenerSample fr_ = new MockWithChangeListenerSample(init(), "");
+        fr_.getSlider().properties(2,7,3);
+        assertEq(2,fr_.getSlider().getMinimum());
+        assertEq(7,fr_.getSlider().getMaximum());
+        assertEq(3,fr_.getSlider().getValue());
+    }
 }

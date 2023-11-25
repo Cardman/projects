@@ -268,6 +268,20 @@ public final class SliderStructTest extends EquallableElUtUtil {
         assertEq(55,toLong(call(new FctSliderGetValue(),null,ctx_,sl_,null,st_)));
     }
     @Test
+    public void properties() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
+        call(new FctSliderProperties(""),null,ctx_,sl_,three(new IntStruct(3),new IntStruct(98),new IntStruct(55)),st_);
+        assertEq(3,toLong(call(new FctSliderGetMin(),null,ctx_,sl_,null,st_)));
+        assertEq(55,toLong(call(new FctSliderGetValue(),null,ctx_,sl_,null,st_)));
+        assertEq(98,toLong(call(new FctSliderGetMax(),null,ctx_,sl_,null,st_)));
+    }
+    @Test
     public void toolTipText1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
@@ -420,6 +434,29 @@ public final class SliderStructTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){Slider g = new(15,120,60);g.addChange((ChangeListener)(:void)->{g;});g.setMax(125);}}");
+        ResultContext ctx_ = ctx(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 113);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(4,dbg_.getStack().nbPages());
+        assertEq(113,dbg_.getStack().getCall(3).getTraceIndex());
+        assertEq(120,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(0,dbgContinueNormalValue(dbg_.getStack(),ctx_.getContext()).getStack().nbPages());
+    }
+    @Test
+    public void selectDbg9() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){Slider g = new(15,120,60);g.addChange((ChangeListener)(:void)->{g;});g.properties(15,120,60);}}");
+        ResultContext ctx_ = ctx(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 113);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    @Test
+    public void selectDbg10() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){Slider g = new(15,120,60);g.addChange((ChangeListener)(:void)->{g;});g.properties(15,120,75);}}");
         ResultContext ctx_ = ctx(pr_, files_);
         ctx_.toggleBreakPoint("src/sample.txt", 113);
         StackCallReturnValue dbg_ = launchDbg(ctx_);

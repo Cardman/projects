@@ -114,6 +114,13 @@ public final class MockSlider extends MockInput implements AbsSlider {
         }
     }
 
+    @Override
+    public void properties(int _min, int _max, int _value) {
+        minimum = _min;
+        maximum = _max;
+        value = _value;
+    }
+
     private void fireEvent() {
         for (AbsChangeListener a: getChangeListeners()) {
             a.stateChanged();
