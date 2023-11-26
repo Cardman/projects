@@ -1535,7 +1535,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         method_ = new StandardMethod(aliasComponentSetVisible, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0ComponentSetVisible0()), new FctCompoSetVisible());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(_cust.getAliasRunnable());
-        method_ = new StandardMethod(aliasComponentInvokeLater, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasComponent0ComponentInvokeLater0()), new FctCompoInvokeLater(_cust,_guiEx));
+        method_ = new StandardMethod(aliasComponentInvokeLater, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasComponent0ComponentInvokeLater0()), new FctCompoInvokeLater(_cust,_guiEx, aliasComponent+"."+new MethodId(MethodAccessKind.STATIC,aliasComponentInvokeLater,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(aliasKeyListener);
         method_ = new StandardMethod(aliasAddKeyListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0AddKeyListener0()), new FctCompoAddKeyListener());

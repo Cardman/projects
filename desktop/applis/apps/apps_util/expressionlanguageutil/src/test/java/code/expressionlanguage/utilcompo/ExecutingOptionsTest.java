@@ -1,19 +1,30 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.*;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.*;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.functionid.StdClassModifier;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.guicompos.stds.*;
 import code.expressionlanguage.options.*;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.stds.*;
 import code.gui.*;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.montecarlo.*;
 import code.mock.*;
 import code.util.*;
@@ -507,7 +518,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
-        call(new FctCompoInvokeLater(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
+        call(new FctCompoInvokeLater(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
         assertTrue(st_.isFailInit());
     }
     @Test
@@ -518,7 +529,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
-        call(new FctCompoInvokeLater(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
+        call(new FctCompoInvokeLater(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -532,7 +543,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         ((RunnableContextEl)ctx_).getExecutingOptions().setInvokeDirect(true);
         StackCall st_ = stack(ctx_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
-        call(new FctCompoInvokeLater(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,one(list_),st_);
+        call(new FctCompoInvokeLater(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""),null,ctx_,null,one(list_),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -546,11 +557,92 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         ((RunnableContextEl)ctx_).getExecutingOptions().setInvokeDirect(false);
         StackCall st_ = stack(ctx_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
-        call(new FctCompoInvokeLater(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,one(list_),st_);
+        call(new FctCompoInvokeLater(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""),null,ctx_,null,one(list_),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
+    @Test
+    public void selectDbg1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){Component.invokeLater(()->{Sample.id(2);});}public static int id(int i){return i;}}");
+        ResultContext ctx_ = ctx(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 128);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(6,dbg_.getStack().nbPages());
+        assertEq(128,dbg_.getStack().getCall(5).getTraceIndex());
+        assertEq(83,dbg_.getStack().getCall(4).getTraceIndex());
+        assertEq(59,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(0,dbgContinueNormalValue(dbg_.getStack(),ctx_.getContext()).getStack().nbPages());
+    }
+    @Test
+    public void selectDbg2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){Component.invokeLater(null);}public static int id(int i){return i;}}");
+        ResultContext ctx_ = ctx(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 113);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    private StackCallReturnValue launchDbg(ResultContext _ctx) {
+        ExecRootBlock ex_ = _ctx.getContext().getClasses().getClassBody("pkg.Sample");
+        ExecFormattedRootBlock form_ = new ExecFormattedRootBlock(ex_);
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC, "run", new StringList());
+        return ExecClassesUtil.tryInitStaticlyTypes(_ctx.getContext(), _ctx.getForwards().getOptions(), null, new CustomFoundMethod(form_, new ExecTypeFunction(form_, ExecClassesUtil.getMethodBodiesById(ex_, id_).first()), new Parameters()), StepDbgActionEnum.DEBUG, false);
+    }
 
+    protected static StackCallReturnValue dbgContinueNormalValue(StackCall _stack, ContextEl _cont) {
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.KEEP, false);
+    }
+    private ResultContext ctx(MockProgramInfos _p, StringMap<String> _files) {
+        update(_p);
+        LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+        return buildMock(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files);
+    }
+
+    public static ResultContext buildMock(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        StringMap<String> s_ = new StringMap<String>();
+        s_.addEntry("0",_definedLgNames.getExecContent().getCustAliases().runnableType(_definedKw, _definedLgNames.getContent()));
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
+        Forwards forwards_ = nextBuild(_options, _definedKw, _definedLgNames, _files, s_, page_);
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _definedLgNames.buildBase();
+
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass component_ = new StandardClass(_definedLgNames.getGuiAliases().getAliasComponent(), fields_, constructors_, methods_, _definedLgNames.getContent().getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
+        component_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
+        StringList params_ = new StringList(_definedLgNames.getExecContent().getCustAliases().getAliasRunnable());
+        StandardMethod method_ = new StandardMethod(_definedLgNames.getGuiAliases().getAliasComponentInvokeLater(), params_, _definedLgNames.getContent().getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList("a"), new FctCompoInvokeLater(_definedLgNames.getExecContent().getCustAliases(),_definedLgNames.getGuiExecutingBlocks(), ""));
+        StandardNamedFunction.addFct(methods_, method_);
+        StandardType.addType(_definedLgNames.getContent().getStandards(), _definedLgNames.getGuiAliases().getAliasComponent(), component_);
+
+        ValidatorStandard.setupOverrides(page_);
+        ResultContext res_ = commonMockDbg(_exec, _definedLgNames, _files, page_, forwards_);
+        LgNamesGui stds_ = (LgNamesGui) res_.getContext().getStandards();
+        stds_.getExecContent().getExecutingBlocks().runnable(stds_.getExecContent().getCustAliases(), res_.getContext().getClasses());
+        Classes.tryInit(res_);
+        return res_;
+    }
+
+    public static LgNamesGui newLgNamesGuiSampleGr(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
+        LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
+        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),"en");
+        return stds_;
+    }
     private static StringList lines(String..._lines) {
         return new StringList(_lines);
     }

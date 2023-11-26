@@ -2,8 +2,10 @@ package code.expressionlanguage.guicompos.stds;
 
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecRunMethodState;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.dbg.AbsLogDbg;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.guicompos.CustComponentStruct;
 import code.expressionlanguage.guicompos.GuiExecutingBlocks;
@@ -16,10 +18,12 @@ import code.expressionlanguage.utilcompo.RunnableContextEl;
 public final class FctCompoInvokeLater implements StdCaller {
     private final CustAliases custAliases;
     private final GuiExecutingBlocks guiEx;
+    private final String id;
 
-    public FctCompoInvokeLater(CustAliases _custAliases, GuiExecutingBlocks _guiEx) {
+    public FctCompoInvokeLater(CustAliases _custAliases, GuiExecutingBlocks _guiEx, String _i) {
         this.custAliases = _custAliases;
         this.guiEx = _guiEx;
+        id = _i;
     }
 
     @Override
@@ -28,7 +32,18 @@ public final class FctCompoInvokeLater implements StdCaller {
             custAliases.processFailInit(_cont, _stackCall);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        CustComponentStruct.invokeLater((RunnableContextEl) _cont, guiEx.getFrames(),_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        AbsLogDbg log_ = _stackCall.getStopper().getLogger();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        if (log_ != null) {
+            if (arg_ != NullStruct.NULL_VALUE) {
+                log_.log(id+":"+ arg_.getClassName(_cont));
+                _stackCall.setCallingState(new ExecRunMethodState(arg_));
+            } else {
+                log_.log(id+":");
+            }
+            return new ArgumentWrapper(NullStruct.NULL_VALUE);
+        }
+        CustComponentStruct.invokeLater((RunnableContextEl) _cont, guiEx.getFrames(), arg_);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }
