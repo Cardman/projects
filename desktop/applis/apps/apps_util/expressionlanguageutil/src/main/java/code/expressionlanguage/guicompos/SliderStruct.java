@@ -3,6 +3,7 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.AfterChangingSliderSelectState;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.dbg.AbsLogDbg;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -75,15 +76,18 @@ public final class SliderStruct extends CustComponentStruct {
     }
 
     public void setValue(Struct _value, StackCall _stackCall, String _intro) {
-        if (_stackCall.getStopper().getLogger() != null) {
+        AbsLogDbg log_ = _stackCall.getStopper().getLogger();
+        if (log_ != null) {
             int v_ = ((NumberStruct)_value).intStruct();
+            String par_ = _intro + ":" + v_;
             if (v_ == slider.getValue()) {
+                log_.log(par_);
                 return;
             }
             int newValue_ = NumberUtil.min(NumberUtil.max(v_, slider.getMinimum()), slider.getMaximum());
             boolean ch_ = change(newValue_, slider.getMinimum(), slider.getMaximum());
             slider.setValue(v_);
-            notif(_stackCall,this,ch_, _intro);
+            notif(_stackCall,this,ch_, par_, log_);
             return;
         }
         slider.setValue(((NumberStruct)_value).intStruct());
@@ -94,8 +98,10 @@ public final class SliderStruct extends CustComponentStruct {
     }
 
     public void setMin(Struct _min, StackCall _stackCall, String _intro) {
-        if (_stackCall.getStopper().getLogger() != null) {
+        AbsLogDbg log_ = _stackCall.getStopper().getLogger();
+        if (log_ != null) {
             int m_ = ((NumberStruct) _min).intStruct();
+            String par_ = _intro + ":" + m_;
             int newMax_ = NumberUtil.max(m_, slider.getMaximum());
             int newValue_ = NumberUtil.max(m_, slider.getValue());
             int newMin_  = NumberUtil.min(m_,newMax_);
@@ -103,7 +109,7 @@ public final class SliderStruct extends CustComponentStruct {
             newMin_ = NumberUtil.min(newMin_,slider.getValue());
             boolean ch_ = change(newValue_, newMin_, newMax_);
             slider.setMinimum(m_);
-            notif(_stackCall,this,ch_, _intro);
+            notif(_stackCall,this,ch_, par_, log_);
             return;
         }
         slider.setMinimum(((NumberStruct)_min).intStruct());
@@ -114,15 +120,17 @@ public final class SliderStruct extends CustComponentStruct {
     }
 
     public void setMax(Struct _max, StackCall _stackCall, String _intro) {
-        if (_stackCall.getStopper().getLogger() != null) {
+        AbsLogDbg log_ = _stackCall.getStopper().getLogger();
+        if (log_ != null) {
             int m_ = ((NumberStruct) _max).intStruct();
+            String par_ = _intro + ":" + m_;
             int newMin_  = NumberUtil.min(m_,slider.getMinimum());
             int newValue_ = NumberUtil.min(m_, slider.getValue());
             int newMax_ = NumberUtil.max(m_, slider.getMaximum());
             newMin_ = NumberUtil.min(newMin_,slider.getValue());
             boolean ch_ = change(newValue_, newMin_, newMax_);
             slider.setMaximum(m_);
-            notif(_stackCall,this,ch_, _intro);
+            notif(_stackCall,this,ch_, par_, log_);
             return;
         }
         slider.setMaximum(((NumberStruct)_max).intStruct());
@@ -132,13 +140,15 @@ public final class SliderStruct extends CustComponentStruct {
         int min_ = ((NumberStruct) _min).intStruct();
         int max_ = ((NumberStruct) _max).intStruct();
         int value_ = ((NumberStruct) _value).intStruct();
-        if (_stackCall.getStopper().getLogger() != null) {
+        AbsLogDbg log_ = _stackCall.getStopper().getLogger();
+        if (log_ != null) {
+            String par_ = _intro + ":" + min_ + "," + max_ + "," + value_;
             int newMin_ = NumberUtil.min(min_,max_);
             int newMax_ = NumberUtil.max(value_,max_);
             newMin_ = NumberUtil.min(newMin_,value_);
             boolean ch_ = change(value_, newMin_, newMax_);
             slider.properties(min_,max_,value_);
-            notif(_stackCall,this,ch_, _intro);
+            notif(_stackCall,this,ch_, par_, log_);
             return;
         }
         slider.properties(min_,max_,value_);
@@ -150,10 +160,12 @@ public final class SliderStruct extends CustComponentStruct {
     }
 
 
-    static void notif(StackCall _stackCall, SliderStruct _inst, boolean _chg, String _intro) {
+    static void notif(StackCall _stackCall, SliderStruct _inst, boolean _chg, String _intro, AbsLogDbg _log) {
         if (_chg) {
-            _stackCall.getStopper().getLogger().log(_intro);
+            _log.log(_intro+"=>");
             _stackCall.setCallingState(new AfterChangingSliderSelectState(_inst));
+        } else {
+            _log.log(_intro);
         }
     }
 

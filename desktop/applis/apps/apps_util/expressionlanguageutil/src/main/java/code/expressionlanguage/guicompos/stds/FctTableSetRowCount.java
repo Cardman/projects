@@ -5,6 +5,7 @@ import code.expressionlanguage.AfterChangingTableSelectState;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.dbg.AbsLogDbg;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.guicompos.TableStruct;
 import code.expressionlanguage.stds.StdCaller;
@@ -28,9 +29,14 @@ public final class FctTableSetRowCount implements StdCaller {
     }
 
     static void notif(StackCall _stackCall, TableStruct _inst, int[] _arr, String _intro) {
-        if (_arr.length > 0) {
-            _stackCall.getStopper().getLogger().log(_intro +"=>"+ _arr[0]+","+ _arr[_arr.length-1]);
-            _stackCall.setCallingState(new AfterChangingTableSelectState(_inst, _arr[0], _arr[_arr.length-1]));
+        AbsLogDbg log_ = _stackCall.getStopper().getLogger();
+        if (log_ != null) {
+            if (_arr.length > 0) {
+                log_.log(_intro +"=>"+ _arr[0]+","+ _arr[_arr.length-1]);
+                _stackCall.setCallingState(new AfterChangingTableSelectState(_inst, _arr[0], _arr[_arr.length-1]));
+            } else {
+                log_.log(_intro);
+            }
         }
     }
 
