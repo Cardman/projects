@@ -494,6 +494,15 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         StackCallReturnValue dbg_ = launchDbg(ctx_);
         assertEq(0,dbg_.getStack().nbPages());
     }
+    @Test
+    public void launchDbgSch() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){var g = new ServiceScheduledExecution();g.stopped();g.shutdown();g.stopped();g.scheduleMillis((Runnable)(:void)->{g;},0,0);g.scheduleNanos((Runnable)(:void)->{g;},0,0);g.scheduleMillis(null,0,0);}}");
+        ResultContext ctx_ = ctxResRunSch(pr_, files_);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(0,dbg_.getStack().nbPages());
+    }
     private StackCallReturnValue launchDbg(ResultContext _ctx) {
         ExecRootBlock ex_ = _ctx.getContext().getClasses().getClassBody("pkg.Sample");
         ExecFormattedRootBlock form_ = new ExecFormattedRootBlock(ex_);
@@ -532,7 +541,20 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         return buildMockDbgRun(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files);
     }
-
+    private ResultContext ctxResRunSch(MockProgramInfos _p, StringMap<String> _files) {
+        update(_p);
+        LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+        return buildMockDbgRunSch(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files);
+    }
     private Struct ctxStr(MockProgramInfos _pr, StringMap<String> _p) {
         ContextEl ctx_ = ctx(_pr,_p);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
@@ -624,6 +646,47 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         StandardConstructor ctor1_ = new StandardConstructor(new StringList(_definedLgNames.getPrimTypes().getAliasPrimInteger()),false,new StringList("a"),new FctExecutorService1(new MockInterceptor(), _definedLgNames.getExecContent().getCustAliases().getInfos().getThreadFactory(), ""));
         StandardNamedFunction.addFct(constructors_, ctor1_);
         StandardType.addType(_definedLgNames.getContent().getStandards(), _definedLgNames.getExecContent().getCustAliases().getAliasExecutorService(), service_);
+
+        ValidatorStandard.setupOverrides(page_);
+        ResultContext res_ = commonMockDbg(_exec, _definedLgNames, _files, page_, forwards_);
+        LgNamesGui stds_ = (LgNamesGui) res_.getContext().getStandards();
+        stds_.getExecContent().getExecutingBlocks().runnable(_definedLgNames.getExecContent().getCustAliases(),res_.getContext().getClasses());
+        Classes.tryInit(res_);
+        return res_;
+    }
+
+    public static ResultContext buildMockDbgRunSch(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        StringMap<String> s_ = new StringMap<String>();
+        s_.addEntry("0",_definedLgNames.getExecContent().getCustAliases().runnableType(_definedKw, _definedLgNames.getContent()));
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
+        Forwards forwards_ = nextBuild(_options, _definedKw, _definedLgNames, _files, s_, page_);
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _definedLgNames.buildBase();
+
+        _definedLgNames.getExecContent().getCustAliases().future(_definedLgNames.getContent());
+
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass service_ = new StandardClass(_definedLgNames.getExecContent().getCustAliases().getAliasScheduledExecutorService(), fields_, constructors_, methods_, _definedLgNames.getContent().getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        service_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
+
+        StringList params_ = new StringList(_definedLgNames.getExecContent().getCustAliases().getAliasRunnable(),_definedLgNames.getContent().getPrimTypes().getAliasPrimLong(),_definedLgNames.getContent().getPrimTypes().getAliasPrimLong());
+        StandardMethod method_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceScheduleMillis(), params_, _definedLgNames.getExecContent().getCustAliases().getAliasFuture(), false, MethodModifier.FINAL,new StringList("a","b","c"),new FctScheduledExecutorMillis0(""));
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_definedLgNames.getExecContent().getCustAliases().getAliasRunnable(),_definedLgNames.getContent().getPrimTypes().getAliasPrimLong(),_definedLgNames.getContent().getPrimTypes().getAliasPrimLong());
+        StandardMethod method2_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceScheduleNanos(), params_, _definedLgNames.getExecContent().getCustAliases().getAliasFuture(), false, MethodModifier.FINAL,new StringList("a","b","c"),new FctScheduledExecutorNanos0(""));
+        StandardNamedFunction.addFct(methods_, method2_);
+        StandardMethod method3_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceShutdown(), new StringList(), _definedLgNames.getExecContent().getCustAliases().getAliasFuture(), false, MethodModifier.FINAL, new FctExecutorServiceShutdown(""));
+        StandardNamedFunction.addFct(methods_, method3_);
+        params_ = new StringList();
+        method_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceStopped(), params_, _definedLgNames.getContent().getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctExecutorServiceStopped());
+        StandardNamedFunction.addFct(methods_, method_);
+
+        StandardConstructor ctor_ = new StandardConstructor(new StringList(),false,new FctScheduledExecutorService0(_definedLgNames.getExecContent().getCustAliases().getInfos().getThreadFactory(), ""));
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        StandardType.addType(_definedLgNames.getContent().getStandards(), _definedLgNames.getExecContent().getCustAliases().getAliasScheduledExecutorService(), service_);
 
         ValidatorStandard.setupOverrides(page_);
         ResultContext res_ = commonMockDbg(_exec, _definedLgNames, _files, page_, forwards_);

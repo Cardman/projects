@@ -16,16 +16,20 @@ import org.junit.Test;
 public final class ScheduledExecutorServiceStructTest extends EquallableElUtUtil {
     @Test
     public void init1() {
+        ContextEl ctx_ = gene(newLgNamesGuiSample(newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"})), null),new Options());
+        StackCall st_ = stack(ctx_);
         AbstractThreadFactory th_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"})).getThreadFactory();
-        ScheduledExecutorServiceStruct essOne_ = (ScheduledExecutorServiceStruct) call(new FctScheduledExecutorService0(th_),null,null,null,null,null);
-        ScheduledExecutorServiceStruct essTwo_ = (ScheduledExecutorServiceStruct) call(new FctScheduledExecutorService0(th_),null,null,null,null,null);
+        ScheduledExecutorServiceStruct essOne_ = (ScheduledExecutorServiceStruct) call(new FctScheduledExecutorService0(th_, ""),null,ctx_,null,null,st_);
+        ScheduledExecutorServiceStruct essTwo_ = (ScheduledExecutorServiceStruct) call(new FctScheduledExecutorService0(th_, ""),null,ctx_,null,null,st_);
         assertFalse(essOne_.sameReference(essTwo_));
     }
     @Test
     public void init2() {
+        ContextEl ctx_ = gene(newLgNamesGuiSample(newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"})), null),new Options());
+        StackCall st_ = stack(ctx_);
         AbstractThreadFactory th_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"})).getThreadFactory();
-        ScheduledExecutorServiceStruct essOne_ = (ScheduledExecutorServiceStruct) call(new DfScheduledExecutorService(th_),null,null,null,null);
-        ScheduledExecutorServiceStruct essTwo_ = (ScheduledExecutorServiceStruct) call(new DfScheduledExecutorService(th_),null,null,null,null);
+        ScheduledExecutorServiceStruct essOne_ = (ScheduledExecutorServiceStruct) call(new DfScheduledExecutorService(th_, ""),null,ctx_,null,st_);
+        ScheduledExecutorServiceStruct essTwo_ = (ScheduledExecutorServiceStruct) call(new DfScheduledExecutorService(th_, ""),null,ctx_,null,st_);
         assertFalse(essOne_.sameReference(essTwo_));
     }
     @Test
@@ -39,7 +43,7 @@ public final class ScheduledExecutorServiceStructTest extends EquallableElUtUtil
         stds_.getExecContent().getCustAliases().setAliasFuture("_");
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
-        assertEq(stds_.getExecContent().getCustAliases().getAliasFuture(),call(new FctScheduledExecutorMillis0(),null,ctx_,essOne_, list_,null).getClassName(ctx_));
+        assertEq(stds_.getExecContent().getCustAliases().getAliasFuture(),call(new FctScheduledExecutorMillis0(""),null,ctx_,essOne_, list_,null).getClassName(ctx_));
     }
     @Test
     public void nanos() {
@@ -52,7 +56,7 @@ public final class ScheduledExecutorServiceStructTest extends EquallableElUtUtil
         stds_.getExecContent().getCustAliases().setAliasFuture("_");
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
-        assertEq(stds_.getExecContent().getCustAliases().getAliasFuture(),call(new FctScheduledExecutorNanos0(),null,ctx_,essOne_, list_,null).getClassName(ctx_));
+        assertEq(stds_.getExecContent().getCustAliases().getAliasFuture(),call(new FctScheduledExecutorNanos0(""),null,ctx_,essOne_, list_,null).getClassName(ctx_));
     }
     @Test
     public void shutdown1() {
@@ -66,7 +70,7 @@ public final class ScheduledExecutorServiceStructTest extends EquallableElUtUtil
         StackCall st_ = stack(ctx_);
         ArgumentListCall list_ = three(s_,new IntStruct(1),new IntStruct(1));
         call(new FctExecutorServiceShutdown(""),null,null,essOne_, null,st_);
-        Struct f_ = call(new FctScheduledExecutorMillis0(), null, null, essOne_, list_, null);
+        Struct f_ = call(new FctScheduledExecutorMillis0(""), null, null, essOne_, list_, null);
         assertTrue(call(new FctFutureCancel(""),null,ctx_,f_,null,st_));
     }
     @Test
@@ -81,7 +85,7 @@ public final class ScheduledExecutorServiceStructTest extends EquallableElUtUtil
         StackCall st_ = stack(ctx_);
         ArgumentListCall list_ = three(s_,new IntStruct(1),new IntStruct(1));
         call(new FctExecutorServiceShutdown(""),null,null,essOne_, null,st_);
-        Struct f_ = call(new FctScheduledExecutorNanos0(), null, null, essOne_, list_, null);
+        Struct f_ = call(new FctScheduledExecutorNanos0(""), null, null, essOne_, list_, null);
         assertTrue(call(new FctFutureCancel(""),null,ctx_,f_,null,st_));
     }
 }
