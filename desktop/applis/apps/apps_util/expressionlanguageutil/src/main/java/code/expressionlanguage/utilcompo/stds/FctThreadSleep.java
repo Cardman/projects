@@ -34,6 +34,10 @@ public final class FctThreadSleep implements StdCaller {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         log(_stackCall,Long.toString(((NumberStruct)arg_).longStruct()), id);
+        AbsLogDbg lg_ = _stackCall.getStopper().getLogger();
+        if (lg_ != null) {
+            return new ArgumentWrapper(NullStruct.NULL_VALUE);
+        }
         return new ArgumentWrapper(BooleanStruct.of(ThreadUtil.sleep(((RunnableContextEl) _cont).getCurrentThreadFactory(),((NumberStruct)arg_).longStruct())));
     }
 
