@@ -25,11 +25,6 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
         execContent = new LgNamesUtilsContent(_infos, _inter);
     }
 
-    public LgNamesUtils(FileInfos _infos, AbstractInterceptor _inter, boolean _l) {
-        super(_infos.getGenerator());
-        execContent = new LgNamesUtilsContent(_infos, _inter, _l);
-    }
-
     @Override
     public StringViewReplaceAliases getStrAlias() {
         return getExecContent().getCustAliases().getStringViewReplaceAliases();

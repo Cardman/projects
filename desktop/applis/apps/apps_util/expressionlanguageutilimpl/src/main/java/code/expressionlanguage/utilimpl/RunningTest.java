@@ -122,7 +122,7 @@ public final class RunningTest implements Runnable {
         Options opts_ = new Options();
         ExecutingOptions ex_ = exec(_factories, _interceptor, _lg);
         ExecutingOptions.setupOptionals(0,opts_,ex_,_otherLines);
-        return CustContextFactory.stds(file_, ex_, opts_, false, _a,_fact);
+        return CustContextFactory.stds(file_, ex_, opts_, _a,_fact);
     }
 
     private static ExecutingOptions exec(AbstractLightProgramInfos _factories, AbstractInterceptor _interceptor, String _lg) {

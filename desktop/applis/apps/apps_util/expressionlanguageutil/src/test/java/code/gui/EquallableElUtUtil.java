@@ -171,7 +171,7 @@ public abstract class EquallableElUtUtil {
     public static LgNamesGui newLgNamesGuiLight(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {
         byte[] zipped_ = _light.getZipFact().zipBinFiles(_files);
         FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), _issuer, new MemInputFiles(StringUtil.encode(_conf), new BytesInfo(StringUtil.encode(_src),false), new BytesInfo(GuiConstants.nullToEmpty(zipped_),false)), _light.getZipFact(), _light.getThreadFactory());
-        return new LgNamesGui(infos_, new MockInterceptor(),true);
+        return new LgNamesGui(infos_, new MockInterceptor());
     }
     public static LgNamesUtils newLgNamesUt(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {
         byte[] zipped_ = _light.getZipFact().zipBinFiles(_files);
@@ -182,7 +182,7 @@ public abstract class EquallableElUtUtil {
     public static LgNamesUtils newLgNamesUtLight(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {
         byte[] zipped_ = _light.getZipFact().zipBinFiles(_files);
         FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), _issuer, new MemInputFiles(StringUtil.encode(_conf), new BytesInfo(StringUtil.encode(_src),false), new BytesInfo(GuiConstants.nullToEmpty(zipped_),false)), _light.getZipFact(), _light.getThreadFactory());
-        return new LgNamesUtils(infos_, new MockInterceptor(), true);
+        return new LgNamesUtils(infos_, new MockInterceptor());
     }
     public static ArgumentListCall one(Struct _arg) {
         CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();

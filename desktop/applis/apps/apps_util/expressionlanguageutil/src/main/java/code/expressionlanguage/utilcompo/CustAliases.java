@@ -501,13 +501,6 @@ public final class CustAliases implements AbsAliasFileBuilder {
     private Translations translations;
     private String language = "";
     private String userLg = "";
-    private final boolean light;
-    public CustAliases() {
-        this(false);
-    }
-    public CustAliases(boolean _l) {
-        light = _l;
-    }
 
     public static StringStruct getStringOfObjectUtil(ContextEl _cont, Struct _arg) {
         return ExecCatOperation.getStringOfObjectBase(_cont, _arg);
@@ -520,9 +513,6 @@ public final class CustAliases implements AbsAliasFileBuilder {
 
     public void buildOther(LgNamesContent _content, ExecutingBlocks _executingBlocks) {
         mathAdvAliases.buildOther(_content);
-        if (light) {
-            return;
-        }
         thread(_content, _executingBlocks);
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
@@ -1079,9 +1069,6 @@ public final class CustAliases implements AbsAliasFileBuilder {
     }
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content) {
         StringMap<String> stds_ = new StringMap<String>();
-        if (light) {
-            return stds_;
-        }
         stds_.put(aliasRunnable, runnableType(_keyWords, _content));
         stds_.put(aliasCallable, callableType(_keyWords, _content));
         stds_.put(aliasList, iteratorType(_keyWords, _content)+listType(_keyWords, _content));
@@ -1090,10 +1077,6 @@ public final class CustAliases implements AbsAliasFileBuilder {
         stds_.put(aliasExecute, content_);
         stds_.put(aliasFormatType, formatter(_keyWords, _content));
         return stds_;
-    }
-
-    public boolean isLight() {
-        return light;
     }
 
     public void messages(AnalysisMessages _mess, StringMap<String> _cust) {

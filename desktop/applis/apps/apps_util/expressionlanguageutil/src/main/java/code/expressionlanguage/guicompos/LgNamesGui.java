@@ -28,13 +28,8 @@ public class LgNamesGui extends LgNamesUtils {
     private final GuiAliases guiAliases;
     private final GuiExecutingBlocks guiExecutingBlocks = new GuiExecutingBlocks();
     public LgNamesGui(FileInfos _infos, AbstractInterceptor _inter) {
-        super(_infos,_inter, false);
+        super(_infos,_inter);
         guiAliases = new GuiAliases();
-        setCalculator(new AdvancedExecConstantsCalculator(this));
-    }
-    public LgNamesGui(FileInfos _infos, AbstractInterceptor _inter, boolean _light) {
-        super(_infos,_inter, _light);
-        guiAliases = new GuiAliases(_light);
         setCalculator(new AdvancedExecConstantsCalculator(this));
     }
 
@@ -98,9 +93,6 @@ public class LgNamesGui extends LgNamesUtils {
     }
 
     public void forwardAndClear(GuiAliases _g, LgNamesContent _c, GuiContextEl _ctx, Classes _cl) {
-        if (getExecContent().getCustAliases().isLight()) {
-            return;
-        }
         getGuiExecutingBlocks().forwardAndClear(_g, _c, _ctx, _cl);
     }
 }

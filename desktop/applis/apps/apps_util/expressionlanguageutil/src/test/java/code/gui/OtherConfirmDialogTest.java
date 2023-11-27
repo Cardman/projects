@@ -335,11 +335,6 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
         stds_.getExecContent().getCustAliases().getMathAdvAliases().build(mapp_,new StringMap<String>(), keys_);
         stds_.getCoreNames().setObjType(new StandardClass("_._",new CustList<CstFieldInfo>(),new CustList<StandardConstructor>(),new CustList<StandardMethod>(),"", MethodModifier.NORMAL));
         stds_.getContent().getCharSeq().setAliasString("");
-        stds_.buildOther();
-        stds_.forwardAndClear(null,null, null, null);
-        stds_.getExecContent().forwardAndClear(null,null);
-        stds_.getExecContent().getCustAliases().buildFiles(null,null);
-        stds_.getGuiAliases().buildFiles(null,null);
         Options opt_ = new Options();
         ContextEl c_ = new AdvContextGenerator(new ConcreteBoolean()).geneWith(getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);

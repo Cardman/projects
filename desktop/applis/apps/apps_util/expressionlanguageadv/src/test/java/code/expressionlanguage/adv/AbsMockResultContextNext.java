@@ -29,14 +29,14 @@ public abstract class AbsMockResultContextNext extends AdvAbsResultContextNext {
         super(_w, _frames, _progressingTests);
     }
     @Override
-    public ResultContext init(Options _opt, boolean _light) {
+    public ResultContext init(Options _opt) {
         ManageOptions man_ = getMainWindow().manage(getMainWindow().getSoftParams().getLines());
         FileInfos file_ = baseInit(man_, new UnitIssuer(getMainWindow().getStatusAnalyzeArea()));
         ExecutingOptions ex_ = man_.getEx();
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
         _opt.setReadOnly(true);
-        LgNamesGui stds_ = new LgNamesGui(file_, ex_.getInterceptor(), false);
+        LgNamesGui stds_ = new LgNamesGui(file_, ex_.getInterceptor());
         CustContextFactory.preinit(_opt, ex_, mess_, kwl_, stds_);
         CustContextFactory.parts(ex_,stds_,new StringList());
         AnalyzedPageEl page_ = CustContextFactory.mapping(stds_);

@@ -19,7 +19,7 @@ public final class PreAnalyzeExpressionSource implements Runnable {
         if (dbg == 0) {
             mainFrame.getStatusAnalyzeArea().setText("");
         }
-        ResultContext res_ = baseValidate(mainFrame, dbg != 0);
+        ResultContext res_ = baseValidate(mainFrame);
         if (!res_.getPageEl().notAllEmptyErrors()) {
             if (dbg == 1) {
                 mainFrame.setBaseResultDbg(res_);
@@ -46,9 +46,9 @@ public final class PreAnalyzeExpressionSource implements Runnable {
         mainFrame.getAnalyzeState().append(_str);
     }
 
-    public static ResultContext baseValidate(WindowCdmEditor _window, boolean _light) {
+    public static ResultContext baseValidate(WindowCdmEditor _window) {
         ManageOptions man_ = _window.manage(_window.getSoftParams().getLines());
         AbsResultContextNext n_ = _window.getResultContextNext();
-        return n_.init(man_.getOptions(),_light);
+        return n_.init(man_.getOptions());
     }
 }

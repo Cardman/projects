@@ -119,9 +119,9 @@ public final class CustContextFactory {
         return res_;
     }
 
-    public static ResultContext stds(FileInfos _file, ExecutingOptions _ex, Options _opts, boolean _light, AbsBuildLightResultContextNext _a, AbsFileBuilderListGene _fact) {
+    public static ResultContext stds(FileInfos _file, ExecutingOptions _ex, Options _opts, AbsBuildLightResultContextNext _a, AbsFileBuilderListGene _fact) {
         _opts.setReadOnly(true);
-        LgNamesGui stds_ = new LgNamesGui(_file, _ex.getInterceptor(),_light);
+        LgNamesGui stds_ = new LgNamesGui(_file, _ex.getInterceptor());
         AnalysisElementsBase e_ = elts(_ex, _opts, stds_, new StringMap<String>(), new StringList(),_fact);
         return stds(e_.getMess(), stds_.getExecContent().getCustAliases().extractMessagesKeys(), _a, e_);
     }

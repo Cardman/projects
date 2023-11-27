@@ -8,7 +8,7 @@ import code.util.StringMap;
 
 public interface AbsResultContextNext extends AbsLightResultContextNext {
     StringMap<String> files(ResultContext _r, StringMap<String> _files);
-    ResultContext init(Options _opt, boolean _light);
+    ResultContext init(Options _opt);
 
     AnalyzedPageEl nextAna(ResultContext _r, StringMap<String> _files);
     ResultContext next(ResultContext _r, ResultContext _u);

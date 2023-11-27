@@ -16,10 +16,10 @@ public final class AdvResultContextNext extends AdvAbsResultContextNext {
         super(_w,_frames, _progressingTests);
     }
     @Override
-    public ResultContext init(Options _opt, boolean _light) {
+    public ResultContext init(Options _opt) {
         ManageOptions man_ = getMainWindow().manage(getMainWindow().getSoftParams().getLines());
         FileInfos file_ = baseInit(man_, new UnitIssuer(getMainWindow().getStatusAnalyzeArea()));
-        return CustContextFactory.stds(file_, man_.getEx(), _opt, _light,new DefBuildLightResultContextNext(),new DefFileBuilderListGene());
+        return CustContextFactory.stds(file_, man_.getEx(), _opt, new DefBuildLightResultContextNext(),new DefFileBuilderListGene());
     }
 
     @Override

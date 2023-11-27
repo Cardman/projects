@@ -935,18 +935,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasComponentUnbind;
     private String aliasComponentCommands;
     private final GuiAliasParameters guiAliasParameters = new GuiAliasParameters();
-    private final boolean light;
-    public GuiAliases() {
-        this(false);
-    }
-    public GuiAliases(boolean _l) {
-        light = _l;
-    }
+
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content) {
         StringMap<String> stds_ = new StringMap<String>();
-        if (light) {
-            return stds_;
-        }
         feedInts(_keyWords, _content, stds_);
         stds_.addEntry(aliasDefCellRender, renderDefault(_keyWords, _content));
         String header_ = _keyWords.getKeyWordPublic() +" "+ _keyWords.getKeyWordAbstract()+" "+ _keyWords.getKeyWordFinal()+" "+ _keyWords.getKeyWordClass()+" "+aliasPaint+" {"+LR;
@@ -1279,9 +1270,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     }
 
     public void buildOther(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
-        if (light) {
-            return;
-        }
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();

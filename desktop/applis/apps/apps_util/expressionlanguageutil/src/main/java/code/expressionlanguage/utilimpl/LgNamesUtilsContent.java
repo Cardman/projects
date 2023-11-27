@@ -21,21 +21,12 @@ public final class LgNamesUtilsContent implements LoggableLgNames {
         custAliases.setInterceptor(_inter);
         infos = _infos;
     }
-    public LgNamesUtilsContent(FileInfos _infos, AbstractInterceptor _inter, boolean _l) {
-        custAliases = new CustAliases(_l);
-        custAliases.setInfos(_infos);
-        custAliases.setInterceptor(_inter);
-        infos = _infos;
-    }
     @Override
     public String logIssue(String _info, ReportedMessages _rep) {
         getInfos().tryLogIssue(_info);
         return _info;
     }
     public void forwardAndClear(LgNamesContent _content, Classes _classes) {
-        if (getCustAliases().isLight()) {
-            return;
-        }
         getExecutingBlocks().forwardAndClear(_content, getCustAliases(),_classes);
     }
     public AbstractInterceptor getInterceptor() {
