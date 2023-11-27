@@ -14,9 +14,11 @@ import code.expressionlanguage.utilcompo.RunnableContextEl;
 
 public final class FctThreadNano implements StdCaller {
     private final CustAliases custAliases;
+    private final String id;
 
-    public FctThreadNano(CustAliases _custAliases) {
+    public FctThreadNano(CustAliases _custAliases, String _i) {
         this.custAliases = _custAliases;
+        id = _i;
     }
 
     @Override
@@ -25,6 +27,8 @@ public final class FctThreadNano implements StdCaller {
             custAliases.processFailInit(_cont, _stackCall);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        return new ArgumentWrapper(new LongStruct(((RunnableContextEl)_cont).getCurrentThreadFactory().nanos()));
+        long nanos_ = ((RunnableContextEl) _cont).getCurrentThreadFactory().nanos();
+        FctThreadSleep.log(_stackCall,Long.toString(nanos_), id);
+        return new ArgumentWrapper(new LongStruct(nanos_));
     }
 }

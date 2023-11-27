@@ -14,9 +14,11 @@ import code.expressionlanguage.utilcompo.RunnableContextEl;
 
 public final class FctThreadMillis implements StdCaller {
     private final CustAliases custAliases;
+    private final String id;
 
-    public FctThreadMillis(CustAliases _custAliases) {
+    public FctThreadMillis(CustAliases _custAliases, String _i) {
         this.custAliases = _custAliases;
+        id = _i;
     }
 
     @Override
@@ -25,6 +27,8 @@ public final class FctThreadMillis implements StdCaller {
             custAliases.processFailInit(_cont, _stackCall);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        return new ArgumentWrapper(new LongStruct(((RunnableContextEl)_cont).getCurrentThreadFactory().millis()));
+        long millis_ = ((RunnableContextEl) _cont).getCurrentThreadFactory().millis();
+        FctThreadSleep.log(_stackCall,Long.toString(millis_), id);
+        return new ArgumentWrapper(new LongStruct(millis_));
     }
 }

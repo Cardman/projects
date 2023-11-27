@@ -1002,9 +1002,9 @@ public final class CustAliases implements AbsAliasFileBuilder {
         StandardNamedFunction.addFct(methods_, method_);
         method_ = new StandardMethod(aliasCurrentThread, params_, aliasThread, false, MethodModifier.STATIC,new FctThreadCurrent(this));
         StandardNamedFunction.addFct(methods_, method_);
-        method_ = new StandardMethod(aliasThreadCurrentTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.STATIC,new FctThreadMillis(this));
+        method_ = new StandardMethod(aliasThreadCurrentTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.STATIC,new FctThreadMillis(this, aliasThread+"."+new MethodId(MethodAccessKind.STATIC,aliasThreadCurrentTime,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
-        method_ = new StandardMethod(aliasThreadCurrentNanoTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.STATIC,new FctThreadNano(this));
+        method_ = new StandardMethod(aliasThreadCurrentNanoTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.STATIC,new FctThreadNano(this, aliasThread+"."+new MethodId(MethodAccessKind.STATIC,aliasThreadCurrentNanoTime,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         method_ = new StandardMethod(aliasThreadRunnable, params_, aliasRunnable, false, MethodModifier.FINAL,new FctThreadRunnable(this));
         StandardNamedFunction.addFct(methods_, method_);
@@ -1037,7 +1037,7 @@ public final class CustAliases implements AbsAliasFileBuilder {
         method_ = new StandardMethod(aliasSetPriority, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasThread0SetPriority0()),new FctThreadSetPrio(aliasThread+"."+new MethodId(MethodAccessKind.INSTANCE,aliasSetPriority,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
-        method_ = new StandardMethod(aliasSleep, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0Sleep0()),new FctThreadSleep(this));
+        method_ = new StandardMethod(aliasSleep, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0Sleep0()),new FctThreadSleep(this, aliasThread+"."+new MethodId(MethodAccessKind.STATIC,aliasSleep,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
 //        params_ = new StringList();
 //        method_ = new StandardMethod(aliasYield, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new FctThreadYield(this));
