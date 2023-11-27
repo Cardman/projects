@@ -3,6 +3,7 @@ package code.maths.litteraladv;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.RateImage;
+import code.util.CustList;
 import code.util.StringMap;
 
 public final class PolInterMaOperation extends MethodMaOperation {
@@ -11,7 +12,7 @@ public final class PolInterMaOperation extends MethodMaOperation {
     }
 
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         MaStruct first_ = MaNumParsers.tryGet(this, 0);
         MaStruct second_ = MaNumParsers.tryGet(this, 1);
         int index_ = StrTypes.offset(getOps(),0);

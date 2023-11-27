@@ -3,6 +3,7 @@ package code.maths.litteraladv;
 import code.maths.Complex;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
+import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -15,7 +16,7 @@ public final class UnaryMaOperation extends MethodMaOperation {
     }
 
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         MaStruct value_ = MaNumParsers.tryGet(this, 0);
         MaFractPolStruct val_ = MaFractPolStruct.wrapOrNull(value_);
         if (val_ != null && StringUtil.quickEq(getOps().firstValue().trim(), UNARY_MINUS)) {

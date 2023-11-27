@@ -3929,6 +3929,6 @@ public final class MaParserTest extends EquallableMathUtil {
     }
 
     private static String processEl(MaUserInput _input) {
-        return MaParser.processEl(DefaultGenerator.oneElt(),new CustomSeedGene(),_input);
+        return MaParser.processEl(DefaultGenerator.oneElt(),new CustList<String>(),new CustomSeedGene(),_input);
     }
 }

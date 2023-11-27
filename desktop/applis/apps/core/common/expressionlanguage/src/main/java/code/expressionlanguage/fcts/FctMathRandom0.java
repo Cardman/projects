@@ -14,11 +14,18 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 
 public final class FctMathRandom0 extends FctMath {
+
+    private final String id;
+
+    public FctMathRandom0(String _i) {
+        id = _i;
+    }
+
     @Override
     public ArgumentWrapper alea(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return random(_cont,_stackCall);
+        return random(_cont,_stackCall, id);
     }
-    private static ArgumentWrapper random(ContextEl _cont, StackCall _stackCall) {
+    private static ArgumentWrapper random(ContextEl _cont, StackCall _stackCall, String _id) {
         LgNames lgNames_ = _cont.getStandards();
         Struct seedSpec_ = _stackCall.getSeedSpecDoubleGenerator();
         Classes classes_ = _cont.getClasses();
@@ -36,6 +43,10 @@ public final class FctMathRandom0 extends FctMath {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();
-        return new ArgumentWrapper(new DoubleStruct(_stackCall.getSeedCust().pick(generator_)));
+        DoubleStruct res_ = new DoubleStruct(_stackCall.getSeedCust().pick(generator_));
+        CustList<String> rds_ = new CustList<String>();
+        rds_.add(res_.getDisplayedString(_cont).getInstance());
+        FctMathEval.log(_stackCall, rds_, _id);
+        return new ArgumentWrapper(res_);
     }
 }

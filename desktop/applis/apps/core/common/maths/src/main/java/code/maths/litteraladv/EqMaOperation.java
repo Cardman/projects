@@ -1,6 +1,7 @@
 package code.maths.litteraladv;
 
 import code.maths.litteralcom.IndexStrPart;
+import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
@@ -10,7 +11,7 @@ public final class EqMaOperation extends MethodMaOperation {
     }
 
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         int i_ = IndexConstants.SECOND_INDEX;
         boolean result_ = true;
         for (IndexStrPart e: getOps().getValues()) {

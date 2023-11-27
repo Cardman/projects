@@ -19,7 +19,7 @@ public final class ArrMaOperation extends MethodMaOperation {
     }
 
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         CustList<MaStruct> values_ = tryGetAll(this);
         if (values_.size() == 1) {
             applyLg(values_);

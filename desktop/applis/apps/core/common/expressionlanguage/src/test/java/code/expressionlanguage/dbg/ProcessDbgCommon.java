@@ -473,6 +473,12 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return ((DefLogDbg) v_.getStack().getStopper().getLogger()).getList();
     }
 
+    protected CustList<String> conditionalStdViewLogs(String _class, String _meth, StringMap<String> _files) {
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        CustomFoundMethod state_ = state(res_,_class, _meth);
+        StackCallReturnValue v_ = ExecClassesUtil.tryInitStaticlyTypes(res_.getContext(), res_.getPageEl().getOptions(), null, state_, null, false);
+        return ((DefLogDbg) v_.getStack().getStopper().getLogger()).getList();
+    }
     protected BreakPointOutputInfo conditionalStdViewLogsWacthes(String _exp, String _watch, String _file, int _caret, String _class, String _meth, StringMap<String> _files, boolean _st, int _mod, boolean _d, boolean _en) {
         ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
         res_.toggleBreakPoint(_file, _caret);

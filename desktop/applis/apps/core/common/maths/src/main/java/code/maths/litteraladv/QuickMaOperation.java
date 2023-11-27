@@ -1,6 +1,7 @@
 package code.maths.litteraladv;
 
 import code.maths.litteralcom.StrTypes;
+import code.util.CustList;
 import code.util.StringMap;
 
 public final class QuickMaOperation extends MethodMaOperation {
@@ -11,7 +12,7 @@ public final class QuickMaOperation extends MethodMaOperation {
     }
 
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         MaStruct f_ = MaNumParsers.tryGet(this,0);
         if (!(f_ instanceof MaBoolStruct)) {
             _error.setOffset(getIndexExp()+ StrTypes.offset(getOps(),0));

@@ -34,6 +34,17 @@ public final class MonteCarloUtil {
         return loi_;
     }
 
+    static CustList<LgInt> randomNumbersSeed(LgInt _lgInt, AbstractGenerator _gene, CustomSeedGene _cust, CustList<String> _rands) {
+        CustList<LgInt> numbers_ = new CustList<LgInt>();
+        for(int i = IndexConstants.FIRST_INDEX; i < NB_RAND; i++){
+//          numbers_.add(MAX_RANDOM.multiply(randomDouble()));
+            LgInt lgInt_ = randomLgInt(_lgInt, _gene, _cust);
+            _rands.add(_lgInt.toNumberString()+"<->"+lgInt_.toNumberString());
+            numbers_.add(lgInt_);
+        }
+        return numbers_;
+    }
+
     static CustList<LgInt> randomNumbersSeed(LgInt _lgInt, AbstractGenerator _gene, CustomSeedGene _cust) {
         CustList<LgInt> numbers_ = new CustList<LgInt>();
         for(int i = IndexConstants.FIRST_INDEX; i < NB_RAND; i++){

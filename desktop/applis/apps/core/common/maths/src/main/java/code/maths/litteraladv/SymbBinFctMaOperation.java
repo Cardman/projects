@@ -10,6 +10,7 @@ import code.maths.geo.RatePoint;
 import code.maths.matrix.FractPol;
 import code.maths.matrix.Matrix;
 import code.maths.matrix.Polynom;
+import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -27,7 +28,7 @@ public final class SymbBinFctMaOperation extends AbsSymbFixMaOperation {
     }
 
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         if (StringUtil.quickEq(getOper(), QUOT)) {
             procQuot(_error);
         }

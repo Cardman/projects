@@ -72,4 +72,25 @@ public final class ProcessDbgLogsTest extends ProcessDbgCommon {
         CustList<String> logs_ = conditionalStdViewLogs("i%3==0", "i", "src/file2.txt", 68, "pkg.Ex2", "m", files_, false, 2, true, false);
         assertEq(0,logs_.size());
     }
+    @Test
+    public void logs9() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/file2.txt","public class pkg.Ex2{public static double m(){double j=Math.random();return j;}}");
+        CustList<String> logs_ = conditionalStdViewLogs("pkg.Ex2", "m", files_);
+        assertEq(1,logs_.size());
+    }
+    @Test
+    public void logs10() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/file2.txt","public class pkg.Ex2{public static String m(){String j=Math.eval(\"1\");return j;}}");
+        CustList<String> logs_ = conditionalStdViewLogs("pkg.Ex2", "m", files_);
+        assertEq(0,logs_.size());
+    }
+    @Test
+    public void logs11() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/file2.txt","public class pkg.Ex2{public static String m(){String j=Math.eval(\"_\",new Replacement(\"_\",\"8\"));return j;}}");
+        CustList<String> logs_ = conditionalStdViewLogs("pkg.Ex2", "m", files_);
+        assertEq(0,logs_.size());
+    }
 }

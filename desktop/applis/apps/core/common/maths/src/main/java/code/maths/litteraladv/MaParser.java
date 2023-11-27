@@ -11,7 +11,7 @@ public final class MaParser {
     private MaParser() {
     }
 
-    public static String processEl(AbstractGenerator _gene, CustomSeedGene _cust, MaUserInput _input) {
+    public static String processEl(AbstractGenerator _gene, CustList<String> _rands, CustomSeedGene _cust, MaUserInput _input) {
         String exp_ = StringUtil.nullToEmpty(_input.getEl());
         if (!_input.isOk()) {
             return "#####"+exp_;
@@ -40,19 +40,19 @@ public final class MaParser {
             varNames_.add(user_);
             repl_.addEntry(user_,r.getNewString());
         }
-        String strValues_ = feedVars(aliases_, repl_, values_, varNames_);
+        String strValues_ = feedVars(aliases_, repl_, values_, varNames_,_rands);
         if (!strValues_.isEmpty()) {
             return strValues_;
         }
         MaError err_ = new MaError();
-        MaStruct out_ = analyzeCalculate(exp_, values_, aliases_, err_, false, varNames_);
+        MaStruct out_ = analyzeCalculate(exp_, values_, aliases_, err_, false, varNames_,_rands);
         return MaNumParsers.toStrNb(out_,err_);
     }
 
-    private static String feedVars(MaParameters _aliases, StringMap<String> _repl, StringMap<MaStruct> _values, StringList _varNames) {
+    private static String feedVars(MaParameters _aliases, StringMap<String> _repl, StringMap<MaStruct> _values, StringList _varNames, CustList<String> _rands) {
         String message_;
         while (true) {
-            Res res_ = res(_aliases, _repl, _values, _varNames);
+            Res res_ = res(_aliases, _repl, _values, _varNames,_rands);
             if (!res_.isCalculated()) {
                 message_ = res_.getMessage();
                 break;
@@ -60,14 +60,14 @@ public final class MaParser {
         }
         return message_;
     }
-    private static Res res(MaParameters _aliases, StringMap<String> _repl, StringMap<MaStruct> _values, StringList _varNames) {
+    private static Res res(MaParameters _aliases, StringMap<String> _repl, StringMap<MaStruct> _values, StringList _varNames, CustList<String> _rands) {
         boolean calculatedValue_ = false;
         int index_ = 0;
         for (EntryCust<String,String> e: _repl.entryList()) {
             if (_values.getValue(index_) == MaNullStruct.NULL_VALUE) {
                 String cf_ = StringUtil.nullToEmpty(e.getValue());
                 MaError err_ = new MaError();
-                MaStruct val_ = analyzeCalculate(cf_, _values, _aliases, err_, true, _varNames);
+                MaStruct val_ = analyzeCalculate(cf_, _values, _aliases, err_, true, _varNames,_rands);
                 if (val_ != MaNullStruct.NULL_VALUE) {
                     _values.setValue(index_, val_);
                     calculatedValue_ = true;
@@ -168,7 +168,7 @@ public final class MaParser {
 //        return StringUtil.contains(fcts(),_key);
 //    }
 
-    private static MaStruct analyzeCalculate(String _el, StringMap<MaStruct> _conf, MaParameters _mapping, MaError _err, boolean _procVar, StringList _varNames) {
+    private static MaStruct analyzeCalculate(String _el, StringMap<MaStruct> _conf, MaParameters _mapping, MaError _err, boolean _procVar, StringList _varNames, CustList<String> _rands) {
         MaDelimiters d_ = checkSyntax(_el, _err,_varNames);
         if (_err.getOffset() > -1) {
             return MaNullStruct.NULL_VALUE;
@@ -183,7 +183,7 @@ public final class MaParser {
         if (_err.getOffset() > -1) {
             return MaNullStruct.NULL_VALUE;
         }
-        calculate(all_, _conf, _err,d_, _procVar);
+        calculate(all_, _conf, _err,d_, _procVar,_rands);
         if (_err.getOffset() > -1) {
             return MaNullStruct.NULL_VALUE;
         }
@@ -254,7 +254,7 @@ public final class MaParser {
         return op_;
     }
 
-    static void calculate(CustList<MaOperationNode> _nodes, StringMap<MaStruct> _context, MaError _error, MaDelimiters _del, boolean _procVar) {
+    static void calculate(CustList<MaOperationNode> _nodes, StringMap<MaStruct> _context, MaError _error, MaDelimiters _del, boolean _procVar, CustList<String> _rands) {
         int fr_ = 0;
         int len_ = _nodes.size();
         while (fr_ < len_) {
@@ -265,7 +265,7 @@ public final class MaParser {
                     return;
                 }
             }
-            o.calculate(_context, _error,_del);
+            o.calculate(_context, _error,_del, _rands);
             if (_error.getOffset() > -1) {
                 return;
             }

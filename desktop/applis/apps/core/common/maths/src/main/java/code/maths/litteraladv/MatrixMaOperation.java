@@ -12,7 +12,7 @@ public final class MatrixMaOperation extends MethodMaOperation {
     }
 
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         CustList<MaStruct> val_ = tryGetAll(this);
         if (val_.isEmpty()) {
             _error.setOffset(getIndexExp());

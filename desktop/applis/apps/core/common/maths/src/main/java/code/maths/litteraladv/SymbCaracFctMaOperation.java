@@ -1,6 +1,7 @@
 package code.maths.litteraladv;
 
 import code.maths.litteralcom.MathExpUtil;
+import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -18,7 +19,7 @@ public final class SymbCaracFctMaOperation extends MethodMaOperation {
     }
 
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         if (StringUtil.quickEq(RIGHT_OPEN,oper)) {
             caracdroiteouvert(_error);
         }

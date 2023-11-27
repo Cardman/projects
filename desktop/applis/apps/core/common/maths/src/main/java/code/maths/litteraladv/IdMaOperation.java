@@ -19,7 +19,7 @@ public final class IdMaOperation extends MethodMaOperation {
     }
 
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         CustList<MaOperationNode> chidren_ = getChildren();
         int len_ = chidren_.size();
         MaFractPolStruct fract_ = MaFractPolStruct.wrapOrNull(MaNumParsers.tryGet(this, 0));

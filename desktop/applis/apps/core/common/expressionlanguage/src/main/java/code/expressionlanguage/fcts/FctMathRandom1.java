@@ -16,12 +16,19 @@ import code.maths.montecarlo.MonteCarloUtil;
 import code.util.CustList;
 
 public final class FctMathRandom1 extends FctMath {
-    @Override
-    public ArgumentWrapper alea(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return randomParam(_cont,_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_stackCall);
+
+    private final String id;
+
+    public FctMathRandom1(String _i) {
+        id = _i;
     }
 
-    private static ArgumentWrapper randomParam(ContextEl _cont, Struct _args, StackCall _stackCall) {
+    @Override
+    public ArgumentWrapper alea(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
+        return randomParam(_cont,_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_stackCall, id);
+    }
+
+    private static ArgumentWrapper randomParam(ContextEl _cont, Struct _args, StackCall _stackCall, String _id) {
         LgNames lgNames_ = _cont.getStandards();
         Struct seedSpec_ = _stackCall.getSeedSpecGenerator();
         Classes classes_ = _cont.getClasses();
@@ -40,6 +47,11 @@ public final class FctMathRandom1 extends FctMath {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();
-        return new ArgumentWrapper(new LongStruct(MonteCarloUtil.randomLong(numberStruct_.longStruct(),generator_,_stackCall.getSeedCust())));
+        long b_ = numberStruct_.longStruct();
+        LongStruct res_ = new LongStruct(MonteCarloUtil.randomLong(b_, generator_, _stackCall.getSeedCust()));
+        CustList<String> rds_ = new CustList<String>();
+        rds_.add(res_.getDisplayedString(_cont).getInstance());
+        FctMathEval.log(_stackCall, rds_, _id +":"+ b_);
+        return new ArgumentWrapper(res_);
     }
 }

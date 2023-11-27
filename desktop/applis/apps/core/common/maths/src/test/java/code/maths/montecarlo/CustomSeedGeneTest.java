@@ -26,4 +26,12 @@ public final class CustomSeedGeneTest extends EquallableMathUtil {
         CustomSeedGene c_ = new CustomSeedGene();
         assertEq(0.75,c_.pick(new DefaultGenerator(0.75)));
     }
+    @Test
+    public void cust1() {
+        assertTrue(DefaultGenerator.oneEltGene().custom());
+    }
+    @Test
+    public void cust2() {
+        assertTrue(!new CustomSeedGene().custom());
+    }
 }

@@ -37,7 +37,7 @@ public final class SymbUnFctMaOperation extends AbsSymbFixMaOperation {
     }
 
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         if (StringUtil.quickEq(SGN, getOper())) {
             procSgn(_error);
         }

@@ -9,11 +9,24 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.LongStruct;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
+import code.util.CustList;
 
 public final class FctMathNativeRandom1 extends FctMath {
+
+    private final String id;
+
+    public FctMathNativeRandom1(String _i) {
+        id = _i;
+    }
+
     @Override
     public ArgumentWrapper alea(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
         AbstractGenerator generator_ = _cont.getStandards().getGenerator();
-        return new ArgumentWrapper(new LongStruct(MonteCarloUtil.randomLong(NumParsers.convertToNumber(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).longStruct(),generator_,_stackCall.getSeedCust())));
+        long b_ = NumParsers.convertToNumber(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).longStruct();
+        LongStruct res_ = new LongStruct(MonteCarloUtil.randomLong(b_, generator_, _stackCall.getSeedCust()));
+        CustList<String> rds_ = new CustList<String>();
+        rds_.add(res_.getDisplayedString(_cont).getInstance());
+        FctMathEval.log(_stackCall, rds_, id +":"+ b_);
+        return new ArgumentWrapper(res_);
     }
 }

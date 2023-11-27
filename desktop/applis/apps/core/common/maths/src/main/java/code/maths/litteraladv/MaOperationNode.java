@@ -294,7 +294,7 @@ public abstract class MaOperationNode {
         _error.setOffset(getIndexExp() + _index);
     }
 
-    abstract void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del);
+    abstract void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands);
 
     public final MaOperationNode getNext() {
         return next;

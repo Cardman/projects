@@ -1,6 +1,7 @@
 package code.maths.litteraladv;
 
 import code.maths.geo.CustLine;
+import code.util.CustList;
 import code.util.StringMap;
 
 public final class SymbTerFctMaOperation extends AbsSymbFixMaOperation {
@@ -10,7 +11,7 @@ public final class SymbTerFctMaOperation extends AbsSymbFixMaOperation {
     }
 
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         MaStruct firstVal_ = MaNumParsers.tryGet(this, 0);
         MaStruct secondVal_ = MaNumParsers.tryGet(this, 1);
         MaStruct thirdVal_ = MaNumParsers.tryGet(this, 2);

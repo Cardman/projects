@@ -24,7 +24,7 @@ public final class ConstantMaOperation extends LeafMaOperation {
         return "";
     }
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         String nb_ = nb(_del.getNbParts(),cst);
         if (Rate.isValid(nb_)) {
             setStruct(new MaRateStruct(Rate.newRate(nb_)));

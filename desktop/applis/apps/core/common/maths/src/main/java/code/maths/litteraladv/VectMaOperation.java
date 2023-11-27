@@ -13,7 +13,7 @@ public final class VectMaOperation extends MethodMaOperation {
     }
 
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         int len_ = getChildren().size();
         CustList<MaRateStruct> rates_ = new CustList<MaRateStruct>();
         int index_ = -1;

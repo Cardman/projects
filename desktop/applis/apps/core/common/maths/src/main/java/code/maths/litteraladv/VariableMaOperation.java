@@ -1,6 +1,7 @@
 package code.maths.litteraladv;
 
 import code.maths.litteralcom.StrTypes;
+import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
@@ -14,7 +15,7 @@ public final class VariableMaOperation extends LeafMaOperation {
     }
 
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         MaStruct val_ = MaNullStruct.def(_conf.getVal(varName));
         if (val_ != MaNullStruct.NULL_VALUE) {
             setStruct(val_);

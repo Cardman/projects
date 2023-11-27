@@ -33,12 +33,12 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
     }
 
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         if (StringUtil.quickEq(REP, oper)) {
             procRep(_error);
         }
         if (StringUtil.quickEq(RAND, oper)) {
-            procAlea(_error);
+            procAlea(_error,_rands);
         }
         if (StringUtil.quickEq(STAT, oper)) {
             procStat(_error);
@@ -123,7 +123,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
         _error.setOffset(getIndexExp()+operOff);
     }
 
-    private void procAlea(MaError _error) {
+    private void procAlea(MaError _error, CustList<String> _rands) {
         CustList<MaStruct> all_ = tryGetAll(this);
         if (all_.size() == 2 && all_.first() instanceof MaMonteCarloNumberStruct && all_.last() instanceof MaRateStruct) {
             MaMonteCarloNumberStruct v_ = (MaMonteCarloNumberStruct) all_.first();
@@ -131,7 +131,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             MaRateStruct m_ = (MaRateStruct) all_.last();
             Rate max_ = m_.getRate();
             if (law_.nbEvents() > 0 && max_.isInteger() && max_.isZeroOrGt()) {
-                setStruct(new MaRateStruct(law_.editNumber(max_.intPart(), mapping.getGenerator(), mapping.getCust())));
+                setStruct(new MaRateStruct(law_.editNumber(max_.intPart(), mapping.getGenerator(), mapping.getCust(),_rands)));
                 return;
             }
         }
@@ -139,14 +139,14 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             MaMonteCarloNumberStruct v_ = (MaMonteCarloNumberStruct) all_.first();
             MonteCarloNumber law_ = v_.getLaw();
             if (law_.nbEvents() > 0) {
-                setStruct(new MaRateStruct(law_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator(), mapping.getCust())));
+                setStruct(new MaRateStruct(law_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator(), mapping.getCust(),_rands)));
                 return;
             }
         }
-        defAlea(_error);
+        defAlea(_error,_rands);
     }
 
-    private void defAlea(MaError _error) {
+    private void defAlea(MaError _error, CustList<String> _rands) {
         int len_ = getChildren().size();
         MonteCarloNumber law_ = new MonteCarloNumber();
         for (int i = 0; i < len_; i++) {
@@ -159,7 +159,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             law_.addQuickEvent(pair_.getEvent(),pair_.getFreq());
         }
         if (law_.nbEvents() > 0) {
-            setStruct(new MaRateStruct(law_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator(), mapping.getCust())));
+            setStruct(new MaRateStruct(law_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator(), mapping.getCust(),_rands)));
             return;
         }
         MonteCarloNumber lawSimple_ = new MonteCarloNumber();
@@ -173,7 +173,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             lawSimple_.addQuickEvent(((MaRateStruct)value_).getRate(),LgInt.one());
         }
         if (allEvts_&&lawSimple_.nbEvents() > 0) {
-            setStruct(new MaRateStruct(lawSimple_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator(), mapping.getCust())));
+            setStruct(new MaRateStruct(lawSimple_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator(), mapping.getCust(),_rands)));
             return;
         }
         _error.setOffset(getIndexExp()+operOff);

@@ -27,6 +27,9 @@ public final class CustomSeedGene {
         }
         return _gene.pick();
     }
+    public boolean custom() {
+        return rand.length > 0;
+    }
 
     int getRandLen() {
         return rand.length;

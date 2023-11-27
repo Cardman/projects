@@ -3,6 +3,8 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.fcts.*;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.sml.util.TranslationsFile;
@@ -495,16 +497,16 @@ public final class AliasMathType {
         method_ = new StandardMethod(aliasGt, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasMath1Gt0(),params.getAliasMath1Gt1()),new FctMathGt());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(aliasPrimLong_);
-        method_ = new StandardMethod(aliasRandom, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0Random0()),new FctMathRandom1());
+        method_ = new StandardMethod(aliasRandom, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0Random0()),new FctMathRandom1(aliasMath+"."+new MethodId(MethodAccessKind.STATIC,aliasRandom,params_).getSignature(_stds.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasRandom, params_, aliasPrimDouble_, false, MethodModifier.STATIC,new FctMathRandom0());
+        method_ = new StandardMethod(aliasRandom, params_, aliasPrimDouble_, false, MethodModifier.STATIC,new FctMathRandom0(aliasMath+"."+new MethodId(MethodAccessKind.STATIC,aliasRandom,params_).getSignature(_stds.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(aliasPrimLong_);
-        method_ = new StandardMethod(aliasNativeRandom, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0NativeRandom0()),new FctMathNativeRandom1());
+        method_ = new StandardMethod(aliasNativeRandom, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0NativeRandom0()),new FctMathNativeRandom1(aliasMath+"."+new MethodId(MethodAccessKind.STATIC,aliasNativeRandom,params_).getSignature(_stds.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasNativeRandom, params_, aliasPrimDouble_, false, MethodModifier.STATIC,new FctMathNativeRandom0());
+        method_ = new StandardMethod(aliasNativeRandom, params_, aliasPrimDouble_, false, MethodModifier.STATIC,new FctMathNativeRandom0(aliasMath+"."+new MethodId(MethodAccessKind.STATIC,aliasNativeRandom,params_).getSignature(_stds.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasSeed, params_, _stds.getContent().getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(params.getAliasMath0Seed0()), new FctMathSeed1());
@@ -525,7 +527,7 @@ public final class AliasMathType {
         method_ = new StandardMethod(aliasSeedSpecDoubleGenerator, params_, _stds.getContent().getPredefTypes().getAliasSeedDoubleGenerator(), false, MethodModifier.STATIC,new FctMathSeedSpecDoubleGenerator0());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(_stds.getContent().getCharSeq().getAliasString(),_stds.getContent().getCharSeq().getAliasReplacement());
-        method_ = new StandardMethod(aliasEval, params_, _stds.getContent().getCharSeq().getAliasString(), true, MethodModifier.STATIC,new FctMathEval());
+        method_ = new StandardMethod(aliasEval, params_, _stds.getContent().getCharSeq().getAliasString(), true, MethodModifier.STATIC,new FctMathEval(aliasMath+"."+new MethodId(MethodAccessKind.STATIC,aliasEval,params_).getSignature(_stds.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
     }
 

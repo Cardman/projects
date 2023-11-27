@@ -4,6 +4,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
 import code.maths.montecarlo.EventFreq;
+import code.util.CustList;
 import code.util.StringMap;
 
 public final class EvMaOperation extends MethodMaOperation {
@@ -12,7 +13,7 @@ public final class EvMaOperation extends MethodMaOperation {
     }
 
     @Override
-    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
+    void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del, CustList<String> _rands) {
         MaStruct first_ = MaNumParsers.tryGet(this, 0);
         MaStruct second_ = MaNumParsers.tryGet(this, 1);
         int index_ = StrTypes.offset(getOps(),0);
