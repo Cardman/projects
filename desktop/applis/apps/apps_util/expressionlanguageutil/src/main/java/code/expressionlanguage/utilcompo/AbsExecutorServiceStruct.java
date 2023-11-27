@@ -1,9 +1,10 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.structs.Struct;
-import code.threads.AbstractShutdownExecutorService;
+import code.threads.AbstractAtomicBoolean;
 
 public interface AbsExecutorServiceStruct extends Struct {
 
-    AbstractShutdownExecutorService getExecutorService();
+    void shutdown();
+    AbstractAtomicBoolean getStopped();
 }

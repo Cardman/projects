@@ -1,7 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.options.*;
@@ -63,10 +63,11 @@ public final class ScheduledExecutorServiceStructTest extends EquallableElUtUtil
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
         ArgumentListCall list_ = three(s_,new IntStruct(1),new IntStruct(1));
-        call(new FctExecutorServiceShutdown(),null,null,essOne_, null,null);
+        call(new FctExecutorServiceShutdown(""),null,null,essOne_, null,st_);
         Struct f_ = call(new FctScheduledExecutorMillis0(), null, null, essOne_, list_, null);
-        assertTrue(call(new FctFutureCancel(),null,ctx_,f_,null,null));
+        assertTrue(call(new FctFutureCancel(""),null,ctx_,f_,null,st_));
     }
     @Test
     public void shutdown2() {
@@ -77,9 +78,10 @@ public final class ScheduledExecutorServiceStructTest extends EquallableElUtUtil
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
         ArgumentListCall list_ = three(s_,new IntStruct(1),new IntStruct(1));
-        call(new FctExecutorServiceShutdown(),null,null,essOne_, null,null);
+        call(new FctExecutorServiceShutdown(""),null,null,essOne_, null,st_);
         Struct f_ = call(new FctScheduledExecutorNanos0(), null, null, essOne_, list_, null);
-        assertTrue(call(new FctFutureCancel(),null,ctx_,f_,null,null));
+        assertTrue(call(new FctFutureCancel(""),null,ctx_,f_,null,st_));
     }
 }

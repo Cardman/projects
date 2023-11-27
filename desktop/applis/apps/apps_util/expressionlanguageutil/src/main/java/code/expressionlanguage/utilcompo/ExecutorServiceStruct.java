@@ -1,20 +1,20 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.structs.WithoutParentIdStruct;
-import code.expressionlanguage.utilimpl.LgNamesUtils;
-import code.threads.*;
+import code.threads.AbstractAtomicBoolean;
+import code.threads.AbstractBaseExecutorServiceParam;
 
-public final class ExecutorServiceStruct extends WithoutParentIdStruct implements AbsExecutorServiceStruct {
+public final class ExecutorServiceStruct extends AbsExecutorServiceImplStruct {
     private final AbstractBaseExecutorServiceParam<Struct> executorService;
 
-    public ExecutorServiceStruct(AbstractInterceptor _e) {
+    public ExecutorServiceStruct(AbstractInterceptor _e, AbstractAtomicBoolean _shut) {
+        super(_shut);
         this.executorService = _e.newExecutorService();
     }
 
-    public ExecutorServiceStruct(AbstractInterceptor _e, int _nbThreads) {
+    public ExecutorServiceStruct(AbstractInterceptor _e, AbstractAtomicBoolean _shut, int _nbThreads) {
+        super(_shut);
         this.executorService = _e.newExecutorService(_nbThreads);
     }
 
@@ -33,16 +33,10 @@ public final class ExecutorServiceStruct extends WithoutParentIdStruct implement
         return new FutureObjStruct(executorService.submitCallable(_i.wrap((StructCallable) _command)));
     }
 
-    public static void shutdown(AbstractShutdownExecutorService _ex) {
-        _ex.shutdown();
-    }
-
-    public AbstractShutdownExecutorService getExecutorService() {
-        return executorService;
-    }
-
     @Override
-    public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesUtils)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasExecutorService();
+    public void shutdown() {
+        getStopped().set(true);
+        executorService.shutdown();
     }
+
 }

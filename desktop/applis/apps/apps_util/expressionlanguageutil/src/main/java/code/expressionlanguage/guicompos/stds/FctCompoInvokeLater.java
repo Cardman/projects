@@ -35,15 +35,19 @@ public final class FctCompoInvokeLater implements StdCaller {
         AbsLogDbg log_ = _stackCall.getStopper().getLogger();
         Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
         if (log_ != null) {
-            if (arg_ != NullStruct.NULL_VALUE) {
-                log_.log(id+":"+ arg_.getClassName(_cont));
-                _stackCall.setCallingState(new ExecRunMethodState(arg_));
-            } else {
-                log_.log(id+":");
-            }
+            procRunnable(_cont, _stackCall, log_, arg_, id);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         CustComponentStruct.invokeLater((RunnableContextEl) _cont, guiEx.getFrames(), arg_);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
+    }
+
+    public static void procRunnable(ContextEl _cont, StackCall _stackCall, AbsLogDbg _log, Struct _arg, String _id) {
+        if (_arg != NullStruct.NULL_VALUE) {
+            _log.log(_id +":"+ _arg.getClassName(_cont));
+            _stackCall.setCallingState(new ExecRunMethodState(_arg));
+        } else {
+            _log.log(_id +":");
+        }
     }
 }

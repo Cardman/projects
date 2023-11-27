@@ -6,23 +6,13 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.StdCaller;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.AbsDbgFutureStruct;
-import code.expressionlanguage.utilcompo.AbsFutureStruct;
+import code.expressionlanguage.utilcompo.AbsExecutorServiceStruct;
 
-public final class FctFutureAttendre implements StdCaller {
-
-    private final String intro;
-
-    public FctFutureAttendre(String _id) {
-        intro = _id;
-    }
-
+public final class FctExecutorServiceStopped implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        if (_instance instanceof AbsDbgFutureStruct) {
-            return new ArgumentWrapper(((AbsDbgFutureStruct)_instance).attendre(_stackCall,_cont, intro));
-        }
-        return new ArgumentWrapper(((AbsFutureStruct)_instance).attendre());
+        return new ArgumentWrapper(BooleanStruct.of(((AbsExecutorServiceStruct)_instance).getStopped().get()));
     }
 }

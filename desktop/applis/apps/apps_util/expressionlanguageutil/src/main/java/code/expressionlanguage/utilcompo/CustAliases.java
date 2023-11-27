@@ -14,6 +14,8 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.expressionlanguage.guicompos.EventStruct;
@@ -107,6 +109,7 @@ public final class CustAliases implements AbsAliasFileBuilder {
     private static final String EXECUTOR_SERVICE_EXECUTE="____1136";
     private static final String EXECUTOR_SERVICE_SUBMIT="____1137";
     private static final String EXECUTOR_SERVICE_SHUTDOWN="____1138";
+    private static final String EXECUTOR_SERVICE_STOPPED="____1138_";
     private static final String EXECUTOR_SERVICE_SCHEDULE_MILLIS="____1139";
     private static final String EXECUTOR_SERVICE_SCHEDULE_NANOS="____1140";
     private static final String FUTURE_WAIT="____1141";
@@ -277,6 +280,7 @@ public final class CustAliases implements AbsAliasFileBuilder {
     private String aliasExecutorServiceScheduleNanos;
     private String aliasExecutorService;
     private String aliasExecutorServiceShutdown;
+    private String aliasExecutorServiceStopped;
     private String aliasExecutorServiceExecute;
     private String aliasExecutorServiceSubmit;
     private String aliasRunnableImplicit0Runner;
@@ -622,29 +626,32 @@ public final class CustAliases implements AbsAliasFileBuilder {
         StandardClass service_ = stdcl_;
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
-        method_ = new StandardMethod(aliasExecutorServiceShutdown, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new FctExecutorServiceShutdown());
+        method_ = new StandardMethod(aliasExecutorServiceShutdown, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new FctExecutorServiceShutdown(aliasExecutorServiceBase+"."+new MethodId(MethodAccessKind.INSTANCE,aliasExecutorServiceShutdown,params_).getSignature(_content.getDisplayedStrings())));
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasExecutorServiceStopped, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctExecutorServiceStopped());
         StandardNamedFunction.addFct(methods_, method_);
         StandardType.addType(_content.getStandards(), aliasExecutorServiceBase, stdcl_);
         methods_ = new CustList<StandardMethod>();
         fields_ = new CustList<CstFieldInfo>();
         constructors_ = new CustList<StandardConstructor>();
-        stdcl_ = new StandardClass(aliasExecutorService, fields_, constructors_, methods_, aliasExecutorServiceBase, MethodModifier.FINAL, new DfExecutorService(interceptor));
+        stdcl_ = new StandardClass(aliasExecutorService, fields_, constructors_, methods_, aliasExecutorServiceBase, MethodModifier.FINAL, new DfExecutorService(interceptor, infos.getThreadFactory(), aliasExecutorService+"."+new MethodId(MethodAccessKind.INSTANCE,"",params_).getSignature(_content.getDisplayedStrings())));
         stdcl_.addSuperStdTypes(service_);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasRunnable);
-        method_ = new StandardMethod(aliasExecutorServiceExecute, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Execute0()),new FctExecutorServiceExecute0());
+        method_ = new StandardMethod(aliasExecutorServiceExecute, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Execute0()),new FctExecutorServiceExecute0(aliasExecutorService+"."+new MethodId(MethodAccessKind.INSTANCE,aliasExecutorServiceExecute,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(aliasRunnable);
-        method_ = new StandardMethod(aliasExecutorServiceSubmit, params_, aliasFuture, false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Submit0()),new FctExecutorServiceSubmit0());
+        method_ = new StandardMethod(aliasExecutorServiceSubmit, params_, aliasFuture, false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Submit0()),new FctExecutorServiceSubmit0(aliasExecutorService+"."+new MethodId(MethodAccessKind.INSTANCE,aliasExecutorServiceSubmit,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(aliasCallable+"<?>");
-        method_ = new StandardMethod(aliasExecutorServiceSubmit, params_, aliasFuture, false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Submit0()),new FctExecutorServiceSubmit1(interceptor));
+        method_ = new StandardMethod(aliasExecutorServiceSubmit, params_, aliasFuture, false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Submit0()),new FctExecutorServiceSubmit1(interceptor, aliasExecutorService+"."+new MethodId(MethodAccessKind.INSTANCE,aliasExecutorServiceSubmit,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false,new FctExecutorService0(interceptor));
+        ctor_ = new StandardConstructor(params_,false,new FctExecutorService0(interceptor, infos.getThreadFactory(), aliasExecutorService+"."+new MethodId(MethodAccessKind.INSTANCE,"",params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(constructors_, ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasExecutorService1ExecutorService0()),new FctExecutorService1(interceptor));
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasExecutorService1ExecutorService0()),new FctExecutorService1(interceptor, null, aliasExecutorService+"."+new MethodId(MethodAccessKind.INSTANCE,"",params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(constructors_, ctor_);
         std_ = stdcl_;
         StandardType.addType(_content.getStandards(), aliasExecutorService, std_);
@@ -1061,10 +1068,10 @@ public final class CustAliases implements AbsAliasFileBuilder {
         StandardClass stdcl_ = new StandardClass(aliasFuture, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         StringList params_ = new StringList();
-        StandardMethod method_ = new StandardMethod(aliasFutureWait, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new FctFutureAttendre());
+        StandardMethod method_ = new StandardMethod(aliasFutureWait, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new FctFutureAttendre(aliasFuture+"."+new MethodId(MethodAccessKind.INSTANCE,aliasFutureWait,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasFutureCancel, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctFutureCancel());
+        method_ = new StandardMethod(aliasFutureCancel, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctFutureCancel(aliasFuture+"."+new MethodId(MethodAccessKind.INSTANCE,aliasFutureCancel,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         StandardType.addType(_content.getStandards(), aliasFuture, stdcl_);
     }
@@ -1307,6 +1314,7 @@ public final class CustAliases implements AbsAliasFileBuilder {
         setAliasScheduledExecutorService(LgNamesContent.get(_util,_cust,_mapping.getVal(SCHEDULED_EXECUTOR_SERVICE)));
         setAliasExecutorService(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE)));
         setAliasExecutorServiceShutdown(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_SHUTDOWN)));
+        setAliasExecutorServiceStopped(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_STOPPED)));
         setAliasExecutorServiceExecute(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_EXECUTE)));
         setAliasExecutorServiceSubmit(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_SUBMIT)));
         setAliasExecutorServiceScheduleMillis(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_SCHEDULE_MILLIS)));
@@ -1440,6 +1448,7 @@ public final class CustAliases implements AbsAliasFileBuilder {
         _en.add(EXECUTOR_SERVICE_EXECUTE,"ExecutorServiceExecute=execute");
         _en.add(EXECUTOR_SERVICE_SUBMIT,"ExecutorServiceSubmit=submit");
         _en.add(EXECUTOR_SERVICE_SHUTDOWN,"ExecutorServiceShutdown=shutdown");
+        _en.add(EXECUTOR_SERVICE_STOPPED,"ExecutorServiceStopped=stopped");
         _en.add(EXECUTOR_SERVICE_SCHEDULE_MILLIS,"ExecutorServiceScheduleMillis=scheduleMillis");
         _en.add(EXECUTOR_SERVICE_SCHEDULE_NANOS,"ExecutorServiceScheduleNanos=scheduleNanos");
         _en.add(FUTURE_WAIT,"FutureWait=wait");
@@ -1661,6 +1670,7 @@ public final class CustAliases implements AbsAliasFileBuilder {
         _fr.add(EXECUTOR_SERVICE_EXECUTE,"ExecutorServiceExecute=exec");
         _fr.add(EXECUTOR_SERVICE_SUBMIT,"ExecutorServiceSubmit=soumettre");
         _fr.add(EXECUTOR_SERVICE_SHUTDOWN,"ExecutorServiceShutdown=fermer");
+        _fr.add(EXECUTOR_SERVICE_STOPPED,"ExecutorServiceStopped=arret");
         _fr.add(EXECUTOR_SERVICE_SCHEDULE_MILLIS,"ExecutorServiceScheduleMillis=programmeMillis");
         _fr.add(EXECUTOR_SERVICE_SCHEDULE_NANOS,"ExecutorServiceScheduleNanos=programmeNanos");
         _fr.add(FUTURE_WAIT,"FutureWait=attendre");
@@ -1949,11 +1959,13 @@ public final class CustAliases implements AbsAliasFileBuilder {
         m_.addEntry(getAliasExecutorService(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_EXECUTE), getAliasExecutorServiceExecute()),
                 new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_SUBMIT), getAliasExecutorServiceSubmit()),
-                new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_SHUTDOWN),getAliasExecutorServiceShutdown())));
+                new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_SHUTDOWN),getAliasExecutorServiceShutdown()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_STOPPED),getAliasExecutorServiceStopped())));
         m_.addEntry(getAliasScheduledExecutorService(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_SCHEDULE_MILLIS), getAliasExecutorServiceScheduleMillis()),
                 new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_SCHEDULE_NANOS), getAliasExecutorServiceScheduleNanos()),
-                new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_SHUTDOWN),getAliasExecutorServiceShutdown())));
+                new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_SHUTDOWN),getAliasExecutorServiceShutdown()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_STOPPED),getAliasExecutorServiceStopped())));
         m_.addEntry(getAliasFuture(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(FUTURE_WAIT), getAliasFutureWait()),
                 new KeyValueMemberName(_mapping.getVal(FUTURE_CANCEL), getAliasFutureCancel())));
@@ -3807,6 +3819,14 @@ public final class CustAliases implements AbsAliasFileBuilder {
 
     public void setAliasExecutorServiceShutdown(String _v) {
         this.aliasExecutorServiceShutdown = _v;
+    }
+
+    public String getAliasExecutorServiceStopped() {
+        return aliasExecutorServiceStopped;
+    }
+
+    public void setAliasExecutorServiceStopped(String _v) {
+        this.aliasExecutorServiceStopped = _v;
     }
 
     public String getAliasExecutorServiceExecute() {

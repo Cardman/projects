@@ -6,7 +6,7 @@ import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
 import code.threads.AbstractFuture;
 
-public abstract class AbsFutureStruct extends WithoutParentIdStruct {
+public abstract class AbsFutureStruct extends WithoutParentIdStruct implements IntFutureStruct {
 
     public abstract AbstractFuture getFuture();
 

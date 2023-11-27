@@ -6,6 +6,8 @@ import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -23,6 +25,7 @@ import code.gui.*;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.montecarlo.*;
 import code.mock.*;
+import code.threads.ConcreteBoolean;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -35,17 +38,19 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSampleCl(pr_, null);
         Options opt_ = new Options();
         stds_.getExecContent().getCustAliases().setAliasExecutorService("");
-        assertEq(stds_.getExecContent().getCustAliases().getAliasExecutorService(),new ExecutorServiceStruct(new MockInterceptor()).getClassName(gene(stds_,opt_)));
+        assertEq(stds_.getExecContent().getCustAliases().getAliasExecutorService(),new ExecutorServiceStruct(new MockInterceptor(),new ConcreteBoolean()).getClassName(gene(stds_,opt_)));
     }
     @Test
     public void futureStruct() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSampleCl(pr_, null);
         Options opt_ = new Options();
-        ExecutorServiceStruct essOne_ = new ExecutorServiceStruct(new MockInterceptor(),2);
+        ExecutorServiceStruct essOne_ = new ExecutorServiceStruct(new MockInterceptor(),new ConcreteBoolean(),2);
         ArgumentListCall list_ = one(new MockRunnableStruct(""));
         stds_.getExecContent().getCustAliases().setAliasFuture("");
-        assertEq(stds_.getExecContent().getCustAliases().getAliasFuture(),call(new FctExecutorServiceSubmit0(),null,null,essOne_, list_,null).getClassName(gene(stds_,opt_)));
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        assertEq(stds_.getExecContent().getCustAliases().getAliasFuture(),call(new FctExecutorServiceSubmit0(""),null,ctx_,essOne_, list_,st_).getClassName(gene(stds_,opt_)));
     }
     @Test
     public void strMap() {
@@ -315,6 +320,219 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         Struct combo_ = ctxStr(pr_,files_);
         assertEq("RESULT",combo_);
     }
+    @Test
+    public void launchDbg1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new ExecutorService();var f = g.submit((Callable<String>)(:String)->\"RESULT\");return (String)f.wait();}}");
+        ResultContext ctx_ = ctxRes(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 127);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(4,dbg_.getStack().nbPages());
+        assertEq(127,dbg_.getStack().getCall(3).getTraceIndex());
+        assertEq(154,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(0,dbgContinueNormalValue(dbg_.getStack(),ctx_.getContext()).getStack().nbPages());
+        assertEq("RESULT",dbg_.getStack().getReturnedArgument());
+    }
+    @Test
+    public void launchDbg2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new ExecutorService();var f = g.submit((Callable<String>)(:String)->\"RESULT\");f.wait();return (String)f.wait();}}");
+        ResultContext ctx_ = ctxRes(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 127);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(4,dbg_.getStack().nbPages());
+        assertEq(127,dbg_.getStack().getCall(3).getTraceIndex());
+        assertEq(139,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(0,dbgContinueNormalValue(dbg_.getStack(),ctx_.getContext()).getStack().nbPages());
+        assertEq("RESULT",dbg_.getStack().getReturnedArgument());
+    }
+    @Test
+    public void launchDbg3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new ExecutorService();var f = g.submit((Callable<String>)(:String)->\"RESULT\");f.cancel();return (String)f.wait();}}");
+        ResultContext ctx_ = ctxRes(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 127);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    @Test
+    public void launchDbg4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new ExecutorService();var f = g.submit((Callable<String>)(:String)->\"RESULT\");String r=(String)f.wait();f.cancel();return r;}}");
+        ResultContext ctx_ = ctxRes(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 127);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(4,dbg_.getStack().nbPages());
+        assertEq(127,dbg_.getStack().getCall(3).getTraceIndex());
+        assertEq(156,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(0,dbgContinueNormalValue(dbg_.getStack(),ctx_.getContext()).getStack().nbPages());
+        assertEq("RESULT",dbg_.getStack().getReturnedArgument());
+    }
+    @Test
+    public void launchDbg5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new ExecutorService();var f = g.submit((Callable<String>)(:String)->\"RESULT\");g.submit(null);f.cancel();f.cancel();return (String)f.wait();}}");
+        ResultContext ctx_ = ctxRes(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 127);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    @Test
+    public void launchDbg6() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new ExecutorService();g.shutdown();var f = g.submit((Callable<String>)(:String)->\"RESULT\");f.cancel();f.cancel();return (String)f.wait();}}");
+        ResultContext ctx_ = ctxRes(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 140);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    @Test
+    public void launchDbgRun1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){var g = new ExecutorService();var f = g.submit((Runnable)(:void)->{g;});f.wait();}}");
+        ResultContext ctx_ = ctxResRun(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 116);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(4,dbg_.getStack().nbPages());
+        assertEq(116,dbg_.getStack().getCall(3).getTraceIndex());
+        assertEq(123,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(0,dbgContinueNormalValue(dbg_.getStack(),ctx_.getContext()).getStack().nbPages());
+    }
+    @Test
+    public void launchDbgRun2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){var g = new ExecutorService();var f = g.submit((Runnable)(:void)->{g;});f.wait();f.wait();}}");
+        ResultContext ctx_ = ctxResRun(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 116);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(4,dbg_.getStack().nbPages());
+        assertEq(116,dbg_.getStack().getCall(3).getTraceIndex());
+        assertEq(123,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(0,dbgContinueNormalValue(dbg_.getStack(),ctx_.getContext()).getStack().nbPages());
+    }
+    @Test
+    public void launchDbgRun3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){var g = new ExecutorService();var f = g.submit((Runnable)(:void)->{g;});f.cancel();f.wait();}}");
+        ResultContext ctx_ = ctxResRun(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 116);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    @Test
+    public void launchDbgRun4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){var g = new ExecutorService();var f = g.submit((Runnable)(:void)->{g;});f.wait();f.cancel();}}");
+        ResultContext ctx_ = ctxResRun(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 116);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(4,dbg_.getStack().nbPages());
+        assertEq(116,dbg_.getStack().getCall(3).getTraceIndex());
+        assertEq(123,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(0,dbgContinueNormalValue(dbg_.getStack(),ctx_.getContext()).getStack().nbPages());
+    }
+    @Test
+    public void launchDbgRun5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){var g = new ExecutorService();var f = g.submit((Runnable)(:void)->{g;});f.cancel();f.cancel();f.wait();}}");
+        ResultContext ctx_ = ctxResRun(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 116);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    @Test
+    public void launchDbgRun6() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){var g = new ExecutorService();g.shutdown();var f = g.submit((Runnable)(:void)->{g;});f.cancel();f.cancel();f.wait();}}");
+        ResultContext ctx_ = ctxResRun(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 129);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    @Test
+    public void launchDbgExec1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){var g = new ExecutorService();g.execute((Runnable)(:void)->{g;});g.execute(null);}}");
+        ResultContext ctx_ = ctxResRun(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 109);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(4,dbg_.getStack().nbPages());
+        assertEq(109,dbg_.getStack().getCall(3).getTraceIndex());
+        assertEq(81,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(0,dbgContinueNormalValue(dbg_.getStack(),ctx_.getContext()).getStack().nbPages());
+    }
+    @Test
+    public void launchDbgExec2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){var g = new ExecutorService();g.shutdown();g.execute((Runnable)(:void)->{g;});g.execute(null);}}");
+        ResultContext ctx_ = ctxResRun(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 122);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    @Test
+    public void launchDbgExec3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){var g = new ExecutorService(2);g.shutdown();g.execute((Runnable)(:void)->{g;});g.execute(null);}}");
+        ResultContext ctx_ = ctxResRun(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 123);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    private StackCallReturnValue launchDbg(ResultContext _ctx) {
+        ExecRootBlock ex_ = _ctx.getContext().getClasses().getClassBody("pkg.Sample");
+        ExecFormattedRootBlock form_ = new ExecFormattedRootBlock(ex_);
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC, "run", new StringList());
+        return ExecClassesUtil.tryInitStaticlyTypes(_ctx.getContext(), _ctx.getForwards().getOptions(), null, new CustomFoundMethod(form_, new ExecTypeFunction(form_, ExecClassesUtil.getMethodBodiesById(ex_, id_).first()), new Parameters()), StepDbgActionEnum.DEBUG, false);
+    }
+
+    protected static StackCallReturnValue dbgContinueNormalValue(StackCall _stack, ContextEl _cont) {
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.KEEP, false);
+    }
+    private ResultContext ctxRes(MockProgramInfos _p, StringMap<String> _files) {
+        update(_p);
+        LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+        return buildMockDbg(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files);
+    }
+    private ResultContext ctxResRun(MockProgramInfos _p, StringMap<String> _files) {
+        update(_p);
+        LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+        return buildMockDbgRun(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files);
+    }
+
     private Struct ctxStr(MockProgramInfos _pr, StringMap<String> _p) {
         ContextEl ctx_ = ctx(_pr,_p);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
@@ -340,6 +558,80 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         return buildMock(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
     }
+
+    public static ResultContext buildMockDbg(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        StringMap<String> s_ = new StringMap<String>();
+        s_.addEntry("0",_definedLgNames.getExecContent().getCustAliases().callableType(_definedKw, _definedLgNames.getContent()));
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
+        Forwards forwards_ = nextBuild(_options, _definedKw, _definedLgNames, _files, s_, page_);
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _definedLgNames.buildBase();
+
+        _definedLgNames.getExecContent().getCustAliases().future(_definedLgNames.getContent());
+
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass service_ = new StandardClass(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorService(), fields_, constructors_, methods_, _definedLgNames.getContent().getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfExecutorService(new MockInterceptor(), _definedLgNames.getExecContent().getCustAliases().getInfos().getThreadFactory(), ""));
+        service_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
+
+        StringList params_ = new StringList(_definedLgNames.getExecContent().getCustAliases().getAliasCallable() + "<?>");
+        StandardMethod method_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceSubmit(), params_, _definedLgNames.getExecContent().getCustAliases().getAliasFuture(), false, MethodModifier.FINAL,new StringList("a"),new FctExecutorServiceSubmit1(new MockInterceptor(), ""));
+        StandardNamedFunction.addFct(methods_, method_);
+        StandardMethod method2_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceShutdown(), new StringList(), _definedLgNames.getExecContent().getCustAliases().getAliasFuture(), false, MethodModifier.FINAL, new FctExecutorServiceShutdown(""));
+        StandardNamedFunction.addFct(methods_, method2_);
+
+        StandardConstructor ctor_ = new StandardConstructor(new StringList(),false,new FctExecutorService0(new MockInterceptor(), _definedLgNames.getExecContent().getCustAliases().getInfos().getThreadFactory(), ""));
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        StandardType.addType(_definedLgNames.getContent().getStandards(), _definedLgNames.getExecContent().getCustAliases().getAliasExecutorService(), service_);
+
+        ValidatorStandard.setupOverrides(page_);
+        ResultContext res_ = commonMockDbg(_exec, _definedLgNames, _files, page_, forwards_);
+        LgNamesGui stds_ = (LgNamesGui) res_.getContext().getStandards();
+        stds_.getExecContent().getExecutingBlocks().callable(_definedLgNames.getExecContent().getCustAliases(),res_.getContext().getClasses());
+        Classes.tryInit(res_);
+        return res_;
+    }
+
+    public static ResultContext buildMockDbgRun(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        StringMap<String> s_ = new StringMap<String>();
+        s_.addEntry("0",_definedLgNames.getExecContent().getCustAliases().runnableType(_definedKw, _definedLgNames.getContent()));
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
+        Forwards forwards_ = nextBuild(_options, _definedKw, _definedLgNames, _files, s_, page_);
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _definedLgNames.buildBase();
+
+        _definedLgNames.getExecContent().getCustAliases().future(_definedLgNames.getContent());
+
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass service_ = new StandardClass(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorService(), fields_, constructors_, methods_, _definedLgNames.getContent().getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfExecutorService(new MockInterceptor(), _definedLgNames.getExecContent().getCustAliases().getInfos().getThreadFactory(), ""));
+        service_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
+
+        StringList params_ = new StringList(_definedLgNames.getExecContent().getCustAliases().getAliasRunnable());
+        StandardMethod method_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceSubmit(), params_, _definedLgNames.getExecContent().getCustAliases().getAliasFuture(), false, MethodModifier.FINAL,new StringList("a"),new FctExecutorServiceSubmit0(""));
+        StandardNamedFunction.addFct(methods_, method_);
+        StandardMethod method2_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceExecute(), params_, _definedLgNames.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList("a"),new FctExecutorServiceExecute0(""));
+        StandardNamedFunction.addFct(methods_, method2_);
+        StandardMethod method3_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceShutdown(), new StringList(), _definedLgNames.getExecContent().getCustAliases().getAliasFuture(), false, MethodModifier.FINAL, new FctExecutorServiceShutdown(""));
+        StandardNamedFunction.addFct(methods_, method3_);
+
+        StandardConstructor ctor_ = new StandardConstructor(new StringList(),false,new FctExecutorService0(new MockInterceptor(), _definedLgNames.getExecContent().getCustAliases().getInfos().getThreadFactory(), ""));
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        StandardConstructor ctor1_ = new StandardConstructor(new StringList(_definedLgNames.getPrimTypes().getAliasPrimInteger()),false,new StringList("a"),new FctExecutorService1(new MockInterceptor(), _definedLgNames.getExecContent().getCustAliases().getInfos().getThreadFactory(), ""));
+        StandardNamedFunction.addFct(constructors_, ctor1_);
+        StandardType.addType(_definedLgNames.getContent().getStandards(), _definedLgNames.getExecContent().getCustAliases().getAliasExecutorService(), service_);
+
+        ValidatorStandard.setupOverrides(page_);
+        ResultContext res_ = commonMockDbg(_exec, _definedLgNames, _files, page_, forwards_);
+        LgNamesGui stds_ = (LgNamesGui) res_.getContext().getStandards();
+        stds_.getExecContent().getExecutingBlocks().runnable(_definedLgNames.getExecContent().getCustAliases(),res_.getContext().getClasses());
+        Classes.tryInit(res_);
+        return res_;
+    }
     public static ResultContext buildMock(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
         preBuild(_definedLgNames, _exec, _mess, _definedKw);
         StringMap<String> s_ = new StringMap<String>();
@@ -354,14 +646,14 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
         CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
-        StandardClass service_ = new StandardClass(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorService(), fields_, constructors_, methods_, _definedLgNames.getContent().getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfExecutorService(new MockInterceptor()));
+        StandardClass service_ = new StandardClass(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorService(), fields_, constructors_, methods_, _definedLgNames.getContent().getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfExecutorService(new MockInterceptor(), _definedLgNames.getExecContent().getCustAliases().getInfos().getThreadFactory(), ""));
         service_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
 
         StringList params_ = new StringList(_definedLgNames.getExecContent().getCustAliases().getAliasCallable() + "<?>");
-        StandardMethod method_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceSubmit(), params_, _definedLgNames.getExecContent().getCustAliases().getAliasFuture(), false, MethodModifier.FINAL,new StringList("a"),new FctExecutorServiceSubmit1(new MockInterceptor()));
+        StandardMethod method_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceSubmit(), params_, _definedLgNames.getExecContent().getCustAliases().getAliasFuture(), false, MethodModifier.FINAL,new StringList("a"),new FctExecutorServiceSubmit1(new MockInterceptor(), ""));
         StandardNamedFunction.addFct(methods_, method_);
 
-        StandardConstructor ctor_ = new StandardConstructor(new StringList(),false,new FctExecutorService0(new MockInterceptor()));
+        StandardConstructor ctor_ = new StandardConstructor(new StringList(),false,new FctExecutorService0(new MockInterceptor(), _definedLgNames.getExecContent().getCustAliases().getInfos().getThreadFactory(), ""));
         StandardNamedFunction.addFct(constructors_, ctor_);
         StandardType.addType(_definedLgNames.getContent().getStandards(), _definedLgNames.getExecContent().getCustAliases().getAliasExecutorService(), service_);
 

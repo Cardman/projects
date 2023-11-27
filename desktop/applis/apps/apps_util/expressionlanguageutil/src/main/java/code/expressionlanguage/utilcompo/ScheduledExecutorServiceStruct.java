@@ -4,15 +4,17 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
+import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractScheduledExecutorService;
-import code.threads.AbstractShutdownExecutorService;
 import code.threads.AbstractThreadFactory;
 
 public final class ScheduledExecutorServiceStruct extends WithoutParentIdStruct implements AbsExecutorServiceStruct {
     private final AbstractScheduledExecutorService executorService;
+    private final AbstractAtomicBoolean stopped;
 
     public ScheduledExecutorServiceStruct(AbstractThreadFactory _e) {
         this.executorService = _e.newScheduledExecutorService();
+        stopped = _e.newAtomicBoolean();
     }
 
     public Struct scheduleAtFixedRate(Runnable _command,
@@ -26,8 +28,14 @@ public final class ScheduledExecutorServiceStruct extends WithoutParentIdStruct 
         return new FutureStruct(executorService.scheduleAtFixedRateNanos(_command,_initialDelay,_period));
     }
 
-    public AbstractShutdownExecutorService getExecutorService() {
-        return executorService;
+    @Override
+    public void shutdown() {
+        getStopped().set(true);
+        executorService.shutdown();
+    }
+
+    public AbstractAtomicBoolean getStopped() {
+        return stopped;
     }
 
     @Override
