@@ -10,8 +10,8 @@ import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.AbsThreadStruct;
 import code.expressionlanguage.utilcompo.ThreadSetStruct;
-import code.expressionlanguage.utilcompo.ThreadStruct;
 
 public final class FctThreadSetAdd implements StdCaller {
     @Override
@@ -23,7 +23,7 @@ public final class FctThreadSetAdd implements StdCaller {
         Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
         ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
         ins_.add(arg_);
-        if (!(arg_ instanceof ThreadStruct)) {
+        if (!(arg_ instanceof AbsThreadStruct)) {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
         }
         return new ArgumentWrapper(NullStruct.NULL_VALUE);

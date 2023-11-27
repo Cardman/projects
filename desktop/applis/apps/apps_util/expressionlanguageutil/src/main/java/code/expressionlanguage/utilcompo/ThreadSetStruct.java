@@ -3,7 +3,10 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.threads.AbstractConcurrentMap;
 import code.threads.AbstractThread;
 import code.util.CustList;
@@ -31,22 +34,22 @@ public final class ThreadSetStruct extends WithoutParentIdStruct {
         return arr_;
     }
     public void add(Struct _key) {
-        if (!(_key instanceof ThreadStruct)) {
+        if (!(_key instanceof AbsThreadStruct)) {
             return;
         }
-        elementSet.put(((ThreadStruct) _key).getThread(),_key);
+        elementSet.put(((AbsThreadStruct) _key).getThread(),_key);
     }
     public void remove(Struct _key) {
-        if (!(_key instanceof ThreadStruct)) {
+        if (!(_key instanceof AbsThreadStruct)) {
             return;
         }
-        elementSet.remove(((ThreadStruct) _key).getThread());
+        elementSet.remove(((AbsThreadStruct) _key).getThread());
     }
     public Struct contains(Struct _key) {
-        if (!(_key instanceof ThreadStruct)) {
+        if (!(_key instanceof AbsThreadStruct)) {
             return BooleanStruct.of(false);
         }
-        return BooleanStruct.of(elementSet.containsKey(((ThreadStruct) _key).getThread()));
+        return BooleanStruct.of(elementSet.containsKey(((AbsThreadStruct) _key).getThread()));
     }
     @Override
     public String getClassName(ContextEl _contextEl) {

@@ -8,13 +8,13 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.ThreadStruct;
+import code.expressionlanguage.utilcompo.AbsThreadStruct;
 
 public final class FctThreadEnd implements StdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        ((ThreadStruct) _instance).end();
+        ((AbsThreadStruct) _instance).end();
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

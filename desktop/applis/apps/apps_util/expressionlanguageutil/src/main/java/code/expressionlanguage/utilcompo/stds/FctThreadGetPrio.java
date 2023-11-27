@@ -8,14 +8,12 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.ThreadStruct;
-import code.threads.AbstractThread;
+import code.expressionlanguage.utilcompo.AbsThreadStruct;
 
 public final class FctThreadGetPrio implements StdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        AbstractThread thread_ = ((ThreadStruct) _instance).getThread();
-        return new ArgumentWrapper(new IntStruct(thread_.getPriority()));
+        return new ArgumentWrapper(new IntStruct(((AbsThreadStruct) _instance).getPriority()));
     }
 }

@@ -8,13 +8,13 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.ThreadStruct;
+import code.expressionlanguage.utilcompo.AbsThreadStruct;
 
 public final class FctThreadIsEnded implements StdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        boolean alive_ = ((ThreadStruct) _instance).isEnded();
+        boolean alive_ = ((AbsThreadStruct) _instance).isEnded();
         return new ArgumentWrapper(BooleanStruct.of(alive_));
     }
 }

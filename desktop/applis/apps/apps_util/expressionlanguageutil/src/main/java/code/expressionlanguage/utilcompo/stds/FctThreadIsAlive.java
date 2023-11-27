@@ -8,15 +8,20 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.ThreadStruct;
-import code.threads.AbstractThread;
+import code.expressionlanguage.utilcompo.AbsThreadStruct;
 
 public final class FctThreadIsAlive implements StdCaller {
 
+    private final String id;
+
+    public FctThreadIsAlive(String _i) {
+        id = _i;
+    }
+
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        AbstractThread thread_ = ((ThreadStruct) _instance).getThread();
-        boolean alive_ = thread_.isAlive();
+        FctThreadSetPrio.preCall(_stackCall, id);
+        boolean alive_ = ((AbsThreadStruct)_instance).isAlive();
         return new ArgumentWrapper(BooleanStruct.of(alive_));
     }
 }

@@ -5,6 +5,7 @@ import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.guicompos.EventStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.stds.FctThread;
 import code.stream.core.AbstractZipFact;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractThreadFactory;
@@ -13,7 +14,7 @@ import code.util.StringList;
 
 public class RunnableContextEl extends InterruptibleContextEl implements Locking {
 
-    private final ThreadStruct thread;
+    private final AbsThreadStruct thread;
     private final AbstractThreadFactory threadFactory;
     private final AbstractZipFact zipFact;
     private String idDate;
@@ -25,7 +26,7 @@ public class RunnableContextEl extends InterruptibleContextEl implements Locking
         args = _args;
         LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) _executionInfos.getStandards();
         threadFactory = standards_.getExecContent().getInfos().getThreadFactory();
-        thread = new ThreadStruct(threadFactory.newThread(), threadFactory.newAtomicBoolean(),_state);
+        thread = FctThread.build(getExecutionInfos().getClasses().getDebugMapping().getStopper().getLogger(),threadFactory.newThread(), threadFactory.newAtomicBoolean(), _state, "");
         currentDir = standards_.getExecContent().getExecutingOptions().getBaseFiles();
         zipFact = standards_.getExecContent().getInfos().getZipFact();
     }
@@ -76,7 +77,7 @@ public class RunnableContextEl extends InterruptibleContextEl implements Locking
 //        return thread.getThread();
 //    }
 
-    public ThreadStruct getThread() {
+    public AbsThreadStruct getThread() {
         return thread;
     }
 

@@ -91,7 +91,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         stds_.getExecContent().getCustAliases().setAliasThread("");
-        assertEq(stds_.getExecContent().getCustAliases().getAliasThread(),call(new FctThread(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_).getClassName(ctx_));
+        assertEq(stds_.getExecContent().getCustAliases().getAliasThread(),call(new FctThread(stds_.getExecContent().getCustAliases(), ""),null,ctx_,null,one(NullStruct.NULL_VALUE),st_).getClassName(ctx_));
     }
     @Test
     public void threadSet() {

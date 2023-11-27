@@ -1,14 +1,14 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.*;
-
+import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.exec.DefaultInitializer;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.guicompos.EventStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.stds.FctThreadPrint0;
 import code.threads.AbstractAtomicLong;
-import code.threads.AbstractThread;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -57,8 +57,7 @@ public class CustInitializer extends DefaultInitializer {
             if (s.sameReference(_ctx.getThread())) {
                 continue;
             }
-            AbstractThread t_ = ((ThreadStruct)s).getThread();
-            t_.join();
+            ((AbsThreadStruct)s).joinThread(_ctx,_stackCall,"");
         }
     }
 //    public void launchHooks(RunnableContextEl _ctx, StackCall _stackCall) {

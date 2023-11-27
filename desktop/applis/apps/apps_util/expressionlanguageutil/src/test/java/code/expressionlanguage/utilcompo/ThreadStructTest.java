@@ -5,7 +5,14 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.*;
 import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.structs.*;
@@ -26,7 +33,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
-        call(new FctThread(stds_.getExecContent().getCustAliases()),null,ctx_,null,null,st_);
+        call(new FctThread(stds_.getExecContent().getCustAliases(), ""),null,ctx_,null,null,st_);
         assertTrue(st_.isFailInit());
     }
     @Test
@@ -37,7 +44,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.LIST);
         st_.setFullStack(new DefaultFullStack(ctx_));
-        call(new FctThread(stds_.getExecContent().getCustAliases()),null,ctx_,null,null,st_);
+        call(new FctThread(stds_.getExecContent().getCustAliases(), ""),null,ctx_,null,null,st_);
         assertFalse(st_.isFailInit());
         assertFalse(st_.calls());
     }
@@ -48,10 +55,10 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
-        assertNull(((ThreadStruct)th_).getThread().getThread());
+        assertNull(((AbsThreadStruct)th_).getThread().getThread());
     }
     @Test
     public void init4() {
@@ -61,10 +68,10 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
-        assertSame(s_, (Struct) ((ThreadStruct)th_).getThread().getThread());
+        assertSame(s_, (Struct) ((AbsThreadStruct)th_).getThread().getThread());
     }
     @Test
     public void setPriority1() {
@@ -74,8 +81,8 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
-        call(new FctThreadSetPrio(), null, ctx_, th_, one(new IntStruct(0)),st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
+        call(new FctThreadSetPrio(""), null, ctx_, th_, one(new IntStruct(0)),st_);
         assertFalse(st_.calls());
     }
     @Test
@@ -86,8 +93,8 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
-        call(new FctThreadSetPrio(), null, ctx_, th_, one(new IntStruct(11)),st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
+        call(new FctThreadSetPrio(""), null, ctx_, th_, one(new IntStruct(11)),st_);
         assertFalse(st_.calls());
     }
     @Test
@@ -98,9 +105,9 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
-        ((MockThread)((ThreadStruct)th_).getThread()).setAlive(true);
-        call(new FctThreadSetPrio(), null, ctx_, th_, one(new IntStruct(7)),st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
+        ((MockThread)((AbsThreadStruct)th_).getThread()).setAlive(true);
+        call(new FctThreadSetPrio(""), null, ctx_, th_, one(new IntStruct(7)),st_);
         assertFalse(st_.calls());
     }
     @Test
@@ -111,9 +118,9 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
-        ((MockThread)((ThreadStruct)th_).getThread()).setAlive(false);
-        call(new FctThreadSetPrio(), null, ctx_, th_, one(new IntStruct(7)),st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
+        ((MockThread)((AbsThreadStruct)th_).getThread()).setAlive(false);
+        call(new FctThreadSetPrio(""), null, ctx_, th_, one(new IntStruct(7)),st_);
         assertTrue(st_.calls());
     }
     @Test
@@ -124,9 +131,9 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
-        ((MockThread)((ThreadStruct)th_).getThread()).setAlive(false);
-        call(new FctThreadSetPrio(), null, ctx_, th_, one(new IntStruct(7)),st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
+        ((MockThread)((AbsThreadStruct)th_).getThread()).setAlive(false);
+        call(new FctThreadSetPrio(""), null, ctx_, th_, one(new IntStruct(7)),st_);
         assertEq(7,toLong(call(new FctThreadGetPrio(),null,ctx_,th_,null,st_)));
     }
     @Test
@@ -137,9 +144,9 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
-        ((MockThread)((ThreadStruct)th_).getThread()).setAlive(true);
-        call(new FctThreadStart(""), null, ctx_, th_, null,st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
+        ((MockThread)((AbsThreadStruct)th_).getThread()).setAlive(true);
+        call(new FctThreadStart("", ""), null, ctx_, th_, null,st_);
         assertFalse(st_.calls());
     }
     @Test
@@ -150,9 +157,9 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
-        ((MockThread)((ThreadStruct)th_).getThread()).setAlive(false);
-        call(new FctThreadStart(""), null, ctx_, th_, null,st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
+        ((MockThread)((AbsThreadStruct)th_).getThread()).setAlive(false);
+        call(new FctThreadStart("", ""), null, ctx_, th_, null,st_);
         assertTrue(st_.calls());
     }
     @Test
@@ -163,7 +170,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
         call(new FctThreadEnd(), null, ctx_, th_, null,st_);
         assertTrue(call(new FctThreadIsEnded(),null,ctx_,th_,null,st_));
     }
@@ -175,7 +182,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
         assertFalse(call(new FctThreadIsEnded(),null,ctx_,th_,null,st_));
     }
     @Test
@@ -199,7 +206,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
         assertSame(s_, call(new FctThreadRunnable(stds_.getExecContent().getCustAliases()), null, ctx_, th_,null,st_));
@@ -233,8 +240,8 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
-        assertEq(1,toLong(call(new FctThreadGetId(),null,ctx_,th_,null,st_)));
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
+        assertEq(1,toLong(call(new FctThreadGetId(""),null,ctx_,th_,null,st_)));
     }
     @Test
     public void thEq1() {
@@ -256,7 +263,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
         assertFalse(call(new FctThreadEq(stds_.getExecContent().getCustAliases()),null,ctx_,null,two(NullStruct.NULL_VALUE,th_),st_));
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -269,7 +276,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
         assertFalse(call(new FctThreadEq(stds_.getExecContent().getCustAliases()),null,ctx_,null,two(th_,NullStruct.NULL_VALUE),st_));
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -283,8 +290,8 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         MockRunnableStruct t_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
-        Struct thSec_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(t_), st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
+        Struct thSec_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(t_), st_);
         assertFalse(call(new FctThreadEq(stds_.getExecContent().getCustAliases()),null,ctx_,null,two(th_,thSec_),st_));
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -308,7 +315,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
         assertTrue(call(new FctThreadEq(stds_.getExecContent().getCustAliases()),null,ctx_,null,two(th_,th_),st_));
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -321,8 +328,8 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
-        Struct thSec_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
+        Struct thSec_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
         assertTrue(call(new FctThreadEq(stds_.getExecContent().getCustAliases()),null,ctx_,null,two(th_,thSec_),st_));
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -335,9 +342,9 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
-        ((MockThread)((ThreadStruct)th_).getThread()).setAlive(true);
-        assertTrue(call(new FctThreadIsAlive(), null, ctx_, th_, null, st_));
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
+        ((MockThread)((AbsThreadStruct)th_).getThread()).setAlive(true);
+        assertTrue(call(new FctThreadIsAlive(""), null, ctx_, th_, null, st_));
     }
     @Test
     public void isAlive2() {
@@ -347,9 +354,9 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
-        ((MockThread)((ThreadStruct)th_).getThread()).setAlive(false);
-        assertFalse(call(new FctThreadIsAlive(), null, ctx_, th_, null, st_));
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
+        ((MockThread)((AbsThreadStruct)th_).getThread()).setAlive(false);
+        assertFalse(call(new FctThreadIsAlive(""), null, ctx_, th_, null, st_));
     }
     @Test
     public void joinTh1() {
@@ -359,8 +366,8 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
-        assertFalse(call(new FctThreadJoin(), null, ctx_, th_, null, st_));
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
+        assertFalse(call(new FctThreadJoin(""), null, ctx_, th_, null, st_));
     }
     @Test
     public void state1() {
@@ -382,8 +389,8 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
-        call(new FctThreadJoinOthers(stds_.getExecContent().getCustAliases()), null, ctx_, th_, null, st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
+        call(new FctThreadJoinOthers(stds_.getExecContent().getCustAliases(), ""), null, ctx_, th_, null, st_);
         assertTrue(st_.isFailInit());
     }
     @Test
@@ -394,12 +401,12 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
-        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(s_), st_);
+        Struct th_ = call(new FctThread(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(s_), st_);
         GuiContextEl r_ = new GuiContextEl(((RunnableContextEl)ctx_).getInterrupt(),NullStruct.NULL_VALUE,ctx_.getExecutionInfos(),new StringList());
         EventStruct.setupThread((RunnableContextEl) ctx_);
         EventStruct.setupThread(r_);
-        call(new FctThreadJoinOthers(stds_.getExecContent().getCustAliases()), null, ctx_, th_, null, st_);
-        call(new FctThreadJoinOthers(stds_.getExecContent().getCustAliases()), null, ctx_, r_.getThread(), null, st_);
+        call(new FctThreadJoinOthers(stds_.getExecContent().getCustAliases(), ""), null, ctx_, th_, null, st_);
+        call(new FctThreadJoinOthers(stds_.getExecContent().getCustAliases(), ""), null, ctx_, r_.getThread(), null, st_);
         assertFalse(st_.isFailInit());
     }
     @Test
@@ -490,7 +497,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         EventStruct.setupThread((RunnableContextEl) ctx_);
-        call(new FctThreadPrint0(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(call(new FctThread(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_)),st_);
+        call(new FctThreadPrint0(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(call(new FctThread(stds_.getExecContent().getCustAliases(), ""),null,ctx_,null,one(NullStruct.NULL_VALUE),st_)),st_);
         assertFalse(st_.isFailInit());
     }
     @Test
@@ -570,6 +577,82 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
         Options opt_ = new Options();
         return buildMockFormat(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,new StringMap<String>()).getContext();
+    }
+    @Test
+    public void launchDbgRun1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){var g = new Thread((Runnable)(:void)->{class(Sample);});g.start();g.join();}}");
+        ResultContext ctx_ = ctxResRun(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 88);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(4,dbg_.getStack().nbPages());
+        assertEq(88,dbg_.getStack().getCall(3).getTraceIndex());
+        assertEq(117,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(0,dbgContinueNormalValue(dbg_.getStack(),ctx_.getContext()).getStack().nbPages());
+    }
+    @Test
+    public void launchDbgRun2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){var g = new Thread((Runnable)(:void)->{class(Sample);});g.start();g.join();g.join();}}");
+        ResultContext ctx_ = ctxResRun(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 88);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(4,dbg_.getStack().nbPages());
+        assertEq(88,dbg_.getStack().getCall(3).getTraceIndex());
+        assertEq(117,dbg_.getStack().getCall(0).getTraceIndex());
+        assertEq(0,dbgContinueNormalValue(dbg_.getStack(),ctx_.getContext()).getStack().nbPages());
+    }
+    @Test
+    public void launchDbgRun3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){var g = new Thread((Runnable)(:void)->{g.isAlive();});g.join();g.isAlive();g.setPriority(g.getPriority());}}");
+        ResultContext ctx_ = ctxResRun(pr_, files_);
+        ctx_.toggleBreakPoint("src/sample.txt", 88);
+        StackCallReturnValue dbg_ = launchDbg(ctx_);
+        assertEq(0,dbg_.getStack().nbPages());
+    }
+    private StackCallReturnValue launchDbg(ResultContext _ctx) {
+        ExecRootBlock ex_ = _ctx.getContext().getClasses().getClassBody("pkg.Sample");
+        ExecFormattedRootBlock form_ = new ExecFormattedRootBlock(ex_);
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC, "run", new StringList());
+        return ExecClassesUtil.tryInitStaticlyTypes(_ctx.getContext(), _ctx.getForwards().getOptions(), null, new CustomFoundMethod(form_, new ExecTypeFunction(form_, ExecClassesUtil.getMethodBodiesById(ex_, id_).first()), new Parameters()), StepDbgActionEnum.DEBUG, false);
+    }
+
+    protected static StackCallReturnValue dbgContinueNormalValue(StackCall _stack, ContextEl _cont) {
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont,null,_stack,null,StepDbgActionEnum.KEEP, false);
+    }
+    private ResultContext ctxResRun(MockProgramInfos _p, StringMap<String> _files) {
+        update(_p);
+        LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
+        ExecutingOptions e_ = new ExecutingOptions();
+        CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
+        e_.setLightProgramInfos(_p);
+        e_.setListGenerator(cdm_);
+        e_.getInterceptor().newMapStringStruct();
+        stds_.getExecContent().setExecutingOptions(e_);
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        Options opt_ = new Options();
+        return buildMockDbgRun(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files);
+    }
+    public static ResultContext buildMockDbgRun(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        preBuild(_definedLgNames, _exec, _mess, _definedKw);
+        StringMap<String> s_ = new StringMap<String>();
+        s_.addEntry("0",_definedLgNames.getExecContent().getCustAliases().runnableType(_definedKw, _definedLgNames.getContent()));
+        AnalyzedPageEl page_ = beginBuild(_definedLgNames);
+        Forwards forwards_ = nextBuild(_options, _definedKw, _definedLgNames, _files, s_, page_);
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _definedLgNames.buildBase();
+        _definedLgNames.getExecContent().getCustAliases().thread(_definedLgNames.getContent(), _definedLgNames.getExecContent().getExecutingBlocks());
+        ValidatorStandard.setupOverrides(page_);
+        ResultContext res_ = commonMockDbg(_exec, _definedLgNames, _files, page_, forwards_);
+        LgNamesGui stds_ = (LgNamesGui) res_.getContext().getStandards();
+        stds_.getExecContent().getExecutingBlocks().runnable(_definedLgNames.getExecContent().getCustAliases(),res_.getContext().getClasses());
+        Classes.tryInit(res_);
+        return res_;
     }
     public static ResultContext buildMockFormat(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
         preBuild(_definedLgNames, _exec, _mess, _definedKw);

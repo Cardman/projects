@@ -8,8 +8,8 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.AbsThreadStruct;
 import code.expressionlanguage.utilcompo.CustAliases;
-import code.expressionlanguage.utilcompo.ThreadStruct;
 
 public final class FctThreadRunnable implements StdCaller {
     private final CustAliases custAliases;
@@ -24,6 +24,6 @@ public final class FctThreadRunnable implements StdCaller {
             custAliases.processFailInit(_cont, _stackCall);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        return new ArgumentWrapper(((ThreadStruct) _instance).getRunnable());
+        return new ArgumentWrapper(((AbsThreadStruct) _instance).getRunnable());
     }
 }

@@ -14,9 +14,11 @@ import code.expressionlanguage.utilcompo.RunnableContextEl;
 
 public final class FctThreadJoinOthers implements StdCaller {
     private final CustAliases custAliases;
+    private final String id;
 
-    public FctThreadJoinOthers(CustAliases _custAliases) {
+    public FctThreadJoinOthers(CustAliases _custAliases, String _i) {
         this.custAliases = _custAliases;
+        id = _i;
     }
 
     @Override
@@ -25,6 +27,7 @@ public final class FctThreadJoinOthers implements StdCaller {
             custAliases.processFailInit(_cont, _stackCall);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
+        FctThreadSetPrio.preCall(_stackCall, id);
         CustInitializer cust_ = ((RunnableContextEl)_cont).getCustInit();
         cust_.joinOthers((RunnableContextEl) _cont, _stackCall);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);

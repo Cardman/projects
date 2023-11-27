@@ -9,8 +9,8 @@ import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.AbsThreadStruct;
 import code.expressionlanguage.utilcompo.CustAliases;
-import code.expressionlanguage.utilcompo.ThreadStruct;
 import code.util.CustList;
 
 public final class FctThreadEq implements StdCaller {
@@ -29,9 +29,9 @@ public final class FctThreadEq implements StdCaller {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
         Struct one_ = argumentWrappers_.get(0).getValue().getStruct();
         Struct two_ = argumentWrappers_.get(1).getValue().getStruct();
-        if (one_ instanceof ThreadStruct) {
-            if (two_ instanceof ThreadStruct) {
-                return new ArgumentWrapper(BooleanStruct.of(((ThreadStruct)one_).getRunnable() == ((ThreadStruct)two_).getRunnable()));
+        if (one_ instanceof AbsThreadStruct) {
+            if (two_ instanceof AbsThreadStruct) {
+                return new ArgumentWrapper(BooleanStruct.of(((AbsThreadStruct)one_).getRunnable() == ((AbsThreadStruct)two_).getRunnable()));
             }
             return new ArgumentWrapper(BooleanStruct.of(false));
         }
