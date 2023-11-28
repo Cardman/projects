@@ -48,9 +48,8 @@ public final class FctMathRandom1 extends FctMath {
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();
         long b_ = numberStruct_.longStruct();
-        LongStruct res_ = new LongStruct(MonteCarloUtil.randomLong(b_, generator_, _stackCall.getSeedCust()));
         CustList<String> rds_ = new CustList<String>();
-        rds_.add(res_.getDisplayedString(_cont).getInstance());
+        LongStruct res_ = new LongStruct(MonteCarloUtil.randomLong(b_, generator_, _stackCall.getSeedCust(), rds_));
         FctMathEval.log(_stackCall, rds_, _id +":"+ b_);
         return new ArgumentWrapper(res_);
     }

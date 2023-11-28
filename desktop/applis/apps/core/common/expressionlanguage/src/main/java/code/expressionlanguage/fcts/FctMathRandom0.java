@@ -10,7 +10,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
-import code.maths.montecarlo.AbstractGenerator;
+import code.maths.montecarlo.*;
 import code.util.CustList;
 
 public final class FctMathRandom0 extends FctMath {
@@ -42,11 +42,9 @@ public final class FctMathRandom0 extends FctMath {
         if (_cont.callsOrException(_stackCall)) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        AbstractGenerator generator_ = lgNames_.getGenerator();
-        DoubleStruct res_ = new DoubleStruct(_stackCall.getSeedCust().pick(generator_));
         CustList<String> rds_ = new CustList<String>();
-        rds_.add(res_.getDisplayedString(_cont).getInstance());
+        double rand_ = MonteCarloUtil.pick(_cont.getStandards().getGenerator(),_stackCall.getSeedCust(),rds_);
         FctMathEval.log(_stackCall, rds_, _id);
-        return new ArgumentWrapper(res_);
+        return new ArgumentWrapper(new DoubleStruct(rand_));
     }
 }

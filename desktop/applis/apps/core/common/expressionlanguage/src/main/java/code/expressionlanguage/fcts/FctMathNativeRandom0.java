@@ -6,7 +6,7 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.DoubleStruct;
-import code.maths.montecarlo.AbstractGenerator;
+import code.maths.montecarlo.*;
 import code.util.CustList;
 
 public final class FctMathNativeRandom0 extends FctMath {
@@ -19,11 +19,9 @@ public final class FctMathNativeRandom0 extends FctMath {
 
     @Override
     public ArgumentWrapper alea(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        AbstractGenerator generator_ = _cont.getStandards().getGenerator();
-        DoubleStruct res_ = new DoubleStruct(_stackCall.getSeedCust().pick(generator_));
         CustList<String> rds_ = new CustList<String>();
-        rds_.add(res_.getDisplayedString(_cont).getInstance());
+        double rand_ = MonteCarloUtil.pick(_cont.getStandards().getGenerator(),_stackCall.getSeedCust(),rds_);
         FctMathEval.log(_stackCall, rds_, id);
-        return new ArgumentWrapper(res_);
+        return new ArgumentWrapper(new DoubleStruct(rand_));
     }
 }

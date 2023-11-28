@@ -22,11 +22,16 @@ public final class Options {
     private int tabWidth = 4;
     private int stack = -1;
     private String seedElts = "";
-    private CustomSeedGene seedGene = new CustomSeedGene();
+    private CustomSeedGene seedGene = defSeed();
     private AbstractTypePairHash checker;
 
     public Options() {
         setChecker(new DefTypePairHash());
+    }
+    private static CustomSeedGene defSeed() {
+        CustomSeedGene c_ = new CustomSeedGene();
+        c_.setConverter(new AdvDoubleToStrConverter());
+        return c_;
     }
     public AbstractTypePairHash getChecker() {
         return checker;

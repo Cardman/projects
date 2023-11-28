@@ -4,8 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.NumberInfos;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.*;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
@@ -47,7 +46,9 @@ public final class ParsedArgument {
         for (int i = 0; i < size_; i++) {
             arr_[i] = nbs_.get(i).doubleStruct();
         }
-        _opt.setSeedGene(new CustomSeedGene(arr_));
+        CustomSeedGene s_ = new CustomSeedGene(arr_);
+        s_.setConverter(new AdvDoubleToStrConverter());
+        _opt.setSeedGene(s_);
     }
     public static ParsedArgument parse(NumberInfos _infosNb, AnalyzedPageEl _context) {
         String doubleType_ = _context.getAliasDouble();
