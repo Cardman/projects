@@ -16,8 +16,6 @@ public final class NumParsers {
     public static final int DEFAULT_RADIX = 10;
     private static final long RATIO = 31L;
     private static final char DOT_VAR = '.';
-    private static final char EXP_UPP = 'E';
-    private static final char EXP = 'e';
     private static final char PLUS_CHAR = '+';
     private static final char MINUS_CHAR = '-';
     private static final byte MAX_DIGITS_DOUBLE = 18;
@@ -967,9 +965,6 @@ public final class NumParsers {
         while (i_ < len_) {
             char cur_ = _nb.charAt(i_);
             if (!StringExpUtil.isDigit(cur_)) {
-                if (cur_ != DOT_VAR && isNotExpSymbol(cur_)) {
-                    return null;
-                }
                 break;
             }
             intPart_.append(cur_);
@@ -987,9 +982,6 @@ public final class NumParsers {
             while (i_ < len_) {
                 char cur_ = _nb.charAt(i_);
                 if (!StringExpUtil.isDigit(cur_)) {
-                    if (isNotExpSymbol(cur_)) {
-                        return null;
-                    }
                     break;
                 }
                 decimalPart_.append(cur_);
@@ -1008,14 +1000,17 @@ public final class NumParsers {
         int len_ = _nb.length();
         StringBuilder exponentialPart_ = _built.getExponentialPart();
         int i_ = _i;
-        i_++;
+        while (i_ < len_) {
+            char cur_ = _nb.charAt(i_);
+            if (StringExpUtil.isDigit(cur_) || cur_ == MINUS_CHAR || cur_ == PLUS_CHAR) {
+                break;
+            }
+            i_++;
+        }
         if (i_ >= len_) {
             return null;
         }
         char cur_ = _nb.charAt(i_);
-        if (!StringExpUtil.isDigit(cur_) && cur_ != MINUS_CHAR && cur_ != PLUS_CHAR) {
-            return null;
-        }
         i_++;
         exponentialPart_.append(cur_);
         int nbDig_ = 0;
@@ -1035,9 +1030,6 @@ public final class NumParsers {
             return null;
         }
         return _built;
-    }
-    private static boolean isNotExpSymbol(char _cur) {
-        return _cur != EXP && _cur != EXP_UPP;
     }
 
     public static StringStruct exportValue(NumberStruct _nb, String _infinity, String _nan, String _exp) {
