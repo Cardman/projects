@@ -12,6 +12,7 @@ import code.gui.images.MetaPoint;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbsLightFrameFactory;
+import code.gui.initialize.AbsStringBuffer;
 import code.stream.*;
 import code.util.core.NumberUtil;
 import org.junit.Test;
@@ -452,8 +453,9 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         ab_.invokeNow(r_);
         assertTrue(r_.isStarted());
         AbsLightFrameFactory li_ = init_.getLightFrameFactory();
-        li_.copy("_");
-        assertEq("_", li_.paste());
+        AbsStringBuffer sb_ = li_.newStringBuffer();
+        sb_.copy("_");
+        assertEq("_", sb_.paste());
     }
     @Test
     public void c17(){

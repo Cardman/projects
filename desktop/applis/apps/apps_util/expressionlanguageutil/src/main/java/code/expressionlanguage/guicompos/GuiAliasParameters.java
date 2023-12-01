@@ -132,6 +132,7 @@ public final class GuiAliasParameters {
     private static final String COMPONENT_0_COMPONENT_SET_PREFERRED_SIZE_0="__944";
     private static final String COMPONENT_0_COMPONENT_SET_VISIBLE_0="__945";
     private static final String COMPONENT_0_COMPONENT_INVOKE_LATER_0="_____1588";
+    private static final String COMPONENT_0_COMPONENT_BUFFER_0="_____1588_";
     private static final String COMPONENT_0_ADD_KEY_LISTENER_0="_____1589";
     private static final String COMPONENT_0_ADD_FOCUS_LISTENER_0="_____1589_";
     private static final String COMPONENT_0_ADD_WHEEL_LISTENER_0="___1104";
@@ -593,6 +594,7 @@ public final class GuiAliasParameters {
     private String aliasComponent0ComponentSetPreferredSize0;
     private String aliasComponent0ComponentSetVisible0;
     private String aliasComponent0ComponentInvokeLater0;
+    private String aliasComponent0ComponentBuffer0;
     private String aliasComponent0AddKeyListener0;
     private String aliasComponent0AddFocusListener0;
     private String aliasComponent0AddWheelListener0;
@@ -1053,6 +1055,7 @@ public final class GuiAliasParameters {
         aliasComponent0ComponentSetPreferredSize0=LgNamesContent.get(_util,_cust,_mapping.getVal(COMPONENT_0_COMPONENT_SET_PREFERRED_SIZE_0));
         aliasComponent0ComponentSetVisible0=LgNamesContent.get(_util,_cust,_mapping.getVal(COMPONENT_0_COMPONENT_SET_VISIBLE_0));
         aliasComponent0ComponentInvokeLater0=LgNamesContent.get(_util,_cust,_mapping.getVal(COMPONENT_0_COMPONENT_INVOKE_LATER_0));
+        aliasComponent0ComponentBuffer0=LgNamesContent.get(_util,_cust,_mapping.getVal(COMPONENT_0_COMPONENT_BUFFER_0));
         aliasComponent0AddKeyListener0=LgNamesContent.get(_util,_cust,_mapping.getVal(COMPONENT_0_ADD_KEY_LISTENER_0));
         aliasComponent0AddFocusListener0=LgNamesContent.get(_util,_cust,_mapping.getVal(COMPONENT_0_ADD_FOCUS_LISTENER_0));
         aliasComponent0AddWheelListener0=LgNamesContent.get(_util,_cust,_mapping.getVal(COMPONENT_0_ADD_WHEEL_LISTENER_0));
@@ -1513,6 +1516,7 @@ public final class GuiAliasParameters {
         _en.add(COMPONENT_0_COMPONENT_SET_PREFERRED_SIZE_0,"Component0ComponentSetPreferredSize0=a");
         _en.add(COMPONENT_0_COMPONENT_SET_VISIBLE_0,"Component0ComponentSetVisible0=a");
         _en.add(COMPONENT_0_COMPONENT_INVOKE_LATER_0,"Component0ComponentInvokeLater0=a");
+        _en.add(COMPONENT_0_COMPONENT_BUFFER_0,"Component0ComponentBuffer0=a");
         _en.add(COMPONENT_0_ADD_KEY_LISTENER_0,"Component0AddKeyListener0=a");
         _en.add(COMPONENT_0_ADD_FOCUS_LISTENER_0,"Component0AddFocusListener0=a");
         _en.add(COMPONENT_0_ADD_WHEEL_LISTENER_0,"Component0AddWheelListener0=a");
@@ -1974,6 +1978,7 @@ public final class GuiAliasParameters {
         _fr.add(COMPONENT_0_COMPONENT_SET_PREFERRED_SIZE_0,"Component0ComponentSetPreferredSize0=a");
         _fr.add(COMPONENT_0_COMPONENT_SET_VISIBLE_0,"Component0ComponentSetVisible0=a");
         _fr.add(COMPONENT_0_COMPONENT_INVOKE_LATER_0,"Component0ComponentInvokeLater0=a");
+        _fr.add(COMPONENT_0_COMPONENT_BUFFER_0,"Component0ComponentBuffer0=a");
         _fr.add(COMPONENT_0_ADD_KEY_LISTENER_0,"Component0AddKeyListener0=a");
         _fr.add(COMPONENT_0_ADD_FOCUS_LISTENER_0,"Component0AddFocusListener0=a");
         _fr.add(COMPONENT_0_ADD_WHEEL_LISTENER_0,"Component0AddWheelListener0=a");
@@ -2376,6 +2381,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(COMPONENT_0_COMPONENT_SET_PREFERRED_SIZE_0),aliasComponent0ComponentSetPreferredSize0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(COMPONENT_0_COMPONENT_SET_VISIBLE_0),aliasComponent0ComponentSetVisible0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(COMPONENT_0_COMPONENT_INVOKE_LATER_0),aliasComponent0ComponentInvokeLater0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(COMPONENT_0_COMPONENT_BUFFER_0),aliasComponent0ComponentBuffer0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(COMPONENT_0_ADD_KEY_LISTENER_0),aliasComponent0AddKeyListener0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(COMPONENT_0_ADD_FOCUS_LISTENER_0),aliasComponent0AddFocusListener0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(COMPONENT_0_ADD_WHEEL_LISTENER_0),aliasComponent0AddWheelListener0)));
@@ -3027,6 +3033,10 @@ public final class GuiAliasParameters {
 
     public String getAliasComponent0ComponentInvokeLater0() {
         return aliasComponent0ComponentInvokeLater0;
+    }
+
+    public String getAliasComponent0ComponentBuffer0() {
+        return aliasComponent0ComponentBuffer0;
     }
 
     public String getAliasComponent0AddKeyListener0() {

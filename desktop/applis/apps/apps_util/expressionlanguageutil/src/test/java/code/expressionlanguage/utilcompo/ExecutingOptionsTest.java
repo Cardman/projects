@@ -562,6 +562,54 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         assertTrue(st_.calls());
     }
     @Test
+    public void buffer1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
+        call(new FctCompoBuffer0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
+        assertTrue(st_.isFailInit());
+    }
+    @Test
+    public void buffer2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
+        call(new FctCompoBuffer1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
+        assertTrue(st_.isFailInit());
+    }
+    @Test
+    public void buffer3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        assertFalse(call(new FctCompoBuffer1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""),null,ctx_,null,one(NullStruct.NULL_VALUE),st_));
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+        assertEq("",call(new FctCompoBuffer0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""),null,ctx_,null,null,st_));
+    }
+    @Test
+    public void buffer4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        assertTrue(call(new FctCompoBuffer1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""),null,ctx_,null,one(new StringStruct("_")),st_));
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+        assertEq("_",call(new FctCompoBuffer0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""),null,ctx_,null,null,st_));
+    }
+    @Test
     public void selectDbg1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         StringMap<String> files_ = new StringMap<String>();

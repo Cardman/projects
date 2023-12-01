@@ -67,12 +67,14 @@ public final class GuiExecutingBlocks {
     private ExecTypeFunction pairPaintMethod;
     private DefaultClosingMainWindow eventClose;
     private AbsCompoFactory compoFactory;
+    private AbsStringBuffer stringBuffer;
 
     public void initApplicationParts(StringList _mainArgs, AbstractLightProgramInfos _currentElements) {
         mainArgs = _mainArgs;
         guiInterpreterElements = _currentElements;
 //        AbstractLightProgramInfos programInfos_ = guiInterpreterElements.getProgramInfos();
         compoFactory = _currentElements.getCompoFactory();
+        stringBuffer = _currentElements.getLightFrameFactory().newStringBuffer();
         confirm = new OtherConfirmDialog(_currentElements);
     }
 //    private void initEventParts(GuiInitializer _guiInit, GuiContextEl _context) {
@@ -587,7 +589,10 @@ public final class GuiExecutingBlocks {
         return guiInterpreterElements.getLightFrameFactory();
     }
 
-//    public FrameStruct getFrame() {
+    public AbsStringBuffer getStringBuffer() {
+        return stringBuffer;
+    }
+    //    public FrameStruct getFrame() {
 //        return frame;
 //    }
 

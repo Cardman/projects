@@ -164,6 +164,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private static final String COMPONENT_IS_VISIBLE="857";
     private static final String COMPONENT_SET_VISIBLE="858";
     private static final String COMPONENT_INVOKE_LATER="_____1288";
+    private static final String COMPONENT_BUFFER="_____1288_";
     private static final String ADD_KEY_LISTENER="_____1289";
     private static final String ADD_FOCUS_LISTENER="_____1289_";
     private static final String REMOVE_KEY_LISTENER="_____1290";
@@ -754,6 +755,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasComponentIsVisible;
     private String aliasComponentSetVisible;
     private String aliasComponentInvokeLater;
+    private String aliasComponentBuffer;
     private String aliasComponent;
     private String aliasDimension;
     private String aliasDimensionGetHeight;
@@ -1599,6 +1601,12 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasComponentCommands, params_, StringExpUtil.getPrettyArrayType(aliasCommand), false, MethodModifier.FINAL, new FctCompoCommands());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasComponentBuffer, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC, new FctCompoBuffer0(_cust,_guiEx, aliasComponent+"."+new MethodId(MethodAccessKind.STATIC,aliasComponentBuffer,params_).getSignature(_content.getDisplayedStrings())));
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasComponentBuffer, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasComponent0ComponentBuffer0()), new FctCompoBuffer1(_cust,_guiEx, aliasComponent+"."+new MethodId(MethodAccessKind.STATIC,aliasComponentBuffer,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         std_ = stdcl_;
         StandardType.addType(_content.getStandards(), aliasComponent, std_);
@@ -3416,6 +3424,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasImageGetColor(LgNamesContent.get(_util,_cust,_mapping.getVal(IMAGE_GET_COLOR)));
         setAliasImageDrawOval(LgNamesContent.get(_util,_cust,_mapping.getVal(IMAGE_DRAW_OVAL)));
         setAliasComponentInvokeLater(LgNamesContent.get(_util,_cust,_mapping.getVal(COMPONENT_INVOKE_LATER)));
+        setAliasComponentBuffer(LgNamesContent.get(_util,_cust,_mapping.getVal(COMPONENT_BUFFER)));
         setAliasImageGetHeight(LgNamesContent.get(_util,_cust,_mapping.getVal(IMAGE_GET_HEIGHT)));
         setAliasImageSetFont(LgNamesContent.get(_util,_cust,_mapping.getVal(IMAGE_SET_FONT)));
         setAliasImageDispose(LgNamesContent.get(_util,_cust,_mapping.getVal(IMAGE_DISPOSE)));
@@ -3788,6 +3797,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _en.add(COMPONENT_IS_VISIBLE,"ComponentIsVisible=isVisible");
         _en.add(COMPONENT_SET_VISIBLE,"ComponentSetVisible=setVisible");
         _en.add(COMPONENT_INVOKE_LATER,"ComponentInvokeLater=invokeLater");
+        _en.add(COMPONENT_BUFFER,"ComponentBuffer=buffer");
         _en.add(ADD_KEY_LISTENER,"AddKeyListener=addKey");
         _en.add(REMOVE_KEY_LISTENER,"RemoveKeyListener=removeKey");
         _en.add(GET_KEY_LISTENERS,"GetKeyListeners=getKeys");
@@ -4247,6 +4257,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _fr.add(COMPONENT_IS_VISIBLE,"ComponentIsVisible=estVisible");
         _fr.add(COMPONENT_SET_VISIBLE,"ComponentSetVisible=majVisible");
         _fr.add(COMPONENT_INVOKE_LATER,"ComponentInvokeLater=invoquerPlusTard");
+        _fr.add(COMPONENT_BUFFER,"ComponentBuffer=tampon");
         _fr.add(ADD_KEY_LISTENER,"AddKeyListener=ajClavier");
         _fr.add(REMOVE_KEY_LISTENER,"RemoveKeyListener=supprClavier");
         _fr.add(GET_KEY_LISTENERS,"GetKeyListeners=valClaviers");
@@ -5053,6 +5064,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(COMPONENT_IS_VISIBLE),getAliasComponentIsVisible()),
                 new KeyValueMemberName(_mapping.getVal(COMPONENT_SET_VISIBLE),getAliasComponentSetVisible()),
                 new KeyValueMemberName(_mapping.getVal(COMPONENT_INVOKE_LATER),getAliasComponentInvokeLater()),
+                new KeyValueMemberName(_mapping.getVal(COMPONENT_BUFFER),getAliasComponentBuffer()),
                 new KeyValueMemberName(_mapping.getVal(ADD_KEY_LISTENER),getAliasAddKeyListener()),
                 new KeyValueMemberName(_mapping.getVal(REMOVE_KEY_LISTENER),getAliasRemoveKeyListener()),
                 new KeyValueMemberName(_mapping.getVal(GET_KEY_LISTENERS),getAliasGetKeyListeners()),
@@ -6327,6 +6339,14 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
     public void setAliasComponentInvokeLater(String _v) {
         this.aliasComponentInvokeLater = _v;
+    }
+
+    public String getAliasComponentBuffer() {
+        return aliasComponentBuffer;
+    }
+
+    public void setAliasComponentBuffer(String _v) {
+        this.aliasComponentBuffer = _v;
     }
 
     public String getAliasImage() {

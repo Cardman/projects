@@ -1,13 +1,11 @@
 package code.mock;
 
 import code.gui.AbsCustComponent;
-import code.gui.initialize.AbsFrameFactory;
-import code.gui.initialize.AbsLightFrameFactory;
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.initialize.*;
 
 public abstract class MockAbsFrameFactory implements AbsFrameFactory, AbsLightFrameFactory {
     private final AbstractProgramInfos programInfos;
-    private String buffer;
+
     protected MockAbsFrameFactory(AbstractProgramInfos _p) {
         this.programInfos = _p;
     }
@@ -22,12 +20,8 @@ public abstract class MockAbsFrameFactory implements AbsFrameFactory, AbsLightFr
     }
 
     @Override
-    public String paste() {
-        return buffer;
+    public AbsStringBuffer newStringBuffer() {
+        return new DefStringBuffer();
     }
 
-    @Override
-    public void copy(String _c) {
-        buffer = _c;
-    }
 }
