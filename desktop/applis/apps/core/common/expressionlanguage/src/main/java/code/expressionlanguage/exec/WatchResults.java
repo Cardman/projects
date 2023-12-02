@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
+import code.expressionlanguage.exec.dbg.TypePointBlockPair;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.options.ResultContext;
@@ -55,15 +56,20 @@ public final class WatchResults {
             return new WatchResults();
         }
         int tr_ = _last.getTraceIndex();
-        int phase_;
         if (_last instanceof AbstractCallingInstancingPageEl) {
-            phase_ = BreakPoint.BPC_INSTANCE;
-        } else if (_last instanceof StaticInitPageEl) {
-            phase_ = BreakPoint.BPC_STATIC;
-        } else {
-            phase_ = BreakPoint.BPC_STD;
+            int phase_ = BreakPoint.BPC_INSTANCE;
+            TypePointBlockPair pair_ = new TypePointBlockPair(ex_, FileBlock.number(bl_), tr_, inter_, true);
+            ResultContextLambda resCtxLambda_ = ResultContextLambda.dynamicAnalyze(_dyn, pair_, _res, _res.getPageEl().getAliasObject(), _gene, phase_);
+            return afterAnalyze(resCtxLambda_, null,_last,_logger);
         }
-        BreakPointBlockPair pair_ = new BreakPointBlockPair(ex_, FileBlock.number(bl_), tr_, inter_, true, phase_ != BreakPoint.BPC_STD);
+        if (_last instanceof StaticInitPageEl) {
+            int phase_ = BreakPoint.BPC_STATIC;
+            TypePointBlockPair pair_ = new TypePointBlockPair(ex_, FileBlock.number(bl_), tr_, inter_, true);
+            ResultContextLambda resCtxLambda_ = ResultContextLambda.dynamicAnalyze(_dyn, pair_, _res, _res.getPageEl().getAliasObject(), _gene, phase_);
+            return afterAnalyze(resCtxLambda_, null,_last,_logger);
+        }
+        int phase_ = BreakPoint.BPC_STD;
+        BreakPointBlockPair pair_ = new BreakPointBlockPair(ex_, FileBlock.number(bl_), tr_, inter_, true);
         ResultContextLambda resCtxLambda_ = ResultContextLambda.dynamicAnalyze(_dyn, pair_, _res, _res.getPageEl().getAliasObject(), _gene, phase_);
         return afterAnalyze(resCtxLambda_, null,_last,_logger);
     }

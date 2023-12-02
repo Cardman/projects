@@ -51,7 +51,8 @@ public final class GuiStackForm {
         watches = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
         count = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         countSub = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
-        AbsPanel panel_ = stackConstraintsForm.guiBuild(_d);
+        AbsTabbedPane tab_ = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        AbsSplitPane panel_ = stackConstraintsForm.guiBuild(_d,null);
         AbsPanel staIncExc_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         staIncExc_.add(pref);
         AbsPanel g_ = prefs.getGroup();
@@ -63,14 +64,15 @@ public final class GuiStackForm {
         staIncExc_.add(disableAgain);
         staIncExc_.add(suspend);
         staIncExc_.add(stackLog);
-        staIncExc_.add(conditional);
-        staIncExc_.add(logs);
-        staIncExc_.add(watches);
         staIncExc_.add(count);
         staIncExc_.add(countSub);
-        staIncExc_.add(panel_);
-        staIncExc_.add(dependantPointsForm.guiBuild(_d));
-        staScIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(staIncExc_);
+        tab_.addIntTab("main elements",staIncExc_);
+        tab_.addIntTab("conditional",_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(conditional));
+        tab_.addIntTab("logs",_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(logs));
+        tab_.addIntTab("watches",_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(watches));
+        tab_.addIntTab("contraints pass",panel_);
+        tab_.addIntTab("deps",_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(dependantPointsForm.guiBuild(_d)));
+        staScIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(tab_);
         return staScIncExc;
     }
 

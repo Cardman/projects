@@ -263,7 +263,14 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
 
     private static SuspendedCandidateInfos operNat(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, OperNatCheckedExecOperationNodeInfos _nat) {
         if (_nat != null) {
-            return checkOperNat(_context, _stackCall, _p, _context.getPairOperNat(_nat.getKey()).getValue(), _nat, _nat.getModeField());
+            AbsOperNatPointBlockPair p_ = _context.getPairOperNat(_nat.getKey());
+            if (p_ instanceof OperNatPointBlockPair) {
+                return checkOperNat(_context, _stackCall, _p, _nat, stopOperNatValue(((OperNatPointBlockPair)p_).getValue(), _nat.getModeField()));
+            }
+            if (p_ instanceof CompoOperNatPointBlockPair) {
+                return checkOperNat(_context, _stackCall, _p, _nat, stopOperNatValue(((CompoOperNatPointBlockPair)p_).getValue(), _nat.getModeField()));
+            }
+            return checkOperNat(_context, _stackCall, _p, _nat, stopOperNatValue(_context.operNatDisabled().getValue(), _nat.getModeField()));
         }
         return null;
     }
@@ -276,6 +283,13 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         for (int i : list(p_)) {
             BreakPointBlockPair bp_ = _context.getNotNullPair(p_.getFile(), i);
             SuspendedCandidateInfos s_ = stopCurrentBp(_context, _stackCall, p_, bp_.getValue());
+            if (s_ != null) {
+                return s_;
+            }
+        }
+        for (int i : list(p_)) {
+            TypePointBlockPair bp_ = _context.getNotNullTypePair(p_.getFile(), i);
+            SuspendedCandidateInfos s_ = stopCurrentTp(_context, _stackCall, p_, bp_.getValue());
             if (s_ != null) {
                 return s_;
             }
@@ -655,9 +669,8 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return stopCurrent(_context, _stackCall, _p, bpc_, _arr, StopDbgEnum.PARENT);
     }
 
-    private static SuspendedCandidateInfos checkOperNat(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, OperNatPoint _bp, OperNatCheckedExecOperationNodeInfos _arr, int _m) {
-        BreakPointCondition bpc_ = stopOperNatValue(_bp, _m);
-        return stopCurrent(_context, _stackCall, _p, bpc_, new CheckedMethodInfos(_arr),StopDbgEnum.OPER_NAT);
+    private static SuspendedCandidateInfos checkOperNat(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, OperNatCheckedExecOperationNodeInfos _arr, BreakPointCondition _bpc) {
+        return stopCurrent(_context, _stackCall, _p, _bpc, new CheckedMethodInfos(_arr),StopDbgEnum.OPER_NAT);
     }
     private static Struct stopExcValuRetThrowCatch(ContextEl _context, StackCall _stackCall, AbstractPageEl _p) {
         if (_stackCall.getBreakPointInfo().getBreakPointMiddleInfo().getExiting() == null) {
@@ -699,12 +712,20 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return _ex.result();
     }
 
-    private static BreakPointCondition stopOperNatValue(OperNatPoint _ex, int _mode) {
+    private static BreakPointCondition stopOperNatValue(AbsOperNatPoint _ex, int _mode) {
+        if (!_ex.isEnabled()) {
+            return null;
+        }
         return _ex.result(_mode);
     }
 
     private static SuspendedCandidateInfos stopCurrentBp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, BreakPoint _bp) {
-        BreakPointCondition condition_ = stopCurrentBpCondition(_p,_bp);
+        BreakPointCondition condition_ = stopCurrentBpCondition(_bp);
+        return stopCurrent(_context, _stackCall, _p, condition_, null, StopDbgEnum.INSTRUCTION);
+    }
+
+    private static SuspendedCandidateInfos stopCurrentTp(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, TypePoint _bp) {
+        BreakPointCondition condition_ = stopCurrentTpCondition(_p,_bp);
         return stopCurrent(_context, _stackCall, _p, condition_, null, StopDbgEnum.INSTRUCTION);
     }
 
@@ -819,12 +840,16 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return BooleanStruct.isTrue(ArgumentListCall.toStr(result_.getStack().aw().getValue()));
     }
 
-    private static BreakPointCondition stopCurrentBpCondition(AbstractPageEl _p, BreakPoint _bp) {
-        if (!(_bp.isEnabled() && (!_bp.isEnabledChgtType() || _bp.isInstanceType() && _p instanceof AbstractCallingInstancingPageEl || _bp.isStaticType() && _p instanceof StaticInitPageEl))) {
+    private static BreakPointCondition stopCurrentBpCondition(BreakPoint _bp) {
+        if (!(_bp.isEnabled())) {
             return null;
         }
-        if (!_bp.isEnabledChgtType()) {
-            return _bp.getResultStd();
+        return _bp.getResultStd();
+    }
+
+    private static BreakPointCondition stopCurrentTpCondition(AbstractPageEl _p, TypePoint _bp) {
+        if (!(_bp.isEnabled() && (_bp.isInstanceType() && _p instanceof AbstractCallingInstancingPageEl || _bp.isStaticType() && _p instanceof StaticInitPageEl))) {
+            return null;
         }
         if (_bp.isInstanceType()) {
             return _bp.getResultInstance();

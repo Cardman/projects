@@ -145,8 +145,12 @@ public final class ResultContext {
             }
             return method(getPageEl().getDisplayedStrings(), id_);
         }
+        if (ResultExpressionOperationNode.enabledTypeBp(_offset,fb_)) {
+            ExecFileBlock f_ = getFiles().getVal(fb_);
+            return tp(f_, FileBlock.number(fb_), o_);
+        }
         ExecFileBlock f_ = getFiles().getVal(fb_);
-        return bp(f_, FileBlock.number(fb_), o_, ResultExpressionOperationNode.enabledTypeBp(_offset, fb_));
+        return bp(f_, FileBlock.number(fb_), o_);
     }
     public static SynthFieldInfo build(NamedCalledFunctionBlock _id,RootBlock _r) {
         return new SynthFieldInfo(new ClassField("",_id.getName()),_r);
@@ -155,21 +159,21 @@ public final class ResultContext {
     public void toggleWatch(boolean _trField, SynthFieldInfo _field) {
         getContext().toggleWatch(_trField, _field);
     }
-    public OperNatPointBlockPair toggleOperNatPoint(String _symbol,String _first, String _second) {
-        OperNatPointBlockPair o_ = resolve(_symbol, _first, _second);
+    public AbsOperNatPointBlockPair toggleOperNatPoint(String _symbol,String _first, String _second) {
+        AbsOperNatPointBlockPair o_ = resolve(_symbol, _first, _second);
         if (o_ == null) {
             return getContext().operNatDisabled();
         }
         return getContext().toggleOperNat(o_);
     }
-    public OperNatPointBlockPair toggleEnableOperNatPoint(String _symbol,String _first, String _second) {
-        OperNatPointBlockPair o_ = resolve(_symbol, _first, _second);
+    public AbsOperNatPointBlockPair toggleEnableOperNatPoint(String _symbol,String _first, String _second) {
+        AbsOperNatPointBlockPair o_ = resolve(_symbol, _first, _second);
         if (o_ == null) {
             return getContext().operNatDisabled();
         }
         return getContext().toggleEnableOperNat(o_);
     }
-    public OperNatPointBlockPair resolve(String _symbol,String _first, String _second) {
+    public AbsOperNatPointBlockPair resolve(String _symbol,String _first, String _second) {
         if (koType(_first)) {
             return null;
         }
@@ -191,14 +195,15 @@ public final class ResultContext {
         if (k_.isEmpty()) {
             return null;
         }
-        OperNatPointBlockPair o_;
+        AbsOperNatPointBlockPair o_;
         if (_second.trim().isEmpty()) {
             o_ = operNat(k_, _symbol,res_.getFirst(), "");
         } else {
-            o_ = operNat(k_, _symbol,res_.getFirst(), res_.getSecond());
-        }
-        if (!_second.trim().isEmpty()) {
-            o_.getValue().setEnabledAffect(StringExpUtil.isLogical(_symbol) || StringExpUtil.isBinNum(_symbol) || StringExpUtil.isBitwise(_symbol) || StringExpUtil.isShiftOper(_symbol) || res_.getSymbol() instanceof CommonOperNullSafe);
+            if (StringExpUtil.isLogical(_symbol) || StringExpUtil.isBinNum(_symbol) || StringExpUtil.isBitwise(_symbol) || StringExpUtil.isShiftOper(_symbol) || res_.getSymbol() instanceof CommonOperNullSafe) {
+                o_ = operCompoNat(k_, _symbol,res_.getFirst(), res_.getSecond());
+            } else {
+                o_ = operNat(k_, _symbol,res_.getFirst(), res_.getSecond());
+            }
         }
         return o_;
     }
@@ -207,8 +212,11 @@ public final class ResultContext {
         PrimitiveType secondPr_ = getPageEl().getPrimitiveTypes().getVal(_second);
         return secondMain_ == null && secondPr_ == null;
     }
-    public OperNatPointBlockPair operNat(String _k, String _symbol,String _f, String _s) {
+    public OperNatPointBlockPair operNat(String _k, String _symbol, String _f, String _s) {
         return getContext().operNat(_k, _symbol, _f, _s);
+    }
+    public CompoOperNatPointBlockPair operCompoNat(String _k, String _symbol, String _f, String _s) {
+        return getContext().operCompoNat(_k, _symbol, _f, _s);
     }
 
     public MethodPointBlockPair method(DisplayedStrings _d, MemberCallingsBlock _id) {
@@ -218,12 +226,19 @@ public final class ResultContext {
     public WatchPointBlockPair watch(boolean _trField, SynthFieldInfo _field) {
         return getContext().watch(_trField, _field);
     }
-    public BreakPointBlockPair bp(ExecFileBlock _file, int _nf, int _offset, boolean _enType) {
-        return getContext().bp(_file, _nf, _offset, _enType);
+    public BreakPointBlockPair bp(ExecFileBlock _file, int _nf, int _offset) {
+        return getContext().bp(_file, _nf, _offset);
+    }
+    public TypePointBlockPair tp(ExecFileBlock _file, int _nf, int _offset) {
+        return getContext().tp(_file, _nf, _offset);
     }
 
     public AbsCollection<BreakPointBlockPair> bpList() {
         return getContext().bpList();
+    }
+
+    public AbsCollection<TypePointBlockPair> tpList() {
+        return getContext().typeList();
     }
     public void toggleBreakPointEnabled(String _file, int _offset) {
         FileBlock fb_ = getPageEl().getPreviousFilesBodies().getVal(_file);
@@ -241,12 +256,20 @@ public final class ResultContext {
             toggleEnabled(getPageEl().getDisplayedStrings(),id_);
             return;
         }
+        if (ResultExpressionOperationNode.enabledTypeBp(_offset,fb_)) {
+            ExecFileBlock f_ = getFiles().getVal(fb_);
+            toggleEnabledType(f_, FileBlock.number(fb_), o_);
+            return;
+        }
         ExecFileBlock f_ = getFiles().getVal(fb_);
-        toggleEnabled(f_,FileBlock.number(fb_),o_, ResultExpressionOperationNode.enabledTypeBp(_offset, fb_));
+        toggleEnabled(f_,FileBlock.number(fb_),o_);
     }
 
-    public void toggleEnabled(ExecFileBlock _file, int _nf, int _offset, boolean _enType) {
-        getContext().toggleEnabled(_file, _nf, _offset, _enType);
+    public void toggleEnabled(ExecFileBlock _file, int _nf, int _offset) {
+        getContext().toggleEnabled(_file, _nf, _offset);
+    }
+    public void toggleEnabledType(ExecFileBlock _file, int _nf, int _offset) {
+        getContext().toggleEnabledType(_file, _nf, _offset);
     }
     public void toggleArrPoint(String _clName, int _exact) {
         getContext().toggleArrPoint(_clName, _exact);
@@ -332,6 +355,9 @@ public final class ResultContext {
     public BreakPointBlockPair getPair(ExecFileBlock _file, int _offset) {
         return getContext().getPair(_file, _offset);
     }
+    public TypePointBlockPair getPairType(ExecFileBlock _file, int _offset) {
+        return getContext().getTypePair(_file, _offset);
+    }
     public boolean is(String _id) {
         return getContext().is(_id);
     }
@@ -362,15 +388,6 @@ public final class ResultContext {
     }
     public ParPointBlockPair getPairPar(String _field, int _exact) {
         return getContext().getPairPar(_field, _exact);
-    }
-    public void breakPointEnabled(String _file, int _offset, boolean _newValue) {
-        BreakPointBlockList.breakPointEnabled(_file, _offset, this,_newValue);
-    }
-    public void breakPointInstanceType(String _file, int _offset, boolean _newValue) {
-        BreakPointBlockList.breakPointInstanceType(_file, _offset, this, _newValue);
-    }
-    public void breakPointStaticType(String _file, int _offset, boolean _newValue) {
-        BreakPointBlockList.breakPointStaticType(_file, _offset, this, _newValue);
     }
 
     public CustList<BreakPointBlockPair> bp(ExecFileBlock _file, FileMetrics _ana, int _off) {

@@ -1,17 +1,19 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.exec.dbg.BreakPoint;
-import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
+import code.expressionlanguage.exec.dbg.TypePointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
-public final class FrameBpFormContent {
+public final class FrameTpFormContent {
     private AbsTextField fileName;
     private AbsSpinner caret;
-    private final GuiStackForm guiStdStackForm;
-    private BreakPointBlockPair selectedBp;
+    private final GuiStackForm guiInsStackForm;
+    private final GuiStackForm guiStaStackForm;
+    private TypePointBlockPair selectedTp;
+    private AbsCustCheckBox instanceType;
+    private AbsCustCheckBox staticType;
     private AbsCustCheckBox enabledBp;
     private AbsButton ok;
     private AbsPlainLabel edited;
@@ -19,11 +21,14 @@ public final class FrameBpFormContent {
     private AbsPanel contentPane;
     private AbsTabbedPane tabs;
 
-    public FrameBpFormContent(AbstractProgramInfos _c) {
-        guiStdStackForm = new GuiStackForm(_c);
+    public FrameTpFormContent(AbstractProgramInfos _c) {
+        guiInsStackForm = new GuiStackForm(_c);
+        guiStaStackForm = new GuiStackForm(_c);
     }
     public void guiBuild(AbsDebuggerGui _d) {
         edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel("");
+        instanceType = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("instance");
+        staticType = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("static");
         enabledBp = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
         fileName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         caret = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
@@ -31,8 +36,11 @@ public final class FrameBpFormContent {
         remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
         AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         bpForm_.add(enabledBp);
+        bpForm_.add(instanceType);
+        bpForm_.add(staticType);
         tabs = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
-        putStForm(tabs, "std", guiStdStackForm.guiBuild(_d));
+        putStForm(tabs, "instance", guiInsStackForm.guiBuild(_d));
+        putStForm(tabs, "static", guiStaStackForm.guiBuild(_d));
         bpForm_.add(tabs);
         bpForm_.add(fileName);
         bpForm_.add(caret);
@@ -48,15 +56,16 @@ public final class FrameBpFormContent {
     public AbsPanel getContentPane() {
         return contentPane;
     }
-    public void initForm(BreakPointBlockPair _wp, AbsCommonFrame _c, ResultContext _r) {
-        setSelectedBp(_wp);
-        BreakPointBlockPair exc_ = getSelectedBp();
+    public void initForm(TypePointBlockPair _wp, AbsCommonFrame _c, ResultContext _r) {
+        setSelectedTp(_wp);
+        TypePointBlockPair exc_ = getSelectedTp();
         tabs.removeAll();
         if (exc_ != null) {
-            BreakPointFormEvent.bpAction(exc_, _c, this, _r);
+            BreakPointFormEvent.tpAction(exc_, _c, this, _r);
             remove.setEnabled(true);
         } else {
-            getGuiStdStackForm().getDependantPointsForm().init(_r, BreakPoint.BP);
+            getGuiInsStackForm().getDependantPointsForm().init(_r, FramePointsTree.SORT_TP);
+            getGuiStaStackForm().getDependantPointsForm().init(_r, FramePointsTree.SORT_TP);
             getEdited().setText("");
             remove.setEnabled(false);
         }
@@ -80,18 +89,27 @@ public final class FrameBpFormContent {
 
     public void refresh(StringMap<String> _v, ResultContext _r, AbsDebuggerGui _d, FramePoints _p) {
         GuiBaseUtil.removeActionListeners(ok);
-        ok.addActionListener(new OkBpFormEvent(_d, _r));
+        ok.addActionListener(new OkTpFormEvent(_d, _r));
         GuiBaseUtil.removeActionListeners(remove);
-        remove.addActionListener(new OkRemoveBpFormEvent(_d, this, _p, _r));
-        getGuiStdStackForm().refresh(_v, "", _r, _d);
+        remove.addActionListener(new OkRemoveTpFormEvent(_d, this, _p, _r));
+        getGuiInsStackForm().refresh(_v, "", _r, _d);
+        getGuiStaStackForm().refresh(_v, "", _r, _d);
     }
 
-    public BreakPointBlockPair getSelectedBp() {
-        return selectedBp;
+    public TypePointBlockPair getSelectedTp() {
+        return selectedTp;
     }
 
-    public void setSelectedBp(BreakPointBlockPair _s) {
-        this.selectedBp = _s;
+    public void setSelectedTp(TypePointBlockPair _s) {
+        this.selectedTp = _s;
+    }
+
+    public AbsCustCheckBox getInstanceType() {
+        return instanceType;
+    }
+
+    public AbsCustCheckBox getStaticType() {
+        return staticType;
     }
 
     public AbsCustCheckBox getEnabledBp() {
@@ -102,8 +120,11 @@ public final class FrameBpFormContent {
         return ok;
     }
 
-    public GuiStackForm getGuiStdStackForm() {
-        return guiStdStackForm;
+    public GuiStackForm getGuiInsStackForm() {
+        return guiInsStackForm;
     }
 
+    public GuiStackForm getGuiStaStackForm() {
+        return guiStaStackForm;
+    }
 }

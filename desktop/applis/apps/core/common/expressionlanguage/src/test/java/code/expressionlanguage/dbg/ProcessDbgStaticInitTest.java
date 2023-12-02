@@ -1,6 +1,5 @@
 package code.expressionlanguage.dbg;
 
-import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.options.ResultContext;
 import code.util.StringMap;
@@ -314,7 +313,7 @@ public final class ProcessDbgStaticInitTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex");
         cont_.toggleBreakPoint("pkg/Ex",13);
-        cont_.breakPointStaticType("pkg/Ex",13,true);
+        updateStaType(cont_, "pkg/Ex",13,true);
         cont_.toggleBreakPoint("pkg/Ex",66);
         StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
         StackCall next_ = tryInitStaticlyTypes(stack_, cont_.getForwards().getOptions(), cont_.getContext());

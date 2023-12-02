@@ -95,19 +95,21 @@ public final class FrameArrFormContent {
         bpForm_.add(intGetSet);
         bpForm_.add(initArray);
         bpForm_.add(clone);
-        bpForm_.add(guiLengthStackForm.guiBuild(_d));
-        bpForm_.add(guiIntGetStackForm.guiBuild(_d));
-        bpForm_.add(guiIntSetStackForm.guiBuild(_d));
-        bpForm_.add(guiIntCompoundGetStackForm.guiBuild(_d));
-        bpForm_.add(guiIntCompoundSetStackForm.guiBuild(_d));
-        bpForm_.add(guiIntCompoundSetErrStackForm.guiBuild(_d));
-        bpForm_.add(guiRangeGetStackForm.guiBuild(_d));
-        bpForm_.add(guiRangeSetStackForm.guiBuild(_d));
-        bpForm_.add(guiRangeCompoundGetStackForm.guiBuild(_d));
-        bpForm_.add(guiRangeCompoundSetStackForm.guiBuild(_d));
-        bpForm_.add(guiIntGetSetStackForm.guiBuild(_d));
-        bpForm_.add(guiInitArrayStackForm.guiBuild(_d));
-        bpForm_.add(guiCloneStackForm.guiBuild(_d));
+        AbsTabbedPane tab_ = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        putStForm(_d, tab_, guiLengthStackForm, "length");
+        putStForm(_d, tab_, guiIntGetStackForm, "int get");
+        putStForm(_d, tab_, guiIntSetStackForm, "int set");
+        putStForm(_d, tab_, guiIntCompoundGetStackForm, "int compound get");
+        putStForm(_d, tab_, guiIntCompoundSetStackForm, "int compound set");
+        putStForm(_d, tab_, guiIntCompoundSetErrStackForm, "int compound set error");
+        putStForm(_d, tab_, guiRangeGetStackForm, "range get");
+        putStForm(_d, tab_, guiRangeSetStackForm, "range set");
+        putStForm(_d, tab_, guiRangeCompoundGetStackForm, "range compound get");
+        putStForm(_d, tab_, guiRangeCompoundSetStackForm, "range compound set");
+        putStForm(_d, tab_, guiIntGetSetStackForm, "range int get set");
+        putStForm(_d, tab_, guiInitArrayStackForm, "range init array");
+        putStForm(_d, tab_, guiCloneStackForm, "clone");
+        bpForm_.add(tab_);
         getGuiLengthStackForm().showPrefs();
         getGuiIntGetStackForm().showPrefs();
         getGuiIntSetStackForm().showPrefs();
@@ -125,6 +127,11 @@ public final class FrameArrFormContent {
         bpForm_.add(remove);
         contentPane = bpForm_;
     }
+
+    private void putStForm(AbsDebuggerGui _d, AbsTabbedPane _tab, GuiStackForm _target, String _title) {
+        _tab.addIntTab(_title,_target.guiBuild(_d));
+    }
+
     public void initForm(ArrPointBlockPair _s, AbsCommonFrame _f, ResultContext _r) {
         setSelectedArr(_s);
         ArrPointBlockPair exc_ = getSelectedArr();
@@ -138,32 +145,33 @@ public final class FrameArrFormContent {
             clName.setText(exc_.getEp().getClName());
             remove.setEnabled(true);
             getEnabledExc().setSelected(exc_.getValue().isEnabled());
-            BreakPointFormEvent.specific(getGuiLengthStackForm(), true, exc_.getValue().getResultLength(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_LENGTH), _f,_r);
+            BreakPointFormEvent.specific(getGuiLengthStackForm(), exc_.getValue().getResultLength(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_LENGTH), _f,_r);
             getLength().setSelected(exc_.getValue().isLength());
-            BreakPointFormEvent.specific(getGuiIntGetStackForm(), true, exc_.getValue().getResultIntGet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_GET), _f,_r);
+            BreakPointFormEvent.specific(getGuiIntGetStackForm(), exc_.getValue().getResultIntGet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_GET), _f,_r);
             getIntGet().setSelected(exc_.getValue().isIntGet());
-            BreakPointFormEvent.specific(getGuiIntSetStackForm(), true, exc_.getValue().getResultIntSet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_SET), _f,_r);
+            BreakPointFormEvent.specific(getGuiIntSetStackForm(), exc_.getValue().getResultIntSet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_SET), _f,_r);
             getIntSet().setSelected(exc_.getValue().isIntSet());
-            BreakPointFormEvent.specific(getGuiIntCompoundGetStackForm(), true, exc_.getValue().getResultIntCompoundGet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_COMPOUND_GET), _f,_r);
+            BreakPointFormEvent.specific(getGuiIntCompoundGetStackForm(), exc_.getValue().getResultIntCompoundGet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_COMPOUND_GET), _f,_r);
             getIntCompoundGet().setSelected(exc_.getValue().isIntCompoundGet());
-            BreakPointFormEvent.specific(getGuiIntCompoundSetStackForm(), true, exc_.getValue().getResultIntCompoundSet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_COMPOUND_SET), _f,_r);
+            BreakPointFormEvent.specific(getGuiIntCompoundSetStackForm(), exc_.getValue().getResultIntCompoundSet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_COMPOUND_SET), _f,_r);
             getIntCompoundSet().setSelected(exc_.getValue().isIntCompoundSet());
-            BreakPointFormEvent.specific(getGuiIntCompoundSetErrStackForm(), true, exc_.getValue().getResultIntCompoundSetErr(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_COMPOUND_SET_ERR), _f,_r);
+            BreakPointFormEvent.specific(getGuiIntCompoundSetErrStackForm(), exc_.getValue().getResultIntCompoundSetErr(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_COMPOUND_SET_ERR), _f,_r);
             getIntCompoundSetErr().setSelected(exc_.getValue().isIntCompoundSetErr());
-            BreakPointFormEvent.specific(getGuiRangeGetStackForm(), true, exc_.getValue().getResultRangeGet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_RANGE_GET), _f,_r);
+            BreakPointFormEvent.specific(getGuiRangeGetStackForm(), exc_.getValue().getResultRangeGet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_RANGE_GET), _f,_r);
             getRangeGet().setSelected(exc_.getValue().isRangeGet());
-            BreakPointFormEvent.specific(getGuiRangeSetStackForm(), true, exc_.getValue().getResultRangeSet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_RANGE_SET), _f,_r);
+            BreakPointFormEvent.specific(getGuiRangeSetStackForm(), exc_.getValue().getResultRangeSet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_RANGE_SET), _f,_r);
             getRangeSet().setSelected(exc_.getValue().isRangeSet());
-            BreakPointFormEvent.specific(getGuiRangeCompoundGetStackForm(), true, exc_.getValue().getResultRangeCompoundGet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_RANGE_COMPOUND_GET), _f,_r);
+            BreakPointFormEvent.specific(getGuiRangeCompoundGetStackForm(), exc_.getValue().getResultRangeCompoundGet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_RANGE_COMPOUND_GET), _f,_r);
             getRangeCompoundGet().setSelected(exc_.getValue().isRangeCompoundGet());
-            BreakPointFormEvent.specific(getGuiRangeCompoundSetStackForm(), true, exc_.getValue().getResultRangeCompoundSet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_RANGE_COMPOUND_SET), _f,_r);
+            BreakPointFormEvent.specific(getGuiRangeCompoundSetStackForm(), exc_.getValue().getResultRangeCompoundSet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_RANGE_COMPOUND_SET), _f,_r);
             getRangeCompoundSet().setSelected(exc_.getValue().isRangeCompoundSet());
-            BreakPointFormEvent.specific(getGuiIntGetSetStackForm(), true, exc_.getValue().getResultIntGetSet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_GET_SET), _f,_r);
+            BreakPointFormEvent.specific(getGuiIntGetSetStackForm(), exc_.getValue().getResultIntGetSet(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INT_GET_SET), _f,_r);
             getIntGetSet().setSelected(exc_.getValue().isIntGetSet());
-            BreakPointFormEvent.specific(getGuiInitArrayStackForm(), true, exc_.getValue().getResultInitArray(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INIT), _f,_r);
+            BreakPointFormEvent.specific(getGuiInitArrayStackForm(), exc_.getValue().getResultInitArray(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_INIT), _f,_r);
             getInitArray().setSelected(exc_.getValue().isInitArray());
-            BreakPointFormEvent.specific(getGuiCloneStackForm(), true, exc_.getValue().getResultClone(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_CLONE), _f,_r);
+            BreakPointFormEvent.specific(getGuiCloneStackForm(), exc_.getValue().getResultClone(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_CLONE), _f,_r);
             getClone().setSelected(exc_.getValue().isInitArray());
+            PackingWindowAfter.pack(_f);
         } else {
             getGuiLengthStackForm().getDependantPointsForm().init(_r, ArrPoint.AP);
             getGuiIntGetStackForm().getDependantPointsForm().init(_r, ArrPoint.AP);

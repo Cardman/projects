@@ -41,11 +41,11 @@ public final class WatchPointFormEvent implements AbsActionListener {
     static void watchAction(FrameWpFormContent _content, AbsCommonFrame _frame, WatchPointBlockPair _bp, ResultContext _r) {
         _content.getEdited().setText(FramePoints.displayWatch(_bp));
         _content.getEnabledWp().setSelected(_bp.getValue().isEnabled());
-        BreakPointFormEvent.specific(_content.getGuiReadStackForm(), true, _bp.getValue().getResultRead(), new CustList<BreakPointCondition>(), _frame,_r);
-        BreakPointFormEvent.specific(_content.getGuiWriteStackForm(), true, _bp.getValue().getResultWrite(), new CustList<BreakPointCondition>(), _frame,_r);
-        BreakPointFormEvent.specific(_content.getGuiCompoundReadStackForm(), true, _bp.getValue().getResultCompoundRead(), new CustList<BreakPointCondition>(), _frame,_r);
-        BreakPointFormEvent.specific(_content.getGuiCompoundWriteStackForm(), true, _bp.getValue().getResultCompoundWrite(), new CustList<BreakPointCondition>(), _frame,_r);
-        BreakPointFormEvent.specific(_content.getGuiCompoundWriteErrStackForm(), true, _bp.getValue().getResultCompoundWriteErr(), new CustList<BreakPointCondition>(), _frame,_r);
+        BreakPointFormEvent.specific(_content.getGuiReadStackForm(), _bp.getValue().getResultRead(), new CustList<BreakPointCondition>(), _frame,_r);
+        BreakPointFormEvent.specific(_content.getGuiWriteStackForm(), _bp.getValue().getResultWrite(), new CustList<BreakPointCondition>(), _frame,_r);
+        BreakPointFormEvent.specific(_content.getGuiCompoundReadStackForm(), _bp.getValue().getResultCompoundRead(), new CustList<BreakPointCondition>(), _frame,_r);
+        BreakPointFormEvent.specific(_content.getGuiCompoundWriteStackForm(), _bp.getValue().getResultCompoundWrite(), new CustList<BreakPointCondition>(), _frame,_r);
+        BreakPointFormEvent.specific(_content.getGuiCompoundWriteErrStackForm(), _bp.getValue().getResultCompoundWriteErr(), new CustList<BreakPointCondition>(), _frame,_r);
         _content.getRead().setSelected(_bp.getValue().isRead());
         _content.getWrite().setSelected(_bp.getValue().isWrite());
         _content.getCompoundRead().setSelected(_bp.getValue().isCompoundRead());

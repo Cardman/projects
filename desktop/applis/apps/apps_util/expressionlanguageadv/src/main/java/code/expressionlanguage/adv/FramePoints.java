@@ -17,12 +17,15 @@ public final class FramePoints {
     private final FrameMpForm frameFormContent;
     private final FrameWpFormContent frameWpFormContent;
     private final FrameBpFormContent frameBpFormContent;
+    private final FrameTpFormContent frameTpFormContent;
     private final FrameArrFormContent frameArrFormContent;
     private final FrameParFormContent frameParFormContent;
     private final FrameOperNatFormContent frameOperNatFormContent;
+    private final FrameOperNatCompoFormContent frameOperNatCompoFormContent;
     private final FramePointsTree framePointsTree;
     private final FrameRenderFormContent frameRenderFormContent;
     private AbsScrollPane view;
+    private AbsScrollPane viewRp;
     private final StackConstraintsForm stackConstraintsForm;
     private AbsButton validStack;
     private AbsTreeGui tree;
@@ -39,38 +42,47 @@ public final class FramePoints {
         frameFormContent = new FrameMpForm(_list);
         frameWpFormContent = new FrameWpFormContent(_list);
         frameBpFormContent = new FrameBpFormContent(_list);
+        frameTpFormContent = new FrameTpFormContent(_list);
         frameArrFormContent = new FrameArrFormContent(_list);
         frameParFormContent = new FrameParFormContent(_list);
         frameOperNatFormContent = new FrameOperNatFormContent(_list);
+        frameOperNatCompoFormContent = new FrameOperNatCompoFormContent(_list);
         frameRenderFormContent = new FrameRenderFormContent(_list);
         stackConstraintsForm = new StackConstraintsForm();
     }
     public void guiBuild(AbsDebuggerGui _d) {
         view = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
+        viewRp = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
+        AbsTabbedPane tab_ = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
         AbsPanel pointsKeys_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         framePointsTree.guiBuild();
         pointsKeys_.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(framePointsTree.getTree()));
         pointsKeys_.add(framePointsTree.getCreate());
-        AbsPanel pageStack_ = stackConstraintsForm.guiBuild(_d);
         validStack = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("validate constraints stack for stepping into");
-        pageStack_.add(validStack);
+        AbsSplitPane pageStack_ = stackConstraintsForm.guiBuild(_d,validStack);
         AbstractMutableTreeNodeCore<String> root_ = _d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode("render points");
         tree = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui(root_);
         create = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("+");
-        pageStack_.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(tree));
-        pageStack_.add(create);
+        AbsPanel renderPts_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        renderPts_.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(tree));
+        renderPts_.add(create);
         frameRenderFormContent.guiBuild(_d);
         AbsPanel all_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        all_.add(_d.getCommonFrame().getFrames().getCompoFactory().newVerticalSplitPane(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(pointsKeys_,view)),commonFrame.getFrames().getCompoFactory().newAbsScrollPane(pageStack_)));
+        tab_.addIntTab("custom points",_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(pointsKeys_,view));
+        tab_.addIntTab("constraints",commonFrame.getFrames().getCompoFactory().newAbsScrollPane(pageStack_));
+        tab_.addIntTab("render points",_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(renderPts_),viewRp));
+        all_.add(tab_);
         commonFrame.setContentPane(all_);
         frameExcFormContent.guiBuild(_d);
         frameStdFormContent.guiBuild(_d);
         frameFormContent.guiBuild(_d);
         frameWpFormContent.guiBuild(_d);
         frameBpFormContent.guiBuild(_d);
+        frameTpFormContent.guiBuild(_d);
         frameArrFormContent.guiBuild(_d);
         frameParFormContent.guiBuild(_d);
         frameOperNatFormContent.guiBuild(_d);
+        frameOperNatCompoFormContent.guiBuild(_d);
     }
     public void refresh(StringMap<String> _v, AbsDebuggerGui _d, ResultContext _r) {
         frameExcFormContent.refresh(_v, _r, _d, this);
@@ -86,9 +98,11 @@ public final class FramePoints {
         frameFormContent.refresh(_v, _r, _d);
         frameWpFormContent.refresh(_v, _r, _d, this);
         frameBpFormContent.refresh(_v, _r, _d, this);
+        frameTpFormContent.refresh(_v, _r, _d, this);
         frameArrFormContent.refresh(_v, _r, _d, this);
         frameParFormContent.refresh(_v, _r, _d, this);
         frameOperNatFormContent.refresh(_v, _r, _d, this);
+        frameOperNatCompoFormContent.refresh(_v, _r, _d, this);
         frameRenderFormContent.refresh(_r, _d, this);
         stackConstraintsForm.refresh(_v,"",_r,_d);
         GuiBaseUtil.removeActionListeners(validStack);
@@ -100,18 +114,22 @@ public final class FramePoints {
         if (commonFrame.isVisible()) {
             return;
         }
-        view.setNullViewportView();
         caller = _d.getCaller();
         refreshRender(_d.getRenderList());
         GuiBaseUtil.removeActionListeners(create);
         create.addActionListener(new TreeRenderPointBlockPairAddEvent(_d.getRenderList(),_res,this));
         listenerSelect(_d.getRenderList(), _res);
+        refreshPoints(_d, _res);
+    }
+    public void refreshPoints(AbsDebuggerGui _d, ResultContext _res) {
+        view.setNullViewportView();
         framePointsTree.init(this,_res);
         frameStdFormContent.tree(_d,this, _res);
         commonFrame.setVisible(true);
         commonFrame.pack();
     }
     public void refreshRender(CustList<RenderPointPair> _res) {
+        guiContentBuildClearRp();
         AbstractMutableTreeNodeCore<String> root_ = tree.getRoot();
         root_.removeAllChildren();
         AbsCollection<ExcPointBlockPair> p_ = caller.newExcPointKeyStringCollection();
@@ -133,6 +151,9 @@ public final class FramePoints {
     public void refreshBp(ResultContext _res) {
         framePointsTree.refreshBp(_res);
     }
+    public void refreshTp(ResultContext _res) {
+        framePointsTree.refreshTp(_res);
+    }
     public void refreshArr(ResultContext _res) {
         framePointsTree.refreshArray(_res);
     }
@@ -144,6 +165,9 @@ public final class FramePoints {
     }
     public void refreshOperNat(ResultContext _res) {
         framePointsTree.refreshOperNat(_res);
+    }
+    public void refreshOperNatCompo(ResultContext _res) {
+        framePointsTree.refreshOperNatCompo(_res);
     }
 
     public void refreshStdMethod(ResultContext _res) {
@@ -169,8 +193,8 @@ public final class FramePoints {
 
     public void guiContentBuild(CustList<RenderPointPair> _bpc,RenderPointPair _exc, ResultContext _r) {
         frameRenderFormContent.initForm(_bpc,_exc,commonFrame,_r);
-        view.setViewportView(frameRenderFormContent.getContentPane());
-        view.recalculateViewport();
+        viewRp.setViewportView(frameRenderFormContent.getContentPane());
+        viewRp.recalculateViewport();
     }
     public void guiContentBuild(ExcPointBlockPair _exc, ResultContext _r) {
         frameExcFormContent.initForm(_exc,commonFrame,_r);
@@ -187,6 +211,12 @@ public final class FramePoints {
     public void guiContentBuild(OperNatPointBlockPair _exc, ResultContext _r) {
         frameOperNatFormContent.initForm(_exc,commonFrame,_r);
         view.setViewportView(frameOperNatFormContent.getContentPane());
+        view.recalculateViewport();
+    }
+
+    public void guiContentBuild(CompoOperNatPointBlockPair _exc, ResultContext _r) {
+        frameOperNatCompoFormContent.initForm(_exc,commonFrame,_r);
+        view.setViewportView(frameOperNatCompoFormContent.getContentPane());
         view.recalculateViewport();
     }
 
@@ -214,6 +244,11 @@ public final class FramePoints {
         view.recalculateViewport();
     }
 
+    public void guiContentBuild(TypePointBlockPair _exc, ResultContext _r) {
+        frameTpFormContent.initForm(_exc,commonFrame,_r);
+        view.setViewportView(frameTpFormContent.getContentPane());
+        view.recalculateViewport();
+    }
     public void guiContentBuild(ArrPointBlockPair _exc, ResultContext _r) {
         frameArrFormContent.initForm(_exc,commonFrame,_r);
         view.setViewportView(frameArrFormContent.getContentPane());
@@ -222,6 +257,10 @@ public final class FramePoints {
 
     public void guiContentBuildClear() {
         view.setNullViewportView();
+    }
+
+    public void guiContentBuildClearRp() {
+        viewRp.setNullViewportView();
     }
 
     public AbsTreeGui getTree() {
@@ -268,8 +307,16 @@ public final class FramePoints {
         return frameBpFormContent;
     }
 
+    public FrameTpFormContent getFrameTpFormContent() {
+        return frameTpFormContent;
+    }
+
     public FrameOperNatFormContent getFrameOperNatFormContent() {
         return frameOperNatFormContent;
+    }
+
+    public FrameOperNatCompoFormContent getFrameOperNatCompoFormContent() {
+        return frameOperNatCompoFormContent;
     }
 
     public FrameParFormContent getFrameParFormContent() {

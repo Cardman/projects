@@ -183,6 +183,10 @@ public abstract class ContextEl {
         }
         if (_p instanceof BreakPointBlockPair) {
             toggleBp((BreakPointBlockPair)_p);
+            return;
+        }
+        if (_p instanceof TypePointBlockPair) {
+            toggleTp((TypePointBlockPair)_p);
         }
     }
 
@@ -221,12 +225,26 @@ public abstract class ContextEl {
         bpList().add(_pair);
     }
 
+    private void toggleTp(TypePointBlockPair _pair) {
+        for (TypePointBlockPair b: typeList().elts()) {
+            if (b.getBp().match(_pair.getBp())) {
+                typeList().remove(b);
+                return;
+            }
+        }
+        typeList().add(_pair);
+    }
+
     public OperNatPointBlockPair operNatDisabled() {
         return getClasses().getDebugMapping().getBreakPointsBlock().operNatDisabled();
     }
 
-    public OperNatPointBlockPair operNat(String _k, String _symbol,String _f, String _s) {
+    public OperNatPointBlockPair operNat(String _k, String _symbol, String _f, String _s) {
         return getClasses().getDebugMapping().getBreakPointsBlock().operNat(_k,_symbol, _f, _s);
+    }
+
+    public CompoOperNatPointBlockPair operCompoNat(String _k, String _symbol, String _f, String _s) {
+        return getClasses().getDebugMapping().getBreakPointsBlock().operNatComp(_k,_symbol, _f, _s);
     }
 
     public MethodPointBlockPair method(DisplayedStrings _d, MemberCallingsBlock _id) {
@@ -238,8 +256,11 @@ public abstract class ContextEl {
     public WatchPointBlockPair watch(boolean _trField, SynthFieldInfo _field) {
         return getClasses().getDebugMapping().getBreakPointsBlock().watch(_trField, _field);
     }
-    public BreakPointBlockPair bp(ExecFileBlock _file, int _nf, int _offset, boolean _enType) {
-        return getClasses().getDebugMapping().getBreakPointsBlock().bp(_file, _nf, _offset, _enType);
+    public BreakPointBlockPair bp(ExecFileBlock _file, int _nf, int _offset) {
+        return getClasses().getDebugMapping().getBreakPointsBlock().bp(_file, _nf, _offset);
+    }
+    public TypePointBlockPair tp(ExecFileBlock _file, int _nf, int _offset) {
+        return getClasses().getDebugMapping().getBreakPointsBlock().tp(_file, _nf, _offset);
     }
     public AbsCollection<WatchPointBlockPair> watchList() {
         return getClasses().getDebugMapping().getBreakPointsBlock().getWatchList();
@@ -247,9 +268,12 @@ public abstract class ContextEl {
     public AbsCollection<BreakPointBlockPair> bpList() {
         return getClasses().getDebugMapping().getBreakPointsBlock().getList();
     }
+    public AbsCollection<TypePointBlockPair> typeList() {
+        return getClasses().getDebugMapping().getBreakPointsBlock().getTypeList();
+    }
 
-    public void toggleEnabled(ExecFileBlock _file, int _nf, int _offset, boolean _enType) {
-        BreakPointBlockPair pair_ = bp(_file, _nf, _offset, _enType);
+    public void toggleEnabled(ExecFileBlock _file, int _nf, int _offset) {
+        BreakPointBlockPair pair_ = bp(_file, _nf, _offset);
         for (BreakPointBlockPair b: bpList().elts()) {
             if (b.getBp().match(pair_.getBp())) {
                 b.getValue().setEnabled(!b.getValue().isEnabled());
@@ -257,6 +281,16 @@ public abstract class ContextEl {
             }
         }
         bpList().add(pair_);
+    }
+    public void toggleEnabledType(ExecFileBlock _file, int _nf, int _offset) {
+        TypePointBlockPair pair_ = tp(_file, _nf, _offset);
+        for (TypePointBlockPair b: typeList().elts()) {
+            if (b.getBp().match(pair_.getBp())) {
+                b.getValue().setEnabled(!b.getValue().isEnabled());
+                return;
+            }
+        }
+        typeList().add(pair_);
     }
     public void toggleArrPoint(String _clName, int _exact) {
         ArrPointBlockPair exc_ = buildArr(_exact, _clName);
@@ -285,8 +319,12 @@ public abstract class ContextEl {
         return getClasses().getDebugMapping().getBreakPointsBlock().getParPointList();
     }
 
-    public AbsCollection<OperNatPointBlockPair> operNatList() {
+    public AbsCollection<AbsOperNatPointBlockPair> operNatList() {
         return getClasses().getDebugMapping().getBreakPointsBlock().getOperNatPointList();
+    }
+
+    public AbsCollection<AbsOperNatPointBlockPair> operCompoNatList() {
+        return getClasses().getDebugMapping().getBreakPointsBlock().getOperCompoNatPointList();
     }
     public ArrPointBlockPair buildArr(int _exact, String _clName) {
         String solved_ = ExecPartTypeUtil.correctClassPartsDynamic(_clName, this);
@@ -402,25 +440,46 @@ public abstract class ContextEl {
         parList().add(_b);
     }
 
-    public OperNatPointBlockPair toggleOperNat(OperNatPointBlockPair _b) {
-        for (OperNatPointBlockPair b: operNatList().elts()) {
+    public AbsOperNatPointBlockPair toggleOperNat(AbsOperNatPointBlockPair _b) {
+        if (_b instanceof CompoOperNatPointBlockPair) {
+            return togList(_b, operCompoNatList());
+        }
+        return togList(_b, operNatList());
+    }
+
+    private AbsOperNatPointBlockPair togList(AbsOperNatPointBlockPair _b, AbsCollection<AbsOperNatPointBlockPair> _lis) {
+        for (AbsOperNatPointBlockPair b: _lis.elts()) {
             if (b.getOn().match(_b.getOn())) {
-                operNatList().remove(b);
+                _lis.remove(b);
                 return operNatDisabled();
             }
         }
-        operNatList().add(_b);
+        _lis.add(_b);
         return _b;
     }
 
-    public OperNatPointBlockPair toggleEnableOperNat(OperNatPointBlockPair _b) {
-        for (OperNatPointBlockPair b: operNatList().elts()) {
+    public AbsOperNatPointBlockPair toggleEnableOperNat(AbsOperNatPointBlockPair _b) {
+        if (_b instanceof CompoOperNatPointBlockPair) {
+            return toList(_b, operCompoNatList());
+        }
+        return toList(_b, operNatList());
+    }
+
+    private AbsOperNatPointBlockPair toList(AbsOperNatPointBlockPair _b, AbsCollection<AbsOperNatPointBlockPair> _enList) {
+        for (AbsOperNatPointBlockPair b: _enList.elts()) {
             if (b.getOn().match(_b.getOn())) {
-                b.getValue().setEnabled(!b.getValue().isEnabled());
+                if (b instanceof OperNatPointBlockPair) {
+                    boolean b_ = !((OperNatPointBlockPair) b).getValue().isEnabled();
+                    ((OperNatPointBlockPair)b).getValue().setEnabled(b_);
+                }
+                if (b instanceof CompoOperNatPointBlockPair) {
+                    boolean b_ = !((CompoOperNatPointBlockPair) b).getValue().isEnabled();
+                    ((CompoOperNatPointBlockPair)b).getValue().setEnabled(b_);
+                }
                 return b;
             }
         }
-        operNatList().add(_b);
+        _enList.add(_b);
         return _b;
     }
     public void toggleEnabled(DisplayedStrings _d, MemberCallingsBlock _id) {
@@ -475,9 +534,17 @@ public abstract class ContextEl {
     public BreakPoint getNotNull(ExecFileBlock _file, int _offset) {
         return getNotNullPair(_file, _offset).getValue();
     }
+    public TypePoint getNotNullType(ExecFileBlock _file, int _offset) {
+        return getNotNullTypePair(_file, _offset).getValue();
+    }
 
     public BreakPointBlockPair getNotNullPair(ExecFileBlock _file, int _offset) {
         BreakPointBlockPair b_ = getPair(_file, _offset);
+        return getClasses().getDebugMapping().getBreakPointsBlock().notNull(b_);
+    }
+
+    public TypePointBlockPair getNotNullTypePair(ExecFileBlock _file, int _offset) {
+        TypePointBlockPair b_ = getTypePair(_file, _offset);
         return getClasses().getDebugMapping().getBreakPointsBlock().notNull(b_);
     }
     public MethodPoint getNotNull(StandardNamedFunction _id) {
@@ -536,6 +603,15 @@ public abstract class ContextEl {
         }
         return null;
     }
+
+    public TypePointBlockPair getTypePair(ExecFileBlock _file, int _offset) {
+        for (TypePointBlockPair b: typeList().elts()) {
+            if (b.getBp().match(_file, _offset)) {
+                return b;
+            }
+        }
+        return null;
+    }
     public StdMethodPointBlockPair getPair(StandardNamedFunction _id) {
         for (StdMethodPointBlockPair b: stdList().elts()) {
             if (b.getSm().match(_id)) {
@@ -580,14 +656,23 @@ public abstract class ContextEl {
         return null;
     }
 
-    public OperNatPointBlockPair getPairOperNat(String _str) {
-        for (OperNatPointBlockPair b: operNatList().elts()) {
+    public AbsOperNatPointBlockPair getPairOperNat(String _str) {
+        AbsOperNatPointBlockPair f_ = find(_str, operNatList());
+        if (f_ != null) {
+            return f_;
+        }
+        return find(_str, operCompoNatList());
+    }
+
+    private AbsOperNatPointBlockPair find(String _str, AbsCollection<AbsOperNatPointBlockPair> _ls) {
+        for (AbsOperNatPointBlockPair b: _ls.elts()) {
             if (b.getOn().match(_str)) {
                 return b;
             }
         }
-        return operNatDisabled();
+        return null;
     }
+
     public WatchPointBlockPair getPairWatch(boolean _trField, int _root, String _field) {
         for (WatchPointBlockPair b: watchList().elts()) {
             if (b.getWp().match(_trField, _root, _field)) {

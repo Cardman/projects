@@ -1,8 +1,6 @@
 package code.expressionlanguage.dbg;
 
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.functionid.MethodId;
@@ -27,8 +25,8 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
-        cont_.breakPointInstanceType("pkg/Ex",13, true);
-        cont_.breakPointStaticType("pkg/Ex",13, false);
+        updateInstType(cont_, "pkg/Ex",13, true);
+        updateStaType(cont_, "pkg/Ex",13, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
@@ -50,8 +48,8 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
-        cont_.breakPointInstanceType("pkg/Ex",13, true);
-        cont_.breakPointStaticType("pkg/Ex",13, false);
+        updateInstType(cont_, "pkg/Ex",13, true);
+        updateStaType(cont_, "pkg/Ex",13, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
@@ -71,8 +69,8 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
-        cont_.breakPointInstanceType("pkg/Ex",13, true);
-        cont_.breakPointStaticType("pkg/Ex",13, false);
+        updateInstType(cont_, "pkg/Ex",13, true);
+        updateStaType(cont_, "pkg/Ex",13, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
@@ -96,8 +94,8 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
-        cont_.breakPointInstanceType("pkg/Ex",13, true);
-        cont_.breakPointStaticType("pkg/Ex",13, false);
+        updateInstType(cont_, "pkg/Ex",13, true);
+        updateStaType(cont_, "pkg/Ex",13, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());
@@ -124,8 +122,8 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
-        cont_.breakPointInstanceType("pkg/Ex",13, true);
-        cont_.breakPointStaticType("pkg/Ex",13, false);
+        updateInstType(cont_, "pkg/Ex",13, true);
+        updateStaType(cont_, "pkg/Ex",13, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(2, stack_.nbPages());
@@ -158,8 +156,8 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
-        cont_.breakPointInstanceType("pkg/Ex",13, true);
-        cont_.breakPointStaticType("pkg/Ex",13, false);
+        updateInstType(cont_, "pkg/Ex",13, true);
+        updateStaType(cont_, "pkg/Ex",13, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, dbgContinueNormal(stack_, cont_.getContext()).nbPages());

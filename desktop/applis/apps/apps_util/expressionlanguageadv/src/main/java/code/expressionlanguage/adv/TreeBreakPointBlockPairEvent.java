@@ -41,6 +41,10 @@ public final class TreeBreakPointBlockPairEvent implements AbsShortListTree {
             frame.guiContentBuild(frameKeys.getParList().getValue(is_.get(0)).get(is_.get(1)),resultContext);
         } else if (FramePointsTree.SORT_OP == index_) {
             frame.guiContentBuild(frameKeys.getOperNatList().getValue(is_.get(0)),resultContext);
+        } else if (FramePointsTree.SORT_CP == index_) {
+            frame.guiContentBuild(frameKeys.getOperNatCompoList().getValue(is_.get(0)),resultContext);
+        } else if (FramePointsTree.SORT_TP == index_){
+            frame.guiContentBuild(frameKeys.getTpList().getValue(is_.get(0)).get(is_.get(1)),resultContext);
         }
     }
 
@@ -76,7 +80,7 @@ public final class TreeBreakPointBlockPairEvent implements AbsShortListTree {
             return null;
         }
         int index_ = ch_.getIndex();
-        if (FramePointsTree.SORT_MP != index_ && FramePointsTree.SORT_OP != index_ && _is.size() < 2) {
+        if (FramePointsTree.SORT_MP != index_ && FramePointsTree.SORT_OP != index_ && FramePointsTree.SORT_CP != index_ && _is.size() < 2) {
             return null;
         }
         return ch_;

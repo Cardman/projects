@@ -18,7 +18,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        assertFalse(cont_.toggleOperNatPoint("","","").getValue().isEnabled());
+        assertFalse(asSingle(cont_, "", "", "").getValue().isEnabled());
     }
     @Test
     public void test2() {
@@ -27,7 +27,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        assertFalse(cont_.toggleOperNatPoint("~","float","").getValue().isEnabled());
+        assertFalse(asSingle(cont_, "~", "float", "").getValue().isEnabled());
     }
     @Test
     public void test3() {
@@ -36,7 +36,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        assertFalse(cont_.toggleOperNatPoint("+","int","Ex").getValue().isEnabled());
+        assertFalse(asSingle(cont_, "+", "int", "Ex").getValue().isEnabled());
     }
     @Test
     public void test4() {
@@ -45,7 +45,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        assertFalse(cont_.toggleEnableOperNatPoint("","","").getValue().isEnabled());
+        assertFalse(asSingle(cont_, "", "", "").getValue().isEnabled());
     }
     @Test
     public void test5() {
@@ -80,7 +80,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        OperNatPointBlockPair o_ = cont_.toggleEnableOperNatPoint("%", "int", "int");
+        CompoOperNatPointBlockPair o_ = asCompoEnable(cont_, "%", "int", "int");
         assertTrue(o_.getValue().isEnabled());
         assertEq("%",o_.getSymbol());
     }
@@ -91,8 +91,8 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleEnableOperNatPoint("%","int","int");
-        assertFalse(cont_.toggleEnableOperNatPoint("%","int","int").getValue().isEnabled());
+        asCompoEnable(cont_, "%", "int", "int");
+        assertFalse(asCompoEnable(cont_, "%", "int", "int").getValue().isEnabled());
     }
     @Test
     public void test9() {
@@ -101,9 +101,9 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleEnableOperNatPoint("%","int","int");
-        cont_.toggleEnableOperNatPoint("%","int","int");
-        assertTrue(cont_.toggleEnableOperNatPoint("%","int","int").getValue().isEnabled());
+        asCompoEnable(cont_, "%", "int", "int");
+        asCompoEnable(cont_, "%", "int", "int");
+        assertTrue(asCompoEnable(cont_, "%", "int", "int").getValue().isEnabled());
     }
     @Test
     public void test10() {
@@ -140,7 +140,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleOperNatPoint("%","int","int");
-        assertFalse(cont_.toggleOperNatPoint("%","int","int").getValue().isEnabled());
+        assertFalse(asSingle(cont_, "%", "int", "int").getValue().isEnabled());
     }
     @Test
     public void test13() {
@@ -151,7 +151,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleOperNatPoint("%","int","int");
         cont_.toggleOperNatPoint("%","int","int");
-        assertTrue(cont_.toggleOperNatPoint("%","int","int").getValue().isEnabled());
+        assertTrue(asCompo(cont_, "%", "int", "int").getValue().isEnabled());
     }
     @Test
     public void test14() {
@@ -502,8 +502,8 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleEnableOperNatPoint("%","int","int");
-        assertTrue(cont_.toggleEnableOperNatPoint("+","int","int").getValue().isEnabled());
+        asCompoEnable(cont_, "%", "int", "int");
+        assertTrue(asCompoEnable(cont_, "+", "int", "int").getValue().isEnabled());
     }
     @Test
     public void test41() {
@@ -597,6 +597,61 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
+    @Test
+    public void test48() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        OperNatPointBlockPair o_ = asSingleEnable(cont_, "-", "int", "");
+        assertTrue(o_.getValue().isEnabled());
+        assertEq("-",o_.getSymbol());
+    }
+    @Test
+    public void test49() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        OperNatPointBlockPair o_ = asSingleEnable(cont_, "-", "", "");
+        assertFalse(o_.getValue().isEnabled());
+    }
+    @Test
+    public void test50() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        asSingleEnable(cont_, "-", "int", "");
+        OperNatPointBlockPair r_ = asSingleEnable(cont_, "-", "int", "");
+        assertFalse(r_.getValue().isEnabled());
+    }
+    @Test
+    public void test51() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        asCompoEnable(cont_, "-", "int", "int");
+        CompoOperNatPointBlockPair r_ = asCompoEnable(cont_, "-", "int", "int");
+        assertFalse(r_.getValue().isEnabled());
+    }
+    @Test
+    public void test52() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        asSingleEnable(cont_, "-", "int", "");
+        asSingleEnable(cont_, "-", "int", "");
+        OperNatPointBlockPair r_ = asSingleEnable(cont_, "-", "int", "");
+        assertTrue(r_.getValue().isEnabled());
+    }
     private void stdSimpleConditionEmpty(ResultContext _cont, String _condition, String _symbol,String _first, boolean _simple, boolean _compound) {
         OperNatPointBlockPair p_ = stdEmpty(_cont, _symbol, _first, _simple, _compound);
         OperNatPoint wp_ = p_.getValue();
@@ -604,15 +659,15 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         assertEq(_condition,wp_.getResultSimple().getResultStr());
     }
     private void stdSimpleCondition(ResultContext _cont, String _condition, String _symbol,String _first, String _second, boolean _simple, boolean _compound) {
-        OperNatPointBlockPair p_ = std(_cont, _symbol, _first, _second, _simple, _compound);
-        OperNatPoint wp_ = p_.getValue();
+        CompoOperNatPointBlockPair p_ = std(_cont, _symbol, _first, _second, _simple, _compound);
+        CompOperNatPoint wp_ = p_.getValue();
         wp_.getResultSimple().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultSimple().getResultStr());
     }
 
     private void stdCompoundCondition(ResultContext _cont, String _condition, String _symbol,String _first, String _second, boolean _simple, boolean _compound) {
-        OperNatPointBlockPair p_ = std(_cont, _symbol, _first, _second, _simple, _compound);
-        OperNatPoint wp_ = p_.getValue();
+        CompoOperNatPointBlockPair p_ = std(_cont, _symbol, _first, _second, _simple, _compound);
+        CompOperNatPoint wp_ = p_.getValue();
         wp_.getResultCompound().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultCompound().getResultStr());
     }
@@ -623,30 +678,25 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         wp_.getResultSimple().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultSimple().getResultStr());
     }
-    private OperNatPointBlockPair std(ResultContext _cont, String _symbol,String _first, String _second, boolean _simple, boolean _compound) {
-        OperNatPointBlockPair p_ = _cont.toggleOperNatPoint(_symbol, _first, _second);
-        OperNatPoint val_ = p_.getValue();
-        assertTrue(val_.isEnabledAffect());
+    private CompoOperNatPointBlockPair std(ResultContext _cont, String _symbol,String _first, String _second, boolean _simple, boolean _compound) {
+        CompoOperNatPointBlockPair p_ = (CompoOperNatPointBlockPair)_cont.toggleOperNatPoint(_symbol, _first, _second);
+        CompOperNatPoint val_ = p_.getValue();
         val_.setSimple(_simple);
         val_.setCompound(_compound);
         return p_;
     }
 
     private OperNatPointBlockPair stdEmpty(ResultContext _cont, String _symbol,String _first, boolean _simple, boolean _compound) {
-        OperNatPointBlockPair p_ = _cont.toggleOperNatPoint(_symbol, _first, "");
+        OperNatPointBlockPair p_ = (OperNatPointBlockPair) _cont.toggleOperNatPoint(_symbol, _first, "");
         OperNatPoint val_ = p_.getValue();
-        assertFalse(val_.isEnabledAffect());
         val_.setSimple(_simple);
-        val_.setCompound(_compound);
         return p_;
     }
 
     private OperNatPointBlockPair stdSingle(ResultContext _cont, String _symbol,String _first, String _second, boolean _simple) {
-        OperNatPointBlockPair p_ = _cont.toggleOperNatPoint(_symbol, _first, _second);
+        OperNatPointBlockPair p_ = (OperNatPointBlockPair) _cont.toggleOperNatPoint(_symbol, _first, _second);
         OperNatPoint val_ = p_.getValue();
-        assertFalse(val_.isEnabledAffect());
         val_.setSimple(_simple);
-        val_.setCompound(false);
         return p_;
     }
 
@@ -672,4 +722,21 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
     private ClassField cf(String _cl, String _f) {
         return new ClassField(_cl,_f);
     }
+
+    private CompoOperNatPointBlockPair asCompoEnable(ResultContext _cont, String _s, String _first, String _second) {
+        return (CompoOperNatPointBlockPair) _cont.toggleEnableOperNatPoint(_s, _first, _second);
+    }
+
+    private OperNatPointBlockPair asSingleEnable(ResultContext _cont, String _s, String _first, String _second) {
+        return (OperNatPointBlockPair) _cont.toggleEnableOperNatPoint(_s, _first, _second);
+    }
+
+    private CompoOperNatPointBlockPair asCompo(ResultContext _cont, String _s, String _first, String _second) {
+        return (CompoOperNatPointBlockPair) _cont.toggleOperNatPoint(_s, _first, _second);
+    }
+
+    private OperNatPointBlockPair asSingle(ResultContext _cont, String _s, String _first, String _second) {
+        return (OperNatPointBlockPair) _cont.toggleOperNatPoint(_s, _first, _second);
+    }
+
 }

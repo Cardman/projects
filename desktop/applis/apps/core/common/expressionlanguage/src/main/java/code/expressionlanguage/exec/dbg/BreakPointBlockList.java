@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.dbg;
 
-import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.DisplayedStrings;
@@ -9,8 +8,6 @@ import code.expressionlanguage.common.SynthFieldInfo;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecReturnableWithSignature;
-import code.expressionlanguage.fwd.AbsLightContextGenerator;
-import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardNamedFunction;
@@ -18,7 +15,6 @@ import code.expressionlanguage.stds.StandardType;
 import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.IdMap;
 import code.util.Ints;
 import code.util.core.StringUtil;
 
@@ -33,14 +29,17 @@ public final class BreakPointBlockList {
     private final AbsCollection<MethodPointBlockPair> methPointList;
     private final AbsCollection<StdMethodPointBlockPair> stdMethPointList;
     private final AbsCollection<ParPointBlockPair> parPointList;
-    private final AbsCollection<OperNatPointBlockPair> operNatPointList;
+    private final AbsCollection<AbsOperNatPointBlockPair> operNatPointList;
+    private final AbsCollection<AbsOperNatPointBlockPair> operCompoNatPointList;
     private final AbsCollection<AbsCallContraints> exclude;
     private final AbsCollection<AbsCallContraints> include;
+    private final AbsCollection<TypePointBlockPair> typeList;
 
     public BreakPointBlockList(AbstractInterceptorStdCaller _i) {
         interceptor = _i;
         listTmp = _i.newBreakPointKeyIdStringCollection();
         list = _i.newBreakPointKeyStringCollection();
+        typeList = _i.newTypePointKeyStringCollection();
         watchList = _i.newWatchPointKeyStringCollection();
         arrPointList = _i.newArrPointKeyStringCollection();
         excPointList = _i.newExcPointKeyStringCollection();
@@ -48,6 +47,7 @@ public final class BreakPointBlockList {
         methPointList = _i.newMethodPointKeyStringCollection();
         stdMethPointList = _i.newStdMethodPointKeyStringCollection();
         operNatPointList = _i.newOperNatPointKeyStringCollection();
+        operCompoNatPointList = _i.newOperNatPointKeyStringCollection();
         pausedLoop = _i.newAtBool();
         exclude = _i.newExecFileBlockTraceIndexCollection();
         include = _i.newExecFileBlockTraceIndexCollection();
@@ -152,8 +152,12 @@ public final class BreakPointBlockList {
         return ".";
     }
 
-    public OperNatPointBlockPair operNat(String _k, String _symbol,String _f, String _s) {
+    public OperNatPointBlockPair operNat(String _k, String _symbol, String _f, String _s) {
         return new OperNatPointBlockPair(_k, _symbol, interceptor,true, _f, _s);
+    }
+
+    public CompoOperNatPointBlockPair operNatComp(String _k, String _symbol, String _f, String _s) {
+        return new CompoOperNatPointBlockPair(_k, _symbol, interceptor,true, _f, _s);
     }
 
     public OperNatPointBlockPair operNatDisabled() {
@@ -164,8 +168,12 @@ public final class BreakPointBlockList {
         return new MethodPointBlockPair(_id, interceptor,ResultExpressionOperationNode.clName(_d, _id),true, MemberCallingsBlock.clName(_id));
     }
 
-    public BreakPointBlockPair bp(ExecFileBlock _file, int _nf, int _offset, boolean _enType) {
-        return new BreakPointBlockPair(_file,_nf, _offset, interceptor,true, _enType);
+    public BreakPointBlockPair bp(ExecFileBlock _file, int _nf, int _offset) {
+        return new BreakPointBlockPair(_file,_nf, _offset, interceptor,true);
+    }
+
+    public TypePointBlockPair tp(ExecFileBlock _file, int _nf, int _offset) {
+        return new TypePointBlockPair(_file,_nf, _offset, interceptor,true);
     }
 
     public static BracedBlock rootOfAnnot(AbsBk _id) {
@@ -175,74 +183,16 @@ public final class BreakPointBlockList {
         return null;
     }
 
-    public static void breakPointEnabled(String _file, int _offset, ResultContext _f, boolean _newValue) {
-        breakPointUpdate(_file, _offset, _f, new BreakPointBooleanUpdaterEnabled(),_newValue);
-    }
-    public static void breakPointInstanceType(String _file, int _offset, ResultContext _f, boolean _newValue) {
-        breakPointUpdate(_file, _offset, _f, new BreakPointBooleanUpdaterInstanceType(),_newValue);
-    }
-    public static void breakPointStaticType(String _file, int _offset, ResultContext _f, boolean _newValue) {
-        breakPointUpdate(_file, _offset, _f, new BreakPointBooleanUpdaterStaticType(),_newValue);
-    }
-    public static void breakPointUpdate(String _file, int _offset, ResultContext _f, BreakPointBooleanUpdater _updater, boolean _newValue) {
-        breakPointUpdate(_f.getPageEl().getPreviousFilesBodies().getVal(_file),_offset, _updater,_newValue, _f.getFiles(), _f.bpList());
-    }
-    public static void breakPointUpdate(FileBlock _file, int _offset, BreakPointBooleanUpdater _updater, boolean _newValue, IdMap<FileBlock, ExecFileBlock> _files, AbsCollection<BreakPointBlockPair> _ls) {
-        int o_ = ResultExpressionOperationNode.beginPart(_offset, _file);
-        if (o_ < 0) {
-            return;
-        }
-        ExecFileBlock f_ = _files.getVal(_file);
-        update(f_,o_, _updater,_newValue, _ls);
-    }
-    public static void breakPointFileIndexUpdaterExcludeStd(BreakPointBlockPair _bp,CustList<AbsCallContraints> _newValue) {
-        new BreakPointFileIndexUpdaterExcludeStd().update(_bp.getValue(),_newValue);
-    }
-    public static void breakPointFileIndexUpdaterExcludeInstance(BreakPointBlockPair _bp, CustList<AbsCallContraints> _newValue) {
-        new BreakPointFileIndexUpdaterExcludeInstance().update(_bp.getValue(),_newValue);
-    }
-    public static void breakPointFileIndexUpdaterExcludeStatic(BreakPointBlockPair _bp, CustList<AbsCallContraints> _newValue) {
-        new BreakPointFileIndexUpdaterExcludeStatic().update(_bp.getValue(),_newValue);
-    }
-    public static void breakPointFileIndexUpdaterIncludeStd(BreakPointBlockPair _bp,CustList<AbsCallContraints> _newValue) {
-        new BreakPointFileIndexUpdaterIncludeStd().update(_bp.getValue(),_newValue);
-    }
-    public static void breakPointFileIndexUpdaterIncludeInstance(BreakPointBlockPair _bp, CustList<AbsCallContraints> _newValue) {
-        new BreakPointFileIndexUpdaterIncludeInstance().update(_bp.getValue(),_newValue);
-    }
-    public static void breakPointFileIndexUpdaterIncludeStatic(BreakPointBlockPair _bp, CustList<AbsCallContraints> _newValue) {
-        new BreakPointFileIndexUpdaterIncludeStatic().update(_bp.getValue(),_newValue);
-    }
-    public static void breakPointCountStd(BreakPointBlockPair _bp,int _newValue) {
-        new BreakPointCountUpdaterStd().update(_bp.getValue(),_newValue);
-    }
-    public static void breakPointCountInstance(BreakPointBlockPair _bp, int _newValue) {
-        new BreakPointCountUpdaterInstance().update(_bp.getValue(),_newValue);
-    }
-    public static void breakPointCountStatic(BreakPointBlockPair _bp, int _newValue) {
-        new BreakPointCountUpdaterStatic().update(_bp.getValue(),_newValue);
-    }
-    public static ReportedMessages breakPointCtxStd(BreakPointBlockPair _bp, ResultContext _f, AbsLightContextGenerator _gene, String _newValue) {
-        return new BreakPointLambdaCtxUpdaterStd(_f,_gene).update(_bp,_newValue);
-    }
-    public static ReportedMessages breakPointCtxInstance(BreakPointBlockPair _bp, ResultContext _f, AbsLightContextGenerator _gene, String _newValue) {
-        return new BreakPointLambdaCtxUpdaterInstance(_f,_gene).update(_bp,_newValue);
-    }
-    public static ReportedMessages breakPointCtxStatic(BreakPointBlockPair _bp, ResultContext _f, AbsLightContextGenerator _gene, String _newValue) {
-        return new BreakPointLambdaCtxUpdaterStatic(_f,_gene).update(_bp,_newValue);
-    }
-    public static void update(ExecFileBlock _file, int _offset, BreakPointBooleanUpdater _updater, boolean _newValue, AbsCollection<BreakPointBlockPair> _ls) {
-        for (BreakPointBlockPair b: _ls.elts()) {
-            if (b.getBp().match(_file, _offset)) {
-                _updater.update(b.getValue(), _newValue);
-                return;
-            }
-        }
-    }
-
     public BreakPointBlockPair notNull(BreakPointBlockPair _b) {
         if (_b == null) {
-            return new BreakPointBlockPair(null,-1,-1,interceptor,false, false);
+            return new BreakPointBlockPair(null,-1,-1,interceptor,false);
+        }
+        return _b;
+    }
+
+    public TypePointBlockPair notNull(TypePointBlockPair _b) {
+        if (_b == null) {
+            return new TypePointBlockPair(null,-1,-1,interceptor,false);
         }
         return _b;
     }
@@ -271,6 +221,9 @@ public final class BreakPointBlockList {
         for (BreakPointBlockPair b: getList().elts()) {
             b.getValue().resetCount();
         }
+        for (TypePointBlockPair b: getTypeList().elts()) {
+            b.getValue().resetCount();
+        }
         for (MethodPointBlockPair b: getMethPointList().elts()) {
             b.getValue().resetCount();
         }
@@ -289,8 +242,11 @@ public final class BreakPointBlockList {
         for (WatchPointBlockPair b: getWatchList().elts()) {
             b.getValue().resetCount();
         }
-        for (OperNatPointBlockPair b: getOperNatPointList().elts()) {
-            b.getValue().resetCount();
+        for (AbsOperNatPointBlockPair b: getOperNatPointList().elts()) {
+            b.resetCount();
+        }
+        for (AbsOperNatPointBlockPair b: getOperCompoNatPointList().elts()) {
+            b.resetCount();
         }
     }
 
@@ -363,6 +319,10 @@ public final class BreakPointBlockList {
         return list;
     }
 
+    public AbsCollection<TypePointBlockPair> getTypeList() {
+        return typeList;
+    }
+
     public AbsCollection<StdMethodPointBlockPair> getStdMethPointList() {
         return stdMethPointList;
     }
@@ -375,9 +335,14 @@ public final class BreakPointBlockList {
         return watchList;
     }
 
-    public AbsCollection<OperNatPointBlockPair> getOperNatPointList() {
+    public AbsCollection<AbsOperNatPointBlockPair> getOperNatPointList() {
         return operNatPointList;
     }
+
+    public AbsCollection<AbsOperNatPointBlockPair> getOperCompoNatPointList() {
+        return operCompoNatPointList;
+    }
+
     public AbsCollection<AbsCallContraints> getExclude() {
         return exclude;
     }

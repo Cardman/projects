@@ -57,14 +57,20 @@ public final class FrameWpFormContent {
         bpForm_.add(compoundRead);
         bpForm_.add(compoundWrite);
         bpForm_.add(compoundWriteErr);
-        bpForm_.add(guiReadStackForm.guiBuild(_d));
-        bpForm_.add(guiWriteStackForm.guiBuild(_d));
-        bpForm_.add(guiCompoundReadStackForm.guiBuild(_d));
-        bpForm_.add(guiCompoundWriteStackForm.guiBuild(_d));
-        bpForm_.add(guiCompoundWriteErrStackForm.guiBuild(_d));
+        AbsTabbedPane tab_ = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        putStForm(_d, tab_, guiReadStackForm, "read");
+        putStForm(_d, tab_, guiWriteStackForm, "write");
+        putStForm(_d, tab_, guiCompoundReadStackForm, "compound read");
+        putStForm(_d, tab_, guiCompoundWriteStackForm, "compound write");
+        putStForm(_d, tab_, guiCompoundWriteErrStackForm, "compound write error");
+        bpForm_.add(tab_);
         bpForm_.add(ok);
         bpForm_.add(remove);
         contentPane = bpForm_;
+    }
+
+    private void putStForm(AbsDebuggerGui _d, AbsTabbedPane _tab, GuiStackForm _target, String _title) {
+        _tab.addIntTab(_title,_target.guiBuild(_d));
     }
 
     public AbsPanel getContentPane() {

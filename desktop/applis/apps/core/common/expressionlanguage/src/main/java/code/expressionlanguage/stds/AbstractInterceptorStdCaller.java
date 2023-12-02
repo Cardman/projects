@@ -21,6 +21,7 @@ public interface AbstractInterceptorStdCaller {
     AbsCollection<BreakPointCondition> newBreakPointConditionCollection();
     AbsCollection<EntryCust<String,Integer>> newStringNumberCollection();
     AbsCollection<BreakPointBlockPair> newBreakPointKeyStringCollection();
+    AbsCollection<TypePointBlockPair> newTypePointKeyStringCollection();
     AbsCollection<WatchPointBlockPair> newWatchPointKeyStringCollection();
     AbsCollection<ArrPointBlockPair> newArrPointKeyStringCollection();
     AbsCollection<ExcPointBlockPair> newExcPointKeyStringCollection();
@@ -28,7 +29,7 @@ public interface AbstractInterceptorStdCaller {
     AbsCollection<AbsCallContraints> newExecFileBlockTraceIndexCollection();
     AbsCollection<MethodPointBlockPair> newMethodPointKeyStringCollection();
     AbsCollection<StdMethodPointBlockPair> newStdMethodPointKeyStringCollection();
-    AbsCollection<OperNatPointBlockPair> newOperNatPointKeyStringCollection();
+    AbsCollection<AbsOperNatPointBlockPair> newOperNatPointKeyStringCollection();
     AbstractAtomicBoolean newAtBool();
     AbstractAtomicInteger newAtInt();
     AbstractAtomicRef<StrResultContextLambda> newAtLda();

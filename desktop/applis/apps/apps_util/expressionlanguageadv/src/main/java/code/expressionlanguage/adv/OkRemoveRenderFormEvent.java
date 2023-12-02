@@ -30,7 +30,6 @@ public final class OkRemoveRenderFormEvent implements AbsActionListener {
         }
         ls_.remove(index_);
         frameExcFormContent.setSelectedExc(null);
-        framePoints.guiContentBuildClear();
         framePoints.refreshRender(ls_);
         framePoints.getCommonFrame().pack();
     }

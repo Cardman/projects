@@ -34,6 +34,10 @@ public final class TreeBreakPointBlockPairAddEvent implements AbsActionListener 
             frame.guiContentBuild((ParPointBlockPair) null,resultContext);
         } else if (FramePointsTree.SORT_OP == index_) {
             frame.guiContentBuild((OperNatPointBlockPair) null,resultContext);
+        } else if (FramePointsTree.SORT_CP == index_) {
+            frame.guiContentBuild((CompoOperNatPointBlockPair) null,resultContext);
+        } else if (FramePointsTree.SORT_TP == index_) {
+            frame.guiContentBuild((TypePointBlockPair) null,resultContext);
         } else {
             frame.guiContentBuild((BreakPointBlockPair) null,resultContext);
         }

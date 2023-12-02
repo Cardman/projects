@@ -137,14 +137,15 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
         if (exc_ != null) {
             label.setText(exc_.getSm().keyStr());
             getEnabledMp().setSelected(exc_.getValue().isEnabled());
-            BreakPointFormEvent.specific(getFrameMpFormContent().getGuiEnterStackForm(), true, exc_.getValue().getResultEntry(), new CustList<BreakPointCondition>(), _f,_r);
-            BreakPointFormEvent.specific(getFrameMpFormContent().getGuiExitStackForm(), true, exc_.getValue().getResultExit(), new CustList<BreakPointCondition>(), _f,_r);
+            BreakPointFormEvent.specific(getFrameMpFormContent().getGuiEnterStackForm(), exc_.getValue().getResultEntry(), new CustList<BreakPointCondition>(), _f,_r);
+            BreakPointFormEvent.specific(getFrameMpFormContent().getGuiExitStackForm(), exc_.getValue().getResultExit(), new CustList<BreakPointCondition>(), _f,_r);
             getFrameMpFormContent().getEnterFunction().setSelected(exc_.getValue().isEntry());
             getFrameMpFormContent().getExitFunction().setSelected(exc_.getValue().isExit());
             frameMpFormContent.getContentPane().add(label);
             frameMpFormContent.getContentPane().add(f_);
             frameMpFormContent.getContentPane().add(frameMpFormContent.getOk());
             frameMpFormContent.getContentPane().add(frameMpFormContent.getRemove());
+            PackingWindowAfter.pack(_f);
         } else {
             getGuiEnterStackForm().getDependantPointsForm().init(_r,StdMethodPointBlockPair.SMP);
             getGuiExitStackForm().getDependantPointsForm().init(_r,StdMethodPointBlockPair.SMP);

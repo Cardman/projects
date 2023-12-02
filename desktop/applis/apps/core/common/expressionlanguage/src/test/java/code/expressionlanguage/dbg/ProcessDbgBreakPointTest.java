@@ -280,7 +280,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
-        cont_.breakPointEnabled("pkg/Ex",71, false);
+        cont_.toggleBreakPointEnabled("pkg/Ex",71);
         assertFalse(cont_.is(file(cont_),70));
     }
 
@@ -298,8 +298,8 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
-        cont_.breakPointEnabled("pkg/Ex",71, false);
-        cont_.breakPointEnabled("pkg/Ex",71, true);
+        cont_.toggleBreakPointEnabled("pkg/Ex",71);
+        cont_.toggleBreakPointEnabled("pkg/Ex",71);
         assertTrue(cont_.is(file(cont_),70));
     }
 
@@ -317,8 +317,8 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
-        cont_.breakPointEnabled("pkg/Ex",71, false);
-        cont_.breakPointEnabled("pkg/Ex",58, true);
+        cont_.toggleBreakPointEnabled("pkg/Ex",71);
+        cont_.toggleBreakPointEnabled("pkg/Ex",58);
         assertFalse(cont_.is(file(cont_),70));
     }
 
@@ -336,8 +336,8 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
-        cont_.breakPointEnabled("pkg/Ex",71, false);
-        cont_.breakPointEnabled("pkg/Ex",-1, true);
+        cont_.toggleBreakPointEnabled("pkg/Ex",71);
+        cont_.toggleBreakPointEnabled("pkg/Ex",-1);
         assertFalse(cont_.is(file(cont_),70));
     }
 
@@ -460,10 +460,10 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         cont_.toggleBreakPoint("pkg/Ex2",13);
-        cont_.breakPointInstanceType("pkg/Ex",13, true);
-        cont_.breakPointInstanceType("pkg/Ex2",13, false);
-        assertTrue(cont_.getPair(file(cont_,"pkg/Ex"),13).getValue().isInstanceType());
-        assertFalse(cont_.getPair(file(cont_,"pkg/Ex2"),13).getValue().isInstanceType());
+        updateInstType(cont_, "pkg/Ex",13, true);
+        updateInstType(cont_, "pkg/Ex2",13, false);
+        assertTrue(cont_.getPairType(file(cont_,"pkg/Ex"),13).getValue().isInstanceType());
+        assertFalse(cont_.getPairType(file(cont_,"pkg/Ex2"),13).getValue().isInstanceType());
     }
 
     @Test
@@ -490,10 +490,10 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         cont_.toggleBreakPoint("pkg/Ex2",13);
-        cont_.breakPointStaticType("pkg/Ex",13, false);
-        cont_.breakPointStaticType("pkg/Ex2",13, true);
-        assertFalse(cont_.getPair(file(cont_,"pkg/Ex"),13).getValue().isStaticType());
-        assertTrue(cont_.getPair(file(cont_,"pkg/Ex2"),13).getValue().isStaticType());
+        updateStaType(cont_, "pkg/Ex",13, false);
+        updateStaType(cont_, "pkg/Ex2",13, true);
+        assertFalse(cont_.getPairType(file(cont_,"pkg/Ex"),13).getValue().isStaticType());
+        assertTrue(cont_.getPairType(file(cont_,"pkg/Ex2"),13).getValue().isStaticType());
     }
     @Test
     public void test24() {
@@ -688,8 +688,177 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         assertEq("static +(pkg.Ex2).static .1(int)",ResultExpressionOperationNode.beginPartFct(58,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex"),cont_.getPageEl().getDisplayedStrings()));
     }
     @Test
+    public void test31() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringBuilder xml2_ = new StringBuilder();
+        xml2_.append("public class pkg.Ex2 {\n");
+        xml2_.append(" public static int exmeth(){\n");
+        xml2_.append("  int t = 8;\n");
+        xml2_.append("  int u = 3;\n");
+        xml2_.append("  return Math.mod(t,u);\n");
+        xml2_.append(" }\n");
+        xml2_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put("pkg/Ex2", xml2_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleBreakPointEnabled("pkg/Ex",13);
+        cont_.toggleBreakPointEnabled("pkg/Ex2",13);
+        updateInstType(cont_, "pkg/Ex",13, true);
+        updateInstType(cont_, "pkg/Ex2",13, false);
+        assertTrue(cont_.getPairType(file(cont_,"pkg/Ex"),13).getValue().isInstanceType());
+        assertFalse(cont_.getPairType(file(cont_,"pkg/Ex2"),13).getValue().isInstanceType());
+    }
+
+    @Test
+    public void test32() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringBuilder xml2_ = new StringBuilder();
+        xml2_.append("public class pkg.Ex2 {\n");
+        xml2_.append(" public static int exmeth(){\n");
+        xml2_.append("  int t = 8;\n");
+        xml2_.append("  int u = 3;\n");
+        xml2_.append("  return Math.mod(t,u);\n");
+        xml2_.append(" }\n");
+        xml2_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put("pkg/Ex2", xml2_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleBreakPointEnabled("pkg/Ex",13);
+        cont_.toggleBreakPointEnabled("pkg/Ex",13);
+        assertFalse(cont_.getPairType(file(cont_,"pkg/Ex"),13).getValue().isEnabled());
+    }
+
+    @Test
+    public void test33() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringBuilder xml2_ = new StringBuilder();
+        xml2_.append("public class pkg.Ex2 {\n");
+        xml2_.append(" public static int exmeth(){\n");
+        xml2_.append("  int t = 8;\n");
+        xml2_.append("  int u = 3;\n");
+        xml2_.append("  return Math.mod(t,u);\n");
+        xml2_.append(" }\n");
+        xml2_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put("pkg/Ex2", xml2_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleBreakPointEnabled("pkg/Ex",13);
+        cont_.toggleBreakPointEnabled("pkg/Ex",13);
+        cont_.toggleBreakPointEnabled("pkg/Ex",13);
+        assertTrue(cont_.getPairType(file(cont_,"pkg/Ex"),13).getValue().isEnabled());
+    }
+    @Test
+    public void test34() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringBuilder xml2_ = new StringBuilder();
+        xml2_.append("public class pkg.Ex2 {\n");
+        xml2_.append(" public static int exmeth(){\n");
+        xml2_.append("  int t = 8;\n");
+        xml2_.append("  int u = 3;\n");
+        xml2_.append("  return Math.mod(t,u);\n");
+        xml2_.append(" }\n");
+        xml2_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put("pkg/Ex2", xml2_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleBreakPoint("pkg/Ex",13);
+        cont_.toggleBreakPoint("pkg/Ex2",13);
+        updateInstType(cont_, "pkg/Ex",13, true);
+        updateInstType(cont_, "pkg/Ex2",13, false);
+        assertTrue(cont_.getPairType(file(cont_,"pkg/Ex"),13).getValue().isInstanceType());
+        assertFalse(cont_.getPairType(file(cont_,"pkg/Ex2"),13).getValue().isInstanceType());
+    }
+    @Test
+    public void test35() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringBuilder xml2_ = new StringBuilder();
+        xml2_.append("public class pkg.Ex2 {\n");
+        xml2_.append(" public static int exmeth(){\n");
+        xml2_.append("  int t = 8;\n");
+        xml2_.append("  int u = 3;\n");
+        xml2_.append("  return Math.mod(t,u);\n");
+        xml2_.append(" }\n");
+        xml2_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put("pkg/Ex2", xml2_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleBreakPoint("pkg/Ex",13);
+        cont_.toggleBreakPoint("pkg/Ex",13);
+        assertFalse(cont_.tpList().elts().iterator().hasNext());
+        assertFalse(cont_.getContext().getNotNullType(file(cont_,"pkg/Ex"),13).isEnabled());
+    }
+
+    @Test
+    public void test36() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 8;\n");
+        xml_.append("  int u = 3;\n");
+        xml_.append("  return Math.mod(t,u);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringBuilder xml2_ = new StringBuilder();
+        xml2_.append("public class pkg.Ex2 {\n");
+        xml2_.append(" public static int exmeth(){\n");
+        xml2_.append("  int t = 8;\n");
+        xml2_.append("  int u = 3;\n");
+        xml2_.append("  return Math.mod(t,u);\n");
+        xml2_.append(" }\n");
+        xml2_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put("pkg/Ex2", xml2_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleBreakPoint("pkg/Ex",13);
+        cont_.toggleBreakPoint("pkg/Ex",13);
+        cont_.toggleBreakPoint("pkg/Ex",13);
+        assertTrue(cont_.getPairType(file(cont_,"pkg/Ex"),13).getValue().isEnabled());
+    }
+    @Test
     public void test() {
-        assertEq("-1/0",new BreakPointBlockPairKeyString().keyString(new BreakPointBlockPair(null,-1,0,new ElInterceptorStdCaller(), false,false)));
+        assertEq("-1/0",new BreakPointBlockPairKeyString().keyString(new BreakPointBlockPair(null,-1,0,new ElInterceptorStdCaller(), false)));
+        assertEq("-1/0",new TypePointBlockPairKeyString().keyString(new TypePointBlockPair(null,-1,0,new ElInterceptorStdCaller(), false)));
         assertEq("-1/0",new BreakPointBlockPairKeyIdString().keyString(new BreakPointBlockKey(null,-1,0)));
         assertEq("-1/0",new ExecFileBlockTraceIndexKeyString().keyString(new ExecFileBlockTraceIndex(null,-1,0)));
         assertEq("",new ExecFileBlockTraceIndexKeyString().keyString(new ExecFileBlockFct("","")));

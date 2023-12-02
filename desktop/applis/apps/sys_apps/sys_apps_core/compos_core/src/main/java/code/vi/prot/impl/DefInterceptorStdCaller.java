@@ -96,6 +96,11 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     }
 
     @Override
+    public AbsCollection<TypePointBlockPair> newTypePointKeyStringCollection() {
+        return new ConcMap<TypePointBlockPair>(new TypePointBlockPairKeyString(),this);
+    }
+
+    @Override
     public AbsCollection<WatchPointBlockPair> newWatchPointKeyStringCollection() {
         return new ConcMap<WatchPointBlockPair>(new WatchPointBlockPairKeyString(),this);
     }
@@ -131,8 +136,8 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
     }
 
     @Override
-    public AbsCollection<OperNatPointBlockPair> newOperNatPointKeyStringCollection() {
-        return new ConcMap<OperNatPointBlockPair>(new OperNatKeyString(), this);
+    public AbsCollection<AbsOperNatPointBlockPair> newOperNatPointKeyStringCollection() {
+        return new ConcMap<AbsOperNatPointBlockPair>(new OperNatKeyString(), this);
     }
 
     @Override

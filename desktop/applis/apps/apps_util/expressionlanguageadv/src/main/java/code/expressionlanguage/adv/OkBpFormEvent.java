@@ -36,14 +36,7 @@ public final class OkBpFormEvent implements AbsActionListener {
 
     static void bpAction(AbsDebuggerGui _win, FrameBpFormContent _bp, BreakPointBlockPair _selected, ResultContext _res) {
         _selected.getValue().setEnabled(_bp.getEnabledBp().isSelected());
-        _selected.getValue().setInstanceType(_bp.getInstanceType().isSelected());
-        _selected.getValue().setStaticType(_bp.getStaticType().isSelected());
-        if (_selected.getValue().isEnabledChgtType()) {
-            update(_selected, _selected.getValue().getResultInstance(), _win, _bp.getGuiInsStackForm(), _res);
-            update(_selected, _selected.getValue().getResultStatic(), _win, _bp.getGuiStaStackForm(), _res);
-        } else {
-            update(_selected, _selected.getValue().getResultStd(), _win, _bp.getGuiStdStackForm(), _res);
-        }
+        update(_selected, _selected.getValue().getResultStd(), _win, _bp.getGuiStdStackForm(), _res);
         _bp.setSelectedBp(null);
     }
 
@@ -52,12 +45,6 @@ public final class OkBpFormEvent implements AbsActionListener {
         OkMpFormEvent.update(_condition,_form);
         if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(BreakPoint.BPC_STD)) {
             _condition.getOthers().add(_mp.getValue().getResultStd());
-        }
-        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(BreakPoint.BPC_STATIC)) {
-            _condition.getOthers().add(_mp.getValue().getResultStatic());
-        }
-        if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(BreakPoint.BPC_INSTANCE)) {
-            _condition.getOthers().add(_mp.getValue().getResultInstance());
         }
     }
 }

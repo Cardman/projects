@@ -48,7 +48,6 @@ public final class OkRenderFormEvent implements AbsActionListener {
 //        update(exc_, exc_.getValue().getResultCaught(), window, frameExcFormContent.getGuiCaughtStackForm(), currentResult);
 //        update(exc_, exc_.getValue().getResultPropagated(), window, frameExcFormContent.getGuiPropagatedStackForm(), currentResult);
         frameExcFormContent.setSelectedExc(null);
-        framePoints.guiContentBuildClear();
         framePoints.refreshRender(window.getRenderList());
         framePoints.getCommonFrame().pack();
     }

@@ -75,6 +75,11 @@ public final class BreakPointCondition {
         resultLogs(ResultContextLambda.dynamicAnalyze(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, phasePoint), _log);
         resultWatches(ResultContextLambda.dynamicAnalyze(_watch, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, phasePoint), _watch);
     }
+    public void analyze(TypePointBlockPair _mp, String _exp, String _log, String _watch, ResultContext _curr, AbsLightContextGenerator _gene) {
+        result(ResultContextLambda.dynamicAnalyze(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene, phasePoint), _exp);
+        resultLogs(ResultContextLambda.dynamicAnalyze(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, phasePoint), _log);
+        resultWatches(ResultContextLambda.dynamicAnalyze(_watch, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene, phasePoint), _watch);
+    }
 
     public void analyze(StdMethodPointBlockPair _mp, String _exp, String _log, String _watch, ResultContext _curr, AbsLightContextGenerator _gene) {
         result(ResultContextLambda.dynamicAnalyze(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene), _exp);
@@ -82,7 +87,7 @@ public final class BreakPointCondition {
         resultWatches(ResultContextLambda.dynamicAnalyze(_watch, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _watch);
     }
 
-    public void analyze(OperNatPointBlockPair _mp, String _exp, String _log, String _watch, ResultContext _curr, AbsLightContextGenerator _gene) {
+    public void analyze(AbsOperNatPointBlockPair _mp, String _exp, String _log, String _watch, ResultContext _curr, AbsLightContextGenerator _gene) {
         result(ResultContextLambda.dynamicAnalyze(_exp, _mp, _curr, _curr.getPageEl().getAliasPrimBoolean(), _gene), _exp);
         resultLogs(ResultContextLambda.dynamicAnalyze(_log, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _log);
         resultWatches(ResultContextLambda.dynamicAnalyze(_watch, _mp, _curr, _curr.getPageEl().getAliasObject(), _gene), _watch);

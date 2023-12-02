@@ -20,7 +20,7 @@ public final class StopStackEvent implements AbsActionListener {
         window.getAnalyzeMenu().setEnabled(true);
         window.getSelectEnter().setEnabled(true);
         window.disableNext();
-        window.getDetailAll().setVisible(false);
+        window.hideVars();
         window.getCallButtons().clear();
         window.getCallButtonsRender().clear();
         window.getCallStack().removeAll();

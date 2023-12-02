@@ -4,6 +4,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.gui.AbsCustCheckBox;
 import code.gui.AbsPanel;
 import code.gui.AbsButton;
+import code.gui.AbsTabbedPane;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
@@ -32,10 +33,16 @@ public abstract class AbsFrameMpFormContent {
         bpForm_.add(enabledMp);
         bpForm_.add(enterFunction);
         bpForm_.add(exitFunction);
-        bpForm_.add(guiEnterStackForm.guiBuild(_d));
-        bpForm_.add(guiExitStackForm.guiBuild(_d));
+        AbsTabbedPane tab_ = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        putStForm(_d, tab_, guiEnterStackForm, "enter");
+        putStForm(_d, tab_, guiExitStackForm, "exit");
+        bpForm_.add(tab_);
         contentPaneForm = bpForm_;
         contentPane = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+    }
+
+    private void putStForm(AbsDebuggerGui _d, AbsTabbedPane _tab, GuiStackForm _target, String _title) {
+        _tab.addIntTab(_title,_target.guiBuild(_d));
     }
 
     public AbsButton getRemove() {

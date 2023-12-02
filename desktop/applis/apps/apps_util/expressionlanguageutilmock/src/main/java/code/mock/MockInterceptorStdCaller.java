@@ -43,6 +43,11 @@ public final class MockInterceptorStdCaller implements AbstractInterceptorStdCal
     }
 
     @Override
+    public AbsCollection<TypePointBlockPair> newTypePointKeyStringCollection() {
+        return new ConcList<TypePointBlockPair>(new TypePointBlockPairKeyString(),this);
+    }
+
+    @Override
     public AbsCollection<WatchPointBlockPair> newWatchPointKeyStringCollection() {
         return new ConcList<WatchPointBlockPair>(new WatchPointBlockPairKeyString(),this);
     }
@@ -78,8 +83,8 @@ public final class MockInterceptorStdCaller implements AbstractInterceptorStdCal
     }
 
     @Override
-    public AbsCollection<OperNatPointBlockPair> newOperNatPointKeyStringCollection() {
-        return new ConcList<OperNatPointBlockPair>(new OperNatKeyString(), this);
+    public AbsCollection<AbsOperNatPointBlockPair> newOperNatPointKeyStringCollection() {
+        return new ConcList<AbsOperNatPointBlockPair>(new OperNatKeyString(), this);
     }
 
     @Override

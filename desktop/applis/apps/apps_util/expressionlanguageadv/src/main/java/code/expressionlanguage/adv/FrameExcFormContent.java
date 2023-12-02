@@ -45,9 +45,11 @@ public final class FrameExcFormContent {
         bpForm_.add(thrown);
         bpForm_.add(caught);
         bpForm_.add(propagated);
-        bpForm_.add(guiThrownStackForm.guiBuild(_d));
-        bpForm_.add(guiCaughtStackForm.guiBuild(_d));
-        bpForm_.add(guiPropagatedStackForm.guiBuild(_d));
+        AbsTabbedPane tab_ = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        putStForm(_d, tab_, guiThrownStackForm, "thrown");
+        putStForm(_d, tab_, guiCaughtStackForm, "caught");
+        putStForm(_d, tab_, guiPropagatedStackForm, "propagated");
+        bpForm_.add(tab_);
         getGuiThrownStackForm().showPrefs();
         getGuiCaughtStackForm().showPrefs();
         getGuiPropagatedStackForm().showPrefs();
@@ -55,6 +57,11 @@ public final class FrameExcFormContent {
         bpForm_.add(remove);
         contentPane = bpForm_;
     }
+
+    private void putStForm(AbsDebuggerGui _d, AbsTabbedPane _tab, GuiStackForm _stack, String _title) {
+        _tab.addIntTab(_title,_stack.guiBuild(_d));
+    }
+
     public void initForm(ExcPointBlockPair _s, AbsCommonFrame _f, ResultContext _r) {
         setSelectedExc(_s);
         ExcPointBlockPair exc_ = getSelectedExc();
@@ -68,12 +75,13 @@ public final class FrameExcFormContent {
             clName.setText(exc_.getEp().getClName());
             remove.setEnabled(true);
             getEnabledExc().setSelected(exc_.getValue().isEnabled());
-            BreakPointFormEvent.specific(getGuiThrownStackForm(), true, exc_.getValue().getResultThrown(), BreakPointBlockList.prefsExc(_r.getContext().excList(),ExcPoint.BPC_THROWN), _f,_r);
-            BreakPointFormEvent.specific(getGuiCaughtStackForm(), true, exc_.getValue().getResultCaught(), BreakPointBlockList.prefsExc(_r.getContext().excList(),ExcPoint.BPC_CAUGHT), _f,_r);
-            BreakPointFormEvent.specific(getGuiPropagatedStackForm(), true, exc_.getValue().getResultPropagated(), BreakPointBlockList.prefsExc(_r.getContext().excList(),ExcPoint.BPC_PROPAGATED), _f,_r);
+            BreakPointFormEvent.specific(getGuiThrownStackForm(), exc_.getValue().getResultThrown(), BreakPointBlockList.prefsExc(_r.getContext().excList(),ExcPoint.BPC_THROWN), _f,_r);
+            BreakPointFormEvent.specific(getGuiCaughtStackForm(), exc_.getValue().getResultCaught(), BreakPointBlockList.prefsExc(_r.getContext().excList(),ExcPoint.BPC_CAUGHT), _f,_r);
+            BreakPointFormEvent.specific(getGuiPropagatedStackForm(), exc_.getValue().getResultPropagated(), BreakPointBlockList.prefsExc(_r.getContext().excList(),ExcPoint.BPC_PROPAGATED), _f,_r);
             getThrown().setSelected(exc_.getValue().isThrown());
             getCaught().setSelected(exc_.getValue().isCaught());
             getPropagated().setSelected(exc_.getValue().isPropagated());
+            PackingWindowAfter.pack(_f);
         } else {
             getGuiThrownStackForm().getDependantPointsForm().init(_r, ExcPoint.EP);
             getGuiCaughtStackForm().getDependantPointsForm().init(_r,ExcPoint.EP);

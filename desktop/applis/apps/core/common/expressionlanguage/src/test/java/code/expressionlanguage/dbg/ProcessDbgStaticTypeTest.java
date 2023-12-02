@@ -1,12 +1,10 @@
 package code.expressionlanguage.dbg;
 
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
@@ -26,8 +24,8 @@ public final class ProcessDbgStaticTypeTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
-        cont_.breakPointStaticType("pkg/Ex",13, true);
-        cont_.breakPointInstanceType("pkg/Ex",13, false);
+        updateStaType(cont_, "pkg/Ex",13, true);
+        updateInstType(cont_, "pkg/Ex",13, false);
         StackCall stack_ = tryInitStaticlyTypes(cont_.getContext(), cont_.getForwards().getOptions());
         assertEq(1, stack_.nbPages());
         assertEq(13, now(stack_));
@@ -48,8 +46,8 @@ public final class ProcessDbgStaticTypeTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
-        cont_.breakPointStaticType("pkg/Ex",13, true);
-        cont_.breakPointInstanceType("pkg/Ex",13, false);
+        updateStaType(cont_, "pkg/Ex",13, true);
+        updateInstType(cont_, "pkg/Ex",13, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalInit("pkg.Ex", id_,cont_).getStack();
         StackCall next_ = dbgNormal("pkg.Ex", id_,cont_, stack_);

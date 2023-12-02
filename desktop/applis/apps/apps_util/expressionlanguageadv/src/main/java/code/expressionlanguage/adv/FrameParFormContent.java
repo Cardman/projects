@@ -54,8 +54,9 @@ public final class FrameParFormContent {
             clName.setText(exc_.getPp().getClName());
             remove.setEnabled(true);
             getEnabledPar().setSelected(exc_.getValue().isEnabled());
-            BreakPointFormEvent.specific(getGuiGetStackForm(), true, exc_.getValue().getResultGet(), BreakPointBlockList.prefsPar(_r.getContext().parList()), _f,_r);
+            BreakPointFormEvent.specific(getGuiGetStackForm(), exc_.getValue().getResultGet(), BreakPointBlockList.prefsPar(_r.getContext().parList()), _f,_r);
             getGet().setSelected(exc_.getValue().isGet());
+            PackingWindowAfter.pack(_f);
         } else {
             getGuiGetStackForm().getDependantPointsForm().init(_r, ParPoint.PP);
             FrameMpForm.updatePref(BreakPointBlockList.prefsPar(_r.getContext().parList()),getGuiGetStackForm(),_f,_r);

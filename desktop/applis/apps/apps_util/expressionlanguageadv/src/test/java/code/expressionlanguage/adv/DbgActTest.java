@@ -160,12 +160,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         toggleBp(b_);
         bpForm(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        b_.getFramePoints().getFrameBpFormContent().getStaticType().setSelected(true);
-        b_.getFramePoints().getFrameBpFormContent().getInstanceType().setSelected(false);
+        b_.getFramePoints().getFrameTpFormContent().getStaticType().setSelected(true);
+        b_.getFramePoints().getFrameTpFormContent().getInstanceType().setSelected(false);
 //        bpFormCancel(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        assertTrue(curRet(b_).getPair(file(curRet(b_)),13).getValue().isInstanceType());
-        assertFalse(curRet(b_).getPair(file(curRet(b_)),13).getValue().isStaticType());
+        assertTrue(curRet(b_).getPairType(file(curRet(b_)),13).getValue().isInstanceType());
+        assertFalse(curRet(b_).getPairType(file(curRet(b_)),13).getValue().isStaticType());
     }
     @Test
     public void bp9() {
@@ -179,12 +179,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         toggleBp(b_);
         bpForm(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        b_.getFramePoints().getFrameBpFormContent().getStaticType().setSelected(true);
-        b_.getFramePoints().getFrameBpFormContent().getInstanceType().setSelected(false);
-        bpFormOk(b_);
+        b_.getFramePoints().getFrameTpFormContent().getStaticType().setSelected(true);
+        b_.getFramePoints().getFrameTpFormContent().getInstanceType().setSelected(false);
+        tpFormOk(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        assertFalse(curRet(b_).getPair(file(curRet(b_)),13).getValue().isInstanceType());
-        assertTrue(curRet(b_).getPair(file(curRet(b_)),13).getValue().isStaticType());
+        assertFalse(curRet(b_).getPairType(file(curRet(b_)),13).getValue().isInstanceType());
+        assertTrue(curRet(b_).getPairType(file(curRet(b_)),13).getValue().isStaticType());
     }
     @Test
     public void bp10() {
@@ -198,18 +198,18 @@ public final class DbgActTest extends EquallableElAdvUtil {
         toggleBp(b_);
         bpForm(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        b_.getFramePoints().getFrameBpFormContent().getStaticType().setSelected(false);
-        b_.getFramePoints().getFrameBpFormContent().getInstanceType().setSelected(true);
-        bpFormOk(b_);
+        b_.getFramePoints().getFrameTpFormContent().getStaticType().setSelected(false);
+        b_.getFramePoints().getFrameTpFormContent().getInstanceType().setSelected(true);
+        tpFormOk(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         bpForm(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        b_.getFramePoints().getFrameBpFormContent().getStaticType().setSelected(true);
-        b_.getFramePoints().getFrameBpFormContent().getInstanceType().setSelected(false);
+        b_.getFramePoints().getFrameTpFormContent().getStaticType().setSelected(true);
+        b_.getFramePoints().getFrameTpFormContent().getInstanceType().setSelected(false);
 //        bpFormCancel(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        assertTrue(curRet(b_).getPair(file(curRet(b_)),13).getValue().isInstanceType());
-        assertFalse(curRet(b_).getPair(file(curRet(b_)),13).getValue().isStaticType());
+        assertTrue(curRet(b_).getPairType(file(curRet(b_)),13).getValue().isInstanceType());
+        assertFalse(curRet(b_).getPairType(file(curRet(b_)),13).getValue().isStaticType());
     }
     @Test
     public void bp11() {
@@ -223,18 +223,18 @@ public final class DbgActTest extends EquallableElAdvUtil {
         toggleBp(b_);
         bpForm(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        b_.getFramePoints().getFrameBpFormContent().getStaticType().setSelected(false);
-        b_.getFramePoints().getFrameBpFormContent().getInstanceType().setSelected(true);
-        bpFormOk(b_);
+        b_.getFramePoints().getFrameTpFormContent().getStaticType().setSelected(false);
+        b_.getFramePoints().getFrameTpFormContent().getInstanceType().setSelected(true);
+        tpFormOk(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
         bpForm(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        b_.getFramePoints().getFrameBpFormContent().getStaticType().setSelected(true);
-        b_.getFramePoints().getFrameBpFormContent().getInstanceType().setSelected(false);
-        bpFormOk(b_);
+        b_.getFramePoints().getFrameTpFormContent().getStaticType().setSelected(true);
+        b_.getFramePoints().getFrameTpFormContent().getInstanceType().setSelected(false);
+        tpFormOk(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        assertFalse(curRet(b_).getPair(file(curRet(b_)),13).getValue().isInstanceType());
-        assertTrue(curRet(b_).getPair(file(curRet(b_)),13).getValue().isStaticType());
+        assertFalse(curRet(b_).getPairType(file(curRet(b_)),13).getValue().isInstanceType());
+        assertTrue(curRet(b_).getPairType(file(curRet(b_)),13).getValue().isStaticType());
     }
     @Test
     public void bp12() {
@@ -1743,12 +1743,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(52,52);
         toggleBp(b_);
         openPoints(b_);
-        addBp(b_);
-        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
-        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
-        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
-        editOthBp(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
-        addBpOk(b_);
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        editOthBp(b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm(),0);
+        addTpOk(b_);
         assertEq(0,b_.getFramePoints().getView().getChildren().size());
     }
     @Test
@@ -1791,12 +1791,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
         selectExcRadioFalse(b_);
         addExcOk(b_);
-        addBp(b_);
-        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
-        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
-        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
-        editOthExc(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
-        assertEq(3,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        editOthExc(b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm(),0);
+        assertEq(3,b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecks().size());
     }
     @Test
     public void bp95() {
@@ -1813,12 +1813,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameExcFormContent().getClName().setText("pkg.Ex");
         selectExcRadioTrue(b_);
         addExcOk(b_);
-        addBp(b_);
-        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
-        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
-        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
-        editOthExc(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
-        assertEq(3,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        editOthExc(b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm(),0);
+        assertEq(3,b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecks().size());
     }
     @Test
     public void bp96() {
@@ -1835,12 +1835,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameFormContent().getFileName().setText("src/file.txt");
         b_.getFramePoints().getFrameFormContent().getCaret().setValue(21);
         addMpOk(b_);
-        addBp(b_);
-        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
-        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
-        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
-        editOthMethod(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
-        assertEq(2,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        editOthMethod(b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm(),0);
+        assertEq(2,b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecks().size());
     }
     @Test
     public void bp97() {
@@ -1858,12 +1858,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(true);
         addWpOk(b_);
-        addBp(b_);
-        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
-        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
-        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
-        editOthWatch(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
-        assertEq(5,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        editOthWatch(b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm(),0);
+        assertEq(5,b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecks().size());
     }
     @Test
     public void bp98() {
@@ -1878,12 +1878,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         openPoints(b_);
         addStd(b_);
         selectStd(b_, curRet(b_).getPageEl().getAliasObject(),getConstructorId(false));
-        addBp(b_);
-        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
-        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
-        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
-        editOthStd(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
-        assertEq(2,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        editOthStd(b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm(),0);
+        assertEq(2,b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecks().size());
     }
     @Test
     public void bp99() {
@@ -1900,7 +1900,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
         b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(63);
         b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
-        editOthBp(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
+        editOthTp(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
         b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().get(0).setSelected(true);
         addBpOk(b_);
         assertTrue(curRet(b_).getPair(file(curRet(b_)),63).getValue().getResultStd().getOthers().elts().iterator().hasNext());
@@ -1923,8 +1923,6 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
         b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(false);
         b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
-        b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
-        b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecksCurrent().get(2).setSelected(true);
         addBpOk(b_);
         assertTrue(curRet(b_).getPair(file(curRet(b_)),63).getValue().getResultStd().getOthers().elts().iterator().hasNext());
     }
@@ -2072,12 +2070,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameWpFormContent().getFieldName().setText("v");
         b_.getFramePoints().getFrameWpFormContent().getTrueField().setSelected(false);
         addWpOk(b_);
-        addBp(b_);
-        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
-        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
-        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
-        editOthWatchAnnot(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
-        assertEq(5,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        editOthWatchAnnot(b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm(),0);
+        assertEq(5,b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecks().size());
     }
     @Test
     public void bp108() {
@@ -2274,12 +2272,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex");
         selectArrRadioFalse(b_);
         addArrOk(b_);
-        addBp(b_);
-        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
-        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
-        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
-        editOthArr(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
-        assertEq(13,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        editOthArr(b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm(),0);
+        assertEq(13,b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecks().size());
     }
     @Test
     public void bp119() {
@@ -2296,12 +2294,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameArrFormContent().getClName().setText("[pkg.Ex");
         selectArrRadioTrue(b_);
         addArrOk(b_);
-        addBp(b_);
-        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
-        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
-        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
-        editOthArr(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
-        assertEq(13,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        editOthArr(b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm(),0);
+        assertEq(13,b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecks().size());
     }
     @Test
     public void bp120() {
@@ -2543,12 +2541,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex");
         selectParRadioFalse(b_);
         addParOk(b_);
-        addBp(b_);
-        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
-        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
-        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
-        editOthPar(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
-        assertEq(1,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        editOthPar(b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm(),0);
+        assertEq(1,b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecks().size());
     }
     @Test
     public void bp132() {
@@ -2565,12 +2563,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameParFormContent().getClName().setText("pkg.Ex");
         selectParRadioTrue(b_);
         addParOk(b_);
-        addBp(b_);
-        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
-        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
-        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
-        editOthPar(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
-        assertEq(1,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        editOthPar(b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm(),0);
+        assertEq(1,b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecks().size());
     }
     @Test
     public void bp133() {
@@ -2678,12 +2676,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         openPoints(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        addOperNat(b_);
-        b_.getFramePoints().getFrameOperNatFormContent().getSymbol().setText("%");
-        b_.getFramePoints().getFrameOperNatFormContent().getFirst().setText("int");
-        b_.getFramePoints().getFrameOperNatFormContent().getSecond().setText("int");
-        addOperNatOk(b_);
-        assertTrue(curRet(b_).getContext().operNatList().elts().iterator().hasNext());
+        addOperNatCompo(b_);
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getSymbol().setText("%");
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getFirst().setText("int");
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getSecond().setText("int");
+        addOperNatCompoOk(b_);
+        assertTrue(curRet(b_).getContext().operCompoNatList().elts().iterator().hasNext());
     }
     @Test
     public void bp139() {
@@ -2712,15 +2710,15 @@ public final class DbgActTest extends EquallableElAdvUtil {
         guiAna(r_,b_,o_,src_);
         openPoints(b_);
         assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
-        addOperNat(b_);
-        b_.getFramePoints().getFrameOperNatFormContent().getSymbol().setText("%");
-        b_.getFramePoints().getFrameOperNatFormContent().getFirst().setText("int");
-        b_.getFramePoints().getFrameOperNatFormContent().getSecond().setText("int");
-        addOperNatOk(b_);
-        editOperNat(b_,0);
-        assertTrue(curRet(b_).getContext().operNatList().elts().iterator().hasNext());
-        addOperNatRemove(b_);
-        assertFalse(curRet(b_).getContext().operNatList().elts().iterator().hasNext());
+        addOperNatCompo(b_);
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getSymbol().setText("%");
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getFirst().setText("int");
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getSecond().setText("int");
+        addOperNatCompoOk(b_);
+        editOperCompoNat(b_,0);
+        assertTrue(curRet(b_).getContext().operCompoNatList().elts().iterator().hasNext());
+        addOperNatCompoRemove(b_);
+        assertFalse(curRet(b_).getContext().operCompoNatList().elts().iterator().hasNext());
     }
     @Test
     public void bp141() {
@@ -2753,17 +2751,17 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(52,52);
         toggleBp(b_);
         openPoints(b_);
-        addOperNat(b_);
-        b_.getFramePoints().getFrameOperNatFormContent().getSymbol().setText("%");
-        b_.getFramePoints().getFrameOperNatFormContent().getFirst().setText("int");
-        b_.getFramePoints().getFrameOperNatFormContent().getSecond().setText("int");
-        addOperNatOk(b_);
-        addBp(b_);
-        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
-        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
-        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
-        editOthOperNat(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
-        assertEq(2,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+        addOperNatCompo(b_);
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getSymbol().setText("%");
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getFirst().setText("int");
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getSecond().setText("int");
+        addOperNatCompoOk(b_);
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        editOthOperCompoNat(b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm(),0);
+        assertEq(2,b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecks().size());
     }
     @Test
     public void bp143() {
@@ -2781,12 +2779,12 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameOperNatFormContent().getFirst().setText("int");
         b_.getFramePoints().getFrameOperNatFormContent().getSecond().setText("");
         addOperNatOk(b_);
-        addBp(b_);
-        b_.getFramePoints().getFrameBpFormContent().getFileName().setText("src/file.txt");
-        b_.getFramePoints().getFrameBpFormContent().getCaret().setValue(13);
-        b_.getFramePoints().getFrameBpFormContent().getEnabledBp().setSelected(true);
-        editOthOperNat(b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm(),0);
-        assertEq(1,b_.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getDependantPointsForm().getChecks().size());
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        editOthOperNat(b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm(),0);
+        assertEq(1,b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecks().size());
     }
     @Test
     public void bp144() {
@@ -2799,14 +2797,14 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(52,52);
         toggleBp(b_);
         openPoints(b_);
-        addOperNat(b_);
-        b_.getFramePoints().getFrameOperNatFormContent().getSymbol().setText("%");
-        b_.getFramePoints().getFrameOperNatFormContent().getFirst().setText("int");
-        b_.getFramePoints().getFrameOperNatFormContent().getSecond().setText("int");
-        b_.getFramePoints().getFrameOperNatFormContent().getGuiCompoundStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
-        b_.getFramePoints().getFrameOperNatFormContent().getGuiCompoundStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
-        addOperNatOk(b_);
-        assertTrue(curRet(b_).getContext().operNatList().elts().iterator().hasNext());
+        addOperNatCompo(b_);
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getSymbol().setText("%");
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getFirst().setText("int");
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getSecond().setText("int");
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getGuiCompoundStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getGuiCompoundStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
+        addOperNatCompoOk(b_);
+        assertTrue(curRet(b_).getContext().operCompoNatList().elts().iterator().hasNext());
     }
     @Test
     public void bp145() {
@@ -2819,16 +2817,16 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(52,52);
         toggleBp(b_);
         openPoints(b_);
-        addOperNat(b_);
-        b_.getFramePoints().getFrameOperNatFormContent().getSymbol().setText("%");
-        b_.getFramePoints().getFrameOperNatFormContent().getFirst().setText("int");
-        b_.getFramePoints().getFrameOperNatFormContent().getSecond().setText("int");
-        b_.getFramePoints().getFrameOperNatFormContent().getGuiCompoundStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
-        b_.getFramePoints().getFrameOperNatFormContent().getGuiCompoundStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
-        addOperNatOk(b_);
-        editOperNat(b_,0);
-        addOperNatOk(b_);
-        assertTrue(curRet(b_).getContext().operNatList().elts().iterator().hasNext());
+        addOperNatCompo(b_);
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getSymbol().setText("%");
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getFirst().setText("int");
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getSecond().setText("int");
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getGuiCompoundStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getGuiCompoundStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
+        addOperNatCompoOk(b_);
+        editOperCompoNat(b_,0);
+        addOperNatCompoOk(b_);
+        assertTrue(curRet(b_).getContext().operCompoNatList().elts().iterator().hasNext());
     }
     @Test
     public void bp146() {
@@ -3210,6 +3208,128 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertTrue(b_.getFramePoints().getFrameExcFormContent().getExactForm().getInherit().isSelected());
         assertTrue(curRet(b_).getContext().excList().elts().iterator().hasNext());
     }
+    @Test
+    public void bp164() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(52,52);
+        toggleBp(b_);
+        openPoints(b_);
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
+        b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(false);
+        b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
+        b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
+        addTpOk(b_);
+        assertTrue(curRet(b_).getPairType(file(curRet(b_)),13).getValue().getResultInstance().getOthers().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp165() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(52,52);
+        toggleBp(b_);
+        openPoints(b_);
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(26);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        addTpOk(b_);
+        assertFalse(curRet(b_).getContext().getNotNullTypePair(file(curRet(b_)),26).getValue().isEnabled());
+    }
+    @Test
+    public void bp166() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}public class pkg.Ex2 {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(80,80);
+        toggleBp(b_);
+        openPoints(b_);
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
+        b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
+        b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(false);
+        b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
+        b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
+        addTpOk(b_);
+        assertTrue(curRet(b_).getPairType(file(curRet(b_)),13).getValue().getResultInstance().getOthers().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp167() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int v;public static int exmeth(){return 1;}}");
+        guiAna(r_,b_,o_,src_);
+        openPoints(b_);
+        assertTrue(b_.getFramePoints().getCommonFrame().isVisible());
+        addTp(b_);
+        b_.getFramePoints().getFrameTpFormContent().getFileName().setText("src/file.txt");
+        b_.getFramePoints().getFrameTpFormContent().getCaret().setValue(13);
+        addTpOk(b_);
+        editTp(b_,0);
+        addTpRemove(b_);
+        assertFalse(curRet(b_).tpList().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp168() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(52,52);
+        toggleBp(b_);
+        openPoints(b_);
+        addOperNatCompo(b_);
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getSymbol().setText("%");
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getFirst().setText("");
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getSecond().setText("");
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getGuiCompoundStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
+        b_.getFramePoints().getFrameOperNatCompoFormContent().getGuiCompoundStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
+        addOperNatCompoOk(b_);
+        assertFalse(curRet(b_).getContext().operCompoNatList().elts().iterator().hasNext());
+    }
+    @Test
+    public void bp169() {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        ResultContext r_ = res(b_, o_);
+        StringMap<String> src_ = new StringMap<String>();
+        save(b_,src_,"src/file.txt","public class pkg.Ex {public static int exmeth(){int v=1;return v;}}");
+        guiAna(r_,b_,o_,src_);
+        tabEditor(b_).getCenter().select(52,52);
+        toggleBp(b_);
+        openPoints(b_);
+        addOperNat(b_);
+        b_.getFramePoints().getFrameOperNatFormContent().getSymbol().setText("%");
+        b_.getFramePoints().getFrameOperNatFormContent().getFirst().setText("int");
+        b_.getFramePoints().getFrameOperNatFormContent().getSecond().setText("");
+        b_.getFramePoints().getFrameOperNatFormContent().getGuiSimpleStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
+        addOperNatOk(b_);
+        editOperNat(b_,0);
+        addOperNatOk(b_);
+        assertTrue(curRet(b_).getContext().operNatList().elts().iterator().hasNext());
+    }
+
     @Test
     public void syntheFilter1() {
         AbsDebuggerGui b_ = build();
@@ -3944,8 +4064,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(13,13);
         toggleBp(b_);
         bpForm(b_);
-        b_.getFramePoints().getFrameBpFormContent().getStaticType().setSelected(true);
-        bpFormOk(b_);
+        b_.getFramePoints().getFrameTpFormContent().getStaticType().setSelected(true);
+        tpFormOk(b_);
         vararg(b_).setSelected(false);
         retVal(b_).setSelected(true);
         param(b_).setSelected(false);

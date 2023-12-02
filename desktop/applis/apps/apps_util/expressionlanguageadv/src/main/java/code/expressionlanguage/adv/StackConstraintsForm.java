@@ -19,7 +19,7 @@ public final class StackConstraintsForm {
     private AbsTreeGui bpFolderSystem;
     private AbsPanel includedFileIndex;
     private AbsPanel excludedFileIndex;
-    private AbsPanel staIncExc;
+    private AbsSplitPane staIncExc;
     private final CustList<AbsCallContraints> mustBe = new CustList<AbsCallContraints>();
     private final CustList<AbsCallContraints> mustNotBe = new CustList<AbsCallContraints>();
 
@@ -63,23 +63,26 @@ public final class StackConstraintsForm {
     public static boolean match(AbsCallContraints _l, AbsCallContraints _one) {
         return _l.match(_one);
     }
-    public AbsPanel guiBuild(AbsDebuggerGui _d) {
+    public AbsSplitPane guiBuild(AbsDebuggerGui _d, AbsButton _valid) {
         bpFolderSystem = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui(_d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(""));
         bpFolderSystem.select(bpFolderSystem.getRoot());
         readOnlyFormTabEditor = new ReadOnlyFormTabEditor(_d,_d.getCommonFrame().getFrames(), _d.getManageOptions().getOptions());
-        staIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        staIncExc.add(_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(bpFolderSystem),readOnlyFormTabEditor.getPanel()));
+        AbsPanel actions_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        staIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newVerticalSplitPane(_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(bpFolderSystem),readOnlyFormTabEditor.getPanel()),actions_);
         singleCaret = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("single");
         singleCaret.setSelected(true);
-        staIncExc.add(singleCaret);
+        actions_.add(singleCaret);
         bpAddFile = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add include");
-        staIncExc.add(bpAddFile);
+        actions_.add(bpAddFile);
         bpRemoveFile = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add exclude");
-        staIncExc.add(bpRemoveFile);
+        actions_.add(bpRemoveFile);
         includedFileIndex = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         excludedFileIndex = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        staIncExc.add(includedFileIndex);
-        staIncExc.add(excludedFileIndex);
+        actions_.add(includedFileIndex);
+        actions_.add(excludedFileIndex);
+        if (_valid != null){
+            actions_.add(_valid);
+        }
         return staIncExc;
     }
 

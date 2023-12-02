@@ -6,13 +6,13 @@ import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 
-public final class BreakPointBlockPair implements AbsPairPoint {
+public final class TypePointBlockPair implements AbsPairPoint {
     private final BreakPointBlockKey bp;
-    private final BreakPoint value;
+    private final TypePoint value;
 
-    public BreakPointBlockPair(ExecFileBlock _file, int _nf, int _offset, AbstractInterceptorStdCaller _v, boolean _enabled) {
+    public TypePointBlockPair(ExecFileBlock _file, int _nf, int _offset, AbstractInterceptorStdCaller _v, boolean _enabled) {
         bp = new BreakPointBlockKey(_file, _nf, _offset);
-        this.value = new BreakPoint(_v, this, bp);
+        this.value = new TypePoint(_v, this, bp);
         this.value.setEnabled(_enabled);
     }
 
@@ -30,7 +30,7 @@ public final class BreakPointBlockPair implements AbsPairPoint {
         return bp;
     }
 
-    public BreakPoint getValue() {
+    public TypePoint getValue() {
         return value;
     }
 }

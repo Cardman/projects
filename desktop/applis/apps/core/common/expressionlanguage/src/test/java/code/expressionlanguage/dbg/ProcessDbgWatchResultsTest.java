@@ -228,6 +228,18 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         Struct cont1_ = WatchResults.dynamicAnalyze("f!=null", res_, new DefContextGenerator(), stVal_.getStack().getCall(0)).getWatchedObject();
         assertTrue(BooleanStruct.isTrue(cont1_));
     }
+    @Test
+    public void test19() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){new Ex();return 0;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
+        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        res_.toggleBreakPoint("pkg/Ex",13);
+        ((TypePointBlockPair)res_.tryGetPair("pkg/Ex",13)).getValue().setStaticType(false);
+        ((TypePointBlockPair)res_.tryGetPair("pkg/Ex",13)).getValue().setInstanceType(true);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormal("pkg.Ex", id_, res_);
+        assertNull(WatchResults.dynamicAnalyze("",stack_, res_, new DefContextGenerator()).getWatchedObject());
+    }
     private void divThrown(ResultContext _cond) {
         _cond.toggleExcPoint(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(),ExcPointBlockKey.SAME);
         ExcPoint val_ = _cond.getPairExc(_cond.getContext().getStandards().getCoreNames().getAliasDivisionZero(), ExcPointBlockKey.SAME).getValue();
@@ -281,16 +293,15 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         _cont.getPair(id_).getValue().setExit(false);
     }
     private void stdSimpleCondition(ResultContext _cont, String _condition, String _symbol,String _first, String _second, boolean _simple, boolean _compound) {
-        OperNatPointBlockPair p_ = std(_cont, _symbol, _first, _second, _simple, _compound);
-        OperNatPoint wp_ = p_.getValue();
+        CompoOperNatPointBlockPair p_ = std(_cont, _symbol, _first, _second, _simple, _compound);
+        CompOperNatPoint wp_ = p_.getValue();
         wp_.getResultSimple().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
         assertEq(_condition,wp_.getResultSimple().getResultStr());
     }
 
-    private OperNatPointBlockPair std(ResultContext _cont, String _symbol,String _first, String _second, boolean _simple, boolean _compound) {
-        OperNatPointBlockPair p_ = _cont.toggleOperNatPoint(_symbol, _first, _second);
-        OperNatPoint val_ = p_.getValue();
-        assertTrue(val_.isEnabledAffect());
+    private CompoOperNatPointBlockPair std(ResultContext _cont, String _symbol,String _first, String _second, boolean _simple, boolean _compound) {
+        CompoOperNatPointBlockPair p_ = (CompoOperNatPointBlockPair) _cont.toggleOperNatPoint(_symbol, _first, _second);
+        CompOperNatPoint val_ = p_.getValue();
         val_.setSimple(_simple);
         val_.setCompound(_compound);
         return p_;

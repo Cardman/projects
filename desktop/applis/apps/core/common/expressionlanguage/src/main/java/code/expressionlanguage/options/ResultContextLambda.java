@@ -76,6 +76,14 @@ public final class ResultContextLambda {
         return build(_exp, _result, _type, _gene, a_);
     }
 
+    public static ResultContextLambda dynamicAnalyze(String _exp, TypePointBlockPair _mp, ResultContext _result, String _type, AbsLightContextGenerator _gene, int _phasePoint) {
+        if (_exp.trim().isEmpty()) {
+            return new ResultContextLambda(_result.getContext(),null,null,new ReportedMessages(), 0, null);
+        }
+        AnalyzedPageEl a_ = ResultExpressionOperationNode.prepare(ExecFileBlock.name(_mp.getBp().getFile()), _mp.getBp().getOffset(), _result.getPageEl(),_phasePoint);
+        return build(_exp, _result, _type, _gene, a_);
+    }
+
     public static ResultContextLambda dynamicAnalyze(String _exp, StdMethodPointBlockPair _instance, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
         if (_exp.trim().isEmpty()) {
             return new ResultContextLambda(_result.getContext(),null,null,new ReportedMessages(), 0, null);
@@ -85,7 +93,7 @@ public final class ResultContextLambda {
     }
 
 
-    public static ResultContextLambda dynamicAnalyze(String _exp, OperNatPointBlockPair _instance, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
+    public static ResultContextLambda dynamicAnalyze(String _exp, AbsOperNatPointBlockPair _instance, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
         if (_exp.trim().isEmpty()) {
             return new ResultContextLambda(_result.getContext(),null,null,new ReportedMessages(), 0, null);
         }

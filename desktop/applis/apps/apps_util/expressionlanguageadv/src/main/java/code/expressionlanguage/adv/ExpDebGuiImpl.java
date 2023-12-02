@@ -56,9 +56,9 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
         selectClass.addActionListener(new SelectClassDbgEvent(findReplaceExpression));
         page_.add(selectClass);
         text = pr_.getCompoFactory().newTextArea();
-        page_.add(text);
+        page_.add(getCompoFactory().newAbsScrollPane(text));
         textOutput = pr_.getCompoFactory().newTextArea();
-        page_.add(textOutput);
+        page_.add(getCompoFactory().newAbsScrollPane(textOutput));
         minValue = pr_.getCompoFactory().newSpinner(-1,-1,-1,1);
         page_.add(minValue);
         maxValue = pr_.getCompoFactory().newSpinner(-1,-1,-1,1);

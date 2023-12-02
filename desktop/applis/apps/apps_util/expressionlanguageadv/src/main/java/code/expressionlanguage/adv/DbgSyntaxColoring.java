@@ -5,10 +5,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.analyze.syntax.*;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
-import code.expressionlanguage.exec.dbg.BreakPointBlockList;
-import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
-import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
-import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
+import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.options.ResultContext;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -205,7 +202,7 @@ public final class DbgSyntaxColoring {
         CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
         int offset_ = _r.getIdRowCol();
         ExecFileBlock fileEx_ = _res.getFiles().getVal(_file);
-        BreakPointBlockPair pair_ = _res.getPair(fileEx_, offset_);
+        TypePointBlockPair pair_ = _res.getPairType(fileEx_, offset_);
         if (pair_ != null) {
             parts_.add(new SegmentReadOnlyPart(offset_,offset_+_r.getNameLength(),SyntaxRefEnum.INSTRUCTION));
         }
