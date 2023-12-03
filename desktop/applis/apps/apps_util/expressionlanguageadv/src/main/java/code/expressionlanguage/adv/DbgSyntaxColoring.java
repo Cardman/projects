@@ -2,9 +2,11 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
+import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.analyze.syntax.*;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.options.ResultContext;
@@ -12,6 +14,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.Ints;
+import code.util.core.StringUtil;
 
 public final class DbgSyntaxColoring {
     private DbgSyntaxColoring() {
@@ -61,13 +64,16 @@ public final class DbgSyntaxColoring {
         for (AbsBkSrcFileLocation r: CallersRef.fetchBk(_file)) {
             merge(agg_,partsTokens(r));
         }
+        for (ResultExpressionBlockOperation r: CallersRef.fetch(_file)) {
+            merge(agg_,partsTokens(r));
+        }
         return agg_;
     }
     private static void merge(IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> _dest,IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> _in) {
         for (EntryCust<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> e: _in.entryList()) {
             CustList<SegmentReadOnlyTokenPart> ls_ = _dest.getVal(e.getKey());
             if (ls_ == null) {
-                _dest.put(e.getKey(),new CustList<SegmentReadOnlyTokenPart>(e.getValue()));
+                _dest.addEntry(e.getKey(),new CustList<SegmentReadOnlyTokenPart>(e.getValue()));
             } else {
                 ls_.addAllElts(e.getValue());
             }
@@ -139,6 +145,8 @@ public final class DbgSyntaxColoring {
     private static IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> partsTokens(AbsBkSrcFileLocation _r) {
         IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> parts_ = new IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>();
         CustList<SegmentReadOnlyTokenPart> labels_ = new CustList<SegmentReadOnlyTokenPart>();
+        CustList<SegmentReadOnlyTokenPart> fieldsInst_ = new CustList<SegmentReadOnlyTokenPart>();
+        CustList<SegmentReadOnlyTokenPart> fieldsStatic_ = new CustList<SegmentReadOnlyTokenPart>();
         AbsBk bk_ = _r.getBlock();
         if (bk_ instanceof LabelAbruptBlock) {
             int begin_ = ((LabelAbruptBlock) bk_).getLabelOffset();
@@ -156,9 +164,49 @@ public final class DbgSyntaxColoring {
             }
         }
         parts_.addEntry(SyntaxRefTokenEnum.LABEL,labels_);
+        parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD,fieldsInst_);
+        parts_.addEntry(SyntaxRefTokenEnum.STATIC_FIELD,fieldsStatic_);
         return parts_;
     }
 
+    private static IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> partsTokens(ResultExpressionBlockOperation _r) {
+        IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> parts_ = new IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>();
+        CustList<SegmentReadOnlyTokenPart> fieldsInst_ = new CustList<SegmentReadOnlyTokenPart>();
+        CustList<SegmentReadOnlyTokenPart> fieldsStatic_ = new CustList<SegmentReadOnlyTokenPart>();
+        OperationNode op_ = _r.getBlock();
+        ResultExpression resStr_ = _r.getRes().getRes();
+        int offset_ = resStr_.getSumOffset();
+        if (op_ instanceof SettableAbstractFieldOperation) {
+            boolean elt_ = result(fieldsStatic_, (SettableAbstractFieldOperation) op_);
+            if (!elt_) {
+                int b_ = beginOff(offset_,((SettableAbstractFieldOperation) op_));
+                if (((SettableAbstractFieldOperation) op_).getSettableFieldContent().isStaticField()) {
+                    fieldsStatic_.add(new SegmentReadOnlyTokenPart(b_,b_+((SettableAbstractFieldOperation) op_).getFieldNameLength()));
+                } else {
+                    fieldsInst_.add(new SegmentReadOnlyTokenPart(b_,b_+((SettableAbstractFieldOperation) op_).getFieldNameLength()));
+                }
+            }
+        }
+        parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD,fieldsInst_);
+        parts_.addEntry(SyntaxRefTokenEnum.STATIC_FIELD,fieldsStatic_);
+        return parts_;
+    }
+
+    private static boolean result(CustList<SegmentReadOnlyTokenPart> _fieldsStatic, SettableAbstractFieldOperation _op) {
+        ClassField id_ = _op.getFieldIdReadOnly();
+        boolean elt_ = false;
+        if (_op.getParent() instanceof AffectationOperation && (((AffectationOperation)_op.getParent()).isSynthetic())) {
+            for (AbsBk b: ClassesUtil.getDirectChildren(_op.getFieldType())) {
+                if (b instanceof InnerTypeOrElement && StringUtil.quickEq(((InnerTypeOrElement) b).getUniqueFieldName(), id_.getFieldName())) {
+                    elt_ = true;
+                    InnerTypeOrElement el_ = (InnerTypeOrElement) b;
+                    int b_ = el_.getFieldNameOffset();
+                    _fieldsStatic.add(new SegmentReadOnlyTokenPart(b_, b_ + el_.getUniqueFieldName().length()));
+                }
+            }
+        }
+        return elt_;
+    }
 
     private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, AbsBkSrcFileLocation _r, FileBlock _file) {
         CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
