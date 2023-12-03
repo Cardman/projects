@@ -110,8 +110,14 @@ public final class DbgSyntaxColoring {
             if (ft_ != null) {
                 WatchPointBlockPair w_ = _res.getPairWatch(true,ft_.getNumberAll(),((SettableAbstractFieldOperation) op_).getFieldIdReadOnly().getFieldName());
                 if (w_ != null) {
-                    int b_ = beginOff(offset_,((SettableAbstractFieldOperation) op_));
-                    parts_.add(new SegmentReadOnlyPart(b_,b_+((SettableAbstractFieldOperation) op_).getFieldNameLength(),SyntaxRefEnum.FIELD));
+                    InnerTypeOrElement elt_ = result((SettableAbstractFieldOperation) op_);
+                    if (elt_ == null) {
+                        int b_ = beginOff(offset_,((SettableAbstractFieldOperation) op_));
+                        parts_.add(new SegmentReadOnlyPart(b_,b_+((SettableAbstractFieldOperation) op_).getFieldNameLength(),SyntaxRefEnum.FIELD));
+                    } else {
+                        int b_ = elt_.getFieldNameOffset();
+                        parts_.add(new SegmentReadOnlyPart(b_, b_ + elt_.getUniqueFieldName().length(),SyntaxRefEnum.FIELD));
+                    }
                 }
             }
         }
@@ -177,14 +183,17 @@ public final class DbgSyntaxColoring {
         ResultExpression resStr_ = _r.getRes().getRes();
         int offset_ = resStr_.getSumOffset();
         if (op_ instanceof SettableAbstractFieldOperation) {
-            boolean elt_ = result(fieldsStatic_, (SettableAbstractFieldOperation) op_);
-            if (!elt_) {
+            InnerTypeOrElement elt_ = result((SettableAbstractFieldOperation) op_);
+            if (elt_ == null) {
                 int b_ = beginOff(offset_,((SettableAbstractFieldOperation) op_));
                 if (((SettableAbstractFieldOperation) op_).getSettableFieldContent().isStaticField()) {
                     fieldsStatic_.add(new SegmentReadOnlyTokenPart(b_,b_+((SettableAbstractFieldOperation) op_).getFieldNameLength()));
                 } else {
                     fieldsInst_.add(new SegmentReadOnlyTokenPart(b_,b_+((SettableAbstractFieldOperation) op_).getFieldNameLength()));
                 }
+            } else {
+                int b_ = elt_.getFieldNameOffset();
+                fieldsStatic_.add(new SegmentReadOnlyTokenPart(b_, b_ + elt_.getUniqueFieldName().length()));
             }
         }
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD,fieldsInst_);
@@ -192,16 +201,13 @@ public final class DbgSyntaxColoring {
         return parts_;
     }
 
-    private static boolean result(CustList<SegmentReadOnlyTokenPart> _fieldsStatic, SettableAbstractFieldOperation _op) {
+    private static InnerTypeOrElement result(SettableAbstractFieldOperation _op) {
         ClassField id_ = _op.getFieldIdReadOnly();
-        boolean elt_ = false;
+        InnerTypeOrElement elt_ = null;
         if (_op.getParent() instanceof AffectationOperation && (((AffectationOperation)_op.getParent()).isSynthetic())) {
             for (AbsBk b: ClassesUtil.getDirectChildren(_op.getFieldType())) {
                 if (b instanceof InnerTypeOrElement && StringUtil.quickEq(((InnerTypeOrElement) b).getUniqueFieldName(), id_.getFieldName())) {
-                    elt_ = true;
-                    InnerTypeOrElement el_ = (InnerTypeOrElement) b;
-                    int b_ = el_.getFieldNameOffset();
-                    _fieldsStatic.add(new SegmentReadOnlyTokenPart(b_, b_ + el_.getUniqueFieldName().length()));
+                    elt_ = (InnerTypeOrElement) b;
                 }
             }
         }

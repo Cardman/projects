@@ -44,6 +44,24 @@ public final class ResultExpressionOperationNode {
     }
     public static SynthFieldInfo vexerChamps(AnalyzedPageEl _page, String _fileName, int _caret) {
         ResultExpressionOperationNode res_ = container(_caret, _page.getPreviousFilesBodies().getVal(_fileName));
+        RootBlock relt_;
+        String eltName_;
+        ClassField elt_;
+        if (res_.block instanceof InnerTypeOrElement) {
+            relt_ = ((InnerTypeOrElement)res_.block).getDeclaringType();
+            eltName_ = ((InnerTypeOrElement)res_.block).getUniqueFieldName();
+        } else {
+            relt_ = null;
+            eltName_ = "";
+        }
+        if (relt_ != null) {
+            elt_ = new ClassField(relt_.getFullName(),eltName_);
+        } else {
+            elt_ = new ClassField("","");
+        }
+        if (res_.getFound() != null && res_.getFound().getParent() instanceof AffectationOperation && ((AffectationOperation)res_.getFound().getParent()).isSynthetic()) {
+            return new SynthFieldInfo(elt_,relt_);
+        }
         if (res_.getFound() instanceof SettableAbstractFieldOperation) {
             RootBlock r_ = ((SettableAbstractFieldOperation) res_.getFound()).getFieldType();
             if (r_ != null) {

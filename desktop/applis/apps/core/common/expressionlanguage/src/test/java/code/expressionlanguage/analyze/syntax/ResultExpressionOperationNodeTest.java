@@ -5233,6 +5233,49 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq("pkg.Outer", cf_.getClassName());
         assertEq("FOUR", cf_.getFieldName());
     }
+    @Test
+    public void vexer4() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=ONE.ordinal()+TWO.ordinal(),");
+        xml_.append("FOUR=FIVE;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ClassField cf_ = vexerChamps(files_, "pkg/Ex", 26);
+        assertEq("pkg.Outer", cf_.getClassName());
+        assertEq("ONE", cf_.getFieldName());
+    }
+    @Test
+    public void vexer5() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {\n");
+        xml_.append("ONE,\n");
+        xml_.append("TWO{};\n");
+        xml_.append("$static $final $int THREE=ONE.ordinal()+TWO.ordinal(),");
+        xml_.append("FOUR=FIVE;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ClassField cf_ = vexerChamps(files_, "pkg/Ex", 64);
+        assertEq("pkg.Outer", cf_.getClassName());
+        assertEq("ONE", cf_.getFieldName());
+    }
+    @Test
+    public void vexer6() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {ONE,TWO{};$static $final Outer THREE=ONE;}");
+        files_.put("pkg/Ex", xml_.toString());
+        ClassField cf_ = vexerChamps(files_, "pkg/Ex", 62);
+        assertEq("pkg.Outer", cf_.getClassName());
+        assertEq("ONE", cf_.getFieldName());
+    }
     private static CustList<RowSrcLocation> locationsDisplay(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return ResultExpressionOperationNode.locationsDisplay(a_,_fileName,_caret);
