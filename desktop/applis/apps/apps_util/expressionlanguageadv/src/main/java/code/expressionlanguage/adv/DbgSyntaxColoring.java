@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.analyze.syntax.*;
@@ -23,7 +24,14 @@ public final class DbgSyntaxColoring {
         }
         return agg_;
     }
-
+    public static IdMap<FileBlock,IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>> partsTokens(ResultContext _res) {
+        IdMap<FileBlock,IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>> agg_ = new IdMap<FileBlock, IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>>();
+        for (EntryCust<String, FileBlock> f: _res.getPageEl().getPreviousFilesBodies().entryList()) {
+            FileBlock key_ = f.getValue();
+            agg_.addEntry(key_,partsTokens(key_));
+        }
+        return agg_;
+    }
     public static CustList<SegmentReadOnlyPart> partsBpMpWp(ResultContext _res, FileBlock _file) {
         CustList<SegmentReadOnlyPart> agg_ = new CustList<SegmentReadOnlyPart>();
         for (ResultExpressionBlockOperation r: CallersRef.fetch(_file)) {
@@ -47,6 +55,23 @@ public final class DbgSyntaxColoring {
             possible(agg_, parts_);
         }
         return agg_;
+    }
+    public static IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> partsTokens(FileBlock _file) {
+        IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> agg_ = new IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>();
+        for (AbsBkSrcFileLocation r: CallersRef.fetchBk(_file)) {
+            merge(agg_,partsTokens(r));
+        }
+        return agg_;
+    }
+    private static void merge(IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> _dest,IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> _in) {
+        for (EntryCust<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> e: _in.entryList()) {
+            CustList<SegmentReadOnlyTokenPart> ls_ = _dest.getVal(e.getKey());
+            if (ls_ == null) {
+                _dest.put(e.getKey(),new CustList<SegmentReadOnlyTokenPart>(e.getValue()));
+            } else {
+                ls_.addAllElts(e.getValue());
+            }
+        }
     }
 
     private static CustList<SegmentReadOnlyPart> partsMethod(ResultContext _res, MemberCallingsBlock _r) {
@@ -108,6 +133,29 @@ public final class DbgSyntaxColoring {
                 parts_.add(new SegmentReadOnlyPart(offset_+resStr_.getAnalyzedString().length(), _r.getBlock().getEndAll(),SyntaxRefEnum.INSTRUCTION));
             }
         }
+        return parts_;
+    }
+
+    private static IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> partsTokens(AbsBkSrcFileLocation _r) {
+        IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> parts_ = new IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>();
+        CustList<SegmentReadOnlyTokenPart> labels_ = new CustList<SegmentReadOnlyTokenPart>();
+        AbsBk bk_ = _r.getBlock();
+        if (bk_ instanceof LabelAbruptBlock) {
+            int begin_ = ((LabelAbruptBlock) bk_).getLabelOffset();
+            int end_ = begin_ + ((LabelAbruptBlock) bk_).getLabel().length();
+            if (begin_ < end_) {
+                labels_.add(new SegmentReadOnlyTokenPart(begin_,end_));
+            }
+        }
+        if (bk_ instanceof IfCondition || bk_ instanceof WhileCondition || bk_ instanceof LabelledOtherBlock) {
+            OffsetStringInfo lab_ = ((BreakableBlock) bk_).getRealLabelInfo();
+            int begin_ = lab_.getOffset();
+            int end_ = begin_ + lab_.getInfo().length();
+            if (begin_ < end_) {
+                labels_.add(new SegmentReadOnlyTokenPart(begin_, end_));
+            }
+        }
+        parts_.addEntry(SyntaxRefTokenEnum.LABEL,labels_);
         return parts_;
     }
 
