@@ -2681,7 +2681,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameOperNatCompoFormContent().getFirst().setText("int");
         b_.getFramePoints().getFrameOperNatCompoFormContent().getSecond().setText("int");
         addOperNatCompoOk(b_);
-        assertTrue(curRet(b_).getContext().operCompoNatList().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getContext().operNatList().elts().iterator().hasNext());
     }
     @Test
     public void bp139() {
@@ -2716,9 +2716,9 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameOperNatCompoFormContent().getSecond().setText("int");
         addOperNatCompoOk(b_);
         editOperCompoNat(b_,0);
-        assertTrue(curRet(b_).getContext().operCompoNatList().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getContext().operNatList().elts().iterator().hasNext());
         addOperNatCompoRemove(b_);
-        assertFalse(curRet(b_).getContext().operCompoNatList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().operNatList().elts().iterator().hasNext());
     }
     @Test
     public void bp141() {
@@ -2804,7 +2804,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameOperNatCompoFormContent().getGuiCompoundStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
         b_.getFramePoints().getFrameOperNatCompoFormContent().getGuiCompoundStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
         addOperNatCompoOk(b_);
-        assertTrue(curRet(b_).getContext().operCompoNatList().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getContext().operNatList().elts().iterator().hasNext());
     }
     @Test
     public void bp145() {
@@ -2826,7 +2826,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         addOperNatCompoOk(b_);
         editOperCompoNat(b_,0);
         addOperNatCompoOk(b_);
-        assertTrue(curRet(b_).getContext().operCompoNatList().elts().iterator().hasNext());
+        assertTrue(curRet(b_).getContext().operNatList().elts().iterator().hasNext());
     }
     @Test
     public void bp146() {
@@ -3306,7 +3306,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameOperNatCompoFormContent().getGuiCompoundStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
         b_.getFramePoints().getFrameOperNatCompoFormContent().getGuiCompoundStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
         addOperNatCompoOk(b_);
-        assertFalse(curRet(b_).getContext().operCompoNatList().elts().iterator().hasNext());
+        assertFalse(curRet(b_).getContext().operNatList().elts().iterator().hasNext());
     }
     @Test
     public void bp169() {

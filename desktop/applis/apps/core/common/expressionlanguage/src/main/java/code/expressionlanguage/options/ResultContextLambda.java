@@ -93,7 +93,7 @@ public final class ResultContextLambda {
     }
 
 
-    public static ResultContextLambda dynamicAnalyze(String _exp, AbsOperNatPointBlockPair _instance, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
+    public static ResultContextLambda dynamicAnalyze(String _exp, OperNatPointBlockPair _instance, ResultContext _result, String _type, AbsLightContextGenerator _gene) {
         if (_exp.trim().isEmpty()) {
             return new ResultContextLambda(_result.getContext(),null,null,new ReportedMessages(), 0, null);
         }

@@ -19,14 +19,14 @@ public final class OkOperNatCompoFormEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        CompoOperNatPointBlockPair exc_ = frameOperNatFormContent.getSelectedOperNat();
+        OperNatPointBlockPair exc_ = frameOperNatFormContent.getSelectedOperNat();
         if (exc_ == null) {
-            AbsOperNatPointBlockPair added_ = currentResult.resolve(frameOperNatFormContent.getSymbol().getText(), frameOperNatFormContent.getFirst().getText(), frameOperNatFormContent.getSecond().getText());
-            if (!(added_ instanceof CompoOperNatPointBlockPair)) {
+            OperNatPointBlockPair added_ = currentResult.resolve(frameOperNatFormContent.getSymbol().getText(), frameOperNatFormContent.getFirst().getText(), frameOperNatFormContent.getSecond().getText());
+            if (added_ == null) {
                 return;
             }
-            currentResult.getContext().operCompoNatList().add(added_);
-            exc_ = (CompoOperNatPointBlockPair) added_;
+            currentResult.getContext().operNatList().add(added_);
+            exc_ = added_;
         }
         exc_.getValue().setEnabled(frameOperNatFormContent.getEnabledOperNat().isSelected());
         exc_.getValue().setSimple(frameOperNatFormContent.getSimple().isSelected());
@@ -38,7 +38,7 @@ public final class OkOperNatCompoFormEvent implements AbsActionListener {
         framePoints.refreshOperNatCompo(currentResult);
         framePoints.getCommonFrame().pack();
     }
-    private static void update(CompoOperNatPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, ResultContext _curr) {
+    private static void update(OperNatPointBlockPair _mp, BreakPointCondition _condition, AbsDebuggerGui _window, GuiStackForm _form, ResultContext _curr) {
         _condition.analyze(_mp,_form.getConditional().getText(),_form.getLogs().getText(), _form.getWatches().getText(), _curr, _window.getResultContextNext().generateAdv(_curr.getContext().getInterrupt()));
         OkMpFormEvent.update(_condition, _form);
         if (_form.getDependantPointsForm().getSelectedCurrent().containsObj(OperNatPoint.BPC_SIMPLE)) {

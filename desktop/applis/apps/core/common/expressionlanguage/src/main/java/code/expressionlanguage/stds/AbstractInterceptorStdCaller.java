@@ -29,7 +29,7 @@ public interface AbstractInterceptorStdCaller {
     AbsCollection<AbsCallContraints> newExecFileBlockTraceIndexCollection();
     AbsCollection<MethodPointBlockPair> newMethodPointKeyStringCollection();
     AbsCollection<StdMethodPointBlockPair> newStdMethodPointKeyStringCollection();
-    AbsCollection<AbsOperNatPointBlockPair> newOperNatPointKeyStringCollection();
+    AbsCollection<OperNatPointBlockPair> newOperNatPointKeyStringCollection();
     AbstractAtomicBoolean newAtBool();
     AbstractAtomicInteger newAtInt();
     AbstractAtomicRef<StrResultContextLambda> newAtLda();

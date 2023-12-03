@@ -223,7 +223,7 @@ public final class ResultExpressionOperationNode {
         return a_;
     }
 
-    public static AnalyzedPageEl prepare(AbsOperNatPointBlockPair _instance, AnalyzedPageEl _original) {
+    public static AnalyzedPageEl prepare(OperNatPointBlockPair _instance, AnalyzedPageEl _original) {
         AnalyzedPageEl a_ = AnalyzedPageEl.copy(_original);
         a_.setDynamic(true);
         a_.setCurrentPkg(a_.getDefaultPkg());

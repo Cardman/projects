@@ -159,21 +159,21 @@ public final class ResultContext {
     public void toggleWatch(boolean _trField, SynthFieldInfo _field) {
         getContext().toggleWatch(_trField, _field);
     }
-    public AbsOperNatPointBlockPair toggleOperNatPoint(String _symbol,String _first, String _second) {
-        AbsOperNatPointBlockPair o_ = resolve(_symbol, _first, _second);
+    public OperNatPointBlockPair toggleOperNatPoint(String _symbol,String _first, String _second) {
+        OperNatPointBlockPair o_ = resolve(_symbol, _first, _second);
         if (o_ == null) {
             return getContext().operNatDisabled();
         }
         return getContext().toggleOperNat(o_);
     }
-    public AbsOperNatPointBlockPair toggleEnableOperNatPoint(String _symbol,String _first, String _second) {
-        AbsOperNatPointBlockPair o_ = resolve(_symbol, _first, _second);
+    public OperNatPointBlockPair toggleEnableOperNatPoint(String _symbol,String _first, String _second) {
+        OperNatPointBlockPair o_ = resolve(_symbol, _first, _second);
         if (o_ == null) {
             return getContext().operNatDisabled();
         }
         return getContext().toggleEnableOperNat(o_);
     }
-    public AbsOperNatPointBlockPair resolve(String _symbol,String _first, String _second) {
+    public OperNatPointBlockPair resolve(String _symbol,String _first, String _second) {
         if (koType(_first)) {
             return null;
         }
@@ -195,14 +195,14 @@ public final class ResultContext {
         if (k_.isEmpty()) {
             return null;
         }
-        AbsOperNatPointBlockPair o_;
+        OperNatPointBlockPair o_;
         if (_second.trim().isEmpty()) {
-            o_ = operNat(k_, _symbol,res_.getFirst(), "");
+            o_ = operNat(k_, _symbol,res_.getFirst(), "", false);
         } else {
             if (StringExpUtil.isLogical(_symbol) || StringExpUtil.isBinNum(_symbol) || StringExpUtil.isBitwise(_symbol) || StringExpUtil.isShiftOper(_symbol) || res_.getSymbol() instanceof CommonOperNullSafe) {
-                o_ = operCompoNat(k_, _symbol,res_.getFirst(), res_.getSecond());
+                o_ = operCompoNat(k_, _symbol,res_.getFirst(), res_.getSecond(), true);
             } else {
-                o_ = operNat(k_, _symbol,res_.getFirst(), res_.getSecond());
+                o_ = operNat(k_, _symbol,res_.getFirst(), res_.getSecond(), false);
             }
         }
         return o_;
@@ -212,11 +212,11 @@ public final class ResultContext {
         PrimitiveType secondPr_ = getPageEl().getPrimitiveTypes().getVal(_second);
         return secondMain_ == null && secondPr_ == null;
     }
-    public OperNatPointBlockPair operNat(String _k, String _symbol, String _f, String _s) {
-        return getContext().operNat(_k, _symbol, _f, _s);
+    public OperNatPointBlockPair operNat(String _k, String _symbol, String _f, String _s, boolean _enableComp) {
+        return getContext().operNat(_k, _symbol, _f, _s, _enableComp);
     }
-    public CompoOperNatPointBlockPair operCompoNat(String _k, String _symbol, String _f, String _s) {
-        return getContext().operCompoNat(_k, _symbol, _f, _s);
+    public OperNatPointBlockPair operCompoNat(String _k, String _symbol, String _f, String _s, boolean _enableComp) {
+        return getContext().operCompoNat(_k, _symbol, _f, _s, _enableComp);
     }
 
     public MethodPointBlockPair method(DisplayedStrings _d, MemberCallingsBlock _id) {

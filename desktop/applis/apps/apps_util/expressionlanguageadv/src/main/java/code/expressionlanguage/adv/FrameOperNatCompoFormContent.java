@@ -1,7 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
-import code.expressionlanguage.exec.dbg.CompoOperNatPointBlockPair;
+import code.expressionlanguage.exec.dbg.OperNatPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
@@ -11,7 +11,7 @@ import code.util.StringMap;
 public final class FrameOperNatCompoFormContent {
     private final GuiStackForm guiSimpleStackForm;
     private final GuiStackForm guiCompoundStackForm;
-    private CompoOperNatPointBlockPair selectedOperNat;
+    private OperNatPointBlockPair selectedOperNat;
     private AbsTextField symbol;
     private AbsTextField first;
     private AbsTextField second;
@@ -57,9 +57,9 @@ public final class FrameOperNatCompoFormContent {
         _tab.addIntTab(_title, _compo);
     }
 
-    public void initForm(CompoOperNatPointBlockPair _s, AbsCommonFrame _f, ResultContext _r) {
+    public void initForm(OperNatPointBlockPair _s, AbsCommonFrame _f, ResultContext _r) {
         setSelectedOperNat(_s);
-        CompoOperNatPointBlockPair exc_ = getSelectedOperNat();
+        OperNatPointBlockPair exc_ = getSelectedOperNat();
         tabs.removeAll();
         if (exc_ != null) {
             symbol.setEnabled(false);
@@ -98,11 +98,11 @@ public final class FrameOperNatCompoFormContent {
         return contentPane;
     }
 
-    public CompoOperNatPointBlockPair getSelectedOperNat() {
+    public OperNatPointBlockPair getSelectedOperNat() {
         return selectedOperNat;
     }
 
-    public void setSelectedOperNat(CompoOperNatPointBlockPair _s) {
+    public void setSelectedOperNat(OperNatPointBlockPair _s) {
         this.selectedOperNat = _s;
     }
 

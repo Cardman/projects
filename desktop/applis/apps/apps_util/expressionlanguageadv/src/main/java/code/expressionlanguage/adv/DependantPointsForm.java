@@ -180,14 +180,14 @@ public final class DependantPointsForm {
         view.setViewportView(page_);
     }
 
-    public void guiContentBuild(OperNatPointBlockPair _p) {
+    public void guiContentBuildNotCompo(OperNatPointBlockPair _p) {
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
         page_.add(check(THROWN,_p.getValue().getResultSimple()));
         view.setViewportView(page_);
     }
 
-    public void guiContentBuild(CompoOperNatPointBlockPair _p) {
+    public void guiContentBuild(OperNatPointBlockPair _p) {
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
         page_.add(check(THROWN,_p.getValue().getResultSimple()));

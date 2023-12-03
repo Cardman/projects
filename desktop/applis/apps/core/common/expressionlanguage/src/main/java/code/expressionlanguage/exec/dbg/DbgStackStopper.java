@@ -263,14 +263,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
 
     private static SuspendedCandidateInfos operNat(ContextEl _context, StackCall _stackCall, AbstractPageEl _p, OperNatCheckedExecOperationNodeInfos _nat) {
         if (_nat != null) {
-            AbsOperNatPointBlockPair p_ = _context.getPairOperNat(_nat.getKey());
-            if (p_ instanceof OperNatPointBlockPair) {
-                return checkOperNat(_context, _stackCall, _p, _nat, stopOperNatValue(((OperNatPointBlockPair)p_).getValue(), _nat.getModeField()));
-            }
-            if (p_ instanceof CompoOperNatPointBlockPair) {
-                return checkOperNat(_context, _stackCall, _p, _nat, stopOperNatValue(((CompoOperNatPointBlockPair)p_).getValue(), _nat.getModeField()));
-            }
-            return checkOperNat(_context, _stackCall, _p, _nat, stopOperNatValue(_context.operNatDisabled().getValue(), _nat.getModeField()));
+            return checkOperNat(_context, _stackCall, _p, _nat, stopOperNatValue(_context.getPairOperNat(_nat.getKey()).getValue(), _nat.getModeField()));
         }
         return null;
     }
@@ -712,7 +705,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         return _ex.result();
     }
 
-    private static BreakPointCondition stopOperNatValue(AbsOperNatPoint _ex, int _mode) {
+    private static BreakPointCondition stopOperNatValue(OperNatPoint _ex, int _mode) {
         if (!_ex.isEnabled()) {
             return null;
         }

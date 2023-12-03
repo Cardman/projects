@@ -293,17 +293,19 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         _cont.getPair(id_).getValue().setExit(false);
     }
     private void stdSimpleCondition(ResultContext _cont, String _condition, String _symbol,String _first, String _second, boolean _simple, boolean _compound) {
-        CompoOperNatPointBlockPair p_ = std(_cont, _symbol, _first, _second, _simple, _compound);
-        CompOperNatPoint wp_ = p_.getValue();
+        OperNatPointBlockPair p_ = std(_cont, _symbol, _first, _second, _simple, _compound);
+        OperNatPoint wp_ = p_.getValue();
         wp_.getResultSimple().analyze(p_,_condition,"", "", _cont,new DefContextGenerator());
+        assertTrue(wp_.isPossibleComp());
         assertEq(_condition,wp_.getResultSimple().getResultStr());
     }
 
-    private CompoOperNatPointBlockPair std(ResultContext _cont, String _symbol,String _first, String _second, boolean _simple, boolean _compound) {
-        CompoOperNatPointBlockPair p_ = (CompoOperNatPointBlockPair) _cont.toggleOperNatPoint(_symbol, _first, _second);
-        CompOperNatPoint val_ = p_.getValue();
+    private OperNatPointBlockPair std(ResultContext _cont, String _symbol,String _first, String _second, boolean _simple, boolean _compound) {
+        OperNatPointBlockPair p_ = _cont.toggleOperNatPoint(_symbol, _first, _second);
+        OperNatPoint val_ = p_.getValue();
         val_.setSimple(_simple);
         val_.setCompound(_compound);
+        assertTrue(val_.isPossibleComp());
         return p_;
     }
 

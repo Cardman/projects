@@ -29,8 +29,7 @@ public final class BreakPointBlockList {
     private final AbsCollection<MethodPointBlockPair> methPointList;
     private final AbsCollection<StdMethodPointBlockPair> stdMethPointList;
     private final AbsCollection<ParPointBlockPair> parPointList;
-    private final AbsCollection<AbsOperNatPointBlockPair> operNatPointList;
-    private final AbsCollection<AbsOperNatPointBlockPair> operCompoNatPointList;
+    private final AbsCollection<OperNatPointBlockPair> operNatPointList;
     private final AbsCollection<AbsCallContraints> exclude;
     private final AbsCollection<AbsCallContraints> include;
     private final AbsCollection<TypePointBlockPair> typeList;
@@ -47,7 +46,6 @@ public final class BreakPointBlockList {
         methPointList = _i.newMethodPointKeyStringCollection();
         stdMethPointList = _i.newStdMethodPointKeyStringCollection();
         operNatPointList = _i.newOperNatPointKeyStringCollection();
-        operCompoNatPointList = _i.newOperNatPointKeyStringCollection();
         pausedLoop = _i.newAtBool();
         exclude = _i.newExecFileBlockTraceIndexCollection();
         include = _i.newExecFileBlockTraceIndexCollection();
@@ -152,16 +150,16 @@ public final class BreakPointBlockList {
         return ".";
     }
 
-    public OperNatPointBlockPair operNat(String _k, String _symbol, String _f, String _s) {
-        return new OperNatPointBlockPair(_k, _symbol, interceptor,true, _f, _s);
+    public OperNatPointBlockPair operNat(String _k, String _symbol, String _f, String _s, boolean _enableComp) {
+        return new OperNatPointBlockPair(_k, _symbol, interceptor,true, _f, _s, _enableComp);
     }
 
-    public CompoOperNatPointBlockPair operNatComp(String _k, String _symbol, String _f, String _s) {
-        return new CompoOperNatPointBlockPair(_k, _symbol, interceptor,true, _f, _s);
+    public OperNatPointBlockPair operNatComp(String _k, String _symbol, String _f, String _s, boolean _enableComp) {
+        return new OperNatPointBlockPair(_k, _symbol, interceptor,true, _f, _s, _enableComp);
     }
 
     public OperNatPointBlockPair operNatDisabled() {
-        return new OperNatPointBlockPair("","", interceptor,false, "", "");
+        return new OperNatPointBlockPair("","", interceptor,false, "", "", false);
     }
 
     public MethodPointBlockPair method(DisplayedStrings _d, MemberCallingsBlock _id) {
@@ -242,10 +240,7 @@ public final class BreakPointBlockList {
         for (WatchPointBlockPair b: getWatchList().elts()) {
             b.getValue().resetCount();
         }
-        for (AbsOperNatPointBlockPair b: getOperNatPointList().elts()) {
-            b.resetCount();
-        }
-        for (AbsOperNatPointBlockPair b: getOperCompoNatPointList().elts()) {
+        for (OperNatPointBlockPair b: getOperNatPointList().elts()) {
             b.resetCount();
         }
     }
@@ -335,12 +330,8 @@ public final class BreakPointBlockList {
         return watchList;
     }
 
-    public AbsCollection<AbsOperNatPointBlockPair> getOperNatPointList() {
+    public AbsCollection<OperNatPointBlockPair> getOperNatPointList() {
         return operNatPointList;
-    }
-
-    public AbsCollection<AbsOperNatPointBlockPair> getOperCompoNatPointList() {
-        return operCompoNatPointList;
     }
 
     public AbsCollection<AbsCallContraints> getExclude() {

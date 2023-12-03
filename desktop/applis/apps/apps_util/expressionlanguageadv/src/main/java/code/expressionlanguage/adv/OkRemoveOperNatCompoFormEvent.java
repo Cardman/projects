@@ -16,7 +16,7 @@ public final class OkRemoveOperNatCompoFormEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        currentResult.getContext().operCompoNatList().remove(frameOperNatFormContent.getSelectedOperNat());
+        currentResult.getContext().operNatList().remove(frameOperNatFormContent.getSelectedOperNat());
         frameOperNatFormContent.setSelectedOperNat(null);
         framePoints.guiContentBuildClear();
         framePoints.refreshOperNatCompo(currentResult);

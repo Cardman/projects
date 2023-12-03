@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.exec.dbg.AbsOperNatPointBlockPair;
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
 import code.expressionlanguage.exec.dbg.OperNatPoint;
 import code.expressionlanguage.exec.dbg.OperNatPointBlockPair;
@@ -24,12 +23,12 @@ public final class OkOperNatFormEvent implements AbsActionListener {
     public void action() {
         OperNatPointBlockPair exc_ = frameOperNatFormContent.getSelectedOperNat();
         if (exc_ == null) {
-            AbsOperNatPointBlockPair added_ = currentResult.resolve(frameOperNatFormContent.getSymbol().getText(), frameOperNatFormContent.getFirst().getText(), frameOperNatFormContent.getSecond().getText());
-            if (!(added_ instanceof OperNatPointBlockPair)) {
+            OperNatPointBlockPair added_ = currentResult.resolve(frameOperNatFormContent.getSymbol().getText(), frameOperNatFormContent.getFirst().getText(), frameOperNatFormContent.getSecond().getText());
+            if (added_ == null) {
                 return;
             }
             currentResult.getContext().operNatList().add(added_);
-            exc_ = (OperNatPointBlockPair) added_;
+            exc_ = added_;
         }
         exc_.getValue().setEnabled(frameOperNatFormContent.getEnabledOperNat().isSelected());
         exc_.getValue().setSimple(frameOperNatFormContent.getSimple().isSelected());

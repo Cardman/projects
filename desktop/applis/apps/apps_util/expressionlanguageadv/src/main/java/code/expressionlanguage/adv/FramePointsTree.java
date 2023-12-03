@@ -45,7 +45,7 @@ public final class FramePointsTree {
     private final NatStringTreeMap<CustList<ExcPointBlockPair>> excList = new NatStringTreeMap<CustList<ExcPointBlockPair>>();
     private final NatStringTreeMap<CustList<ParPointBlockPair>> parList = new NatStringTreeMap<CustList<ParPointBlockPair>>();
     private final NatStringTreeMap<OperNatPointBlockPair> operNatList = new NatStringTreeMap<OperNatPointBlockPair>();
-    private final NatStringTreeMap<CompoOperNatPointBlockPair> operNatCompoList = new NatStringTreeMap<CompoOperNatPointBlockPair>();
+    private final NatStringTreeMap<OperNatPointBlockPair> operNatCompoList = new NatStringTreeMap<OperNatPointBlockPair>();
     private final NatStringTreeMap<MethodPointBlockPair> metList = new NatStringTreeMap<MethodPointBlockPair>();
     private final NatStringTreeMap<CustList<StdMethodPointBlockPair>> stdList = new NatStringTreeMap<CustList<StdMethodPointBlockPair>>();
     private final NatStringTreeMap<CustList<ArrPointBlockPair>> arrList = new NatStringTreeMap<CustList<ArrPointBlockPair>>();
@@ -204,8 +204,10 @@ public final class FramePointsTree {
     public void refreshOperNat(ResultContext _res) {
         operNatPoints.removeAllChildren();
         operNatList.clear();
-        for (AbsOperNatPointBlockPair p: _res.getContext().operNatList().elts()) {
-            put(p);
+        for (OperNatPointBlockPair p: _res.getContext().operNatList().elts()) {
+            if (!p.getValue().isPossibleComp()) {
+                operNatList.put(p.getOn().keyStr(), p);
+            }
         }
         for (EntryCust<String, OperNatPointBlockPair> p: operNatList.entryList()) {
             operNatPoints.add(compoFactory.newMutableTreeNode(p.getValue().getOn().getFirst()+" "+p.getValue().getSymbol()+" "+p.getValue().getOn().getSecond()));
@@ -216,22 +218,15 @@ public final class FramePointsTree {
     public void refreshOperNatCompo(ResultContext _res) {
         operNatCompoPoints.removeAllChildren();
         operNatCompoList.clear();
-        for (AbsOperNatPointBlockPair p: _res.getContext().operCompoNatList().elts()) {
-            put(p);
+        for (OperNatPointBlockPair p: _res.getContext().operNatList().elts()) {
+            if (p.getValue().isPossibleComp()) {
+                operNatCompoList.put(p.getOn().keyStr(), p);
+            }
         }
-        for (EntryCust<String, CompoOperNatPointBlockPair> p: operNatCompoList.entryList()) {
+        for (EntryCust<String, OperNatPointBlockPair> p: operNatCompoList.entryList()) {
             operNatCompoPoints.add(compoFactory.newMutableTreeNode(p.getValue().getOn().getFirst()+" "+p.getValue().getSymbol()+" "+p.getValue().getOn().getSecond()));
         }
         tree.reload(operNatCompoPoints);
-    }
-
-    private void put(AbsOperNatPointBlockPair _p) {
-        if (_p instanceof OperNatPointBlockPair) {
-            operNatList.put(_p.getOn().keyStr(), (OperNatPointBlockPair) _p);
-        }
-        if (_p instanceof CompoOperNatPointBlockPair) {
-            operNatCompoList.put(_p.getOn().keyStr(), (CompoOperNatPointBlockPair) _p);
-        }
     }
 
     public void refreshTp(ResultContext _res) {
@@ -472,7 +467,7 @@ public final class FramePointsTree {
         return operNatList;
     }
 
-    public NatStringTreeMap<CompoOperNatPointBlockPair> getOperNatCompoList() {
+    public NatStringTreeMap<OperNatPointBlockPair> getOperNatCompoList() {
         return operNatCompoList;
     }
 

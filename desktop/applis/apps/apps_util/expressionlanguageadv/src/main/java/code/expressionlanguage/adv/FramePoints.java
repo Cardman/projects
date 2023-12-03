@@ -208,14 +208,26 @@ public final class FramePoints {
         view.recalculateViewport();
     }
 
-    public void guiContentBuild(OperNatPointBlockPair _exc, ResultContext _r) {
-        frameOperNatFormContent.initForm(_exc,commonFrame,_r);
+    public void guiContentBuildNotCompo(OperNatPointBlockPair _exc, ResultContext _r) {
+        frameOperNatFormContent.initForm(_exc, commonFrame, _r);
         view.setViewportView(frameOperNatFormContent.getContentPane());
         view.recalculateViewport();
     }
 
-    public void guiContentBuild(CompoOperNatPointBlockPair _exc, ResultContext _r) {
+    public void guiContentBuild(OperNatPointBlockPair _exc, ResultContext _r) {
         frameOperNatCompoFormContent.initForm(_exc,commonFrame,_r);
+        view.setViewportView(frameOperNatCompoFormContent.getContentPane());
+        view.recalculateViewport();
+    }
+
+    public void guiContentBuildNotCompo(ResultContext _r) {
+        frameOperNatFormContent.initForm(null,commonFrame,_r);
+        view.setViewportView(frameOperNatFormContent.getContentPane());
+        view.recalculateViewport();
+    }
+
+    public void guiContentBuildCompo(ResultContext _r) {
+        frameOperNatCompoFormContent.initForm(null,commonFrame,_r);
         view.setViewportView(frameOperNatCompoFormContent.getContentPane());
         view.recalculateViewport();
     }

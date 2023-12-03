@@ -83,8 +83,8 @@ public final class TestedRenderInterceptorStdCaller implements AbstractIntercept
     }
 
     @Override
-    public AbsCollection<AbsOperNatPointBlockPair> newOperNatPointKeyStringCollection() {
-        return new ConcList<AbsOperNatPointBlockPair>(new OperNatKeyString(), this);
+    public AbsCollection<OperNatPointBlockPair> newOperNatPointKeyStringCollection() {
+        return new ConcList<OperNatPointBlockPair>(new OperNatKeyString(), this);
     }
 
     @Override
