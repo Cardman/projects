@@ -366,6 +366,7 @@ public final class InitializationLgNames extends EquallableElUtil {
         _lgNames.getDisplayedStrings().setStaticString("$static");
         _lgNames.getDisplayedStrings().setInfinity("Infinity");
         _lgNames.getDisplayedStrings().setNan("Nan");
+        _lgNames.getDisplayedStrings().setUnicode("u");
         _lgNames.getDisplayedStrings().setExponent("E");
         _lgNames.getPredefTypes().getParams().setAliasSeedGenerator0Get0("a");
     }

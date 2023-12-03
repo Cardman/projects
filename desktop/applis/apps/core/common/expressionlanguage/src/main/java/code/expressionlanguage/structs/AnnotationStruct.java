@@ -14,7 +14,6 @@ public final class AnnotationStruct extends WithoutParentStruct implements Field
 
     private static final String INFINITY = "I";
     private static final String NAN = "N";
-    private static final String EXP = "E";
     private final String className;
 
     private final CustList<ClassFieldStruct> fields;
@@ -31,7 +30,7 @@ public final class AnnotationStruct extends WithoutParentStruct implements Field
             return false;
         }
         AnnotationStruct a_ = (AnnotationStruct) _other;
-        return StringUtil.quickEq(ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, EXP,a_), ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, EXP,this));
+        return StringUtil.quickEq(ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, "#", "", a_), ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, "#", "", this));
     }
 
     @Override
@@ -63,6 +62,6 @@ public final class AnnotationStruct extends WithoutParentStruct implements Field
         DisplayedStrings dis_ = _an.getStandards().getDisplayedStrings();
         return new StringStruct(ExportAnnotationUtil.exportAnnotation(dis_.getInfinity(),
                 dis_.getNan(),
-                dis_.getExponent(),this));
+                dis_.getExponent(), dis_.getUnicode(), this));
     }
 }

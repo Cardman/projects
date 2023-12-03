@@ -20,6 +20,7 @@ public final class LgNamesContent {
     private static final String INFINITY = "_________1872";
     private static final String EXPONENT = "_________1873";
     private static final String NAN = "_________1874";
+    private static final String UNICODE = "_________1874_";
 
     private final StringMap<StandardType> standards = new StringMap<StandardType>();
 
@@ -53,6 +54,7 @@ public final class LgNamesContent {
         getDisplayedStrings().setStaticString(get(_util,_cust, _mapping.getVal(STATIC_STRING)));
         getDisplayedStrings().setInfinity(get(_util,_cust, _mapping.getVal(INFINITY)));
         getDisplayedStrings().setNan(get(_util,_cust, _mapping.getVal(NAN)));
+        getDisplayedStrings().setUnicode(get(_util,_cust, _mapping.getVal(UNICODE)));
         getDisplayedStrings().setExponent(get(_util,_cust, _mapping.getVal(EXPONENT)));
         getPredefTypes().getParams().build(_util, _cust,_mapping);
         getCharSeq().getParams().build(_util, _cust,_mapping);
@@ -67,6 +69,7 @@ public final class LgNamesContent {
         _en.add(TRUE_STRING,"TrueString=true");
         _en.add(INFINITY,"Infinity=Infinity");
         _en.add(NAN,"Nan=Nan");
+        _en.add(UNICODE,"Unicode=u");
         _en.add(EXPONENT,"Exponent=E");
         _en.add(NULL_STRING,"NullString=");
         _en.add(NULL_COVER_STRING,"NullCoverString=null");
@@ -94,6 +97,7 @@ public final class LgNamesContent {
         _fr.add(TRUE_STRING,"TrueString=vrai");
         _fr.add(INFINITY,"Infinity=Infini");
         _fr.add(NAN,"Nan=Pun");
+        _fr.add(UNICODE,"Unicode=u");
         _fr.add(EXPONENT,"Exponent=E");
         _fr.add(NULL_STRING,"NullString=");
         _fr.add(NULL_COVER_STRING,"NullCoverString=nul");
@@ -122,6 +126,7 @@ public final class LgNamesContent {
         m_.addEntry(TRUE_STRING,"TrueString");
         m_.addEntry(INFINITY,"Infinity");
         m_.addEntry(NAN,"Nan");
+        m_.addEntry(UNICODE,"Unicode");
         m_.addEntry(EXPONENT,"Exponent");
         m_.addEntry(NULL_STRING,"NullString");
         m_.addEntry(NULL_COVER_STRING,"NullCoverString");

@@ -1485,6 +1485,7 @@ public final class RenderInitNavTest extends CommonRender {
         _lgNames.getDisplayedStrings().setStaticString("static");
         _lgNames.getDisplayedStrings().setInfinity("Infinity");
         _lgNames.getDisplayedStrings().setNan("Nan");
+        _lgNames.getDisplayedStrings().setUnicode("u");
         _lgNames.getDisplayedStrings().setExponent("E");
     }
 

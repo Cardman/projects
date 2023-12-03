@@ -17,6 +17,6 @@ public final class FctAnnotationToStr extends FctReflection {
         return new ArgumentWrapper(new StringStruct(ExportAnnotationUtil.exportAnnotation(
                 dis_.getInfinity(),
                 dis_.getNan(),
-                dis_.getExponent(),_firstArgs.getArgumentWrappers().get(0).getValue().getStruct())));
+                dis_.getExponent(), dis_.getUnicode(), _firstArgs.getArgumentWrappers().get(0).getValue().getStruct())));
     }
 }

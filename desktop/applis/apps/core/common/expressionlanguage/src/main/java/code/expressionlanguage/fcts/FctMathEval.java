@@ -45,12 +45,17 @@ public final class FctMathEval extends FctMath {
         String result_ = MaParser.processEl(generator_, rands_, _stackCall.getSeedCust(), new MaUserInput(val_, repls_, ok_));
         CustList<String> chgs_ = new CustList<String>();
         AbsLogDbg lg_ = _stackCall.getStopper().getLogger();
+        String paramStr_;
         if (lg_ != null) {
+            String un_ = lgNames_.getDisplayedStrings().getUnicode();
             for (Replacement r: repls_) {
-                chgs_.add("\""+r.getOldString()+"\"-\""+r.getNewString()+"\"");
+                chgs_.add(NumParsers.exportValue(new StringStruct(r.getOldString()),un_).getInstance()+"-"+NumParsers.exportValue(new StringStruct(r.getNewString()),un_).getInstance());
             }
+            paramStr_ = _id +":"+NumParsers.exportValue(new StringStruct(val_),un_).getInstance()+","+StringUtil.join(chgs_, ";");
+        } else {
+            paramStr_ = "";
         }
-        log(_stackCall, rands_, _id +":\""+val_+"\","+StringUtil.join(chgs_, ";"));
+        log(_stackCall, rands_, paramStr_);
         return new ArgumentWrapper(new StringStruct(result_));
     }
 

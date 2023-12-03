@@ -1128,28 +1128,28 @@ public final class NumParsers {
         return _value instanceof DoubleStruct || _value instanceof FloatStruct;
     }
 
-    public static StringStruct exportValue(CharSequenceStruct _ch) {
+    public static StringStruct exportValue(CharSequenceStruct _ch, String _unicode) {
         StringBuilder out_ = new StringBuilder();
         out_.append("\"");
         for (char c: _ch.toStringInstance().toCharArray()) {
-            out_.append(exportChar(c));
+            out_.append(exportChar(c,_unicode));
         }
         out_.append("\"");
         return new StringStruct(out_.toString());
     }
 
-    private static String exportChar(char _char) {
+    private static String exportChar(char _char, String _unicode) {
         if (_char == '"' || _char == '\\') {
             return "\\"+_char;
         }
         if (_char == 0) {
-            return "\\u0000";
+            return "\\"+_unicode+"0000";
         }
         if (_char < 16) {
-            return "\\u000"+StringExpUtil.toGeneHex(_char);
+            return "\\"+_unicode+"000"+StringExpUtil.toGeneHex(_char);
         }
         if (_char < 31) {
-            return "\\u00"+StringExpUtil.toGeneHex(_char);
+            return "\\"+_unicode+"00"+StringExpUtil.toGeneHex(_char);
         }
         return Character.toString(_char);
     }
