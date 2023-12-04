@@ -2,13 +2,12 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.opers.AffectationOperation;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
+import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.syntax.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.*;
+import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.options.ResultContext;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -181,24 +180,60 @@ public final class DbgSyntaxColoring {
         CustList<SegmentReadOnlyTokenPart> fieldsStatic_ = new CustList<SegmentReadOnlyTokenPart>();
         OperationNode op_ = _r.getBlock();
         ResultExpression resStr_ = _r.getRes().getRes();
-        int offset_ = resStr_.getSumOffset();
         if (op_ instanceof SettableAbstractFieldOperation) {
             InnerTypeOrElement elt_ = result((SettableAbstractFieldOperation) op_);
             if (elt_ == null) {
+                int offset_ = resStr_.getSumOffset();
                 int b_ = beginOff(offset_,((SettableAbstractFieldOperation) op_));
+                int e_ = b_ + ((SettableAbstractFieldOperation) op_).getFieldNameLength();
                 if (((SettableAbstractFieldOperation) op_).getSettableFieldContent().isStaticField()) {
-                    fieldsStatic_.add(new SegmentReadOnlyTokenPart(b_,b_+((SettableAbstractFieldOperation) op_).getFieldNameLength()));
+                    fieldsStatic_.add(new SegmentReadOnlyTokenPart(b_, e_));
                 } else {
-                    fieldsInst_.add(new SegmentReadOnlyTokenPart(b_,b_+((SettableAbstractFieldOperation) op_).getFieldNameLength()));
+                    fieldsInst_.add(new SegmentReadOnlyTokenPart(b_, e_));
                 }
             } else {
                 int b_ = elt_.getFieldNameOffset();
                 fieldsStatic_.add(new SegmentReadOnlyTokenPart(b_, b_ + elt_.getUniqueFieldName().length()));
             }
         }
+        if (op_ instanceof LambdaOperation) {
+            records(_r, fieldsInst_, (LambdaOperation) op_);
+            regularField(_r, fieldsInst_, fieldsStatic_, (LambdaOperation) op_);
+        }
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD,fieldsInst_);
         parts_.addEntry(SyntaxRefTokenEnum.STATIC_FIELD,fieldsStatic_);
         return parts_;
+    }
+
+    private static void regularField(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _fieldsInst, CustList<SegmentReadOnlyTokenPart> _fieldsStatic, LambdaOperation _op) {
+        ClassField fieldId_ = _op.getFieldId();
+        if (fieldId_ != null) {
+            int b_ = beginOffGene(_r) + _op.getMemberOffset();
+            int e_ = b_ + fieldId_.getFieldName().length();
+            if (_op.getLambdaFieldContent().isStaticField()) {
+                _fieldsStatic.add(new SegmentReadOnlyTokenPart(b_, e_));
+            } else {
+                _fieldsInst.add(new SegmentReadOnlyTokenPart(b_, e_));
+            }
+        }
+    }
+
+    private static void records(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _fieldsInst, LambdaOperation _lda) {
+        CustList<AnaNamedFieldContent> namedFields_ = _lda.getNamedFields();
+        int len_ = namedFields_.size();
+        int off_ = _lda.getOffset();
+        for (int i = 0; i < len_; i++) {
+            int ref_ = _lda.getRefs().get(i);
+            if (ref_ < 0) {
+                continue;
+            }
+            AnaNamedFieldContent naFi_ = namedFields_.get(i);
+            String name_ = naFi_.getName();
+            int offset_ = _lda.getOffsets().get(i);
+            int b_ = beginOffGene(_r)+offset_+off_;
+            int e_ = b_ + name_.length();
+            _fieldsInst.add(new SegmentReadOnlyTokenPart(b_, e_));
+        }
     }
 
     private static InnerTypeOrElement result(SettableAbstractFieldOperation _op) {
@@ -314,6 +349,8 @@ public final class DbgSyntaxColoring {
         int delta_ = _val.getOffset();
         return _sum + delta_ + _val.getIndexInEl() + _val.getDelta();
     }
-
+    private static int beginOffGene(ResultExpressionBlockOperation _r) {
+        return _r.getRes().getRes().getSumOffset() + _r.getBlock().getIndexInEl();
+    }
 
 }
