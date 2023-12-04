@@ -5276,6 +5276,17 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq("pkg.Outer", cf_.getClassName());
         assertEq("ONE", cf_.getFieldName());
     }
+    @Test
+    public void vexer7() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Outer {ONE(OTHER);$static $final $int OTHER=1;($int i){}}");
+        files_.put("pkg/Ex", xml_.toString());
+        ClassField cf_ = vexerChamps(files_, "pkg/Ex", 29);
+        assertEq("pkg.Outer", cf_.getClassName());
+        assertEq("OTHER", cf_.getFieldName());
+    }
     private static CustList<RowSrcLocation> locationsDisplay(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return ResultExpressionOperationNode.locationsDisplay(a_,_fileName,_caret);

@@ -48,8 +48,16 @@ public final class ResultExpressionOperationNode {
         String eltName_;
         ClassField elt_;
         if (res_.block instanceof InnerTypeOrElement) {
-            relt_ = ((InnerTypeOrElement)res_.block).getDeclaringType();
-            eltName_ = ((InnerTypeOrElement)res_.block).getUniqueFieldName();
+            AnaElementContent e_ = ((InnerTypeOrElement)res_.block).getElementContent();
+            int beginName_ = e_.getFieldNameOffest();
+            int endName_ = beginName_ + e_.getFieldName().length();
+            if (inRange(beginName_,_caret,endName_)) {
+                relt_ = ((InnerTypeOrElement)res_.block).getDeclaringType();
+                eltName_ = ((InnerTypeOrElement)res_.block).getUniqueFieldName();
+            } else {
+                relt_ = null;
+                eltName_ = "";
+            }
         } else {
             relt_ = null;
             eltName_ = "";
@@ -57,9 +65,9 @@ public final class ResultExpressionOperationNode {
         if (relt_ != null) {
             elt_ = new ClassField(relt_.getFullName(),eltName_);
         } else {
-            elt_ = new ClassField("","");
+            elt_ = null;
         }
-        if (res_.getFound() != null && res_.getFound().getParent() instanceof AffectationOperation && ((AffectationOperation)res_.getFound().getParent()).isSynthetic()) {
+        if (elt_ != null) {
             return new SynthFieldInfo(elt_,relt_);
         }
         if (res_.getFound() instanceof SettableAbstractFieldOperation) {
