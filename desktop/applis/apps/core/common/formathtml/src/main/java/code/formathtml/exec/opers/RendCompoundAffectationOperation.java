@@ -15,20 +15,19 @@ import code.util.StringList;
 public abstract class RendCompoundAffectationOperation extends RendAbstractAffectOperation implements CompoundedOperator {
 
     private final ExecOperatorContent operatorContent;
-    private final ImplicitMethods converter;
+    private final ImplicitMethods converter = new ImplicitMethods();
     private final boolean staticPostEltContent;
 
-    protected RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ImplicitMethods _converter, StringList _names, boolean _staticPostEltContent) {
+    protected RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, StringList _names, boolean _staticPostEltContent) {
         super(_content, _names);
         operatorContent = _operatorContent;
-        converter = _converter;
         staticPostEltContent = _staticPostEltContent;
     }
 
     static void process(RendCompoundAffectationOperation _curr, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Argument _res) {
         Argument res_ = _res;
         ImplicitMethods converter_ = _curr.getConverter();
-        if (converter_ != null) {
+        if (!converter_.isEmpty()) {
             Argument conv_ = tryConvert(converter_, res_, _context, _rendStack);
             if (conv_ == null) {
                 return;
@@ -76,7 +75,7 @@ public abstract class RendCompoundAffectationOperation extends RendAbstractAffec
         return operatorContent;
     }
 
-    protected ImplicitMethods getConverter() {
+    public ImplicitMethods getConverter() {
         return converter;
     }
 

@@ -16,12 +16,11 @@ import code.util.core.StringUtil;
 
 public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffectOperation implements CallExecSimpleOperation,CompoundedOperator {
 
-    private final ImplicitMethods converter;
+    private final ImplicitMethods converter = new ImplicitMethods();
     private final boolean staticPostEltContent;
 
-    protected ExecCompoundAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ImplicitMethods _converter, StringList _names, boolean _staticPostEltContent) {
+    protected ExecCompoundAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, StringList _names, boolean _staticPostEltContent) {
         super(_opCont, _operatorContent, _names);
-        converter = _converter;
         staticPostEltContent = _staticPostEltContent;
     }
 

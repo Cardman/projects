@@ -17,16 +17,15 @@ import code.util.IdMap;
 
 public final class ExecExplicitOperatorOperation extends ExecSettableCallFctOperation implements CallExecSimpleOperation,CompoundedOperator{
 
-    private final ImplicitMethods converter;
+    private final ImplicitMethods converter = new ImplicitMethods();
     private final ExecTypeFunction pair;
     private final ExecStaticFctContent staticFctContent;
 
     private final ExecOperatorContent operatorContent;
-    public ExecExplicitOperatorOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, ExecTypeFunction _pair, ExecArrContent _exArr, ImplicitMethods _conv, ExecOperatorContent _operCont) {
+    public ExecExplicitOperatorOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, ExecTypeFunction _pair, ExecArrContent _exArr, ExecOperatorContent _operCont) {
         super(_opCont, _intermediateDottedOperation,_exArr);
         staticFctContent = _staticFctContent;
         pair = _pair;
-        converter = _conv;
         operatorContent = _operCont;
     }
 
@@ -55,6 +54,10 @@ public final class ExecExplicitOperatorOperation extends ExecSettableCallFctOper
         int off_ = getOffsetOper();
         setRelOffsetPossibleLastPage(off_, _stack);
         ExecQuickOperation.end(this,_conf,_nodes,_right,_stack,converter);
+    }
+
+    public ImplicitMethods getConverter() {
+        return converter;
     }
 
     public int getOffsetOper() {

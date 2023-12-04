@@ -16,14 +16,13 @@ import code.util.IdMap;
 
 public final class ExecQuickOperation extends ExecMethodOperation implements AtomicExecCalculableOperation, CallExecSimpleOperation, CompoundedOperator {
 
-    private final ImplicitMethods converter;
+    private final ImplicitMethods converter = new ImplicitMethods();
     private final ExecOperatorContent operatorContent;
 
     private final ExecOperSymbol operSymbol;
 
-    public ExecQuickOperation(ExecOperationContent _opCont, ImplicitMethods _converter, ExecOperatorContent _opera, ExecOperSymbol _op) {
+    public ExecQuickOperation(ExecOperationContent _opCont, ExecOperatorContent _opera, ExecOperSymbol _op) {
         super(_opCont);
-        converter = _converter;
         operatorContent = _opera;
         operSymbol = _op;
     }
@@ -64,6 +63,10 @@ public final class ExecQuickOperation extends ExecMethodOperation implements Ato
             return;
         }
         _cur.setSimpleArgument(_right,_conf,_nodes, _stack);
+    }
+
+    public ImplicitMethods getConverter() {
+        return converter;
     }
 
     public ExecOperSymbol getOperSymbol() {

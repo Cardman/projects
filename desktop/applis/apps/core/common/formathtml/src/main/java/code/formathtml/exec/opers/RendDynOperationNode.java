@@ -209,7 +209,7 @@ public abstract class RendDynOperationNode {
 
     private void defCalcArg(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Argument _out) {
         Argument out_ = _out;
-        if (implicits.isValidIndex(0)) {
+        if (!implicits.isEmpty()) {
             Argument res_ = tryConvert(implicits, out_, _context, _rendStack);
             if (res_ == null) {
                 return;

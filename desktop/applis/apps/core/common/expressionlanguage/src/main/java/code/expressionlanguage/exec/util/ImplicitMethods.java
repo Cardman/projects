@@ -20,7 +20,7 @@ public final class ImplicitMethods {
     }
 
     public static boolean isValidIndex(ImplicitMethods _impl,int _indexImplicit) {
-        return _impl!=null&&_impl.isValidIndex(_indexImplicit);
+        return _impl.isValidIndex(_indexImplicit);
     }
 
     public boolean isValidIndex(int _indexImplicit) {

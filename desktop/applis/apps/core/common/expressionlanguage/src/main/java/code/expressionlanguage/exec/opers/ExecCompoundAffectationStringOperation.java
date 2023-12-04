@@ -23,8 +23,8 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
 
     private final ExecOperSymbol symbol;
 
-    public ExecCompoundAffectationStringOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, StringList _names, ExecOperSymbol _symbol, ImplicitMethods _converter, boolean _staticPostEltContent) {
-        super(_opCont, _operatorContent, _converter, _names, _staticPostEltContent);
+    public ExecCompoundAffectationStringOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, StringList _names, ExecOperSymbol _symbol, boolean _staticPostEltContent) {
+        super(_opCont, _operatorContent, _names, _staticPostEltContent);
         symbol = _symbol;
     }
 

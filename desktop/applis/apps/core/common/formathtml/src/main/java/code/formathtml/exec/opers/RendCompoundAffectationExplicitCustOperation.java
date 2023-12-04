@@ -2,7 +2,6 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -17,8 +16,8 @@ public final class RendCompoundAffectationExplicitCustOperation extends RendComp
     private final ExecTypeFunction pair;
     private final ExecStaticFctContent staticEltContent;
 
-    public RendCompoundAffectationExplicitCustOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticFctContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter, StringList _names, boolean _staticPostEltContent) {
-        super(_content, _operatorContent, _converter, _names, _staticPostEltContent);
+    public RendCompoundAffectationExplicitCustOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticFctContent _staticEltContent, ExecTypeFunction _pair, StringList _names, boolean _staticPostEltContent) {
+        super(_content, _operatorContent, _names, _staticPostEltContent);
         pair = _pair;
         staticEltContent = _staticEltContent;
     }

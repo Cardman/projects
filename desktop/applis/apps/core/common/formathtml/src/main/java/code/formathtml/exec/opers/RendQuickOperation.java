@@ -18,18 +18,17 @@ public final class RendQuickOperation extends RendMethodOperation implements Ren
 
     private final ExecOperatorContent operatorContent;
     private final ExecOperSymbol operSymbol;
-    private final ImplicitMethods conv;
+    private final ImplicitMethods conv = new ImplicitMethods();
 
-    public RendQuickOperation(ExecOperationContent _content, ExecOperatorContent _off, ImplicitMethods _converter, ExecOperSymbol _op) {
+    public RendQuickOperation(ExecOperationContent _content, ExecOperatorContent _off, ExecOperSymbol _op) {
         super(_content);
         operatorContent = _off;
-        conv = _converter;
         operSymbol = _op;
     }
 
     static void endCalculate(RendDynOperationNode _current, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Argument _argres, ImplicitMethods _converter) {
         Argument argres_ = _argres;
-        if (_converter != null) {
+        if (!_converter.isEmpty()) {
             Argument res_ = tryConvert(_converter, argres_, _context, _rendStack);
             if (res_ == null) {
                 return;
@@ -55,6 +54,10 @@ public final class RendQuickOperation extends RendMethodOperation implements Ren
         Argument a_ = getArgument(_nodes,getLastNode(this));
         Argument arg_ = new Argument(ExecCompoundAffectationStringOperation.calculatedValue(operSymbol, abs_, a_.getStruct(), _context, _rendStack, _rendStack.getLastPage()));
         endCalculate(this,_nodes,_context,_rendStack,arg_,conv);
+    }
+
+    public ImplicitMethods getConv() {
+        return conv;
     }
 
     @Override

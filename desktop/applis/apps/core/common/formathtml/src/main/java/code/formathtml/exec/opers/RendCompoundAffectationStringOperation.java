@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.opers.ExecCompoundAffectationStringOperation;
 import code.expressionlanguage.exec.symbols.ExecOperSymbol;
-import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
@@ -16,8 +15,8 @@ public final class RendCompoundAffectationStringOperation extends RendCompoundAf
 
     private final ExecOperSymbol symbol;
 
-    public RendCompoundAffectationStringOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, StringList _names, ExecOperSymbol _symbol, ImplicitMethods _converter, boolean _staticPostEltContent) {
-        super(_opCont, _operatorContent,_converter, _names, _staticPostEltContent);
+    public RendCompoundAffectationStringOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, StringList _names, ExecOperSymbol _symbol, boolean _staticPostEltContent) {
+        super(_opCont, _operatorContent, _names, _staticPostEltContent);
         symbol = _symbol;
     }
 

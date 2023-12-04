@@ -22,14 +22,13 @@ public final class RendExplicitOperatorOperation extends RendSettableCallFctOper
     private final ExecTypeFunction pair;
     private final ExecStaticFctContent staticFctContent;
     private final ExecOperatorContent operatorContent;
-    private final ImplicitMethods converter;
+    private final ImplicitMethods converter = new ImplicitMethods();
 
-    public RendExplicitOperatorOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, ExecTypeFunction _pair, ExecOperatorContent _offsetOper, ExecArrContent _arrContent, ImplicitMethods _converter) {
+    public RendExplicitOperatorOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, ExecTypeFunction _pair, ExecOperatorContent _offsetOper, ExecArrContent _arrContent) {
         super(_content, _intermediateDottedOperation, _arrContent);
         staticFctContent = _staticFctContent;
         pair = _pair;
         operatorContent = _offsetOper;
-        converter = _converter;
     }
 
     @Override
@@ -52,6 +51,10 @@ public final class RendExplicitOperatorOperation extends RendSettableCallFctOper
         String lastType_ = ExecFormattedRootBlock.formatLastType(classNameFound_,_elt);
         ParamCheckerUtil.checkParametersOperatorsFormatted(_context.getExiting(), _context, _pair, ExecInvokingOperation.fectchArgs(lastType_, _elt.getNaturalVararg(), _context, _rendStack.getStackCall(), _curr.buildInfos(_nodes)), classNameFound_, _elt.getKind(), _rendStack.getStackCall());
         return RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack);
+    }
+
+    public ImplicitMethods getConverter() {
+        return converter;
     }
 
     @Override

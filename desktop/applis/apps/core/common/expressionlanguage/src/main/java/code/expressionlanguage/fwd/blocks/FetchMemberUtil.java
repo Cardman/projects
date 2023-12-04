@@ -23,46 +23,44 @@ public final class FetchMemberUtil {
     }
 
     public static void setImplicits(AnaClassArgumentMatching _ana, ImplicitMethods _implicitsOp, ImplicitMethods _implicitsTestOp, Forwards _forwards) {
-        CustList<AnaFormattedRootBlock> implicits_ = _ana.getImplicits();
-        ExecTypeFunction conv_ = null;
-        ExecFormattedRootBlock formattedType_ = null;
-        if (!implicits_.isEmpty()) {
-            formattedType_ = ExecStaticEltContent.build(implicits_.first(), _forwards);
-            conv_ = fetchOvTypeFunction(_ana.getMemberId(), _forwards);
-        }
-        if (conv_ != null) {
-            _implicitsOp.getConverter().add(conv_);
-            _implicitsOp.setOwnerClass(formattedType_);
-        }
-        CustList<AnaFormattedRootBlock> implicitsTest_ = _ana.getImplicitsTest();
-        ExecTypeFunction convTest_ = null;
-        ExecFormattedRootBlock formattedTypeTest_ = null;
-        if (!implicitsTest_.isEmpty()) {
-            formattedTypeTest_ = ExecStaticEltContent.build(implicitsTest_.first(), _forwards);
-            convTest_ = fetchOvTypeFunction(_ana.getMemberIdTest(), _forwards);
-        }
+        impls(_implicitsOp, _forwards, _ana.getImplicits(), _ana.getMemberId());
+        impls(_implicitsTestOp, _forwards, _ana.getImplicitsTest(), _ana.getMemberIdTest());
+    }
+
+    private static void impls(ImplicitMethods _implicits, Forwards _forwards, CustList<AnaFormattedRootBlock> _impl, MemberId _id) {
+        impls(_implicits, _forwards, _id, formatted(_impl));
+    }
+
+    public static void impls(ClassMethodIdMemberIdTypeFct _f,ImplicitMethods _implicits, Forwards _forwards) {
+        impls(_implicits,_forwards, _f.getMemberId(), _f.getImplicit().getFormatted());
+    }
+    private static void impls(ImplicitMethods _implicits, Forwards _forwards, MemberId _id, String _f) {
+        ExecTypeFunction convTest_ = conv(_f, _id, _forwards);
         if (convTest_ != null) {
-            _implicitsTestOp.getConverter().add(convTest_);
-            _implicitsTestOp.setOwnerClass(formattedTypeTest_);
+            update(_implicits, convTest_, _f);
         }
     }
 
-    public static ImplicitMethods fetchImplicits(ClassMethodIdMemberIdTypeFct _id, Forwards _forwards) {
-        return fetchImplicits(_id.getImplicit(),_id.getMemberId(),_forwards);
+    private static String formatted(CustList<AnaFormattedRootBlock> _i) {
+        if (_i.isEmpty()) {
+            return "";
+        }
+        return _i.first().getFormatted();
     }
-    public static ImplicitMethods fetchImplicits(AnaFormattedRootBlock _clMet, MemberId _id, Forwards _forwards) {
+
+    private static void update(ImplicitMethods _converter, ExecTypeFunction _fct, String _formatted) {
+        _converter.getConverter().add(_fct);
+        _converter.setOwnerClass(new ExecFormattedRootBlock(_fct.getType(), _formatted));
+    }
+
+    private static ExecTypeFunction conv(String _formatted, MemberId _id, Forwards _forwards) {
         ExecTypeFunction conv_ = null;
-        if (!_clMet.getFormatted().isEmpty()) {
+        if (!_formatted.isEmpty()) {
             conv_ = fetchOvTypeFunction(_id, _forwards);
         }
-        if (conv_ != null) {
-            ImplicitMethods converter_ = new ImplicitMethods();
-            converter_.getConverter().add(conv_);
-            converter_.setOwnerClass(new ExecFormattedRootBlock(conv_.getType(),_clMet.getFormatted()));
-            return converter_;
-        }
-        return null;
+        return conv_;
     }
+
     public static CustList<ExecNamedFieldContent> namedFieldsContent(CustList<AnaNamedFieldContent> _ana, Forwards _fwd) {
         CustList<ExecNamedFieldContent> list_ = new CustList<ExecNamedFieldContent>();
         for (AnaNamedFieldContent a: _ana) {
