@@ -10,7 +10,7 @@ public final class AnaLambdaCommonContent {
     private String fileName = "";
     private boolean shiftArgument;
     private int ancestor;
-    private AnaFormattedRootBlock foundFormatted;
+    private AnaFormattedRootBlock foundFormatted = AnaFormattedRootBlock.defValue();
     private String result = "";
 
     public boolean isIntermediate() {

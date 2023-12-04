@@ -869,6 +869,14 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertEq(0,l_.size());
     }
 
+    @Test
+    public void partsTokens21() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public annotation pkg.Ex {{$lambda(Ex,field);}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyTokenPart> l_ = listTokensAnnotField(res_);
+        assertEq(0,l_.size());
+    }
     private CustList<SegmentReadOnlyPart> list(ResultContext _res) {
         IdMap<FileBlock,CustList<SegmentReadOnlyPart>> s_ = DbgSyntaxColoring.partsBpMpWp(_res);
         return s_.getVal(_res.getPageEl().getPreviousFilesBodies().getVal("src/file.txt"));
