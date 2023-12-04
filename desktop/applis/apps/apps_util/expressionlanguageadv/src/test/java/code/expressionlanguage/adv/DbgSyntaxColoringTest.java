@@ -820,6 +820,20 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         CustList<SegmentReadOnlyTokenPart> l_ = listTokensInstField(res_);
         assertEq(0,l_.size());
     }
+
+    @Test
+    public void partsTokens17() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public int field;public static int exmeth(){$lambda(StringSegment,new,begin,end);}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyTokenPart> l_ = listTokensInstFieldPred(res_);
+        assertEq(2,l_.size());
+        assertEq(91,l_.get(0).getBegin());
+        assertEq(96,l_.get(0).getEnd());
+        assertEq(97,l_.get(1).getBegin());
+        assertEq(100,l_.get(1).getEnd());
+    }
+
     private CustList<SegmentReadOnlyPart> list(ResultContext _res) {
         IdMap<FileBlock,CustList<SegmentReadOnlyPart>> s_ = DbgSyntaxColoring.partsBpMpWp(_res);
         return s_.getVal(_res.getPageEl().getPreviousFilesBodies().getVal("src/file.txt"));
@@ -832,6 +846,10 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
     }
     private CustList<SegmentReadOnlyTokenPart> listTokensStaticField(ResultContext _res) {
         return listTokens(_res).getVal(SyntaxRefTokenEnum.STATIC_FIELD);
+    }
+
+    private CustList<SegmentReadOnlyTokenPart> listTokensInstFieldPred(ResultContext _res) {
+        return listTokens(_res).getVal(SyntaxRefTokenEnum.INST_FIELD_PRED);
     }
     private IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> listTokens(ResultContext _res) {
         IdMap<FileBlock,IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>> s_ = DbgSyntaxColoring.partsTokens(_res);
