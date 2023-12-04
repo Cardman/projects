@@ -2,7 +2,6 @@ package code.expressionlanguage.fwd.opers;
 
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 
 public final class ExecInvokingConstructorContent {
     private final ExecFormattedRootBlock formattedType;
@@ -16,7 +15,7 @@ public final class ExecInvokingConstructorContent {
         lastType = _cont.getLastType();
         naturalVararg = _cont.getNaturalVararg();
         offsetOper = _cont.getOffsetOper();
-        formattedType = FetchMemberUtil.fwdFormatType(_cont.getFormattedType(),_fwd);
+        formattedType = ExecStaticEltContent.build(_cont.getFormattedType(),_fwd);
     }
     public String getLastType() {
         return lastType;

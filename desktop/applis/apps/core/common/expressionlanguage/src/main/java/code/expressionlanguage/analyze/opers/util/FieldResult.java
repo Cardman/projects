@@ -10,7 +10,7 @@ public final class FieldResult {
     private SearchingMemberStatus status;
     private final AnaSettableOperationContent content = new AnaSettableOperationContent();
     private String type;
-    private AnaFormattedRootBlock formattedType;
+    private AnaFormattedRootBlock formattedType = AnaFormattedRootBlock.defValue();
     private String fileName;
     private MemberId memberId = new MemberId();
     private CstFieldInfo cstFieldInfo;

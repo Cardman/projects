@@ -9,11 +9,14 @@ import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.common.*;
-import code.expressionlanguage.common.symbol.*;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.ConstType;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.symbol.CommonOperNullSafe;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
-import code.expressionlanguage.exec.symbols.*;
+import code.expressionlanguage.exec.symbols.ExecOperDir;
+import code.expressionlanguage.exec.symbols.ExecOperNull;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
@@ -58,7 +61,7 @@ public final class RendForwardInfos {
         if (declClass_.getRootBlock() == null) {
             return ExecFormattedRootBlock.defValue();
         }
-        return FetchMemberUtil.fwdFormatType(declClass_, _forwards);
+        return ExecStaticEltContent.build(declClass_, _forwards);
     }
 
     public static void nextPair(RendAnaExec _pair) {

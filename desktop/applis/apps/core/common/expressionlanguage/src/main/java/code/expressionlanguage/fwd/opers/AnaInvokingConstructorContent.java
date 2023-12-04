@@ -3,7 +3,7 @@ package code.expressionlanguage.fwd.opers;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 
 public final class AnaInvokingConstructorContent {
-    private AnaFormattedRootBlock formattedType;
+    private AnaFormattedRootBlock formattedType = AnaFormattedRootBlock.defValue();
 
     private String lastType = "";
 

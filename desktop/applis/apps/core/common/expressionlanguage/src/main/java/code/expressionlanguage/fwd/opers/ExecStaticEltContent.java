@@ -17,11 +17,11 @@ public final class ExecStaticEltContent {
     private final ExecFormattedRootBlock formattedType;
 
     public ExecStaticEltContent(AnaCallFctContent _className, Forwards _fwd) {
-        this(kind(_className.getFunction().getFunction()),build(_fwd,_className.getFormattedType()));
+        this(kind(_className.getFunction().getFunction()),build(_className.getFormattedType(), _fwd));
     }
 
     public ExecStaticEltContent(ClassMethodIdMemberIdTypeFct _id, Forwards _fwd) {
-        this(kind(_id.getFunction().getFunction()),build(_fwd, _id.getImplicit()));
+        this(kind(_id.getFunction().getFunction()),build(_id.getImplicit(), _fwd));
     }
 
     private ExecStaticEltContent(MethodAccessKind _k, ExecFormattedRootBlock _f) {
@@ -29,10 +29,10 @@ public final class ExecStaticEltContent {
         formattedType = _f;
     }
     public static ExecStaticEltContent initByNotNull(AnaCallFctContent _className, Forwards _fwd) {
-        return new ExecStaticEltContent(MethodId.getKind(((NamedCalledFunctionBlock)_className.getFunction().getFunction()).getModifier()),FetchMemberUtil.fwdFormatType(_className.getFormattedType(), _fwd));
+        return new ExecStaticEltContent(MethodId.getKind(((NamedCalledFunctionBlock)_className.getFunction().getFunction()).getModifier()),ExecStaticEltContent.build(_className.getFormattedType(), _fwd));
     }
 
-    static ExecFormattedRootBlock build(Forwards _fwd, AnaFormattedRootBlock _implicit) {
+    public static ExecFormattedRootBlock build(AnaFormattedRootBlock _implicit, Forwards _fwd) {
         if (_implicit.getRootBlock() == null) {
             return new ExecFormattedRootBlock((ExecRootBlock)null, _implicit.getFormatted());
         }

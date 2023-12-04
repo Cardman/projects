@@ -4,7 +4,6 @@ package code.expressionlanguage.fwd.opers;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 
 public final class ExecInstancingCustContent extends ExecInstancingCommonContent {
 
@@ -12,7 +11,7 @@ public final class ExecInstancingCustContent extends ExecInstancingCommonContent
     private final ExecTypeFunction pair;
 
     public ExecInstancingCustContent(AnaInstancingCommonContent _cont,ExecTypeFunction _pair, Forwards _fwd) {
-        this(_cont,_pair, FetchMemberUtil.fwdFormatType(_cont.getFormattedType(),_fwd));
+        this(_cont,_pair, ExecStaticEltContent.build(_cont.getFormattedType(),_fwd));
     }
     public ExecInstancingCustContent(AnaInstancingCommonContent _cont,ExecTypeFunction _pair, ExecFormattedRootBlock _formattedType) {
         super(_cont);

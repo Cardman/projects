@@ -2,8 +2,8 @@ package code.expressionlanguage.fwd.blocks;
 
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.exec.blocks.*;
@@ -15,6 +15,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.Members;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
+import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.util.CustList;
 
 public final class FetchMemberUtil {
@@ -26,7 +27,7 @@ public final class FetchMemberUtil {
         ExecTypeFunction conv_ = null;
         ExecFormattedRootBlock formattedType_ = null;
         if (!implicits_.isEmpty()) {
-            formattedType_ = fwdFormatType(implicits_.first(), _forwards);
+            formattedType_ = ExecStaticEltContent.build(implicits_.first(), _forwards);
             conv_ = fetchOvTypeFunction(_ana.getMemberId(), _forwards);
         }
         if (conv_ != null) {
@@ -37,7 +38,7 @@ public final class FetchMemberUtil {
         ExecTypeFunction convTest_ = null;
         ExecFormattedRootBlock formattedTypeTest_ = null;
         if (!implicitsTest_.isEmpty()) {
-            formattedTypeTest_ = fwdFormatType(implicitsTest_.first(), _forwards);
+            formattedTypeTest_ = ExecStaticEltContent.build(implicitsTest_.first(), _forwards);
             convTest_ = fetchOvTypeFunction(_ana.getMemberIdTest(), _forwards);
         }
         if (convTest_ != null) {
@@ -51,15 +52,13 @@ public final class FetchMemberUtil {
     }
     public static ImplicitMethods fetchImplicits(AnaFormattedRootBlock _clMet, MemberId _id, Forwards _forwards) {
         ExecTypeFunction conv_ = null;
-        ExecFormattedRootBlock formattedType_ = null;
-        if (_clMet != null) {
-            formattedType_ = fwdFormatType(_clMet, _forwards);
+        if (!_clMet.getFormatted().isEmpty()) {
             conv_ = fetchOvTypeFunction(_id, _forwards);
         }
         if (conv_ != null) {
             ImplicitMethods converter_ = new ImplicitMethods();
             converter_.getConverter().add(conv_);
-            converter_.setOwnerClass(formattedType_);
+            converter_.setOwnerClass(new ExecFormattedRootBlock(conv_.getType(),_clMet.getFormatted()));
             return converter_;
         }
         return null;
@@ -81,7 +80,7 @@ public final class FetchMemberUtil {
     public static CustList<ExecFormattedRootBlock> fwdFormatTypes(CustList<AnaFormattedRootBlock> _in,Forwards _forwards) {
         CustList<ExecFormattedRootBlock> l_ = new CustList<ExecFormattedRootBlock>();
         for (AnaFormattedRootBlock s: _in) {
-            l_.add(FetchMemberUtil.fwdFormatType(s, _forwards));
+            l_.add(ExecStaticEltContent.build(s, _forwards));
         }
         return l_;
     }

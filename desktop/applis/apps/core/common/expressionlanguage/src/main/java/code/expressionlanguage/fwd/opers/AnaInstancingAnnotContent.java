@@ -7,7 +7,7 @@ import code.util.StringMap;
 public final class AnaInstancingAnnotContent {
     private String methodName;
 
-    private AnaFormattedRootBlock formattedType;
+    private AnaFormattedRootBlock formattedType = AnaFormattedRootBlock.defValue();
     private String className;
     private final StringMap<AnnotationTypeInfo> fieldNames = new StringMap<AnnotationTypeInfo>();
 

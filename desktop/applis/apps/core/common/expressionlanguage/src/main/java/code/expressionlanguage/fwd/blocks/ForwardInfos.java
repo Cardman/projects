@@ -13,14 +13,20 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.common.*;
-import code.expressionlanguage.common.symbol.*;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.ConstType;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.symbol.CommonOperNullSafe;
+import code.expressionlanguage.common.symbol.SymbolConstants;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.dbg.DebugMapping;
 import code.expressionlanguage.exec.opers.*;
-import code.expressionlanguage.exec.symbols.*;
+import code.expressionlanguage.exec.symbols.ExecOperCat;
+import code.expressionlanguage.exec.symbols.ExecOperDir;
+import code.expressionlanguage.exec.symbols.ExecOperNull;
+import code.expressionlanguage.exec.symbols.ExecOperSymbol;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.*;
@@ -217,7 +223,7 @@ public final class ForwardInfos {
             if (i instanceof UniqueRootedBlock && genericClasses_.size() > 1) {
                 AnaFormattedRootBlock anaFormattedRootBlock_ = genericClasses_.get(1);
                 mem_.getRootBlock().setUniqueType(FetchMemberUtil.fetchType(anaFormattedRootBlock_.getRootBlock().getNumberAll(), _forwards));
-                formattedType_ = FetchMemberUtil.fwdFormatType(anaFormattedRootBlock_, _forwards);
+                formattedType_ = ExecStaticEltContent.build(anaFormattedRootBlock_, _forwards);
             }
             ConstructorBlock emptyCtor_ = i.getEmptyCtor();
             ExecNamedFunctionBlock fct_ = null;

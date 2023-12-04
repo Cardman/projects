@@ -9,7 +9,7 @@ import code.expressionlanguage.stds.StandardType;
 public final class AnaInstancingCommonContent {
     private final String methodName;
 
-    private AnaFormattedRootBlock formattedType;
+    private AnaFormattedRootBlock formattedType = AnaFormattedRootBlock.defValue();
 
     private int naturalVararg = -1;
 

@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 
 public final class AnaExplicitContent {
     private String className;
-    private AnaFormattedRootBlock formattedTypeOwner;
+    private AnaFormattedRootBlock formattedTypeOwner = AnaFormattedRootBlock.defValue();
     private int offset;
     private MemberId memberId = new MemberId();
 

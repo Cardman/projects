@@ -3,7 +3,6 @@ package code.expressionlanguage.fwd.opers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 
 public final class ExecInstFctContent {
 
@@ -18,7 +17,7 @@ public final class ExecInstFctContent {
     private final boolean staticChoiceMethod;
     private final ExecFormattedRootBlock formattedType;
     public ExecInstFctContent(AnaCallFctContent _cont, int _anc, boolean _staticChoiceMethod, Forwards _fwd) {
-        this(_anc,_staticChoiceMethod, StringExpUtil.getOffset(_cont.getMethodName()), _cont.getLastType(), _cont.getNaturalVararg(), FetchMemberUtil.fwdFormatType(_cont.getFormattedType(),_fwd));
+        this(_anc,_staticChoiceMethod, StringExpUtil.getOffset(_cont.getMethodName()), _cont.getLastType(), _cont.getNaturalVararg(), ExecStaticEltContent.build(_cont.getFormattedType(),_fwd));
     }
     public ExecInstFctContent(ExecFormattedRootBlock _formattedType) {
         this(0, false, 0, "", -1, _formattedType);

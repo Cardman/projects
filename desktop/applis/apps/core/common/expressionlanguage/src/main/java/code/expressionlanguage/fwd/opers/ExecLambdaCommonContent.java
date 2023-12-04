@@ -15,7 +15,7 @@ public final class ExecLambdaCommonContent {
     private final String result;
 
     public ExecLambdaCommonContent(AnaLambdaCommonContent _cont, Forwards _fwd) {
-        this(_cont,ExecStaticEltContent.build(_fwd,_cont.getFoundFormatted()));
+        this(_cont,ExecStaticEltContent.build(_cont.getFoundFormatted(), _fwd));
     }
 
     public ExecLambdaCommonContent(AnaLambdaCommonContent _cont, ExecFormattedRootBlock _fwd) {
