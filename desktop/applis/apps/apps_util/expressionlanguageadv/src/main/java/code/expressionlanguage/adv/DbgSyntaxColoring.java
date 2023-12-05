@@ -255,6 +255,9 @@ public final class DbgSyntaxColoring {
         if (op_ instanceof NamedArgumentOperation) {
             nameArg(_r, fieldsInst_, fieldsInstPred_,(NamedArgumentOperation) op_);
         }
+        if (op_ instanceof AssocationOperation) {
+            assoc(_r,fieldsAnnot_,fieldsAnnotPred_,(AssocationOperation) op_);
+        }
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD,fieldsInst_);
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD_PRED,fieldsInstPred_);
         parts_.addEntry(SyntaxRefTokenEnum.STATIC_FIELD,fieldsStatic_);
@@ -269,6 +272,14 @@ public final class DbgSyntaxColoring {
             int firstOff_ = _op.getOffsetTr();
             int b_ = beginOffGene(_r)+firstOff_;
             add(_fieldsInst,_fieldsInstPred, _op.getField(), new SegmentReadOnlyTokenPart(b_,b_ + _op.getFieldName().length()));
+        }
+    }
+
+    private static void assoc(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _fieldsInst, CustList<SegmentReadOnlyTokenPart> _fieldsInstPred, AssocationOperation _op) {
+        if (LambdaOperation.fct(_op.getFunction()) != null) {
+            int firstOff_ = _op.getOffsetFct();
+            int b_ = beginOffGene(_r)+firstOff_;
+            add(_fieldsInst,_fieldsInstPred, _op.getFunction().getType(), new SegmentReadOnlyTokenPart(b_,b_ + _op.getLenTrimFct()));
         }
     }
 

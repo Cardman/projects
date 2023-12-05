@@ -11,6 +11,32 @@ import org.junit.Test;
 public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
 
     @Test
+    public void matches1() {
+        assertFalse(SegmentReadOnlyTokenPart.matches(new CustList<SegmentReadOnlyTokenPart>(),0,0));
+    }
+
+    @Test
+    public void matches2() {
+        CustList<SegmentReadOnlyTokenPart> ls_ = new CustList<SegmentReadOnlyTokenPart>();
+        ls_.add(new SegmentReadOnlyTokenPart(0,1));
+        assertFalse(SegmentReadOnlyTokenPart.matches(ls_,0,0));
+    }
+
+    @Test
+    public void matches3() {
+        CustList<SegmentReadOnlyTokenPart> ls_ = new CustList<SegmentReadOnlyTokenPart>();
+        ls_.add(new SegmentReadOnlyTokenPart(0,1));
+        assertFalse(SegmentReadOnlyTokenPart.matches(ls_,1,0));
+    }
+
+    @Test
+    public void matches4() {
+        CustList<SegmentReadOnlyTokenPart> ls_ = new CustList<SegmentReadOnlyTokenPart>();
+        ls_.add(new SegmentReadOnlyTokenPart(0,1));
+        assertTrue(SegmentReadOnlyTokenPart.matches(ls_,0,1));
+    }
+
+    @Test
     public void parts1() {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int field;public static int exmeth(){return 1;}}");
@@ -964,6 +990,24 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         src_.addEntry("src/file.txt", "public @class pkg.Ex {static void m(){new Ex(rec:0);}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
         CustList<SegmentReadOnlyTokenPart> l_ = listTokensInstField(res_);
+        assertEq(0,l_.size());
+    }
+    @Test
+    public void partsTokens24() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "@Ex(rec=0)public annotation pkg.Ex {int rec();}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyTokenPart> l_ = listTokensAnnotField(res_);
+        assertEq(2,l_.size());
+        assertTrue(SegmentReadOnlyTokenPart.matches(l_,4,7));
+        assertTrue(SegmentReadOnlyTokenPart.matches(l_,40,43));
+    }
+    @Test
+    public void partsTokens25() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "@Ex(rec=0)public annotation pkg.Ex {}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyTokenPart> l_ = listTokensAnnotField(res_);
         assertEq(0,l_.size());
     }
     private CustList<SegmentReadOnlyPart> list(ResultContext _res) {
