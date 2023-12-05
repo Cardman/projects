@@ -16,7 +16,11 @@ public final class SrcFileLocationFieldCust extends SrcFileLocationField {
 
     @Override
     public FileBlock getFile() {
-        return declaring.getFile();
+        return getDeclaring().getFile();
+    }
+
+    public RootBlock getDeclaring() {
+        return declaring;
     }
 
     @Override

@@ -70,13 +70,52 @@ public final class ResultExpressionOperationNode {
         if (elt_ != null) {
             return new SynthFieldInfo(elt_,relt_);
         }
-        if (res_.getFound() instanceof SettableAbstractFieldOperation) {
-            RootBlock r_ = ((SettableAbstractFieldOperation) res_.getFound()).getFieldType();
+        return res_.defWatch(_caret);
+    }
+    private SynthFieldInfo defWatch(int _caret) {
+        if (getFound() instanceof SettableAbstractFieldOperation) {
+            RootBlock r_ = ((SettableAbstractFieldOperation) getFound()).getFieldType();
             if (r_ != null) {
-                return new SynthFieldInfo(((SettableAbstractFieldOperation)res_.getFound()).getFieldIdReadOnly(), r_);
+                return new SynthFieldInfo(((SettableAbstractFieldOperation)getFound()).getFieldIdReadOnly(), r_);
+            }
+        }
+        if (getFound() instanceof NamedArgumentOperation) {
+            NamedArgumentOperation name_ = (NamedArgumentOperation) getFound();
+            RootBlock field_ = name_.getField();
+            if (field_ != null) {
+                return new SynthFieldInfo(name_.getIdField(),field_);
+            }
+        }
+        if (getFound() instanceof LambdaOperation) {
+            LambdaOperation lda_ = (LambdaOperation) getFound();
+            SrcFileLocation loc_ = tryRetrieveRecord(_caret, lda_);
+            if (loc_ instanceof SrcFileLocationFieldCust) {
+                return new SynthFieldInfo(((SrcFileLocationFieldCust)loc_).getCf(),((SrcFileLocationFieldCust)loc_).getDeclaring());
+            }
+            ClassField fieldId_ = lda_.getFieldId();
+            if (fieldId_ != null) {
+                RootBlock fieldType_ = lda_.getLambdaCommonContent().getFoundFormatted().getRootBlock();
+                return new SynthFieldInfo(fieldId_,fieldType_);
             }
         }
         return new SynthFieldInfo(new ClassField("",""),null);
+    }
+
+    private SrcFileLocation tryRetrieveRecord(int _caret, LambdaOperation _lda) {
+        CustList<SrcFileLocation> poss_ = possibleRecord(this, _lda, _caret);
+        CustList<SrcFileLocation> conv_;
+        if (poss_ != null) {
+            conv_ = poss_;
+        } else {
+            conv_ = new CustList<SrcFileLocation>();
+        }
+        SrcFileLocation loc_;
+        if (conv_.isEmpty()) {
+            loc_ = null;
+        }  else {
+            loc_ = conv_.get(0);
+        }
+        return loc_;
     }
 
     public static AnalyzedPageEl prepareFields(WatchPointBlockPair _trField, AnalyzedPageEl _original, int _setting) {
@@ -1179,24 +1218,12 @@ public final class ResultExpressionOperationNode {
     }
 
     private static CustList<SrcFileLocation> lambda(ResultExpressionOperationNode _res,LambdaOperation _lda, int _caret) {
+        CustList<SrcFileLocation> poss_ = possibleRecord(_res, _lda, _caret);
+        if (poss_ != null) {
+            return poss_;
+        }
         CustList<AnaNamedFieldContent> namedFields_ = _lda.getNamedFields();
         int len_ = namedFields_.size();
-        int beginLambda_ = _res.begin(_lda)+_lda.getOffset();
-        for (int i = 0; i < len_; i++) {
-            int ref_ = _lda.getRefs().get(i);
-            if (ref_ < 0) {
-                continue;
-            }
-            AnaNamedFieldContent naFi_ = namedFields_.get(i);
-            String name_ = naFi_.getName();
-            int off_ = _lda.getOffsets().get(i);
-            if (inRange(off_+beginLambda_,_caret,off_+beginLambda_+name_.length())) {
-                RootBlock r_ = naFi_.getDeclaring();
-                CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
-                SrcFileLocationField.addField(new ClassField(naFi_.getIdClass(),name_),r_, ref_,null,ls_);
-                return ls_;
-            }
-        }
         CustList<SrcFileLocation> types_ = new CustList<SrcFileLocation>();
         types_.addAllElts(fetch(_caret, _lda.getPartOffsetsBegin()));
         types_.addAllElts(fetch(_caret, _lda.getPartOffsetsPre()));
@@ -1225,6 +1252,27 @@ public final class ResultExpressionOperationNode {
             return ls_;
         }
         return new CustList<SrcFileLocation>();
+    }
+    private static CustList<SrcFileLocation> possibleRecord(ResultExpressionOperationNode _res,LambdaOperation _lda, int _caret) {
+        CustList<AnaNamedFieldContent> namedFields_ = _lda.getNamedFields();
+        int len_ = namedFields_.size();
+        int beginLambda_ = _res.begin(_lda)+_lda.getOffset();
+        for (int i = 0; i < len_; i++) {
+            int ref_ = _lda.getRefs().get(i);
+            if (ref_ < 0) {
+                continue;
+            }
+            AnaNamedFieldContent naFi_ = namedFields_.get(i);
+            String name_ = naFi_.getName();
+            int off_ = _lda.getOffsets().get(i);
+            if (inRange(off_+beginLambda_,_caret,off_+beginLambda_+name_.length())) {
+                RootBlock r_ = naFi_.getDeclaring();
+                CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
+                SrcFileLocationField.addField(new ClassField(naFi_.getIdClass(),name_),r_, ref_,null,ls_);
+                return ls_;
+            }
+        }
+        return null;
     }
 
     private static CustList<SrcFileLocation> fct(int _caret, ResultExpressionOperationNode _res) {

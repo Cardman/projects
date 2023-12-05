@@ -5287,6 +5287,66 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq("pkg.Outer", cf_.getClassName());
         assertEq("OTHER", cf_.getFieldName());
     }
+    @Test
+    public void vexer8() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {{$new Outer(a:b);}}");
+        files_.put("pkg/Ex", xml_.toString());
+        assertEq("", vexerChamps(files_, "pkg/Ex", 38).getClassName());
+    }
+    @Test
+    public void vexer9() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {{$lambda();}}");
+        files_.put("pkg/Ex", xml_.toString());
+        assertEq("", vexerChamps(files_, "pkg/Ex", 34).getClassName());
+    }
+    @Test
+    public void vexer10() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public @$class pkg.Outer {$public $int rec;$static{$new Outer(rec:0);}}");
+        files_.put("pkg/Ex", xml_.toString());
+        ClassField cf_ = vexerChamps(files_, "pkg/Ex", 63);
+        assertEq("pkg.Outer", cf_.getClassName());
+        assertEq("rec", cf_.getFieldName());
+    }
+    @Test
+    public void vexer11() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public @$class pkg.Outer {$public $int rec;$static{$lambda(Outer,$new,rec);}}");
+        files_.put("pkg/Ex", xml_.toString());
+        ClassField cf_ = vexerChamps(files_, "pkg/Ex", 71);
+        assertEq("pkg.Outer", cf_.getClassName());
+        assertEq("rec", cf_.getFieldName());
+    }
+    @Test
+    public void vexer12() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public @$class pkg.Outer {$public $int rec;$static{$lambda(Outer,$new,inex);}}");
+        files_.put("pkg/Ex", xml_.toString());
+        assertEq("", vexerChamps(files_, "pkg/Ex", 71).getClassName());
+    }
+    @Test
+    public void vexer13() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {$public $int rec;$static{$lambda(Outer,,rec);}}");
+        files_.put("pkg/Ex", xml_.toString());
+        ClassField cf_ = vexerChamps(files_, "pkg/Ex", 66);
+        assertEq("pkg.Outer", cf_.getClassName());
+        assertEq("rec", cf_.getFieldName());
+    }
     private static CustList<RowSrcLocation> locationsDisplay(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return ResultExpressionOperationNode.locationsDisplay(a_,_fileName,_caret);
