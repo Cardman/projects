@@ -20,7 +20,7 @@ public final class AnaCallFctContent {
     private int naturalVararg = -1;
     private MemberId memberId = new MemberId();
     private AnaFormattedRootBlock formattedType = AnaFormattedRootBlock.defValue();
-    private AnaTypeFct function;
+    private AnaTypeFct function = new AnaTypeFct();
     private StandardType standardType;
     private StandardMethod standardMethod;
 

@@ -52,13 +52,13 @@ public abstract class ReachOperationNode {
         }
         if (_oper instanceof SymbolOperation) {
             SymbolOperation s_ = (SymbolOperation) _oper;
-            if (!s_.isOkNum() || s_.getFct().getFunction() != null) {
+            if (!s_.isOkNum() || LambdaOperation.fct(s_.getFct().getFunction()) != null) {
                 return new ReachStdOperation(_oper);
             }
         }
         if (_oper instanceof QuickOperation) {
             QuickOperation s_ = (QuickOperation) _oper;
-            if (!s_.isOkNum() || s_.getFct().getFunction() != null) {
+            if (!s_.isOkNum() || LambdaOperation.fct(s_.getFct().getFunction()) != null) {
                 return new ReachStdOperation(_oper);
             }
         }

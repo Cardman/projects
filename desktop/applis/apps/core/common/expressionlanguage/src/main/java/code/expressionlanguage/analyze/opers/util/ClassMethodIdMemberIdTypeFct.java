@@ -7,7 +7,7 @@ import code.expressionlanguage.common.symbol.CommonOperSymbol;
 public final class ClassMethodIdMemberIdTypeFct {
     private AnaFormattedRootBlock implicit = AnaFormattedRootBlock.defValue();
     private MemberId memberId = new MemberId();
-    private AnaTypeFct function;
+    private AnaTypeFct function = new AnaTypeFct();
     private CommonOperSymbol symbol;
 
     public void infos(ClassMethodIdReturn _id) {

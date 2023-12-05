@@ -3495,7 +3495,7 @@ public final class LinkageUtil {
         }
         boolean err_ = true;
         AnaTypeFct function_ = par_.getFct().getFunction();
-        if (function_ != null) {
+        if (LambdaOperation.fct(function_) != null) {
             addParts(_vars, function_,
                     _sum + _val.getIndexInEl()+offsetOp_,1,
                     _val.getErrs(), _val.getErrs());
@@ -3563,7 +3563,7 @@ public final class LinkageUtil {
         if (_val instanceof SymbolOperation && _val.getFirstChild().getNextSibling() == null) {
             SymbolOperation par_ = (SymbolOperation) _val;
             AnaTypeFct function_ = par_.getFct().getFunction();
-            if (function_ != null) {
+            if (LambdaOperation.fct(function_) != null) {
                 addParts(_vars, function_,
                         _sum + _val.getIndexInEl() + par_.getOperatorContent().getOpOffset(), function_.getFunction().getName().length(),
                         _val.getErrs(), _val.getErrs());
@@ -3690,7 +3690,7 @@ public final class LinkageUtil {
             int sum_ = _in.getBeginBlock() + _parentOp.getIndexInEl();
             SymbolOperation par_ = (SymbolOperation) _parentOp;
             AnaTypeFct function_ = par_.getFct().getFunction();
-            if (function_ != null) {
+            if (LambdaOperation.fct(function_) != null) {
                 addParts(_vars, function_,sum_+par_.getOperatorContent().getOpOffset(),par_.getOperatorContent().getOper().length(),_parentOp.getErrs(),_parentOp.getErrs());
             } else if (_parentOp instanceof NumericOperation && ((NumericOperation)_parentOp).isCatString() && canCallToString(_vars, _curOp, _nextSiblingOp)) {
                 _vars.addPart(new PartOffset(ExportCst.HEAD_ITALIC, sum_+par_.getOperatorContent().getOpOffset()));
@@ -3725,7 +3725,7 @@ public final class LinkageUtil {
             int sum_ = _in.getBeginBlock() + _parent.getIndexInEl();
             int begin_ = sum_+((SymbolOperation)_parent).getOperatorContent().getOpOffset();
             int length_ = ((SymbolOperation)_parent).getOperatorContent().getOper().length();
-            if (((SymbolOperation)_parent).getFct().getFunction() == null) {
+            if (LambdaOperation.fct(((SymbolOperation)_parent).getFct().getFunction()) == null) {
                 safeReport(_in, _vars, _parent, _cov, begin_, length_);
             }
         }
@@ -3746,12 +3746,12 @@ public final class LinkageUtil {
         int sum_ = _in.getBeginBlock() + _parentOp.getIndexInEl();
         int begin_ = sum_+par_.getOpOffset();
         int len_ = opDelta_;
-        if (functionTest_ != null) {
+        if (LambdaOperation.fct(functionTest_) != null) {
             addParts(_vars, functionTest_,begin_,1, _parentOp.getErrs(),_parentOp.getErrs());
             begin_++;
             len_--;
         }
-        if (function_ != null) {
+        if (LambdaOperation.fct(function_) != null) {
             addParts(_vars, function_,begin_,len_,_parentOp.getErrs(),_parentOp.getErrs());
         } else if (hasToCallStringConver(_vars, _nextSiblingOp)){
             _vars.addPart(new PartOffset(ExportCst.HEAD_ITALIC, begin_));
@@ -3774,7 +3774,7 @@ public final class LinkageUtil {
         int sum_ = _in.getBeginBlock() + _parentOp.getIndexInEl();
         int begin_ = sum_+par_.getOpOffset();
         int len_ = opDelta_;
-        if (functionTest_ != null) {
+        if (LambdaOperation.fct(functionTest_) != null) {
             StringList title_ = new StringList();
             title_.addAllElts(getCoversFoundReport(_in, _vars, _curOp, _cov));
             addParts(_vars, functionTest_,begin_,1, _parentOp.getErrs(),title_);
@@ -3798,7 +3798,7 @@ public final class LinkageUtil {
             begin_+=2;
             len_-=2;
         }
-        if (function_ != null) {
+        if (LambdaOperation.fct(function_) != null) {
             addParts(_vars, function_,begin_,len_,_parentOp.getErrs(),_parentOp.getErrs());
         } else if (hasToCallStringConver(_vars, _nextSiblingOp)){
             _vars.addPart(new PartOffset(ExportCst.HEAD_ITALIC, begin_));
@@ -3840,7 +3840,7 @@ public final class LinkageUtil {
             safeReport(_in,_vars,_curOp,_cov, begin_, 1);
         }
         AnaTypeFct function_ = q_.getFct().getFunction();
-        if (function_ != null) {
+        if (LambdaOperation.fct(function_) != null) {
             StringList title_ = new StringList();
             title_.addAllElts(getCoversFoundReport(_in, _vars, _nextSiblingOp, _cov));
             addParts(_vars, function_,begin_+1,1, errs_,title_);
@@ -3914,7 +3914,7 @@ public final class LinkageUtil {
                 tryAddMergedParts(_vars,par_.getFunctionTo(), opOff_, new StringList(), new StringList());
                 boolean err_ = true;
                 AnaTypeFct function_ = par_.getFct().getFunction();
-                if (function_ != null) {
+                if (LambdaOperation.fct(function_) != null) {
                     addParts(_vars, function_,opOff_,1,_parent.getErrs(),_parent.getErrs());
                     err_ = false;
                 }
@@ -4030,17 +4030,11 @@ public final class LinkageUtil {
     }
 
     private static String getRelativize(FileBlock _block, AnaTypeFct _id) {
-        if (_id == null) {
-            return EMPTY;
-        }
-        NamedFunctionBlock function_ = _id.getFunction();
+        NamedFunctionBlock function_ = LambdaOperation.fct(_id);
         if (function_ == null) {
             return EMPTY;
         }
-        if (function_ instanceof OperatorBlock) {
-            return ExportCst.href(_block, function_.getFile(), function_.getNameOffset());
-        }
-        if (!ContextUtil.isFromCustFile(_id.getType())) {
+        if (!ContextUtil.isFromCustFile(function_.getFile())) {
             return EMPTY;
         }
         return ExportCst.href(_block, function_.getFile(), function_.getNameOffset());
