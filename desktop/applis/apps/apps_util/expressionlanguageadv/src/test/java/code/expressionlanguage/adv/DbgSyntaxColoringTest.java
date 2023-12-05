@@ -618,6 +618,75 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertSame(SyntaxRefEnum.FIELD,l_.get(1).getKind());
     }
     @Test
+    public void parts53() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public @class pkg.Ex {public int rec;static void m(){new Ex(rec:0);}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleWatchPoint("src/file.txt",33);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(2,l_.size());
+        assertEq(33,l_.get(0).getBegin());
+        assertEq(36,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.FIELD,l_.get(0).getKind());
+        assertEq(60,l_.get(1).getBegin());
+        assertEq(63,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.FIELD,l_.get(1).getKind());
+    }
+    @Test
+    public void parts54() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public @class pkg.Ex {public int rec;static void m(){new Ex(rec:0);}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(0,l_.size());
+    }
+    @Test
+    public void parts55() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public @class pkg.Ex {public int rec;static void m(){$lambda(Ex,new,rec);}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleWatchPoint("src/file.txt",33);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(2,l_.size());
+        assertEq(33,l_.get(0).getBegin());
+        assertEq(36,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.FIELD,l_.get(0).getKind());
+        assertEq(68,l_.get(1).getBegin());
+        assertEq(71,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.FIELD,l_.get(1).getKind());
+    }
+    @Test
+    public void parts56() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public @class pkg.Ex {public int rec;static void m(){$lambda(Ex,new,rec);}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(0,l_.size());
+    }
+    @Test
+    public void parts57() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public int rec;static void m(){$lambda(Ex,,rec);}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleWatchPoint("src/file.txt",32);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(2,l_.size());
+        assertEq(32,l_.get(0).getBegin());
+        assertEq(35,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.FIELD,l_.get(0).getKind());
+        assertEq(64,l_.get(1).getBegin());
+        assertEq(67,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.FIELD,l_.get(1).getKind());
+    }
+    @Test
+    public void parts58() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public int rec;static void m(){$lambda(Ex,,rec);}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(0,l_.size());
+    }
+    @Test
     public void partsTokens1() {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){int i=0;if(i==0)lab{break lab;}}}");
@@ -875,6 +944,26 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         src_.addEntry("src/file.txt", "public annotation pkg.Ex {{$lambda(Ex,field);}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
         CustList<SegmentReadOnlyTokenPart> l_ = listTokensAnnotField(res_);
+        assertEq(0,l_.size());
+    }
+    @Test
+    public void partsTokens22() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public @class pkg.Ex {public int rec;static void m(){new Ex(rec:0);}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyTokenPart> l_ = listTokensInstField(res_);
+        assertEq(2,l_.size());
+        assertEq(33,l_.get(0).getBegin());
+        assertEq(36,l_.get(0).getEnd());
+        assertEq(60,l_.get(1).getBegin());
+        assertEq(63,l_.get(1).getEnd());
+    }
+    @Test
+    public void partsTokens23() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public @class pkg.Ex {static void m(){new Ex(rec:0);}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyTokenPart> l_ = listTokensInstField(res_);
         assertEq(0,l_.size());
     }
     private CustList<SegmentReadOnlyPart> list(ResultContext _res) {

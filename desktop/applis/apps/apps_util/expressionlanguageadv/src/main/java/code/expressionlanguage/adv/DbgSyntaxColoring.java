@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.syntax.*;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.SynthFieldInfo;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
@@ -109,21 +110,59 @@ public final class DbgSyntaxColoring {
         int offset_ = resStr_.getSumOffset();
         if (op_ instanceof SettableAbstractFieldOperation) {
             RootBlock ft_ = ((SettableAbstractFieldOperation) op_).getFieldType();
-            if (ft_ != null) {
-                WatchPointBlockPair w_ = _res.getPairWatch(true,ft_.getNumberAll(),((SettableAbstractFieldOperation) op_).getFieldIdReadOnly().getFieldName());
-                if (w_ != null) {
-                    InnerTypeOrElement elt_ = result((SettableAbstractFieldOperation) op_);
-                    if (elt_ == null) {
-                        int b_ = beginOff(offset_,((SettableAbstractFieldOperation) op_));
-                        parts_.add(new SegmentReadOnlyPart(b_,b_+((SettableAbstractFieldOperation) op_).getFieldNameLength(),SyntaxRefEnum.FIELD));
-                    } else {
-                        int b_ = elt_.getFieldNameOffset();
-                        parts_.add(new SegmentReadOnlyPart(b_, b_ + elt_.getUniqueFieldName().length(),SyntaxRefEnum.FIELD));
-                    }
+            WatchPointBlockPair w_ = _res.getPairWatch(true,SynthFieldInfo.nb(ft_),((SettableAbstractFieldOperation) op_).getFieldIdReadOnly().getFieldName());
+            if (w_ != null) {
+                InnerTypeOrElement elt_ = result((SettableAbstractFieldOperation) op_);
+                if (elt_ == null) {
+                    int b_ = beginOff(offset_,((SettableAbstractFieldOperation) op_));
+                    parts_.add(new SegmentReadOnlyPart(b_,b_+((SettableAbstractFieldOperation) op_).getFieldNameLength(),SyntaxRefEnum.FIELD));
+                } else {
+                    int b_ = elt_.getFieldNameOffset();
+                    parts_.add(new SegmentReadOnlyPart(b_, b_ + elt_.getUniqueFieldName().length(),SyntaxRefEnum.FIELD));
                 }
             }
         }
+        if (op_ instanceof NamedArgumentOperation) {
+            NamedArgumentOperation name_ = (NamedArgumentOperation) op_;
+            WatchPointBlockPair w_ = _res.getPairWatch(true, SynthFieldInfo.nb(name_.getField()),name_.getIdField().getFieldName());
+            if (w_ != null) {
+                int firstOff_ = name_.getOffsetTr();
+                int b_ = beginOffGene(_r)+firstOff_;
+                parts_.add(new SegmentReadOnlyPart(b_, b_ + name_.getFieldName().length(),SyntaxRefEnum.FIELD));
+            }
+        }
+        if (op_ instanceof LambdaOperation) {
+            LambdaOperation lda_ = (LambdaOperation) op_;
+            lambda(_res, _r, parts_, lda_);
+        }
         return parts_;
+    }
+
+    private static void lambda(ResultContext _res, ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyPart> _parts, LambdaOperation _lda) {
+        CustList<AnaNamedFieldContent> namedFields_ = _lda.getNamedFields();
+        int len_ = namedFields_.size();
+        int beginLambda_ = beginOffGene(_r)+ _lda.getOffset();
+        for (int i = 0; i < len_; i++) {
+            AnaNamedFieldContent naFi_ = namedFields_.get(i);
+            String name_ = naFi_.getName();
+            RootBlock r_ = naFi_.getDeclaring();
+            WatchPointBlockPair w_ = _res.getPairWatch(true, SynthFieldInfo.nb(r_),name_);
+            if (w_ != null) {
+                int off_ = _lda.getOffsets().get(i);
+                int b_ = off_+beginLambda_;
+                _parts.add(new SegmentReadOnlyPart(b_, b_ + name_.length(),SyntaxRefEnum.FIELD));
+            }
+        }
+        ClassField fieldId_ = _lda.getFieldId();
+        if (fieldId_ != null) {
+            RootBlock fieldType_ = _lda.getLambdaCommonContent().getFoundFormatted().getRootBlock();
+            WatchPointBlockPair w_ = _res.getPairWatch(true, SynthFieldInfo.nb(fieldType_), fieldId_.getFieldName());
+            if (w_ != null) {
+                int b_ = beginOffGene(_r) + _lda.getMemberOffset();
+                int e_ = b_ + fieldId_.getFieldName().length();
+                _parts.add(new SegmentReadOnlyPart(b_, e_, SyntaxRefEnum.FIELD));
+            }
+        }
     }
 
     private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, ResultExpressionBlock _r, FileBlock _file) {
@@ -213,6 +252,9 @@ public final class DbgSyntaxColoring {
         if (op_ instanceof AbsFctOperation) {
             annotationCallMethod(_r,fieldsAnnot_,fieldsAnnotPred_,(AbsFctOperation) op_);
         }
+        if (op_ instanceof NamedArgumentOperation) {
+            nameArg(_r, fieldsInst_, fieldsInstPred_,(NamedArgumentOperation) op_);
+        }
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD,fieldsInst_);
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD_PRED,fieldsInstPred_);
         parts_.addEntry(SyntaxRefTokenEnum.STATIC_FIELD,fieldsStatic_);
@@ -220,6 +262,14 @@ public final class DbgSyntaxColoring {
         parts_.addEntry(SyntaxRefTokenEnum.ANNOT_FIELD,fieldsAnnot_);
         parts_.addEntry(SyntaxRefTokenEnum.ANNOT_FIELD_PRED,fieldsAnnotPred_);
         return parts_;
+    }
+
+    private static void nameArg(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _fieldsInst, CustList<SegmentReadOnlyTokenPart> _fieldsInstPred, NamedArgumentOperation _op) {
+        if (_op.getField() != null) {
+            int firstOff_ = _op.getOffsetTr();
+            int b_ = beginOffGene(_r)+firstOff_;
+            add(_fieldsInst,_fieldsInstPred, _op.getField(), new SegmentReadOnlyTokenPart(b_,b_ + _op.getFieldName().length()));
+        }
     }
 
     private static void fieldRef(CustList<SegmentReadOnlyTokenPart> _fieldsInst, CustList<SegmentReadOnlyTokenPart> _fieldsInstPred, CustList<SegmentReadOnlyTokenPart> _fieldsStatic, CustList<SegmentReadOnlyTokenPart> _fieldsStaticPred, SettableAbstractFieldOperation _op, ResultExpression _resStr) {
