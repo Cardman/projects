@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.symbols.AnaOperCat;
 import code.expressionlanguage.analyze.symbols.AnaOperDir;
 import code.expressionlanguage.common.NumParsers;
@@ -52,13 +53,13 @@ public abstract class ReachOperationNode {
         }
         if (_oper instanceof SymbolOperation) {
             SymbolOperation s_ = (SymbolOperation) _oper;
-            if (!s_.isOkNum() || LambdaOperation.fct(s_.getFct().getFunction()) != null) {
+            if (!s_.isOkNum() || AnaTypeFct.fct(s_.getFct().getFunction()) != null) {
                 return new ReachStdOperation(_oper);
             }
         }
         if (_oper instanceof QuickOperation) {
             QuickOperation s_ = (QuickOperation) _oper;
-            if (!s_.isOkNum() || LambdaOperation.fct(s_.getFct().getFunction()) != null) {
+            if (!s_.isOkNum() || AnaTypeFct.fct(s_.getFct().getFunction()) != null) {
                 return new ReachStdOperation(_oper);
             }
         }

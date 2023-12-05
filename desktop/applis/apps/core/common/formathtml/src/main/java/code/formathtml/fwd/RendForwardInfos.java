@@ -3,6 +3,7 @@ package code.formathtml.fwd;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.SwitchMethodBlock;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -796,7 +797,7 @@ public final class RendForwardInfos {
         if (_anaNode instanceof SymbolOperation) {
             SymbolOperation n_ = (SymbolOperation) _anaNode;
             ClassMethodIdMemberIdTypeFct fct_ = n_.getFct();
-            if (LambdaOperation.fct(fct_.getFunction()) != null) {
+            if (AnaTypeFct.fct(fct_.getFunction()) != null) {
                 return new RendExplicitOperatorOperation(
                         new ExecOperationContent(_anaNode.getContent()),
                         false,

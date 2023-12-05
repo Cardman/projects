@@ -2559,17 +2559,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
 
     private void setupFct() {
-        NamedFunctionBlock fct_ = fct(function);
+        NamedFunctionBlock fct_ = AnaTypeFct.fct(function);
         if (fct_ != null) {
             fct_.setUsedRefMethod(true);
         }
-    }
-
-    public static NamedFunctionBlock fct(AnaTypeFct _f) {
-        if (_f == null) {
-            return null;
-        }
-        return _f.getFunction();
     }
 
     public AnaTypeFct getFunction() {

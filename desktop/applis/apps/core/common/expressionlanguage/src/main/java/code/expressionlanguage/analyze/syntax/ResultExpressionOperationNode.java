@@ -623,6 +623,19 @@ public final class ResultExpressionOperationNode {
         return _bl instanceof TryEval || _bl instanceof LabelAbruptBlock || _bl instanceof FinallyEval || _bl instanceof ElseCondition || _bl instanceof DoBlock || _bl instanceof DefaultCondition || _bl instanceof UnclassedBracedBlock;
     }
 
+    public static SynthFieldInfo enabledAssocBp(int _caret, FileBlock _file) {
+        ResultExpressionOperationNode c_ = container(_caret, _file);
+        if (c_.found instanceof AssocationOperation) {
+            AssocationOperation ass_ = (AssocationOperation) c_.found;
+            String name_ = ass_.getFieldName();
+            int delta_ = ass_.getOffsetFct();
+            int b_ = c_.begin()+delta_;
+            if (inRange(b_,_caret,b_+name_.length())) {
+                return new SynthFieldInfo(new ClassField("", name_),AnaTypeFct.root(ass_.getFunction()));
+            }
+        }
+        return new SynthFieldInfo(new ClassField("",""),null);
+    }
     public static boolean enabledTypeBp(int _caret, FileBlock _file) {
         ResultExpressionOperationNode c_ = container(_caret, _file);
         return c_.resultExpression == null && c_.block instanceof RootBlock;
@@ -1072,7 +1085,7 @@ public final class ResultExpressionOperationNode {
         }
         AnaTypeFct constructor_ = _foundOp.getConstructor();
         fctPub(constructor_, ls_);
-        timbre(_found,root(constructor_),ls_);
+        timbre(_found, AnaTypeFct.root(constructor_),ls_);
         return ls_;
     }
 
@@ -1344,7 +1357,7 @@ public final class ResultExpressionOperationNode {
         CustList<SrcFileLocation> ls_ = new CustList<SrcFileLocation>();
         ctStd(std_, _maintenant.getInstancingCommonContent().getStd(), ls_);
         fctPub(constructor_, ls_);
-        timbre(_found,root(constructor_),ls_);
+        timbre(_found, AnaTypeFct.root(constructor_),ls_);
         return ls_;
     }
 
@@ -1360,7 +1373,7 @@ public final class ResultExpressionOperationNode {
     }
 
     private static void fctPub(AnaTypeFct _ct, CustList<SrcFileLocation> _ls) {
-        NamedFunctionBlock f_ = LambdaOperation.fct(_ct);
+        NamedFunctionBlock f_ = AnaTypeFct.fct(_ct);
         if (f_ != null) {
             _ls.add(new SrcFileLocationMethod(_ct.getType(),f_));
         }
@@ -1413,22 +1426,16 @@ public final class ResultExpressionOperationNode {
 
     private static NamedFunctionBlock fct(AnaCallFctContent _c) {
         AnaTypeFct f_ = _c.getFunction();
-        return LambdaOperation.fct(f_);
+        return AnaTypeFct.fct(f_);
     }
 
     static RootBlock root(LambdaOperation _f) {
         if (_f.getMethod() != null) {
             return null;
         }
-        return root(_f.getFunction());
+        return AnaTypeFct.root(_f.getFunction());
     }
 
-    static RootBlock root(AnaTypeFct _f) {
-        if (_f == null) {
-            return null;
-        }
-        return _f.getType();
-    }
     static Ints containerSeg(int _caret, FileBlock _file) {
         ResultExpressionOperationNode c_ = container(_caret, _file);
         return Ints.newList(c_.begin(),c_.end());

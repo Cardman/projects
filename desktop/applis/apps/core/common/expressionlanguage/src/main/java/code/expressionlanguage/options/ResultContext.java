@@ -137,6 +137,10 @@ public final class ResultContext {
         if (o_ < 0) {
             return null;
         }
+        SynthFieldInfo ass_ = ResultExpressionOperationNode.enabledAssocBp(_offset, fb_);
+        if (ass_.getRootBlock() != null) {
+            return watch(false, ass_);
+        }
         MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(_offset, fb_);
         if (id_ != null) {
             BracedBlock r_ = BreakPointBlockList.rootOfAnnot(id_);
@@ -244,6 +248,11 @@ public final class ResultContext {
         FileBlock fb_ = getPageEl().getPreviousFilesBodies().getVal(_file);
         int o_ = ResultExpressionOperationNode.beginPart(_offset, fb_);
         if (o_ < 0) {
+            return;
+        }
+        SynthFieldInfo ass_ = ResultExpressionOperationNode.enabledAssocBp(_offset, fb_);
+        if (ass_.getRootBlock() != null) {
+            toggleEnabledWatch(false, ass_);
             return;
         }
         MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(_offset, fb_);

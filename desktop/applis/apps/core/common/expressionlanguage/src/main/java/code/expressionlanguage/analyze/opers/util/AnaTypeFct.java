@@ -7,6 +7,20 @@ public final class AnaTypeFct {
     private RootBlock type;
     private NamedFunctionBlock function;
 
+    public static NamedFunctionBlock fct(AnaTypeFct _f) {
+        if (_f == null) {
+            return null;
+        }
+        return _f.getFunction();
+    }
+
+    public static RootBlock root(AnaTypeFct _f) {
+        if (_f == null) {
+            return null;
+        }
+        return _f.getType();
+    }
+
     public NamedFunctionBlock getFunction() {
         return function;
     }

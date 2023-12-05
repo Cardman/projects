@@ -1018,12 +1018,12 @@ public final class CallersRef {
         }
         if (o_ instanceof AbstractInvokingConstructor) {
             fctPub(_c, ((AbstractInvokingConstructor) o_).getConstructor(), 0, _piano, callNamedUse);
-            instanceNewTypes(_c, 0, _piano, ResultExpressionOperationNode.root(((AbstractInvokingConstructor) o_).getConstructor()), instanceNewTypesFwd);
+            instanceNewTypes(_c, 0, _piano, AnaTypeFct.root(((AbstractInvokingConstructor) o_).getConstructor()), instanceNewTypesFwd);
         }
         if (o_ instanceof AbstractInstancingOperation) {
             fctPub(_c, ((AbstractInstancingOperation) o_).getConstructor(), 0, _piano, callNamedUse);
             callStd(_c, ((AbstractInstancingOperation) o_).getInstancingCommonContent().getConstructor(),((AbstractInstancingOperation) o_).getInstancingCommonContent().getStd(), 0, _piano, callNamedUse);
-            instanceNewTypes(_c, 0, _piano, ResultExpressionOperationNode.root(((AbstractInstancingOperation) o_).getConstructor()), instanceNewTypes);
+            instanceNewTypes(_c, 0, _piano, AnaTypeFct.root(((AbstractInstancingOperation) o_).getConstructor()), instanceNewTypes);
         }
         if (o_ instanceof ArrOperation) {
             SrcFileLocationMethod callee_ = fctPub(_c, ((ArrOperation) o_).getFunctionGet(), 0, _piano, callNamedUse);
@@ -1058,7 +1058,7 @@ public final class CallersRef {
     }
     private void annots(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano, AssocationOperation _a) {
         AnaTypeFct ct_ = _a.getFunction();
-        NamedFunctionBlock f_ = LambdaOperation.fct(ct_);
+        NamedFunctionBlock f_ = AnaTypeFct.fct(ct_);
         if (f_ == null) {
             return;
         }
@@ -1112,7 +1112,7 @@ public final class CallersRef {
 
     private SrcFileLocationMethod fctPub(AbsBk _bl, SrcFileLocation _caller, AnaTypeFct _ct, int _offset, CustList<SrcFileLocation> _piano, IdMap<SrcFileLocation,CustList<FileBlockIndex>> _out) {
         FileBlock file_ = _bl.getFile();
-        NamedFunctionBlock f_ = LambdaOperation.fct(_ct);
+        NamedFunctionBlock f_ = AnaTypeFct.fct(_ct);
         if (f_ != null) {
             SrcFileLocationMethod callee_ = new SrcFileLocationMethod(_ct.getType(), f_);
             addIfMatch(callee_, _caller,file_, _offset, _out,_piano);

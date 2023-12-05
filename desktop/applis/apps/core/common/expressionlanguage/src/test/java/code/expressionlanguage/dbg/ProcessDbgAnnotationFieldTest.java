@@ -265,6 +265,32 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         assertEq(0, stack_.nbPages());
     }
+    @Test
+    public void test18() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@ExAnnot(method1=1,method2=2)public class pkg.Ex {public static int exmeth(){return 0;}}public annotation pkg.ExAnnot {int[] method1(){3};int[] method2(){4};int method3()5;int method6;}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.toggleBreakPoint("pkg/Ex",9);
+        cont_.toggleBreakPoint("pkg/Ex",16);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
+    @Test
+    public void test19() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@ExAnnot(method1=1,method2=2)public class pkg.Ex {public static int exmeth(){return 0;}}public annotation pkg.ExAnnot {int[] method1(){3};int[] method2(){4};int method3()5;int method6;}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
+        cont_.toggleBreakPointEnabled("pkg/Ex",9);
+        cont_.toggleBreakPointEnabled("pkg/Ex",16);
+        MethodId id_ = getMethodId("exmeth");
+        StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
+        assertEq(0, stack_.nbPages());
+    }
     private boolean isWatch(ResultContext _cont, ClassField _cf) {
         int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
         return _cont.isWatch(false,n_,_cf.getFieldName());

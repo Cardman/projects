@@ -713,6 +713,23 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertEq(0,l_.size());
     }
     @Test
+    public void parts59() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "@Ex(rec=0)public annotation pkg.Ex {int rec();}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(0,l_.size());
+    }
+    @Test
+    public void parts60() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "@Ex(rec=0)public annotation pkg.Ex {int rec();}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleBreakPointEnabled("src/file.txt",40);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertFalse(l_.isEmpty());
+    }
+    @Test
     public void partsTokens1() {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){int i=0;if(i==0)lab{break lab;}}}");

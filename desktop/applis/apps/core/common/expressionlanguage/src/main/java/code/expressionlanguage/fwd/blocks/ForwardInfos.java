@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.files.ResultParsedAnnot;
 import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
@@ -1554,7 +1555,7 @@ public final class ForwardInfos {
         if (_anaNode instanceof SymbolOperation) {
             SymbolOperation n_ = (SymbolOperation) _anaNode;
             ClassMethodIdMemberIdTypeFct fct_ = n_.getFct();
-            if (LambdaOperation.fct(fct_.getFunction()) != null) {
+            if (AnaTypeFct.fct(fct_.getFunction()) != null) {
                 return new ExecExplicitOperatorOperation(new ExecOperationContent(_anaNode.getContent()),false, new ExecStaticFctContent(new ExecStaticFctCommonContent("","",-1), new ExecStaticEltContent(fct_, _forwards)), FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards), new ExecArrContent(false), new ExecOperatorContent(n_.getOperatorContent()));
             }
         }

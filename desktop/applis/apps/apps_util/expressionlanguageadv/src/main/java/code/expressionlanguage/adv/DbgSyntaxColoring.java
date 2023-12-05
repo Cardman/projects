@@ -135,6 +135,15 @@ public final class DbgSyntaxColoring {
             LambdaOperation lda_ = (LambdaOperation) op_;
             lambda(_res, _r, parts_, lda_);
         }
+        if (op_ instanceof AssocationOperation) {
+            AssocationOperation ass_ = (AssocationOperation) op_;
+            WatchPointBlockPair w_ = _res.getPairWatch(false, SynthFieldInfo.nb(AnaTypeFct.root(ass_.getFunction())),ass_.getFieldName());
+            if (w_ != null) {
+                int firstOff_ = ass_.getOffsetFct();
+                int b_ = beginOffGene(_r)+firstOff_;
+                parts_.add(new SegmentReadOnlyPart(b_, b_ + ass_.getFieldName().length(),SyntaxRefEnum.FIELD));
+            }
+        }
         return parts_;
     }
 
@@ -276,7 +285,7 @@ public final class DbgSyntaxColoring {
     }
 
     private static void assoc(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _fieldsInst, CustList<SegmentReadOnlyTokenPart> _fieldsInstPred, AssocationOperation _op) {
-        if (LambdaOperation.fct(_op.getFunction()) != null) {
+        if (AnaTypeFct.fct(_op.getFunction()) != null) {
             int firstOff_ = _op.getOffsetFct();
             int b_ = beginOffGene(_r)+firstOff_;
             add(_fieldsInst,_fieldsInstPred, _op.getFunction().getType(), new SegmentReadOnlyTokenPart(b_,b_ + _op.getLenTrimFct()));
@@ -317,7 +326,7 @@ public final class DbgSyntaxColoring {
 
     private static void annotationRefMethod(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _annotsInst, CustList<SegmentReadOnlyTokenPart> _annotsInstPred, LambdaOperation _op) {
         AnaTypeFct fieldId_ = _op.getFunction();
-        NamedFunctionBlock res_ = LambdaOperation.fct(fieldId_);
+        NamedFunctionBlock res_ = AnaTypeFct.fct(fieldId_);
         if (okAnnot(fieldId_, res_)) {
             RootBlock fieldType_ = fieldId_.getType();
             int b_ = beginOffGene(_r) + _op.getMemberOffset();
@@ -328,7 +337,7 @@ public final class DbgSyntaxColoring {
 
     private static void annotationCallMethod(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _annotsInst, CustList<SegmentReadOnlyTokenPart> _annotsInstPred, AbsFctOperation _op) {
         AnaTypeFct fieldId_ = _op.getCallFctContent().getFunction();
-        NamedFunctionBlock res_ = LambdaOperation.fct(fieldId_);
+        NamedFunctionBlock res_ = AnaTypeFct.fct(fieldId_);
         if (okAnnot(fieldId_, res_)) {
             RootBlock fieldType_ = fieldId_.getType();
             int b_ = beginOffGene(_r) + _op.getDelta();
