@@ -657,9 +657,6 @@ public final class ResultExpressionOperationNode {
         if (block instanceof WithFilterContent) {
             return withFilterContent(_caret);
         }
-        if (block instanceof MemberCallingsBlock) {
-            return block.getOffset();
-        }
         if (block instanceof Line) {
             return ((Line)block).getRes().end();
         }
