@@ -189,7 +189,23 @@ public abstract class ContextEl {
             toggleTp((TypePointBlockPair)_p);
         }
     }
-
+    public void toggleEnabledBreakPoint(AbsPairPoint _p) {
+        if (_p instanceof WatchPointBlockPair) {
+            toggleEnabled((WatchPointBlockPair)_p);
+            return;
+        }
+        if (_p instanceof MethodPointBlockPair) {
+            toggleEnabled((MethodPointBlockPair)_p);
+            return;
+        }
+        if (_p instanceof BreakPointBlockPair) {
+            toggleEnabled((BreakPointBlockPair)_p);
+            return;
+        }
+        if (_p instanceof TypePointBlockPair) {
+            toggleEnabled((TypePointBlockPair)_p);
+        }
+    }
     private void toggle(MethodPointBlockPair _pair) {
         for (MethodPointBlockPair b: metList().elts()) {
             if (b.getMp().match(_pair.getMp())) {
@@ -198,11 +214,6 @@ public abstract class ContextEl {
             }
         }
         metList().add(_pair);
-    }
-
-    public void toggleWatch(boolean _trField, SynthFieldInfo _field) {
-        WatchPointBlockPair pair_ = watch(_trField, _field);
-        toggleWatch(pair_);
     }
 
     private void toggleWatch(WatchPointBlockPair _pair) {
@@ -272,25 +283,24 @@ public abstract class ContextEl {
         return getClasses().getDebugMapping().getBreakPointsBlock().getTypeList();
     }
 
-    public void toggleEnabled(ExecFileBlock _file, int _nf, int _offset) {
-        BreakPointBlockPair pair_ = bp(_file, _nf, _offset);
+    public void toggleEnabled(BreakPointBlockPair _pair) {
         for (BreakPointBlockPair b: bpList().elts()) {
-            if (b.getBp().match(pair_.getBp())) {
+            if (b.getBp().match(_pair.getBp())) {
                 b.getValue().setEnabled(!b.getValue().isEnabled());
                 return;
             }
         }
-        bpList().add(pair_);
+        bpList().add(_pair);
     }
-    public void toggleEnabledType(ExecFileBlock _file, int _nf, int _offset) {
-        TypePointBlockPair pair_ = tp(_file, _nf, _offset);
+
+    public void toggleEnabled(TypePointBlockPair _pair) {
         for (TypePointBlockPair b: typeList().elts()) {
-            if (b.getBp().match(pair_.getBp())) {
+            if (b.getBp().match(_pair.getBp())) {
                 b.getValue().setEnabled(!b.getValue().isEnabled());
                 return;
             }
         }
-        typeList().add(pair_);
+        typeList().add(_pair);
     }
     public void toggleArrPoint(String _clName, int _exact) {
         ArrPointBlockPair exc_ = buildArr(_exact, _clName);
@@ -466,25 +476,25 @@ public abstract class ContextEl {
         _enList.add(_b);
         return _b;
     }
-    public void toggleEnabled(DisplayedStrings _d, MemberCallingsBlock _id) {
-        MethodPointBlockPair pair_ = method(_d, _id);
+
+    public void toggleEnabled(MethodPointBlockPair _pair) {
         for (MethodPointBlockPair b: metList().elts()) {
-            if (b.getMp().match(pair_.getMp())) {
+            if (b.getMp().match(_pair.getMp())) {
                 b.getValue().setEnabled(!b.getValue().isEnabled());
                 return;
             }
         }
-        metList().add(pair_);
+        metList().add(_pair);
     }
-    public void toggleEnabledWatch(boolean _trField,SynthFieldInfo _field) {
-        WatchPointBlockPair pair_ = watch(_trField, _field);
+
+    public void toggleEnabled(WatchPointBlockPair _pair) {
         for (WatchPointBlockPair b: watchList().elts()) {
-            if (b.getWp().match(pair_.getWp())) {
+            if (b.getWp().match(_pair.getWp())) {
                 b.getValue().setEnabled(!b.getValue().isEnabled());
                 return;
             }
         }
-        watchList().add(pair_);
+        watchList().add(_pair);
     }
     public IdMap<FileBlock, ExecFileBlock> getFiles() {
         return getClasses().getDebugMapping().getFiles();

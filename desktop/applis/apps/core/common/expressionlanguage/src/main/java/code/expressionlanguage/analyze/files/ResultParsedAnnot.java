@@ -7,7 +7,7 @@ public final class ResultParsedAnnot {
     private int index;
     private String annotation = "";
     private CustList<SegmentStringPart> parts = new CustList<SegmentStringPart>();
-    private ResultExpression res;
+    private final ResultExpression res = new ResultExpression();
 
     public void set(int _offset, String _annot,CustList<SegmentStringPart> _parts) {
         index = _offset;
@@ -30,7 +30,4 @@ public final class ResultParsedAnnot {
         return res;
     }
 
-    public void setRes(ResultExpression _r) {
-        this.res = _r;
-    }
 }

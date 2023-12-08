@@ -95,7 +95,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){return 1;}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        res_.toggleBreakPoint("src/file.txt",21);
+        res_.toggleWatchPoint("src/file.txt",21);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
         assertEq(1,l_.size());
         assertEq(21,l_.get(0).getBegin());
@@ -115,7 +115,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){return ((:int)->1).call();}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        res_.toggleBreakPoint("src/file.txt",56);
+        res_.toggleWatchPoint("src/file.txt",56);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
         assertEq(1,l_.size());
         assertEq(56,l_.get(0).getBegin());
@@ -127,7 +127,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){return ((:int)->{return 1;}).call();}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        res_.toggleBreakPoint("src/file.txt",56);
+        res_.toggleWatchPoint("src/file.txt",56);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
         assertEq(1,l_.size());
         assertEq(56,l_.get(0).getBegin());
@@ -139,7 +139,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){Fct<int,int> f=a->a+1;return f.call(2);}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        res_.toggleBreakPoint("src/file.txt",63);
+        res_.toggleWatchPoint("src/file.txt",63);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
         assertEq(1,l_.size());
         assertEq(63,l_.get(0).getBegin());
@@ -151,7 +151,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){Fct<int,int> f=a->{return a+1;};return f.call(2);}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        res_.toggleBreakPoint("src/file.txt",63);
+        res_.toggleWatchPoint("src/file.txt",63);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
         assertEq(1,l_.size());
         assertEq(63,l_.get(0).getBegin());
@@ -175,7 +175,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){return ((:int)->((:int)->1).call()).call();}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        res_.toggleBreakPoint("src/file.txt",65);
+        res_.toggleWatchPoint("src/file.txt",65);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
         assertEq(1,l_.size());
         assertEq(65,l_.get(0).getBegin());
@@ -187,7 +187,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){return ((:int)->{return ((:int)->{return 1;}).call();}).call();}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        res_.toggleBreakPoint("src/file.txt",73);
+        res_.toggleWatchPoint("src/file.txt",73);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
         assertEq(1,l_.size());
         assertEq(73,l_.get(0).getBegin());
@@ -199,7 +199,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){Fct<int,Fct<int,int>> f=a->b->a+b+1;return f.call(2).call(3);}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        res_.toggleBreakPoint("src/file.txt",75);
+        res_.toggleWatchPoint("src/file.txt",75);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
         assertEq(1,l_.size());
         assertEq(75,l_.get(0).getBegin());
@@ -211,7 +211,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){Fct<int,Fct<int,int>> f=a->b->{return a+b+1;};return f.call(2).call(3);}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        res_.toggleBreakPoint("src/file.txt",75);
+        res_.toggleWatchPoint("src/file.txt",75);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
         assertEq(1,l_.size());
         assertEq(75,l_.get(0).getBegin());
@@ -223,7 +223,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){return (switch[int](0){default;return 1;});}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        res_.toggleBreakPoint("src/file.txt",67);
+        res_.toggleWatchPoint("src/file.txt",67);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
         assertEq(1,l_.size());
         assertEq(67,l_.get(0).getBegin());
@@ -525,7 +525,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public annotation pkg.Ex {int exmeth();}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        res_.toggleBreakPoint("src/file.txt",26);
+        res_.toggleWatchPoint("src/file.txt",26);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
         assertEq(1,l_.size());
         assertEq(26,l_.get(0).getBegin());
@@ -557,7 +557,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public annotation pkg.Ex {int exmeth()1;}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        res_.toggleBreakPoint("src/file.txt",26);
+        res_.toggleWatchPoint("src/file.txt",26);
         res_.toggleBreakPoint("src/file.txt",38);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
         assertEq(2,l_.size());
@@ -725,16 +725,22 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "@Ex(rec=0)public annotation pkg.Ex {int rec();}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        res_.toggleBreakPointEnabled("src/file.txt",40);
+        res_.toggleWatchPointEnabled("src/file.txt",40);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
-        assertFalse(l_.isEmpty());
+        assertEq(2,l_.size());
+        assertEq(4,l_.get(0).getBegin());
+        assertEq(7,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.FIELD,l_.get(0).getKind());
+        assertEq(36,l_.get(1).getBegin());
+        assertEq(45,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.FIELD,l_.get(1).getKind());
     }
     @Test
     public void parts61() {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(@Annot int t){return 1;}}public annotation pkg.Annot{}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        res_.toggleBreakPoint("src/file.txt",21);
+        res_.toggleWatchPoint("src/file.txt",21);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
         assertEq(2,l_.size());
         assertEq(21,l_.get(0).getBegin());
@@ -743,6 +749,18 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertEq(52,l_.get(1).getBegin());
         assertEq(59,l_.get(1).getEnd());
         assertSame(SyntaxRefEnum.METHOD,l_.get(1).getKind());
+    }
+    @Test
+    public void parts62() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {@Annot public static int exmeth(int t){return 1;}}public annotation pkg.Annot{}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleWatchPoint("src/file.txt",28);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(1,l_.size());
+        assertEq(27,l_.get(0).getBegin());
+        assertEq(59,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(0).getKind());
     }
     @Test
     public void partsTokens1() {

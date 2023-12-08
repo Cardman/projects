@@ -131,19 +131,21 @@ public final class ResultContext {
         AbsPairPoint p_ = tryGetPair(_file, _offset);
         getContext().toggleBreakPoint(p_);
     }
+    public AbsPairPoint tryGetWatchPair(String _file, int _offset) {
+        SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(getPageEl(), _file, _offset);
+        if (o_.getFct() != null) {
+            return method(getPageEl().getDisplayedStrings(), o_.getFct());
+        }
+        if (o_.getRootBlock() != null) {
+            return watch(o_.isTrField(),o_);
+        }
+        return null;
+    }
     public AbsPairPoint tryGetPair(String _file, int _offset) {
         FileBlock fb_ = getPageEl().getPreviousFilesBodies().getVal(_file);
         int o_ = ResultExpressionOperationNode.beginPart(_offset, fb_);
         if (o_ < 0) {
             return null;
-        }
-        MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(_offset, fb_);
-        if (id_ != null) {
-            BracedBlock r_ = AbsBk.rootOfAnnot(id_);
-            if (r_ instanceof RootBlock) {
-                return watch(false, build(((NamedCalledFunctionBlock)id_),(RootBlock)r_));
-            }
-            return method(getPageEl().getDisplayedStrings(), id_);
         }
         if (ResultExpressionOperationNode.enabledTypeBp(_offset,fb_)) {
             ExecFileBlock f_ = getFiles().getVal(fb_);
@@ -152,13 +154,7 @@ public final class ResultContext {
         ExecFileBlock f_ = getFiles().getVal(fb_);
         return bp(f_, FileBlock.number(fb_), o_);
     }
-    public static SynthFieldInfo build(NamedCalledFunctionBlock _id,RootBlock _r) {
-        return new SynthFieldInfo(new ClassField("",_id.getName()),_r, false);
-    }
 
-    public void toggleWatch(boolean _trField, SynthFieldInfo _field) {
-        getContext().toggleWatch(_trField, _field);
-    }
     public OperNatPointBlockPair toggleOperNatPoint(String _symbol,String _first, String _second) {
         OperNatPointBlockPair o_ = resolve(_symbol, _first, _second);
         if (o_ == null) {
@@ -241,36 +237,10 @@ public final class ResultContext {
         return getContext().typeList();
     }
     public void toggleBreakPointEnabled(String _file, int _offset) {
-        FileBlock fb_ = getPageEl().getPreviousFilesBodies().getVal(_file);
-        int o_ = ResultExpressionOperationNode.beginPart(_offset, fb_);
-        if (o_ < 0) {
-            return;
-        }
-        MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(_offset, fb_);
-        if (id_ != null) {
-            BracedBlock r_ = AbsBk.rootOfAnnot(id_);
-            if (r_ instanceof RootBlock) {
-                toggleEnabledWatch(false,build(((NamedCalledFunctionBlock)id_),(RootBlock)r_));
-                return;
-            }
-            toggleEnabled(getPageEl().getDisplayedStrings(),id_);
-            return;
-        }
-        if (ResultExpressionOperationNode.enabledTypeBp(_offset,fb_)) {
-            ExecFileBlock f_ = getFiles().getVal(fb_);
-            toggleEnabledType(f_, FileBlock.number(fb_), o_);
-            return;
-        }
-        ExecFileBlock f_ = getFiles().getVal(fb_);
-        toggleEnabled(f_,FileBlock.number(fb_),o_);
+        AbsPairPoint p_ = tryGetPair(_file, _offset);
+        getContext().toggleEnabledBreakPoint(p_);
     }
 
-    public void toggleEnabled(ExecFileBlock _file, int _nf, int _offset) {
-        getContext().toggleEnabled(_file, _nf, _offset);
-    }
-    public void toggleEnabledType(ExecFileBlock _file, int _nf, int _offset) {
-        getContext().toggleEnabledType(_file, _nf, _offset);
-    }
     public void toggleArrPoint(String _clName, int _exact) {
         getContext().toggleArrPoint(_clName, _exact);
     }
@@ -312,27 +282,16 @@ public final class ResultContext {
     private static boolean koPar(RootBlock _solved, String _clName) {
         return _solved == null && !_clName.trim().isEmpty();
     }
-    public void toggleWatchPoint(String _file, int _offset){
-        SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(getPageEl(), _file, _offset);
-        if (o_.getRootBlock() == null) {
-            return;
-        }
-        toggleWatch(o_.isTrField(),o_);
+    public AbsPairPoint toggleWatchPoint(String _file, int _offset){
+        AbsPairPoint p_ = tryGetWatchPair(_file, _offset);
+        getContext().toggleBreakPoint(p_);
+        return p_;
     }
     public void toggleWatchPointEnabled(String _file, int _offset){
-        SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(getPageEl(), _file, _offset);
-        if (o_.getRootBlock() == null) {
-            return;
-        }
-        toggleEnabledWatch(o_.isTrField(),o_);
+        AbsPairPoint p_ = tryGetWatchPair(_file, _offset);
+        getContext().toggleEnabledBreakPoint(p_);
     }
 
-    public void toggleEnabled(DisplayedStrings _d, MemberCallingsBlock _id) {
-        getContext().toggleEnabled(_d, _id);
-    }
-    public void toggleEnabledWatch(boolean _trField,SynthFieldInfo _field) {
-        getContext().toggleEnabledWatch(_trField, _field);
-    }
     public IdMap<FileBlock, ExecFileBlock> getFiles() {
         return getContext().getFiles();
     }

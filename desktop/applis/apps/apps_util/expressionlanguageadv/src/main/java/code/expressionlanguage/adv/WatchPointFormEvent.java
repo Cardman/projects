@@ -1,8 +1,10 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.SynthFieldInfo;
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
+import code.expressionlanguage.exec.dbg.MethodPointBlockPair;
 import code.expressionlanguage.exec.dbg.WatchPointBlockPair;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.AbsCommonFrame;
@@ -25,6 +27,15 @@ public final class WatchPointFormEvent implements AbsActionListener {
     public void action() {
         int caret_ = tabEditor.getCenter().getCaretPosition();
         SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(resultContext.getPageEl(), tabEditor.getFullPath(),caret_);
+        if (o_.getFct() != null) {
+            MethodPointBlockPair mp_ = resultContext.getPair(MemberCallingsBlock.clName(o_.getFct()));
+            if (mp_ != null) {
+                window.getFramePoints().init(window, resultContext);
+                window.getFramePoints().guiContentBuild(mp_,resultContext);
+                BreakPointFormEvent.methodAction(mp_,window.getFramePoints().getFrameFormContent(), window.getFramePoints().getCommonFrame(),resultContext);
+            }
+            return;
+        }
         watchAction(resultContext, o_.isTrField(),o_.getRootBlockNb(), o_.getClassField().getFieldName(), window.getFramePoints().getFrameWpFormContent(), window, window.getFramePoints().getCommonFrame());
     }
 

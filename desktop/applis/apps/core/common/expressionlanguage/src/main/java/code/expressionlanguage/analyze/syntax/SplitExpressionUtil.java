@@ -323,11 +323,10 @@ public final class SplitExpressionUtil {
     private static void procAnnot(AnalyzedPageEl _page, IntermediaryResults _int, AccessedBlock _a, CustList<ResultParsedAnnot> _annotations, int _i) {
         ResultParsedAnnot begin_ = _annotations.get(_i);
         _page.zeroOffset();
-        ResultExpression res_ = new ResultExpression();
+        ResultExpression res_ = begin_.getRes();
         res_.partsAbsol(begin_.getParts());
         res_.setAnalyzedString(begin_.getAnnotation().trim());
         res_.setSumOffset(begin_.getIndex());
-        begin_.setRes(res_);
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
         extractAnon(_page, _int, _a, res_);
     }

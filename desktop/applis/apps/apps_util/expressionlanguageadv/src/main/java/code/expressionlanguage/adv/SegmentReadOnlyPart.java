@@ -30,11 +30,18 @@ public final class SegmentReadOnlyPart extends AbsSegmentColorPart {
         int b_ = getBegin();
         for (ResultExpression r: all_) {
             int e_ = r.getSumOffset();
-            out_.add(new SegmentReadOnlyPart(b_,e_,kind));
+            filter(out_, b_, e_);
             b_ = e_ + r.getAnalyzedString().length();
         }
-        out_.add(new SegmentReadOnlyPart(b_,getEnd(),kind));
+        filter(out_, b_,getEnd());
         return out_;
+    }
+
+    private void filter(CustList<SegmentReadOnlyPart> _out, int _b, int _e) {
+        if (_b >= _e) {
+            return;
+        }
+        _out.add(new SegmentReadOnlyPart(_b,_e,kind));
     }
 
     private void feed(CustList<ResultExpression> _all, CustList<ResultParsedAnnot> _ls) {

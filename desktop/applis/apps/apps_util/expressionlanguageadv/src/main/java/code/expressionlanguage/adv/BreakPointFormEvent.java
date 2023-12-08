@@ -29,21 +29,6 @@ public final class BreakPointFormEvent implements AbsActionListener {
         ExecFileBlock f_ = currentResult.getFiles().getVal(af_);
         int caret_ = tabEditor.getCenter().getCaretPosition();
         int o_ = ResultExpressionOperationNode.beginPart(caret_, af_);
-        MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(caret_, af_);
-        if (id_ != null) {
-            BracedBlock rPar_ = AbsBk.rootOfAnnot(id_);
-            if (rPar_ instanceof RootBlock) {
-                WatchPointFormEvent.watchAction(currentResult, false,((RootBlock)rPar_).getNumberAll(),((NamedCalledFunctionBlock)id_).getName(), window.getFramePoints().getFrameWpFormContent(),window, window.getFramePoints().getCommonFrame());
-                return;
-            }
-            MethodPointBlockPair mp_ = currentResult.getPair(MemberCallingsBlock.clName(id_));
-            if (mp_ != null) {
-                window.getFramePoints().init(window, currentResult);
-                window.getFramePoints().guiContentBuild(mp_,currentResult);
-                methodAction(mp_, window.getFramePoints().getFrameFormContent(), window.getFramePoints().getCommonFrame(),currentResult);
-                return;
-            }
-        }
         TypePointBlockPair tp_ = currentResult.getPairType(f_, o_);
         if (tp_ != null) {
             window.getFramePoints().init(window, currentResult);

@@ -1200,10 +1200,9 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
     }
 
     private void entering(ResultContext _cont, String _file, int _offset) {
-        _cont.toggleBreakPoint(_file,_offset);
-        String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        _cont.getPair(id_).getValue().setEntry(true);
-        _cont.getPair(id_).getValue().setExit(false);
+        AbsPairPoint p_ = _cont.toggleWatchPoint(_file, _offset);
+        ((MethodPointBlockPair)p_).getValue().setEntry(true);
+        ((MethodPointBlockPair)p_).getValue().setExit(false);
     }
     private StandardNamedFunction entering(ResultContext _cont, String _clName, AbsractIdentifiableCommon _id) {
         StandardNamedFunction s_ = toggled(_cont, _clName, _id);

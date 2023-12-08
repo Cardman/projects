@@ -68,11 +68,14 @@ public final class ResultExpressionOperationNode {
             elt_ = null;
         }
         if (elt_ != null) {
-            return new SynthFieldInfo(elt_,relt_, true);
+            return new SynthFieldInfo(elt_,relt_, true, null);
         }
-        BracedBlock currentParent_ = AbsBk.rootOfAnnot(res_.block);
-        if (currentParent_ instanceof RootBlock && inRange(((NamedFunctionBlock)res_.block).getNameOffset(),_caret,((NamedFunctionBlock)res_.block).getNameOffset()+((NamedFunctionBlock)res_.block).getName().length())) {
-            return new SynthFieldInfo(new ClassField("", ((NamedFunctionBlock)res_.block).getName()), (RootBlock) currentParent_, false);
+        if (res_.block instanceof MemberCallingsBlock && res_.resultExpression == null) {
+            BracedBlock currentParent_ = AbsBk.rootOfAnnot(res_.block);
+            if (currentParent_ instanceof RootBlock) {
+                return new SynthFieldInfo(new ClassField("", ((NamedFunctionBlock)res_.block).getName()), (RootBlock) currentParent_, false, null);
+            }
+            return new SynthFieldInfo(new ClassField("",""),null,false,(MemberCallingsBlock) res_.block);
         }
         return res_.defWatch(_caret);
     }
@@ -83,35 +86,35 @@ public final class ResultExpressionOperationNode {
             int delta_ = ass_.getOffsetFct();
             int b_ = begin()+delta_;
             if (inRange(b_,_caret,b_+name_.length())) {
-                return new SynthFieldInfo(new ClassField("", name_),AnaTypeFct.root(ass_.getFunction()), false);
+                return new SynthFieldInfo(new ClassField("", name_),AnaTypeFct.root(ass_.getFunction()), false, null);
             }
         }
         if (getFound() instanceof SettableAbstractFieldOperation) {
             RootBlock r_ = ((SettableAbstractFieldOperation) getFound()).getFieldType();
             if (r_ != null) {
-                return new SynthFieldInfo(((SettableAbstractFieldOperation)getFound()).getFieldIdReadOnly(), r_, true);
+                return new SynthFieldInfo(((SettableAbstractFieldOperation)getFound()).getFieldIdReadOnly(), r_, true, null);
             }
         }
         if (getFound() instanceof NamedArgumentOperation) {
             NamedArgumentOperation name_ = (NamedArgumentOperation) getFound();
             RootBlock field_ = name_.getField();
             if (field_ != null) {
-                return new SynthFieldInfo(name_.getIdField(),field_, true);
+                return new SynthFieldInfo(name_.getIdField(),field_, true, null);
             }
         }
         if (getFound() instanceof LambdaOperation) {
             LambdaOperation lda_ = (LambdaOperation) getFound();
             SrcFileLocation loc_ = tryRetrieveRecord(_caret, lda_);
             if (loc_ instanceof SrcFileLocationFieldCust) {
-                return new SynthFieldInfo(((SrcFileLocationFieldCust)loc_).getCf(),((SrcFileLocationFieldCust)loc_).getDeclaring(), true);
+                return new SynthFieldInfo(((SrcFileLocationFieldCust)loc_).getCf(),((SrcFileLocationFieldCust)loc_).getDeclaring(), true, null);
             }
             ClassField fieldId_ = lda_.getFieldId();
             if (fieldId_ != null) {
                 RootBlock fieldType_ = lda_.getLambdaCommonContent().getFoundFormatted().getRootBlock();
-                return new SynthFieldInfo(fieldId_,fieldType_, true);
+                return new SynthFieldInfo(fieldId_,fieldType_, true, null);
             }
         }
-        return new SynthFieldInfo(new ClassField("",""),null, true);
+        return new SynthFieldInfo(new ClassField("",""),null, true, null);
     }
 
     private SrcFileLocation tryRetrieveRecord(int _caret, LambdaOperation _lda) {
@@ -641,13 +644,6 @@ public final class ResultExpressionOperationNode {
         return c_.resultExpression == null && c_.block instanceof RootBlock;
     }
 
-    public static MemberCallingsBlock keyMethodBp(int _caret, FileBlock _file) {
-        ResultExpressionOperationNode c_ = container(_caret, _file);
-        if (c_.resultExpression == null && c_.block instanceof MemberCallingsBlock) {
-            return (MemberCallingsBlock) c_.block;
-        }
-        return null;
-    }
     private int outExp(int _caret) {
         if (block instanceof ForIterativeLoop) {
             return forIterativeLoop(_caret);

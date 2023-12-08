@@ -279,18 +279,17 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
     }
 
     private void enteringCondition(String _newValue,ResultContext _cont, String _file, int _offset) {
-        entering(_cont, _file, _offset);
-        String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        MethodPointBlockPair wp_ = _cont.getPair(id_);
+        AbsPairPoint p_ = entering(_cont, _file, _offset);
+        MethodPointBlockPair wp_ = ((MethodPointBlockPair)p_);
         wp_.getValue().getResultEntry().analyze(wp_,_newValue,"", "", _cont,new DefContextGenerator());
         assertEq(_newValue,wp_.getValue().getResultEntry().getResultStr());
     }
 
-    private void entering(ResultContext _cont, String _file, int _offset) {
-        _cont.toggleBreakPoint(_file,_offset);
-        String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        _cont.getPair(id_).getValue().setEntry(true);
-        _cont.getPair(id_).getValue().setExit(false);
+    private AbsPairPoint entering(ResultContext _cont, String _file, int _offset) {
+        AbsPairPoint p_ = _cont.toggleWatchPoint(_file, _offset);
+        ((MethodPointBlockPair)p_).getValue().setEntry(true);
+        ((MethodPointBlockPair)p_).getValue().setExit(false);
+        return p_;
     }
     private void stdSimpleCondition(ResultContext _cont, String _condition, String _symbol,String _first, String _second, boolean _simple, boolean _compound) {
         OperNatPointBlockPair p_ = std(_cont, _symbol, _first, _second, _simple, _compound);

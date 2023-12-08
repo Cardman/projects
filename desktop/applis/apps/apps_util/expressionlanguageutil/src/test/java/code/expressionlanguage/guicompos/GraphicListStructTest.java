@@ -369,7 +369,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new GrList(false);StringBuilder d = new StringBuilder();g.setRender((CellRender)new Sample().$lambda(Sample,[],int,Object,boolean,boolean,boolean,Font,GrList));g.add(\"1\");g.add(\"2\");return \"\"+d;}public Image this(int a,Object b,boolean c,boolean d,boolean e,Font f,GrList g){return new Image(1,1,true);}}");
         ResultContext ctx_ = ctxRes(pr_, files_);
-        ctx_.toggleBreakPoint("src/sample.txt",254);
+        ctx_.toggleWatchPoint("src/sample.txt",254);
         MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
         p_.getValue().setEntry(true);
         p_.getValue().setExit(false);
@@ -388,7 +388,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{public static String run(){var g = new GrList(false);StringBuilder d = new StringBuilder();g.setRender((CellRender)new Sample().$lambda(Sample,[],int,Object,boolean,boolean,boolean,Font,GrList));g.add(\"1\");g.add(\"2\");return \"\"+d;}public Image this(int a,Object b,boolean c,boolean d,boolean e,Font f,GrList g){return new Image(1,1,true);}}");
         ResultContext ctx_ = ctxRes(pr_, files_);
-        ctx_.toggleBreakPoint("src/sample.txt",254);
+        ctx_.toggleWatchPoint("src/sample.txt",254);
         MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
         p_.getValue().setEntry(false);
         p_.getValue().setExit(true);

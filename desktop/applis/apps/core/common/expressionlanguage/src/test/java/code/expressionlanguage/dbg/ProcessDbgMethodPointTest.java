@@ -30,8 +30,9 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",40);
+        cont_.toggleWatchPoint("pkg/Ex",40);
         assertTrue(is(cont_, 21));
+        assertTrue(cont_.getPair(cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex").getNumberFile()+"/"+21).getValue().isEnabled());
     }
 
     @Test
@@ -41,8 +42,8 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",40);
-        cont_.toggleBreakPoint("pkg/Ex",40);
+        cont_.toggleWatchPoint("pkg/Ex",40);
+        cont_.toggleWatchPoint("pkg/Ex",40);
         assertFalse(is(cont_, 21));
     }
 
@@ -53,7 +54,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",40);
+        cont_.toggleWatchPoint("pkg/Ex",40);
         assertFalse(is(cont_, 58));
     }
 
@@ -64,7 +65,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",-1);
+        cont_.toggleWatchPoint("pkg/Ex",-1);
         assertFalse(is(cont_, 21));
     }
 
@@ -75,8 +76,8 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",40);
-        cont_.toggleBreakPointEnabled("pkg/Ex",40);
+        cont_.toggleWatchPoint("pkg/Ex",40);
+        cont_.toggleWatchPointEnabled("pkg/Ex",40);
         assertFalse(is(cont_, 21));
     }
 
@@ -87,9 +88,9 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",40);
-        cont_.toggleBreakPointEnabled("pkg/Ex",40);
-        cont_.toggleBreakPointEnabled("pkg/Ex",40);
+        cont_.toggleWatchPoint("pkg/Ex",40);
+        cont_.toggleWatchPointEnabled("pkg/Ex",40);
+        cont_.toggleWatchPointEnabled("pkg/Ex",40);
         assertTrue(is(cont_, 21));
     }
 
@@ -100,7 +101,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPointEnabled("pkg/Ex",40);
+        cont_.toggleWatchPointEnabled("pkg/Ex",40);
         assertTrue(is(cont_, 21));
     }
 
@@ -111,7 +112,7 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPointEnabled("pkg/Ex",-1);
+        cont_.toggleWatchPointEnabled("pkg/Ex",-1);
         assertFalse(is(cont_, 21));
     }
 
@@ -122,8 +123,8 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",40);
-        cont_.toggleBreakPoint("pkg/Ex",77);
+        cont_.toggleWatchPoint("pkg/Ex",40);
+        cont_.toggleWatchPoint("pkg/Ex",77);
         assertTrue(is(cont_, 58));
     }
 
@@ -134,9 +135,9 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",40);
-        cont_.toggleBreakPoint("pkg/Ex",77);
-        cont_.toggleBreakPointEnabled("pkg/Ex",40);
+        cont_.toggleWatchPoint("pkg/Ex",40);
+        cont_.toggleWatchPoint("pkg/Ex",77);
+        cont_.toggleWatchPointEnabled("pkg/Ex",40);
         assertTrue(is(cont_, 58));
     }
 
@@ -147,8 +148,8 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPointEnabled("pkg/Ex",40);
-        cont_.toggleBreakPointEnabled("pkg/Ex",77);
+        cont_.toggleWatchPointEnabled("pkg/Ex",40);
+        cont_.toggleWatchPointEnabled("pkg/Ex",77);
         assertTrue(is(cont_, 58));
     }
 
@@ -977,10 +978,9 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        entering(cont_,"pkg/Ex",66);
-        String idm_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(66, cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex")));
-        cont_.getPair(idm_).getValue().setEnabled(true);
-        cont_.getPair(idm_).getValue().setEnabled(false);
+        AbsPairPoint p_ = entering(cont_, "pkg/Ex", 66);
+        ((MethodPointBlockPair)p_).getValue().setEnabled(true);
+        ((MethodPointBlockPair)p_).getValue().setEnabled(false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         assertEq(0, stack_.nbPages());
@@ -1460,9 +1460,8 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        exiting(cont_,"pkg/Ex",91);
-        String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(91, cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex")));
-        MethodPointBlockPair wp_ = cont_.getPair(id_);
+        AbsPairPoint p_ = exiting(cont_, "pkg/Ex", 91);
+        MethodPointBlockPair wp_ = ((MethodPointBlockPair)p_);
         assertFalse(new MethodKeyString().keyString(wp_).isEmpty());
     }
     private void div(ResultContext _cont) {
@@ -1501,10 +1500,9 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
     }
 
     private void enteringCondition(String _newValue,ResultContext _cont, String _file, int _offset) {
-        entering(_cont, _file, _offset);
-        String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
+        AbsPairPoint p_ = entering(_cont, _file, _offset);
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
-        MethodPointBlockPair wp_ = _cont.getPair(id_);
+        MethodPointBlockPair wp_ = ((MethodPointBlockPair)p_);
         wp_.getValue().getResultEntry().analyze(wp_,_newValue,"", "", _cont,new DefContextGenerator());
         assertEq(_newValue,wp_.getValue().getResultEntry().getResultStr());
 
@@ -1514,10 +1512,9 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
 //        wp_.getValue().getResultEntry().result(res_,_newValue);
     }
     private void exitingCondition(String _newValue,ResultContext _cont, String _file, int _offset) {
-        exiting(_cont, _file, _offset);
-        String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
+        AbsPairPoint p_ = exiting(_cont, _file, _offset);
 //        String type_ = _cont.getPageEl().getAliasPrimBoolean();
-        MethodPointBlockPair wp_ = _cont.getPair(id_);
+        MethodPointBlockPair wp_ = ((MethodPointBlockPair)p_);
         wp_.getValue().getResultExit().analyze(wp_,_newValue,"", "", _cont,new DefContextGenerator());
         assertEq(_newValue,wp_.getValue().getResultExit().getResultStr());
 
@@ -1525,17 +1522,17 @@ public final class ProcessDbgMethodPointTest extends ProcessDbgCommon {
 //        assertTrue(res_.getReportedMessages().isAllEmptyErrors());
 //        wp_.getValue().getResultExit().result(res_,_newValue);
     }
-    private void entering(ResultContext _cont, String _file, int _offset) {
-        _cont.toggleBreakPoint(_file,_offset);
-        String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        _cont.getPair(id_).getValue().setEntry(true);
-        _cont.getPair(id_).getValue().setExit(false);
+    private AbsPairPoint entering(ResultContext _cont, String _file, int _offset) {
+        AbsPairPoint p_ = _cont.toggleWatchPoint(_file, _offset);
+        ((MethodPointBlockPair)p_).getValue().setEntry(true);
+        ((MethodPointBlockPair)p_).getValue().setExit(false);
+        return p_;
     }
 
-    private void exiting(ResultContext _cont, String _file, int _offset) {
-        _cont.toggleBreakPoint(_file,_offset);
-        String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        _cont.getPair(id_).getValue().setEntry(false);
-        _cont.getPair(id_).getValue().setExit(true);
+    private AbsPairPoint exiting(ResultContext _cont, String _file, int _offset) {
+        AbsPairPoint p_ = _cont.toggleWatchPoint(_file, _offset);
+        ((MethodPointBlockPair)p_).getValue().setEntry(false);
+        ((MethodPointBlockPair)p_).getValue().setExit(true);
+        return p_;
     }
 }

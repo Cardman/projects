@@ -247,7 +247,7 @@ public final class TreeStructTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){TreeNode n=new(\"\");TreeNode s=new(\"\");s.add(n);Tree g = new(n);g.addTreeListener((TreeListener)(TreeNode e:void)->{e.get();});g.selected(n);}}");
         ResultContext ctx_ = ctx(pr_, files_);
-        ctx_.toggleBreakPoint("src/sample.txt",144);
+        ctx_.toggleWatchPoint("src/sample.txt",144);
         MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
         p_.getValue().setEntry(true);
         p_.getValue().setExit(false);
@@ -263,7 +263,7 @@ public final class TreeStructTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){TreeNode n=new(\"\");TreeNode s=new(\"\");s.add(n);Tree g = new(n);g.addTreeListener((TreeListener)(TreeNode e:void)->{e.get();});g.selected(n);}}");
         ResultContext ctx_ = ctx(pr_, files_);
-        ctx_.toggleBreakPoint("src/sample.txt",144);
+        ctx_.toggleWatchPoint("src/sample.txt",144);
         MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
         p_.getValue().setEntry(false);
         p_.getValue().setExit(true);
@@ -280,7 +280,7 @@ public final class TreeStructTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){TreeNode n=new(\"\");TreeNode s=new(\"\");s.add(n);Tree g = new(n);g.addTreeListener((TreeListener)new MyImpl().$lambda(MyImpl,impl,TreeNode));g.selected(n);}}public class pkg.MyImpl{public void impl(TreeNode t){t.get();}}");
         ResultContext ctx_ = ctx(pr_, files_);
-        ctx_.toggleBreakPoint("src/sample.txt",228);
+        ctx_.toggleWatchPoint("src/sample.txt",228);
         MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
         p_.getValue().setEntry(true);
         p_.getValue().setExit(false);
@@ -296,7 +296,7 @@ public final class TreeStructTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){TreeNode n=new(\"\");TreeNode s=new(\"\");s.add(n);Tree g = new(n);g.addTreeListener((TreeListener)new MyImpl().$lambda(MyImpl,impl,TreeNode));g.selected(n);}}public class pkg.MyImpl{public void impl(TreeNode t){t.get();}}");
         ResultContext ctx_ = ctx(pr_, files_);
-        ctx_.toggleBreakPoint("src/sample.txt",228);
+        ctx_.toggleWatchPoint("src/sample.txt",228);
         MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
         p_.getValue().setEntry(false);
         p_.getValue().setExit(true);
@@ -327,7 +327,7 @@ public final class TreeStructTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){TreeNode n=new(\"\");TreeNode s=new(\"\");s.add(n);Tree g = new(n);g.addTreeListener((TreeListener)(TreeNode e:void)->{e.get();});g.selected(null);}}");
         ResultContext ctx_ = ctx(pr_, files_);
-        ctx_.toggleBreakPoint("src/sample.txt",144);
+        ctx_.toggleWatchPoint("src/sample.txt",144);
         MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
         p_.getValue().setEntry(true);
         p_.getValue().setExit(false);
@@ -343,7 +343,7 @@ public final class TreeStructTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample{public static void run(){TreeNode n=new(\"\");TreeNode s=new(\"\");s.add(n);Tree g = new(n);g.addTreeListener((TreeListener)(TreeNode e:void)->{e.get();});g.selected(null);}}");
         ResultContext ctx_ = ctx(pr_, files_);
-        ctx_.toggleBreakPoint("src/sample.txt",144);
+        ctx_.toggleWatchPoint("src/sample.txt",144);
         MethodPointBlockPair p_ = ctx_.getContext().metList().elts().iterator().next();
         p_.getValue().setEntry(false);
         p_.getValue().setExit(true);

@@ -2364,38 +2364,36 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
     }
 
     private void enteringCondition(String _newValue,ResultContext _cont, String _file, int _offset) {
-        entering(_cont, _file, _offset);
-        String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        MethodPointBlockPair wp_ = _cont.getPair(id_);
+        AbsPairPoint p_ = entering(_cont, _file, _offset);
+        MethodPointBlockPair wp_ = ((MethodPointBlockPair)p_);
         wp_.getValue().getResultEntry().analyze(wp_,_newValue,"", "", _cont,new DefContextGenerator());
         assertEq(_newValue,wp_.getValue().getResultEntry().getResultStr());
     }
     private void exitingCondition(String _newValue,ResultContext _cont, String _file, int _offset) {
-        exiting(_cont, _file, _offset);
-        String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        MethodPointBlockPair wp_ = _cont.getPair(id_);
+        AbsPairPoint p_ = exiting(_cont, _file, _offset);
+        MethodPointBlockPair wp_ = ((MethodPointBlockPair)p_);
         wp_.getValue().getResultExit().analyze(wp_,_newValue,"", "", _cont,new DefContextGenerator());
         assertEq(_newValue,wp_.getValue().getResultExit().getResultStr());
     }
-    private void entering(ResultContext _cont, String _file, int _offset) {
-        _cont.toggleBreakPoint(_file,_offset);
-        String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        _cont.getPair(id_).getValue().setEntry(true);
-        _cont.getPair(id_).getValue().setExit(false);
+    private AbsPairPoint entering(ResultContext _cont, String _file, int _offset) {
+        AbsPairPoint p_ = _cont.toggleWatchPoint(_file, _offset);
+        ((MethodPointBlockPair)p_).getValue().setEntry(true);
+        ((MethodPointBlockPair)p_).getValue().setExit(false);
+        return p_;
     }
 
-    private void exiting(ResultContext _cont, String _file, int _offset) {
-        _cont.toggleBreakPoint(_file,_offset);
-        String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        _cont.getPair(id_).getValue().setEntry(false);
-        _cont.getPair(id_).getValue().setExit(true);
+    private AbsPairPoint exiting(ResultContext _cont, String _file, int _offset) {
+        AbsPairPoint p_ = _cont.toggleWatchPoint(_file, _offset);
+        ((MethodPointBlockPair)p_).getValue().setEntry(false);
+        ((MethodPointBlockPair)p_).getValue().setExit(true);
+        return p_;
     }
 
-    private void enteringExiting(ResultContext _cont, String _file, int _offset) {
-        _cont.toggleBreakPoint(_file,_offset);
-        String id_ = MemberCallingsBlock.clName(ResultExpressionOperationNode.keyMethodBp(_offset, _cont.getPageEl().getPreviousFilesBodies().getVal(_file)));
-        _cont.getPair(id_).getValue().setEntry(true);
-        _cont.getPair(id_).getValue().setExit(true);
+    private AbsPairPoint enteringExiting(ResultContext _cont, String _file, int _offset) {
+        AbsPairPoint p_ = _cont.toggleWatchPoint(_file, _offset);
+        ((MethodPointBlockPair)p_).getValue().setEntry(true);
+        ((MethodPointBlockPair)p_).getValue().setExit(true);
+        return p_;
     }
     private void stdInheritCondition(ResultContext _cont, String _condition) {
         stdInherit(_cont);

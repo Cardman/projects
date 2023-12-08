@@ -20,7 +20,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",90);
+        cont_.toggleWatchPoint("pkg/Ex",90);
         assertTrue(isWatch(cont_, cf("pkg.ExAnnot","method")));
     }
 
@@ -31,7 +31,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPointEnabled("pkg/Ex",90);
+        cont_.toggleWatchPointEnabled("pkg/Ex",90);
         assertTrue(isWatch(cont_, cf("pkg.ExAnnot","method")));
     }
     @Test
@@ -41,7 +41,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",149);
+        cont_.toggleWatchPoint("pkg/Ex",149);
         read(cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -56,7 +56,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",166);
+        cont_.toggleWatchPoint("pkg/Ex",166);
         readCondition("method()==1",cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -71,7 +71,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",166);
+        cont_.toggleWatchPoint("pkg/Ex",166);
         readCondition("method()==3",cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -84,7 +84,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",149);
+        cont_.toggleWatchPoint("pkg/Ex",149);
         cont_.toggleWatchPoint("pkg/Ex",162);
         readCondition("method()==1",cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
@@ -100,7 +100,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",149);
+        cont_.toggleWatchPoint("pkg/Ex",149);
         cont_.toggleWatchPoint("pkg/Ex",162);
         readCondition("method()==3",cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
@@ -114,7 +114,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",192);
+        cont_.toggleWatchPoint("pkg/Ex",192);
         read(cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -129,7 +129,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",180);
+        cont_.toggleWatchPoint("pkg/Ex",180);
         read(cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -144,7 +144,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",156);
+        cont_.toggleWatchPoint("pkg/Ex",156);
         read(cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -157,7 +157,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",236);
+        cont_.toggleWatchPoint("pkg/Ex",236);
         readCondition("method()==1",cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -172,7 +172,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",236);
+        cont_.toggleWatchPoint("pkg/Ex",236);
         writeCondition("value==3",cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -187,7 +187,7 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",236);
+        cont_.toggleWatchPoint("pkg/Ex",236);
         writeCondition("value==4",cont_,cf("pkg.ExAnnot","method"));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -200,8 +200,8 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",235);
-        cont_.toggleBreakPoint("pkg/Ex",250);
+        cont_.toggleWatchPoint("pkg/Ex",235);
+        cont_.toggleWatchPoint("pkg/Ex",250);
         writeCondition("value==3",cont_,cf("pkg.ExAnnot","method1"));
         writeCondition("value==4",cont_,cf("pkg.ExAnnot","method2"));
         MethodId id_ = getMethodId("exmeth");
@@ -219,8 +219,8 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",255);
-        cont_.toggleBreakPoint("pkg/Ex",270);
+        cont_.toggleWatchPoint("pkg/Ex",255);
+        cont_.toggleWatchPoint("pkg/Ex",270);
         writeCondition("value==1",cont_,cf("pkg.ExAnnot","method1"));
         writeCondition("value==2",cont_,cf("pkg.ExAnnot","method2"));
         MethodId id_ = getMethodId("exmeth");
@@ -240,8 +240,8 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
-        cont_.toggleBreakPoint("pkg/Ex",255);
-        cont_.toggleBreakPoint("pkg/Ex",274);
+        cont_.toggleWatchPoint("pkg/Ex",255);
+        cont_.toggleWatchPoint("pkg/Ex",274);
         writeCondition("value[0]==1",cont_,cf("pkg.ExAnnot","method1"));
         writeCondition("value[0]==2",cont_,cf("pkg.ExAnnot","method2"));
         MethodId id_ = getMethodId("exmeth");

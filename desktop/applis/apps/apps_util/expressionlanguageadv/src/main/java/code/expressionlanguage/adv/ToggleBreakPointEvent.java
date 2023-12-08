@@ -3,6 +3,7 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.files.AbsSegmentColorPart;
+import code.expressionlanguage.common.SynthFieldInfo;
 import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.AbsAttrSet;
@@ -32,8 +33,6 @@ public final class ToggleBreakPointEvent implements AbsActionListener {
         ToggleBreakPointEnabledEvent.removeIfUsed(before_, after_, fp_);
         fp_.refreshBp(currentResult);
         fp_.refreshTp(currentResult);
-        fp_.refreshMethod(currentResult);
-        fp_.refreshWatch(currentResult);
         fp_.getCommonFrame().pack();
         afterToggle(currentResult, tabEditor);
     }
@@ -43,6 +42,10 @@ public final class ToggleBreakPointEvent implements AbsActionListener {
             BreakPointBlockKey k_ = ((BreakPointBlockPair) _pair).getBp();
             return _r.getPair(k_.getFile(),k_.getOffset());
         }
+        if (_pair instanceof TypePointBlockPair) {
+            BreakPointBlockKey k_ = ((TypePointBlockPair) _pair).getBp();
+            return _r.getPairType(k_.getFile(),k_.getOffset());
+        }
         if (_pair instanceof MethodPointBlockPair) {
             MethodPointBlockKey k_ = ((MethodPointBlockPair) _pair).getMp();
             return _r.getPair(k_.keyStr());
@@ -50,10 +53,7 @@ public final class ToggleBreakPointEvent implements AbsActionListener {
         if (_pair instanceof WatchPointBlockPair) {
             WatchPointBlockKey k_ = ((WatchPointBlockPair) _pair).getWp();
             RootBlock r_ = ((WatchPointBlockPair) _pair).getRoot();
-            if (r_ == null) {
-                return null;
-            }
-            return _r.getPairWatch(k_.isTrueField(), r_.getNumberAll(),k_.fieldName());
+            return _r.getPairWatch(k_.isTrueField(), SynthFieldInfo.nb(r_),k_.fieldName());
         }
         return null;
     }

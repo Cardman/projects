@@ -17,7 +17,7 @@ public final class OkMpFormEvent implements AbsActionListener {
     public void action() {
         MethodPointBlockPair mp_ = window.getFramePoints().getFrameFormContent().getSelectedMp();
         if (mp_ == null) {
-            AbsPairPoint p_ = resultContext.tryGetPair(window.getFramePoints().getFrameFormContent().getFileName().getText(), window.getFramePoints().getFrameFormContent().getCaret().getValue());
+            AbsPairPoint p_ = resultContext.tryGetWatchPair(window.getFramePoints().getFrameFormContent().getFileName().getText(), window.getFramePoints().getFrameFormContent().getCaret().getValue());
             if (!(p_ instanceof MethodPointBlockPair)) {
                 return;
             }
