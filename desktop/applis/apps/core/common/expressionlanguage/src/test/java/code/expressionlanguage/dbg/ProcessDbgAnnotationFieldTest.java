@@ -272,8 +272,8 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
-        cont_.toggleBreakPoint("pkg/Ex",9);
-        cont_.toggleBreakPoint("pkg/Ex",16);
+        cont_.toggleWatchPoint("pkg/Ex",9);
+        cont_.toggleWatchPoint("pkg/Ex",16);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         assertEq(0, stack_.nbPages());
@@ -285,17 +285,54 @@ public final class ProcessDbgAnnotationFieldTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_,"pkg.Ex","pkg.Ex2");
-        cont_.toggleBreakPointEnabled("pkg/Ex",9);
-        cont_.toggleBreakPointEnabled("pkg/Ex",16);
+        cont_.toggleWatchPointEnabled("pkg/Ex",9);
+        cont_.toggleWatchPointEnabled("pkg/Ex",16);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
         assertEq(0, stack_.nbPages());
+    }
+
+    @Test
+    public void test20() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){return 1;}}public annotation pkg.ExAnnot {int method();}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleWatchPoint("pkg/Ex",94);
+        assertTrue(isWatch(cont_, cf("pkg.ExAnnot","method")));
+    }
+
+    @Test
+    public void test21() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){return 1;}}public annotation pkg.ExAnnot {int method();}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleWatchPointEnabled("pkg/Ex",94);
+        assertTrue(isWatch(cont_, cf("pkg.ExAnnot","method")));
+    }
+
+    @Test
+    public void test22() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {public static int exmeth(){return 1;}}public annotation pkg.ExAnnot {int st;int method()st;}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        cont_.toggleWatchPoint("pkg/Ex",109);
+        assertTrue(isWatchField(cont_, cf("pkg.ExAnnot","st")));
     }
     private boolean isWatch(ResultContext _cont, ClassField _cf) {
         int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
         return _cont.isWatch(false,n_,_cf.getFieldName());
     }
 
+    private boolean isWatchField(ResultContext _cont, ClassField _cf) {
+        int n_ = _cont.getPageEl().getAnaClassBody(_cf.getClassName()).getNumberAll();
+        return _cont.isWatch(true,n_,_cf.getFieldName());
+    }
     private boolean is(ResultContext _cont, int _off) {
         return _cont.is(_cont.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex").getNumberFile()+"/"+_off);
     }

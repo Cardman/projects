@@ -25,7 +25,7 @@ public final class WatchPointFormEvent implements AbsActionListener {
     public void action() {
         int caret_ = tabEditor.getCenter().getCaretPosition();
         SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(resultContext.getPageEl(), tabEditor.getFullPath(),caret_);
-        watchAction(resultContext, true,o_.getRootBlockNb(), o_.getClassField().getFieldName(), window.getFramePoints().getFrameWpFormContent(), window, window.getFramePoints().getCommonFrame());
+        watchAction(resultContext, o_.isTrField(),o_.getRootBlockNb(), o_.getClassField().getFieldName(), window.getFramePoints().getFrameWpFormContent(), window, window.getFramePoints().getCommonFrame());
     }
 
     static void watchAction(ResultContext _r, boolean _trField, int _nb, String _field, FrameWpFormContent _content, AbsDebuggerGui _w, AbsCommonFrame _frame) {

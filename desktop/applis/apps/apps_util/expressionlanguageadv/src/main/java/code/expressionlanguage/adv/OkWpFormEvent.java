@@ -32,7 +32,7 @@ public final class OkWpFormEvent implements AbsActionListener {
             if (!valid(r_, window.getFramePoints().getFrameWpFormContent().getTrueField().isSelected(), fieldName_)) {
                 return;
             }
-            wp_ = currentResult.watch(window.getFramePoints().getFrameWpFormContent().getTrueField().isSelected(),new SynthFieldInfo(new ClassField(clName_, fieldName_),r_));
+            wp_ = currentResult.watch(window.getFramePoints().getFrameWpFormContent().getTrueField().isSelected(),new SynthFieldInfo(new ClassField(clName_, fieldName_),r_, false));
             currentResult.getContext().watchList().add(wp_);
         }
         wp_.getValue().setEnabled(window.getFramePoints().getFrameWpFormContent().getEnabledWp().isSelected());

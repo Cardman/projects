@@ -137,13 +137,9 @@ public final class ResultContext {
         if (o_ < 0) {
             return null;
         }
-        SynthFieldInfo ass_ = ResultExpressionOperationNode.enabledAssocBp(_offset, fb_);
-        if (ass_.getRootBlock() != null) {
-            return watch(false, ass_);
-        }
         MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(_offset, fb_);
         if (id_ != null) {
-            BracedBlock r_ = BreakPointBlockList.rootOfAnnot(id_);
+            BracedBlock r_ = AbsBk.rootOfAnnot(id_);
             if (r_ instanceof RootBlock) {
                 return watch(false, build(((NamedCalledFunctionBlock)id_),(RootBlock)r_));
             }
@@ -157,7 +153,7 @@ public final class ResultContext {
         return bp(f_, FileBlock.number(fb_), o_);
     }
     public static SynthFieldInfo build(NamedCalledFunctionBlock _id,RootBlock _r) {
-        return new SynthFieldInfo(new ClassField("",_id.getName()),_r);
+        return new SynthFieldInfo(new ClassField("",_id.getName()),_r, false);
     }
 
     public void toggleWatch(boolean _trField, SynthFieldInfo _field) {
@@ -250,14 +246,9 @@ public final class ResultContext {
         if (o_ < 0) {
             return;
         }
-        SynthFieldInfo ass_ = ResultExpressionOperationNode.enabledAssocBp(_offset, fb_);
-        if (ass_.getRootBlock() != null) {
-            toggleEnabledWatch(false, ass_);
-            return;
-        }
         MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(_offset, fb_);
         if (id_ != null) {
-            BracedBlock r_ = BreakPointBlockList.rootOfAnnot(id_);
+            BracedBlock r_ = AbsBk.rootOfAnnot(id_);
             if (r_ instanceof RootBlock) {
                 toggleEnabledWatch(false,build(((NamedCalledFunctionBlock)id_),(RootBlock)r_));
                 return;
@@ -326,14 +317,14 @@ public final class ResultContext {
         if (o_.getRootBlock() == null) {
             return;
         }
-        toggleWatch(true,o_);
+        toggleWatch(o_.isTrField(),o_);
     }
     public void toggleWatchPointEnabled(String _file, int _offset){
         SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(getPageEl(), _file, _offset);
         if (o_.getRootBlock() == null) {
             return;
         }
-        toggleEnabledWatch(true,o_);
+        toggleEnabledWatch(o_.isTrField(),o_);
     }
 
     public void toggleEnabled(DisplayedStrings _d, MemberCallingsBlock _id) {

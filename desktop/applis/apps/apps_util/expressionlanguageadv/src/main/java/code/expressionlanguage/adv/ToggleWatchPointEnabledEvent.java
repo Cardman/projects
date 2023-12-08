@@ -29,6 +29,6 @@ public final class ToggleWatchPointEnabledEvent implements AbsActionListener {
 
     static WatchPointBlockPair keyCle(ResultContext _res, ReadOnlyTabEditor _t) {
         SynthFieldInfo o_ = ResultExpressionOperationNode.vexerChamps(_res.getPageEl(), _t.getFullPath(), _t.getCenter().getCaretPosition());
-        return _res.watch(true, o_);
+        return _res.watch(o_.isTrField(), o_);
     }
 }

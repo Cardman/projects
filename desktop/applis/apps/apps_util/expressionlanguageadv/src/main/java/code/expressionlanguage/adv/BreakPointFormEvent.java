@@ -31,7 +31,7 @@ public final class BreakPointFormEvent implements AbsActionListener {
         int o_ = ResultExpressionOperationNode.beginPart(caret_, af_);
         MemberCallingsBlock id_ = ResultExpressionOperationNode.keyMethodBp(caret_, af_);
         if (id_ != null) {
-            BracedBlock rPar_ = BreakPointBlockList.rootOfAnnot(id_);
+            BracedBlock rPar_ = AbsBk.rootOfAnnot(id_);
             if (rPar_ instanceof RootBlock) {
                 WatchPointFormEvent.watchAction(currentResult, false,((RootBlock)rPar_).getNumberAll(),((NamedCalledFunctionBlock)id_).getName(), window.getFramePoints().getFrameWpFormContent(),window, window.getFramePoints().getCommonFrame());
                 return;

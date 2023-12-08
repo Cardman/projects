@@ -68,37 +68,50 @@ public final class ResultExpressionOperationNode {
             elt_ = null;
         }
         if (elt_ != null) {
-            return new SynthFieldInfo(elt_,relt_);
+            return new SynthFieldInfo(elt_,relt_, true);
+        }
+        BracedBlock currentParent_ = AbsBk.rootOfAnnot(res_.block);
+        if (currentParent_ instanceof RootBlock && inRange(((NamedFunctionBlock)res_.block).getNameOffset(),_caret,((NamedFunctionBlock)res_.block).getNameOffset()+((NamedFunctionBlock)res_.block).getName().length())) {
+            return new SynthFieldInfo(new ClassField("", ((NamedFunctionBlock)res_.block).getName()), (RootBlock) currentParent_, false);
         }
         return res_.defWatch(_caret);
     }
     private SynthFieldInfo defWatch(int _caret) {
+        if (found instanceof AssocationOperation) {
+            AssocationOperation ass_ = (AssocationOperation) found;
+            String name_ = ass_.getFieldName();
+            int delta_ = ass_.getOffsetFct();
+            int b_ = begin()+delta_;
+            if (inRange(b_,_caret,b_+name_.length())) {
+                return new SynthFieldInfo(new ClassField("", name_),AnaTypeFct.root(ass_.getFunction()), false);
+            }
+        }
         if (getFound() instanceof SettableAbstractFieldOperation) {
             RootBlock r_ = ((SettableAbstractFieldOperation) getFound()).getFieldType();
             if (r_ != null) {
-                return new SynthFieldInfo(((SettableAbstractFieldOperation)getFound()).getFieldIdReadOnly(), r_);
+                return new SynthFieldInfo(((SettableAbstractFieldOperation)getFound()).getFieldIdReadOnly(), r_, true);
             }
         }
         if (getFound() instanceof NamedArgumentOperation) {
             NamedArgumentOperation name_ = (NamedArgumentOperation) getFound();
             RootBlock field_ = name_.getField();
             if (field_ != null) {
-                return new SynthFieldInfo(name_.getIdField(),field_);
+                return new SynthFieldInfo(name_.getIdField(),field_, true);
             }
         }
         if (getFound() instanceof LambdaOperation) {
             LambdaOperation lda_ = (LambdaOperation) getFound();
             SrcFileLocation loc_ = tryRetrieveRecord(_caret, lda_);
             if (loc_ instanceof SrcFileLocationFieldCust) {
-                return new SynthFieldInfo(((SrcFileLocationFieldCust)loc_).getCf(),((SrcFileLocationFieldCust)loc_).getDeclaring());
+                return new SynthFieldInfo(((SrcFileLocationFieldCust)loc_).getCf(),((SrcFileLocationFieldCust)loc_).getDeclaring(), true);
             }
             ClassField fieldId_ = lda_.getFieldId();
             if (fieldId_ != null) {
                 RootBlock fieldType_ = lda_.getLambdaCommonContent().getFoundFormatted().getRootBlock();
-                return new SynthFieldInfo(fieldId_,fieldType_);
+                return new SynthFieldInfo(fieldId_,fieldType_, true);
             }
         }
-        return new SynthFieldInfo(new ClassField("",""),null);
+        return new SynthFieldInfo(new ClassField("",""),null, true);
     }
 
     private SrcFileLocation tryRetrieveRecord(int _caret, LambdaOperation _lda) {
@@ -623,19 +636,6 @@ public final class ResultExpressionOperationNode {
         return _bl instanceof TryEval || _bl instanceof LabelAbruptBlock || _bl instanceof FinallyEval || _bl instanceof ElseCondition || _bl instanceof DoBlock || _bl instanceof DefaultCondition || _bl instanceof UnclassedBracedBlock;
     }
 
-    public static SynthFieldInfo enabledAssocBp(int _caret, FileBlock _file) {
-        ResultExpressionOperationNode c_ = container(_caret, _file);
-        if (c_.found instanceof AssocationOperation) {
-            AssocationOperation ass_ = (AssocationOperation) c_.found;
-            String name_ = ass_.getFieldName();
-            int delta_ = ass_.getOffsetFct();
-            int b_ = c_.begin()+delta_;
-            if (inRange(b_,_caret,b_+name_.length())) {
-                return new SynthFieldInfo(new ClassField("", name_),AnaTypeFct.root(ass_.getFunction()));
-            }
-        }
-        return new SynthFieldInfo(new ClassField("",""),null);
-    }
     public static boolean enabledTypeBp(int _caret, FileBlock _file) {
         ResultExpressionOperationNode c_ = container(_caret, _file);
         return c_.resultExpression == null && c_.block instanceof RootBlock;

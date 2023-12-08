@@ -174,13 +174,6 @@ public final class BreakPointBlockList {
         return new TypePointBlockPair(_file,_nf, _offset, interceptor,true);
     }
 
-    public static BracedBlock rootOfAnnot(AbsBk _id) {
-        if (AbsBk.isAnnotBlock(_id)) {
-            return _id.getParent();
-        }
-        return null;
-    }
-
     public BreakPointBlockPair notNull(BreakPointBlockPair _b) {
         if (_b == null) {
             return new BreakPointBlockPair(null,-1,-1,interceptor,false);

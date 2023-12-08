@@ -46,6 +46,14 @@ public abstract class AbsBk {
     AbsBk(int _offset) {
         offset = _offset;
     }
+
+    public static BracedBlock rootOfAnnot(AbsBk _id) {
+        if (isAnnotBlock(_id)) {
+            return _id.getParent();
+        }
+        return null;
+    }
+
     protected final void setParent(BracedBlock _b) {
         parent = _b;
     }

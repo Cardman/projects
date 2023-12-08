@@ -393,7 +393,7 @@ public final class DbgSyntaxColoring {
     private static CustList<SegmentReadOnlyPart> parts(ResultContext _res, AbsBkSrcFileLocation _r, FileBlock _file) {
         CustList<SegmentReadOnlyPart> parts_ = new CustList<SegmentReadOnlyPart>();
         AbsBk bk_ = _r.getBlock();
-        BracedBlock rPar_ = BreakPointBlockList.rootOfAnnot(bk_);
+        BracedBlock rPar_ = AbsBk.rootOfAnnot(bk_);
         if (rPar_ instanceof RootBlock) {
             int offset_ = ((NamedCalledFunctionBlock)bk_).getPlace();
             WatchPointBlockPair w_ = _res.getPairWatch(false,((RootBlock)rPar_).getNumberAll(),((NamedCalledFunctionBlock)bk_).getName());
