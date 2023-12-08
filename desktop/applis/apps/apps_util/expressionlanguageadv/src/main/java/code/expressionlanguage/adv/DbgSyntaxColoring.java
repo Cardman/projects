@@ -89,11 +89,11 @@ public final class DbgSyntaxColoring {
         MethodPointBlockPair pair_ = _res.getPair(MemberCallingsBlock.clName(_r));
         if (pair_ != null) {
             if (AbsBk.isAnonBlock(_r)) {
-                parts_.add(new SegmentReadOnlyPart(offset_, ((NamedCalledFunctionBlock)_r).getNameOffset(),SyntaxRefEnum.METHOD));
+                parts_.addAllElts(new SegmentReadOnlyPart(offset_, ((NamedCalledFunctionBlock)_r).getNameOffset(),SyntaxRefEnum.METHOD).parts(_r));
             } else if (_r instanceof SwitchMethodBlock) {
-                parts_.add(new SegmentReadOnlyPart(offset_, offset_ + 1,SyntaxRefEnum.METHOD));
+                parts_.addAllElts(new SegmentReadOnlyPart(offset_, offset_ + 1,SyntaxRefEnum.METHOD).parts(_r));
             } else{
-                parts_.add(new SegmentReadOnlyPart(offset_, _r.getBegin(),SyntaxRefEnum.METHOD));
+                parts_.addAllElts(new SegmentReadOnlyPart(offset_, _r.getBegin(),SyntaxRefEnum.METHOD).parts(_r));
             }
         }
         return parts_;
