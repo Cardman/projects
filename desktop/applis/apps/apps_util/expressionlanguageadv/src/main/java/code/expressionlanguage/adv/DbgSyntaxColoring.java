@@ -92,26 +92,49 @@ public final class DbgSyntaxColoring {
             if (AbsBk.isAnonBlock(_r)) {
                 parts_.addAllElts(new SegmentReadOnlyPart(offset_, ((NamedCalledFunctionBlock)_r).getNameOffset(),SyntaxRefEnum.METHOD).parts(_r));
                 AbsBk f_ = _r.getFirstChild();
-                if (!ReturnMethod.isImplicitReturn(f_)) {
-                    int b_ = f_.getBegin();
-                    int e_ = f_.getEndAll();
-                    AbsBk last_ = f_;
-                    while (last_ != null) {
-                        e_ = last_.getEndAll();
-                        last_ = last_.getNextSibling();
-                    }
-                    parts_.add(new SegmentReadOnlyPart(((NamedCalledFunctionBlock)_r).getNameOffset()+2,b_,SyntaxRefEnum.METHOD));
-                    parts_.add(new SegmentReadOnlyPart(e_, ((NamedCalledFunctionBlock)_r).getIndexEnd(),SyntaxRefEnum.METHOD));
-                }
+                innerMethod(parts_, f_, ((NamedCalledFunctionBlock) _r).getIndexEnd(), ((NamedCalledFunctionBlock) _r).getNameOffset() + 2);
             } else if (_r instanceof SwitchMethodBlock) {
                 StrTypes vs_ = ((SwitchMethodBlock) _r).getValues();
                 parts_.addAllElts(new SegmentReadOnlyPart(offset_, offset_ + 1,SyntaxRefEnum.METHOD).parts(_r));
-                parts_.addAllElts(new SegmentReadOnlyPart(offset_ + 1 + StrTypes.value(vs_,0).length(), _r.getBegin(),SyntaxRefEnum.METHOD).parts(_r));
+                parts_.addAllElts(new SegmentReadOnlyPart(offset_ + 1 + StrTypes.value(vs_,0).length(), _r.getBegin()+1,SyntaxRefEnum.METHOD).parts(_r));
             } else{
-                parts_.addAllElts(new SegmentReadOnlyPart(offset_, _r.getBegin(),SyntaxRefEnum.METHOD).parts(_r));
+                AbsBk f_ = _r.getFirstChild();
+                int o_ = 0;
+                if (f_ != null){
+                    parts_.addAllElts(new SegmentReadOnlyPart(offset_, _r.getBegin(),SyntaxRefEnum.METHOD).parts(_r));
+                    o_ = f_.getOffset();
+                } else {
+                    parts_.addAllElts(new SegmentReadOnlyPart(offset_, _r.getEndAll(),SyntaxRefEnum.METHOD).parts(_r));
+                }
+                innerMethod(parts_, f_, _r.getEndAll(), o_);
             }
         }
         return parts_;
+    }
+
+    private static boolean hasExplicit(AbsBk _f) {
+        return _f != null && !ReturnMethod.isImplicitReturn(_f);
+    }
+
+    private static void innerMethod(CustList<SegmentReadOnlyPart> _part, AbsBk _f, int _endMethod, int _fr) {
+        if (!hasExplicit(_f)) {
+            return;
+        }
+        int b_ = _f.getOffset();
+        int e_ = _f.getEndAll();
+        int from_ = _fr;
+        int end_ = b_;
+        AbsBk last_ = _f;
+        while (last_ != null) {
+            SegmentReadOnlyPart.filter(_part,from_,end_,SyntaxRefEnum.METHOD);
+            e_ = last_.getEndAll();
+            last_ = last_.getNextSibling();
+            from_ = e_;
+            if (last_ != null) {
+                end_ = last_.getOffset();
+            }
+        }
+        SegmentReadOnlyPart.filter(_part,e_, _endMethod,SyntaxRefEnum.METHOD);
     }
 
     private static void possible(CustList<SegmentReadOnlyPart> _agg, CustList<SegmentReadOnlyPart> _parts) {

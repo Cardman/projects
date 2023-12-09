@@ -46,10 +46,14 @@ public final class SegmentReadOnlyPart extends AbsSegmentColorPart {
     }
 
     private void filter(CustList<SegmentReadOnlyPart> _out, int _b, int _e) {
+        filter(_out, _b, _e, kind);
+    }
+
+    public static void filter(CustList<SegmentReadOnlyPart> _out, int _b, int _e, SyntaxRefEnum _kind) {
         if (_b >= _e) {
             return;
         }
-        _out.add(new SegmentReadOnlyPart(_b,_e,kind));
+        _out.add(new SegmentReadOnlyPart(_b, _e, _kind));
     }
 
     private void feed(CustList<ResultExpression> _all, CustList<ResultParsedAnnot> _ls) {
