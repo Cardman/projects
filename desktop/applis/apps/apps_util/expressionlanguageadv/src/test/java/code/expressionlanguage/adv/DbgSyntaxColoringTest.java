@@ -129,10 +129,16 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         ResultContext res_ = ctxReadOnlyOk(src_);
         res_.toggleWatchPoint("src/file.txt",56);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
-        assertEq(1,l_.size());
+        assertEq(3,l_.size());
         assertEq(56,l_.get(0).getBegin());
         assertEq(62,l_.get(0).getEnd());
         assertSame(SyntaxRefEnum.METHOD,l_.get(0).getKind());
+        assertEq(64,l_.get(1).getBegin());
+        assertEq(65,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(1).getKind());
+        assertEq(74,l_.get(2).getBegin());
+        assertEq(75,l_.get(2).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(2).getKind());
     }
     @Test
     public void parts10() {
@@ -153,10 +159,16 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         ResultContext res_ = ctxReadOnlyOk(src_);
         res_.toggleWatchPoint("src/file.txt",63);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
-        assertEq(1,l_.size());
+        assertEq(3,l_.size());
         assertEq(63,l_.get(0).getBegin());
         assertEq(64,l_.get(0).getEnd());
         assertSame(SyntaxRefEnum.METHOD,l_.get(0).getKind());
+        assertEq(66,l_.get(1).getBegin());
+        assertEq(67,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(1).getKind());
+        assertEq(78,l_.get(2).getBegin());
+        assertEq(79,l_.get(2).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(2).getKind());
     }
     @Test
     public void parts12() {
@@ -189,10 +201,16 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         ResultContext res_ = ctxReadOnlyOk(src_);
         res_.toggleWatchPoint("src/file.txt",73);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
-        assertEq(1,l_.size());
+        assertEq(3,l_.size());
         assertEq(73,l_.get(0).getBegin());
         assertEq(79,l_.get(0).getEnd());
         assertSame(SyntaxRefEnum.METHOD,l_.get(0).getKind());
+        assertEq(81,l_.get(1).getBegin());
+        assertEq(82,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(1).getKind());
+        assertEq(91,l_.get(2).getBegin());
+        assertEq(92,l_.get(2).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(2).getKind());
     }
     @Test
     public void parts15() {
@@ -213,10 +231,16 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         ResultContext res_ = ctxReadOnlyOk(src_);
         res_.toggleWatchPoint("src/file.txt",75);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
-        assertEq(1,l_.size());
+        assertEq(3,l_.size());
         assertEq(75,l_.get(0).getBegin());
         assertEq(76,l_.get(0).getEnd());
         assertSame(SyntaxRefEnum.METHOD,l_.get(0).getKind());
+        assertEq(78,l_.get(1).getBegin());
+        assertEq(79,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(1).getKind());
+        assertEq(92,l_.get(2).getBegin());
+        assertEq(93,l_.get(2).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(2).getKind());
     }
     @Test
     public void parts17() {
@@ -225,10 +249,13 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         ResultContext res_ = ctxReadOnlyOk(src_);
         res_.toggleWatchPoint("src/file.txt",67);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
-        assertEq(1,l_.size());
+        assertEq(2,l_.size());
         assertEq(67,l_.get(0).getBegin());
         assertEq(68,l_.get(0).getEnd());
         assertSame(SyntaxRefEnum.METHOD,l_.get(0).getKind());
+        assertEq(69,l_.get(1).getBegin());
+        assertEq(70,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(1).getKind());
     }
     @Test
     public void parts18() {
@@ -761,6 +788,63 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertEq(27,l_.get(0).getBegin());
         assertEq(59,l_.get(0).getEnd());
         assertSame(SyntaxRefEnum.METHOD,l_.get(0).getKind());
+    }
+    @Test
+    public void parts63() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){return (@Annot int a:@Annot int)->{return 1;}.call(0);}}public annotation pkg.Annot{}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleWatchPoint("src/file.txt",55);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(5,l_.size());
+        assertEq(55,l_.get(0).getBegin());
+        assertEq(56,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(0).getKind());
+        assertEq(62,l_.get(1).getBegin());
+        assertEq(69,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(1).getKind());
+        assertEq(75,l_.get(2).getBegin());
+        assertEq(80,l_.get(2).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(2).getKind());
+        assertEq(82,l_.get(3).getBegin());
+        assertEq(83,l_.get(3).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(3).getKind());
+        assertEq(92,l_.get(4).getBegin());
+        assertEq(93,l_.get(4).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(4).getKind());
+    }
+    @Test
+    public void parts64() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){return (switch[int] ( 0 ) {default;return 1;});}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleWatchPoint("src/file.txt",68);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(2,l_.size());
+        assertEq(68,l_.get(0).getBegin());
+        assertEq(69,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(0).getKind());
+        assertEq(72,l_.get(1).getBegin());
+        assertEq(74,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(1).getKind());
+    }
+    @Test
+    public void parts65() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){return ((:int)-> { return 1; } ).call();}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleWatchPoint("src/file.txt",64);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(3,l_.size());
+        assertEq(56,l_.get(0).getBegin());
+        assertEq(62,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(0).getKind());
+        assertEq(64,l_.get(1).getBegin());
+        assertEq(67,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(1).getKind());
+        assertEq(76,l_.get(2).getBegin());
+        assertEq(78,l_.get(2).getEnd());
+        assertSame(SyntaxRefEnum.METHOD,l_.get(2).getKind());
     }
     @Test
     public void partsTokens1() {

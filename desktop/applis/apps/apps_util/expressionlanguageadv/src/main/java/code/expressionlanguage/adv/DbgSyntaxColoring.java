@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.options.ResultContext;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -90,8 +91,22 @@ public final class DbgSyntaxColoring {
         if (pair_ != null) {
             if (AbsBk.isAnonBlock(_r)) {
                 parts_.addAllElts(new SegmentReadOnlyPart(offset_, ((NamedCalledFunctionBlock)_r).getNameOffset(),SyntaxRefEnum.METHOD).parts(_r));
+                AbsBk f_ = _r.getFirstChild();
+                if (!ReturnMethod.isImplicitReturn(f_)) {
+                    int b_ = f_.getBegin();
+                    int e_ = f_.getEndAll();
+                    AbsBk last_ = f_;
+                    while (last_ != null) {
+                        e_ = last_.getEndAll();
+                        last_ = last_.getNextSibling();
+                    }
+                    parts_.add(new SegmentReadOnlyPart(((NamedCalledFunctionBlock)_r).getNameOffset()+2,b_,SyntaxRefEnum.METHOD));
+                    parts_.add(new SegmentReadOnlyPart(e_, ((NamedCalledFunctionBlock)_r).getIndexEnd(),SyntaxRefEnum.METHOD));
+                }
             } else if (_r instanceof SwitchMethodBlock) {
+                StrTypes vs_ = ((SwitchMethodBlock) _r).getValues();
                 parts_.addAllElts(new SegmentReadOnlyPart(offset_, offset_ + 1,SyntaxRefEnum.METHOD).parts(_r));
+                parts_.addAllElts(new SegmentReadOnlyPart(offset_ + 1 + StrTypes.value(vs_,0).length(), _r.getBegin(),SyntaxRefEnum.METHOD).parts(_r));
             } else{
                 parts_.addAllElts(new SegmentReadOnlyPart(offset_, _r.getBegin(),SyntaxRefEnum.METHOD).parts(_r));
             }

@@ -15,6 +15,7 @@ import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.options.KeyWords;
+import code.maths.litteralcom.IndexStrPart;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -30,6 +31,9 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
 
     public SwitchOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, SwitchMethodBlock _switchMethod) {
         super(_index, _indexChild, _m, _op);
+        for (IndexStrPart i: _op.getValues().getValues()) {
+            _switchMethod.getValues().addEntry(i.getIndex(),i.getPart());
+        }
         switchMethod = _switchMethod;
         methodName = _op.getFctName();
         arrContent = new AnaArrContent();

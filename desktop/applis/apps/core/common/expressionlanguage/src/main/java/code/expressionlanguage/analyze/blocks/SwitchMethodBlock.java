@@ -8,6 +8,7 @@ import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.AnaAnonFctContent;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.BoolVal;
@@ -35,6 +36,7 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
     private boolean retRef;
     private String name;
     private final AnaAnonFctContent anaAnonFctContent = new AnaAnonFctContent();
+    private final StrTypes values = new StrTypes();
     public SwitchMethodBlock(int _offset, MethodAccessKind _statMeth) {
         super(_offset);
         kind = _statMeth;
@@ -94,6 +96,10 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
 
     public void setForceInstance(boolean _f) {
         this.forceInstance = _f;
+    }
+
+    public StrTypes getValues() {
+        return values;
     }
 
     public AnaAnonFctContent getAnaAnonFctContent() {

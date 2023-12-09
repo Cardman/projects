@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
 import code.expressionlanguage.analyze.blocks.NamedCalledFunctionBlock;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
@@ -18,9 +19,16 @@ public final class SegmentReadOnlyPart extends AbsSegmentColorPart {
     public CustList<SegmentReadOnlyPart> parts(MemberCallingsBlock _fct) {
         CustList<ResultExpression> all_ = new CustList<ResultExpression>();
         if (_fct instanceof NamedFunctionBlock) {
-            feed(all_, ((NamedFunctionBlock)_fct).getAnnotations().getAnnotations());
-            for (ResultParsedAnnots r: ((NamedFunctionBlock)_fct).getAnnotationsParams()) {
-                feed(all_, r.getAnnotations());
+            if (AbsBk.isAnonBlock(_fct)) {
+                for (ResultParsedAnnots r: ((NamedFunctionBlock)_fct).getAnnotationsParams()) {
+                    feed(all_, r.getAnnotations());
+                }
+                feed(all_, ((NamedFunctionBlock)_fct).getAnnotations().getAnnotations());
+            } else {
+                feed(all_, ((NamedFunctionBlock)_fct).getAnnotations().getAnnotations());
+                for (ResultParsedAnnots r: ((NamedFunctionBlock)_fct).getAnnotationsParams()) {
+                    feed(all_, r.getAnnotations());
+                }
             }
         }
         if (_fct instanceof NamedCalledFunctionBlock) {
