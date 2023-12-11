@@ -226,7 +226,7 @@ public final class DbgSyntaxColoring {
             int offset_ = resStr_.getSumOffset();
             BreakPointBlockPair pair_ = _res.getPair(fileEx_, offset_);
             if (pair_ != null) {
-                parts_.add(new SegmentReadOnlyPart(offset_,offset_+resStr_.getAnalyzedString().length(),SyntaxRefEnum.INSTRUCTION));
+                parts_.addAllElts(new SegmentReadOnlyPart(offset_,offset_+resStr_.getAnalyzedString().length(),SyntaxRefEnum.INSTRUCTION).parts(resStr_));
             }
             BreakPointBlockPair pairSec_ = _res.getPair(fileEx_, resStr_.end());
             if (hasExplicit(_r.getBlock()) && pairSec_ != null) {

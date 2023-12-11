@@ -180,10 +180,16 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         ResultContext res_ = ctxReadOnlyOk(src_);
         res_.toggleBreakPoint("src/file.txt",55);
         CustList<SegmentReadOnlyPart> l_ = list(res_);
-        assertEq(1,l_.size());
+        assertEq(3,l_.size());
         assertEq(55,l_.get(0).getBegin());
-        assertEq(73,l_.get(0).getEnd());
+        assertEq(56,l_.get(0).getEnd());
         assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(0).getKind());
+        assertEq(62,l_.get(1).getBegin());
+        assertEq(64,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(1).getKind());
+        assertEq(65,l_.get(2).getBegin());
+        assertEq(73,l_.get(2).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(2).getKind());
     }
     @Test
     public void parts13() {
@@ -905,6 +911,63 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertEq(21,l_.get(0).getBegin());
         assertEq(50,l_.get(0).getEnd());
         assertSame(SyntaxRefEnum.METHOD,l_.get(0).getKind());
+    }
+    @Test
+    public void parts69() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){return (switch [ int : @Annot : @Annot ] ( 0 ){default;return 1;});}} public annotation pkg.Annot{}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleBreakPoint("src/file.txt",55);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(4,l_.size());
+        assertEq(55,l_.get(0).getBegin());
+        assertEq(71,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(0).getKind());
+        assertEq(77,l_.get(1).getBegin());
+        assertEq(80,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(1).getKind());
+        assertEq(86,l_.get(2).getBegin());
+        assertEq(93,l_.get(2).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(2).getKind());
+        assertEq(113,l_.get(3).getBegin());
+        assertEq(114,l_.get(3).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(3).getKind());
+    }
+    @Test
+    public void parts70() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){return ((:int)->{return 1;}).call();}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleBreakPoint("src/file.txt",55);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(3,l_.size());
+        assertEq(55,l_.get(0).getBegin());
+        assertEq(56,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(0).getKind());
+        assertEq(62,l_.get(1).getBegin());
+        assertEq(64,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(1).getKind());
+        assertEq(75,l_.get(2).getBegin());
+        assertEq(83,l_.get(2).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(2).getKind());
+    }
+    @Test
+    public void parts71() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex { public static void exmeth(){ ( new @Annot Ex ( 0 ) { public int escargot; public (int i){} } ) ; }} public annotation pkg.Annot{}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleBreakPoint("src/file.txt",51);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(3,l_.size());
+        assertEq(51,l_.get(0).getBegin());
+        assertEq(57,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(0).getKind());
+        assertEq(63,l_.get(1).getBegin());
+        assertEq(71,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(1).getKind());
+        assertEq(114,l_.get(2).getBegin());
+        assertEq(116,l_.get(2).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(2).getKind());
     }
     @Test
     public void partsTokens1() {

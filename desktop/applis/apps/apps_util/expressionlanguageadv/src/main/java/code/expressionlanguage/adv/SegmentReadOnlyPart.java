@@ -1,13 +1,12 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.analyze.blocks.AbsBk;
-import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
-import code.expressionlanguage.analyze.blocks.NamedCalledFunctionBlock;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.AbsSegmentColorPart;
 import code.expressionlanguage.analyze.files.ResultParsedAnnot;
 import code.expressionlanguage.analyze.files.ResultParsedAnnots;
+import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
+import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.util.CustList;
 
 public final class SegmentReadOnlyPart extends AbsSegmentColorPart {
@@ -43,6 +42,83 @@ public final class SegmentReadOnlyPart extends AbsSegmentColorPart {
         }
         filter(out_, b_,getEnd());
         return out_;
+    }
+    public CustList<SegmentReadOnlyPart> parts(ResultExpression _res) {
+        CustList<SegmentReadOnlyPart> o_ = new CustList<SegmentReadOnlyPart>();
+        int b_ = _res.getSumOffset();
+        OperationNode r_ = _res.getRoot();
+        OperationNode c_ = r_;
+        while (c_ != null) {
+            b_ = nextBeginFirstOp(o_,b_,c_);
+            OperationNode f_ = c_.getFirstChild();
+            if (f_ != null) {
+                c_ = f_;
+                continue;
+            }
+            while (c_ != null) {
+                OperationNode n_ = c_.getNextSibling();
+                if (n_ != null) {
+                    c_ = n_;
+                    break;
+                }
+                MethodOperation p_ = c_.getParent();
+                b_ = nextBeginLastOp(_res, o_, b_, c_, p_);
+                if (p_ == r_) {
+                    c_ = null;
+                } else {
+                    c_ = p_;
+                }
+            }
+        }
+        filter(o_,b_,_res.end());
+        return o_;
+    }
+
+    private int nextBeginFirstOp(CustList<SegmentReadOnlyPart> _o, int _b, OperationNode _c) {
+        int b_ = _b;
+        if (_c instanceof AnonymousInstancingOperation) {
+            CustList<ResultExpression> res_ = new CustList<ResultExpression>();
+            feed(res_,((AnonymousInstancingOperation)_c).getBlock().getAnnotations().getAnnotations());
+            for (ResultExpression r: res_) {
+                int e_ = r.getSumOffset();
+                filter(_o, b_, e_);
+                b_ = e_ + r.getAnalyzedString().length();
+            }
+        }
+        if (_c instanceof SwitchOperation) {
+            CustList<ResultExpression> res_ = new CustList<ResultExpression>();
+            feed(res_,((SwitchOperation)_c).getSwitchMethod().getAnnotations().getAnnotations());
+            for (ResultParsedAnnots r: ((SwitchOperation)_c).getSwitchMethod().getAnnotationsParams()) {
+                feed(res_, r.getAnnotations());
+            }
+            for (ResultExpression r: res_) {
+                int e_ = r.getSumOffset();
+                filter(_o, b_, e_);
+                b_ = e_ + r.getAnalyzedString().length();
+            }
+        }
+        if (_c instanceof AnonymousLambdaOperation) {
+            NamedCalledFunctionBlock anon_ = ((AnonymousLambdaOperation) _c).getBlock();
+            int head_ = anon_.getPlace();
+            int arrow_ = anon_.getNameOffset();
+            filter(_o, b_, head_);
+            filter(_o, arrow_, arrow_ + 2);
+            b_ = anon_.getIndexEnd();
+        }
+        return b_;
+    }
+
+    private int nextBeginLastOp(ResultExpression _res, CustList<SegmentReadOnlyPart> _o, int _b, OperationNode _c, MethodOperation _p) {
+        int b_ = _b;
+        if (_p instanceof AnonymousInstancingOperation) {
+            filter(_o, b_,ResultExpressionOperationNode.end(_res, _c));
+            b_ = ((AnonymousInstancingOperation) _p).getBlock().getIndexEnd();
+        }
+        if (_p instanceof SwitchOperation) {
+            filter(_o, b_,ResultExpressionOperationNode.end(_res, _c));
+            b_ = ((SwitchOperation) _p).getSwitchMethod().getIndexEnd();
+        }
+        return b_;
     }
 
     private void filter(CustList<SegmentReadOnlyPart> _out, int _b, int _e) {
