@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 
 public final class SegmentReadOnlyPart extends AbsSegmentColorPart {
@@ -55,6 +56,7 @@ public final class SegmentReadOnlyPart extends AbsSegmentColorPart {
                 c_ = f_;
                 continue;
             }
+            b_ = nextBeginLastOpEmpty(_res,o_, b_, c_);
             while (c_ != null) {
                 OperationNode n_ = c_.getNextSibling();
                 if (n_ != null) {
@@ -121,6 +123,15 @@ public final class SegmentReadOnlyPart extends AbsSegmentColorPart {
         return b_;
     }
 
+    private int nextBeginLastOpEmpty(ResultExpression _res, CustList<SegmentReadOnlyPart> _o, int _b, OperationNode _p) {
+        int b_ = _b;
+        if (_p instanceof AnonymousInstancingOperation) {
+            StrTypes ops_ = ((AnonymousInstancingOperation) _p).getOperators();
+            filter(_o, b_,ResultExpressionOperationNode.begin(_res,_p)+StrTypes.offset(ops_,0));
+            b_ = ((AnonymousInstancingOperation) _p).getBlock().getIndexEnd();
+        }
+        return b_;
+    }
     private void filter(CustList<SegmentReadOnlyPart> _out, int _b, int _e) {
         filter(_out, _b, _e, kind);
     }

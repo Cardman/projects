@@ -970,6 +970,24 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(2).getKind());
     }
     @Test
+    public void parts72() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex { public static void exmeth(){ ( new @Annot Ex ( ) { public int escargot; } ) ; }} public annotation pkg.Annot{}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleBreakPoint("src/file.txt",51);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(3,l_.size());
+        assertEq(51,l_.get(0).getBegin());
+        assertEq(57,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(0).getKind());
+        assertEq(63,l_.get(1).getBegin());
+        assertEq(67,l_.get(1).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(1).getKind());
+        assertEq(95,l_.get(2).getBegin());
+        assertEq(97,l_.get(2).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(2).getKind());
+    }
+    @Test
     public void partsTokens1() {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){int i=0;if(i==0)lab{break lab;}}}");
