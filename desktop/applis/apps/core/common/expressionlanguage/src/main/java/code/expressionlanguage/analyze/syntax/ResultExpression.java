@@ -10,6 +10,7 @@ import code.util.Ints;
 public final class ResultExpression {
     private String analyzedString = "";
     private int sumOffset;
+    private final int[] lastCharPos = new int[1];
     private final CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
     private final CustList<SegmentStringPart> parts = new CustList<SegmentStringPart>();
     private CustList<SegmentStringPart> partsAbs = new CustList<SegmentStringPart>();
@@ -36,6 +37,10 @@ public final class ResultExpression {
 
     public void setSumOffset(int _s) {
         this.sumOffset = _s;
+    }
+
+    public int[] getLastCharPos() {
+        return lastCharPos;
     }
 
     public CustList<AnonymousResult> getAnonymousResults() {

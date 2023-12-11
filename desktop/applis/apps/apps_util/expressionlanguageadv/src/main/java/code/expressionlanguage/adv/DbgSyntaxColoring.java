@@ -229,8 +229,8 @@ public final class DbgSyntaxColoring {
                 parts_.add(new SegmentReadOnlyPart(offset_,offset_+resStr_.getAnalyzedString().length(),SyntaxRefEnum.INSTRUCTION));
             }
             BreakPointBlockPair pairSec_ = _res.getPair(fileEx_, resStr_.end());
-            if (!ReturnMethod.isImplicitReturn(_r.getBlock()) && pairSec_ != null) {
-                parts_.add(new SegmentReadOnlyPart(offset_+resStr_.getAnalyzedString().length(), _r.getBlock().getEndAll(),SyntaxRefEnum.INSTRUCTION));
+            if (hasExplicit(_r.getBlock()) && pairSec_ != null) {
+                parts_.add(new SegmentReadOnlyPart(offset_+resStr_.getAnalyzedString().length(), resStr_.getLastCharPos()[0],SyntaxRefEnum.INSTRUCTION));
             }
         }
         return parts_;

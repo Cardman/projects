@@ -1410,6 +1410,7 @@ public final class FileResolver {
                 br_.setEndAll(varNameOffset_ + _input.getOffset()+ info_.trim().length()+1);
                 br_.setLengthHeader(1);
                 ((Line) br_).getRes().partsAbsol(_parsedInstruction.getStringParts());
+                ((Line) br_).getRes().getLastCharPos()[0] = _parsedInstruction.getIndex() + _input.getOffset() + 1;
                 currentParent_.appendChild(br_);
                 ok_ = true;
             }
@@ -1464,6 +1465,7 @@ public final class FileResolver {
         br_.setEndAll(afterDeclareOffset_ + _input.getOffset()+ info_.trim().length()+1);
         br_.setLengthHeader(1);
         ((Line) br_).getRes().partsAbsol(_parsedInstruction.getStringParts());
+        ((Line) br_).getRes().getLastCharPos()[0] = _parsedInstruction.getIndex() + _input.getOffset() + 1;
         currentParent_.appendChild(br_);
         currentParent_ = possibleVisit(_parsedInstruction.getCurChar(), currentParent_, br_,br_.getEndAll());
         after_.setParent(currentParent_);
@@ -2275,6 +2277,7 @@ public final class FileResolver {
         }
         SwitchBlock br_ = new SwitchBlock(new OffsetStringInfo(valueOffest_ + _offset, exp_.trim()), new OffsetStringInfo(labelOff_ + _offset, label_.trim()), _i.instLocAfter() + _offset);
         br_.getRes().partsAbsol(_i.getStringParts());
+        br_.getRes().getLastCharPos()[0] = _i.getIndex() + _offset+1;
         if (!ok_) {
             br_.getBadIndexes().add(_i.getIndex()+ _offset);
         }
@@ -2291,6 +2294,7 @@ public final class FileResolver {
         int indexClassOffest_ = _i.instLocAfter() + keyWordFor_.length();
         int lastPar_ = exp_.lastIndexOf(END_CALLING);
         int labelOff_ = indexClassOffest_ + lastPar_+ 1;
+        int endStep_ = _offset +labelOff_;
         String label_ = exp_;
         int typeOffset_ = _i.instLocAfter() + _trimmedInstruction.indexOf(BEGIN_CALLING) + 1;
         ParsedLoopArrIndex parsedLoopArrIndex_ = new ParsedLoopArrIndex(exp_,indexClassOffest_);
@@ -2334,6 +2338,7 @@ public final class FileResolver {
         exp_ = exp_.trim();
         int nextEltMut_ = getIndex(_offset +initOff_, _i.getStringParts(),exp_, strInit_);
         if (nextEltMut_ > -1) {
+            int endInit_ = nextEltMut_ + _offset +initOff_ +1;
             String init_ = exp_.substring(0, nextEltMut_);
             int off_ = StringExpUtil.getOffset(init_);
             int toOff_ = initOff_ + nextEltMut_+1;
@@ -2344,6 +2349,7 @@ public final class FileResolver {
             exp_ = exp_.trim();
             int nextElt_ = getIndex(_offset +toOff_, _i.getStringParts(),exp_, strTo_);
             if (nextElt_ > -1) {
+                int endTo_ = nextElt_ + _offset +toOff_+1;
                 String to_ = exp_.substring(0, nextElt_);
                 int offTwo_ = StringExpUtil.getOffset(to_);
                 int stepOff_ = toOff_ + nextElt_+1;
@@ -2365,8 +2371,11 @@ public final class FileResolver {
                 _currentParent.appendChild(br_);
                 br_.setTestOffset(_i.getIndex()+ _offset);
                 br_.getResInit().partsAbsol(strInit_);
+                br_.getResInit().getLastCharPos()[0] = endInit_;
                 br_.getResExp().partsAbsol(strTo_);
+                br_.getResExp().getLastCharPos()[0] = endTo_;
                 br_.getResStep().partsAbsol(_i.getStringParts().mid(strInit_.size()+strTo_.size()));
+                br_.getResStep().getLastCharPos()[0] = endStep_;
                 return endMutableFor(_offset, _i, keyWordFor_, okIndex_, br_);
             }
         }
@@ -2393,6 +2402,7 @@ public final class FileResolver {
                     new OffsetStringInfo(varOffset_ + _offset, variableName_)), new OffsetStringInfo(expOffset_ + _offset, exp_.trim()),
                     clName_), _i.instLocAfter() + _offset, setOff_ + _offset,refVariable_, lab_);
             br_.getRes().partsAbsol(_i.getStringParts());
+            br_.getRes().getLastCharPos()[0] = endStep_;
             _currentParent.appendChild(br_);
             return endMutableFor(_offset, _i, keyWordFor_, okIndex_, br_);
         }
@@ -2424,6 +2434,7 @@ public final class FileResolver {
                     new OffsetStringInfo(expOffset_ + _offset, exp_.trim()), clNa_),
                     _i.instLocAfter() + _offset, setOff_ + _offset, sepNext_ + _offset, refVariable_, lab_);
             br_.getRes().partsAbsol(_i.getStringParts());
+            br_.getRes().getLastCharPos()[0] = endStep_;
             _currentParent.appendChild(br_);
             return endMutableFor(_offset, _i, keyWordFor_, okIndex_, br_);
         }
@@ -2481,6 +2492,7 @@ public final class FileResolver {
         int indexClassOffest_ = _i.instLocAfter() + keyWordIter_.length();
         int lastPar_ = exp_.lastIndexOf(END_CALLING);
         int labelOff_ = indexClassOffest_ + lastPar_+ 1;
+        int endStep_ = _offset +labelOff_;
         String label_ = exp_;
         int typeOffset_ = _i.instLocAfter() + _trimmedInstruction.indexOf(BEGIN_CALLING) + 1;
         ParsedLoopArrIndex parsedLoopArrIndex_ = new ParsedLoopArrIndex(exp_,indexClassOffest_);
@@ -2515,6 +2527,7 @@ public final class FileResolver {
         aftVarOffset_ += StringExpUtil.getOffset(exp_);
         exp_ = exp_.trim();
         int nextElt_ = getIndex(_offset +aftVarOffset_, _i.getStringParts(),exp_, strInit_);
+        int endInit_ = nextElt_ + _offset +aftVarOffset_+1;
         int initOff_ = aftVarOffset_;
         String init_ = "";
         if (nextElt_ < 0) {
@@ -2530,6 +2543,7 @@ public final class FileResolver {
         afToOffset_ += StringExpUtil.getOffset(exp_);
         exp_ = exp_.trim();
         nextElt_ = getIndex(_offset +afToOffset_, _i.getStringParts(),exp_, strTo_);
+        int endTo_ = nextElt_ + _offset +afToOffset_+1;
         int toOff_ = afToOffset_;
         String to_ = "";
         if (nextElt_ < 0) {
@@ -2572,8 +2586,11 @@ public final class FileResolver {
         br_.setBegin(_i.instLocAfter()+ _offset);
         br_.setLengthHeader(keyWordIter_.length());
         br_.getResInit().partsAbsol(strInit_);
+        br_.getResInit().getLastCharPos()[0] = endInit_;
         br_.getResExp().partsAbsol(strTo_);
+        br_.getResExp().getLastCharPos()[0] = endTo_;
         br_.getResStep().partsAbsol(_i.getStringParts().mid(strInit_.size()+strTo_.size()));
+        br_.getResStep().getLastCharPos()[0] = endStep_;
         _currentParent.appendChild(br_);
         return br_;
     }
@@ -2639,6 +2656,7 @@ public final class FileResolver {
                     new OffsetStringInfo(varOffset_+ _offset, variableName_)),
                     new OffsetStringInfo(expOffset_+ _offset, exp_.trim()), clNa_), _i.instLocAfter()+ _offset,setOff_+ _offset,refVariable_, lab_);
             ((ForEachLoop)br_).getRes().partsAbsol(_i.getStringParts());
+            ((ForEachLoop)br_).getRes().getLastCharPos()[0] = _i.getIndex() + _offset+1;
         } else {
             int nextIndexVar_ = variableName_.indexOf(',');
             String firstVar_ = "";
@@ -2667,6 +2685,7 @@ public final class FileResolver {
                     new OffsetClassVariableInfo(new OffsetStringInfo(secType_+ _offset, declaringTypeSec_.trim()), new OffsetStringInfo(secVarOff_+ _offset, secVar_)),
                     new OffsetStringInfo(expOffset_+ _offset, exp_.trim()), clNa_), _i.instLocAfter()+ _offset,setOff_+ _offset, sepNext_ + _offset, refVariable_, lab_);
             ((ForEachTable)br_).getRes().partsAbsol(_i.getStringParts());
+            ((ForEachTable)br_).getRes().getLastCharPos()[0] = _i.getIndex() + _offset+1;
         }
         br_.setBegin(_i.instLocAfter()+ _offset);
         br_.setLengthHeader(keyWordForeach_.length());
@@ -2778,6 +2797,7 @@ public final class FileResolver {
         br_.setBegin(_i.instLocAfter()+ _offset);
         br_.setLengthHeader(_keyWordElseif.length());
         br_.getRes().partsAbsol(_i.getStringParts());
+        br_.getRes().getLastCharPos()[0] = _i.getIndex() + _offset+1;
         _currentParent.appendChild(br_);
         return br_;
     }
@@ -2810,6 +2830,7 @@ public final class FileResolver {
         br_.setBegin(_i.instLocAfter()+ _offset);
         br_.setLengthHeader(_keyWordIf.length());
         br_.getRes().partsAbsol(_i.getStringParts());
+        br_.getRes().getLastCharPos()[0] = _i.getIndex() + _offset+1;
         _currentParent.appendChild(br_);
         return br_;
     }
@@ -2865,6 +2886,7 @@ public final class FileResolver {
                         _i.instLocAfter()+ _offset, initTrim_.substring(0,initTrim_.length()-1).trim(), new OffsetStringInfo(0,""),new OffsetStringInfo(toOff_ + _offset, af_.trim()), thr_, false);
                 br_.getFilterContent().getResValue().partsAbsol(strValue_);
                 br_.getFilterContent().getResCondition().partsAbsol(_i.getStringParts().mid(strValue_.size()));
+                br_.getFilterContent().getResCondition().getLastCharPos()[0] = _i.getIndex() + _offset+1;
                 checkIndexes(_offset, _i, ok_, br_);
                 _currentParent.appendChild(br_);
                 br_.setBegin(_i.instLocAfter()+ _offset);
@@ -2880,6 +2902,7 @@ public final class FileResolver {
                         _i.instLocAfter()+ _offset, "", new OffsetStringInfo(0,""),new OffsetStringInfo(toOff_ + _offset, af_.trim()), thr_, false);
                 br_.getFilterContent().getResValue().partsAbsol(strValue_);
                 br_.getFilterContent().getResCondition().partsAbsol(_i.getStringParts().mid(strValue_.size()));
+                br_.getFilterContent().getResCondition().getLastCharPos()[0] = _i.getIndex() + _offset+1;
                 checkIndexes(_offset, _i, ok_, br_);
                 _currentParent.appendChild(br_);
                 br_.setBegin(_i.instLocAfter()+ _offset);
@@ -2893,6 +2916,7 @@ public final class FileResolver {
                     _i.instLocAfter()+ _offset, declaringType_, new OffsetStringInfo(variableOffset_,trimPreVar_),new OffsetStringInfo(toOff_ + _offset, af_.trim()), thr_, false);
             br_.getFilterContent().getResValue().partsAbsol(strValue_);
             br_.getFilterContent().getResCondition().partsAbsol(_i.getStringParts().mid(strValue_.size()));
+            br_.getFilterContent().getResCondition().getLastCharPos()[0] = _i.getIndex() + _offset+1;
             checkIndexes(_offset, _i, ok_, br_);
             _currentParent.appendChild(br_);
             br_.setBegin(_i.instLocAfter()+ _offset);
@@ -2919,6 +2943,7 @@ public final class FileResolver {
                     new OffsetStringInfo(fullValueOffset_, ""),
                     _i.instLocAfter()+ _offset, declaringType_, new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(conditionOffset_,substring_.trim()), thr_,false);
             br_.getFilterContent().getResCondition().partsAbsol(_i.getStringParts());
+            br_.getFilterContent().getResCondition().getLastCharPos()[0] = _i.getIndex() + _offset+1;
         } else {
             int afterTypeOff_ = fullValueOffset_ + declaringType_.length();
             int variableOffset_ = afterTypeOff_ + StringExpUtil.getOffset(varName_);
@@ -3003,6 +3028,7 @@ public final class FileResolver {
         }
         br_.setTestOffset(_i.getIndex()+ _offset);
         br_.getRes().partsAbsol(_i.getStringParts());
+        br_.getRes().getLastCharPos()[0] = _i.getIndex() + _offset+1;
         _currentParent.appendChild(br_);
         return br_;
     }
@@ -3054,6 +3080,7 @@ public final class FileResolver {
                         _i.instLocAfter()+ _offset, initTrim_.substring(0,initTrim_.length()-1).trim(), new OffsetStringInfo(0,""),new OffsetStringInfo(toOff_ + _offset, af_.trim()));
                 br_.getFilterContent().getResValue().partsAbsol(strValue_);
                 br_.getFilterContent().getResCondition().partsAbsol(_i.getStringParts().mid(strValue_.size()));
+                br_.getFilterContent().getResCondition().getLastCharPos()[0] = _i.getIndex() + _offset+1;
                 _currentParent.appendChild(br_);
                 br_.setBegin(_i.instLocAfter()+ _offset);
                 br_.setLengthHeader(keyWordCase_.length());
@@ -3068,6 +3095,7 @@ public final class FileResolver {
                         _i.instLocAfter()+ _offset, "", new OffsetStringInfo(0,""),new OffsetStringInfo(toOff_ + _offset, af_.trim()));
                 br_.getFilterContent().getResValue().partsAbsol(strValue_);
                 br_.getFilterContent().getResCondition().partsAbsol(_i.getStringParts().mid(strValue_.size()));
+                br_.getFilterContent().getResCondition().getLastCharPos()[0] = _i.getIndex() + _offset+1;
                 _currentParent.appendChild(br_);
                 br_.setBegin(_i.instLocAfter()+ _offset);
                 br_.setLengthHeader(keyWordCase_.length());
@@ -3081,6 +3109,7 @@ public final class FileResolver {
                     _i.instLocAfter()+ _offset, declaringType_, new OffsetStringInfo(variableOffset_,trimPreVar_),new OffsetStringInfo(toOff_ + _offset, af_.trim()));
             br_.getFilterContent().getResValue().partsAbsol(strValue_);
             br_.getFilterContent().getResCondition().partsAbsol(_i.getStringParts().mid(strValue_.size()));
+            br_.getFilterContent().getResCondition().getLastCharPos()[0] = _i.getIndex() + _offset+1;
             _currentParent.appendChild(br_);
             br_.setBegin(_i.instLocAfter()+ _offset);
             br_.setLengthHeader(keyWordCase_.length());
@@ -3109,6 +3138,7 @@ public final class FileResolver {
                     new OffsetStringInfo(fullValueOffset_, ""),
                     _i.instLocAfter()+ _offset, declaringType_, new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(conditionOffset_,substring_.trim()));
             br_.getFilterContent().getResCondition().partsAbsol(_i.getStringParts());
+            br_.getFilterContent().getResCondition().getLastCharPos()[0] = _i.getIndex() + _offset+1;
         } else {
             possibleChange(_currentParent, _keyWords, declaringType_);
             int afterTypeOff_ = fullValueOffset_ + declaringType_.length();
@@ -3154,6 +3184,7 @@ public final class FileResolver {
         br_.setBegin(_i.instLocAfter()+ _offset);
         br_.setLengthHeader(_keyWordThrow.length());
         br_.getRes().partsAbsol(_i.getStringParts());
+        br_.getRes().getLastCharPos()[0] = _i.getIndex() + _offset+1;
         return br_;
     }
 
@@ -3165,6 +3196,7 @@ public final class FileResolver {
         br_.setBegin(_i.instLocAfter()+ _offset);
         br_.setLengthHeader(_keyWordReturn.length());
         br_.getRes().partsAbsol(_i.getStringParts());
+        br_.getRes().getLastCharPos()[0] = _i.getIndex() + _offset+1;
         return br_;
     }
 
