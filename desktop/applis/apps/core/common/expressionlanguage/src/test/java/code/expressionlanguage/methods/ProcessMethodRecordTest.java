@@ -2460,6 +2460,32 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         assertEq(11, getNumber(ret_));
     }
     @Test
+    public void test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth (){\n");
+        xml_.append("  return new Ex().$lambda(Rec,new, $id, field, interfaces, Ex.RecSuper , Ex.RecSuper2).call(1).field2;\n");
+        xml_.append(" }\n");
+        xml_.append(" @class interfaces( Ex.RecSuper , Ex.RecSuper2 ) Rec:RecSuper:RecSuper2 {\n");
+        xml_.append("  int field;\n");
+        xml_.append(" }\n");
+        xml_.append(" interface RecSuper {\n");
+        xml_.append("  int field2 = 3;\n");
+        xml_.append(" }\n");
+        xml_.append(" interface RecSuper2 {\n");
+        xml_.append("  int field4 = 5;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(3, getNumber(ret_));
+    }
+    @Test
     public void fail() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("@$class $interfaces(RecSuper,RecSuper;RecSuper,RecSuper) pkg.Rec<T>:RecSuper<T> {\n");
