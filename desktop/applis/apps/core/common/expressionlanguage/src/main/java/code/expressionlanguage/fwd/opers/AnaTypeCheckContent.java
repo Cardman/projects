@@ -2,7 +2,7 @@ package code.expressionlanguage.fwd.opers;
 
 public final class AnaTypeCheckContent {
 
-    private String className;
+    private String className = "";
     private final int offset;
     public AnaTypeCheckContent(int _offset) {
         offset = _offset;

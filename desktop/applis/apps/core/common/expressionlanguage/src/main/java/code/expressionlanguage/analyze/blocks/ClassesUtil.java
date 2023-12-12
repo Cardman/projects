@@ -271,17 +271,7 @@ public final class ClassesUtil {
     }
 
     private static MethodInfo buildMethodToStringInfo(ToStringMethodHeader _m, String _formattedClass) {
-        String ret_ = _m.getImportedReturnType();
-        MethodId id_ = _m.getId();
-        MethodInfo mloc_ = new MethodInfo();
-        mloc_.memberId(_m);
-        mloc_.setAbstractMethod(_m.isAbstractMethod());
-        mloc_.setFinalMethod(_m.isFinalMethod());
-        mloc_.classMethodId(_formattedClass,id_);
-        mloc_.setReturnType(ret_);
-        mloc_.setAncestor(0);
-        mloc_.formatWithoutParams();
-        return mloc_;
+        return new MethodInfo(_m,_formattedClass);
     }
     public static void buildCoreBracesBodies(AnalyzedPageEl _page) {
         _page.setCustomAna(false);
@@ -645,11 +635,13 @@ public final class ClassesUtil {
             _page.addLocError(b_);
             _root.addErrorBlock(b_.getBuiltError());
         }
-        _page.getFoundTypes().add(_root);
-        _page.getAllGroupFoundTypes().add(_root);
-        _page.getAllFoundTypes().add(_root);
-        _page.getCurrentFile().getAllFoundTypes().add(_root);
-        _page.getSorted().put(_root.getFullName(), _root);
+        if (!(_root instanceof RootErrorBlock)) {
+            _page.getFoundTypes().add(_root);
+            _page.getAllGroupFoundTypes().add(_root);
+            _page.getAllFoundTypes().add(_root);
+            _page.getCurrentFile().getAllFoundTypes().add(_root);
+            _page.getSorted().put(_root.getFullName(), _root);
+        }
         if (ok_) {
             _page.addRefFoundType(_root);
         }
@@ -663,9 +655,15 @@ public final class ClassesUtil {
             ((InnerElementBlock) _root).setNumberInner(c_);
             _page.setCountInnerEltTypes(c_+1);
         }
-        int c_ = _page.getCountTypes();
-        _root.setNumberAll(c_);
-        _page.setCountTypes(c_+1);
+        incrOk(_root, _page);
+    }
+
+    private static void incrOk(RootBlock _root, AnalyzedPageEl _page) {
+        if (!(_root instanceof RootErrorBlock)) {
+            int c_ = _page.getCountTypes();
+            _root.setNumberAll(c_);
+            _page.setCountTypes(c_+1);
+        }
     }
 
     private static void typeVarsInit(RootBlock _root, AnalyzedPageEl _page) {

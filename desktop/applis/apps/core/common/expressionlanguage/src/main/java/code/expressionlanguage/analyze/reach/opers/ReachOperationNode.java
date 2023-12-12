@@ -140,10 +140,7 @@ public abstract class ReachOperationNode {
             return new ReachIntermStdOperation(_oper, true);
         }
         if (_oper instanceof StandardInstancingOperation) {
-            StandardInstancingOperation s_ = (StandardInstancingOperation) _oper;
-            if (s_.getInstancingCommonContent().getConstId() != null) {
-                return new ReachInstancingOperation((StandardInstancingOperation) _oper);
-            }
+            return new ReachInstancingOperation((StandardInstancingOperation) _oper);
         }
         return new ReachStdOperation(_oper);
     }

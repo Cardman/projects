@@ -23,7 +23,7 @@ public abstract class Parametrable {
     private final CustList<OperationNode> allOps = new CustList<OperationNode>();
     private NamedFunctionBlock cust;
     private InvocationMethod invocation;
-    private StringList formattedParams;
+    private StringList formattedParams = new StringList();
     private final FormattedFilter formattedFilter = new FormattedFilter();
     private StandardType standardType;
     protected Parametrable() {

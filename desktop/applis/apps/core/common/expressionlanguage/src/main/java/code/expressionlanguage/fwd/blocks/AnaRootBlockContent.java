@@ -8,7 +8,7 @@ public final class AnaRootBlockContent {
 
     private String packageName ="";
 
-    private CustList<TypeVar> paramTypes = new CustList<TypeVar>();
+    private final CustList<TypeVar> paramTypes = new CustList<TypeVar>();
 
     private StringMap<TypeVar> paramTypesMap = new StringMap<TypeVar>();
 

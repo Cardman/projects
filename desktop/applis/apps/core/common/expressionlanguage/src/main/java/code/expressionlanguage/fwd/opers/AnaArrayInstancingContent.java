@@ -3,7 +3,7 @@ package code.expressionlanguage.fwd.opers;
 public final class AnaArrayInstancingContent {
     private final String methodName;
 
-    private String className;
+    private String className = "";
     public AnaArrayInstancingContent(String _methodName) {
         this.methodName = _methodName;
     }

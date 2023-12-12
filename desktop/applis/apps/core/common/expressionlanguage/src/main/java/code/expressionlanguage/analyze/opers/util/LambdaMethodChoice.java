@@ -8,7 +8,7 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class LambdaMethodChoice {
-    private String name;
+    private String name = "";
     private int index;
     private boolean staticChoiceMethod;
     private boolean baseAccess = true;

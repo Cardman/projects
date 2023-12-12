@@ -1,14 +1,17 @@
 package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.ConstructorBlock;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardConstructor;
+import code.expressionlanguage.stds.StandardType;
 import code.util.StringList;
 
 public final class ConstructorInfo extends Parametrable {
@@ -17,6 +20,33 @@ public final class ConstructorInfo extends Parametrable {
     private ConstructorId formatted;
 
     private StandardConstructor constructor;
+
+    public ConstructorInfo(RootBlock _type, String _clCurName, ConstructorBlock _b) {
+        ConstructorId ctor_ = _b.getId().copy(StringExpUtil.getIdFromAllTypes(_clCurName));
+        setOriginalReturnType(_type.getGenericString());
+        setCust(_b);
+        getParametrableContent().setFileName(_type.getFile().getFileName());
+        memberId(_type.getNumberAll(), _b.getCtorNumber());
+        setParametersNames(_b.getParametersNames());
+        constructorId(_clCurName, ctor_);
+        pair(_type, _b);
+    }
+    public ConstructorInfo(RootBlock _type, String _clCurName) {
+        ConstructorId ctor_ = new ConstructorId("", new StringList(), false).copy(StringExpUtil.getIdFromAllTypes(_clCurName));
+        setOriginalReturnType(_type.getGenericString());
+        getParametrableContent().setFileName(_type.getFile().getFileName());
+        memberId(_type.getNumberAll(), -1);
+        constructorId(_clCurName, ctor_);
+        pair(_type, null);
+    }
+    public ConstructorInfo(StandardType _type, String _clCurName, StandardConstructor _s) {
+        ConstructorId ctor_ = _s.getId().copy(StringExpUtil.getIdFromAllTypes(_clCurName));
+        setOriginalReturnType(_type.getGenericString());
+        setStandardType(_type);
+        setConstructor(_s);
+        setParametersNames(_s.getParametersNames());
+        constructorId(_clCurName, ctor_);
+    }
 
     @Override
     public MethodId toId() {

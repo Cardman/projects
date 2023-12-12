@@ -5,10 +5,10 @@ import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.util.StringMap;
 
 public final class AnaInstancingAnnotContent {
-    private String methodName;
+    private String methodName = "";
 
     private AnaFormattedRootBlock formattedType = AnaFormattedRootBlock.defValue();
-    private String className;
+    private String className = "";
     private final StringMap<AnnotationTypeInfo> fieldNames = new StringMap<AnnotationTypeInfo>();
 
     public AnaFormattedRootBlock getFormattedType() {

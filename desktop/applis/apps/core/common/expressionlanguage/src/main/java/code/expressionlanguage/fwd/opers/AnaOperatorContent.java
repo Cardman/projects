@@ -1,7 +1,7 @@
 package code.expressionlanguage.fwd.opers;
 
 public final class AnaOperatorContent {
-    private String oper;
+    private String oper = "";
     private int opOffset;
 
     public int getOpOffset() {

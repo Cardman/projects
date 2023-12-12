@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardType;
+import code.util.CustList;
 
 public final class AnaInstancingCommonContent {
     private final String methodName;
@@ -15,7 +16,7 @@ public final class AnaInstancingCommonContent {
 
     private String lastType = "";
 
-    private ConstructorId constId;
+    private ConstructorId constId = new ConstructorId("",new CustList<String>(), false);
     private StandardType std;
     private StandardConstructor constructor;
 

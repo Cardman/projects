@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.opers.util;
 
 public final class ParametrableContent {
     private boolean varArgToCall;
-    private String fileName;
+    private String fileName = "";
     private MemberId memberId = new MemberId();
     private AnaTypeFct pair;
 

@@ -181,12 +181,6 @@ public final class FetchMemberUtil {
         return null;
     }
 
-    public static ExecTypeFunction fetchTypeCtor(MemberId _id, Forwards _forwards) {
-        int rootNumber_ = _id.getRootNumber();
-        Members mem_ = _forwards.getMember(rootNumber_);
-        int memberNumber_ = _id.getMemberNumber();
-        return new ExecTypeFunction(mem_.getRootBlock(),fetchCtorFunction(mem_,memberNumber_));
-    }
     public static ExecClassArgumentMatching toExec(AnaClassArgumentMatching _cl) {
         return new ExecClassArgumentMatching(_cl.getNames(),_cl.getUnwrapObjectNb(),
                 _cl.isCheckOnlyNullPe(),_cl.isConvertToString());

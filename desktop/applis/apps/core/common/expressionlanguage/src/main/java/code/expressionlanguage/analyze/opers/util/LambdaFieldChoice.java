@@ -7,7 +7,7 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class LambdaFieldChoice {
-    private String fieldName;
+    private String fieldName = "";
     private int index;
     private int sum;
     private boolean accessBase = true;

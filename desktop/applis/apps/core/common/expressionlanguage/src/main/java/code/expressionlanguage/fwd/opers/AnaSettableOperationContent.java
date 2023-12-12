@@ -5,7 +5,7 @@ import code.expressionlanguage.common.CstFieldInfo;
 
 public final class AnaSettableOperationContent {
     private boolean variable;
-    private String realType;
+    private String realType = "";
     private boolean staticField;
     private boolean finalField;
     private ClassField classField;

@@ -5,15 +5,19 @@ import code.expressionlanguage.analyze.ImportedMethod;
 import code.expressionlanguage.analyze.MethodHeaderInfo;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.BoolVal;
+import code.util.core.StringUtil;
 
 public final class MethodInfo extends Parametrable {
 
@@ -30,7 +34,141 @@ public final class MethodInfo extends Parametrable {
     private StandardMethod standardMethod;
     private AnaGeneType owner;
     private CommonOperSymbol virtualCall;
+    public MethodInfo() {
+    }
+    public MethodInfo(AnalyzedPageEl _page, OperatorBlock _op, MethodId _id) {
+        String ret_ = _op.getImportedReturnType();
+        classMethodId("", _id);
+        setReturnType(ret_);
+        setOriginalReturnType(ret_);
+        memberId(_op);
+        getParametrableContent().setFileName(_op.getFile().getFileName());
+        format(true, _page);
+    }
+    public MethodInfo(AnalyzedPageEl _page, String _op, String _className, String _returnType, StringList _params, CommonOperSymbol _vir) {
+        setVirtualCall(_vir);
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC, _op, _params);
+        classMethodId(_className,id_);
+        setReturnType(_returnType);
+        format(true, _page);
+    }
+    public MethodInfo(AnalyzedPageEl _page, FormattedFilter _formattedFilter, ImportedMethod _e) {
+        ClassMethodId m_ = _e.getId();
+        MethodId id_ = m_.getConstraints();
+        classMethodId(_e);
+        setFormattedFilter(_formattedFilter);
+        format(id_.getKind() == MethodAccessKind.STATIC, _page);
+        pairMemberId(_e);
+    }
+    public MethodInfo(AnalyzedPageEl _page, ImportedMethod _e) {
+        classMethodId(_e);
+        format(true, _page);
+        pairMemberId(_e);
+    }
+    public MethodInfo(AnalyzedPageEl _page, NamedCalledFunctionBlock _m, ScopeFilterType _scType, MethodId _id) {
+        AnaFormattedRootBlock f_ = _scType.getFormatted();
+        RootBlock r_ = f_.getRootBlock();
+        String formattedClass_ = f_.getFormatted();
+        getParametrableContent().setFileName(_m.getFile().getFileName());
+        setParametersNames(_m.getParametersNames());
+        String returnTypeGet_ = _m.getReturnTypeGet();
+        if (!returnTypeGet_.isEmpty()) {
+            pairMemberId(formattedClass_,_page,returnTypeGet_,r_,_m,_id);
+        } else {
+            pairMemberId(formattedClass_,_page,_m.getImportedReturnType(),r_,_m,_id);
+        }
+        setAncestor(_scType.getAnc());
+        setFormattedFilter(_scType.getFormattedFilter());
+        format(_id.getKind() == MethodAccessKind.STATIC, _page);
+    }
+    public MethodInfo(AnalyzedPageEl _page, StandardMethod _m, int _anc, String _formattedClass, MethodId _id, FormattedFilter _formatted){
+        types(_formattedClass,_page,_m.getImportedReturnType());
+        setStandardMethod(_m);
+        setParametersNames(_m.getParametersNames());
+        classMethodId(_formattedClass,_id);
+        setAncestor(_anc);
+        setFormattedFilter(_formatted);
+        format(_id.getKind() == MethodAccessKind.STATIC, _page);
+    }
+    public MethodInfo(AnalyzedPageEl _page,MethodHeaderInfo _m, String _formattedClass){
+        pairMemberId(_formattedClass,_page,_m);
+        setAncestor(0);
+        format(false, _page);
+    }
+    public MethodInfo(AnalyzedPageEl _page, RootBlock _r, int _ancestor, MethodId _id, String _ret){
+        String idClass_ = StringExpUtil.getIdFromAllTypes(_r.getGenericString());
+        setOwner(_r);
+        getParametrableContent().setFileName(_r.getFile().getFileName());
+        classMethodId(idClass_,_id);
+        format(true, _page);
+        setReturnType(_ret);
+        setOriginalReturnType(_ret);
+        setAncestor(_ancestor);
+        memberId(_r);
+    }
+    public MethodInfo(ToStringMethodHeader _m, String _formattedClass){
+        String ret_ = _m.getImportedReturnType();
+        MethodId id_ = _m.getId();
+        memberId(_m);
+        setAbstractMethod(_m.isAbstractMethod());
+        setFinalMethod(_m.isFinalMethod());
+        classMethodId(_formattedClass,id_);
+        setReturnType(ret_);
+        setAncestor(0);
+        formatWithoutParams();
+    }
+    public MethodInfo(AnalyzedPageEl _page,String _fct, int _len, MethodId _id, StandardMethod _e){
+        StandardType stdType_ = _page.getFctType();
+        StringList all_ = StringExpUtil.getAllTypes(_fct);
+        String ret_ = all_.last();
+        String name_ = _id.getName();
+        CustList<String> param_;
+        if (all_.size() == 1) {
+            param_ = new StringList();
+            for (int i = 0; i < _len; i++) {
+                param_.add(_page.getAliasObject());
+            }
+        } else {
+            param_ = all_.leftMinusOne(all_.size() - 2);
+        }
+        setOwner(stdType_);
+        setOriginalReturnType(_page.getAliasObject());
+        setStandardType(stdType_);
+        setStandardMethod(_e);
+        setParametersNames(_e.getParametersNames());
+        classMethodId(_fct,_id);
+        String retBase_;
+        boolean refRet_;
+        if (StringUtil.quickEq(ret_, StringExpUtil.SUB_TYPE)) {
+            retBase_ = _page.getAliasObject();
+            refRet_ = false;
+        } else if (ret_.startsWith("~")) {
+            retBase_ = ret_.substring(1);
+            refRet_ = true;
+        } else {
+            retBase_ = ret_;
+            refRet_ = false;
+        }
+        setReturnType(retBase_);
+        setAncestor(0);
+        StringList cls_ = new StringList();
+        CustList<BoolVal> refs_ = new CustList<BoolVal>();
+        for (String c: param_) {
+            if (StringUtil.quickEq(c, StringExpUtil.SUB_TYPE)) {
+                cls_.add(_page.getAliasObject());
+                refs_.add(BoolVal.FALSE);
+            } else if (c.startsWith("~")) {
+                cls_.add(c.substring(1));
+                refs_.add(BoolVal.TRUE);
+            } else {
+                cls_.add(c);
+                refs_.add(BoolVal.FALSE);
+            }
+        }
+        format(refRet_,
+                name_,cls_,refs_);
 
+    }
     public CommonOperSymbol getVirtualCall() {
         return virtualCall;
     }

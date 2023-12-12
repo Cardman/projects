@@ -53,74 +53,24 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
         CustList<MethodInfo> methodInfos_ = new CustList<MethodInfo>();
         stdType = _page.getFctType();
         for (StandardMethod e: stdType.getMethods()) {
-            buildLambdaMethods(_page, methodInfos_, stdType, e);
+            buildLambdaMethods(_page, methodInfos_, e);
         }
         methodInfos.add(methodInfos_);
         filterByNameReturnType(_page, methodFound, methodInfos);
     }
 
-    private void buildLambdaMethods(AnalyzedPageEl _page, CustList<MethodInfo> _methodInfos, StandardType _t, StandardMethod _e) {
+    private void buildLambdaMethods(AnalyzedPageEl _page, CustList<MethodInfo> _methodInfos, StandardMethod _e) {
         AnaClassArgumentMatching clCur_ = getPreviousResultClass();
         String fct_ = clCur_.getName();
         MethodId id_ = _e.getId();
-        MethodInfo m_;
         String name_ = id_.getName();
         if (_page.matchCall(name_) == null) {
-            m_ = OperationNode.getMethodInfo(_e, 0, fct_, _page,id_, new FormattedFilter());
-            m_.setStandardType(_t);
+            MethodInfo m_ = OperationNode.getMethodInfo(_e, 0, fct_, _page, id_, new FormattedFilter());
+            m_.setStandardType(stdType);
             _methodInfos.add(m_);
             return;
         }
-        StringList all_ = StringExpUtil.getAllTypes(fct_);
-        String ret_ = all_.last();
-        CustList<String> param_;
-        if (all_.size() == 1) {
-            param_ = new StringList();
-            int len_ = getChildren().size();
-            for (int i = 0; i < len_; i++) {
-                param_.add(_page.getAliasObject());
-            }
-        } else {
-            param_ = all_.leftMinusOne(all_.size() - 2);
-        }
-        m_ = new MethodInfo();
-        m_.setOwner(stdType);
-        m_.setOriginalReturnType(_page.getAliasObject());
-        m_.setStandardType(_t);
-        m_.setStandardMethod(_e);
-        m_.setParametersNames(_e.getParametersNames());
-        m_.classMethodId(fct_,id_);
-        String retBase_;
-        boolean refRet_;
-        if (StringUtil.quickEq(ret_, StringExpUtil.SUB_TYPE)) {
-            retBase_ = _page.getAliasObject();
-            refRet_ = false;
-        } else if (ret_.startsWith("~")) {
-            retBase_ = ret_.substring(1);
-            refRet_ = true;
-        } else {
-            retBase_ = ret_;
-            refRet_ = false;
-        }
-        m_.setReturnType(retBase_);
-        m_.setAncestor(0);
-        StringList cls_ = new StringList();
-        CustList<BoolVal> refs_ = new CustList<BoolVal>();
-        for (String c: param_) {
-            if (StringUtil.quickEq(c, StringExpUtil.SUB_TYPE)) {
-                cls_.add(_page.getAliasObject());
-                refs_.add(BoolVal.FALSE);
-            } else if (c.startsWith("~")) {
-                cls_.add(c.substring(1));
-                refs_.add(BoolVal.TRUE);
-            } else {
-                cls_.add(c);
-                refs_.add(BoolVal.FALSE);
-            }
-        }
-        m_.format(refRet_,
-                name_,cls_,refs_);
-        _methodInfos.add(m_);
+        _methodInfos.add(new MethodInfo(_page,fct_,getChildren().size(),id_,_e));
     }
 
     @Override

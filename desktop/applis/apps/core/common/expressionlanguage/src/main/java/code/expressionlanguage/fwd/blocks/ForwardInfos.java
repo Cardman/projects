@@ -156,45 +156,44 @@ public final class ForwardInfos {
             ExecFileBlock exFile_ = _files.get(fileBlock_.getNumberFile());
             if (r instanceof AnonymousTypeBlock) {
                 ExecAnonymousTypeBlock e_ = new ExecAnonymousTypeBlock(new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess());
-                e_.setFile(exFile_);
-                v_.setRootBlock(e_);
                 _forwards.addAnonType((AnonymousTypeBlock)r, e_);
+                setInfos(_coverage, r, v_, _forwards, exFile_, e_);
             }
             if (r instanceof ClassBlock) {
                 ExecClassBlock e_ = new ExecClassBlock(new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess(), new ExecClassContent(((ClassBlock) r).getClassContent()));
-                e_.setFile(exFile_);
-                v_.setRootBlock(e_);
+                setInfos(_coverage, r, v_, _forwards, exFile_, e_);
             }
             if (r instanceof EnumBlock) {
                 ExecEnumBlock e_ = new ExecEnumBlock(new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess());
-                e_.setFile(exFile_);
-                v_.setRootBlock(e_);
+                setInfos(_coverage, r, v_, _forwards, exFile_, e_);
             }
             if (r instanceof InterfaceBlock) {
                 ExecInterfaceBlock e_ = new ExecInterfaceBlock(new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess(), r.withoutInstance());
-                e_.setFile(exFile_);
-                v_.setRootBlock(e_);
+                setInfos(_coverage, r, v_, _forwards, exFile_, e_);
             }
             if (r instanceof AnnotationBlock) {
                 ExecAnnotationBlock e_ = new ExecAnnotationBlock(new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess());
-                e_.setFile(exFile_);
-                v_.setRootBlock(e_);
+                setInfos(_coverage, r, v_, _forwards, exFile_, e_);
             }
             if (r instanceof InnerElementBlock) {
                 ExecInnerElementBlock e_ = new ExecInnerElementBlock(new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess(), new ExecElementContent(((InnerElementBlock) r).getElementContent()), ((InnerElementBlock) r).getElementContent().getTrOffset());
-                e_.setFile(exFile_);
-                v_.setRootBlock(e_);
                 _forwards.addInnerEltType((InnerElementBlock) r, e_);
+                setInfos(_coverage, r, v_, _forwards, exFile_, e_);
             }
             if (r instanceof RecordBlock) {
                 ExecRecordBlock e_ = new ExecRecordBlock(((RecordBlock)r).isMutable(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess(),r.withoutInstance());
-                e_.setFile(exFile_);
-                v_.setRootBlock(e_);
+                setInfos(_coverage, r, v_, _forwards, exFile_, e_);
             }
-            _coverage.putType(r);
-            _forwards.addMember(r, v_);
-            v_.getRootBlock().setNumberType(r.getNumberAll());
+
         }
+    }
+
+    private static void setInfos(Coverage _coverage, RootBlock _r, Members _v, Forwards _forwards, ExecFileBlock _f, ExecRootBlock _root) {
+        _root.setFile(_f);
+        _v.setRootBlock(_root);
+        _coverage.putType(_r);
+        _forwards.addMember(_r, _v);
+        _v.getRootBlock().setNumberType(_r.getNumberAll());
     }
 
     private static void feedParents(Forwards _forwards) {
@@ -1359,19 +1358,11 @@ public final class ForwardInfos {
     private static ExecOperationNode procOperands5(OperationNode _anaNode, Forwards _forwards) {
         if (_anaNode instanceof InterfaceFctConstructor) {
             InterfaceFctConstructor n_ = (InterfaceFctConstructor) _anaNode;
-            return new ExecAbstractInvokingConstructor(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(n_.getInvokingConstructorContent(), _forwards), n_.getClassName(), FetchMemberUtil.fetchTypeCtor(n_.getMemberId(), _forwards));
+            return new ExecAbstractInvokingConstructor(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(n_.getInvokingConstructorContent(), _forwards), n_.getClassName(), FetchMemberUtil.fetchPossibleTypeCtor(n_.getMemberId(), _forwards));
         }
-        if (_anaNode instanceof InterfaceInvokingConstructor) {
-            InterfaceInvokingConstructor n_ = (InterfaceInvokingConstructor) _anaNode;
-            return new ExecAbstractInvokingConstructor(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(n_.getInvokingConstructorContent(), _forwards), "",FetchMemberUtil.fetchTypeCtor(n_.getMemberId(), _forwards));
-        }
-        if (_anaNode instanceof CurrentInvokingConstructor) {
-            CurrentInvokingConstructor n_ = (CurrentInvokingConstructor) _anaNode;
-            return new ExecAbstractInvokingConstructor(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(n_.getInvokingConstructorContent(), _forwards), "",FetchMemberUtil.fetchTypeCtor(n_.getMemberId(), _forwards));
-        }
-        if (_anaNode instanceof SuperInvokingConstructor) {
-            SuperInvokingConstructor n_ = (SuperInvokingConstructor) _anaNode;
-            return new ExecAbstractInvokingConstructor(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(n_.getInvokingConstructorContent(), _forwards), "",FetchMemberUtil.fetchTypeCtor(n_.getMemberId(), _forwards));
+        if (_anaNode instanceof AbstractInvokingConstructor) {
+            AbstractInvokingConstructor n_ = (AbstractInvokingConstructor) _anaNode;
+            return new ExecAbstractInvokingConstructor(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(n_.getInvokingConstructorContent(), _forwards), "",FetchMemberUtil.fetchPossibleTypeCtor(n_.getMemberId(), _forwards));
         }
         if (_anaNode instanceof CallDynMethodOperation) {
             CallDynMethodOperation c_ = (CallDynMethodOperation) _anaNode;
@@ -1403,7 +1394,7 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof AnonymousInstancingOperation) {
             AnonymousInstancingOperation s_ = (AnonymousInstancingOperation) _anaNode;
-            ExecTypeFunction typeCtor_ = FetchMemberUtil.fetchTypeCtor(s_.getMemberId(), _forwards);
+            ExecTypeFunction typeCtor_ = FetchMemberUtil.fetchPossibleTypeCtor(s_.getMemberId(), _forwards);
             return new ExecAbstractInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), s_.isNewBefore(), new ExecInstancingCustContent(s_.getInstancingCommonContent(),typeCtor_, _forwards),null);
         }
         if (_anaNode instanceof ArrOperation) {
