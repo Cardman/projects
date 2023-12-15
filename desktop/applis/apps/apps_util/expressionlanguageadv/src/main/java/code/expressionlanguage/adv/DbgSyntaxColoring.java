@@ -5,22 +5,19 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.syntax.*;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.util.ContextUtil;
-import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.SynthFieldInfo;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.options.ResultContext;
 import code.maths.litteralcom.StrTypes;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.IdMap;
-import code.util.Ints;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public final class DbgSyntaxColoring {
+    private final StringList toStrOwner = new StringList();
     private DbgSyntaxColoring() {
     }
     public static IdMap<FileBlock,CustList<SegmentReadOnlyPart>> partsBpMpWp(ResultContext _res) {
@@ -32,10 +29,14 @@ public final class DbgSyntaxColoring {
         return agg_;
     }
     public static IdMap<FileBlock,IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>> partsTokens(ResultContext _res) {
+        DbgSyntaxColoring i_ = new DbgSyntaxColoring();
+        for (EntryCust<RootBlock, ClassMethodIdReturn> e: _res.getPageEl().getToStr().entryList()) {
+            i_.toStrOwner.add(e.getKey().getFullName());
+        }
         IdMap<FileBlock,IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>> agg_ = new IdMap<FileBlock, IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>>();
         for (EntryCust<String, FileBlock> f: _res.getPageEl().getPreviousFilesBodies().entryList()) {
             FileBlock key_ = f.getValue();
-            agg_.addEntry(key_,partsTokens(key_));
+            agg_.addEntry(key_,i_.partsTokens(key_));
         }
         return agg_;
     }
@@ -63,7 +64,7 @@ public final class DbgSyntaxColoring {
         }
         return agg_;
     }
-    public static IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> partsTokens(FileBlock _file) {
+    private IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> partsTokens(FileBlock _file) {
         IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> agg_ = new IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>();
         for (AbsBkSrcFileLocation r: CallersRef.fetchBk(_file)) {
             merge(agg_,partsTokens(r));
@@ -245,6 +246,10 @@ public final class DbgSyntaxColoring {
         CustList<SegmentReadOnlyTokenPart> fieldsAnnotPred_ = new CustList<SegmentReadOnlyTokenPart>();
         CustList<SegmentReadOnlyTokenPart> fct_ = new CustList<SegmentReadOnlyTokenPart>();
         CustList<SegmentReadOnlyTokenPart> fctPred_ = new CustList<SegmentReadOnlyTokenPart>();
+        CustList<SegmentReadOnlyTokenPart> op_ = new CustList<SegmentReadOnlyTokenPart>();
+        CustList<SegmentReadOnlyTokenPart> opPred_ = new CustList<SegmentReadOnlyTokenPart>();
+        CustList<SegmentReadOnlyTokenPart> toStr_ = new CustList<SegmentReadOnlyTokenPart>();
+        CustList<SegmentReadOnlyTokenPart> toStrPred_ = new CustList<SegmentReadOnlyTokenPart>();
         AbsBk bk_ = _r.getBlock();
         if (bk_ instanceof LabelAbruptBlock) {
             int begin_ = ((LabelAbruptBlock) bk_).getLabelOffset();
@@ -262,8 +267,11 @@ public final class DbgSyntaxColoring {
             }
         }
         if (bk_ instanceof NamedCalledFunctionBlock) {
-            methodDecl(fieldsAnnot_, fieldsAnnotPred_, fct_, fctPred_, (NamedCalledFunctionBlock)bk_);
+            methodDecl(fieldsAnnot_, fieldsAnnotPred_, (NamedCalledFunctionBlock)bk_);
         }
+        methodOverDecl(fct_, fctPred_, bk_);
+        operatorDecl(op_, opPred_, bk_);
+        operatorDeclToStr(toStr_, toStrPred_, bk_);
         parts_.addEntry(SyntaxRefTokenEnum.LABEL,labels_);
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD,fieldsInst_);
         parts_.addEntry(SyntaxRefTokenEnum.STATIC_FIELD,fieldsStatic_);
@@ -271,23 +279,53 @@ public final class DbgSyntaxColoring {
         parts_.addEntry(SyntaxRefTokenEnum.ANNOT_FIELD_PRED,fieldsAnnotPred_);
         parts_.addEntry(SyntaxRefTokenEnum.FCT,fct_);
         parts_.addEntry(SyntaxRefTokenEnum.FCT_PRED,fctPred_);
+        parts_.addEntry(SyntaxRefTokenEnum.OPERATOR,op_);
+        parts_.addEntry(SyntaxRefTokenEnum.OPERATOR_PRED,opPred_);
+        parts_.addEntry(SyntaxRefTokenEnum.TO_STR,toStr_);
+        parts_.addEntry(SyntaxRefTokenEnum.TO_STR_PRED,toStrPred_);
         return parts_;
     }
 
-    private static void methodDecl(CustList<SegmentReadOnlyTokenPart> _annotCust, CustList<SegmentReadOnlyTokenPart> _annotPred, CustList<SegmentReadOnlyTokenPart> _fctCust, CustList<SegmentReadOnlyTokenPart> _fctPred, NamedCalledFunctionBlock _meth) {
+    private static void methodDecl(CustList<SegmentReadOnlyTokenPart> _annotCust, CustList<SegmentReadOnlyTokenPart> _annotPred, NamedCalledFunctionBlock _meth) {
         if (_meth.getTypeCall() == NameCalledEnum.ANNOTATION) {
             int begin_ = _meth.getNameOffset();
             int end_ = begin_ + _meth.getName().length();
-            add(_annotCust, _annotPred, ContextUtil.isFromCustFile(_meth.getFile()), new SegmentReadOnlyTokenPart(begin_, end_));
-        }
-        if (_meth.getTypeCall() == NameCalledEnum.OVERRIDABLE) {
-            int begin_ = _meth.getNameOffset();
-            int end_ = begin_ + _meth.getName().length();
-            add(_fctCust, _fctPred, ContextUtil.isFromCustFile(_meth.getFile()), new SegmentReadOnlyTokenPart(begin_, end_));
+            add(_annotCust, _annotPred, _meth, new SegmentReadOnlyTokenPart(begin_, end_));
         }
     }
 
-    private static IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> partsTokens(ResultExpressionBlockOperation _r) {
+    private static void methodOverDecl(CustList<SegmentReadOnlyTokenPart> _fctCust, CustList<SegmentReadOnlyTokenPart> _fctPred, AbsBk _meth) {
+        if (!AbsBk.isOverBlock(_meth)) {
+            return;
+        }
+        NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) _meth;
+        if (m_.getKind() == MethodKind.STD_METHOD) {
+            int begin_ = m_.getNameOffset();
+            int end_ = begin_ + m_.getName().length();
+            add(_fctCust, _fctPred, _meth, new SegmentReadOnlyTokenPart(begin_, end_));
+        }
+    }
+
+    private static void operatorDecl(CustList<SegmentReadOnlyTokenPart> _fctCust, CustList<SegmentReadOnlyTokenPart> _fctPred, AbsBk _meth) {
+        if (_meth instanceof OperatorBlock || AbsBk.isOverBlock(_meth) && ((NamedCalledFunctionBlock)_meth).getKind() == MethodKind.OPERATOR) {
+            int begin_ = ((NamedFunctionBlock)_meth).getNameOffset();
+            int end_ = begin_ + ((NamedFunctionBlock)_meth).getName().length();
+            add(_fctCust, _fctPred, _meth, new SegmentReadOnlyTokenPart(begin_, end_));
+        }
+    }
+    private static void operatorDeclToStr(CustList<SegmentReadOnlyTokenPart> _fctCust, CustList<SegmentReadOnlyTokenPart> _fctPred, AbsBk _meth) {
+        if (!AbsBk.isOverBlock(_meth)) {
+            return;
+        }
+        NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) _meth;
+        if (m_.getKind() == MethodKind.TO_STRING) {
+            int begin_ = m_.getNameOffset();
+            int end_ = begin_ + m_.getName().length();
+            add(_fctCust, _fctPred, _meth, new SegmentReadOnlyTokenPart(begin_, end_));
+        }
+    }
+
+    private IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> partsTokens(ResultExpressionBlockOperation _r) {
         IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> parts_ = new IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>();
         CustList<SegmentReadOnlyTokenPart> fieldsInst_ = new CustList<SegmentReadOnlyTokenPart>();
         CustList<SegmentReadOnlyTokenPart> fieldsInstPred_ = new CustList<SegmentReadOnlyTokenPart>();
@@ -297,6 +335,10 @@ public final class DbgSyntaxColoring {
         CustList<SegmentReadOnlyTokenPart> fieldsAnnotPred_ = new CustList<SegmentReadOnlyTokenPart>();
         CustList<SegmentReadOnlyTokenPart> fct_ = new CustList<SegmentReadOnlyTokenPart>();
         CustList<SegmentReadOnlyTokenPart> fctPred_ = new CustList<SegmentReadOnlyTokenPart>();
+        CustList<SegmentReadOnlyTokenPart> ops_ = new CustList<SegmentReadOnlyTokenPart>();
+        CustList<SegmentReadOnlyTokenPart> opsPred_ = new CustList<SegmentReadOnlyTokenPart>();
+        CustList<SegmentReadOnlyTokenPart> toStr_ = new CustList<SegmentReadOnlyTokenPart>();
+        CustList<SegmentReadOnlyTokenPart> toStrPred_ = new CustList<SegmentReadOnlyTokenPart>();
         OperationNode op_ = _r.getBlock();
         ResultExpression resStr_ = _r.getRes().getRes();
         if (op_ instanceof SettableAbstractFieldOperation) {
@@ -309,13 +351,19 @@ public final class DbgSyntaxColoring {
         }
         if (op_ instanceof AbsFctOperation) {
             annotationCallMethod(_r,fieldsAnnot_,fieldsAnnotPred_,(AbsFctOperation) op_);
-            fctCallMethod(_r,fct_,fctPred_,(AbsFctOperation) op_);
+            fctCallMethod(_r,fct_,fctPred_,toStr_,toStrPred_,(AbsFctOperation) op_);
         }
         if (op_ instanceof NamedArgumentOperation) {
             nameArg(_r, fieldsInst_, fieldsInstPred_,(NamedArgumentOperation) op_);
         }
         if (op_ instanceof AssocationOperation) {
             assoc(_r,fieldsAnnot_,fieldsAnnotPred_,(AssocationOperation) op_);
+        }
+        if (op_ instanceof SymbolOperation) {
+            oper(_r,ops_,opsPred_,toStr_,(SymbolOperation) op_);
+        }
+        if (op_ instanceof CompoundAffectationOperation) {
+            compound(_r,ops_,opsPred_,toStr_,(CompoundAffectationOperation) op_);
         }
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD,fieldsInst_);
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD_PRED,fieldsInstPred_);
@@ -325,6 +373,10 @@ public final class DbgSyntaxColoring {
         parts_.addEntry(SyntaxRefTokenEnum.ANNOT_FIELD_PRED,fieldsAnnotPred_);
         parts_.addEntry(SyntaxRefTokenEnum.FCT,fct_);
         parts_.addEntry(SyntaxRefTokenEnum.FCT_PRED,fctPred_);
+        parts_.addEntry(SyntaxRefTokenEnum.OPERATOR,ops_);
+        parts_.addEntry(SyntaxRefTokenEnum.OPERATOR_PRED,opsPred_);
+        parts_.addEntry(SyntaxRefTokenEnum.TO_STR,toStr_);
+        parts_.addEntry(SyntaxRefTokenEnum.TO_STR_PRED,toStrPred_);
         return parts_;
     }
 
@@ -342,6 +394,51 @@ public final class DbgSyntaxColoring {
             int b_ = beginOffGene(_r)+firstOff_;
             add(_fieldsInst,_fieldsInstPred, _op.getFunction().getType(), new SegmentReadOnlyTokenPart(b_,b_ + _op.getLenTrimFct()));
         }
+    }
+
+    private void oper(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _cust, CustList<SegmentReadOnlyTokenPart> _pred, CustList<SegmentReadOnlyTokenPart> _toStr, SymbolOperation _symb) {
+        AnaTypeFct function_ = _symb.getFct().getFunction();
+        int b_ = beginOffGene(_r)+_symb.getOperatorContent().getOpOffset();
+        int e_ = b_ + _symb.getOperatorContent().getOper().length();
+        if (_symb instanceof NumericOperation && ((NumericOperation) _symb).isCatString() && look(((NumericOperation) _symb).getChildrenNodes())) {
+            add(_toStr,_toStr,true,new SegmentReadOnlyTokenPart(b_, e_));
+            return;
+        }
+        add(_cust,_pred,function_,b_, e_);
+    }
+
+
+    private void compound(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _cust, CustList<SegmentReadOnlyTokenPart> _pred, CustList<SegmentReadOnlyTokenPart> _toStr, CompoundAffectationOperation _symb) {
+        AnaTypeFct function_ = _symb.getFct().getFunction();
+        int b_ = beginOffGene(_r)+_symb.getOperatorContent().getOpOffset();
+        int e_ = b_ + _symb.getOperatorContent().getOper().length()-1;
+        if (_symb.isConcat() && look(_symb.getChildrenNodes())) {
+            add(_toStr,_toStr,true,new SegmentReadOnlyTokenPart(b_, e_));
+            return;
+        }
+        add(_cust, _pred, function_, b_, e_);
+    }
+
+    private void add(CustList<SegmentReadOnlyTokenPart> _cust, CustList<SegmentReadOnlyTokenPart> _pred, AnaTypeFct _fct, int _b, int _e) {
+        NamedFunctionBlock f_ = AnaTypeFct.fct(_fct);
+        if (f_ != null) {
+            add(_cust, _pred, f_, new SegmentReadOnlyTokenPart(_b, _e));
+            return;
+        }
+        add(_cust, _pred,AnaTypeFct.root(_fct),new SegmentReadOnlyTokenPart(_b, _e));
+    }
+
+    private boolean look(CustList<OperationNode> _chs) {
+        boolean atLeast_ = false;
+        for (OperationNode o: _chs) {
+            for (String c: o.getResultClass().getNames()) {
+                if (StringUtil.contains(toStrOwner,StringExpUtil.getIdFromAllTypes(c))) {
+                    atLeast_ = true;
+                    break;
+                }
+            }
+        }
+        return atLeast_;
     }
 
     private static void fieldRef(CustList<SegmentReadOnlyTokenPart> _fieldsInst, CustList<SegmentReadOnlyTokenPart> _fieldsInstPred, CustList<SegmentReadOnlyTokenPart> _fieldsStatic, CustList<SegmentReadOnlyTokenPart> _fieldsStaticPred, SettableAbstractFieldOperation _op, ResultExpression _resStr) {
@@ -398,14 +495,19 @@ public final class DbgSyntaxColoring {
         }
     }
 
-    private static void fctCallMethod(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _annotsInst, CustList<SegmentReadOnlyTokenPart> _annotsInstPred, AbsFctOperation _op) {
+    private static void fctCallMethod(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _fct, CustList<SegmentReadOnlyTokenPart> _fctPred, CustList<SegmentReadOnlyTokenPart> _toStr, CustList<SegmentReadOnlyTokenPart> _toStrPred, AbsFctOperation _op) {
         AnaTypeFct fieldId_ = _op.getCallFctContent().getFunction();
         NamedFunctionBlock res_ = AnaTypeFct.fct(fieldId_);
+        boolean toStr_ = AbsBk.isOverBlock(res_) && ((NamedCalledFunctionBlock) res_).getKind() == MethodKind.TO_STRING;
         if (okFctNotAnnot(fieldId_, res_)) {
             RootBlock fieldType_ = fieldId_.getType();
             int b_ = beginOffGene(_r) + _op.getDelta();
             int e_ = b_ + _op.getLengthMethod();
-            add(_annotsInst,_annotsInstPred,fieldType_,new SegmentReadOnlyTokenPart(b_, e_));
+            if (toStr_) {
+                add(_toStr,_toStrPred,fieldType_,new SegmentReadOnlyTokenPart(b_, e_));
+            } else {
+                add(_fct,_fctPred,fieldType_,new SegmentReadOnlyTokenPart(b_, e_));
+            }
         }
     }
 
@@ -433,7 +535,13 @@ public final class DbgSyntaxColoring {
             add(_fieldsInst,_fieldsInstPred,naFi_.getDeclaring(),new SegmentReadOnlyTokenPart(b_, e_));
         }
     }
-    private static void add(CustList<SegmentReadOnlyTokenPart> _cust, CustList<SegmentReadOnlyTokenPart> _pred, AnaGeneType _gen, SegmentReadOnlyTokenPart _elt) {
+    private static void add(CustList<SegmentReadOnlyTokenPart> _cust, CustList<SegmentReadOnlyTokenPart> _pred, AbsBk _gen, SegmentReadOnlyTokenPart _elt) {
+        add(_cust,_pred,_gen.getFile(),_elt);
+    }
+    private static void add(CustList<SegmentReadOnlyTokenPart> _cust, CustList<SegmentReadOnlyTokenPart> _pred, RootBlock _gen, SegmentReadOnlyTokenPart _elt) {
+        add(_cust,_pred,ContextUtil.isFromCustFile(_gen),_elt);
+    }
+    private static void add(CustList<SegmentReadOnlyTokenPart> _cust, CustList<SegmentReadOnlyTokenPart> _pred, FileBlock _gen, SegmentReadOnlyTokenPart _elt) {
         add(_cust,_pred,ContextUtil.isFromCustFile(_gen),_elt);
     }
     private static void add(CustList<SegmentReadOnlyTokenPart> _cust, CustList<SegmentReadOnlyTokenPart> _pred, boolean _gen, SegmentReadOnlyTokenPart _elt) {
