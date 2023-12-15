@@ -433,8 +433,9 @@ public final class TabEditor implements AbsTabEditor {
         }
     }
     public void waitAndSubmit(Runnable _r) {
-        if (task != null) {
-            task.attendre();
+        AbstractFuture t_ = task;
+        if (t_ != null) {
+            t_.attendre();
         }
         task = getTaskManager().submit(_r);
     }
