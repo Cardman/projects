@@ -365,6 +365,9 @@ public final class DbgSyntaxColoring {
         if (op_ instanceof CompoundAffectationOperation) {
             compound(_r,ops_,opsPred_,toStr_,(CompoundAffectationOperation) op_);
         }
+        if (op_ instanceof ArrOperation) {
+            arr(_r,ops_,opsPred_,(ArrOperation)op_);
+        }
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD,fieldsInst_);
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD_PRED,fieldsInstPred_);
         parts_.addEntry(SyntaxRefTokenEnum.STATIC_FIELD,fieldsStatic_);
@@ -417,6 +420,22 @@ public final class DbgSyntaxColoring {
             return;
         }
         add(_cust, _pred, function_, b_, e_);
+    }
+    private void arr(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _cust, CustList<SegmentReadOnlyTokenPart> _pred, ArrOperation _symb) {
+        NamedFunctionBlock cust_ = AnaTypeFct.fct(_symb.getFunctionGet());
+        if (cust_ != null) {
+            int left_ = beginOffGene(_r);
+            int right_ = left_ + _symb.getLastOpOffset();
+            add(_cust,_pred,cust_,new SegmentReadOnlyTokenPart(left_,left_+1));
+            add(_cust,_pred,cust_,new SegmentReadOnlyTokenPart(right_,right_+1));
+        }
+        NamedFunctionBlock alt_ = AnaTypeFct.fct(_symb.getFunctionSet());
+        if (alt_ != null) {
+            int left_ = beginOffGene(_r);
+            int right_ = left_ + _symb.getLastOpOffset();
+            add(_cust,_pred,alt_,new SegmentReadOnlyTokenPart(left_,left_+1));
+            add(_cust,_pred,alt_,new SegmentReadOnlyTokenPart(right_,right_+1));
+        }
     }
 
     private void add(CustList<SegmentReadOnlyTokenPart> _cust, CustList<SegmentReadOnlyTokenPart> _pred, AnaTypeFct _fct, int _b, int _e) {
