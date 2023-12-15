@@ -190,19 +190,19 @@ public final class TableStruct extends CustComponentStruct {
         }
         int l_ = 0;
         int u_ = _arr.length-1;
-        if (_v < _arr[0] || _v > _arr[u_]) {
-            return false;
+        if (_v == _arr[0] || _v == _arr[u_]) {
+            return true;
         }
-        while (l_ <= u_) {
+        while (l_ < u_ - 1) {
             int m_ = (l_ + u_) / 2;
             int t_ = _arr[m_];
             if (t_ == _v) {
                 return true;
             }
             if (t_ < _v) {
-                l_ = m_+1;
+                l_ = m_;
             } else {
-                u_ = m_-1;
+                u_ = m_;
             }
         }
         return false;
