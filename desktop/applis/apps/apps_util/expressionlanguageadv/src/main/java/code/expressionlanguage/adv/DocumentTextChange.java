@@ -32,11 +32,11 @@ public final class DocumentTextChange implements AbsAutoCompleteListener {
 
     static void updateEditorText(TabEditor _ed) {
         if (!_ed.getNavModifPanel().isVisible()) {
-            _ed.getTaskManager().submit(new UpdatingEditorQuick(_ed));
+            _ed.waitAndSubmit(new UpdatingEditorQuick(_ed));
             return;
         }
         if (_ed.isEnabledSyntax()) {
-            _ed.getTaskManager().submit(new UpdatingEditor(_ed));
+            _ed.waitAndSubmit(new UpdatingEditor(_ed));
         }
     }
 }

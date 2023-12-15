@@ -17,6 +17,7 @@ import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractBaseExecutorService;
+import code.threads.AbstractFuture;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -80,6 +81,7 @@ public final class TabEditor implements AbsTabEditor {
     private final AbsSpinner col;
     private final AbsButton val;
     private ContextEl action;
+    private AbstractFuture task;
     private Struct instance = NullStruct.NULL_VALUE;
     private final FormFindReplaceExpression findReplaceExpression;
 
@@ -429,6 +431,16 @@ public final class TabEditor implements AbsTabEditor {
         if (action instanceof InterruptibleContextEl) {
             ((InterruptibleContextEl)action).stopJoinSleep();
         }
+    }
+    public void waitAndSubmit(Runnable _r) {
+        if (task != null) {
+            task.attendre();
+        }
+        task = getTaskManager().submit(_r);
+    }
+    public void shutdownTasks() {
+        getTaskManager().shutdown();
+        task = null;
     }
     public void usedType(String _u) {
         findReplaceExpression.usedType(_u);
