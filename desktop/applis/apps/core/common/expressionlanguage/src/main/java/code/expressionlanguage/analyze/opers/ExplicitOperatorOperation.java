@@ -48,6 +48,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
     private int beginTest;
     private AnaTypeFct functionTest;
     private OperationNode foundChild;
+    private SettableElResult settableElResult;
     private int indexVar = -1;
 
     public ExplicitOperatorOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -277,6 +278,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                 return;
             }
             SettableElResult settable_ = AffectationOperation.tryGetSettableArg(next_);
+            settableElResult = settable_;
             if (!(settable_ instanceof OperationNode)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFile(_page.getCurrentFile());
@@ -565,6 +567,10 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
     @Override
     public void setVariable(boolean _variable) {
         arrContent.setVariable(_variable);
+    }
+
+    public SettableElResult getSettableElResult() {
+        return settableElResult;
     }
 
     public int getIndexVar() {

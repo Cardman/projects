@@ -3288,6 +3288,15 @@ public final class LinkageUtil {
         _vars.addParts(export(par_.getPartOffsets()));
         tryAddMergedParts(_vars,par_.getConv().getFunction(),par_.getAffOffset()+ _sum + _val.getIndexInEl(),new StringList(), new StringList());
         tryAddMergedParts(_vars,par_.getFunctionTest(),par_.getAffOffset()+ _sum + _val.getIndexInEl(),new StringList(), new StringList());
+        if (par_.isAffect()) {
+            SettableElResult settable_ = par_.getSettableElResult();
+            if (settable_ instanceof ArrOperation) {
+                ArrOperation parArr_ = (ArrOperation) settable_;
+                addParts(_vars, parArr_.getFunctionSet(),
+                        par_.getAffOffset()+ _sum + _val.getIndexInEl(),1,
+                        new StringList(), new StringList());
+            }
+        }
         if (par_.getMethodIdImpl() != null) {
             addParts(_vars, par_.getConv().getFunction(),
                     par_.getBeginImpl()+ _sum + _val.getIndexInEl(), _vars.getKeyWords().getKeyWordCast().length(),

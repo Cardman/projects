@@ -15738,6 +15738,106 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage761Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo<S> {\n");
+        xml_.append(" public S a;\n");
+        xml_.append(" static Ex<S> $(ExTwo<S> a){\n");
+        xml_.append("  Ex<S> o = new Ex<>();\n");
+        xml_.append("  o.a=a.a;\n");
+        xml_.append("  return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCont<S> {\n");
+        xml_.append(" public S[] a;\n");
+        xml_.append(" public ExCont(S... a){\n");
+        xml_.append("  this.a=a;\n");
+        xml_.append(" }\n");
+        xml_.append(" public S this(int i){\n");
+        xml_.append("  return a[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i){\n");
+        xml_.append("  a[i]=value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex<T> {\n");
+        xml_.append(" public T a;\n");
+        xml_.append(" static boolean false(Ex<T> a){\n");
+        xml_.append("  return (int)a.a> 4;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator&& ExTwo<int> (Ex<int> a, Ex<int> b){\n");
+        xml_.append("  ExTwo<int> o = new ExTwo<>();\n");
+        xml_.append("  o.a=a.a+b.a;\n");
+        xml_.append("  return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  Ex<int> one = new Ex<>();\n");
+        xml_.append("  one.a=3i;\n");
+        xml_.append("  ExCont<Ex<int>> c = new ExCont<>(one);\n");
+        xml_.append("  Ex<int> two = new Ex<>();\n");
+        xml_.append("  two.a=5i;\n");
+        xml_.append("  operator(&&,Ex<int>)=((Ex<int>)c[0],two);\n");
+        xml_.append("  if (c[0].a != 8i){\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.ExTwo</a>&lt;<a name=\"m23\">S</a>&gt; {\n" +
+                " public <a href=\"#m23\">S</a> <span class=\"f\"><a name=\"m38\">a</a></span>;\n" +
+                " static <a title=\"pkg.Ex\" href=\"#m304\">Ex</a>&lt;<a href=\"#m23\">S</a>&gt; <a name=\"m55\">$</a>(<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>&lt;<a href=\"#m23\">S</a>&gt; <a name=\"m66\">a</a>){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m304\">Ex</a>&lt;<a href=\"#m23\">S</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m78\">o</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m304\">Ex</a><a title=\"pkg.Ex&lt;#S&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m78\">o</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m326\">a</a></span></span>=<span class=\"f\"><span class=\"f\"><a href=\"#m66\">a</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.a\" href=\"#m38\">a</a></span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m78\">o</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m135\">pkg.ExCont</a>&lt;<a name=\"m146\">S</a>&gt; {\n" +
+                " public <a href=\"#m146\">S</a>[] <span class=\"f\"><a name=\"m163\">a</a></span>;\n" +
+                " <a name=\"m167\">public ExCont(</a><a href=\"#m146\">S</a>... <a name=\"m186\">a</a>){\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\">this</span>.<span class=\"f\"><a title=\"pkg.ExCont.a\" href=\"#m163\">a</a></span></span>=<span class=\"f\"><a href=\"#m186\">a</a></span></span>;\n" +
+                " }\n" +
+                " public <a href=\"#m146\">S</a> <a name=\"m215\">this</a>(int <a name=\"m224\">i</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExCont.a\" href=\"#m163\">a</a></span><span class=\"f\">[<span class=\"f\"><a href=\"#m224\">i</a></span>]</span></span>;\n" +
+                " }\n" +
+                " public void <a name=\"m259\">this</a>(int <a name=\"m268\">i</a>){\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"pkg.ExCont.a\" href=\"#m163\">a</a></span><span class=\"f\">[<span class=\"f\"><a href=\"#m268\">i</a></span>]</span></span>=<span class=\"f\"><b>value</b></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m304\">pkg.Ex</a>&lt;<a name=\"m311\">T</a>&gt; {\n" +
+                " public <a href=\"#m311\">T</a> <span class=\"f\"><a name=\"m326\">a</a></span>;\n" +
+                " static boolean <a name=\"m345\">false</a>(<a title=\"pkg.Ex\" href=\"#m304\">Ex</a>&lt;<a href=\"#m311\">T</a>&gt; <a name=\"m357\">a</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\">(int)<span class=\"f\"><span class=\"f\"><a href=\"#m357\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m326\">a</a></span></span></span><a title=\"false\">&gt;</a><span class=\"f\"> 4</span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m395\">&amp;&amp;</a> <a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>&lt;int&gt; (<a title=\"pkg.Ex\" href=\"#m304\">Ex</a>&lt;int&gt; <a name=\"m418\">a</a>, <a title=\"pkg.Ex\" href=\"#m304\">Ex</a>&lt;int&gt; <a name=\"m429\">b</a>){\n" +
+                "  <a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m446\">o</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a><a title=\"pkg.ExTwo&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m446\">o</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.a\" href=\"#m38\">a</a></span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m418\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m326\">a</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m429\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m326\">a</a></span></span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m446\">o</a></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m514\">catching</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m304\">Ex</a>&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m536\">one</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m304\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m536\">one</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m326\">a</a></span></span>=<span class=\"f\">3i</span></span>;\n" +
+                "  <a title=\"pkg.ExCont\" href=\"#m135\">ExCont</a>&lt;<a title=\"pkg.Ex\" href=\"#m304\">Ex</a>&lt;int&gt;&gt; <span class=\"f\"><span class=\"f\"><a name=\"m584\">c</a> </span>=<span class=\"f\"> <a title=\"pkg.ExCont.pkg.ExCont(#S...)\" href=\"#m167\">new</a> <a title=\"pkg.ExCont\" href=\"#m135\">ExCont</a><a title=\"pkg.ExCont&lt;pkg.Ex&lt;int&gt;&gt;\">&lt;&gt;</a>(<span class=\"f\"><a href=\"#m536\">one</a></span>)</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m304\">Ex</a>&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m617\">two</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m304\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m617\">two</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m326\">a</a></span></span>=<span class=\"f\">5i</span></span>;\n" +
+                "  <span class=\"f\"><a title=\"true\n" +
+                "\n" +
+                "pkg.Ex.static &amp;&amp;(pkg.Ex&lt;int&gt;,pkg.Ex&lt;int&gt;)\" href=\"#m395\">operator</a>(&amp;&amp;,<a title=\"pkg.Ex\" href=\"#m304\">Ex</a>&lt;int&gt;)<a title=\"pkg.ExTwo.static $(pkg.Ex&lt;#S&gt;,pkg.ExTwo&lt;#S&gt;)\" href=\"#m55\"> </a><a title=\"pkg.Ex.static false(boolean,pkg.Ex&lt;#T&gt;)\" href=\"#m345\"> </a><a title=\"pkg.ExCont.[]=(int)\" href=\"#m259\">=</a>(<span class=\"p\">(<a title=\"pkg.Ex\" href=\"#m304\">Ex</a>&lt;int&gt;)<span class=\"f\"><span class=\"f\"><a href=\"#m584\">c</a></span><span class=\"f\"><a title=\"pkg.ExCont.[](int)\" href=\"#m215\">[</a><span class=\"f\">0</span><a title=\"pkg.ExCont.[](int)\" href=\"#m215\">]</a></span></span></span>,<span class=\"f\"><a href=\"#m617\">two</a></span>)</span>;\n" +
+                "  <span class=\"p\">if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m584\">c</a></span><span class=\"f\"><a title=\"pkg.ExCont.[](int)\" href=\"#m215\">[</a><span class=\"f\">0</span><a title=\"pkg.ExCont.[](int)\" href=\"#m215\">]</a></span></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m326\">a</a> </span></span><a title=\"false\">!=</a><span class=\"f\"> 8i</span></span>){\n" +
+                "   return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
