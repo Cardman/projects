@@ -2223,7 +2223,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (_len > i_) {
                 operator_ = _args.get(i_).trim();
                 sum_ += StringExpUtil.getOffset(_args.get(i_));
-                memberOffset = sum_;
+                memberOffset = offset(_args,2);
                 displayErr_ = true;
             }
             i_++;

@@ -354,6 +354,7 @@ public final class DbgSyntaxColoring {
             records(_r, fieldsInst_, fieldsInstPred_,(LambdaOperation) op_);
             regularField(_r, fieldsInst_, fieldsInstPred_, fieldsStatic_, fieldsStaticPred_, (LambdaOperation) op_);
             annotationRefMethod(_r,fieldsAnnot_,fieldsAnnotPred_,(LambdaOperation)op_);
+            fctRefMethod(_r,ops_,opsPred_,fct_,fctPred_,(LambdaOperation)op_);
         }
         if (op_ instanceof AbsFctOperation) {
             annotationCallMethod(_r,fieldsAnnot_,fieldsAnnotPred_,(AbsFctOperation) op_);
@@ -515,6 +516,20 @@ public final class DbgSyntaxColoring {
         }
     }
 
+    private static void fctRefMethod(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _cust, CustList<SegmentReadOnlyTokenPart> _pred, CustList<SegmentReadOnlyTokenPart> _fct, CustList<SegmentReadOnlyTokenPart> _fctPred, LambdaOperation _op) {
+        AnaTypeFct fieldId_ = _op.getFunction();
+        NamedFunctionBlock res_ = AnaTypeFct.fct(fieldId_);
+        if (okFctNotAnnot(fieldId_, res_)) {
+            RootBlock fieldType_ = fieldId_.getType();
+            int b_ = beginOffGene(_r) + _op.getMemberOffset();
+            int e_ = b_ + res_.getName().length();
+            if (StringExpUtil.isOper(res_.getName())) {
+                add(_cust,_pred,fieldType_,new SegmentReadOnlyTokenPart(b_, e_));
+            } else {
+                add(_fct,_fctPred,fieldType_,new SegmentReadOnlyTokenPart(b_, e_));
+            }
+        }
+    }
     private static void annotationCallMethod(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _annotsInst, CustList<SegmentReadOnlyTokenPart> _annotsInstPred, AbsFctOperation _op) {
         AnaTypeFct fieldId_ = _op.getCallFctContent().getFunction();
         NamedFunctionBlock res_ = AnaTypeFct.fct(fieldId_);
