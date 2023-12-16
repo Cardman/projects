@@ -18,6 +18,7 @@ import code.util.core.StringUtil;
 
 public final class DbgSyntaxColoring {
     private final StringList toStrOwner = new StringList();
+    private final StringList randOwner = new StringList();
     private DbgSyntaxColoring() {
     }
     public static IdMap<FileBlock,CustList<SegmentReadOnlyPart>> partsBpMpWp(ResultContext _res) {
@@ -32,6 +33,9 @@ public final class DbgSyntaxColoring {
         DbgSyntaxColoring i_ = new DbgSyntaxColoring();
         for (EntryCust<RootBlock, ClassMethodIdReturn> e: _res.getPageEl().getToStr().entryList()) {
             i_.toStrOwner.add(e.getKey().getFullName());
+        }
+        for (EntryCust<RootBlock, ClassMethodIdReturn> e: _res.getPageEl().getRandCodes().entryList()) {
+            i_.randOwner.add(e.getKey().getFullName());
         }
         IdMap<FileBlock,IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>> agg_ = new IdMap<FileBlock, IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>>();
         for (EntryCust<String, FileBlock> f: _res.getPageEl().getPreviousFilesBodies().entryList()) {
@@ -339,6 +343,8 @@ public final class DbgSyntaxColoring {
         CustList<SegmentReadOnlyTokenPart> opsPred_ = new CustList<SegmentReadOnlyTokenPart>();
         CustList<SegmentReadOnlyTokenPart> toStr_ = new CustList<SegmentReadOnlyTokenPart>();
         CustList<SegmentReadOnlyTokenPart> toStrPred_ = new CustList<SegmentReadOnlyTokenPart>();
+        CustList<SegmentReadOnlyTokenPart> rand_ = new CustList<SegmentReadOnlyTokenPart>();
+        CustList<SegmentReadOnlyTokenPart> randPred_ = new CustList<SegmentReadOnlyTokenPart>();
         OperationNode op_ = _r.getBlock();
         ResultExpression resStr_ = _r.getRes().getRes();
         if (op_ instanceof SettableAbstractFieldOperation) {
@@ -360,7 +366,7 @@ public final class DbgSyntaxColoring {
             assoc(_r,fieldsAnnot_,fieldsAnnotPred_,(AssocationOperation) op_);
         }
         if (op_ instanceof SymbolOperation) {
-            oper(_r,ops_,opsPred_,toStr_,(SymbolOperation) op_);
+            oper(_r,ops_,opsPred_,toStr_,rand_,(SymbolOperation) op_);
         }
         if (op_ instanceof CompoundAffectationOperation) {
             compound(_r,ops_,opsPred_,toStr_,(CompoundAffectationOperation) op_);
@@ -380,6 +386,8 @@ public final class DbgSyntaxColoring {
         parts_.addEntry(SyntaxRefTokenEnum.OPERATOR_PRED,opsPred_);
         parts_.addEntry(SyntaxRefTokenEnum.TO_STR,toStr_);
         parts_.addEntry(SyntaxRefTokenEnum.TO_STR_PRED,toStrPred_);
+        parts_.addEntry(SyntaxRefTokenEnum.RAND,rand_);
+        parts_.addEntry(SyntaxRefTokenEnum.RAND_PRED,randPred_);
         return parts_;
     }
 
@@ -399,12 +407,16 @@ public final class DbgSyntaxColoring {
         }
     }
 
-    private void oper(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _cust, CustList<SegmentReadOnlyTokenPart> _pred, CustList<SegmentReadOnlyTokenPart> _toStr, SymbolOperation _symb) {
+    private void oper(ResultExpressionBlockOperation _r, CustList<SegmentReadOnlyTokenPart> _cust, CustList<SegmentReadOnlyTokenPart> _pred, CustList<SegmentReadOnlyTokenPart> _toStr, CustList<SegmentReadOnlyTokenPart> _rand, SymbolOperation _symb) {
         AnaTypeFct function_ = _symb.getFct().getFunction();
         int b_ = beginOffGene(_r)+_symb.getOperatorContent().getOpOffset();
         int e_ = b_ + _symb.getOperatorContent().getOper().length();
-        if (_symb instanceof NumericOperation && ((NumericOperation) _symb).isCatString() && look(((NumericOperation) _symb).getChildrenNodes())) {
+        if (_symb instanceof NumericOperation && ((NumericOperation) _symb).isCatString() && look(((NumericOperation) _symb).getChildrenNodes(), toStrOwner)) {
             add(_toStr,_toStr,true,new SegmentReadOnlyTokenPart(b_, e_));
+            return;
+        }
+        if (_symb instanceof RandCodeOperation && look(((RandCodeOperation) _symb).getChildrenNodes(), randOwner)) {
+            add(_rand,_rand,true,new SegmentReadOnlyTokenPart(b_, e_));
             return;
         }
         add(_cust,_pred,function_,b_, e_);
@@ -415,7 +427,7 @@ public final class DbgSyntaxColoring {
         AnaTypeFct function_ = _symb.getFct().getFunction();
         int b_ = beginOffGene(_r)+_symb.getOperatorContent().getOpOffset();
         int e_ = b_ + _symb.getOperatorContent().getOper().length()-1;
-        if (_symb.isConcat() && look(_symb.getChildrenNodes())) {
+        if (_symb.isConcat() && look(_symb.getChildrenNodes(), toStrOwner)) {
             add(_toStr,_toStr,true,new SegmentReadOnlyTokenPart(b_, e_));
             return;
         }
@@ -447,11 +459,11 @@ public final class DbgSyntaxColoring {
         add(_cust, _pred,AnaTypeFct.root(_fct),new SegmentReadOnlyTokenPart(_b, _e));
     }
 
-    private boolean look(CustList<OperationNode> _chs) {
+    private boolean look(CustList<OperationNode> _chs, StringList _ls) {
         boolean atLeast_ = false;
         for (OperationNode o: _chs) {
             for (String c: o.getResultClass().getNames()) {
-                if (StringUtil.contains(toStrOwner,StringExpUtil.getIdFromAllTypes(c))) {
+                if (StringUtil.contains(_ls,StringExpUtil.getIdFromAllTypes(c))) {
                     atLeast_ = true;
                     break;
                 }

@@ -1376,6 +1376,15 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertTrue(SegmentReadOnlyTokenPart.matches(l_,169,170));
         assertTrue(SegmentReadOnlyTokenPart.matches(l_,171,172));
     }
+    @Test
+    public void partsTokens35() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public long null(){return *0;}public static long exmeth(){return *new Ex();}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyTokenPart> l_ = listTokensRand(res_);
+        assertEq(1,l_.size());
+        assertTrue(SegmentReadOnlyTokenPart.matches(l_,86,87));
+    }
     private CustList<SegmentReadOnlyPart> list(ResultContext _res) {
         IdMap<FileBlock,CustList<SegmentReadOnlyPart>> s_ = DbgSyntaxColoring.partsBpMpWp(_res);
         return s_.getVal(_res.getPageEl().getPreviousFilesBodies().getVal("src/file.txt"));
@@ -1406,6 +1415,10 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         return listTokens(_res).getVal(SyntaxRefTokenEnum.TO_STR);
     }
 
+
+    private CustList<SegmentReadOnlyTokenPart> listTokensRand(ResultContext _res) {
+        return listTokens(_res).getVal(SyntaxRefTokenEnum.RAND);
+    }
     private CustList<SegmentReadOnlyTokenPart> listTokensOper(ResultContext _res) {
         return listTokens(_res).getVal(SyntaxRefTokenEnum.OPERATOR);
     }
