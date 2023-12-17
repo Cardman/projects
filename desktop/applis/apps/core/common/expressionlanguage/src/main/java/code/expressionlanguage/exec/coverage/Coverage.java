@@ -16,12 +16,15 @@ import code.expressionlanguage.exec.opers.ExecMethodOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class Coverage {
     private final CustList<FileBlock> files = new CustList<FileBlock>();
@@ -385,7 +388,8 @@ public final class Coverage {
 
     private static void standardCoverage(Forwards _fwd, OperationNode _op, CustList<AbstractCoverageResult> _instr) {
         String prim_ = _fwd.getAliasPrimBoolean();
-        if ((_op.getResultClass().matchClass(prim_) || !_op.getResultClass().getImplicitsTest().isEmpty())&& _op.getArgument() == null) {
+        ExecTypeFunction pair_ = FetchMemberUtil.fetchOvTypeFunction(_op.getResultClass().getMemberId(), _fwd);
+        if ((_op.getResultClass().matchClass(prim_) || !_op.getResultClass().getImplicitsTest().isEmpty() || pair_ != null && StringUtil.quickEq(pair_.getFct().getImportedReturnType(),prim_))&& _op.getArgument() == null) {
             _instr.add(new BooleanCoverageResult());
         } else {
             _instr.add(new StandardCoverageResult());
