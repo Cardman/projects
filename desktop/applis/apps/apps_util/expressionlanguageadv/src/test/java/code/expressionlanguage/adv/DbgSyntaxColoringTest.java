@@ -1290,7 +1290,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){method();}public static int method(){}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        CustList<SegmentReadOnlyTokenPart> l_ = listTokensFct(res_);
+        CustList<SegmentReadOnlyTokenPart> l_ = listTokensFctStat(res_);
         assertEq(3,l_.size());
         assertTrue(SegmentReadOnlyTokenPart.matches(l_,39,45));
         assertTrue(SegmentReadOnlyTokenPart.matches(l_,48,54));
@@ -1390,7 +1390,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){$lambda(Ex,exmeth);}}");
         ResultContext res_ = ctxReadOnlyOk(src_);
-        CustList<SegmentReadOnlyTokenPart> l_ = listTokensFct(res_);
+        CustList<SegmentReadOnlyTokenPart> l_ = listTokensFctStat(res_);
         assertEq(2,l_.size());
         assertTrue(SegmentReadOnlyTokenPart.matches(l_,39,45));
         assertTrue(SegmentReadOnlyTokenPart.matches(l_,59,65));
@@ -1404,6 +1404,26 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertEq(2,l_.size());
         assertTrue(SegmentReadOnlyTokenPart.matches(l_,36,37));
         assertTrue(SegmentReadOnlyTokenPart.matches(l_,156,157));
+    }
+    @Test
+    public void partsTokens38() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public int exmeth(){new Ex().$lambda(Ex,exmeth);}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyTokenPart> l_ = listTokensFct(res_);
+        assertEq(2,l_.size());
+        assertTrue(SegmentReadOnlyTokenPart.matches(l_,32,38));
+        assertTrue(SegmentReadOnlyTokenPart.matches(l_,61,67));
+    }
+    @Test
+    public void partsTokens39() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public staticCall int exmeth(){new Ex().$lambda(Ex,exmeth);}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyTokenPart> l_ = listTokensFctStatCall(res_);
+        assertEq(2,l_.size());
+        assertTrue(SegmentReadOnlyTokenPart.matches(l_,43,49));
+        assertTrue(SegmentReadOnlyTokenPart.matches(l_,72,78));
     }
     private CustList<SegmentReadOnlyPart> list(ResultContext _res) {
         IdMap<FileBlock,CustList<SegmentReadOnlyPart>> s_ = DbgSyntaxColoring.partsBpMpWp(_res);
@@ -1429,6 +1449,14 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
 
     private CustList<SegmentReadOnlyTokenPart> listTokensFct(ResultContext _res) {
         return listTokens(_res).getVal(SyntaxRefTokenEnum.FCT);
+    }
+
+    private CustList<SegmentReadOnlyTokenPart> listTokensFctStat(ResultContext _res) {
+        return listTokens(_res).getVal(SyntaxRefTokenEnum.FCT_STAT);
+    }
+
+    private CustList<SegmentReadOnlyTokenPart> listTokensFctStatCall(ResultContext _res) {
+        return listTokens(_res).getVal(SyntaxRefTokenEnum.FCT_STAT_CALL);
     }
 
     private CustList<SegmentReadOnlyTokenPart> listTokensToStr(ResultContext _res) {
