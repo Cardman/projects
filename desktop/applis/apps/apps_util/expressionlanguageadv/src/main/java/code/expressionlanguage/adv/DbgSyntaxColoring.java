@@ -39,6 +39,8 @@ public final class DbgSyntaxColoring {
     private final CustList<SegmentReadOnlyTokenPart> toStrPred = new CustList<SegmentReadOnlyTokenPart>();
     private final CustList<SegmentReadOnlyTokenPart> rand = new CustList<SegmentReadOnlyTokenPart>();
     private final CustList<SegmentReadOnlyTokenPart> randPred = new CustList<SegmentReadOnlyTokenPart>();
+    private final CustList<SegmentReadOnlyTokenPart> variables = new CustList<SegmentReadOnlyTokenPart>();
+    private final CustList<SegmentReadOnlyTokenPart> variablesRef = new CustList<SegmentReadOnlyTokenPart>();
     private DbgSyntaxColoring() {
     }
     public static IdMap<FileBlock,CustList<SegmentReadOnlyPart>> partsBpMpWp(ResultContext _res) {
@@ -276,6 +278,8 @@ public final class DbgSyntaxColoring {
         opsPred.clear();
         toStr.clear();
         toStrPred.clear();
+        variables.clear();
+        variablesRef.clear();
         AbsBk bk_ = _r.getBlock();
         if (bk_ instanceof LabelAbruptBlock) {
             int begin_ = ((LabelAbruptBlock) bk_).getLabelOffset();
@@ -298,6 +302,7 @@ public final class DbgSyntaxColoring {
         methodOverDecl(bk_);
         operatorDecl(bk_);
         operatorDeclToStr(bk_);
+        variables(bk_);
         parts_.addEntry(SyntaxRefTokenEnum.LABEL,labels);
         parts_.addEntry(SyntaxRefTokenEnum.ANNOT_FIELD,fieldsAnnot);
         parts_.addEntry(SyntaxRefTokenEnum.ANNOT_FIELD_PRED,fieldsAnnotPred);
@@ -311,7 +316,54 @@ public final class DbgSyntaxColoring {
         parts_.addEntry(SyntaxRefTokenEnum.OPERATOR_PRED,opsPred);
         parts_.addEntry(SyntaxRefTokenEnum.TO_STR,toStr);
         parts_.addEntry(SyntaxRefTokenEnum.TO_STR_PRED,toStrPred);
+        parts_.addEntry(SyntaxRefTokenEnum.VARIABLES,variables);
+        parts_.addEntry(SyntaxRefTokenEnum.VAR_SCOPE,variablesRef);
         return parts_;
+    }
+
+    private void variables(AbsBk _bk) {
+        if (_bk instanceof ForEachLoop) {
+            int b_ = ((ForEachLoop)_bk).getVariableNameOffset();
+            int e_ = b_+((ForEachLoop)_bk).getVariableName().length();
+            variables.add(new SegmentReadOnlyTokenPart(b_,e_));
+        }
+        if (_bk instanceof DefaultCondition) {
+            int b_ = ((DefaultCondition)_bk).getVariableOffset();
+            int e_ = b_+((DefaultCondition)_bk).getVariableName().length();
+            variables.add(new SegmentReadOnlyTokenPart(b_,e_));
+        }
+        if (_bk instanceof WithFilterContent) {
+            int b_ = ((WithFilterContent)_bk).getFilterContent().getVariableOffset();
+            int e_ = b_+((WithFilterContent)_bk).getFilterContent().getVariableName().length();
+            variables.add(new SegmentReadOnlyTokenPart(b_,e_));
+        }
+        if (_bk instanceof ForIterativeLoop) {
+            int b_ = ((ForIterativeLoop)_bk).getVariableNameOffset();
+            int e_ = b_+((ForIterativeLoop)_bk).getVariableName().length();
+            variables.add(new SegmentReadOnlyTokenPart(b_,e_));
+        }
+        if (_bk instanceof ForEachTable) {
+            int b1_ = ((ForEachTable)_bk).getVariableNameOffsetFirst();
+            int e1_ = b1_+((ForEachTable)_bk).getVariableNameFirst().length();
+            variables.add(new SegmentReadOnlyTokenPart(b1_,e1_));
+            int b2_ = ((ForEachTable)_bk).getVariableNameOffsetSecond();
+            int e2_ = b2_+((ForEachTable)_bk).getVariableNameSecond().length();
+            variables.add(new SegmentReadOnlyTokenPart(b2_,e2_));
+        }
+        if (_bk instanceof NamedFunctionBlock) {
+            NamedFunctionBlock n_ = (NamedFunctionBlock) _bk;
+            int len_ = n_.getParametersNamesOffset().size();
+            for (int i = 0; i < len_; i++) {
+                int off_ = n_.getParametersNamesOffset().get(i);
+                String param_ = n_.getParametersNames().get(i);
+                SegmentReadOnlyTokenPart seg_ = new SegmentReadOnlyTokenPart(off_, off_ + param_.length());
+                if (AbsBk.isAnonBlock(n_)) {
+                    variablesRef.add(seg_);
+                } else {
+                    variables.add(seg_);
+                }
+            }
+        }
     }
 
     private void methodDecl(NamedCalledFunctionBlock _meth) {
@@ -373,6 +425,8 @@ public final class DbgSyntaxColoring {
         toStrPred.clear();
         rand.clear();
         randPred.clear();
+        variables.clear();
+        variablesRef.clear();
         OperationNode op_ = _r.getBlock();
         ResultExpression resStr_ = _r.getRes().getRes();
         if (op_ instanceof SettableAbstractFieldOperation) {
@@ -403,6 +457,7 @@ public final class DbgSyntaxColoring {
         if (op_ instanceof ArrOperation) {
             arr(_r, (ArrOperation)op_);
         }
+        variables(_r,op_);
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD,fieldsInst);
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD_PRED,fieldsInstPred);
         parts_.addEntry(SyntaxRefTokenEnum.STATIC_FIELD,fieldsStatic);
@@ -421,14 +476,51 @@ public final class DbgSyntaxColoring {
         parts_.addEntry(SyntaxRefTokenEnum.TO_STR_PRED,toStrPred);
         parts_.addEntry(SyntaxRefTokenEnum.RAND,rand);
         parts_.addEntry(SyntaxRefTokenEnum.RAND_PRED,randPred);
+        parts_.addEntry(SyntaxRefTokenEnum.VAR_SCOPE,variablesRef);
+        parts_.addEntry(SyntaxRefTokenEnum.VARIABLES,variables);
         return parts_;
     }
 
+    private void variables(ResultExpressionBlockOperation _r, OperationNode _op) {
+        if (_op instanceof FinalVariableOperation && ((FinalVariableOperation)_op).isOk()) {
+            String varName_ = ((FinalVariableOperation) _op).getRealVariableName();
+            int delta_ = ((FinalVariableOperation) _op).getOffset();
+            int deltaLoc_ = ((FinalVariableOperation) _op).getDelta() + ((FinalVariableOperation) _op).getAfterOper();
+            int begVar_ = deltaLoc_ + delta_ + beginOffGene(_r);
+            int endVar_ = begVar_ + varName_.length();
+            refs(begVar_, endVar_, ((FinalVariableOperation) _op).getVariableContent().getDeep());
+        }
+        if (_op instanceof VariableOperationUse) {
+            String varName_ = ((VariableOperationUse) _op).getRealVariableName();
+            int delta_ = ((VariableOperationUse) _op).getOffset();
+            int begVar_ = delta_ + beginOffGene(_r);
+            int endVar_ = begVar_ + varName_.length();
+            refs(begVar_, endVar_, ((VariableOperationUse) _op).getDeep());
+        }
+        if (_op instanceof VariableOperation) {
+            String varName_ = ((VariableOperation) _op).getRealVariableName();
+            int delta_ = ((VariableOperation) _op).getOffset();
+            int begVar_ = delta_ + beginOffGene(_r);
+            int endVar_ = begVar_ + varName_.length();
+            refs(begVar_, endVar_, ((VariableOperation) _op).getDeep());
+        }
+    }
+
+    private void refs(int _b, int _e, int _deep) {
+        if (_deep >= 0) {
+            variablesRef.add(new SegmentReadOnlyTokenPart(_b, _e));
+        } else {
+            variables.add(new SegmentReadOnlyTokenPart(_b, _e));
+        }
+    }
+
     private void nameArg(ResultExpressionBlockOperation _r, NamedArgumentOperation _op) {
+        int firstOff_ = _op.getOffsetTr();
+        int b_ = beginOffGene(_r)+firstOff_;
         if (_op.getField() != null) {
-            int firstOff_ = _op.getOffsetTr();
-            int b_ = beginOffGene(_r)+firstOff_;
             add(fieldsInst,fieldsInstPred, _op.getField(), new SegmentReadOnlyTokenPart(b_,b_ + _op.getFieldName().length()));
+        } else {
+            variables.add(new SegmentReadOnlyTokenPart(b_,b_ + _op.getFieldName().length()));
         }
     }
 

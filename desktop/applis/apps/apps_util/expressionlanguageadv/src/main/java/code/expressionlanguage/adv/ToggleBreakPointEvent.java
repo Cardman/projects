@@ -86,6 +86,7 @@ public final class ToggleBreakPointEvent implements AbsActionListener {
             as_.addBackground(GuiConstants.BLACK);
             as_.addForeground(color(e.getKey()));
             as_.addItalic(italic(e.getKey()));
+            as_.addUnderline(underline(e.getKey()));
             for (SegmentReadOnlyTokenPart s: e.getValue()) {
                  compoFactory_.invokeNow(new SetCharacterAttributes(center_, s.getBegin(), s.getEnd() - s.getBegin(),as_));
             }
@@ -113,11 +114,19 @@ public final class ToggleBreakPointEvent implements AbsActionListener {
         if (_s == SyntaxRefTokenEnum.TO_STR_PRED || _s == SyntaxRefTokenEnum.RAND_PRED) {
             return GuiConstants.newColor(13*16+6,12*16+7, 10*16+9);
         }
+        if (_s == SyntaxRefTokenEnum.VARIABLES || _s == SyntaxRefTokenEnum.VAR_SCOPE) {
+            return GuiConstants.newColor(13*16+13,9*16+8,13*16+2);
+        }
         return GuiConstants.newColor(13*16+13,7*16+8,3*16+2);
     }
 
     static boolean italic(SyntaxRefTokenEnum _s) {
         return _s == SyntaxRefTokenEnum.STATIC_FIELD || _s == SyntaxRefTokenEnum.STATIC_FIELD_PRED || _s == SyntaxRefTokenEnum.FCT_STAT || _s == SyntaxRefTokenEnum.FCT_STAT_CALL || _s == SyntaxRefTokenEnum.FCT_STAT_PRED || _s == SyntaxRefTokenEnum.FCT_STAT_CALL_PRED;
+    }
+
+
+    static boolean underline(SyntaxRefTokenEnum _s) {
+        return _s == SyntaxRefTokenEnum.VAR_SCOPE;
     }
 
     static void colors(AbsSegmentColorPart _parts, AbsCompoFactory _compos, AbsTextPane _area, int _bk) {
