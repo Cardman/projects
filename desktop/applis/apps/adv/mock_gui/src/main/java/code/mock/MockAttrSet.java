@@ -7,6 +7,9 @@ public final class MockAttrSet implements AbsAttrSet {
     private int back;
     private int fore;
     private int fontSize;
+    private boolean italic;
+    private boolean bold;
+    private boolean underline;
     private AbsTabStops tabs = new MockTabStops(0);
     @Override
     public void addBackground(int _color) {
@@ -28,6 +31,21 @@ public final class MockAttrSet implements AbsAttrSet {
         tabs = _t;
     }
 
+    @Override
+    public void addItalic(boolean _color) {
+        italic = _color;
+    }
+
+    @Override
+    public void addBold(boolean _color) {
+        bold = _color;
+    }
+
+    @Override
+    public void addUnderline(boolean _color) {
+        underline = _color;
+    }
+
     public int getBack() {
         return back;
     }
@@ -38,6 +56,18 @@ public final class MockAttrSet implements AbsAttrSet {
 
     public int getFore() {
         return fore;
+    }
+
+    public boolean isBold() {
+        return bold;
+    }
+
+    public boolean isItalic() {
+        return italic;
+    }
+
+    public boolean isUnderline() {
+        return underline;
     }
 
     public AbsTabStops getTabs() {

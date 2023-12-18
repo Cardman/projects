@@ -53,6 +53,18 @@ public final class MockTextPaneTest extends EquallableMockGuiUtil {
         a_.addFontSize(2);
         a_.addBackground(3);
         a_.addForeground(4);
+        a_.addBold(false);
+        assertFalse(((MockAttrSet)a_).isBold());
+        a_.addBold(true);
+        assertTrue(((MockAttrSet)a_).isBold());
+        a_.addItalic(false);
+        assertFalse(((MockAttrSet)a_).isItalic());
+        a_.addItalic(true);
+        assertTrue(((MockAttrSet)a_).isItalic());
+        a_.addUnderline(false);
+        assertFalse(((MockAttrSet)a_).isUnderline());
+        a_.addUnderline(true);
+        assertTrue(((MockAttrSet)a_).isUnderline());
         t_.setCharacterAttributes(0,-1,a_,true);
         t_.setCharacterAttributes(0,1,a_,false);
         t_.setCharacterAttributes(0,2,a_,true);

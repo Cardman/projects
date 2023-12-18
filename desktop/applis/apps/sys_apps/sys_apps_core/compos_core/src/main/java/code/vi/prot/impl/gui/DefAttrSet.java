@@ -24,6 +24,21 @@ public final class DefAttrSet implements AbsAttrSet {
     }
 
     @Override
+    public void addItalic(boolean _color) {
+        StyleConstants.setItalic(attributes,_color);
+    }
+
+    @Override
+    public void addBold(boolean _color) {
+        StyleConstants.setBold(attributes,_color);
+    }
+
+    @Override
+    public void addUnderline(boolean _color) {
+        StyleConstants.setUnderline(attributes,_color);
+    }
+
+    @Override
     public void addTabs(AbsTabStops _tabs) {
         StyleConstants.setTabSet(attributes,new TabSet(((DefTabStops)_tabs).getValue()));
     }
