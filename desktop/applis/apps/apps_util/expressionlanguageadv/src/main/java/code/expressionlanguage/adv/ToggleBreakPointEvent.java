@@ -11,6 +11,9 @@ import code.gui.AbsTextPane;
 import code.gui.GuiConstants;
 import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbsCompoFactory;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.IdMap;
 
 public final class ToggleBreakPointEvent implements AbsActionListener {
     private final AbsDebuggerGui window;
@@ -63,14 +66,58 @@ public final class ToggleBreakPointEvent implements AbsActionListener {
             return;
         }
         FileBlock file_ = _r.getPageEl().getPreviousFilesBodies().getVal(_tab.getFullPath());
+        IdMap<SyntaxRefTokenEnum, CustList<SegmentReadOnlyTokenPart>> s_ = new IdMap<SyntaxRefTokenEnum, CustList<SegmentReadOnlyTokenPart>>();
+        for (EntryCust<FileBlock, IdMap<SyntaxRefTokenEnum, CustList<SegmentReadOnlyTokenPart>>> e: _tab.getDebuggerGui().getSyntax().entryList()) {
+            if (e.getKey() == file_) {
+                s_ = e.getValue();
+                break;
+            }
+        }
         if (file_ == null) {
             return;
         }
         String cont_ = file_.getContent();
-        colors(new SegmentFindPart(0,cont_.length()), _tab.getCompoFactory(), _tab.getCenter(), GuiConstants.BLACK);
-        for (SegmentReadOnlyPart s: DbgSyntaxColoring.partsBpMpWp(_r, file_)) {
-            colors(s, _tab.getCompoFactory(), _tab.getCenter(), GuiConstants.RED);
+        AbsCompoFactory compoFactory_ = _tab.getCompoFactory();
+        AbsTextPane center_ = _tab.getCenter();
+        colors(new SegmentFindPart(0,cont_.length()), compoFactory_, center_, GuiConstants.BLACK);
+        for (EntryCust<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> e: s_.entryList()) {
+            AbsAttrSet as_ = compoFactory_.newAttrSet();
+            as_.addFontSize(12);
+            as_.addBackground(GuiConstants.BLACK);
+            as_.addForeground(color(e.getKey()));
+            as_.addItalic(italic(e.getKey()));
+            for (SegmentReadOnlyTokenPart s: e.getValue()) {
+                 compoFactory_.invokeNow(new SetCharacterAttributes(center_, s.getBegin(), s.getEnd() - s.getBegin(),as_));
+            }
         }
+        for (SegmentReadOnlyPart s: DbgSyntaxColoring.partsBpMpWp(_r, file_)) {
+            colors(s, compoFactory_, center_, GuiConstants.RED);
+        }
+    }
+    static int color(SyntaxRefTokenEnum _s) {
+        if (_s == SyntaxRefTokenEnum.ANNOT_FIELD || _s == SyntaxRefTokenEnum.INST_FIELD || _s == SyntaxRefTokenEnum.STATIC_FIELD) {
+            return GuiConstants.newColor(9*16+8,7*16+6,10*16+10);
+        }
+        if (_s == SyntaxRefTokenEnum.ANNOT_FIELD_PRED || _s == SyntaxRefTokenEnum.INST_FIELD_PRED || _s == SyntaxRefTokenEnum.STATIC_FIELD_PRED) {
+            return GuiConstants.newColor(10*16+10,7*16+6, 9*16+8);
+        }
+        if (_s == SyntaxRefTokenEnum.FCT || _s == SyntaxRefTokenEnum.FCT_STAT || _s == SyntaxRefTokenEnum.FCT_STAT_CALL || _s == SyntaxRefTokenEnum.OPERATOR) {
+            return GuiConstants.newColor(15*16+15,13*16+6,6*16+11);
+        }
+        if (_s == SyntaxRefTokenEnum.FCT_PRED || _s == SyntaxRefTokenEnum.FCT_STAT_PRED || _s == SyntaxRefTokenEnum.FCT_STAT_CALL_PRED || _s == SyntaxRefTokenEnum.OPERATOR_PRED) {
+            return GuiConstants.newColor(10*16+9,12*16+7, 13*16+6);
+        }
+        if (_s == SyntaxRefTokenEnum.TO_STR || _s == SyntaxRefTokenEnum.RAND) {
+            return GuiConstants.newColor(6*16+11,13*16+6,15*16+15);
+        }
+        if (_s == SyntaxRefTokenEnum.TO_STR_PRED || _s == SyntaxRefTokenEnum.RAND_PRED) {
+            return GuiConstants.newColor(13*16+6,12*16+7, 10*16+9);
+        }
+        return GuiConstants.newColor(13*16+13,7*16+8,3*16+2);
+    }
+
+    static boolean italic(SyntaxRefTokenEnum _s) {
+        return _s == SyntaxRefTokenEnum.STATIC_FIELD || _s == SyntaxRefTokenEnum.STATIC_FIELD_PRED || _s == SyntaxRefTokenEnum.FCT_STAT || _s == SyntaxRefTokenEnum.FCT_STAT_CALL || _s == SyntaxRefTokenEnum.FCT_STAT_PRED || _s == SyntaxRefTokenEnum.FCT_STAT_CALL_PRED;
     }
 
     static void colors(AbsSegmentColorPart _parts, AbsCompoFactory _compos, AbsTextPane _area, int _bk) {

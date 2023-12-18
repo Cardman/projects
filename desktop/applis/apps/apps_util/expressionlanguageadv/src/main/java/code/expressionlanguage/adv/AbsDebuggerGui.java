@@ -27,6 +27,7 @@ import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractThread;
 import code.util.CustList;
 import code.util.IdList;
+import code.util.IdMap;
 import code.util.StringMap;
 import code.util.comparators.NaturalComparator;
 import code.util.core.DefaultUniformingString;
@@ -88,6 +89,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 //    private AbsPanel cancelDynWatch;
     private AbstractThread dynamicAna;
     private AbsButton refreshRender;
+    private IdMap<FileBlock, IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>> syntax = new IdMap<FileBlock, IdMap<SyntaxRefTokenEnum, CustList<SegmentReadOnlyTokenPart>>>();
 
     protected AbsDebuggerGui(AbsOpenFrameInteract _m, AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_a,_lg,_list);
@@ -496,6 +498,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return acc_+ StreamTextFile.SEPARATEUR;
     }
     public void update(ResultContext _res, StringMap<String> _src) {
+        syntax = DbgSyntaxColoring.partsTokens(_res);
         getCompoFactory().invokeNow(new AnalysisDebugLater(this, _res, _src));
     }
     public void coreUpdate(ResultContext _res, StringMap<String> _src) {
@@ -594,6 +597,10 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             return null;
         }
         return getTabs().get(ind_);
+    }
+
+    public IdMap<FileBlock, IdMap<SyntaxRefTokenEnum, CustList<SegmentReadOnlyTokenPart>>> getSyntax() {
+        return syntax;
     }
 
     public AbstractInterceptorStdCaller getCaller() {

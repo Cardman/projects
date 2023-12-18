@@ -6,6 +6,8 @@ import code.expressionlanguage.utilimpl.ManageOptions;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.NumberUtil;
 import org.junit.Test;
 
 public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
@@ -1424,6 +1426,36 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertEq(2,l_.size());
         assertTrue(SegmentReadOnlyTokenPart.matches(l_,43,49));
         assertTrue(SegmentReadOnlyTokenPart.matches(l_,72,78));
+    }
+    @Test
+    public void colors() {
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.ANNOT_FIELD_PRED)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.INST_FIELD_PRED)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.STATIC_FIELD_PRED)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.FCT_STAT_CALL_PRED)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.FCT_STAT_PRED)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.FCT_PRED)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.TO_STR_PRED)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.RAND_PRED)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.OPERATOR_PRED)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.ANNOT_FIELD)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.INST_FIELD)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.STATIC_FIELD)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.FCT_STAT_CALL)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.FCT_STAT)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.FCT)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.TO_STR)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.RAND)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.OPERATOR)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.LABEL)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.FCT),false)));
+        assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.FCT_STAT),false)));
+        assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.FCT_STAT_CALL),false)));
+        assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.FCT_STAT_PRED),false)));
+        assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.FCT_STAT_CALL_PRED),false)));
+        assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.FCT_PRED),false)));
+        assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.STATIC_FIELD_PRED),false)));
+        assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.STATIC_FIELD),false)));
     }
     private CustList<SegmentReadOnlyPart> list(ResultContext _res) {
         IdMap<FileBlock,CustList<SegmentReadOnlyPart>> s_ = DbgSyntaxColoring.partsBpMpWp(_res);
